@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  apiopensea:
+    image: bitnami/postgresql
+    environment:
+      POSTGRESQL_USER: docker
+      POSTGRESQL_PASSWORD: docker
+      POSTGRESQL_DB: apiopensea
+    ports:
+      - '5432:5432'

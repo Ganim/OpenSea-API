@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  USER
+}
+
+model User {
+  id String @id @default(uuid())
+
+  // Credentials
+  username      String? @unique @db.VarChar(32)
+  email         String  @unique @db.VarChar(254)
+  password_hash String  @db.VarChar(100)
+
+  // User Roles
+  role Role @default(USER)
+
+  // Access Control
+  lastLoginIp         String?   @map("last_login_ip")
+  failedLoginAttempts Int       @default(0) @map("failed_login_attempts")
+  blockedUntil        DateTime? @map("blocked_until")
+
+  // Recovery
+  passwordResetToken   String?   @map("password_reset_token")
+  passwordResetExpires DateTime? @map("password_reset_expires")
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  lastLoginAt DateTime? @map("last_login_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  profile      UserProfile?
+  RefreshToken RefreshToken[]
+  sessions     Session[]
+
+  // Optimizations
+  @@index([failedLoginAttempts, blockedUntil, lastLoginIp])
+  @@index([passwordResetToken, passwordResetExpires])
+  @@index([role])
+  @@index([email, deletedAt])
+  @@index([username, deletedAt])
+  @@index([id, deletedAt])
+  @@map("users")
+}
+
+model UserProfile {
+  id     String @id @default(uuid())
+  userId String @unique @map("user_id")
+
+  // Personal Information
+  name     String    @default("") @db.VarChar(64)
+  surname  String    @default("") @db.VarChar(64)
+  birthday DateTime? @db.Date
+  location String    @default("") @db.VarChar(128)
+
+  // Secondary Information
+  bio       String @default("") @db.VarChar(256)
+  avatarUrl String @default("") @map("avatar_url") @db.VarChar(512)
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("user_profiles")
+}
+
+model Session {
+  id         String    @id @default(uuid())
+  userId     String    @map("user_id")
+  ip         String    @db.VarChar(64)
+  createdAt  DateTime  @default(now()) @map("created_at")
+  expiredAt  DateTime? @map("expired_at")
+  revokedAt  DateTime? @map("revoked_at")
+  lastUsedAt DateTime? @map("last_used_at")
+
+  // Relations
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshTokens RefreshToken[]
+
+  @@index([userId])
+  @@index([ip])
+  @@map("sessions")
+}
+
+model RefreshToken {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  sessionId String    @map("session_id")
+  token     String    @unique @db.VarChar(512)
+  expiresAt DateTime  @map("expires_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  revokedAt DateTime? @map("revoked_at")
+
+  // Relations
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([sessionId])
+  @@index([token])
+  @@map("refresh_tokens")
+}
