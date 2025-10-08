@@ -13,11 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ===============================================
+// SIMPLE AUTH MODULE
+// ===============================================
+
+// --- Enums ---
+
 enum Role {
   ADMIN
   MANAGER
   USER
 }
+
+// --- Entidades ---
 
 model User {
   id String @id @default(uuid())
@@ -48,9 +56,19 @@ model User {
   updatedAt   DateTime  @updatedAt @map("updated_at")
 
   // Relations
-  profile      UserProfile?
-  RefreshToken RefreshToken[]
-  sessions     Session[]
+  profile                 UserProfile?
+  RefreshToken            RefreshToken[]
+  sessions                Session[]
+  ItemMovement            ItemMovement[]
+  ApprovedMovements       ItemMovement[]           @relation("ApprovedMovements")
+  AuditLogs               AuditLog[]
+  VariantPriceHistory     VariantPriceHistory[]
+  Alerts                  Alert[]
+  CreatedPurchaseOrders   PurchaseOrder[]          @relation("CreatedPurchaseOrders")
+  CreatedSalesOrders      SalesOrder[]             @relation("CreatedSalesOrders")
+  ItemReservations        ItemReservation[]
+  Comments                Comment[]
+  NotificationPreferences NotificationPreference[]
 
   // Optimizations
   @@index([failedLoginAttempts, blockedUntil, lastLoginIp])
@@ -122,4 +140,821 @@ model RefreshToken {
   @@index([sessionId])
   @@index([token])
   @@map("refresh_tokens")
+}
+
+// ===============================================
+// INVENTORY MANAGEMENT MODULE
+// ===============================================
+
+// --- Enums ---
+
+enum UnitOfMeasure {
+  METERS
+  KILOGRAMS
+  UNITS
+}
+
+enum MovementType {
+  SALE
+  PRODUCTION
+  SAMPLE
+  LOSS
+  TRANSFER
+  INVENTORY_ADJUSTMENT
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  RESTORE
+  LOGIN
+  LOGOUT
+  PASSWORD_CHANGE
+  PRICE_CHANGE
+  STOCK_ADJUSTMENT
+  OTHER
+}
+
+enum AuditEntity {
+  USER
+  PRODUCT
+  VARIANT
+  ITEM
+  CATEGORY
+  SUPPLIER
+  MANUFACTURER
+  LOCATION
+  TEMPLATE
+  SESSION
+  OTHER
+}
+
+enum ProductStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+  DISCONTINUED
+  OUT_OF_STOCK
+}
+
+enum ItemStatus {
+  AVAILABLE
+  RESERVED
+  IN_TRANSIT
+  DAMAGED
+  EXPIRED
+  DISPOSED
+}
+
+enum AlertType {
+  LOW_STOCK
+  OUT_OF_STOCK
+  EXPIRING_SOON
+  EXPIRED
+  PRICE_CHANGE
+  REORDER_POINT
+}
+
+enum OrderStatus {
+  DRAFT
+  PENDING
+  CONFIRMED
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+  RETURNED
+}
+
+enum LocationType {
+  WAREHOUSE
+  ZONE
+  AISLE
+  SHELF
+  BIN
+  OTHER
+}
+
+enum CustomerType {
+  INDIVIDUAL
+  BUSINESS
+}
+
+enum AlertSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum NotificationChannel {
+  IN_APP
+  EMAIL
+  SMS
+  PUSH
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED_AMOUNT
+}
+
+// --- Entidades ---
+
+model Supplier {
+  id      String  @id @default(uuid())
+  name    String  @db.VarChar(128)
+  cnpj    String? @unique @db.VarChar(18)
+  taxId   String? @map("tax_id") @db.VarChar(32) // Inscrição Estadual
+  contact String? @db.VarChar(128)
+
+  // Contato
+  email   String? @db.VarChar(254)
+  phone   String? @db.VarChar(20)
+  website String? @db.VarChar(512)
+
+  // Endereço
+  address String? @db.VarChar(256)
+  city    String? @db.VarChar(128)
+  state   String? @db.VarChar(2) // UF
+  zipCode String? @map("zip_code") @db.VarChar(10)
+  country String? @db.VarChar(64)
+
+  // Gestão Comercial
+  paymentTerms String?  @map("payment_terms") @db.VarChar(256)
+  rating       Decimal? @db.Decimal(3, 2) // 0.00 a 5.00
+  isActive     Boolean  @default(true) @map("is_active")
+  notes        String?  @db.Text
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  products             Product[]
+  purchaseOrders       PurchaseOrder[]
+  variantSupplierCodes VariantSupplierCode[]
+
+  @@index([isActive])
+  @@index([rating])
+  @@map("suppliers")
+}
+
+model Manufacturer {
+  id      String  @id @default(uuid())
+  name    String  @db.VarChar(128)
+  country String? @db.VarChar(64)
+
+  // Contato
+  email   String? @db.VarChar(254)
+  phone   String? @db.VarChar(20)
+  website String? @db.VarChar(512)
+
+  // Endereço
+  address String? @db.VarChar(256)
+  city    String? @db.VarChar(128)
+  state   String? @db.VarChar(64)
+  zipCode String? @map("zip_code") @db.VarChar(10)
+
+  // Gestão
+  isActive Boolean  @default(true) @map("is_active")
+  notes    String?  @db.Text
+  rating   Decimal? @db.Decimal(3, 2) // 0.00 a 5.00
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  products Product[]
+
+  @@index([isActive])
+  @@index([rating])
+  @@map("manufacturers")
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String    @db.VarChar(128)
+  parentId  String?   @map("parent_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  parent            Category?         @relation("SubCategories", fields: [parentId], references: [id])
+  subCategories     Category[]        @relation("SubCategories")
+  productCategories ProductCategory[]
+
+  @@map("categories")
+}
+
+model Location {
+  id           String        @id @default(uuid())
+  code         String        @unique @db.VarChar(64)
+  description  String?       @db.VarChar(256)
+  locationType LocationType? @map("location_type")
+  parentId     String?       @map("parent_id")
+
+  // Capacidade
+  capacity         Decimal? @db.Decimal(10, 3)
+  currentOccupancy Decimal? @default(0) @map("current_occupancy") @db.Decimal(10, 3)
+  isActive         Boolean  @default(true) @map("is_active")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  parent         Location?       @relation("SubLocations", fields: [parentId], references: [id])
+  subLocations   Location[]      @relation("SubLocations")
+  items          Item[]
+  stockSnapshots StockSnapshot[]
+
+  @@index([isActive])
+  @@index([locationType])
+  @@map("locations")
+}
+
+// --- Hierarquia Principal de Estoque ---
+
+model Template {
+  id                String    @id @default(uuid())
+  name              String    @unique @db.VarChar(128)
+  productAttributes Json      @default("{}") @map("product_attributes")
+  variantAttributes Json      @default("{}") @map("variant_attributes")
+  itemAttributes    Json      @default("{}") @map("item_attributes")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  deletedAt         DateTime? @map("deleted_at")
+
+  products Product[]
+
+  @@map("templates")
+}
+
+model Product {
+  id            String        @id @default(uuid())
+  name          String        @db.VarChar(256)
+  code          String        @unique @db.VarChar(64)
+  description   String?       @db.Text
+  status        ProductStatus @default(DRAFT)
+  unitOfMeasure UnitOfMeasure @map("unit_of_measure")
+  attributes    Json          @default("{}")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+  deletedAt     DateTime?     @map("deleted_at")
+
+  templateId     String  @map("template_id")
+  supplierId     String? @map("supplier_id")
+  manufacturerId String? @map("manufacturer_id")
+
+  template          Template          @relation(fields: [templateId], references: [id])
+  supplier          Supplier?         @relation(fields: [supplierId], references: [id])
+  manufacturer      Manufacturer?     @relation(fields: [manufacturerId], references: [id])
+  variants          Variant[]
+  productCategories ProductCategory[]
+  productTags       ProductTag[]
+
+  @@index([templateId])
+  @@index([supplierId])
+  @@index([manufacturerId])
+  @@index([status])
+  @@index([code, deletedAt])
+  @@index([name, deletedAt])
+  @@map("products")
+}
+
+model Variant {
+  id         String  @id @default(uuid())
+  sku        String  @unique @db.VarChar(64)
+  name       String  @db.VarChar(256)
+  price      Decimal @db.Decimal(10, 2)
+  imageUrl   String? @map("image_url") @db.VarChar(512)
+  attributes Json    @default("{}")
+
+  // Preço e Margem
+  costPrice    Decimal? @map("cost_price") @db.Decimal(10, 2)
+  profitMargin Decimal? @map("profit_margin") @db.Decimal(5, 2) // Percentual
+
+  // Códigos de Barras
+  barcode String? @unique @db.VarChar(128)
+  qrCode  String? @map("qr_code") @db.VarChar(512)
+  eanCode String? @unique @map("ean_code") @db.VarChar(13)
+  upcCode String? @unique @map("upc_code") @db.VarChar(12)
+
+  // Controle de Estoque
+  minStock        Decimal? @map("min_stock") @db.Decimal(10, 3)
+  maxStock        Decimal? @map("max_stock") @db.Decimal(10, 3)
+  reorderPoint    Decimal? @map("reorder_point") @db.Decimal(10, 3)
+  reorderQuantity Decimal? @map("reorder_quantity") @db.Decimal(10, 3)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  items              Item[]
+  priceHistory       VariantPriceHistory[]
+  variantImages      VariantImage[]
+  unitConversions    UnitConversion[]
+  stockSnapshots     StockSnapshot[]
+  purchaseOrderItems PurchaseOrderItem[]
+  salesOrderItems    SalesOrderItem[]
+  variantPromotions  VariantPromotion[]
+  supplierCodes      VariantSupplierCode[]
+
+  @@index([productId])
+  @@index([barcode])
+  @@index([eanCode])
+  @@index([upcCode])
+  @@map("variants")
+}
+
+model Item {
+  id              String     @id @default(uuid())
+  uniqueCode      String     @unique @map("unique_code") @db.VarChar(128)
+  initialQuantity Decimal    @map("initial_quantity") @db.Decimal(10, 3)
+  currentQuantity Decimal    @map("current_quantity") @db.Decimal(10, 3)
+  status          ItemStatus @default(AVAILABLE)
+  entryDate       DateTime   @default(now()) @map("entry_date")
+  attributes      Json       @default("{}")
+
+  // Lote e Validade
+  batchNumber       String?   @map("batch_number") @db.VarChar(64)
+  manufacturingDate DateTime? @map("manufacturing_date") @db.Date
+  expiryDate        DateTime? @map("expiry_date") @db.Date
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  variantId  String @map("variant_id")
+  locationId String @map("location_id")
+
+  variant      Variant           @relation(fields: [variantId], references: [id])
+  location     Location          @relation(fields: [locationId], references: [id])
+  movements    ItemMovement[]
+  reservations ItemReservation[]
+
+  @@index([variantId])
+  @@index([locationId])
+  @@index([batchNumber])
+  @@index([expiryDate])
+  @@index([status])
+  @@index([variantId, locationId])
+  @@index([expiryDate, deletedAt])
+  @@index([batchNumber, variantId])
+  @@map("items")
+}
+
+model ItemMovement {
+  id             String       @id @default(uuid())
+  quantity       Decimal      @db.Decimal(10, 3)
+  quantityBefore Decimal?     @map("quantity_before") @db.Decimal(10, 3)
+  quantityAfter  Decimal?     @map("quantity_after") @db.Decimal(10, 3)
+  movementType   MovementType @map("movement_type")
+  reasonCode     String?      @map("reason_code") @db.VarChar(64)
+  destinationRef String?      @map("destination_ref") @db.VarChar(128) // Ex: Pedido de Venda #123, OP #456
+  batchNumber    String?      @map("batch_number") @db.VarChar(64)
+  notes          String?      @db.Text
+  createdAt      DateTime     @default(now()) @map("created_at")
+
+  itemId       String  @map("item_id")
+  userId       String  @map("user_id")
+  approvedBy   String? @map("approved_by")
+  salesOrderId String? @map("sales_order_id")
+
+  item       Item        @relation(fields: [itemId], references: [id])
+  user       User        @relation(fields: [userId], references: [id])
+  approver   User?       @relation("ApprovedMovements", fields: [approvedBy], references: [id])
+  salesOrder SalesOrder? @relation(fields: [salesOrderId], references: [id])
+
+  @@index([itemId])
+  @@index([userId])
+  @@index([approvedBy])
+  @@index([movementType])
+  @@index([batchNumber])
+  @@index([salesOrderId])
+  @@index([itemId, createdAt])
+  @@index([userId, movementType])
+  @@index([createdAt(sort: Desc)])
+  @@map("item_movements")
+}
+
+// --- Tabelas de Relacionamento e Histórico ---
+
+model ProductCategory {
+  id         String   @id @default(uuid())
+  productId  String   @map("product_id")
+  categoryId String   @map("category_id")
+  order      Int      @default(0) // Ordem de exibição
+  featured   Boolean  @default(false) // Categoria em destaque para este produto
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, categoryId])
+  @@index([productId])
+  @@index([categoryId])
+  @@index([featured])
+  @@map("product_categories")
+}
+
+model VariantPriceHistory {
+  id        String   @id @default(uuid())
+  variantId String   @map("variant_id")
+  oldPrice  Decimal? @map("old_price") @db.Decimal(10, 2)
+  newPrice  Decimal  @map("new_price") @db.Decimal(10, 2)
+  reason    String?  @db.VarChar(256)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  userId String @map("user_id")
+
+  variant Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@index([variantId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("variant_price_history")
+}
+
+model AuditLog {
+  id          String      @id @default(uuid())
+  action      AuditAction
+  entity      AuditEntity
+  entityId    String      @map("entity_id") // ID da entidade afetada
+  description String?     @db.VarChar(512)
+  oldData     Json?       @map("old_data") // Estado anterior (JSON)
+  newData     Json?       @map("new_data") // Novo estado (JSON)
+  ip          String?     @db.VarChar(64)
+  userAgent   String?     @map("user_agent") @db.VarChar(512)
+  createdAt   DateTime    @default(now()) @map("created_at")
+  expiresAt   DateTime?   @map("expires_at") // Para limpeza automática
+
+  userId String? @map("user_id") // Nullable para ações do sistema
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([action])
+  @@index([entity])
+  @@index([entityId])
+  @@index([createdAt])
+  @@index([expiresAt])
+  @@map("audit_logs")
+}
+
+// --- Sistema de Tags ---
+
+model Tag {
+  id          String    @id @default(uuid())
+  name        String    @unique @db.VarChar(64)
+  slug        String    @unique @db.VarChar(64)
+  color       String?   @db.VarChar(7) // Formato hex: #FF5733
+  description String?   @db.VarChar(256)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at")
+
+  productTags ProductTag[]
+
+  @@index([slug])
+  @@map("tags")
+}
+
+model ProductTag {
+  id        String   @id @default(uuid())
+  productId String   @map("product_id")
+  tagId     String   @map("tag_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tag     Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, tagId])
+  @@index([productId])
+  @@index([tagId])
+  @@map("product_tags")
+}
+
+// --- Sistema de Imagens ---
+
+model VariantImage {
+  id        String   @id @default(uuid())
+  variantId String   @map("variant_id")
+  url       String   @db.VarChar(512)
+  alt       String?  @db.VarChar(256)
+  order     Int      @default(0)
+  isPrimary Boolean  @default(false) @map("is_primary")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  variant Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([variantId])
+  @@index([isPrimary])
+  @@index([variantId, order])
+  @@map("variant_images")
+}
+
+// --- Sistema de Alertas ---
+
+model Alert {
+  id        String        @id @default(uuid())
+  type      AlertType
+  severity  AlertSeverity @default(MEDIUM)
+  entityId  String        @map("entity_id") // ID do item/variant afetado
+  message   String        @db.VarChar(512)
+  isRead    Boolean       @default(false) @map("is_read")
+  createdAt DateTime      @default(now()) @map("created_at")
+  readAt    DateTime?     @map("read_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([type])
+  @@index([entityId])
+  @@index([severity])
+  @@index([userId, isRead])
+  @@index([userId, severity, isRead])
+  @@map("alerts")
+}
+
+// --- Sistema de Pedidos de Compra ---
+
+model PurchaseOrder {
+  id           String      @id @default(uuid())
+  orderNumber  String      @unique @map("order_number") @db.VarChar(64)
+  status       OrderStatus @default(PENDING)
+  totalCost    Decimal     @map("total_cost") @db.Decimal(10, 2)
+  expectedDate DateTime?   @map("expected_date")
+  receivedDate DateTime?   @map("received_date")
+  notes        String?     @db.Text
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  deletedAt    DateTime?   @map("deleted_at")
+
+  supplierId String  @map("supplier_id")
+  createdBy  String? @map("created_by")
+
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+  creator  User?    @relation("CreatedPurchaseOrders", fields: [createdBy], references: [id])
+
+  items PurchaseOrderItem[]
+
+  @@index([supplierId])
+  @@index([status])
+  @@index([orderNumber])
+  @@index([expectedDate])
+  @@index([createdBy])
+  @@map("purchase_orders")
+}
+
+model PurchaseOrderItem {
+  id        String   @id @default(uuid())
+  orderId   String   @map("order_id")
+  variantId String   @map("variant_id")
+  quantity  Decimal  @db.Decimal(10, 3)
+  unitCost  Decimal  @map("unit_cost") @db.Decimal(10, 2)
+  totalCost Decimal  @map("total_cost") @db.Decimal(10, 2)
+  notes     String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  order   PurchaseOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variant Variant       @relation(fields: [variantId], references: [id])
+
+  @@index([orderId])
+  @@index([variantId])
+  @@map("purchase_order_items")
+}
+
+// --- Sistema de Conversão de Unidades ---
+
+model UnitConversion {
+  id        String   @id @default(uuid())
+  variantId String   @map("variant_id")
+  fromUnit  String   @db.VarChar(32) // Ex: "CAIXA"
+  toUnit    String   @db.VarChar(32) // Ex: "UNIDADE"
+  factor    Decimal  @db.Decimal(10, 3) // Ex: 12 (1 caixa = 12 unidades)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  variant Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@unique([variantId, fromUnit, toUnit])
+  @@index([variantId])
+  @@map("unit_conversions")
+}
+
+// --- Sistema de Snapshots de Estoque ---
+
+model StockSnapshot {
+  id           String   @id @default(uuid())
+  variantId    String   @map("variant_id")
+  locationId   String?  @map("location_id")
+  quantity     Decimal  @db.Decimal(10, 3)
+  totalValue   Decimal  @map("total_value") @db.Decimal(12, 2)
+  snapshotDate DateTime @map("snapshot_date")
+  notes        String?  @db.Text
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  variant  Variant   @relation(fields: [variantId], references: [id])
+  location Location? @relation(fields: [locationId], references: [id])
+
+  @@index([variantId])
+  @@index([locationId])
+  @@index([snapshotDate])
+  @@index([variantId, snapshotDate])
+  @@map("stock_snapshots")
+}
+
+// --- Sistema de Clientes e Vendas ---
+
+model Customer {
+  id        String       @id @default(uuid())
+  name      String       @db.VarChar(128)
+  type      CustomerType @default(INDIVIDUAL)
+  document  String?      @unique @db.VarChar(18) // CPF ou CNPJ
+  email     String?      @db.VarChar(254)
+  phone     String?      @db.VarChar(20)
+  address   String?      @db.VarChar(256)
+  city      String?      @db.VarChar(128)
+  state     String?      @db.VarChar(2) // UF
+  zipCode   String?      @map("zip_code") @db.VarChar(10)
+  country   String?      @db.VarChar(64)
+  notes     String?      @db.Text
+  isActive  Boolean      @default(true) @map("is_active")
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @updatedAt @map("updated_at")
+  deletedAt DateTime?    @map("deleted_at")
+
+  salesOrders SalesOrder[]
+
+  @@index([document])
+  @@index([email])
+  @@index([isActive])
+  @@index([type])
+  @@map("customers")
+}
+
+model SalesOrder {
+  id          String      @id @default(uuid())
+  orderNumber String      @unique @map("order_number") @db.VarChar(64)
+  status      OrderStatus @default(PENDING)
+  totalPrice  Decimal     @map("total_price") @db.Decimal(10, 2)
+  discount    Decimal?    @default(0) @db.Decimal(10, 2)
+  finalPrice  Decimal     @map("final_price") @db.Decimal(10, 2)
+  notes       String?     @db.Text
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+  deletedAt   DateTime?   @map("deleted_at")
+
+  customerId String  @map("customer_id")
+  createdBy  String? @map("created_by")
+
+  customer      Customer         @relation(fields: [customerId], references: [id])
+  creator       User?            @relation("CreatedSalesOrders", fields: [createdBy], references: [id])
+  items         SalesOrderItem[]
+  itemMovements ItemMovement[]
+
+  @@index([customerId])
+  @@index([status])
+  @@index([orderNumber])
+  @@index([createdBy])
+  @@index([createdAt])
+  @@map("sales_orders")
+}
+
+model SalesOrderItem {
+  id         String   @id @default(uuid())
+  orderId    String   @map("order_id")
+  variantId  String   @map("variant_id")
+  quantity   Decimal  @db.Decimal(10, 3)
+  unitPrice  Decimal  @map("unit_price") @db.Decimal(10, 2)
+  discount   Decimal? @default(0) @db.Decimal(10, 2)
+  totalPrice Decimal  @map("total_price") @db.Decimal(10, 2)
+  notes      String?  @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  order   SalesOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variant Variant    @relation(fields: [variantId], references: [id])
+
+  @@index([orderId])
+  @@index([variantId])
+  @@map("sales_order_items")
+}
+
+// --- Sistema de Reservas ---
+
+model ItemReservation {
+  id         String    @id @default(uuid())
+  itemId     String    @map("item_id")
+  quantity   Decimal   @db.Decimal(10, 3)
+  reason     String?   @db.VarChar(256)
+  reference  String?   @db.VarChar(128) // Referência externa (pedido, etc)
+  expiresAt  DateTime  @map("expires_at")
+  releasedAt DateTime? @map("released_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+  item   Item   @relation(fields: [itemId], references: [id])
+
+  @@index([itemId])
+  @@index([userId])
+  @@index([expiresAt])
+  @@index([itemId, expiresAt])
+  @@map("item_reservations")
+}
+
+// --- Sistema de Códigos de Fornecedor ---
+
+model VariantSupplierCode {
+  id         String   @id @default(uuid())
+  variantId  String   @map("variant_id")
+  supplierId String   @map("supplier_id")
+  code       String   @db.VarChar(64) // Código do fornecedor para este variant
+  isPrimary  Boolean  @default(false) @map("is_primary")
+  notes      String?  @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  variant  Variant  @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+
+  @@unique([variantId, supplierId])
+  @@unique([supplierId, code])
+  @@index([variantId])
+  @@index([supplierId])
+  @@index([code])
+  @@map("variant_supplier_codes")
+}
+
+// --- Sistema de Promoções ---
+
+model VariantPromotion {
+  id            String       @id @default(uuid())
+  variantId     String       @map("variant_id")
+  name          String       @db.VarChar(128)
+  discountType  DiscountType @map("discount_type")
+  discountValue Decimal      @map("discount_value") @db.Decimal(10, 2)
+  startDate     DateTime     @map("start_date")
+  endDate       DateTime     @map("end_date")
+  isActive      Boolean      @default(true) @map("is_active")
+  notes         String?      @db.Text
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  variant Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([variantId])
+  @@index([isActive])
+  @@index([startDate, endDate])
+  @@index([variantId, startDate, endDate])
+  @@map("variant_promotions")
+}
+
+// --- Sistema de Comentários ---
+
+model Comment {
+  id         String    @id @default(uuid())
+  entityType String    @db.VarChar(32) // "PRODUCT", "VARIANT", "ITEM", etc
+  entityId   String    @db.VarChar(36) // UUID da entidade
+  content    String    @db.Text
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  deletedAt  DateTime? @map("deleted_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("comments")
+}
+
+// --- Sistema de Preferências de Notificação ---
+
+model NotificationPreference {
+  id        String              @id @default(uuid())
+  userId    String              @map("user_id")
+  alertType AlertType           @map("alert_type")
+  channel   NotificationChannel
+  isEnabled Boolean             @default(true) @map("is_enabled")
+  createdAt DateTime            @default(now()) @map("created_at")
+  updatedAt DateTime            @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, alertType, channel])
+  @@index([userId])
+  @@index([alertType])
+  @@map("notification_preferences")
 }
