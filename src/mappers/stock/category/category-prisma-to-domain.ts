@@ -15,7 +15,7 @@ export function mapCategoryPrismaToDomain(categoryDb: PrismaCategory) {
     isActive: true,
     createdAt: categoryDb.createdAt,
     updatedAt: categoryDb.updatedAt,
-    deletedAt: categoryDb.deletedAt ?? undefined,
+    deletedAt: categoryDb.deletedAt ?? null,
   };
 }
 

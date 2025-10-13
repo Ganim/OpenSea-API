@@ -1,6 +1,6 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
-import type { UniqueEntityID } from '../domain/unique-entity-id';
+import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface CategoryProps {
   id: UniqueEntityID;
@@ -157,15 +157,17 @@ export class Category extends Entity<CategoryProps> {
     >,
     id?: UniqueEntityID,
   ): Category {
+    const categoryId = id ?? props.id ?? new UniqueEntityID();
+
     const category = new Category(
       {
         ...props,
-        id: props.id ?? id!,
+        id: categoryId,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
         deletedAt: props.deletedAt ?? null,
       },
-      id,
+      categoryId,
     );
 
     return category;

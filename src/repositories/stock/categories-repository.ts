@@ -15,7 +15,7 @@ export interface UpdateCategorySchema {
   name?: string;
   slug?: string;
   description?: string;
-  parentId?: UniqueEntityID;
+  parentId?: UniqueEntityID | null;
   displayOrder?: number;
   isActive?: boolean;
 }
