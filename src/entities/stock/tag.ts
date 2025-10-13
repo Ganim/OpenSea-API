@@ -1,6 +1,6 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
-import type { UniqueEntityID } from '../domain/unique-entity-id';
+import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface TagProps {
   id: UniqueEntityID;
@@ -116,18 +116,24 @@ export class Tag extends Entity<TagProps> {
   }
 
   static create(
-    props: Optional<TagProps, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
+    props: Optional<
+      TagProps,
+      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'color' | 'description'
+    >,
     id?: UniqueEntityID,
   ): Tag {
+    const tagId = id ?? props.id ?? new UniqueEntityID();
     const tag = new Tag(
       {
         ...props,
-        id: props.id ?? id!,
+        id: tagId,
+        color: props.color ?? null,
+        description: props.description ?? null,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
         deletedAt: props.deletedAt ?? null,
       },
-      id,
+      tagId,
     );
 
     return tag;

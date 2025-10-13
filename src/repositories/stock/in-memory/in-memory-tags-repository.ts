@@ -1,9 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Tag } from '@/entities/stock/tag';
 import type {
-  CreateTagSchema,
-  TagsRepository,
-  UpdateTagSchema,
+    CreateTagSchema,
+    TagsRepository,
+    UpdateTagSchema,
 } from '../tags-repository';
 
 export class InMemoryTagsRepository implements TagsRepository {
@@ -23,7 +23,7 @@ export class InMemoryTagsRepository implements TagsRepository {
 
   async findById(id: UniqueEntityID): Promise<Tag | null> {
     const tag = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) => !item.deletedAt && item.tagId.equals(id),
     );
     return tag ?? null;
   }
@@ -65,7 +65,7 @@ export class InMemoryTagsRepository implements TagsRepository {
   }
 
   async save(tag: Tag): Promise<void> {
-    const index = this.items.findIndex((i) => i.id.equals(tag.id));
+    const index = this.items.findIndex((i) => i.tagId.equals(tag.tagId));
     if (index >= 0) {
       this.items[index] = tag;
     } else {
