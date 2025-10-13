@@ -227,6 +227,44 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     );
   }
 
+  async findMany(): Promise<Supplier[]> {
+    const suppliers = await prisma.supplier.findMany({
+      where: {
+        deletedAt: null,
+      },
+    });
+
+    return suppliers.map((supplierData) =>
+      Supplier.create(
+        {
+          name: supplierData.name,
+          cnpj: supplierData.cnpj
+            ? (CNPJ.create(supplierData.cnpj) ?? undefined)
+            : undefined,
+          taxId: supplierData.taxId ?? undefined,
+          contact: supplierData.contact ?? undefined,
+          email: supplierData.email ?? undefined,
+          phone: supplierData.phone ?? undefined,
+          website: supplierData.website ?? undefined,
+          address: supplierData.address ?? undefined,
+          city: supplierData.city ?? undefined,
+          state: supplierData.state ?? undefined,
+          zipCode: supplierData.zipCode ?? undefined,
+          country: supplierData.country ?? undefined,
+          paymentTerms: supplierData.paymentTerms ?? undefined,
+          rating: supplierData.rating
+            ? Number(supplierData.rating.toString())
+            : undefined,
+          isActive: supplierData.isActive,
+          notes: supplierData.notes ?? undefined,
+          createdAt: supplierData.createdAt,
+          updatedAt: supplierData.updatedAt ?? undefined,
+        },
+        new EntityID(supplierData.id),
+      ),
+    );
+  }
+
   async findManyActive(): Promise<Supplier[]> {
     const suppliers = await prisma.supplier.findMany({
       where: {

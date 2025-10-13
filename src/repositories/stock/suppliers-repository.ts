@@ -46,6 +46,7 @@ export interface SuppliersRepository {
   findById(id: UniqueEntityID): Promise<Supplier | null>;
   findByCNPJ(cnpj: CNPJ): Promise<Supplier | null>;
   findByName(name: string): Promise<Supplier[]>;
+  findMany(): Promise<Supplier[]>;
   findManyActive(): Promise<Supplier[]>;
   findManyByRating(minRating: number): Promise<Supplier[]>;
   update(data: UpdateSupplierSchema): Promise<Supplier | null>;
