@@ -1,9 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Tag } from '@/entities/stock/tag';
 import type {
-    CreateTagSchema,
-    TagsRepository,
-    UpdateTagSchema,
+  CreateTagSchema,
+  TagsRepository,
+  UpdateTagSchema,
 } from '../tags-repository';
 
 export class InMemoryTagsRepository implements TagsRepository {
