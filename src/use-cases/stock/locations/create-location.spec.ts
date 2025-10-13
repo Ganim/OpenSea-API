@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { CreateLocationUseCase } from './create-location';
-import { InMemoryLocationsRepository } from '@/repositories/stock/in-memory/in-memory-locations-repository';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { InMemoryLocationsRepository } from '@/repositories/stock/in-memory/in-memory-locations-repository';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { CreateLocationUseCase } from './create-location';
 
 let locationsRepository: InMemoryLocationsRepository;
 let sut: CreateLocationUseCase;

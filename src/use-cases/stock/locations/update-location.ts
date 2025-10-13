@@ -1,8 +1,8 @@
-import { LocationsRepository } from '@/repositories/stock/locations-repository';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { LocationType } from '@/entities/stock/value-objects/location-type';
+import { LocationsRepository } from '@/repositories/stock/locations-repository';
 
 interface UpdateLocationUseCaseRequest {
   id: string;

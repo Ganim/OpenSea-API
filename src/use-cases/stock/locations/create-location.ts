@@ -1,7 +1,7 @@
-import { LocationsRepository } from '@/repositories/stock/locations-repository';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { LocationType } from '@/entities/stock/value-objects/location-type';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { LocationType } from '@/entities/stock/value-objects/location-type';
+import { LocationsRepository } from '@/repositories/stock/locations-repository';
 
 interface CreateLocationUseCaseRequest {
   code: string;

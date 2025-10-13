@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { DeleteLocationUseCase } from './delete-location';
-import { CreateLocationUseCase } from './create-location';
-import { GetLocationByIdUseCase } from './get-location-by-id';
-import { InMemoryLocationsRepository } from '@/repositories/stock/in-memory/in-memory-locations-repository';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { InMemoryLocationsRepository } from '@/repositories/stock/in-memory/in-memory-locations-repository';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { CreateLocationUseCase } from './create-location';
+import { DeleteLocationUseCase } from './delete-location';
+import { GetLocationByIdUseCase } from './get-location-by-id';
 
 let locationsRepository: InMemoryLocationsRepository;
 let sut: DeleteLocationUseCase;
