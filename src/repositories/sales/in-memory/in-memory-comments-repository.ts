@@ -16,6 +16,7 @@ export class InMemoryCommentsRepository implements CommentsRepository {
       entityId: data.entityId,
       userId: data.authorId,
       content: data.content,
+      parentCommentId: data.parentCommentId,
     });
 
     this.items.push(comment);
