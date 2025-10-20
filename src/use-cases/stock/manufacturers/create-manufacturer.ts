@@ -32,6 +32,8 @@ interface CreateManufacturerUseCaseResponse {
     rating?: number;
     notes?: string;
     isActive: boolean;
+    createdAt: Date;
+    updatedAt: Date;
   };
 }
 
@@ -129,6 +131,8 @@ export class CreateManufacturerUseCase {
         rating: createdManufacturer.rating ?? undefined,
         notes: createdManufacturer.notes ?? undefined,
         isActive: createdManufacturer.isActive,
+        createdAt: createdManufacturer.createdAt,
+        updatedAt: createdManufacturer.updatedAt,
       },
     };
   }

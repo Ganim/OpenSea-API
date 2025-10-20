@@ -22,6 +22,8 @@ interface GetManufacturerByIdUseCaseResponse {
     rating?: number;
     notes?: string;
     isActive: boolean;
+    createdAt: Date;
+    updatedAt: Date;
   };
 }
 
@@ -57,6 +59,8 @@ export class GetManufacturerByIdUseCase {
         rating: manufacturer.rating ?? undefined,
         notes: manufacturer.notes ?? undefined,
         isActive: manufacturer.isActive,
+        createdAt: manufacturer.createdAt,
+        updatedAt: manufacturer.updatedAt,
       },
     };
   }

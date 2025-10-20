@@ -36,6 +36,8 @@ interface UpdateManufacturerUseCaseResponse {
     rating?: number;
     notes?: string;
     isActive: boolean;
+    createdAt: Date;
+    updatedAt: Date;
   };
 }
 
@@ -162,6 +164,8 @@ export class UpdateManufacturerUseCase {
         rating: updatedManufacturer.rating ?? undefined,
         notes: updatedManufacturer.notes ?? undefined,
         isActive: updatedManufacturer.isActive,
+        createdAt: updatedManufacturer.createdAt,
+        updatedAt: updatedManufacturer.updatedAt,
       },
     };
   }
