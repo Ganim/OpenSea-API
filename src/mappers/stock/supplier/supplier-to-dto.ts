@@ -27,7 +27,7 @@ export function supplierToDTO(supplier: Supplier): SupplierDTO {
   return {
     id: supplier.id.toString(),
     name: supplier.name,
-    cnpj: supplier.cnpj?.formatted,
+    cnpj: supplier.cnpj?.unformatted,
     taxId: supplier.taxId,
     contact: supplier.contact,
     email: supplier.email,

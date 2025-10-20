@@ -129,7 +129,7 @@ export class CreateSupplierUseCase {
       supplier: {
         id: createdSupplier.id.toString(),
         name: createdSupplier.name,
-        cnpj: createdSupplier.cnpj?.toString(),
+        cnpj: createdSupplier.cnpj?.unformatted,
         taxId: createdSupplier.taxId,
         contact: createdSupplier.contact,
         email: createdSupplier.email,

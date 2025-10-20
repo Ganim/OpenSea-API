@@ -48,7 +48,7 @@ export class GetSupplierByIdUseCase {
       supplier: {
         id: supplier.id.toString(),
         name: supplier.name,
-        cnpj: supplier.cnpj?.toString(),
+        cnpj: supplier.cnpj?.unformatted,
         taxId: supplier.taxId,
         contact: supplier.contact,
         email: supplier.email,

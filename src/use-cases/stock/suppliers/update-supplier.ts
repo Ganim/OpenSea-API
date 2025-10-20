@@ -152,7 +152,7 @@ export class UpdateSupplierUseCase {
       supplier: {
         id: updatedSupplier.id.toString(),
         name: updatedSupplier.name,
-        cnpj: updatedSupplier.cnpj?.toString(),
+        cnpj: updatedSupplier.cnpj?.unformatted,
         taxId: updatedSupplier.taxId,
         contact: updatedSupplier.contact,
         email: updatedSupplier.email,

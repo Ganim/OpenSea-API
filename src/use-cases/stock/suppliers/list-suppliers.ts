@@ -25,7 +25,7 @@ export class ListSuppliersUseCase {
       suppliers: suppliers.map((supplier) => ({
         id: supplier.id.toString(),
         name: supplier.name,
-        cnpj: supplier.cnpj?.toString(),
+        cnpj: supplier.cnpj?.unformatted,
         email: supplier.email,
         phone: supplier.phone,
         city: supplier.city,

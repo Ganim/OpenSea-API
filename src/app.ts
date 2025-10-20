@@ -20,6 +20,7 @@ import { healthRoutes } from './http/controllers/health/routes';
 import { categoriesRoutes } from './http/controllers/stock/categories/routes';
 import { manufacturersRoutes } from './http/controllers/stock/manufacturers/routes';
 import { productsRoutes } from './http/controllers/stock/products/routes';
+import { suppliersRoutes } from './http/controllers/stock/suppliers/routes';
 import { variantsRoutes } from './http/controllers/stock/variants/routes';
 
 export const app = fastify({ trustProxy: true });
@@ -119,6 +120,7 @@ app.after(() => {
   app.register(variantsRoutes);
   app.register(categoriesRoutes);
   app.register(manufacturersRoutes);
+  app.register(suppliersRoutes);
 });
 
 // Swagger UI
