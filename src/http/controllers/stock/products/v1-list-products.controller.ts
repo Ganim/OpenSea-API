@@ -1,0 +1,42 @@
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { makeListProductsUseCase } from '@/use-cases/stock/products/factories/make-list-products-use-case';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import z from 'zod';
+
+export async function listProductsController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/products',
+    preHandler: [verifyJwt],
+    schema: {
+      tags: ['Products'],
+      summary: 'List all products',
+      response: {
+        200: z.object({
+          products: z.array(
+            z.object({
+              id: z.string().uuid(),
+              name: z.string(),
+              code: z.string(),
+              description: z.string().optional(),
+              status: z.string(),
+              unitOfMeasure: z.string(),
+              attributes: z.record(z.string(), z.unknown()),
+              templateId: z.string().uuid(),
+              supplierId: z.string().uuid().optional(),
+              manufacturerId: z.string().uuid().optional(),
+            }),
+          ),
+        }),
+      },
+    },
+
+    handler: async (_, reply) => {
+      const listProductsUseCase = makeListProductsUseCase();
+      const { products } = await listProductsUseCase.execute();
+
+      return reply.status(200).send({ products });
+    },
+  });
+}

@@ -17,6 +17,7 @@ import { meRoutes } from './http/controllers/core/me/routes';
 import { sessionsRoutes } from './http/controllers/core/sessions/routes';
 import { usersRoutes } from './http/controllers/core/users/routes';
 import { healthRoutes } from './http/controllers/health/routes';
+import { productsRoutes } from './http/controllers/stock/products/routes';
 
 export const app = fastify({ trustProxy: true });
 
@@ -53,6 +54,34 @@ app.register(swagger, {
       { name: 'Me', description: 'Authenticated user endpoints' },
       { name: 'Users', description: 'User management endpoints' },
       { name: 'Sessions', description: 'Session management endpoints' },
+      // Stock Management
+      { name: 'Products', description: 'Product catalog management' },
+      { name: 'Variants', description: 'Product variant management' },
+      { name: 'Categories', description: 'Product category management' },
+      { name: 'Manufacturers', description: 'Manufacturer management' },
+      { name: 'Suppliers', description: 'Supplier management' },
+      { name: 'Locations', description: 'Storage location management' },
+      { name: 'Tags', description: 'Product tag management' },
+      { name: 'Templates', description: 'Product template management' },
+      { name: 'Items', description: 'Inventory item management' },
+      { name: 'Item Movements', description: 'Stock movement tracking' },
+      { name: 'Purchase Orders', description: 'Purchase order management' },
+      // Sales Management
+      { name: 'Customers', description: 'Customer management' },
+      { name: 'Sales Orders', description: 'Sales order management' },
+      { name: 'Comments', description: 'Entity comment management' },
+      {
+        name: 'Variant Promotions',
+        description: 'Product promotion management',
+      },
+      {
+        name: 'Item Reservations',
+        description: 'Inventory reservation management',
+      },
+      {
+        name: 'Notification Preferences',
+        description: 'User notification settings',
+      },
     ],
   },
 });
@@ -82,6 +111,8 @@ app.after(() => {
   app.register(authRoutes);
   app.register(usersRoutes);
   app.register(sessionsRoutes);
+  // Stock routes
+  app.register(productsRoutes);
 });
 
 // Swagger UI
