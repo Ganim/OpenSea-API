@@ -18,6 +18,7 @@ import { sessionsRoutes } from './http/controllers/core/sessions/routes';
 import { usersRoutes } from './http/controllers/core/users/routes';
 import { healthRoutes } from './http/controllers/health/routes';
 import { productsRoutes } from './http/controllers/stock/products/routes';
+import { variantsRoutes } from './http/controllers/stock/variants/routes';
 
 export const app = fastify({ trustProxy: true });
 
@@ -113,6 +114,7 @@ app.after(() => {
   app.register(sessionsRoutes);
   // Stock routes
   app.register(productsRoutes);
+  app.register(variantsRoutes);
 });
 
 // Swagger UI
