@@ -3,9 +3,9 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Category } from '@/entities/stock/category';
 import { prisma } from '@/lib/prisma';
 import type {
-  CategoriesRepository,
-  CreateCategorySchema,
-  UpdateCategorySchema,
+    CategoriesRepository,
+    CreateCategorySchema,
+    UpdateCategorySchema,
 } from '../categories-repository';
 
 export class PrismaCategoriesRepository implements CategoriesRepository {
@@ -13,20 +13,24 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     const categoryData = await prisma.category.create({
       data: {
         name: data.name,
+        slug: data.slug,
+        description: data.description ?? null,
         parentId: data.parentId?.toString(),
+        displayOrder: data.displayOrder ?? 0,
+        isActive: data.isActive ?? true,
       },
     });
 
     return Category.create(
       {
         name: categoryData.name,
-        slug: data.slug,
-        description: null,
+        slug: categoryData.slug,
+        description: categoryData.description ?? null,
         parentId: categoryData.parentId
           ? new EntityID(categoryData.parentId)
           : null,
-        displayOrder: data.displayOrder ?? 0,
-        isActive: data.isActive ?? true,
+        displayOrder: categoryData.displayOrder,
+        isActive: categoryData.isActive,
         createdAt: categoryData.createdAt,
         updatedAt: categoryData.updatedAt,
       },
@@ -49,13 +53,13 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     return Category.create(
       {
         name: categoryData.name,
-        slug: categoryData.name.toLowerCase().replace(/\s+/g, '-'),
-        description: null,
+        slug: categoryData.slug,
+        description: categoryData.description ?? null,
         parentId: categoryData.parentId
           ? new EntityID(categoryData.parentId)
           : null,
-        displayOrder: 0,
-        isActive: true,
+        displayOrder: categoryData.displayOrder,
+        isActive: categoryData.isActive,
         createdAt: categoryData.createdAt,
         updatedAt: categoryData.updatedAt,
       },
@@ -66,8 +70,8 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
   async findBySlug(slug: string): Promise<Category | null> {
     const categoryData = await prisma.category.findFirst({
       where: {
-        name: {
-          contains: slug.replace(/-/g, ' '),
+        slug: {
+          equals: slug,
           mode: 'insensitive',
         },
         deletedAt: null,
@@ -81,13 +85,13 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     return Category.create(
       {
         name: categoryData.name,
-        slug: categoryData.name.toLowerCase().replace(/\s+/g, '-'),
-        description: null,
+        slug: categoryData.slug,
+        description: categoryData.description ?? null,
         parentId: categoryData.parentId
           ? new EntityID(categoryData.parentId)
           : null,
-        displayOrder: 0,
-        isActive: true,
+        displayOrder: categoryData.displayOrder,
+        isActive: categoryData.isActive,
         createdAt: categoryData.createdAt,
         updatedAt: categoryData.updatedAt,
       },
@@ -99,7 +103,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     const categoryData = await prisma.category.findFirst({
       where: {
         name: {
-          contains: name,
+          equals: name,
           mode: 'insensitive',
         },
         deletedAt: null,
@@ -113,13 +117,13 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     return Category.create(
       {
         name: categoryData.name,
-        slug: categoryData.name.toLowerCase().replace(/\s+/g, '-'),
-        description: null,
+        slug: categoryData.slug,
+        description: categoryData.description ?? null,
         parentId: categoryData.parentId
           ? new EntityID(categoryData.parentId)
           : null,
-        displayOrder: 0,
-        isActive: true,
+        displayOrder: categoryData.displayOrder,
+        isActive: categoryData.isActive,
         createdAt: categoryData.createdAt,
         updatedAt: categoryData.updatedAt,
       },
@@ -138,13 +142,13 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
       Category.create(
         {
           name: categoryData.name,
-          slug: categoryData.name.toLowerCase().replace(/\s+/g, '-'),
-          description: null,
+          slug: categoryData.slug,
+          description: categoryData.description ?? null,
           parentId: categoryData.parentId
             ? new EntityID(categoryData.parentId)
             : null,
-          displayOrder: 0,
-          isActive: true,
+          displayOrder: categoryData.displayOrder,
+          isActive: categoryData.isActive,
           createdAt: categoryData.createdAt,
           updatedAt: categoryData.updatedAt,
         },
@@ -165,13 +169,13 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
       Category.create(
         {
           name: categoryData.name,
-          slug: categoryData.name.toLowerCase().replace(/\s+/g, '-'),
-          description: null,
+          slug: categoryData.slug,
+          description: categoryData.description ?? null,
           parentId: categoryData.parentId
             ? new EntityID(categoryData.parentId)
             : null,
-          displayOrder: 0,
-          isActive: true,
+          displayOrder: categoryData.displayOrder,
+          isActive: categoryData.isActive,
           createdAt: categoryData.createdAt,
           updatedAt: categoryData.updatedAt,
         },
@@ -192,11 +196,11 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
       Category.create(
         {
           name: categoryData.name,
-          slug: categoryData.name.toLowerCase().replace(/\s+/g, '-'),
-          description: null,
+          slug: categoryData.slug,
+          description: categoryData.description ?? null,
           parentId: null,
-          displayOrder: 0,
-          isActive: true,
+          displayOrder: categoryData.displayOrder,
+          isActive: categoryData.isActive,
           createdAt: categoryData.createdAt,
           updatedAt: categoryData.updatedAt,
         },
@@ -206,31 +210,69 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
   }
 
   async findManyActive(): Promise<Category[]> {
-    // Como o schema não tem campo isActive, retorna todas
-    return this.findMany();
+    const categories = await prisma.category.findMany({
+      where: {
+        isActive: true,
+        deletedAt: null,
+      },
+    });
+
+    return categories.map((categoryData) =>
+      Category.create(
+        {
+          name: categoryData.name,
+          slug: categoryData.slug,
+          description: categoryData.description ?? null,
+          parentId: categoryData.parentId
+            ? new EntityID(categoryData.parentId)
+            : null,
+          displayOrder: categoryData.displayOrder,
+          isActive: categoryData.isActive,
+          createdAt: categoryData.createdAt,
+          updatedAt: categoryData.updatedAt,
+        },
+        new EntityID(categoryData.id),
+      ),
+    );
   }
 
   async update(data: UpdateCategorySchema): Promise<Category | null> {
+    const updateData: {
+      name?: string;
+      slug?: string;
+      description?: string | null;
+      parentId?: string | null;
+      displayOrder?: number;
+      isActive?: boolean;
+    } = {};
+
+    if (data.name !== undefined) updateData.name = data.name;
+    if (data.slug !== undefined) updateData.slug = data.slug;
+    if (data.description !== undefined)
+      updateData.description = data.description;
+    if (data.parentId !== undefined)
+      updateData.parentId = data.parentId?.toString() ?? null;
+    if (data.displayOrder !== undefined)
+      updateData.displayOrder = data.displayOrder;
+    if (data.isActive !== undefined) updateData.isActive = data.isActive;
+
     const categoryData = await prisma.category.update({
       where: {
         id: data.id.toString(),
       },
-      data: {
-        name: data.name,
-        parentId: data.parentId?.toString(),
-      },
+      data: updateData,
     });
 
     return Category.create(
       {
         name: categoryData.name,
-        slug: data.slug ?? categoryData.name.toLowerCase().replace(/\s+/g, '-'),
-        description: null,
+        slug: categoryData.slug,
+        description: categoryData.description ?? null,
         parentId: categoryData.parentId
           ? new EntityID(categoryData.parentId)
           : null,
-        displayOrder: data.displayOrder ?? 0,
-        isActive: data.isActive ?? true,
+        displayOrder: categoryData.displayOrder,
+        isActive: categoryData.isActive,
         createdAt: categoryData.createdAt,
         updatedAt: categoryData.updatedAt,
       },
@@ -245,7 +287,11 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
       },
       data: {
         name: category.name,
+        slug: category.slug,
+        description: category.description,
         parentId: category.parentId?.toString(),
+        displayOrder: category.displayOrder,
+        isActive: category.isActive,
         updatedAt: new Date(),
       },
     });
