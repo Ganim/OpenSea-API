@@ -55,6 +55,15 @@ app.register(swagger, {
       description: 'A Simple Authentication API Boilerplate to build projects',
       version: '3.0.0',
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
     tags: [
       { name: 'Health', description: 'Health check endpoints' },
       { name: 'Auth', description: 'Authentication endpoints' },

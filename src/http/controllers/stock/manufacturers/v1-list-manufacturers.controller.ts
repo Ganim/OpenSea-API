@@ -29,8 +29,8 @@ export async function v1ListManufacturersController(
 }
 
 v1ListManufacturersController.schema = {
-  tags: ['stock/manufacturers'],
-  summary: 'List manufacturers',
+  tags: ['Manufacturers'],
+  summary: 'List all manufacturers',
   security: [{ bearerAuth: [] }],
   response: {
     200: responseSchema,

@@ -69,7 +69,7 @@ export async function v1CreateSupplierController(
 }
 
 v1CreateSupplierController.schema = {
-  tags: ['stock/suppliers'],
+  tags: ['Suppliers'],
   summary: 'Create a new supplier',
   security: [{ bearerAuth: [] }],
   body: bodySchema,

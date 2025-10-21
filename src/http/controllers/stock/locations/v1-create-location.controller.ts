@@ -50,7 +50,7 @@ export async function v1CreateLocationController(
 }
 
 v1CreateLocationController.schema = {
-  tags: ['stock/locations'],
+  tags: ['Locations'],
   summary: 'Create a new location',
   security: [{ bearerAuth: [] }],
   body: bodySchema,

@@ -24,7 +24,7 @@ export async function v1DeleteTemplateController(
 }
 
 v1DeleteTemplateController.schema = {
-  tags: ['stock/templates'],
+  tags: ['Templates'],
   summary: 'Delete a template',
   description: 'Soft deletes a template by setting its deletedAt timestamp',
 };

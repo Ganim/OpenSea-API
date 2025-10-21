@@ -42,7 +42,7 @@ export async function v1CreateTemplateController(
 }
 
 v1CreateTemplateController.schema = {
-  tags: ['stock/templates'],
+  tags: ['Templates'],
   summary: 'Create a new template',
   description:
     'Creates a new template with product, variant, and item attributes',

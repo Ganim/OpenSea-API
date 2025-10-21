@@ -46,7 +46,20 @@ export async function v1UpdateTemplateController(
 }
 
 v1UpdateTemplateController.schema = {
-  tags: ['stock/templates'],
-  summary: 'Update a template',
-  description: 'Updates an existing template with new attributes',
+  tags: ['Templates'],
+  summary: 'Update an existing template',
+  security: [{ bearerAuth: [] }],
+  response: {
+    200: z.object({
+      template: z.object({
+        id: z.string().uuid(),
+        name: z.string(),
+        productAttributes: z.record(z.string(), z.unknown()).nullable(),
+        variantAttributes: z.record(z.string(), z.unknown()).nullable(),
+        itemAttributes: z.record(z.string(), z.unknown()).nullable(),
+        createdAt: z.date(),
+        updatedAt: z.date().optional(),
+      }),
+    }),
+  },
 };

@@ -76,9 +76,9 @@ export async function v1UpdateManufacturerController(
 }
 
 v1UpdateManufacturerController.schema = {
-  tags: ['stock/manufacturers'],
-  summary: 'Update a manufacturer',
-  security: [{ bearerAuth: [] }],
+  tags: ['Manufacturers'],
+  summary: 'Update an existing manufacturer',
+  description: 'Update an existing manufacturer with the provided information',
   params: paramsSchema,
   body: bodySchema,
   response: {
@@ -90,4 +90,5 @@ v1UpdateManufacturerController.schema = {
       message: z.string(),
     }),
   },
+  security: [{ bearerAuth: [] }],
 };

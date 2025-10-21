@@ -13,7 +13,7 @@ export async function v1ListTemplatesController(
 }
 
 v1ListTemplatesController.schema = {
-  tags: ['stock/templates'],
+  tags: ['Templates'],
   summary: 'List all templates',
   description: 'Retrieves a list of all templates with their attributes',
 };

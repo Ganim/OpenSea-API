@@ -26,7 +26,7 @@ export async function v1GetTemplateByIdController(
 }
 
 v1GetTemplateByIdController.schema = {
-  tags: ['stock/templates'],
-  summary: 'Get a template by ID',
+  tags: ['Templates'],
+  summary: 'Get template by ID',
   description: 'Retrieves a single template by its unique identifier',
 };

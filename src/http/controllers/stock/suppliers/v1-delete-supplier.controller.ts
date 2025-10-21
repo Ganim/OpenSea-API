@@ -30,7 +30,7 @@ export async function v1DeleteSupplierController(
 }
 
 v1DeleteSupplierController.schema = {
-  tags: ['stock/suppliers'],
+  tags: ['Suppliers'],
   summary: 'Delete a supplier',
   security: [{ bearerAuth: [] }],
   params: paramsSchema,

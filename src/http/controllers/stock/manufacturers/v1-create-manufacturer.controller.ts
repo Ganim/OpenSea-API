@@ -71,33 +71,12 @@ export async function v1CreateManufacturerController(
 }
 
 v1CreateManufacturerController.schema = {
-  tags: ['manufacturers'],
+  tags: ['Manufacturers'],
   summary: 'Create a new manufacturer',
-  security: [{ bearerAuth: [] }],
+  description: 'Create a new manufacturer with the provided information',
   body: createManufacturerBodySchema,
   response: {
     201: createManufacturerResponseSchema,
   },
-} satisfies FastifyRequest['routeOptions']['schema'] & {
-  tags: string[];
-  summary: string;
-  security: Array<Record<string, string[]>>;
-};
-
-// Type definitions for FastifyRequest with typed provider
-export async function v1CreateManufacturerRoute(
-  request: FastifyRequest<{
-    Body: z.infer<typeof createManufacturerBodySchema>;
-  }>,
-  reply: FastifyReply,
-) {
-  return v1CreateManufacturerController(request, reply);
-}
-
-// Export with ZodTypeProvider
-export const v1CreateManufacturer = {
-  method: 'POST' as const,
-  url: '/v1/manufacturers',
-  handler: v1CreateManufacturerRoute,
-  schema: v1CreateManufacturerController.schema,
+  security: [{ bearerAuth: [] }],
 };

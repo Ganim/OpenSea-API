@@ -28,30 +28,6 @@ const bodySchema = z.object({
   notes: z.string().optional(),
 });
 
-const responseSchema = z.object({
-  supplier: z.object({
-    id: z.string(),
-    name: z.string(),
-    cnpj: z.string().optional(),
-    taxId: z.string().optional(),
-    contact: z.string().optional(),
-    email: z.string().optional(),
-    phone: z.string().optional(),
-    website: z.string().optional(),
-    address: z.string().optional(),
-    city: z.string().optional(),
-    state: z.string().optional(),
-    zipCode: z.string().optional(),
-    country: z.string().optional(),
-    paymentTerms: z.string().optional(),
-    rating: z.number().optional(),
-    isActive: z.boolean(),
-    notes: z.string().optional(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
-  }),
-});
-
 export async function v1UpdateSupplierController(
   request: FastifyRequest,
   reply: FastifyReply,
@@ -82,18 +58,32 @@ export async function v1UpdateSupplierController(
 }
 
 v1UpdateSupplierController.schema = {
-  tags: ['stock/suppliers'],
-  summary: 'Update a supplier',
+  tags: ['Suppliers'],
+  summary: 'Update an existing supplier',
   security: [{ bearerAuth: [] }],
-  params: paramsSchema,
-  body: bodySchema,
   response: {
-    200: responseSchema,
-    404: z.object({
-      message: z.string(),
-    }),
-    400: z.object({
-      message: z.string(),
+    200: z.object({
+      supplier: z.object({
+        id: z.string().uuid(),
+        name: z.string(),
+        cnpj: z.string().nullable().optional(),
+        taxId: z.string().nullable().optional(),
+        contact: z.string().nullable().optional(),
+        email: z.string().nullable().optional(),
+        phone: z.string().nullable().optional(),
+        website: z.string().nullable().optional(),
+        address: z.string().nullable().optional(),
+        city: z.string().nullable().optional(),
+        state: z.string().nullable().optional(),
+        zipCode: z.string().nullable().optional(),
+        country: z.string().nullable().optional(),
+        paymentTerms: z.string().nullable().optional(),
+        rating: z.number().nullable().optional(),
+        isActive: z.boolean(),
+        notes: z.string().nullable().optional(),
+        createdAt: z.date(),
+        updatedAt: z.date().optional(),
+      }),
     }),
   },
 };

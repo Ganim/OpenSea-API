@@ -56,8 +56,8 @@ export async function v1GetManufacturerByIdController(
 }
 
 v1GetManufacturerByIdController.schema = {
-  tags: ['manufacturers'],
-  summary: 'Get a manufacturer by ID',
+  tags: ['Manufacturers'],
+  summary: 'Get manufacturer by ID',
   security: [{ bearerAuth: [] }],
   params: getManufacturerByIdParamsSchema,
   response: {

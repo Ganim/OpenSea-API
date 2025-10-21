@@ -54,8 +54,8 @@ export async function v1GetSupplierByIdController(
 }
 
 v1GetSupplierByIdController.schema = {
-  tags: ['stock/suppliers'],
-  summary: 'Get a supplier by ID',
+  tags: ['Suppliers'],
+  summary: 'Get supplier by ID',
   security: [{ bearerAuth: [] }],
   params: paramsSchema,
   response: {

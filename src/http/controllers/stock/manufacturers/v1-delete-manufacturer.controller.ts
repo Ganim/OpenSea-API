@@ -30,7 +30,7 @@ export async function v1DeleteManufacturerController(
 }
 
 v1DeleteManufacturerController.schema = {
-  tags: ['stock/manufacturers'],
+  tags: ['Manufacturers'],
   summary: 'Delete a manufacturer',
   security: [{ bearerAuth: [] }],
   params: paramsSchema,
