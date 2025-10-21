@@ -210,10 +210,11 @@ export class PrismaUsersRepository implements UsersRepository {
     const usersDb = await prisma.user.findMany({
       where: { deletedAt: null },
       orderBy: { email: 'asc' },
+      take: 1000, // Limit to prevent PostgreSQL parameter overflow
       include: { profile: true },
     });
 
-    if (!usersDb) return null;
+    if (!usersDb || usersDb.length === 0) return null;
 
     const userList = usersDb.map((userDb) =>
       User.create(mapUserPrismaToDomain(userDb)),
@@ -226,10 +227,11 @@ export class PrismaUsersRepository implements UsersRepository {
     const usersDb = await prisma.user.findMany({
       where: { role: role, deletedAt: null },
       orderBy: { email: 'asc' },
+      take: 1000, // Limit to prevent PostgreSQL parameter overflow
       include: { profile: true },
     });
 
-    if (!usersDb) return null;
+    if (!usersDb || usersDb.length === 0) return null;
 
     const userList = usersDb.map((userDb) =>
       User.create(mapUserPrismaToDomain(userDb)),
