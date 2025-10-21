@@ -10,6 +10,13 @@ import { UserBlockedError } from './use-cases/user-blocked-error';
 type FastifyErrorHandler = FastifyInstance['errorHandler'];
 
 export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
+  // Handle Fastify validation errors (from Zod schemas)
+  if (error.code === 'FST_ERR_VALIDATION') {
+    return reply.status(400).send({
+      message: error.message,
+    });
+  }
+
   if (error instanceof ZodError) {
     return reply.status(400).send({
       message: 'Validation error',

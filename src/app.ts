@@ -6,8 +6,8 @@ import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import fastify from 'fastify';
 import {
-    serializerCompiler,
-    validatorCompiler,
+  serializerCompiler,
+  validatorCompiler,
 } from 'fastify-type-provider-zod';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { env } from './@env';
@@ -22,6 +22,7 @@ import { locationsRoutes } from './http/controllers/stock/locations/routes';
 import { manufacturersRoutes } from './http/controllers/stock/manufacturers/routes';
 import { productsRoutes } from './http/controllers/stock/products/routes';
 import { suppliersRoutes } from './http/controllers/stock/suppliers/routes';
+import { tagsRoutes } from './http/controllers/stock/tags/routes';
 import { variantsRoutes } from './http/controllers/stock/variants/routes';
 
 export const app = fastify({ trustProxy: true });
@@ -111,6 +112,7 @@ app.register(fastifyCookie);
 
 // Routes
 app.after(() => {
+  // Core routes
   app.register(healthRoutes);
   app.register(meRoutes);
   app.register(authRoutes);
@@ -123,6 +125,7 @@ app.after(() => {
   app.register(manufacturersRoutes);
   app.register(suppliersRoutes);
   app.register(locationsRoutes);
+  app.register(tagsRoutes);
 });
 
 // Swagger UI
