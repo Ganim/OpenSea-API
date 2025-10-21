@@ -6,8 +6,8 @@ import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import fastify from 'fastify';
 import {
-  serializerCompiler,
-  validatorCompiler,
+    serializerCompiler,
+    validatorCompiler,
 } from 'fastify-type-provider-zod';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { env } from './@env';
@@ -18,6 +18,7 @@ import { sessionsRoutes } from './http/controllers/core/sessions/routes';
 import { usersRoutes } from './http/controllers/core/users/routes';
 import { healthRoutes } from './http/controllers/health/routes';
 import { categoriesRoutes } from './http/controllers/stock/categories/routes';
+import { locationsRoutes } from './http/controllers/stock/locations/routes';
 import { manufacturersRoutes } from './http/controllers/stock/manufacturers/routes';
 import { productsRoutes } from './http/controllers/stock/products/routes';
 import { suppliersRoutes } from './http/controllers/stock/suppliers/routes';
@@ -121,6 +122,7 @@ app.after(() => {
   app.register(categoriesRoutes);
   app.register(manufacturersRoutes);
   app.register(suppliersRoutes);
+  app.register(locationsRoutes);
 });
 
 // Swagger UI
