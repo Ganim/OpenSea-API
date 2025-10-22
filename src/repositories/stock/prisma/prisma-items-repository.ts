@@ -6,9 +6,9 @@ import { prisma } from '@/lib/prisma';
 import type { ItemStatus as PrismaItemStatus } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-  CreateItemSchema,
-  ItemsRepository,
-  UpdateItemSchema,
+    CreateItemSchema,
+    ItemsRepository,
+    UpdateItemSchema,
 } from '../items-repository';
 
 export class PrismaItemsRepository implements ItemsRepository {
@@ -109,6 +109,36 @@ export class PrismaItemsRepository implements ItemsRepository {
         deletedAt: itemData.deletedAt ?? undefined,
       },
       new EntityID(itemData.id),
+    );
+  }
+
+  async findAll(): Promise<Item[]> {
+    const items = await prisma.item.findMany({
+      where: {
+        deletedAt: null,
+      },
+    });
+
+    return items.map((itemData) =>
+      Item.create(
+        {
+          uniqueCode: itemData.uniqueCode,
+          variantId: new EntityID(itemData.variantId),
+          locationId: new EntityID(itemData.locationId),
+          initialQuantity: itemData.initialQuantity.toNumber(),
+          currentQuantity: itemData.currentQuantity.toNumber(),
+          status: ItemStatus.create(itemData.status),
+          entryDate: itemData.entryDate,
+          attributes: itemData.attributes as Record<string, unknown>,
+          batchNumber: itemData.batchNumber ?? undefined,
+          manufacturingDate: itemData.manufacturingDate ?? undefined,
+          expiryDate: itemData.expiryDate ?? undefined,
+          createdAt: itemData.createdAt,
+          updatedAt: itemData.updatedAt,
+          deletedAt: itemData.deletedAt ?? undefined,
+        },
+        new EntityID(itemData.id),
+      ),
     );
   }
 

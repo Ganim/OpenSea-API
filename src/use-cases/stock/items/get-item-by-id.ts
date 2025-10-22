@@ -15,6 +15,7 @@ interface GetItemByIdUseCaseResponse {
     status: string;
     variantId: string;
     locationId: string;
+    entryDate: Date;
     batchNumber: string | null;
     manufacturingDate: Date | null;
     expiryDate: Date | null;
@@ -47,6 +48,7 @@ export class GetItemByIdUseCase {
         status: item.status.value,
         variantId: item.variantId.toString(),
         locationId: item.locationId.toString(),
+        entryDate: item.entryDate,
         batchNumber: item.batchNumber ?? null,
         manufacturingDate: item.manufacturingDate ?? null,
         expiryDate: item.expiryDate ?? null,

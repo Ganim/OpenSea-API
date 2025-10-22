@@ -19,6 +19,7 @@ interface ListItemsUseCaseResponse {
     status: string;
     variantId: string;
     locationId: string;
+    entryDate: Date;
     batchNumber: string | null;
     manufacturingDate: Date | null;
     expiryDate: Date | null;
@@ -60,8 +61,8 @@ export class ListItemsUseCase {
     } else if (input.batchNumber) {
       items = await this.itemsRepository.findManyByBatch(input.batchNumber);
     } else {
-      // If no filters, return empty array (or you could fetch all, but that's not ideal)
-      items = [];
+      // If no filters, return all items
+      items = await this.itemsRepository.findAll();
     }
 
     return {
@@ -73,6 +74,7 @@ export class ListItemsUseCase {
         status: item.status.value,
         variantId: item.variantId.toString(),
         locationId: item.locationId.toString(),
+        entryDate: item.entryDate,
         batchNumber: item.batchNumber ?? null,
         manufacturingDate: item.manufacturingDate ?? null,
         expiryDate: item.expiryDate ?? null,

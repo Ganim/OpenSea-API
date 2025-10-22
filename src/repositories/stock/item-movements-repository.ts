@@ -27,6 +27,7 @@ export interface UpdateItemMovementSchema {
 export interface ItemMovementsRepository {
   create(data: CreateItemMovementSchema): Promise<ItemMovement>;
   findById(id: UniqueEntityID): Promise<ItemMovement | null>;
+  findAll(): Promise<ItemMovement[]>;
   findManyByItem(itemId: UniqueEntityID): Promise<ItemMovement[]>;
   findManyByUser(userId: UniqueEntityID): Promise<ItemMovement[]>;
   findManyByType(movementType: MovementType): Promise<ItemMovement[]>;

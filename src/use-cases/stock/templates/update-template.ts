@@ -18,6 +18,8 @@ interface UpdateTemplateUseCaseResponse {
     productAttributes: Record<string, unknown>;
     variantAttributes: Record<string, unknown>;
     itemAttributes: Record<string, unknown>;
+    createdAt: Date;
+    updatedAt: Date;
   };
 }
 
@@ -97,6 +99,8 @@ export class UpdateTemplateUseCase {
         productAttributes: updatedTemplate.productAttributes,
         variantAttributes: updatedTemplate.variantAttributes,
         itemAttributes: updatedTemplate.itemAttributes,
+        createdAt: updatedTemplate.createdAt,
+        updatedAt: updatedTemplate.updatedAt ?? updatedTemplate.createdAt,
       },
     };
   }

@@ -6,9 +6,9 @@ import { prisma } from '@/lib/prisma';
 import type { MovementType as PrismaMovementType } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-  CreateItemMovementSchema,
-  ItemMovementsRepository,
-  UpdateItemMovementSchema,
+    CreateItemMovementSchema,
+    ItemMovementsRepository,
+    UpdateItemMovementSchema,
 } from '../item-movements-repository';
 
 export class PrismaItemMovementsRepository implements ItemMovementsRepository {
@@ -87,6 +87,39 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
         createdAt: movementData.createdAt,
       },
       new EntityID(movementData.id),
+    );
+  }
+
+  async findAll(): Promise<ItemMovement[]> {
+    const movements = await prisma.itemMovement.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return movements.map((movementData) =>
+      ItemMovement.create(
+        {
+          itemId: new EntityID(movementData.itemId),
+          userId: new EntityID(movementData.userId),
+          quantity: movementData.quantity.toNumber(),
+          quantityBefore: movementData.quantityBefore?.toNumber(),
+          quantityAfter: movementData.quantityAfter?.toNumber(),
+          movementType: MovementType.create(movementData.movementType),
+          reasonCode: movementData.reasonCode ?? undefined,
+          destinationRef: movementData.destinationRef ?? undefined,
+          batchNumber: movementData.batchNumber ?? undefined,
+          notes: movementData.notes ?? undefined,
+          approvedBy: movementData.approvedBy
+            ? new EntityID(movementData.approvedBy)
+            : undefined,
+          salesOrderId: movementData.salesOrderId
+            ? new EntityID(movementData.salesOrderId)
+            : undefined,
+          createdAt: movementData.createdAt,
+        },
+        new EntityID(movementData.id),
+      ),
     );
   }
 

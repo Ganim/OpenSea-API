@@ -71,8 +71,8 @@ export class ListItemMovementsUseCase {
         input.batchNumber,
       );
     } else {
-      // If no filters provided, return empty array
-      movements = [];
+      // If no filters provided, return all movements
+      movements = await this.itemMovementsRepository.findAll();
     }
 
     return {
