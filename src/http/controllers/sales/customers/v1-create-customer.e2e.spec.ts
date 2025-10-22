@@ -1,0 +1,119 @@
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+
+describe('Create Customer (E2E)', () => {
+  let userToken: string;
+
+  beforeAll(async () => {
+    await app.ready();
+
+    const { token } = await createAndAuthenticateUser(app, 'USER');
+    userToken = token;
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should be able to create a customer with all fields', async () => {
+    const timestamp = Date.now();
+
+    const response = await request(app.server)
+      .post('/v1/customers')
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({
+        name: `Customer ${timestamp}`,
+        type: 'INDIVIDUAL',
+        document: '12345678909', // Valid CPF
+        email: `customer${timestamp}@example.com`,
+        phone: '(11) 98765-4321',
+        address: '123 Main Street',
+        city: 'São Paulo',
+        state: 'SP',
+        zipCode: '01234-567',
+        country: 'Brazil',
+        notes: 'Test customer',
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body).toMatchObject({
+      customer: {
+        id: expect.any(String),
+        name: `Customer ${timestamp}`,
+        type: 'INDIVIDUAL',
+        document: '12345678909',
+        email: `customer${timestamp}@example.com`,
+        phone: '(11) 98765-4321',
+        address: '123 Main Street',
+        city: 'São Paulo',
+        state: 'SP',
+        zipCode: '01234-567',
+        country: 'Brazil',
+        notes: 'Test customer',
+        isActive: true,
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+      },
+    });
+  });
+
+  it('should be able to create a customer with minimal data', async () => {
+    const timestamp = Date.now();
+
+    const response = await request(app.server)
+      .post('/v1/customers')
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({
+        name: `Minimal Customer ${timestamp}`,
+        type: 'BUSINESS',
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body).toMatchObject({
+      customer: {
+        id: expect.any(String),
+        name: `Minimal Customer ${timestamp}`,
+        type: 'BUSINESS',
+        document: null,
+        email: null,
+        phone: null,
+        address: null,
+        city: null,
+        state: null,
+        zipCode: null,
+        country: null,
+        notes: null,
+        isActive: true,
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+      },
+    });
+  });
+
+  it('should not be able to create a customer without authentication', async () => {
+    const timestamp = Date.now();
+
+    const response = await request(app.server)
+      .post('/v1/customers')
+      .send({
+        name: `Unauthenticated Customer ${timestamp}`,
+        type: 'INDIVIDUAL',
+      });
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should not be able to create a customer without name', async () => {
+    const response = await request(app.server)
+      .post('/v1/customers')
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({
+        type: 'INDIVIDUAL',
+      });
+
+    expect(response.status).toBe(400);
+  });
+});

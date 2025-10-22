@@ -17,6 +17,7 @@ import { meRoutes } from './http/controllers/core/me/routes';
 import { sessionsRoutes } from './http/controllers/core/sessions/routes';
 import { usersRoutes } from './http/controllers/core/users/routes';
 import { healthRoutes } from './http/controllers/health/routes';
+import { customersRoutes } from './http/controllers/sales/customers/routes';
 import { categoriesRoutes } from './http/controllers/stock/categories/routes';
 import { itemMovementsRoutes } from './http/controllers/stock/item-movements/routes';
 import { itemsRoutes } from './http/controllers/stock/items/routes';
@@ -143,6 +144,8 @@ app.after(() => {
   app.register(itemsRoutes);
   app.register(itemMovementsRoutes);
   app.register(purchaseOrdersRoutes);
+  // Sales routes
+  app.register(customersRoutes);
 });
 
 // Swagger UI
