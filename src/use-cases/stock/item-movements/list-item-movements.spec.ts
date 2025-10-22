@@ -232,7 +232,7 @@ describe('ListItemMovementsUseCase', () => {
     expect(result.movements[0].approvedBy).toBeNull();
   });
 
-  it('should return empty array when no filters provided', async () => {
+  it('should return all movements when no filters provided', async () => {
     const itemId = new UniqueEntityID();
     const userId = new UniqueEntityID();
 
@@ -243,8 +243,15 @@ describe('ListItemMovementsUseCase', () => {
       movementType: MovementType.create('PRODUCTION'),
     });
 
+    await itemMovementsRepository.create({
+      itemId,
+      userId,
+      quantity: 5,
+      movementType: MovementType.create('SALE'),
+    });
+
     const result = await listItemMovements.execute({});
 
-    expect(result.movements).toHaveLength(0);
+    expect(result.movements).toHaveLength(2);
   });
 });

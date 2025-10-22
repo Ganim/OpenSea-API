@@ -68,6 +68,10 @@ export class InMemoryItemMovementsRepository
     return this.items.filter((movement) => !movement.approvedBy);
   }
 
+  async findAll(): Promise<ItemMovement[]> {
+    return this.items;
+  }
+
   async update(data: UpdateItemMovementSchema): Promise<ItemMovement | null> {
     const movement = await this.findById(data.id);
     if (!movement) return null;

@@ -82,6 +82,10 @@ export class InMemoryItemsRepository implements ItemsRepository {
     return this.items.filter((item) => !item.deletedAt && item.isExpired);
   }
 
+  async findAll(): Promise<Item[]> {
+    return this.items.filter((item) => !item.deletedAt);
+  }
+
   async update(data: UpdateItemSchema): Promise<Item | null> {
     const item = await this.findById(data.id);
     if (!item) return null;

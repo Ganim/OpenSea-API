@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import { InMemoryItemMovementsRepository } from '@/repositories/stock/in-memory/in-memory-item-movements-repository';
 import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
 import { InMemoryLocationsRepository } from '@/repositories/stock/in-memory/in-memory-locations-repository';
@@ -179,9 +180,30 @@ describe('ListItemsUseCase', () => {
     expect(result.items[0].uniqueCode).toBe('ITEM-003');
   });
 
-  it('should return empty array when no filters provided', async () => {
+  it('should return all items when no filters provided', async () => {
+    const variantId = new UniqueEntityID();
+    const locationId = new UniqueEntityID();
+
+    await itemsRepository.create({
+      uniqueCode: 'ITEM-001',
+      variantId,
+      locationId,
+      initialQuantity: 100,
+      currentQuantity: 100,
+      status: ItemStatus.create('AVAILABLE'),
+    });
+
+    await itemsRepository.create({
+      uniqueCode: 'ITEM-002',
+      variantId,
+      locationId,
+      initialQuantity: 50,
+      currentQuantity: 50,
+      status: ItemStatus.create('AVAILABLE'),
+    });
+
     const result = await listItems.execute({});
 
-    expect(result.items).toHaveLength(0);
+    expect(result.items).toHaveLength(2);
   });
 });
