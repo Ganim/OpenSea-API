@@ -53,7 +53,7 @@ describe('Create Sales Order', () => {
       ],
     });
 
-    expect(result.order).toEqual(
+    expect(result.salesOrder).toEqual(
       expect.objectContaining({
         orderNumber: 'SO-2024-001',
         status: 'PENDING',
@@ -63,8 +63,8 @@ describe('Create Sales Order', () => {
         finalPrice: 240,
       }),
     );
-    expect(result.order.items).toHaveLength(2);
-    expect(result.order.items[0]).toEqual(
+    expect(result.salesOrder.items).toHaveLength(2);
+    expect(result.salesOrder.items[0]).toEqual(
       expect.objectContaining({
         quantity: 2,
         unitPrice: 100,
@@ -72,7 +72,7 @@ describe('Create Sales Order', () => {
         totalPrice: 200,
       }),
     );
-    expect(result.order.items[1]).toEqual(
+    expect(result.salesOrder.items[1]).toEqual(
       expect.objectContaining({
         quantity: 1,
         unitPrice: 50,
@@ -102,9 +102,9 @@ describe('Create Sales Order', () => {
       ],
     });
 
-    expect(result.order.totalPrice).toBe(200);
-    expect(result.order.discount).toBe(50);
-    expect(result.order.finalPrice).toBe(150);
+    expect(result.salesOrder.totalPrice).toBe(200);
+    expect(result.salesOrder.discount).toBe(50);
+    expect(result.salesOrder.finalPrice).toBe(150);
   });
 
   it('should be able to create a sales order with status DRAFT', async () => {
@@ -127,7 +127,7 @@ describe('Create Sales Order', () => {
       ],
     });
 
-    expect(result.order.status).toBe('DRAFT');
+    expect(result.salesOrder.status).toBe('DRAFT');
   });
 
   it('should be able to create a sales order with notes', async () => {
@@ -151,8 +151,8 @@ describe('Create Sales Order', () => {
       ],
     });
 
-    expect(result.order.notes).toBe('Important order');
-    expect(result.order.items[0].notes).toBe('Item note');
+    expect(result.salesOrder.notes).toBe('Important order');
+    expect(result.salesOrder.items[0].notes).toBe('Item note');
   });
 
   it('should not be able to create a sales order without order number', async () => {

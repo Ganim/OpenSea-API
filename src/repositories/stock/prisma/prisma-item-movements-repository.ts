@@ -6,9 +6,9 @@ import { prisma } from '@/lib/prisma';
 import type { MovementType as PrismaMovementType } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-    CreateItemMovementSchema,
-    ItemMovementsRepository,
-    UpdateItemMovementSchema,
+  CreateItemMovementSchema,
+  ItemMovementsRepository,
+  UpdateItemMovementSchema,
 } from '../item-movements-repository';
 
 export class PrismaItemMovementsRepository implements ItemMovementsRepository {

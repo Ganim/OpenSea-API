@@ -62,13 +62,8 @@ export class ListSalesOrdersUseCase {
         999999,
       );
     } else {
-      allOrders = await this.salesOrdersRepository.findManyByCustomer(
-        new UniqueEntityID(''),
-        1,
-        999999,
-      );
-      // Return all orders by getting all in the repository
-      allOrders = [];
+      // Return all orders without filters
+      allOrders = await this.salesOrdersRepository.findMany(1, 999999);
     }
 
     const total = allOrders.length;

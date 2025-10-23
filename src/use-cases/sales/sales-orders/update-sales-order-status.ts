@@ -17,7 +17,7 @@ interface UpdateSalesOrderStatusUseCaseRequest {
 }
 
 interface UpdateSalesOrderStatusUseCaseResponse {
-  order: {
+  salesOrder: {
     id: string;
     orderNumber: string;
     status: string;
@@ -74,7 +74,7 @@ export class UpdateSalesOrderStatusUseCase {
     await this.salesOrdersRepository.save(order);
 
     return {
-      order: {
+      salesOrder: {
         id: order.id.toString(),
         orderNumber: order.orderNumber,
         status: order.status.value,

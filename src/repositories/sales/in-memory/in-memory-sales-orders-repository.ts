@@ -65,6 +65,13 @@ export class InMemorySalesOrdersRepository implements SalesOrdersRepository {
       .slice(start, start + perPage);
   }
 
+  async findMany(page: number, perPage: number): Promise<SalesOrder[]> {
+    const start = (page - 1) * perPage;
+    return this.items
+      .filter((item) => !item.deletedAt)
+      .slice(start, start + perPage);
+  }
+
   async findManyByCustomer(
     customerId: UniqueEntityID,
     page: number,

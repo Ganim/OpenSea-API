@@ -28,14 +28,14 @@ describe('Get Sales Order By Id', () => {
       id: order.id.toString(),
     });
 
-    expect(result.order).toEqual(
+    expect(result.salesOrder).toEqual(
       expect.objectContaining({
         id: order.id.toString(),
         orderNumber: 'SO-2024-001',
         status: 'PENDING',
       }),
     );
-    expect(result.order.items).toHaveLength(2);
+    expect(result.salesOrder.items).toHaveLength(2);
   });
 
   it('should not be able to get a non-existing sales order', async () => {

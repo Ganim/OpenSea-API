@@ -6,9 +6,9 @@ import { prisma } from '@/lib/prisma';
 import type { ItemStatus as PrismaItemStatus } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-    CreateItemSchema,
-    ItemsRepository,
-    UpdateItemSchema,
+  CreateItemSchema,
+  ItemsRepository,
+  UpdateItemSchema,
 } from '../items-repository';
 
 export class PrismaItemsRepository implements ItemsRepository {

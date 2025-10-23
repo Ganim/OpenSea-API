@@ -29,6 +29,7 @@ export interface SalesOrdersRepository {
   create(data: CreateSalesOrderSchema): Promise<SalesOrder>;
   findById(id: UniqueEntityID): Promise<SalesOrder | null>;
   findByOrderNumber(orderNumber: string): Promise<SalesOrder | null>;
+  findMany(page: number, perPage: number): Promise<SalesOrder[]>;
   findManyByCustomer(
     customerId: UniqueEntityID,
     page: number,

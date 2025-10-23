@@ -27,7 +27,7 @@ describe('Update Sales Order Status', () => {
       status: 'CONFIRMED',
     });
 
-    expect(result.order.status).toBe('CONFIRMED');
+    expect(result.salesOrder.status).toBe('CONFIRMED');
   });
 
   it('should be able to update status from CONFIRMED to IN_TRANSIT', async () => {
@@ -42,7 +42,7 @@ describe('Update Sales Order Status', () => {
       status: 'IN_TRANSIT',
     });
 
-    expect(result.order.status).toBe('IN_TRANSIT');
+    expect(result.salesOrder.status).toBe('IN_TRANSIT');
   });
 
   it('should be able to update status from IN_TRANSIT to DELIVERED', async () => {
@@ -57,7 +57,7 @@ describe('Update Sales Order Status', () => {
       status: 'DELIVERED',
     });
 
-    expect(result.order.status).toBe('DELIVERED');
+    expect(result.salesOrder.status).toBe('DELIVERED');
   });
 
   it('should be able to update status from DRAFT to PENDING', async () => {
@@ -72,7 +72,7 @@ describe('Update Sales Order Status', () => {
       status: 'PENDING',
     });
 
-    expect(result.order.status).toBe('PENDING');
+    expect(result.salesOrder.status).toBe('PENDING');
   });
 
   it('should not be able to update status of non-existing order', async () => {

@@ -25,7 +25,7 @@ interface CreateSalesOrderUseCaseRequest {
 }
 
 interface CreateSalesOrderUseCaseResponse {
-  order: {
+  salesOrder: {
     id: string;
     orderNumber: string;
     status: string;
@@ -45,6 +45,7 @@ interface CreateSalesOrderUseCaseResponse {
       notes: string | null;
     }>;
     createdAt: Date;
+    updatedAt: Date;
   };
 }
 
@@ -160,7 +161,7 @@ export class CreateSalesOrderUseCase {
     });
 
     return {
-      order: {
+      salesOrder: {
         id: order.id.toString(),
         orderNumber: order.orderNumber,
         status: order.status.value,
@@ -180,6 +181,7 @@ export class CreateSalesOrderUseCase {
           notes: item.notes ?? null,
         })),
         createdAt: order.createdAt,
+        updatedAt: order.updatedAt ?? order.createdAt,
       },
     };
   }

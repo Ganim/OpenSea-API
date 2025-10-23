@@ -7,7 +7,7 @@ interface GetSalesOrderByIdUseCaseRequest {
 }
 
 interface GetSalesOrderByIdUseCaseResponse {
-  order: {
+  salesOrder: {
     id: string;
     orderNumber: string;
     status: string;
@@ -46,7 +46,7 @@ export class GetSalesOrderByIdUseCase {
     }
 
     return {
-      order: {
+      salesOrder: {
         id: order.id.toString(),
         orderNumber: order.orderNumber,
         status: order.status.value,

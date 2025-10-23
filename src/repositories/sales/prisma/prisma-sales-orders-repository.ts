@@ -95,6 +95,22 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
     return this.mapToDomain(orderData);
   }
 
+  async findMany(page: number, perPage: number): Promise<SalesOrder[]> {
+    const ordersData = await prisma.salesOrder.findMany({
+      where: {
+        deletedAt: null,
+      },
+      include: {
+        items: true,
+      },
+      skip: (page - 1) * perPage,
+      take: perPage,
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return ordersData.map((order) => this.mapToDomain(order));
+  }
+
   async findManyByCustomer(
     customerId: UniqueEntityID,
     page: number,

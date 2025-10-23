@@ -3,9 +3,9 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Category } from '@/entities/stock/category';
 import { prisma } from '@/lib/prisma';
 import type {
-    CategoriesRepository,
-    CreateCategorySchema,
-    UpdateCategorySchema,
+  CategoriesRepository,
+  CreateCategorySchema,
+  UpdateCategorySchema,
 } from '../categories-repository';
 
 export class PrismaCategoriesRepository implements CategoriesRepository {
