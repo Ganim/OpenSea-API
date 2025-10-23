@@ -1,6 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Comment } from '@/entities/sales/comment';
 import { EntityType } from '@/entities/sales/value-objects/entity-type';
+import {
+  commentToDTO,
+  type CommentDTO,
+} from '@/mappers/sales/comment/comment-to-dto';
 import type { CommentsRepository } from '@/repositories/sales/comments-repository';
 
 interface ListCommentsUseCaseRequest {
@@ -10,7 +14,7 @@ interface ListCommentsUseCaseRequest {
 }
 
 interface ListCommentsUseCaseResponse {
-  comments: Comment[];
+  comments: CommentDTO[];
 }
 
 export class ListCommentsUseCase {
@@ -37,6 +41,6 @@ export class ListCommentsUseCase {
       comments = [];
     }
 
-    return { comments };
+    return { comments: comments.map(commentToDTO) };
   }
 }

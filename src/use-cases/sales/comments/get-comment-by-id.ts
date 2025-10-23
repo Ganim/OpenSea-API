@@ -1,6 +1,9 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Comment } from '@/entities/sales/comment';
+import {
+  commentToDTO,
+  type CommentDTO,
+} from '@/mappers/sales/comment/comment-to-dto';
 import type { CommentsRepository } from '@/repositories/sales/comments-repository';
 
 interface GetCommentByIdUseCaseRequest {
@@ -8,7 +11,7 @@ interface GetCommentByIdUseCaseRequest {
 }
 
 interface GetCommentByIdUseCaseResponse {
-  comment: Comment;
+  comment: CommentDTO;
 }
 
 export class GetCommentByIdUseCase {
@@ -27,6 +30,6 @@ export class GetCommentByIdUseCase {
       throw new ResourceNotFoundError('Comment not found');
     }
 
-    return { comment };
+    return { comment: commentToDTO(comment) };
   }
 }

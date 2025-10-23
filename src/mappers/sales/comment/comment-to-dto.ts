@@ -6,6 +6,7 @@ export interface CommentDTO {
   entityId: string;
   userId: string;
   content: string;
+  parentCommentId?: string;
   isDeleted: boolean;
   isEdited: boolean;
   createdAt: Date;
@@ -20,6 +21,7 @@ export function commentToDTO(comment: Comment): CommentDTO {
     entityId: comment.entityId.toString(),
     userId: comment.userId.toString(),
     content: comment.content,
+    parentCommentId: comment.parentCommentId?.toString(),
     isDeleted: comment.isDeleted,
     isEdited: comment.isEdited,
     createdAt: comment.createdAt,

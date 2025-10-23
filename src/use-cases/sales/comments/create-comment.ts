@@ -1,8 +1,11 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Comment } from '@/entities/sales/comment';
 import { EntityType } from '@/entities/sales/value-objects/entity-type';
+import {
+  commentToDTO,
+  type CommentDTO,
+} from '@/mappers/sales/comment/comment-to-dto';
 import type { CommentsRepository } from '@/repositories/sales/comments-repository';
 
 interface CreateCommentUseCaseRequest {
@@ -14,7 +17,7 @@ interface CreateCommentUseCaseRequest {
 }
 
 interface CreateCommentUseCaseResponse {
-  comment: Comment;
+  comment: CommentDTO;
 }
 
 export class CreateCommentUseCase {
@@ -78,6 +81,6 @@ export class CreateCommentUseCase {
       parentCommentId: parentCommentIdEntity,
     });
 
-    return { comment };
+    return { comment: commentToDTO(comment) };
   }
 }

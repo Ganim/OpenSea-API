@@ -2,7 +2,10 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Comment } from '@/entities/sales/comment';
+import {
+  commentToDTO,
+  type CommentDTO,
+} from '@/mappers/sales/comment/comment-to-dto';
 import type { CommentsRepository } from '@/repositories/sales/comments-repository';
 
 interface UpdateCommentUseCaseRequest {
@@ -12,7 +15,7 @@ interface UpdateCommentUseCaseRequest {
 }
 
 interface UpdateCommentUseCaseResponse {
-  comment: Comment;
+  comment: CommentDTO;
 }
 
 export class UpdateCommentUseCase {
@@ -50,6 +53,6 @@ export class UpdateCommentUseCase {
     comment.content = content.trim();
     await this.commentsRepository.save(comment);
 
-    return { comment };
+    return { comment: commentToDTO(comment) };
   }
 }
