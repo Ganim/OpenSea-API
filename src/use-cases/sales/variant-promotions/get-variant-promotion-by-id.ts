@@ -1,6 +1,9 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { VariantPromotion } from '@/entities/sales/variant-promotion';
+import {
+  variantPromotionToDTO,
+  type VariantPromotionDTO,
+} from '@/mappers/sales/variant-promotion/variant-promotion-to-dto';
 import { VariantPromotionsRepository } from '@/repositories/sales/variant-promotions-repository';
 
 interface GetVariantPromotionByIdRequest {
@@ -8,7 +11,7 @@ interface GetVariantPromotionByIdRequest {
 }
 
 interface GetVariantPromotionByIdResponse {
-  promotion: VariantPromotion;
+  promotion: VariantPromotionDTO;
 }
 
 export class GetVariantPromotionByIdUseCase {
@@ -29,6 +32,6 @@ export class GetVariantPromotionByIdUseCase {
       throw new ResourceNotFoundError('Promotion not found');
     }
 
-    return { promotion };
+    return { promotion: variantPromotionToDTO(promotion) };
   }
 }

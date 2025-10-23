@@ -2,7 +2,10 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { DiscountType } from '@/entities/sales/value-objects/discount-type';
-import { VariantPromotion } from '@/entities/sales/variant-promotion';
+import {
+  variantPromotionToDTO,
+  type VariantPromotionDTO,
+} from '@/mappers/sales/variant-promotion/variant-promotion-to-dto';
 import { VariantPromotionsRepository } from '@/repositories/sales/variant-promotions-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
 
@@ -18,7 +21,7 @@ interface CreateVariantPromotionRequest {
 }
 
 interface CreateVariantPromotionResponse {
-  promotion: VariantPromotion;
+  promotion: VariantPromotionDTO;
 }
 
 export class CreateVariantPromotionUseCase {
@@ -90,6 +93,6 @@ export class CreateVariantPromotionUseCase {
       notes: notes?.trim() || undefined,
     });
 
-    return { promotion };
+    return { promotion: variantPromotionToDTO(promotion) };
   }
 }

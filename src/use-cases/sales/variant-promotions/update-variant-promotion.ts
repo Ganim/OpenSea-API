@@ -1,7 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { VariantPromotion } from '@/entities/sales/variant-promotion';
+import {
+  variantPromotionToDTO,
+  type VariantPromotionDTO,
+} from '@/mappers/sales/variant-promotion/variant-promotion-to-dto';
 import { VariantPromotionsRepository } from '@/repositories/sales/variant-promotions-repository';
 
 interface UpdateVariantPromotionRequest {
@@ -15,7 +18,7 @@ interface UpdateVariantPromotionRequest {
 }
 
 interface UpdateVariantPromotionResponse {
-  promotion: VariantPromotion;
+  promotion: VariantPromotionDTO;
 }
 
 export class UpdateVariantPromotionUseCase {
@@ -80,6 +83,6 @@ export class UpdateVariantPromotionUseCase {
 
     await this.variantPromotionsRepository.save(promotion);
 
-    return { promotion };
+    return { promotion: variantPromotionToDTO(promotion) };
   }
 }

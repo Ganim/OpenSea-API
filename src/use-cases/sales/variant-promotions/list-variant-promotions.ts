@@ -1,5 +1,8 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { VariantPromotion } from '@/entities/sales/variant-promotion';
+import {
+  variantPromotionToDTO,
+  type VariantPromotionDTO,
+} from '@/mappers/sales/variant-promotion/variant-promotion-to-dto';
 import { VariantPromotionsRepository } from '@/repositories/sales/variant-promotions-repository';
 
 interface ListVariantPromotionsRequest {
@@ -8,7 +11,7 @@ interface ListVariantPromotionsRequest {
 }
 
 interface ListVariantPromotionsResponse {
-  promotions: VariantPromotion[];
+  promotions: VariantPromotionDTO[];
 }
 
 export class ListVariantPromotionsUseCase {
@@ -21,7 +24,9 @@ export class ListVariantPromotionsUseCase {
   ): Promise<ListVariantPromotionsResponse> {
     const { variantId, activeOnly } = request;
 
-    let promotions: VariantPromotion[];
+    let promotions: Awaited<
+      ReturnType<VariantPromotionsRepository['findManyActiveByVariant']>
+    >;
 
     if (variantId && activeOnly) {
       promotions =
@@ -38,6 +43,6 @@ export class ListVariantPromotionsUseCase {
       promotions = [];
     }
 
-    return { promotions };
+    return { promotions: promotions.map(variantPromotionToDTO) };
   }
 }
