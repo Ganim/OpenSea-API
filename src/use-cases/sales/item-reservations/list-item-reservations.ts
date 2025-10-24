@@ -1,5 +1,8 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { ItemReservation } from '@/entities/sales/item-reservation';
+import {
+  itemReservationToDTO,
+  type ItemReservationDTO,
+} from '@/mappers/sales/item-reservation/item-reservation-to-dto';
 import { ItemReservationsRepository } from '@/repositories/sales/item-reservations-repository';
 
 interface ListItemReservationsRequest {
@@ -9,7 +12,7 @@ interface ListItemReservationsRequest {
 }
 
 interface ListItemReservationsResponse {
-  reservations: ItemReservation[];
+  reservations: ItemReservationDTO[];
 }
 
 export class ListItemReservationsUseCase {
@@ -20,7 +23,9 @@ export class ListItemReservationsUseCase {
   ): Promise<ListItemReservationsResponse> {
     const { itemId, userId, activeOnly } = request;
 
-    let reservations: ItemReservation[];
+    let reservations: Awaited<
+      ReturnType<ItemReservationsRepository['findManyActive']>
+    >;
 
     if (itemId && activeOnly) {
       reservations = await this.itemReservationsRepository.findManyActive(
@@ -38,6 +43,6 @@ export class ListItemReservationsUseCase {
       reservations = [];
     }
 
-    return { reservations };
+    return { reservations: reservations.map(itemReservationToDTO) };
   }
 }

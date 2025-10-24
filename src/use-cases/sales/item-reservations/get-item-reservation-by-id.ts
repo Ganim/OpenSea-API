@@ -1,6 +1,9 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { ItemReservation } from '@/entities/sales/item-reservation';
+import {
+  itemReservationToDTO,
+  type ItemReservationDTO,
+} from '@/mappers/sales/item-reservation/item-reservation-to-dto';
 import { ItemReservationsRepository } from '@/repositories/sales/item-reservations-repository';
 
 interface GetItemReservationByIdRequest {
@@ -8,7 +11,7 @@ interface GetItemReservationByIdRequest {
 }
 
 interface GetItemReservationByIdResponse {
-  reservation: ItemReservation;
+  reservation: ItemReservationDTO;
 }
 
 export class GetItemReservationByIdUseCase {
@@ -27,6 +30,6 @@ export class GetItemReservationByIdUseCase {
       throw new ResourceNotFoundError('Reservation not found');
     }
 
-    return { reservation };
+    return { reservation: itemReservationToDTO(reservation) };
   }
 }

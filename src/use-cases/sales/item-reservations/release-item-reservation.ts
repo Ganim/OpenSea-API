@@ -1,7 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { ItemReservation } from '@/entities/sales/item-reservation';
+import {
+  itemReservationToDTO,
+  type ItemReservationDTO,
+} from '@/mappers/sales/item-reservation/item-reservation-to-dto';
 import { ItemReservationsRepository } from '@/repositories/sales/item-reservations-repository';
 
 interface ReleaseItemReservationRequest {
@@ -9,7 +12,7 @@ interface ReleaseItemReservationRequest {
 }
 
 interface ReleaseItemReservationResponse {
-  reservation: ItemReservation;
+  reservation: ItemReservationDTO;
 }
 
 export class ReleaseItemReservationUseCase {
@@ -35,6 +38,6 @@ export class ReleaseItemReservationUseCase {
     reservation.release();
     await this.itemReservationsRepository.save(reservation);
 
-    return { reservation };
+    return { reservation: itemReservationToDTO(reservation) };
   }
 }
