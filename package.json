@@ -1,6 +1,6 @@
 {
-  "name": "auth-api",
-  "version": "3.5.0",
+  "name": "opensea-api",
+  "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -16,19 +16,24 @@
     "lint:fix": "eslint --fix"
   },
   "keywords": [
+    "opensea",
+    "inventory",
+    "stock management",
+    "sales",
+    "api",
     "authentication",
     "auth",
     "fastify",
     "prisma",
     "typescript",
     "jwt",
-    "api",
     "security",
-    "user management"
+    "user management",
+    "clean architecture"
   ],
   "author": "Guilherme Ganim",
   "license": "ISC",
-  "description": "Uma aplicação web simplificada para autenticação de usuários. Utiliza tecnologias modernas e princípios de design para garantir Segurança e Eficiência.",
+  "description": "API completa para gestão de estoque e vendas com Clean Architecture, TypeScript e Fastify",
   "dependencies": {
     "@fastify/cookie": "11.0.2",
     "@fastify/cors": "11.1.0",

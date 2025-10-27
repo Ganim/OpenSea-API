@@ -1,3 +1,5 @@
+import { rateLimitConfig } from '@/config/rate-limits';
+import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance } from 'fastify';
 import { getItemByIdController } from './v1-get-item-by-id.controller';
 import { listItemsController } from './v1-list-items.controller';
@@ -6,9 +8,24 @@ import { registerItemExitController } from './v1-register-item-exit.controller';
 import { transferItemController } from './v1-transfer-item.controller';
 
 export async function itemsRoutes(app: FastifyInstance) {
-  app.register(getItemByIdController);
-  app.register(listItemsController);
-  app.register(registerItemEntryController);
-  app.register(registerItemExitController);
-  app.register(transferItemController);
+  // Rotas de consulta com rate limit de query
+  app.register(
+    async (queryApp) => {
+      queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(getItemByIdController);
+      queryApp.register(listItemsController);
+    },
+    { prefix: '' },
+  );
+
+  // Rotas de mutação com rate limit específico
+  app.register(
+    async (mutationApp) => {
+      mutationApp.register(rateLimit, rateLimitConfig.mutation);
+      mutationApp.register(registerItemEntryController);
+      mutationApp.register(registerItemExitController);
+      mutationApp.register(transferItemController);
+    },
+    { prefix: '' },
+  );
 }

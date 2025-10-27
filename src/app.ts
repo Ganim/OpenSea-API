@@ -12,6 +12,7 @@ import {
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { env } from './@env';
 import { errorHandler } from './@errors/error-handler';
+import { rateLimitConfig } from './config/rate-limits';
 import { swaggerTags } from './config/swagger-tags';
 import { registerRoutes } from './http/routes';
 
@@ -23,11 +24,8 @@ app.setSerializerCompiler(serializerCompiler);
 // Error handler
 app.setErrorHandler(errorHandler);
 
-// Rate limit
-app.register(rateLimit, {
-  max: 100,
-  timeWindow: '1 minute',
-});
+// Rate limiting global
+app.register(rateLimit, rateLimitConfig.global);
 
 // CORS - Cross-Origin Resource Sharing
 app.register(cors, {
@@ -40,9 +38,10 @@ app.register(swagger, {
   mode: 'dynamic',
   openapi: {
     info: {
-      title: 'Simple Auth',
-      description: 'A Simple Authentication API Boilerplate to build projects',
-      version: '3.0.0',
+      title: 'OpenSea API',
+      description:
+        'API completa para gestão de estoque e vendas com Clean Architecture',
+      version: '3.5.0',
     },
     components: {
       securitySchemes: {
@@ -62,7 +61,7 @@ app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
   sign: {
     algorithm: 'HS256',
-    expiresIn: '10m',
+    expiresIn: '30m', // 30 minutos - melhor UX mantendo segurança
   },
   verify: {
     algorithms: ['HS256'],
