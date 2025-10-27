@@ -29,7 +29,9 @@ describe('GetCommentByIdUseCase', () => {
       id: comment.id.toString(),
     });
 
-    expect(result.comment).toEqual(comment);
+    expect(result.comment.id).toBe(comment.id.toString());
+    expect(result.comment.content).toBe('Test comment');
+    expect(result.comment.entityType).toBe('CUSTOMER');
   });
 
   it('should not be able to get nonexistent comment', async () => {

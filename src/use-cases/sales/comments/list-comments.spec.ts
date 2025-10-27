@@ -44,8 +44,10 @@ describe('ListCommentsUseCase', () => {
     });
 
     expect(result.comments).toHaveLength(2);
-    expect(result.comments).toContainEqual(comment1);
-    expect(result.comments).toContainEqual(comment2);
+    expect(result.comments[0].id).toBe(comment1.id.toString());
+    expect(result.comments[1].id).toBe(comment2.id.toString());
+    expect(result.comments[0].content).toBe('Comment 1');
+    expect(result.comments[1].content).toBe('Comment 2');
   });
 
   it('should be able to list comments by author', async () => {

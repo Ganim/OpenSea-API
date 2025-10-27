@@ -26,8 +26,8 @@ describe('CreateCommentUseCase', () => {
 
     expect(result.comment).toBeDefined();
     expect(result.comment.content).toBe('This is a test comment');
-    expect(result.comment.entityType.value).toBe('CUSTOMER');
-    expect(result.comment.isReply).toBe(false);
+    expect(result.comment.entityType).toBe('CUSTOMER');
+    expect(result.comment.parentCommentId).toBeUndefined();
   });
 
   it('should be able to create a reply comment', async () => {
@@ -48,8 +48,7 @@ describe('CreateCommentUseCase', () => {
       parentCommentId: parentComment.id.toString(),
     });
 
-    expect(result.comment.isReply).toBe(true);
-    expect(result.comment.parentCommentId?.equals(parentComment.id)).toBe(true);
+    expect(result.comment.parentCommentId).toBe(parentComment.id.toString());
   });
 
   it('should not be able to create a comment with empty content', async () => {

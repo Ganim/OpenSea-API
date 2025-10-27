@@ -46,7 +46,7 @@ describe('CreateVariantPromotionUseCase', () => {
 
     expect(result.promotion).toBeDefined();
     expect(result.promotion.name).toBe('Summer Sale');
-    expect(result.promotion.discountType.isPercentage).toBe(true);
+    expect(result.promotion.discountType).toBe('PERCENTAGE');
     expect(result.promotion.discountValue).toBe(20);
     expect(result.promotion.isActive).toBe(true);
     expect(result.promotion.notes).toBe('Limited time offer');
@@ -66,7 +66,7 @@ describe('CreateVariantPromotionUseCase', () => {
     });
 
     expect(result.promotion).toBeDefined();
-    expect(result.promotion.discountType.isFixedAmount).toBe(true);
+    expect(result.promotion.discountType).toBe('FIXED_AMOUNT');
     expect(result.promotion.discountValue).toBe(25);
     expect(result.promotion.isActive).toBe(true); // Default
   });
