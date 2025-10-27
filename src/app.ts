@@ -12,28 +12,8 @@ import {
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { env } from './@env';
 import { errorHandler } from './@errors/error-handler';
-import { authRoutes } from './http/controllers/core/auth/routes';
-import { meRoutes } from './http/controllers/core/me/routes';
-import { sessionsRoutes } from './http/controllers/core/sessions/routes';
-import { usersRoutes } from './http/controllers/core/users/routes';
-import { healthRoutes } from './http/controllers/health/routes';
-import { commentsRoutes } from './http/controllers/sales/comments/routes';
-import { customersRoutes } from './http/controllers/sales/customers/routes';
-import { itemReservationsRoutes } from './http/controllers/sales/item-reservations/routes';
-import { notificationPreferencesRoutes } from './http/controllers/sales/notification-preferences/routes';
-import { salesOrdersRoutes } from './http/controllers/sales/sales-orders/routes';
-import { variantPromotionsRoutes } from './http/controllers/sales/variant-promotions/routes';
-import { categoriesRoutes } from './http/controllers/stock/categories/routes';
-import { itemMovementsRoutes } from './http/controllers/stock/item-movements/routes';
-import { itemsRoutes } from './http/controllers/stock/items/routes';
-import { locationsRoutes } from './http/controllers/stock/locations/routes';
-import { manufacturersRoutes } from './http/controllers/stock/manufacturers/routes';
-import { productsRoutes } from './http/controllers/stock/products/routes';
-import { purchaseOrdersRoutes } from './http/controllers/stock/purchase-orders/routes';
-import { suppliersRoutes } from './http/controllers/stock/suppliers/routes';
-import { tagsRoutes } from './http/controllers/stock/tags/routes';
-import { templatesRoutes } from './http/controllers/stock/templates/routes';
-import { variantsRoutes } from './http/controllers/stock/variants/routes';
+import { swaggerTags } from './config/swagger-tags';
+import { registerRoutes } from './http/routes';
 
 export const app = fastify({ trustProxy: true });
 
@@ -73,41 +53,7 @@ app.register(swagger, {
         },
       },
     },
-    tags: [
-      { name: 'Health', description: 'Health check endpoints' },
-      { name: 'Auth', description: 'Authentication endpoints' },
-      { name: 'Me', description: 'Authenticated user endpoints' },
-      { name: 'Users', description: 'User management endpoints' },
-      { name: 'Sessions', description: 'Session management endpoints' },
-      // Stock Management
-      { name: 'Products', description: 'Product catalog management' },
-      { name: 'Variants', description: 'Product variant management' },
-      { name: 'Categories', description: 'Product category management' },
-      { name: 'Manufacturers', description: 'Manufacturer management' },
-      { name: 'Suppliers', description: 'Supplier management' },
-      { name: 'Locations', description: 'Storage location management' },
-      { name: 'Tags', description: 'Product tag management' },
-      { name: 'Templates', description: 'Product template management' },
-      { name: 'Items', description: 'Inventory item management' },
-      { name: 'Item Movements', description: 'Stock movement tracking' },
-      { name: 'Purchase Orders', description: 'Purchase order management' },
-      // Sales Management
-      { name: 'Customers', description: 'Customer management' },
-      { name: 'Sales Orders', description: 'Sales order management' },
-      { name: 'Comments', description: 'Entity comment management' },
-      {
-        name: 'Variant Promotions',
-        description: 'Product promotion management',
-      },
-      {
-        name: 'Item Reservations',
-        description: 'Inventory reservation management',
-      },
-      {
-        name: 'Notification Preferences',
-        description: 'User notification settings',
-      },
-    ],
+    tags: swaggerTags,
   },
 });
 
@@ -131,31 +77,7 @@ app.register(fastifyCookie);
 
 // Routes
 app.after(() => {
-  // Core routes
-  app.register(healthRoutes);
-  app.register(meRoutes);
-  app.register(authRoutes);
-  app.register(usersRoutes);
-  app.register(sessionsRoutes);
-  // Stock routes
-  app.register(productsRoutes);
-  app.register(variantsRoutes);
-  app.register(categoriesRoutes);
-  app.register(manufacturersRoutes);
-  app.register(suppliersRoutes);
-  app.register(locationsRoutes);
-  app.register(tagsRoutes);
-  app.register(templatesRoutes);
-  app.register(itemsRoutes);
-  app.register(itemMovementsRoutes);
-  app.register(purchaseOrdersRoutes);
-  // Sales routes
-  app.register(customersRoutes);
-  app.register(salesOrdersRoutes);
-  app.register(commentsRoutes);
-  app.register(variantPromotionsRoutes);
-  app.register(itemReservationsRoutes);
-  app.register(notificationPreferencesRoutes);
+  app.register(registerRoutes);
 });
 
 // Swagger UI
