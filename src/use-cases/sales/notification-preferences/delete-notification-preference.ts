@@ -1,6 +1,9 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { NotificationPreference } from '@/entities/sales/notification-preference';
+import {
+  type NotificationPreferenceDTO,
+  notificationPreferenceToDTO,
+} from '@/mappers/sales/notification-preference/notification-preference-to-dto';
 import { NotificationPreferencesRepository } from '@/repositories/sales/notification-preferences-repository';
 
 interface DeleteNotificationPreferenceRequest {
@@ -8,7 +11,7 @@ interface DeleteNotificationPreferenceRequest {
 }
 
 interface DeleteNotificationPreferenceResponse {
-  preference: NotificationPreference;
+  preference: NotificationPreferenceDTO;
 }
 
 export class DeleteNotificationPreferenceUseCase {
@@ -32,6 +35,6 @@ export class DeleteNotificationPreferenceUseCase {
     preference.delete();
     await this.notificationPreferencesRepository.save(preference);
 
-    return { preference };
+    return { preference: notificationPreferenceToDTO(preference) };
   }
 }

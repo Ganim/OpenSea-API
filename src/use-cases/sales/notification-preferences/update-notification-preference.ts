@@ -1,6 +1,9 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { NotificationPreference } from '@/entities/sales/notification-preference';
+import {
+  type NotificationPreferenceDTO,
+  notificationPreferenceToDTO,
+} from '@/mappers/sales/notification-preference/notification-preference-to-dto';
 import { NotificationPreferencesRepository } from '@/repositories/sales/notification-preferences-repository';
 
 interface UpdateNotificationPreferenceRequest {
@@ -9,7 +12,7 @@ interface UpdateNotificationPreferenceRequest {
 }
 
 interface UpdateNotificationPreferenceResponse {
-  preference: NotificationPreference;
+  preference: NotificationPreferenceDTO;
 }
 
 export class UpdateNotificationPreferenceUseCase {
@@ -37,6 +40,6 @@ export class UpdateNotificationPreferenceUseCase {
 
     await this.notificationPreferencesRepository.save(preference);
 
-    return { preference };
+    return { preference: notificationPreferenceToDTO(preference) };
   }
 }

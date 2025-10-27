@@ -3,8 +3,11 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   type AlertTypeValue,
   type NotificationChannelValue,
-  NotificationPreference,
 } from '@/entities/sales/notification-preference';
+import {
+  type NotificationPreferenceDTO,
+  notificationPreferenceToDTO,
+} from '@/mappers/sales/notification-preference/notification-preference-to-dto';
 import { NotificationPreferencesRepository } from '@/repositories/sales/notification-preferences-repository';
 
 interface CreateNotificationPreferenceRequest {
@@ -15,7 +18,7 @@ interface CreateNotificationPreferenceRequest {
 }
 
 interface CreateNotificationPreferenceResponse {
-  preference: NotificationPreference;
+  preference: NotificationPreferenceDTO;
 }
 
 export class CreateNotificationPreferenceUseCase {
@@ -60,6 +63,6 @@ export class CreateNotificationPreferenceUseCase {
       isEnabled,
     });
 
-    return { preference };
+    return { preference: notificationPreferenceToDTO(preference) };
   }
 }

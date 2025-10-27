@@ -1,5 +1,8 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { NotificationPreference } from '@/entities/sales/notification-preference';
+import {
+  type NotificationPreferenceDTO,
+  notificationPreferenceToDTO,
+} from '@/mappers/sales/notification-preference/notification-preference-to-dto';
 import { NotificationPreferencesRepository } from '@/repositories/sales/notification-preferences-repository';
 
 interface ListNotificationPreferencesByUserRequest {
@@ -8,7 +11,7 @@ interface ListNotificationPreferencesByUserRequest {
 }
 
 interface ListNotificationPreferencesByUserResponse {
-  preferences: NotificationPreference[];
+  preferences: NotificationPreferenceDTO[];
 }
 
 export class ListNotificationPreferencesByUserUseCase {
@@ -23,7 +26,9 @@ export class ListNotificationPreferencesByUserUseCase {
 
     const userIdEntity = new UniqueEntityID(userId);
 
-    let preferences: NotificationPreference[];
+    let preferences: Awaited<
+      ReturnType<NotificationPreferencesRepository['findManyByUser']>
+    >;
 
     if (enabledOnly) {
       preferences =
@@ -37,6 +42,6 @@ export class ListNotificationPreferencesByUserUseCase {
         );
     }
 
-    return { preferences };
+    return { preferences: preferences.map(notificationPreferenceToDTO) };
   }
 }
