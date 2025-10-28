@@ -18,7 +18,7 @@ export async function listPurchaseOrdersController(app: FastifyInstance) {
         tags: ['Purchase Orders'],
         security: [{ bearerAuth: [] }],
         querystring: z.object({
-          supplierId: z.string().uuid().optional(),
+          supplierId: z.uuid().optional(),
           status: z
             .enum(['PENDING', 'CONFIRMED', 'DELIVERED', 'CANCELLED'])
             .optional(),

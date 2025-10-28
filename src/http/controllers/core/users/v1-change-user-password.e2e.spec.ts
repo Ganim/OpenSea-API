@@ -1,6 +1,7 @@
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { makeUniqueEmail } from '@/utils/tests/factories/core/make-unique-email';
+import { makeUniqueUsername } from '@/utils/tests/factories/core/make-unique-username';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
@@ -21,6 +22,7 @@ describe('Change User Password (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         email,
+        username: makeUniqueUsername(),
         password: 'Pass@123',
       });
 
@@ -29,7 +31,7 @@ describe('Change User Password (e2e)', () => {
     const response = await request(app.server)
       .patch(`/v1/users/${userId}/password`)
       .set('Authorization', `Bearer ${token}`)
-      .send({ password: 'newpass123' });
+      .send({ password: 'NewPass@123' });
 
     expect(response.statusCode).toBe(200);
   });

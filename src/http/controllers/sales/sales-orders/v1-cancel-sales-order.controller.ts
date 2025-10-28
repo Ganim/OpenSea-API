@@ -6,7 +6,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeCancelSalesOrderUseCase } from '@/use-cases/sales/sales-orders/factories/make-cancel-sales-order-use-case';
 
 const paramsSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
 });
 
 const responseSchema = z.object({

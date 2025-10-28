@@ -1,6 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import {
+  type ManufacturerDTO,
+  manufacturerToDTO,
+} from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 
 interface UpdateManufacturerUseCaseRequest {
@@ -21,24 +25,7 @@ interface UpdateManufacturerUseCaseRequest {
 }
 
 interface UpdateManufacturerUseCaseResponse {
-  manufacturer: {
-    id: string;
-    name: string;
-    country: string;
-    email?: string;
-    phone?: string;
-    website?: string;
-    addressLine1?: string;
-    addressLine2?: string;
-    city?: string;
-    state?: string;
-    postalCode?: string;
-    rating?: number;
-    notes?: string;
-    isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-  };
+  manufacturer: ManufacturerDTO;
 }
 
 export class UpdateManufacturerUseCase {
@@ -149,24 +136,7 @@ export class UpdateManufacturerUseCase {
     }
 
     return {
-      manufacturer: {
-        id: updatedManufacturer.id.toString(),
-        name: updatedManufacturer.name,
-        country: updatedManufacturer.country,
-        email: updatedManufacturer.email ?? undefined,
-        phone: updatedManufacturer.phone ?? undefined,
-        website: updatedManufacturer.website ?? undefined,
-        addressLine1: updatedManufacturer.addressLine1 ?? undefined,
-        addressLine2: updatedManufacturer.addressLine2 ?? undefined,
-        city: updatedManufacturer.city ?? undefined,
-        state: updatedManufacturer.state ?? undefined,
-        postalCode: updatedManufacturer.postalCode ?? undefined,
-        rating: updatedManufacturer.rating ?? undefined,
-        notes: updatedManufacturer.notes ?? undefined,
-        isActive: updatedManufacturer.isActive,
-        createdAt: updatedManufacturer.createdAt,
-        updatedAt: updatedManufacturer.updatedAt,
-      },
+      manufacturer: manufacturerToDTO(updatedManufacturer),
     };
   }
 }

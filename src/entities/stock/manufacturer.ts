@@ -1,6 +1,6 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
-import type { UniqueEntityID } from '../domain/unique-entity-id';
+import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface ManufacturerProps {
   id: UniqueEntityID;
@@ -267,7 +267,7 @@ export class Manufacturer extends Entity<ManufacturerProps> {
     const manufacturer = new Manufacturer(
       {
         ...props,
-        id: props.id ?? id!,
+        id: id ?? new UniqueEntityID(),
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
         deletedAt: props.deletedAt ?? null,

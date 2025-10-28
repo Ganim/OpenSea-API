@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserAdmin } from '@/http/middlewares/verify-user-admin';
+import { strongPasswordSchema, userResponseSchema } from '@/http/schemas';
 import { makeChangeUserPasswordUseCase } from '@/use-cases/core/users/factories/make-change-user-password-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -14,38 +15,18 @@ export async function changeUserPasswordController(app: FastifyInstance) {
     preHandler: [verifyJwt, verifyUserAdmin],
     schema: {
       tags: ['Users'],
-      summary: 'Change user password',
+      summary: 'Change user password (Admin)',
+      description:
+        'Admin endpoint to change user password with strong password requirements',
       params: z.object({
         userId: z.uuid(),
       }),
       body: z.object({
-        password: z.string().min(6),
+        password: strongPasswordSchema,
       }),
       response: {
         200: z.object({
-          user: z.object({
-            id: z.string(),
-            email: z.string(),
-            username: z.string(),
-            role: z.string(),
-            lastLoginAt: z.coerce.date().nullable(),
-            deletedAt: z.coerce.date().nullable().optional(),
-            profile: z
-              .object({
-                id: z.string(),
-                userId: z.string(),
-                name: z.string(),
-                surname: z.string(),
-                birthday: z.coerce.date().optional(),
-                location: z.string(),
-                bio: z.string(),
-                avatarUrl: z.string(),
-                createdAt: z.coerce.date(),
-                updatedAt: z.coerce.date().optional(),
-              })
-              .nullable()
-              .optional(),
-          }),
+          user: userResponseSchema,
         }),
         400: z.object({
           message: z.string(),
@@ -54,7 +35,7 @@ export async function changeUserPasswordController(app: FastifyInstance) {
           message: z.string(),
         }),
       },
-      required: ['userId', 'password'],
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

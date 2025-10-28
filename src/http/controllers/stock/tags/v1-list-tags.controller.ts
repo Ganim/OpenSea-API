@@ -1,36 +1,28 @@
+import { tagResponseSchema } from '@/http/schemas/stock.schema';
 import { makeListTagsUseCase } from '@/use-cases/stock/tags/factories/make-list-tags-use-case';
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const responseSchema = z.object({
-  tags: z.array(
-    z.object({
-      id: z.string().uuid(),
-      name: z.string(),
-      slug: z.string(),
-      color: z.string().nullable(),
-      description: z.string().nullable(),
-      createdAt: z.date(),
-      updatedAt: z.date(),
-    }),
-  ),
-});
+export async function listTagsController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/api/v1/stock/tags',
+    schema: {
+      tags: ['Stock - Tags'],
+      summary: 'List all tags',
+      response: {
+        200: z.object({
+          tags: z.array(tagResponseSchema),
+        }),
+      },
+    },
+    handler: async (request, reply) => {
+      const listTags = makeListTagsUseCase();
 
-export async function v1ListTagsController(
-  _request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const listTagsUseCase = makeListTagsUseCase();
+      const { tags } = await listTags.execute();
 
-  const { tags } = await listTagsUseCase.execute();
-
-  return reply.status(200).send({ tags });
+      return reply.status(200).send({ tags });
+    },
+  });
 }
-
-v1ListTagsController.schema = {
-  summary: 'List all tags',
-  tags: ['Tags'],
-  response: {
-    200: responseSchema,
-  },
-};

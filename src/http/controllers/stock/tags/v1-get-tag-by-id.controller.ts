@@ -1,50 +1,43 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { tagResponseSchema } from '@/http/schemas/stock.schema';
 import { makeGetTagByIdUseCase } from '@/use-cases/stock/tags/factories/make-get-tag-by-id-use-case';
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const paramsSchema = z.object({
-  id: z.string().uuid(),
-});
+export async function getTagByIdController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/api/v1/stock/tags/:id',
+    schema: {
+      tags: ['Stock - Tags'],
+      summary: 'Get a tag by ID',
+      params: z.object({
+        id: z.uuid(),
+      }),
+      response: {
+        200: z.object({
+          tag: tagResponseSchema,
+        }),
+        404: z.object({
+          message: z.string(),
+        }),
+      },
+    },
+    handler: async (request, reply) => {
+      const getTagById = makeGetTagByIdUseCase();
+      const { id } = request.params as { id: string };
 
-const responseSchema = z.object({
-  tag: z.object({
-    id: z.string().uuid(),
-    name: z.string(),
-    slug: z.string(),
-    color: z.string().nullable(),
-    description: z.string().nullable(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
-  }),
-});
+      try {
+        const { tag } = await getTagById.execute({ id });
 
-export async function v1GetTagByIdController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
-
-  const getTagByIdUseCase = makeGetTagByIdUseCase();
-
-  try {
-    const { tag } = await getTagByIdUseCase.execute({ id });
-
-    return reply.status(200).send({ tag });
-  } catch (error) {
-    if (error instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: error.message });
-    }
-
-    throw error;
-  }
+        return reply.status(200).send({ tag });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
 }
-
-v1GetTagByIdController.schema = {
-  summary: 'Get tag by ID',
-  tags: ['Tags'],
-  params: paramsSchema,
-  response: {
-    200: responseSchema,
-  },
-};

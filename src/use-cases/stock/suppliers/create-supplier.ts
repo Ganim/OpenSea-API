@@ -1,5 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { CNPJ } from '@/entities/stock/value-objects/cnpj';
+import {
+  type SupplierDTO,
+  supplierToDTO,
+} from '@/mappers/stock/supplier/supplier-to-dto';
 import type { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 
 interface CreateSupplierUseCaseRequest {
@@ -22,27 +26,7 @@ interface CreateSupplierUseCaseRequest {
 }
 
 interface CreateSupplierUseCaseResponse {
-  supplier: {
-    id: string;
-    name: string;
-    cnpj?: string;
-    taxId?: string;
-    contact?: string;
-    email?: string;
-    phone?: string;
-    website?: string;
-    address?: string;
-    city?: string;
-    state?: string;
-    zipCode?: string;
-    country?: string;
-    paymentTerms?: string;
-    rating?: number;
-    isActive: boolean;
-    notes?: string;
-    createdAt: Date;
-    updatedAt?: Date;
-  };
+  supplier: SupplierDTO;
 }
 
 export class CreateSupplierUseCase {
@@ -126,27 +110,7 @@ export class CreateSupplierUseCase {
     });
 
     return {
-      supplier: {
-        id: createdSupplier.id.toString(),
-        name: createdSupplier.name,
-        cnpj: createdSupplier.cnpj?.unformatted,
-        taxId: createdSupplier.taxId,
-        contact: createdSupplier.contact,
-        email: createdSupplier.email,
-        phone: createdSupplier.phone,
-        website: createdSupplier.website,
-        address: createdSupplier.address,
-        city: createdSupplier.city,
-        state: createdSupplier.state,
-        zipCode: createdSupplier.zipCode,
-        country: createdSupplier.country,
-        paymentTerms: createdSupplier.paymentTerms,
-        rating: createdSupplier.rating,
-        isActive: createdSupplier.isActive,
-        notes: createdSupplier.notes,
-        createdAt: createdSupplier.createdAt,
-        updatedAt: createdSupplier.updatedAt,
-      },
+      supplier: supplierToDTO(createdSupplier),
     };
   }
 }

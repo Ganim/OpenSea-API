@@ -1,4 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
 import { InMemoryPurchaseOrdersRepository } from '@/repositories/stock/in-memory/in-memory-purchase-orders-repository';
 import { makePurchaseOrder } from '@/utils/tests/factories/make-purchase-order';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -21,7 +22,7 @@ describe('GetPurchaseOrderByIdUseCase', () => {
       id: order.id.toString(),
     });
 
-    expect(result.purchaseOrder).toEqual(order);
+    expect(result.purchaseOrder).toEqual(purchaseOrderToDTO(order));
   });
 
   it('should not be able to get a nonexistent purchase order', async () => {

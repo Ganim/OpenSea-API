@@ -1,19 +1,28 @@
+import { templateResponseSchema } from '@/http/schemas/stock.schema';
 import { makeListTemplatesUseCase } from '@/use-cases/stock/templates/factories/make-list-templates-use-case';
-import { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
 
-export async function v1ListTemplatesController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const listTemplatesUseCase = makeListTemplatesUseCase();
+export async function listTemplatesController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/api/v1/stock/templates',
+    schema: {
+      tags: ['Stock - Templates'],
+      summary: 'List all templates',
+      response: {
+        200: z.object({
+          templates: z.array(templateResponseSchema),
+        }),
+      },
+    },
+    handler: async (request, reply) => {
+      const listTemplates = makeListTemplatesUseCase();
 
-  const { templates } = await listTemplatesUseCase.execute();
+      const { templates } = await listTemplates.execute();
 
-  return reply.status(200).send({ templates });
+      return reply.status(200).send({ templates });
+    },
+  });
 }
-
-v1ListTemplatesController.schema = {
-  tags: ['Templates'],
-  summary: 'List all templates',
-  description: 'Retrieves a list of all templates with their attributes',
-};

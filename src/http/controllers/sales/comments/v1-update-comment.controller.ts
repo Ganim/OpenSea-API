@@ -7,7 +7,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeUpdateCommentUseCase } from '@/use-cases/sales/comments/factories/make-update-comment-use-case';
 
 const paramsSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
 });
 
 const bodySchema = z.object({

@@ -1,4 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import {
+  type ManufacturerDTO,
+  manufacturerToDTO,
+} from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 
 interface CreateManufacturerUseCaseRequest {
@@ -17,24 +21,7 @@ interface CreateManufacturerUseCaseRequest {
 }
 
 interface CreateManufacturerUseCaseResponse {
-  manufacturer: {
-    id: string;
-    name: string;
-    country: string;
-    email?: string;
-    phone?: string;
-    website?: string;
-    addressLine1?: string;
-    addressLine2?: string;
-    city?: string;
-    state?: string;
-    postalCode?: string;
-    rating?: number;
-    notes?: string;
-    isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-  };
+  manufacturer: ManufacturerDTO;
 }
 
 export class CreateManufacturerUseCase {
@@ -116,24 +103,7 @@ export class CreateManufacturerUseCase {
     });
 
     return {
-      manufacturer: {
-        id: createdManufacturer.id.toString(),
-        name: createdManufacturer.name,
-        country: createdManufacturer.country,
-        email: createdManufacturer.email ?? undefined,
-        phone: createdManufacturer.phone ?? undefined,
-        website: createdManufacturer.website ?? undefined,
-        addressLine1: createdManufacturer.addressLine1 ?? undefined,
-        addressLine2: createdManufacturer.addressLine2 ?? undefined,
-        city: createdManufacturer.city ?? undefined,
-        state: createdManufacturer.state ?? undefined,
-        postalCode: createdManufacturer.postalCode ?? undefined,
-        rating: createdManufacturer.rating ?? undefined,
-        notes: createdManufacturer.notes ?? undefined,
-        isActive: createdManufacturer.isActive,
-        createdAt: createdManufacturer.createdAt,
-        updatedAt: createdManufacturer.updatedAt,
-      },
+      manufacturer: manufacturerToDTO(createdManufacturer),
     };
   }
 }

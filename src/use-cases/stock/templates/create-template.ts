@@ -1,4 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import type { TemplateDTO } from '@/mappers/stock/template/template-to-dto';
+import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface CreateTemplateUseCaseRequest {
@@ -9,13 +11,7 @@ interface CreateTemplateUseCaseRequest {
 }
 
 interface CreateTemplateUseCaseResponse {
-  template: {
-    id: string;
-    name: string;
-    productAttributes: Record<string, unknown>;
-    variantAttributes: Record<string, unknown>;
-    itemAttributes: Record<string, unknown>;
-  };
+  template: TemplateDTO;
 }
 
 export class CreateTemplateUseCase {
@@ -63,13 +59,7 @@ export class CreateTemplateUseCase {
     });
 
     return {
-      template: {
-        id: createdTemplate.id.toString(),
-        name: createdTemplate.name,
-        productAttributes: createdTemplate.productAttributes,
-        variantAttributes: createdTemplate.variantAttributes,
-        itemAttributes: createdTemplate.itemAttributes,
-      },
+      template: templateToDTO(createdTemplate),
     };
   }
 }

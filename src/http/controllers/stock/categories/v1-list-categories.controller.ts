@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { categoryResponseSchema } from '@/http/schemas';
 import { makeListCategoriesUseCase } from '@/use-cases/stock/categories/factories/make-list-categories-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -14,21 +15,10 @@ export async function listCategoriesController(app: FastifyInstance) {
       summary: 'List all categories',
       response: {
         200: z.object({
-          categories: z.array(
-            z.object({
-              id: z.string().uuid(),
-              name: z.string(),
-              slug: z.string(),
-              description: z.string().nullable().optional(),
-              parentId: z.string().uuid().nullable().optional(),
-              displayOrder: z.number(),
-              isActive: z.boolean(),
-              createdAt: z.coerce.date(),
-              updatedAt: z.coerce.date().optional(),
-            }),
-          ),
+          categories: z.array(categoryResponseSchema),
         }),
       },
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

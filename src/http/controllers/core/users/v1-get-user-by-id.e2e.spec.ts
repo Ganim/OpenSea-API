@@ -1,6 +1,7 @@
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { makeUniqueEmail } from '@/utils/tests/factories/core/make-unique-email';
+import { makeUniqueUsername } from '@/utils/tests/factories/core/make-unique-username';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
@@ -21,6 +22,7 @@ describe('Get User By ID (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         email,
+        username: makeUniqueUsername(),
         password: 'Pass@123',
       });
 

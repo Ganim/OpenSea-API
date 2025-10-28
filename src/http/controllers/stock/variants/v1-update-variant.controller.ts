@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { updateVariantSchema, variantResponseSchema } from '@/http/schemas';
 import { makeUpdateVariantUseCase } from '@/use-cases/stock/variants/factories/make-update-variant-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -16,46 +17,12 @@ export async function updateVariantController(app: FastifyInstance) {
       tags: ['Variants'],
       summary: 'Update a variant',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.uuid(),
       }),
-      body: z.object({
-        sku: z.string().min(1).max(100).optional(),
-        name: z.string().min(1).max(255).optional(),
-        price: z.number().positive().optional(),
-        imageUrl: z.string().url().optional(),
-        attributes: z.record(z.string(), z.unknown()).optional(),
-        costPrice: z.number().positive().optional(),
-        profitMargin: z.number().min(0).max(100).optional(),
-        barcode: z.string().max(50).optional(),
-        qrCode: z.string().max(100).optional(),
-        eanCode: z.string().max(13).optional(),
-        upcCode: z.string().max(12).optional(),
-        minStock: z.number().int().min(0).optional(),
-        maxStock: z.number().int().min(0).optional(),
-        reorderPoint: z.number().int().min(0).optional(),
-        reorderQuantity: z.number().int().min(0).optional(),
-      }),
+      body: updateVariantSchema,
       response: {
         200: z.object({
-          variant: z.object({
-            id: z.string().uuid(),
-            productId: z.string().uuid(),
-            sku: z.string(),
-            name: z.string(),
-            price: z.number(),
-            imageUrl: z.string().optional(),
-            attributes: z.record(z.string(), z.unknown()),
-            costPrice: z.number().optional(),
-            profitMargin: z.number().optional(),
-            barcode: z.string().optional(),
-            qrCode: z.string().optional(),
-            eanCode: z.string().optional(),
-            upcCode: z.string().optional(),
-            minStock: z.number().optional(),
-            maxStock: z.number().optional(),
-            reorderPoint: z.number().optional(),
-            reorderQuantity: z.number().optional(),
-          }),
+          variant: variantResponseSchema,
         }),
         400: z.object({
           message: z.string(),
@@ -64,6 +31,7 @@ export async function updateVariantController(app: FastifyInstance) {
           message: z.string(),
         }),
       },
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

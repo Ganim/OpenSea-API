@@ -19,7 +19,7 @@ export async function getPurchaseOrderByIdController(app: FastifyInstance) {
         tags: ['Purchase Orders'],
         security: [{ bearerAuth: [] }],
         params: z.object({
-          orderId: z.string().uuid(),
+          orderId: z.uuid(),
         }),
         response: {
           200: z.object({

@@ -6,7 +6,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeUpdateCustomerUseCase } from '@/use-cases/sales/customers/factories/make-update-customer-use-case';
 
 const paramsSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
 });
 
 const bodySchema = z.object({

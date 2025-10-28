@@ -1,30 +1,40 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeDeleteTemplateUseCase } from '@/use-cases/stock/templates/factories/make-delete-template-use-case';
-import { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
 
-export async function v1DeleteTemplateController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = request.params as { id: string };
+export async function deleteTemplateController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'DELETE',
+    url: '/api/v1/stock/templates/:id',
+    schema: {
+      tags: ['Stock - Templates'],
+      summary: 'Delete a template',
+      params: z.object({
+        id: z.uuid(),
+      }),
+      response: {
+        204: z.null().describe('Template deleted successfully'),
+        404: z.object({
+          message: z.string(),
+        }),
+      },
+    },
+    handler: async (request, reply) => {
+      const deleteTemplate = makeDeleteTemplateUseCase();
+      const { id } = request.params as { id: string };
 
-  try {
-    const deleteTemplateUseCase = makeDeleteTemplateUseCase();
+      try {
+        await deleteTemplate.execute({ id });
 
-    await deleteTemplateUseCase.execute({ id });
-
-    return reply.status(204).send();
-  } catch (error) {
-    if (error instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: error.message });
-    }
-
-    throw error;
-  }
+        return reply.status(204).send();
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
 }
-
-v1DeleteTemplateController.schema = {
-  tags: ['Templates'],
-  summary: 'Delete a template',
-  description: 'Soft deletes a template by setting its deletedAt timestamp',
-};

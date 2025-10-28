@@ -1,43 +1,48 @@
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import { makeDeleteManufacturerUseCase } from '@/use-cases/stock/manufacturers/factories/make-delete-manufacturer-use-case';
 
-const paramsSchema = z.object({
-  id: z.string().uuid(),
-});
+export async function deleteManufacturerController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'DELETE',
+    url: '/v1/manufacturers/:id',
+    preHandler: [verifyJwt, verifyUserManager],
+    schema: {
+      tags: ['Manufacturers'],
+      summary: 'Delete a manufacturer',
+      params: z.object({
+        id: z.uuid(),
+      }),
+      response: {
+        204: z.void(),
+        404: z.object({
+          message: z.string(),
+        }),
+      },
+      security: [{ bearerAuth: [] }],
+    },
 
-export async function v1DeleteManufacturerController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
+    handler: async (request, reply) => {
+      const { id } = request.params as { id: string };
 
-  try {
-    const useCase = makeDeleteManufacturerUseCase();
+      try {
+        const useCase = makeDeleteManufacturerUseCase();
 
-    await useCase.execute({ id });
+        await useCase.execute({ id });
 
-    return reply.status(204).send();
-  } catch (error) {
-    if (error instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: error.message });
-    }
+        return reply.status(204).send();
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
 
-    throw error;
-  }
+        throw error;
+      }
+    },
+  });
 }
-
-v1DeleteManufacturerController.schema = {
-  tags: ['Manufacturers'],
-  summary: 'Delete a manufacturer',
-  security: [{ bearerAuth: [] }],
-  params: paramsSchema,
-  response: {
-    204: z.void(),
-    404: z.object({
-      message: z.string(),
-    }),
-  },
-};

@@ -3,8 +3,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
 const bodySchema = z.object({
-  itemId: z.string().uuid(),
-  userId: z.string().uuid(),
+  itemId: z.uuid(),
+  userId: z.uuid(),
   quantity: z.number().int().positive(),
   reason: z.string().optional(),
   reference: z.string().optional(),

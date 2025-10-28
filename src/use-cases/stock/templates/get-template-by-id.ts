@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TemplateDTO } from '@/mappers/stock/template/template-to-dto';
+import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface GetTemplateByIdUseCaseRequest {
@@ -7,13 +9,7 @@ interface GetTemplateByIdUseCaseRequest {
 }
 
 interface GetTemplateByIdUseCaseResponse {
-  template: {
-    id: string;
-    name: string;
-    productAttributes: Record<string, unknown>;
-    variantAttributes: Record<string, unknown>;
-    itemAttributes: Record<string, unknown>;
-  };
+  template: TemplateDTO;
 }
 
 export class GetTemplateByIdUseCase {
@@ -33,13 +29,7 @@ export class GetTemplateByIdUseCase {
     }
 
     return {
-      template: {
-        id: template.id.toString(),
-        name: template.name,
-        productAttributes: template.productAttributes,
-        variantAttributes: template.variantAttributes,
-        itemAttributes: template.itemAttributes,
-      },
+      template: templateToDTO(template),
     };
   }
 }

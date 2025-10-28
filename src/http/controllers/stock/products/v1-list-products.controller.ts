@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { productResponseSchema } from '@/http/schemas';
 import { makeListProductsUseCase } from '@/use-cases/stock/products/factories/make-list-products-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -14,22 +15,10 @@ export async function listProductsController(app: FastifyInstance) {
       summary: 'List all products',
       response: {
         200: z.object({
-          products: z.array(
-            z.object({
-              id: z.string().uuid(),
-              name: z.string(),
-              code: z.string(),
-              description: z.string().optional(),
-              status: z.string(),
-              unitOfMeasure: z.string(),
-              attributes: z.record(z.string(), z.unknown()),
-              templateId: z.string().uuid(),
-              supplierId: z.string().uuid().optional(),
-              manufacturerId: z.string().uuid().optional(),
-            }),
-          ),
+          products: z.array(productResponseSchema),
         }),
       },
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (_, reply) => {

@@ -34,7 +34,7 @@ describe('Reset Password By Token (e2e)', () => {
       .post('/v1/auth/reset/password')
       .send({
         token: 'valid-token-from-database',
-        password: 'NewPass@123',
+        newPassword: 'NewPass@123',
       });
 
     expect([200, 400]).toContain(resetResponse.statusCode);
@@ -45,7 +45,7 @@ describe('Reset Password By Token (e2e)', () => {
       .post('/v1/auth/reset/password')
       .send({
         token: 'invalid-token-that-has-16-or-more-characters',
-        password: 'NewPass@123',
+        newPassword: 'NewPass@123',
       });
 
     expect(response.statusCode).toEqual(400);
@@ -57,7 +57,7 @@ describe('Reset Password By Token (e2e)', () => {
       .post('/v1/auth/reset/password')
       .send({
         token: 'expired-token-that-has-16-or-more-characters',
-        password: 'NewPass@123',
+        newPassword: 'NewPass@123',
       });
 
     expect(response.statusCode).toEqual(400);

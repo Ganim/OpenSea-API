@@ -15,7 +15,7 @@ export async function deleteProductController(app: FastifyInstance) {
       tags: ['Products'],
       summary: 'Delete a product',
       params: z.object({
-        productId: z.string().uuid(),
+        productId: z.uuid(),
       }),
       response: {
         204: z.void(),
@@ -23,6 +23,7 @@ export async function deleteProductController(app: FastifyInstance) {
           message: z.string(),
         }),
       },
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

@@ -7,8 +7,8 @@ export interface TemplateDTO {
   variantAttributes: Record<string, unknown>;
   itemAttributes: Record<string, unknown>;
   createdAt: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
+  updatedAt: Date | null;
+  deletedAt: Date | null;
 }
 
 export function templateToDTO(template: Template): TemplateDTO {
@@ -19,7 +19,7 @@ export function templateToDTO(template: Template): TemplateDTO {
     variantAttributes: template.variantAttributes,
     itemAttributes: template.itemAttributes,
     createdAt: template.createdAt,
-    updatedAt: template.updatedAt,
-    deletedAt: template.deletedAt,
+    updatedAt: template.updatedAt ?? null,
+    deletedAt: template.deletedAt ?? null,
   };
 }

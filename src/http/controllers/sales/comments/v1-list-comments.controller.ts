@@ -5,8 +5,8 @@ import { makeListCommentsUseCase } from '@/use-cases/sales/comments/factories/ma
 
 const querySchema = z.object({
   entityType: z.enum(['CUSTOMER', 'PRODUCT', 'SALES_ORDER']).optional(),
-  entityId: z.string().uuid().optional(),
-  authorId: z.string().uuid().optional(),
+  entityId: z.uuid().optional(),
+  authorId: z.uuid().optional(),
 });
 
 const responseSchema = z.object({

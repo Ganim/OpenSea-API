@@ -101,7 +101,7 @@ describe('CreatePurchaseOrderUseCase', () => {
     expect(result.purchaseOrder.orderNumber).toBe('PO-001');
     expect(result.purchaseOrder.items).toHaveLength(1);
     expect(result.purchaseOrder.totalCost).toBe(155); // 10 * 15.5
-    expect(result.purchaseOrder.status.value).toBe('PENDING');
+    expect(result.purchaseOrder.status).toBe('PENDING');
   });
 
   it('should not be able to create a purchase order with empty order number', async () => {

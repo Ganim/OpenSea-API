@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { strongPasswordSchema, userResponseSchema } from '@/http/schemas';
 import { makeChangeMyPasswordUseCase } from '@/use-cases/core/me/factories/make-change-my-password-use-case';
 
 import type { FastifyInstance } from 'fastify';
@@ -15,34 +16,14 @@ export async function changeMyPasswordController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'Change self password by authenticated user',
+      description:
+        'Change own password with strong password requirements (8+ chars, uppercase, lowercase, number, special character)',
       body: z.object({
-        password: z.string().min(6),
+        password: strongPasswordSchema,
       }),
       response: {
         200: z.object({
-          user: z.object({
-            id: z.string(),
-            email: z.string(),
-            username: z.string(),
-            role: z.string(),
-            lastLoginAt: z.coerce.date().nullable(),
-            deletedAt: z.coerce.date().nullable().optional(),
-            profile: z
-              .object({
-                id: z.string(),
-                userId: z.string(),
-                name: z.string(),
-                surname: z.string(),
-                birthday: z.coerce.date().optional(),
-                location: z.string(),
-                bio: z.string(),
-                avatarUrl: z.string(),
-                createdAt: z.coerce.date(),
-                updatedAt: z.coerce.date().optional(),
-              })
-              .nullable()
-              .optional(),
-          }),
+          user: userResponseSchema,
         }),
         400: z.object({
           message: z.string(),
@@ -51,7 +32,7 @@ export async function changeMyPasswordController(app: FastifyInstance) {
           message: z.string(),
         }),
       },
-      required: ['password'],
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

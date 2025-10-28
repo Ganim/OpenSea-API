@@ -3,8 +3,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
 const querySchema = z.object({
-  itemId: z.string().uuid().optional(),
-  userId: z.string().uuid().optional(),
+  itemId: z.uuid().optional(),
+  userId: z.uuid().optional(),
   activeOnly: z.preprocess((val) => {
     if (val === undefined || val === null) return undefined;
     if (val === 'true') return true;

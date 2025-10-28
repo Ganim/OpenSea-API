@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TagDTO } from '@/mappers/stock/tag/tag-to-dto';
+import { tagToDTO } from '@/mappers/stock/tag/tag-to-dto';
 import type { TagsRepository } from '@/repositories/stock/tags-repository';
 
 interface UpdateTagUseCaseRequest {
@@ -12,15 +14,7 @@ interface UpdateTagUseCaseRequest {
 }
 
 interface UpdateTagUseCaseResponse {
-  tag: {
-    id: string;
-    name: string;
-    slug: string;
-    color: string | null;
-    description: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-  };
+  tag: TagDTO;
 }
 
 export class UpdateTagUseCase {
@@ -100,15 +94,7 @@ export class UpdateTagUseCase {
     }
 
     return {
-      tag: {
-        id: updatedTag.tagId.toString(),
-        name: updatedTag.name,
-        slug: updatedTag.slug,
-        color: updatedTag.color,
-        description: updatedTag.description,
-        createdAt: updatedTag.createdAt,
-        updatedAt: updatedTag.updatedAt,
-      },
+      tag: tagToDTO(updatedTag),
     };
   }
 }

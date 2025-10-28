@@ -6,7 +6,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeDeleteCommentUseCase } from '@/use-cases/sales/comments/factories/make-delete-comment-use-case';
 
 const paramsSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
 });
 
 export async function v1DeleteCommentController(

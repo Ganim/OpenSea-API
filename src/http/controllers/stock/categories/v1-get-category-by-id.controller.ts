@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { categoryResponseSchema } from '@/http/schemas';
 import { makeGetCategoryByIdUseCase } from '@/use-cases/stock/categories/factories/make-get-category-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -14,26 +15,17 @@ export async function getCategoryByIdController(app: FastifyInstance) {
       tags: ['Categories'],
       summary: 'Get a category by ID',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.uuid(),
       }),
       response: {
         200: z.object({
-          category: z.object({
-            id: z.string().uuid(),
-            name: z.string(),
-            slug: z.string(),
-            description: z.string().nullable().optional(),
-            parentId: z.string().uuid().nullable().optional(),
-            displayOrder: z.number(),
-            isActive: z.boolean(),
-            createdAt: z.coerce.date(),
-            updatedAt: z.coerce.date().optional(),
-          }),
+          category: categoryResponseSchema,
         }),
         404: z.object({
           message: z.string(),
         }),
       },
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

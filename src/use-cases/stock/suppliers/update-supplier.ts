@@ -2,6 +2,10 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { CNPJ } from '@/entities/stock/value-objects/cnpj';
+import {
+  type SupplierDTO,
+  supplierToDTO,
+} from '@/mappers/stock/supplier/supplier-to-dto';
 import type { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 
 interface UpdateSupplierUseCaseRequest {
@@ -25,27 +29,7 @@ interface UpdateSupplierUseCaseRequest {
 }
 
 interface UpdateSupplierUseCaseResponse {
-  supplier: {
-    id: string;
-    name: string;
-    cnpj?: string;
-    taxId?: string;
-    contact?: string;
-    email?: string;
-    phone?: string;
-    website?: string;
-    address?: string;
-    city?: string;
-    state?: string;
-    zipCode?: string;
-    country?: string;
-    paymentTerms?: string;
-    rating?: number;
-    isActive: boolean;
-    notes?: string;
-    createdAt: Date;
-    updatedAt?: Date;
-  };
+  supplier: SupplierDTO;
 }
 
 export class UpdateSupplierUseCase {
@@ -149,27 +133,7 @@ export class UpdateSupplierUseCase {
     }
 
     return {
-      supplier: {
-        id: updatedSupplier.id.toString(),
-        name: updatedSupplier.name,
-        cnpj: updatedSupplier.cnpj?.unformatted,
-        taxId: updatedSupplier.taxId,
-        contact: updatedSupplier.contact,
-        email: updatedSupplier.email,
-        phone: updatedSupplier.phone,
-        website: updatedSupplier.website,
-        address: updatedSupplier.address,
-        city: updatedSupplier.city,
-        state: updatedSupplier.state,
-        zipCode: updatedSupplier.zipCode,
-        country: updatedSupplier.country,
-        paymentTerms: updatedSupplier.paymentTerms,
-        rating: updatedSupplier.rating,
-        isActive: updatedSupplier.isActive,
-        notes: updatedSupplier.notes,
-        createdAt: updatedSupplier.createdAt,
-        updatedAt: updatedSupplier.updatedAt,
-      },
+      supplier: supplierToDTO(updatedSupplier),
     };
   }
 }

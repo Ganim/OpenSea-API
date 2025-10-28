@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { ProductDTO } from '@/mappers/stock/product/product-to-dto';
+import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 
 interface GetProductByIdUseCaseRequest {
@@ -7,18 +9,7 @@ interface GetProductByIdUseCaseRequest {
 }
 
 interface GetProductByIdUseCaseResponse {
-  product: {
-    id: string;
-    name: string;
-    code: string;
-    description?: string;
-    status: string;
-    unitOfMeasure: string;
-    templateId: string;
-    supplierId?: string;
-    manufacturerId?: string;
-    attributes: Record<string, unknown>;
-  };
+  product: ProductDTO;
 }
 
 export class GetProductByIdUseCase {
@@ -38,18 +29,7 @@ export class GetProductByIdUseCase {
     }
 
     return {
-      product: {
-        id: product.id.toString(),
-        name: product.name,
-        code: product.code,
-        description: product.description,
-        status: product.status.value,
-        unitOfMeasure: product.unitOfMeasure.value,
-        templateId: product.templateId.toString(),
-        supplierId: product.supplierId?.toString(),
-        manufacturerId: product.manufacturerId?.toString(),
-        attributes: product.attributes,
-      },
+      product: productToDTO(product),
     };
   }
 }

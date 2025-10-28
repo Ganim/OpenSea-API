@@ -1,18 +1,11 @@
+import {
+  type SupplierDTO,
+  supplierToDTO,
+} from '@/mappers/stock/supplier/supplier-to-dto';
 import type { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 
 interface ListSuppliersUseCaseResponse {
-  suppliers: Array<{
-    id: string;
-    name: string;
-    cnpj?: string;
-    email?: string;
-    phone?: string;
-    city?: string;
-    state?: string;
-    isActive: boolean;
-    rating?: number;
-    createdAt: Date;
-  }>;
+  suppliers: SupplierDTO[];
 }
 
 export class ListSuppliersUseCase {
@@ -22,18 +15,7 @@ export class ListSuppliersUseCase {
     const suppliers = await this.suppliersRepository.findMany();
 
     return {
-      suppliers: suppliers.map((supplier) => ({
-        id: supplier.id.toString(),
-        name: supplier.name,
-        cnpj: supplier.cnpj?.unformatted,
-        email: supplier.email,
-        phone: supplier.phone,
-        city: supplier.city,
-        state: supplier.state,
-        isActive: supplier.isActive,
-        rating: supplier.rating,
-        createdAt: supplier.createdAt,
-      })),
+      suppliers: suppliers.map(supplierToDTO),
     };
   }
 }

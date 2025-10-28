@@ -3,6 +3,10 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
+import type { ItemMovementDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
+import { itemMovementToDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
+import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
+import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
 import { ItemMovementsRepository } from '@/repositories/stock/item-movements-repository';
 import { ItemsRepository } from '@/repositories/stock/items-repository';
 import { LocationsRepository } from '@/repositories/stock/locations-repository';
@@ -24,29 +28,8 @@ export interface RegisterItemEntryUseCaseInput {
 }
 
 export interface RegisterItemEntryUseCaseOutput {
-  item: {
-    id: string;
-    uniqueCode: string;
-    variantId: string;
-    locationId: string;
-    initialQuantity: number;
-    currentQuantity: number;
-    status: string;
-    entryDate: Date;
-    attributes: Record<string, unknown>;
-    batchNumber?: string;
-    manufacturingDate?: Date;
-    expiryDate?: Date;
-    createdAt: Date;
-  };
-  movement: {
-    id: string;
-    itemId: string;
-    userId: string;
-    quantity: number;
-    movementType: string;
-    createdAt: Date;
-  };
+  item: ItemDTO;
+  movement: ItemMovementDTO;
 }
 
 export class RegisterItemEntryUseCase {
@@ -175,29 +158,8 @@ export class RegisterItemEntryUseCase {
     });
 
     return {
-      item: {
-        id: item.id.toString(),
-        uniqueCode: item.uniqueCode,
-        variantId: item.variantId.toString(),
-        locationId: item.locationId.toString(),
-        initialQuantity: item.initialQuantity,
-        currentQuantity: item.currentQuantity,
-        status: item.status.value,
-        entryDate: item.entryDate,
-        attributes: item.attributes,
-        batchNumber: item.batchNumber,
-        manufacturingDate: item.manufacturingDate,
-        expiryDate: item.expiryDate,
-        createdAt: item.createdAt,
-      },
-      movement: {
-        id: movement.id.toString(),
-        itemId: movement.itemId.toString(),
-        userId: movement.userId.toString(),
-        quantity: movement.quantity,
-        movementType: movement.movementType.value,
-        createdAt: movement.createdAt,
-      },
+      item: itemToDTO(item),
+      movement: itemMovementToDTO(movement),
     };
   }
 }

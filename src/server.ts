@@ -1,5 +1,6 @@
 import { env } from './@env';
 import { app } from './app';
+import { httpLogger } from './lib/logger';
 
 app
   .listen({
@@ -7,8 +8,14 @@ app
     port: env.PORT,
   })
   .then(() => {
-    console.log(`🌐  HTTP server is running: http://localhost:${env.PORT}`);
-    console.log(
-      `📑  Swagger docs is running: http://localhost:${env.PORT}/docs`,
+    httpLogger.info(
+      { port: env.PORT },
+      'HTTP server is running on port %d',
+      env.PORT,
+    );
+    httpLogger.info(
+      { docsUrl: `http://localhost:${env.PORT}/docs` },
+      'Swagger docs available at http://localhost:%d/docs',
+      env.PORT,
     );
   });

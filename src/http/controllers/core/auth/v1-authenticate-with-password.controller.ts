@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UserBlockedError } from '@/@errors/use-cases/user-blocked-error';
+import { authResponseSchema, loginSchema } from '@/http/schemas';
 import { makeAuthenticateWithPasswordUseCase } from '@/use-cases/core/auth/factories/make-authenticate-with-password-use-case';
 
 import type { FastifyInstance } from 'fastify';
@@ -14,44 +15,13 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
     schema: {
       tags: ['Auth'],
       summary: 'Authenticate user with email and password',
-      body: z.object({
-        email: z.email(),
-        password: z.string().min(6),
-      }),
+      body: loginSchema,
       response: {
-        200: z.object({
-          user: z.object({
-            id: z.string(),
-            email: z.string(),
-            username: z.string(),
-            role: z.string(),
-            lastLoginAt: z.coerce.date().nullable(),
-            deletedAt: z.coerce.date().nullable().optional(),
-            profile: z
-              .object({
-                id: z.string(),
-                userId: z.string(),
-                name: z.string(),
-                surname: z.string(),
-                birthday: z.coerce.date().optional(),
-                location: z.string(),
-                bio: z.string(),
-                avatarUrl: z.string(),
-                createdAt: z.coerce.date(),
-                updatedAt: z.coerce.date().optional(),
-              })
-              .nullable()
-              .optional(),
-          }),
-          sessionId: z.string(),
-          token: z.string(),
-          refreshToken: z.string(),
-        }),
+        200: authResponseSchema,
         400: z.object({ message: z.string() }),
         403: z.object({ message: z.string(), blockedUntil: z.coerce.date() }),
         404: z.object({ message: z.string() }),
       },
-      required: ['email', 'password'],
     },
 
     handler: async (request, reply) => {

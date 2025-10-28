@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { Tag } from '@/entities/stock/tag';
+import { type TagDTO, tagToDTO } from '@/mappers/stock/tag/tag-to-dto';
 import type { TagsRepository } from '@/repositories/stock/tags-repository';
 
 interface CreateTagUseCaseRequest {
@@ -10,15 +11,7 @@ interface CreateTagUseCaseRequest {
 }
 
 interface CreateTagUseCaseResponse {
-  tag: {
-    id: string;
-    name: string;
-    slug: string;
-    color: string | null;
-    description: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-  };
+  tag: TagDTO;
 }
 
 export class CreateTagUseCase {
@@ -79,15 +72,7 @@ export class CreateTagUseCase {
     });
 
     return {
-      tag: {
-        id: tag.tagId.toString(),
-        name: tag.name,
-        slug: tag.slug,
-        color: tag.color,
-        description: tag.description,
-        createdAt: tag.createdAt,
-        updatedAt: tag.updatedAt,
-      },
+      tag: tagToDTO(tag),
     };
   }
 }

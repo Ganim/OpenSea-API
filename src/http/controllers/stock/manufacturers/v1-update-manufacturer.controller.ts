@@ -1,94 +1,69 @@
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import {
+  manufacturerResponseSchema,
+  updateManufacturerSchema,
+} from '@/http/schemas';
 import { makeUpdateManufacturerUseCase } from '@/use-cases/stock/manufacturers/factories/make-update-manufacturer-use-case';
 
-const paramsSchema = z.object({
-  id: z.string().uuid(),
-});
+export async function updateManufacturerController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'PUT',
+    url: '/v1/manufacturers/:id',
+    preHandler: [verifyJwt, verifyUserManager],
+    schema: {
+      tags: ['Manufacturers'],
+      summary: 'Update an existing manufacturer',
+      description:
+        'Update an existing manufacturer with the provided information',
+      params: z.object({
+        id: z.uuid(),
+      }),
+      body: updateManufacturerSchema,
+      response: {
+        200: z.object({
+          manufacturer: manufacturerResponseSchema,
+        }),
+        404: z.object({
+          message: z.string(),
+        }),
+        400: z.object({
+          message: z.string(),
+        }),
+      },
+      security: [{ bearerAuth: [] }],
+    },
 
-const bodySchema = z.object({
-  name: z.string().optional(),
-  country: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  website: z.string().optional(),
-  addressLine1: z.string().optional(),
-  addressLine2: z.string().optional(),
-  city: z.string().optional(),
-  state: z.string().optional(),
-  postalCode: z.string().optional(),
-  rating: z.number().optional(),
-  notes: z.string().optional(),
-  isActive: z.boolean().optional(),
-});
+    handler: async (request, reply) => {
+      const { id } = request.params as { id: string };
+      const body = request.body;
 
-const responseSchema = z.object({
-  manufacturer: z.object({
-    id: z.string(),
-    name: z.string(),
-    country: z.string(),
-    email: z.string().optional(),
-    phone: z.string().optional(),
-    website: z.string().optional(),
-    addressLine1: z.string().optional(),
-    addressLine2: z.string().optional(),
-    city: z.string().optional(),
-    state: z.string().optional(),
-    postalCode: z.string().optional(),
-    rating: z.number().optional(),
-    notes: z.string().optional(),
-    isActive: z.boolean(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
-  }),
-});
+      try {
+        const useCase = makeUpdateManufacturerUseCase();
 
-export async function v1UpdateManufacturerController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
-  const body = bodySchema.parse(request.body);
+        const result = await useCase.execute({
+          id,
+          ...body,
+        });
 
-  try {
-    const useCase = makeUpdateManufacturerUseCase();
+        return reply.send(result);
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
 
-    const result = await useCase.execute({
-      id,
-      ...body,
-    });
+        if (error instanceof BadRequestError) {
+          return reply.status(400).send({ message: error.message });
+        }
 
-    return reply.send(result);
-  } catch (error) {
-    if (error instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: error.message });
-    }
-
-    if (error instanceof BadRequestError) {
-      return reply.status(400).send({ message: error.message });
-    }
-
-    throw error;
-  }
+        throw error;
+      }
+    },
+  });
 }
-
-v1UpdateManufacturerController.schema = {
-  tags: ['Manufacturers'],
-  summary: 'Update an existing manufacturer',
-  description: 'Update an existing manufacturer with the provided information',
-  params: paramsSchema,
-  body: bodySchema,
-  response: {
-    200: responseSchema,
-    404: z.object({
-      message: z.string(),
-    }),
-    400: z.object({
-      message: z.string(),
-    }),
-  },
-  security: [{ bearerAuth: [] }],
-};

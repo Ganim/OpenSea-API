@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { itemResponseSchema } from '@/http/schemas';
 import { makeListItemsUseCase } from '@/use-cases/stock/items/factories/make-list-items-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -13,30 +14,13 @@ export async function listItemsController(app: FastifyInstance) {
       tags: ['Items'],
       summary: 'List all items',
       querystring: z.object({
-        variantId: z.string().uuid().optional(),
-        locationId: z.string().uuid().optional(),
+        variantId: z.uuid().optional(),
+        locationId: z.uuid().optional(),
         status: z.string().optional(),
       }),
       response: {
         200: z.object({
-          items: z.array(
-            z.object({
-              id: z.string(),
-              uniqueCode: z.string(),
-              variantId: z.string(),
-              locationId: z.string(),
-              initialQuantity: z.number(),
-              currentQuantity: z.number(),
-              status: z.string(),
-              entryDate: z.date(),
-              attributes: z.record(z.string(), z.unknown()),
-              batchNumber: z.string().nullable(),
-              manufacturingDate: z.date().nullable(),
-              expiryDate: z.date().nullable(),
-              createdAt: z.date(),
-              updatedAt: z.date(),
-            }),
-          ),
+          items: z.array(itemResponseSchema),
         }),
       },
       security: [{ bearerAuth: [] }],

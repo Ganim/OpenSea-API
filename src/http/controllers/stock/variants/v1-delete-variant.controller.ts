@@ -15,7 +15,7 @@ export async function deleteVariantController(app: FastifyInstance) {
       tags: ['Variants'],
       summary: 'Delete a variant (soft delete)',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.uuid(),
       }),
       response: {
         204: z.null(),
@@ -23,6 +23,7 @@ export async function deleteVariantController(app: FastifyInstance) {
           message: z.string(),
         }),
       },
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

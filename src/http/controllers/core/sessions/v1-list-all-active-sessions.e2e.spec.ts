@@ -1,6 +1,7 @@
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { makeUniqueEmail } from '@/utils/tests/factories/core/make-unique-email';
+import { makeUniqueUsername } from '@/utils/tests/factories/core/make-unique-username';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
@@ -15,16 +16,17 @@ describe('List All Active Sessions (e2e)', () => {
   it('should allow ADMIN to LIST ALL active SESSIONS', async () => {
     const { token } = await createAndAuthenticateUser(app, 'ADMIN');
 
-    const email1 = makeUniqueEmail('active-sessions-1');
-    const userOne = await request(app.server)
+    const email1 = makeUniqueEmail('active-session-1');
+    const user1 = await request(app.server)
       .post('/v1/users')
       .set('Authorization', `Bearer ${token}`)
       .send({
         email: email1,
+        username: makeUniqueUsername(),
         password: 'Pass@123',
       });
 
-    expect(userOne.statusCode).toEqual(201);
+    expect(user1.statusCode).toEqual(201);
 
     const authenticateUserOne = await request(app.server)
       .post('/v1/auth/login/password')
@@ -41,6 +43,7 @@ describe('List All Active Sessions (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         email: email2,
+        username: makeUniqueUsername(),
         password: 'Pass@123',
       });
 

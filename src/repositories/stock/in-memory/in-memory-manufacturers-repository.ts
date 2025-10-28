@@ -34,7 +34,7 @@ export class InMemoryManufacturersRepository
 
   async findById(id: UniqueEntityID): Promise<Manufacturer | null> {
     const manufacturer = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) => !item.deletedAt && item.manufacturerId.equals(id),
     );
     return manufacturer ?? null;
   }
@@ -96,7 +96,9 @@ export class InMemoryManufacturersRepository
   }
 
   async save(manufacturer: Manufacturer): Promise<void> {
-    const index = this.items.findIndex((i) => i.id.equals(manufacturer.id));
+    const index = this.items.findIndex((i) =>
+      i.manufacturerId.equals(manufacturer.manufacturerId),
+    );
     if (index >= 0) {
       this.items[index] = manufacturer;
     } else {

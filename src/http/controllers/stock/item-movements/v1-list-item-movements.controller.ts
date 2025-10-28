@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { itemMovementResponseSchema } from '@/http/schemas/stock.schema';
 import { makeListItemMovementsUseCase } from '@/use-cases/stock/item-movements/factories/make-list-item-movements-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -13,33 +14,16 @@ export async function listItemMovementsController(app: FastifyInstance) {
       tags: ['Item Movements'],
       summary: 'List item movements',
       querystring: z.object({
-        itemId: z.string().uuid().optional(),
-        userId: z.string().uuid().optional(),
+        itemId: z.uuid().optional(),
+        userId: z.uuid().optional(),
         movementType: z.string().optional(),
-        salesOrderId: z.string().uuid().optional(),
+        salesOrderId: z.uuid().optional(),
         batchNumber: z.string().optional(),
         pendingApproval: z.coerce.boolean().optional(),
       }),
       response: {
         200: z.object({
-          movements: z.array(
-            z.object({
-              id: z.string().uuid(),
-              itemId: z.string().uuid(),
-              userId: z.string().uuid(),
-              quantity: z.number(),
-              quantityBefore: z.number().nullable(),
-              quantityAfter: z.number().nullable(),
-              movementType: z.string(),
-              reasonCode: z.string().nullable(),
-              destinationRef: z.string().nullable(),
-              batchNumber: z.string().nullable(),
-              notes: z.string().nullable(),
-              approvedBy: z.string().uuid().nullable(),
-              salesOrderId: z.string().uuid().nullable(),
-              createdAt: z.coerce.date(),
-            }),
-          ),
+          movements: z.array(itemMovementResponseSchema),
         }),
       },
       security: [{ bearerAuth: [] }],

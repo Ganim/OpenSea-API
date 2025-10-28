@@ -5,7 +5,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeGetCommentByIdUseCase } from '@/use-cases/sales/comments/factories/make-get-comment-by-id-use-case';
 
 const paramsSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
 });
 
 const responseSchema = z.object({

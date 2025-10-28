@@ -1,6 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { LocationType } from '@/entities/stock/value-objects/location-type';
+import {
+  type LocationDTO,
+  locationToDTO,
+} from '@/mappers/stock/location/location-to-dto';
 import { LocationsRepository } from '@/repositories/stock/locations-repository';
 
 interface CreateLocationUseCaseRequest {
@@ -13,16 +17,7 @@ interface CreateLocationUseCaseRequest {
 }
 
 interface CreateLocationUseCaseResponse {
-  location: {
-    id: string;
-    code: string;
-    description?: string;
-    locationType?: string;
-    parentId?: string;
-    capacity?: number;
-    currentOccupancy: number;
-    isActive: boolean;
-  };
+  location: LocationDTO;
 }
 
 export class CreateLocationUseCase {
@@ -123,16 +118,7 @@ export class CreateLocationUseCase {
     });
 
     return {
-      location: {
-        id: createdLocation.id.toString(),
-        code: createdLocation.code,
-        description: createdLocation.description,
-        locationType: createdLocation.locationType?.value,
-        parentId: createdLocation.parentId?.toString(),
-        capacity: createdLocation.capacity,
-        currentOccupancy: createdLocation.currentOccupancy,
-        isActive: createdLocation.isActive,
-      },
+      location: locationToDTO(createdLocation),
     };
   }
 }

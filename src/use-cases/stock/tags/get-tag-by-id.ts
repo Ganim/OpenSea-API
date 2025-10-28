@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TagDTO } from '@/mappers/stock/tag/tag-to-dto';
+import { tagToDTO } from '@/mappers/stock/tag/tag-to-dto';
 import type { TagsRepository } from '@/repositories/stock/tags-repository';
 
 interface GetTagByIdUseCaseRequest {
@@ -7,15 +9,7 @@ interface GetTagByIdUseCaseRequest {
 }
 
 interface GetTagByIdUseCaseResponse {
-  tag: {
-    id: string;
-    name: string;
-    slug: string;
-    color: string | null;
-    description: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-  };
+  tag: TagDTO;
 }
 
 export class GetTagByIdUseCase {
@@ -31,15 +25,7 @@ export class GetTagByIdUseCase {
     }
 
     return {
-      tag: {
-        id: tag.tagId.toString(),
-        name: tag.name,
-        slug: tag.slug,
-        color: tag.color,
-        description: tag.description,
-        createdAt: tag.createdAt,
-        updatedAt: tag.updatedAt,
-      },
+      tag: tagToDTO(tag),
     };
   }
 }

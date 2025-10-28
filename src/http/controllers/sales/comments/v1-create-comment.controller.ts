@@ -7,9 +7,9 @@ import { makeCreateCommentUseCase } from '@/use-cases/sales/comments/factories/m
 
 const bodySchema = z.object({
   entityType: z.enum(['CUSTOMER', 'PRODUCT', 'SALES_ORDER']),
-  entityId: z.string().uuid(),
+  entityId: z.uuid(),
   content: z.string().min(1).max(5000),
-  parentCommentId: z.string().uuid().optional(),
+  parentCommentId: z.uuid().optional(),
 });
 
 const responseSchema = z.object({

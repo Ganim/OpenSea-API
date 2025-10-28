@@ -3,7 +3,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
 const querySchema = z.object({
-  userId: z.string().uuid(),
+  userId: z.uuid(),
   enabledOnly: z.preprocess((val) => {
     if (val === undefined || val === null) return undefined;
     if (val === 'true') return true;
@@ -15,8 +15,8 @@ const querySchema = z.object({
 const responseSchema = z.object({
   preferences: z.array(
     z.object({
-      id: z.string().uuid(),
-      userId: z.string().uuid(),
+      id: z.uuid(),
+      userId: z.uuid(),
       alertType: z.string(),
       channel: z.string(),
       isEnabled: z.boolean(),

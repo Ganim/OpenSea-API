@@ -24,6 +24,7 @@ describe('Change User Username (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         email,
+        username: 'oldusername',
         password: 'Pass@123',
       });
 

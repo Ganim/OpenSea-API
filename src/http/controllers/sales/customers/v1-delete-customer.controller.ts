@@ -5,7 +5,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeDeleteCustomerUseCase } from '@/use-cases/sales/customers/factories/make-delete-customer-use-case';
 
 const paramsSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
 });
 
 const responseSchema = z.object({

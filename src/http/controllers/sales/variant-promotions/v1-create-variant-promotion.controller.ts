@@ -5,7 +5,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
 const bodySchema = z.object({
-  variantId: z.string().uuid(),
+  variantId: z.uuid(),
   name: z.string().min(1).max(100),
   discountType: z.enum(['PERCENTAGE', 'FIXED_AMOUNT']),
   discountValue: z.number().nonnegative(),

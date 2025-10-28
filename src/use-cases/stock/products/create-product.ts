@@ -3,6 +3,10 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
+import {
+  ProductDTO,
+  productToDTO,
+} from '@/mappers/stock/product/product-to-dto';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
@@ -21,18 +25,7 @@ interface CreateProductUseCaseRequest {
 }
 
 interface CreateProductUseCaseResponse {
-  product: {
-    id: string;
-    name: string;
-    code: string;
-    description?: string;
-    status: string;
-    unitOfMeasure: string;
-    templateId: string;
-    supplierId?: string;
-    manufacturerId?: string;
-    attributes: Record<string, unknown>;
-  };
+  product: ProductDTO;
 }
 
 export class CreateProductUseCase {
@@ -177,18 +170,7 @@ export class CreateProductUseCase {
     });
 
     return {
-      product: {
-        id: createdProduct.id.toString(),
-        name: createdProduct.name,
-        code: createdProduct.code,
-        description: createdProduct.description,
-        status: createdProduct.status.value,
-        unitOfMeasure: createdProduct.unitOfMeasure.value,
-        templateId: createdProduct.templateId.toString(),
-        supplierId: createdProduct.supplierId?.toString(),
-        manufacturerId: createdProduct.manufacturerId?.toString(),
-        attributes: createdProduct.attributes,
-      },
+      product: productToDTO(createdProduct),
     };
   }
 }

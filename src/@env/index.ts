@@ -15,8 +15,10 @@ const envSchema = z.object({
 
 const _env = envSchema.safeParse(process.env);
 if (!_env.success) {
+  // Using console.error here is acceptable as logger is not yet initialized
+  // and this is a critical startup error that should be visible immediately
   console.error(
-    '⚠️ Invalid environment variables:',
+    '⚠️  Invalid environment variables:',
     z.treeifyError(_env.error),
   );
   throw new Error('Invalid environment variables');

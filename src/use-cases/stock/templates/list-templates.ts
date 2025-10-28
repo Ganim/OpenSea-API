@@ -1,12 +1,6 @@
+import type { TemplateDTO } from '@/mappers/stock/template/template-to-dto';
+import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
-
-interface TemplateDTO {
-  id: string;
-  name: string;
-  productAttributes: Record<string, unknown>;
-  variantAttributes: Record<string, unknown>;
-  itemAttributes: Record<string, unknown>;
-}
 
 interface ListTemplatesUseCaseResponse {
   templates: TemplateDTO[];
@@ -19,13 +13,7 @@ export class ListTemplatesUseCase {
     const templates = await this.templatesRepository.findMany();
 
     return {
-      templates: templates.map((template) => ({
-        id: template.id.toString(),
-        name: template.name,
-        productAttributes: template.productAttributes,
-        variantAttributes: template.variantAttributes,
-        itemAttributes: template.itemAttributes,
-      })),
+      templates: templates.map(templateToDTO),
     };
   }
 }

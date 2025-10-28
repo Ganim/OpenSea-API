@@ -1,41 +1,34 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { locationResponseSchema } from '@/http/schemas';
 import { makeListLocationsUseCase } from '@/use-cases/stock/locations/factories/make-list-locations-use-case';
 
-const responseSchema = z.object({
-  locations: z.array(
-    z.object({
-      id: z.string().uuid(),
-      code: z.string(),
-      description: z.string().optional(),
-      locationType: z.string().optional(),
-      parentId: z.string().uuid().optional(),
-      capacity: z.number().int().min(0).optional(),
-      currentOccupancy: z.number().int().min(0),
-      isActive: z.boolean(),
-    }),
-  ),
-});
+export async function listLocationsController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/locations',
+    preHandler: [verifyJwt],
+    schema: {
+      tags: ['Locations'],
+      summary: 'List all active locations',
+      description: 'List all active storage locations',
+      security: [{ bearerAuth: [] }],
+      response: {
+        200: z.object({
+          locations: z.array(locationResponseSchema),
+        }),
+      },
+    },
 
-async function v1ListLocationsController(
-  _request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const listLocationsUseCase = makeListLocationsUseCase();
+    handler: async (_request, reply) => {
+      const listLocationsUseCase = makeListLocationsUseCase();
 
-  const { locations } = await listLocationsUseCase.execute();
+      const { locations } = await listLocationsUseCase.execute();
 
-  return reply.status(200).send({ locations });
+      return reply.status(200).send({ locations });
+    },
+  });
 }
-
-v1ListLocationsController.schema = {
-  tags: ['Locations'],
-  summary: 'List all active locations',
-  description: 'List all active storage locations',
-  response: {
-    200: responseSchema,
-  },
-};
-
-export { v1ListLocationsController };

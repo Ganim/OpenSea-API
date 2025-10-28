@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
+import { errorLogger } from '@/lib/logger';
 import type { FastifyInstance } from 'fastify';
 import { env } from 'process';
 import z, { ZodError } from 'zod';
@@ -55,7 +56,10 @@ export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
     });
   }
 
-  console.log('Internal server error:', error);
+  errorLogger.error(
+    { error: { message: error.message, stack: error.stack, code: error.code } },
+    'Internal server error occurred',
+  );
 
   return reply.status(500).send({
     message: 'Internal server error',

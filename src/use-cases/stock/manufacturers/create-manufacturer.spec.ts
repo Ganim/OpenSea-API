@@ -48,8 +48,8 @@ describe('CreateManufacturerUseCase', () => {
 
     expect(result.manufacturer.name).toBe('Simple Manufacturing');
     expect(result.manufacturer.country).toBe('Brazil');
-    expect(result.manufacturer.email).toBeUndefined();
-    expect(result.manufacturer.phone).toBeUndefined();
+    expect(result.manufacturer.email).toBeNull();
+    expect(result.manufacturer.phone).toBeNull();
   });
 
   it('should not create a manufacturer with empty name', async () => {

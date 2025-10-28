@@ -2,7 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { OrderStatus } from '@/entities/sales/value-objects/order-status';
-import type { PurchaseOrder } from '@/entities/stock/purchase-order';
+import type { PurchaseOrderDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
+import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
 import type { PurchaseOrdersRepository } from '@/repositories/stock/purchase-orders-repository';
 import type { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import type { VariantsRepository } from '@/repositories/stock/variants-repository';
@@ -23,7 +24,7 @@ interface CreatePurchaseOrderUseCaseRequest {
 }
 
 interface CreatePurchaseOrderUseCaseResponse {
-  purchaseOrder: PurchaseOrder;
+  purchaseOrder: PurchaseOrderDTO;
 }
 
 export class CreatePurchaseOrderUseCase {
@@ -127,6 +128,6 @@ export class CreatePurchaseOrderUseCase {
       })),
     });
 
-    return { purchaseOrder };
+    return { purchaseOrder: purchaseOrderToDTO(purchaseOrder) };
   }
 }

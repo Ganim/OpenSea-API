@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { productResponseSchema, updateProductSchema } from '@/http/schemas';
 import { makeUpdateProductUseCase } from '@/use-cases/stock/products/factories/make-update-product-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -16,31 +17,12 @@ export async function updateProductController(app: FastifyInstance) {
       tags: ['Products'],
       summary: 'Update a product',
       params: z.object({
-        productId: z.string().uuid(),
+        productId: z.uuid(),
       }),
-      body: z.object({
-        name: z.string().min(1).max(255).optional(),
-        description: z.string().max(2000).optional(),
-        status: z.enum(['ACTIVE', 'INACTIVE', 'DISCONTINUED']).optional(),
-        unitOfMeasure: z.enum(['UNITS', 'KILOGRAMS', 'METERS']).optional(),
-        attributes: z.record(z.string(), z.unknown()).optional(),
-        supplierId: z.string().uuid().optional(),
-        manufacturerId: z.string().uuid().optional(),
-      }),
+      body: updateProductSchema,
       response: {
         200: z.object({
-          product: z.object({
-            id: z.string().uuid(),
-            name: z.string(),
-            code: z.string(),
-            description: z.string().optional(),
-            status: z.string(),
-            unitOfMeasure: z.string(),
-            attributes: z.record(z.string(), z.unknown()),
-            templateId: z.string().uuid(),
-            supplierId: z.string().uuid().optional(),
-            manufacturerId: z.string().uuid().optional(),
-          }),
+          product: productResponseSchema,
         }),
         400: z.object({
           message: z.string(),
@@ -49,6 +31,7 @@ export async function updateProductController(app: FastifyInstance) {
           message: z.string(),
         }),
       },
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

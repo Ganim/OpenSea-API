@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { categoryResponseSchema, categorySchema } from '@/http/schemas';
 import { makeCreateCategoryUseCase } from '@/use-cases/stock/categories/factories/make-create-category-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -14,32 +15,16 @@ export async function createCategoryController(app: FastifyInstance) {
     schema: {
       tags: ['Categories'],
       summary: 'Create a new category',
-      body: z.object({
-        name: z.string().min(1).max(128),
-        slug: z.string().min(1).max(128).optional(),
-        description: z.string().max(500).optional(),
-        parentId: z.string().uuid().optional(),
-        displayOrder: z.number().int().min(0).optional(),
-        isActive: z.boolean().optional(),
-      }),
+      body: categorySchema,
       response: {
         201: z.object({
-          category: z.object({
-            id: z.string().uuid(),
-            name: z.string(),
-            slug: z.string(),
-            description: z.string().nullable().optional(),
-            parentId: z.string().uuid().nullable().optional(),
-            displayOrder: z.number(),
-            isActive: z.boolean(),
-            createdAt: z.coerce.date(),
-            updatedAt: z.coerce.date().optional(),
-          }),
+          category: categoryResponseSchema,
         }),
         400: z.object({
           message: z.string(),
         }),
       },
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

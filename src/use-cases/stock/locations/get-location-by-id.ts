@@ -1,5 +1,9 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import {
+  type LocationDTO,
+  locationToDTO,
+} from '@/mappers/stock/location/location-to-dto';
 import { LocationsRepository } from '@/repositories/stock/locations-repository';
 
 interface GetLocationByIdUseCaseRequest {
@@ -7,16 +11,7 @@ interface GetLocationByIdUseCaseRequest {
 }
 
 interface GetLocationByIdUseCaseResponse {
-  location: {
-    id: string;
-    code: string;
-    description?: string;
-    locationType?: string;
-    parentId?: string;
-    capacity?: number;
-    currentOccupancy: number;
-    isActive: boolean;
-  };
+  location: LocationDTO;
 }
 
 export class GetLocationByIdUseCase {
@@ -36,16 +31,7 @@ export class GetLocationByIdUseCase {
     }
 
     return {
-      location: {
-        id: location.id.toString(),
-        code: location.code,
-        description: location.description,
-        locationType: location.locationType?.value,
-        parentId: location.parentId?.toString(),
-        capacity: location.capacity,
-        currentOccupancy: location.currentOccupancy,
-        isActive: location.isActive,
-      },
+      location: locationToDTO(location),
     };
   }
 }

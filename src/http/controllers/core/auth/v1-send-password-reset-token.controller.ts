@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { requestPasswordResetSchema } from '@/http/schemas';
 import { makeSendPasswordResetTokenUseCase } from '@/use-cases/core/auth/factories/make-send-password-reset-token-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -11,9 +12,8 @@ export async function sendPasswordResetTokenController(app: FastifyInstance) {
     schema: {
       tags: ['Auth'],
       summary: 'Request password recovery by email',
-      body: z.object({
-        email: z.email(),
-      }),
+      description: 'Send password reset token to user email address',
+      body: requestPasswordResetSchema,
       response: {
         200: z.object({ message: z.string() }),
         400: z.object({ message: z.string() }),

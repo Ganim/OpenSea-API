@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { productResponseSchema } from '@/http/schemas';
 import { makeGetProductByIdUseCase } from '@/use-cases/stock/products/factories/make-get-product-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -12,29 +13,19 @@ export async function getProductByIdController(app: FastifyInstance) {
     preHandler: [verifyJwt],
     schema: {
       tags: ['Products'],
-      summary: 'Get product by ID',
+      summary: 'Get a product by ID',
       params: z.object({
-        productId: z.string().uuid(),
+        productId: z.uuid(),
       }),
       response: {
         200: z.object({
-          product: z.object({
-            id: z.string().uuid(),
-            name: z.string(),
-            code: z.string(),
-            description: z.string().optional(),
-            status: z.string(),
-            unitOfMeasure: z.string(),
-            attributes: z.record(z.string(), z.unknown()),
-            templateId: z.string().uuid(),
-            supplierId: z.string().uuid().optional(),
-            manufacturerId: z.string().uuid().optional(),
-          }),
+          product: productResponseSchema,
         }),
         404: z.object({
           message: z.string(),
         }),
       },
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

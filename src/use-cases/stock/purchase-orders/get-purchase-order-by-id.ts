@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { PurchaseOrder } from '@/entities/stock/purchase-order';
+import type { PurchaseOrderDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
+import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
 import type { PurchaseOrdersRepository } from '@/repositories/stock/purchase-orders-repository';
 
 interface GetPurchaseOrderByIdUseCaseRequest {
@@ -8,7 +9,7 @@ interface GetPurchaseOrderByIdUseCaseRequest {
 }
 
 interface GetPurchaseOrderByIdUseCaseResponse {
-  purchaseOrder: PurchaseOrder;
+  purchaseOrder: PurchaseOrderDTO;
 }
 
 export class GetPurchaseOrderByIdUseCase {
@@ -27,6 +28,6 @@ export class GetPurchaseOrderByIdUseCase {
       throw new ResourceNotFoundError('Purchase order not found');
     }
 
-    return { purchaseOrder };
+    return { purchaseOrder: purchaseOrderToDTO(purchaseOrder) };
   }
 }

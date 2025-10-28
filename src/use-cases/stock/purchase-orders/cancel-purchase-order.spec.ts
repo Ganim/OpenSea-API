@@ -22,7 +22,7 @@ describe('CancelPurchaseOrderUseCase', () => {
       id: order.id.toString(),
     });
 
-    expect(result.purchaseOrder.status.value).toBe('CANCELLED');
+    expect(result.purchaseOrder.status).toBe('CANCELLED');
   });
 
   it('should not be able to cancel a nonexistent purchase order', async () => {

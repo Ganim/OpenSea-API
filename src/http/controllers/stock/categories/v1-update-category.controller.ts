@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { categoryResponseSchema, updateCategorySchema } from '@/http/schemas';
 import { makeUpdateCategoryUseCase } from '@/use-cases/stock/categories/factories/make-update-category-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -16,29 +17,12 @@ export async function updateCategoryController(app: FastifyInstance) {
       tags: ['Categories'],
       summary: 'Update a category',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.uuid(),
       }),
-      body: z.object({
-        name: z.string().min(1).max(128).optional(),
-        slug: z.string().min(1).max(128).optional(),
-        description: z.string().max(500).optional(),
-        parentId: z.string().uuid().nullable().optional(),
-        displayOrder: z.number().int().min(0).optional(),
-        isActive: z.boolean().optional(),
-      }),
+      body: updateCategorySchema,
       response: {
         200: z.object({
-          category: z.object({
-            id: z.string().uuid(),
-            name: z.string(),
-            slug: z.string(),
-            description: z.string().nullable().optional(),
-            parentId: z.string().uuid().nullable().optional(),
-            displayOrder: z.number(),
-            isActive: z.boolean(),
-            createdAt: z.coerce.date(),
-            updatedAt: z.coerce.date().optional(),
-          }),
+          category: categoryResponseSchema,
         }),
         400: z.object({
           message: z.string(),
@@ -47,6 +31,7 @@ export async function updateCategoryController(app: FastifyInstance) {
           message: z.string(),
         }),
       },
+      security: [{ bearerAuth: [] }],
     },
 
     handler: async (request, reply) => {

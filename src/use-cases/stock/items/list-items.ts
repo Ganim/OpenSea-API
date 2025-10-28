@@ -1,6 +1,8 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
+import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
+import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
 import { ItemsRepository } from '@/repositories/stock/items-repository';
 
 interface ListItemsUseCaseRequest {
@@ -11,22 +13,7 @@ interface ListItemsUseCaseRequest {
 }
 
 interface ListItemsUseCaseResponse {
-  items: Array<{
-    id: string;
-    uniqueCode: string;
-    initialQuantity: number;
-    currentQuantity: number;
-    status: string;
-    variantId: string;
-    locationId: string;
-    entryDate: Date;
-    batchNumber: string | null;
-    manufacturingDate: Date | null;
-    expiryDate: Date | null;
-    attributes: Record<string, unknown>;
-    createdAt: Date;
-    updatedAt: Date;
-  }>;
+  items: ItemDTO[];
 }
 
 export class ListItemsUseCase {
@@ -66,22 +53,7 @@ export class ListItemsUseCase {
     }
 
     return {
-      items: items.map((item) => ({
-        id: item.id.toString(),
-        uniqueCode: item.uniqueCode,
-        initialQuantity: item.initialQuantity,
-        currentQuantity: item.currentQuantity,
-        status: item.status.value,
-        variantId: item.variantId.toString(),
-        locationId: item.locationId.toString(),
-        entryDate: item.entryDate,
-        batchNumber: item.batchNumber ?? null,
-        manufacturingDate: item.manufacturingDate ?? null,
-        expiryDate: item.expiryDate ?? null,
-        attributes: item.attributes,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt ?? item.createdAt,
-      })),
+      items: items.map(itemToDTO),
     };
   }
 }

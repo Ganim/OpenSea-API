@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TemplateDTO } from '@/mappers/stock/template/template-to-dto';
+import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface UpdateTemplateUseCaseRequest {
@@ -12,15 +14,7 @@ interface UpdateTemplateUseCaseRequest {
 }
 
 interface UpdateTemplateUseCaseResponse {
-  template: {
-    id: string;
-    name: string;
-    productAttributes: Record<string, unknown>;
-    variantAttributes: Record<string, unknown>;
-    itemAttributes: Record<string, unknown>;
-    createdAt: Date;
-    updatedAt: Date;
-  };
+  template: TemplateDTO;
 }
 
 export class UpdateTemplateUseCase {
@@ -93,15 +87,7 @@ export class UpdateTemplateUseCase {
     }
 
     return {
-      template: {
-        id: updatedTemplate.id.toString(),
-        name: updatedTemplate.name,
-        productAttributes: updatedTemplate.productAttributes,
-        variantAttributes: updatedTemplate.variantAttributes,
-        itemAttributes: updatedTemplate.itemAttributes,
-        createdAt: updatedTemplate.createdAt,
-        updatedAt: updatedTemplate.updatedAt ?? updatedTemplate.createdAt,
-      },
+      template: templateToDTO(updatedTemplate),
     };
   }
 }

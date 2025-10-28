@@ -39,6 +39,47 @@ Uma API REST completa para gerenciamento de estoque e vendas, construída com **
 - 🎯 **TypeScript** - Type-safe em todo o código
 - 🚀 **Alta Performance** - Fastify + Prisma otimizado
 
+### 🆕 Sprint 2 - Melhorias de Qualidade
+
+**Schemas Centralizados** ✅
+- Sistema unificado de validação Zod
+- 5 arquivos de schemas (`common`, `user`, `product`, `auth`, `index`)
+- Eliminação de duplicação de código inline
+- 350+ linhas de schemas reutilizáveis
+
+**Paginação Padronizada** ✅
+- 21 endpoints de listagem com paginação
+- Parâmetros padrão: `page` (default: 1) e `limit` (default: 20)
+- Resposta estruturada com metadados:
+  ```json
+  {
+    "data": [...],
+    "meta": {
+      "total": 100,
+      "page": 1,
+      "limit": 20,
+      "pages": 5
+    }
+  }
+  ```
+
+**Logger Estruturado** ✅
+- Migração de `console.log` para Pino logger
+- 5 contextos especializados: `httpLogger`, `dbLogger`, `authLogger`, `errorLogger`, `performanceLogger`
+- Logs estruturados em JSON para produção
+- Pretty-print no desenvolvimento
+
+**Senhas Fortes** ✅
+- Validação rigorosa em todos os endpoints de autenticação
+- Requisitos: 8+ caracteres, maiúscula, minúscula, número, caractere especial
+- Aplicado em: criação de usuário, mudança de senha, reset de senha
+
+**Health Check Avançado** ✅
+- Monitoramento de banco de dados (latência, conectividade)
+- Métricas de memória (heap, RSS)
+- Uptime e ambiente
+- Endpoint: `GET /health`
+
 ---
 
 ## 🏛️ Arquitetura
@@ -263,6 +304,85 @@ POST /v1/auth/login/password
 
 # 3. Usar o token retornado
 Authorization: Bearer <seu_token_jwt>
+```
+
+### 🎯 Paginação (Sprint 2)
+
+Todos os endpoints de listagem suportam paginação:
+
+```bash
+# Listar produtos com paginação
+GET /v1/products?page=1&limit=20
+
+# Resposta:
+{
+  "data": [...],  # Array de produtos
+  "meta": {
+    "total": 150,    # Total de registros
+    "page": 1,       # Página atual
+    "limit": 20,     # Itens por página
+    "pages": 8       # Total de páginas
+  }
+}
+```
+
+**Parâmetros:**
+- `page`: Número da página (padrão: 1)
+- `limit`: Itens por página (padrão: 20, máximo: 100)
+
+**Endpoints com paginação:**
+- `GET /v1/users` - Listar usuários
+- `GET /v1/products` - Listar produtos
+- `GET /v1/variants` - Listar variantes
+- `GET /v1/items` - Listar itens de estoque
+- `GET /v1/sessions/me` - Minhas sessões
+- E mais 16 endpoints!
+
+### 🔐 Senhas Fortes (Sprint 2)
+
+Todos os endpoints de autenticação agora exigem senhas fortes:
+
+**Requisitos:**
+- Mínimo 8 caracteres
+- Pelo menos 1 letra maiúscula
+- Pelo menos 1 letra minúscula
+- Pelo menos 1 número
+- Pelo menos 1 caractere especial
+
+```bash
+# ✅ Válido
+"SenhaForte@123"
+"MyP@ssw0rd!"
+
+# ❌ Inválido
+"senha123"     # Sem maiúscula e caractere especial
+"SENHA@123"    # Sem minúscula
+"SenhaForte"   # Sem número e caractere especial
+```
+
+### 📊 Health Check (Sprint 2)
+
+Monitore a saúde da aplicação:
+
+```bash
+GET /health
+
+# Resposta:
+{
+  "status": "ok",
+  "timestamp": "2025-01-10T12:00:00.000Z",
+  "uptime": 3600,
+  "environment": "production",
+  "database": {
+    "status": "connected",
+    "latency": 15
+  },
+  "memory": {
+    "heapUsed": 45.2,
+    "heapTotal": 128.5,
+    "rss": 156.8
+  }
+}
 ```
 
 ---

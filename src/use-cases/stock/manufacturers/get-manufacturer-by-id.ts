@@ -1,5 +1,9 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import {
+  type ManufacturerDTO,
+  manufacturerToDTO,
+} from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 
 interface GetManufacturerByIdUseCaseRequest {
@@ -7,24 +11,7 @@ interface GetManufacturerByIdUseCaseRequest {
 }
 
 interface GetManufacturerByIdUseCaseResponse {
-  manufacturer: {
-    id: string;
-    name: string;
-    country: string;
-    email?: string;
-    phone?: string;
-    website?: string;
-    addressLine1?: string;
-    addressLine2?: string;
-    city?: string;
-    state?: string;
-    postalCode?: string;
-    rating?: number;
-    notes?: string;
-    isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-  };
+  manufacturer: ManufacturerDTO;
 }
 
 export class GetManufacturerByIdUseCase {
@@ -44,24 +31,7 @@ export class GetManufacturerByIdUseCase {
     }
 
     return {
-      manufacturer: {
-        id: manufacturer.id.toString(),
-        name: manufacturer.name,
-        country: manufacturer.country,
-        email: manufacturer.email ?? undefined,
-        phone: manufacturer.phone ?? undefined,
-        website: manufacturer.website ?? undefined,
-        addressLine1: manufacturer.addressLine1 ?? undefined,
-        addressLine2: manufacturer.addressLine2 ?? undefined,
-        city: manufacturer.city ?? undefined,
-        state: manufacturer.state ?? undefined,
-        postalCode: manufacturer.postalCode ?? undefined,
-        rating: manufacturer.rating ?? undefined,
-        notes: manufacturer.notes ?? undefined,
-        isActive: manufacturer.isActive,
-        createdAt: manufacturer.createdAt,
-        updatedAt: manufacturer.updatedAt,
-      },
+      manufacturer: manufacturerToDTO(manufacturer),
     };
   }
 }

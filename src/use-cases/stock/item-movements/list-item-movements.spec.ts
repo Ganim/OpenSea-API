@@ -229,7 +229,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     expect(result.movements).toHaveLength(1);
-    expect(result.movements[0].approvedBy).toBeNull();
+    expect(result.movements[0].approvedBy).toBeUndefined();
   });
 
   it('should return all movements when no filters provided', async () => {

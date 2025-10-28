@@ -15,7 +15,7 @@ export async function deleteCategoryController(app: FastifyInstance) {
       tags: ['Categories'],
       summary: 'Delete a category (soft delete)',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.uuid(),
       }),
       response: {
         204: z.null().describe('Category deleted successfully'),

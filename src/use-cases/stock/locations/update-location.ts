@@ -2,6 +2,10 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { LocationType } from '@/entities/stock/value-objects/location-type';
+import {
+  type LocationDTO,
+  locationToDTO,
+} from '@/mappers/stock/location/location-to-dto';
 import { LocationsRepository } from '@/repositories/stock/locations-repository';
 
 interface UpdateLocationUseCaseRequest {
@@ -16,16 +20,7 @@ interface UpdateLocationUseCaseRequest {
 }
 
 interface UpdateLocationUseCaseResponse {
-  location: {
-    id: string;
-    code: string;
-    description?: string;
-    locationType?: string;
-    parentId?: string;
-    capacity?: number;
-    currentOccupancy: number;
-    isActive: boolean;
-  };
+  location: LocationDTO;
 }
 
 export class UpdateLocationUseCase {
@@ -145,16 +140,7 @@ export class UpdateLocationUseCase {
     }
 
     return {
-      location: {
-        id: updatedLocation.id.toString(),
-        code: updatedLocation.code,
-        description: updatedLocation.description,
-        locationType: updatedLocation.locationType?.value,
-        parentId: updatedLocation.parentId?.toString(),
-        capacity: updatedLocation.capacity,
-        currentOccupancy: updatedLocation.currentOccupancy,
-        isActive: updatedLocation.isActive,
-      },
+      location: locationToDTO(updatedLocation),
     };
   }
 }

@@ -4,7 +4,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
 const bodySchema = z.object({
-  userId: z.string().uuid(),
+  userId: z.uuid(),
   alertType: z.enum([
     'LOW_STOCK',
     'OUT_OF_STOCK',
@@ -19,8 +19,8 @@ const bodySchema = z.object({
 
 const responseSchema = z.object({
   preference: z.object({
-    id: z.string().uuid(),
-    userId: z.string().uuid(),
+    id: z.uuid(),
+    userId: z.uuid(),
     alertType: z.string(),
     channel: z.string(),
     isEnabled: z.boolean(),

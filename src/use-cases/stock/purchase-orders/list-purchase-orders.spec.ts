@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
 import { InMemoryPurchaseOrdersRepository } from '@/repositories/stock/in-memory/in-memory-purchase-orders-repository';
 import { makePurchaseOrder } from '@/utils/tests/factories/make-purchase-order';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -26,7 +27,10 @@ describe('ListPurchaseOrdersUseCase', () => {
     });
 
     expect(result.purchaseOrders).toHaveLength(2);
-    expect(result.purchaseOrders).toEqual([order1, order2]);
+    expect(result.purchaseOrders).toEqual([
+      purchaseOrderToDTO(order1),
+      purchaseOrderToDTO(order2),
+    ]);
   });
 
   it('should be able to list purchase orders by status', async () => {
@@ -52,6 +56,6 @@ describe('ListPurchaseOrdersUseCase', () => {
     const result = await sut.execute({});
 
     expect(result.purchaseOrders).toHaveLength(1);
-    expect(result.purchaseOrders[0]).toEqual(order1);
+    expect(result.purchaseOrders[0]).toEqual(purchaseOrderToDTO(order1));
   });
 });

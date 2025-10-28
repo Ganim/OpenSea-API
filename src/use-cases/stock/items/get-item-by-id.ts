@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
+import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
 import { ItemsRepository } from '@/repositories/stock/items-repository';
 
 interface GetItemByIdUseCaseRequest {
@@ -7,22 +9,7 @@ interface GetItemByIdUseCaseRequest {
 }
 
 interface GetItemByIdUseCaseResponse {
-  item: {
-    id: string;
-    uniqueCode: string;
-    initialQuantity: number;
-    currentQuantity: number;
-    status: string;
-    variantId: string;
-    locationId: string;
-    entryDate: Date;
-    batchNumber: string | null;
-    manufacturingDate: Date | null;
-    expiryDate: Date | null;
-    attributes: Record<string, unknown>;
-    createdAt: Date;
-    updatedAt: Date;
-  };
+  item: ItemDTO;
 }
 
 export class GetItemByIdUseCase {
@@ -40,22 +27,7 @@ export class GetItemByIdUseCase {
     }
 
     return {
-      item: {
-        id: item.id.toString(),
-        uniqueCode: item.uniqueCode,
-        initialQuantity: item.initialQuantity,
-        currentQuantity: item.currentQuantity,
-        status: item.status.value,
-        variantId: item.variantId.toString(),
-        locationId: item.locationId.toString(),
-        entryDate: item.entryDate,
-        batchNumber: item.batchNumber ?? null,
-        manufacturingDate: item.manufacturingDate ?? null,
-        expiryDate: item.expiryDate ?? null,
-        attributes: item.attributes,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt ?? item.createdAt,
-      },
+      item: itemToDTO(item),
     };
   }
 }

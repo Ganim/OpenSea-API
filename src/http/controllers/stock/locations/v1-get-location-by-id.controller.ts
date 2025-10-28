@@ -1,55 +1,49 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { locationResponseSchema } from '@/http/schemas';
 import { makeGetLocationByIdUseCase } from '@/use-cases/stock/locations/factories/make-get-location-by-id-use-case';
 
-const paramsSchema = z.object({
-  id: z.string().uuid(),
-});
+export async function getLocationByIdController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/locations/:id',
+    preHandler: [verifyJwt],
+    schema: {
+      tags: ['Locations'],
+      summary: 'Get location by ID',
+      description: 'Get location details by ID',
+      security: [{ bearerAuth: [] }],
+      params: z.object({
+        id: z.uuid(),
+      }),
+      response: {
+        200: z.object({ location: locationResponseSchema }),
+        404: z.object({
+          message: z.string(),
+        }),
+      },
+    },
 
-const responseSchema = z.object({
-  location: z.object({
-    id: z.string().uuid(),
-    code: z.string(),
-    description: z.string().optional(),
-    locationType: z.string().optional(),
-    parentId: z.string().uuid().optional(),
-    capacity: z.number().int().min(0).optional(),
-    currentOccupancy: z.number().int().min(0),
-    isActive: z.boolean(),
-  }),
-});
+    handler: async (request, reply) => {
+      const { id } = request.params;
 
-async function v1GetLocationByIdController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
+      try {
+        const getLocationByIdUseCase = makeGetLocationByIdUseCase();
 
-  try {
-    const getLocationByIdUseCase = makeGetLocationByIdUseCase();
+        const { location } = await getLocationByIdUseCase.execute({ id });
 
-    const { location } = await getLocationByIdUseCase.execute({ id });
+        return reply.status(200).send({ location });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
 
-    return reply.status(200).send({ location });
-  } catch (error) {
-    if (error instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: error.message });
-    }
-
-    throw error;
-  }
+        throw error;
+      }
+    },
+  });
 }
-
-v1GetLocationByIdController.schema = {
-  tags: ['Locations'],
-  summary: 'Get location by ID',
-  description: 'Get location details by ID',
-  params: paramsSchema,
-  response: {
-    200: responseSchema,
-  },
-};
-
-export { v1GetLocationByIdController };

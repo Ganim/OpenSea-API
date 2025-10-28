@@ -1,43 +1,38 @@
-import type { FastifyReply, FastifyRequest } from 'fastify';
-import { z } from 'zod';
-
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeDeleteSupplierUseCase } from '@/use-cases/stock/suppliers/factories/make-delete-supplier-use-case';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
 
-const paramsSchema = z.object({
-  id: z.string().uuid(),
-});
-
-export async function v1DeleteSupplierController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
-
-  try {
-    const useCase = makeDeleteSupplierUseCase();
-
-    await useCase.execute({ id });
-
-    return reply.status(204).send();
-  } catch (error) {
-    if (error instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: error.message });
-    }
-
-    throw error;
-  }
+export async function deleteSupplierController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'DELETE',
+    url: '/api/v1/suppliers/:id',
+    schema: {
+      tags: ['Suppliers'],
+      summary: 'Delete a supplier',
+      security: [{ bearerAuth: [] }],
+      params: z.object({
+        id: z.uuid(),
+      }),
+      response: {
+        204: z.null().describe('Supplier deleted successfully'),
+        404: z.object({
+          message: z.string(),
+        }),
+      },
+    },
+    handler: async (request, reply) => {
+      try {
+        const useCase = makeDeleteSupplierUseCase();
+        await useCase.execute({ id: request.params.id });
+        return reply.status(204).send();
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
 }
-
-v1DeleteSupplierController.schema = {
-  tags: ['Suppliers'],
-  summary: 'Delete a supplier',
-  security: [{ bearerAuth: [] }],
-  params: paramsSchema,
-  response: {
-    204: z.void(),
-    404: z.object({
-      message: z.string(),
-    }),
-  },
-};

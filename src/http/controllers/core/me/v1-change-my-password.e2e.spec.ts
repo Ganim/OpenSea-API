@@ -19,7 +19,7 @@ describe('Change My Password (e2e)', () => {
     const response = await request(app.server)
       .patch('/v1/me/password')
       .set('Authorization', `Bearer ${token}`)
-      .send({ password: 'novasenha123' });
+      .send({ password: 'NovaSenha@123' });
 
     expect(response.statusCode).toBe(200);
   });
