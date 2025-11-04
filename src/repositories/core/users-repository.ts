@@ -61,6 +61,7 @@ export interface UsersRepository {
   findById(id: UniqueEntityID, ignoreDeleted?: boolean): Promise<User | null>;
   findByUsername(username: Username): Promise<User | null>;
   findByPasswordResetToken(token: Token): Promise<User | null>;
+  findManyByIds(ids: UniqueEntityID[]): Promise<User[]>;
 
   // LIST
   listAll(): Promise<User[] | null>;

@@ -42,10 +42,19 @@ describe('Update Sales Order Status (E2E)', () => {
       .set('Authorization', `Bearer ${userToken}`)
       .send({
         name: `Test Product ${timestamp}`,
-        code: `PROD-UPDATE-STATUS-${timestamp}`,
+        code: `PROD-UPDATE-${timestamp}`,
         unitOfMeasure: 'UNITS',
         templateId,
       });
+
+    if (!productResponse.body || !productResponse.body.product) {
+      console.error('Product Response:', {
+        status: productResponse.status,
+        body: productResponse.body,
+      });
+      throw new Error('Failed to create product');
+    }
+
     const productId = productResponse.body.product.id;
 
     const variantResponse = await request(app.server)
@@ -75,7 +84,8 @@ describe('Update Sales Order Status (E2E)', () => {
         orderNumber: `SO-STATUS-1-${timestamp}`,
         customerId,
         status: 'DRAFT',
-        items: [{ variantId, quantity: 1, unitPrice: 100 }],
+        totalPrice: 100,
+        items: [{ variantId, quantity: 1, unitPrice: 100, totalPrice: 100 }],
       });
 
     const salesOrderId = createResponse.body.salesOrder.id;
@@ -99,7 +109,8 @@ describe('Update Sales Order Status (E2E)', () => {
         orderNumber: `SO-STATUS-2-${timestamp}`,
         customerId,
         status: 'PENDING',
-        items: [{ variantId, quantity: 1, unitPrice: 100 }],
+        totalPrice: 100,
+        items: [{ variantId, quantity: 1, unitPrice: 100, totalPrice: 100 }],
       });
 
     const salesOrderId = createResponse.body.salesOrder.id;
@@ -124,7 +135,8 @@ describe('Update Sales Order Status (E2E)', () => {
         orderNumber: `SO-STATUS-3-${timestamp}`,
         customerId,
         status: 'PENDING',
-        items: [{ variantId, quantity: 1, unitPrice: 100 }],
+        totalPrice: 100,
+        items: [{ variantId, quantity: 1, unitPrice: 100, totalPrice: 100 }],
       });
 
     const salesOrderId = createResponse.body.salesOrder.id;
@@ -155,8 +167,10 @@ describe('Update Sales Order Status (E2E)', () => {
   });
 
   it('should not be able to update status without authentication', async () => {
+    // Using valid UUID to pass schema validation, then test auth
+    const validUUID = '00000000-0000-0000-0000-000000000000';
     const response = await request(app.server)
-      .patch('/v1/sales-orders/any-id/status')
+      .patch(`/v1/sales-orders/${validUUID}/status`)
       .send({ status: 'PENDING' });
 
     expect(response.status).toBe(401);

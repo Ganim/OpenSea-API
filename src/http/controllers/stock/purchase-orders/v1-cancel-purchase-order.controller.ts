@@ -4,7 +4,6 @@ import { z } from 'zod';
 
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
 import { makeCancelPurchaseOrderUseCase } from '@/use-cases/stock/purchase-orders/factories/make-cancel-purchase-order-use-case';
 
 import { verifyJwt } from '../../../middlewares/verify-jwt';
@@ -73,7 +72,7 @@ export async function cancelPurchaseOrderController(app: FastifyInstance) {
         });
 
         return reply.status(200).send({
-          purchaseOrder: purchaseOrderToDTO(purchaseOrder),
+          purchaseOrder,
         });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {

@@ -41,10 +41,19 @@ describe('Get Sales Order By ID (E2E)', () => {
       .set('Authorization', `Bearer ${userToken}`)
       .send({
         name: `Test Product ${timestamp}`,
-        code: `PROD-GET-ID-${timestamp}`,
+        code: `PROD-GET-${timestamp}`,
         unitOfMeasure: 'UNITS',
         templateId,
       });
+
+    if (!productResponse.body || !productResponse.body.product) {
+      console.error('Product Response:', {
+        status: productResponse.status,
+        body: productResponse.body,
+      });
+      throw new Error('Failed to create product');
+    }
+
     const productId = productResponse.body.product.id;
 
     const variantResponse = await request(app.server)
@@ -66,11 +75,13 @@ describe('Get Sales Order By ID (E2E)', () => {
       .send({
         orderNumber: `SO-TEST-${timestamp}`,
         customerId,
+        totalPrice: 100,
         items: [
           {
             variantId,
             quantity: 1,
             unitPrice: 100,
+            totalPrice: 100,
           },
         ],
       });

@@ -92,14 +92,14 @@ describe('Update Customer', () => {
       notes: '',
     });
 
-    expect(result.customer.email).toBeNull();
-    expect(result.customer.phone).toBeNull();
-    expect(result.customer.address).toBeNull();
-    expect(result.customer.city).toBeNull();
-    expect(result.customer.state).toBeNull();
-    expect(result.customer.zipCode).toBeNull();
-    expect(result.customer.country).toBeNull();
-    expect(result.customer.notes).toBeNull();
+    expect(result.customer.email).toBeUndefined();
+    expect(result.customer.phone).toBeUndefined();
+    expect(result.customer.address).toBeUndefined();
+    expect(result.customer.city).toBeUndefined();
+    expect(result.customer.state).toBeUndefined();
+    expect(result.customer.zipCode).toBeUndefined();
+    expect(result.customer.country).toBeUndefined();
+    expect(result.customer.notes).toBeUndefined();
   });
 
   it('should be able to deactivate customer', async () => {

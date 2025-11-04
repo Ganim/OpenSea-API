@@ -11,7 +11,7 @@ describe('Delete Customer (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
     userToken = token;
   });
 

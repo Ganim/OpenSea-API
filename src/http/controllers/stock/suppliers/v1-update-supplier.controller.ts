@@ -12,7 +12,7 @@ import { z } from 'zod';
 export async function updateSupplierController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
-    url: '/api/v1/suppliers/:id',
+    url: '/v1/suppliers/:id',
     schema: {
       tags: ['Suppliers'],
       summary: 'Update a supplier',

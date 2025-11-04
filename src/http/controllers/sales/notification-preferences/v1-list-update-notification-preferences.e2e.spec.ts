@@ -12,7 +12,7 @@ describe('List and Update Notification Preferences (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { token, user } = await createAndAuthenticateUser(app);
+    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
     userToken = token;
     userId = user.user.id;
 
@@ -45,7 +45,7 @@ describe('List and Update Notification Preferences (E2E)', () => {
   it('should be able to list all user preferences', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: `/v1/notification-preferences?userId=${userId}`,
+      url: `/v1/notification-preferences/user/${userId}`,
       headers: {
         authorization: `Bearer ${userToken}`,
       },
@@ -59,7 +59,7 @@ describe('List and Update Notification Preferences (E2E)', () => {
   it('should be able to list only enabled preferences', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: `/v1/notification-preferences?userId=${userId}&enabledOnly=true`,
+      url: `/v1/notification-preferences/user/${userId}?enabledOnly=true`,
       headers: {
         authorization: `Bearer ${userToken}`,
       },
@@ -74,7 +74,7 @@ describe('List and Update Notification Preferences (E2E)', () => {
   it('should not be able to list preferences without authentication', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: `/v1/notification-preferences?userId=${userId}`,
+      url: `/v1/notification-preferences/user/${userId}`,
     });
 
     expect(response.statusCode).toBe(401);

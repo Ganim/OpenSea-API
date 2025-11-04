@@ -1,54 +1,42 @@
-import type { FastifyReply, FastifyRequest } from 'fastify';
+﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { makeCancelSalesOrderUseCase } from '@/use-cases/sales/sales-orders/factories/make-cancel-sales-order-use-case';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { makeCancelSalesOrderUseCase } from '@/use-cases/sales/sales-orders/factories/make-cancel-sales-order-use-case';
-
-const paramsSchema = z.object({
-  id: z.uuid(),
-});
-
-const responseSchema = z.object({
-  message: z.string(),
-});
-
-export async function v1CancelSalesOrderController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
-
-  try {
-    const useCase = makeCancelSalesOrderUseCase();
-
-    const result = await useCase.execute({ id });
-
-    return reply.status(200).send(result);
-  } catch (error) {
-    if (error instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: error.message });
-    }
-    if (error instanceof BadRequestError) {
-      return reply.status(400).send({ message: error.message });
-    }
-
-    throw error;
-  }
+export async function v1CancelSalesOrderController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'PATCH',
+    url: '/v1/sales-orders/:id/cancel',
+    preHandler: [verifyJwt, verifyUserManager],
+    schema: {
+      tags: ['Sales Orders'],
+      summary: 'Cancel a sales order',
+      params: z.object({ id: z.string().uuid() }),
+      response: {
+        200: z.object({ message: z.string() }),
+        400: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      try {
+        const { id } = request.params as { id: string };
+        const useCase = makeCancelSalesOrderUseCase();
+        const { message } = await useCase.execute({ id });
+        return reply.status(200).send({ message });
+      } catch (err) {
+        if (err instanceof BadRequestError) {
+          return reply.status(400).send({ message: err.message });
+        }
+        if (err instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: err.message });
+        }
+        throw err;
+      }
+    },
+  });
 }
-
-v1CancelSalesOrderController.schema = {
-  tags: ['Sales Orders'],
-  summary: 'Cancel sales order',
-  security: [{ bearerAuth: [] }],
-  params: paramsSchema,
-  response: {
-    200: responseSchema,
-    400: z.object({
-      message: z.string(),
-    }),
-    404: z.object({
-      message: z.string(),
-    }),
-  },
-};

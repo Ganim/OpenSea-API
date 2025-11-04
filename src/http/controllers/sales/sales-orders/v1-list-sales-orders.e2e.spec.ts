@@ -91,13 +91,13 @@ describe('List Sales Orders (E2E)', () => {
       .query({ page: 1, perPage: 10 });
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('orders');
+    expect(response.body).toHaveProperty('salesOrders');
     expect(response.body).toHaveProperty('total');
     expect(response.body).toHaveProperty('page');
     expect(response.body).toHaveProperty('perPage');
     expect(response.body).toHaveProperty('totalPages');
-    expect(Array.isArray(response.body.orders)).toBe(true);
-    expect(response.body.orders.length).toBeGreaterThan(0);
+    expect(Array.isArray(response.body.salesOrders)).toBe(true);
+    expect(response.body.salesOrders.length).toBeGreaterThan(0);
   });
 
   it('should be able to filter sales orders by customer', async () => {
@@ -142,9 +142,9 @@ describe('List Sales Orders (E2E)', () => {
       .query({ page: 1, perPage: 10, customerId });
 
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body.orders)).toBe(true);
+    expect(Array.isArray(response.body.salesOrders)).toBe(true);
     // All orders should have the same customerId
-    response.body.orders.forEach((order: { customerId: string }) => {
+    response.body.salesOrders.forEach((order: { customerId: string }) => {
       expect(order.customerId).toBe(customerId);
     });
   });
@@ -191,9 +191,9 @@ describe('List Sales Orders (E2E)', () => {
       .query({ page: 1, perPage: 10, status: 'DRAFT' });
 
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body.orders)).toBe(true);
+    expect(Array.isArray(response.body.salesOrders)).toBe(true);
     // All orders should have DRAFT status
-    response.body.orders.forEach((order: { status: string }) => {
+    response.body.salesOrders.forEach((order: { status: string }) => {
       expect(order.status).toBe('DRAFT');
     });
   });
@@ -207,14 +207,16 @@ describe('List Sales Orders (E2E)', () => {
   });
 
   it('should return empty array when no orders match filters', async () => {
-    const nonExistentCustomerId = '00000000-0000-0000-0000-000000000099';
+    // Using a valid UUID v4 format that doesn't exist in database
+    const nonExistentCustomerId = '123e4567-e89b-12d3-a456-426614174099';
 
     const response = await request(app.server)
-      .get('/v1/sales-orders')
-      .set('Authorization', `Bearer ${userToken}`)
-      .query({ page: 1, perPage: 10, customerId: nonExistentCustomerId });
+      .get(
+        `/v1/sales-orders?page=1&perPage=10&customerId=${nonExistentCustomerId}`,
+      )
+      .set('Authorization', `Bearer ${userToken}`);
 
     expect(response.status).toBe(200);
-    expect(response.body.orders).toEqual([]);
+    expect(response.body.salesOrders).toEqual([]);
   });
 });

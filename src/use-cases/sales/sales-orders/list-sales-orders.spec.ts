@@ -38,10 +38,10 @@ describe('List Sales Orders', () => {
       customerId: customer1.id.toString(),
     });
 
-    expect(result.orders).toHaveLength(2);
+    expect(result.salesOrders).toHaveLength(2);
     expect(result.total).toBe(2);
-    expect(result.orders[0].customerId).toBe(customer1.id.toString());
-    expect(result.orders[1].customerId).toBe(customer1.id.toString());
+    expect(result.salesOrders[0].customerId).toBe(customer1.id.toString());
+    expect(result.salesOrders[1].customerId).toBe(customer1.id.toString());
   });
 
   it('should be able to list sales orders by status', async () => {
@@ -66,9 +66,9 @@ describe('List Sales Orders', () => {
       status: 'PENDING',
     });
 
-    expect(result.orders).toHaveLength(2);
-    expect(result.orders[0].status).toBe('PENDING');
-    expect(result.orders[1].status).toBe('PENDING');
+    expect(result.salesOrders).toHaveLength(2);
+    expect(result.salesOrders[0].status).toBe('PENDING');
+    expect(result.salesOrders[1].status).toBe('PENDING');
   });
 
   it('should paginate results', async () => {
@@ -94,8 +94,8 @@ describe('List Sales Orders', () => {
       perPage: 10,
     });
 
-    expect(page1.orders).toHaveLength(10);
-    expect(page2.orders).toHaveLength(10);
+    expect(page1.salesOrders).toHaveLength(10);
+    expect(page2.salesOrders).toHaveLength(10);
     expect(page1.totalPages).toBe(3);
     expect(page1.total).toBe(25);
   });

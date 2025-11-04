@@ -14,17 +14,7 @@ export const productStatusSchema = z.enum(['ACTIVE', 'INACTIVE', 'ARCHIVED']);
 /**
  * Unidade de medida
  */
-export const unitOfMeasureSchema = z.enum([
-  'UNIT',
-  'KG',
-  'G',
-  'L',
-  'ML',
-  'M',
-  'CM',
-  'M2',
-  'M3',
-]);
+export const unitOfMeasureSchema = z.enum(['METERS', 'KILOGRAMS', 'UNITS']);
 
 /**
  * Schema para criação de produto

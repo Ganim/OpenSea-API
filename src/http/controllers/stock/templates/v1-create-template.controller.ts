@@ -5,13 +5,16 @@ import {
 } from '@/http/schemas/stock.schema';
 import { makeCreateTemplateUseCase } from '@/use-cases/stock/templates/factories/make-create-template-use-case';
 import type { FastifyInstance } from 'fastify';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 export async function createTemplateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/api/v1/stock/templates',
+    url: '/v1/templates',
+    preHandler: [verifyJwt, verifyUserManager],
     schema: {
       tags: ['Stock - Templates'],
       summary: 'Create a new template',
@@ -41,3 +44,4 @@ export async function createTemplateController(app: FastifyInstance) {
     },
   });
 }
+

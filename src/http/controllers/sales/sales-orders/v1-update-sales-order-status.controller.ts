@@ -1,77 +1,47 @@
-import type { FastifyReply, FastifyRequest } from 'fastify';
+﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import {
+  salesOrderResponseSchema,
+  updateSalesOrderStatusSchema,
+} from '@/http/schemas/sales.schema';
+import { makeUpdateSalesOrderStatusUseCase } from '@/use-cases/sales/sales-orders/factories/make-update-sales-order-status-use-case';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { makeUpdateSalesOrderStatusUseCase } from '@/use-cases/sales/sales-orders/factories/make-update-sales-order-status-use-case';
-
-const paramsSchema = z.object({
-  id: z.uuid(),
-});
-
-const bodySchema = z.object({
-  status: z.enum([
-    'DRAFT',
-    'PENDING',
-    'CONFIRMED',
-    'IN_TRANSIT',
-    'DELIVERED',
-    'CANCELLED',
-    'RETURNED',
-  ]),
-});
-
-const responseSchema = z.object({
-  salesOrder: z.object({
-    id: z.string(),
-    orderNumber: z.string(),
-    status: z.string(),
-    customerId: z.string(),
-    totalPrice: z.number(),
-    discount: z.number(),
-    finalPrice: z.number(),
-    updatedAt: z.date(),
-  }),
-});
-
-export async function v1UpdateSalesOrderStatusController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
-  const { status } = bodySchema.parse(request.body);
-
-  try {
-    const useCase = makeUpdateSalesOrderStatusUseCase();
-
-    const result = await useCase.execute({ id, status });
-
-    return reply.status(200).send(result);
-  } catch (error) {
-    if (error instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: error.message });
-    }
-    if (error instanceof BadRequestError) {
-      return reply.status(400).send({ message: error.message });
-    }
-
-    throw error;
-  }
+export async function v1UpdateSalesOrderStatusController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'PATCH',
+    url: '/v1/sales-orders/:id/status',
+    preHandler: [verifyJwt, verifyUserManager],
+    schema: {
+      tags: ['Sales Orders'],
+      summary: 'Update sales order status',
+      params: z.object({ id: z.string().uuid() }),
+      body: updateSalesOrderStatusSchema,
+      response: {
+        200: z.object({ salesOrder: salesOrderResponseSchema }),
+        400: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      try {
+        const { id } = request.params as { id: string };
+        const useCase = makeUpdateSalesOrderStatusUseCase();
+        const { salesOrder } = await useCase.execute({ id, ...request.body });
+        return reply.status(200).send({ salesOrder });
+      } catch (err) {
+        if (err instanceof BadRequestError) {
+          return reply.status(400).send({ message: err.message });
+        }
+        if (err instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: err.message });
+        }
+        throw err;
+      }
+    },
+  });
 }
-
-v1UpdateSalesOrderStatusController.schema = {
-  tags: ['Sales Orders'],
-  summary: 'Update sales order status',
-  security: [{ bearerAuth: [] }],
-  params: paramsSchema,
-  body: bodySchema,
-  response: {
-    200: responseSchema,
-    400: z.object({
-      message: z.string(),
-    }),
-    404: z.object({
-      message: z.string(),
-    }),
-  },
-};

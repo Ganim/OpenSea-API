@@ -10,7 +10,7 @@ describe('Create Customer (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
     userToken = token;
   });
 
@@ -80,20 +80,23 @@ describe('Create Customer (E2E)', () => {
         id: expect.any(String),
         name: `Minimal Customer ${timestamp}`,
         type: 'BUSINESS',
-        document: null,
-        email: null,
-        phone: null,
-        address: null,
-        city: null,
-        state: null,
-        zipCode: null,
-        country: null,
-        notes: null,
         isActive: true,
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
       },
     });
+
+    // Optional fields should not be present or can be null
+    const { customer } = response.body;
+    expect(customer.document).toBeUndefined();
+    expect(customer.email).toBeUndefined();
+    expect(customer.phone).toBeUndefined();
+    expect(customer.address).toBeUndefined();
+    expect(customer.city).toBeUndefined();
+    expect(customer.state).toBeUndefined();
+    expect(customer.zipCode).toBeUndefined();
+    expect(customer.country).toBeUndefined();
+    expect(customer.notes).toBeUndefined();
   });
 
   it('should not be able to create a customer without authentication', async () => {

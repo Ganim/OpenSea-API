@@ -22,10 +22,23 @@ interface UpdateSalesOrderStatusUseCaseResponse {
     orderNumber: string;
     status: string;
     customerId: string;
+    createdBy: string | null;
     totalPrice: number;
     discount: number;
     finalPrice: number;
+    notes: string | null;
+    items: Array<{
+      id: string;
+      variantId: string;
+      quantity: number;
+      unitPrice: number;
+      discount: number;
+      totalPrice: number;
+      notes: string | null;
+    }>;
+    createdAt: Date;
     updatedAt: Date;
+    deletedAt: Date | null;
   };
 }
 
@@ -79,10 +92,23 @@ export class UpdateSalesOrderStatusUseCase {
         orderNumber: order.orderNumber,
         status: order.status.value,
         customerId: order.customerId.toString(),
+        createdBy: order.createdBy?.toString() ?? null,
         totalPrice: order.totalPrice,
         discount: order.discount,
         finalPrice: order.finalPrice,
+        notes: order.notes ?? null,
+        items: order.items.map((item) => ({
+          id: item.id.toString(),
+          variantId: item.variantId.toString(),
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          discount: item.discount,
+          totalPrice: item.totalPrice,
+          notes: item.notes ?? null,
+        })),
+        createdAt: order.createdAt,
         updatedAt: order.updatedAt ?? order.createdAt,
+        deletedAt: order.deletedAt ?? null,
       },
     };
   }

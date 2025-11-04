@@ -1,90 +1,44 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { updateVariantPromotionSchema, variantPromotionResponseSchema } from '@/http/schemas/sales.schema';
 import { makeUpdateVariantPromotionUseCase } from '@/use-cases/sales/variant-promotions/factories/make-update-variant-promotion-use-case';
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const paramsSchema = z.object({
-  id: z.uuid(),
-});
-
-const bodySchema = z.object({
-  name: z.string().min(1).max(100).optional(),
-  discountValue: z.number().nonnegative().optional(),
-  startDate: z.coerce.date().optional(),
-  endDate: z.coerce.date().optional(),
-  isActive: z.boolean().optional(),
-  notes: z.string().optional(),
-});
-
-const responseSchema = z.object({
-  promotion: z.object({
-    id: z.string(),
-    variantId: z.string(),
-    name: z.string(),
-    discountType: z.string(),
-    discountValue: z.number(),
-    startDate: z.date(),
-    endDate: z.date(),
-    isActive: z.boolean(),
-    isCurrentlyValid: z.boolean(),
-    isExpired: z.boolean(),
-    isUpcoming: z.boolean(),
-    notes: z.string().optional(),
-    createdAt: z.date(),
-    updatedAt: z.date().optional(),
-  }),
-});
-
-export async function v1UpdateVariantPromotionController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
-  const { name, discountValue, startDate, endDate, isActive, notes } =
-    bodySchema.parse(request.body);
-
-  try {
-    const updateVariantPromotionUseCase = makeUpdateVariantPromotionUseCase();
-
-    const result = await updateVariantPromotionUseCase.execute({
-      id,
-      name,
-      discountValue,
-      startDate,
-      endDate,
-      isActive,
-      notes,
-    });
-
-    return reply.status(200).send(result);
-  } catch (err) {
-    if (err instanceof BadRequestError) {
-      return reply.status(400).send({ message: err.message });
-    }
-
-    if (err instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: err.message });
-    }
-
-    throw err;
-  }
+export async function updateVariantPromotionController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'PUT',
+    url: '/v1/variant-promotions/:id',
+    preHandler: [verifyJwt, verifyUserManager],
+    schema: {
+      tags: ['Variant Promotions'],
+      summary: 'Update a variant promotion',
+      params: z.object({ id: z.string().uuid() }),
+      body: updateVariantPromotionSchema,
+      response: {
+        200: z.object({ promotion: variantPromotionResponseSchema }),
+        400: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      try {
+        const { id } = request.params as { id: string };
+        const useCase = makeUpdateVariantPromotionUseCase();
+        const { promotion } = await useCase.execute({ id, ...request.body });
+        return reply.status(200).send({ promotion });
+      } catch (err) {
+        if (err instanceof BadRequestError) {
+          return reply.status(400).send({ message: err.message });
+        }
+        if (err instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: err.message });
+        }
+        throw err;
+      }
+    },
+  });
 }
-
-v1UpdateVariantPromotionController.schema = {
-  tags: ['Variant Promotions'],
-  summary: 'Update variant promotion',
-  description: 'Update an existing variant promotion',
-  security: [{ bearerAuth: [] }],
-  params: paramsSchema,
-  body: bodySchema,
-  response: {
-    200: responseSchema,
-    400: z.object({
-      message: z.string(),
-    }),
-    404: z.object({
-      message: z.string(),
-    }),
-  },
-};

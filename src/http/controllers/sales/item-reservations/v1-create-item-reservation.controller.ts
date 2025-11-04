@@ -1,55 +1,45 @@
+﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import {
+  createItemReservationSchema,
+  itemReservationResponseSchema,
+} from '@/http/schemas/sales.schema';
 import { makeCreateItemReservationUseCase } from '@/use-cases/sales/item-reservations/factories/make-create-item-reservation-use-case';
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const bodySchema = z.object({
-  itemId: z.uuid(),
-  userId: z.uuid(),
-  quantity: z.number().int().positive(),
-  reason: z.string().optional(),
-  reference: z.string().optional(),
-  expiresAt: z.coerce.date(),
-});
+export async function createItemReservationController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'POST',
+    url: '/v1/item-reservations',
+    preHandler: [verifyJwt],
+    schema: {
+      tags: ['Item Reservations'],
+      summary: 'Create a new item reservation',
+      body: createItemReservationSchema,
+      response: {
+        201: z.object({ reservation: itemReservationResponseSchema }),
+        400: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      try {
+        const useCase = makeCreateItemReservationUseCase();
+        const { reservation } = await useCase.execute(request.body);
 
-const responseSchema = z.object({
-  reservation: z.object({
-    id: z.string(),
-    itemId: z.string(),
-    userId: z.string(),
-    quantity: z.number(),
-    reason: z.string().optional(),
-    reference: z.string().optional(),
-    expiresAt: z.date(),
-    releasedAt: z.date().optional(),
-    isExpired: z.boolean(),
-    isReleased: z.boolean(),
-    isActive: z.boolean(),
-    createdAt: z.date(),
-  }),
-});
-
-export async function v1CreateItemReservationController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const data = bodySchema.parse(request.body);
-
-  const createItemReservationUseCase = makeCreateItemReservationUseCase();
-
-  const result = await createItemReservationUseCase.execute(data);
-
-  return reply.status(201).send(result);
+        return reply.status(201).send({ reservation });
+      } catch (err) {
+        if (err instanceof BadRequestError) {
+          return reply.status(400).send({ message: err.message });
+        }
+        if (err instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: err.message });
+        }
+        throw err;
+      }
+    },
+  });
 }
-
-v1CreateItemReservationController.schema = {
-  tags: ['Item Reservations'],
-  summary: 'Create a new item reservation',
-  description: 'Create a new item reservation for a specific item and user',
-  security: [{ bearerAuth: [] }],
-  body: bodySchema,
-  response: {
-    201: responseSchema,
-    400: z.object({ message: z.string() }),
-    404: z.object({ message: z.string() }),
-  },
-};

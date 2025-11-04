@@ -89,10 +89,10 @@ describe('Update Template (E2E)', () => {
   it('should return 404 when updating non-existing template', async () => {
     const { token } = await createAndAuthenticateUser(app, 'MANAGER');
 
-    const fakeId = 'f8c8c8c8-c8c8-c8c8-c8c8-c8c8c8c8c8c8';
+    const nonExistingId = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
-      .put(`/v1/templates/${fakeId}`)
+      .put(`/v1/templates/${nonExistingId}`)
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: 'Updated Name',
@@ -103,8 +103,10 @@ describe('Update Template (E2E)', () => {
   });
 
   it('should not be able to update template without authentication', async () => {
+    const nonExistingId = '00000000-0000-0000-0000-000000000000';
+
     const response = await request(app.server)
-      .put('/v1/templates/f8c8c8c8-c8c8-c8c8-c8c8-c8c8c8c8c8c8')
+      .put(`/v1/templates/${nonExistingId}`)
       .send({
         name: 'Updated Name',
       });

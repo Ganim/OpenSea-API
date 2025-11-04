@@ -1,60 +1,38 @@
-import type { FastifyReply, FastifyRequest } from 'fastify';
+﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { commentResponseSchema } from '@/http/schemas/sales.schema';
+import { makeGetCommentByIdUseCase } from '@/use-cases/sales/comments/factories/make-get-comment-by-id-use-case';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { makeGetCommentByIdUseCase } from '@/use-cases/sales/comments/factories/make-get-comment-by-id-use-case';
+export async function getCommentByIdController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/comments/:id',
+    preHandler: [verifyJwt],
+    schema: {
+      tags: ['Comments'],
+      summary: 'Get comment by ID',
+      params: z.object({ id: z.string().uuid() }),
+      response: {
+        200: z.object({ comment: commentResponseSchema }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      try {
+        const { id } = request.params as { id: string };
+        const useCase = makeGetCommentByIdUseCase();
+        const { comment } = await useCase.execute({ id });
 
-const paramsSchema = z.object({
-  id: z.uuid(),
-});
-
-const responseSchema = z.object({
-  comment: z.object({
-    id: z.string(),
-    entityType: z.string(),
-    entityId: z.string(),
-    userId: z.string(),
-    content: z.string(),
-    parentCommentId: z.string().optional(),
-    isDeleted: z.boolean(),
-    isEdited: z.boolean(),
-    createdAt: z.date(),
-    updatedAt: z.date().optional(),
-    deletedAt: z.date().optional(),
-  }),
-});
-
-export async function v1GetCommentByIdController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
-
-  try {
-    const useCase = makeGetCommentByIdUseCase();
-
-    const result = await useCase.execute({ id });
-
-    return reply.status(200).send(result);
-  } catch (error) {
-    if (error instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: error.message });
-    }
-
-    throw error;
-  }
+        return reply.status(200).send({ comment });
+      } catch (err) {
+        if (err instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: err.message });
+        }
+        throw err;
+      }
+    },
+  });
 }
-
-v1GetCommentByIdController.schema = {
-  tags: ['Comments'],
-  summary: 'Get comment by ID',
-  description: 'Retrieve a comment by its ID',
-  security: [{ bearerAuth: [] }],
-  params: paramsSchema,
-  response: {
-    200: responseSchema,
-    404: z.object({
-      message: z.string(),
-    }),
-  },
-};

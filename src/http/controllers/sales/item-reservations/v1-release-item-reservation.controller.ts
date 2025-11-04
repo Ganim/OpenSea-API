@@ -1,50 +1,43 @@
+﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { itemReservationResponseSchema } from '@/http/schemas/sales.schema';
 import { makeReleaseItemReservationUseCase } from '@/use-cases/sales/item-reservations/factories/make-release-item-reservation-use-case';
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const paramsSchema = z.object({
-  id: z.uuid(),
-});
+export async function releaseItemReservationController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'PATCH',
+    url: '/v1/item-reservations/:id/release',
+    preHandler: [verifyJwt],
+    schema: {
+      tags: ['Item Reservations'],
+      summary: 'Release an item reservation',
+      params: z.object({ id: z.string().uuid() }),
+      response: {
+        200: z.object({ reservation: itemReservationResponseSchema }),
+        400: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      try {
+        const { id } = request.params as { id: string };
+        const useCase = makeReleaseItemReservationUseCase();
+        const { reservation } = await useCase.execute({ id });
 
-const responseSchema = z.object({
-  reservation: z.object({
-    id: z.string(),
-    itemId: z.string(),
-    userId: z.string(),
-    quantity: z.number(),
-    reason: z.string().optional(),
-    reference: z.string().optional(),
-    expiresAt: z.date(),
-    releasedAt: z.date().optional(),
-    isExpired: z.boolean(),
-    isReleased: z.boolean(),
-    isActive: z.boolean(),
-    createdAt: z.date(),
-  }),
-});
-
-export async function v1ReleaseItemReservationController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
-
-  const releaseItemReservationUseCase = makeReleaseItemReservationUseCase();
-
-  const result = await releaseItemReservationUseCase.execute({ id });
-
-  return reply.status(200).send(result);
+        return reply.status(200).send({ reservation });
+      } catch (err) {
+        if (err instanceof BadRequestError) {
+          return reply.status(400).send({ message: err.message });
+        }
+        if (err instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: err.message });
+        }
+        throw err;
+      }
+    },
+  });
 }
-
-v1ReleaseItemReservationController.schema = {
-  tags: ['Item Reservations'],
-  summary: 'Release an item reservation',
-  description: 'Release a reservation, making the items available again',
-  security: [{ bearerAuth: [] }],
-  params: paramsSchema,
-  response: {
-    200: responseSchema,
-    400: z.object({ message: z.string() }),
-    404: z.object({ message: z.string() }),
-  },
-};

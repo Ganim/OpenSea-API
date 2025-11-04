@@ -7,7 +7,7 @@ import { z } from 'zod';
 export async function listSuppliersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/api/v1/suppliers',
+    url: '/v1/suppliers',
     schema: {
       tags: ['Suppliers'],
       summary: 'List all suppliers',

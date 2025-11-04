@@ -67,7 +67,7 @@ describe('CreateCustomerUseCase', () => {
       email: 'sem.documento@example.com',
     });
 
-    expect(result.customer.document).toBeNull();
+    expect(result.customer.document).toBeUndefined();
     expect(result.customer.name).toBe('Cliente Sem Documento');
   });
 

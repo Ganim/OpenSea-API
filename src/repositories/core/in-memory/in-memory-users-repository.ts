@@ -172,6 +172,12 @@ export class InMemoryUsersRepository implements UsersRepository {
     return user;
   }
 
+  async findManyByIds(ids: UniqueEntityID[]): Promise<User[]> {
+    return this.items.filter(
+      (user) => ids.some((id) => id.equals(user.id)) && !user.isDeleted,
+    );
+  }
+
   // LIST
   // - listAll(): Promise<User[] | null>;
   // - listAllByRole(role: PrismaRole): Promise<User[] | null>;

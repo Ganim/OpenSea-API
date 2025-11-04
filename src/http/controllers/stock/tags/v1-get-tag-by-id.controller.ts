@@ -1,4 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { tagResponseSchema } from '@/http/schemas/stock.schema';
 import { makeGetTagByIdUseCase } from '@/use-cases/stock/tags/factories/make-get-tag-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -8,7 +9,8 @@ import { z } from 'zod';
 export async function getTagByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/api/v1/stock/tags/:id',
+    url: '/v1/tags/:id',
+    preHandler: [verifyJwt],
     schema: {
       tags: ['Stock - Tags'],
       summary: 'Get a tag by ID',

@@ -18,7 +18,7 @@ interface ListSalesOrdersUseCaseRequest {
 }
 
 interface ListSalesOrdersUseCaseResponse {
-  orders: Array<{
+  salesOrders: Array<{
     id: string;
     orderNumber: string;
     status: string;
@@ -28,9 +28,18 @@ interface ListSalesOrdersUseCaseResponse {
     discount: number;
     finalPrice: number;
     notes: string | null;
-    itemsCount: number;
+    items: Array<{
+      id: string;
+      variantId: string;
+      quantity: number;
+      unitPrice: number;
+      discount: number;
+      totalPrice: number;
+      notes: string | null;
+    }>;
     createdAt: Date;
     updatedAt: Date;
+    deletedAt: Date | null;
   }>;
   total: number;
   page: number;
@@ -73,7 +82,7 @@ export class ListSalesOrdersUseCase {
     const orders = allOrders.slice(start, start + perPage);
 
     return {
-      orders: orders.map((order) => ({
+      salesOrders: orders.map((order) => ({
         id: order.id.toString(),
         orderNumber: order.orderNumber,
         status: order.status.value,
@@ -83,9 +92,18 @@ export class ListSalesOrdersUseCase {
         discount: order.discount,
         finalPrice: order.finalPrice,
         notes: order.notes ?? null,
-        itemsCount: order.items.length,
+        items: order.items.map((item) => ({
+          id: item.id.toString(),
+          variantId: item.variantId.toString(),
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          discount: item.discount,
+          totalPrice: item.totalPrice,
+          notes: item.notes ?? null,
+        })),
         createdAt: order.createdAt,
         updatedAt: order.updatedAt ?? order.createdAt,
+        deletedAt: order.deletedAt ?? null,
       })),
       total,
       page,

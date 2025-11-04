@@ -1,58 +1,44 @@
+﻿import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { itemReservationResponseSchema } from '@/http/schemas/sales.schema';
 import { makeListItemReservationsUseCase } from '@/use-cases/sales/item-reservations/factories/make-list-item-reservations-use-case';
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const querySchema = z.object({
-  itemId: z.uuid().optional(),
-  userId: z.uuid().optional(),
-  activeOnly: z.preprocess((val) => {
-    if (val === undefined || val === null) return undefined;
-    if (val === 'true') return true;
-    if (val === 'false') return false;
-    return val;
-  }, z.boolean().optional()),
-});
+export async function listItemReservationsController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/item-reservations',
+    preHandler: [verifyJwt],
+    schema: {
+      tags: ['Item Reservations'],
+      summary: 'List item reservations',
+      querystring: z.object({
+        itemId: z.string().uuid().optional(),
+        userId: z.string().uuid().optional(),
+        activeOnly: z.coerce.boolean().optional(),
+      }),
+      response: {
+        200: z.object({
+          reservations: z.array(itemReservationResponseSchema),
+        }),
+      },
+    },
+    handler: async (request, reply) => {
+      const { itemId, userId, activeOnly } = request.query as {
+        itemId?: string;
+        userId?: string;
+        activeOnly?: boolean;
+      };
 
-const responseSchema = z.object({
-  reservations: z.array(
-    z.object({
-      id: z.string(),
-      itemId: z.string(),
-      userId: z.string(),
-      quantity: z.number(),
-      reason: z.string().optional(),
-      reference: z.string().optional(),
-      expiresAt: z.date(),
-      releasedAt: z.date().optional(),
-      isExpired: z.boolean(),
-      isReleased: z.boolean(),
-      isActive: z.boolean(),
-      createdAt: z.date(),
-    }),
-  ),
-});
+      const useCase = makeListItemReservationsUseCase();
+      const { reservations } = await useCase.execute({
+        itemId,
+        userId,
+        activeOnly,
+      });
 
-export async function v1ListItemReservationsController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const data = querySchema.parse(request.query);
-
-  const listItemReservationsUseCase = makeListItemReservationsUseCase();
-
-  const result = await listItemReservationsUseCase.execute(data);
-
-  return reply.status(200).send(result);
+      return reply.status(200).send({ reservations });
+    },
+  });
 }
-
-v1ListItemReservationsController.schema = {
-  tags: ['Item Reservations'],
-  summary: 'List item reservations',
-  description:
-    'List item reservations with optional filters (itemId, userId, activeOnly)',
-  security: [{ bearerAuth: [] }],
-  querystring: querySchema,
-  response: {
-    200: responseSchema,
-  },
-};

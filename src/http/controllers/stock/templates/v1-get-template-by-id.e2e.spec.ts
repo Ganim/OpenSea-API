@@ -49,10 +49,10 @@ describe('Get Template By ID (E2E)', () => {
   it('should return 404 when template does not exist', async () => {
     const { token } = await createAndAuthenticateUser(app, 'MANAGER');
 
-    const fakeId = 'f8c8c8c8-c8c8-c8c8-c8c8-c8c8c8c8c8c8';
+    const nonExistingId = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
-      .get(`/v1/templates/${fakeId}`)
+      .get(`/v1/templates/${nonExistingId}`)
       .set('Authorization', `Bearer ${token}`)
       .send();
 
@@ -61,8 +61,10 @@ describe('Get Template By ID (E2E)', () => {
   });
 
   it('should not be able to get a template without authentication', async () => {
+    const nonExistingId = '00000000-0000-0000-0000-000000000000';
+
     const response = await request(app.server)
-      .get('/v1/templates/f8c8c8c8-c8c8-c8c8-c8c8-c8c8c8c8c8c8')
+      .get(`/v1/templates/${nonExistingId}`)
       .send();
 
     expect(response.statusCode).toEqual(401);

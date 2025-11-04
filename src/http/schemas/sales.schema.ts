@@ -8,13 +8,20 @@ import z from 'zod';
 // ============= ENUMS =============
 
 export const salesOrderStatusEnum = z.enum([
+  'DRAFT',
   'PENDING',
   'CONFIRMED',
-  'PROCESSING',
-  'SHIPPED',
+  'IN_TRANSIT',
   'DELIVERED',
   'CANCELLED',
-  'REFUNDED',
+  'RETURNED',
+]);
+
+// Enum específico para criação de pedidos (apenas status iniciais válidos)
+export const createSalesOrderStatusEnum = z.enum([
+  'DRAFT',
+  'PENDING',
+  'CONFIRMED',
 ]);
 
 export const paymentMethodEnum = z.enum([
@@ -38,99 +45,115 @@ export const deliveryMethodEnum = z.enum(['PICKUP', 'DELIVERY', 'SHIPPING']);
 // ============= CUSTOMER SCHEMAS =============
 
 export const createCustomerSchema = z.object({
-  name: z.string().min(1).max(255),
-  email: z.email(),
+  name: z.string().min(1).max(128),
+  type: z.enum(['INDIVIDUAL', 'BUSINESS']),
+  document: z.string().optional(),
+  email: z.string().email().max(254).optional(),
   phone: z.string().max(20).optional(),
-  taxId: z.string().max(50).optional(),
-  address: z.string().max(255).optional(),
-  city: z.string().max(100).optional(),
-  state: z.string().max(100).optional(),
-  country: z.string().max(100).optional(),
-  postalCode: z.string().max(20).optional(),
-  notes: z.string().max(1000).optional(),
+  address: z.string().max(256).optional(),
+  city: z.string().max(128).optional(),
+  state: z.string().length(2).optional(),
+  zipCode: z.string().max(10).optional(),
+  country: z.string().max(64).optional(),
+  notes: z.string().optional(),
 });
 
 export const customerResponseSchema = z.object({
-  id: z.uuid(),
+  id: z.string().uuid(),
   name: z.string(),
-  email: z.string(),
+  type: z.string(),
+  document: z.string().optional(),
+  email: z.string().optional(),
   phone: z.string().optional(),
-  taxId: z.string().optional(),
   address: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
+  zipCode: z.string().optional(),
   country: z.string().optional(),
-  postalCode: z.string().optional(),
   notes: z.string().optional(),
+  isActive: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().nullable().optional(),
 });
 
-export const updateCustomerSchema = createCustomerSchema.partial();
+export const updateCustomerSchema = createCustomerSchema
+  .partial()
+  .omit({ type: true });
+
+// SalesOrderItem schema
 
 // ============= SALES ORDER SCHEMAS =============
 
+export const salesOrderItemResponseSchema = z.object({
+  id: z.string().uuid(),
+  // orderId: z.string().uuid(), // removed - not returned by use-case
+  variantId: z.string().uuid(),
+  quantity: z.number().int().positive(),
+  unitPrice: z.number(),
+  discount: z.number(),
+  totalPrice: z.number(),
+  notes: z.string().nullable().optional(),
+  // createdAt: z.coerce.date(), // removed - not returned by use-case
+  // updatedAt: z.coerce.date().optional(), // removed - not returned by use-case
+});
+
 export const salesOrderItemSchema = z.object({
-  variantId: z.uuid(),
+  variantId: z.string().uuid(),
   quantity: z.number().int().positive(),
   unitPrice: z.number().positive(),
-  discount: z.number().min(0).max(100).optional().default(0),
+  discount: z.number().min(0).optional().default(0),
+  notes: z.string().max(1000).optional(),
 });
 
 export const createSalesOrderSchema = z.object({
-  customerId: z.uuid(),
-  orderNumber: z.string().min(1).max(100).optional(),
-  status: salesOrderStatusEnum.optional().default('PENDING'),
-  paymentMethod: paymentMethodEnum,
-  paymentStatus: paymentStatusEnum.optional().default('PENDING'),
-  deliveryMethod: deliveryMethodEnum,
-  deliveryAddress: z.string().max(500).optional(),
-  deliveryDate: z.coerce.date().optional(),
+  customerId: z.string().uuid(),
+  orderNumber: z.string().min(1).max(100),
+  status: createSalesOrderStatusEnum.optional().default('PENDING'),
+  discount: z.number().min(0).optional().default(0),
   notes: z.string().max(1000).optional(),
   items: z.array(salesOrderItemSchema).min(1),
+  createdBy: z.string().uuid().optional(),
 });
 
 export const salesOrderResponseSchema = z.object({
-  id: z.uuid(),
-  customerId: z.uuid(),
+  id: z.string().uuid(),
   orderNumber: z.string(),
+  customerId: z.string().uuid(),
+  createdBy: z.string().uuid().nullable().optional(),
   status: z.string(),
-  paymentMethod: z.string(),
-  paymentStatus: z.string(),
-  deliveryMethod: z.string(),
-  deliveryAddress: z.string().optional(),
-  deliveryDate: z.coerce.date().optional(),
-  notes: z.string().optional(),
-  subtotal: z.number(),
+  totalPrice: z.number(),
   discount: z.number(),
-  total: z.number(),
+  finalPrice: z.number(),
+  notes: z.string().nullable().optional(),
+  items: z.array(salesOrderItemResponseSchema),
   createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date(),
+  deletedAt: z.coerce.date().nullable().optional(),
 });
 
 export const updateSalesOrderStatusSchema = z.object({
   status: salesOrderStatusEnum,
 });
 
-export const updateSalesOrderPaymentSchema = z.object({
-  paymentStatus: paymentStatusEnum,
-});
-
 // ============= COMMENT SCHEMAS =============
 
 export const createCommentSchema = z.object({
+  entityType: z.string().min(1).max(50),
+  entityId: z.string().uuid(),
   content: z.string().min(1).max(2000),
-  salesOrderId: z.uuid(),
-  parentCommentId: z.uuid().optional(),
+  parentCommentId: z.string().uuid().optional(),
 });
 
 export const commentResponseSchema = z.object({
-  id: z.uuid(),
+  id: z.string().uuid(),
+  entityType: z.string(),
+  entityId: z.string().uuid(),
+  userId: z.string().uuid(),
   content: z.string(),
-  salesOrderId: z.uuid(),
-  parentCommentId: z.uuid().optional(),
-  userId: z.uuid(),
+  parentCommentId: z.string().uuid().optional(),
+  isDeleted: z.boolean(),
+  isEdited: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().nullable().optional(),
@@ -143,29 +166,31 @@ export const updateCommentSchema = z.object({
 // ============= VARIANT PROMOTION SCHEMAS =============
 
 export const createVariantPromotionSchema = z.object({
-  variantId: z.uuid(),
+  variantId: z.string().uuid(),
   name: z.string().min(1).max(255),
-  description: z.string().max(1000).optional(),
-  discountPercentage: z.number().min(0).max(100).optional(),
-  discountAmount: z.number().positive().optional(),
+  discountType: z.enum(['PERCENTAGE', 'FIXED_AMOUNT']),
+  discountValue: z.number().positive(),
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
   isActive: z.boolean().optional().default(true),
+  notes: z.string().max(1000).optional(),
 });
 
 export const variantPromotionResponseSchema = z.object({
-  id: z.uuid(),
-  variantId: z.uuid(),
+  id: z.string().uuid(),
+  variantId: z.string().uuid(),
   name: z.string(),
-  description: z.string().optional(),
-  discountPercentage: z.number().optional(),
-  discountAmount: z.number().optional(),
+  discountType: z.string(),
+  discountValue: z.number(),
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
   isActive: z.boolean(),
+  isCurrentlyValid: z.boolean(),
+  isExpired: z.boolean(),
+  isUpcoming: z.boolean(),
+  notes: z.string().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
-  deletedAt: z.coerce.date().nullable().optional(),
 });
 
 export const updateVariantPromotionSchema = createVariantPromotionSchema
@@ -175,63 +200,60 @@ export const updateVariantPromotionSchema = createVariantPromotionSchema
 // ============= ITEM RESERVATION SCHEMAS =============
 
 export const createItemReservationSchema = z.object({
-  itemId: z.uuid(),
-  customerId: z.uuid(),
+  itemId: z.string().uuid(),
+  userId: z.string().uuid(),
   quantity: z.number().int().positive(),
-  reservationDate: z.coerce.date().optional(),
-  expirationDate: z.coerce.date(),
-  notes: z.string().max(500).optional(),
+  reason: z.string().max(500).optional(),
+  reference: z.string().max(255).optional(),
+  expiresAt: z.coerce.date(),
 });
 
 export const itemReservationResponseSchema = z.object({
-  id: z.uuid(),
-  itemId: z.uuid(),
-  customerId: z.uuid(),
+  id: z.string().uuid(),
+  itemId: z.string().uuid(),
+  userId: z.string().uuid(),
   quantity: z.number(),
-  reservationDate: z.coerce.date(),
-  expirationDate: z.coerce.date(),
-  notes: z.string().optional(),
+  reason: z.string().optional(),
+  reference: z.string().optional(),
+  expiresAt: z.coerce.date(),
+  releasedAt: z.coerce.date().optional(),
+  isExpired: z.boolean(),
+  isReleased: z.boolean(),
   isActive: z.boolean(),
   createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date().optional(),
-});
-
-export const updateItemReservationSchema = createItemReservationSchema
-  .partial()
-  .omit({ itemId: true, customerId: true });
-
-export const cancelItemReservationSchema = z.object({
-  reason: z.string().max(500).optional(),
 });
 
 // ============= NOTIFICATION PREFERENCE SCHEMAS =============
 
 export const createNotificationPreferenceSchema = z.object({
-  userId: z.uuid(),
-  emailEnabled: z.boolean().optional().default(true),
-  smsEnabled: z.boolean().optional().default(false),
-  pushEnabled: z.boolean().optional().default(true),
-  orderUpdates: z.boolean().optional().default(true),
-  promotions: z.boolean().optional().default(true),
-  newsletter: z.boolean().optional().default(false),
+  userId: z.string().uuid(),
+  alertType: z.enum([
+    'LOW_STOCK',
+    'OUT_OF_STOCK',
+    'EXPIRING_SOON',
+    'EXPIRED',
+    'PRICE_CHANGE',
+    'REORDER_POINT',
+  ]),
+  channel: z.enum(['IN_APP', 'EMAIL', 'SMS', 'PUSH']),
+  isEnabled: z.boolean().optional().default(true),
 });
 
 export const notificationPreferenceResponseSchema = z.object({
-  id: z.uuid(),
-  userId: z.uuid(),
-  emailEnabled: z.boolean(),
-  smsEnabled: z.boolean(),
-  pushEnabled: z.boolean(),
-  orderUpdates: z.boolean(),
-  promotions: z.boolean(),
-  newsletter: z.boolean(),
+  id: z.string().uuid(),
+  userId: z.string().uuid(),
+  alertType: z.string(),
+  channel: z.string(),
+  isEnabled: z.boolean(),
+  isDeleted: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().nullable().optional(),
 });
 
-export const updateNotificationPreferenceSchema =
-  createNotificationPreferenceSchema.partial().omit({ userId: true });
+export const updateNotificationPreferenceSchema = z.object({
+  isEnabled: z.boolean().optional(),
+});
 
 // ============= QUERY PARAMS =============
 

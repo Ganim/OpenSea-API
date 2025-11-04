@@ -2,7 +2,6 @@ import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
 import { makeListPurchaseOrdersUseCase } from '@/use-cases/stock/purchase-orders/factories/make-list-purchase-orders-use-case';
 
 import { verifyJwt } from '../../../middlewares/verify-jwt';
@@ -69,7 +68,7 @@ export async function listPurchaseOrdersController(app: FastifyInstance) {
       });
 
       return reply.status(200).send({
-        purchaseOrders: purchaseOrders.map(purchaseOrderToDTO),
+        purchaseOrders,
       });
     },
   );

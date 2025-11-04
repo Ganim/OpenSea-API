@@ -25,19 +25,13 @@ export class ListOnlineUsersUseCase {
     // Extrai IDs únicos dos usuários com sessões ativas
     const uniqueUserIds = [
       ...new Set(activeSessions.map((session) => session.userId.toString())),
-    ];
+    ].map((id) => new UniqueEntityID(id));
 
-    // Busca os usuários correspondentes
-    const onlineUsers = await Promise.all(
-      uniqueUserIds.map((userId) =>
-        this.usersRepository.findById(new UniqueEntityID(userId)),
-      ),
-    );
+    // Busca os usuários correspondentes usando batch loading (1 query apenas)
+    const onlineUsers = await this.usersRepository.findManyByIds(uniqueUserIds);
 
-    // Filtra usuários válidos (não deletados) e converte para DTO
-    const validUsers = onlineUsers
-      .filter((user) => user && !user.deletedAt)
-      .map((user) => userToDTO(user!));
+    // Converte para DTO (usuários já são filtrados por deletedAt no repositório)
+    const validUsers = onlineUsers.map((user) => userToDTO(user));
 
     if (validUsers.length === 0) {
       throw new ResourceNotFoundError('No online users found.');

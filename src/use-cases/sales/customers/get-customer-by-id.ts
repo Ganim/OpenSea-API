@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { CustomerDTO } from '@/mappers/sales/customer/customer-to-dto';
+import { customerToDTO } from '@/mappers/sales/customer/customer-to-dto';
 import { CustomersRepository } from '@/repositories/sales/customers-repository';
 
 interface GetCustomerByIdUseCaseRequest {
@@ -7,23 +9,7 @@ interface GetCustomerByIdUseCaseRequest {
 }
 
 interface GetCustomerByIdUseCaseResponse {
-  customer: {
-    id: string;
-    name: string;
-    type: string;
-    document: string | null;
-    email: string | null;
-    phone: string | null;
-    address: string | null;
-    city: string | null;
-    state: string | null;
-    zipCode: string | null;
-    country: string | null;
-    notes: string | null;
-    isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-  };
+  customer: CustomerDTO;
 }
 
 export class GetCustomerByIdUseCase {
@@ -41,23 +27,7 @@ export class GetCustomerByIdUseCase {
     }
 
     return {
-      customer: {
-        id: customer.id.toString(),
-        name: customer.name,
-        type: customer.type.value,
-        document: customer.document?.value ?? null,
-        email: customer.email ?? null,
-        phone: customer.phone ?? null,
-        address: customer.address ?? null,
-        city: customer.city ?? null,
-        state: customer.state ?? null,
-        zipCode: customer.zipCode ?? null,
-        country: customer.country ?? null,
-        notes: customer.notes ?? null,
-        isActive: customer.isActive,
-        createdAt: customer.createdAt,
-        updatedAt: customer.updatedAt ?? customer.createdAt,
-      },
+      customer: customerToDTO(customer),
     };
   }
 }

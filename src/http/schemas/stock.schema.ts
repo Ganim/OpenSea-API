@@ -249,6 +249,7 @@ export const createManufacturerSchema = z.object({
   city: z.string().max(100).optional(),
   state: z.string().max(100).optional(),
   postalCode: z.string().max(20).optional(),
+  isActive: z.boolean().optional(),
   rating: z.number().min(0).max(5).optional(),
   notes: z.string().max(1000).optional(),
 });

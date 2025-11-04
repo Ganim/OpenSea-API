@@ -1,7 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import {
-    createTagSchema,
-    tagResponseSchema,
+  createTagSchema,
+  tagResponseSchema,
 } from '@/http/schemas/stock.schema';
 import { makeCreateTagUseCase } from '@/use-cases/stock/tags/factories/make-create-tag-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -11,7 +13,8 @@ import { z } from 'zod';
 export async function createTagController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/api/v1/stock/tags',
+    url: '/v1/tags',
+    preHandler: [verifyJwt, verifyUserManager],
     schema: {
       tags: ['Stock - Tags'],
       summary: 'Create a new tag',

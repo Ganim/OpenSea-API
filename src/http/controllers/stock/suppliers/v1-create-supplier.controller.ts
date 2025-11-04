@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import {
-    createSupplierSchema,
-    supplierResponseSchema,
+  createSupplierSchema,
+  supplierResponseSchema,
 } from '@/http/schemas/stock.schema';
 import { makeCreateSupplierUseCase } from '@/use-cases/stock/suppliers/factories/make-create-supplier-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -11,7 +12,8 @@ import { z } from 'zod';
 export async function createSupplierController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/api/v1/suppliers',
+    url: '/v1/suppliers',
+    onRequest: [verifyJwt],
     schema: {
       tags: ['Suppliers'],
       summary: 'Create a new supplier',

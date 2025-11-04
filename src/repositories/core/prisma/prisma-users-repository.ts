@@ -202,6 +202,20 @@ export class PrismaUsersRepository implements UsersRepository {
     return user;
   }
 
+  async findManyByIds(ids: UniqueEntityID[]): Promise<User[]> {
+    const userIds = ids.map((id) => id.toString());
+
+    const usersDb = await prisma.user.findMany({
+      where: {
+        id: { in: userIds },
+        deletedAt: null,
+      },
+      include: { profile: true },
+    });
+
+    return usersDb.map((userDb) => User.create(mapUserPrismaToDomain(userDb)));
+  }
+
   // LIST
   // - listAll(): Promise<User[]>;
   // - listAllByRole(role: UserRole): Promise<User[]>;

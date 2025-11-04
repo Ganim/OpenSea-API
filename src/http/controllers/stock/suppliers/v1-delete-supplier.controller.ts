@@ -7,7 +7,7 @@ import { z } from 'zod';
 export async function deleteSupplierController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
-    url: '/api/v1/suppliers/:id',
+    url: '/v1/suppliers/:id',
     schema: {
       tags: ['Suppliers'],
       summary: 'Delete a supplier',

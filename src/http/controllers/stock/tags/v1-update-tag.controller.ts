@@ -1,8 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import {
-    tagResponseSchema,
-    updateTagSchema,
+  tagResponseSchema,
+  updateTagSchema,
 } from '@/http/schemas/stock.schema';
 import { makeUpdateTagUseCase } from '@/use-cases/stock/tags/factories/make-update-tag-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -12,7 +14,8 @@ import { z } from 'zod';
 export async function updateTagController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
-    url: '/api/v1/stock/tags/:id',
+    url: '/v1/tags/:id',
+    preHandler: [verifyJwt, verifyUserManager],
     schema: {
       tags: ['Stock - Tags'],
       summary: 'Update a tag',

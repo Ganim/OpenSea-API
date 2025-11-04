@@ -12,7 +12,7 @@ describe('List Comments (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
     userToken = token;
     userId = user.user.id;
 

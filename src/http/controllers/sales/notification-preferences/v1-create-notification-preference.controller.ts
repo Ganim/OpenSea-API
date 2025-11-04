@@ -1,60 +1,43 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import {
+  createNotificationPreferenceSchema,
+  notificationPreferenceResponseSchema,
+} from '@/http/schemas/sales.schema';
 import { makeCreateNotificationPreferenceUseCase } from '@/use-cases/sales/notification-preferences/factories/make-create-notification-preference-use-case';
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const bodySchema = z.object({
-  userId: z.uuid(),
-  alertType: z.enum([
-    'LOW_STOCK',
-    'OUT_OF_STOCK',
-    'EXPIRING_SOON',
-    'EXPIRED',
-    'PRICE_CHANGE',
-    'REORDER_POINT',
-  ]),
-  channel: z.enum(['IN_APP', 'EMAIL', 'SMS', 'PUSH']),
-  isEnabled: z.boolean().optional().default(true),
-});
-
-const responseSchema = z.object({
-  preference: z.object({
-    id: z.uuid(),
-    userId: z.uuid(),
-    alertType: z.string(),
-    channel: z.string(),
-    isEnabled: z.boolean(),
-    createdAt: z.date(),
-    updatedAt: z.date().optional(),
-  }),
-});
-
-export async function v1CreateNotificationPreferenceController(
-  request: FastifyRequest,
-  reply: FastifyReply,
+export async function createNotificationPreferenceController(
+  app: FastifyInstance,
 ) {
-  try {
-    const data = bodySchema.parse(request.body);
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'POST',
+    url: '/v1/notification-preferences',
+    preHandler: [verifyJwt, verifyUserManager],
+    schema: {
+      tags: ['Notification Preferences'],
+      summary: 'Create a new notification preference',
+      body: createNotificationPreferenceSchema,
+      response: {
+        201: z.object({ preference: notificationPreferenceResponseSchema }),
+        400: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      try {
+        const useCase = makeCreateNotificationPreferenceUseCase();
+        const { preference } = await useCase.execute(request.body);
 
-    const useCase = makeCreateNotificationPreferenceUseCase();
-    const result = await useCase.execute(data);
-
-    return reply.status(201).send(result);
-  } catch (err) {
-    if (err instanceof BadRequestError) {
-      return reply.status(400).send({ message: err.message });
-    }
-    throw err;
-  }
+        return reply.status(201).send({ preference });
+      } catch (err) {
+        if (err instanceof BadRequestError) {
+          return reply.status(400).send({ message: err.message });
+        }
+        throw err;
+      }
+    },
+  });
 }
-
-v1CreateNotificationPreferenceController.schema = {
-  tags: ['Notification Preferences'],
-  summary: 'Create a new notification preference',
-  security: [{ bearerAuth: [] }],
-  body: bodySchema,
-  response: {
-    201: responseSchema,
-    400: z.object({ message: z.string() }),
-  },
-} as const;

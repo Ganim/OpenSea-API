@@ -1,3 +1,4 @@
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { tagResponseSchema } from '@/http/schemas/stock.schema';
 import { makeListTagsUseCase } from '@/use-cases/stock/tags/factories/make-list-tags-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -7,7 +8,8 @@ import { z } from 'zod';
 export async function listTagsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/api/v1/stock/tags',
+    url: '/v1/tags',
+    preHandler: [verifyJwt],
     schema: {
       tags: ['Stock - Tags'],
       summary: 'List all tags',

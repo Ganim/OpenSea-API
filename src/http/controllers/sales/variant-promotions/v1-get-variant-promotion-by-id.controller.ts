@@ -1,62 +1,37 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { variantPromotionResponseSchema } from '@/http/schemas/sales.schema';
 import { makeGetVariantPromotionByIdUseCase } from '@/use-cases/sales/variant-promotions/factories/make-get-variant-promotion-by-id-use-case';
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const paramsSchema = z.object({
-  id: z.uuid(),
-});
-
-const responseSchema = z.object({
-  promotion: z.object({
-    id: z.string(),
-    variantId: z.string(),
-    name: z.string(),
-    discountType: z.string(),
-    discountValue: z.number(),
-    startDate: z.date(),
-    endDate: z.date(),
-    isActive: z.boolean(),
-    isCurrentlyValid: z.boolean(),
-    isExpired: z.boolean(),
-    isUpcoming: z.boolean(),
-    notes: z.string().optional(),
-    createdAt: z.date(),
-    updatedAt: z.date().optional(),
-  }),
-});
-
-export async function v1GetVariantPromotionByIdController(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  const { id } = paramsSchema.parse(request.params);
-
-  try {
-    const getVariantPromotionByIdUseCase = makeGetVariantPromotionByIdUseCase();
-
-    const result = await getVariantPromotionByIdUseCase.execute({ id });
-
-    return reply.status(200).send(result);
-  } catch (err) {
-    if (err instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: err.message });
-    }
-
-    throw err;
-  }
+export async function getVariantPromotionByIdController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/variant-promotions/:id',
+    preHandler: [verifyJwt],
+    schema: {
+      tags: ['Variant Promotions'],
+      summary: 'Get variant promotion by ID',
+      params: z.object({ id: z.string().uuid() }),
+      response: {
+        200: z.object({ promotion: variantPromotionResponseSchema }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      try {
+        const { id } = request.params as { id: string };
+        const useCase = makeGetVariantPromotionByIdUseCase();
+        const { promotion } = await useCase.execute({ id });
+        return reply.status(200).send({ promotion });
+      } catch (err) {
+        if (err instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: err.message });
+        }
+        throw err;
+      }
+    },
+  });
 }
-
-v1GetVariantPromotionByIdController.schema = {
-  tags: ['Variant Promotions'],
-  summary: 'Get variant promotion by ID',
-  description: 'Retrieve a specific variant promotion by its ID',
-  security: [{ bearerAuth: [] }],
-  params: paramsSchema,
-  response: {
-    200: responseSchema,
-    404: z.object({
-      message: z.string(),
-    }),
-  },
-};

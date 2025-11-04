@@ -1,49 +1,38 @@
+﻿import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { notificationPreferenceResponseSchema } from '@/http/schemas/sales.schema';
 import { makeListNotificationPreferencesByUserUseCase } from '@/use-cases/sales/notification-preferences/factories/make-list-notification-preferences-by-user-use-case';
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const querySchema = z.object({
-  userId: z.uuid(),
-  enabledOnly: z.preprocess((val) => {
-    if (val === undefined || val === null) return undefined;
-    if (val === 'true') return true;
-    if (val === 'false') return false;
-    return val;
-  }, z.boolean().optional()),
-});
-
-const responseSchema = z.object({
-  preferences: z.array(
-    z.object({
-      id: z.uuid(),
-      userId: z.uuid(),
-      alertType: z.string(),
-      channel: z.string(),
-      isEnabled: z.boolean(),
-      createdAt: z.date(),
-      updatedAt: z.date().optional(),
-    }),
-  ),
-});
-
-export async function v1ListNotificationPreferencesByUserController(
-  request: FastifyRequest,
-  reply: FastifyReply,
+export async function listNotificationPreferencesByUserController(
+  app: FastifyInstance,
 ) {
-  const data = querySchema.parse(request.query);
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/notification-preferences/user/:userId',
+    preHandler: [verifyJwt],
+    schema: {
+      tags: ['Notification Preferences'],
+      summary: 'List notification preferences by user',
+      params: z.object({ userId: z.string().uuid() }),
+      querystring: z.object({
+        enabledOnly: z.coerce.boolean().optional(),
+      }),
+      response: {
+        200: z.object({
+          preferences: z.array(notificationPreferenceResponseSchema),
+        }),
+      },
+    },
+    handler: async (request, reply) => {
+      const { userId } = request.params as { userId: string };
+      const { enabledOnly } = request.query as { enabledOnly?: boolean };
 
-  const useCase = makeListNotificationPreferencesByUserUseCase();
-  const result = await useCase.execute(data);
+      const useCase = makeListNotificationPreferencesByUserUseCase();
+      const { preferences } = await useCase.execute({ userId, enabledOnly });
 
-  return reply.status(200).send(result);
+      return reply.status(200).send({ preferences });
+    },
+  });
 }
-
-v1ListNotificationPreferencesByUserController.schema = {
-  tags: ['Notification Preferences'],
-  summary: 'List notification preferences by user',
-  security: [{ bearerAuth: [] }],
-  querystring: querySchema,
-  response: {
-    200: responseSchema,
-  },
-} as const;

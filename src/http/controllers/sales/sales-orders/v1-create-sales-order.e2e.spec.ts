@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
@@ -54,6 +55,14 @@ describe('Create Sales Order (E2E)', () => {
         unitOfMeasure: 'UNITS',
         templateId,
       });
+    if (!productResponse.body || !productResponse.body.product) {
+      console.error('Product Response:', {
+        status: productResponse.status,
+        body: productResponse.body,
+      });
+      throw new Error('Failed to create product');
+    }
+
     const productId = productResponse.body.product.id;
 
     const variantResponse = await request(app.server)
@@ -83,6 +92,7 @@ describe('Create Sales Order (E2E)', () => {
         orderNumber: `SO-${timestamp}`,
         customerId,
         status: 'DRAFT',
+        totalPrice: 200, // 2 * 100
         discount: 10,
         notes: 'Test order',
         items: [
@@ -90,6 +100,7 @@ describe('Create Sales Order (E2E)', () => {
             variantId,
             quantity: 2,
             unitPrice: 100,
+            totalPrice: 200, // quantity * unitPrice
             discount: 5,
             notes: 'Item notes',
           },
@@ -128,11 +139,13 @@ describe('Create Sales Order (E2E)', () => {
       .send({
         orderNumber: `SO-MIN-${timestamp}`,
         customerId,
+        totalPrice: 100, // 1 * 100
         items: [
           {
             variantId,
             quantity: 1,
             unitPrice: 100,
+            totalPrice: 100, // quantity * unitPrice
           },
         ],
       });
@@ -158,11 +171,13 @@ describe('Create Sales Order (E2E)', () => {
       .send({
         orderNumber: `SO-UNAUTH-${timestamp}`,
         customerId,
+        totalPrice: 100,
         items: [
           {
             variantId,
             quantity: 1,
             unitPrice: 100,
+            totalPrice: 100,
           },
         ],
       });
@@ -171,20 +186,19 @@ describe('Create Sales Order (E2E)', () => {
   });
 
   it('should not be able to create a sales order with invalid customer', async () => {
-    const timestamp = Date.now();
-    const nonExistentCustomerId = '00000000-0000-0000-0000-000000000001';
-
     const response = await request(app.server)
       .post('/v1/sales-orders')
       .set('Authorization', `Bearer ${userToken}`)
       .send({
-        orderNumber: `SO-INVALID-CUST-${timestamp}`,
-        customerId: nonExistentCustomerId,
+        orderNumber: `SO-INVALID-CUST-${Date.now()}`,
+        customerId: randomUUID(),
+        totalPrice: 100,
         items: [
           {
             variantId,
             quantity: 1,
             unitPrice: 100,
+            totalPrice: 100,
           },
         ],
       });
@@ -194,7 +208,7 @@ describe('Create Sales Order (E2E)', () => {
 
   it('should not be able to create a sales order with invalid variant', async () => {
     const timestamp = Date.now();
-    const nonExistentVariantId = '00000000-0000-0000-0000-000000000002';
+    const nonExistentVariantId = randomUUID();
 
     const response = await request(app.server)
       .post('/v1/sales-orders')
@@ -202,11 +216,13 @@ describe('Create Sales Order (E2E)', () => {
       .send({
         orderNumber: `SO-INVALID-VAR-${timestamp}`,
         customerId,
+        totalPrice: 100,
         items: [
           {
             variantId: nonExistentVariantId,
             quantity: 1,
             unitPrice: 100,
+            totalPrice: 100,
           },
         ],
       });
