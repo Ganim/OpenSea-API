@@ -38,18 +38,6 @@ export class CreateTemplateUseCase {
       throw new BadRequestError('Template with this name already exists');
     }
 
-    // Validate that at least one attribute set is provided
-    const hasAttributes =
-      (productAttributes && Object.keys(productAttributes).length > 0) ||
-      (variantAttributes && Object.keys(variantAttributes).length > 0) ||
-      (itemAttributes && Object.keys(itemAttributes).length > 0);
-
-    if (!hasAttributes) {
-      throw new BadRequestError(
-        'At least one attribute set (product, variant, or item) must be provided',
-      );
-    }
-
     // Save to repository
     const createdTemplate = await this.templatesRepository.create({
       name,

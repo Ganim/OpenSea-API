@@ -97,22 +97,32 @@ describe('CreateTemplateUseCase', () => {
     ).rejects.toThrow(BadRequestError);
   });
 
-  it('should not create a template without any attributes', async () => {
-    await expect(
-      sut.execute({
-        name: 'Empty Template',
-      }),
-    ).rejects.toThrow(BadRequestError);
+  it('should create a template without any attributes', async () => {
+    const result = await sut.execute({
+      name: 'Empty Template',
+    });
+
+    expect(result.template).toMatchObject({
+      name: 'Empty Template',
+      productAttributes: {},
+      variantAttributes: {},
+      itemAttributes: {},
+    });
   });
 
-  it('should not create a template with empty attribute objects', async () => {
-    await expect(
-      sut.execute({
-        name: 'Empty Attributes Template',
-        productAttributes: {},
-        variantAttributes: {},
-        itemAttributes: {},
-      }),
-    ).rejects.toThrow(BadRequestError);
+  it('should create a template with empty attribute objects', async () => {
+    const result = await sut.execute({
+      name: 'Empty Attributes Template',
+      productAttributes: {},
+      variantAttributes: {},
+      itemAttributes: {},
+    });
+
+    expect(result.template).toMatchObject({
+      name: 'Empty Attributes Template',
+      productAttributes: {},
+      variantAttributes: {},
+      itemAttributes: {},
+    });
   });
 });

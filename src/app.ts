@@ -31,6 +31,7 @@ app.register(rateLimit, rateLimitConfig.global);
 app.register(cors, {
   origin: env.FRONTEND_URL,
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
 });
 
 // Swagger

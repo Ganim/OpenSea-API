@@ -55,24 +55,6 @@ export class UpdateTemplateUseCase {
       }
     }
 
-    // Validate that at least one attribute set is provided
-    const finalProductAttributes =
-      productAttributes ?? template.productAttributes;
-    const finalVariantAttributes =
-      variantAttributes ?? template.variantAttributes;
-    const finalItemAttributes = itemAttributes ?? template.itemAttributes;
-
-    const hasAttributes =
-      Object.keys(finalProductAttributes).length > 0 ||
-      Object.keys(finalVariantAttributes).length > 0 ||
-      Object.keys(finalItemAttributes).length > 0;
-
-    if (!hasAttributes) {
-      throw new BadRequestError(
-        'At least one attribute set (product, variant, or item) must be provided',
-      );
-    }
-
     // Update template
     const updatedTemplate = await this.templatesRepository.update({
       id: new UniqueEntityID(id),

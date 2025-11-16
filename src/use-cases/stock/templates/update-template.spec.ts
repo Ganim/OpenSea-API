@@ -99,19 +99,25 @@ describe('UpdateTemplateUseCase', () => {
     ).rejects.toThrow(BadRequestError);
   });
 
-  it('should not update to have no attributes', async () => {
+  it('should update to have no attributes', async () => {
     const created = await createTemplate.execute({
       name: 'Electronics Template',
       productAttributes: { brand: 'string' },
     });
 
-    await expect(
-      sut.execute({
-        id: created.template.id,
-        productAttributes: {},
-        variantAttributes: {},
-        itemAttributes: {},
-      }),
-    ).rejects.toThrow(BadRequestError);
+    const result = await sut.execute({
+      id: created.template.id,
+      productAttributes: {},
+      variantAttributes: {},
+      itemAttributes: {},
+    });
+
+    expect(result.template).toMatchObject({
+      id: created.template.id,
+      name: 'Electronics Template',
+      productAttributes: {},
+      variantAttributes: {},
+      itemAttributes: {},
+    });
   });
 });

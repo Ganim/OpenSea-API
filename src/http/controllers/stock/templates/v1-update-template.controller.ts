@@ -1,13 +1,13 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import {
-    templateResponseSchema,
-    updateTemplateSchema,
+  templateResponseSchema,
+  updateTemplateSchema,
 } from '@/http/schemas/stock.schema';
 import { makeUpdateTemplateUseCase } from '@/use-cases/stock/templates/factories/make-update-template-use-case';
 import type { FastifyInstance } from 'fastify';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
@@ -58,4 +58,3 @@ export async function updateTemplateController(app: FastifyInstance) {
     },
   });
 }
-
