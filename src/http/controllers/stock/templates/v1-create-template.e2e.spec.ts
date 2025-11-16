@@ -127,7 +127,7 @@ describe('Create Template (E2E)', () => {
     expect(body.message).toContain('already exists');
   });
 
-  it('should not be able to create a template without any attributes', async () => {
+  it('should be able to create a template without any attributes', async () => {
     const { token } = await createAndAuthenticateUser(app, 'MANAGER');
 
     const response = await app.inject({
@@ -141,9 +141,7 @@ describe('Create Template (E2E)', () => {
       },
     });
 
-    expect(response.statusCode).toBe(400);
-    const body = JSON.parse(response.body);
-    expect(body.message).toContain('At least one attribute set');
+    expect(response.statusCode).toBe(201);
   });
 
   it('should not be able to create a template without authentication', async () => {

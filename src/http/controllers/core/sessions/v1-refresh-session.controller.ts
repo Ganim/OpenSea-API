@@ -15,7 +15,10 @@ export async function refreshSessionController(app: FastifyInstance) {
       tags: ['Sessions'],
       summary: 'Refresh the current authenticated user session',
       response: {
-        204: z.void(),
+        200: z.object({
+          token: z.string(),
+          refreshToken: z.string(),
+        }),
         400: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
@@ -23,7 +26,7 @@ export async function refreshSessionController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const userId = request.user?.sub;
 
-      const { sessionId } = request.user;
+      const { sessionId, role } = request.user;
 
       if (!sessionId) {
         return reply
@@ -36,9 +39,39 @@ export async function refreshSessionController(app: FastifyInstance) {
       try {
         const refreshSessionUseCase = makeRefreshSessionUseCase();
 
-        await refreshSessionUseCase.execute({ sessionId, userId, ip, reply });
+        const { refreshToken } = await refreshSessionUseCase.execute({
+          sessionId,
+          userId,
+          ip,
+          reply,
+        });
 
-        return reply.status(204).send();
+        // Generate new access token
+        const newAccessToken = await reply.jwtSign(
+          {
+            role: role,
+            sessionId: sessionId,
+          },
+          {
+            sign: {
+              sub: userId,
+              expiresIn: '30m',
+            },
+          },
+        );
+
+        return reply
+          .setCookie('refreshToken', refreshToken.token, {
+            path: '/',
+            secure: true,
+            sameSite: true,
+            httpOnly: true,
+          })
+          .status(200)
+          .send({
+            token: newAccessToken,
+            refreshToken: refreshToken.token,
+          });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
