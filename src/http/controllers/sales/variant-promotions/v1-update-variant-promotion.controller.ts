@@ -2,7 +2,10 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
-import { updateVariantPromotionSchema, variantPromotionResponseSchema } from '@/http/schemas/sales.schema';
+import {
+  updateVariantPromotionSchema,
+  variantPromotionResponseSchema,
+} from '@/http/schemas/sales.schema';
 import { makeUpdateVariantPromotionUseCase } from '@/use-cases/sales/variant-promotions/factories/make-update-variant-promotion-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

@@ -1,7 +1,10 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
-import { createVariantPromotionSchema, variantPromotionResponseSchema } from '@/http/schemas/sales.schema';
+import {
+  createVariantPromotionSchema,
+  variantPromotionResponseSchema,
+} from '@/http/schemas/sales.schema';
 import { makeCreateVariantPromotionUseCase } from '@/use-cases/sales/variant-promotions/factories/make-create-variant-promotion-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

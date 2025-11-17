@@ -13,7 +13,8 @@
     "test:e2e:watch": "vitest --project e2e",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "prisma:seed": "tsx prisma/seed.ts"
   },
   "keywords": [
     "opensea",
@@ -34,6 +35,9 @@
   "author": "Guilherme Ganim",
   "license": "ISC",
   "description": "API completa para gestão de estoque e vendas com Clean Architecture, TypeScript e Fastify",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "dependencies": {
     "@fastify/cookie": "11.0.2",
     "@fastify/cors": "11.1.0",

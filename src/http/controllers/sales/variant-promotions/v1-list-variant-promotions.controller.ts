@@ -22,7 +22,10 @@ export async function listVariantPromotionsController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { variantId, activeOnly } = request.query as { variantId?: string; activeOnly?: boolean };
+      const { variantId, activeOnly } = request.query as {
+        variantId?: string;
+        activeOnly?: boolean;
+      };
       const useCase = makeListVariantPromotionsUseCase();
       const { promotions } = await useCase.execute({ variantId, activeOnly });
       return reply.status(200).send({ promotions });

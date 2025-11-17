@@ -4,13 +4,16 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
+    globals: true,
     dir: 'src',
+    include: ['**/*.spec.ts', '**/*.test.ts'],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/*.e2e.spec.ts'],
     projects: [
       {
         extends: true,
         test: {
           name: 'unit',
-          dir: 'src/use-cases',
+          include: ['src/use-cases/**/*.spec.ts', 'src/entities/**/*.spec.ts'],
         },
       },
       {

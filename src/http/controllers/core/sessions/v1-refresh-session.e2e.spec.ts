@@ -17,7 +17,7 @@ describe('Refresh Session (e2e)', () => {
     const res = await request(app.server)
       .patch('/v1/sessions/refresh')
       .set('Authorization', `Bearer ${refreshToken}`);
-    
+
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('token');
     expect(res.body).toHaveProperty('refreshToken');

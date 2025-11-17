@@ -3,8 +3,8 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import {
-    customerResponseSchema,
-    updateCustomerSchema,
+  customerResponseSchema,
+  updateCustomerSchema,
 } from '@/http/schemas/sales.schema';
 import { makeUpdateCustomerUseCase } from '@/use-cases/sales/customers/factories/make-update-customer-use-case';
 import type { FastifyInstance } from 'fastify';

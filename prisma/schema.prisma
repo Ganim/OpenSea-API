@@ -69,6 +69,9 @@ model User {
   ItemReservations        ItemReservation[]
   Comments                Comment[]
   NotificationPreferences NotificationPreference[]
+  permissionGroups        UserPermissionGroup[]
+  grantedPermissions      UserPermissionGroup[]    @relation("GrantedPermissions")
+  permissionAuditLogs     PermissionAuditLog[]
 
   // Optimizations
   @@index([failedLoginAttempts, blockedUntil, lastLoginIp])
@@ -140,6 +143,183 @@ model RefreshToken {
   @@index([sessionId])
   @@index([token])
   @@map("refresh_tokens")
+}
+
+// ===============================================
+// RBAC MODULE
+// ===============================================
+
+/// Representa uma permissão específica no sistema
+model Permission {
+  id String @id @default(uuid())
+
+  // Identificador único da permissão (ex: core.users.create)
+  code String @unique @db.VarChar(128)
+
+  // Nome legível da permissão
+  name String @db.VarChar(128)
+
+  // Descrição detalhada do que a permissão permite
+  description String? @db.Text
+
+  // Módulo ao qual a permissão pertence
+  module String @db.VarChar(64) // core, stock, sales
+
+  // Recurso ao qual a permissão se aplica
+  resource String @db.VarChar(64) // users, products, orders
+
+  // Ação permitida
+  action String @db.VarChar(64) // create, read, update, delete, request, approve
+
+  // Se é uma permissão do sistema (não pode ser deletada)
+  isSystem Boolean @default(false) @map("is_system")
+
+  // Metadados adicionais (para ABAC futuramente)
+  metadata Json @default("{}")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  permissionGroups PermissionGroupPermission[]
+
+  @@index([module, resource, action])
+  @@index([code])
+  @@index([module])
+  @@map("permissions")
+}
+
+/// Grupo de permissões (equivalente a uma Role customizável)
+model PermissionGroup {
+  id String @id @default(uuid())
+
+  // Nome do grupo (ex: "Gerente de Estoque", "Vendedor")
+  name String @unique @db.VarChar(128)
+
+  // Slug para uso programático
+  slug String @unique @db.VarChar(128)
+
+  // Descrição do grupo
+  description String? @db.Text
+
+  // Se é um grupo do sistema (não pode ser deletado)
+  isSystem Boolean @default(false) @map("is_system")
+
+  // Se o grupo está ativo
+  isActive Boolean @default(true) @map("is_active")
+
+  // Cor para UI (opcional)
+  color String? @db.VarChar(7) // hex color
+
+  // Prioridade (para resolver conflitos)
+  priority Int @default(0)
+
+  // Grupo pai (para herança)
+  parentId String? @map("parent_id")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  // Relations
+  parent      PermissionGroup?            @relation("GroupHierarchy", fields: [parentId], references: [id])
+  children    PermissionGroup[]           @relation("GroupHierarchy")
+  permissions PermissionGroupPermission[]
+  users       UserPermissionGroup[]
+
+  @@index([slug])
+  @@index([isActive])
+  @@index([parentId])
+  @@map("permission_groups")
+}
+
+/// Relacionamento entre Grupos e Permissões
+model PermissionGroupPermission {
+  id String @id @default(uuid())
+
+  groupId      String @map("group_id")
+  permissionId String @map("permission_id")
+
+  // Tipo de acesso (allow ou deny)
+  // Deny tem precedência sobre allow
+  effect String @default("allow") @db.VarChar(10) // allow, deny
+
+  // Condições para aplicar a permissão (JSON com regras ABAC)
+  conditions Json? @default("{}")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  group      PermissionGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  permission Permission      @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, permissionId])
+  @@index([groupId])
+  @@index([permissionId])
+  @@map("permission_group_permissions")
+}
+
+/// Relacionamento entre Usuários e Grupos de Permissões
+model UserPermissionGroup {
+  id String @id @default(uuid())
+
+  userId  String @map("user_id")
+  groupId String @map("group_id")
+
+  // Data de expiração (opcional, para acesso temporário)
+  expiresAt DateTime? @map("expires_at")
+
+  // Quem concedeu o acesso
+  grantedBy String? @map("granted_by")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user    User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group   PermissionGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  granter User?           @relation("GrantedPermissions", fields: [grantedBy], references: [id])
+
+  @@unique([userId, groupId])
+  @@index([userId])
+  @@index([groupId])
+  @@index([expiresAt])
+  @@map("user_permission_groups")
+}
+
+/// Log de verificações de permissão (auditoria)
+model PermissionAuditLog {
+  id String @id @default(uuid())
+
+  userId         String @map("user_id")
+  permissionCode String @map("permission_code") @db.VarChar(128)
+
+  // Resultado da verificação
+  allowed Boolean
+
+  // Motivo (qual regra permitiu/negou)
+  reason String? @db.VarChar(512)
+
+  // Contexto da requisição
+  resource   String? @db.VarChar(64)
+  resourceId String? @map("resource_id")
+  action     String? @db.VarChar(64)
+
+  // Metadados da requisição
+  ip        String? @db.VarChar(64)
+  userAgent String? @map("user_agent") @db.VarChar(512)
+  endpoint  String? @db.VarChar(256)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([permissionCode])
+  @@index([allowed])
+  @@index([createdAt])
+  @@index([userId, createdAt])
+  @@map("permission_audit_logs")
 }
 
 // ===============================================
