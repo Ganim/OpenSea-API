@@ -2,7 +2,7 @@ import { app } from '@/app';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { deleteNotificationController } from './v1-delete-notification.controller';
-import { listNotificationsByUserIdController } from './v1-list-notifications.controller';
+import { listNotificationsByUserIdController } from './v1-list-notifications-by-user-id.controller';
 import { markAllAsReadController } from './v1-mark-all-as-read.controller';
 import { markAsReadController } from './v1-mark-as-read.controller';
 

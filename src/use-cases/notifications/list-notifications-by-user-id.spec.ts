@@ -1,7 +1,7 @@
 import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateNotificationUseCase } from './create-notification';
-import { ListNotificationsByUserIdUseCase } from './list-notifications';
+import { ListNotificationsByUserIdUseCase } from './list-notifications-by-user-id';
 
 let notificationsRepository: InMemoryNotificationsRepository;
 let listNotifications: ListNotificationsByUserIdUseCase;
@@ -10,7 +10,9 @@ let createNotification: CreateNotificationUseCase;
 describe('ListNotificationsByUserIdUseCase', () => {
   beforeEach(() => {
     notificationsRepository = new InMemoryNotificationsRepository();
-    listNotifications = new ListNotificationsByUserIdUseCase(notificationsRepository);
+    listNotifications = new ListNotificationsByUserIdUseCase(
+      notificationsRepository,
+    );
     createNotification = new CreateNotificationUseCase(notificationsRepository);
   });
 
@@ -30,20 +32,37 @@ describe('ListNotificationsByUserIdUseCase', () => {
     // marca algumas como lidas
     notificationsRepository.items.slice(0, 5).forEach((n) => n.markRead());
 
-    const page1 = await listNotifications.execute({ userId: 'user-1', page: 1, limit: 10 });
-    const page2 = await listNotifications.execute({ userId: 'user-1', page: 2, limit: 10 });
+    const page1 = await listNotifications.execute({
+      userId: 'user-1',
+      page: 1,
+      limit: 10,
+    });
+    const page2 = await listNotifications.execute({
+      userId: 'user-1',
+      page: 2,
+      limit: 10,
+    });
 
     expect(page1.total).toBe(30);
     expect(page1.data).toHaveLength(10);
     expect(page2.data).toHaveLength(10);
 
-    const onlyUnread = await listNotifications.execute({ userId: 'user-1', isRead: false });
+    const onlyUnread = await listNotifications.execute({
+      userId: 'user-1',
+      isRead: false,
+    });
     expect(onlyUnread.total).toBe(25);
 
-    const onlyEmail = await listNotifications.execute({ userId: 'user-1', channel: 'EMAIL' });
+    const onlyEmail = await listNotifications.execute({
+      userId: 'user-1',
+      channel: 'EMAIL',
+    });
     expect(onlyEmail.total).toBeGreaterThan(0);
 
-    const onlyHigh = await listNotifications.execute({ userId: 'user-1', priority: 'HIGH' });
+    const onlyHigh = await listNotifications.execute({
+      userId: 'user-1',
+      priority: 'HIGH',
+    });
     expect(onlyHigh.total).toBe(6);
   });
 
@@ -54,23 +73,42 @@ describe('ListNotificationsByUserIdUseCase', () => {
 
     // 1 no passado, 1 ontem, 1 agora
     const n1 = await createNotification.execute({
-      userId: 'user-2', title: 'A', message: 'A', type: 'INFO', channel: 'IN_APP'
+      userId: 'user-2',
+      title: 'A',
+      message: 'A',
+      type: 'INFO',
+      channel: 'IN_APP',
     });
     const n2 = await createNotification.execute({
-      userId: 'user-2', title: 'B', message: 'B', type: 'INFO', channel: 'IN_APP'
+      userId: 'user-2',
+      title: 'B',
+      message: 'B',
+      type: 'INFO',
+      channel: 'IN_APP',
     });
     const n3 = await createNotification.execute({
-      userId: 'user-2', title: 'C', message: 'C', type: 'INFO', channel: 'IN_APP'
+      userId: 'user-2',
+      title: 'C',
+      message: 'C',
+      type: 'INFO',
+      channel: 'IN_APP',
     });
 
     // Ajusta datas
     n1.notification['props'].createdAt = past;
     n2.notification['props'].createdAt = yesterday;
 
-    const resPastToYesterday = await listNotifications.execute({ userId: 'user-2', startDate: past, endDate: yesterday });
+    const resPastToYesterday = await listNotifications.execute({
+      userId: 'user-2',
+      startDate: past,
+      endDate: yesterday,
+    });
     expect(resPastToYesterday.total).toBe(2);
 
-    const resTodayOnly = await listNotifications.execute({ userId: 'user-2', startDate: now });
+    const resTodayOnly = await listNotifications.execute({
+      userId: 'user-2',
+      startDate: now,
+    });
     expect(resTodayOnly.total).toBe(1);
   });
 });

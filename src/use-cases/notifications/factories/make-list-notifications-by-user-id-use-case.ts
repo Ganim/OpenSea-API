@@ -1,5 +1,5 @@
 import { PrismaNotificationsRepository } from '@/repositories/notifications/prisma/prisma-notifications-repository';
-import { ListNotificationsByUserIdUseCase } from '@/use-cases/notifications/list-notifications';
+import { ListNotificationsByUserIdUseCase } from '@/use-cases/notifications/list-notifications-by-user-id';
 
 function makeListNotificationsByUserIdUseCase() {
   const notificationsRepository = new PrismaNotificationsRepository();
