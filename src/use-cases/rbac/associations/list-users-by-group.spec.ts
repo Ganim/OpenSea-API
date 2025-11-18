@@ -4,7 +4,7 @@ import { InMemoryPermissionGroupPermissionsRepository } from '@/repositories/rba
 import { InMemoryPermissionGroupsRepository } from '@/repositories/rbac/in-memory/in-memory-permission-groups-repository';
 import { InMemoryUserPermissionGroupsRepository } from '@/repositories/rbac/in-memory/in-memory-user-permission-groups-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { ListUsersByGroupUseCase } from '../list-users-by-group';
+import { ListUsersByGroupUseCase } from './list-users-by-group';
 
 describe('ListUsersByGroupUseCase', () => {
   let userPermissionGroupsRepository: InMemoryUserPermissionGroupsRepository;

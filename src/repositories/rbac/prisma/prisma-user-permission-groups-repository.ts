@@ -383,7 +383,12 @@ export class PrismaUserPermissionGroupsRepository
   async listUserPermissionsWithEffects(
     userId: UniqueEntityID,
   ): Promise<
-    { permission: Permission; effect: string; groupId: UniqueEntityID }[]
+    {
+      permission: Permission;
+      effect: string;
+      groupId: UniqueEntityID;
+      conditions: any;
+    }[]
   > {
     // 1. Buscar todos os grupos ativos do usuário
     const now = new Date();
@@ -431,6 +436,7 @@ export class PrismaUserPermissionGroupsRepository
       permission: mapPermissionPrismaToDomain(gp.permission),
       effect: gp.effect,
       groupId: new UniqueEntityID(gp.groupId),
+      conditions: gp.conditions,
     }));
   }
 

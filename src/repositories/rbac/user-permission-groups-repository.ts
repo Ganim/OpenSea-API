@@ -72,7 +72,12 @@ export interface UserPermissionGroupsRepository {
   listUserPermissionsWithEffects(
     userId: UniqueEntityID,
   ): Promise<
-    { permission: Permission; effect: string; groupId: UniqueEntityID }[]
+    {
+      permission: Permission;
+      effect: string;
+      groupId: UniqueEntityID;
+      conditions: any;
+    }[]
   >;
 
   // UTILITY

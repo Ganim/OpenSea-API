@@ -31,6 +31,13 @@ export class DeletePermissionUseCase {
       throw new ResourceNotFoundError('Permission not found');
     }
 
+    // Verificar se é uma permissão do sistema
+    if (permission.isSystem) {
+      throw new BadRequestError(
+        'Cannot delete system permission. System permissions are protected.',
+      );
+    }
+
     // Verificar se a permissão está em uso
     const usages =
       await this.permissionGroupPermissionsRepository.listByPermissionId(id);

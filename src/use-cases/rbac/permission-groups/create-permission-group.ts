@@ -9,7 +9,7 @@ interface CreatePermissionGroupRequest {
   description: string | null;
   isSystem?: boolean;
   isActive?: boolean;
-  color: string;
+  color?: string | null;
   priority?: number;
   parentId?: string | null;
 }

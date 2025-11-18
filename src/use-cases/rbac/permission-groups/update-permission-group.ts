@@ -8,7 +8,7 @@ interface UpdatePermissionGroupRequest {
   groupId: string;
   name?: string;
   description?: string | null;
-  color?: string;
+  color?: string | null;
   priority?: number;
   parentId?: string | null;
   isActive?: boolean;

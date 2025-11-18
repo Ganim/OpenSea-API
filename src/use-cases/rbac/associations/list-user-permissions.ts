@@ -8,10 +8,14 @@ interface PermissionWithEffect {
   permission: Permission;
   effect: string;
   groupId: UniqueEntityID;
+  conditions: any;
 }
 
 interface ListUserPermissionsRequest {
   userId: string;
+  module?: string;
+  resource?: string;
+  action?: string;
 }
 
 interface ListUserPermissionsResponse {
@@ -26,6 +30,9 @@ export class ListUserPermissionsUseCase {
 
   async execute({
     userId,
+    module,
+    resource,
+    action,
   }: ListUserPermissionsRequest): Promise<ListUserPermissionsResponse> {
     const userIdEntity = new UniqueEntityID(userId);
 
@@ -42,13 +49,31 @@ export class ListUserPermissionsUseCase {
         userIdEntity,
       );
 
-    const permissions: PermissionWithEffect[] = permissionsWithEffects.map(
+    let permissions: PermissionWithEffect[] = permissionsWithEffects.map(
       (item) => ({
         permission: item.permission,
         effect: item.effect,
         groupId: item.groupId,
+        conditions: item.conditions,
       }),
     );
+
+    // Aplicar filtros se fornecidos
+    if (module) {
+      permissions = permissions.filter(
+        (item) => item.permission.module === module,
+      );
+    }
+    if (resource) {
+      permissions = permissions.filter(
+        (item) => item.permission.resource === resource,
+      );
+    }
+    if (action) {
+      permissions = permissions.filter(
+        (item) => item.permission.action === action,
+      );
+    }
 
     return { permissions };
   }
