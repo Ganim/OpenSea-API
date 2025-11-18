@@ -32,4 +32,7 @@ export const swaggerTags = [
     name: 'Notification Preferences',
     description: 'User notification settings',
   },
+  // Workflow Notifications
+  { name: 'Notifications', description: 'User notifications management' },
+  { name: 'Notification Templates', description: 'Notification templates management' },
 ];

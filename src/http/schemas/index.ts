@@ -17,3 +17,7 @@ export * from './stock.schema';
 
 // Sales domain schemas
 export * from './sales.schema';
+
+// Workflow Notifications
+export * from './notification.schema';
+

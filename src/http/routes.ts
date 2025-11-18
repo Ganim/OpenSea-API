@@ -19,6 +19,8 @@ import { itemReservationsRoutes } from './controllers/sales/item-reservations/ro
 import { notificationPreferencesRoutes } from './controllers/sales/notification-preferences/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
 import { variantPromotionsRoutes } from './controllers/sales/variant-promotions/routes';
+// Notifications (Workflow)
+import { notificationsRoutes } from './controllers/notifications/routes';
 
 // Stock routes
 import { categoriesRoutes } from './controllers/stock/categories/routes';
@@ -66,4 +68,5 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(variantPromotionsRoutes);
   await app.register(itemReservationsRoutes);
   await app.register(notificationPreferencesRoutes);
+  await app.register(notificationsRoutes);
 }

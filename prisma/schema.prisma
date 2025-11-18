@@ -69,6 +69,7 @@ model User {
   ItemReservations        ItemReservation[]
   Comments                Comment[]
   NotificationPreferences NotificationPreference[]
+  Notifications           Notification[]
   permissionGroups        UserPermissionGroup[]
   grantedPermissions      UserPermissionGroup[]    @relation("GrantedPermissions")
   permissionAuditLogs     PermissionAuditLog[]
@@ -432,6 +433,23 @@ enum NotificationChannel {
   EMAIL
   SMS
   PUSH
+}
+
+// --- Workflow Notifications Enums ---
+
+enum NotificationType {
+  INFO
+  WARNING
+  ERROR
+  SUCCESS
+  REMINDER
+}
+
+enum NotificationPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
 }
 
 enum DiscountType {
@@ -1149,4 +1167,58 @@ model NotificationPreference {
   @@index([userId])
   @@index([alertType])
   @@map("notification_preferences")
+}
+
+// --- Workflow Notifications System ---
+
+model NotificationTemplate {
+  id              String               @id @default(uuid())
+  code            String               @unique @db.VarChar(64)
+  name            String               @db.VarChar(128)
+  titleTemplate   String               @map("title_template") @db.VarChar(256)
+  messageTemplate String               @map("message_template") @db.Text
+  defaultChannel  NotificationChannel  @map("default_channel")
+  defaultPriority NotificationPriority @default(NORMAL) @map("default_priority")
+  isActive        Boolean              @default(true) @map("is_active")
+  createdAt       DateTime             @default(now()) @map("created_at")
+  updatedAt       DateTime             @updatedAt @map("updated_at")
+  deletedAt       DateTime?            @map("deleted_at")
+
+  @@index([code])
+  @@index([isActive])
+  @@map("notification_templates")
+}
+
+model Notification {
+  id           String               @id @default(uuid())
+  userId       String               @map("user_id")
+  title        String               @db.VarChar(256)
+  message      String               @db.Text
+  type         NotificationType
+  priority     NotificationPriority @default(NORMAL)
+  channel      NotificationChannel
+  actionUrl    String?              @map("action_url") @db.VarChar(512)
+  actionText   String?              @map("action_text") @db.VarChar(64)
+  entityType   String?              @map("entity_type") @db.VarChar(32)
+  entityId     String?              @map("entity_id") @db.VarChar(36)
+  isRead       Boolean              @default(false) @map("is_read")
+  isSent       Boolean              @default(false) @map("is_sent")
+  scheduledFor DateTime?            @map("scheduled_for")
+  readAt       DateTime?            @map("read_at")
+  sentAt       DateTime?            @map("sent_at")
+  createdAt    DateTime             @default(now()) @map("created_at")
+  updatedAt    DateTime             @updatedAt @map("updated_at")
+  deletedAt    DateTime?            @map("deleted_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([type])
+  @@index([priority])
+  @@index([channel])
+  @@index([entityType, entityId])
+  @@index([scheduledFor])
+  @@index([createdAt(sort: Desc)])
+  @@map("notifications")
 }
