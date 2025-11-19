@@ -131,6 +131,7 @@ export class EmailService {
     }
 
     try {
+      // Only verify in production and send email
       if (env.NODE_ENV === 'production') {
         await this.transporter.verify();
       }

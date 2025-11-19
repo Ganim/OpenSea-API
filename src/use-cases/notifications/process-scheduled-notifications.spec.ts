@@ -1,9 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { prisma } from '@/lib/prisma';
 import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
-import { EmailService } from '@/services/email-service';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { ProcessScheduledNotificationsUseCase } from './process-scheduled-notifications';
 import { InMemoryNotificationPreferencesRepository } from '@/repositories/sales/in-memory/in-memory-notification-preferences-repository';
+import { EmailService } from '@/services/email-service';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { ProcessScheduledNotificationsUseCase } from './process-scheduled-notifications';
 
 class StubEmailService extends EmailService {
   async sendNotificationEmail(
@@ -32,6 +33,7 @@ describe('ProcessScheduledNotificationsUseCase', () => {
   let preferencesRepository: InMemoryNotificationPreferencesRepository;
   let emailService: StubEmailService;
   let sut: ProcessScheduledNotificationsUseCase;
+  let testUserId: UniqueEntityID;
 
   beforeEach(() => {
     notificationsRepository = new InMemoryNotificationsRepository();
@@ -42,20 +44,39 @@ describe('ProcessScheduledNotificationsUseCase', () => {
       emailService,
       preferencesRepository,
     );
+
+    testUserId = new UniqueEntityID();
+
+    // Mock prisma.user.findUnique to return test user with email
+    vi.spyOn(prisma.user, 'findUnique').mockResolvedValue({
+      id: testUserId.toString(),
+      email: 'test@example.com',
+      username: 'testuser',
+      password_hash: 'hash',
+      role: 'USER',
+      lastLoginIp: null,
+      failedLoginAttempts: 0,
+      blockedUntil: null,
+      passwordResetToken: null,
+      passwordResetExpires: null,
+      deletedAt: null,
+      lastLoginAt: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
   });
   it('should skip email send when preference disabled', async () => {
-    const userId = new UniqueEntityID();
     const now = new Date();
 
     await preferencesRepository.create({
-      userId,
+      userId: testUserId,
       alertType: 'LOW_STOCK',
       channel: 'EMAIL',
       isEnabled: false,
     });
 
     const notification = await notificationsRepository.create({
-      userId,
+      userId: testUserId,
       title: 'Estoque baixo',
       message: 'Seu produto X está com estoque baixo',
       type: 'WARNING',
@@ -74,11 +95,10 @@ describe('ProcessScheduledNotificationsUseCase', () => {
   });
 
   it('should process scheduled email notifications', async () => {
-    const userId = new UniqueEntityID();
     const now = new Date();
 
     await notificationsRepository.create({
-      userId,
+      userId: testUserId,
       title: 'Email 1',
       message: 'Mensagem 1',
       type: 'INFO',
@@ -86,7 +106,7 @@ describe('ProcessScheduledNotificationsUseCase', () => {
       scheduledFor: new Date(now.getTime() - 1000),
     });
     await notificationsRepository.create({
-      userId,
+      userId: testUserId,
       title: 'Email 2',
       message: 'Mensagem 2',
       type: 'INFO',
@@ -107,11 +127,10 @@ describe('ProcessScheduledNotificationsUseCase', () => {
   });
 
   it('should skip future scheduled notifications', async () => {
-    const userId = new UniqueEntityID();
     const now = new Date();
 
     await notificationsRepository.create({
-      userId,
+      userId: testUserId,
       title: 'Futuro',
       message: 'Mensagem',
       type: 'INFO',
@@ -125,11 +144,10 @@ describe('ProcessScheduledNotificationsUseCase', () => {
   });
 
   it('should mark non-email notification as sent without sending', async () => {
-    const userId = new UniqueEntityID();
     const now = new Date();
 
     const notification = await notificationsRepository.create({
-      userId,
+      userId: testUserId,
       title: 'InApp',
       message: 'Mensagem',
       type: 'INFO',

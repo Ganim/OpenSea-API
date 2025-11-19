@@ -2,10 +2,10 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
+import { InMemoryNotificationPreferencesRepository } from '@/repositories/sales/in-memory/in-memory-notification-preferences-repository';
 import { EmailService } from '@/services/email-service';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SendEmailNotificationUseCase } from './send-email-notification';
-import { InMemoryNotificationPreferencesRepository } from '@/repositories/sales/in-memory/in-memory-notification-preferences-repository';
 
 class StubEmailService extends EmailService {
   async sendNotificationEmail(

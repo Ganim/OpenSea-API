@@ -1,10 +1,10 @@
 import { prisma } from '@/lib/prisma';
-import type { NotificationPreferencesRepository } from '@/repositories/sales/notification-preferences-repository';
 import {
-    notificationToDTO,
-    type NotificationDTO,
+  notificationToDTO,
+  type NotificationDTO,
 } from '@/mappers/notifications/notification-to-dto';
 import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
+import type { NotificationPreferencesRepository } from '@/repositories/sales/notification-preferences-repository';
 import { EmailService } from '@/services/email-service';
 
 interface ProcessScheduledNotificationsRequest {
@@ -50,10 +50,11 @@ export class ProcessScheduledNotificationsUseCase {
 
         // Preferências: valida canal EMAIL caso repositório disponível
         if (this.notificationPreferencesRepository) {
-          const emailPrefs = await this.notificationPreferencesRepository.findByUserAndChannel(
-            notification.userId,
-            'EMAIL',
-          );
+          const emailPrefs =
+            await this.notificationPreferencesRepository.findByUserAndChannel(
+              notification.userId,
+              'EMAIL',
+            );
           if (notification.entityType) {
             const disabledMatch = emailPrefs.find(
               (p) => p.alertType === notification.entityType && !p.isEnabled,
