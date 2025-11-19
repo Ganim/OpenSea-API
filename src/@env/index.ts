@@ -11,6 +11,7 @@ const envSchema = z.object({
   SMTP_USER: z.string().default('user'),
   SMTP_PASS: z.string().default('pass'),
   FRONTEND_URL: z.url().default('http://localhost:3000'),
+  NOTIFICATIONS_CRON_INTERVAL_MS: z.coerce.number().default(60000),
 });
 
 const _env = envSchema.safeParse(process.env);

@@ -431,6 +431,14 @@
 
 ## 🔔 Sistema de Notificações (15 casos de uso)
 
+### Implementação Atual (Resumo)
+- Endpoints adicionados: envio manual (`POST /v1/notifications/:id/send`) e processamento agendado (`POST /v1/notifications/process-scheduled`).
+- Worker periódico: `src/workers/notifications-scheduler.ts` usando `NOTIFICATIONS_CRON_INTERVAL_MS`.
+- Preferências integradas: bloqueiam envio se `entityType` corresponder a `alertType` desabilitado no canal EMAIL.
+- Use cases: `SendEmailNotificationUseCase`, `ProcessScheduledNotificationsUseCase` completos.
+- Repositórios estendidos com `listScheduledPending`.
+
+
 ### 1. Criar Notificação (CreateNotificationUseCase)
 **Entrada:**
 - `userId`

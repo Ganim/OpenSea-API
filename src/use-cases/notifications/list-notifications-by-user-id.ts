@@ -1,7 +1,7 @@
 import type { Notification } from '@/entities/notifications/notification';
 import type {
-  ListNotificationsFilter,
-  NotificationsRepository,
+    ListNotificationsFilter,
+    NotificationsRepository,
 } from '@/repositories/notifications/notifications-repository';
 
 interface ListNotificationsUseCaseRequest {

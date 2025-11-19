@@ -77,6 +77,19 @@ export class InMemoryNotificationsRepository
     return { data, total };
   }
 
+  async listScheduledPending(now: Date, limit: number = 50): Promise<Notification[]> {
+    const candidates = this.items
+      .filter(
+        (n) =>
+          !n.deletedAt &&
+          !n.isSent &&
+          n.scheduledFor &&
+          n.scheduledFor.getTime() <= now.getTime(),
+      )
+      .sort((a, b) => (a.scheduledFor!.getTime() - b.scheduledFor!.getTime()));
+    return candidates.slice(0, limit);
+  }
+
   async markAsRead(id: UniqueEntityID): Promise<void> {
     const n = await this.findById(id);
     if (n) n.markRead();

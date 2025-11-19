@@ -1,9 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
-  Notification,
-  NotificationChannelValue,
-  NotificationPriorityValue,
-  NotificationTypeValue,
+    Notification,
+    NotificationChannelValue,
+    NotificationPriorityValue,
+    NotificationTypeValue,
 } from '@/entities/notifications/notification';
 
 export interface CreateNotificationSchema {
@@ -38,6 +38,7 @@ export interface NotificationsRepository {
   list(
     filter: ListNotificationsFilter,
   ): Promise<{ data: Notification[]; total: number }>;
+  listScheduledPending(now: Date, limit?: number): Promise<Notification[]>; // scheduledFor <= now AND isSent = false
   markAsRead(id: UniqueEntityID): Promise<void>;
   markAllAsRead(userId: UniqueEntityID): Promise<number>; // returns affected count
   delete(id: UniqueEntityID): Promise<void>; // soft delete

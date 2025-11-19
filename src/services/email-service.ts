@@ -108,4 +108,70 @@ export class EmailService {
       };
     }
   }
+
+  async sendNotificationEmail(
+    toEmail: string,
+    title: string,
+    message: string,
+  ): Promise<EmailServiceResponse> {
+    // Ambiente de teste: simula envio
+    if (env.NODE_ENV === 'test') {
+      return {
+        success: true,
+        message: 'Notification email sent successfully (test mode).',
+        return: {
+          envelope: { from: 'no-reply@system.com', to: [toEmail] },
+          messageId: `<test-${Date.now()}@system.com>`,
+          accepted: [toEmail],
+          rejected: [],
+          pending: [],
+          response: '250 Message accepted for delivery (test mode)',
+        },
+      };
+    }
+
+    try {
+      if (env.NODE_ENV === 'production') {
+        await this.transporter.verify();
+      }
+
+      const sentInformation = await this.transporter.sendMail({
+        from: '"System" <no-reply@system.com>',
+        to: toEmail,
+        subject: title,
+        html: `<p>${message}</p>`,
+      });
+
+      return {
+        success: true,
+        message: 'Notification email sent successfully.',
+        return: sentInformation,
+      };
+    } catch (error) {
+      if (env.NODE_ENV === 'dev') {
+        console.warn(
+          '⚠️  SMTP not configured. Notification email would be sent in production:',
+          toEmail,
+        );
+        return {
+          success: true,
+          message: 'Notification email sent successfully (dev mode - no SMTP).',
+          return: {
+            envelope: { from: 'no-reply@system.com', to: [toEmail] },
+            messageId: `<dev-${Date.now()}@system.com>`,
+            accepted: [toEmail],
+            rejected: [],
+            pending: [],
+            response: '250 Message accepted for delivery (dev mode)',
+          },
+        };
+      }
+
+      return {
+        success: false,
+        message: 'Failed to send notification email.',
+        return: error,
+      };
+    }
+  }
 }

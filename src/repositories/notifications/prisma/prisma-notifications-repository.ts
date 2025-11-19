@@ -3,15 +3,15 @@ import { Notification } from '@/entities/notifications/notification';
 import { prisma } from '@/lib/prisma';
 import { notificationPrismaToDomain } from '@/mappers/notifications/notification-prisma-to-domain';
 import type {
-  Prisma,
-  NotificationChannel as PrismaNotificationChannel,
-  NotificationPriority as PrismaNotificationPriority,
-  NotificationType as PrismaNotificationType,
+    Prisma,
+    NotificationChannel as PrismaNotificationChannel,
+    NotificationPriority as PrismaNotificationPriority,
+    NotificationType as PrismaNotificationType,
 } from '@prisma/client';
 import type {
-  CreateNotificationSchema,
-  ListNotificationsFilter,
-  NotificationsRepository,
+    CreateNotificationSchema,
+    ListNotificationsFilter,
+    NotificationsRepository,
 } from '../notifications-repository';
 
 export class PrismaNotificationsRepository implements NotificationsRepository {
@@ -77,6 +77,19 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
     ]);
 
     return { data: rows.map(notificationPrismaToDomain), total };
+  }
+
+  async listScheduledPending(now: Date, limit: number = 50): Promise<Notification[]> {
+    const rows = await prisma.notification.findMany({
+      where: {
+        deletedAt: null,
+        isSent: false,
+        scheduledFor: { lte: now },
+      },
+      orderBy: { scheduledFor: 'asc' },
+      take: limit,
+    });
+    return rows.map(notificationPrismaToDomain);
   }
 
   async markAsRead(id: UniqueEntityID): Promise<void> {

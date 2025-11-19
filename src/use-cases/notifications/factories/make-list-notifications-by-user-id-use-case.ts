@@ -7,3 +7,4 @@ function makeListNotificationsByUserIdUseCase() {
 }
 
 export { makeListNotificationsByUserIdUseCase };
+
