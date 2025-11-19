@@ -34,5 +34,8 @@ export const swaggerTags = [
   },
   // Workflow Notifications
   { name: 'Notifications', description: 'User notifications management' },
-  { name: 'Notification Templates', description: 'Notification templates management' },
+  {
+    name: 'Notification Templates',
+    description: 'Notification templates management',
+  },
 ];

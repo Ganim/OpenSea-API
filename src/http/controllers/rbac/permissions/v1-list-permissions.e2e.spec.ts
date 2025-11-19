@@ -1,8 +1,12 @@
 import { app } from '@/app';
+import { permissionSchema } from '@/http/schemas/rbac.schema';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { makePermission } from '@/utils/tests/factories/rbac/make-permission';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import type { z } from 'zod';
+
+type PermissionResponse = z.infer<typeof permissionSchema>;
 
 describe('List Permissions (e2e)', () => {
   beforeAll(async () => {
@@ -57,7 +61,9 @@ describe('List Permissions (e2e)', () => {
 
     expect(response.statusCode).toEqual(200);
     expect(
-      response.body.permissions.every((p: any) => p.module === 'stock'),
+      response.body.permissions.every(
+        (p: PermissionResponse) => p.module === 'stock',
+      ),
     ).toBe(true);
   });
 
@@ -82,7 +88,9 @@ describe('List Permissions (e2e)', () => {
 
     expect(response.statusCode).toEqual(200);
     expect(
-      response.body.permissions.every((p: any) => p.resource === 'invoice'),
+      response.body.permissions.every(
+        (p: PermissionResponse) => p.resource === 'invoice',
+      ),
     ).toBe(true);
   });
 
@@ -102,7 +110,9 @@ describe('List Permissions (e2e)', () => {
 
     expect(response.statusCode).toEqual(200);
     expect(
-      response.body.permissions.every((p: any) => p.action === 'delete'),
+      response.body.permissions.every(
+        (p: PermissionResponse) => p.action === 'delete',
+      ),
     ).toBe(true);
   });
 

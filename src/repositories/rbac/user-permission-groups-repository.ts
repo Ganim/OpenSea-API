@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Permission } from '@/entities/rbac/permission';
 import { PermissionGroup } from '@/entities/rbac/permission-group';
 import { UserPermissionGroup } from '@/entities/rbac/user-permission-group';
+import { Prisma } from '@prisma/client';
 
 export interface AssignGroupToUserSchema {
   userId: UniqueEntityID;
@@ -69,14 +70,12 @@ export interface UserPermissionGroupsRepository {
    * Lista permissões com seus efeitos (allow/deny) para um usuário
    * Importante para aplicar precedência de deny
    */
-  listUserPermissionsWithEffects(
-    userId: UniqueEntityID,
-  ): Promise<
+  listUserPermissionsWithEffects(userId: UniqueEntityID): Promise<
     {
       permission: Permission;
       effect: string;
       groupId: UniqueEntityID;
-      conditions: any;
+      conditions: Prisma.JsonValue;
     }[]
   >;
 

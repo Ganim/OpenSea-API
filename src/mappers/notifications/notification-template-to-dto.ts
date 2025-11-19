@@ -14,7 +14,9 @@ export interface NotificationTemplateDTO {
   deletedAt?: Date | null;
 }
 
-export function notificationTemplateToDTO(template: NotificationTemplate): NotificationTemplateDTO {
+export function notificationTemplateToDTO(
+  template: NotificationTemplate,
+): NotificationTemplateDTO {
   return {
     id: template.id.toString(),
     code: template.code,

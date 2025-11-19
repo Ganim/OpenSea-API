@@ -4,7 +4,9 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function processScheduledNotificationsController(app: FastifyInstance) {
+export async function processScheduledNotificationsController(
+  app: FastifyInstance,
+) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/notifications/process-scheduled',
@@ -24,7 +26,11 @@ export async function processScheduledNotificationsController(app: FastifyInstan
     handler: async (request, reply) => {
       const useCase = makeProcessScheduledNotificationsUseCase();
       const result = await useCase.execute();
-      return reply.status(200).send({ processed: result.processed, sent: result.sent.length, errors: result.errors });
+      return reply.status(200).send({
+        processed: result.processed,
+        sent: result.sent.length,
+        errors: result.errors,
+      });
     },
   });
 }

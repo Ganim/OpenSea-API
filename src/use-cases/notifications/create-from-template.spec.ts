@@ -34,7 +34,9 @@ describe('CreateFromTemplateUseCase', () => {
     });
 
     expect(notification.title).toBe('Olá João');
-    expect(notification.message).toBe('Sua conta (joao@example.com) foi criada');
+    expect(notification.message).toBe(
+      'Sua conta (joao@example.com) foi criada',
+    );
     expect(notification.channel).toBe('IN_APP');
     expect(notification.priority).toBe('NORMAL');
   });

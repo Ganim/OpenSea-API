@@ -8,7 +8,9 @@ interface MarkAllAsReadUseCaseResponse {
 export class MarkAllAsReadUseCase {
   constructor(private notificationsRepository: NotificationsRepository) {}
 
-  async execute(params: { userId: string }): Promise<MarkAllAsReadUseCaseResponse> {
+  async execute(params: {
+    userId: string;
+  }): Promise<MarkAllAsReadUseCaseResponse> {
     const count = await this.notificationsRepository.markAllAsRead(
       new UniqueEntityID(params.userId),
     );

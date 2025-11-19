@@ -1,9 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
-    Notification,
-    NotificationChannelValue,
-    NotificationPriorityValue,
-    NotificationTypeValue,
+  Notification,
+  NotificationChannelValue,
+  NotificationPriorityValue,
+  NotificationTypeValue,
 } from '@/entities/notifications/notification';
 
 export interface CreateNotificationSchema {

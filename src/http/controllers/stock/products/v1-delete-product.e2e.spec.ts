@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
@@ -108,9 +109,9 @@ describe('Delete Product (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app, 'USER');
 
     // Create a template first
-    const timestamp = Date.now();
+    const timestamp = Date.now() + Math.random();
     const template = makeTemplate({
-      name: `Template Delete User Test ${timestamp}`,
+      name: `Template Delete User Test ${faker.string.uuid()}`,
     });
     await prisma.template.create({
       data: {

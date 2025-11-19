@@ -5,9 +5,9 @@ import { PermissionEffect } from '@/entities/rbac/value-objects/permission-effec
 import { prisma } from '@/lib/prisma';
 import { mapPermissionPrismaToDomain } from '@/mappers/rbac/permission-prisma-to-domain';
 import type {
-    AddPermissionToGroupSchema,
-    PermissionGroupPermissionsRepository,
-    UpdateGroupPermissionSchema,
+  AddPermissionToGroupSchema,
+  PermissionGroupPermissionsRepository,
+  UpdateGroupPermissionSchema,
 } from '../permission-group-permissions-repository';
 
 export class PrismaPermissionGroupPermissionsRepository

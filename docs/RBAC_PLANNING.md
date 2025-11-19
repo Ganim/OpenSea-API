@@ -25,6 +25,7 @@
 ### Sistema Atual (Role-Based Simples)
 
 **Schema Prisma:**
+
 ```prisma
 enum Role {
   ADMIN    // Acesso total
@@ -38,11 +39,13 @@ model User {
 ```
 
 **Middlewares:**
+
 - `verifyJwt` - Verifica se usuário está autenticado
 - `verifyUserManager` - Verifica se é MANAGER ou ADMIN
 - `verifyUserAdmin` - Verifica se é ADMIN
 
 **Verificação de Permissões:**
+
 ```typescript
 // Exemplo atual em middlewares
 if (!Role.checkRole(role, 'ADMIN')) {
@@ -67,49 +70,59 @@ if (!Role.checkRole(role, 'ADMIN')) {
 ### Requisitos Funcionais
 
 #### RF01 - Permissões Granulares
+
 - ✅ Permissões específicas por recurso (ex: `products.create`, `variants.update`)
 - ✅ Permissões por módulo (Core, Stock, Sales)
 - ✅ Suporte a wildcards (ex: `products.*`, `*.read`)
 
 #### RF02 - Grupos de Permissões (Roles Customizadas)
+
 - ✅ Criar grupos de permissões personalizados
 - ✅ Atribuir múltiplas permissões a um grupo
 - ✅ Vincular usuários a múltiplos grupos
 
 #### RF03 - Hierarquia de Permissões
+
 - ✅ Herança de permissões entre grupos
 - ✅ Sistema de precedência (deny > allow)
 
 #### RF04 - Permissões Contextuais
+
 - ✅ Verificar ownership (ex: usuário pode editar seus próprios recursos)
 - ✅ Permissões baseadas em atributos (ABAC - Attribute-Based Access Control)
 
 #### RF05 - Gerenciamento Dinâmico
+
 - ✅ CRUD de grupos de permissões via API
 - ✅ CRUD de permissões via API
 - ✅ Atribuição de grupos a usuários via API
 
 #### RF06 - Auditoria
+
 - ✅ Registro de todas as verificações de permissão
 - ✅ Histórico de mudanças em grupos e permissões
 
 ### Requisitos Não-Funcionais
 
 #### RNF01 - Performance
+
 - ✅ Cache de permissões em memória (Redis)
 - ✅ Consultas otimizadas (índices adequados)
 - ✅ Lazy loading de permissões
 
 #### RNF02 - Segurança
+
 - ✅ Princípio do menor privilégio
 - ✅ Deny por padrão
 - ✅ Validação rigorosa de permissões
 
 #### RNF03 - Escalabilidade
+
 - ✅ Suporte a milhares de permissões
 - ✅ Suporte a centenas de grupos
 
 #### RNF04 - Manutenibilidade
+
 - ✅ Código seguindo Clean Code, SOLID, DDD
 - ✅ Testes unitários e E2E completos
 - ✅ Documentação clara
@@ -139,6 +152,7 @@ if (!Role.checkRole(role, 'ADMIN')) {
 ### Estrutura de Permissões
 
 **Formato de Permissão:**
+
 ```
 <módulo>.<recurso>.<ação>
 
@@ -152,16 +166,19 @@ Exemplos:
 ```
 
 **Módulos:**
+
 - `core` - Autenticação, usuários, sessões
 - `stock` - Produtos, variantes, itens, estoque
 - `sales` - Clientes, pedidos, promoções
 
 **Recursos (exemplos):**
+
 - `users`, `sessions`, `profiles`
 - `products`, `variants`, `items`, `suppliers`, `manufacturers`
 - `customers`, `orders`, `promotions`
 
 **Ações Padrão:**
+
 - `create` - Criar novo recurso
 - `read` - Ler/visualizar recurso
 - `update` - Atualizar recurso
@@ -170,6 +187,7 @@ Exemplos:
 - `manage` - Gerenciar (todas as operações)
 
 **Ações Especiais:**
+
 - `request` - Abrir solicitações dentro de um módulo (ex: solicitar criação, alteração)
 - `read_own` - Ler apenas próprios recursos
 - `update_own` - Atualizar apenas próprios recursos
@@ -192,37 +210,37 @@ Exemplos:
 /// Representa uma permissão específica no sistema
 model Permission {
   id          String   @id @default(uuid())
-  
+
   // Identificador único da permissão (ex: core.users.create)
   code        String   @unique @db.VarChar(128)
-  
+
   // Nome legível da permissão
   name        String   @db.VarChar(128)
-  
+
   // Descrição detalhada do que a permissão permite
   description String?  @db.Text
-  
+
   // Módulo ao qual a permissão pertence
   module      String   @db.VarChar(64)  // core, stock, sales
-  
+
   // Recurso ao qual a permissão se aplica
   resource    String   @db.VarChar(64)  // users, products, orders
-  
+
   // Ação permitida
   action      String   @db.VarChar(64)  // create, read, update, delete
-  
+
   // Se é uma permissão do sistema (não pode ser deletada)
   isSystem    Boolean  @default(false) @map("is_system")
-  
+
   // Metadados adicionais (para ABAC futuramente)
   metadata    Json     @default("{}")
-  
+
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
-  
+
   // Relations
   permissionGroups PermissionGroupPermission[]
-  
+
   @@index([module, resource, action])
   @@index([code])
   @@index([module])
@@ -232,41 +250,41 @@ model Permission {
 /// Grupo de permissões (equivalente a uma Role customizável)
 model PermissionGroup {
   id          String   @id @default(uuid())
-  
+
   // Nome do grupo (ex: "Gerente de Estoque", "Vendedor")
   name        String   @unique @db.VarChar(128)
-  
+
   // Slug para uso programático
   slug        String   @unique @db.VarChar(128)
-  
+
   // Descrição do grupo
   description String?  @db.Text
-  
+
   // Se é um grupo do sistema (não pode ser deletado)
   isSystem    Boolean  @default(false) @map("is_system")
-  
+
   // Se o grupo está ativo
   isActive    Boolean  @default(true) @map("is_active")
-  
+
   // Cor para UI (opcional)
   color       String?  @db.VarChar(7)  // hex color
-  
+
   // Prioridade (para resolver conflitos)
   priority    Int      @default(0)
-  
+
   // Grupo pai (para herança)
   parentId    String?  @map("parent_id")
-  
+
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   deletedAt   DateTime? @map("deleted_at")
-  
+
   // Relations
   parent               PermissionGroup?            @relation("GroupHierarchy", fields: [parentId], references: [id])
   children             PermissionGroup[]           @relation("GroupHierarchy")
   permissions          PermissionGroupPermission[]
   users                UserPermissionGroup[]
-  
+
   @@index([slug])
   @@index([isActive])
   @@index([parentId])
@@ -276,23 +294,23 @@ model PermissionGroup {
 /// Relacionamento entre Grupos e Permissões
 model PermissionGroupPermission {
   id          String   @id @default(uuid())
-  
+
   groupId     String   @map("group_id")
   permissionId String  @map("permission_id")
-  
+
   // Tipo de acesso (allow ou deny)
   // Deny tem precedência sobre allow
   effect      String   @default("allow") @db.VarChar(10)  // allow, deny
-  
+
   // Condições para aplicar a permissão (JSON com regras ABAC)
   conditions  Json?    @default("{}")
-  
+
   createdAt   DateTime @default(now()) @map("created_at")
-  
+
   // Relations
   group       PermissionGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
   permission  Permission      @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-  
+
   @@unique([groupId, permissionId])
   @@index([groupId])
   @@index([permissionId])
@@ -302,23 +320,23 @@ model PermissionGroupPermission {
 /// Relacionamento entre Usuários e Grupos de Permissões
 model UserPermissionGroup {
   id          String   @id @default(uuid())
-  
+
   userId      String   @map("user_id")
   groupId     String   @map("group_id")
-  
+
   // Data de expiração (opcional, para acesso temporário)
   expiresAt   DateTime? @map("expires_at")
-  
+
   // Quem concedeu o acesso
   grantedBy   String?  @map("granted_by")
-  
+
   createdAt   DateTime @default(now()) @map("created_at")
-  
+
   // Relations
   user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   group       PermissionGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
   granter     User?           @relation("GrantedPermissions", fields: [grantedBy], references: [id])
-  
+
   @@unique([userId, groupId])
   @@index([userId])
   @@index([groupId])
@@ -329,31 +347,31 @@ model UserPermissionGroup {
 /// Log de verificações de permissão (auditoria)
 model PermissionAuditLog {
   id           String   @id @default(uuid())
-  
+
   userId       String   @map("user_id")
   permissionCode String @map("permission_code") @db.VarChar(128)
-  
+
   // Resultado da verificação
   allowed      Boolean
-  
+
   // Motivo (qual regra permitiu/negou)
   reason       String?  @db.VarChar(512)
-  
+
   // Contexto da requisição
   resource     String?  @db.VarChar(64)
   resourceId   String?  @map("resource_id")
   action       String?  @db.VarChar(64)
-  
+
   // Metadados da requisição
   ip           String?  @db.VarChar(64)
   userAgent    String?  @map("user_agent") @db.VarChar(512)
   endpoint     String?  @db.VarChar(256)
-  
+
   createdAt    DateTime @default(now()) @map("created_at")
-  
+
   // Relations
   user User @relation(fields: [userId], references: [id])
-  
+
   @@index([userId])
   @@index([permissionCode])
   @@index([allowed])
@@ -368,10 +386,10 @@ model PermissionAuditLog {
 ```prisma
 model User {
   // ... campos existentes ...
-  
+
   // Remover ou manter role como fallback
   role Role @default(USER)  // Manter para retrocompatibilidade
-  
+
   // Adicionar relations
   permissionGroups        UserPermissionGroup[]
   grantedPermissions      UserPermissionGroup[]    @relation("GrantedPermissions")
@@ -402,6 +420,7 @@ src/entities/rbac/
 ### Value Objects Principais
 
 #### PermissionCode
+
 ```typescript
 // Formato: module.resource.action
 // Exemplos: core.users.create, stock.*.read
@@ -412,31 +431,36 @@ class PermissionCode {
   private readonly _resource: string;
   private readonly _action: string;
   private readonly _isWildcard: boolean;
-  
-  static create(value: string): PermissionCode
-  static createFromParts(module: string, resource: string, action: string): PermissionCode
-  
-  matches(other: PermissionCode): boolean  // Suporta wildcards
-  get module(): string
-  get resource(): string
-  get action(): string
-  get value(): string
-  get isWildcard(): boolean
+
+  static create(value: string): PermissionCode;
+  static createFromParts(
+    module: string,
+    resource: string,
+    action: string,
+  ): PermissionCode;
+
+  matches(other: PermissionCode): boolean; // Suporta wildcards
+  get module(): string;
+  get resource(): string;
+  get action(): string;
+  get value(): string;
+  get isWildcard(): boolean;
 }
 ```
 
 #### PermissionEffect
+
 ```typescript
 // allow ou deny
 class PermissionEffect {
   private readonly _value: 'allow' | 'deny';
-  
-  static allow(): PermissionEffect
-  static deny(): PermissionEffect
-  
-  get isAllow(): boolean
-  get isDeny(): boolean
-  get value(): string
+
+  static allow(): PermissionEffect;
+  static deny(): PermissionEffect;
+
+  get isAllow(): boolean;
+  get isDeny(): boolean;
+  get value(): string;
 }
 ```
 
@@ -528,7 +552,7 @@ export class PermissionService {
 
   /**
    * Verifica se o usuário tem uma permissão específica
-   * 
+   *
    * Algoritmo:
    * 1. Buscar todos os grupos do usuário
    * 2. Buscar todas as permissões dos grupos (com herança)
@@ -537,25 +561,27 @@ export class PermissionService {
    * 5. Verificar condições ABAC se existirem
    * 6. Registrar auditoria
    */
-  async checkPermission(context: PermissionCheckContext): Promise<PermissionCheckResult>
-  
+  async checkPermission(
+    context: PermissionCheckContext,
+  ): Promise<PermissionCheckResult>;
+
   /**
    * Busca todas as permissões de um usuário (com cache)
    */
-  async getUserPermissions(userId: string): Promise<Permission[]>
-  
+  async getUserPermissions(userId: string): Promise<Permission[]>;
+
   /**
    * Limpa cache de permissões de um usuário
    */
-  async invalidateUserPermissionsCache(userId: string): Promise<void>
-  
+  async invalidateUserPermissionsCache(userId: string): Promise<void>;
+
   /**
    * Verifica múltiplas permissões de uma vez
    */
   async checkMultiplePermissions(
     userId: string,
     permissionCodes: string[],
-  ): Promise<Map<string, boolean>>
+  ): Promise<Map<string, boolean>>;
 }
 ```
 
@@ -572,14 +598,15 @@ src/http/middlewares/
 ```
 
 **Novo Middleware:**
+
 ```typescript
 // verify-permission.ts
 export function verifyPermission(permissionCode: string) {
   return async (request: FastifyRequest, reply: FastifyReply) => {
     const userId = request.user.sub;
-    
+
     const permissionService = makePermissionService();
-    
+
     const result = await permissionService.checkPermission({
       userId,
       permissionCode,
@@ -590,7 +617,7 @@ export function verifyPermission(permissionCode: string) {
         ip: request.ip,
       },
     });
-    
+
     if (!result.allowed) {
       throw new ForbiddenError(
         `You don't have permission to ${permissionCode}`,
@@ -712,44 +739,47 @@ src/http/schemas/
 #### Testes Unitários
 
 1. **Value Objects**
+
    ```typescript
    describe('PermissionCode', () => {
-     it('should create valid permission code')
-     it('should validate format')
-     it('should match wildcards')
-     it('should parse module, resource, action')
-   })
+     it('should create valid permission code');
+     it('should validate format');
+     it('should match wildcards');
+     it('should parse module, resource, action');
+   });
    ```
 
 2. **Entidades**
+
    ```typescript
    describe('PermissionGroup', () => {
-     it('should create permission group')
-     it('should inherit from parent')
-     it('should check if user has permission')
-   })
+     it('should create permission group');
+     it('should inherit from parent');
+     it('should check if user has permission');
+   });
    ```
 
 3. **Use Cases**
+
    ```typescript
    describe('CheckUserPermission', () => {
-     it('should allow when user has direct permission')
-     it('should allow when user has wildcard permission')
-     it('should deny when permission is explicitly denied')
-     it('should deny takes precedence over allow')
-     it('should check with inheritance')
-     it('should validate expired group membership')
-   })
+     it('should allow when user has direct permission');
+     it('should allow when user has wildcard permission');
+     it('should deny when permission is explicitly denied');
+     it('should deny takes precedence over allow');
+     it('should check with inheritance');
+     it('should validate expired group membership');
+   });
    ```
 
 4. **Permission Service**
    ```typescript
    describe('PermissionService', () => {
-     it('should cache user permissions')
-     it('should invalidate cache on permission change')
-     it('should handle wildcards correctly')
-     it('should apply deny precedence')
-   })
+     it('should cache user permissions');
+     it('should invalidate cache on permission change');
+     it('should handle wildcards correctly');
+     it('should apply deny precedence');
+   });
    ```
 
 #### Testes de Integração
@@ -767,14 +797,15 @@ src/http/schemas/
 #### Testes E2E
 
 1. **Fluxos de Permissão**
+
    ```typescript
    describe('RBAC E2E', () => {
-     it('admin can create permission group')
-     it('manager can assign group to user')
-     it('user with permission can access resource')
-     it('user without permission receives 403')
-     it('permission changes reflect immediately')
-   })
+     it('admin can create permission group');
+     it('manager can assign group to user');
+     it('user with permission can access resource');
+     it('user without permission receives 403');
+     it('permission changes reflect immediately');
+   });
    ```
 
 2. **Migração de Controllers**
@@ -786,6 +817,7 @@ src/http/schemas/
 ## 📅 Roadmap de Implementação
 
 ### Sprint 1: Fundação (5 dias)
+
 - [ ] Criar schema Prisma RBAC
 - [ ] Migração do banco de dados
 - [ ] Seed de permissões iniciais
@@ -793,24 +825,28 @@ src/http/schemas/
 - [ ] Entidades de domínio básicas
 
 ### Sprint 2: Repositórios (3 dias)
+
 - [ ] Interfaces de repositórios
 - [ ] Implementação Prisma
 - [ ] Implementação In-Memory
 - [ ] Testes unitários de repositórios
 
 ### Sprint 3: Core Logic (5 dias)
+
 - [ ] PermissionService
 - [ ] Use cases principais (check, assign, create)
 - [ ] Testes unitários de use cases
 - [ ] Sistema de cache
 
 ### Sprint 4: API e Middlewares (4 dias)
+
 - [ ] Novo middleware `verifyPermission`
 - [ ] Controllers RBAC (CRUD)
 - [ ] Schemas Zod
 - [ ] Testes E2E da API RBAC
 
 ### Sprint 5: Migração (5 dias)
+
 - [ ] Script de migração de usuários
 - [ ] Atualizar controllers do módulo Stock
 - [ ] Atualizar controllers do módulo Sales
@@ -818,6 +854,7 @@ src/http/schemas/
 - [ ] Testes E2E de regressão
 
 ### Sprint 6: Auditoria e Refinamento (3 dias)
+
 - [ ] Sistema de audit logs
 - [ ] Dashboard de permissões (opcional)
 - [ ] Documentação completa

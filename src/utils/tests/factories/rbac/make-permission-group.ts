@@ -11,15 +11,19 @@ interface MakePermissionGroupOptions {
   parentId?: string;
 }
 
-export async function makePermissionGroup(options: MakePermissionGroupOptions = {}) {
+export async function makePermissionGroup(
+  options: MakePermissionGroupOptions = {},
+) {
   // Add unique suffix to name if not explicitly provided to avoid slug collisions
   const baseName = options.name ?? faker.company.buzzPhrase();
-  const uniqueSuffix = options.name ? '' : ` ${faker.string.alpha({ length: 6 }).toLowerCase()}`;
+  const uniqueSuffix = options.name
+    ? ''
+    : ` ${faker.string.alpha({ length: 6 }).toLowerCase()}`;
   const name = `${baseName}${uniqueSuffix}`;
   const slug = name.toLowerCase().replace(/\s+/g, '-');
 
   const createPermissionGroupUseCase = makeCreatePermissionGroupUseCase();
-  
+
   const { group } = await createPermissionGroupUseCase.execute({
     name,
     slug,

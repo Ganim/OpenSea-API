@@ -4,10 +4,10 @@ import { PermissionCode } from '@/entities/rbac/value-objects/permission-code';
 import { prisma } from '@/lib/prisma';
 import { mapPermissionPrismaToDomain } from '@/mappers/rbac/permission-prisma-to-domain';
 import type {
-    CreatePermissionSchema,
-    ListPermissionsParams,
-    PermissionsRepository,
-    UpdatePermissionSchema,
+  CreatePermissionSchema,
+  ListPermissionsParams,
+  PermissionsRepository,
+  UpdatePermissionSchema,
 } from '../permissions-repository';
 
 export class PrismaPermissionsRepository implements PermissionsRepository {

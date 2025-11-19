@@ -1,10 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PermissionGroup } from '@/entities/rbac/permission-group';
 import type {
-    CreatePermissionGroupSchema,
-    ListPermissionGroupsParams,
-    PermissionGroupsRepository,
-    UpdatePermissionGroupSchema,
+  CreatePermissionGroupSchema,
+  ListPermissionGroupsParams,
+  PermissionGroupsRepository,
+  UpdatePermissionGroupSchema,
 } from '../permission-groups-repository';
 
 export class InMemoryPermissionGroupsRepository

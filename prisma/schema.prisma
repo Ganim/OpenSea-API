@@ -73,6 +73,11 @@ model User {
   permissionGroups        UserPermissionGroup[]
   grantedPermissions      UserPermissionGroup[]    @relation("GrantedPermissions")
   permissionAuditLogs     PermissionAuditLog[]
+  RequestsCreated         Request[]                @relation("RequestsCreated")
+  RequestsAssigned        Request[]                @relation("RequestsAssigned")
+  UploadedAttachments     RequestAttachment[]      @relation("UploadedAttachments")
+  RequestComments         RequestComment[]         @relation("RequestComments")
+  RequestHistoryActions   RequestHistory[]         @relation("RequestHistoryActions")
 
   // Optimizations
   @@index([failedLoginAttempts, blockedUntil, lastLoginIp])
@@ -1221,4 +1226,155 @@ model Notification {
   @@index([scheduledFor])
   @@index([createdAt(sort: Desc)])
   @@map("notifications")
+}
+
+// ===============================================
+// REQUEST SYSTEM MODULE
+// ===============================================
+
+enum RequestType {
+  ACCESS_REQUEST // Requisição de acesso
+  PURCHASE_REQUEST // Requisição de compra
+  APPROVAL_REQUEST // Requisição de aprovação
+  ACTION_REQUEST // Requisição de ação
+  CHANGE_REQUEST // Requisição de mudança
+  CUSTOM // Customizado
+}
+
+enum RequestStatus {
+  DRAFT // Rascunho
+  SUBMITTED // Submetida
+  IN_PROGRESS // Em progresso
+  PENDING_INFO // Aguardando informações
+  APPROVED // Aprovada
+  REJECTED // Rejeitada
+  CANCELLED // Cancelada
+  COMPLETED // Concluída
+}
+
+enum RequestPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum RequestTargetType {
+  USER // Requisição para usuário específico
+  GROUP // Requisição para grupo (ex: gestores)
+  ROLE // Requisição para role (ADMIN, MANAGER)
+}
+
+model Request {
+  id String @id @default(uuid())
+
+  // Identificação
+  title       String      @db.VarChar(200)
+  description String      @db.Text
+  type        RequestType
+  category    String?     @db.VarChar(100) // "purchase", "access", "hr", etc
+
+  // Status e Prioridade
+  status   RequestStatus   @default(SUBMITTED)
+  priority RequestPriority @default(MEDIUM)
+
+  // Solicitante
+  requesterId String @map("requester_id")
+  requester   User   @relation("RequestsCreated", fields: [requesterId], references: [id])
+
+  // Destinatário (pode ser usuário, grupo ou role)
+  targetType RequestTargetType @map("target_type")
+  targetId   String?           @map("target_id") // ID do usuário ou grupo
+  targetRole Role?             @map("target_role") // Se for por role
+
+  // Atribuído a (responsável atual)
+  assignedToId String? @map("assigned_to_id")
+  assignedTo   User?   @relation("RequestsAssigned", fields: [assignedToId], references: [id])
+
+  // SLA e Prazos
+  dueDate     DateTime? @map("due_date")
+  slaDeadline DateTime? @map("sla_deadline")
+
+  // Dados flexíveis (JSON)
+  metadata Json @default("{}")
+
+  // Integração com Aprovação
+  requiresApproval Boolean @default(false) @map("requires_approval")
+  approvalId       String? @unique @map("approval_id")
+
+  // Timestamps
+  submittedAt DateTime? @map("submitted_at")
+  completedAt DateTime? @map("completed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at")
+
+  // Relations
+  attachments RequestAttachment[]
+  comments    RequestComment[]
+  history     RequestHistory[]
+
+  @@index([requesterId])
+  @@index([assignedToId])
+  @@index([status])
+  @@index([type, category])
+  @@index([dueDate])
+  @@index([createdAt])
+  @@map("requests")
+}
+
+model RequestAttachment {
+  id String @id @default(uuid())
+
+  requestId String  @map("request_id")
+  request   Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  fileName     String   @map("file_name") @db.VarChar(255)
+  filePath     String   @map("file_path") @db.VarChar(512)
+  fileSize     Int      @map("file_size")
+  mimeType     String   @map("mime_type") @db.VarChar(100)
+  uploadedById String   @map("uploaded_by_id")
+  uploadedBy   User     @relation("UploadedAttachments", fields: [uploadedById], references: [id])
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@index([requestId])
+  @@map("request_attachments")
+}
+
+model RequestComment {
+  id String @id @default(uuid())
+
+  requestId String  @map("request_id")
+  request   Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  authorId   String    @map("author_id")
+  author     User      @relation("RequestComments", fields: [authorId], references: [id])
+  content    String    @db.Text
+  isInternal Boolean   @default(false) @map("is_internal") // Comentário interno (não visível para solicitante)
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  deletedAt  DateTime? @map("deleted_at")
+
+  @@index([requestId])
+  @@index([authorId])
+  @@map("request_comments")
+}
+
+model RequestHistory {
+  id String @id @default(uuid())
+
+  requestId String  @map("request_id")
+  request   Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  action        String   @db.VarChar(100) // "created", "assigned", "status_changed", etc
+  description   String   @db.Text
+  performedById String   @map("performed_by_id")
+  performedBy   User     @relation("RequestHistoryActions", fields: [performedById], references: [id])
+  oldValue      Json?    @map("old_value")
+  newValue      Json?    @map("new_value")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([requestId])
+  @@index([createdAt])
+  @@map("request_history")
 }

@@ -22,6 +22,7 @@ Implementação de 4 sistemas integrados e genéricos:
 ### Sistema de Requisições
 
 **Casos de Uso:**
+
 - Requisitar acesso a uma funcionalidade/página
 - Requisitar compra de material
 - Requisitar aprovação de documento
@@ -30,6 +31,7 @@ Implementação de 4 sistemas integrados e genéricos:
 - Requisitar alteração de dados sensíveis
 
 **Requisitos:**
+
 - ✅ Criar requisição para usuário específico ou grupo
 - ✅ Adicionar anexos/arquivos à requisição
 - ✅ Comentários e histórico de interações
@@ -42,6 +44,7 @@ Implementação de 4 sistemas integrados e genéricos:
 ### Sistema de Aprovações
 
 **Casos de Uso:**
+
 - Aprovar documento (muda status)
 - Aprovar inserção de registro (executa ação)
 - Aprovar alteração de dados
@@ -50,6 +53,7 @@ Implementação de 4 sistemas integrados e genéricos:
 - Aprovação por votação (múltiplos aprovadores)
 
 **Requisitos:**
+
 - ✅ Fluxo de aprovação configurável (1 ou mais níveis)
 - ✅ Aprovadores fixos ou dinâmicos (por cargo/grupo)
 - ✅ Aprovação automática por regras
@@ -63,6 +67,7 @@ Implementação de 4 sistemas integrados e genéricos:
 ### Sistema de Notificações
 
 **Casos de Uso:**
+
 - Nova requisição recebida
 - Aprovação pendente
 - Evento do calendário próximo
@@ -72,6 +77,7 @@ Implementação de 4 sistemas integrados e genéricos:
 - Lembrete de tarefa
 
 **Requisitos:**
+
 - ✅ Notificação interna (in-app)
 - ✅ Notificação por e-mail
 - ✅ Configuração de preferências por usuário
@@ -84,6 +90,7 @@ Implementação de 4 sistemas integrados e genéricos:
 ### Sistema de Calendário
 
 **Casos de Uso:**
+
 - Eventos de reuniões
 - Prazos de tarefas
 - Agendamento de aprovações
@@ -92,6 +99,7 @@ Implementação de 4 sistemas integrados e genéricos:
 - Sincronização com calendários externos
 
 **Requisitos:**
+
 - ✅ CRUD de eventos
 - ✅ Eventos recorrentes (diário, semanal, mensal)
 - ✅ Participantes e convidados
@@ -142,54 +150,54 @@ enum RequestTargetType {
 
 model Request {
   id String @id @default(uuid())
-  
+
   // Identificação
   title       String   @db.VarChar(200)
   description String   @db.Text
   type        RequestType
   category    String?  @db.VarChar(100)  // "purchase", "access", "hr", etc
-  
+
   // Status e Prioridade
   status      RequestStatus   @default(SUBMITTED)
   priority    RequestPriority @default(MEDIUM)
-  
+
   // Solicitante
   requesterId String @map("requester_id")
   requester   User   @relation("RequestsCreated", fields: [requesterId], references: [id])
-  
+
   // Destinatário (pode ser usuário, grupo ou role)
   targetType  RequestTargetType @map("target_type")
   targetId    String?           @map("target_id")  // ID do usuário ou grupo
   targetRole  Role?             @map("target_role") // Se for por role
-  
+
   // Atribuído a (responsável atual)
   assignedToId String? @map("assigned_to_id")
   assignedTo   User?   @relation("RequestsAssigned", fields: [assignedToId], references: [id])
-  
+
   // SLA e Prazos
   dueDate     DateTime? @map("due_date")
   slaDeadline DateTime? @map("sla_deadline")
-  
+
   // Dados flexíveis (JSON)
   metadata Json @default("{}")  // Dados específicos por tipo
-  
+
   // Integração com Aprovação
   requiresApproval Boolean   @default(false) @map("requires_approval")
   approvalId       String?   @unique @map("approval_id")
   approval         Approval? @relation(fields: [approvalId], references: [id])
-  
+
   // Timestamps
   submittedAt DateTime? @map("submitted_at")
   completedAt DateTime? @map("completed_at")
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
   deletedAt   DateTime? @map("deleted_at")
-  
+
   // Relations
   attachments RequestAttachment[]
   comments    RequestComment[]
   history     RequestHistory[]
-  
+
   @@index([requesterId])
   @@index([assignedToId])
   @@index([status])
@@ -201,10 +209,10 @@ model Request {
 
 model RequestAttachment {
   id String @id @default(uuid())
-  
+
   requestId String  @map("request_id")
   request   Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
-  
+
   fileName     String   @map("file_name") @db.VarChar(255)
   filePath     String   @map("file_path") @db.VarChar(512)
   fileSize     Int      @map("file_size")
@@ -212,26 +220,26 @@ model RequestAttachment {
   uploadedById String   @map("uploaded_by_id")
   uploadedBy   User     @relation("UploadedAttachments", fields: [uploadedById], references: [id])
   createdAt    DateTime @default(now()) @map("created_at")
-  
+
   @@index([requestId])
   @@map("request_attachments")
 }
 
 model RequestComment {
   id String @id @default(uuid())
-  
+
   requestId String  @map("request_id")
   request   Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
-  
+
   authorId  String   @map("author_id")
   author    User     @relation("RequestComments", fields: [authorId], references: [id])
   content   String   @db.Text
   isInternal Boolean @default(false) @map("is_internal")  // Comentário interno (não visível para solicitante)
-  
+
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
-  
+
   @@index([requestId])
   @@index([authorId])
   @@map("request_comments")
@@ -239,20 +247,20 @@ model RequestComment {
 
 model RequestHistory {
   id String @id @default(uuid())
-  
+
   requestId String  @map("request_id")
   request   Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
-  
+
   action      String   @db.VarChar(100)  // "created", "assigned", "status_changed", etc
   description String   @db.Text
   performedById String @map("performed_by_id")
   performedBy   User   @relation("RequestHistoryActions", fields: [performedById], references: [id])
-  
+
   oldValue Json? @map("old_value")
   newValue Json? @map("new_value")
-  
+
   createdAt DateTime @default(now()) @map("created_at")
-  
+
   @@index([requestId])
   @@index([createdAt])
   @@map("request_history")
@@ -287,44 +295,44 @@ enum ApproverType {
 
 model Approval {
   id String @id @default(uuid())
-  
+
   // Identificação
   title       String   @db.VarChar(200)
   description String?  @db.Text
   type        ApprovalType @default(SINGLE)
-  
+
   // Status
   status ApprovalStatus @default(PENDING)
-  
+
   // Solicitante
   requesterId String @map("requester_id")
   requester   User   @relation("ApprovalsRequested", fields: [requesterId], references: [id])
-  
+
   // Entidade relacionada (genérico)
   entityType String  @map("entity_type") @db.VarChar(100)  // "request", "document", "purchase_order"
   entityId   String  @map("entity_id")                      // ID da entidade
-  
+
   // Dados flexíveis
   metadata Json @default("{}")
-  
+
   // Callback após aprovação/rejeição
   callbackUrl    String?  @map("callback_url") @db.VarChar(512)
   callbackAction String?  @map("callback_action") @db.VarChar(100)  // Ação a executar
-  
+
   // Timeout
   expiresAt DateTime? @map("expires_at")
-  
+
   // Timestamps
   approvedAt  DateTime? @map("approved_at")
   rejectedAt  DateTime? @map("rejected_at")
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
-  
+
   // Relations
   steps    ApprovalStep[]
   history  ApprovalHistory[]
   request  Request?
-  
+
   @@index([status])
   @@index([requesterId])
   @@index([entityType, entityId])
@@ -334,40 +342,40 @@ model Approval {
 
 model ApprovalStep {
   id String @id @default(uuid())
-  
+
   approvalId String   @map("approval_id")
   approval   Approval @relation(fields: [approvalId], references: [id], onDelete: Cascade)
-  
+
   // Ordem do step (para aprovações sequenciais)
   stepOrder Int @map("step_order")
-  
+
   // Aprovador
   approverType ApproverType @map("approver_type")
   approverId   String?      @map("approver_id")     // Se USER
   approverRole Role?        @map("approver_role")   // Se ROLE
   approverGroupId String?   @map("approver_group_id") // Se GROUP
-  
+
   // Para votação
   requiredApprovals Int? @map("required_approvals")  // Quantidade necessária para aprovar
-  
+
   // Status
   status     ApprovalStatus @default(PENDING)
   decidedById String?       @map("decided_by_id")
   decidedBy   User?         @relation("ApprovalDecisions", fields: [decidedById], references: [id])
   decision   String?        @db.VarChar(20)  // "approved", "rejected", "returned"
   comment    String?        @db.Text
-  
+
   // Para devolução (solicitar informações)
   returnReason String? @map("return_reason") @db.Text  // Motivo da devolução
   returnedAt   DateTime? @map("returned_at")            // Quando foi devolvido
-  
+
   // Timestamps
   decidedAt DateTime? @map("decided_at")
   createdAt DateTime  @default(now()) @map("created_at")
-  
+
   // Relations
   votes ApprovalVote[]
-  
+
   @@index([approvalId])
   @@index([status])
   @@index([approverId])
@@ -376,17 +384,17 @@ model ApprovalStep {
 
 model ApprovalVote {
   id String @id @default(uuid())
-  
+
   stepId String       @map("step_id")
   step   ApprovalStep @relation(fields: [stepId], references: [id], onDelete: Cascade)
-  
+
   voterId String @map("voter_id")
   voter   User   @relation("ApprovalVotes", fields: [voterId], references: [id])
-  
+
   vote    String   @db.VarChar(20)  // "approved", "rejected"
   comment String?  @db.Text
   votedAt DateTime @default(now()) @map("voted_at")
-  
+
   @@unique([stepId, voterId])
   @@index([stepId])
   @@map("approval_votes")
@@ -394,18 +402,18 @@ model ApprovalVote {
 
 model ApprovalHistory {
   id String @id @default(uuid())
-  
+
   approvalId String   @map("approval_id")
   approval   Approval @relation(fields: [approvalId], references: [id], onDelete: Cascade)
-  
+
   action      String   @db.VarChar(100)
   description String   @db.Text
   performedById String @map("performed_by_id")
   performedBy   User   @relation("ApprovalHistoryActions", fields: [performedById], references: [id])
-  
+
   metadata  Json?
   createdAt DateTime @default(now()) @map("created_at")
-  
+
   @@index([approvalId])
   @@map("approval_history")
 }
@@ -437,45 +445,45 @@ enum NotificationPriority {
 
 model Notification {
   id String @id @default(uuid())
-  
+
   // Destinatário
   userId String @map("user_id")
   user   User   @relation("NotificationsReceived", fields: [userId], references: [id])
-  
+
   // Conteúdo
   title   String @db.VarChar(200)
   message String @db.Text
   type    NotificationType @default(INFO)
   priority NotificationPriority @default(NORMAL)
-  
+
   // Canal
   channel NotificationChannel @default(IN_APP)
-  
+
   // Ação (link para onde ir ao clicar)
   actionUrl  String? @map("action_url") @db.VarChar(512)
   actionText String? @map("action_text") @db.VarChar(100)
-  
+
   // Entidade relacionada (genérico)
   entityType String? @map("entity_type") @db.VarChar(100)
   entityId   String? @map("entity_id")
-  
+
   // Dados adicionais
   metadata Json @default("{}")
-  
+
   // Status
   isRead   Boolean   @default(false) @map("is_read")
   readAt   DateTime? @map("read_at")
   isSent   Boolean   @default(false) @map("is_sent")
   sentAt   DateTime? @map("sent_at")
-  
+
   // Agendamento
   scheduledFor DateTime? @map("scheduled_for")
-  
+
   // Timestamps
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
-  
+
   @@index([userId, isRead])
   @@index([scheduledFor])
   @@index([createdAt])
@@ -484,50 +492,50 @@ model Notification {
 
 model NotificationTemplate {
   id String @id @default(uuid())
-  
+
   // Identificação
   code        String  @unique @db.VarChar(100)  // "new_request", "approval_pending"
   name        String  @db.VarChar(200)
   description String? @db.Text
-  
+
   // Template
   titleTemplate   String @map("title_template") @db.VarChar(200)
   messageTemplate String @map("message_template") @db.Text
-  
+
   // Configuração padrão
   defaultChannel   NotificationChannel @default(IN_APP) @map("default_channel")
   defaultPriority  NotificationPriority @default(NORMAL) @map("default_priority")
-  
+
   // Status
   isActive Boolean @default(true) @map("is_active")
-  
+
   // Timestamps
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
-  
+
   @@map("notification_templates")
 }
 
 model NotificationPreference {
   id String @id @default(uuid())
-  
+
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
   // Preferências por canal
   enableInApp   Boolean @default(true) @map("enable_in_app")
   enableEmail   Boolean @default(true) @map("enable_email")
-  
+
   // Preferências por tipo
   preferences Json @default("{}")  // { "request": { "inApp": true, "email": false }, ... }
-  
+
   // Horários de silêncio (Do Not Disturb)
   silentHoursStart String? @map("silent_hours_start") @db.VarChar(5)  // "22:00"
   silentHoursEnd   String? @map("silent_hours_end") @db.VarChar(5)    // "08:00"
-  
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  
+
   @@unique([userId])
   @@map("notification_preferences")
 }
@@ -566,53 +574,53 @@ enum EventStatus {
 
 model CalendarEvent {
   id String @id @default(uuid())
-  
+
   // Identificação
   title       String @db.VarChar(200)
   description String? @db.Text
   type        EventType @default(CUSTOM)
-  
+
   // Criador
   createdById String @map("created_by_id")
   createdBy   User   @relation("EventsCreated", fields: [createdById], references: [id])
-  
+
   // Data/Hora
   startDate DateTime  @map("start_date")
   endDate   DateTime? @map("end_date")
   isAllDay  Boolean   @default(false) @map("is_all_day")
-  
+
   // Localização
   location String? @db.VarChar(200)
-  
+
   // Recorrência
   recurrence     EventRecurrence @default(NONE)
   recurrenceRule String?         @map("recurrence_rule") @db.VarChar(200)  // Cron ou RRULE
-  
+
   // Status
   status EventStatus @default(SCHEDULED)
-  
+
   // Notificações
   notifyBefore Int[] @map("notify_before")  // Minutos antes [15, 60, 1440]
-  
+
   // Entidade relacionada (genérico)
   entityType String? @map("entity_type") @db.VarChar(100)
   entityId   String? @map("entity_id")
-  
+
   // Dados flexíveis
   metadata Json @default("{}")
-  
+
   // Timestamps
   completedAt DateTime? @map("completed_at")
   cancelledAt DateTime? @map("cancelled_at")
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
   deletedAt   DateTime? @map("deleted_at")
-  
+
   // Relations
   participants EventParticipant[]
   attachments  EventAttachment[]
   reminders    EventReminder[]
-  
+
   @@index([createdById])
   @@index([startDate, endDate])
   @@index([type, status])
@@ -621,22 +629,22 @@ model CalendarEvent {
 
 model EventParticipant {
   id String @id @default(uuid())
-  
+
   eventId String        @map("event_id")
   event   CalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  
+
   userId String @map("user_id")
   user   User   @relation("EventParticipations", fields: [userId], references: [id])
-  
+
   // Status de participação
   status String @db.VarChar(20)  // "invited", "accepted", "declined", "maybe"
-  
+
   // Resposta
   respondedAt DateTime? @map("responded_at")
   comment     String?   @db.Text
-  
+
   createdAt DateTime @default(now()) @map("created_at")
-  
+
   @@unique([eventId, userId])
   @@index([eventId])
   @@index([userId])
@@ -645,39 +653,39 @@ model EventParticipant {
 
 model EventAttachment {
   id String @id @default(uuid())
-  
+
   eventId String        @map("event_id")
   event   CalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  
+
   fileName String   @map("file_name") @db.VarChar(255)
   filePath String   @map("file_path") @db.VarChar(512)
   fileSize Int      @map("file_size")
   mimeType String   @map("mime_type") @db.VarChar(100)
-  
+
   uploadedById String   @map("uploaded_by_id")
   uploadedBy   User     @relation("EventAttachmentsUploaded", fields: [uploadedById], references: [id])
   createdAt    DateTime @default(now()) @map("created_at")
-  
+
   @@index([eventId])
   @@map("event_attachments")
 }
 
 model EventReminder {
   id String @id @default(uuid())
-  
+
   eventId String        @map("event_id")
   event   CalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  
+
   userId String @map("user_id")
   user   User   @relation("EventReminders", fields: [userId], references: [id])
-  
+
   // Lembrete
   remindAt DateTime  @map("remind_at")
   isSent   Boolean   @default(false) @map("is_sent")
   sentAt   DateTime? @map("sent_at")
-  
+
   createdAt DateTime @default(now()) @map("created_at")
-  
+
   @@index([eventId])
   @@index([userId, remindAt, isSent])
   @@map("event_reminders")
@@ -689,22 +697,27 @@ model EventReminder {
 ## 🔗 Integrações Entre Sistemas
 
 ### Request → Approval
+
 - Requisição pode criar aprovação automaticamente
 - Aprovação altera status da requisição
 
 ### Request → Notification
+
 - Nova requisição notifica destinatário
 - Mudança de status notifica solicitante
 
 ### Approval → Notification
+
 - Aprovação pendente notifica aprovador
 - Decisão notifica solicitante
 
 ### Calendar → Notification
+
 - Lembrete de evento próximo
 - Convite de evento notifica participantes
 
 ### Calendar → Approval
+
 - Aprovação pode ter deadline no calendário
 
 ---
@@ -712,6 +725,7 @@ model EventReminder {
 ## 📊 Value Objects e Entidades
 
 ### Request Module
+
 ```typescript
 // Value Objects
 - RequestCode (formato: REQ-YYYY-NNNNNN)
@@ -726,6 +740,7 @@ model EventReminder {
 ```
 
 ### Approval Module
+
 ```typescript
 // Value Objects
 - ApprovalCode (formato: APR-YYYY-NNNNNN)
@@ -739,6 +754,7 @@ model EventReminder {
 ```
 
 ### Notification Module
+
 ```typescript
 // Value Objects
 - NotificationTemplate (interpolação de variáveis)
@@ -751,6 +767,7 @@ model EventReminder {
 ```
 
 ### Calendar Module
+
 ```typescript
 // Value Objects
 - EventDate (validação de data/hora)

@@ -42,12 +42,14 @@ Uma API REST completa para gerenciamento de estoque e vendas, construída com **
 ### 🆕 Sprint 2 - Melhorias de Qualidade
 
 **Schemas Centralizados** ✅
+
 - Sistema unificado de validação Zod
 - 5 arquivos de schemas (`common`, `user`, `product`, `auth`, `index`)
 - Eliminação de duplicação de código inline
 - 350+ linhas de schemas reutilizáveis
 
 **Paginação Padronizada** ✅
+
 - 21 endpoints de listagem com paginação
 - Parâmetros padrão: `page` (default: 1) e `limit` (default: 20)
 - Resposta estruturada com metadados:
@@ -64,17 +66,20 @@ Uma API REST completa para gerenciamento de estoque e vendas, construída com **
   ```
 
 **Logger Estruturado** ✅
+
 - Migração de `console.log` para Pino logger
 - 5 contextos especializados: `httpLogger`, `dbLogger`, `authLogger`, `errorLogger`, `performanceLogger`
 - Logs estruturados em JSON para produção
 - Pretty-print no desenvolvimento
 
 **Senhas Fortes** ✅
+
 - Validação rigorosa em todos os endpoints de autenticação
 - Requisitos: 8+ caracteres, maiúscula, minúscula, número, caractere especial
 - Aplicado em: criação de usuário, mudança de senha, reset de senha
 
 **Health Check Avançado** ✅
+
 - Monitoramento de banco de dados (latência, conectividade)
 - Métricas de memória (heap, RSS)
 - Uptime e ambiente
@@ -327,10 +332,12 @@ GET /v1/products?page=1&limit=20
 ```
 
 **Parâmetros:**
+
 - `page`: Número da página (padrão: 1)
 - `limit`: Itens por página (padrão: 20, máximo: 100)
 
 **Endpoints com paginação:**
+
 - `GET /v1/users` - Listar usuários
 - `GET /v1/products` - Listar produtos
 - `GET /v1/variants` - Listar variantes
@@ -343,6 +350,7 @@ GET /v1/products?page=1&limit=20
 Todos os endpoints de autenticação agora exigem senhas fortes:
 
 **Requisitos:**
+
 - Mínimo 8 caracteres
 - Pelo menos 1 letra maiúscula
 - Pelo menos 1 letra minúscula

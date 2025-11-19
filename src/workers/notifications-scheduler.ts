@@ -7,11 +7,14 @@ async function processBatch() {
   try {
     const result = await useCase.execute();
     if (result.processed > 0) {
-      logger.info({
-        processed: result.processed,
-        sent: result.sent.length,
-        errors: result.errors,
-      }, 'Scheduled notifications batch processed');
+      logger.info(
+        {
+          processed: result.processed,
+          sent: result.sent.length,
+          errors: result.errors,
+        },
+        'Scheduled notifications batch processed',
+      );
     }
   } catch (err) {
     logger.error({ err }, 'Failed to process scheduled notifications batch');

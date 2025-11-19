@@ -1,7 +1,8 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Notification } from '@/entities/notifications/notification';
 import type {
-    ListNotificationsFilter,
-    NotificationsRepository,
+  ListNotificationsFilter,
+  NotificationsRepository,
 } from '@/repositories/notifications/notifications-repository';
 
 interface ListNotificationsUseCaseRequest {
@@ -28,7 +29,7 @@ export class ListNotificationsByUserIdUseCase {
     params: ListNotificationsUseCaseRequest,
   ): Promise<ListNotificationsUseCaseResponse> {
     const filter: ListNotificationsFilter = {
-      userId: { toString: () => params.userId } as any, // será convertido no repo
+      userId: new UniqueEntityID(params.userId),
       isRead: params.isRead,
       type: params.type,
       channel: params.channel,

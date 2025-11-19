@@ -13,7 +13,7 @@ export async function assignGroupToUser(
   options: AssignGroupToUserOptions = {},
 ) {
   const assignGroupToUserUseCase = makeAssignGroupToUserUseCase();
-  
+
   await assignGroupToUserUseCase.execute({
     userId,
     groupId,

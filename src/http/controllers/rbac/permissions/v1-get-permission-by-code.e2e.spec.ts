@@ -15,7 +15,11 @@ describe('Get Permission By Code (e2e)', () => {
 
   it('should allow authenticated USER to GET permission by CODE', async () => {
     const { token } = await createAndAuthenticateUser(app, 'USER');
-    const permission = await makePermission({ module: 'test', resource: 'example', action: 'read' });
+    const permission = await makePermission({
+      module: 'test',
+      resource: 'example',
+      action: 'read',
+    });
 
     const response = await request(app.server)
       .get(`/v1/rbac/permissions/code/${permission.code}`)
@@ -44,7 +48,11 @@ describe('Get Permission By Code (e2e)', () => {
   });
 
   it('should NOT allow unauthenticated request', async () => {
-    const permission = await makePermission({ module: 'test', resource: 'auth', action: 'read' });
+    const permission = await makePermission({
+      module: 'test',
+      resource: 'auth',
+      action: 'read',
+    });
 
     const response = await request(app.server).get(
       `/v1/rbac/permissions/code/${permission.code}`,

@@ -5,10 +5,10 @@ import { UserPermissionGroup } from '@/entities/rbac/user-permission-group';
 import type { PermissionGroupPermissionsRepository } from '../permission-group-permissions-repository';
 import type { PermissionGroupsRepository } from '../permission-groups-repository';
 import type {
-    AssignGroupToUserSchema,
-    ListUserGroupsParams,
-    UpdateUserGroupSchema,
-    UserPermissionGroupsRepository,
+  AssignGroupToUserSchema,
+  ListUserGroupsParams,
+  UpdateUserGroupSchema,
+  UserPermissionGroupsRepository,
 } from '../user-permission-groups-repository';
 
 export class InMemoryUserPermissionGroupsRepository

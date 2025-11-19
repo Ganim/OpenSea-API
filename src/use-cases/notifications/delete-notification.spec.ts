@@ -23,10 +23,14 @@ describe('DeleteNotificationUseCase', () => {
       channel: 'IN_APP',
     });
 
-    await deleteNotification.execute({ notificationId: notification.id.toString() });
+    await deleteNotification.execute({
+      notificationId: notification.id.toString(),
+    });
     expect(notification.deletedAt).toBeInstanceOf(Date);
 
-    const { total } = await notificationsRepository.list({ userId: notification.userId });
+    const { total } = await notificationsRepository.list({
+      userId: notification.userId,
+    });
     expect(total).toBe(0);
   });
 });

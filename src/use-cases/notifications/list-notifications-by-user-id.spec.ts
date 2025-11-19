@@ -97,6 +97,7 @@ describe('ListNotificationsByUserIdUseCase', () => {
     // Ajusta datas
     n1.notification['props'].createdAt = past;
     n2.notification['props'].createdAt = yesterday;
+    n3.notification['props'].createdAt = now;
 
     const resPastToYesterday = await listNotifications.execute({
       userId: 'user-2',
@@ -107,7 +108,7 @@ describe('ListNotificationsByUserIdUseCase', () => {
 
     const resTodayOnly = await listNotifications.execute({
       userId: 'user-2',
-      startDate: now,
+      startDate: new Date(now.getTime() - 1000),
     });
     expect(resTodayOnly.total).toBe(1);
   });

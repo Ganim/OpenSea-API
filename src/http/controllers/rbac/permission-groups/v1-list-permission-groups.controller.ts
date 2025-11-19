@@ -41,7 +41,7 @@ export async function listPermissionGroupsController(app: FastifyInstance) {
 
       const total = groups.length;
       const totalPages = Math.ceil(total / limit);
-      
+
       // Aplicar paginação
       const startIndex = (page - 1) * limit;
       const endIndex = startIndex + limit;

@@ -25,7 +25,10 @@ export async function sendNotificationEmailController(app: FastifyInstance) {
       const { id } = request.params;
       const useCase = makeSendEmailNotificationUseCase();
       const result = await useCase.execute({ notificationId: id });
-      return reply.status(200).send({ success: result.success, notification: { id: result.notification.id } });
+      return reply.status(200).send({
+        success: result.success,
+        notification: { id: result.notification.id },
+      });
     },
   });
 }

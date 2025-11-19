@@ -1,9 +1,13 @@
 import { app } from '@/app';
+import { permissionGroupSchema } from '@/http/schemas/rbac.schema';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { makePermissionGroup } from '@/utils/tests/factories/rbac/make-permission-group';
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import type { z } from 'zod';
+
+type PermissionGroupResponse = z.infer<typeof permissionGroupSchema>;
 
 describe('List Permission Groups (e2e)', () => {
   beforeAll(async () => {
@@ -40,8 +44,14 @@ describe('List Permission Groups (e2e)', () => {
     const { token } = await createAndAuthenticateUser(app, 'USER');
 
     const uniqueSuffix = faker.string.alpha({ length: 6 }).toLowerCase();
-    await makePermissionGroup({ name: `Active Group ${uniqueSuffix}`, isActive: true });
-    await makePermissionGroup({ name: `Inactive Group ${uniqueSuffix}`, isActive: false });
+    await makePermissionGroup({
+      name: `Active Group ${uniqueSuffix}`,
+      isActive: true,
+    });
+    await makePermissionGroup({
+      name: `Inactive Group ${uniqueSuffix}`,
+      isActive: false,
+    });
 
     const response = await request(app.server)
       .get('/v1/rbac/permission-groups')
@@ -49,16 +59,21 @@ describe('List Permission Groups (e2e)', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toEqual(200);
-    expect(response.body.groups.every((g: any) => g.isActive === true)).toBe(
-      true,
-    );
+    expect(
+      response.body.groups.every(
+        (g: PermissionGroupResponse) => g.isActive === true,
+      ),
+    ).toBe(true);
   });
 
   it('should FILTER groups by isSystem', async () => {
     const { token } = await createAndAuthenticateUser(app, 'USER');
 
     const uniqueSuffix = faker.string.alpha({ length: 6 }).toLowerCase();
-    await makePermissionGroup({ name: `System Group ${uniqueSuffix}`, isSystem: true });
+    await makePermissionGroup({
+      name: `System Group ${uniqueSuffix}`,
+      isSystem: true,
+    });
 
     const response = await request(app.server)
       .get('/v1/rbac/permission-groups')
@@ -66,9 +81,11 @@ describe('List Permission Groups (e2e)', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toEqual(200);
-    expect(response.body.groups.every((g: any) => g.isSystem === true)).toBe(
-      true,
-    );
+    expect(
+      response.body.groups.every(
+        (g: PermissionGroupResponse) => g.isSystem === true,
+      ),
+    ).toBe(true);
   });
 
   it('should PAGINATE results', async () => {

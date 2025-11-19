@@ -2,10 +2,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PermissionAuditLog } from '@/entities/rbac/permission-audit-log';
 import { prisma } from '@/lib/prisma';
 import type {
-    AuditLogStats,
-    CreateAuditLogSchema,
-    ListAuditLogsParams,
-    PermissionAuditLogsRepository,
+  AuditLogStats,
+  CreateAuditLogSchema,
+  ListAuditLogsParams,
+  PermissionAuditLogsRepository,
 } from '../permission-audit-logs-repository';
 
 export class PrismaPermissionAuditLogsRepository

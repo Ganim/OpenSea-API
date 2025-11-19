@@ -3,12 +3,13 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Permission } from '@/entities/rbac/permission';
 import { UsersRepository } from '@/repositories/core/users-repository';
 import { UserPermissionGroupsRepository } from '@/repositories/rbac/user-permission-groups-repository';
+import { Prisma } from '@prisma/client';
 
 interface PermissionWithEffect {
   permission: Permission;
   effect: string;
   groupId: UniqueEntityID;
-  conditions: any;
+  conditions: Prisma.JsonValue;
 }
 
 interface ListUserPermissionsRequest {

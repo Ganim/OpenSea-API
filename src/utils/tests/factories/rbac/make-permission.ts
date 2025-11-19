@@ -28,16 +28,27 @@ export async function makePermission(options: MakePermissionOptions = {}) {
     action = parts[2];
   } else {
     // Generate unique code
-    module = options.module ?? faker.helpers.arrayElement(['core', 'sales', 'stock', 'rbac']);
+    module =
+      options.module ??
+      faker.helpers.arrayElement(['core', 'sales', 'stock', 'rbac']);
     const baseResource = options.resource ?? faker.lorem.word().toLowerCase();
-    const uniqueSuffix = options.uniqueSuffix ?? faker.string.alpha({ length: 6 }).toLowerCase();
+    const uniqueSuffix =
+      options.uniqueSuffix ?? faker.string.alpha({ length: 6 }).toLowerCase();
     resource = `${baseResource}-${uniqueSuffix}`;
-    action = options.action ?? faker.helpers.arrayElement(['create', 'read', 'update', 'delete', 'manage']);
+    action =
+      options.action ??
+      faker.helpers.arrayElement([
+        'create',
+        'read',
+        'update',
+        'delete',
+        'manage',
+      ]);
     code = `${module}.${resource}.${action}`;
   }
 
   const createPermissionUseCase = makeCreatePermissionUseCase();
-  
+
   const { permission } = await createPermissionUseCase.execute({
     code,
     name: options.name ?? faker.lorem.words(3),

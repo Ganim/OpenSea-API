@@ -5,11 +5,12 @@ import { UserPermissionGroup } from '@/entities/rbac/user-permission-group';
 import { prisma } from '@/lib/prisma';
 import { mapPermissionGroupPrismaToDomain } from '@/mappers/rbac/permission-group-prisma-to-domain';
 import { mapPermissionPrismaToDomain } from '@/mappers/rbac/permission-prisma-to-domain';
+import type { Prisma } from '@prisma/client';
 import type {
-    AssignGroupToUserSchema,
-    ListUserGroupsParams,
-    UpdateUserGroupSchema,
-    UserPermissionGroupsRepository,
+  AssignGroupToUserSchema,
+  ListUserGroupsParams,
+  UpdateUserGroupSchema,
+  UserPermissionGroupsRepository,
 } from '../user-permission-groups-repository';
 
 export class PrismaUserPermissionGroupsRepository
@@ -380,14 +381,12 @@ export class PrismaUserPermissionGroupsRepository
    * Lista permissões com seus efeitos (allow/deny) para um usuário
    * Importante para aplicar precedência de deny
    */
-  async listUserPermissionsWithEffects(
-    userId: UniqueEntityID,
-  ): Promise<
+  async listUserPermissionsWithEffects(userId: UniqueEntityID): Promise<
     {
       permission: Permission;
       effect: string;
       groupId: UniqueEntityID;
-      conditions: any;
+      conditions: Prisma.JsonValue;
     }[]
   > {
     // 1. Buscar todos os grupos ativos do usuário

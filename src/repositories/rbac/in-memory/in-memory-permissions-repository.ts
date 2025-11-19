@@ -2,10 +2,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Permission } from '@/entities/rbac/permission';
 import { PermissionCode } from '@/entities/rbac/value-objects/permission-code';
 import type {
-    CreatePermissionSchema,
-    ListPermissionsParams,
-    PermissionsRepository,
-    UpdatePermissionSchema,
+  CreatePermissionSchema,
+  ListPermissionsParams,
+  PermissionsRepository,
+  UpdatePermissionSchema,
 } from '../permissions-repository';
 
 export class InMemoryPermissionsRepository implements PermissionsRepository {

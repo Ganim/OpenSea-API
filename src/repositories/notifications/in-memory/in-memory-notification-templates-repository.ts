@@ -1,7 +1,7 @@
 import { NotificationTemplate } from '@/entities/notifications/notification-template';
 import type {
-    CreateTemplateSchema,
-    NotificationTemplatesRepository,
+  CreateTemplateSchema,
+  NotificationTemplatesRepository,
 } from '../notification-templates-repository';
 
 export class InMemoryNotificationTemplatesRepository

@@ -24,12 +24,15 @@
 ## 🔍 Visão Geral da API
 
 ### Base URL
+
 ```
 https://api.opensea.com/v1/rbac
 ```
 
 ### Autenticação
+
 Todas as rotas requerem:
+
 - **Header:** `Authorization: Bearer {token}`
 - **Permissão Mínima:** ADMIN (para gerenciamento de RBAC)
 
@@ -53,6 +56,7 @@ Todas as rotas requerem:
 ```
 
 ### Formato de Permissões
+
 ```
 <módulo>.<recurso>.<ação>
 
@@ -66,11 +70,13 @@ Exemplos:
 ```
 
 **Módulos Disponíveis:**
+
 - `core` - Usuários, sessões, perfis
 - `stock` - Produtos, variantes, estoque
 - `sales` - Clientes, pedidos, promoções
 
 **Ações Padrão:**
+
 - `create` - Criar recurso
 - `read` - Ler/visualizar
 - `update` - Atualizar
@@ -88,7 +94,7 @@ sequenceDiagram
     participant F as Frontend
     participant API as Backend API
     participant DB as Database
-    
+
     F->>API: GET /v1/rbac/users/{userId}/permissions
     API->>DB: Busca grupos do usuário
     API->>DB: Busca permissões dos grupos
@@ -99,9 +105,10 @@ sequenceDiagram
 ```
 
 ### Headers Obrigatórios
+
 ```typescript
 const headers = {
-  'Authorization': `Bearer ${accessToken}`,
+  Authorization: `Bearer ${accessToken}`,
   'Content-Type': 'application/json',
 };
 ```
@@ -113,11 +120,13 @@ const headers = {
 ### 1. Permissões
 
 #### 1.1 Criar Permissão
+
 ```http
 POST /v1/rbac/permissions
 ```
 
 **Body:**
+
 ```json
 {
   "code": "stock.products.create",
@@ -131,6 +140,7 @@ POST /v1/rbac/permissions
 ```
 
 **Response (201):**
+
 ```json
 {
   "permission": {
@@ -150,11 +160,13 @@ POST /v1/rbac/permissions
 ```
 
 #### 1.2 Listar Permissões
+
 ```http
 GET /v1/rbac/permissions?module=stock&page=1&limit=20
 ```
 
 **Query Parameters:**
+
 - `module` (opcional): Filtrar por módulo
 - `resource` (opcional): Filtrar por recurso
 - `action` (opcional): Filtrar por ação
@@ -163,6 +175,7 @@ GET /v1/rbac/permissions?module=stock&page=1&limit=20
 - `limit` (default: 20, max: 100): Itens por página
 
 **Response (200):**
+
 ```json
 {
   "permissions": [
@@ -189,16 +202,19 @@ GET /v1/rbac/permissions?module=stock&page=1&limit=20
 ```
 
 #### 1.3 Buscar Permissão por Código
+
 ```http
 GET /v1/rbac/permissions/code/{code}
 ```
 
 **Exemplo:**
+
 ```http
 GET /v1/rbac/permissions/code/stock.products.create
 ```
 
 **Response (200):**
+
 ```json
 {
   "permission": {
@@ -217,16 +233,19 @@ GET /v1/rbac/permissions/code/stock.products.create
 ```
 
 #### 1.4 Buscar Permissão por ID
+
 ```http
 GET /v1/rbac/permissions/{id}
 ```
 
 #### 1.5 Atualizar Permissão
+
 ```http
 PUT /v1/rbac/permissions/{id}
 ```
 
 **Body:**
+
 ```json
 {
   "name": "Create and Edit Products",
@@ -238,6 +257,7 @@ PUT /v1/rbac/permissions/{id}
 **Nota:** Permissões de sistema (`isSystem: true`) não podem ser atualizadas.
 
 #### 1.6 Deletar Permissão
+
 ```http
 DELETE /v1/rbac/permissions/{id}
 ```
@@ -251,11 +271,13 @@ DELETE /v1/rbac/permissions/{id}
 ### 2. Grupos de Permissões
 
 #### 2.1 Criar Grupo
+
 ```http
 POST /v1/rbac/permission-groups
 ```
 
 **Body:**
+
 ```json
 {
   "name": "Gerente de Estoque",
@@ -267,6 +289,7 @@ POST /v1/rbac/permission-groups
 ```
 
 **Response (201):**
+
 ```json
 {
   "group": {
@@ -286,17 +309,20 @@ POST /v1/rbac/permission-groups
 ```
 
 **Observações:**
+
 - `slug` é gerado automaticamente a partir do `name`
 - `priority` define precedência em conflitos (maior = mais prioritário)
 - `color` deve ser hexadecimal (#RRGGBB)
 - `parentId` define grupo pai para herança
 
 #### 2.2 Listar Grupos
+
 ```http
 GET /v1/rbac/permission-groups?isActive=true&page=1&limit=20
 ```
 
 **Query Parameters:**
+
 - `isActive` (opcional): Filtrar por status
 - `isSystem` (opcional): Filtrar grupos de sistema
 - `includeDeleted` (default: false): Incluir deletados
@@ -304,6 +330,7 @@ GET /v1/rbac/permission-groups?isActive=true&page=1&limit=20
 - `limit` (default: 20, max: 100)
 
 **Response (200):**
+
 ```json
 {
   "groups": [
@@ -330,16 +357,19 @@ GET /v1/rbac/permission-groups?isActive=true&page=1&limit=20
 ```
 
 #### 2.3 Buscar Grupo por ID
+
 ```http
 GET /v1/rbac/permission-groups/{id}
 ```
 
 #### 2.4 Atualizar Grupo
+
 ```http
 PUT /v1/rbac/permission-groups/{id}
 ```
 
 **Body:**
+
 ```json
 {
   "name": "Gerente de Estoque Senior",
@@ -352,18 +382,22 @@ PUT /v1/rbac/permission-groups/{id}
 ```
 
 **Validações:**
+
 - Não pode criar referência circular (grupo não pode ser pai de si mesmo, nem indiretamente)
 - Grupos de sistema não podem ser editados
 
 #### 2.5 Deletar Grupo
+
 ```http
 DELETE /v1/rbac/permission-groups/{id}?force=false
 ```
 
 **Query Parameters:**
+
 - `force` (default: false): Se `true`, remove todos os usuários antes de deletar
 
 **Validações:**
+
 - Grupo não pode ter grupos filhos
 - Se `force=false`, grupo não pode ter usuários atribuídos
 - Grupos de sistema não podem ser deletados
@@ -373,11 +407,13 @@ DELETE /v1/rbac/permission-groups/{id}?force=false
 ### 3. Associações - Permissões ↔ Grupos
 
 #### 3.1 Adicionar Permissão ao Grupo
+
 ```http
 POST /v1/rbac/permission-groups/{groupId}/permissions
 ```
 
 **Body:**
+
 ```json
 {
   "permissionCode": "stock.products.create",
@@ -387,11 +423,13 @@ POST /v1/rbac/permission-groups/{groupId}/permissions
 ```
 
 **Campos:**
+
 - `permissionCode`: Código da permissão (formato: module.resource.action)
 - `effect`: `"allow"` ou `"deny"` (default: "allow")
 - `conditions`: Objeto JSON com condições ABAC (opcional, para uso futuro)
 
 **Response (201):**
+
 ```json
 {
   "success": true
@@ -401,11 +439,13 @@ POST /v1/rbac/permission-groups/{groupId}/permissions
 **Observação:** Deny sempre tem precedência sobre allow.
 
 #### 3.2 Listar Permissões de um Grupo
+
 ```http
 GET /v1/rbac/permission-groups/{groupId}/permissions
 ```
 
 **Response (200):**
+
 ```json
 {
   "permissions": [
@@ -428,11 +468,13 @@ GET /v1/rbac/permission-groups/{groupId}/permissions
 ```
 
 #### 3.3 Remover Permissão do Grupo
+
 ```http
 DELETE /v1/rbac/permission-groups/{groupId}/permissions/{permissionCode}
 ```
 
 **Exemplo:**
+
 ```http
 DELETE /v1/rbac/permission-groups/uuid/permissions/stock.products.create
 ```
@@ -444,11 +486,13 @@ DELETE /v1/rbac/permission-groups/uuid/permissions/stock.products.create
 ### 4. Associações - Usuários ↔ Grupos
 
 #### 4.1 Atribuir Grupo ao Usuário
+
 ```http
 POST /v1/rbac/users/{userId}/groups
 ```
 
 **Body:**
+
 ```json
 {
   "groupId": "uuid",
@@ -458,11 +502,13 @@ POST /v1/rbac/users/{userId}/groups
 ```
 
 **Campos:**
+
 - `groupId`: ID do grupo a ser atribuído
 - `expiresAt` (opcional): Data de expiração do acesso
 - `grantedBy` (opcional): ID do usuário que concedeu (para auditoria)
 
 **Response (201):**
+
 ```json
 {
   "success": true
@@ -470,19 +516,23 @@ POST /v1/rbac/users/{userId}/groups
 ```
 
 **Observações:**
+
 - Se usuário já possui o grupo, atualiza `expiresAt`
 - Data de expiração é opcional (null = permanente)
 
 #### 4.2 Listar Grupos de um Usuário
+
 ```http
 GET /v1/rbac/users/{userId}/groups?includeExpired=false&includeInactive=false
 ```
 
 **Query Parameters:**
+
 - `includeExpired` (default: false): Incluir grupos expirados
 - `includeInactive` (default: false): Incluir grupos inativos
 
 **Response (200):**
+
 ```json
 {
   "groups": [
@@ -507,11 +557,13 @@ GET /v1/rbac/users/{userId}/groups?includeExpired=false&includeInactive=false
 ```
 
 #### 4.3 Listar Permissões Efetivas de um Usuário
+
 ```http
 GET /v1/rbac/users/{userId}/permissions
 ```
 
 **Response (200):**
+
 ```json
 {
   "permissions": [
@@ -554,24 +606,29 @@ GET /v1/rbac/users/{userId}/permissions
 ```
 
 **Campos do Retorno:**
+
 - `effect`: "allow" ou "deny" (após aplicar precedência)
 - `source`: "direct" (do próprio grupo) ou "inherited" (de grupo pai)
 - `groupIds`: Lista de grupos que concedem essa permissão
 
 **Observações:**
+
 - Inclui permissões de grupos ancestrais (herança hierárquica)
 - Aplica precedência: deny > allow
 - Exclui grupos expirados e inativos automaticamente
 
 #### 4.4 Listar Usuários de um Grupo
+
 ```http
 GET /v1/rbac/permission-groups/{groupId}/users?includeExpired=false
 ```
 
 **Query Parameters:**
+
 - `includeExpired` (default: false): Incluir usuários com acesso expirado
 
 **Response (200):**
+
 ```json
 {
   "users": [
@@ -588,6 +645,7 @@ GET /v1/rbac/permission-groups/{groupId}/users?includeExpired=false
 ```
 
 #### 4.5 Remover Grupo do Usuário
+
 ```http
 DELETE /v1/rbac/users/{userId}/groups/{groupId}
 ```
@@ -775,7 +833,7 @@ const createCustomPermission = async () => {
   const response = await fetch('https://api.opensea.com/v1/rbac/permissions', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -787,11 +845,11 @@ const createCustomPermission = async () => {
       action: 'manage',
       metadata: {
         category: 'inventory',
-        critical: true
-      }
-    })
+        critical: true,
+      },
+    }),
   });
-  
+
   const { permission } = await response.json();
   return permission;
 };
@@ -801,38 +859,44 @@ const createCustomPermission = async () => {
 
 ```typescript
 // 1. Criar grupo pai
-const parentGroup = await fetch('https://api.opensea.com/v1/rbac/permission-groups', {
-  method: 'POST',
-  headers: {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json',
+const parentGroup = await fetch(
+  'https://api.opensea.com/v1/rbac/permission-groups',
+  {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: 'Equipe de Vendas',
+      description: 'Grupo base para vendedores',
+      color: '#EF4444',
+      priority: 100,
+      parentId: null,
+    }),
   },
-  body: JSON.stringify({
-    name: 'Equipe de Vendas',
-    description: 'Grupo base para vendedores',
-    color: '#EF4444',
-    priority: 100,
-    parentId: null
-  })
-});
+);
 
 const { group: parent } = await parentGroup.json();
 
 // 2. Criar grupo filho que herda do pai
-const childGroup = await fetch('https://api.opensea.com/v1/rbac/permission-groups', {
-  method: 'POST',
-  headers: {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json',
+const childGroup = await fetch(
+  'https://api.opensea.com/v1/rbac/permission-groups',
+  {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: 'Vendedor Senior',
+      description: 'Vendedor com permissões extras',
+      color: '#10B981',
+      priority: 150,
+      parentId: parent.id, // Herda permissões do grupo pai
+    }),
   },
-  body: JSON.stringify({
-    name: 'Vendedor Senior',
-    description: 'Vendedor com permissões extras',
-    color: '#10B981',
-    priority: 150,
-    parentId: parent.id // Herda permissões do grupo pai
-  })
-});
+);
 ```
 
 ### Exemplo 3: Adicionar Permissões com Efeito Allow/Deny
@@ -840,42 +904,51 @@ const childGroup = await fetch('https://api.opensea.com/v1/rbac/permission-group
 ```typescript
 const setupGroupPermissions = async (groupId: string) => {
   // Permitir criar e ler pedidos
-  await fetch(`https://api.opensea.com/v1/rbac/permission-groups/${groupId}/permissions`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
+  await fetch(
+    `https://api.opensea.com/v1/rbac/permission-groups/${groupId}/permissions`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        permissionCode: 'sales.orders.create',
+        effect: 'allow',
+      }),
     },
-    body: JSON.stringify({
-      permissionCode: 'sales.orders.create',
-      effect: 'allow'
-    })
-  });
-  
-  await fetch(`https://api.opensea.com/v1/rbac/permission-groups/${groupId}/permissions`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
+  );
+
+  await fetch(
+    `https://api.opensea.com/v1/rbac/permission-groups/${groupId}/permissions`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        permissionCode: 'sales.orders.read',
+        effect: 'allow',
+      }),
     },
-    body: JSON.stringify({
-      permissionCode: 'sales.orders.read',
-      effect: 'allow'
-    })
-  });
-  
+  );
+
   // Explicitamente NEGAR deletar pedidos (deny tem precedência)
-  await fetch(`https://api.opensea.com/v1/rbac/permission-groups/${groupId}/permissions`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
+  await fetch(
+    `https://api.opensea.com/v1/rbac/permission-groups/${groupId}/permissions`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        permissionCode: 'sales.orders.delete',
+        effect: 'deny',
+      }),
     },
-    body: JSON.stringify({
-      permissionCode: 'sales.orders.delete',
-      effect: 'deny'
-    })
-  });
+  );
 };
 ```
 
@@ -886,20 +959,23 @@ const assignTemporaryAccess = async (userId: string, groupId: string) => {
   // Acesso temporário por 30 dias
   const expiresAt = new Date();
   expiresAt.setDate(expiresAt.getDate() + 30);
-  
-  const response = await fetch(`https://api.opensea.com/v1/rbac/users/${userId}/groups`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
+
+  const response = await fetch(
+    `https://api.opensea.com/v1/rbac/users/${userId}/groups`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        groupId,
+        expiresAt: expiresAt.toISOString(),
+        grantedBy: currentUserId,
+      }),
     },
-    body: JSON.stringify({
-      groupId,
-      expiresAt: expiresAt.toISOString(),
-      grantedBy: currentUserId
-    })
-  });
-  
+  );
+
   return response.ok;
 };
 ```
@@ -912,23 +988,24 @@ const checkUserPermissions = async (userId: string) => {
     `https://api.opensea.com/v1/rbac/users/${userId}/permissions`,
     {
       headers: {
-        'Authorization': `Bearer ${token}`,
-      }
-    }
+        Authorization: `Bearer ${token}`,
+      },
+    },
   );
-  
+
   const { permissions } = await response.json();
-  
+
   // Criar mapa para verificação rápida
   const permissionMap = new Map<string, 'allow' | 'deny'>();
   permissions.forEach((p: EffectivePermission) => {
     permissionMap.set(p.permission.code, p.effect);
   });
-  
+
   // Verificar permissão específica
-  const canCreateProducts = permissionMap.get('stock.products.create') === 'allow';
+  const canCreateProducts =
+    permissionMap.get('stock.products.create') === 'allow';
   const canDeleteOrders = permissionMap.get('sales.orders.delete') !== 'deny';
-  
+
   return { canCreateProducts, canDeleteOrders, permissionMap };
 };
 ```
@@ -944,7 +1021,7 @@ import axios, { AxiosInstance } from 'axios';
 
 export class RBACService {
   private api: AxiosInstance;
-  
+
   constructor(baseURL: string, getToken: () => string) {
     this.api = axios.create({
       baseURL: `${baseURL}/v1/rbac`,
@@ -952,7 +1029,7 @@ export class RBACService {
         'Content-Type': 'application/json',
       },
     });
-    
+
     // Interceptor para adicionar token
     this.api.interceptors.request.use((config) => {
       const token = getToken();
@@ -962,136 +1039,166 @@ export class RBACService {
       return config;
     });
   }
-  
+
   // ==========================================
   // PERMISSIONS
   // ==========================================
-  
+
   async createPermission(data: CreatePermissionDTO) {
-    const response = await this.api.post<PermissionResponse>('/permissions', data);
+    const response = await this.api.post<PermissionResponse>(
+      '/permissions',
+      data,
+    );
     return response.data.permission;
   }
-  
+
   async listPermissions(query?: ListPermissionsQuery) {
-    const response = await this.api.get<PaginatedResponse<Permission>>('/permissions', {
-      params: query,
-    });
+    const response = await this.api.get<PaginatedResponse<Permission>>(
+      '/permissions',
+      {
+        params: query,
+      },
+    );
     return response.data;
   }
-  
+
   async getPermissionByCode(code: string) {
-    const response = await this.api.get<PermissionResponse>(`/permissions/code/${code}`);
+    const response = await this.api.get<PermissionResponse>(
+      `/permissions/code/${code}`,
+    );
     return response.data.permission;
   }
-  
+
   async getPermissionById(id: string) {
-    const response = await this.api.get<PermissionResponse>(`/permissions/${id}`);
+    const response = await this.api.get<PermissionResponse>(
+      `/permissions/${id}`,
+    );
     return response.data.permission;
   }
-  
+
   async updatePermission(id: string, data: UpdatePermissionDTO) {
-    const response = await this.api.put<PermissionResponse>(`/permissions/${id}`, data);
+    const response = await this.api.put<PermissionResponse>(
+      `/permissions/${id}`,
+      data,
+    );
     return response.data.permission;
   }
-  
+
   async deletePermission(id: string) {
     await this.api.delete(`/permissions/${id}`);
   }
-  
+
   // ==========================================
   // PERMISSION GROUPS
   // ==========================================
-  
+
   async createPermissionGroup(data: CreatePermissionGroupDTO) {
-    const response = await this.api.post<PermissionGroupResponse>('/permission-groups', data);
+    const response = await this.api.post<PermissionGroupResponse>(
+      '/permission-groups',
+      data,
+    );
     return response.data.group;
   }
-  
+
   async listPermissionGroups(query?: ListPermissionGroupsQuery) {
-    const response = await this.api.get<PaginatedResponse<PermissionGroup>>('/permission-groups', {
-      params: query,
-    });
+    const response = await this.api.get<PaginatedResponse<PermissionGroup>>(
+      '/permission-groups',
+      {
+        params: query,
+      },
+    );
     return response.data;
   }
-  
+
   async getPermissionGroupById(id: string) {
-    const response = await this.api.get<PermissionGroupResponse>(`/permission-groups/${id}`);
+    const response = await this.api.get<PermissionGroupResponse>(
+      `/permission-groups/${id}`,
+    );
     return response.data.group;
   }
-  
+
   async updatePermissionGroup(id: string, data: UpdatePermissionGroupDTO) {
-    const response = await this.api.put<PermissionGroupResponse>(`/permission-groups/${id}`, data);
+    const response = await this.api.put<PermissionGroupResponse>(
+      `/permission-groups/${id}`,
+      data,
+    );
     return response.data.group;
   }
-  
+
   async deletePermissionGroup(id: string, force = false) {
     await this.api.delete(`/permission-groups/${id}`, {
       params: { force },
     });
   }
-  
+
   // ==========================================
   // GROUP ↔ PERMISSIONS
   // ==========================================
-  
+
   async addPermissionToGroup(groupId: string, data: AddPermissionToGroupDTO) {
     const response = await this.api.post<SuccessResponse>(
       `/permission-groups/${groupId}/permissions`,
-      data
+      data,
     );
     return response.data.success;
   }
-  
+
   async listGroupPermissions(groupId: string) {
-    const response = await this.api.get<{ permissions: PermissionWithEffect[] }>(
-      `/permission-groups/${groupId}/permissions`
-    );
+    const response = await this.api.get<{
+      permissions: PermissionWithEffect[];
+    }>(`/permission-groups/${groupId}/permissions`);
     return response.data.permissions;
   }
-  
+
   async removePermissionFromGroup(groupId: string, permissionCode: string) {
-    await this.api.delete(`/permission-groups/${groupId}/permissions/${permissionCode}`);
+    await this.api.delete(
+      `/permission-groups/${groupId}/permissions/${permissionCode}`,
+    );
   }
-  
+
   // ==========================================
   // USER ↔ GROUPS
   // ==========================================
-  
+
   async assignGroupToUser(userId: string, data: AssignGroupToUserDTO) {
     const response = await this.api.post<SuccessResponse>(
       `/users/${userId}/groups`,
-      data
+      data,
     );
     return response.data.success;
   }
-  
-  async listUserGroups(userId: string, includeExpired = false, includeInactive = false) {
+
+  async listUserGroups(
+    userId: string,
+    includeExpired = false,
+    includeInactive = false,
+  ) {
     const response = await this.api.get<{ groups: GroupWithExpiration[] }>(
       `/users/${userId}/groups`,
       {
         params: { includeExpired, includeInactive },
-      }
+      },
     );
     return response.data.groups;
   }
-  
+
   async listUserPermissions(userId: string) {
     const response = await this.api.get<{ permissions: EffectivePermission[] }>(
-      `/users/${userId}/permissions`
+      `/users/${userId}/permissions`,
     );
     return response.data.permissions;
   }
-  
+
   async listUsersByGroup(groupId: string, includeExpired = false) {
     const response = await this.api.get<{ users: UserInGroup[] }>(
       `/permission-groups/${groupId}/users`,
       {
         params: { includeExpired },
-      }
+      },
     );
     return response.data.users;
   }
-  
+
   async removeGroupFromUser(userId: string, groupId: string) {
     await this.api.delete(`/users/${userId}/groups/${groupId}`);
   }
@@ -1119,33 +1226,41 @@ interface UsePermissionsReturn {
 
 export const usePermissions = (): UsePermissionsReturn => {
   const { user, token } = useAuth();
-  const [permissions, setPermissions] = useState<Map<string, 'allow' | 'deny'>>(new Map());
+  const [permissions, setPermissions] = useState<Map<string, 'allow' | 'deny'>>(
+    new Map(),
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  
+
   const fetchPermissions = async () => {
     if (!user || !token) {
       setPermissions(new Map());
       setIsLoading(false);
       return;
     }
-    
+
     try {
       setIsLoading(true);
       setError(null);
-      
-      const rbacService = new RBACService(process.env.REACT_APP_API_URL!, () => token);
+
+      const rbacService = new RBACService(
+        process.env.REACT_APP_API_URL!,
+        () => token,
+      );
       const userPermissions = await rbacService.listUserPermissions(user.id);
-      
+
       const permMap = new Map<string, 'allow' | 'deny'>();
       userPermissions.forEach((p) => {
         permMap.set(p.permission.code, p.effect);
       });
-      
+
       setPermissions(permMap);
-      
+
       // Cache no localStorage (15 minutos)
-      localStorage.setItem('user_permissions', JSON.stringify(Array.from(permMap.entries())));
+      localStorage.setItem(
+        'user_permissions',
+        JSON.stringify(Array.from(permMap.entries())),
+      );
       localStorage.setItem('user_permissions_timestamp', Date.now().toString());
     } catch (err) {
       setError(err as Error);
@@ -1154,16 +1269,16 @@ export const usePermissions = (): UsePermissionsReturn => {
       setIsLoading(false);
     }
   };
-  
+
   // Carregar do cache primeiro
   useEffect(() => {
     const cached = localStorage.getItem('user_permissions');
     const timestamp = localStorage.getItem('user_permissions_timestamp');
-    
+
     if (cached && timestamp) {
       const age = Date.now() - parseInt(timestamp);
       const fifteenMinutes = 15 * 60 * 1000;
-      
+
       if (age < fifteenMinutes) {
         const entries = JSON.parse(cached) as [string, 'allow' | 'deny'][];
         setPermissions(new Map(entries));
@@ -1171,15 +1286,15 @@ export const usePermissions = (): UsePermissionsReturn => {
         return;
       }
     }
-    
+
     fetchPermissions();
   }, [user, token]);
-  
+
   const hasPermission = (code: string): boolean => {
     const effect = permissions.get(code);
     return effect === 'allow';
   };
-  
+
   return {
     permissions,
     hasPermission,
@@ -1208,15 +1323,15 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({
   children,
 }) => {
   const { hasPermission, isLoading } = usePermissions();
-  
+
   if (isLoading) {
     return <div>Loading permissions...</div>;
   }
-  
+
   if (!hasPermission(permission)) {
     return <>{fallback}</>;
   }
-  
+
   return <>{children}</>;
 };
 
@@ -1239,15 +1354,15 @@ export function withPermission<P extends object>(
 ) {
   return (props: P) => {
     const { hasPermission, isLoading } = usePermissions();
-    
+
     if (isLoading) {
       return <div>Loading...</div>;
     }
-    
+
     if (!hasPermission(permission)) {
       return FallbackComponent ? <FallbackComponent {...props} /> : null;
     }
-    
+
     return <Component {...props} />;
   };
 }
@@ -1267,13 +1382,13 @@ export const PermissionGroupManager: React.FC = () => {
   const { token } = useAuth();
   const [groups, setGroups] = useState<PermissionGroup[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const rbacService = new RBACService(process.env.REACT_APP_API_URL!, () => token);
-  
+
   useEffect(() => {
     loadGroups();
   }, []);
-  
+
   const loadGroups = async () => {
     try {
       setIsLoading(true);
@@ -1285,7 +1400,7 @@ export const PermissionGroupManager: React.FC = () => {
       setIsLoading(false);
     }
   };
-  
+
   const handleCreateGroup = async (data: CreatePermissionGroupDTO) => {
     try {
       await rbacService.createPermissionGroup(data);
@@ -1294,7 +1409,7 @@ export const PermissionGroupManager: React.FC = () => {
       console.error('Failed to create group:', error);
     }
   };
-  
+
   const handleDeleteGroup = async (id: string, force: boolean) => {
     try {
       await rbacService.deletePermissionGroup(id, force);
@@ -1303,18 +1418,18 @@ export const PermissionGroupManager: React.FC = () => {
       console.error('Failed to delete group:', error);
     }
   };
-  
+
   if (isLoading) {
     return <div>Loading groups...</div>;
   }
-  
+
   return (
     <div className="permission-groups">
       <h2>Permission Groups</h2>
-      
+
       {/* Form de criação */}
       <CreateGroupForm onSubmit={handleCreateGroup} />
-      
+
       {/* Lista de grupos */}
       <div className="groups-list">
         {groups.map((group) => (
@@ -1351,13 +1466,13 @@ export const PermissionSelector: React.FC<PermissionSelectorProps> = ({
   const { token } = useAuth();
   const [permissions, setPermissions] = useState<Permission[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const rbacService = new RBACService(process.env.REACT_APP_API_URL!, () => token);
-  
+
   useEffect(() => {
     loadPermissions();
   }, [module]);
-  
+
   const loadPermissions = async () => {
     try {
       setIsLoading(true);
@@ -1369,19 +1484,19 @@ export const PermissionSelector: React.FC<PermissionSelectorProps> = ({
       setIsLoading(false);
     }
   };
-  
+
   const handleToggle = (code: string) => {
     const newSelection = selectedPermissions.includes(code)
       ? selectedPermissions.filter((p) => p !== code)
       : [...selectedPermissions, code];
-    
+
     onSelectionChange(newSelection);
   };
-  
+
   if (isLoading) {
     return <div>Loading permissions...</div>;
   }
-  
+
   // Agrupar por módulo e recurso
   const groupedPermissions = permissions.reduce((acc, perm) => {
     const key = `${perm.module}.${perm.resource}`;
@@ -1391,7 +1506,7 @@ export const PermissionSelector: React.FC<PermissionSelectorProps> = ({
     acc[key].push(perm);
     return acc;
   }, {} as Record<string, Permission[]>);
-  
+
   return (
     <div className="permission-selector">
       {Object.entries(groupedPermissions).map(([key, perms]) => (
@@ -1440,14 +1555,14 @@ const PermissionsContext = createContext<PermissionsContextValue | undefined>(un
 export const PermissionsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, token } = useAuth();
   const queryClient = useQueryClient();
-  
+
   const rbacService = new RBACService(process.env.REACT_APP_API_URL!, () => token);
-  
+
   const { data: permissions = new Map(), isLoading } = useQuery({
     queryKey: ['user-permissions', user?.id],
     queryFn: async () => {
       if (!user) return new Map();
-      
+
       const perms = await rbacService.listUserPermissions(user.id);
       const map = new Map<string, 'allow' | 'deny'>();
       perms.forEach((p) => map.set(p.permission.code, p.effect));
@@ -1457,15 +1572,15 @@ export const PermissionsProvider: React.FC<{ children: React.ReactNode }> = ({ c
     staleTime: 15 * 60 * 1000, // 15 minutos
     cacheTime: 30 * 60 * 1000, // 30 minutos
   });
-  
+
   const hasPermission = (code: string) => {
     return permissions.get(code) === 'allow';
   };
-  
+
   const refresh = () => {
     queryClient.invalidateQueries(['user-permissions', user?.id]);
   };
-  
+
   return (
     <PermissionsContext.Provider value={{ permissions, hasPermission, isLoading, refresh }}>
       {children}
@@ -1506,14 +1621,17 @@ const initialState: PermissionsState = {
 export const fetchUserPermissions = createAsyncThunk(
   'permissions/fetchUserPermissions',
   async ({ userId, token }: { userId: string; token: string }) => {
-    const rbacService = new RBACService(process.env.REACT_APP_API_URL!, () => token);
+    const rbacService = new RBACService(
+      process.env.REACT_APP_API_URL!,
+      () => token,
+    );
     const perms = await rbacService.listUserPermissions(userId);
-    
+
     const map = new Map<string, 'allow' | 'deny'>();
     perms.forEach((p) => map.set(p.permission.code, p.effect));
-    
+
     return Object.fromEntries(map);
-  }
+  },
 );
 
 const permissionsSlice = createSlice({
@@ -1531,11 +1649,14 @@ const permissionsSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchUserPermissions.fulfilled, (state, action: PayloadAction<Record<string, 'allow' | 'deny'>>) => {
-        state.permissions = new Map(Object.entries(action.payload));
-        state.isLoading = false;
-        state.lastFetch = Date.now();
-      })
+      .addCase(
+        fetchUserPermissions.fulfilled,
+        (state, action: PayloadAction<Record<string, 'allow' | 'deny'>>) => {
+          state.permissions = new Map(Object.entries(action.payload));
+          state.isLoading = false;
+          state.lastFetch = Date.now();
+        },
+      )
       .addCase(fetchUserPermissions.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Failed to fetch permissions';
@@ -1557,11 +1678,13 @@ export const selectHasPermission = (code: string) => (state: RootState) => {
 ## ✅ Boas Práticas
 
 ### 1. Cache de Permissões
+
 - ✅ Cache permissões no lado do cliente por 15-30 minutos
 - ✅ Invalide o cache quando usuário fizer alterações em grupos
 - ✅ Use localStorage como fallback durante inicialização
 
 ### 2. Carregamento Eager vs Lazy
+
 ```typescript
 // Eager: Carregar permissões no login
 useEffect(() => {
@@ -1580,6 +1703,7 @@ const canUserCreate = async () => {
 ```
 
 ### 3. Otimização de UI
+
 ```typescript
 // Evite verificar permissão em cada render
 const canEdit = useMemo(() => {
@@ -1593,14 +1717,18 @@ if (isLoadingPermissions) {
 ```
 
 ### 4. Mensagens de Erro Claras
+
 ```typescript
 if (!hasPermission('stock.products.delete')) {
-  toast.error('Você não tem permissão para deletar produtos. Entre em contato com o administrador.');
+  toast.error(
+    'Você não tem permissão para deletar produtos. Entre em contato com o administrador.',
+  );
   return;
 }
 ```
 
 ### 5. Auditoria Frontend
+
 ```typescript
 const logPermissionDenial = (permissionCode: string, action: string) => {
   // Enviar para analytics
@@ -1619,17 +1747,17 @@ const logPermissionDenial = (permissionCode: string, action: string) => {
 
 ### Códigos de Status HTTP
 
-| Status | Significado | Ação Sugerida |
-|--------|------------|---------------|
-| 200 | Sucesso | Processar resposta |
-| 201 | Criado | Atualizar lista |
-| 204 | Deletado | Remover da UI |
-| 400 | Bad Request | Mostrar erro de validação |
-| 401 | Não autenticado | Redirecionar para login |
-| 403 | Sem permissão | Mostrar mensagem de acesso negado |
-| 404 | Não encontrado | Mostrar erro "não encontrado" |
-| 409 | Conflito | Mostrar erro de duplicação |
-| 500 | Erro do servidor | Mostrar erro genérico e tentar novamente |
+| Status | Significado      | Ação Sugerida                            |
+| ------ | ---------------- | ---------------------------------------- |
+| 200    | Sucesso          | Processar resposta                       |
+| 201    | Criado           | Atualizar lista                          |
+| 204    | Deletado         | Remover da UI                            |
+| 400    | Bad Request      | Mostrar erro de validação                |
+| 401    | Não autenticado  | Redirecionar para login                  |
+| 403    | Sem permissão    | Mostrar mensagem de acesso negado        |
+| 404    | Não encontrado   | Mostrar erro "não encontrado"            |
+| 409    | Conflito         | Mostrar erro de duplicação               |
+| 500    | Erro do servidor | Mostrar erro genérico e tentar novamente |
 
 ### Exemplo de Tratamento
 
@@ -1643,7 +1771,7 @@ const handleCreateGroup = async (data: CreatePermissionGroupDTO) => {
     if (axios.isAxiosError(error)) {
       const status = error.response?.status;
       const message = error.response?.data?.message;
-      
+
       switch (status) {
         case 400:
           toast.error(`Dados inválidos: ${message}`);
@@ -1678,10 +1806,12 @@ const handleDeleteProduct = async (productId: string) => {
     toast.error('Você não tem permissão para deletar produtos');
     return;
   }
-  
-  const confirmed = await confirm('Tem certeza que deseja deletar este produto?');
+
+  const confirmed = await confirm(
+    'Tem certeza que deseja deletar este produto?',
+  );
   if (!confirmed) return;
-  
+
   try {
     await productService.delete(productId);
     toast.success('Produto deletado com sucesso!');
@@ -1701,13 +1831,37 @@ const handleDeleteProduct = async (productId: string) => {
 // 1. Criar permissões base
 const setupBasePermissions = async () => {
   const basePermissions = [
-    { code: 'stock.products.create', name: 'Create Products', module: 'stock', resource: 'products', action: 'create' },
-    { code: 'stock.products.read', name: 'Read Products', module: 'stock', resource: 'products', action: 'read' },
-    { code: 'stock.products.update', name: 'Update Products', module: 'stock', resource: 'products', action: 'update' },
-    { code: 'stock.products.delete', name: 'Delete Products', module: 'stock', resource: 'products', action: 'delete' },
+    {
+      code: 'stock.products.create',
+      name: 'Create Products',
+      module: 'stock',
+      resource: 'products',
+      action: 'create',
+    },
+    {
+      code: 'stock.products.read',
+      name: 'Read Products',
+      module: 'stock',
+      resource: 'products',
+      action: 'read',
+    },
+    {
+      code: 'stock.products.update',
+      name: 'Update Products',
+      module: 'stock',
+      resource: 'products',
+      action: 'update',
+    },
+    {
+      code: 'stock.products.delete',
+      name: 'Delete Products',
+      module: 'stock',
+      resource: 'products',
+      action: 'delete',
+    },
     // ... mais permissões
   ];
-  
+
   for (const perm of basePermissions) {
     await rbacService.createPermission(perm);
   }
@@ -1722,13 +1876,13 @@ const setupGroups = async () => {
     color: '#EF4444',
     priority: 1000,
   });
-  
+
   // Adicionar permissão wildcard
   await rbacService.addPermissionToGroup(adminGroup.id, {
     permissionCode: '*.*.*',
     effect: 'allow',
   });
-  
+
   // Grupo Gerente de Estoque
   const stockManager = await rbacService.createPermissionGroup({
     name: 'Gerente de Estoque',
@@ -1736,13 +1890,13 @@ const setupGroups = async () => {
     color: '#3B82F6',
     priority: 500,
   });
-  
+
   // Adicionar permissões específicas
   await rbacService.addPermissionToGroup(stockManager.id, {
     permissionCode: 'stock.*.manage',
     effect: 'allow',
   });
-  
+
   // Grupo Vendedor
   const seller = await rbacService.createPermissionGroup({
     name: 'Vendedor',
@@ -1750,17 +1904,17 @@ const setupGroups = async () => {
     color: '#10B981',
     priority: 100,
   });
-  
+
   await rbacService.addPermissionToGroup(seller.id, {
     permissionCode: 'stock.*.read',
     effect: 'allow',
   });
-  
+
   await rbacService.addPermissionToGroup(seller.id, {
     permissionCode: 'sales.orders.create',
     effect: 'allow',
   });
-  
+
   // Vendedor NÃO pode deletar pedidos
   await rbacService.addPermissionToGroup(seller.id, {
     permissionCode: 'sales.orders.delete',
@@ -1775,11 +1929,11 @@ const assignGroupsToUsers = async () => {
     groupId: adminGroupId,
     expiresAt: null,
   });
-  
+
   // Vendedor com acesso temporário (3 meses)
   const expiresAt = new Date();
   expiresAt.setMonth(expiresAt.getMonth() + 3);
-  
+
   await rbacService.assignGroupToUser(sellerUserId, {
     groupId: sellerGroupId,
     expiresAt: expiresAt.toISOString(),
@@ -1799,7 +1953,7 @@ import { UserPermissionManager } from '../components/UserPermissionManager';
 
 export const PermissionsPage: React.FC = () => {
   return (
-    <PermissionGuard 
+    <PermissionGuard
       permission="core.rbac.manage"
       fallback={
         <div className="access-denied">
@@ -1810,20 +1964,20 @@ export const PermissionsPage: React.FC = () => {
     >
       <div className="permissions-page">
         <h1>Gerenciamento de Permissões</h1>
-        
+
         <Tabs>
           <TabPanel label="Grupos">
             <PermissionGroupManager />
           </TabPanel>
-          
+
           <TabPanel label="Usuários">
             <UserPermissionManager />
           </TabPanel>
-          
+
           <TabPanel label="Permissões">
             <PermissionList />
           </TabPanel>
-          
+
           <TabPanel label="Auditoria">
             <PermissionAuditLog />
           </TabPanel>
@@ -1839,6 +1993,7 @@ export const PermissionsPage: React.FC = () => {
 ## 🎯 Checklist de Implementação
 
 ### Backend (API)
+
 - [x] Todos os endpoints implementados
 - [x] Testes E2E completos (96/96)
 - [x] Validações com Zod
@@ -1846,6 +2001,7 @@ export const PermissionsPage: React.FC = () => {
 - [x] Documentação Swagger
 
 ### Frontend
+
 - [ ] Serviço de API (RBACService)
 - [ ] Hook de permissões (usePermissions)
 - [ ] Context/Provider de permissões
@@ -1877,6 +2033,7 @@ export const PermissionsPage: React.FC = () => {
 ## 📞 Suporte
 
 Em caso de dúvidas ou problemas:
+
 - Documentação Backend: `docs/RBAC_PLANNING.md`
 - Documentação de Casos de Uso: `docs/RBAC_USE_CASES_IMPLEMENTATION.md`
 - Swagger UI: `https://api.opensea.com/docs`

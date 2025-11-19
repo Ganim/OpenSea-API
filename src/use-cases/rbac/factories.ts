@@ -22,4 +22,3 @@ export { makeListUserPermissionsUseCase } from './associations/factories/make-li
 export { makeListUsersByGroupUseCase } from './associations/factories/make-list-users-by-group-use-case';
 export { makeRemoveGroupFromUserUseCase } from './associations/factories/make-remove-group-from-user-use-case';
 export { makeRemovePermissionFromGroupUseCase } from './associations/factories/make-remove-permission-from-group-use-case';
-

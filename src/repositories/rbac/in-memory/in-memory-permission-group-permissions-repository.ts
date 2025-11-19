@@ -3,9 +3,9 @@ import { Permission } from '@/entities/rbac/permission';
 import { PermissionGroupPermission } from '@/entities/rbac/permission-group-permission';
 import { PermissionEffect } from '@/entities/rbac/value-objects/permission-effect';
 import type {
-    AddPermissionToGroupSchema,
-    PermissionGroupPermissionsRepository,
-    UpdateGroupPermissionSchema,
+  AddPermissionToGroupSchema,
+  PermissionGroupPermissionsRepository,
+  UpdateGroupPermissionSchema,
 } from '../permission-group-permissions-repository';
 
 export class InMemoryPermissionGroupPermissionsRepository

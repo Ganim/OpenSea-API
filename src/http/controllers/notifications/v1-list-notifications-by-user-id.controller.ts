@@ -9,7 +9,9 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function listNotificationsByUserIdController(app: FastifyInstance) {
+export async function listNotificationsByUserIdController(
+  app: FastifyInstance,
+) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/notifications',
@@ -40,7 +42,8 @@ export async function listNotificationsByUserIdController(app: FastifyInstance) 
         limit,
       } = request.query;
 
-      const listNotificationsByUserIdUseCase = makeListNotificationsByUserIdUseCase();
+      const listNotificationsByUserIdUseCase =
+        makeListNotificationsByUserIdUseCase();
       const { data, total } = await listNotificationsByUserIdUseCase.execute({
         userId: request.user.sub,
         isRead,

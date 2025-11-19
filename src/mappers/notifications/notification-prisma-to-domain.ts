@@ -1,8 +1,8 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
-    NotificationChannelValue,
-    NotificationPriorityValue,
-    NotificationTypeValue,
+  NotificationChannelValue,
+  NotificationPriorityValue,
+  NotificationTypeValue,
 } from '@/entities/notifications/notification';
 import { Notification } from '@/entities/notifications/notification';
 import type { Notification as PrismaNotification } from '@prisma/client';

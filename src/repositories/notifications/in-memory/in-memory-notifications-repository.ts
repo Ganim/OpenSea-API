@@ -1,9 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Notification } from '@/entities/notifications/notification';
 import type {
-    CreateNotificationSchema,
-    ListNotificationsFilter,
-    NotificationsRepository,
+  CreateNotificationSchema,
+  ListNotificationsFilter,
+  NotificationsRepository,
 } from '../notifications-repository';
 
 export class InMemoryNotificationsRepository
@@ -66,7 +66,9 @@ export class InMemoryNotificationsRepository
     }
 
     // Order by createdAt desc (as Prisma impl)
-    result = result.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    result = result.sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+    );
 
     const page = filter.page ?? 1;
     const limit = filter.limit ?? 20;
@@ -77,7 +79,10 @@ export class InMemoryNotificationsRepository
     return { data, total };
   }
 
-  async listScheduledPending(now: Date, limit: number = 50): Promise<Notification[]> {
+  async listScheduledPending(
+    now: Date,
+    limit: number = 50,
+  ): Promise<Notification[]> {
     const candidates = this.items
       .filter(
         (n) =>
@@ -86,7 +91,7 @@ export class InMemoryNotificationsRepository
           n.scheduledFor &&
           n.scheduledFor.getTime() <= now.getTime(),
       )
-      .sort((a, b) => (a.scheduledFor!.getTime() - b.scheduledFor!.getTime()));
+      .sort((a, b) => a.scheduledFor!.getTime() - b.scheduledFor!.getTime());
     return candidates.slice(0, limit);
   }
 

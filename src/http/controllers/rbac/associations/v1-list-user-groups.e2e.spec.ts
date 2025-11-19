@@ -18,8 +18,12 @@ describe('List User Groups (e2e)', () => {
   it('should allow authenticated USER to LIST own groups', async () => {
     const { token, user } = await createAndAuthenticateUser(app, 'USER');
     const uniqueSuffix = faker.string.alpha({ length: 6 }).toLowerCase();
-    const group1 = await makePermissionGroup({ name: `Sales Team ${uniqueSuffix}` });
-    const group2 = await makePermissionGroup({ name: `Support Team ${uniqueSuffix}` });
+    const group1 = await makePermissionGroup({
+      name: `Sales Team ${uniqueSuffix}`,
+    });
+    const group2 = await makePermissionGroup({
+      name: `Support Team ${uniqueSuffix}`,
+    });
 
     const assignGroupUseCase = makeAssignGroupToUserUseCase();
     await assignGroupUseCase.execute({

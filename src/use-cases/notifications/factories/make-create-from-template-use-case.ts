@@ -5,5 +5,8 @@ import { CreateFromTemplateUseCase } from '@/use-cases/notifications/create-from
 export function makeCreateFromTemplateUseCase() {
   const notificationsRepository = new PrismaNotificationsRepository();
   const templatesRepository = new PrismaNotificationTemplatesRepository();
-  return new CreateFromTemplateUseCase(notificationsRepository, templatesRepository);
+  return new CreateFromTemplateUseCase(
+    notificationsRepository,
+    templatesRepository,
+  );
 }
