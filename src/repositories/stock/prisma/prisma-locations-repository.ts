@@ -6,9 +6,9 @@ import { prisma } from '@/lib/prisma';
 import type { LocationType as PrismaLocationType } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-  CreateLocationSchema,
-  LocationsRepository,
-  UpdateLocationSchema,
+    CreateLocationSchema,
+    LocationsRepository,
+    UpdateLocationSchema,
 } from '../locations-repository';
 
 export class PrismaLocationsRepository implements LocationsRepository {
@@ -314,6 +314,83 @@ export class PrismaLocationsRepository implements LocationsRepository {
         deletedAt: location.deletedAt,
       },
     });
+  }
+
+  async countSubLocations(parentId: UniqueEntityID): Promise<number> {
+    const count = await prisma.location.count({
+      where: {
+        parentId: parentId.toString(),
+        deletedAt: null,
+      },
+    });
+
+    return count;
+  }
+
+  async countDirectItems(locationId: UniqueEntityID): Promise<number> {
+    const count = await prisma.item.aggregate({
+      where: {
+        locationId: locationId.toString(),
+        deletedAt: null,
+        currentQuantity: {
+          gt: 0,
+        },
+      },
+      _sum: {
+        currentQuantity: true,
+      },
+    });
+
+    return count._sum.currentQuantity?.toNumber() ?? 0;
+  }
+
+  async countTotalItems(locationId: UniqueEntityID): Promise<number> {
+    // Get all sub-locations recursively
+    const subLocations = await this.getAllSubLocationIds(locationId);
+
+    const count = await prisma.item.aggregate({
+      where: {
+        locationId: {
+          in: [locationId.toString(), ...subLocations],
+        },
+        deletedAt: null,
+        currentQuantity: {
+          gt: 0,
+        },
+      },
+      _sum: {
+        currentQuantity: true,
+      },
+    });
+
+    return count._sum.currentQuantity?.toNumber() ?? 0;
+  }
+
+  private async getAllSubLocationIds(
+    parentId: UniqueEntityID,
+  ): Promise<string[]> {
+    const subLocations = await prisma.location.findMany({
+      where: {
+        parentId: parentId.toString(),
+        deletedAt: null,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const ids: string[] = [];
+
+    for (const subLocation of subLocations) {
+      ids.push(subLocation.id);
+      // Recursively get sub-locations
+      const nestedIds = await this.getAllSubLocationIds(
+        new EntityID(subLocation.id),
+      );
+      ids.push(...nestedIds);
+    }
+
+    return ids;
   }
 
   async delete(id: UniqueEntityID): Promise<void> {

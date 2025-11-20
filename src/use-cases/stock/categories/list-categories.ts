@@ -1,11 +1,7 @@
-import {
-  CategoryDTO,
-  categoryToDTO,
-} from '@/mappers/stock/category/category-to-dto';
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 
 interface ListCategoriesUseCaseResponse {
-  categories: CategoryDTO[];
+  categories: import('@/entities/stock/category').Category[];
 }
 
 export class ListCategoriesUseCase {
@@ -15,7 +11,7 @@ export class ListCategoriesUseCase {
     const categories = await this.categoriesRepository.findMany();
 
     return {
-      categories: categories.map(categoryToDTO),
+      categories,
     };
   }
 }

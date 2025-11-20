@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import { createProductSchema, productResponseSchema } from '@/http/schemas';
+import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeCreateProductUseCase } from '@/use-cases/stock/products/factories/make-create-product-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -54,7 +55,7 @@ export async function createProductController(app: FastifyInstance) {
           manufacturerId,
         });
 
-        return reply.status(201).send({ product });
+        return reply.status(201).send({ product: productToDTO(product) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

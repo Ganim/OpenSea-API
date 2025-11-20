@@ -16,6 +16,8 @@ export interface VariantProps {
   qrCode?: string;
   eanCode?: string;
   upcCode?: string;
+  colorHex?: string;
+  colorPantone?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
@@ -142,6 +144,24 @@ export class Variant extends Entity<VariantProps> {
 
   set upcCode(upcCode: string | undefined) {
     this.props.upcCode = upcCode;
+    this.touch();
+  }
+
+  get colorHex(): string | undefined {
+    return this.props.colorHex;
+  }
+
+  set colorHex(colorHex: string | undefined) {
+    this.props.colorHex = colorHex;
+    this.touch();
+  }
+
+  get colorPantone(): string | undefined {
+    return this.props.colorPantone;
+  }
+
+  set colorPantone(colorPantone: string | undefined) {
+    this.props.colorPantone = colorPantone;
     this.touch();
   }
 

@@ -78,8 +78,8 @@ describe('RegisterItemEntryUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -95,8 +95,8 @@ describe('RegisterItemEntryUseCase', () => {
 
     const result = await registerItemEntry.execute({
       uniqueCode: 'ITEM-001',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 100,
       userId,
     });
@@ -126,8 +126,8 @@ describe('RegisterItemEntryUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -145,8 +145,8 @@ describe('RegisterItemEntryUseCase', () => {
 
     const result = await registerItemEntry.execute({
       uniqueCode: 'ITEM-002',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 50,
       userId,
       batchNumber: 'BATCH-001',
@@ -199,8 +199,8 @@ describe('RegisterItemEntryUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -216,8 +216,8 @@ describe('RegisterItemEntryUseCase', () => {
 
     await registerItemEntry.execute({
       uniqueCode: 'ITEM-DUPLICATE',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 100,
       userId,
     });
@@ -225,8 +225,8 @@ describe('RegisterItemEntryUseCase', () => {
     await expect(() =>
       registerItemEntry.execute({
         uniqueCode: 'ITEM-DUPLICATE',
-        variantId: variant.id,
-        locationId: location.id,
+        variantId: variant.id.toString(),
+        locationId: location.id.toString(),
         quantity: 50,
         userId,
       }),
@@ -288,8 +288,8 @@ describe('RegisterItemEntryUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -298,7 +298,7 @@ describe('RegisterItemEntryUseCase', () => {
     await expect(() =>
       registerItemEntry.execute({
         uniqueCode: 'ITEM-006',
-        variantId: variant.id,
+        variantId: variant.id.toString(),
         locationId: new UniqueEntityID().toString(),
         quantity: 100,
         userId: new UniqueEntityID().toString(),
@@ -321,8 +321,8 @@ describe('RegisterItemEntryUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -337,8 +337,8 @@ describe('RegisterItemEntryUseCase', () => {
     await expect(() =>
       registerItemEntry.execute({
         uniqueCode: 'ITEM-007',
-        variantId: variant.id,
-        locationId: location.id,
+        variantId: variant.id.toString(),
+        locationId: location.id.toString(),
         quantity: 100,
         userId: new UniqueEntityID().toString(),
         manufacturingDate: new Date('2025-12-31'),
@@ -362,8 +362,8 @@ describe('RegisterItemEntryUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -378,8 +378,8 @@ describe('RegisterItemEntryUseCase', () => {
     await expect(() =>
       registerItemEntry.execute({
         uniqueCode: 'ITEM-008',
-        variantId: variant.id,
-        locationId: location.id,
+        variantId: variant.id.toString(),
+        locationId: location.id.toString(),
         quantity: 100,
         userId: new UniqueEntityID().toString(),
         expiryDate: new Date('2020-01-01'),
@@ -403,8 +403,8 @@ describe('RegisterItemEntryUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'PHONE-001-BLK',
       name: 'Smartphone Black',
       price: 999.99,
@@ -419,8 +419,8 @@ describe('RegisterItemEntryUseCase', () => {
     await expect(() =>
       registerItemEntry.execute({
         uniqueCode: 'ITEM-009',
-        variantId: variant.id,
-        locationId: location.id,
+        variantId: variant.id.toString(),
+        locationId: location.id.toString(),
         quantity: 1,
         userId: new UniqueEntityID().toString(),
         attributes: { serialNumber: 'SN123', invalidKey: 'InvalidValue' },

@@ -23,7 +23,7 @@ describe('UpdateLocationUseCase', () => {
     });
 
     const result = await sut.execute({
-      id: created.location.id,
+      id: created.location.id.toString(),
       code: 'WH-002',
       description: 'Updated Warehouse',
       capacity: 500,
@@ -31,7 +31,7 @@ describe('UpdateLocationUseCase', () => {
 
     expect(result.location).toEqual(
       expect.objectContaining({
-        id: created.location.id,
+        id: created.location.id.toString(),
         code: 'WH-002',
         description: 'Updated Warehouse',
         capacity: 500,
@@ -47,7 +47,7 @@ describe('UpdateLocationUseCase', () => {
     });
 
     const result = await sut.execute({
-      id: created.location.id,
+      id: created.location.id.toString(),
       description: 'Updated',
     });
 
@@ -72,7 +72,7 @@ describe('UpdateLocationUseCase', () => {
 
     await expect(
       sut.execute({
-        id: created.location.id,
+        id: created.location.id.toString(),
         code: '',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -89,7 +89,7 @@ describe('UpdateLocationUseCase', () => {
 
     await expect(
       sut.execute({
-        id: second.location.id,
+        id: second.location.id.toString(),
         code: 'WH-001',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -103,7 +103,7 @@ describe('UpdateLocationUseCase', () => {
 
     await expect(
       sut.execute({
-        id: created.location.id,
+        id: created.location.id.toString(),
         currentOccupancy: 150,
       }),
     ).rejects.toThrow(BadRequestError);

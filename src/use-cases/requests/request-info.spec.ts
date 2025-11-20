@@ -113,6 +113,8 @@ describe('RequestInfoUseCase', () => {
         requestedById: 'user-1',
         infoRequested: 'Test info',
       }),
-    ).rejects.toThrow('Can only request additional information from in-progress requests');
+    ).rejects.toThrow(
+      'Can only request additional information from in-progress requests',
+    );
   });
 });

@@ -22,7 +22,7 @@ describe('Update Category Use Case', () => {
     });
 
     const { category } = await sut.execute({
-      id: createdCategory.id,
+      id: createdCategory.id.toString(),
       name: 'Consumer Electronics',
       description: 'Updated description',
     });
@@ -37,7 +37,7 @@ describe('Update Category Use Case', () => {
     });
 
     const { category } = await sut.execute({
-      id: createdCategory.id,
+      id: createdCategory.id.toString(),
       slug: 'consumer-electronics',
     });
 
@@ -54,11 +54,11 @@ describe('Update Category Use Case', () => {
     });
 
     const { category: updated } = await sut.execute({
-      id: child.id,
-      parentId: parent.id,
+      id: child.id.toString(),
+      parentId: parent.id.toString(),
     });
 
-    expect(updated.parentId).toBe(parent.id);
+    expect(updated.parentId).toEqual(parent.id);
   });
 
   it('should remove parent (make root category)', async () => {
@@ -68,11 +68,11 @@ describe('Update Category Use Case', () => {
 
     const { category: child } = await createCategoryUseCase.execute({
       name: 'Smartphones',
-      parentId: parent.id,
+      parentId: parent.id.toString(),
     });
 
     const { category: updated } = await sut.execute({
-      id: child.id,
+      id: child.id.toString(),
       parentId: null,
     });
 
@@ -85,7 +85,7 @@ describe('Update Category Use Case', () => {
     });
 
     const { category } = await sut.execute({
-      id: createdCategory.id,
+      id: createdCategory.id.toString(),
       displayOrder: 5,
     });
 
@@ -98,7 +98,7 @@ describe('Update Category Use Case', () => {
     });
 
     const { category } = await sut.execute({
-      id: createdCategory.id,
+      id: createdCategory.id.toString(),
       isActive: false,
     });
 
@@ -124,7 +124,7 @@ describe('Update Category Use Case', () => {
 
     await expect(() =>
       sut.execute({
-        id: category.id,
+        id: category.id.toString(),
         name: 'Electronics',
       }),
     ).rejects.toBeInstanceOf(BadRequestError);
@@ -142,7 +142,7 @@ describe('Update Category Use Case', () => {
 
     await expect(() =>
       sut.execute({
-        id: category.id,
+        id: category.id.toString(),
         slug: 'electronics',
       }),
     ).rejects.toBeInstanceOf(BadRequestError);
@@ -155,8 +155,8 @@ describe('Update Category Use Case', () => {
 
     await expect(() =>
       sut.execute({
-        id: category.id,
-        parentId: category.id,
+        id: category.id.toString(),
+        parentId: category.id.toString(),
       }),
     ).rejects.toBeInstanceOf(BadRequestError);
   });
@@ -168,19 +168,19 @@ describe('Update Category Use Case', () => {
 
     const { category: parent } = await createCategoryUseCase.execute({
       name: 'Mobile Devices',
-      parentId: grandParent.id,
+      parentId: grandParent.id.toString(),
     });
 
     const { category: child } = await createCategoryUseCase.execute({
       name: 'Smartphones',
-      parentId: parent.id,
+      parentId: parent.id.toString(),
     });
 
     // Tentando fazer o avô ser filho do neto (circular reference)
     await expect(() =>
       sut.execute({
-        id: grandParent.id,
-        parentId: child.id,
+        id: grandParent.id.toString(),
+        parentId: child.id.toString(),
       }),
     ).rejects.toBeInstanceOf(BadRequestError);
   });
@@ -192,7 +192,7 @@ describe('Update Category Use Case', () => {
 
     await expect(() =>
       sut.execute({
-        id: category.id,
+        id: category.id.toString(),
         parentId: 'non-existent-id',
       }),
     ).rejects.toBeInstanceOf(BadRequestError);

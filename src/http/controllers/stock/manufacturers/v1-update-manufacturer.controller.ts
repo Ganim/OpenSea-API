@@ -1,16 +1,16 @@
-import type { FastifyInstance } from 'fastify';
-import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { z } from 'zod';
-
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import {
-  manufacturerResponseSchema,
-  updateManufacturerSchema,
+    manufacturerResponseSchema,
+    updateManufacturerSchema,
 } from '@/http/schemas';
+import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { makeUpdateManufacturerUseCase } from '@/use-cases/stock/manufacturers/factories/make-update-manufacturer-use-case';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
 
 export async function updateManufacturerController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -52,7 +52,9 @@ export async function updateManufacturerController(app: FastifyInstance) {
           ...body,
         });
 
-        return reply.send(result);
+        return reply.send({
+          manufacturer: manufacturerToDTO(result.manufacturer),
+        });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -54,7 +54,7 @@ describe('CreateProductUseCase', () => {
       description: 'High performance laptop',
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
       attributes: {
         brand: 'Dell',
         model: 'Inspiron 15',
@@ -64,13 +64,13 @@ describe('CreateProductUseCase', () => {
 
     expect(result.product).toEqual(
       expect.objectContaining({
-        id: expect.any(String),
+        id: expect.any(Object), // UniqueEntityID
         name: 'Laptop Dell Inspiron',
         code: 'LAPTOP-001',
         description: 'High performance laptop',
-        status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
-        templateId: template.template.id,
+        status: expect.any(Object), // ProductStatus
+        unitOfMeasure: expect.any(Object), // UnitOfMeasure
+        templateId: expect.any(Object), // UniqueEntityID
         attributes: {
           brand: 'Dell',
           model: 'Inspiron 15',
@@ -95,11 +95,11 @@ describe('CreateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
-      supplierId: supplier.supplier.id,
+      templateId: template.template.id.toString(),
+      supplierId: supplier.supplier.id.toString(),
     });
 
-    expect(result.product.supplierId).toBe(supplier.supplier.id);
+    expect(result.product.supplierId?.toString()).toBe(supplier.supplier.id.toString());
   });
 
   it('should create a product with manufacturer', async () => {
@@ -117,11 +117,11 @@ describe('CreateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
-      manufacturerId: manufacturer.manufacturer.id,
+      templateId: template.template.id.toString(),
+      manufacturerId: manufacturer.manufacturer.manufacturerId.toString(),
     });
 
-    expect(result.product.manufacturerId).toBe(manufacturer.manufacturer.id);
+    expect(result.product.manufacturerId?.toString()).toBe(manufacturer.manufacturer.manufacturerId.toString());
   });
 
   it('should create a product with default DRAFT status', async () => {
@@ -134,10 +134,10 @@ describe('CreateProductUseCase', () => {
       name: 'Test Product',
       code: 'TEST-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
-    expect(result.product.status).toBe('DRAFT');
+    expect(result.product.status.status).toBe('DRAFT');
   });
 
   it('should create a product without optional fields', async () => {
@@ -150,7 +150,7 @@ describe('CreateProductUseCase', () => {
       name: 'Simple Product',
       code: 'SIMPLE-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     expect(result.product.name).toBe('Simple Product');
@@ -170,7 +170,7 @@ describe('CreateProductUseCase', () => {
         name: '',
         code: 'TEST-001',
         unitOfMeasure: 'UNITS',
-        templateId: template.template.id,
+        templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -186,7 +186,7 @@ describe('CreateProductUseCase', () => {
         name: 'a'.repeat(201),
         code: 'TEST-001',
         unitOfMeasure: 'UNITS',
-        templateId: template.template.id,
+        templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -202,7 +202,7 @@ describe('CreateProductUseCase', () => {
         name: 'Test Product',
         code: '',
         unitOfMeasure: 'UNITS',
-        templateId: template.template.id,
+        templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -218,7 +218,7 @@ describe('CreateProductUseCase', () => {
         name: 'Test Product',
         code: 'a'.repeat(101),
         unitOfMeasure: 'UNITS',
-        templateId: template.template.id,
+        templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -233,7 +233,7 @@ describe('CreateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     await expect(
@@ -241,7 +241,7 @@ describe('CreateProductUseCase', () => {
         name: 'Laptop Dell',
         code: 'LAPTOP-002',
         unitOfMeasure: 'UNITS',
-        templateId: template.template.id,
+        templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -258,7 +258,7 @@ describe('CreateProductUseCase', () => {
         code: 'TEST-001',
         status: 'INVALID_STATUS',
         unitOfMeasure: 'UNITS',
-        templateId: template.template.id,
+        templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -274,7 +274,7 @@ describe('CreateProductUseCase', () => {
         name: 'Test Product',
         code: 'TEST-001',
         unitOfMeasure: 'INVALID_UNIT',
-        templateId: template.template.id,
+        templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -301,7 +301,7 @@ describe('CreateProductUseCase', () => {
         name: 'Test Product',
         code: 'TEST-001',
         unitOfMeasure: 'UNITS',
-        templateId: template.template.id,
+        templateId: template.template.id.toString(),
         supplierId: 'non-existent-supplier-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -318,7 +318,7 @@ describe('CreateProductUseCase', () => {
         name: 'Test Product',
         code: 'TEST-001',
         unitOfMeasure: 'UNITS',
-        templateId: template.template.id,
+        templateId: template.template.id.toString(),
         manufacturerId: 'non-existent-manufacturer-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -338,7 +338,7 @@ describe('CreateProductUseCase', () => {
         name: 'Test Product',
         code: 'TEST-001',
         unitOfMeasure: 'UNITS',
-        templateId: template.template.id,
+        templateId: template.template.id.toString(),
         attributes: {
           brand: 'Dell',
           invalidAttribute: 'value', // Não está no template

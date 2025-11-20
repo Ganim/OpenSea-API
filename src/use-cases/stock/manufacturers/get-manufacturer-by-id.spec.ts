@@ -21,11 +21,11 @@ describe('GetManufacturerByIdUseCase', () => {
       country: 'United States',
     });
 
-    const result = await sut.execute({ id: created.manufacturer.id });
+    const result = await sut.execute({ id: created.manufacturer.manufacturerId.toString() });
 
     expect(result.manufacturer).toEqual(
       expect.objectContaining({
-        id: created.manufacturer.id,
+        manufacturerId: created.manufacturer.manufacturerId,
         name: 'TechCorp',
         country: 'United States',
       }),

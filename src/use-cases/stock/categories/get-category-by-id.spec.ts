@@ -21,7 +21,7 @@ describe('Get Category By Id Use Case', () => {
       description: 'Electronic products',
     });
 
-    const { category } = await sut.execute({ id: createdCategory.id });
+    const { category } = await sut.execute({ id: createdCategory.id.toString() });
 
     expect(category).toEqual(createdCategory);
   });

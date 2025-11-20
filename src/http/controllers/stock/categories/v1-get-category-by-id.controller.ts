@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { categoryResponseSchema } from '@/http/schemas';
+import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
 import { makeGetCategoryByIdUseCase } from '@/use-cases/stock/categories/factories/make-get-category-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -37,7 +38,7 @@ export async function getCategoryByIdController(app: FastifyInstance) {
           id,
         });
 
-        return reply.status(200).send({ category });
+        return reply.status(200).send({ category: categoryToDTO(category) });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

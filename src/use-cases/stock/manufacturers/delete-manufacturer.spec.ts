@@ -24,10 +24,10 @@ describe('DeleteManufacturerUseCase', () => {
       country: 'United States',
     });
 
-    await sut.execute({ id: created.manufacturer.id });
+    await sut.execute({ id: created.manufacturer.manufacturerId.toString() });
 
     await expect(
-      getManufacturer.execute({ id: created.manufacturer.id }),
+      getManufacturer.execute({ id: created.manufacturer.manufacturerId.toString() }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
 

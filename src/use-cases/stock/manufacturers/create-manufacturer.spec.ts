@@ -26,7 +26,7 @@ describe('CreateManufacturerUseCase', () => {
 
     expect(result.manufacturer).toEqual(
       expect.objectContaining({
-        id: expect.any(String),
+        manufacturerId: expect.anything(),
         name: 'TechCorp',
         country: 'United States',
         email: 'contact@techcorp.com',

@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import { categoryResponseSchema, categorySchema } from '@/http/schemas';
+import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
 import { makeCreateCategoryUseCase } from '@/use-cases/stock/categories/factories/make-create-category-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -42,7 +43,7 @@ export async function createCategoryController(app: FastifyInstance) {
           isActive,
         });
 
-        return reply.status(201).send({ category });
+        return reply.status(201).send({ category: categoryToDTO(category) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

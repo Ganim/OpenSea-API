@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { variantResponseSchema } from '@/http/schemas';
+import { variantToDTO } from '@/mappers/stock/variant/variant-to-dto';
 import { makeGetVariantByIdUseCase } from '@/use-cases/stock/variants/factories/make-get-variant-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -33,9 +34,9 @@ export async function getVariantByIdController(app: FastifyInstance) {
 
       try {
         const getVariantByIdUseCase = makeGetVariantByIdUseCase();
-        const { variant } = await getVariantByIdUseCase.execute({ id });
+        const variant = await getVariantByIdUseCase.execute({ id });
 
-        return reply.status(200).send({ variant });
+        return reply.status(200).send({ variant: variantToDTO(variant) });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

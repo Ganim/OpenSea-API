@@ -33,6 +33,7 @@ export interface ItemsRepository {
   findByUniqueCode(uniqueCode: string): Promise<Item | null>;
   findAll(): Promise<Item[]>;
   findManyByVariant(variantId: UniqueEntityID): Promise<Item[]>;
+  findManyByProduct(productId: UniqueEntityID): Promise<Item[]>;
   findManyByLocation(locationId: UniqueEntityID): Promise<Item[]>;
   findManyByStatus(status: ItemStatus): Promise<Item[]>;
   findManyByBatch(batchNumber: string): Promise<Item[]>;

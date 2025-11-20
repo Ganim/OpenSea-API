@@ -1,10 +1,10 @@
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { manufacturerResponseSchema } from '@/http/schemas';
+import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
+import { makeListManufacturersUseCase } from '@/use-cases/stock/manufacturers/factories/make-list-manufacturers-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
-
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { manufacturerResponseSchema } from '@/http/schemas';
-import { makeListManufacturersUseCase } from '@/use-cases/stock/manufacturers/factories/make-list-manufacturers-use-case';
 
 export async function listManufacturersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -27,7 +27,9 @@ export async function listManufacturersController(app: FastifyInstance) {
 
       const result = await useCase.execute();
 
-      return reply.send(result);
+      return reply.send({
+        manufacturers: result.manufacturers.map(manufacturerToDTO),
+      });
     },
   });
 }

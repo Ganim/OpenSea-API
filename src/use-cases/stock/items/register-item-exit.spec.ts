@@ -84,8 +84,8 @@ describe('RegisterItemExitUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -102,8 +102,8 @@ describe('RegisterItemExitUseCase', () => {
     // First register an entry
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-001',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 100,
       userId,
     });
@@ -143,8 +143,8 @@ describe('RegisterItemExitUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -160,8 +160,8 @@ describe('RegisterItemExitUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-002',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 50,
       userId,
     });
@@ -224,8 +224,8 @@ describe('RegisterItemExitUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -241,8 +241,8 @@ describe('RegisterItemExitUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-003',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 10,
       userId,
     });
@@ -272,8 +272,8 @@ describe('RegisterItemExitUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -289,8 +289,8 @@ describe('RegisterItemExitUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-004',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 20,
       userId,
     });
@@ -320,8 +320,8 @@ describe('RegisterItemExitUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -337,8 +337,8 @@ describe('RegisterItemExitUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-005',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 100,
       userId,
     });
@@ -370,8 +370,8 @@ describe('RegisterItemExitUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -387,8 +387,8 @@ describe('RegisterItemExitUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-006',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 100,
       userId,
     });
@@ -420,8 +420,8 @@ describe('RegisterItemExitUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -437,8 +437,8 @@ describe('RegisterItemExitUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-007',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 100,
       userId,
     });

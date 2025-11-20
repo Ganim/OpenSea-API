@@ -66,53 +66,29 @@ describe('ListItemsUseCase', () => {
   });
 
   it('should be able to list items by variant', async () => {
-    const { template } = await createTemplate.execute({
-      name: 'Test Template',
-      productAttributes: { brand: 'string' },
-    });
+    const variantId = new UniqueEntityID();
+    const locationId = new UniqueEntityID();
 
-    const { product } = await createProduct.execute({
-      name: 'Test Product',
-      code: 'PROD-001',
-      status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
-      attributes: { brand: 'Samsung' },
-      templateId: template.id,
-    });
-
-    const { variant } = await createVariant.execute({
-      productId: product.id,
-      sku: 'SKU-001',
-      name: 'Test Variant',
-      price: 100,
-    });
-
-    const { location } = await createLocation.execute({
-      code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
-    });
-
-    const userId = new UniqueEntityID().toString();
-
-    await registerItemEntry.execute({
+    await itemsRepository.create({
       uniqueCode: 'ITEM-001',
-      variantId: variant.id,
-      locationId: location.id,
-      quantity: 100,
-      userId,
+      variantId,
+      locationId,
+      initialQuantity: 100,
+      currentQuantity: 100,
+      status: ItemStatus.create('AVAILABLE'),
     });
 
-    await registerItemEntry.execute({
+    await itemsRepository.create({
       uniqueCode: 'ITEM-002',
-      variantId: variant.id,
-      locationId: location.id,
-      quantity: 50,
-      userId,
+      variantId,
+      locationId,
+      initialQuantity: 50,
+      currentQuantity: 50,
+      status: ItemStatus.create('AVAILABLE'),
     });
 
     const result = await listItems.execute({
-      variantId: variant.id,
+      variantId: variantId.toString(),
     });
 
     expect(result.items).toHaveLength(2);
@@ -121,59 +97,30 @@ describe('ListItemsUseCase', () => {
   });
 
   it('should be able to list items by location', async () => {
-    const { template } = await createTemplate.execute({
-      name: 'Test Template',
-      productAttributes: { brand: 'string' },
-    });
+    const variantId = new UniqueEntityID();
+    const locationIdA = new UniqueEntityID();
+    const locationIdB = new UniqueEntityID();
 
-    const { product } = await createProduct.execute({
-      name: 'Test Product',
-      code: 'PROD-001',
-      status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
-      attributes: { brand: 'Samsung' },
-      templateId: template.id,
-    });
-
-    const { variant } = await createVariant.execute({
-      productId: product.id,
-      sku: 'SKU-001',
-      name: 'Test Variant',
-      price: 100,
-    });
-
-    const { location: locationA } = await createLocation.execute({
-      code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
-    });
-
-    const { location: locationB } = await createLocation.execute({
-      code: 'WH-B',
-      description: 'Warehouse B',
-      locationType: 'WAREHOUSE',
-    });
-
-    const userId = new UniqueEntityID().toString();
-
-    await registerItemEntry.execute({
+    await itemsRepository.create({
       uniqueCode: 'ITEM-003',
-      variantId: variant.id,
-      locationId: locationA.id,
-      quantity: 100,
-      userId,
+      variantId,
+      locationId: locationIdA,
+      initialQuantity: 100,
+      currentQuantity: 100,
+      status: ItemStatus.create('AVAILABLE'),
     });
 
-    await registerItemEntry.execute({
+    await itemsRepository.create({
       uniqueCode: 'ITEM-004',
-      variantId: variant.id,
-      locationId: locationB.id,
-      quantity: 50,
-      userId,
+      variantId,
+      locationId: locationIdB,
+      initialQuantity: 50,
+      currentQuantity: 50,
+      status: ItemStatus.create('AVAILABLE'),
     });
 
     const result = await listItems.execute({
-      locationId: locationA.id,
+      locationId: locationIdA.toString(),
     });
 
     expect(result.items).toHaveLength(1);

@@ -44,19 +44,17 @@ describe('GetProductByIdUseCase', () => {
       code: 'LAPTOP-001',
       description: 'High performance laptop',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
-    const result = await sut.execute({ id: created.product.id });
+    const result = await sut.execute({ id: created.product.id.toString() });
 
-    expect(result.product).toEqual(
-      expect.objectContaining({
-        id: created.product.id,
-        name: 'Laptop Dell',
-        description: 'High performance laptop',
-        code: 'LAPTOP-001',
-      }),
-    );
+    expect(result.product.id.toString()).toBe(created.product.id.toString());
+    expect(result.product.name).toBe('Laptop Dell');
+    expect(result.product.description).toBe('High performance laptop');
+    expect(result.product.code).toBe('LAPTOP-001');
+    expect(result.product.status.value).toBe('DRAFT');
+    expect(result.product.unitOfMeasure.value).toBe('UNITS');
   });
 
   it('should throw error if product not found', async () => {

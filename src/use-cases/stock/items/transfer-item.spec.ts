@@ -85,8 +85,8 @@ describe('TransferItemUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -108,21 +108,21 @@ describe('TransferItemUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-001',
-      variantId: variant.id,
-      locationId: locationA.id,
+      variantId: variant.id.toString(),
+      locationId: locationA.id.toString(),
       quantity: 100,
       userId,
     });
 
     const result = await transferItem.execute({
       itemId: entryItem.id,
-      destinationLocationId: locationB.id,
+      destinationLocationId: locationB.id.toString(),
       userId,
       reasonCode: 'Relocation',
     });
 
     expect(result.item).toBeDefined();
-    expect(result.item.locationId).toBe(locationB.id);
+    expect(result.item.locationId).toBe(locationB.id.toString());
     expect(result.item.currentQuantity).toBe(100); // Quantity unchanged
     expect(result.movement).toBeDefined();
     expect(result.movement.movementType).toBe('TRANSFER');
@@ -144,8 +144,8 @@ describe('TransferItemUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -161,8 +161,8 @@ describe('TransferItemUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-002',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 50,
       userId,
     });
@@ -170,7 +170,7 @@ describe('TransferItemUseCase', () => {
     await expect(() =>
       transferItem.execute({
         itemId: entryItem.id,
-        destinationLocationId: location.id,
+        destinationLocationId: location.id.toString(),
         userId,
       }),
     ).rejects.toThrow(BadRequestError);
@@ -186,7 +186,7 @@ describe('TransferItemUseCase', () => {
     await expect(() =>
       transferItem.execute({
         itemId: new UniqueEntityID().toString(),
-        destinationLocationId: location.id,
+        destinationLocationId: location.id.toString(),
         userId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -207,8 +207,8 @@ describe('TransferItemUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -224,8 +224,8 @@ describe('TransferItemUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-003',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 30,
       userId,
     });
@@ -254,8 +254,8 @@ describe('TransferItemUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -277,15 +277,15 @@ describe('TransferItemUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-004',
-      variantId: variant.id,
-      locationId: locationA.id,
+      variantId: variant.id.toString(),
+      locationId: locationA.id.toString(),
       quantity: 25,
       userId,
     });
 
     const result = await transferItem.execute({
       itemId: entryItem.id,
-      destinationLocationId: locationB.id,
+      destinationLocationId: locationB.id.toString(),
       userId,
       reasonCode: 'Stock replenishment',
       notes: 'Transferred for display',
@@ -311,8 +311,8 @@ describe('TransferItemUseCase', () => {
       templateId: template.id,
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -340,8 +340,8 @@ describe('TransferItemUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-005',
-      variantId: variant.id,
-      locationId: locationA.id,
+      variantId: variant.id.toString(),
+      locationId: locationA.id.toString(),
       quantity: 100,
       userId,
     });
@@ -349,18 +349,18 @@ describe('TransferItemUseCase', () => {
     // First transfer: A -> B
     await transferItem.execute({
       itemId: entryItem.id,
-      destinationLocationId: locationB.id,
+      destinationLocationId: locationB.id.toString(),
       userId,
     });
 
     // Second transfer: B -> C
     const finalResult = await transferItem.execute({
       itemId: entryItem.id,
-      destinationLocationId: locationC.id,
+      destinationLocationId: locationC.id.toString(),
       userId,
     });
 
-    expect(finalResult.item.locationId).toBe(locationC.id);
+    expect(finalResult.item.locationId).toBe(locationC.id.toString());
     expect(finalResult.item.currentQuantity).toBe(100); // Quantity unchanged
   });
 });

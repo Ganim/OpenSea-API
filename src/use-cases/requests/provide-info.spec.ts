@@ -110,7 +110,9 @@ describe('ProvideInfoUseCase', () => {
         providedById: 'requester-1',
         informationProvided: 'Test info',
       }),
-    ).rejects.toThrow('Can only provide information for requests that are pending additional info');
+    ).rejects.toThrow(
+      'Can only provide information for requests that are pending additional info',
+    );
   });
 
   it('should not notify if request has no assignee', async () => {

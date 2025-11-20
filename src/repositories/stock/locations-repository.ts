@@ -31,6 +31,9 @@ export interface LocationsRepository {
   findManyByParent(parentId: UniqueEntityID): Promise<Location[]>;
   findManyActive(): Promise<Location[]>;
   findManyNearCapacity(threshold: number): Promise<Location[]>;
+  countSubLocations(parentId: UniqueEntityID): Promise<number>;
+  countDirectItems(locationId: UniqueEntityID): Promise<number>;
+  countTotalItems(locationId: UniqueEntityID): Promise<number>;
   update(data: UpdateLocationSchema): Promise<Location | null>;
   save(location: Location): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

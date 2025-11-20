@@ -12,9 +12,19 @@ export interface LocationDTO {
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
+  subLocationCount?: number;
+  directItemCount?: number;
+  totalItemCount?: number;
 }
 
-export function locationToDTO(location: Location): LocationDTO {
+export function locationToDTO(
+  location: Location,
+  counts?: {
+    subLocationCount?: number;
+    directItemCount?: number;
+    totalItemCount?: number;
+  },
+): LocationDTO {
   return {
     id: location.id.toString(),
     code: location.code,
@@ -27,5 +37,8 @@ export function locationToDTO(location: Location): LocationDTO {
     createdAt: location.createdAt,
     updatedAt: location.updatedAt,
     deletedAt: location.deletedAt,
+    subLocationCount: counts?.subLocationCount,
+    directItemCount: counts?.directItemCount,
+    totalItemCount: counts?.totalItemCount,
   };
 }

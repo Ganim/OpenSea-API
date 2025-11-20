@@ -1,9 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import {
-  type ManufacturerDTO,
-  manufacturerToDTO,
-} from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 
 interface GetManufacturerByIdUseCaseRequest {
@@ -11,7 +7,7 @@ interface GetManufacturerByIdUseCaseRequest {
 }
 
 interface GetManufacturerByIdUseCaseResponse {
-  manufacturer: ManufacturerDTO;
+  manufacturer: import('@/entities/stock/manufacturer').Manufacturer;
 }
 
 export class GetManufacturerByIdUseCase {
@@ -31,7 +27,7 @@ export class GetManufacturerByIdUseCase {
     }
 
     return {
-      manufacturer: manufacturerToDTO(manufacturer),
+      manufacturer,
     };
   }
 }

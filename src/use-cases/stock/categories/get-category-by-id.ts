@@ -1,9 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import {
-  CategoryDTO,
-  categoryToDTO,
-} from '@/mappers/stock/category/category-to-dto';
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 
 interface GetCategoryByIdUseCaseRequest {
@@ -11,7 +7,7 @@ interface GetCategoryByIdUseCaseRequest {
 }
 
 interface GetCategoryByIdUseCaseResponse {
-  category: CategoryDTO;
+  category: import('@/entities/stock/category').Category;
 }
 
 export class GetCategoryByIdUseCase {
@@ -29,7 +25,7 @@ export class GetCategoryByIdUseCase {
     }
 
     return {
-      category: categoryToDTO(category),
+      category,
     };
   }
 }

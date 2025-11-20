@@ -54,22 +54,22 @@ describe('CreateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
     const result = await createVariant.execute({
-      productId: product.id,
+      productId: product.id.toString(),
       sku: 'PHONE-001-BLK-128',
       name: 'Smartphone Black 128GB',
       price: 999.99,
       attributes: { color: 'Black', storage: '128GB' },
     });
 
-    expect(result.variant).toBeDefined();
-    expect(result.variant.sku).toBe('PHONE-001-BLK-128');
-    expect(result.variant.name).toBe('Smartphone Black 128GB');
-    expect(result.variant.price).toBe(999.99);
-    expect(result.variant.productId).toBe(product.id);
+    expect(result).toBeDefined();
+    expect(result.sku).toBe('PHONE-001-BLK-128');
+    expect(result.name).toBe('Smartphone Black 128GB');
+    expect(result.price).toBe(999.99);
+    expect(result.productId.toString()).toBe(product.id.toString());
   });
 
   it('should be able to create a variant with all optional fields', async () => {
@@ -85,11 +85,11 @@ describe('CreateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
     const result = await createVariant.execute({
-      productId: product.id,
+      productId: product.id.toString(),
       sku: 'PHONE-001-BLK',
       name: 'Smartphone Black',
       price: 999.99,
@@ -107,30 +107,33 @@ describe('CreateVariantUseCase', () => {
       reorderQuantity: 50,
     });
 
-    expect(result.variant.costPrice).toBe(600);
-    expect(result.variant.profitMargin).toBe(40);
-    expect(result.variant.barcode).toBe('123456789012');
-    expect(result.variant.eanCode).toBe('1234567890123');
-    expect(result.variant.upcCode).toBe('123456789012');
-    expect(result.variant.minStock).toBe(10);
-    expect(result.variant.maxStock).toBe(100);
-  });
-
-  it('should not allow creating variant with empty SKU', async () => {
-    await expect(() =>
-      createVariant.execute({
-        productId: new UniqueEntityID().toString(),
-        sku: '',
-        name: 'Test Variant',
-        price: 100,
-      }),
-    ).rejects.toThrow(BadRequestError);
+    expect(result.costPrice).toBe(600);
+    expect(result.profitMargin).toBe(40);
+    expect(result.barcode).toBe('123456789012');
+    expect(result.eanCode).toBe('1234567890123');
+    expect(result.upcCode).toBe('123456789012');
+    expect(result.minStock).toBe(10);
+    expect(result.maxStock).toBe(100);
   });
 
   it('should not allow creating variant with SKU exceeding 64 characters', async () => {
+    const { template } = await createTemplate.execute({
+      name: 'Test Template',
+      productAttributes: { brand: 'string' },
+    });
+
+    const { product } = await createProduct.execute({
+      name: 'Test Product',
+      code: 'PROD-001',
+      status: 'ACTIVE',
+      unitOfMeasure: 'UNITS',
+      attributes: {},
+      templateId: template.id.toString(),
+    });
+
     await expect(() =>
       createVariant.execute({
-        productId: new UniqueEntityID().toString(),
+        productId: product.id.toString(),
         sku: 'A'.repeat(65),
         name: 'Test Variant',
         price: 100,
@@ -139,9 +142,23 @@ describe('CreateVariantUseCase', () => {
   });
 
   it('should not allow creating variant with empty name', async () => {
+    const { template } = await createTemplate.execute({
+      name: 'Test Template',
+      productAttributes: { brand: 'string' },
+    });
+
+    const { product } = await createProduct.execute({
+      name: 'Test Product',
+      code: 'PROD-001',
+      status: 'ACTIVE',
+      unitOfMeasure: 'UNITS',
+      attributes: {},
+      templateId: template.id.toString(),
+    });
+
     await expect(() =>
       createVariant.execute({
-        productId: new UniqueEntityID().toString(),
+        productId: product.id.toString(),
         sku: 'SKU-001',
         name: '',
         price: 100,
@@ -150,9 +167,23 @@ describe('CreateVariantUseCase', () => {
   });
 
   it('should not allow creating variant with name exceeding 256 characters', async () => {
+    const { template } = await createTemplate.execute({
+      name: 'Test Template',
+      productAttributes: { brand: 'string' },
+    });
+
+    const { product } = await createProduct.execute({
+      name: 'Test Product',
+      code: 'PROD-001',
+      status: 'ACTIVE',
+      unitOfMeasure: 'UNITS',
+      attributes: {},
+      templateId: template.id.toString(),
+    });
+
     await expect(() =>
       createVariant.execute({
-        productId: new UniqueEntityID().toString(),
+        productId: product.id.toString(),
         sku: 'SKU-001',
         name: 'A'.repeat(257),
         price: 100,
@@ -161,9 +192,23 @@ describe('CreateVariantUseCase', () => {
   });
 
   it('should not allow creating variant with negative price', async () => {
+    const { template } = await createTemplate.execute({
+      name: 'Test Template',
+      productAttributes: { brand: 'string' },
+    });
+
+    const { product } = await createProduct.execute({
+      name: 'Test Product',
+      code: 'PROD-001',
+      status: 'ACTIVE',
+      unitOfMeasure: 'UNITS',
+      attributes: {},
+      templateId: template.id.toString(),
+    });
+
     await expect(() =>
       createVariant.execute({
-        productId: new UniqueEntityID().toString(),
+        productId: product.id.toString(),
         sku: 'SKU-001',
         name: 'Test Variant',
         price: -10,
@@ -172,9 +217,23 @@ describe('CreateVariantUseCase', () => {
   });
 
   it('should not allow creating variant with profit margin below 0', async () => {
+    const { template } = await createTemplate.execute({
+      name: 'Test Template',
+      productAttributes: { brand: 'string' },
+    });
+
+    const { product } = await createProduct.execute({
+      name: 'Test Product',
+      code: 'PROD-001',
+      status: 'ACTIVE',
+      unitOfMeasure: 'UNITS',
+      attributes: {},
+      templateId: template.id.toString(),
+    });
+
     await expect(() =>
       createVariant.execute({
-        productId: new UniqueEntityID().toString(),
+        productId: product.id.toString(),
         sku: 'SKU-001',
         name: 'Test Variant',
         price: 100,
@@ -184,9 +243,23 @@ describe('CreateVariantUseCase', () => {
   });
 
   it('should not allow creating variant with profit margin above 100', async () => {
+    const { template } = await createTemplate.execute({
+      name: 'Test Template',
+      productAttributes: { brand: 'string' },
+    });
+
+    const { product } = await createProduct.execute({
+      name: 'Test Product',
+      code: 'PROD-001',
+      status: 'ACTIVE',
+      unitOfMeasure: 'UNITS',
+      attributes: {},
+      templateId: template.id.toString(),
+    });
+
     await expect(() =>
       createVariant.execute({
-        productId: new UniqueEntityID().toString(),
+        productId: product.id.toString(),
         sku: 'SKU-001',
         name: 'Test Variant',
         price: 100,
@@ -196,9 +269,23 @@ describe('CreateVariantUseCase', () => {
   });
 
   it('should not allow creating variant with negative cost price', async () => {
+    const { template } = await createTemplate.execute({
+      name: 'Test Template',
+      productAttributes: { brand: 'string' },
+    });
+
+    const { product } = await createProduct.execute({
+      name: 'Test Product',
+      code: 'PROD-001',
+      status: 'ACTIVE',
+      unitOfMeasure: 'UNITS',
+      attributes: {},
+      templateId: template.id.toString(),
+    });
+
     await expect(() =>
       createVariant.execute({
-        productId: new UniqueEntityID().toString(),
+        productId: product.id.toString(),
         sku: 'SKU-001',
         name: 'Test Variant',
         price: 100,
@@ -255,11 +342,11 @@ describe('CreateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
     await createVariant.execute({
-      productId: product.id,
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Variant 1',
       price: 100,
@@ -267,7 +354,7 @@ describe('CreateVariantUseCase', () => {
 
     await expect(() =>
       createVariant.execute({
-        productId: product.id,
+        productId: product.id.toString(),
         sku: 'SKU-001',
         name: 'Variant 2',
         price: 200,
@@ -287,11 +374,11 @@ describe('CreateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
     await createVariant.execute({
-      productId: product.id,
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Variant 1',
       price: 100,
@@ -300,7 +387,7 @@ describe('CreateVariantUseCase', () => {
 
     await expect(() =>
       createVariant.execute({
-        productId: product.id,
+        productId: product.id.toString(),
         sku: 'SKU-002',
         name: 'Variant 2',
         price: 200,
@@ -321,11 +408,11 @@ describe('CreateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
     await createVariant.execute({
-      productId: product.id,
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Variant 1',
       price: 100,
@@ -334,7 +421,7 @@ describe('CreateVariantUseCase', () => {
 
     await expect(() =>
       createVariant.execute({
-        productId: product.id,
+        productId: product.id.toString(),
         sku: 'SKU-002',
         name: 'Variant 2',
         price: 200,
@@ -355,11 +442,11 @@ describe('CreateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
     await createVariant.execute({
-      productId: product.id,
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Variant 1',
       price: 100,
@@ -368,7 +455,7 @@ describe('CreateVariantUseCase', () => {
 
     await expect(() =>
       createVariant.execute({
-        productId: product.id,
+        productId: product.id.toString(),
         sku: 'SKU-002',
         name: 'Variant 2',
         price: 200,
@@ -390,12 +477,12 @@ describe('CreateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
     await expect(() =>
       createVariant.execute({
-        productId: product.id,
+        productId: product.id.toString(),
         sku: 'PHONE-001-BLK',
         name: 'Smartphone Black',
         price: 999.99,

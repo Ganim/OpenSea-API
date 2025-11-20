@@ -648,6 +648,10 @@ model Variant {
   eanCode String? @unique @map("ean_code") @db.VarChar(13)
   upcCode String? @unique @map("upc_code") @db.VarChar(12)
 
+  // Cores
+  colorHex     String? @map("color_hex") @db.VarChar(7) // Formato hex: #FF5733
+  colorPantone String? @map("color_pantone") @db.VarChar(32) // Ex: "PMS 185 C"
+
   // Controle de Estoque
   minStock        Decimal? @map("min_stock") @db.Decimal(10, 3)
   maxStock        Decimal? @map("max_stock") @db.Decimal(10, 3)

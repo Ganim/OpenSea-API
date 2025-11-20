@@ -1,9 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import {
-  CategoryDTO,
-  categoryToDTO,
-} from '@/mappers/stock/category/category-to-dto';
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 
 interface CreateCategoryUseCaseRequest {
@@ -16,7 +12,7 @@ interface CreateCategoryUseCaseRequest {
 }
 
 interface CreateCategoryUseCaseResponse {
-  category: CategoryDTO;
+  category: import('@/entities/stock/category').Category;
 }
 
 export class CreateCategoryUseCase {
@@ -78,10 +74,8 @@ export class CreateCategoryUseCase {
       isActive,
     });
 
-    const category = categoryToDTO(newCategory);
-
     return {
-      category,
+      category: newCategory,
     };
   }
 }

@@ -60,24 +60,24 @@ describe('UpdateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Original Name',
       price: 100,
     });
 
     const result = await updateVariant.execute({
-      id: variant.id,
+      id: variant.id.toString(),
       name: 'Updated Name',
       price: 150,
     });
 
-    expect(result.variant.name).toBe('Updated Name');
-    expect(result.variant.price).toBe(150);
+    expect(result.name).toBe('Updated Name');
+    expect(result.price).toBe(150);
   });
 
   it('should be able to update variant partially', async () => {
@@ -92,23 +92,23 @@ describe('UpdateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Original Name',
       price: 100,
     });
 
     const result = await updateVariant.execute({
-      id: variant.id,
+      id: variant.id.toString(),
       price: 200,
     });
 
-    expect(result.variant.name).toBe('Original Name');
-    expect(result.variant.price).toBe(200);
+    expect(result.name).toBe('Original Name');
+    expect(result.price).toBe(200);
   });
 
   it('should throw error if variant not found', async () => {
@@ -132,11 +132,11 @@ describe('UpdateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Original Name',
       price: 100,
@@ -144,7 +144,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
-        id: variant.id,
+        id: variant.id.toString(),
         name: '',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -162,18 +162,18 @@ describe('UpdateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
     await createVariant.execute({
-      productId: product.id,
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Variant 1',
       price: 100,
     });
 
-    const { variant: variant2 } = await createVariant.execute({
-      productId: product.id,
+    const variant2 = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-002',
       name: 'Variant 2',
       price: 200,
@@ -181,7 +181,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
-        id: variant2.id,
+        id: variant2.id.toString(),
         sku: 'SKU-001',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -199,11 +199,11 @@ describe('UpdateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -211,7 +211,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
-        id: variant.id,
+        id: variant.id.toString(),
         price: -10,
       }),
     ).rejects.toThrow(BadRequestError);
@@ -229,11 +229,11 @@ describe('UpdateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -241,7 +241,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
-        id: variant.id,
+        id: variant.id.toString(),
         profitMargin: 150,
       }),
     ).rejects.toThrow(BadRequestError);
@@ -259,11 +259,11 @@ describe('UpdateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -271,7 +271,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
-        id: variant.id,
+        id: variant.id.toString(),
         minStock: 100,
         maxStock: 50,
       }),
@@ -291,11 +291,11 @@ describe('UpdateVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'PHONE-001-BLK',
       name: 'Smartphone Black',
       price: 999.99,
@@ -304,7 +304,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
-        id: variant.id,
+        id: variant.id.toString(),
         attributes: { color: 'White', invalidKey: 'InvalidValue' },
       }),
     ).rejects.toThrow(BadRequestError);

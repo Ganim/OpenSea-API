@@ -23,10 +23,10 @@ describe('DeleteLocationUseCase', () => {
       code: 'WH-001',
     });
 
-    await sut.execute({ id: created.location.id });
+    await sut.execute({ id: created.location.id.toString() });
 
     await expect(
-      getLocation.execute({ id: created.location.id }),
+      getLocation.execute({ id: created.location.id.toString() }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
 

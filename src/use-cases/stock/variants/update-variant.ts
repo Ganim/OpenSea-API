@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { Variant } from '@/entities/stock/variant';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
@@ -24,30 +25,6 @@ export interface UpdateVariantUseCaseInput {
   reorderQuantity?: number;
 }
 
-export interface UpdateVariantUseCaseOutput {
-  variant: {
-    id: string;
-    productId: string;
-    sku: string;
-    name: string;
-    price: number;
-    imageUrl?: string;
-    attributes: Record<string, unknown>;
-    costPrice?: number;
-    profitMargin?: number;
-    barcode?: string;
-    qrCode?: string;
-    eanCode?: string;
-    upcCode?: string;
-    minStock?: number;
-    maxStock?: number;
-    reorderPoint?: number;
-    reorderQuantity?: number;
-    createdAt: Date;
-    updatedAt?: Date;
-  };
-}
-
 export class UpdateVariantUseCase {
   constructor(
     private variantsRepository: VariantsRepository,
@@ -55,9 +32,7 @@ export class UpdateVariantUseCase {
     private templatesRepository: TemplatesRepository,
   ) {}
 
-  async execute(
-    input: UpdateVariantUseCaseInput,
-  ): Promise<UpdateVariantUseCaseOutput> {
+  async execute(input: UpdateVariantUseCaseInput): Promise<Variant> {
     const variantId = new UniqueEntityID(input.id);
     const variant = await this.variantsRepository.findById(variantId);
 
@@ -249,28 +224,6 @@ export class UpdateVariantUseCase {
       throw new ResourceNotFoundError('Variant not found');
     }
 
-    return {
-      variant: {
-        id: updatedVariant.id.toString(),
-        productId: updatedVariant.productId.toString(),
-        sku: updatedVariant.sku,
-        name: updatedVariant.name,
-        price: updatedVariant.price,
-        imageUrl: updatedVariant.imageUrl,
-        attributes: updatedVariant.attributes,
-        costPrice: updatedVariant.costPrice,
-        profitMargin: updatedVariant.profitMargin,
-        barcode: updatedVariant.barcode,
-        qrCode: updatedVariant.qrCode,
-        eanCode: updatedVariant.eanCode,
-        upcCode: updatedVariant.upcCode,
-        minStock: updatedVariant.minStock,
-        maxStock: updatedVariant.maxStock,
-        reorderPoint: updatedVariant.reorderPoint,
-        reorderQuantity: updatedVariant.reorderQuantity,
-        createdAt: updatedVariant.createdAt,
-        updatedAt: updatedVariant.updatedAt,
-      },
-    };
+    return updatedVariant;
   }
 }

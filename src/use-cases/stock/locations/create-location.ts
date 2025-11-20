@@ -1,10 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { LocationType } from '@/entities/stock/value-objects/location-type';
-import {
-  type LocationDTO,
-  locationToDTO,
-} from '@/mappers/stock/location/location-to-dto';
 import { LocationsRepository } from '@/repositories/stock/locations-repository';
 
 interface CreateLocationUseCaseRequest {
@@ -17,7 +13,7 @@ interface CreateLocationUseCaseRequest {
 }
 
 interface CreateLocationUseCaseResponse {
-  location: LocationDTO;
+  location: import('@/entities/stock/location').Location;
 }
 
 export class CreateLocationUseCase {
@@ -118,7 +114,7 @@ export class CreateLocationUseCase {
     });
 
     return {
-      location: locationToDTO(createdLocation),
+      location: createdLocation,
     };
   }
 }

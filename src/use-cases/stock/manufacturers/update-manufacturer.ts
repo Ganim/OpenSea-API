@@ -1,10 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import {
-  type ManufacturerDTO,
-  manufacturerToDTO,
-} from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 
 interface UpdateManufacturerUseCaseRequest {
@@ -25,7 +21,7 @@ interface UpdateManufacturerUseCaseRequest {
 }
 
 interface UpdateManufacturerUseCaseResponse {
-  manufacturer: ManufacturerDTO;
+  manufacturer: import('@/entities/stock/manufacturer').Manufacturer;
 }
 
 export class UpdateManufacturerUseCase {
@@ -136,7 +132,7 @@ export class UpdateManufacturerUseCase {
     }
 
     return {
-      manufacturer: manufacturerToDTO(updatedManufacturer),
+      manufacturer: updatedManufacturer,
     };
   }
 }

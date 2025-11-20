@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import { createVariantSchema, variantResponseSchema } from '@/http/schemas';
+import { variantToDTO } from '@/mappers/stock/variant/variant-to-dto';
 import { makeCreateVariantUseCase } from '@/use-cases/stock/variants/factories/make-create-variant-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -53,7 +54,7 @@ export async function createVariantController(app: FastifyInstance) {
 
       try {
         const createVariantUseCase = makeCreateVariantUseCase();
-        const { variant } = await createVariantUseCase.execute({
+        const variant = await createVariantUseCase.execute({
           productId,
           sku,
           name,
@@ -72,7 +73,7 @@ export async function createVariantController(app: FastifyInstance) {
           reorderQuantity,
         });
 
-        return reply.status(201).send({ variant });
+        return reply.status(201).send({ variant: variantToDTO(variant) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

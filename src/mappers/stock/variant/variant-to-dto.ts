@@ -23,6 +23,13 @@ export interface VariantDTO {
   deletedAt?: Date;
 }
 
+export interface VariantWithAggregationsDTO extends VariantDTO {
+  productCode: string;
+  productName: string;
+  itemCount: number;
+  totalCurrentQuantity: number;
+}
+
 export function variantToDTO(variant: Variant): VariantDTO {
   return {
     id: variant.id.toString(),
@@ -45,5 +52,23 @@ export function variantToDTO(variant: Variant): VariantDTO {
     createdAt: variant.createdAt,
     updatedAt: variant.updatedAt,
     deletedAt: variant.deletedAt,
+  };
+}
+
+export function variantWithAggregationsToDTO(
+  variantWithAggregations: {
+    variant: Variant;
+    productCode: string;
+    productName: string;
+    itemCount: number;
+    totalCurrentQuantity: number;
+  },
+): VariantWithAggregationsDTO {
+  return {
+    ...variantToDTO(variantWithAggregations.variant),
+    productCode: variantWithAggregations.productCode,
+    productName: variantWithAggregations.productName,
+    itemCount: variantWithAggregations.itemCount,
+    totalCurrentQuantity: variantWithAggregations.totalCurrentQuantity,
   };
 }

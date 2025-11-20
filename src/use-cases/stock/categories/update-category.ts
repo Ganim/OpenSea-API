@@ -1,10 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import {
-  CategoryDTO,
-  categoryToDTO,
-} from '@/mappers/stock/category/category-to-dto';
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 
 interface UpdateCategoryUseCaseRequest {
@@ -18,7 +14,7 @@ interface UpdateCategoryUseCaseRequest {
 }
 
 interface UpdateCategoryUseCaseResponse {
-  category: CategoryDTO;
+  category: import('@/entities/stock/category').Category;
 }
 
 export class UpdateCategoryUseCase {
@@ -119,7 +115,7 @@ export class UpdateCategoryUseCase {
     }
 
     return {
-      category: categoryToDTO(updatedCategory),
+      category: updatedCategory,
     };
   }
 }

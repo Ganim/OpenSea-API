@@ -1,5 +1,6 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { variantResponseSchema } from '@/http/schemas';
+import { variantToDTO } from '@/mappers/stock/variant/variant-to-dto';
 import { makeListVariantsUseCase } from '@/use-cases/stock/variants/factories/make-list-variants-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -23,9 +24,9 @@ export async function listVariantsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const listVariantsUseCase = makeListVariantsUseCase();
-      const { variants } = await listVariantsUseCase.execute();
+      const variants = await listVariantsUseCase.execute();
 
-      return reply.status(200).send({ variants });
+      return reply.status(200).send({ variants: variants.map(variantToDTO) });
     },
   });
 }

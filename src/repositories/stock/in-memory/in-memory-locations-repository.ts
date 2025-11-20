@@ -2,9 +2,9 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Location } from '@/entities/stock/location';
 import { LocationType } from '@/entities/stock/value-objects/location-type';
 import type {
-  CreateLocationSchema,
-  LocationsRepository,
-  UpdateLocationSchema,
+    CreateLocationSchema,
+    LocationsRepository,
+    UpdateLocationSchema,
 } from '../locations-repository';
 
 export class InMemoryLocationsRepository implements LocationsRepository {
@@ -94,6 +94,22 @@ export class InMemoryLocationsRepository implements LocationsRepository {
     } else {
       this.items.push(location);
     }
+  }
+
+  async countSubLocations(parentId: UniqueEntityID): Promise<number> {
+    return this.items.filter(
+      (item) => !item.deletedAt && item.parentId?.equals(parentId),
+    ).length;
+  }
+
+  async countDirectItems(locationId: UniqueEntityID): Promise<number> {
+    // In-memory repository doesn't have items, so return 0
+    return 0;
+  }
+
+  async countTotalItems(locationId: UniqueEntityID): Promise<number> {
+    // In-memory repository doesn't have items, so return 0
+    return 0;
   }
 
   async delete(id: UniqueEntityID): Promise<void> {

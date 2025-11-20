@@ -23,7 +23,7 @@ describe('UpdateManufacturerUseCase', () => {
     });
 
     const result = await sut.execute({
-      id: created.manufacturer.id,
+      id: created.manufacturer.manufacturerId.toString(),
       name: 'TechCorp Industries',
       country: 'Canada',
       rating: 4.8,
@@ -31,7 +31,7 @@ describe('UpdateManufacturerUseCase', () => {
 
     expect(result.manufacturer).toEqual(
       expect.objectContaining({
-        id: created.manufacturer.id,
+        manufacturerId: created.manufacturer.manufacturerId,
         name: 'TechCorp Industries',
         country: 'Canada',
         rating: 4.8,
@@ -47,7 +47,7 @@ describe('UpdateManufacturerUseCase', () => {
     });
 
     const result = await sut.execute({
-      id: created.manufacturer.id,
+      id: created.manufacturer.manufacturerId.toString(),
       rating: 4.5,
     });
 
@@ -74,7 +74,7 @@ describe('UpdateManufacturerUseCase', () => {
 
     await expect(
       sut.execute({
-        id: created.manufacturer.id,
+        id: created.manufacturer.manufacturerId.toString(),
         name: '',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -93,7 +93,7 @@ describe('UpdateManufacturerUseCase', () => {
 
     await expect(
       sut.execute({
-        id: second.manufacturer.id,
+        id: second.manufacturer.manufacturerId.toString(),
         name: 'TechCorp',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -107,7 +107,7 @@ describe('UpdateManufacturerUseCase', () => {
 
     await expect(
       sut.execute({
-        id: created.manufacturer.id,
+        id: created.manufacturer.manufacturerId.toString(),
         rating: 6,
       }),
     ).rejects.toThrow(BadRequestError);

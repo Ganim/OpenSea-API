@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import { categoryResponseSchema, updateCategorySchema } from '@/http/schemas';
+import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
 import { makeUpdateCategoryUseCase } from '@/use-cases/stock/categories/factories/make-update-category-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -51,7 +52,7 @@ export async function updateCategoryController(app: FastifyInstance) {
           isActive,
         });
 
-        return reply.status(200).send({ category });
+        return reply.status(200).send({ category: categoryToDTO(category) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

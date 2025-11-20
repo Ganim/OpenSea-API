@@ -3,10 +3,6 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
-import {
-  ProductDTO,
-  productToDTO,
-} from '@/mappers/stock/product/product-to-dto';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
@@ -25,7 +21,7 @@ interface UpdateProductUseCaseRequest {
 }
 
 interface UpdateProductUseCaseResponse {
-  product: ProductDTO;
+  product: import('@/entities/stock/product').Product;
 }
 
 export class UpdateProductUseCase {
@@ -193,7 +189,7 @@ export class UpdateProductUseCase {
     }
 
     return {
-      product: productToDTO(updatedProduct),
+      product: updatedProduct,
     };
   }
 }

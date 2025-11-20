@@ -6,6 +6,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import { createLocationSchema, locationResponseSchema } from '@/http/schemas';
+import { locationToDTO } from '@/mappers/stock/location/location-to-dto';
 import { makeCreateLocationUseCase } from '@/use-cases/stock/locations/factories/make-create-location-use-case';
 
 export async function createLocationController(app: FastifyInstance) {
@@ -32,7 +33,7 @@ export async function createLocationController(app: FastifyInstance) {
 
         const result = await useCase.execute(request.body);
 
-        return reply.status(201).send(result);
+        return reply.status(201).send({ location: locationToDTO(result.location) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

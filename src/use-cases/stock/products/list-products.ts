@@ -1,9 +1,7 @@
-import type { ProductDTO } from '@/mappers/stock/product/product-to-dto';
-import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 
 interface ListProductsUseCaseResponse {
-  products: ProductDTO[];
+  products: import('@/entities/stock/product').Product[];
 }
 
 export class ListProductsUseCase {
@@ -13,7 +11,7 @@ export class ListProductsUseCase {
     const products = await this.productsRepository.findMany();
 
     return {
-      products: products.map(productToDTO),
+      products,
     };
   }
 }

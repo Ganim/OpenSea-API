@@ -55,20 +55,20 @@ describe('DeleteVariantUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
     });
 
-    await deleteVariant.execute({ id: variant.id });
+    await deleteVariant.execute({ id: variant.id.toString() });
 
     const deletedVariant = await variantsRepository.findById(
-      new UniqueEntityID(variant.id),
+      new UniqueEntityID(variant.id.toString()),
     );
     expect(deletedVariant).toBeNull();
   });

@@ -46,13 +46,13 @@ describe('DeleteProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
-    await sut.execute({ id: created.product.id });
+    await sut.execute({ id: created.product.id.toString() });
 
     await expect(
-      getProduct.execute({ id: created.product.id }),
+      getProduct.execute({ id: created.product.id.toString() }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
 

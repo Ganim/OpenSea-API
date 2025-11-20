@@ -16,9 +16,21 @@ export interface ItemDTO {
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
+  productCode: string;
+  productName: string;
+  variantSku: string;
+  variantName: string;
 }
 
-export function itemToDTO(item: Item): ItemDTO {
+export function itemToDTO(
+  item: Item,
+  relatedData?: {
+    productCode: string;
+    productName: string;
+    variantSku: string;
+    variantName: string;
+  },
+): ItemDTO {
   return {
     id: item.id.toString(),
     variantId: item.variantId.toString(),
@@ -35,5 +47,9 @@ export function itemToDTO(item: Item): ItemDTO {
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     deletedAt: item.deletedAt,
+    productCode: relatedData?.productCode ?? '',
+    productName: relatedData?.productName ?? '',
+    variantSku: relatedData?.variantSku ?? '',
+    variantName: relatedData?.variantName ?? '',
   };
 }

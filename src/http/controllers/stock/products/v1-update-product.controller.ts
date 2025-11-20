@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import { productResponseSchema, updateProductSchema } from '@/http/schemas';
+import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeUpdateProductUseCase } from '@/use-cases/stock/products/factories/make-update-product-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -59,7 +60,7 @@ export async function updateProductController(app: FastifyInstance) {
           manufacturerId,
         });
 
-        return reply.status(200).send({ product });
+        return reply.status(200).send({ product: productToDTO(product) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

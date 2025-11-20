@@ -74,7 +74,7 @@ describe('CreatePurchaseOrderUseCase', () => {
       attributes: { brand: 'Test Brand' },
     });
 
-    const { variant } = await createVariant.execute({
+    const variant = await createVariant.execute({
       productId: product.id.toString(),
       sku: 'TEST-001',
       name: 'Test Variant',
@@ -139,7 +139,7 @@ describe('CreatePurchaseOrderUseCase', () => {
       attributes: { brand: 'Test Brand' },
     });
 
-    const { variant } = await createVariant.execute({
+    const variant = await createVariant.execute({
       productId: product.id.toString(),
       sku: 'TEST-001',
       name: 'Test Variant',
@@ -243,7 +243,7 @@ describe('CreatePurchaseOrderUseCase', () => {
       attributes: { brand: 'Test Brand' },
     });
 
-    const { variant } = await createVariant.execute({
+    const variant = await createVariant.execute({
       productId: product.id.toString(),
       sku: 'TEST-001',
       name: 'Test Variant',
@@ -285,7 +285,7 @@ describe('CreatePurchaseOrderUseCase', () => {
       attributes: { brand: 'Test Brand' },
     });
 
-    const { variant } = await createVariant.execute({
+    const variant = await createVariant.execute({
       productId: product.id.toString(),
       sku: 'TEST-001',
       name: 'Test Variant',

@@ -55,21 +55,21 @@ describe('GetVariantByIdUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
     });
 
-    const result = await getVariantById.execute({ id: variant.id });
+    const result = await getVariantById.execute({ id: variant.id.toString() });
 
-    expect(result.variant).toBeDefined();
-    expect(result.variant.id).toBe(variant.id);
-    expect(result.variant.name).toBe('Test Variant');
+    expect(result).toBeDefined();
+    expect(result.id.toString()).toBe(variant.id.toString());
+    expect(result.name).toBe('Test Variant');
   });
 
   it('should throw error if variant not found', async () => {

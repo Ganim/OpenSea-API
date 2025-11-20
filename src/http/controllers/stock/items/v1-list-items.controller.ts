@@ -16,6 +16,7 @@ export async function listItemsController(app: FastifyInstance) {
       querystring: z.object({
         variantId: z.uuid().optional(),
         locationId: z.uuid().optional(),
+        productId: z.uuid().optional(),
         status: z.string().optional(),
       }),
       response: {
@@ -27,12 +28,13 @@ export async function listItemsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
-      const { variantId, locationId, status } = request.query;
+      const { variantId, locationId, productId, status } = request.query;
 
       const listItemsUseCase = makeListItemsUseCase();
       const { items } = await listItemsUseCase.execute({
         variantId,
         locationId,
+        productId,
         status,
       });
 

@@ -13,6 +13,8 @@ export interface CreateVariantSchema {
   qrCode?: string;
   eanCode?: string;
   upcCode?: string;
+  colorHex?: string;
+  colorPantone?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
@@ -32,6 +34,8 @@ export interface UpdateVariantSchema {
   qrCode?: string;
   eanCode?: string;
   upcCode?: string;
+  colorHex?: string;
+  colorPantone?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
@@ -50,6 +54,15 @@ export interface VariantsRepository {
   findManyByProduct(productId: UniqueEntityID): Promise<Variant[]>;
   findManyByPriceRange(minPrice: number, maxPrice: number): Promise<Variant[]>;
   findManyBelowReorderPoint(): Promise<Variant[]>;
+  findManyByProductWithAggregations(productId: UniqueEntityID): Promise<
+    Array<{
+      variant: Variant;
+      productCode: string;
+      productName: string;
+      itemCount: number;
+      totalCurrentQuantity: number;
+    }>
+  >;
   update(data: UpdateVariantSchema): Promise<Variant | null>;
   save(variant: Variant): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

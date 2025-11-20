@@ -6,12 +6,46 @@ import { prisma } from '@/lib/prisma';
 import type { ItemStatus as PrismaItemStatus } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-  CreateItemSchema,
-  ItemsRepository,
-  UpdateItemSchema,
+    CreateItemSchema,
+    ItemsRepository,
+    UpdateItemSchema,
 } from '../items-repository';
 
+export interface ItemWithRelations {
+  id: string;
+  uniqueCode: string;
+  variantId: string;
+  locationId: string;
+  initialQuantity: Decimal;
+  currentQuantity: Decimal;
+  status: PrismaItemStatus;
+  entryDate: Date;
+  attributes: object;
+  batchNumber: string | null;
+  manufacturingDate: Date | null;
+  expiryDate: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+  variant: {
+    sku: string;
+    name: string;
+    product: {
+      code: string;
+      name: string;
+    };
+  };
+}
+
 export class PrismaItemsRepository implements ItemsRepository {
+  private extractRelatedData(itemData: ItemWithRelations) {
+    return {
+      productCode: itemData.variant.product.code,
+      productName: itemData.variant.product.name,
+      variantSku: itemData.variant.sku,
+      variantName: itemData.variant.name,
+    };
+  }
   async create(data: CreateItemSchema): Promise<Item> {
     const itemData = await prisma.item.create({
       data: {
@@ -117,6 +151,13 @@ export class PrismaItemsRepository implements ItemsRepository {
       where: {
         deletedAt: null,
       },
+      include: {
+        variant: {
+          include: {
+            product: true,
+          },
+        },
+      },
     });
 
     return items.map((itemData) =>
@@ -147,6 +188,53 @@ export class PrismaItemsRepository implements ItemsRepository {
       where: {
         variantId: variantId.toString(),
         deletedAt: null,
+      },
+      include: {
+        variant: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+
+    return items.map((itemData) =>
+      Item.create(
+        {
+          uniqueCode: itemData.uniqueCode,
+          variantId: new EntityID(itemData.variantId),
+          locationId: new EntityID(itemData.locationId),
+          initialQuantity: itemData.initialQuantity.toNumber(),
+          currentQuantity: itemData.currentQuantity.toNumber(),
+          status: ItemStatus.create(itemData.status),
+          entryDate: itemData.entryDate,
+          attributes: itemData.attributes as Record<string, unknown>,
+          batchNumber: itemData.batchNumber ?? undefined,
+          manufacturingDate: itemData.manufacturingDate ?? undefined,
+          expiryDate: itemData.expiryDate ?? undefined,
+          createdAt: itemData.createdAt,
+          updatedAt: itemData.updatedAt,
+          deletedAt: itemData.deletedAt ?? undefined,
+        },
+        new EntityID(itemData.id),
+      ),
+    );
+  }
+
+  async findManyByProduct(productId: UniqueEntityID): Promise<Item[]> {
+    const items = await prisma.item.findMany({
+      where: {
+        variant: {
+          productId: productId.toString(),
+        },
+        deletedAt: null,
+      },
+      include: {
+        variant: {
+          include: {
+            product: true,
+          },
+        },
       },
     });
 
@@ -179,29 +267,37 @@ export class PrismaItemsRepository implements ItemsRepository {
         locationId: locationId.toString(),
         deletedAt: null,
       },
+      include: {
+        variant: {
+          include: {
+            product: true,
+          },
+        },
+      },
     });
 
-    return items.map((itemData) =>
-      Item.create(
+    return items.map((itemData) => {
+      const itemWithRelations = itemData as ItemWithRelations;
+      return Item.create(
         {
-          uniqueCode: itemData.uniqueCode,
-          variantId: new EntityID(itemData.variantId),
-          locationId: new EntityID(itemData.locationId),
-          initialQuantity: itemData.initialQuantity.toNumber(),
-          currentQuantity: itemData.currentQuantity.toNumber(),
-          status: ItemStatus.create(itemData.status),
-          entryDate: itemData.entryDate,
-          attributes: itemData.attributes as Record<string, unknown>,
-          batchNumber: itemData.batchNumber ?? undefined,
-          manufacturingDate: itemData.manufacturingDate ?? undefined,
-          expiryDate: itemData.expiryDate ?? undefined,
-          createdAt: itemData.createdAt,
-          updatedAt: itemData.updatedAt,
-          deletedAt: itemData.deletedAt ?? undefined,
+          uniqueCode: itemWithRelations.uniqueCode,
+          variantId: new EntityID(itemWithRelations.variantId),
+          locationId: new EntityID(itemWithRelations.locationId),
+          initialQuantity: itemWithRelations.initialQuantity.toNumber(),
+          currentQuantity: itemWithRelations.currentQuantity.toNumber(),
+          status: ItemStatus.create(itemWithRelations.status),
+          entryDate: itemWithRelations.entryDate,
+          attributes: itemWithRelations.attributes as Record<string, unknown>,
+          batchNumber: itemWithRelations.batchNumber ?? undefined,
+          manufacturingDate: itemWithRelations.manufacturingDate ?? undefined,
+          expiryDate: itemWithRelations.expiryDate ?? undefined,
+          createdAt: itemWithRelations.createdAt,
+          updatedAt: itemWithRelations.updatedAt,
+          deletedAt: itemWithRelations.deletedAt ?? undefined,
         },
-        new EntityID(itemData.id),
-      ),
-    );
+        new EntityID(itemWithRelations.id),
+      );
+    });
   }
 
   async findManyByStatus(status: ItemStatus): Promise<Item[]> {

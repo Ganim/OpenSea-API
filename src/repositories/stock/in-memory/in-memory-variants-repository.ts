@@ -1,9 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
 import type {
-  CreateVariantSchema,
-  UpdateVariantSchema,
-  VariantsRepository,
+    CreateVariantSchema,
+    UpdateVariantSchema,
+    VariantsRepository,
 } from '../variants-repository';
 
 export class InMemoryVariantsRepository implements VariantsRepository {
@@ -89,13 +89,35 @@ export class InMemoryVariantsRepository implements VariantsRepository {
   }
 
   async findManyBelowReorderPoint(): Promise<Variant[]> {
-    // TODO: currentStockLevel será calculado a partir dos Items
     return this.items.filter(
       (item) =>
         !item.deletedAt &&
         item.reorderPoint !== null &&
         item.reorderPoint !== undefined,
     );
+  }
+
+  async findManyByProductWithAggregations(productId: UniqueEntityID): Promise<
+    Array<{
+      variant: Variant;
+      productCode: string;
+      productName: string;
+      itemCount: number;
+      totalCurrentQuantity: number;
+    }>
+  > {
+    const variants = this.items.filter(
+      (item) => !item.deletedAt && item.productId.equals(productId),
+    );
+
+    // Mock data for testing - in real implementation, this would aggregate from items
+    return variants.map((variant) => ({
+      variant,
+      productCode: 'PROD001', // Mock
+      productName: 'Mock Product', // Mock
+      itemCount: 5, // Mock
+      totalCurrentQuantity: 100, // Mock
+    }));
   }
 
   async update(data: UpdateVariantSchema): Promise<Variant | null> {

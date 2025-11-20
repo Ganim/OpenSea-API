@@ -23,13 +23,13 @@ describe('Delete Category Use Case', () => {
       name: 'Electronics',
     });
 
-    const result = await sut.execute({ id: category.id });
+    const result = await sut.execute({ id: category.id.toString() });
 
     expect(result.message).toBe('Category deleted successfully.');
 
     // Soft delete: a categoria ainda existe mas está marcada como deletada
     await expect(() =>
-      getCategoryByIdUseCase.execute({ id: category.id }),
+      getCategoryByIdUseCase.execute({ id: category.id.toString() }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 
@@ -46,15 +46,15 @@ describe('Delete Category Use Case', () => {
 
     await createCategoryUseCase.execute({
       name: 'Smartphones',
-      parentId: parent.id,
+      parentId: parent.id.toString(),
     });
 
     await createCategoryUseCase.execute({
       name: 'Laptops',
-      parentId: parent.id,
+      parentId: parent.id.toString(),
     });
 
-    const result = await sut.execute({ id: parent.id });
+    const result = await sut.execute({ id: parent.id.toString() });
 
     expect(result.message).toBe('Category deleted successfully.');
   });

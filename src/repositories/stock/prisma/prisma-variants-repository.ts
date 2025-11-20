@@ -4,9 +4,9 @@ import { Variant } from '@/entities/stock/variant';
 import { prisma } from '@/lib/prisma';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-  CreateVariantSchema,
-  UpdateVariantSchema,
-  VariantsRepository,
+    CreateVariantSchema,
+    UpdateVariantSchema,
+    VariantsRepository,
 } from '../variants-repository';
 
 export class PrismaVariantsRepository implements VariantsRepository {
@@ -27,6 +27,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
         qrCode: data.qrCode,
         eanCode: data.eanCode,
         upcCode: data.upcCode,
+        colorHex: data.colorHex,
+        colorPantone: data.colorPantone,
         minStock: data.minStock ? new Decimal(data.minStock) : undefined,
         maxStock: data.maxStock ? new Decimal(data.maxStock) : undefined,
         reorderPoint: data.reorderPoint
@@ -366,16 +368,40 @@ export class PrismaVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findManyByProduct(productId: UniqueEntityID): Promise<Variant[]> {
-    const variants = await prisma.variant.findMany({
+  async findManyByProductWithAggregations(productId: UniqueEntityID): Promise<
+    Array<{
+      variant: Variant;
+      productCode: string;
+      productName: string;
+      itemCount: number;
+      totalCurrentQuantity: number;
+    }>
+  > {
+    const variantsWithAggregations = await prisma.variant.findMany({
       where: {
         productId: productId.toString(),
         deletedAt: null,
       },
+      include: {
+        product: {
+          select: {
+            code: true,
+            name: true,
+          },
+        },
+        items: {
+          where: {
+            deletedAt: null,
+          },
+          select: {
+            currentQuantity: true,
+          },
+        },
+      },
     });
 
-    return variants.map((variantData) =>
-      Variant.create(
+    return variantsWithAggregations.map((variantData) => {
+      const variant = Variant.create(
         {
           productId: new EntityID(variantData.productId),
           sku: variantData.sku,
@@ -409,8 +435,22 @@ export class PrismaVariantsRepository implements VariantsRepository {
           updatedAt: variantData.updatedAt ?? undefined,
         },
         new EntityID(variantData.id),
-      ),
-    );
+      );
+
+      const itemCount = variantData.items.length;
+      const totalCurrentQuantity = variantData.items.reduce(
+        (sum, item) => sum + Number(item.currentQuantity.toString()),
+        0,
+      );
+
+      return {
+        variant,
+        productCode: variantData.product.code,
+        productName: variantData.product.name,
+        itemCount,
+        totalCurrentQuantity,
+      };
+    });
   }
 
   async findManyByPriceRange(

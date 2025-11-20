@@ -42,14 +42,14 @@ describe('ListProductsUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     await createProduct.execute({
       name: 'Mouse Logitech',
       code: 'MOUSE-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     const result = await sut.execute();

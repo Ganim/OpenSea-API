@@ -55,24 +55,20 @@ describe('UpdateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     const result = await sut.execute({
-      id: created.product.id,
+      id: created.product.id.toString(),
       name: 'Laptop Dell Inspiron',
       description: 'Updated description',
       status: 'ACTIVE',
     });
 
-    expect(result.product).toEqual(
-      expect.objectContaining({
-        id: created.product.id,
-        name: 'Laptop Dell Inspiron',
-        description: 'Updated description',
-        status: 'ACTIVE',
-      }),
-    );
+    expect(result.product.id.toString()).toBe(created.product.id.toString());
+    expect(result.product.name).toBe('Laptop Dell Inspiron');
+    expect(result.product.description).toBe('Updated description');
+    expect(result.product.status.value).toBe('ACTIVE');
   });
 
   it('should update only provided fields', async () => {
@@ -86,11 +82,11 @@ describe('UpdateProductUseCase', () => {
       code: 'LAPTOP-001',
       description: 'Original',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     const result = await sut.execute({
-      id: created.product.id,
+      id: created.product.id.toString(),
       description: 'Updated',
     });
 
@@ -109,7 +105,7 @@ describe('UpdateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     const supplier = await createSupplier.execute({
@@ -118,11 +114,11 @@ describe('UpdateProductUseCase', () => {
     });
 
     const result = await sut.execute({
-      id: created.product.id,
-      supplierId: supplier.supplier.id,
+      id: created.product.id.toString(),
+      supplierId: supplier.supplier.id.toString(),
     });
 
-    expect(result.product.supplierId).toBe(supplier.supplier.id);
+    expect(result.product.supplierId?.toString()).toBe(supplier.supplier.id.toString());
   });
 
   it('should update product with manufacturer', async () => {
@@ -135,7 +131,7 @@ describe('UpdateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     const manufacturer = await createManufacturer.execute({
@@ -144,11 +140,11 @@ describe('UpdateProductUseCase', () => {
     });
 
     const result = await sut.execute({
-      id: created.product.id,
-      manufacturerId: manufacturer.manufacturer.id,
+      id: created.product.id.toString(),
+      manufacturerId: manufacturer.manufacturer.manufacturerId.toString(),
     });
 
-    expect(result.product.manufacturerId).toBe(manufacturer.manufacturer.id);
+    expect(result.product.manufacturerId?.toString()).toBe(manufacturer.manufacturer.manufacturerId.toString());
   });
 
   it('should throw error if product not found', async () => {
@@ -170,12 +166,12 @@ describe('UpdateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     await expect(
       sut.execute({
-        id: created.product.id,
+        id: created.product.id.toString(),
         name: '',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -191,19 +187,19 @@ describe('UpdateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     const second = await createProduct.execute({
       name: 'Mouse Logitech',
       code: 'MOUSE-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     await expect(
       sut.execute({
-        id: second.product.id,
+        id: second.product.id.toString(),
         name: 'Laptop Dell',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -219,12 +215,12 @@ describe('UpdateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     await expect(
       sut.execute({
-        id: created.product.id,
+        id: created.product.id.toString(),
         supplierId: 'non-existent-supplier-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -240,12 +236,12 @@ describe('UpdateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
     });
 
     await expect(
       sut.execute({
-        id: created.product.id,
+        id: created.product.id.toString(),
         manufacturerId: 'non-existent-manufacturer-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -261,13 +257,13 @@ describe('UpdateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       unitOfMeasure: 'UNITS',
-      templateId: template.template.id,
+      templateId: template.template.id.toString(),
       attributes: { brand: 'Dell' },
     });
 
     await expect(
       sut.execute({
-        id: created.product.id,
+        id: created.product.id.toString(),
         attributes: {
           brand: 'HP',
           invalidAttribute: 'value',

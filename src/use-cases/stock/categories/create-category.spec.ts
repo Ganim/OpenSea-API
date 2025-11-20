@@ -20,7 +20,7 @@ describe('Create Category Use Case', () => {
       description: 'Electronic products',
     });
 
-    expect(category.id).toEqual(expect.any(String));
+    expect(category.id.toString()).toEqual(expect.any(String));
     expect(category.name).toBe('Electronics');
     expect(category.slug).toBe('electronics');
     expect(category.description).toBe('Electronic products');
@@ -43,12 +43,12 @@ describe('Create Category Use Case', () => {
 
     const { category: subCategory } = await sut.execute({
       name: 'Smartphones',
-      parentId: parentCategory.id,
+      parentId: parentCategory.id.toString(),
     });
 
-    expect(subCategory.id).toEqual(expect.any(String));
+    expect(subCategory.id.toString()).toEqual(expect.any(String));
     expect(subCategory.name).toBe('Smartphones');
-    expect(subCategory.parentId).toBe(parentCategory.id);
+    expect(subCategory.parentId).toEqual(parentCategory.id);
   });
 
   it('should generate slug from name automatically', async () => {

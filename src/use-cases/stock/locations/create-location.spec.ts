@@ -20,17 +20,13 @@ describe('CreateLocationUseCase', () => {
       capacity: 1000,
     });
 
-    expect(result.location).toEqual(
-      expect.objectContaining({
-        id: expect.any(String),
-        code: 'WH-001',
-        description: 'Main Warehouse',
-        locationType: 'WAREHOUSE',
-        capacity: 1000,
-        currentOccupancy: 0,
-        isActive: true,
-      }),
-    );
+    expect(result.location.id).toBeDefined();
+    expect(result.location.code).toBe('WH-001');
+    expect(result.location.description).toBe('Main Warehouse');
+    expect(result.location.locationType?.value).toBe('WAREHOUSE');
+    expect(result.location.capacity).toBe(1000);
+    expect(result.location.currentOccupancy).toBe(0);
+    expect(result.location.isActive).toBe(true);
   });
 
   it('should create a location without optional fields', async () => {
@@ -52,10 +48,10 @@ describe('CreateLocationUseCase', () => {
     const result = await sut.execute({
       code: 'ZONE-A',
       locationType: 'ZONE',
-      parentId: parent.location.id,
+      parentId: parent.location.id.toString(),
     });
 
-    expect(result.location.parentId).toBe(parent.location.id);
+    expect(result.location.parentId?.toString()).toBe(parent.location.id.toString());
   });
 
   it('should not create a location with empty code', async () => {

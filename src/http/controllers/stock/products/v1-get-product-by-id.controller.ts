@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { productResponseSchema } from '@/http/schemas';
+import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeGetProductByIdUseCase } from '@/use-cases/stock/products/factories/make-get-product-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -37,7 +38,7 @@ export async function getProductByIdController(app: FastifyInstance) {
           id: productId,
         });
 
-        return reply.status(200).send({ product });
+        return reply.status(200).send({ product: productToDTO(product) });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

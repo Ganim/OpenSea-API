@@ -1,15 +1,17 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { SKU } from '@/entities/stock/value-objects/sku';
+import { Variant } from '@/entities/stock/variant';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
 
 export interface CreateVariantUseCaseInput {
   productId: string;
-  sku: string;
+  sku?: string;
   name: string;
-  price: number;
+  price?: number;
   imageUrl?: string;
   attributes?: Record<string, unknown>;
   costPrice?: number;
@@ -18,34 +20,12 @@ export interface CreateVariantUseCaseInput {
   qrCode?: string;
   eanCode?: string;
   upcCode?: string;
+  colorHex?: string;
+  colorPantone?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
   reorderQuantity?: number;
-}
-
-export interface CreateVariantUseCaseOutput {
-  variant: {
-    id: string;
-    productId: string;
-    sku: string;
-    name: string;
-    price: number;
-    imageUrl?: string;
-    attributes: Record<string, unknown>;
-    costPrice?: number;
-    profitMargin?: number;
-    barcode?: string;
-    qrCode?: string;
-    eanCode?: string;
-    upcCode?: string;
-    minStock?: number;
-    maxStock?: number;
-    reorderPoint?: number;
-    reorderQuantity?: number;
-    createdAt: Date;
-    updatedAt?: Date;
-  };
 }
 
 export class CreateVariantUseCase {
@@ -55,18 +35,7 @@ export class CreateVariantUseCase {
     private templatesRepository: TemplatesRepository,
   ) {}
 
-  async execute(
-    input: CreateVariantUseCaseInput,
-  ): Promise<CreateVariantUseCaseOutput> {
-    // Validate SKU
-    if (!input.sku || input.sku.trim().length === 0) {
-      throw new BadRequestError('SKU is required');
-    }
-
-    if (input.sku.length > 64) {
-      throw new BadRequestError('SKU must not exceed 64 characters');
-    }
-
+  async execute(input: CreateVariantUseCaseInput): Promise<Variant> {
     // Validate name
     if (!input.name || input.name.trim().length === 0) {
       throw new BadRequestError('Name is required');
@@ -76,8 +45,28 @@ export class CreateVariantUseCase {
       throw new BadRequestError('Name must not exceed 256 characters');
     }
 
+    // Generate SKU if not provided
+    let sku: string;
+    if (input.sku && input.sku.trim().length > 0) {
+      sku = SKU.create(input.sku).value;
+    } else {
+      const skuVO = await SKU.generateFromName(
+        input.name,
+        this.variantsRepository,
+      );
+      sku = skuVO.value;
+    }
+
+    // Validate SKU length
+    if (sku.length > 64) {
+      throw new BadRequestError('SKU must not exceed 64 characters');
+    }
+
+    // Set default price if not provided
+    const price = input.price ?? 0;
+
     // Validate price
-    if (input.price < 0) {
+    if (price < 0) {
       throw new BadRequestError('Price cannot be negative');
     }
 
@@ -144,6 +133,16 @@ export class CreateVariantUseCase {
       throw new BadRequestError('QR code must not exceed 512 characters');
     }
 
+    // Validate colorHex format
+    if (input.colorHex && !/^#[0-9A-Fa-f]{6}$/.test(input.colorHex)) {
+      throw new BadRequestError('Color hex must be in format #RRGGBB');
+    }
+
+    // Validate colorPantone length
+    if (input.colorPantone && input.colorPantone.length > 32) {
+      throw new BadRequestError('Color Pantone must not exceed 32 characters');
+    }
+
     // Check if product exists
     const productId = new UniqueEntityID(input.productId);
     const product = await this.productsRepository.findById(productId);
@@ -152,13 +151,13 @@ export class CreateVariantUseCase {
       throw new ResourceNotFoundError('Product not found');
     }
 
-    // Check if SKU is unique
-    const existingVariantBySKU = await this.variantsRepository.findBySKU(
-      input.sku,
-    );
+    // Check if SKU is unique (only if it was provided by user)
+    if (input.sku) {
+      const existingVariantBySKU = await this.variantsRepository.findBySKU(sku);
 
-    if (existingVariantBySKU) {
-      throw new BadRequestError('SKU already exists');
+      if (existingVariantBySKU) {
+        throw new BadRequestError('SKU already exists');
+      }
     }
 
     // Check if barcode is unique (if provided)
@@ -216,9 +215,9 @@ export class CreateVariantUseCase {
     // Create variant
     const variant = await this.variantsRepository.create({
       productId,
-      sku: input.sku,
+      sku,
       name: input.name,
-      price: input.price,
+      price,
       imageUrl: input.imageUrl,
       attributes: input.attributes ?? {},
       costPrice: input.costPrice,
@@ -227,34 +226,14 @@ export class CreateVariantUseCase {
       qrCode: input.qrCode,
       eanCode: input.eanCode,
       upcCode: input.upcCode,
+      colorHex: input.colorHex,
+      colorPantone: input.colorPantone,
       minStock: input.minStock,
       maxStock: input.maxStock,
       reorderPoint: input.reorderPoint,
       reorderQuantity: input.reorderQuantity,
     });
 
-    return {
-      variant: {
-        id: variant.id.toString(),
-        productId: variant.productId.toString(),
-        sku: variant.sku,
-        name: variant.name,
-        price: variant.price,
-        imageUrl: variant.imageUrl,
-        attributes: variant.attributes,
-        costPrice: variant.costPrice,
-        profitMargin: variant.profitMargin,
-        barcode: variant.barcode,
-        qrCode: variant.qrCode,
-        eanCode: variant.eanCode,
-        upcCode: variant.upcCode,
-        minStock: variant.minStock,
-        maxStock: variant.maxStock,
-        reorderPoint: variant.reorderPoint,
-        reorderQuantity: variant.reorderQuantity,
-        createdAt: variant.createdAt,
-        updatedAt: variant.updatedAt,
-      },
-    };
+    return variant;
   }
 }

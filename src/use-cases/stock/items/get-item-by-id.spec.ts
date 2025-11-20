@@ -77,11 +77,11 @@ describe('GetItemByIdUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
-    const { variant } = await createVariant.execute({
-      productId: product.id,
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
@@ -97,8 +97,8 @@ describe('GetItemByIdUseCase', () => {
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-001',
-      variantId: variant.id,
-      locationId: location.id,
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
       quantity: 100,
       userId,
     });

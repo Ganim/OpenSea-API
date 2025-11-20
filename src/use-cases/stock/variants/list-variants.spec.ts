@@ -53,18 +53,18 @@ describe('ListVariantsUseCase', () => {
       status: 'ACTIVE',
       unitOfMeasure: 'UNITS',
       attributes: {},
-      templateId: template.id,
+      templateId: template.id.toString(),
     });
 
     await createVariant.execute({
-      productId: product.id,
+      productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Variant 1',
       price: 100,
     });
 
     await createVariant.execute({
-      productId: product.id,
+      productId: product.id.toString(),
       sku: 'SKU-002',
       name: 'Variant 2',
       price: 200,
@@ -72,14 +72,14 @@ describe('ListVariantsUseCase', () => {
 
     const result = await listVariants.execute();
 
-    expect(result.variants).toHaveLength(2);
-    expect(result.variants[0].name).toBe('Variant 1');
-    expect(result.variants[1].name).toBe('Variant 2');
+    expect(result).toHaveLength(2);
+    expect(result[0].name).toBe('Variant 1');
+    expect(result[1].name).toBe('Variant 2');
   });
 
   it('should return empty array when there are no variants', async () => {
     const result = await listVariants.execute();
 
-    expect(result.variants).toHaveLength(0);
+    expect(result).toHaveLength(0);
   });
 });

@@ -22,11 +22,11 @@ describe('GetLocationByIdUseCase', () => {
       locationType: 'WAREHOUSE',
     });
 
-    const result = await sut.execute({ id: created.location.id });
+    const result = await sut.execute({ id: created.location.id.toString() });
 
     expect(result.location).toEqual(
       expect.objectContaining({
-        id: created.location.id,
+        id: created.location.id.toString(),
         code: 'WH-001',
         description: 'Main Warehouse',
         locationType: 'WAREHOUSE',

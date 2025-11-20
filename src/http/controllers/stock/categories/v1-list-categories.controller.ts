@@ -1,5 +1,6 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { categoryResponseSchema } from '@/http/schemas';
+import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
 import { makeListCategoriesUseCase } from '@/use-cases/stock/categories/factories/make-list-categories-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -25,7 +26,7 @@ export async function listCategoriesController(app: FastifyInstance) {
       const listCategoriesUseCase = makeListCategoriesUseCase();
       const { categories } = await listCategoriesUseCase.execute();
 
-      return reply.status(200).send({ categories });
+      return reply.status(200).send({ categories: categories.map(categoryToDTO) });
     },
   });
 }

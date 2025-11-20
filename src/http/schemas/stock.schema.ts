@@ -96,6 +96,14 @@ export const variantResponseSchema = z.object({
   deletedAt: z.coerce.date().optional(),
 });
 
+export const variantWithAggregationsResponseSchema =
+  variantResponseSchema.extend({
+    productCode: z.string(),
+    productName: z.string(),
+    itemCount: z.number(),
+    totalCurrentQuantity: z.number(),
+  });
+
 export const updateVariantSchema = createVariantSchema
   .partial()
   .omit({ productId: true });
@@ -155,6 +163,10 @@ export const itemResponseSchema = z.object({
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().optional(),
+  productCode: z.string(),
+  productName: z.string(),
+  variantSku: z.string(),
+  variantName: z.string(),
 });
 
 export const transferItemSchema = z.object({
@@ -232,6 +244,9 @@ export const locationResponseSchema = z.object({
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().optional(),
+  subLocationCount: z.number().optional(),
+  directItemCount: z.number().optional(),
+  totalItemCount: z.number().optional(),
 });
 
 export const updateLocationSchema = createLocationSchema.partial();

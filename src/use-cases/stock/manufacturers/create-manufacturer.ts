@@ -1,8 +1,4 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import {
-  type ManufacturerDTO,
-  manufacturerToDTO,
-} from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 
 interface CreateManufacturerUseCaseRequest {
@@ -21,7 +17,7 @@ interface CreateManufacturerUseCaseRequest {
 }
 
 interface CreateManufacturerUseCaseResponse {
-  manufacturer: ManufacturerDTO;
+  manufacturer: import('@/entities/stock/manufacturer').Manufacturer;
 }
 
 export class CreateManufacturerUseCase {
@@ -103,7 +99,7 @@ export class CreateManufacturerUseCase {
     });
 
     return {
-      manufacturer: manufacturerToDTO(createdManufacturer),
+      manufacturer: createdManufacturer,
     };
   }
 }

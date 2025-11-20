@@ -1,11 +1,7 @@
-import {
-  type ManufacturerDTO,
-  manufacturerToDTO,
-} from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 
 interface ListManufacturersUseCaseResponse {
-  manufacturers: ManufacturerDTO[];
+  manufacturers: import('@/entities/stock/manufacturer').Manufacturer[];
 }
 
 export class ListManufacturersUseCase {
@@ -15,7 +11,7 @@ export class ListManufacturersUseCase {
     const manufacturers = await this.manufacturersRepository.findMany();
 
     return {
-      manufacturers: manufacturers.map(manufacturerToDTO),
+      manufacturers,
     };
   }
 }

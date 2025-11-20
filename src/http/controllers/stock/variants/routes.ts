@@ -4,6 +4,7 @@ import rateLimit from '@fastify/rate-limit';
 import { createVariantController } from './v1-create-variant.controller';
 import { deleteVariantController } from './v1-delete-variant.controller';
 import { getVariantByIdController } from './v1-get-variant-by-id.controller';
+import { listVariantsByProductIdController } from './v1-list-variants-by-product-id.controller';
 import { listVariantsController } from './v1-list-variants.controller';
 import { updateVariantController } from './v1-update-variant.controller';
 
@@ -25,6 +26,7 @@ export async function variantsRoutes() {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(getVariantByIdController);
       queryApp.register(listVariantsController);
+      queryApp.register(listVariantsByProductIdController);
     },
     { prefix: '' },
   );

@@ -1,5 +1,6 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { productResponseSchema } from '@/http/schemas';
+import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeListProductsUseCase } from '@/use-cases/stock/products/factories/make-list-products-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -25,7 +26,7 @@ export async function listProductsController(app: FastifyInstance) {
       const listProductsUseCase = makeListProductsUseCase();
       const { products } = await listProductsUseCase.execute();
 
-      return reply.status(200).send({ products });
+      return reply.status(200).send({ products: products.map(productToDTO) });
     },
   });
 }

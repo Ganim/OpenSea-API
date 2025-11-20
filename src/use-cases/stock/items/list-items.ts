@@ -10,6 +10,7 @@ interface ListItemsUseCaseRequest {
   locationId?: string;
   status?: string;
   batchNumber?: string;
+  productId?: string;
 }
 
 interface ListItemsUseCaseResponse {
@@ -25,7 +26,11 @@ export class ListItemsUseCase {
     let items: Item[] = [];
 
     // Fetch items based on filters
-    if (input.variantId) {
+    if (input.productId) {
+      items = await this.itemsRepository.findManyByProduct(
+        new UniqueEntityID(input.productId),
+      );
+    } else if (input.variantId) {
       items = await this.itemsRepository.findManyByVariant(
         new UniqueEntityID(input.variantId),
       );

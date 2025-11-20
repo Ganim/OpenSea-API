@@ -1,15 +1,15 @@
-import type { FastifyInstance } from 'fastify';
-import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { z } from 'zod';
-
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import {
-  createManufacturerSchema,
-  manufacturerResponseSchema,
+    createManufacturerSchema,
+    manufacturerResponseSchema,
 } from '@/http/schemas';
+import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { PrismaManufacturersRepository } from '@/repositories/stock/prisma/prisma-manufacturers-repository';
 import { CreateManufacturerUseCase } from '@/use-cases/stock/manufacturers/create-manufacturer';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
 
 export async function createManufacturerController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -37,7 +37,9 @@ export async function createManufacturerController(app: FastifyInstance) {
 
       const result = await createManufacturerUseCase.execute(request.body);
 
-      return reply.status(201).send(result);
+      return reply.status(201).send({
+        manufacturer: manufacturerToDTO(result.manufacturer),
+      });
     },
   });
 }
