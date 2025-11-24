@@ -20,7 +20,9 @@ describe('DeleteLocationUseCase', () => {
 
   it('should delete a location', async () => {
     const created = await createLocation.execute({
-      code: 'WH-001',
+      code: 'WH001',
+      titulo: 'Warehouse 001',
+      type: 'WAREHOUSE',
     });
 
     await sut.execute({ id: created.location.id.toString() });

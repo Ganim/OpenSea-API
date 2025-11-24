@@ -89,8 +89,8 @@ describe('GetItemByIdUseCase', () => {
 
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     const userId = new UniqueEntityID().toString();

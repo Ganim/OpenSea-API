@@ -26,9 +26,9 @@ describe('Create Location (E2E)', () => {
       .post('/v1/locations')
       .set('Authorization', `Bearer ${managerToken}`)
       .send({
-        code: `LOC-${timestamp}`,
-        description: 'Main Warehouse',
-        locationType: 'WAREHOUSE',
+        code: `L${timestamp.toString().slice(-4)}`,
+        titulo: 'Main Warehouse',
+        type: 'WAREHOUSE',
         capacity: 1000,
         currentOccupancy: 250,
       });
@@ -37,9 +37,9 @@ describe('Create Location (E2E)', () => {
     expect(response.body).toMatchObject({
       location: {
         id: expect.any(String),
-        code: `LOC-${timestamp}`,
-        description: 'Main Warehouse',
-        locationType: 'WAREHOUSE',
+        code: `L${timestamp.toString().slice(-4)}`,
+        titulo: 'Main Warehouse',
+        type: 'WAREHOUSE',
         capacity: 1000,
         currentOccupancy: 250,
         isActive: true,
@@ -47,21 +47,27 @@ describe('Create Location (E2E)', () => {
     });
   });
 
-  it('should be able to create a location with minimal data', async () => {
+  it('should be able to create a location with label', async () => {
     const timestamp = Date.now();
 
     const response = await request(app.server)
       .post('/v1/locations')
       .set('Authorization', `Bearer ${managerToken}`)
       .send({
-        code: `MIN-${timestamp}`,
+        code: `LB${timestamp.toString().slice(-3)}`,
+        titulo: 'Labeled Warehouse',
+        label: 'Primary storage facility for electronics',
+        type: 'WAREHOUSE',
       });
 
     expect(response.status).toBe(201);
     expect(response.body).toMatchObject({
       location: {
         id: expect.any(String),
-        code: `MIN-${timestamp}`,
+        code: `LB${timestamp.toString().slice(-3)}`,
+        titulo: 'Labeled Warehouse',
+        label: 'Primary storage facility for electronics',
+        type: 'WAREHOUSE',
         currentOccupancy: 0,
         isActive: true,
       },
@@ -74,8 +80,9 @@ describe('Create Location (E2E)', () => {
     // Create parent location first
     const parent = await prisma.location.create({
       data: {
-        code: `PARENT-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `P${timestamp.toString().slice(-4)}`,
+        titulo: 'Parent Warehouse',
+        type: 'WAREHOUSE',
         currentOccupancy: 0,
         isActive: true,
       },
@@ -85,9 +92,9 @@ describe('Create Location (E2E)', () => {
       .post('/v1/locations')
       .set('Authorization', `Bearer ${managerToken}`)
       .send({
-        code: `CHILD-${timestamp}`,
-        description: 'Child Location',
-        locationType: 'ZONE',
+        code: `C${timestamp.toString().slice(-4)}`,
+        titulo: 'Child Location',
+        type: 'ZONE',
         parentId: parent.id,
       });
 
@@ -95,9 +102,9 @@ describe('Create Location (E2E)', () => {
     expect(response.body).toMatchObject({
       location: {
         id: expect.any(String),
-        code: `CHILD-${timestamp}`,
-        description: 'Child Location',
-        locationType: 'ZONE',
+        code: `C${timestamp.toString().slice(-4)}`,
+        titulo: 'Child Location',
+        type: 'ZONE',
         parentId: parent.id,
         currentOccupancy: 0,
         isActive: true,
@@ -105,30 +112,33 @@ describe('Create Location (E2E)', () => {
     });
   });
 
-  it('should not be able to create a location with duplicate code', async () => {
+  it('should be able to create locations with duplicate codes', async () => {
     const timestamp = Date.now();
-    const duplicateCode = `DUP-${timestamp}`;
+    const duplicateCode = `D${timestamp.toString().slice(-4)}`;
 
     // Create first location
-    await request(app.server)
+    const response1 = await request(app.server)
       .post('/v1/locations')
       .set('Authorization', `Bearer ${managerToken}`)
       .send({
         code: duplicateCode,
+        titulo: 'First Location',
+        type: 'WAREHOUSE',
       });
 
-    // Try to create second location with same code
-    const response = await request(app.server)
+    expect(response1.status).toBe(201);
+
+    // Create second location with same code (should succeed)
+    const response2 = await request(app.server)
       .post('/v1/locations')
       .set('Authorization', `Bearer ${managerToken}`)
       .send({
         code: duplicateCode,
+        titulo: 'Second Location',
+        type: 'WAREHOUSE',
       });
 
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe(
-      'Location with this code already exists',
-    );
+    expect(response2.status).toBe(201);
   });
 
   it('should not be able to create a location without authentication', async () => {
@@ -137,7 +147,9 @@ describe('Create Location (E2E)', () => {
     const response = await request(app.server)
       .post('/v1/locations')
       .send({
-        code: `UNAUTH-${timestamp}`,
+        code: `U${timestamp.toString().slice(-4)}`,
+        titulo: 'Unauth Location',
+        type: 'WAREHOUSE',
       });
 
     expect(response.status).toBe(401);

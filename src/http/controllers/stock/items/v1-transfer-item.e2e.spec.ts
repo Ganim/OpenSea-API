@@ -54,16 +54,18 @@ describe('Transfer Item (e2e)', () => {
     // Create source location
     const sourceLocation = await prisma.location.create({
       data: {
-        code: `LOC-SOURCE-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `S${timestamp.toString().slice(-4)}`,
+        titulo: 'Source warehouse',
+        type: 'WAREHOUSE',
       },
     });
 
     // Create destination location
     const destLocation = await prisma.location.create({
       data: {
-        code: `LOC-DEST-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `D${timestamp.toString().slice(-4)}`,
+        titulo: 'Destination warehouse',
+        type: 'WAREHOUSE',
       },
     });
 
@@ -137,15 +139,17 @@ describe('Transfer Item (e2e)', () => {
 
     const location1 = await prisma.location.create({
       data: {
-        code: `LOC-USER-SRC-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `A${timestamp.toString().slice(-4)}`,
+        titulo: 'User source warehouse',
+        type: 'WAREHOUSE',
       },
     });
 
     const location2 = await prisma.location.create({
       data: {
-        code: `LOC-USER-DEST-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `J${timestamp.toString().slice(-4)}`,
+        titulo: 'User dest warehouse',
+        type: 'WAREHOUSE',
       },
     });
 
@@ -212,8 +216,9 @@ describe('Transfer Item (e2e)', () => {
 
     const location = await prisma.location.create({
       data: {
-        code: `LOC-SAMELOC-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `B${timestamp.toString().slice(-4)}`,
+        titulo: 'Same location warehouse',
+        type: 'WAREHOUSE',
       },
     });
 

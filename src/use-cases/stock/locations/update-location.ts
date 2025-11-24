@@ -11,8 +11,9 @@ import { LocationsRepository } from '@/repositories/stock/locations-repository';
 interface UpdateLocationUseCaseRequest {
   id: string;
   code?: string;
-  description?: string;
-  locationType?: string;
+  titulo?: string;
+  label?: string;
+  type?: string;
   parentId?: string;
   capacity?: number;
   currentOccupancy?: number;
@@ -32,8 +33,9 @@ export class UpdateLocationUseCase {
     const {
       id,
       code,
-      description,
-      locationType,
+      titulo,
+      label,
+      type,
       parentId,
       capacity,
       currentOccupancy,
@@ -71,7 +73,7 @@ export class UpdateLocationUseCase {
 
     // Validate location type if provided
     let parsedLocationType: LocationType | undefined;
-    if (locationType !== undefined) {
+    if (type !== undefined) {
       const validTypes = [
         'WAREHOUSE',
         'ZONE',
@@ -80,19 +82,13 @@ export class UpdateLocationUseCase {
         'BIN',
         'OTHER',
       ];
-      if (!validTypes.includes(locationType)) {
+      if (!validTypes.includes(type)) {
         throw new BadRequestError(
           'Invalid location type. Must be one of: WAREHOUSE, ZONE, AISLE, SHELF, BIN, OTHER',
         );
       }
       parsedLocationType = LocationType.create(
-        locationType as
-          | 'WAREHOUSE'
-          | 'ZONE'
-          | 'AISLE'
-          | 'SHELF'
-          | 'BIN'
-          | 'OTHER',
+        type as 'WAREHOUSE' | 'ZONE' | 'AISLE' | 'SHELF' | 'BIN' | 'OTHER',
       );
     }
 
@@ -127,8 +123,9 @@ export class UpdateLocationUseCase {
     const updatedLocation = await this.locationsRepository.update({
       id: new UniqueEntityID(id),
       code,
-      description,
-      locationType: parsedLocationType,
+      titulo,
+      label,
+      type: parsedLocationType,
       parentId: parentId ? new UniqueEntityID(parentId) : undefined,
       capacity,
       currentOccupancy,

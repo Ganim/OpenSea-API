@@ -51,8 +51,9 @@ describe('List Item Movements (e2e)', () => {
 
     const location = await prisma.location.create({
       data: {
-        code: `LOC-MOV-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `L${timestamp.toString().slice(-4)}`,
+        titulo: 'Warehouse for movements',
+        type: 'WAREHOUSE',
       },
     });
 
@@ -128,8 +129,9 @@ describe('List Item Movements (e2e)', () => {
 
     const location = await prisma.location.create({
       data: {
-        code: `LOC-FILTER-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `F${timestamp.toString().slice(-4)}`,
+        titulo: 'Warehouse for filter',
+        type: 'WAREHOUSE',
       },
     });
 
@@ -205,8 +207,9 @@ describe('List Item Movements (e2e)', () => {
 
     const location = await prisma.location.create({
       data: {
-        code: `LOC-TYPE-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `T${timestamp.toString().slice(-4)}`,
+        titulo: 'Warehouse for type',
+        type: 'WAREHOUSE',
       },
     });
 

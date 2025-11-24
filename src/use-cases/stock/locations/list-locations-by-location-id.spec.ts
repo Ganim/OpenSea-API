@@ -18,30 +18,30 @@ describe('ListLocationsByLocationIdUseCase', () => {
 
   it('should be able to list locations by parent location id', async () => {
     const parentLocation = Location.create({
-      code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: LocationType.create('WAREHOUSE'),
+      titulo: 'Warehouse A',
+      type: LocationType.create('WAREHOUSE'),
+      code: 'WHA01',
     });
 
     const childLocation1 = Location.create({
-      code: 'WH-A-01',
-      description: 'Warehouse A Section 1',
-      locationType: LocationType.create('ZONE'),
+      titulo: 'Warehouse A Section 1',
+      type: LocationType.create('ZONE'),
       parentId: parentLocation.id,
+      code: 'WHA11',
     });
 
     const childLocation2 = Location.create({
-      code: 'WH-A-02',
-      description: 'Warehouse A Section 2',
-      locationType: LocationType.create('ZONE'),
+      titulo: 'Warehouse A Section 2',
+      type: LocationType.create('ZONE'),
       parentId: parentLocation.id,
+      code: 'WHA12',
     });
 
     // Create another location that is not a child
     const otherLocation = Location.create({
-      code: 'WH-B',
-      description: 'Warehouse B',
-      locationType: LocationType.create('WAREHOUSE'),
+      titulo: 'Warehouse B',
+      type: LocationType.create('WAREHOUSE'),
+      code: 'WHB01',
     });
 
     await locationsRepository.save(parentLocation);
@@ -58,13 +58,11 @@ describe('ListLocationsByLocationIdUseCase', () => {
       expect.arrayContaining([
         expect.objectContaining({
           id: childLocation1.id.toString(),
-          code: 'WH-A-01',
-          description: 'Warehouse A Section 1',
+          titulo: 'Warehouse A Section 1',
         }),
         expect.objectContaining({
           id: childLocation2.id.toString(),
-          code: 'WH-A-02',
-          description: 'Warehouse A Section 2',
+          titulo: 'Warehouse A Section 2',
         }),
       ]),
     );
@@ -72,9 +70,9 @@ describe('ListLocationsByLocationIdUseCase', () => {
 
   it('should return empty array when location has no children', async () => {
     const location = Location.create({
-      code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: LocationType.create('WAREHOUSE'),
+      titulo: 'Warehouse A',
+      type: LocationType.create('WAREHOUSE'),
+      code: 'WHA01',
     });
 
     await locationsRepository.save(location);

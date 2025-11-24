@@ -54,8 +54,9 @@ describe('Register Item Entry (e2e)', () => {
     // Create location
     const location = await prisma.location.create({
       data: {
-        code: `LOC-ENTRY-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `N${timestamp.toString().slice(-4)}`,
+        titulo: 'Warehouse for entry',
+        type: 'WAREHOUSE',
       },
     });
 
@@ -150,8 +151,9 @@ describe('Register Item Entry (e2e)', () => {
     // Create location
     const location = await prisma.location.create({
       data: {
-        code: `LOC-DUP-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `Y${timestamp.toString().slice(-4)}`,
+        titulo: 'Warehouse for duplicate',
+        type: 'WAREHOUSE',
       },
     });
 

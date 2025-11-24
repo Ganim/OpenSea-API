@@ -22,9 +22,9 @@ describe('Get Location By ID (E2E)', () => {
     const timestamp = Date.now();
     const location = await prisma.location.create({
       data: {
-        code: `WH-MAIN-${timestamp}`,
-        description: 'Main Warehouse',
-        locationType: 'WAREHOUSE',
+        code: `G${timestamp.toString().slice(-4)}`,
+        titulo: 'Main Warehouse',
+        type: 'WAREHOUSE',
         capacity: 5000,
         currentOccupancy: 1250,
       },
@@ -39,9 +39,9 @@ describe('Get Location By ID (E2E)', () => {
     expect(response.body.location).toEqual(
       expect.objectContaining({
         id: location.id,
-        code: `WH-MAIN-${timestamp}`,
-        description: 'Main Warehouse',
-        locationType: 'WAREHOUSE',
+        code: `G${timestamp.toString().slice(-4)}`,
+        titulo: 'Main Warehouse',
+        type: 'WAREHOUSE',
         capacity: 5000,
         currentOccupancy: 1250,
         isActive: true,

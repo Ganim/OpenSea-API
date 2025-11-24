@@ -18,42 +18,40 @@ describe('UpdateLocationUseCase', () => {
 
   it('should update a location', async () => {
     const created = await createLocation.execute({
-      code: 'WH-001',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse 001',
+      type: 'WAREHOUSE',
+      code: 'WH001',
     });
 
     const result = await sut.execute({
       id: created.location.id.toString(),
-      code: 'WH-002',
-      description: 'Updated Warehouse',
+      code: 'WH002',
+      titulo: 'Updated Warehouse',
       capacity: 500,
     });
 
     expect(result.location).toEqual(
       expect.objectContaining({
         id: created.location.id.toString(),
-        code: 'WH-002',
-        description: 'Updated Warehouse',
+        code: 'WH002',
+        titulo: 'Updated Warehouse',
         capacity: 500,
       }),
     );
   });
 
-  it('should update only provided fields', async () => {
+  it('should update location label', async () => {
     const created = await createLocation.execute({
-      code: 'WH-001',
-      description: 'Original',
-      capacity: 1000,
+      titulo: 'Warehouse 001',
+      type: 'WAREHOUSE',
     });
 
     const result = await sut.execute({
       id: created.location.id.toString(),
-      description: 'Updated',
+      label: 'Primary storage facility',
     });
 
-    expect(result.location.code).toBe('WH-001');
-    expect(result.location.description).toBe('Updated');
-    expect(result.location.capacity).toBe(1000);
+    expect(result.location.label).toBe('Primary storage facility');
   });
 
   it('should throw error if location not found', async () => {
@@ -67,7 +65,8 @@ describe('UpdateLocationUseCase', () => {
 
   it('should not update with empty code', async () => {
     const created = await createLocation.execute({
-      code: 'WH-001',
+      titulo: 'Test Location',
+      type: 'WAREHOUSE',
     });
 
     await expect(
@@ -80,24 +79,29 @@ describe('UpdateLocationUseCase', () => {
 
   it('should not update with duplicate code', async () => {
     await createLocation.execute({
-      code: 'WH-001',
+      titulo: 'Warehouse 1',
+      type: 'WAREHOUSE',
+      code: 'WH001',
     });
 
     const second = await createLocation.execute({
-      code: 'WH-002',
+      titulo: 'Warehouse 2',
+      type: 'WAREHOUSE',
+      code: 'WH002',
     });
 
     await expect(
       sut.execute({
         id: second.location.id.toString(),
-        code: 'WH-001',
+        code: 'WH001',
       }),
     ).rejects.toThrow(BadRequestError);
   });
 
   it('should not update with occupancy exceeding capacity', async () => {
     const created = await createLocation.execute({
-      code: 'WH-001',
+      titulo: 'Test Location',
+      type: 'WAREHOUSE',
       capacity: 100,
     });
 

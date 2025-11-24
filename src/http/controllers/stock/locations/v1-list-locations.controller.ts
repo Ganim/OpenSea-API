@@ -14,8 +14,11 @@ export async function listLocationsController(app: FastifyInstance) {
     schema: {
       tags: ['Locations'],
       summary: 'List all active locations',
-      description: 'List all active storage locations',
+      description: 'List all active storage locations with optional filtering by type',
       security: [{ bearerAuth: [] }],
+      querystring: z.object({
+        locationType: z.enum(['WAREHOUSE', 'ZONE', 'AISLE', 'SHELF', 'BIN', 'OTHER']).optional(),
+      }),
       response: {
         200: z.object({
           locations: z.array(locationResponseSchema),
@@ -23,10 +26,14 @@ export async function listLocationsController(app: FastifyInstance) {
       },
     },
 
-    handler: async (_request, reply) => {
+    handler: async (request, reply) => {
+      const { locationType } = request.query;
+
       const listLocationsUseCase = makeListLocationsUseCase();
 
-      const { locations } = await listLocationsUseCase.execute();
+      const { locations } = await listLocationsUseCase.execute(
+        locationType ? { type: locationType } : undefined
+      );
 
       return reply.status(200).send({ locations });
     },

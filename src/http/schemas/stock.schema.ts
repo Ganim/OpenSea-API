@@ -222,22 +222,24 @@ export const itemExitResponseSchema = z.object({
 // ============= LOCATION SCHEMAS =============
 
 export const createLocationSchema = z.object({
-  code: z.string().min(1).max(100),
-  description: z.string().max(255).optional(),
-  locationType: z
-    .enum(['WAREHOUSE', 'ZONE', 'AISLE', 'SHELF', 'BIN', 'OTHER'])
-    .optional(),
+  code: z.string().max(5).optional(),
+  titulo: z.string().min(1).max(255),
+  label: z.string().max(128).optional(),
+  type: z.enum(['WAREHOUSE', 'ZONE', 'AISLE', 'SHELF', 'BIN', 'OTHER']),
   parentId: z.uuid().optional(),
   capacity: z.number().int().nonnegative().optional(),
   currentOccupancy: z.number().int().nonnegative().optional(),
+  isActive: z.boolean().optional(),
 });
 
 export const locationResponseSchema = z.object({
   id: z.uuid(),
   code: z.string(),
-  description: z.string().optional(),
-  locationType: z.string().optional(),
+  titulo: z.string(),
+  label: z.string().optional(),
+  type: z.string(),
   parentId: z.uuid().optional(),
+  totalChilds: z.number(),
   capacity: z.number().optional(),
   currentOccupancy: z.number().optional(),
   isActive: z.boolean(),

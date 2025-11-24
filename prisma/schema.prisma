@@ -556,11 +556,13 @@ model Category {
 }
 
 model Location {
-  id           String        @id @default(uuid())
-  code         String        @unique @db.VarChar(64)
-  description  String?       @db.VarChar(256)
-  locationType LocationType? @map("location_type")
-  parentId     String?       @map("parent_id")
+  id          String       @id @default(uuid())
+  code        String       @db.VarChar(5)
+  titulo      String       @db.VarChar(256)
+  label       String?      @db.VarChar(128)
+  type        LocationType @map("location_type")
+  parentId    String?      @map("parent_id")
+  totalChilds Int          @default(0) @map("total_childs")
 
   // Capacidade
   capacity         Decimal? @db.Decimal(10, 3)
@@ -577,7 +579,7 @@ model Location {
   stockSnapshots StockSnapshot[]
 
   @@index([isActive])
-  @@index([locationType])
+  @@index([type])
   @@map("locations")
 }
 

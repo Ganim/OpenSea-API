@@ -53,8 +53,9 @@ describe('List and Get Item Reservations (E2E)', () => {
 
     const location = await prisma.location.create({
       data: {
-        code: `LOC-${unique}`,
-        description: `Test Location ${unique}`,
+        code: `C${unique.toString().slice(-4)}`,
+        titulo: `Test Location ${unique}`,
+        type: 'WAREHOUSE',
       },
     });
 

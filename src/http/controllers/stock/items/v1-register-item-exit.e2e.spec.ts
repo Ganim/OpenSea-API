@@ -54,8 +54,9 @@ describe('Register Item Exit (e2e)', () => {
     // Create location
     const location = await prisma.location.create({
       data: {
-        code: `LOC-EXIT-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `Z${timestamp.toString().slice(-4)}`,
+        titulo: 'Warehouse for exit',
+        type: 'WAREHOUSE',
       },
     });
 
@@ -145,8 +146,9 @@ describe('Register Item Exit (e2e)', () => {
 
     const location = await prisma.location.create({
       data: {
-        code: `LOC-QTY-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `Q${timestamp.toString().slice(-4)}`,
+        titulo: 'Warehouse for qty test',
+        type: 'WAREHOUSE',
       },
     });
 

@@ -17,9 +17,8 @@ describe('GetLocationByIdUseCase', () => {
 
   it('should get a location by id', async () => {
     const created = await createLocation.execute({
-      code: 'WH-001',
-      description: 'Main Warehouse',
-      locationType: 'WAREHOUSE',
+      titulo: 'Main Warehouse',
+      type: 'WAREHOUSE',
     });
 
     const result = await sut.execute({ id: created.location.id.toString() });
@@ -27,9 +26,8 @@ describe('GetLocationByIdUseCase', () => {
     expect(result.location).toEqual(
       expect.objectContaining({
         id: created.location.id.toString(),
-        code: 'WH-001',
-        description: 'Main Warehouse',
-        locationType: 'WAREHOUSE',
+        titulo: 'Main Warehouse',
+        type: 'WAREHOUSE',
       }),
     );
   });

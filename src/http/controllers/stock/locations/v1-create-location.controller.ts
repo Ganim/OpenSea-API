@@ -33,7 +33,9 @@ export async function createLocationController(app: FastifyInstance) {
 
         const result = await useCase.execute(request.body);
 
-        return reply.status(201).send({ location: locationToDTO(result.location) });
+        return reply
+          .status(201)
+          .send({ location: locationToDTO(result.location) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

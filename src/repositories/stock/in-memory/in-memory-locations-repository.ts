@@ -13,8 +13,9 @@ export class InMemoryLocationsRepository implements LocationsRepository {
   async create(data: CreateLocationSchema): Promise<Location> {
     const location = Location.create({
       code: data.code,
-      description: data.description,
-      locationType: data.locationType,
+      titulo: data.titulo,
+      label: data.label,
+      type: data.type,
       parentId: data.parentId,
       capacity: data.capacity,
       currentOccupancy: data.currentOccupancy ?? 0,
@@ -46,7 +47,7 @@ export class InMemoryLocationsRepository implements LocationsRepository {
   async findManyByType(locationType: LocationType): Promise<Location[]> {
     return this.items.filter(
       (item) =>
-        !item.deletedAt && item.locationType?.value === locationType.value,
+        !item.deletedAt && item.type?.value === locationType.value,
     );
   }
 
@@ -56,8 +57,13 @@ export class InMemoryLocationsRepository implements LocationsRepository {
     );
   }
 
-  async findManyActive(): Promise<Location[]> {
-    return this.items.filter((item) => !item.deletedAt && item.isActive);
+  async findManyActive(filters?: { type?: LocationType }): Promise<Location[]> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.isActive &&
+        (!filters?.type || item.type?.value === filters.type.value),
+    );
   }
 
   async findManyNearCapacity(threshold: number): Promise<Location[]> {
@@ -75,10 +81,10 @@ export class InMemoryLocationsRepository implements LocationsRepository {
     if (!location) return null;
 
     if (data.code !== undefined) location.code = data.code;
-    if (data.locationType !== undefined)
-      location.locationType = data.locationType;
+    if (data.type !== undefined) location.type = data.type;
     if (data.parentId !== undefined) location.parentId = data.parentId;
-    if (data.description !== undefined) location.description = data.description;
+    if (data.titulo !== undefined) location.titulo = data.titulo;
+    if (data.label !== undefined) location.label = data.label;
     if (data.capacity !== undefined) location.capacity = data.capacity;
     if (data.currentOccupancy !== undefined)
       location.currentOccupancy = data.currentOccupancy;

@@ -54,8 +54,9 @@ describe('List Items (e2e)', () => {
     // Create location
     const location = await prisma.location.create({
       data: {
-        code: `LOC-LIST-ITEMS-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `I${timestamp.toString().slice(-4)}`,
+        titulo: 'Warehouse for list items',
+        type: 'WAREHOUSE',
       },
     });
 
@@ -137,8 +138,9 @@ describe('List Items (e2e)', () => {
     // Create location
     const location = await prisma.location.create({
       data: {
-        code: `LOC-FILTER-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `F${timestamp.toString().slice(-4)}`,
+        titulo: 'Warehouse for filter',
+        type: 'WAREHOUSE',
       },
     });
 

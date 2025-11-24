@@ -3,13 +3,25 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { LocationType } from '@/entities/stock/value-objects/location-type';
 import { LocationsRepository } from '@/repositories/stock/locations-repository';
 
+// Função para gerar código aleatório de 5 caracteres
+function generateLocationCode(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  for (let i = 0; i < 5; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
 interface CreateLocationUseCaseRequest {
-  code: string;
-  description?: string;
-  locationType?: string;
+  code?: string;
+  titulo: string;
+  label?: string;
+  type: string;
   parentId?: string;
   capacity?: number;
   currentOccupancy?: number;
+  isActive?: boolean;
 }
 
 interface CreateLocationUseCaseResponse {
@@ -24,54 +36,42 @@ export class CreateLocationUseCase {
   ): Promise<CreateLocationUseCaseResponse> {
     const {
       code,
-      description,
-      locationType,
+      titulo,
+      label,
+      type,
       parentId,
       capacity,
       currentOccupancy,
+      isActive,
     } = request;
 
+    // Generate code if not provided
+    const finalCode = code || generateLocationCode();
+
     // Validate code
-    if (!code || code.trim().length === 0) {
-      throw new BadRequestError('Code is required');
+    if (finalCode.length > 5) {
+      throw new BadRequestError('Code must be at most 5 characters long');
     }
 
-    if (code.length > 50) {
-      throw new BadRequestError('Code must be at most 50 characters long');
+    // Validate titulo
+    if (!titulo || titulo.trim().length === 0) {
+      throw new BadRequestError('Title is required');
     }
 
-    // Check if code already exists
-    const existingLocation = await this.locationsRepository.findByCode(code);
-    if (existingLocation) {
-      throw new BadRequestError('Location with this code already exists');
+    // Validate type
+    if (!type) {
+      throw new BadRequestError('Type is required');
     }
 
-    // Validate location type if provided
-    let parsedLocationType: LocationType | undefined;
-    if (locationType) {
-      const validTypes = [
-        'WAREHOUSE',
-        'ZONE',
-        'AISLE',
-        'SHELF',
-        'BIN',
-        'OTHER',
-      ];
-      if (!validTypes.includes(locationType)) {
-        throw new BadRequestError(
-          'Invalid location type. Must be one of: WAREHOUSE, ZONE, AISLE, SHELF, BIN, OTHER',
-        );
-      }
-      parsedLocationType = LocationType.create(
-        locationType as
-          | 'WAREHOUSE'
-          | 'ZONE'
-          | 'AISLE'
-          | 'SHELF'
-          | 'BIN'
-          | 'OTHER',
+    const validTypes = ['WAREHOUSE', 'ZONE', 'AISLE', 'SHELF', 'BIN', 'OTHER'];
+    if (!validTypes.includes(type)) {
+      throw new BadRequestError(
+        'Invalid type. Must be one of: WAREHOUSE, ZONE, AISLE, SHELF, BIN, OTHER',
       );
     }
+    const parsedType = LocationType.create(
+      type as 'WAREHOUSE' | 'ZONE' | 'AISLE' | 'SHELF' | 'BIN' | 'OTHER',
+    );
 
     // Validate capacity if provided
     if (capacity !== undefined && capacity < 0) {
@@ -104,13 +104,14 @@ export class CreateLocationUseCase {
 
     // Save to repository
     const createdLocation = await this.locationsRepository.create({
-      code,
-      description,
-      locationType: parsedLocationType,
+      code: finalCode,
+      titulo,
+      label,
+      type: parsedType,
       parentId: parentId ? new UniqueEntityID(parentId) : undefined,
       capacity,
       currentOccupancy: currentOccupancy ?? 0,
-      isActive: true,
+      isActive: isActive ?? true,
     });
 
     return {

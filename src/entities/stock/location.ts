@@ -6,9 +6,11 @@ import { LocationType } from './value-objects/location-type';
 export interface LocationProps {
   id: UniqueEntityID;
   code: string;
-  description?: string;
-  locationType?: LocationType;
+  titulo: string;
+  label?: string;
+  type: LocationType;
   parentId?: UniqueEntityID;
+  totalChilds: number;
   capacity?: number;
   currentOccupancy: number;
   isActive: boolean;
@@ -31,21 +33,30 @@ export class Location extends Entity<LocationProps> {
     this.touch();
   }
 
-  get description(): string | undefined {
-    return this.props.description;
+  get titulo(): string {
+    return this.props.titulo;
   }
 
-  set description(description: string | undefined) {
-    this.props.description = description;
+  set titulo(titulo: string) {
+    this.props.titulo = titulo;
     this.touch();
   }
 
-  get locationType(): LocationType | undefined {
-    return this.props.locationType;
+  get label(): string | undefined {
+    return this.props.label;
   }
 
-  set locationType(type: LocationType | undefined) {
-    this.props.locationType = type;
+  set label(label: string | undefined) {
+    this.props.label = label;
+    this.touch();
+  }
+
+  get type(): LocationType {
+    return this.props.type;
+  }
+
+  set type(type: LocationType) {
+    this.props.type = type;
     this.touch();
   }
 
@@ -55,6 +66,15 @@ export class Location extends Entity<LocationProps> {
 
   set parentId(parentId: UniqueEntityID | undefined) {
     this.props.parentId = parentId;
+    this.touch();
+  }
+
+  get totalChilds(): number {
+    return this.props.totalChilds;
+  }
+
+  set totalChilds(totalChilds: number) {
+    this.props.totalChilds = totalChilds;
     this.touch();
   }
 
@@ -207,6 +227,7 @@ export class Location extends Entity<LocationProps> {
       | 'deletedAt'
       | 'currentOccupancy'
       | 'isActive'
+      | 'totalChilds'
     >,
     id?: UniqueEntityID,
   ): Location {
@@ -216,6 +237,7 @@ export class Location extends Entity<LocationProps> {
         id: id ?? new UniqueEntityID(),
         currentOccupancy: props.currentOccupancy ?? 0,
         isActive: props.isActive ?? true,
+        totalChilds: props.totalChilds ?? 0,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

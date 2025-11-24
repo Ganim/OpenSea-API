@@ -70,8 +70,9 @@ describe('List Variants by Product ID (E2E)', () => {
     // Create a location first
     const locationDb = await prisma.location.create({
       data: {
-        code: `LOC-${timestamp}`,
-        description: 'Test Location',
+        code: `C${timestamp.toString().slice(-4)}`,
+        titulo: 'Test Location',
+        type: 'WAREHOUSE',
       },
     });
 

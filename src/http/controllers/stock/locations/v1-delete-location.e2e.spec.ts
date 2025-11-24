@@ -22,8 +22,9 @@ describe('Delete Location (E2E)', () => {
     const timestamp = Date.now();
     const location = await prisma.location.create({
       data: {
-        code: `WH-DELETE-${timestamp}`,
-        description: 'Location to be deleted',
+        code: `D${timestamp.toString().slice(-4)}`,
+        titulo: 'Location to be deleted',
+        type: 'WAREHOUSE',
       },
     });
 

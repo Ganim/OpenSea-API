@@ -16,20 +16,20 @@ describe('ListLocationsUseCase', () => {
 
   it('should list all active locations', async () => {
     await createLocation.execute({
-      code: 'WH-001',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse 001',
+      type: 'WAREHOUSE',
     });
 
     await createLocation.execute({
-      code: 'ZONE-A',
-      locationType: 'ZONE',
+      titulo: 'Zone A',
+      type: 'ZONE',
     });
 
     const result = await sut.execute();
 
     expect(result.locations).toHaveLength(2);
-    expect(result.locations[0].code).toBe('WH-001');
-    expect(result.locations[1].code).toBe('ZONE-A');
+    expect(result.locations[0].titulo).toBe('Warehouse 001');
+    expect(result.locations[1].titulo).toBe('Zone A');
   });
 
   it('should return empty array when no locations exist', async () => {

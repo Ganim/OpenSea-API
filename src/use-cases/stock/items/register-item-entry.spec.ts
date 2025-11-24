@@ -87,8 +87,8 @@ describe('RegisterItemEntryUseCase', () => {
 
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     const userId = new UniqueEntityID().toString();
@@ -135,8 +135,8 @@ describe('RegisterItemEntryUseCase', () => {
 
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     const userId = new UniqueEntityID().toString();
@@ -208,8 +208,8 @@ describe('RegisterItemEntryUseCase', () => {
 
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     const userId = new UniqueEntityID().toString();
@@ -258,8 +258,8 @@ describe('RegisterItemEntryUseCase', () => {
   it('should not allow non-existent variant', async () => {
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     await expect(() =>
@@ -330,8 +330,8 @@ describe('RegisterItemEntryUseCase', () => {
 
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     await expect(() =>
@@ -371,8 +371,8 @@ describe('RegisterItemEntryUseCase', () => {
 
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     await expect(() =>
@@ -412,8 +412,8 @@ describe('RegisterItemEntryUseCase', () => {
 
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     await expect(() =>

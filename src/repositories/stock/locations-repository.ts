@@ -4,8 +4,9 @@ import { LocationType } from '@/entities/stock/value-objects/location-type';
 
 export interface CreateLocationSchema {
   code: string;
-  description?: string;
-  locationType?: LocationType;
+  titulo: string;
+  label?: string;
+  type: LocationType;
   parentId?: UniqueEntityID;
   capacity?: number;
   currentOccupancy?: number;
@@ -15,8 +16,9 @@ export interface CreateLocationSchema {
 export interface UpdateLocationSchema {
   id: UniqueEntityID;
   code?: string;
-  description?: string;
-  locationType?: LocationType;
+  titulo?: string;
+  label?: string;
+  type?: LocationType;
   parentId?: UniqueEntityID;
   capacity?: number;
   currentOccupancy?: number;
@@ -27,9 +29,9 @@ export interface LocationsRepository {
   create(data: CreateLocationSchema): Promise<Location>;
   findById(id: UniqueEntityID): Promise<Location | null>;
   findByCode(code: string): Promise<Location | null>;
-  findManyByType(locationType: LocationType): Promise<Location[]>;
+  findManyByType(type: LocationType): Promise<Location[]>;
   findManyByParent(parentId: UniqueEntityID): Promise<Location[]>;
-  findManyActive(): Promise<Location[]>;
+  findManyActive(filters?: { type?: LocationType }): Promise<Location[]>;
   findManyNearCapacity(threshold: number): Promise<Location[]>;
   countSubLocations(parentId: UniqueEntityID): Promise<number>;
   countDirectItems(locationId: UniqueEntityID): Promise<number>;

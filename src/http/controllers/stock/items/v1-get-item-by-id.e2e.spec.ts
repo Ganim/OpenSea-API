@@ -54,8 +54,9 @@ describe('Get Item By ID (e2e)', () => {
     // Create location
     const location = await prisma.location.create({
       data: {
-        code: `LOC-GET-ITEM-${timestamp}`,
-        locationType: 'WAREHOUSE',
+        code: `G${timestamp.toString().slice(-4)}`,
+        titulo: 'Warehouse for item',
+        type: 'WAREHOUSE',
       },
     });
 

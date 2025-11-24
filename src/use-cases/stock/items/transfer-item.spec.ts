@@ -94,14 +94,14 @@ describe('TransferItemUseCase', () => {
 
     const { location: locationA } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     const { location: locationB } = await createLocation.execute({
       code: 'WH-B',
-      description: 'Warehouse B',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse B',
+      type: 'WAREHOUSE',
     });
 
     const userId = new UniqueEntityID().toString();
@@ -153,8 +153,8 @@ describe('TransferItemUseCase', () => {
 
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     const userId = new UniqueEntityID().toString();
@@ -179,8 +179,8 @@ describe('TransferItemUseCase', () => {
   it('should not allow transfer for non-existent item', async () => {
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     await expect(() =>
@@ -216,8 +216,8 @@ describe('TransferItemUseCase', () => {
 
     const { location } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     const userId = new UniqueEntityID().toString();
@@ -263,14 +263,14 @@ describe('TransferItemUseCase', () => {
 
     const { location: locationA } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     const { location: locationB } = await createLocation.execute({
-      code: 'STORE-01',
-      description: 'Retail Store 1',
-      locationType: 'OTHER',
+      code: 'STR01',
+      titulo: 'Retail Store 1',
+      type: 'OTHER',
     });
 
     const userId = new UniqueEntityID().toString();
@@ -320,20 +320,20 @@ describe('TransferItemUseCase', () => {
 
     const { location: locationA } = await createLocation.execute({
       code: 'WH-A',
-      description: 'Warehouse A',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse A',
+      type: 'WAREHOUSE',
     });
 
     const { location: locationB } = await createLocation.execute({
       code: 'WH-B',
-      description: 'Warehouse B',
-      locationType: 'WAREHOUSE',
+      titulo: 'Warehouse B',
+      type: 'WAREHOUSE',
     });
 
     const { location: locationC } = await createLocation.execute({
-      code: 'STORE-01',
-      description: 'Store 1',
-      locationType: 'OTHER',
+      code: 'STR01',
+      titulo: 'Store 1',
+      type: 'OTHER',
     });
 
     const userId = new UniqueEntityID().toString();

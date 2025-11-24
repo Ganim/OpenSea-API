@@ -3,9 +3,11 @@ import type { Location } from '@/entities/stock/location';
 export interface LocationDTO {
   id: string;
   code: string;
-  description?: string;
-  locationType?: string;
+  titulo: string;
+  label?: string;
+  type: string;
   parentId?: string;
+  totalChilds: number;
   capacity?: number;
   currentOccupancy?: number;
   isActive: boolean;
@@ -28,9 +30,11 @@ export function locationToDTO(
   return {
     id: location.id.toString(),
     code: location.code,
-    description: location.description,
-    locationType: location.locationType?.value,
+    titulo: location.titulo,
+    label: location.label,
+    type: location.type.value,
     parentId: location.parentId?.toString(),
+    totalChilds: location.totalChilds,
     capacity: location.capacity,
     currentOccupancy: location.currentOccupancy,
     isActive: location.isActive,

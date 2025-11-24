@@ -7,10 +7,9 @@ export function mapLocationPrismaToDomain(locationDb: PrismaLocation) {
   return {
     id: new UniqueEntityID(locationDb.id),
     code: locationDb.code,
-    description: locationDb.description ?? undefined,
-    locationType: locationDb.locationType
-      ? LocationType.create(locationDb.locationType)
-      : undefined,
+    titulo: locationDb.titulo,
+    label: locationDb.label ?? undefined,
+    type: LocationType.create(locationDb.type),
     parentId: locationDb.parentId
       ? new UniqueEntityID(locationDb.parentId)
       : undefined,
@@ -24,6 +23,7 @@ export function mapLocationPrismaToDomain(locationDb: PrismaLocation) {
     createdAt: locationDb.createdAt,
     updatedAt: locationDb.updatedAt,
     deletedAt: locationDb.deletedAt ?? undefined,
+    totalChilds: locationDb.totalChilds,
   };
 }
 

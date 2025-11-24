@@ -16,10 +16,9 @@ export class PrismaLocationsRepository implements LocationsRepository {
     const locationData = await prisma.location.create({
       data: {
         code: data.code,
-        description: data.description,
-        locationType: data.locationType?.value as
-          | PrismaLocationType
-          | undefined,
+        titulo: data.titulo,
+        label: data.label,
+        type: data.type.value as PrismaLocationType,
         parentId: data.parentId?.toString(),
         capacity: data.capacity ? new Decimal(data.capacity) : undefined,
         currentOccupancy: data.currentOccupancy
@@ -29,16 +28,24 @@ export class PrismaLocationsRepository implements LocationsRepository {
       },
     });
 
+    // Update parent totalChilds if parent exists
+    if (data.parentId) {
+      await prisma.location.update({
+        where: { id: data.parentId.toString() },
+        data: { totalChilds: { increment: 1 } },
+      });
+    }
+
     return Location.create(
       {
         code: locationData.code,
-        description: locationData.description ?? undefined,
-        locationType: locationData.locationType
-          ? LocationType.create(locationData.locationType)
-          : undefined,
+        titulo: locationData.titulo,
+        label: locationData.label ?? undefined,
+        type: LocationType.create(locationData.type),
         parentId: locationData.parentId
           ? new EntityID(locationData.parentId)
           : undefined,
+        totalChilds: locationData.totalChilds,
         capacity: locationData.capacity?.toNumber(),
         currentOccupancy: locationData.currentOccupancy?.toNumber() ?? 0,
         isActive: locationData.isActive,
@@ -63,13 +70,13 @@ export class PrismaLocationsRepository implements LocationsRepository {
     return Location.create(
       {
         code: locationData.code,
-        description: locationData.description ?? undefined,
-        locationType: locationData.locationType
-          ? LocationType.create(locationData.locationType)
-          : undefined,
+        titulo: locationData.titulo,
+        label: locationData.label ?? undefined,
+        type: LocationType.create(locationData.type),
         parentId: locationData.parentId
           ? new EntityID(locationData.parentId)
           : undefined,
+        totalChilds: locationData.totalChilds,
         capacity: locationData.capacity?.toNumber(),
         currentOccupancy: locationData.currentOccupancy?.toNumber() ?? 0,
         isActive: locationData.isActive,
@@ -94,13 +101,13 @@ export class PrismaLocationsRepository implements LocationsRepository {
     return Location.create(
       {
         code: locationData.code,
-        description: locationData.description ?? undefined,
-        locationType: locationData.locationType
-          ? LocationType.create(locationData.locationType)
-          : undefined,
+        titulo: locationData.titulo,
+        label: locationData.label ?? undefined,
+        type: LocationType.create(locationData.type),
         parentId: locationData.parentId
           ? new EntityID(locationData.parentId)
           : undefined,
+        totalChilds: locationData.totalChilds,
         capacity: locationData.capacity?.toNumber(),
         currentOccupancy: locationData.currentOccupancy?.toNumber() ?? 0,
         isActive: locationData.isActive,
@@ -112,10 +119,10 @@ export class PrismaLocationsRepository implements LocationsRepository {
     );
   }
 
-  async findManyByType(locationType: LocationType): Promise<Location[]> {
+  async findManyByType(type: LocationType): Promise<Location[]> {
     const locations = await prisma.location.findMany({
       where: {
-        locationType: locationType.value as PrismaLocationType,
+        type: type.value as PrismaLocationType,
         deletedAt: null,
       },
     });
@@ -124,13 +131,13 @@ export class PrismaLocationsRepository implements LocationsRepository {
       Location.create(
         {
           code: locationData.code,
-          description: locationData.description ?? undefined,
-          locationType: locationData.locationType
-            ? LocationType.create(locationData.locationType)
-            : undefined,
+          titulo: locationData.titulo,
+          label: locationData.label ?? undefined,
+          type: LocationType.create(locationData.type),
           parentId: locationData.parentId
             ? new EntityID(locationData.parentId)
             : undefined,
+          totalChilds: locationData.totalChilds,
           capacity: locationData.capacity?.toNumber(),
           currentOccupancy: locationData.currentOccupancy?.toNumber() ?? 0,
           isActive: locationData.isActive,
@@ -147,6 +154,7 @@ export class PrismaLocationsRepository implements LocationsRepository {
     const locations = await prisma.location.findMany({
       where: {
         parentId: parentId.toString(),
+        isActive: true,
         deletedAt: null,
       },
     });
@@ -155,13 +163,13 @@ export class PrismaLocationsRepository implements LocationsRepository {
       Location.create(
         {
           code: locationData.code,
-          description: locationData.description ?? undefined,
-          locationType: locationData.locationType
-            ? LocationType.create(locationData.locationType)
-            : undefined,
+          titulo: locationData.titulo,
+          label: locationData.label ?? undefined,
+          type: LocationType.create(locationData.type),
           parentId: locationData.parentId
             ? new EntityID(locationData.parentId)
             : undefined,
+          totalChilds: locationData.totalChilds,
           capacity: locationData.capacity?.toNumber(),
           currentOccupancy: locationData.currentOccupancy?.toNumber() ?? 0,
           isActive: locationData.isActive,
@@ -174,11 +182,14 @@ export class PrismaLocationsRepository implements LocationsRepository {
     );
   }
 
-  async findManyActive(): Promise<Location[]> {
+  async findManyActive(filters?: { type?: LocationType }): Promise<Location[]> {
     const locations = await prisma.location.findMany({
       where: {
         isActive: true,
         deletedAt: null,
+        ...(filters?.type && {
+          type: filters.type.value as PrismaLocationType,
+        }),
       },
     });
 
@@ -186,13 +197,13 @@ export class PrismaLocationsRepository implements LocationsRepository {
       Location.create(
         {
           code: locationData.code,
-          description: locationData.description ?? undefined,
-          locationType: locationData.locationType
-            ? LocationType.create(locationData.locationType)
-            : undefined,
+          titulo: locationData.titulo,
+          label: locationData.label ?? undefined,
+          type: LocationType.create(locationData.type),
           parentId: locationData.parentId
             ? new EntityID(locationData.parentId)
             : undefined,
+          totalChilds: locationData.totalChilds,
           capacity: locationData.capacity?.toNumber(),
           currentOccupancy: locationData.currentOccupancy?.toNumber() ?? 0,
           isActive: locationData.isActive,
@@ -235,13 +246,13 @@ export class PrismaLocationsRepository implements LocationsRepository {
         Location.create(
           {
             code: locationData.code,
-            description: locationData.description ?? undefined,
-            locationType: locationData.locationType
-              ? LocationType.create(locationData.locationType)
-              : undefined,
+            titulo: locationData.titulo,
+            label: locationData.label ?? undefined,
+            type: LocationType.create(locationData.type),
             parentId: locationData.parentId
               ? new EntityID(locationData.parentId)
               : undefined,
+            totalChilds: locationData.totalChilds,
             capacity: locationData.capacity?.toNumber(),
             currentOccupancy: locationData.currentOccupancy?.toNumber() ?? 0,
             isActive: locationData.isActive,
@@ -261,10 +272,9 @@ export class PrismaLocationsRepository implements LocationsRepository {
       },
       data: {
         code: data.code,
-        description: data.description,
-        locationType: data.locationType?.value as
-          | PrismaLocationType
-          | undefined,
+        titulo: data.titulo,
+        label: data.label,
+        type: data.type?.value as PrismaLocationType | undefined,
         parentId: data.parentId?.toString(),
         capacity: data.capacity ? new Decimal(data.capacity) : undefined,
         currentOccupancy: data.currentOccupancy
@@ -277,13 +287,13 @@ export class PrismaLocationsRepository implements LocationsRepository {
     return Location.create(
       {
         code: locationData.code,
-        description: locationData.description ?? undefined,
-        locationType: locationData.locationType
-          ? LocationType.create(locationData.locationType)
-          : undefined,
+        titulo: locationData.titulo,
+        label: locationData.label ?? undefined,
+        type: LocationType.create(locationData.type),
         parentId: locationData.parentId
           ? new EntityID(locationData.parentId)
           : undefined,
+        totalChilds: locationData.totalChilds,
         capacity: locationData.capacity?.toNumber(),
         currentOccupancy: locationData.currentOccupancy?.toNumber() ?? 0,
         isActive: locationData.isActive,
@@ -302,10 +312,9 @@ export class PrismaLocationsRepository implements LocationsRepository {
       },
       data: {
         code: location.code,
-        description: location.description,
-        locationType: location.locationType?.value as
-          | PrismaLocationType
-          | undefined,
+        titulo: location.titulo,
+        label: location.label,
+        type: location.type.value as PrismaLocationType,
         parentId: location.parentId?.toString(),
         capacity: location.capacity ? new Decimal(location.capacity) : null,
         currentOccupancy: new Decimal(location.currentOccupancy),
