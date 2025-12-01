@@ -1,3 +1,4 @@
 export { mapOvertimePrismaToDomain } from './overtime-prisma-to-domain';
-export { OvertimeDTO, overtimeToDTO } from './overtime-to-dto';
+export { overtimeToDTO } from './overtime-to-dto';
+export type { OvertimeDTO } from './overtime-to-dto';
 
