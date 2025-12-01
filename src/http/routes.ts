@@ -38,6 +38,9 @@ import { tagsRoutes } from './controllers/stock/tags/routes';
 import { templatesRoutes } from './controllers/stock/templates/routes';
 import { variantsRoutes } from './controllers/stock/variants/routes';
 
+// HR routes
+import { employeesRoutes } from './controllers/hr/employees/routes';
+
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
   await app.register(healthRoutes);
@@ -75,4 +78,7 @@ export async function registerRoutes(app: FastifyInstance) {
 
   // Requests routes (Workflow)
   await app.register(requestsRoutes);
+
+  // HR routes
+  await app.register(employeesRoutes);
 }

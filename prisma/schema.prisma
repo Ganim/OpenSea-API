@@ -79,6 +79,20 @@ model User {
   RequestComments         RequestComment[]         @relation("RequestComments")
   RequestHistoryActions   RequestHistory[]         @relation("RequestHistoryActions")
 
+  // HR Relations
+  employee Employee?
+
+  // Payroll Relations
+  processedPayrolls Payroll[] @relation("PayrollProcessor")
+  approvedPayrolls  Payroll[] @relation("PayrollApprover")
+  paidPayrolls      Payroll[] @relation("PayrollPayer")
+
+  // Overtime Relations
+  approvedOvertime Overtime[]
+
+  // Absence Relations
+  approvedAbsences Absence[]
+
   // Optimizations
   @@index([failedLoginAttempts, blockedUntil, lastLoginIp])
   @@index([passwordResetToken, passwordResetExpires])
@@ -1383,4 +1397,532 @@ model RequestHistory {
   @@index([requestId])
   @@index([createdAt])
   @@map("request_history")
+}
+
+// ===============================================
+// HUMAN RESOURCES MODULE
+// ===============================================
+
+// --- Enums ---
+
+enum EmployeeStatus {
+  ACTIVE
+  ON_LEAVE
+  VACATION
+  SUSPENDED
+  TERMINATED
+}
+
+enum ContractType {
+  CLT
+  PJ
+  INTERN
+  TEMPORARY
+  APPRENTICE
+}
+
+enum WorkRegime {
+  FULL_TIME
+  PART_TIME
+  HOURLY
+  SHIFT
+  FLEXIBLE
+}
+
+// --- Entidades ---
+
+model Employee {
+  id String @id @default(uuid())
+
+  // Identificação
+  registrationNumber String @unique @map("registration_number") @db.VarChar(32)
+
+  // Vinculação com usuário (opcional)
+  userId String? @unique @map("user_id")
+
+  // Dados pessoais
+  fullName      String    @db.VarChar(256)
+  socialName    String?   @db.VarChar(256)
+  birthDate     DateTime? @map("birth_date")
+  gender        String?   @db.VarChar(32)
+  maritalStatus String?   @db.VarChar(32)
+  nationality   String?   @db.VarChar(64)
+  birthPlace    String?   @db.VarChar(128)
+
+  // Documentos
+  cpf         String    @unique @db.VarChar(14)
+  rg          String?   @db.VarChar(20)
+  rgIssuer    String?   @map("rg_issuer") @db.VarChar(32)
+  rgIssueDate DateTime? @map("rg_issue_date")
+  pis         String?   @unique @db.VarChar(14)
+  ctpsNumber  String?   @db.VarChar(32)
+  ctpsSeries  String?   @db.VarChar(16)
+  ctpsState   String?   @db.VarChar(2)
+  voterTitle  String?   @db.VarChar(16)
+  militaryDoc String?   @db.VarChar(32)
+
+  // Contato
+  email            String? @db.VarChar(254)
+  personalEmail    String? @map("personal_email") @db.VarChar(254)
+  phone            String? @db.VarChar(20)
+  mobilePhone      String? @map("mobile_phone") @db.VarChar(20)
+  emergencyContact String? @map("emergency_contact") @db.VarChar(128)
+  emergencyPhone   String? @map("emergency_phone") @db.VarChar(20)
+
+  // Endereço
+  address       String? @db.VarChar(256)
+  addressNumber String? @db.VarChar(16)
+  complement    String? @db.VarChar(128)
+  neighborhood  String? @db.VarChar(128)
+  city          String? @db.VarChar(128)
+  state         String? @db.VarChar(2)
+  zipCode       String? @map("zip_code") @db.VarChar(10)
+  country       String  @default("Brasil") @db.VarChar(64)
+
+  // Dados bancários
+  bankCode        String? @db.VarChar(8)
+  bankName        String? @db.VarChar(128)
+  bankAgency      String? @db.VarChar(16)
+  bankAccount     String? @db.VarChar(32)
+  bankAccountType String? @db.VarChar(32)
+  pixKey          String? @db.VarChar(128)
+
+  // Vínculo empregatício
+  departmentId    String?        @map("department_id")
+  positionId      String?        @map("position_id")
+  supervisorId    String?        @map("supervisor_id")
+  hireDate        DateTime       @map("hire_date")
+  terminationDate DateTime?      @map("termination_date")
+  status          EmployeeStatus @default(ACTIVE)
+  baseSalary      Decimal        @map("base_salary") @db.Decimal(10, 2)
+  contractType    ContractType   @map("contract_type")
+  workRegime      WorkRegime     @map("work_regime")
+  weeklyHours     Decimal        @map("weekly_hours") @db.Decimal(5, 2) // Horas semanais
+  photoUrl        String?        @map("photo_url") @db.VarChar(512)
+
+  // Metadados flexíveis
+  metadata Json @default("{}")
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user         User?       @relation(fields: [userId], references: [id])
+  department   Department? @relation("DepartmentEmployees", fields: [departmentId], references: [id])
+  position     Position?   @relation(fields: [positionId], references: [id])
+  supervisor   Employee?   @relation("EmployeeSupervisor", fields: [supervisorId], references: [id])
+  subordinates Employee[]  @relation("EmployeeSupervisor")
+
+  // Time Control
+  timeEntries TimeEntry[]
+
+  // Absences
+  absences Absence[]
+
+  // Payroll
+  payrollItems PayrollItem[]
+
+  // Overtime
+  overtime Overtime[]
+
+  // Time Bank
+  timeBanks TimeBank[]
+
+  // Vacation
+  vacationPeriods VacationPeriod[]
+
+  // Bonuses
+  bonuses Bonus[]
+
+  // Management
+  managedDepartments Department[] @relation("DepartmentManager")
+
+  @@index([userId])
+  @@index([cpf])
+  @@index([registrationNumber])
+  @@index([departmentId])
+  @@index([positionId])
+  @@index([supervisorId])
+  @@index([status])
+  @@index([hireDate])
+  @@index([terminationDate])
+  @@index([deletedAt])
+  @@map("employees")
+}
+
+model Department {
+  id String @id @default(uuid())
+
+  name        String  @db.VarChar(128)
+  code        String  @unique @db.VarChar(32)
+  description String? @db.Text
+  parentId    String? @map("parent_id")
+  managerId   String? @map("manager_id")
+  isActive    Boolean @default(true) @map("is_active")
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  parent    Department?  @relation("DepartmentHierarchy", fields: [parentId], references: [id])
+  children  Department[] @relation("DepartmentHierarchy")
+  manager   Employee?    @relation("DepartmentManager", fields: [managerId], references: [id])
+  positions Position[]
+  employees Employee[]   @relation("DepartmentEmployees")
+
+  @@index([code])
+  @@index([parentId])
+  @@index([managerId])
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("departments")
+}
+
+model Position {
+  id String @id @default(uuid())
+
+  name         String   @db.VarChar(128)
+  code         String   @unique @db.VarChar(32)
+  description  String?  @db.Text
+  departmentId String?  @map("department_id")
+  level        Int      @default(1)
+  minSalary    Decimal? @map("min_salary") @db.Decimal(10, 2)
+  maxSalary    Decimal? @map("max_salary") @db.Decimal(10, 2)
+  isActive     Boolean  @default(true) @map("is_active")
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  department Department? @relation(fields: [departmentId], references: [id])
+  employees  Employee[]
+
+  @@index([code])
+  @@index([departmentId])
+  @@index([level])
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("positions")
+}
+
+// ===============================================
+// TIME CONTROL MODULE
+// ===============================================
+
+enum TimeEntryType {
+  CLOCK_IN
+  CLOCK_OUT
+  BREAK_START
+  BREAK_END
+  OVERTIME_START
+  OVERTIME_END
+}
+
+model TimeEntry {
+  id String @id @default(uuid())
+
+  employeeId String        @map("employee_id")
+  entryType  TimeEntryType @map("entry_type")
+  timestamp  DateTime
+  latitude   Decimal?      @db.Decimal(10, 8)
+  longitude  Decimal?      @db.Decimal(11, 8)
+  ipAddress  String?       @map("ip_address") @db.VarChar(64)
+  notes      String?       @db.Text
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@index([employeeId])
+  @@index([timestamp])
+  @@index([entryType])
+  @@index([employeeId, timestamp])
+  @@map("time_entries")
+}
+
+model WorkSchedule {
+  id String @id @default(uuid())
+
+  name           String  @db.VarChar(128)
+  description    String? @db.Text
+  mondayStart    String? @map("monday_start") @db.VarChar(5) // HH:MM format
+  mondayEnd      String? @map("monday_end") @db.VarChar(5)
+  tuesdayStart   String? @map("tuesday_start") @db.VarChar(5)
+  tuesdayEnd     String? @map("tuesday_end") @db.VarChar(5)
+  wednesdayStart String? @map("wednesday_start") @db.VarChar(5)
+  wednesdayEnd   String? @map("wednesday_end") @db.VarChar(5)
+  thursdayStart  String? @map("thursday_start") @db.VarChar(5)
+  thursdayEnd    String? @map("thursday_end") @db.VarChar(5)
+  fridayStart    String? @map("friday_start") @db.VarChar(5)
+  fridayEnd      String? @map("friday_end") @db.VarChar(5)
+  saturdayStart  String? @map("saturday_start") @db.VarChar(5)
+  saturdayEnd    String? @map("saturday_end") @db.VarChar(5)
+  sundayStart    String? @map("sunday_start") @db.VarChar(5)
+  sundayEnd      String? @map("sunday_end") @db.VarChar(5)
+
+  breakDuration Int     @default(60) @map("break_duration") // Minutos
+  isActive      Boolean @default(true) @map("is_active")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("work_schedules")
+}
+
+model Overtime {
+  id String @id @default(uuid())
+
+  employeeId String    @map("employee_id")
+  date       DateTime
+  hours      Decimal   @db.Decimal(5, 2)
+  reason     String    @db.Text
+  approved   Boolean   @default(false)
+  approvedBy String?   @map("approved_by")
+  approvedAt DateTime? @map("approved_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id])
+  approver User?    @relation(fields: [approvedBy], references: [id])
+
+  @@index([employeeId])
+  @@index([date])
+  @@index([approved])
+  @@map("overtime")
+}
+
+model TimeBank {
+  id String @id @default(uuid())
+
+  employeeId String  @map("employee_id")
+  balance    Decimal @db.Decimal(8, 2) // Saldo em horas
+  year       Int
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@unique([employeeId, year])
+  @@index([employeeId])
+  @@map("time_banks")
+}
+
+// ===============================================
+// ABSENCES MODULE
+// ===============================================
+
+enum AbsenceType {
+  VACATION
+  SICK_LEAVE
+  PERSONAL_LEAVE
+  MATERNITY_LEAVE
+  PATERNITY_LEAVE
+  MEDICAL_APPOINTMENT
+  OTHER
+}
+
+enum AbsenceStatus {
+  REQUESTED
+  APPROVED
+  REJECTED
+  CANCELLED
+  COMPLETED
+}
+
+model Absence {
+  id String @id @default(uuid())
+
+  employeeId         String        @map("employee_id")
+  type               AbsenceType
+  status             AbsenceStatus @default(REQUESTED)
+  startDate          DateTime      @map("start_date")
+  endDate            DateTime      @map("end_date")
+  days               Decimal       @db.Decimal(5, 2) // Dias de ausência
+  reason             String        @db.Text
+  medicalCertificate String?       @map("medical_certificate") @db.VarChar(512) // Caminho do arquivo
+  cidCode            String?       @map("cid_code") @db.VarChar(10) // Código CID para atestados
+
+  // Aprovação
+  approvedBy    String?   @map("approved_by")
+  approvedAt    DateTime? @map("approved_at")
+  approvalNotes String?   @map("approval_notes") @db.Text
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id])
+  approver User?    @relation(fields: [approvedBy], references: [id])
+
+  @@index([employeeId])
+  @@index([type])
+  @@index([status])
+  @@index([startDate, endDate])
+  @@map("absences")
+}
+
+model VacationPeriod {
+  id String @id @default(uuid())
+
+  employeeId  String   @map("employee_id")
+  year        Int
+  startDate   DateTime @map("start_date") // Início do período aquisitivo
+  endDate     DateTime @map("end_date") // Fim do período aquisitivo
+  daysEarned  Decimal  @map("days_earned") @db.Decimal(5, 2) // Dias adquiridos
+  daysUsed    Decimal  @map("days_used") @db.Decimal(5, 2) // Dias utilizados
+  daysBalance Decimal  @map("days_balance") @db.Decimal(5, 2) // Saldo disponível
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@unique([employeeId, year])
+  @@index([employeeId])
+  @@map("vacation_periods")
+}
+
+// ===============================================
+// PAYROLL MODULE
+// ===============================================
+
+enum PayrollStatus {
+  DRAFT
+  CALCULATED
+  APPROVED
+  PAID
+  CANCELLED
+}
+
+enum PayrollItemType {
+  SALARY
+  BONUS
+  COMMISSION
+  OVERTIME
+  VACATION
+  HOLIDAY
+  INSS
+  IRRF
+  FGTS
+  HEALTH_INSURANCE
+  DENTAL_PLAN
+  TRANSPORT_VOUCHER
+  MEAL_VOUCHER
+  OTHER_BENEFIT
+  ADVANCE
+  LOAN
+  OTHER_DEDUCTION
+}
+
+model Payroll {
+  id String @id @default(uuid())
+
+  referenceMonth  Int           @map("reference_month") // 1-12
+  referenceYear   Int           @map("reference_year")
+  status          PayrollStatus @default(DRAFT)
+  totalGross      Decimal       @map("total_gross") @db.Decimal(12, 2)
+  totalDeductions Decimal       @map("total_deductions") @db.Decimal(12, 2)
+  totalNet        Decimal       @map("total_net") @db.Decimal(12, 2)
+
+  // Processamento
+  processedAt DateTime? @map("processed_at")
+  processedBy String?   @map("processed_by")
+
+  // Aprovação
+  approvedAt DateTime? @map("approved_at")
+  approvedBy String?   @map("approved_by")
+
+  // Pagamento
+  paidAt DateTime? @map("paid_at")
+  paidBy String?   @map("paid_by")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  processor User?         @relation("PayrollProcessor", fields: [processedBy], references: [id])
+  approver  User?         @relation("PayrollApprover", fields: [approvedBy], references: [id])
+  payer     User?         @relation("PayrollPayer", fields: [paidBy], references: [id])
+  items     PayrollItem[]
+
+  @@unique([referenceMonth, referenceYear])
+  @@index([status])
+  @@index([referenceYear, referenceMonth])
+  @@map("payrolls")
+}
+
+model PayrollItem {
+  id String @id @default(uuid())
+
+  payrollId   String          @map("payroll_id")
+  employeeId  String          @map("employee_id")
+  type        PayrollItemType
+  description String          @db.VarChar(256)
+  amount      Decimal         @db.Decimal(10, 2)
+  isDeduction Boolean         @default(false) @map("is_deduction")
+
+  // Referências externas
+  referenceId   String? @map("reference_id") // ID de overtime, absence, etc
+  referenceType String? @map("reference_type") // "overtime", "absence", etc
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  payroll  Payroll  @relation(fields: [payrollId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@index([payrollId])
+  @@index([employeeId])
+  @@index([type])
+  @@map("payroll_items")
+}
+
+model Bonus {
+  id String @id @default(uuid())
+
+  employeeId String   @map("employee_id")
+  name       String   @db.VarChar(128)
+  amount     Decimal  @db.Decimal(10, 2)
+  reason     String   @db.Text
+  date       DateTime
+  isPaid     Boolean  @default(false) @map("is_paid")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@index([employeeId])
+  @@index([date])
+  @@index([isPaid])
+  @@map("bonuses")
 }
