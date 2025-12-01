@@ -38,4 +38,13 @@ export const swaggerTags = [
     name: 'Notification Templates',
     description: 'Notification templates management',
   },
+
+  // HR Management
+  { name: 'HR - Employees', description: 'Employee management' },
+  { name: 'HR - Departments', description: 'Department management' },
+  { name: 'HR - Positions', description: 'Position management' },
+  { name: 'HR - Time Control', description: 'Time tracking and clock in/out' },
+  { name: 'HR - Work Schedules', description: 'Work schedule management' },
+  { name: 'HR - Overtime', description: 'Overtime request and approval' },
+  { name: 'HR - Time Bank', description: 'Time bank management' },
 ];

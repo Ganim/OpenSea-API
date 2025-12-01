@@ -1,0 +1,12 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TimeBank as PrismaTimeBank } from '@prisma/client';
+
+export function mapTimeBankPrismaToDomain(timeBank: PrismaTimeBank) {
+  return {
+    employeeId: new UniqueEntityID(timeBank.employeeId),
+    balance: Number(timeBank.balance),
+    year: timeBank.year,
+    createdAt: timeBank.createdAt,
+    updatedAt: timeBank.updatedAt,
+  };
+}

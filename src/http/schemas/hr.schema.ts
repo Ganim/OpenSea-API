@@ -381,3 +381,270 @@ export const positionResponseSchema = z.object({
   updatedAt: dateSchema,
   deletedAt: dateSchema.optional().nullable(),
 });
+
+// ===============================================
+// TIME CONTROL SCHEMAS
+// ===============================================
+
+/**
+ * Tipo de registro de ponto
+ */
+export const timeEntryTypeSchema = z.enum([
+  'CLOCK_IN',
+  'CLOCK_OUT',
+  'BREAK_START',
+  'BREAK_END',
+  'OVERTIME_START',
+  'OVERTIME_END',
+]);
+
+/**
+ * Schema para registro de ponto (clock in/out)
+ */
+export const clockInOutSchema = z.object({
+  employeeId: idSchema,
+  timestamp: z.coerce.date().optional(),
+  latitude: z.number().min(-90).max(90).optional(),
+  longitude: z.number().min(-180).max(180).optional(),
+  ipAddress: z.string().max(64).optional(),
+  notes: z.string().max(500).optional(),
+});
+
+/**
+ * Schema para filtros de listagem de registros de ponto
+ */
+export const listTimeEntriesQuerySchema = z.object({
+  employeeId: idSchema.optional(),
+  startDate: z.coerce.date().optional(),
+  endDate: z.coerce.date().optional(),
+  entryType: timeEntryTypeSchema.optional(),
+  page: z.coerce.number().int().positive().optional().default(1),
+  perPage: z.coerce.number().int().positive().max(100).optional().default(50),
+});
+
+/**
+ * Schema para cálculo de horas trabalhadas
+ */
+export const calculateWorkedHoursSchema = z.object({
+  employeeId: idSchema,
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+});
+
+/**
+ * Schema para resposta de registro de ponto
+ */
+export const timeEntryResponseSchema = z.object({
+  id: idSchema,
+  employeeId: idSchema,
+  entryType: z.string(),
+  timestamp: dateSchema,
+  latitude: z.number().optional().nullable(),
+  longitude: z.number().optional().nullable(),
+  ipAddress: z.string().optional().nullable(),
+  notes: z.string().optional().nullable(),
+  createdAt: dateSchema,
+});
+
+/**
+ * Schema para resposta de horas diárias
+ */
+export const dailyHoursResponseSchema = z.object({
+  date: dateSchema,
+  workedHours: z.number(),
+  breakHours: z.number(),
+  overtimeHours: z.number(),
+  totalHours: z.number(),
+});
+
+/**
+ * Schema para resposta de cálculo de horas
+ */
+export const workedHoursResponseSchema = z.object({
+  employeeId: idSchema,
+  startDate: dateSchema,
+  endDate: dateSchema,
+  dailyBreakdown: z.array(dailyHoursResponseSchema),
+  totalWorkedHours: z.number(),
+  totalBreakHours: z.number(),
+  totalOvertimeHours: z.number(),
+  totalNetHours: z.number(),
+});
+
+// ===============================================
+// WORK SCHEDULE SCHEMAS
+// ===============================================
+
+/**
+ * Schema para formato de hora (HH:MM)
+ */
+export const timeFormatSchema = z
+  .string()
+  .regex(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Invalid time format. Use HH:MM');
+
+/**
+ * Schema para criação de escala de trabalho
+ */
+export const createWorkScheduleSchema = z.object({
+  name: z.string().min(2).max(128),
+  description: z.string().max(500).optional(),
+  mondayStart: timeFormatSchema.optional(),
+  mondayEnd: timeFormatSchema.optional(),
+  tuesdayStart: timeFormatSchema.optional(),
+  tuesdayEnd: timeFormatSchema.optional(),
+  wednesdayStart: timeFormatSchema.optional(),
+  wednesdayEnd: timeFormatSchema.optional(),
+  thursdayStart: timeFormatSchema.optional(),
+  thursdayEnd: timeFormatSchema.optional(),
+  fridayStart: timeFormatSchema.optional(),
+  fridayEnd: timeFormatSchema.optional(),
+  saturdayStart: timeFormatSchema.optional(),
+  saturdayEnd: timeFormatSchema.optional(),
+  sundayStart: timeFormatSchema.optional(),
+  sundayEnd: timeFormatSchema.optional(),
+  breakDuration: z.number().int().min(0).max(480),
+});
+
+/**
+ * Schema para atualização de escala de trabalho
+ */
+export const updateWorkScheduleSchema = createWorkScheduleSchema
+  .partial()
+  .extend({
+    isActive: z.boolean().optional(),
+  });
+
+/**
+ * Schema para filtros de listagem de escalas
+ */
+export const listWorkSchedulesQuerySchema = z.object({
+  activeOnly: z.coerce.boolean().optional().default(false),
+});
+
+/**
+ * Schema para resposta de escala de trabalho
+ */
+export const workScheduleResponseSchema = z.object({
+  id: idSchema,
+  name: z.string(),
+  description: z.string().optional().nullable(),
+  mondayStart: z.string().optional().nullable(),
+  mondayEnd: z.string().optional().nullable(),
+  tuesdayStart: z.string().optional().nullable(),
+  tuesdayEnd: z.string().optional().nullable(),
+  wednesdayStart: z.string().optional().nullable(),
+  wednesdayEnd: z.string().optional().nullable(),
+  thursdayStart: z.string().optional().nullable(),
+  thursdayEnd: z.string().optional().nullable(),
+  fridayStart: z.string().optional().nullable(),
+  fridayEnd: z.string().optional().nullable(),
+  saturdayStart: z.string().optional().nullable(),
+  saturdayEnd: z.string().optional().nullable(),
+  sundayStart: z.string().optional().nullable(),
+  sundayEnd: z.string().optional().nullable(),
+  breakDuration: z.number(),
+  isActive: z.boolean(),
+  weeklyHours: z.number(),
+  createdAt: dateSchema,
+  updatedAt: dateSchema,
+});
+
+// ===============================================
+// OVERTIME SCHEMAS
+// ===============================================
+
+/**
+ * Schema para solicitação de hora extra
+ */
+export const requestOvertimeSchema = z.object({
+  employeeId: idSchema,
+  date: z.coerce.date(),
+  hours: z.number().positive().max(12),
+  reason: z.string().min(10).max(500),
+});
+
+/**
+ * Schema para aprovação de hora extra
+ */
+export const approveOvertimeSchema = z.object({
+  addToTimeBank: z.boolean().optional().default(false),
+});
+
+/**
+ * Schema para filtros de listagem de horas extras
+ */
+export const listOvertimeQuerySchema = z.object({
+  employeeId: idSchema.optional(),
+  startDate: z.coerce.date().optional(),
+  endDate: z.coerce.date().optional(),
+  approved: z.coerce.boolean().optional(),
+  page: z.coerce.number().int().positive().optional().default(1),
+  perPage: z.coerce.number().int().positive().max(100).optional().default(20),
+});
+
+/**
+ * Schema para resposta de hora extra
+ */
+export const overtimeResponseSchema = z.object({
+  id: idSchema,
+  employeeId: idSchema,
+  date: dateSchema,
+  hours: z.number(),
+  reason: z.string(),
+  approved: z.boolean(),
+  approvedBy: idSchema.optional().nullable(),
+  approvedAt: dateSchema.optional().nullable(),
+  createdAt: dateSchema,
+  updatedAt: dateSchema,
+});
+
+// ===============================================
+// TIME BANK SCHEMAS
+// ===============================================
+
+/**
+ * Schema para consulta de banco de horas
+ */
+export const getTimeBankQuerySchema = z.object({
+  year: z.coerce.number().int().min(2000).max(2100).optional(),
+});
+
+/**
+ * Schema para crédito/débito no banco de horas
+ */
+export const creditDebitTimeBankSchema = z.object({
+  employeeId: idSchema,
+  hours: z.number().positive(),
+  year: z.coerce.number().int().min(2000).max(2100).optional(),
+});
+
+/**
+ * Schema para ajuste do banco de horas
+ */
+export const adjustTimeBankSchema = z.object({
+  employeeId: idSchema,
+  newBalance: z.number(),
+  year: z.coerce.number().int().min(2000).max(2100).optional(),
+});
+
+/**
+ * Schema para filtros de listagem de banco de horas
+ */
+export const listTimeBanksQuerySchema = z.object({
+  employeeId: idSchema.optional(),
+  year: z.coerce.number().int().min(2000).max(2100).optional(),
+});
+
+/**
+ * Schema para resposta de banco de horas
+ */
+export const timeBankResponseSchema = z.object({
+  id: idSchema,
+  employeeId: idSchema,
+  balance: z.number(),
+  year: z.number(),
+  hasPositiveBalance: z.boolean(),
+  hasNegativeBalance: z.boolean(),
+  createdAt: dateSchema,
+  updatedAt: dateSchema,
+});

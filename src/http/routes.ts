@@ -41,7 +41,11 @@ import { variantsRoutes } from './controllers/stock/variants/routes';
 // HR routes
 import { departmentsRoutes } from './controllers/hr/departments/routes';
 import { employeesRoutes } from './controllers/hr/employees/routes';
+import { overtimeRoutes } from './controllers/hr/overtime/routes';
 import { positionsRoutes } from './controllers/hr/positions/routes';
+import { timeBankRoutes } from './controllers/hr/time-bank/routes';
+import { timeControlRoutes } from './controllers/hr/time-control/routes';
+import { workSchedulesRoutes } from './controllers/hr/work-schedules/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
@@ -85,4 +89,8 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(employeesRoutes);
   await app.register(departmentsRoutes);
   await app.register(positionsRoutes);
+  await app.register(timeControlRoutes);
+  await app.register(workSchedulesRoutes);
+  await app.register(overtimeRoutes);
+  await app.register(timeBankRoutes);
 }
