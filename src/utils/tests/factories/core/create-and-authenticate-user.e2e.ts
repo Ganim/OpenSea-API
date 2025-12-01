@@ -1,5 +1,4 @@
 import { makeCreateUserUseCase } from '@/use-cases/core/users/factories/make-create-user-use-case';
-import { faker } from '@faker-js/faker';
 import type { Role as PrismaRole } from '@prisma/client';
 import type { FastifyInstance } from 'fastify';
 
@@ -9,8 +8,9 @@ export async function createAndAuthenticateUser(
   app: FastifyInstance,
   role: PrismaRole = 'USER',
 ) {
-  const fakeEmail = faker.internet.email();
-  const username = `user${faker.string.uuid().slice(0, 8)}`;
+  const uniqueId = Math.random().toString(36).substring(2, 10);
+  const fakeEmail = `test${uniqueId}@test.com`;
+  const username = `user${uniqueId}`;
 
   const createUserUseCase = makeCreateUserUseCase();
   const userResponse = await createUserUseCase.execute({

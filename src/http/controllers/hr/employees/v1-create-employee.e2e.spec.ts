@@ -4,10 +4,10 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import {
-    generateEmployeeData,
-    generateRegistrationNumber,
-    generateValidCPF,
-    generateValidPIS,
+  generateEmployeeData,
+  generateRegistrationNumber,
+  generateValidCPF,
+  generateValidPIS,
 } from '@/utils/tests/factories/hr/create-employee.e2e';
 
 describe('Create Employee (E2E)', () => {
