@@ -1,10 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import {
-  ContractType,
-  CPF,
-  EmployeeStatus,
-  WorkRegime,
+    ContractType,
+    CPF,
+    EmployeeStatus,
+    WorkRegime,
 } from '@/entities/hr/value-objects';
 import { prisma } from '@/lib/prisma';
 import { PrismaEmployeesRepository } from '@/repositories/hr/prisma/prisma-employees-repository';
