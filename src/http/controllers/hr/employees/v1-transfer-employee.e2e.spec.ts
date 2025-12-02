@@ -103,7 +103,7 @@ describe('Transfer Employee (E2E)', () => {
       },
     });
 
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employee.id}/transfer`)
@@ -122,7 +122,7 @@ describe('Transfer Employee (E2E)', () => {
 
   it('should NOT allow USER to transfer employee', async () => {
     const { token } = await createAndAuthenticateUser(app, 'USER');
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const newDepartment = await prisma.department.create({
       data: {
@@ -167,7 +167,7 @@ describe('Transfer Employee (E2E)', () => {
   });
 
   it('should return 401 when no token is provided', async () => {
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const newDepartment = await prisma.department.create({
       data: {
@@ -237,3 +237,5 @@ describe('Transfer Employee (E2E)', () => {
     expect(response.body.employee.baseSalary).toBe(7500);
   });
 });
+
+

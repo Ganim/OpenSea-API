@@ -1,9 +1,13 @@
 export * from './absences';
+export * from './bonuses';
+export * from './deductions';
 export * from './departments';
 export * from './employees';
 export * from './overtime';
+export * from './payrolls';
 export * from './positions';
 export * from './time-bank';
 export * from './time-control';
 export * from './vacation-periods';
 export * from './work-schedules';
+

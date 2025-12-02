@@ -1,0 +1,1027 @@
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import {
+  generateEmployeeData,
+  generateRegistrationNumber,
+  generateValidCPF,
+  generateValidPIS,
+} from '@/utils/tests/factories/hr/create-employee.e2e';
+
+describe('Create Employee (E2E)', () => {
+  beforeAll(async () => {
+    await app.ready();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should allow MANAGER to create a new employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const employeeData = generateEmployeeData();
+
+    const response = await request(app.server)
+      .post('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .send(employeeData);
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toHaveProperty('employee');
+    expect(response.body.employee).toMatchObject({
+      fullName: employeeData.fullName,
+      cpf: expect.any(String),
+      registrationNumber: employeeData.registrationNumber,
+      status: 'ACTIVE',
+      contractType: employeeData.contractType,
+      workRegime: employeeData.workRegime,
+    });
+    expect(response.body.employee.id).toBeDefined();
+  });
+
+  it('should allow ADMIN to create a new employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const employeeData = generateEmployeeData();
+
+    const response = await request(app.server)
+      .post('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .send(employeeData);
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toHaveProperty('employee');
+    expect(response.body.employee.fullName).toBe(employeeData.fullName);
+  });
+
+  it('should NOT allow USER to create an employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const employeeData = generateEmployeeData();
+
+    const response = await request(app.server)
+      .post('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .send(employeeData);
+
+    expect(response.statusCode).toBe(403);
+  });
+
+  it('should return 401 when no token is provided', async () => {
+    const employeeData = generateEmployeeData();
+
+    const response = await request(app.server)
+      .post('/v1/hr/employees')
+      .send(employeeData);
+
+    expect(response.statusCode).toBe(401);
+  });
+
+  it('should return 400 when CPF is already registered', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const cpf = generateValidCPF();
+
+    const firstEmployee = generateEmployeeData({ cpf });
+    await request(app.server)
+      .post('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .send(firstEmployee);
+
+    const secondEmployee = generateEmployeeData({
+      cpf,
+      registrationNumber: generateRegistrationNumber(),
+    });
+
+    const response = await request(app.server)
+      .post('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .send(secondEmployee);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body.message).toContain('CPF already exists');
+  });
+
+  it('should return 400 when registration number is already used', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const registrationNumber = generateRegistrationNumber();
+
+    const firstEmployee = generateEmployeeData({ registrationNumber });
+    await request(app.server)
+      .post('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .send(firstEmployee);
+
+    const secondEmployee = generateEmployeeData({
+      cpf: generateValidCPF(),
+      registrationNumber,
+    });
+
+    const response = await request(app.server)
+      .post('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .send(secondEmployee);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body.message).toContain(
+      'registration number already exists',
+    );
+  });
+
+  it('should return 400 when required fields are missing', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+
+    const response = await request(app.server)
+      .post('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        fullName: 'Test Employee',
+        // Missing required fields: cpf, hireDate, baseSalary, contractType, workRegime, country
+      });
+
+    expect(response.statusCode).toBe(400);
+  });
+
+  it('should create employee with optional PIS', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const validPis = generateValidPIS();
+    const employeeData = {
+      ...generateEmployeeData(),
+      pis: validPis,
+    };
+
+    const response = await request(app.server)
+      .post('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .send(employeeData);
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body.employee.pis).toBeDefined();
+  });
+});
+
+
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
+
+describe('Get Employee By Id (E2E)', () => {
+  beforeAll(async () => {
+    await app.ready();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should get employee by id as MANAGER', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const response = await request(app.server)
+      .get(`/v1/hr/employees/${employeeId}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('employee');
+    expect(response.body.employee.id).toBe(employeeId);
+    expect(response.body.employee.fullName).toBe(employee.fullName);
+    expect(response.body.employee.cpf).toBeDefined();
+    expect(response.body.employee.registrationNumber).toBe(
+      employee.registrationNumber,
+    );
+  });
+
+  it('should get employee by id as USER', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const response = await request(app.server)
+      .get(`/v1/hr/employees/${employeeId}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('employee');
+    expect(response.body.employee.id).toBe(employeeId);
+  });
+
+  it('should return 404 when employee does not exist', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const nonExistentId = '00000000-0000-0000-0000-000000000000';
+
+    const response = await request(app.server)
+      .get(`/v1/hr/employees/${nonExistentId}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body.message).toContain('Employee');
+  });
+
+  it('should return 401 when no token is provided', async () => {
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const response = await request(app.server).get(
+      `/v1/hr/employees/${employeeId}`,
+    );
+
+    expect(response.statusCode).toBe(401);
+  });
+
+  it('should return complete employee data with all fields', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employeeId } = await createEmployeeE2E({
+      fullName: 'Complete Employee Test',
+      baseSalary: 5000,
+      contractType: 'CLT',
+      workRegime: 'FULL_TIME',
+      weeklyHours: 44,
+    });
+
+    const response = await request(app.server)
+      .get(`/v1/hr/employees/${employeeId}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee).toMatchObject({
+      id: employeeId,
+      fullName: 'Complete Employee Test',
+      baseSalary: 5000,
+      contractType: 'CLT',
+      workRegime: 'FULL_TIME',
+      weeklyHours: 44,
+    });
+  });
+});
+
+
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
+
+describe('Link User to Employee (E2E)', () => {
+  beforeAll(async () => {
+    await app.ready();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should link user to employee as MANAGER', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    // Create a different user to link
+    const { user: userToLink } = await createAndAuthenticateUser(app, 'USER');
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/link-user`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: userToLink.user.id,
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('employee');
+    expect(response.body.employee.userId).toBe(userToLink.user.id);
+  });
+
+  it('should link user to employee as ADMIN', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { employeeId, employee } = await createEmployeeE2E();
+    const { user: userToLink } = await createAndAuthenticateUser(app, 'USER');
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/link-user`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: userToLink.user.id,
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee.userId).toBe(userToLink.user.id);
+  });
+
+  it('should NOT allow USER to link user to employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { employeeId, employee } = await createEmployeeE2E();
+    const { user: userToLink } = await createAndAuthenticateUser(app, 'USER');
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/link-user`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: userToLink.user.id,
+      });
+
+    expect(response.statusCode).toBe(403);
+  });
+
+  it('should return 404 when employee does not exist', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const nonExistentId = '00000000-0000-0000-0000-000000000000';
+    const { user: userToLink } = await createAndAuthenticateUser(app, 'USER');
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${nonExistentId}/link-user`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: userToLink.user.id,
+      });
+
+    expect(response.statusCode).toBe(404);
+  });
+
+  it('should return 401 when no token is provided', async () => {
+    const { employeeId, employee } = await createEmployeeE2E();
+    const { user: userToLink } = await createAndAuthenticateUser(app, 'USER');
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/link-user`)
+      .send({
+        userId: userToLink.user.id,
+      });
+
+    expect(response.statusCode).toBe(401);
+  });
+
+  it('should return 400 when user does not exist', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employeeId, employee } = await createEmployeeE2E();
+    const nonExistentUserId = '00000000-0000-0000-0000-000000000000';
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/link-user`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: nonExistentUserId,
+      });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body.message).toContain('Failed to link user');
+  });
+});
+
+
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
+
+describe('List Employees (E2E)', () => {
+  beforeAll(async () => {
+    await app.ready();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should list employees with pagination', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+
+    // Create some employees
+    await createEmployeeE2E();
+    await createEmployeeE2E();
+    await createEmployeeE2E();
+
+    const response = await request(app.server)
+      .get('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .query({ page: 1, perPage: 10 });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('employees');
+    expect(response.body).toHaveProperty('meta');
+    expect(Array.isArray(response.body.employees)).toBe(true);
+    expect(response.body.meta.page).toBe(1);
+    expect(response.body.employees.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it('should allow USER to list employees', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'USER');
+
+    const response = await request(app.server)
+      .get('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('employees');
+  });
+
+  it('should filter employees by status', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+
+    await createEmployeeE2E({ status: 'ACTIVE' });
+    await createEmployeeE2E({ status: 'ON_LEAVE' });
+
+    const response = await request(app.server)
+      .get('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .query({ status: 'ACTIVE' });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employees).toBeDefined();
+    response.body.employees.forEach((employee: { status: string }) => {
+      expect(employee.status).toBe('ACTIVE');
+    });
+  });
+
+  it('should search employees by name', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+
+    const uniqueName = `UniqueTestEmployee${Date.now()}`;
+    await createEmployeeE2E({ fullName: uniqueName });
+
+    const response = await request(app.server)
+      .get('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .query({ search: uniqueName });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employees.length).toBeGreaterThanOrEqual(1);
+    expect(
+      response.body.employees.some(
+        (e: { fullName: string }) => e.fullName === uniqueName,
+      ),
+    ).toBe(true);
+  });
+
+  it('should return 401 when no token is provided', async () => {
+    const response = await request(app.server).get('/v1/hr/employees');
+
+    expect(response.statusCode).toBe(401);
+  });
+
+  it('should respect pagination perPage', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+
+    // Create enough employees to test pagination
+    for (let i = 0; i < 5; i++) {
+      await createEmployeeE2E();
+    }
+
+    const response = await request(app.server)
+      .get('/v1/hr/employees')
+      .set('Authorization', `Bearer ${token}`)
+      .query({ page: 1, perPage: 2 });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employees.length).toBeLessThanOrEqual(2);
+    expect(response.body.meta.perPage).toBe(2);
+  });
+});
+
+
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
+
+describe('Terminate Employee (E2E)', () => {
+  beforeAll(async () => {
+    await app.ready();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should terminate employee as MANAGER', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employee } = await createEmployeeE2E({ status: 'ACTIVE' });
+
+    const terminationDate = new Date().toISOString();
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/terminate`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        terminationDate,
+        reason: 'Pedido de demissão',
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('employee');
+    expect(response.body.employee.status).toBe('TERMINATED');
+    expect(response.body.employee.terminationDate).toBeDefined();
+  });
+
+  it('should terminate employee as ADMIN', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { employee } = await createEmployeeE2E({ status: 'ACTIVE' });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/terminate`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        terminationDate: new Date().toISOString(),
+        reason: 'Demissão sem justa causa',
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee.status).toBe('TERMINATED');
+  });
+
+  it('should NOT allow USER to terminate employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { employee } = await createEmployeeE2E({ status: 'ACTIVE' });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/terminate`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        terminationDate: new Date().toISOString(),
+        reason: 'Should not terminate',
+      });
+
+    expect(response.statusCode).toBe(403);
+  });
+
+  it('should return 404 when employee does not exist', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const nonExistentId = '00000000-0000-0000-0000-000000000000';
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${nonExistentId}/terminate`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        terminationDate: new Date().toISOString(),
+        reason: 'Non existent',
+      });
+
+    expect(response.statusCode).toBe(404);
+  });
+
+  it('should return 401 when no token is provided', async () => {
+    const { employee } = await createEmployeeE2E({ status: 'ACTIVE' });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/terminate`)
+      .send({
+        terminationDate: new Date().toISOString(),
+        reason: 'No token',
+      });
+
+    expect(response.statusCode).toBe(401);
+  });
+
+  it('should return 400 when employee is already terminated', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employee } = await createEmployeeE2E({ status: 'TERMINATED' });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/terminate`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        terminationDate: new Date().toISOString(),
+        reason: 'Already terminated',
+      });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body.message).toContain('already terminated');
+  });
+
+  it('should terminate employee without reason (optional field)', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employee } = await createEmployeeE2E({ status: 'ACTIVE' });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/terminate`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        terminationDate: new Date().toISOString(),
+        // reason is optional
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee.status).toBe('TERMINATED');
+  });
+});
+
+
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
+
+describe('Transfer Employee (E2E)', () => {
+  beforeAll(async () => {
+    await app.ready();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should transfer employee to new department as MANAGER', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+
+    // Create departments
+    const oldDepartment = await prisma.department.create({
+      data: {
+        name: `Old Department ${Date.now()}`,
+        code: `OLD-${Date.now()}`,
+      },
+    });
+
+    const newDepartment = await prisma.department.create({
+      data: {
+        name: `New Department ${Date.now()}`,
+        code: `NEW-${Date.now()}`,
+      },
+    });
+
+    const { employee } = await createEmployeeE2E({
+      departmentId: oldDepartment.id,
+    });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/transfer`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        newDepartmentId: newDepartment.id,
+        effectiveDate: new Date().toISOString(),
+        reason: 'Promoção para novo departamento',
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('employee');
+    expect(response.body.employee.departmentId).toBe(newDepartment.id);
+  });
+
+  it('should transfer employee to new position as ADMIN', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+
+    // Create positions
+    const oldPosition = await prisma.position.create({
+      data: {
+        name: `Old Position ${Date.now()}`,
+        code: `OLDPOS-${Date.now()}`,
+      },
+    });
+
+    const newPosition = await prisma.position.create({
+      data: {
+        name: `New Position ${Date.now()}`,
+        code: `NEWPOS-${Date.now()}`,
+      },
+    });
+
+    const { employee } = await createEmployeeE2E({
+      positionId: oldPosition.id,
+    });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/transfer`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        newPositionId: newPosition.id,
+        effectiveDate: new Date().toISOString(),
+        reason: 'Promoção de cargo',
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee.positionId).toBe(newPosition.id);
+  });
+
+  it('should transfer employee to both new department and position', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+
+    const newDepartment = await prisma.department.create({
+      data: {
+        name: `Dept Transfer Both ${Date.now()}`,
+        code: `DEPTBOTH-${Date.now()}`,
+      },
+    });
+
+    const newPosition = await prisma.position.create({
+      data: {
+        name: `Pos Transfer Both ${Date.now()}`,
+        code: `POSBOTH-${Date.now()}`,
+      },
+    });
+
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/transfer`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        newDepartmentId: newDepartment.id,
+        newPositionId: newPosition.id,
+        effectiveDate: new Date().toISOString(),
+        reason: 'Reestruturação organizacional',
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee.departmentId).toBe(newDepartment.id);
+    expect(response.body.employee.positionId).toBe(newPosition.id);
+  });
+
+  it('should NOT allow USER to transfer employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const newDepartment = await prisma.department.create({
+      data: {
+        name: `User Dept ${Date.now()}`,
+        code: `USERDEPT-${Date.now()}`,
+      },
+    });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/transfer`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        newDepartmentId: newDepartment.id,
+        effectiveDate: new Date().toISOString(),
+        reason: 'Should not work',
+      });
+
+    expect(response.statusCode).toBe(403);
+  });
+
+  it('should return 404 when employee does not exist', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const nonExistentId = '00000000-0000-0000-0000-000000000000';
+
+    const newDepartment = await prisma.department.create({
+      data: {
+        name: `NonExist Dept ${Date.now()}`,
+        code: `NONEXIST-${Date.now()}`,
+      },
+    });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${nonExistentId}/transfer`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        newDepartmentId: newDepartment.id,
+        effectiveDate: new Date().toISOString(),
+        reason: 'Non existent',
+      });
+
+    expect(response.statusCode).toBe(404);
+  });
+
+  it('should return 401 when no token is provided', async () => {
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const newDepartment = await prisma.department.create({
+      data: {
+        name: `NoToken Dept ${Date.now()}`,
+        code: `NOTOKEN-${Date.now()}`,
+      },
+    });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/transfer`)
+      .send({
+        newDepartmentId: newDepartment.id,
+        effectiveDate: new Date().toISOString(),
+        reason: 'No token',
+      });
+
+    expect(response.statusCode).toBe(401);
+  });
+
+  it('should not allow transfer of terminated employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employee } = await createEmployeeE2E({ status: 'TERMINATED' });
+
+    const newDepartment = await prisma.department.create({
+      data: {
+        name: `Terminated Dept ${Date.now()}`,
+        code: `TERM-${Date.now()}`,
+      },
+    });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/transfer`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        newDepartmentId: newDepartment.id,
+        effectiveDate: new Date().toISOString(),
+        reason: 'Terminated employee',
+      });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body.message).toContain('terminated employee');
+  });
+
+  it('should update employee base salary on transfer', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+
+    const newDepartment = await prisma.department.create({
+      data: {
+        name: `Salary Dept ${Date.now()}`,
+        code: `SALARY-${Date.now()}`,
+      },
+    });
+
+    const { employee } = await createEmployeeE2E({ baseSalary: 5000 });
+
+    const response = await request(app.server)
+      .post(`/v1/hr/employees/${employee.id}/transfer`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        newDepartmentId: newDepartment.id,
+        newBaseSalary: 7500,
+        effectiveDate: new Date().toISOString(),
+        reason: 'Promoção com aumento salarial',
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee.baseSalary).toBe(7500);
+  });
+});
+
+
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import {
+  createEmployeeE2E,
+  generateValidCPF,
+} from '@/utils/tests/factories/hr/create-employee.e2e';
+
+describe('Update Employee (E2E)', () => {
+  beforeAll(async () => {
+    await app.ready();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should update employee as MANAGER', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const newName = `Updated Employee ${Date.now()}`;
+    const response = await request(app.server)
+      .put(`/v1/hr/employees/${employee.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        fullName: newName,
+        baseSalary: 7500,
+        weeklyHours: 40,
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('employee');
+    expect(response.body.employee.fullName).toBe(newName);
+    expect(response.body.employee.baseSalary).toBe(7500);
+    expect(response.body.employee.weeklyHours).toBe(40);
+  });
+
+  it('should update employee as ADMIN', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const response = await request(app.server)
+      .put(`/v1/hr/employees/${employee.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        fullName: 'Admin Updated Employee',
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee.fullName).toBe('Admin Updated Employee');
+  });
+
+  it('should NOT allow USER to update employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const response = await request(app.server)
+      .put(`/v1/hr/employees/${employee.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        fullName: 'Should Not Update',
+      });
+
+    expect(response.statusCode).toBe(403);
+  });
+
+  it('should return 404 when employee does not exist', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const nonExistentId = '00000000-0000-0000-0000-000000000000';
+
+    const response = await request(app.server)
+      .put(`/v1/hr/employees/${nonExistentId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        fullName: 'Non Existent',
+      });
+
+    expect(response.statusCode).toBe(404);
+  });
+
+  it('should return 401 when no token is provided', async () => {
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const response = await request(app.server)
+      .put(`/v1/hr/employees/${employee.id}`)
+      .send({
+        fullName: 'No Token Update',
+      });
+
+    expect(response.statusCode).toBe(401);
+  });
+
+  it('should update employee contact information', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const response = await request(app.server)
+      .put(`/v1/hr/employees/${employee.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        email: 'new.email@test.com',
+        phone: '11999998888',
+        mobilePhone: '11987654321',
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee.email).toBe('new.email@test.com');
+  });
+
+  it('should update employee address information', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const response = await request(app.server)
+      .put(`/v1/hr/employees/${employee.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        address: 'Nova Rua Atualizada',
+        addressNumber: '999',
+        city: 'Nova Cidade',
+        state: 'RJ',
+        zipCode: '20000-000',
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee.address).toBe('Nova Rua Atualizada');
+    expect(response.body.employee.city).toBe('Nova Cidade');
+  });
+
+  it('should update employee bank information', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { employeeId, employee } = await createEmployeeE2E();
+
+    const response = await request(app.server)
+      .put(`/v1/hr/employees/${employee.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        bankCode: '033',
+        bankName: 'Santander',
+        bankAgency: '1234',
+        bankAccount: '567890',
+        bankAccountType: 'Corrente',
+        pixKey: 'newpix@email.com',
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.employee.bankName).toBe('Santander');
+  });
+
+  it('should return 400 when updating to an existing CPF', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const existingCpf = generateValidCPF();
+
+    // Create first employee with specific CPF
+    await createEmployeeE2E({ cpf: existingCpf });
+
+    // Create second employee
+    const { employeeId: secondEmployeeId } = await createEmployeeE2E();
+
+    // Try to update second employee with first employee's CPF
+    const response = await request(app.server)
+      .put(`/v1/hr/employees/${secondEmployeeId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        cpf: existingCpf,
+      });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body.message).toContain('CPF already exists');
+  });
+});
+
+

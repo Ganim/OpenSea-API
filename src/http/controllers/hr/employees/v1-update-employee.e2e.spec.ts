@@ -4,8 +4,8 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import {
-  createEmployeeE2E,
-  generateValidCPF,
+    createEmployeeE2E,
+    generateValidCPF,
 } from '@/utils/tests/factories/hr/create-employee.e2e';
 
 describe('Update Employee (E2E)', () => {
@@ -19,7 +19,7 @@ describe('Update Employee (E2E)', () => {
 
   it('should update employee as MANAGER', async () => {
     const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const newName = `Updated Employee ${Date.now()}`;
     const response = await request(app.server)
@@ -40,7 +40,7 @@ describe('Update Employee (E2E)', () => {
 
   it('should update employee as ADMIN', async () => {
     const { token } = await createAndAuthenticateUser(app, 'ADMIN');
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
       .put(`/v1/hr/employees/${employee.id}`)
@@ -55,7 +55,7 @@ describe('Update Employee (E2E)', () => {
 
   it('should NOT allow USER to update employee', async () => {
     const { token } = await createAndAuthenticateUser(app, 'USER');
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
       .put(`/v1/hr/employees/${employee.id}`)
@@ -82,7 +82,7 @@ describe('Update Employee (E2E)', () => {
   });
 
   it('should return 401 when no token is provided', async () => {
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
       .put(`/v1/hr/employees/${employee.id}`)
@@ -95,7 +95,7 @@ describe('Update Employee (E2E)', () => {
 
   it('should update employee contact information', async () => {
     const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
       .put(`/v1/hr/employees/${employee.id}`)
@@ -112,7 +112,7 @@ describe('Update Employee (E2E)', () => {
 
   it('should update employee address information', async () => {
     const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
       .put(`/v1/hr/employees/${employee.id}`)
@@ -132,7 +132,7 @@ describe('Update Employee (E2E)', () => {
 
   it('should update employee bank information', async () => {
     const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
       .put(`/v1/hr/employees/${employee.id}`)
@@ -158,11 +158,11 @@ describe('Update Employee (E2E)', () => {
     await createEmployeeE2E({ cpf: existingCpf });
 
     // Create second employee
-    const { employee: secondEmployee } = await createEmployeeE2E();
+    const { employeeId: secondEmployeeId } = await createEmployeeE2E();
 
     // Try to update second employee with first employee's CPF
     const response = await request(app.server)
-      .put(`/v1/hr/employees/${secondEmployee.id}`)
+      .put(`/v1/hr/employees/${secondEmployeeId}`)
       .set('Authorization', `Bearer ${token}`)
       .send({
         cpf: existingCpf,
@@ -172,3 +172,5 @@ describe('Update Employee (E2E)', () => {
     expect(response.body.message).toContain('CPF already exists');
   });
 });
+
+

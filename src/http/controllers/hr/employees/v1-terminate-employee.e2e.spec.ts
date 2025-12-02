@@ -124,3 +124,5 @@ describe('Terminate Employee (E2E)', () => {
     expect(response.body.employee.status).toBe('TERMINATED');
   });
 });
+
+

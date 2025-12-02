@@ -19,6 +19,7 @@ describe('PrismaEmployeesRepository', () => {
     // Clean up all data before each test (in correct order due to foreign keys)
     // First, delete tables that depend on employee
     await prisma.payrollItem.deleteMany();
+    await prisma.deduction.deleteMany();
     await prisma.bonus.deleteMany();
     await prisma.absence.deleteMany();
     await prisma.vacationPeriod.deleteMany();

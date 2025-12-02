@@ -5,8 +5,8 @@ import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
 import {
-    createAvailableVacationPeriodE2E,
-    createCompletedVacationPeriodE2E,
+  createAvailableVacationPeriodE2E,
+  createCompletedVacationPeriodE2E,
 } from '@/utils/tests/factories/hr/create-vacation-period.e2e';
 
 describe('Sell Vacation Days (E2E)', () => {

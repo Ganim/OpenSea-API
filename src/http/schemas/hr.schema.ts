@@ -863,3 +863,210 @@ export const vacationBalanceResponseSchema = z.object({
     }),
   ),
 });
+
+// ===============================================
+// PAYROLL SCHEMAS
+// ===============================================
+
+/**
+ * Status da folha de pagamento
+ */
+export const payrollStatusSchema = z.enum([
+  'DRAFT',
+  'PROCESSING',
+  'CALCULATED',
+  'APPROVED',
+  'PAID',
+  'CANCELLED',
+]);
+
+/**
+ * Tipo de item da folha
+ */
+export const payrollItemTypeSchema = z.enum([
+  'BASE_SALARY',
+  'OVERTIME',
+  'NIGHT_SHIFT',
+  'HAZARD_PAY',
+  'UNHEALTHY_PAY',
+  'BONUS',
+  'COMMISSION',
+  'VACATION_PAY',
+  'THIRTEENTH_SALARY',
+  'PROFIT_SHARING',
+  'TRANSPORTATION_ALLOWANCE',
+  'MEAL_ALLOWANCE',
+  'HEALTH_PLAN',
+  'DENTAL_PLAN',
+  'INSS',
+  'IRRF',
+  'FGTS',
+  'UNION_CONTRIBUTION',
+  'ADVANCE_DEDUCTION',
+  'ABSENCE_DEDUCTION',
+  'OTHER_EARNING',
+  'OTHER_DEDUCTION',
+]);
+
+/**
+ * Schema para criação de folha de pagamento
+ */
+export const createPayrollSchema = z.object({
+  referenceMonth: z.coerce.number().int().min(1).max(12),
+  referenceYear: z.coerce.number().int().min(2000).max(2100),
+});
+
+/**
+ * Schema para cálculo de folha de pagamento
+ */
+export const calculatePayrollSchema = z.object({});
+
+/**
+ * Schema para aprovação de folha de pagamento
+ */
+export const approvePayrollSchema = z.object({});
+
+/**
+ * Schema para pagamento de folha de pagamento
+ */
+export const payPayrollSchema = z.object({});
+
+/**
+ * Schema para filtros de listagem de folhas de pagamento
+ */
+export const listPayrollsQuerySchema = z.object({
+  referenceMonth: z.coerce.number().int().min(1).max(12).optional(),
+  referenceYear: z.coerce.number().int().min(2000).max(2100).optional(),
+  status: payrollStatusSchema.optional(),
+  page: z.coerce.number().int().positive().optional().default(1),
+  perPage: z.coerce.number().int().positive().max(100).optional().default(20),
+});
+
+/**
+ * Schema para resposta de folha de pagamento
+ */
+export const payrollResponseSchema = z.object({
+  id: idSchema,
+  referenceMonth: z.number(),
+  referenceYear: z.number(),
+  status: z.string(),
+  totalGross: z.number(),
+  totalDeductions: z.number(),
+  totalNet: z.number(),
+  processedBy: idSchema.optional().nullable(),
+  processedAt: dateSchema.optional().nullable(),
+  approvedBy: idSchema.optional().nullable(),
+  approvedAt: dateSchema.optional().nullable(),
+  paidBy: idSchema.optional().nullable(),
+  paidAt: dateSchema.optional().nullable(),
+  createdAt: dateSchema,
+  updatedAt: dateSchema,
+});
+
+/**
+ * Schema para resposta de item da folha de pagamento
+ */
+export const payrollItemResponseSchema = z.object({
+  id: idSchema,
+  payrollId: idSchema,
+  employeeId: idSchema,
+  type: z.string(),
+  description: z.string(),
+  amount: z.number(),
+  isDeduction: z.boolean(),
+  referenceId: idSchema.optional().nullable(),
+  referenceType: z.string().optional().nullable(),
+  createdAt: dateSchema,
+  updatedAt: dateSchema,
+});
+
+// ===============================================
+// BONUS SCHEMAS
+// ===============================================
+
+/**
+ * Schema para criação de bônus
+ */
+export const createBonusSchema = z.object({
+  employeeId: idSchema,
+  name: z.string().min(1).max(128),
+  amount: z.number().positive(),
+  reason: z.string().min(10).max(1000),
+  date: z.coerce.date(),
+});
+
+/**
+ * Schema para filtros de listagem de bônus
+ */
+export const listBonusesQuerySchema = z.object({
+  employeeId: idSchema.optional(),
+  isPaid: z.coerce.boolean().optional(),
+  startDate: z.coerce.date().optional(),
+  endDate: z.coerce.date().optional(),
+  page: z.coerce.number().int().positive().optional().default(1),
+  perPage: z.coerce.number().int().positive().max(100).optional().default(20),
+});
+
+/**
+ * Schema para resposta de bônus
+ */
+export const bonusResponseSchema = z.object({
+  id: idSchema,
+  employeeId: idSchema,
+  name: z.string(),
+  amount: z.number(),
+  reason: z.string(),
+  date: dateSchema,
+  isPaid: z.boolean(),
+  createdAt: dateSchema,
+  updatedAt: dateSchema,
+});
+
+// ===============================================
+// DEDUCTION SCHEMAS
+// ===============================================
+
+/**
+ * Schema para criação de dedução
+ */
+export const createDeductionSchema = z.object({
+  employeeId: idSchema,
+  name: z.string().min(1).max(128),
+  amount: z.number().positive(),
+  reason: z.string().min(10).max(1000),
+  date: z.coerce.date(),
+  isRecurring: z.boolean().optional().default(false),
+  installments: z.number().int().positive().optional(),
+});
+
+/**
+ * Schema para filtros de listagem de deduções
+ */
+export const listDeductionsQuerySchema = z.object({
+  employeeId: idSchema.optional(),
+  isApplied: z.coerce.boolean().optional(),
+  isRecurring: z.coerce.boolean().optional(),
+  startDate: z.coerce.date().optional(),
+  endDate: z.coerce.date().optional(),
+  page: z.coerce.number().int().positive().optional().default(1),
+  perPage: z.coerce.number().int().positive().max(100).optional().default(20),
+});
+
+/**
+ * Schema para resposta de dedução
+ */
+export const deductionResponseSchema = z.object({
+  id: idSchema,
+  employeeId: idSchema,
+  name: z.string(),
+  amount: z.number(),
+  reason: z.string(),
+  date: dateSchema,
+  isRecurring: z.boolean(),
+  installments: z.number().optional().nullable(),
+  currentInstallment: z.number().nullable(),
+  isApplied: z.boolean(),
+  appliedAt: dateSchema.optional().nullable(),
+  createdAt: dateSchema,
+  updatedAt: dateSchema,
+});

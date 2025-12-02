@@ -1538,6 +1538,9 @@ model Employee {
   // Bonuses
   bonuses Bonus[]
 
+  // Deductions
+  deductions Deduction[]
+
   // Management
   managedDepartments Department[] @relation("DepartmentManager")
 
@@ -1850,6 +1853,7 @@ model VacationPeriod {
 
 enum PayrollStatus {
   DRAFT
+  PROCESSING
   CALCULATED
   APPROVED
   PAID
@@ -1857,11 +1861,15 @@ enum PayrollStatus {
 }
 
 enum PayrollItemType {
-  SALARY
+  BASE_SALARY
   BONUS
   COMMISSION
   OVERTIME
-  VACATION
+  NIGHT_SHIFT
+  HAZARD_PAY
+  DANGER_PAY
+  VACATION_PAY
+  THIRTEENTH_SALARY
   HOLIDAY
   INSS
   IRRF
@@ -1963,4 +1971,32 @@ model Bonus {
   @@index([date])
   @@index([isPaid])
   @@map("bonuses")
+}
+
+model Deduction {
+  id String @id @default(uuid())
+
+  employeeId         String    @map("employee_id")
+  name               String    @db.VarChar(128)
+  amount             Decimal   @db.Decimal(10, 2)
+  reason             String    @db.Text
+  date               DateTime
+  isRecurring        Boolean   @default(false) @map("is_recurring")
+  installments       Int?      @map("installments")
+  currentInstallment Int       @default(0) @map("current_installment")
+  isApplied          Boolean   @default(false) @map("is_applied")
+  appliedAt          DateTime? @map("applied_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@index([employeeId])
+  @@index([date])
+  @@index([isApplied])
+  @@index([isRecurring])
+  @@map("deductions")
 }

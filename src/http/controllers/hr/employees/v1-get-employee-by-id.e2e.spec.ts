@@ -16,15 +16,15 @@ describe('Get Employee By Id (E2E)', () => {
 
   it('should get employee by id as MANAGER', async () => {
     const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
-      .get(`/v1/hr/employees/${employee.id}`)
+      .get(`/v1/hr/employees/${employeeId}`)
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty('employee');
-    expect(response.body.employee.id).toBe(employee.id);
+    expect(response.body.employee.id).toBe(employeeId);
     expect(response.body.employee.fullName).toBe(employee.fullName);
     expect(response.body.employee.cpf).toBeDefined();
     expect(response.body.employee.registrationNumber).toBe(
@@ -34,15 +34,15 @@ describe('Get Employee By Id (E2E)', () => {
 
   it('should get employee by id as USER', async () => {
     const { token } = await createAndAuthenticateUser(app, 'USER');
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
-      .get(`/v1/hr/employees/${employee.id}`)
+      .get(`/v1/hr/employees/${employeeId}`)
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty('employee');
-    expect(response.body.employee.id).toBe(employee.id);
+    expect(response.body.employee.id).toBe(employeeId);
   });
 
   it('should return 404 when employee does not exist', async () => {
@@ -58,10 +58,10 @@ describe('Get Employee By Id (E2E)', () => {
   });
 
   it('should return 401 when no token is provided', async () => {
-    const { employee } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server).get(
-      `/v1/hr/employees/${employee.id}`,
+      `/v1/hr/employees/${employeeId}`,
     );
 
     expect(response.statusCode).toBe(401);
@@ -69,7 +69,7 @@ describe('Get Employee By Id (E2E)', () => {
 
   it('should return complete employee data with all fields', async () => {
     const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { employee } = await createEmployeeE2E({
+    const { employeeId, employee } = await createEmployeeE2E({
       fullName: 'Complete Employee Test',
       baseSalary: 5000,
       contractType: 'CLT',
@@ -78,12 +78,12 @@ describe('Get Employee By Id (E2E)', () => {
     });
 
     const response = await request(app.server)
-      .get(`/v1/hr/employees/${employee.id}`)
+      .get(`/v1/hr/employees/${employeeId}`)
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toBe(200);
     expect(response.body.employee).toMatchObject({
-      id: employee.id,
+      id: employeeId,
       fullName: 'Complete Employee Test',
       baseSalary: 5000,
       contractType: 'CLT',
@@ -92,3 +92,5 @@ describe('Get Employee By Id (E2E)', () => {
     });
   });
 });
+
+
