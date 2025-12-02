@@ -99,7 +99,9 @@ describe('CreateProductUseCase', () => {
       supplierId: supplier.supplier.id.toString(),
     });
 
-    expect(result.product.supplierId?.toString()).toBe(supplier.supplier.id.toString());
+    expect(result.product.supplierId?.toString()).toBe(
+      supplier.supplier.id.toString(),
+    );
   });
 
   it('should create a product with manufacturer', async () => {
@@ -121,7 +123,9 @@ describe('CreateProductUseCase', () => {
       manufacturerId: manufacturer.manufacturer.manufacturerId.toString(),
     });
 
-    expect(result.product.manufacturerId?.toString()).toBe(manufacturer.manufacturer.manufacturerId.toString());
+    expect(result.product.manufacturerId?.toString()).toBe(
+      manufacturer.manufacturer.manufacturerId.toString(),
+    );
   });
 
   it('should create a product with default DRAFT status', async () => {

@@ -1,9 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntry } from '@/entities/hr/time-entry';
 import type {
-    CreateTimeEntrySchema,
-    FindTimeEntriesFilters,
-    TimeEntriesRepository,
+  CreateTimeEntrySchema,
+  FindTimeEntriesFilters,
+  TimeEntriesRepository,
 } from '../time-entries-repository';
 
 export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {

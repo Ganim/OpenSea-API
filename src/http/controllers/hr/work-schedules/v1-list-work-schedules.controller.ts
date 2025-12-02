@@ -1,7 +1,7 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import {
-    listWorkSchedulesQuerySchema,
-    workScheduleResponseSchema,
+  listWorkSchedulesQuerySchema,
+  workScheduleResponseSchema,
 } from '@/http/schemas';
 import { workScheduleToDTO } from '@/mappers/hr/work-schedule/work-schedule-to-dto';
 import { makeListWorkSchedulesUseCase } from '@/use-cases/hr/work-schedules/factories/make-list-work-schedules-use-case';

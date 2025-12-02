@@ -1,8 +1,9 @@
+export * from './absence';
 export * from './department';
 export * from './employee';
 export * from './overtime';
 export * from './position';
 export * from './time-bank';
 export * from './time-entry';
+export * from './vacation-period';
 export * from './work-schedule';
-

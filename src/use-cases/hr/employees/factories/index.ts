@@ -5,4 +5,3 @@ export * from './make-list-employees-use-case';
 export * from './make-terminate-employee-use-case';
 export * from './make-transfer-employee-use-case';
 export * from './make-update-employee-use-case';
-

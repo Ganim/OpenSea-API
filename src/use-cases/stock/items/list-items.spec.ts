@@ -1,68 +1,16 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
-import { InMemoryItemMovementsRepository } from '@/repositories/stock/in-memory/in-memory-item-movements-repository';
 import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
-import { InMemoryLocationsRepository } from '@/repositories/stock/in-memory/in-memory-locations-repository';
-import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
-import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
-import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
-import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
-import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { CreateLocationUseCase } from '../locations/create-location';
-import { CreateProductUseCase } from '../products/create-product';
-import { CreateTemplateUseCase } from '../templates/create-template';
-import { CreateVariantUseCase } from '../variants/create-variant';
 import { ListItemsUseCase } from './list-items';
-import { RegisterItemEntryUseCase } from './register-item-entry';
 
 let itemsRepository: InMemoryItemsRepository;
-let variantsRepository: InMemoryVariantsRepository;
-let locationsRepository: InMemoryLocationsRepository;
-let itemMovementsRepository: InMemoryItemMovementsRepository;
-let productsRepository: InMemoryProductsRepository;
-let templatesRepository: InMemoryTemplatesRepository;
-let suppliersRepository: InMemorySuppliersRepository;
-let manufacturersRepository: InMemoryManufacturersRepository;
-let registerItemEntry: RegisterItemEntryUseCase;
 let listItems: ListItemsUseCase;
-let createVariant: CreateVariantUseCase;
-let createLocation: CreateLocationUseCase;
-let createProduct: CreateProductUseCase;
-let createTemplate: CreateTemplateUseCase;
 
 describe('ListItemsUseCase', () => {
   beforeEach(() => {
     itemsRepository = new InMemoryItemsRepository();
-    variantsRepository = new InMemoryVariantsRepository();
-    locationsRepository = new InMemoryLocationsRepository();
-    itemMovementsRepository = new InMemoryItemMovementsRepository();
-    productsRepository = new InMemoryProductsRepository();
-    templatesRepository = new InMemoryTemplatesRepository();
-    suppliersRepository = new InMemorySuppliersRepository();
-    manufacturersRepository = new InMemoryManufacturersRepository();
-    registerItemEntry = new RegisterItemEntryUseCase(
-      itemsRepository,
-      variantsRepository,
-      locationsRepository,
-      itemMovementsRepository,
-      productsRepository,
-      templatesRepository,
-    );
     listItems = new ListItemsUseCase(itemsRepository);
-    createVariant = new CreateVariantUseCase(
-      variantsRepository,
-      productsRepository,
-      templatesRepository,
-    );
-    createLocation = new CreateLocationUseCase(locationsRepository);
-    createProduct = new CreateProductUseCase(
-      productsRepository,
-      templatesRepository,
-      suppliersRepository,
-      manufacturersRepository,
-    );
-    createTemplate = new CreateTemplateUseCase(templatesRepository);
   });
 
   it('should be able to list items by variant', async () => {

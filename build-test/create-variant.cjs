@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -8,38 +8,42 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
+  if ((from && typeof from === 'object') || typeof from === 'function') {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+        __defProp(to, key, {
+          get: () => from[key],
+          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
+        });
   }
   return to;
 };
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __toCommonJS = (mod) =>
+  __copyProps(__defProp({}, '__esModule', { value: true }), mod);
 
 // src/use-cases/stock/variants/create-variant.ts
 var create_variant_exports = {};
 __export(create_variant_exports, {
-  CreateVariantUseCase: () => CreateVariantUseCase
+  CreateVariantUseCase: () => CreateVariantUseCase,
 });
 module.exports = __toCommonJS(create_variant_exports);
 
 // src/@errors/use-cases/bad-request-error.ts
 var BadRequestError = class extends Error {
-  constructor(message = "Bad request error") {
+  constructor(message = 'Bad request error') {
     super(message);
   }
 };
 
 // src/@errors/use-cases/resource-not-found.ts
 var ResourceNotFoundError = class extends Error {
-  constructor(message = "Resource not found") {
+  constructor(message = 'Resource not found') {
     super(message);
   }
 };
 
 // src/entities/domain/unique-entity-id.ts
-var import_node_crypto = require("crypto");
+var import_node_crypto = require('crypto');
 var UniqueEntityID = class {
   toString() {
     return this.value;
@@ -63,7 +67,15 @@ var CreateVariantUseCase = class {
     this.templatesRepository = templatesRepository;
   }
   generateSKUFromName(name) {
-    return name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "").toUpperCase().substring(0, 50);
+    return name
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-zA-Z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '')
+      .toUpperCase()
+      .substring(0, 50);
   }
   async generateUniqueSKU(baseSKU) {
     let sku = baseSKU;
@@ -80,10 +92,10 @@ var CreateVariantUseCase = class {
   }
   async execute(input) {
     if (!input.name || input.name.trim().length === 0) {
-      throw new BadRequestError("Name is required");
+      throw new BadRequestError('Name is required');
     }
     if (input.name.length > 256) {
-      throw new BadRequestError("Name must not exceed 256 characters");
+      throw new BadRequestError('Name must not exceed 256 characters');
     }
     let sku = input.sku;
     if (!sku || sku.trim().length === 0) {
@@ -91,90 +103,100 @@ var CreateVariantUseCase = class {
       sku = await this.generateUniqueSKU(baseSKU);
     }
     if (sku.length > 64) {
-      throw new BadRequestError("SKU must not exceed 64 characters");
+      throw new BadRequestError('SKU must not exceed 64 characters');
     }
     const price = input.price ?? 0;
     if (price < 0) {
-      throw new BadRequestError("Price cannot be negative");
+      throw new BadRequestError('Price cannot be negative');
     }
-    if (input.profitMargin !== void 0 && (input.profitMargin < 0 || input.profitMargin > 100)) {
-      throw new BadRequestError("Profit margin must be between 0 and 100");
+    if (
+      input.profitMargin !== void 0 &&
+      (input.profitMargin < 0 || input.profitMargin > 100)
+    ) {
+      throw new BadRequestError('Profit margin must be between 0 and 100');
     }
     if (input.costPrice !== void 0 && input.costPrice < 0) {
-      throw new BadRequestError("Cost price cannot be negative");
+      throw new BadRequestError('Cost price cannot be negative');
     }
     if (input.minStock !== void 0 && input.minStock < 0) {
-      throw new BadRequestError("Min stock cannot be negative");
+      throw new BadRequestError('Min stock cannot be negative');
     }
     if (input.maxStock !== void 0 && input.maxStock < 0) {
-      throw new BadRequestError("Max stock cannot be negative");
+      throw new BadRequestError('Max stock cannot be negative');
     }
-    if (input.minStock !== void 0 && input.maxStock !== void 0 && input.minStock > input.maxStock) {
-      throw new BadRequestError("Min stock cannot be greater than max stock");
+    if (
+      input.minStock !== void 0 &&
+      input.maxStock !== void 0 &&
+      input.minStock > input.maxStock
+    ) {
+      throw new BadRequestError('Min stock cannot be greater than max stock');
     }
     if (input.reorderPoint !== void 0 && input.reorderPoint < 0) {
-      throw new BadRequestError("Reorder point cannot be negative");
+      throw new BadRequestError('Reorder point cannot be negative');
     }
     if (input.reorderQuantity !== void 0 && input.reorderQuantity < 0) {
-      throw new BadRequestError("Reorder quantity cannot be negative");
+      throw new BadRequestError('Reorder quantity cannot be negative');
     }
     if (input.imageUrl && input.imageUrl.length > 512) {
-      throw new BadRequestError("Image URL must not exceed 512 characters");
+      throw new BadRequestError('Image URL must not exceed 512 characters');
     }
     if (input.barcode && input.barcode.length > 128) {
-      throw new BadRequestError("Barcode must not exceed 128 characters");
+      throw new BadRequestError('Barcode must not exceed 128 characters');
     }
     if (input.eanCode && input.eanCode.length > 13) {
-      throw new BadRequestError("EAN code must not exceed 13 characters");
+      throw new BadRequestError('EAN code must not exceed 13 characters');
     }
     if (input.upcCode && input.upcCode.length > 12) {
-      throw new BadRequestError("UPC code must not exceed 12 characters");
+      throw new BadRequestError('UPC code must not exceed 12 characters');
     }
     if (input.qrCode && input.qrCode.length > 512) {
-      throw new BadRequestError("QR code must not exceed 512 characters");
+      throw new BadRequestError('QR code must not exceed 512 characters');
     }
     const productId = new UniqueEntityID(input.productId);
     const product = await this.productsRepository.findById(productId);
     if (!product) {
-      throw new ResourceNotFoundError("Product not found");
+      throw new ResourceNotFoundError('Product not found');
     }
     if (input.sku) {
       const existingVariantBySKU = await this.variantsRepository.findBySKU(sku);
       if (existingVariantBySKU) {
-        throw new BadRequestError("SKU already exists");
+        throw new BadRequestError('SKU already exists');
       }
     }
     if (input.barcode) {
-      const existingVariantByBarcode = await this.variantsRepository.findByBarcode(input.barcode);
+      const existingVariantByBarcode =
+        await this.variantsRepository.findByBarcode(input.barcode);
       if (existingVariantByBarcode) {
-        throw new BadRequestError("Barcode already exists");
+        throw new BadRequestError('Barcode already exists');
       }
     }
     if (input.eanCode) {
-      const existingVariantByEANCode = await this.variantsRepository.findByEANCode(input.eanCode);
+      const existingVariantByEANCode =
+        await this.variantsRepository.findByEANCode(input.eanCode);
       if (existingVariantByEANCode) {
-        throw new BadRequestError("EAN code already exists");
+        throw new BadRequestError('EAN code already exists');
       }
     }
     if (input.upcCode) {
-      const existingVariantByUPCCode = await this.variantsRepository.findByUPCCode(input.upcCode);
+      const existingVariantByUPCCode =
+        await this.variantsRepository.findByUPCCode(input.upcCode);
       if (existingVariantByUPCCode) {
-        throw new BadRequestError("UPC code already exists");
+        throw new BadRequestError('UPC code already exists');
       }
     }
     if (input.attributes) {
       const template = await this.templatesRepository.findById(
-        product.templateId
+        product.templateId,
       );
       if (template && template.variantAttributes) {
         const allowedKeys = Object.keys(template.variantAttributes);
         const providedKeys = Object.keys(input.attributes);
         const invalidKeys = providedKeys.filter(
-          (key) => !allowedKeys.includes(key)
+          (key) => !allowedKeys.includes(key),
         );
         if (invalidKeys.length > 0) {
           throw new BadRequestError(
-            `Invalid attribute keys: ${invalidKeys.join(", ")}. Allowed keys: ${allowedKeys.join(", ")}`
+            `Invalid attribute keys: ${invalidKeys.join(', ')}. Allowed keys: ${allowedKeys.join(', ')}`,
           );
         }
       }
@@ -195,7 +217,7 @@ var CreateVariantUseCase = class {
       minStock: input.minStock,
       maxStock: input.maxStock,
       reorderPoint: input.reorderPoint,
-      reorderQuantity: input.reorderQuantity
+      reorderQuantity: input.reorderQuantity,
     });
     return {
       variant: {
@@ -217,12 +239,13 @@ var CreateVariantUseCase = class {
         reorderPoint: variant.reorderPoint,
         reorderQuantity: variant.reorderQuantity,
         createdAt: variant.createdAt,
-        updatedAt: variant.updatedAt
-      }
+        updatedAt: variant.updatedAt,
+      },
     };
   }
 };
 // Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  CreateVariantUseCase
-});
+0 &&
+  (module.exports = {
+    CreateVariantUseCase,
+  });

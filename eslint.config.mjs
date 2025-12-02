@@ -18,10 +18,18 @@ export default defineConfig([
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
     rules: {
       'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
     },
   },
   globalIgnores(['build/**/*'], 'Ignore Build Directory'),
+  globalIgnores(['build-test/**/*'], 'Ignore Build Test Directory'),
   globalIgnores(['node_modules/*'], 'Ignore Node Modules Directory'),
   globalIgnores(['generated/*'], 'Ignore Generated Prisma Directory'),
   globalIgnores(['prisma/*'], 'Ignore Generated Prisma Directory'),

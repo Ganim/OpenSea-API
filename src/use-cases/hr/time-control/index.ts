@@ -2,17 +2,16 @@ export {
   CalculateWorkedHoursRequest,
   CalculateWorkedHoursResponse,
   CalculateWorkedHoursUseCase,
-  DailyHours
+  DailyHours,
 } from './calculate-worked-hours';
 export { ClockInRequest, ClockInResponse, ClockInUseCase } from './clock-in';
 export {
   ClockOutRequest,
   ClockOutResponse,
-  ClockOutUseCase
+  ClockOutUseCase,
 } from './clock-out';
 export {
   ListTimeEntriesRequest,
   ListTimeEntriesResponse,
-  ListTimeEntriesUseCase
+  ListTimeEntriesUseCase,
 } from './list-time-entries';
-

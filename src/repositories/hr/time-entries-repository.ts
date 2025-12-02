@@ -29,6 +29,8 @@ export interface TimeEntriesRepository {
     startDate: Date,
     endDate: Date,
   ): Promise<TimeEntry[]>;
-  findLastEntryByEmployee(employeeId: UniqueEntityID): Promise<TimeEntry | null>;
+  findLastEntryByEmployee(
+    employeeId: UniqueEntityID,
+  ): Promise<TimeEntry | null>;
   delete(id: UniqueEntityID): Promise<void>;
 }

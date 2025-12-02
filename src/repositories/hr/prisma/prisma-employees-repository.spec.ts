@@ -16,7 +16,16 @@ describe('PrismaEmployeesRepository', () => {
   beforeEach(async () => {
     repository = new PrismaEmployeesRepository();
 
-    // Clean up all data before each test
+    // Clean up all data before each test (in correct order due to foreign keys)
+    // First, delete tables that depend on employee
+    await prisma.payrollItem.deleteMany();
+    await prisma.bonus.deleteMany();
+    await prisma.absence.deleteMany();
+    await prisma.vacationPeriod.deleteMany();
+    await prisma.timeEntry.deleteMany();
+    await prisma.timeBank.deleteMany();
+    await prisma.overtime.deleteMany();
+    // Then delete employee
     await prisma.employee.deleteMany();
   });
 

@@ -1,8 +1,8 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import {
-    calculateWorkedHoursSchema,
-    workedHoursResponseSchema,
+  calculateWorkedHoursSchema,
+  workedHoursResponseSchema,
 } from '@/http/schemas';
 import { makeCalculateWorkedHoursUseCase } from '@/use-cases/hr/time-control/factories/make-calculate-worked-hours-use-case';
 import type { FastifyInstance } from 'fastify';

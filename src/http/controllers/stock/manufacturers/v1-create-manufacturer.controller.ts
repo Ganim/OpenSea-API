@@ -1,8 +1,8 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import {
-    createManufacturerSchema,
-    manufacturerResponseSchema,
+  createManufacturerSchema,
+  manufacturerResponseSchema,
 } from '@/http/schemas';
 import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { PrismaManufacturersRepository } from '@/repositories/stock/prisma/prisma-manufacturers-repository';

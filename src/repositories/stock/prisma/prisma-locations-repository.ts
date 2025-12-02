@@ -6,9 +6,9 @@ import { prisma } from '@/lib/prisma';
 import type { LocationType as PrismaLocationType } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-    CreateLocationSchema,
-    LocationsRepository,
-    UpdateLocationSchema,
+  CreateLocationSchema,
+  LocationsRepository,
+  UpdateLocationSchema,
 } from '../locations-repository';
 
 export class PrismaLocationsRepository implements LocationsRepository {

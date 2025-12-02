@@ -1,5 +1,10 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { ContractType, CPF, EmployeeStatus, WorkRegime } from '@/entities/hr/value-objects';
+import {
+  ContractType,
+  CPF,
+  EmployeeStatus,
+  WorkRegime,
+} from '@/entities/hr/value-objects';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { GetEmployeeByIdUseCase } from './get-employee-by-id';

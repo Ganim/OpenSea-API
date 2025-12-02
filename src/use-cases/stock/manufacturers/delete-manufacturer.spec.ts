@@ -27,7 +27,9 @@ describe('DeleteManufacturerUseCase', () => {
     await sut.execute({ id: created.manufacturer.manufacturerId.toString() });
 
     await expect(
-      getManufacturer.execute({ id: created.manufacturer.manufacturerId.toString() }),
+      getManufacturer.execute({
+        id: created.manufacturer.manufacturerId.toString(),
+      }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
 

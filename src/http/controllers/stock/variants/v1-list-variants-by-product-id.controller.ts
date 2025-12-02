@@ -33,7 +33,9 @@ export async function listVariantsByProductIdController(app: FastifyInstance) {
         productId,
       });
 
-      return reply.status(200).send({ variants: variants.map(variantWithAggregationsToDTO) });
+      return reply
+        .status(200)
+        .send({ variants: variants.map(variantWithAggregationsToDTO) });
     },
   });
 }

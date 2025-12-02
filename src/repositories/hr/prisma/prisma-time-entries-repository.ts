@@ -4,9 +4,9 @@ import { prisma } from '@/lib/prisma';
 import { mapTimeEntryPrismaToDomain } from '@/mappers/hr/time-entry';
 import type { TimeEntryType as PrismaTimeEntryType } from '@prisma/client';
 import type {
-    CreateTimeEntrySchema,
-    FindTimeEntriesFilters,
-    TimeEntriesRepository,
+  CreateTimeEntrySchema,
+  FindTimeEntriesFilters,
+  TimeEntriesRepository,
 } from '../time-entries-repository';
 
 export class PrismaTimeEntriesRepository implements TimeEntriesRepository {

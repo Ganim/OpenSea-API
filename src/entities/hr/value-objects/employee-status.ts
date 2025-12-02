@@ -15,11 +15,15 @@ export class EmployeeStatus extends ValueObject<EmployeeStatusEnum> {
 
   static create(status: EmployeeStatusEnum | string): EmployeeStatus {
     // If it's already an enum value, use it directly
-    if (Object.values(EmployeeStatusEnum).includes(status as EmployeeStatusEnum)) {
+    if (
+      Object.values(EmployeeStatusEnum).includes(status as EmployeeStatusEnum)
+    ) {
       return new EmployeeStatus(status as EmployeeStatusEnum);
     }
     // If it's a string, try to match it to an enum value
-    const enumValue = Object.values(EmployeeStatusEnum).find(v => v === status);
+    const enumValue = Object.values(EmployeeStatusEnum).find(
+      (v) => v === status,
+    );
     if (!enumValue) {
       throw new Error(`Invalid employee status: ${status}`);
     }

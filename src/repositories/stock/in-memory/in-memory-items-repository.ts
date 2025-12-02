@@ -2,9 +2,9 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import type {
-    CreateItemSchema,
-    ItemsRepository,
-    UpdateItemSchema,
+  CreateItemSchema,
+  ItemsRepository,
+  UpdateItemSchema,
 } from '../items-repository';
 
 export class InMemoryItemsRepository implements ItemsRepository {
@@ -86,7 +86,7 @@ export class InMemoryItemsRepository implements ItemsRepository {
     return this.items.filter((item) => !item.deletedAt && item.isExpired);
   }
 
-  async findManyByProduct(productId: UniqueEntityID): Promise<Item[]> {
+  async findManyByProduct(_productId: UniqueEntityID): Promise<Item[]> {
     // In memory repository doesn't have product-variant relationship
     // For testing purposes, we'll return empty array
     return [];

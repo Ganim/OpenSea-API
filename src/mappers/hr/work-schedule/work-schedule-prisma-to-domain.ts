@@ -1,6 +1,8 @@
 import type { WorkSchedule as PrismaWorkSchedule } from '@prisma/client';
 
-export function mapWorkSchedulePrismaToDomain(workSchedule: PrismaWorkSchedule) {
+export function mapWorkSchedulePrismaToDomain(
+  workSchedule: PrismaWorkSchedule,
+) {
   return {
     name: workSchedule.name,
     description: workSchedule.description ?? undefined,

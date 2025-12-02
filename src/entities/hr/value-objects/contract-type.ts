@@ -19,7 +19,7 @@ export class ContractType extends ValueObject<ContractTypeEnum> {
       return new ContractType(type as ContractTypeEnum);
     }
     // If it's a string, try to match it to an enum value
-    const enumValue = Object.values(ContractTypeEnum).find(v => v === type);
+    const enumValue = Object.values(ContractTypeEnum).find((v) => v === type);
     if (!enumValue) {
       throw new Error(`Invalid contract type: ${type}`);
     }

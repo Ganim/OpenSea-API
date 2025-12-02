@@ -3,9 +3,9 @@ import { TimeBank } from '@/entities/hr/time-bank';
 import { prisma } from '@/lib/prisma';
 import { mapTimeBankPrismaToDomain } from '@/mappers/hr/time-bank';
 import type {
-    CreateTimeBankSchema,
-    TimeBankRepository,
-    UpdateTimeBankSchema,
+  CreateTimeBankSchema,
+  TimeBankRepository,
+  UpdateTimeBankSchema,
 } from '../time-bank-repository';
 
 export class PrismaTimeBankRepository implements TimeBankRepository {

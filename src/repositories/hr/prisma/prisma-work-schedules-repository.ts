@@ -3,9 +3,9 @@ import { WorkSchedule } from '@/entities/hr/work-schedule';
 import { prisma } from '@/lib/prisma';
 import { mapWorkSchedulePrismaToDomain } from '@/mappers/hr/work-schedule';
 import type {
-    CreateWorkScheduleSchema,
-    UpdateWorkScheduleSchema,
-    WorkSchedulesRepository,
+  CreateWorkScheduleSchema,
+  UpdateWorkScheduleSchema,
+  WorkSchedulesRepository,
 } from '../work-schedules-repository';
 
 export class PrismaWorkSchedulesRepository implements WorkSchedulesRepository {

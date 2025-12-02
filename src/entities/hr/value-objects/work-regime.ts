@@ -19,7 +19,7 @@ export class WorkRegime extends ValueObject<WorkRegimeEnum> {
       return new WorkRegime(regime as WorkRegimeEnum);
     }
     // If it's a string, try to match it to an enum value
-    const enumValue = Object.values(WorkRegimeEnum).find(v => v === regime);
+    const enumValue = Object.values(WorkRegimeEnum).find((v) => v === regime);
     if (!enumValue) {
       throw new Error(`Invalid work regime: ${regime}`);
     }

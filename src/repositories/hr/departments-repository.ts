@@ -37,7 +37,9 @@ export interface DepartmentsRepository {
   create(data: CreateDepartmentSchema): Promise<Department>;
   findById(id: UniqueEntityID): Promise<Department | null>;
   findByCode(code: string): Promise<Department | null>;
-  findMany(params: FindManyDepartmentsParams): Promise<FindManyDepartmentsResult>;
+  findMany(
+    params: FindManyDepartmentsParams,
+  ): Promise<FindManyDepartmentsResult>;
   findManyByParent(parentId: UniqueEntityID): Promise<Department[]>;
   findManyByManager(managerId: UniqueEntityID): Promise<Department[]>;
   findManyActive(): Promise<Department[]>;

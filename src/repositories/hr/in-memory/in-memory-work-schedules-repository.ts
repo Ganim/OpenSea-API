@@ -1,9 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { WorkSchedule } from '@/entities/hr/work-schedule';
 import type {
-    CreateWorkScheduleSchema,
-    UpdateWorkScheduleSchema,
-    WorkSchedulesRepository,
+  CreateWorkScheduleSchema,
+  UpdateWorkScheduleSchema,
+  WorkSchedulesRepository,
 } from '../work-schedules-repository';
 
 export class InMemoryWorkSchedulesRepository

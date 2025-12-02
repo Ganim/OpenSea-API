@@ -3,10 +3,10 @@ import { Overtime } from '@/entities/hr/overtime';
 import { prisma } from '@/lib/prisma';
 import { mapOvertimePrismaToDomain } from '@/mappers/hr/overtime';
 import type {
-    CreateOvertimeSchema,
-    FindOvertimeFilters,
-    OvertimeRepository,
-    UpdateOvertimeSchema,
+  CreateOvertimeSchema,
+  FindOvertimeFilters,
+  OvertimeRepository,
+  UpdateOvertimeSchema,
 } from '../overtime-repository';
 
 export class PrismaOvertimeRepository implements OvertimeRepository {

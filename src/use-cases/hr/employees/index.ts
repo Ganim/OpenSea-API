@@ -5,4 +5,3 @@ export * from './list-employees';
 export * from './terminate-employee';
 export * from './transfer-employee';
 export * from './update-employee';
-

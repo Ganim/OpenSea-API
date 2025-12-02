@@ -1,9 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
 import type {
-    CreateManufacturerSchema,
-    ManufacturersRepository,
-    UpdateManufacturerSchema,
+  CreateManufacturerSchema,
+  ManufacturersRepository,
+  UpdateManufacturerSchema,
 } from '../manufacturers-repository';
 
 export class InMemoryManufacturersRepository

@@ -136,7 +136,8 @@ describe('List Locations (E2E)', () => {
     expect(warehouseResponse.body.locations).toBeInstanceOf(Array);
 
     const warehouseLocations = warehouseResponse.body.locations.filter(
-      (loc: { code: string }) => loc.code === `F${timestamp.toString().slice(-4)}`,
+      (loc: { code: string }) =>
+        loc.code === `F${timestamp.toString().slice(-4)}`,
     );
 
     expect(warehouseLocations).toHaveLength(1);
@@ -157,7 +158,8 @@ describe('List Locations (E2E)', () => {
     expect(zoneResponse.body.locations).toBeInstanceOf(Array);
 
     const zoneLocations = zoneResponse.body.locations.filter(
-      (loc: { code: string }) => loc.code === `F${timestamp.toString().slice(-3)}2`,
+      (loc: { code: string }) =>
+        loc.code === `F${timestamp.toString().slice(-3)}2`,
     );
 
     expect(zoneLocations).toHaveLength(1);
@@ -178,7 +180,8 @@ describe('List Locations (E2E)', () => {
     expect(aisleResponse.body.locations).toBeInstanceOf(Array);
 
     const aisleLocations = aisleResponse.body.locations.filter(
-      (loc: { code: string }) => loc.code === `F${timestamp.toString().slice(-3)}3`,
+      (loc: { code: string }) =>
+        loc.code === `F${timestamp.toString().slice(-3)}3`,
     );
 
     expect(aisleLocations).toHaveLength(1);

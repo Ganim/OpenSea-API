@@ -11,10 +11,10 @@ CREATE TYPE "public"."WorkRegime" AS ENUM ('FULL_TIME', 'PART_TIME', 'HOURLY', '
 CREATE TYPE "public"."TimeEntryType" AS ENUM ('CLOCK_IN', 'CLOCK_OUT', 'BREAK_START', 'BREAK_END', 'OVERTIME_START', 'OVERTIME_END');
 
 -- CreateEnum
-CREATE TYPE "public"."AbsenceType" AS ENUM ('VACATION', 'SICK_LEAVE', 'PERSONAL_LEAVE', 'MATERNITY_LEAVE', 'PATERNITY_LEAVE', 'MEDICAL_APPOINTMENT', 'OTHER');
+CREATE TYPE "public"."AbsenceType" AS ENUM ('VACATION', 'SICK_LEAVE', 'PERSONAL_LEAVE', 'MATERNITY_LEAVE', 'PATERNITY_LEAVE', 'BEREAVEMENT_LEAVE', 'WEDDING_LEAVE', 'MEDICAL_APPOINTMENT', 'JURY_DUTY', 'UNPAID_LEAVE', 'OTHER');
 
 -- CreateEnum
-CREATE TYPE "public"."AbsenceStatus" AS ENUM ('REQUESTED', 'APPROVED', 'REJECTED', 'CANCELLED', 'COMPLETED');
+CREATE TYPE "public"."AbsenceStatus" AS ENUM ('PENDING', 'APPROVED', 'REJECTED', 'CANCELLED', 'IN_PROGRESS', 'COMPLETED');
 
 -- CreateEnum
 CREATE TYPE "public"."PayrollStatus" AS ENUM ('DRAFT', 'CALCULATED', 'APPROVED', 'PAID', 'CANCELLED');
@@ -192,16 +192,22 @@ CREATE TABLE "public"."absences" (
     "id" TEXT NOT NULL,
     "employee_id" TEXT NOT NULL,
     "type" "public"."AbsenceType" NOT NULL,
-    "status" "public"."AbsenceStatus" NOT NULL DEFAULT 'REQUESTED',
+    "status" "public"."AbsenceStatus" NOT NULL DEFAULT 'PENDING',
     "start_date" TIMESTAMP(3) NOT NULL,
     "end_date" TIMESTAMP(3) NOT NULL,
-    "days" DECIMAL(5,2) NOT NULL,
-    "reason" TEXT NOT NULL,
-    "medical_certificate" VARCHAR(512),
-    "cid_code" VARCHAR(10),
+    "total_days" INTEGER NOT NULL,
+    "reason" TEXT,
+    "document_url" VARCHAR(512),
+    "cid" VARCHAR(10),
+    "is_paid" BOOLEAN NOT NULL DEFAULT true,
+    "is_inss_responsibility" BOOLEAN NOT NULL DEFAULT false,
+    "vacation_period_id" TEXT,
+    "notes" TEXT,
+    "requested_by" TEXT,
     "approved_by" TEXT,
     "approved_at" TIMESTAMP(3),
-    "approval_notes" TEXT,
+    "rejection_reason" TEXT,
+    "deleted_at" TIMESTAMP(3),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -212,12 +218,19 @@ CREATE TABLE "public"."absences" (
 CREATE TABLE "public"."vacation_periods" (
     "id" TEXT NOT NULL,
     "employee_id" TEXT NOT NULL,
-    "year" INTEGER NOT NULL,
-    "start_date" TIMESTAMP(3) NOT NULL,
-    "end_date" TIMESTAMP(3) NOT NULL,
-    "days_earned" DECIMAL(5,2) NOT NULL,
-    "days_used" DECIMAL(5,2) NOT NULL,
-    "days_balance" DECIMAL(5,2) NOT NULL,
+    "acquisition_start" TIMESTAMP(3) NOT NULL,
+    "acquisition_end" TIMESTAMP(3) NOT NULL,
+    "concession_start" TIMESTAMP(3) NOT NULL,
+    "concession_end" TIMESTAMP(3) NOT NULL,
+    "total_days" INTEGER NOT NULL DEFAULT 30,
+    "used_days" INTEGER NOT NULL DEFAULT 0,
+    "sold_days" INTEGER NOT NULL DEFAULT 0,
+    "remaining_days" INTEGER NOT NULL DEFAULT 30,
+    "status" VARCHAR(32) NOT NULL DEFAULT 'PENDING',
+    "scheduled_start" TIMESTAMP(3),
+    "scheduled_end" TIMESTAMP(3),
+    "notes" TEXT,
+    "deleted_at" TIMESTAMP(3),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -395,10 +408,25 @@ CREATE INDEX "absences_status_idx" ON "public"."absences"("status");
 CREATE INDEX "absences_start_date_end_date_idx" ON "public"."absences"("start_date", "end_date");
 
 -- CreateIndex
+CREATE INDEX "absences_vacation_period_id_idx" ON "public"."absences"("vacation_period_id");
+
+-- CreateIndex
+CREATE INDEX "absences_deleted_at_idx" ON "public"."absences"("deleted_at");
+
+-- CreateIndex
 CREATE INDEX "vacation_periods_employee_id_idx" ON "public"."vacation_periods"("employee_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "vacation_periods_employee_id_year_key" ON "public"."vacation_periods"("employee_id", "year");
+CREATE INDEX "vacation_periods_status_idx" ON "public"."vacation_periods"("status");
+
+-- CreateIndex
+CREATE INDEX "vacation_periods_acquisition_start_acquisition_end_idx" ON "public"."vacation_periods"("acquisition_start", "acquisition_end");
+
+-- CreateIndex
+CREATE INDEX "vacation_periods_concession_start_concession_end_idx" ON "public"."vacation_periods"("concession_start", "concession_end");
+
+-- CreateIndex
+CREATE INDEX "vacation_periods_deleted_at_idx" ON "public"."vacation_periods"("deleted_at");
 
 -- CreateIndex
 CREATE INDEX "payrolls_status_idx" ON "public"."payrolls"("status");

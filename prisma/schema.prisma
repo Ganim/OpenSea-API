@@ -1738,35 +1738,50 @@ enum AbsenceType {
   PERSONAL_LEAVE
   MATERNITY_LEAVE
   PATERNITY_LEAVE
+  BEREAVEMENT_LEAVE
+  WEDDING_LEAVE
   MEDICAL_APPOINTMENT
+  JURY_DUTY
+  UNPAID_LEAVE
   OTHER
 }
 
 enum AbsenceStatus {
-  REQUESTED
+  PENDING
   APPROVED
   REJECTED
   CANCELLED
+  IN_PROGRESS
   COMPLETED
 }
 
 model Absence {
   id String @id @default(uuid())
 
-  employeeId         String        @map("employee_id")
-  type               AbsenceType
-  status             AbsenceStatus @default(REQUESTED)
-  startDate          DateTime      @map("start_date")
-  endDate            DateTime      @map("end_date")
-  days               Decimal       @db.Decimal(5, 2) // Dias de ausência
-  reason             String        @db.Text
-  medicalCertificate String?       @map("medical_certificate") @db.VarChar(512) // Caminho do arquivo
-  cidCode            String?       @map("cid_code") @db.VarChar(10) // Código CID para atestados
+  employeeId           String        @map("employee_id")
+  type                 AbsenceType
+  status               AbsenceStatus @default(PENDING)
+  startDate            DateTime      @map("start_date")
+  endDate              DateTime      @map("end_date")
+  totalDays            Int           @map("total_days") // Total days of absence
+  reason               String?       @db.Text
+  documentUrl          String?       @map("document_url") @db.VarChar(512) // URL do atestado/documento
+  cid                  String?       @db.VarChar(10) // Código CID para atestados médicos
+  isPaid               Boolean       @default(true) @map("is_paid")
+  isInssResponsibility Boolean       @default(false) @map("is_inss_responsibility") // Para afastamentos > 15 dias
+  vacationPeriodId     String?       @map("vacation_period_id") // Para férias
+  notes                String?       @db.Text
+
+  // Quem solicitou (pode ser diferente do funcionário)
+  requestedBy String? @map("requested_by")
 
   // Aprovação
-  approvedBy    String?   @map("approved_by")
-  approvedAt    DateTime? @map("approved_at")
-  approvalNotes String?   @map("approval_notes") @db.Text
+  approvedBy      String?   @map("approved_by")
+  approvedAt      DateTime? @map("approved_at")
+  rejectionReason String?   @map("rejection_reason") @db.Text
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
 
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
@@ -1780,19 +1795,39 @@ model Absence {
   @@index([type])
   @@index([status])
   @@index([startDate, endDate])
+  @@index([vacationPeriodId])
+  @@index([deletedAt])
   @@map("absences")
 }
 
 model VacationPeriod {
   id String @id @default(uuid())
 
-  employeeId  String   @map("employee_id")
-  year        Int
-  startDate   DateTime @map("start_date") // Início do período aquisitivo
-  endDate     DateTime @map("end_date") // Fim do período aquisitivo
-  daysEarned  Decimal  @map("days_earned") @db.Decimal(5, 2) // Dias adquiridos
-  daysUsed    Decimal  @map("days_used") @db.Decimal(5, 2) // Dias utilizados
-  daysBalance Decimal  @map("days_balance") @db.Decimal(5, 2) // Saldo disponível
+  employeeId String @map("employee_id")
+
+  // Período Aquisitivo (12 meses de trabalho)
+  acquisitionStart DateTime @map("acquisition_start")
+  acquisitionEnd   DateTime @map("acquisition_end")
+
+  // Período Concessivo (12 meses para tirar férias)
+  concessionStart DateTime @map("concession_start")
+  concessionEnd   DateTime @map("concession_end")
+
+  // Dias de direito
+  totalDays     Int @default(30) @map("total_days") // Dias totais de direito
+  usedDays      Int @default(0) @map("used_days") // Dias já utilizados
+  soldDays      Int @default(0) @map("sold_days") // Abono pecuniário (max 10)
+  remainingDays Int @default(30) @map("remaining_days") // Saldo disponível
+
+  // Controle de agendamento
+  status         String    @default("PENDING") @db.VarChar(32) // PENDING, AVAILABLE, SCHEDULED, IN_PROGRESS, COMPLETED, EXPIRED, SOLD
+  scheduledStart DateTime? @map("scheduled_start")
+  scheduledEnd   DateTime? @map("scheduled_end")
+
+  notes String? @db.Text
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
 
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
@@ -1801,8 +1836,11 @@ model VacationPeriod {
   // Relations
   employee Employee @relation(fields: [employeeId], references: [id])
 
-  @@unique([employeeId, year])
   @@index([employeeId])
+  @@index([status])
+  @@index([acquisitionStart, acquisitionEnd])
+  @@index([concessionStart, concessionEnd])
+  @@index([deletedAt])
   @@map("vacation_periods")
 }
 

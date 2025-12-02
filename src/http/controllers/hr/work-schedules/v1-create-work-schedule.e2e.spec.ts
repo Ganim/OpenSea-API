@@ -38,7 +38,9 @@ describe('Create Work Schedule (E2E)', () => {
 
     expect(response.statusCode).toBe(201);
     expect(response.body).toHaveProperty('workSchedule');
-    expect(response.body.workSchedule.name).toBe(`Standard Schedule ${timestamp}`);
+    expect(response.body.workSchedule.name).toBe(
+      `Standard Schedule ${timestamp}`,
+    );
     expect(response.body.workSchedule.breakDuration).toBe(60);
   });
 

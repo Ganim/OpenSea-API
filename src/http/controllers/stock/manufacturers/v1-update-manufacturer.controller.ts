@@ -3,8 +3,8 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import {
-    manufacturerResponseSchema,
-    updateManufacturerSchema,
+  manufacturerResponseSchema,
+  updateManufacturerSchema,
 } from '@/http/schemas';
 import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { makeUpdateManufacturerUseCase } from '@/use-cases/stock/manufacturers/factories/make-update-manufacturer-use-case';

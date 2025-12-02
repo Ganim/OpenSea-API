@@ -118,7 +118,9 @@ describe('UpdateProductUseCase', () => {
       supplierId: supplier.supplier.id.toString(),
     });
 
-    expect(result.product.supplierId?.toString()).toBe(supplier.supplier.id.toString());
+    expect(result.product.supplierId?.toString()).toBe(
+      supplier.supplier.id.toString(),
+    );
   });
 
   it('should update product with manufacturer', async () => {
@@ -144,7 +146,9 @@ describe('UpdateProductUseCase', () => {
       manufacturerId: manufacturer.manufacturer.manufacturerId.toString(),
     });
 
-    expect(result.product.manufacturerId?.toString()).toBe(manufacturer.manufacturer.manufacturerId.toString());
+    expect(result.product.manufacturerId?.toString()).toBe(
+      manufacturer.manufacturer.manufacturerId.toString(),
+    );
   });
 
   it('should throw error if product not found', async () => {

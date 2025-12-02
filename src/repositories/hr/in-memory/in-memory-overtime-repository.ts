@@ -1,10 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Overtime } from '@/entities/hr/overtime';
 import type {
-    CreateOvertimeSchema,
-    FindOvertimeFilters,
-    OvertimeRepository,
-    UpdateOvertimeSchema,
+  CreateOvertimeSchema,
+  FindOvertimeFilters,
+  OvertimeRepository,
+  UpdateOvertimeSchema,
 } from '../overtime-repository';
 
 export class InMemoryOvertimeRepository implements OvertimeRepository {

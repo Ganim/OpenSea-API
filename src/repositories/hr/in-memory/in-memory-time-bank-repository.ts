@@ -1,9 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeBank } from '@/entities/hr/time-bank';
 import type {
-    CreateTimeBankSchema,
-    TimeBankRepository,
-    UpdateTimeBankSchema,
+  CreateTimeBankSchema,
+  TimeBankRepository,
+  UpdateTimeBankSchema,
 } from '../time-bank-repository';
 
 export class InMemoryTimeBankRepository implements TimeBankRepository {

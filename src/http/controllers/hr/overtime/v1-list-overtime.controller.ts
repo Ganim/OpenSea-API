@@ -1,5 +1,8 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { listOvertimeQuerySchema, overtimeResponseSchema } from '@/http/schemas';
+import {
+  listOvertimeQuerySchema,
+  overtimeResponseSchema,
+} from '@/http/schemas';
 import { overtimeToDTO } from '@/mappers/hr/overtime/overtime-to-dto';
 import { makeListOvertimeUseCase } from '@/use-cases/hr/overtime/factories/make-list-overtime-use-case';
 import type { FastifyInstance } from 'fastify';

@@ -26,7 +26,9 @@ export async function listCategoriesController(app: FastifyInstance) {
       const listCategoriesUseCase = makeListCategoriesUseCase();
       const { categories } = await listCategoriesUseCase.execute();
 
-      return reply.status(200).send({ categories: categories.map(categoryToDTO) });
+      return reply
+        .status(200)
+        .send({ categories: categories.map(categoryToDTO) });
     },
   });
 }

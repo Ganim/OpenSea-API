@@ -1,7 +1,7 @@
 import { LocationType } from '@/entities/stock/value-objects/location-type';
 import {
-    type LocationDTO,
-    locationToDTO,
+  type LocationDTO,
+  locationToDTO,
 } from '@/mappers/stock/location/location-to-dto';
 import { LocationsRepository } from '@/repositories/stock/locations-repository';
 
@@ -16,7 +16,9 @@ interface ListLocationsUseCaseResponse {
 export class ListLocationsUseCase {
   constructor(private locationsRepository: LocationsRepository) {}
 
-  async execute(request?: ListLocationsUseCaseRequest): Promise<ListLocationsUseCaseResponse> {
+  async execute(
+    request?: ListLocationsUseCaseRequest,
+  ): Promise<ListLocationsUseCaseResponse> {
     const filters = request?.type
       ? { type: LocationType.create(request.type) }
       : undefined;
@@ -24,7 +26,9 @@ export class ListLocationsUseCase {
     const locations = await this.locationsRepository.findManyActive(filters);
 
     return {
-      locations: locations.map(location => locationToDTO(location, undefined)),
+      locations: locations.map((location) =>
+        locationToDTO(location, undefined),
+      ),
     };
   }
 }

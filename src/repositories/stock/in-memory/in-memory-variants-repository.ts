@@ -1,9 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
 import type {
-    CreateVariantSchema,
-    UpdateVariantSchema,
-    VariantsRepository,
+  CreateVariantSchema,
+  UpdateVariantSchema,
+  VariantsRepository,
 } from '../variants-repository';
 
 export class InMemoryVariantsRepository implements VariantsRepository {

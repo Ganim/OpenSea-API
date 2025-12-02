@@ -55,15 +55,13 @@ export function variantToDTO(variant: Variant): VariantDTO {
   };
 }
 
-export function variantWithAggregationsToDTO(
-  variantWithAggregations: {
-    variant: Variant;
-    productCode: string;
-    productName: string;
-    itemCount: number;
-    totalCurrentQuantity: number;
-  },
-): VariantWithAggregationsDTO {
+export function variantWithAggregationsToDTO(variantWithAggregations: {
+  variant: Variant;
+  productCode: string;
+  productName: string;
+  itemCount: number;
+  totalCurrentQuantity: number;
+}): VariantWithAggregationsDTO {
   return {
     ...variantToDTO(variantWithAggregations.variant),
     productCode: variantWithAggregations.productCode,

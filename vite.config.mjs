@@ -13,7 +13,11 @@ export default defineConfig({
         extends: true,
         test: {
           name: 'unit',
-          include: ['src/use-cases/**/*.spec.ts', 'src/entities/**/*.spec.ts'],
+          include: [
+            'src/use-cases/**/*.spec.ts',
+            'src/entities/**/*.spec.ts',
+            'src/repositories/**/*.spec.ts',
+          ],
           exclude: ['**/*.e2e.spec.ts'],
         },
       },
