@@ -43,7 +43,6 @@ describe('Update Sales Order Status (E2E)', () => {
       .send({
         name: `Test Product ${timestamp}`,
         code: `PROD-UPDATE-${timestamp}`,
-        unitOfMeasure: 'UNITS',
         templateId,
       });
 

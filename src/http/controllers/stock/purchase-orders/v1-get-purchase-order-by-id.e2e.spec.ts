@@ -42,7 +42,6 @@ describe('Get Purchase Order By ID (E2E)', () => {
         code: `PROD-GET-${timestamp}`,
         name: `Product Get ${timestamp}`,
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         templateId: template.id,
         attributes: {},
       },

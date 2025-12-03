@@ -7,6 +7,7 @@ export function mapSupplierPrismaToDomain(supplierDb: PrismaSupplier) {
   return {
     id: new UniqueEntityID(supplierDb.id),
     name: supplierDb.name,
+    sequentialCode: supplierDb.sequentialCode ?? undefined,
     cnpj: supplierDb.cnpj
       ? (CNPJ.create(supplierDb.cnpj) ?? undefined)
       : undefined,

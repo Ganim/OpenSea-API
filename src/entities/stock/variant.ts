@@ -5,7 +5,9 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 export interface VariantProps {
   id: UniqueEntityID;
   productId: UniqueEntityID;
-  sku: string;
+  sku?: string; // SKU manual opcional
+  fullCode?: string; // Código completo gerado automaticamente (ex: 23.6.23)
+  sequentialCode?: number; // Código sequencial da variante
   name: string;
   price: number;
   imageUrl?: string;
@@ -22,6 +24,7 @@ export interface VariantProps {
   maxStock?: number;
   reorderPoint?: number;
   reorderQuantity?: number;
+  isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -36,13 +39,26 @@ export class Variant extends Entity<VariantProps> {
     return this.props.productId;
   }
 
-  get sku(): string {
+  get sku(): string | undefined {
     return this.props.sku;
   }
 
-  set sku(sku: string) {
+  set sku(sku: string | undefined) {
     this.props.sku = sku;
     this.touch();
+  }
+
+  get fullCode(): string | undefined {
+    return this.props.fullCode;
+  }
+
+  set fullCode(fullCode: string | undefined) {
+    this.props.fullCode = fullCode;
+    this.touch();
+  }
+
+  get sequentialCode(): number | undefined {
+    return this.props.sequentialCode;
   }
 
   get name(): string {
@@ -213,6 +229,15 @@ export class Variant extends Entity<VariantProps> {
     this.touch();
   }
 
+  get isActive(): boolean {
+    return this.props.isActive;
+  }
+
+  set isActive(isActive: boolean) {
+    this.props.isActive = isActive;
+    this.touch();
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -282,7 +307,21 @@ export class Variant extends Entity<VariantProps> {
     return margin !== null && margin !== undefined && margin < 10;
   }
 
+  get displayCode(): string {
+    return this.props.fullCode ?? this.props.sku ?? this.props.id.toString();
+  }
+
   // Business Methods
+  activate(): void {
+    this.props.isActive = true;
+    this.touch();
+  }
+
+  deactivate(): void {
+    this.props.isActive = false;
+    this.touch();
+  }
+
   updatePrice(newPrice: number): void {
     this.price = newPrice;
   }
@@ -320,7 +359,7 @@ export class Variant extends Entity<VariantProps> {
   static create(
     props: Optional<
       VariantProps,
-      'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'attributes' | 'price' | 'isActive'
     >,
     id?: UniqueEntityID,
   ): Variant {
@@ -328,6 +367,9 @@ export class Variant extends Entity<VariantProps> {
       {
         ...props,
         id: id ?? new UniqueEntityID(),
+        attributes: props.attributes ?? {},
+        price: props.price ?? 0,
+        isActive: props.isActive ?? true,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

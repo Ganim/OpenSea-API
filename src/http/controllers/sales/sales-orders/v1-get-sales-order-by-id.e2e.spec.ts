@@ -42,7 +42,6 @@ describe('Get Sales Order By ID (E2E)', () => {
       .send({
         name: `Test Product ${timestamp}`,
         code: `PROD-GET-${timestamp}`,
-        unitOfMeasure: 'UNITS',
         templateId,
       });
 

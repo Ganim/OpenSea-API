@@ -2,7 +2,6 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
-import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
@@ -14,7 +13,6 @@ interface UpdateProductUseCaseRequest {
   code?: string;
   description?: string;
   status?: string;
-  unitOfMeasure?: string;
   supplierId?: string;
   manufacturerId?: string;
   attributes?: Record<string, unknown>;
@@ -41,7 +39,6 @@ export class UpdateProductUseCase {
       code,
       description,
       status,
-      unitOfMeasure,
       supplierId,
       manufacturerId,
       attributes,
@@ -111,20 +108,6 @@ export class UpdateProductUseCase {
       );
     }
 
-    // Validate unit of measure if provided
-    let productUnitOfMeasure: UnitOfMeasure | undefined;
-    if (unitOfMeasure !== undefined) {
-      const validUnits = ['METERS', 'KILOGRAMS', 'UNITS'];
-      if (!validUnits.includes(unitOfMeasure)) {
-        throw new BadRequestError(
-          'Invalid unit of measure. Must be one of: METERS, KILOGRAMS, UNITS',
-        );
-      }
-      productUnitOfMeasure = UnitOfMeasure.create(
-        unitOfMeasure as 'METERS' | 'KILOGRAMS' | 'UNITS',
-      );
-    }
-
     // Validate supplier exists if provided
     if (supplierId !== undefined) {
       const supplier = await this.suppliersRepository.findById(
@@ -176,7 +159,6 @@ export class UpdateProductUseCase {
       code,
       description,
       status: productStatus,
-      unitOfMeasure: productUnitOfMeasure,
       supplierId: supplierId ? new UniqueEntityID(supplierId) : undefined,
       manufacturerId: manufacturerId
         ? new UniqueEntityID(manufacturerId)

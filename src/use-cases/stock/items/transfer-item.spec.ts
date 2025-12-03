@@ -80,7 +80,6 @@ describe('TransferItemUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });
@@ -139,7 +138,6 @@ describe('TransferItemUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });
@@ -202,7 +200,6 @@ describe('TransferItemUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });
@@ -249,7 +246,6 @@ describe('TransferItemUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });
@@ -306,7 +302,6 @@ describe('TransferItemUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });

@@ -73,7 +73,6 @@ describe('RegisterItemEntryUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });
@@ -121,7 +120,6 @@ describe('RegisterItemEntryUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });
@@ -160,16 +158,46 @@ describe('RegisterItemEntryUseCase', () => {
     expect(result.item.expiryDate).toEqual(expiryDate);
   });
 
-  it('should not allow empty unique code', async () => {
-    await expect(() =>
-      registerItemEntry.execute({
-        uniqueCode: '',
-        variantId: new UniqueEntityID().toString(),
-        locationId: new UniqueEntityID().toString(),
-        quantity: 100,
-        userId: new UniqueEntityID().toString(),
-      }),
-    ).rejects.toThrow(BadRequestError);
+  it('should auto-generate unique code when not provided', async () => {
+    const { template } = await createTemplate.execute({
+      name: 'Test Template',
+      productAttributes: { brand: 'string' },
+    });
+
+    const { product } = await createProduct.execute({
+      name: 'Test Product Auto Code',
+      code: 'P-AUT',
+      status: 'ACTIVE',
+      attributes: { brand: 'Samsung' },
+      templateId: template.id,
+    });
+
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
+      sku: 'SKU-A',
+      name: 'Test Variant Auto',
+      price: 100,
+    });
+
+    const { location } = await createLocation.execute({
+      code: 'WH-A',
+      titulo: 'Warehouse Auto',
+      type: 'WAREHOUSE',
+    });
+
+    const userId = new UniqueEntityID().toString();
+
+    const result = await registerItemEntry.execute({
+      // uniqueCode não fornecido - deve ser gerado automaticamente
+      variantId: variant.id.toString(),
+      locationId: location.id.toString(),
+      quantity: 100,
+      userId,
+    });
+
+    expect(result.item).toBeDefined();
+    expect(result.item.uniqueCode).toBeDefined();
+    expect(result.item.uniqueCode.length).toBeGreaterThan(0);
   });
 
   it('should not allow unique code exceeding 128 characters', async () => {
@@ -194,7 +222,6 @@ describe('RegisterItemEntryUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });
@@ -283,7 +310,6 @@ describe('RegisterItemEntryUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });
@@ -316,7 +342,6 @@ describe('RegisterItemEntryUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });
@@ -357,7 +382,6 @@ describe('RegisterItemEntryUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });
@@ -398,7 +422,6 @@ describe('RegisterItemEntryUseCase', () => {
       name: 'Smartphone',
       code: 'PHONE-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
     });

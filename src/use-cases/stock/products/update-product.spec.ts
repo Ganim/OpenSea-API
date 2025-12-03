@@ -54,7 +54,6 @@ describe('UpdateProductUseCase', () => {
     const created = await createProduct.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -81,7 +80,6 @@ describe('UpdateProductUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       description: 'Original',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -104,7 +102,6 @@ describe('UpdateProductUseCase', () => {
     const created = await createProduct.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -132,7 +129,6 @@ describe('UpdateProductUseCase', () => {
     const created = await createProduct.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -169,7 +165,6 @@ describe('UpdateProductUseCase', () => {
     const created = await createProduct.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -190,14 +185,12 @@ describe('UpdateProductUseCase', () => {
     await createProduct.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
     const second = await createProduct.execute({
       name: 'Mouse Logitech',
       code: 'MOUSE-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -218,7 +211,6 @@ describe('UpdateProductUseCase', () => {
     const created = await createProduct.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -239,7 +231,6 @@ describe('UpdateProductUseCase', () => {
     const created = await createProduct.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -260,7 +251,6 @@ describe('UpdateProductUseCase', () => {
     const created = await createProduct.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
       attributes: { brand: 'Dell' },
     });

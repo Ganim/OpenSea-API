@@ -34,7 +34,6 @@ describe('Update Product (E2E)', () => {
         code: `PROD-UPDATE-${timestamp}`,
         name: `Old Product Name ${timestamp}`,
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         templateId: templateDb.id,
         attributes: { warranty: '12 months' },
       },
@@ -47,7 +46,6 @@ describe('Update Product (E2E)', () => {
         name: `Updated Product Name ${timestamp}`,
         description: 'Updated description',
         status: 'INACTIVE',
-        unitOfMeasure: 'KILOGRAMS',
         attributes: { warranty: '24 months' },
       });
 
@@ -56,7 +54,6 @@ describe('Update Product (E2E)', () => {
     expect(response.body.product).toMatchObject({
       name: `Updated Product Name ${timestamp}`,
       status: 'INACTIVE',
-      unitOfMeasure: 'KILOGRAMS',
     });
   });
 
@@ -94,7 +91,6 @@ describe('Update Product (E2E)', () => {
         code: `PROD-UPDATE-FORBIDDEN-${timestamp}`,
         name: 'Product to Update',
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         templateId: templateDb.id,
         attributes: {},
       },
@@ -126,7 +122,6 @@ describe('Update Product (E2E)', () => {
         code: `PROD-UPDATE-401-${timestamp}`,
         name: 'Product for 401 Test',
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         templateId: templateDb.id,
         attributes: {},
       },

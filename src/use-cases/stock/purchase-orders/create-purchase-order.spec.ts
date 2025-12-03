@@ -69,7 +69,6 @@ describe('CreatePurchaseOrderUseCase', () => {
     const { product } = await createProduct.execute({
       name: 'Test Product',
       code: 'TEST-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.id.toString(),
       attributes: { brand: 'Test Brand' },
     });
@@ -134,7 +133,6 @@ describe('CreatePurchaseOrderUseCase', () => {
     const { product } = await createProduct.execute({
       name: 'Test Product',
       code: 'TEST-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.id.toString(),
       attributes: { brand: 'Test Brand' },
     });
@@ -238,7 +236,6 @@ describe('CreatePurchaseOrderUseCase', () => {
     const { product } = await createProduct.execute({
       name: 'Test Product',
       code: 'TEST-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.id.toString(),
       attributes: { brand: 'Test Brand' },
     });
@@ -280,7 +277,6 @@ describe('CreatePurchaseOrderUseCase', () => {
     const { product } = await createProduct.execute({
       name: 'Test Product',
       code: 'TEST-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.id.toString(),
       attributes: { brand: 'Test Brand' },
     });

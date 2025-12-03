@@ -43,7 +43,6 @@ describe('GetProductByIdUseCase', () => {
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
       description: 'High performance laptop',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -53,8 +52,7 @@ describe('GetProductByIdUseCase', () => {
     expect(result.product.name).toBe('Laptop Dell');
     expect(result.product.description).toBe('High performance laptop');
     expect(result.product.code).toBe('LAPTOP-001');
-    expect(result.product.status.value).toBe('DRAFT');
-    expect(result.product.unitOfMeasure.value).toBe('UNITS');
+    expect(result.product.status.value).toBe('ACTIVE');
   });
 
   it('should throw error if product not found', async () => {

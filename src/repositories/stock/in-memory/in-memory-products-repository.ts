@@ -2,9 +2,9 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import type {
-  CreateProductSchema,
-  ProductsRepository,
-  UpdateProductSchema,
+    CreateProductSchema,
+    ProductsRepository,
+    UpdateProductSchema,
 } from '../products-repository';
 
 export class InMemoryProductsRepository implements ProductsRepository {
@@ -16,7 +16,6 @@ export class InMemoryProductsRepository implements ProductsRepository {
       code: data.code,
       description: data.description,
       status: data.status,
-      unitOfMeasure: data.unitOfMeasure,
       templateId: data.templateId, // Obrigatório
       supplierId: data.supplierId,
       manufacturerId: data.manufacturerId,
@@ -79,8 +78,6 @@ export class InMemoryProductsRepository implements ProductsRepository {
     if (data.code !== undefined) product.code = data.code;
     if (data.description !== undefined) product.description = data.description;
     if (data.status !== undefined) product.status = data.status;
-    if (data.unitOfMeasure !== undefined)
-      product.unitOfMeasure = data.unitOfMeasure;
     if (data.supplierId !== undefined) product.supplierId = data.supplierId;
     if (data.manufacturerId !== undefined)
       product.manufacturerId = data.manufacturerId;

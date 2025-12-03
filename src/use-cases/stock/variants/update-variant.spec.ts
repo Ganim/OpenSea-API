@@ -58,7 +58,6 @@ describe('UpdateVariantUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: {},
       templateId: template.id.toString(),
     });
@@ -90,7 +89,6 @@ describe('UpdateVariantUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: {},
       templateId: template.id.toString(),
     });
@@ -130,7 +128,6 @@ describe('UpdateVariantUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: {},
       templateId: template.id.toString(),
     });
@@ -160,7 +157,6 @@ describe('UpdateVariantUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: {},
       templateId: template.id.toString(),
     });
@@ -197,7 +193,6 @@ describe('UpdateVariantUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: {},
       templateId: template.id.toString(),
     });
@@ -227,7 +222,6 @@ describe('UpdateVariantUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: {},
       templateId: template.id.toString(),
     });
@@ -257,7 +251,6 @@ describe('UpdateVariantUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: {},
       templateId: template.id.toString(),
     });
@@ -289,7 +282,6 @@ describe('UpdateVariantUseCase', () => {
       name: 'Smartphone',
       code: 'PHONE-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: { brand: 'Samsung' },
       templateId: template.id.toString(),
     });

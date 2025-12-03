@@ -40,7 +40,6 @@ describe('Get Product By ID (e2e)', () => {
         code: productCode,
         name: 'Product to Get',
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         templateId: template.id.toString(),
         attributes: {},
       },

@@ -40,7 +40,6 @@ describe('Create Product (e2e)', () => {
         code: productCode,
         description: 'Test Description',
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         templateId: templateDb.id,
         attributes: {
           color: 'blue',
@@ -54,7 +53,6 @@ describe('Create Product (e2e)', () => {
     expect(response.body.product.code).toBe(productCode);
     expect(response.body.product.description).toBe('Test Description');
     expect(response.body.product.status).toBe('ACTIVE');
-    expect(response.body.product.unitOfMeasure).toBe('UNITS');
     expect(response.body.product.templateId).toBe(templateDb.id);
   });
 
@@ -79,7 +77,6 @@ describe('Create Product (e2e)', () => {
         code: `PROD-CREATE-FORBIDDEN-${timestamp}`,
         templateId: templateDb.id,
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         attributes: {},
       });
 

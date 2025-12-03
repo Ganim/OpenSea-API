@@ -2,7 +2,6 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
-import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
@@ -10,10 +9,9 @@ import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface CreateProductUseCaseRequest {
   name: string;
-  code: string;
+  code?: string; // Agora é opcional - será gerado automaticamente
   description?: string;
   status?: string;
-  unitOfMeasure: string;
   templateId: string;
   supplierId?: string;
   manufacturerId?: string;
@@ -40,7 +38,6 @@ export class CreateProductUseCase {
       code,
       description,
       status,
-      unitOfMeasure,
       templateId,
       supplierId,
       manufacturerId,
@@ -56,12 +53,8 @@ export class CreateProductUseCase {
       throw new BadRequestError('Name must be at most 200 characters long');
     }
 
-    // Validate code
-    if (!code || code.trim().length === 0) {
-      throw new BadRequestError('Code is required');
-    }
-
-    if (code.length > 100) {
+    // Validate code if provided
+    if (code && code.length > 100) {
       throw new BadRequestError('Code must be at most 100 characters long');
     }
 
@@ -79,7 +72,7 @@ export class CreateProductUseCase {
       'DISCONTINUED',
       'OUT_OF_STOCK',
     ];
-    const finalStatus = status ?? 'DRAFT';
+    const finalStatus = status ?? 'ACTIVE'; // Mudança: padrão é ACTIVE
     if (!validStatuses.includes(finalStatus)) {
       throw new BadRequestError(
         'Invalid status. Must be one of: DRAFT, ACTIVE, INACTIVE, DISCONTINUED, OUT_OF_STOCK',
@@ -92,17 +85,6 @@ export class CreateProductUseCase {
         | 'INACTIVE'
         | 'DISCONTINUED'
         | 'OUT_OF_STOCK',
-    );
-
-    // Validate unit of measure
-    const validUnits = ['METERS', 'KILOGRAMS', 'UNITS'];
-    if (!validUnits.includes(unitOfMeasure)) {
-      throw new BadRequestError(
-        'Invalid unit of measure. Must be one of: METERS, KILOGRAMS, UNITS',
-      );
-    }
-    const productUnitOfMeasure = UnitOfMeasure.create(
-      unitOfMeasure as 'METERS' | 'KILOGRAMS' | 'UNITS',
     );
 
     // Validate template exists
@@ -151,12 +133,12 @@ export class CreateProductUseCase {
     }
 
     // Save to repository
+    // O código sequencial e fullCode serão gerados pelo Prisma (autoincrement)
     const createdProduct = await this.productsRepository.create({
       name,
-      code,
+      code, // Pode ser undefined
       description,
       status: productStatus,
-      unitOfMeasure: productUnitOfMeasure,
       templateId: new UniqueEntityID(templateId),
       supplierId: supplierId ? new UniqueEntityID(supplierId) : undefined,
       manufacturerId: manufacturerId

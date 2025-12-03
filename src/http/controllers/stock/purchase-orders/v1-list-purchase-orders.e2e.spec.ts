@@ -42,7 +42,6 @@ describe('List Purchase Orders (E2E)', () => {
         code: `PROD-LIST-${timestamp}`,
         name: `Product List ${timestamp}`,
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         templateId: template.id,
         attributes: {},
       },

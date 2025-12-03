@@ -2,15 +2,15 @@ import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 import { ProductStatus } from './value-objects/product-status';
-import { UnitOfMeasure } from './value-objects/unit-of-measure';
 
 export interface ProductProps {
   id: UniqueEntityID;
   name: string;
-  code: string;
+  code?: string; // Código manual opcional
+  fullCode?: string; // Código completo gerado automaticamente (ex: 23.6)
+  sequentialCode?: number; // Código sequencial do produto
   description?: string;
   status: ProductStatus;
-  unitOfMeasure: UnitOfMeasure;
   attributes: Record<string, unknown>;
   templateId: UniqueEntityID;
   supplierId?: UniqueEntityID;
@@ -34,13 +34,26 @@ export class Product extends Entity<ProductProps> {
     this.touch();
   }
 
-  get code(): string {
+  get code(): string | undefined {
     return this.props.code;
   }
 
-  set code(code: string) {
+  set code(code: string | undefined) {
     this.props.code = code;
     this.touch();
+  }
+
+  get fullCode(): string | undefined {
+    return this.props.fullCode;
+  }
+
+  set fullCode(fullCode: string | undefined) {
+    this.props.fullCode = fullCode;
+    this.touch();
+  }
+
+  get sequentialCode(): number | undefined {
+    return this.props.sequentialCode;
   }
 
   get description(): string | undefined {
@@ -58,15 +71,6 @@ export class Product extends Entity<ProductProps> {
 
   set status(status: ProductStatus) {
     this.props.status = status;
-    this.touch();
-  }
-
-  get unitOfMeasure(): UnitOfMeasure {
-    return this.props.unitOfMeasure;
-  }
-
-  set unitOfMeasure(unit: UnitOfMeasure) {
-    this.props.unitOfMeasure = unit;
     this.touch();
   }
 
@@ -134,6 +138,10 @@ export class Product extends Entity<ProductProps> {
     return this.props.status.canBePublished && !this.isDeleted;
   }
 
+  get displayCode(): string {
+    return this.props.fullCode ?? this.props.code ?? this.props.id.toString();
+  }
+
   // Business Methods
   activate(): void {
     this.status = ProductStatus.create('ACTIVE');
@@ -168,7 +176,7 @@ export class Product extends Entity<ProductProps> {
   static create(
     props: Optional<
       ProductProps,
-      'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'attributes' | 'status'
     >,
     id?: UniqueEntityID,
   ): Product {
@@ -176,6 +184,8 @@ export class Product extends Entity<ProductProps> {
       {
         ...props,
         id: id ?? new UniqueEntityID(),
+        attributes: props.attributes ?? {},
+        status: props.status ?? ProductStatus.create('ACTIVE'),
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

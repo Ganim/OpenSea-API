@@ -3,6 +3,7 @@ import type { Supplier } from '@/entities/stock/supplier';
 export interface SupplierDTO {
   id: string;
   name: string;
+  sequentialCode?: number;
   cnpj?: string;
   taxId?: string;
   contact?: string;
@@ -27,6 +28,7 @@ export function supplierToDTO(supplier: Supplier): SupplierDTO {
   return {
     id: supplier.id.toString(),
     name: supplier.name,
+    sequentialCode: supplier.sequentialCode,
     cnpj: supplier.cnpj?.unformatted,
     taxId: supplier.taxId,
     contact: supplier.contact,

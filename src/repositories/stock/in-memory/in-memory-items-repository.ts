@@ -2,9 +2,9 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import type {
-  CreateItemSchema,
-  ItemsRepository,
-  UpdateItemSchema,
+    CreateItemSchema,
+    ItemsRepository,
+    UpdateItemSchema,
 } from '../items-repository';
 
 export class InMemoryItemsRepository implements ItemsRepository {
@@ -55,7 +55,7 @@ export class InMemoryItemsRepository implements ItemsRepository {
 
   async findManyByLocation(locationId: UniqueEntityID): Promise<Item[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.locationId.equals(locationId),
+      (item) => !item.deletedAt && item.locationId?.equals(locationId),
     );
   }
 

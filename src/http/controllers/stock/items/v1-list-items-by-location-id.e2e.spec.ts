@@ -34,7 +34,6 @@ describe('List Items by Location ID (e2e)', () => {
         code: `PROD-LIST-LOC-${timestamp}`,
         name: `Product List Location ${timestamp}`,
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         templateId: template.id,
         attributes: {},
       },

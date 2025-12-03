@@ -3,7 +3,9 @@ import type { Variant } from '@/entities/stock/variant';
 export interface VariantDTO {
   id: string;
   productId: string;
-  sku: string;
+  sku?: string;
+  fullCode?: string;
+  sequentialCode?: number;
   name: string;
   price: number;
   imageUrl?: string;
@@ -14,10 +16,13 @@ export interface VariantDTO {
   qrCode?: string;
   eanCode?: string;
   upcCode?: string;
+  colorHex?: string;
+  colorPantone?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
   reorderQuantity?: number;
+  isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -35,6 +40,8 @@ export function variantToDTO(variant: Variant): VariantDTO {
     id: variant.id.toString(),
     productId: variant.productId.toString(),
     sku: variant.sku,
+    fullCode: variant.fullCode,
+    sequentialCode: variant.sequentialCode,
     name: variant.name,
     price: variant.price,
     imageUrl: variant.imageUrl,
@@ -45,10 +52,13 @@ export function variantToDTO(variant: Variant): VariantDTO {
     qrCode: variant.qrCode,
     eanCode: variant.eanCode,
     upcCode: variant.upcCode,
+    colorHex: variant.colorHex,
+    colorPantone: variant.colorPantone,
     minStock: variant.minStock,
     maxStock: variant.maxStock,
     reorderPoint: variant.reorderPoint,
     reorderQuantity: variant.reorderQuantity,
+    isActive: variant.isActive,
     createdAt: variant.createdAt,
     updatedAt: variant.updatedAt,
     deletedAt: variant.deletedAt,

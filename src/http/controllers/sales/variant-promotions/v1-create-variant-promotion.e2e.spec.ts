@@ -31,7 +31,6 @@ describe('Create Variant Promotion (E2E)', () => {
       data: {
         name: `Product ${unique}`,
         code: `PROD-${unique}`,
-        unitOfMeasure: 'UNITS',
         templateId: template.id,
       },
     });

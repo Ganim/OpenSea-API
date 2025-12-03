@@ -57,7 +57,7 @@ export interface VariantsRepository {
   findManyByProductWithAggregations(productId: UniqueEntityID): Promise<
     Array<{
       variant: Variant;
-      productCode: string;
+      productCode: string | null;
       productName: string;
       itemCount: number;
       totalCurrentQuantity: number;

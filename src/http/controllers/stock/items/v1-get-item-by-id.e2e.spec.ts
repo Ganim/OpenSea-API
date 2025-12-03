@@ -34,7 +34,6 @@ describe('Get Item By ID (e2e)', () => {
         code: `PROD-GET-ITEM-${timestamp}`,
         name: `Product Get Item ${timestamp}`,
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         templateId: template.id,
         attributes: {},
       },

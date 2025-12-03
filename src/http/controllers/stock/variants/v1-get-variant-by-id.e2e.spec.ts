@@ -40,7 +40,6 @@ describe('Get Variant By ID (E2E)', () => {
         code: `PROD-GET-${timestamp}`,
         name: `Product For Get ${timestamp}`,
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         templateId: templateDb.id,
         attributes: { brand: 'Samsung' },
       },

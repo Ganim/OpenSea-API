@@ -51,7 +51,6 @@ describe('ListVariantsUseCase', () => {
       name: 'Test Product',
       code: 'PROD-001',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       attributes: {},
       templateId: template.id.toString(),
     });

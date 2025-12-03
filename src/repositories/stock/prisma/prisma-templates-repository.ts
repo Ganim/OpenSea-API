@@ -1,11 +1,12 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
-import { Template } from '@/entities/stock/template';
+import { CareLabelInfo, Template } from '@/entities/stock/template';
+import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import { prisma } from '@/lib/prisma';
 import type {
-  CreateTemplateSchema,
-  TemplatesRepository,
-  UpdateTemplateSchema,
+    CreateTemplateSchema,
+    TemplatesRepository,
+    UpdateTemplateSchema,
 } from '../templates-repository';
 
 export class PrismaTemplatesRepository implements TemplatesRepository {
@@ -13,15 +14,18 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
     const templateData = await prisma.template.create({
       data: {
         name: data.name,
+        unitOfMeasure: data.unitOfMeasure.value,
         productAttributes: (data.productAttributes ?? {}) as never,
         variantAttributes: (data.variantAttributes ?? {}) as never,
         itemAttributes: (data.itemAttributes ?? {}) as never,
+        careLabel: data.careLabel as never,
       },
     });
 
     return Template.create(
       {
         name: templateData.name,
+        unitOfMeasure: UnitOfMeasure.create(templateData.unitOfMeasure),
         productAttributes: templateData.productAttributes as Record<
           string,
           unknown
@@ -31,6 +35,9 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
           unknown
         >,
         itemAttributes: templateData.itemAttributes as Record<string, unknown>,
+        careLabel: templateData.careLabel as CareLabelInfo | undefined,
+        sequentialCode: templateData.sequentialCode,
+        isActive: templateData.isActive,
         createdAt: templateData.createdAt,
         updatedAt: templateData.updatedAt ?? undefined,
       },
@@ -53,6 +60,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
     return Template.create(
       {
         name: templateData.name,
+        unitOfMeasure: UnitOfMeasure.create(templateData.unitOfMeasure),
         productAttributes: templateData.productAttributes as Record<
           string,
           unknown
@@ -62,6 +70,9 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
           unknown
         >,
         itemAttributes: templateData.itemAttributes as Record<string, unknown>,
+        careLabel: templateData.careLabel as CareLabelInfo | undefined,
+        sequentialCode: templateData.sequentialCode,
+        isActive: templateData.isActive,
         createdAt: templateData.createdAt,
         updatedAt: templateData.updatedAt ?? undefined,
       },
@@ -84,6 +95,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
     return Template.create(
       {
         name: templateData.name,
+        unitOfMeasure: UnitOfMeasure.create(templateData.unitOfMeasure),
         productAttributes: templateData.productAttributes as Record<
           string,
           unknown
@@ -93,6 +105,9 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
           unknown
         >,
         itemAttributes: templateData.itemAttributes as Record<string, unknown>,
+        careLabel: templateData.careLabel as CareLabelInfo | undefined,
+        sequentialCode: templateData.sequentialCode,
+        isActive: templateData.isActive,
         createdAt: templateData.createdAt,
         updatedAt: templateData.updatedAt ?? undefined,
       },
@@ -111,6 +126,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
       Template.create(
         {
           name: templateData.name,
+          unitOfMeasure: UnitOfMeasure.create(templateData.unitOfMeasure),
           productAttributes: templateData.productAttributes as Record<
             string,
             unknown
@@ -123,6 +139,9 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
             string,
             unknown
           >,
+          careLabel: templateData.careLabel as CareLabelInfo | undefined,
+          sequentialCode: templateData.sequentialCode,
+          isActive: templateData.isActive,
           createdAt: templateData.createdAt,
           updatedAt: templateData.updatedAt ?? undefined,
         },
@@ -138,15 +157,19 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
       },
       data: {
         name: data.name,
+        unitOfMeasure: data.unitOfMeasure?.value,
         productAttributes: data.productAttributes as never,
         variantAttributes: data.variantAttributes as never,
         itemAttributes: data.itemAttributes as never,
+        careLabel: data.careLabel as never,
+        isActive: data.isActive,
       },
     });
 
     return Template.create(
       {
         name: templateData.name,
+        unitOfMeasure: UnitOfMeasure.create(templateData.unitOfMeasure),
         productAttributes: templateData.productAttributes as Record<
           string,
           unknown
@@ -156,6 +179,9 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
           unknown
         >,
         itemAttributes: templateData.itemAttributes as Record<string, unknown>,
+        careLabel: templateData.careLabel as CareLabelInfo | undefined,
+        sequentialCode: templateData.sequentialCode,
+        isActive: templateData.isActive,
         createdAt: templateData.createdAt,
         updatedAt: templateData.updatedAt ?? undefined,
       },
@@ -170,9 +196,12 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
       },
       data: {
         name: template.name,
+        unitOfMeasure: template.unitOfMeasure.value,
         productAttributes: template.productAttributes as never,
         variantAttributes: template.variantAttributes as never,
         itemAttributes: template.itemAttributes as never,
+        careLabel: template.careLabel as never,
+        isActive: template.isActive,
         updatedAt: new Date(),
       },
     });

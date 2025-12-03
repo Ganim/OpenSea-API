@@ -5,11 +5,14 @@ import { ItemStatus } from './value-objects/item-status';
 
 export interface ItemProps {
   id: UniqueEntityID;
-  uniqueCode: string;
+  uniqueCode?: string; // Código único manual opcional
+  fullCode?: string; // Código completo gerado automaticamente (ex: 23.6.23-1)
+  sequentialCode?: number; // Código sequencial do item dentro da variante
   variantId: UniqueEntityID;
-  locationId: UniqueEntityID;
+  locationId?: UniqueEntityID; // Agora opcional
   initialQuantity: number;
   currentQuantity: number;
+  unitCost?: number; // Custo unitário do item
   status: ItemStatus;
   entryDate: Date;
   attributes: Record<string, unknown>;
@@ -26,19 +29,37 @@ export class Item extends Entity<ItemProps> {
     return this.props.id;
   }
 
-  get uniqueCode(): string {
+  get uniqueCode(): string | undefined {
     return this.props.uniqueCode;
+  }
+
+  set uniqueCode(uniqueCode: string | undefined) {
+    this.props.uniqueCode = uniqueCode;
+    this.touch();
+  }
+
+  get fullCode(): string | undefined {
+    return this.props.fullCode;
+  }
+
+  set fullCode(fullCode: string | undefined) {
+    this.props.fullCode = fullCode;
+    this.touch();
+  }
+
+  get sequentialCode(): number | undefined {
+    return this.props.sequentialCode;
   }
 
   get variantId(): UniqueEntityID {
     return this.props.variantId;
   }
 
-  get locationId(): UniqueEntityID {
+  get locationId(): UniqueEntityID | undefined {
     return this.props.locationId;
   }
 
-  set locationId(locationId: UniqueEntityID) {
+  set locationId(locationId: UniqueEntityID | undefined) {
     this.props.locationId = locationId;
     this.touch();
   }
@@ -56,6 +77,18 @@ export class Item extends Entity<ItemProps> {
       throw new Error('Quantity cannot be negative');
     }
     this.props.currentQuantity = quantity;
+    this.touch();
+  }
+
+  get unitCost(): number | undefined {
+    return this.props.unitCost;
+  }
+
+  set unitCost(unitCost: number | undefined) {
+    if (unitCost !== undefined && unitCost < 0) {
+      throw new Error('Unit cost cannot be negative');
+    }
+    this.props.unitCost = unitCost;
     this.touch();
   }
 
@@ -125,6 +158,19 @@ export class Item extends Entity<ItemProps> {
     return !!this.props.deletedAt;
   }
 
+  get hasLocation(): boolean {
+    return !!this.props.locationId;
+  }
+
+  get hasUnitCost(): boolean {
+    return this.props.unitCost !== undefined;
+  }
+
+  get totalCost(): number | undefined {
+    if (this.props.unitCost === undefined) return undefined;
+    return this.props.unitCost * this.props.currentQuantity;
+  }
+
   get quantityUsed(): number {
     return this.props.initialQuantity - this.props.currentQuantity;
   }
@@ -172,6 +218,10 @@ export class Item extends Entity<ItemProps> {
       !this.isExpired &&
       !this.isDeleted
     );
+  }
+
+  get displayCode(): string {
+    return this.props.fullCode ?? this.props.uniqueCode ?? this.props.id.toString();
   }
 
   // Business Methods
@@ -227,13 +277,15 @@ export class Item extends Entity<ItemProps> {
   }
 
   static create(
-    props: Optional<ItemProps, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
+    props: Optional<ItemProps, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'attributes' | 'status'>,
     id?: UniqueEntityID,
   ): Item {
     const item = new Item(
       {
         ...props,
         id: id ?? new UniqueEntityID(),
+        attributes: props.attributes ?? {},
+        status: props.status ?? ItemStatus.create('AVAILABLE'),
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

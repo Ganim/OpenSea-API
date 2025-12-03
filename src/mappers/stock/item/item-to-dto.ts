@@ -3,10 +3,14 @@ import type { Item } from '@/entities/stock/item';
 export interface ItemDTO {
   id: string;
   variantId: string;
-  locationId: string;
-  uniqueCode: string;
+  locationId?: string;
+  uniqueCode?: string;
+  fullCode?: string;
+  sequentialCode?: number;
   initialQuantity: number;
   currentQuantity: number;
+  unitCost?: number;
+  totalCost?: number;
   status: string;
   entryDate: Date;
   attributes: Record<string, unknown>;
@@ -34,10 +38,14 @@ export function itemToDTO(
   return {
     id: item.id.toString(),
     variantId: item.variantId.toString(),
-    locationId: item.locationId.toString(),
+    locationId: item.locationId?.toString(),
     uniqueCode: item.uniqueCode,
+    fullCode: item.fullCode,
+    sequentialCode: item.sequentialCode,
     initialQuantity: item.initialQuantity,
     currentQuantity: item.currentQuantity,
+    unitCost: item.unitCost,
+    totalCost: item.totalCost,
     status: item.status.value,
     entryDate: item.entryDate,
     attributes: item.attributes,

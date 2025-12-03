@@ -3,10 +3,11 @@ import type { Product } from '@/entities/stock/product';
 export interface ProductDTO {
   id: string;
   name: string;
-  code: string;
+  code?: string;
+  fullCode?: string;
+  sequentialCode?: number;
   description?: string;
   status: string;
-  unitOfMeasure: string;
   attributes: Record<string, unknown>;
   templateId: string;
   supplierId?: string;
@@ -21,9 +22,10 @@ export function productToDTO(product: Product): ProductDTO {
     id: product.id.toString(),
     name: product.name,
     code: product.code,
+    fullCode: product.fullCode,
+    sequentialCode: product.sequentialCode,
     description: product.description,
     status: product.status.value,
-    unitOfMeasure: product.unitOfMeasure.value,
     attributes: product.attributes,
     templateId: product.templateId.toString(),
     supplierId: product.supplierId?.toString(),

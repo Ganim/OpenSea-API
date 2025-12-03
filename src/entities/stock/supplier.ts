@@ -6,6 +6,7 @@ import { CNPJ } from './value-objects/cnpj';
 export interface SupplierProps {
   id: UniqueEntityID;
   name: string;
+  sequentialCode?: number; // Código sequencial do fornecedor
   cnpj?: CNPJ;
   taxId?: string;
   contact?: string;
@@ -38,6 +39,10 @@ export class Supplier extends Entity<SupplierProps> {
   set name(name: string) {
     this.props.name = name;
     this.touch();
+  }
+
+  get sequentialCode(): number | undefined {
+    return this.props.sequentialCode;
   }
 
   get cnpj(): CNPJ | undefined {
@@ -228,6 +233,10 @@ export class Supplier extends Entity<SupplierProps> {
     ].filter(Boolean);
 
     return parts.length > 0 ? parts.join(', ') : null;
+  }
+
+  get displayCode(): string {
+    return this.props.sequentialCode?.toString() ?? this.props.id.toString();
   }
 
   // Business Methods

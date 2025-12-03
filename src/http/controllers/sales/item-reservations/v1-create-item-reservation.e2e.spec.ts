@@ -34,7 +34,6 @@ describe('Create Item Reservation (E2E)', () => {
         name: `Test Product ${unique}`,
         code: `TEST-${unique}`,
         status: 'ACTIVE',
-        unitOfMeasure: 'UNITS',
         attributes: {},
         templateId: template.id,
       },

@@ -34,7 +34,6 @@ export async function createProductController(app: FastifyInstance) {
         code,
         description,
         status,
-        unitOfMeasure,
         attributes,
         templateId,
         supplierId,
@@ -45,10 +44,9 @@ export async function createProductController(app: FastifyInstance) {
         const createProductUseCase = makeCreateProductUseCase();
         const { product } = await createProductUseCase.execute({
           name,
-          code,
+          code, // Agora é opcional
           description,
           status,
-          unitOfMeasure,
           attributes,
           templateId,
           supplierId,

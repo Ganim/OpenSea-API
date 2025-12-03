@@ -15,11 +15,12 @@ import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
 
 export interface RegisterItemEntryUseCaseInput {
-  uniqueCode: string;
+  uniqueCode?: string; // Agora opcional - será gerado automaticamente se não fornecido
   variantId: string;
-  locationId: string;
+  locationId?: string; // Agora opcional
   quantity: number;
   userId: string;
+  unitCost?: number; // Custo unitário do item
   attributes?: Record<string, unknown>;
   batchNumber?: string;
   manufacturingDate?: Date;
@@ -45,22 +46,23 @@ export class RegisterItemEntryUseCase {
   async execute(
     input: RegisterItemEntryUseCaseInput,
   ): Promise<RegisterItemEntryUseCaseOutput> {
-    // Validate uniqueCode
-    if (!input.uniqueCode || input.uniqueCode.trim().length === 0) {
-      throw new BadRequestError('Unique code is required');
-    }
+    // Validate or generate uniqueCode
+    let uniqueCode = input.uniqueCode;
+    
+    if (uniqueCode) {
+      if (uniqueCode.length > 128) {
+        throw new BadRequestError('Unique code must not exceed 128 characters');
+      }
 
-    if (input.uniqueCode.length > 128) {
-      throw new BadRequestError('Unique code must not exceed 128 characters');
-    }
+      // Check if uniqueCode is unique
+      const existingItem = await this.itemsRepository.findByUniqueCode(uniqueCode);
 
-    // Check if uniqueCode is unique
-    const existingItem = await this.itemsRepository.findByUniqueCode(
-      input.uniqueCode,
-    );
-
-    if (existingItem) {
-      throw new BadRequestError('Unique code already exists');
+      if (existingItem) {
+        throw new BadRequestError('Unique code already exists');
+      }
+    } else {
+      // Generate unique code automatically (UUID)
+      uniqueCode = new UniqueEntityID().toString();
     }
 
     // Validate quantity
@@ -76,12 +78,15 @@ export class RegisterItemEntryUseCase {
       throw new ResourceNotFoundError('Variant not found');
     }
 
-    // Validate location exists
-    const locationId = new UniqueEntityID(input.locationId);
-    const location = await this.locationsRepository.findById(locationId);
+    // Validate location exists if provided
+    let locationId: UniqueEntityID | undefined;
+    if (input.locationId) {
+      locationId = new UniqueEntityID(input.locationId);
+      const location = await this.locationsRepository.findById(locationId);
 
-    if (!location) {
-      throw new ResourceNotFoundError('Location not found');
+      if (!location) {
+        throw new ResourceNotFoundError('Location not found');
+      }
     }
 
     // Validate batchNumber length
@@ -130,7 +135,7 @@ export class RegisterItemEntryUseCase {
 
     // Create item
     const item = await this.itemsRepository.create({
-      uniqueCode: input.uniqueCode,
+      uniqueCode,
       variantId,
       locationId,
       initialQuantity: input.quantity,

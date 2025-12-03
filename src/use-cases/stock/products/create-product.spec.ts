@@ -53,7 +53,6 @@ describe('CreateProductUseCase', () => {
       code: 'LAPTOP-001',
       description: 'High performance laptop',
       status: 'ACTIVE',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
       attributes: {
         brand: 'Dell',
@@ -69,7 +68,6 @@ describe('CreateProductUseCase', () => {
         code: 'LAPTOP-001',
         description: 'High performance laptop',
         status: expect.any(Object), // ProductStatus
-        unitOfMeasure: expect.any(Object), // UnitOfMeasure
         templateId: expect.any(Object), // UniqueEntityID
         attributes: {
           brand: 'Dell',
@@ -94,7 +92,6 @@ describe('CreateProductUseCase', () => {
     const result = await sut.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
       supplierId: supplier.supplier.id.toString(),
     });
@@ -118,7 +115,6 @@ describe('CreateProductUseCase', () => {
     const result = await sut.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
       manufacturerId: manufacturer.manufacturer.manufacturerId.toString(),
     });
@@ -128,7 +124,7 @@ describe('CreateProductUseCase', () => {
     );
   });
 
-  it('should create a product with default DRAFT status', async () => {
+  it('should create a product with default ACTIVE status', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
       productAttributes: { category: 'string' },
@@ -137,11 +133,10 @@ describe('CreateProductUseCase', () => {
     const result = await sut.execute({
       name: 'Test Product',
       code: 'TEST-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
-    expect(result.product.status.status).toBe('DRAFT');
+    expect(result.product.status.status).toBe('ACTIVE');
   });
 
   it('should create a product without optional fields', async () => {
@@ -153,7 +148,6 @@ describe('CreateProductUseCase', () => {
     const result = await sut.execute({
       name: 'Simple Product',
       code: 'SIMPLE-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -173,7 +167,6 @@ describe('CreateProductUseCase', () => {
       sut.execute({
         name: '',
         code: 'TEST-001',
-        unitOfMeasure: 'UNITS',
         templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
@@ -189,26 +182,24 @@ describe('CreateProductUseCase', () => {
       sut.execute({
         name: 'a'.repeat(201),
         code: 'TEST-001',
-        unitOfMeasure: 'UNITS',
         templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
   });
 
-  it('should not create a product with empty code', async () => {
+  it('should create a product without code (optional)', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
       productAttributes: { category: 'string' },
     });
 
-    await expect(
-      sut.execute({
-        name: 'Test Product',
-        code: '',
-        unitOfMeasure: 'UNITS',
-        templateId: template.template.id.toString(),
-      }),
-    ).rejects.toThrow(BadRequestError);
+    const result = await sut.execute({
+      name: 'Product Without Code',
+      templateId: template.template.id.toString(),
+    });
+
+    expect(result.product.name).toBe('Product Without Code');
+    expect(result.product.code).toBeUndefined();
   });
 
   it('should not create a product with code longer than 100 characters', async () => {
@@ -221,7 +212,6 @@ describe('CreateProductUseCase', () => {
       sut.execute({
         name: 'Test Product',
         code: 'a'.repeat(101),
-        unitOfMeasure: 'UNITS',
         templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
@@ -236,7 +226,6 @@ describe('CreateProductUseCase', () => {
     await sut.execute({
       name: 'Laptop Dell',
       code: 'LAPTOP-001',
-      unitOfMeasure: 'UNITS',
       templateId: template.template.id.toString(),
     });
 
@@ -244,7 +233,6 @@ describe('CreateProductUseCase', () => {
       sut.execute({
         name: 'Laptop Dell',
         code: 'LAPTOP-002',
-        unitOfMeasure: 'UNITS',
         templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
@@ -261,34 +249,18 @@ describe('CreateProductUseCase', () => {
         name: 'Test Product',
         code: 'TEST-001',
         status: 'INVALID_STATUS',
-        unitOfMeasure: 'UNITS',
         templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
   });
 
-  it('should not create a product with invalid unit of measure', async () => {
-    const template = await createTemplate.execute({
-      name: 'Simple Template',
-      productAttributes: { category: 'string' },
-    });
-
-    await expect(
-      sut.execute({
-        name: 'Test Product',
-        code: 'TEST-001',
-        unitOfMeasure: 'INVALID_UNIT',
-        templateId: template.template.id.toString(),
-      }),
-    ).rejects.toThrow(BadRequestError);
-  });
+  // unitOfMeasure foi movido para Template - teste removido
 
   it('should not create a product with non-existent template', async () => {
     await expect(
       sut.execute({
         name: 'Test Product',
         code: 'TEST-001',
-        unitOfMeasure: 'UNITS',
         templateId: 'non-existent-template-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -304,7 +276,6 @@ describe('CreateProductUseCase', () => {
       sut.execute({
         name: 'Test Product',
         code: 'TEST-001',
-        unitOfMeasure: 'UNITS',
         templateId: template.template.id.toString(),
         supplierId: 'non-existent-supplier-id',
       }),
@@ -321,7 +292,6 @@ describe('CreateProductUseCase', () => {
       sut.execute({
         name: 'Test Product',
         code: 'TEST-001',
-        unitOfMeasure: 'UNITS',
         templateId: template.template.id.toString(),
         manufacturerId: 'non-existent-manufacturer-id',
       }),
@@ -341,7 +311,6 @@ describe('CreateProductUseCase', () => {
       sut.execute({
         name: 'Test Product',
         code: 'TEST-001',
-        unitOfMeasure: 'UNITS',
         templateId: template.template.id.toString(),
         attributes: {
           brand: 'Dell',

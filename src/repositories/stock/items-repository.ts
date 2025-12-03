@@ -5,7 +5,7 @@ import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 export interface CreateItemSchema {
   uniqueCode: string;
   variantId: UniqueEntityID;
-  locationId: UniqueEntityID;
+  locationId?: UniqueEntityID; // Agora opcional
   initialQuantity: number;
   currentQuantity: number;
   status: ItemStatus;

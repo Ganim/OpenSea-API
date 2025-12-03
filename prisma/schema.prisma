@@ -479,11 +479,12 @@ enum DiscountType {
 // --- Entidades ---
 
 model Supplier {
-  id      String  @id @default(uuid())
-  name    String  @db.VarChar(128)
-  cnpj    String? @unique @db.VarChar(18)
-  taxId   String? @map("tax_id") @db.VarChar(32) // Inscrição Estadual
-  contact String? @db.VarChar(128)
+  id             String  @id @default(uuid())
+  sequentialCode Int     @default(autoincrement()) @map("sequential_code")
+  name           String  @db.VarChar(128)
+  cnpj           String? @unique @db.VarChar(18)
+  taxId          String? @map("tax_id") @db.VarChar(32) // Inscrição Estadual
+  contact        String? @db.VarChar(128)
 
   // Contato
   email   String? @db.VarChar(254)
@@ -511,6 +512,7 @@ model Supplier {
   purchaseOrders       PurchaseOrder[]
   variantSupplierCodes VariantSupplierCode[]
 
+  @@index([sequentialCode])
   @@index([isActive])
   @@index([rating])
   @@map("suppliers")
@@ -600,31 +602,38 @@ model Location {
 // --- Hierarquia Principal de Estoque ---
 
 model Template {
-  id                String    @id @default(uuid())
-  name              String    @unique @db.VarChar(128)
-  productAttributes Json      @default("{}") @map("product_attributes")
-  variantAttributes Json      @default("{}") @map("variant_attributes")
-  itemAttributes    Json      @default("{}") @map("item_attributes")
-  createdAt         DateTime  @default(now()) @map("created_at")
-  updatedAt         DateTime  @updatedAt @map("updated_at")
-  deletedAt         DateTime? @map("deleted_at")
+  id                String        @id @default(uuid())
+  name              String        @unique @db.VarChar(128)
+  unitOfMeasure     UnitOfMeasure @default(UNITS) @map("unit_of_measure")
+  productAttributes Json          @default("{}") @map("product_attributes")
+  variantAttributes Json          @default("{}") @map("variant_attributes")
+  itemAttributes    Json          @default("{}") @map("item_attributes")
+  careLabel         Json?         @map("care_label") // Etiqueta de conservação: { washing, drying, ironing, bleaching, dryClean, composition }
+  sequentialCode    Int           @default(autoincrement()) @map("sequential_code")
+  isActive          Boolean       @default(true) @map("is_active")
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime      @updatedAt @map("updated_at")
+  deletedAt         DateTime?     @map("deleted_at")
 
   products Product[]
 
+  @@index([sequentialCode])
+  @@index([isActive])
   @@map("templates")
 }
 
 model Product {
-  id            String        @id @default(uuid())
-  name          String        @db.VarChar(256)
-  code          String        @unique @db.VarChar(64)
-  description   String?       @db.Text
-  status        ProductStatus @default(DRAFT)
-  unitOfMeasure UnitOfMeasure @map("unit_of_measure")
-  attributes    Json          @default("{}")
-  createdAt     DateTime      @default(now()) @map("created_at")
-  updatedAt     DateTime      @updatedAt @map("updated_at")
-  deletedAt     DateTime?     @map("deleted_at")
+  id             String        @id @default(uuid())
+  name           String        @db.VarChar(256)
+  code           String?       @unique @db.VarChar(64) // Opcional, gerado automaticamente se não informado
+  fullCode       String?       @unique @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product (ex: 23.6)
+  sequentialCode Int           @default(autoincrement()) @map("sequential_code")
+  description    String?       @db.Text
+  status         ProductStatus @default(ACTIVE)
+  attributes     Json          @default("{}")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+  deletedAt      DateTime?     @map("deleted_at")
 
   templateId     String  @map("template_id")
   supplierId     String? @map("supplier_id")
@@ -641,18 +650,23 @@ model Product {
   @@index([supplierId])
   @@index([manufacturerId])
   @@index([status])
+  @@index([sequentialCode])
+  @@index([fullCode])
   @@index([code, deletedAt])
   @@index([name, deletedAt])
   @@map("products")
 }
 
 model Variant {
-  id         String  @id @default(uuid())
-  sku        String  @unique @db.VarChar(64)
-  name       String  @db.VarChar(256)
-  price      Decimal @db.Decimal(10, 2)
-  imageUrl   String? @map("image_url") @db.VarChar(512)
-  attributes Json    @default("{}")
+  id             String  @id @default(uuid())
+  sku            String? @unique @db.VarChar(64) // Opcional, gerado automaticamente se não informado
+  fullCode       String? @unique @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product.Variant (ex: 23.6.23)
+  sequentialCode Int     @default(autoincrement()) @map("sequential_code")
+  name           String  @db.VarChar(256)
+  price          Decimal @default(0) @db.Decimal(10, 2)
+  imageUrl       String? @map("image_url") @db.VarChar(512)
+  attributes     Json    @default("{}")
+  isActive       Boolean @default(true) @map("is_active")
 
   // Preço e Margem
   costPrice    Decimal? @map("cost_price") @db.Decimal(10, 2)
@@ -692,6 +706,9 @@ model Variant {
   supplierCodes      VariantSupplierCode[]
 
   @@index([productId])
+  @@index([sequentialCode])
+  @@index([fullCode])
+  @@index([isActive])
   @@index([barcode])
   @@index([eanCode])
   @@index([upcCode])
@@ -700,9 +717,12 @@ model Variant {
 
 model Item {
   id              String     @id @default(uuid())
-  uniqueCode      String     @unique @map("unique_code") @db.VarChar(128)
+  uniqueCode      String?    @unique @map("unique_code") @db.VarChar(128) // Opcional, gerado automaticamente
+  fullCode        String?    @unique @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product.Variant-Seq (ex: 23.6.23-1)
+  sequentialCode  Int        @default(autoincrement()) @map("sequential_code")
   initialQuantity Decimal    @map("initial_quantity") @db.Decimal(10, 3)
   currentQuantity Decimal    @map("current_quantity") @db.Decimal(10, 3)
+  unitCost        Decimal?   @map("unit_cost") @db.Decimal(10, 2) // Custo unitário de aquisição
   status          ItemStatus @default(AVAILABLE)
   entryDate       DateTime   @default(now()) @map("entry_date")
   attributes      Json       @default("{}")
@@ -716,16 +736,18 @@ model Item {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  variantId  String @map("variant_id")
-  locationId String @map("location_id")
+  variantId  String  @map("variant_id")
+  locationId String? @map("location_id") // Opcional, pode ser definido depois
 
   variant      Variant           @relation(fields: [variantId], references: [id])
-  location     Location          @relation(fields: [locationId], references: [id])
+  location     Location?         @relation(fields: [locationId], references: [id])
   movements    ItemMovement[]
   reservations ItemReservation[]
 
   @@index([variantId])
   @@index([locationId])
+  @@index([sequentialCode])
+  @@index([fullCode])
   @@index([batchNumber])
   @@index([expiryDate])
   @@index([status])

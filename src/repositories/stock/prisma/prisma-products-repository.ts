@@ -2,12 +2,8 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
-import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import { prisma } from '@/lib/prisma';
-import type {
-  ProductStatus as PrismaProductStatus,
-  UnitOfMeasure as PrismaUnitOfMeasure,
-} from '@prisma/client';
+import type { ProductStatus as PrismaProductStatus } from '@prisma/client';
 import type {
   CreateProductSchema,
   ProductsRepository,
@@ -21,29 +17,26 @@ export class PrismaProductsRepository implements ProductsRepository {
         name: data.name,
         code: data.code,
         description: data.description,
-        status: data.status.value as PrismaProductStatus,
-        unitOfMeasure: data.unitOfMeasure.value as PrismaUnitOfMeasure,
+        status: (data.status?.value ?? 'ACTIVE') as PrismaProductStatus,
         attributes: (data.attributes ?? {}) as never,
-        templateId: data.templateId.toString(), // Obrigatório
+        templateId: data.templateId.toString(),
         supplierId: data.supplierId?.toString(),
         manufacturerId: data.manufacturerId?.toString(),
       },
     });
 
-    const defaultStatus = ProductStatus.create('DRAFT');
-    const defaultUnitOfMeasure = UnitOfMeasure.create('UNITS');
+    const defaultStatus = ProductStatus.create('ACTIVE');
 
     return Product.create(
       {
         name: productData.name,
-        code: productData.code,
+        code: productData.code ?? undefined,
+        fullCode: productData.fullCode ?? undefined,
+        sequentialCode: productData.sequentialCode ?? undefined,
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
-        unitOfMeasure:
-          UnitOfMeasure.create(productData.unitOfMeasure) ??
-          defaultUnitOfMeasure,
         attributes: productData.attributes as Record<string, unknown>,
-        templateId: new EntityID(productData.templateId), // Sempre presente
+        templateId: new EntityID(productData.templateId),
         supplierId: productData.supplierId
           ? new EntityID(productData.supplierId)
           : undefined,
@@ -52,6 +45,7 @@ export class PrismaProductsRepository implements ProductsRepository {
           : undefined,
         createdAt: productData.createdAt,
         updatedAt: productData.updatedAt ?? undefined,
+        deletedAt: productData.deletedAt ?? undefined,
       },
       new EntityID(productData.id),
     );
@@ -69,18 +63,16 @@ export class PrismaProductsRepository implements ProductsRepository {
       return null;
     }
 
-    const defaultStatus = ProductStatus.create('DRAFT');
-    const defaultUnitOfMeasure = UnitOfMeasure.create('UNITS');
+    const defaultStatus = ProductStatus.create('ACTIVE');
 
     return Product.create(
       {
         name: productData.name,
-        code: productData.code,
+        code: productData.code ?? undefined,
+        fullCode: productData.fullCode ?? undefined,
+        sequentialCode: productData.sequentialCode ?? undefined,
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
-        unitOfMeasure:
-          UnitOfMeasure.create(productData.unitOfMeasure) ??
-          defaultUnitOfMeasure,
         attributes: productData.attributes as Record<string, unknown>,
         templateId: new EntityID(productData.templateId),
         supplierId: productData.supplierId
@@ -91,6 +83,7 @@ export class PrismaProductsRepository implements ProductsRepository {
           : undefined,
         createdAt: productData.createdAt,
         updatedAt: productData.updatedAt ?? undefined,
+        deletedAt: productData.deletedAt ?? undefined,
       },
       new EntityID(productData.id),
     );
@@ -111,18 +104,16 @@ export class PrismaProductsRepository implements ProductsRepository {
       return null;
     }
 
-    const defaultStatus = ProductStatus.create('DRAFT');
-    const defaultUnitOfMeasure = UnitOfMeasure.create('UNITS');
+    const defaultStatus = ProductStatus.create('ACTIVE');
 
     return Product.create(
       {
         name: productData.name,
-        code: productData.code,
+        code: productData.code ?? undefined,
+        fullCode: productData.fullCode ?? undefined,
+        sequentialCode: productData.sequentialCode ?? undefined,
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
-        unitOfMeasure:
-          UnitOfMeasure.create(productData.unitOfMeasure) ??
-          defaultUnitOfMeasure,
         attributes: productData.attributes as Record<string, unknown>,
         templateId: new EntityID(productData.templateId),
         supplierId: productData.supplierId
@@ -133,6 +124,7 @@ export class PrismaProductsRepository implements ProductsRepository {
           : undefined,
         createdAt: productData.createdAt,
         updatedAt: productData.updatedAt ?? undefined,
+        deletedAt: productData.deletedAt ?? undefined,
       },
       new EntityID(productData.id),
     );
@@ -145,19 +137,17 @@ export class PrismaProductsRepository implements ProductsRepository {
       },
     });
 
-    const defaultStatus = ProductStatus.create('DRAFT');
-    const defaultUnitOfMeasure = UnitOfMeasure.create('UNITS');
+    const defaultStatus = ProductStatus.create('ACTIVE');
 
     return products.map((productData) =>
       Product.create(
         {
           name: productData.name,
-          code: productData.code,
+          code: productData.code ?? undefined,
+          fullCode: productData.fullCode ?? undefined,
+          sequentialCode: productData.sequentialCode ?? undefined,
           description: productData.description ?? undefined,
           status: ProductStatus.create(productData.status) ?? defaultStatus,
-          unitOfMeasure:
-            UnitOfMeasure.create(productData.unitOfMeasure) ??
-            defaultUnitOfMeasure,
           attributes: productData.attributes as Record<string, unknown>,
           templateId: new EntityID(productData.templateId),
           supplierId: productData.supplierId
@@ -168,6 +158,7 @@ export class PrismaProductsRepository implements ProductsRepository {
             : undefined,
           createdAt: productData.createdAt,
           updatedAt: productData.updatedAt ?? undefined,
+          deletedAt: productData.deletedAt ?? undefined,
         },
         new EntityID(productData.id),
       ),
@@ -182,19 +173,17 @@ export class PrismaProductsRepository implements ProductsRepository {
       },
     });
 
-    const defaultStatus = ProductStatus.create('DRAFT');
-    const defaultUnitOfMeasure = UnitOfMeasure.create('UNITS');
+    const defaultStatus = ProductStatus.create('ACTIVE');
 
     return products.map((productData) =>
       Product.create(
         {
           name: productData.name,
-          code: productData.code,
+          code: productData.code ?? undefined,
+          fullCode: productData.fullCode ?? undefined,
+          sequentialCode: productData.sequentialCode ?? undefined,
           description: productData.description ?? undefined,
           status: ProductStatus.create(productData.status) ?? defaultStatus,
-          unitOfMeasure:
-            UnitOfMeasure.create(productData.unitOfMeasure) ??
-            defaultUnitOfMeasure,
           attributes: productData.attributes as Record<string, unknown>,
           templateId: new EntityID(productData.templateId),
           supplierId: productData.supplierId
@@ -205,6 +194,7 @@ export class PrismaProductsRepository implements ProductsRepository {
             : undefined,
           createdAt: productData.createdAt,
           updatedAt: productData.updatedAt ?? undefined,
+          deletedAt: productData.deletedAt ?? undefined,
         },
         new EntityID(productData.id),
       ),
@@ -219,19 +209,17 @@ export class PrismaProductsRepository implements ProductsRepository {
       },
     });
 
-    const defaultStatus = ProductStatus.create('DRAFT');
-    const defaultUnitOfMeasure = UnitOfMeasure.create('UNITS');
+    const defaultStatus = ProductStatus.create('ACTIVE');
 
     return products.map((productData) =>
       Product.create(
         {
           name: productData.name,
-          code: productData.code,
+          code: productData.code ?? undefined,
+          fullCode: productData.fullCode ?? undefined,
+          sequentialCode: productData.sequentialCode ?? undefined,
           description: productData.description ?? undefined,
           status: ProductStatus.create(productData.status) ?? defaultStatus,
-          unitOfMeasure:
-            UnitOfMeasure.create(productData.unitOfMeasure) ??
-            defaultUnitOfMeasure,
           attributes: productData.attributes as Record<string, unknown>,
           templateId: new EntityID(productData.templateId),
           supplierId: productData.supplierId
@@ -242,6 +230,7 @@ export class PrismaProductsRepository implements ProductsRepository {
             : undefined,
           createdAt: productData.createdAt,
           updatedAt: productData.updatedAt ?? undefined,
+          deletedAt: productData.deletedAt ?? undefined,
         },
         new EntityID(productData.id),
       ),
@@ -258,19 +247,17 @@ export class PrismaProductsRepository implements ProductsRepository {
       },
     });
 
-    const defaultStatus = ProductStatus.create('DRAFT');
-    const defaultUnitOfMeasure = UnitOfMeasure.create('UNITS');
+    const defaultStatus = ProductStatus.create('ACTIVE');
 
     return products.map((productData) =>
       Product.create(
         {
           name: productData.name,
-          code: productData.code,
+          code: productData.code ?? undefined,
+          fullCode: productData.fullCode ?? undefined,
+          sequentialCode: productData.sequentialCode ?? undefined,
           description: productData.description ?? undefined,
           status: ProductStatus.create(productData.status) ?? defaultStatus,
-          unitOfMeasure:
-            UnitOfMeasure.create(productData.unitOfMeasure) ??
-            defaultUnitOfMeasure,
           attributes: productData.attributes as Record<string, unknown>,
           templateId: new EntityID(productData.templateId),
           supplierId: productData.supplierId
@@ -281,6 +268,7 @@ export class PrismaProductsRepository implements ProductsRepository {
             : undefined,
           createdAt: productData.createdAt,
           updatedAt: productData.updatedAt ?? undefined,
+          deletedAt: productData.deletedAt ?? undefined,
         },
         new EntityID(productData.id),
       ),
@@ -299,19 +287,17 @@ export class PrismaProductsRepository implements ProductsRepository {
       },
     });
 
-    const defaultStatus = ProductStatus.create('DRAFT');
-    const defaultUnitOfMeasure = UnitOfMeasure.create('UNITS');
+    const defaultStatus = ProductStatus.create('ACTIVE');
 
     return products.map((productData) =>
       Product.create(
         {
           name: productData.name,
-          code: productData.code,
+          code: productData.code ?? undefined,
+          fullCode: productData.fullCode ?? undefined,
+          sequentialCode: productData.sequentialCode ?? undefined,
           description: productData.description ?? undefined,
           status: ProductStatus.create(productData.status) ?? defaultStatus,
-          unitOfMeasure:
-            UnitOfMeasure.create(productData.unitOfMeasure) ??
-            defaultUnitOfMeasure,
           attributes: productData.attributes as Record<string, unknown>,
           templateId: new EntityID(productData.templateId),
           supplierId: productData.supplierId
@@ -322,6 +308,7 @@ export class PrismaProductsRepository implements ProductsRepository {
             : undefined,
           createdAt: productData.createdAt,
           updatedAt: productData.updatedAt ?? undefined,
+          deletedAt: productData.deletedAt ?? undefined,
         },
         new EntityID(productData.id),
       ),
@@ -338,30 +325,24 @@ export class PrismaProductsRepository implements ProductsRepository {
         code: data.code,
         description: data.description,
         status: data.status?.value as PrismaProductStatus | undefined,
-        unitOfMeasure: data.unitOfMeasure?.value as
-          | PrismaUnitOfMeasure
-          | undefined,
         attributes: data.attributes as never,
-        // templateId não pode ser alterado (readonly)
         supplierId: data.supplierId?.toString(),
         manufacturerId: data.manufacturerId?.toString(),
       },
     });
 
-    const defaultStatus = ProductStatus.create('DRAFT');
-    const defaultUnitOfMeasure = UnitOfMeasure.create('UNITS');
+    const defaultStatus = ProductStatus.create('ACTIVE');
 
     return Product.create(
       {
         name: productData.name,
-        code: productData.code,
+        code: productData.code ?? undefined,
+        fullCode: productData.fullCode ?? undefined,
+        sequentialCode: productData.sequentialCode ?? undefined,
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
-        unitOfMeasure:
-          UnitOfMeasure.create(productData.unitOfMeasure) ??
-          defaultUnitOfMeasure,
         attributes: productData.attributes as Record<string, unknown>,
-        templateId: new EntityID(productData.templateId), // Sempre presente
+        templateId: new EntityID(productData.templateId),
         supplierId: productData.supplierId
           ? new EntityID(productData.supplierId)
           : undefined,
@@ -370,6 +351,7 @@ export class PrismaProductsRepository implements ProductsRepository {
           : undefined,
         createdAt: productData.createdAt,
         updatedAt: productData.updatedAt ?? undefined,
+        deletedAt: productData.deletedAt ?? undefined,
       },
       new EntityID(productData.id),
     );
@@ -385,7 +367,6 @@ export class PrismaProductsRepository implements ProductsRepository {
         code: product.code,
         description: product.description,
         status: product.status.value as PrismaProductStatus,
-        unitOfMeasure: product.unitOfMeasure.value as PrismaUnitOfMeasure,
         attributes: product.attributes as never,
         templateId: product.templateId.toString(),
         supplierId: product.supplierId?.toString(),

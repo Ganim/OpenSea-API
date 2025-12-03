@@ -6,7 +6,9 @@ export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {
   return {
     id: new UniqueEntityID(variantDb.id),
     productId: new UniqueEntityID(variantDb.productId),
-    sku: variantDb.sku,
+    sku: variantDb.sku ?? undefined,
+    fullCode: variantDb.fullCode ?? undefined,
+    sequentialCode: variantDb.sequentialCode ?? undefined,
     name: variantDb.name,
     price: Number(variantDb.price.toString()),
     imageUrl: variantDb.imageUrl ?? undefined,
@@ -21,6 +23,8 @@ export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {
     qrCode: variantDb.qrCode ?? undefined,
     eanCode: variantDb.eanCode ?? undefined,
     upcCode: variantDb.upcCode ?? undefined,
+    colorHex: variantDb.colorHex ?? undefined,
+    colorPantone: variantDb.colorPantone ?? undefined,
     minStock: variantDb.minStock
       ? Number(variantDb.minStock.toString())
       : undefined,
@@ -33,6 +37,7 @@ export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {
     reorderQuantity: variantDb.reorderQuantity
       ? Number(variantDb.reorderQuantity.toString())
       : undefined,
+    isActive: variantDb.isActive,
     createdAt: variantDb.createdAt,
     updatedAt: variantDb.updatedAt,
     deletedAt: variantDb.deletedAt ?? undefined,

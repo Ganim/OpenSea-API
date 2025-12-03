@@ -4,9 +4,9 @@ import { Variant } from '@/entities/stock/variant';
 import { prisma } from '@/lib/prisma';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-  CreateVariantSchema,
-  UpdateVariantSchema,
-  VariantsRepository,
+    CreateVariantSchema,
+    UpdateVariantSchema,
+    VariantsRepository,
 } from '../variants-repository';
 
 export class PrismaVariantsRepository implements VariantsRepository {
@@ -43,7 +43,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return Variant.create(
       {
         productId: new EntityID(variantData.productId),
-        sku: variantData.sku,
+        sku: variantData.sku ?? undefined,
         name: variantData.name,
         price: Number(variantData.price.toString()),
         imageUrl: variantData.imageUrl ?? undefined,
@@ -92,7 +92,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return Variant.create(
       {
         productId: new EntityID(variantData.productId),
-        sku: variantData.sku,
+        sku: variantData.sku ?? undefined,
         name: variantData.name,
         price: Number(variantData.price.toString()),
         imageUrl: variantData.imageUrl ?? undefined,
@@ -141,7 +141,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return Variant.create(
       {
         productId: new EntityID(variantData.productId),
-        sku: variantData.sku,
+        sku: variantData.sku ?? undefined,
         name: variantData.name,
         price: Number(variantData.price.toString()),
         imageUrl: variantData.imageUrl ?? undefined,
@@ -190,7 +190,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return Variant.create(
       {
         productId: new EntityID(variantData.productId),
-        sku: variantData.sku,
+        sku: variantData.sku ?? undefined,
         name: variantData.name,
         price: Number(variantData.price.toString()),
         imageUrl: variantData.imageUrl ?? undefined,
@@ -239,7 +239,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return Variant.create(
       {
         productId: new EntityID(variantData.productId),
-        sku: variantData.sku,
+        sku: variantData.sku ?? undefined,
         name: variantData.name,
         price: Number(variantData.price.toString()),
         imageUrl: variantData.imageUrl ?? undefined,
@@ -288,7 +288,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return Variant.create(
       {
         productId: new EntityID(variantData.productId),
-        sku: variantData.sku,
+        sku: variantData.sku ?? undefined,
         name: variantData.name,
         price: Number(variantData.price.toString()),
         imageUrl: variantData.imageUrl ?? undefined,
@@ -333,7 +333,54 @@ export class PrismaVariantsRepository implements VariantsRepository {
       Variant.create(
         {
           productId: new EntityID(variantData.productId),
-          sku: variantData.sku,
+          sku: variantData.sku ?? undefined,
+          name: variantData.name,
+          price: Number(variantData.price.toString()),
+          imageUrl: variantData.imageUrl ?? undefined,
+          attributes: variantData.attributes as Record<string, unknown>,
+          costPrice: variantData.costPrice
+            ? Number(variantData.costPrice.toString())
+            : undefined,
+          profitMargin: variantData.profitMargin
+            ? Number(variantData.profitMargin.toString())
+            : undefined,
+          barcode: variantData.barcode ?? undefined,
+          qrCode: variantData.qrCode ?? undefined,
+          eanCode: variantData.eanCode ?? undefined,
+          upcCode: variantData.upcCode ?? undefined,
+          minStock: variantData.minStock
+            ? Number(variantData.minStock.toString())
+            : undefined,
+          maxStock: variantData.maxStock
+            ? Number(variantData.maxStock.toString())
+            : undefined,
+          reorderPoint: variantData.reorderPoint
+            ? Number(variantData.reorderPoint.toString())
+            : undefined,
+          reorderQuantity: variantData.reorderQuantity
+            ? Number(variantData.reorderQuantity.toString())
+            : undefined,
+          createdAt: variantData.createdAt,
+          updatedAt: variantData.updatedAt ?? undefined,
+        },
+        new EntityID(variantData.id),
+      ),
+    );
+  }
+
+  async findManyByProduct(productId: UniqueEntityID): Promise<Variant[]> {
+    const variants = await prisma.variant.findMany({
+      where: {
+        productId: productId.toString(),
+        deletedAt: null,
+      },
+    });
+
+    return variants.map((variantData) =>
+      Variant.create(
+        {
+          productId: new EntityID(variantData.productId),
+          sku: variantData.sku ?? undefined,
           name: variantData.name,
           price: Number(variantData.price.toString()),
           imageUrl: variantData.imageUrl ?? undefined,
@@ -371,7 +418,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
   async findManyByProductWithAggregations(productId: UniqueEntityID): Promise<
     Array<{
       variant: Variant;
-      productCode: string;
+      productCode: string | null;
       productName: string;
       itemCount: number;
       totalCurrentQuantity: number;
@@ -404,7 +451,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       const variant = Variant.create(
         {
           productId: new EntityID(variantData.productId),
-          sku: variantData.sku,
+          sku: variantData.sku ?? undefined,
           name: variantData.name,
           price: Number(variantData.price.toString()),
           imageUrl: variantData.imageUrl ?? undefined,
@@ -471,7 +518,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       Variant.create(
         {
           productId: new EntityID(variantData.productId),
-          sku: variantData.sku,
+          sku: variantData.sku ?? undefined,
           name: variantData.name,
           price: Number(variantData.price.toString()),
           imageUrl: variantData.imageUrl ?? undefined,
@@ -523,7 +570,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       Variant.create(
         {
           productId: new EntityID(variantData.productId),
-          sku: variantData.sku,
+          sku: variantData.sku ?? undefined,
           name: variantData.name,
           price: Number(variantData.price.toString()),
           imageUrl: variantData.imageUrl ?? undefined,
@@ -591,7 +638,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return Variant.create(
       {
         productId: new EntityID(variantData.productId),
-        sku: variantData.sku,
+        sku: variantData.sku ?? undefined,
         name: variantData.name,
         price: Number(variantData.price.toString()),
         imageUrl: variantData.imageUrl ?? undefined,

@@ -52,7 +52,6 @@ describe('Create Sales Order (E2E)', () => {
       .send({
         name: `Test Product ${timestamp}`,
         code: `PROD-CREATE-${timestamp}`,
-        unitOfMeasure: 'UNITS',
         templateId,
       });
     if (!productResponse.body || !productResponse.body.product) {

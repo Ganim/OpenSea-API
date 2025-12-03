@@ -56,9 +56,9 @@ export const updateCategorySchema = categorySchema.partial();
 
 export const createVariantSchema = z.object({
   productId: z.uuid(),
-  sku: z.string().min(1).max(100),
+  sku: z.string().min(1).max(100).optional(), // Agora opcional
   name: z.string().min(1).max(255),
-  price: z.number().positive(),
+  price: z.number().nonnegative().optional().default(0),
   imageUrl: z.string().url().optional(),
   attributes: z.record(z.string(), z.unknown()).optional(),
   costPrice: z.number().positive().optional(),
@@ -67,16 +67,21 @@ export const createVariantSchema = z.object({
   qrCode: z.string().max(100).optional(),
   eanCode: z.string().max(100).optional(),
   upcCode: z.string().max(100).optional(),
+  colorHex: z.string().max(7).optional(),
+  colorPantone: z.string().max(50).optional(),
   minStock: z.number().int().min(0).optional(),
   maxStock: z.number().int().min(0).optional(),
   reorderPoint: z.number().int().min(0).optional(),
   reorderQuantity: z.number().int().min(0).optional(),
+  isActive: z.boolean().optional().default(true),
 });
 
 export const variantResponseSchema = z.object({
   id: z.uuid(),
   productId: z.uuid(),
-  sku: z.string(),
+  sku: z.string().optional(),
+  fullCode: z.string().optional(),
+  sequentialCode: z.number().optional(),
   name: z.string(),
   price: z.number(),
   imageUrl: z.string().optional(),
@@ -87,10 +92,13 @@ export const variantResponseSchema = z.object({
   qrCode: z.string().optional(),
   eanCode: z.string().optional(),
   upcCode: z.string().optional(),
+  colorHex: z.string().optional(),
+  colorPantone: z.string().optional(),
   minStock: z.number().optional(),
   maxStock: z.number().optional(),
   reorderPoint: z.number().optional(),
   reorderQuantity: z.number().optional(),
+  isActive: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().optional(),
@@ -140,7 +148,7 @@ export const itemMovementQuerySchema = z.object({
 
 export const createItemSchema = z.object({
   variantId: z.uuid(),
-  locationId: z.uuid(),
+  locationId: z.uuid().optional(), // Agora opcional
   serialNumber: z.string().min(1).max(100).optional(),
   batchNumber: z.string().min(1).max(100).optional(),
   expirationDate: z.coerce.date().optional(),
@@ -150,10 +158,14 @@ export const createItemSchema = z.object({
 export const itemResponseSchema = z.object({
   id: z.uuid(),
   variantId: z.uuid(),
-  locationId: z.uuid(),
-  uniqueCode: z.string(),
+  locationId: z.uuid().optional(),
+  uniqueCode: z.string().optional(),
+  fullCode: z.string().optional(),
+  sequentialCode: z.number().optional(),
   initialQuantity: z.number(),
   currentQuantity: z.number(),
+  unitCost: z.number().optional(),
+  totalCost: z.number().optional(),
   status: z.string(),
   entryDate: z.coerce.date(),
   attributes: z.record(z.string(), z.unknown()),
@@ -182,10 +194,11 @@ export const itemTransferResponseSchema = z.object({
 });
 
 export const registerItemEntrySchema = z.object({
-  uniqueCode: z.string().min(1).max(128),
+  uniqueCode: z.string().min(1).max(128).optional(), // Agora opcional
   variantId: z.uuid(),
-  locationId: z.uuid(),
+  locationId: z.uuid().optional(), // Agora opcional
   quantity: z.number().positive(),
+  unitCost: z.number().nonnegative().optional(),
   attributes: z.record(z.string(), z.unknown()).optional(),
   batchNumber: z.string().max(100).optional(),
   manufacturingDate: z.coerce.date().optional(),
@@ -317,6 +330,7 @@ export const createSupplierSchema = z.object({
 export const supplierResponseSchema = z.object({
   id: z.uuid(),
   name: z.string(),
+  sequentialCode: z.number().optional(),
   cnpj: z.string().optional(),
   taxId: z.string().optional(),
   contact: z.string().optional(),
@@ -365,19 +379,38 @@ export const updateTagSchema = createTagSchema.partial();
 
 // ============= TEMPLATE SCHEMAS =============
 
+export const careLabelSchema = z.object({
+  washing: z.string().optional(),
+  drying: z.string().optional(),
+  ironing: z.string().optional(),
+  bleaching: z.string().optional(),
+  dryClean: z.string().optional(),
+  composition: z.array(z.object({
+    fiber: z.string(),
+    percentage: z.number().min(0).max(100),
+  })).optional(),
+});
+
 export const createTemplateSchema = z.object({
   name: z.string().min(1).max(100),
+  unitOfMeasure: z.enum(['METERS', 'KILOGRAMS', 'UNITS']).optional().default('UNITS'),
   productAttributes: z.record(z.string(), z.unknown()).optional(),
   variantAttributes: z.record(z.string(), z.unknown()).optional(),
   itemAttributes: z.record(z.string(), z.unknown()).optional(),
+  careLabel: careLabelSchema.optional(),
+  isActive: z.boolean().optional().default(true),
 });
 
 export const templateResponseSchema = z.object({
   id: z.uuid(),
   name: z.string(),
+  unitOfMeasure: z.string(),
   productAttributes: z.record(z.string(), z.unknown()),
   variantAttributes: z.record(z.string(), z.unknown()),
   itemAttributes: z.record(z.string(), z.unknown()),
+  careLabel: careLabelSchema.nullable(),
+  sequentialCode: z.number().nullable(),
+  isActive: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().nullable(),
   deletedAt: z.coerce.date().nullable(),
