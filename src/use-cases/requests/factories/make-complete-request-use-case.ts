@@ -5,8 +5,8 @@ import { makeCreateNotificationUseCase } from '@/use-cases/notifications/factori
 import { CompleteRequestUseCase } from '../complete-request';
 
 export function makeCompleteRequestUseCase() {
-  const requestsRepository = new PrismaRequestsRepository(prisma);
-  const requestHistoryRepository = new PrismaRequestHistoryRepository(prisma);
+  const requestsRepository = new PrismaRequestsRepository();
+  const requestHistoryRepository = new PrismaRequestHistoryRepository();
   const createNotificationUseCase = makeCreateNotificationUseCase();
 
   return new CompleteRequestUseCase(

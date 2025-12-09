@@ -2,7 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { PermissionGroupPresenter } from '@/http/presenters/rbac/permission-group-presenter';
 import { idSchema } from '@/http/schemas/common.schema';
-import { permissionGroupSchema } from '@/http/schemas/rbac.schema';
+import { permissionGroupWithDetailsSchema } from '@/http/schemas/rbac.schema';
 import { makeGetPermissionGroupByIdUseCase } from '@/use-cases/rbac/factories';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -15,13 +15,13 @@ export async function getPermissionGroupByIdController(app: FastifyInstance) {
     preHandler: [verifyJwt],
     schema: {
       tags: ['RBAC - Permission Groups'],
-      summary: 'Get permission group by ID',
+      summary: 'Get permission group by ID with users and permissions',
       params: z.object({
         groupId: idSchema,
       }),
       response: {
         200: z.object({
-          group: permissionGroupSchema,
+          group: permissionGroupWithDetailsSchema,
         }),
         404: z.object({
           message: z.string(),
@@ -36,13 +36,13 @@ export async function getPermissionGroupByIdController(app: FastifyInstance) {
         const getPermissionGroupByIdUseCase =
           makeGetPermissionGroupByIdUseCase();
 
-        const { group } = await getPermissionGroupByIdUseCase.execute({
+        const result = await getPermissionGroupByIdUseCase.execute({
           id: groupId,
         });
 
         return reply
           .status(200)
-          .send({ group: PermissionGroupPresenter.toHTTP(group) });
+          .send({ group: PermissionGroupPresenter.toHTTPWithDetails(result) });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

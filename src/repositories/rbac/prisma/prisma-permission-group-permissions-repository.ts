@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Permission } from '@/entities/rbac/permission';
 import { PermissionGroupPermission } from '@/entities/rbac/permission-group-permission';
@@ -5,9 +6,9 @@ import { PermissionEffect } from '@/entities/rbac/value-objects/permission-effec
 import { prisma } from '@/lib/prisma';
 import { mapPermissionPrismaToDomain } from '@/mappers/rbac/permission-prisma-to-domain';
 import type {
-  AddPermissionToGroupSchema,
-  PermissionGroupPermissionsRepository,
-  UpdateGroupPermissionSchema,
+    AddPermissionToGroupSchema,
+    PermissionGroupPermissionsRepository,
+    UpdateGroupPermissionSchema,
 } from '../permission-group-permissions-repository';
 
 export class PrismaPermissionGroupPermissionsRepository
@@ -17,26 +18,34 @@ export class PrismaPermissionGroupPermissionsRepository
   async add(
     data: AddPermissionToGroupSchema,
   ): Promise<PermissionGroupPermission> {
-    const assignment = await prisma.permissionGroupPermission.create({
-      data: {
-        groupId: data.groupId.toString(),
-        permissionId: data.permissionId.toString(),
-        effect: data.effect.value,
-        conditions: (data.conditions as never) ?? null,
-      },
-    });
+    try {
+      const assignment = await prisma.permissionGroupPermission.create({
+        data: {
+          groupId: data.groupId.toString(),
+          permissionId: data.permissionId.toString(),
+          effect: data.effect.value,
+          conditions: (data.conditions as never) ?? null,
+        },
+      });
 
-    return PermissionGroupPermission.create(
-      {
-        id: new UniqueEntityID(assignment.id),
-        groupId: new UniqueEntityID(assignment.groupId),
-        permissionId: new UniqueEntityID(assignment.permissionId),
-        effect: PermissionEffect.create(assignment.effect),
-        conditions: assignment.conditions as Record<string, unknown> | null,
-        createdAt: assignment.createdAt,
-      },
-      new UniqueEntityID(assignment.id),
-    );
+      return PermissionGroupPermission.create(
+        {
+          id: new UniqueEntityID(assignment.id),
+          groupId: new UniqueEntityID(assignment.groupId),
+          permissionId: new UniqueEntityID(assignment.permissionId),
+          effect: PermissionEffect.create(assignment.effect),
+          conditions: assignment.conditions as Record<string, unknown> | null,
+          createdAt: assignment.createdAt,
+        },
+        new UniqueEntityID(assignment.id),
+      );
+    } catch (error) {
+      if (error instanceof Error && 'code' in error && error.code === 'P2002') {
+        // Unique constraint violation
+        throw new BadRequestError('Permission already assigned to this group');
+      }
+      throw error;
+    }
   }
 
   async addMany(data: AddPermissionToGroupSchema[]): Promise<void> {

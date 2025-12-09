@@ -3,6 +3,7 @@ export { makeCreatePermissionUseCase } from './permissions/factories/make-create
 export { makeDeletePermissionUseCase } from './permissions/factories/make-delete-permission-use-case';
 export { makeGetPermissionByCodeUseCase } from './permissions/factories/make-get-permission-by-code-use-case';
 export { makeGetPermissionByIdUseCase } from './permissions/factories/make-get-permission-by-id-use-case';
+export { makeListPermissionsByModulesUseCase } from './permissions/factories/make-list-permissions-by-modules-use-case';
 export { makeListPermissionsUseCase } from './permissions/factories/make-list-permissions-use-case';
 export { makeUpdatePermissionUseCase } from './permissions/factories/make-update-permission-use-case';
 

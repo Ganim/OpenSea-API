@@ -4,7 +4,7 @@ import { VariantsRepository } from '@/repositories/stock/variants-repository';
 
 export interface VariantWithAggregations {
   variant: Variant;
-  productCode: string;
+  productCode: string | null;
   productName: string;
   itemCount: number;
   totalCurrentQuantity: number;

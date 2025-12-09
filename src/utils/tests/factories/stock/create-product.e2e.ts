@@ -31,7 +31,6 @@ export async function createProduct(override: CreateProductProps = {}) {
       id: productId,
       name: override.name ?? `Test Product ${timestamp}`,
       code: override.code ?? `PROD-${timestamp}`,
-      unitOfMeasure: 'UNITS',
       status: 'ACTIVE',
       templateId,
       createdAt: new Date(),

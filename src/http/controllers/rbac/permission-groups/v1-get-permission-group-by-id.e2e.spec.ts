@@ -13,7 +13,7 @@ describe('Get Permission Group By ID (e2e)', () => {
     await app.close();
   });
 
-  it('should allow authenticated USER to GET group by ID', async () => {
+  it('should allow authenticated USER to GET group by ID with users and permissions', async () => {
     const { token } = await createAndAuthenticateUser(app, 'USER');
     const group = await makePermissionGroup();
 
@@ -28,6 +28,8 @@ describe('Get Permission Group By ID (e2e)', () => {
         name: group.name,
         isSystem: group.isSystem,
         isActive: group.isActive,
+        users: expect.any(Array),
+        permissions: expect.any(Array),
       }),
     });
   });

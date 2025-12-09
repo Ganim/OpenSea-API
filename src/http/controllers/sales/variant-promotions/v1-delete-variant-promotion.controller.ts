@@ -2,6 +2,7 @@
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import { variantPromotionResponseSchema } from '@/http/schemas/sales.schema';
+import { variantPromotionToDTO } from '@/mappers/sales/variant-promotion/variant-promotion-to-dto';
 import { makeDeleteVariantPromotionUseCase } from '@/use-cases/sales/variant-promotions/factories/make-delete-variant-promotion-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -26,7 +27,7 @@ export async function deleteVariantPromotionController(app: FastifyInstance) {
         const { id } = request.params as { id: string };
         const useCase = makeDeleteVariantPromotionUseCase();
         const { promotion } = await useCase.execute({ id });
-        return reply.status(200).send({ promotion });
+        return reply.status(200).send({ promotion: variantPromotionToDTO(promotion) });
       } catch (err) {
         if (err instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: err.message });

@@ -75,7 +75,7 @@ export interface UserPermissionGroupsRepository {
       permission: Permission;
       effect: string;
       groupId: UniqueEntityID;
-      conditions: Prisma.JsonValue;
+      conditions: Record<string, unknown> | null;
     }[]
   >;
 

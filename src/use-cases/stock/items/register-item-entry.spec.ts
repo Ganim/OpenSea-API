@@ -197,7 +197,7 @@ describe('RegisterItemEntryUseCase', () => {
 
     expect(result.item).toBeDefined();
     expect(result.item.uniqueCode).toBeDefined();
-    expect(result.item.uniqueCode.length).toBeGreaterThan(0);
+    expect(result.item.uniqueCode!.length).toBeGreaterThan(0);
   });
 
   it('should not allow unique code exceeding 128 characters', async () => {
@@ -293,7 +293,7 @@ describe('RegisterItemEntryUseCase', () => {
       registerItemEntry.execute({
         uniqueCode: 'ITEM-005',
         variantId: new UniqueEntityID().toString(),
-        locationId: location.id,
+        locationId: location.id.toString(),
         quantity: 100,
         userId: new UniqueEntityID().toString(),
       }),

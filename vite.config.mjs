@@ -18,7 +18,7 @@ export default defineConfig({
             'src/entities/**/*.spec.ts',
             'src/repositories/**/*.spec.ts',
           ],
-          exclude: ['**/*.e2e.spec.ts'],
+          exclude: ['**/*.e2e.spec.ts', '**/*.e2e-spec.ts'],
         },
       },
       {
@@ -26,12 +26,22 @@ export default defineConfig({
         test: {
           name: 'e2e',
           dir: 'src/http/controllers',
-          include: ['**/*.spec.ts', '**/*.e2e.spec.ts'],
+          include: ['**/*.spec.ts', '**/*.e2e.spec.ts', '**/*.e2e-spec.ts'],
+          exclude: [],
           environment:
             './prisma/vitest-environment-prisma/prisma-test-environment.ts',
           env: {
             NODE_ENV: 'test',
           },
+          // Garante que cada arquivo de teste rode isoladamente
+          poolOptions: {
+            forks: {
+              singleFork: true,
+            },
+          },
+          // Timeout maior para migrations
+          testTimeout: 30000,
+          hookTimeout: 30000,
         },
       },
     ],

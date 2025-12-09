@@ -6,9 +6,9 @@ import { makeCreateNotificationUseCase } from '@/use-cases/notifications/factori
 import { AddRequestCommentUseCase } from '../add-request-comment';
 
 export function makeAddRequestCommentUseCase() {
-  const requestsRepository = new PrismaRequestsRepository(prisma);
-  const requestCommentsRepository = new PrismaRequestCommentsRepository(prisma);
-  const requestHistoryRepository = new PrismaRequestHistoryRepository(prisma);
+  const requestsRepository = new PrismaRequestsRepository();
+  const requestCommentsRepository = new PrismaRequestCommentsRepository();
+  const requestHistoryRepository = new PrismaRequestHistoryRepository();
   const createNotificationUseCase = makeCreateNotificationUseCase();
 
   return new AddRequestCommentUseCase(

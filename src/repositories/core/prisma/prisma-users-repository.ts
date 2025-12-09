@@ -37,6 +37,22 @@ export class PrismaUsersRepository implements UsersRepository {
       include: { profile: true },
     });
 
+    // Atribuir automaticamente o grupo "user" ao novo usuário
+    // Este é o comportamento padrão para todos os novos cadastros
+    const userGroup = await prisma.permissionGroup.findFirst({
+      where: { slug: 'user', deletedAt: null },
+    });
+
+    if (userGroup) {
+      await prisma.userPermissionGroup.create({
+        data: {
+          userId: newUserData.id,
+          groupId: userGroup.id,
+          grantedBy: null, // Sistema
+        },
+      });
+    }
+
     const user = User.create(mapUserPrismaToDomain(newUserData));
     return user;
   }

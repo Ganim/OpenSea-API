@@ -51,7 +51,7 @@ export async function listUserPermissionsController(app: FastifyInstance) {
         const permissionsFormatted = permissions.map((item) => ({
           ...PermissionPresenter.toHTTP(item.permission),
           effect: item.effect,
-          conditions: item.conditions,
+          conditions: item.conditions as Record<string, unknown> | null,
         }));
 
         return reply.status(200).send({ permissions: permissionsFormatted });

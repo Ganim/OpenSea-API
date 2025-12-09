@@ -1,8 +1,12 @@
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { itemReservationResponseSchema } from '@/http/schemas/sales.schema';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import type { z } from 'zod';
+
+type ItemReservationResponse = z.infer<typeof itemReservationResponseSchema>;
 
 describe('List and Get Item Reservations (E2E)', () => {
   let userToken: string;
@@ -161,8 +165,7 @@ describe('List and Get Item Reservations (E2E)', () => {
 
     expect(response.status).toBe(200);
     expect(response.body.reservations.length).toBeGreaterThanOrEqual(2);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    response.body.reservations.forEach((reservation: any) => {
+    response.body.reservations.forEach((reservation: ItemReservationResponse) => {
       expect(reservation.userId).toBe(userId);
     });
   });

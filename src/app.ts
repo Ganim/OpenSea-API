@@ -6,8 +6,8 @@ import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import fastify from 'fastify';
 import {
-  serializerCompiler,
-  validatorCompiler,
+    serializerCompiler,
+    validatorCompiler,
 } from 'fastify-type-provider-zod';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { env } from './@env';
@@ -20,6 +20,26 @@ export const app = fastify({ trustProxy: true });
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
+
+// Custom JSON parser that allows empty bodies
+app.addContentTypeParser('application/json', function (request, payload, done) {
+  let body = '';
+  payload.on('data', chunk => {
+    body += chunk;
+  });
+  payload.on('end', () => {
+    if (body === '') {
+      done(null, {});
+    } else {
+      try {
+        const parsed = JSON.parse(body);
+        done(null, parsed);
+      } catch (err) {
+        done(err, undefined);
+      }
+    }
+  });
+});
 
 // Error handler
 app.setErrorHandler(errorHandler);

@@ -2,7 +2,7 @@ import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { PermissionGroupPresenter } from '@/http/presenters/rbac/permission-group-presenter';
 import {
   listPermissionGroupsQuerySchema,
-  permissionGroupSchema,
+  permissionGroupWithDetailsSchema,
 } from '@/http/schemas/rbac.schema';
 import { makeListPermissionGroupsUseCase } from '@/use-cases/rbac/factories';
 import type { FastifyInstance } from 'fastify';
@@ -20,7 +20,7 @@ export async function listPermissionGroupsController(app: FastifyInstance) {
       querystring: listPermissionGroupsQuerySchema,
       response: {
         200: z.object({
-          groups: z.array(permissionGroupSchema),
+          groups: z.array(permissionGroupWithDetailsSchema),
           total: z.number(),
           page: z.number(),
           limit: z.number(),
@@ -47,8 +47,12 @@ export async function listPermissionGroupsController(app: FastifyInstance) {
       const endIndex = startIndex + limit;
       const paginatedGroups = groups.slice(startIndex, endIndex);
 
+      const presentedGroups = paginatedGroups.map((data) =>
+        PermissionGroupPresenter.toHTTPWithDetails(data),
+      );
+
       return reply.status(200).send({
-        groups: PermissionGroupPresenter.toHTTPMany(paginatedGroups),
+        groups: presentedGroups,
         total,
         page,
         limit,

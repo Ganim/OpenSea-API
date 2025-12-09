@@ -1,0 +1,180 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-12-08",
+  "modules": {
+    "CORE": {
+      "description": "Core system functionality including users, sessions, and profiles",
+      "resources": {
+        "users": {
+          "description": "User management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "sessions": {
+          "description": "Session management",
+          "actions": ["read", "delete", "list"]
+        },
+        "profiles": {
+          "description": "User profile management",
+          "actions": ["read", "update"]
+        }
+      }
+    },
+    "STOCK": {
+      "description": "Inventory and stock management",
+      "resources": {
+        "products": {
+          "description": "Product management",
+          "actions": ["create", "read", "update", "delete", "list", "request", "approve", "manage"]
+        },
+        "variants": {
+          "description": "Product variant management",
+          "actions": ["create", "read", "update", "delete", "list", "request", "approve", "manage"]
+        },
+        "items": {
+          "description": "Individual item management",
+          "actions": ["create", "read", "update", "delete", "list", "request", "approve", "manage"]
+        },
+        "movements": {
+          "description": "Stock movement tracking",
+          "actions": ["create", "read", "list", "approve"]
+        },
+        "suppliers": {
+          "description": "Supplier management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "manufacturers": {
+          "description": "Manufacturer management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "locations": {
+          "description": "Storage location management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "categories": {
+          "description": "Product category management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "tags": {
+          "description": "Product tag management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "templates": {
+          "description": "Product template management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "purchase-orders": {
+          "description": "Purchase order management",
+          "actions": ["create", "read", "update", "delete", "list", "approve", "manage"]
+        }
+      }
+    },
+    "SALES": {
+      "description": "Sales and customer management",
+      "resources": {
+        "customers": {
+          "description": "Customer management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "orders": {
+          "description": "Sales order management",
+          "actions": ["create", "read", "update", "delete", "list", "request", "approve", "manage"]
+        },
+        "promotions": {
+          "description": "Promotion management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "reservations": {
+          "description": "Item reservation management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "comments": {
+          "description": "Comment management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "notifications": {
+          "description": "Notification management",
+          "actions": ["create", "read", "update", "delete", "list"]
+        }
+      }
+    },
+    "RBAC": {
+      "description": "Role-Based Access Control",
+      "resources": {
+        "permissions": {
+          "description": "Permission management",
+          "actions": ["create", "read", "update", "delete", "list"]
+        },
+        "groups": {
+          "description": "Permission group management",
+          "actions": ["create", "read", "update", "delete", "list", "assign", "manage"]
+        },
+        "audit": {
+          "description": "Audit log access",
+          "actions": ["read", "list"]
+        }
+      }
+    },
+    "REQUESTS": {
+      "description": "Request and workflow system",
+      "resources": {
+        "requests": {
+          "description": "Request management",
+          "actions": ["create", "read", "update", "delete", "list", "assign", "approve", "reject", "cancel", "complete"]
+        },
+        "comments": {
+          "description": "Request comment management",
+          "actions": ["create", "read", "update", "delete", "list"]
+        },
+        "attachments": {
+          "description": "Request attachment management",
+          "actions": ["create", "read", "delete", "list"]
+        }
+      }
+    },
+    "HR": {
+      "description": "Human Resources management",
+      "resources": {
+        "employees": {
+          "description": "Employee management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "departments": {
+          "description": "Department management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "positions": {
+          "description": "Position management",
+          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        },
+        "absences": {
+          "description": "Absence management",
+          "actions": ["create", "read", "update", "delete", "list", "approve", "reject"]
+        },
+        "vacations": {
+          "description": "Vacation management",
+          "actions": ["create", "read", "update", "delete", "list", "approve", "reject"]
+        },
+        "time-entries": {
+          "description": "Time entry management",
+          "actions": ["create", "read", "list"]
+        },
+        "overtime": {
+          "description": "Overtime management",
+          "actions": ["create", "read", "update", "delete", "list", "approve", "reject"]
+        },
+        "payroll": {
+          "description": "Payroll management",
+          "actions": ["create", "read", "update", "delete", "list", "process", "approve", "pay"]
+        },
+        "bonuses": {
+          "description": "Bonus management",
+          "actions": ["create", "read", "update", "delete", "list"]
+        },
+        "deductions": {
+          "description": "Deduction management",
+          "actions": ["create", "read", "update", "delete", "list"]
+        }
+      }
+    }
+  }
+}

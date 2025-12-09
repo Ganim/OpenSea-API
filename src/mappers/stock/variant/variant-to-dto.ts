@@ -29,7 +29,7 @@ export interface VariantDTO {
 }
 
 export interface VariantWithAggregationsDTO extends VariantDTO {
-  productCode: string;
+  productCode: string | null;
   productName: string;
   itemCount: number;
   totalCurrentQuantity: number;
@@ -67,7 +67,7 @@ export function variantToDTO(variant: Variant): VariantDTO {
 
 export function variantWithAggregationsToDTO(variantWithAggregations: {
   variant: Variant;
-  productCode: string;
+  productCode: string | null;
   productName: string;
   itemCount: number;
   totalCurrentQuantity: number;

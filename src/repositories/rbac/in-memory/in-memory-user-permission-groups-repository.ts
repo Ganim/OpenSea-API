@@ -221,7 +221,7 @@ export class InMemoryUserPermissionGroupsRepository
   async listUserPermissionsWithEffects(
     userId: UniqueEntityID,
   ): Promise<
-    { permission: Permission; effect: string; groupId: UniqueEntityID }[]
+    { permission: Permission; effect: string; groupId: UniqueEntityID; conditions: Record<string, unknown> | null }[]
   > {
     if (!this.permissionGroupPermissionsRepository) return [];
 
@@ -231,6 +231,7 @@ export class InMemoryUserPermissionGroupsRepository
       permission: Permission;
       effect: string;
       groupId: UniqueEntityID;
+      conditions: Record<string, unknown> | null;
     }[] = [];
 
     // Para cada grupo, buscar suas permissões com efeitos
@@ -245,6 +246,7 @@ export class InMemoryUserPermissionGroupsRepository
           permission: perm.permission,
           effect: perm.effect,
           groupId: userGroup.groupId,
+          conditions: perm.conditions,
         });
       }
     }

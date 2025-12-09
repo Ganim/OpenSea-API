@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { hash } from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -7,8 +8,12 @@ const prisma = new PrismaClient();
  *
  * Este script popula o banco de dados com:
  * 1. Permissões básicas para todos os módulos (Core, Stock, Sales)
- * 2. Grupos de permissões equivalentes às roles antigas (USER, MANAGER, ADMIN)
- * 3. Atribuição automática de grupos aos usuários existentes baseado no role
+ * 2. Grupos de permissões (Admin, Manager, User)
+ * 3. Usuário administrador padrão (admin@teste.com)
+ * 4. Atribuição automática de grupos aos usuários existentes
+ *
+ * NOTA: A coluna `role` no modelo User está DEPRECATED.
+ * Use Permission Groups para controle de acesso.
  */
 
 interface PermissionSeed {
@@ -22,6 +27,65 @@ interface PermissionSeed {
 
 async function main() {
   console.log('🌱 Iniciando seed do banco de dados...\n');
+
+  // =============================================
+  // 0. LIMPEZA - Remover permissões inválidas
+  // =============================================
+
+  console.log('🧹 Removendo permissões inválidas...');
+
+  // Remover permissões com código inválido (contém underscores ou maiúsculas)
+  const invalidPermissions = await prisma.permission.findMany({
+    where: {
+      OR: [
+        { code: { contains: '_' } },
+        { code: { contains: 'A' } },
+        { code: { contains: 'B' } },
+        { code: { contains: 'C' } },
+        { code: { contains: 'D' } },
+        { code: { contains: 'E' } },
+        { code: { contains: 'F' } },
+        { code: { contains: 'G' } },
+        { code: { contains: 'H' } },
+        { code: { contains: 'I' } },
+        { code: { contains: 'J' } },
+        { code: { contains: 'K' } },
+        { code: { contains: 'L' } },
+        { code: { contains: 'M' } },
+        { code: { contains: 'N' } },
+        { code: { contains: 'O' } },
+        { code: { contains: 'P' } },
+        { code: { contains: 'Q' } },
+        { code: { contains: 'R' } },
+        { code: { contains: 'S' } },
+        { code: { contains: 'T' } },
+        { code: { contains: 'U' } },
+        { code: { contains: 'V' } },
+        { code: { contains: 'W' } },
+        { code: { contains: 'X' } },
+        { code: { contains: 'Y' } },
+        { code: { contains: 'Z' } },
+      ],
+    },
+  });
+
+  if (invalidPermissions.length > 0) {
+    console.log(
+      `⚠️  Encontradas ${invalidPermissions.length} permissões com código inválido:`,
+    );
+    for (const perm of invalidPermissions) {
+      console.log(`   - ${perm.code}`);
+      // Remover associações
+      await prisma.permissionGroupPermission.deleteMany({
+        where: { permissionId: perm.id },
+      });
+      // Remover a permissão
+      await prisma.permission.delete({
+        where: { id: perm.id },
+      });
+    }
+    console.log('✅ Permissões inválidas removidas\n');
+  }
 
   // =============================================
   // 1. CRIAR PERMISSÕES
@@ -123,22 +187,6 @@ async function main() {
       module: 'core',
       resource: 'profiles',
       action: 'update',
-    },
-    {
-      code: 'core.profiles.read_own',
-      name: 'Ler Próprio Perfil',
-      description: 'Permite visualizar apenas o próprio perfil',
-      module: 'core',
-      resource: 'profiles',
-      action: 'read_own',
-    },
-    {
-      code: 'core.profiles.update_own',
-      name: 'Atualizar Próprio Perfil',
-      description: 'Permite atualizar apenas o próprio perfil',
-      module: 'core',
-      resource: 'profiles',
-      action: 'update_own',
     },
 
     // ==================== STOCK MODULE ====================
@@ -1181,20 +1229,24 @@ async function main() {
   console.log('👥 Criando grupos de permissões...');
 
   // ========== ADMIN GROUP (Super Admin) ==========
-  const adminGroup = await prisma.permissionGroup.upsert({
-    where: { slug: 'admin' },
-    update: {},
-    create: {
-      name: 'Administrador',
-      slug: 'admin',
-      description:
-        'Acesso completo ao sistema. Equivalente à role ADMIN antiga.',
-      isSystem: true,
-      isActive: true,
-      color: '#DC2626', // red-600
-      priority: 100,
-    },
+  let adminGroup = await prisma.permissionGroup.findFirst({
+    where: { slug: 'admin', deletedAt: null }
   });
+  
+  if (!adminGroup) {
+    adminGroup = await prisma.permissionGroup.create({
+      data: {
+        name: 'Administrador',
+        slug: 'admin',
+        description:
+          'Acesso completo ao sistema. Equivalente à role ADMIN antiga.',
+        isSystem: true,
+        isActive: true,
+        color: '#DC2626', // red-600
+        priority: 100,
+      }
+    });
+  }
 
   // Atribuir TODAS as permissões ao Admin
   const allPermissions = await prisma.permission.findMany();
@@ -1220,21 +1272,70 @@ async function main() {
     `✅ Grupo "Administrador" criado com ${allPermissions.length} permissões`,
   );
 
-  // ========== MANAGER GROUP ==========
-  const managerGroup = await prisma.permissionGroup.upsert({
-    where: { slug: 'manager' },
+  // ========== CRIAR USUÁRIO ADMIN PADRÃO ==========
+  const adminPassword = await hash('Teste@123', 6);
+
+  let adminUser = await prisma.user.findFirst({
+    where: { email: 'admin@teste.com', deletedAt: null }
+  });
+  
+  if (!adminUser) {
+    adminUser = await prisma.user.create({
+      data: {
+        email: 'admin@teste.com',
+        username: 'admin',
+        password_hash: adminPassword,
+        role: 'ADMIN', // Mantido por compatibilidade (DEPRECATED)
+      }
+    });
+  } else {
+    adminUser = await prisma.user.update({
+      where: { id: adminUser.id },
+      data: {
+        password_hash: adminPassword,
+      }
+    });
+  }
+
+  // Atribuir grupo admin ao usuário admin
+  await prisma.userPermissionGroup.upsert({
+    where: {
+      userId_groupId: {
+        userId: adminUser.id,
+        groupId: adminGroup.id,
+      },
+    },
     update: {},
     create: {
-      name: 'Gerente',
-      slug: 'manager',
-      description:
-        'Gerenciamento de estoque e vendas. Equivalente à role MANAGER antiga.',
-      isSystem: true,
-      isActive: true,
-      color: '#EA580C', // orange-600
-      priority: 50,
+      userId: adminUser.id,
+      groupId: adminGroup.id,
+      grantedBy: null, // Sistema
     },
   });
+
+  console.log(`✅ Usuário admin criado: admin@teste.com (senha: Teste@123)`);
+
+  // ========== MANAGER GROUP ==========
+  let managerGroup = await prisma.permissionGroup.findFirst({
+    where: { slug: 'manager', deletedAt: null }
+  });
+  
+  if (!managerGroup) {
+    managerGroup = await prisma.permissionGroup.create({
+      data: {
+        name: 'Gerente',
+        slug: 'manager',
+        description:
+          'Gerenciamento de estoque e vendas. Equivalente à role MANAGER antiga.',
+        isSystem: true,
+        isActive: true,
+        color: '#EA580C', // orange-600
+        priority: 50,
+      }
+    });
+  }
+
+  console.log(`✅ Grupo manager criado: ${managerGroup.name}`);
 
   // Permissões do Manager (todas de Stock e Sales, exceto delete e RBAC)
   const managerPermissionCodes = [
@@ -1321,7 +1422,7 @@ async function main() {
     'core.sessions.read',
     'core.sessions.list',
     'core.profiles.read',
-    'core.profiles.update_own',
+    'core.profiles.update',
   ];
 
   for (const code of managerPermissionCodes) {
@@ -1349,19 +1450,23 @@ async function main() {
   );
 
   // ========== USER GROUP ==========
-  const userGroup = await prisma.permissionGroup.upsert({
-    where: { slug: 'user' },
-    update: {},
-    create: {
-      name: 'Usuário',
-      slug: 'user',
-      description: 'Acesso básico de leitura. Equivalente à role USER antiga.',
-      isSystem: true,
-      isActive: true,
-      color: '#2563EB', // blue-600
-      priority: 10,
-    },
+  let userGroup = await prisma.permissionGroup.findFirst({
+    where: { slug: 'user', deletedAt: null }
   });
+  
+  if (!userGroup) {
+    userGroup = await prisma.permissionGroup.create({
+      data: {
+        name: 'Usuário',
+        slug: 'user',
+        description: 'Acesso básico de leitura. Equivalente à role USER antiga.',
+        isSystem: true,
+        isActive: true,
+        color: '#2563EB', // blue-600
+        priority: 10,
+      }
+    });
+  }
 
   // Permissões do User (apenas leitura e request)
   const userPermissionCodes = [
@@ -1409,8 +1514,8 @@ async function main() {
     'sales.notifications.list',
 
     // Core - próprio perfil
-    'core.profiles.read_own',
-    'core.profiles.update_own',
+    'core.profiles.read',
+    'core.profiles.update',
   ];
 
   for (const code of userPermissionCodes) {
@@ -1501,8 +1606,11 @@ async function main() {
   console.log('📊 Resumo:');
   console.log(`   - ${permissions.length} permissões criadas`);
   console.log(`   - 3 grupos básicos criados (Admin, Manager, User)`);
+  console.log(`   - 1 usuário admin criado (admin@teste.com)`);
   console.log(`   - ${migratedCount} usuários migrados`);
   console.log('\n✅ Sistema RBAC pronto para uso!');
+  console.log('\n📌 IMPORTANTE: A coluna "role" está DEPRECATED.');
+  console.log('   Use Permission Groups para controle de acesso.');
 }
 
 main()

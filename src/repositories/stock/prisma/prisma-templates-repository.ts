@@ -81,7 +81,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
   }
 
   async findByName(name: string): Promise<Template | null> {
-    const templateData = await prisma.template.findUnique({
+    const templateData = await prisma.template.findFirst({
       where: {
         name,
         deletedAt: null,

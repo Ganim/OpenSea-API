@@ -3,10 +3,10 @@ import { PermissionGroup } from '@/entities/rbac/permission-group';
 import { prisma } from '@/lib/prisma';
 import { mapPermissionGroupPrismaToDomain } from '@/mappers/rbac/permission-group-prisma-to-domain';
 import type {
-  CreatePermissionGroupSchema,
-  ListPermissionGroupsParams,
-  PermissionGroupsRepository,
-  UpdatePermissionGroupSchema,
+    CreatePermissionGroupSchema,
+    ListPermissionGroupsParams,
+    PermissionGroupsRepository,
+    UpdatePermissionGroupSchema,
 } from '../permission-groups-repository';
 
 export class PrismaPermissionGroupsRepository
@@ -97,11 +97,13 @@ export class PrismaPermissionGroupsRepository
     slug: string,
     includeDeleted = false,
   ): Promise<PermissionGroup | null> {
-    const group = await prisma.permissionGroup.findUnique({
-      where: {
-        slug,
-        ...(includeDeleted ? {} : { deletedAt: null }),
-      },
+    const group = await prisma.permissionGroup.findFirst({
+      where: includeDeleted
+        ? { slug }
+        : {
+            slug,
+            deletedAt: null,
+          },
     });
 
     if (!group) return null;
@@ -110,8 +112,11 @@ export class PrismaPermissionGroupsRepository
   }
 
   async findByName(name: string): Promise<PermissionGroup | null> {
-    const group = await prisma.permissionGroup.findUnique({
-      where: { name, deletedAt: null },
+    const group = await prisma.permissionGroup.findFirst({
+      where: {
+        name,
+        deletedAt: null,
+      },
     });
 
     if (!group) return null;
@@ -251,8 +256,11 @@ export class PrismaPermissionGroupsRepository
 
   // UTILITY
   async exists(slug: string): Promise<boolean> {
-    const group = await prisma.permissionGroup.findUnique({
-      where: { slug, deletedAt: null },
+    const group = await prisma.permissionGroup.findFirst({
+      where: {
+        slug,
+        deletedAt: null,
+      },
       select: { id: true },
     });
 

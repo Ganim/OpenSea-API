@@ -1,12 +1,12 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import {
-  createTemplateSchema,
-  templateResponseSchema,
+    createTemplateSchema,
+    templateResponseSchema,
 } from '@/http/schemas/stock.schema';
 import { makeCreateTemplateUseCase } from '@/use-cases/stock/templates/factories/make-create-template-use-case';
 import type { FastifyInstance } from 'fastify';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
@@ -39,6 +39,19 @@ export async function createTemplateController(app: FastifyInstance) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }
+
+        // Erro de constraint unique do Prisma (nome duplicado)
+        if (
+          error &&
+          typeof error === 'object' &&
+          'code' in error &&
+          error.code === 'P2002'
+        ) {
+          return reply
+            .status(400)
+            .send({ message: 'Template with this name already exists' });
+        }
+
         throw error;
       }
     },

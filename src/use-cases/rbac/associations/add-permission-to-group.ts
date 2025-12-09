@@ -52,14 +52,17 @@ export class AddPermissionToGroupUseCase {
       throw new ResourceNotFoundError('Permission not found');
     }
 
-    // Verificar se já existe
-    const exists = await this.permissionGroupPermissionsRepository.exists(
-      groupIdEntity,
-      permission.id,
-    );
+    // Verificar se já existe essa permissão no grupo
+    const alreadyExists =
+      await this.permissionGroupPermissionsRepository.exists(
+        groupIdEntity,
+        permission.id,
+      );
 
-    if (exists) {
-      throw new BadRequestError('Permission already assigned to this group');
+    if (alreadyExists) {
+      throw new BadRequestError(
+        'This permission is already assigned to this group',
+      );
     }
 
     // Adicionar permissão ao grupo

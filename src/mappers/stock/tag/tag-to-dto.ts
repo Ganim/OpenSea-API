@@ -8,7 +8,6 @@ export interface TagDTO {
   description: string | null;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date | null;
 }
 
 export function tagToDTO(tag: Tag): TagDTO {
@@ -20,6 +19,5 @@ export function tagToDTO(tag: Tag): TagDTO {
     description: tag.description,
     createdAt: tag.createdAt,
     updatedAt: tag.updatedAt,
-    deletedAt: tag.deletedAt,
   };
 }

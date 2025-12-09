@@ -1,18 +1,39 @@
+import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
+import { InMemoryPermissionGroupPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-permission-group-permissions-repository';
 import { InMemoryPermissionGroupsRepository } from '@/repositories/rbac/in-memory/in-memory-permission-groups-repository';
+import { InMemoryPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-permissions-repository';
+import { InMemoryUserPermissionGroupsRepository } from '@/repositories/rbac/in-memory/in-memory-user-permission-groups-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ListPermissionGroupsUseCase } from './list-permission-groups';
 
 describe('ListPermissionGroupsUseCase', () => {
   let useCase: ListPermissionGroupsUseCase;
-  let repository: InMemoryPermissionGroupsRepository;
+  let permissionGroupsRepository: InMemoryPermissionGroupsRepository;
+  let userPermissionGroupsRepository: InMemoryUserPermissionGroupsRepository;
+  let permissionGroupPermissionsRepository: InMemoryPermissionGroupPermissionsRepository;
+  let usersRepository: InMemoryUsersRepository;
+  let permissionsRepository: InMemoryPermissionsRepository;
 
   beforeEach(async () => {
-    repository = new InMemoryPermissionGroupsRepository();
-    useCase = new ListPermissionGroupsUseCase(repository);
+    permissionGroupsRepository = new InMemoryPermissionGroupsRepository();
+    userPermissionGroupsRepository =
+      new InMemoryUserPermissionGroupsRepository();
+    permissionGroupPermissionsRepository =
+      new InMemoryPermissionGroupPermissionsRepository();
+    usersRepository = new InMemoryUsersRepository();
+    permissionsRepository = new InMemoryPermissionsRepository();
+
+    useCase = new ListPermissionGroupsUseCase(
+      permissionGroupsRepository,
+      userPermissionGroupsRepository,
+      permissionGroupPermissionsRepository,
+      usersRepository,
+      permissionsRepository,
+    );
 
     // Criar grupos de teste
     // Grupo pai 1 (ativo, não sistema)
-    const parent1 = await repository.create({
+    const parent1 = await permissionGroupsRepository.create({
       name: 'Admin Group',
       slug: 'admin-group',
       description: null,
@@ -24,7 +45,7 @@ describe('ListPermissionGroupsUseCase', () => {
     });
 
     // Filho do parent1 (ativo)
-    await repository.create({
+    await permissionGroupsRepository.create({
       name: 'Sub Admin',
       slug: 'sub-admin',
       description: null,
@@ -36,7 +57,7 @@ describe('ListPermissionGroupsUseCase', () => {
     });
 
     // Grupo sistema (ativo)
-    await repository.create({
+    await permissionGroupsRepository.create({
       name: 'System Group',
       slug: 'system-group',
       description: null,
@@ -48,7 +69,7 @@ describe('ListPermissionGroupsUseCase', () => {
     });
 
     // Grupo inativo
-    await repository.create({
+    await permissionGroupsRepository.create({
       name: 'Inactive Group',
       slug: 'inactive-group',
       description: null,
@@ -64,48 +85,54 @@ describe('ListPermissionGroupsUseCase', () => {
     const result = await useCase.execute({});
 
     expect(result.groups).toHaveLength(4);
+    // Cada grupo deve ter estrutura com group, users e permissions
+    result.groups.forEach((groupData) => {
+      expect(groupData).toHaveProperty('group');
+      expect(groupData).toHaveProperty('users');
+      expect(groupData).toHaveProperty('permissions');
+    });
   });
 
   it('should list only active groups', async () => {
     const result = await useCase.execute({ isActive: true });
 
     expect(result.groups).toHaveLength(3);
-    expect(result.groups.every((g) => g.isActive)).toBe(true);
+    expect(result.groups.every((g) => g.group.isActive)).toBe(true);
   });
 
   it('should list only inactive groups', async () => {
     const result = await useCase.execute({ isActive: false });
 
     expect(result.groups).toHaveLength(1);
-    expect(result.groups[0].name).toBe('Inactive Group');
+    expect(result.groups[0].group.name).toBe('Inactive Group');
   });
 
   it('should list only system groups', async () => {
     const result = await useCase.execute({ isSystem: true });
 
     expect(result.groups).toHaveLength(1);
-    expect(result.groups[0].name).toBe('System Group');
+    expect(result.groups[0].group.name).toBe('System Group');
   });
 
   it('should list only non-system groups', async () => {
     const result = await useCase.execute({ isSystem: false });
 
     expect(result.groups).toHaveLength(3);
-    expect(result.groups.every((g) => !g.isSystem)).toBe(true);
+    expect(result.groups.every((g) => !g.group.isSystem)).toBe(true);
   });
 
   it('should list groups by parent', async () => {
-    const parent = await repository.findBySlug('admin-group');
+    const parent = await permissionGroupsRepository.findBySlug('admin-group');
     const result = await useCase.execute({ parentId: parent!.id.toString() });
 
     expect(result.groups).toHaveLength(1);
-    expect(result.groups[0].name).toBe('Sub Admin');
+    expect(result.groups[0].group.name).toBe('Sub Admin');
   });
 
   it('should list active system groups', async () => {
     const result = await useCase.execute({ isActive: true, isSystem: true });
 
     expect(result.groups).toHaveLength(1);
-    expect(result.groups[0].name).toBe('System Group');
+    expect(result.groups[0].group.name).toBe('System Group');
   });
 });

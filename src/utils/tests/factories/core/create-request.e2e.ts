@@ -3,7 +3,7 @@ import type {
   RequestPriority,
   RequestStatus,
   RequestType,
-  TargetType,
+  RequestTargetType,
 } from '@prisma/client';
 
 interface CreateRequestProps {
@@ -12,7 +12,7 @@ interface CreateRequestProps {
   type?: RequestType;
   priority?: RequestPriority;
   status?: RequestStatus;
-  targetType?: TargetType;
+  targetType?: RequestTargetType;
   targetId?: string;
   requesterId: string;
   assignedToId?: string;

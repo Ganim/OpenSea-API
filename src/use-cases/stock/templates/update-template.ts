@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import type { TemplateDTO } from '@/mappers/stock/template/template-to-dto';
 import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
@@ -8,6 +9,7 @@ import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 interface UpdateTemplateUseCaseRequest {
   id: string;
   name?: string;
+  unitOfMeasure?: string;
   productAttributes?: Record<string, unknown>;
   variantAttributes?: Record<string, unknown>;
   itemAttributes?: Record<string, unknown>;
@@ -23,8 +25,14 @@ export class UpdateTemplateUseCase {
   async execute(
     request: UpdateTemplateUseCaseRequest,
   ): Promise<UpdateTemplateUseCaseResponse> {
-    const { id, name, productAttributes, variantAttributes, itemAttributes } =
-      request;
+    const {
+      id,
+      name,
+      unitOfMeasure,
+      productAttributes,
+      variantAttributes,
+      itemAttributes,
+    } = request;
 
     // Validate ID
     const template = await this.templatesRepository.findById(
@@ -55,10 +63,26 @@ export class UpdateTemplateUseCase {
       }
     }
 
+    // Validate unit of measure if provided
+    const validUnits = ['METERS', 'KILOGRAMS', 'UNITS'];
+    let templateUnitOfMeasure: UnitOfMeasure | undefined;
+
+    if (unitOfMeasure !== undefined) {
+      if (!validUnits.includes(unitOfMeasure)) {
+        throw new BadRequestError(
+          'Invalid unit of measure. Must be one of: METERS, KILOGRAMS, UNITS',
+        );
+      }
+      templateUnitOfMeasure = UnitOfMeasure.create(
+        unitOfMeasure as 'METERS' | 'KILOGRAMS' | 'UNITS',
+      );
+    }
+
     // Update template
     const updatedTemplate = await this.templatesRepository.update({
       id: new UniqueEntityID(id),
       name,
+      unitOfMeasure: templateUnitOfMeasure,
       productAttributes,
       variantAttributes,
       itemAttributes,

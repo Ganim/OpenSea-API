@@ -5,6 +5,8 @@ import { createPermissionController } from './v1-create-permission.controller';
 import { deletePermissionController } from './v1-delete-permission.controller';
 import { getPermissionByCodeController } from './v1-get-permission-by-code.controller';
 import { getPermissionByIdController } from './v1-get-permission-by-id.controller';
+import { listAllPermissionsController } from './v1-list-all-permissions-controller';
+import { listPermissionsByModulesController } from './v1-list-permissions-by-modules.controller';
 import { listPermissionsController } from './v1-list-permissions.controller';
 import { updatePermissionController } from './v1-update-permission.controller';
 
@@ -25,6 +27,8 @@ export async function permissionsRoutes() {
     async (queryApp) => {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(listPermissionsController);
+      queryApp.register(listAllPermissionsController);
+      queryApp.register(listPermissionsByModulesController);
       queryApp.register(getPermissionByIdController);
       queryApp.register(getPermissionByCodeController);
     },

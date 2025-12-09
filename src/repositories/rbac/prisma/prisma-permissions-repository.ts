@@ -4,10 +4,10 @@ import { PermissionCode } from '@/entities/rbac/value-objects/permission-code';
 import { prisma } from '@/lib/prisma';
 import { mapPermissionPrismaToDomain } from '@/mappers/rbac/permission-prisma-to-domain';
 import type {
-  CreatePermissionSchema,
-  ListPermissionsParams,
-  PermissionsRepository,
-  UpdatePermissionSchema,
+    CreatePermissionSchema,
+    ListPermissionsParams,
+    PermissionsRepository,
+    UpdatePermissionSchema,
 } from '../permissions-repository';
 
 export class PrismaPermissionsRepository implements PermissionsRepository {
@@ -106,8 +106,8 @@ export class PrismaPermissionsRepository implements PermissionsRepository {
       resource,
       action,
       isSystem,
-      page = 1,
-      limit = 100,
+      page,
+      limit,
     } = params || {};
 
     const permissions = await prisma.permission.findMany({
@@ -117,7 +117,7 @@ export class PrismaPermissionsRepository implements PermissionsRepository {
         action: action,
         isSystem: isSystem,
       },
-      skip: (page - 1) * limit,
+      skip: page && limit ? (page - 1) * limit : undefined,
       take: limit,
       orderBy: [{ module: 'asc' }, { resource: 'asc' }, { action: 'asc' }],
     });

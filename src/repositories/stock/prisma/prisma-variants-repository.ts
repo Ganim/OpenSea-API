@@ -127,7 +127,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
   }
 
   async findBySKU(sku: string): Promise<Variant | null> {
-    const variantData = await prisma.variant.findUnique({
+    const variantData = await prisma.variant.findFirst({
       where: {
         sku,
         deletedAt: null,
@@ -176,7 +176,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
   }
 
   async findByBarcode(barcode: string): Promise<Variant | null> {
-    const variantData = await prisma.variant.findUnique({
+    const variantData = await prisma.variant.findFirst({
       where: {
         barcode,
         deletedAt: null,
@@ -227,8 +227,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
   async findByEANCode(eanCode: string): Promise<Variant | null> {
     const variantData = await prisma.variant.findUnique({
       where: {
-        eanCode,
-        deletedAt: null,
+        variants_eanCode_unique_active: {
+          eanCode,
+          deletedAt: null as any,
+        },
       },
     });
 
@@ -276,8 +278,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
   async findByUPCCode(upcCode: string): Promise<Variant | null> {
     const variantData = await prisma.variant.findUnique({
       where: {
-        upcCode,
-        deletedAt: null,
+        variants_upcCode_unique_active: {
+          upcCode,
+          deletedAt: null as any,
+        },
       },
     });
 

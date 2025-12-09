@@ -106,7 +106,7 @@ export const variantResponseSchema = z.object({
 
 export const variantWithAggregationsResponseSchema =
   variantResponseSchema.extend({
-    productCode: z.string(),
+    productCode: z.string().nullable(),
     productName: z.string(),
     itemCount: z.number(),
     totalCurrentQuantity: z.number(),
@@ -372,7 +372,6 @@ export const tagResponseSchema = z.object({
   description: z.string().nullable(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
-  deletedAt: z.coerce.date().nullable(),
 });
 
 export const updateTagSchema = createTagSchema.partial();
@@ -385,15 +384,22 @@ export const careLabelSchema = z.object({
   ironing: z.string().optional(),
   bleaching: z.string().optional(),
   dryClean: z.string().optional(),
-  composition: z.array(z.object({
-    fiber: z.string(),
-    percentage: z.number().min(0).max(100),
-  })).optional(),
+  composition: z
+    .array(
+      z.object({
+        fiber: z.string(),
+        percentage: z.number().min(0).max(100),
+      }),
+    )
+    .optional(),
 });
 
 export const createTemplateSchema = z.object({
   name: z.string().min(1).max(100),
-  unitOfMeasure: z.enum(['METERS', 'KILOGRAMS', 'UNITS']).optional().default('UNITS'),
+  unitOfMeasure: z
+    .enum(['METERS', 'KILOGRAMS', 'UNITS'])
+    .optional()
+    .default('UNITS'),
   productAttributes: z.record(z.string(), z.unknown()).optional(),
   variantAttributes: z.record(z.string(), z.unknown()).optional(),
   itemAttributes: z.record(z.string(), z.unknown()).optional(),

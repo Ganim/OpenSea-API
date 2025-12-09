@@ -136,7 +136,7 @@ describe('CreateProductUseCase', () => {
       templateId: template.template.id.toString(),
     });
 
-    expect(result.product.status.status).toBe('ACTIVE');
+    expect(result.product.status.value).toBe('ACTIVE');
   });
 
   it('should create a product without optional fields', async () => {

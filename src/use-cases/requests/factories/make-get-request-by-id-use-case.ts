@@ -3,7 +3,7 @@ import { PrismaRequestsRepository } from '@/repositories/requests/prisma/prisma-
 import { GetRequestByIdUseCase } from '../get-request-by-id';
 
 export function makeGetRequestByIdUseCase() {
-  const requestsRepository = new PrismaRequestsRepository(prisma);
+  const requestsRepository = new PrismaRequestsRepository();
 
   return new GetRequestByIdUseCase(requestsRepository);
 }

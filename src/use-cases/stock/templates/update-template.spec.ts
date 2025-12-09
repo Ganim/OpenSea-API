@@ -120,4 +120,33 @@ describe('UpdateTemplateUseCase', () => {
       itemAttributes: {},
     });
   });
+
+  it('should update unit of measure', async () => {
+    const created = await createTemplate.execute({
+      name: 'Fabric Template',
+      unitOfMeasure: 'METERS',
+    });
+
+    const result = await sut.execute({
+      id: created.template.id,
+      unitOfMeasure: 'KILOGRAMS',
+    });
+
+    expect(result.template.unitOfMeasure).toBe('KILOGRAMS');
+    expect(result.template.name).toBe('Fabric Template');
+  });
+
+  it('should throw error with invalid unit of measure', async () => {
+    const created = await createTemplate.execute({
+      name: 'Electronics Template',
+      productAttributes: { brand: 'string' },
+    });
+
+    await expect(
+      sut.execute({
+        id: created.template.id,
+        unitOfMeasure: 'INVALID_UNIT',
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
 });

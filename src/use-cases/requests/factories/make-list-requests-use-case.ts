@@ -3,7 +3,7 @@ import { PrismaRequestsRepository } from '@/repositories/requests/prisma/prisma-
 import { ListRequestsUseCase } from '../list-requests';
 
 export function makeListRequestsUseCase() {
-  const requestsRepository = new PrismaRequestsRepository(prisma);
+  const requestsRepository = new PrismaRequestsRepository();
 
   return new ListRequestsUseCase(requestsRepository);
 }

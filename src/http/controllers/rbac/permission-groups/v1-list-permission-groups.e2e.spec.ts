@@ -1,5 +1,5 @@
 import { app } from '@/app';
-import { permissionGroupSchema } from '@/http/schemas/rbac.schema';
+import { permissionGroupWithDetailsSchema } from '@/http/schemas/rbac.schema';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { makePermissionGroup } from '@/utils/tests/factories/rbac/make-permission-group';
 import { faker } from '@faker-js/faker';
@@ -7,7 +7,7 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { z } from 'zod';
 
-type PermissionGroupResponse = z.infer<typeof permissionGroupSchema>;
+type PermissionGroupResponse = z.infer<typeof permissionGroupWithDetailsSchema>;
 
 describe('List Permission Groups (e2e)', () => {
   beforeAll(async () => {
@@ -38,6 +38,47 @@ describe('List Permission Groups (e2e)', () => {
       limit: expect.any(Number),
     });
     expect(response.body.groups.length).toBeGreaterThan(0);
+  });
+
+  it('should return groups WITH usersCount and permissionsCount', async () => {
+    const { token } = await createAndAuthenticateUser(app, 'USER');
+
+    const response = await request(app.server)
+      .get('/v1/rbac/permission-groups')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.groups.length).toBeGreaterThan(0);
+
+    // Validar que cada grupo tem a estrutura completa
+    response.body.groups.forEach((group: PermissionGroupResponse) => {
+      expect(group).toHaveProperty('id');
+      expect(group).toHaveProperty('name');
+      expect(group).toHaveProperty('slug');
+      expect(group).toHaveProperty('description');
+      expect(group).toHaveProperty('color');
+      expect(group).toHaveProperty('priority');
+      expect(group).toHaveProperty('isActive');
+      expect(group).toHaveProperty('isSystem');
+      expect(group).toHaveProperty('parentId');
+      expect(group).toHaveProperty('createdAt');
+      expect(group).toHaveProperty('updatedAt');
+      expect(group).toHaveProperty('deletedAt');
+      expect(group).toHaveProperty('users');
+      expect(group).toHaveProperty('usersCount');
+      expect(group).toHaveProperty('permissions');
+      expect(group).toHaveProperty('permissionsCount');
+
+      // Validar tipos
+      expect(typeof group.usersCount).toBe('number');
+      expect(typeof group.permissionsCount).toBe('number');
+      expect(Array.isArray(group.users)).toBe(true);
+      expect(Array.isArray(group.permissions)).toBe(true);
+
+      // Validar que os contadores correspondem aos arrays
+      expect(group.users.length).toBe(group.usersCount);
+      expect(group.permissions.length).toBe(group.permissionsCount);
+    });
   });
 
   it('should FILTER groups by isActive', async () => {

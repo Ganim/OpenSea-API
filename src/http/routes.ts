@@ -11,6 +11,7 @@ import { healthRoutes } from './controllers/health/routes';
 import { associationsRoutes } from './controllers/rbac/associations/routes';
 import { permissionGroupsRoutes } from './controllers/rbac/permission-groups/routes';
 import { permissionsRoutes } from './controllers/rbac/permissions/routes';
+import { userDirectPermissionsRoutes } from './controllers/rbac/user-direct-permissions/routes';
 
 // Sales routes
 import { commentsRoutes } from './controllers/sales/comments/routes';
@@ -64,6 +65,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(permissionsRoutes);
   await app.register(permissionGroupsRoutes);
   await app.register(associationsRoutes);
+  await app.register(userDirectPermissionsRoutes);
 
   // Stock routes
   await app.register(productsRoutes);

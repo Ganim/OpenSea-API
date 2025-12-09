@@ -1,19 +1,34 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
+import { InMemoryPermissionGroupPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-permission-group-permissions-repository';
 import { InMemoryPermissionGroupsRepository } from '@/repositories/rbac/in-memory/in-memory-permission-groups-repository';
+import { InMemoryUserPermissionGroupsRepository } from '@/repositories/rbac/in-memory/in-memory-user-permission-groups-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { GetPermissionGroupByIdUseCase } from './get-permission-group-by-id';
 
 describe('GetPermissionGroupByIdUseCase', () => {
   let useCase: GetPermissionGroupByIdUseCase;
-  let repository: InMemoryPermissionGroupsRepository;
+  let groupsRepository: InMemoryPermissionGroupsRepository;
+  let userGroupsRepository: InMemoryUserPermissionGroupsRepository;
+  let groupPermissionsRepository: InMemoryPermissionGroupPermissionsRepository;
+  let usersRepository: InMemoryUsersRepository;
 
   beforeEach(() => {
-    repository = new InMemoryPermissionGroupsRepository();
-    useCase = new GetPermissionGroupByIdUseCase(repository);
+    groupsRepository = new InMemoryPermissionGroupsRepository();
+    userGroupsRepository = new InMemoryUserPermissionGroupsRepository();
+    groupPermissionsRepository =
+      new InMemoryPermissionGroupPermissionsRepository();
+    usersRepository = new InMemoryUsersRepository();
+    useCase = new GetPermissionGroupByIdUseCase(
+      groupsRepository,
+      userGroupsRepository,
+      groupPermissionsRepository,
+      usersRepository,
+    );
   });
 
-  it('should get permission group by id', async () => {
-    const group = await repository.create({
+  it('should get permission group by id with users and permissions', async () => {
+    const group = await groupsRepository.create({
       name: 'Admin Group',
       slug: 'admin-group',
       description: 'Admin permissions',
@@ -29,10 +44,14 @@ describe('GetPermissionGroupByIdUseCase', () => {
     expect(result.group).toBe(group);
     expect(result.group.name).toBe('Admin Group');
     expect(result.group.slug).toBe('admin-group');
+    expect(result.users).toBeDefined();
+    expect(result.permissions).toBeDefined();
+    expect(Array.isArray(result.users)).toBe(true);
+    expect(Array.isArray(result.permissions)).toBe(true);
   });
 
   it('should get system group', async () => {
-    const group = await repository.create({
+    const group = await groupsRepository.create({
       name: 'System Group',
       slug: 'system-group',
       description: null,
@@ -46,10 +65,12 @@ describe('GetPermissionGroupByIdUseCase', () => {
     const result = await useCase.execute({ id: group.id.toString() });
 
     expect(result.group.isSystem).toBe(true);
+    expect(result.users).toBeDefined();
+    expect(result.permissions).toBeDefined();
   });
 
   it('should get group with parent', async () => {
-    const parentGroup = await repository.create({
+    const parentGroup = await groupsRepository.create({
       name: 'Parent Group',
       slug: 'parent-group',
       description: null,
@@ -60,7 +81,7 @@ describe('GetPermissionGroupByIdUseCase', () => {
       isActive: true,
     });
 
-    const childGroup = await repository.create({
+    const childGroup = await groupsRepository.create({
       name: 'Child Group',
       slug: 'child-group',
       description: null,
@@ -75,6 +96,8 @@ describe('GetPermissionGroupByIdUseCase', () => {
 
     expect(result.group.parentId).toBeDefined();
     expect(result.group.parentId?.equals(parentGroup.id)).toBe(true);
+    expect(result.users).toBeDefined();
+    expect(result.permissions).toBeDefined();
   });
 
   it('should throw error when group not found', async () => {

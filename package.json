@@ -15,7 +15,8 @@
     "test:coverage": "vitest run --coverage",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "prisma:seed": "tsx prisma/seed.ts"
+    "prisma:seed": "tsx prisma/seed.ts",
+    "prisma:sync-permissions": "tsx prisma/sync-permissions.ts"
   },
   "keywords": [
     "opensea",
@@ -46,6 +47,7 @@
     "@fastify/rate-limit": "10.3.0",
     "@fastify/swagger": "9.5.1",
     "@fastify/swagger-ui": "5.2.3",
+    "@prisma/adapter-pg": "6.19.0",
     "@prisma/client": "6.14.0",
     "bcryptjs": "3.0.2",
     "dayjs": "1.11.13",

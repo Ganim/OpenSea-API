@@ -53,6 +53,19 @@ export async function updateTemplateController(app: FastifyInstance) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
+
+        // Erro de constraint unique do Prisma (nome duplicado)
+        if (
+          error &&
+          typeof error === 'object' &&
+          'code' in error &&
+          error.code === 'P2002'
+        ) {
+          return reply
+            .status(400)
+            .send({ message: 'Template with this name already exists' });
+        }
+
         throw error;
       }
     },

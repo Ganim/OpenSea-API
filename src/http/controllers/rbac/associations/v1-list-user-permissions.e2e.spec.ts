@@ -20,13 +20,13 @@ describe('List User Permissions (e2e)', () => {
     const { token, user } = await createAndAuthenticateUser(app, 'USER');
     const group = await makePermissionGroup();
     const permission1 = await makePermission({
-      module: 'products',
-      resource: 'product',
+      module: 'stock',
+      resource: 'custom',
       action: 'read',
     });
     const permission2 = await makePermission({
-      module: 'products',
-      resource: 'product',
+      module: 'stock',
+      resource: 'custom',
       action: 'create',
     });
 
@@ -111,9 +111,9 @@ describe('List User Permissions (e2e)', () => {
     const { token, user } = await createAndAuthenticateUser(app, 'USER');
     const group = await makePermissionGroup();
     const permission = await makePermission({
-      module: 'admin',
-      resource: 'settings',
-      action: 'update',
+      module: 'core',
+      resource: 'custom',
+      action: 'read',
     });
 
     const addPermissionUseCase = makeAddPermissionToGroupUseCase();
@@ -186,7 +186,7 @@ describe('List User Permissions (e2e)', () => {
     const response = await request(app.server)
       .get(`/v1/rbac/users/${user.user.id.toString()}/permissions`)
       .set('Authorization', `Bearer ${token}`)
-      .query({ module: 'products' });
+      .query({ module: 'stock' });
 
     expect(response.statusCode).toEqual(200);
     expect(
@@ -194,7 +194,7 @@ describe('List User Permissions (e2e)', () => {
         (perm: Record<string, unknown>) =>
           perm.code &&
           typeof perm.code === 'string' &&
-          perm.code.startsWith('products.'),
+          perm.code.startsWith('stock.'),
       ),
     ).toBe(true);
   });

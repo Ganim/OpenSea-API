@@ -13,7 +13,7 @@ import { dateSchema, idSchema } from './common.schema';
 export const permissionCodeSchema = z
   .string()
   .regex(
-    /^[a-z]+\.[a-z-]+\.(read|create|update|delete|manage|\*)$/,
+    /^[a-z]+\.[a-z-]+\.(read|create|update|delete|manage|list|request|approve|\*)$/,
     'Permission code must follow format: module.resource.action',
   );
 
@@ -89,6 +89,46 @@ export const permissionGroupSchema = z.object({
   createdAt: dateSchema,
   updatedAt: dateSchema.optional(),
   deletedAt: dateSchema.nullable().optional(),
+});
+
+/**
+ * Permission Group with Details Schema (includes users and permissions)
+ */
+export const permissionGroupWithDetailsSchema = z.object({
+  id: idSchema,
+  name: z.string(),
+  slug: z.string(),
+  description: z.string().nullable(),
+  color: z.string().nullable(),
+  priority: z.number(),
+  isActive: z.boolean(),
+  isSystem: z.boolean(),
+  parentId: idSchema.nullable(),
+  createdAt: dateSchema,
+  updatedAt: dateSchema.optional(),
+  deletedAt: dateSchema.nullable().optional(),
+  users: z.array(
+    z.object({
+      id: idSchema,
+      username: z.string(),
+      email: z.string().email(),
+    }),
+  ),
+  usersCount: z.number(),
+  permissions: z.array(
+    z.object({
+      id: idSchema,
+      code: z.string(),
+      name: z.string(),
+      description: z.string().nullable(),
+      module: z.string(),
+      resource: z.string(),
+      action: z.string(),
+      effect: permissionEffectSchema,
+      conditions: z.record(z.string(), z.unknown()).nullable(),
+    }),
+  ),
+  permissionsCount: z.number(),
 });
 
 /**
@@ -189,4 +229,57 @@ export const userPermissionGroupSchema = z.object({
   assignedAt: dateSchema,
   expiresAt: dateSchema.nullable(),
   grantedBy: idSchema.nullable(),
+});
+
+/**
+ * Grant Direct Permission to User Schema
+ */
+export const grantDirectPermissionSchema = z.object({
+  permissionId: z.string().uuid(),
+  effect: permissionEffectSchema.default('allow'),
+  conditions: z.record(z.string(), z.unknown()).nullable().optional(),
+  expiresAt: z.coerce.date().nullable().optional(),
+  grantedBy: z.string().uuid().nullable().optional(),
+});
+
+/**
+ * Update Direct Permission Schema
+ */
+export const updateDirectPermissionSchema = z.object({
+  effect: permissionEffectSchema.optional(),
+  conditions: z.record(z.string(), z.unknown()).nullable().optional(),
+  expiresAt: z.coerce.date().nullable().optional(),
+});
+
+/**
+ * List User Direct Permissions Query Schema
+ */
+export const listUserDirectPermissionsQuerySchema = z.object({
+  includeExpired: z.coerce.boolean().default(false),
+  effect: permissionEffectSchema.optional(),
+});
+
+/**
+ * Permission By Module Schema
+ */
+export const permissionByModuleSchema = z.object({
+  module: z.string(),
+  permissions: z.array(permissionSchema),
+  total: z.number(),
+});
+
+/**
+ * List Permissions By Modules Query Schema
+ */
+export const listPermissionsByModulesQuerySchema = z.object({
+  includeSystem: z
+    .union([z.boolean(), z.string()])
+    .optional()
+    .default(true)
+    .transform((val) => {
+      if (typeof val === 'string') {
+        return val.toLowerCase() === 'true';
+      }
+      return val;
+    }),
 });

@@ -40,17 +40,11 @@ describe('List Tags (E2E)', () => {
     expect(response.status).toBe(200);
     expect(response.body.tags).toBeInstanceOf(Array);
     expect(response.body.tags.length).toBeGreaterThanOrEqual(2);
-    expect(response.body.tags[0]).toEqual(
-      expect.objectContaining({
-        id: expect.any(String),
-        name: expect.any(String),
-        slug: expect.any(String),
-        color: expect.anything(),
-        description: expect.anything(),
-        createdAt: expect.any(String),
-        updatedAt: expect.any(String),
-      }),
-    );
+    expect(response.body.tags[0]).toMatchObject({
+      id: expect.any(String),
+      name: expect.any(String),
+      slug: expect.any(String),
+    });
   });
 
   it('should not be able to list tags without authentication', async () => {

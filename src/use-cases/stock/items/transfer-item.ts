@@ -60,7 +60,7 @@ export class TransferItemUseCase {
     }
 
     // Validation: destination must be different from current location
-    if (item.locationId.equals(destinationLocation.id)) {
+    if (item.locationId && item.locationId.equals(destinationLocation.id)) {
       throw new BadRequestError(
         'Destination location must be different from current location.',
       );

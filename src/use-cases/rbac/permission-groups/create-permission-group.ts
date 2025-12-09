@@ -79,7 +79,7 @@ export class CreatePermissionGroupUseCase {
       description,
       isSystem,
       isActive,
-      color,
+      color: color ?? null,
       priority,
       parentId: parentIdEntity,
     });

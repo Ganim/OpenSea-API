@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -31,8 +32,8 @@ model User {
   id String @id @default(uuid())
 
   // Credentials
-  username      String? @unique @db.VarChar(32)
-  email         String  @unique @db.VarChar(254)
+  username      String? @db.VarChar(32)
+  email         String  @db.VarChar(254)
   password_hash String  @db.VarChar(100)
 
   // User Roles
@@ -56,28 +57,30 @@ model User {
   updatedAt   DateTime  @updatedAt @map("updated_at")
 
   // Relations
-  profile                 UserProfile?
-  RefreshToken            RefreshToken[]
-  sessions                Session[]
-  ItemMovement            ItemMovement[]
-  ApprovedMovements       ItemMovement[]           @relation("ApprovedMovements")
-  AuditLogs               AuditLog[]
-  VariantPriceHistory     VariantPriceHistory[]
-  Alerts                  Alert[]
-  CreatedPurchaseOrders   PurchaseOrder[]          @relation("CreatedPurchaseOrders")
-  CreatedSalesOrders      SalesOrder[]             @relation("CreatedSalesOrders")
-  ItemReservations        ItemReservation[]
-  Comments                Comment[]
-  NotificationPreferences NotificationPreference[]
-  Notifications           Notification[]
-  permissionGroups        UserPermissionGroup[]
-  grantedPermissions      UserPermissionGroup[]    @relation("GrantedPermissions")
-  permissionAuditLogs     PermissionAuditLog[]
-  RequestsCreated         Request[]                @relation("RequestsCreated")
-  RequestsAssigned        Request[]                @relation("RequestsAssigned")
-  UploadedAttachments     RequestAttachment[]      @relation("UploadedAttachments")
-  RequestComments         RequestComment[]         @relation("RequestComments")
-  RequestHistoryActions   RequestHistory[]         @relation("RequestHistoryActions")
+  profile                  UserProfile?
+  RefreshToken             RefreshToken[]
+  sessions                 Session[]
+  ItemMovement             ItemMovement[]
+  ApprovedMovements        ItemMovement[]           @relation("ApprovedMovements")
+  AuditLogs                AuditLog[]
+  VariantPriceHistory      VariantPriceHistory[]
+  Alerts                   Alert[]
+  CreatedPurchaseOrders    PurchaseOrder[]          @relation("CreatedPurchaseOrders")
+  CreatedSalesOrders       SalesOrder[]             @relation("CreatedSalesOrders")
+  ItemReservations         ItemReservation[]
+  Comments                 Comment[]
+  NotificationPreferences  NotificationPreference[]
+  Notifications            Notification[]
+  permissionGroups         UserPermissionGroup[]
+  grantedPermissions       UserPermissionGroup[]    @relation("GrantedPermissions")
+  directPermissions        UserDirectPermission[]   @relation("UserDirectPermissions")
+  grantedDirectPermissions UserDirectPermission[]   @relation("GrantedDirectPermissions")
+  permissionAuditLogs      PermissionAuditLog[]
+  RequestsCreated          Request[]                @relation("RequestsCreated")
+  RequestsAssigned         Request[]                @relation("RequestsAssigned")
+  UploadedAttachments      RequestAttachment[]      @relation("UploadedAttachments")
+  RequestComments          RequestComment[]         @relation("RequestComments")
+  RequestHistoryActions    RequestHistory[]         @relation("RequestHistoryActions")
 
   // HR Relations
   employee Employee?
@@ -93,12 +96,12 @@ model User {
   // Absence Relations
   approvedAbsences Absence[]
 
+  @@unique([email, deletedAt], name: "users_email_unique_active")
+  @@unique([username, deletedAt], name: "users_username_unique_active")
   // Optimizations
   @@index([failedLoginAttempts, blockedUntil, lastLoginIp])
   @@index([passwordResetToken, passwordResetExpires])
   @@index([role])
-  @@index([email, deletedAt])
-  @@index([username, deletedAt])
   @@index([id, deletedAt])
   @@map("users")
 }
@@ -202,6 +205,7 @@ model Permission {
 
   // Relations
   permissionGroups PermissionGroupPermission[]
+  directUsers      UserDirectPermission[]
 
   @@index([module, resource, action])
   @@index([code])
@@ -214,10 +218,10 @@ model PermissionGroup {
   id String @id @default(uuid())
 
   // Nome do grupo (ex: "Gerente de Estoque", "Vendedor")
-  name String @unique @db.VarChar(128)
+  name String @db.VarChar(128)
 
   // Slug para uso programático
-  slug String @unique @db.VarChar(128)
+  slug String @db.VarChar(128)
 
   // Descrição do grupo
   description String? @db.Text
@@ -247,6 +251,8 @@ model PermissionGroup {
   permissions PermissionGroupPermission[]
   users       UserPermissionGroup[]
 
+  @@unique([name, deletedAt], name: "permission_groups_name_unique_active")
+  @@unique([slug, deletedAt], name: "permission_groups_slug_unique_active")
   @@index([slug])
   @@index([isActive])
   @@index([parentId])
@@ -304,6 +310,41 @@ model UserPermissionGroup {
   @@index([groupId])
   @@index([expiresAt])
   @@map("user_permission_groups")
+}
+
+/// Permissões atribuídas diretamente a usuários (sem passar por grupos)
+model UserDirectPermission {
+  id String @id @default(uuid())
+
+  userId       String @map("user_id")
+  permissionId String @map("permission_id")
+
+  // Tipo de acesso (allow ou deny)
+  // Deny tem precedência sobre allow
+  effect String @default("allow") @db.VarChar(10) // allow, deny
+
+  // Condições para aplicar a permissão (JSON com regras ABAC)
+  conditions Json? @default("{}")
+
+  // Data de expiração (opcional, para acesso temporário)
+  expiresAt DateTime? @map("expires_at")
+
+  // Quem concedeu a permissão
+  grantedBy String? @map("granted_by")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user       User       @relation("UserDirectPermissions", fields: [userId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  granter    User?      @relation("GrantedDirectPermissions", fields: [grantedBy], references: [id])
+
+  @@unique([userId, permissionId])
+  @@index([userId])
+  @@index([permissionId])
+  @@index([expiresAt])
+  @@index([effect])
+  @@map("user_direct_permissions")
 }
 
 /// Log de verificações de permissão (auditoria)
@@ -482,7 +523,7 @@ model Supplier {
   id             String  @id @default(uuid())
   sequentialCode Int     @default(autoincrement()) @map("sequential_code")
   name           String  @db.VarChar(128)
-  cnpj           String? @unique @db.VarChar(18)
+  cnpj           String? @db.VarChar(18)
   taxId          String? @map("tax_id") @db.VarChar(32) // Inscrição Estadual
   contact        String? @db.VarChar(128)
 
@@ -512,6 +553,7 @@ model Supplier {
   purchaseOrders       PurchaseOrder[]
   variantSupplierCodes VariantSupplierCode[]
 
+  @@unique([cnpj, deletedAt], name: "suppliers_cnpj_unique_active")
   @@index([sequentialCode])
   @@index([isActive])
   @@index([rating])
@@ -553,7 +595,7 @@ model Manufacturer {
 model Category {
   id           String    @id @default(uuid())
   name         String    @db.VarChar(128)
-  slug         String    @unique @db.VarChar(128)
+  slug         String    @db.VarChar(128)
   description  String?   @db.VarChar(500)
   parentId     String?   @map("parent_id")
   displayOrder Int       @default(0) @map("display_order")
@@ -566,7 +608,7 @@ model Category {
   subCategories     Category[]        @relation("SubCategories")
   productCategories ProductCategory[]
 
-  @@index([slug, deletedAt])
+  @@unique([slug, deletedAt], name: "categories_slug_unique_active")
   @@index([parentId, deletedAt])
   @@map("categories")
 }
@@ -603,7 +645,7 @@ model Location {
 
 model Template {
   id                String        @id @default(uuid())
-  name              String        @unique @db.VarChar(128)
+  name              String        @db.VarChar(128)
   unitOfMeasure     UnitOfMeasure @default(UNITS) @map("unit_of_measure")
   productAttributes Json          @default("{}") @map("product_attributes")
   variantAttributes Json          @default("{}") @map("variant_attributes")
@@ -617,6 +659,7 @@ model Template {
 
   products Product[]
 
+  @@unique([name, deletedAt], name: "templates_name_unique_active")
   @@index([sequentialCode])
   @@index([isActive])
   @@map("templates")
@@ -625,8 +668,8 @@ model Template {
 model Product {
   id             String        @id @default(uuid())
   name           String        @db.VarChar(256)
-  code           String?       @unique @db.VarChar(64) // Opcional, gerado automaticamente se não informado
-  fullCode       String?       @unique @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product (ex: 23.6)
+  code           String?       @db.VarChar(64) // Opcional, gerado automaticamente se não informado
+  fullCode       String?       @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product (ex: 23.6)
   sequentialCode Int           @default(autoincrement()) @map("sequential_code")
   description    String?       @db.Text
   status         ProductStatus @default(ACTIVE)
@@ -646,6 +689,8 @@ model Product {
   productCategories ProductCategory[]
   productTags       ProductTag[]
 
+  @@unique([code, deletedAt], name: "products_code_unique_active")
+  @@unique([fullCode, deletedAt], name: "products_fullCode_unique_active")
   @@index([templateId])
   @@index([supplierId])
   @@index([manufacturerId])
@@ -659,8 +704,8 @@ model Product {
 
 model Variant {
   id             String  @id @default(uuid())
-  sku            String? @unique @db.VarChar(64) // Opcional, gerado automaticamente se não informado
-  fullCode       String? @unique @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product.Variant (ex: 23.6.23)
+  sku            String? @db.VarChar(64) // Opcional, gerado automaticamente se não informado
+  fullCode       String? @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product.Variant (ex: 23.6.23)
   sequentialCode Int     @default(autoincrement()) @map("sequential_code")
   name           String  @db.VarChar(256)
   price          Decimal @default(0) @db.Decimal(10, 2)
@@ -673,10 +718,10 @@ model Variant {
   profitMargin Decimal? @map("profit_margin") @db.Decimal(5, 2) // Percentual
 
   // Códigos de Barras
-  barcode String? @unique @db.VarChar(128)
+  barcode String? @db.VarChar(128)
   qrCode  String? @map("qr_code") @db.VarChar(512)
-  eanCode String? @unique @map("ean_code") @db.VarChar(13)
-  upcCode String? @unique @map("upc_code") @db.VarChar(12)
+  eanCode String? @map("ean_code") @db.VarChar(13)
+  upcCode String? @map("upc_code") @db.VarChar(12)
 
   // Cores
   colorHex     String? @map("color_hex") @db.VarChar(7) // Formato hex: #FF5733
@@ -705,6 +750,11 @@ model Variant {
   variantPromotions  VariantPromotion[]
   supplierCodes      VariantSupplierCode[]
 
+  @@unique([sku, deletedAt], name: "variants_sku_unique_active")
+  @@unique([fullCode, deletedAt], name: "variants_fullCode_unique_active")
+  @@unique([barcode, deletedAt], name: "variants_barcode_unique_active")
+  @@unique([eanCode, deletedAt], name: "variants_eanCode_unique_active")
+  @@unique([upcCode, deletedAt], name: "variants_upcCode_unique_active")
   @@index([productId])
   @@index([sequentialCode])
   @@index([fullCode])
@@ -717,8 +767,8 @@ model Variant {
 
 model Item {
   id              String     @id @default(uuid())
-  uniqueCode      String?    @unique @map("unique_code") @db.VarChar(128) // Opcional, gerado automaticamente
-  fullCode        String?    @unique @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product.Variant-Seq (ex: 23.6.23-1)
+  uniqueCode      String?    @map("unique_code") @db.VarChar(128) // Opcional, gerado automaticamente
+  fullCode        String?    @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product.Variant-Seq (ex: 23.6.23-1)
   sequentialCode  Int        @default(autoincrement()) @map("sequential_code")
   initialQuantity Decimal    @map("initial_quantity") @db.Decimal(10, 3)
   currentQuantity Decimal    @map("current_quantity") @db.Decimal(10, 3)
@@ -744,6 +794,8 @@ model Item {
   movements    ItemMovement[]
   reservations ItemReservation[]
 
+  @@unique([uniqueCode, deletedAt], name: "items_uniqueCode_unique_active")
+  @@unique([fullCode, deletedAt], name: "items_fullCode_unique_active")
   @@index([variantId])
   @@index([locationId])
   @@index([sequentialCode])
@@ -1030,7 +1082,7 @@ model Customer {
   id        String       @id @default(uuid())
   name      String       @db.VarChar(128)
   type      CustomerType @default(INDIVIDUAL)
-  document  String?      @unique @db.VarChar(18) // CPF ou CNPJ
+  document  String?      @db.VarChar(18) // CPF ou CNPJ
   email     String?      @db.VarChar(254)
   phone     String?      @db.VarChar(20)
   address   String?      @db.VarChar(256)
@@ -1046,6 +1098,7 @@ model Customer {
 
   salesOrders SalesOrder[]
 
+  @@unique([document, deletedAt], name: "customers_document_unique_active")
   @@index([document])
   @@index([email])
   @@index([isActive])
@@ -1055,7 +1108,7 @@ model Customer {
 
 model SalesOrder {
   id          String      @id @default(uuid())
-  orderNumber String      @unique @map("order_number") @db.VarChar(64)
+  orderNumber String      @map("order_number") @db.VarChar(64)
   status      OrderStatus @default(PENDING)
   totalPrice  Decimal     @map("total_price") @db.Decimal(10, 2)
   discount    Decimal?    @default(0) @db.Decimal(10, 2)
@@ -1073,6 +1126,7 @@ model SalesOrder {
   items         SalesOrderItem[]
   itemMovements ItemMovement[]
 
+  @@unique([orderNumber, deletedAt], name: "sales_orders_order_number_unique_active")
   @@index([customerId])
   @@index([status])
   @@index([orderNumber])
