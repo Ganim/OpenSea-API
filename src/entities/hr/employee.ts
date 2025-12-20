@@ -8,6 +8,17 @@ import {
   WorkRegime,
 } from './value-objects';
 
+export interface EmergencyContactInfo {
+  name?: string;
+  phone?: string;
+  relationship?: string;
+}
+
+export interface HealthCondition {
+  description: string;
+  requiresAttention: boolean;
+}
+
 export interface EmployeeProps {
   registrationNumber: string;
   userId?: UniqueEntityID;
@@ -15,9 +26,12 @@ export interface EmployeeProps {
   socialName?: string;
   birthDate?: Date;
   gender?: string;
+  pcd: boolean;
   maritalStatus?: string;
   nationality?: string;
   birthPlace?: string;
+  emergencyContactInfo?: EmergencyContactInfo;
+  healthConditions?: HealthCondition[];
   cpf: CPF;
   rg?: string;
   rgIssuer?: string;
@@ -51,6 +65,7 @@ export interface EmployeeProps {
   departmentId?: UniqueEntityID;
   positionId?: UniqueEntityID;
   supervisorId?: UniqueEntityID;
+  enterpriseId?: UniqueEntityID;
   hireDate: Date;
   terminationDate?: Date;
   status: EmployeeStatus;
@@ -60,6 +75,7 @@ export interface EmployeeProps {
   weeklyHours: number;
   photoUrl?: string;
   metadata: Record<string, unknown>;
+  pendingIssues: string[];
   deletedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -90,6 +106,10 @@ export class Employee extends Entity<EmployeeProps> {
     return this.props.gender;
   }
 
+  get pcd(): boolean {
+    return this.props.pcd;
+  }
+
   get maritalStatus(): string | undefined {
     return this.props.maritalStatus;
   }
@@ -100,6 +120,14 @@ export class Employee extends Entity<EmployeeProps> {
 
   get birthPlace(): string | undefined {
     return this.props.birthPlace;
+  }
+
+  get emergencyContactInfo(): EmergencyContactInfo | undefined {
+    return this.props.emergencyContactInfo;
+  }
+
+  get healthConditions(): HealthCondition[] | undefined {
+    return this.props.healthConditions;
   }
 
   get cpf(): CPF {
@@ -234,6 +262,10 @@ export class Employee extends Entity<EmployeeProps> {
     return this.props.supervisorId;
   }
 
+  get enterpriseId(): UniqueEntityID | undefined {
+    return this.props.enterpriseId;
+  }
+
   get hireDate(): Date {
     return this.props.hireDate;
   }
@@ -268,6 +300,10 @@ export class Employee extends Entity<EmployeeProps> {
 
   get metadata(): Record<string, unknown> {
     return this.props.metadata;
+  }
+
+  get pendingIssues(): string[] {
+    return this.props.pendingIssues;
   }
 
   get deletedAt(): Date | undefined {
@@ -336,6 +372,11 @@ export class Employee extends Entity<EmployeeProps> {
     this.props.updatedAt = new Date();
   }
 
+  updatePendingIssues(pendingIssues: string[]): void {
+    this.props.pendingIssues = pendingIssues;
+    this.props.updatedAt = new Date();
+  }
+
   softDelete(): void {
     this.props.deletedAt = new Date();
     this.props.updatedAt = new Date();
@@ -346,16 +387,20 @@ export class Employee extends Entity<EmployeeProps> {
   }
 
   static create(
-    props: Omit<EmployeeProps, 'createdAt' | 'updatedAt'>,
+    props: Omit<EmployeeProps, 'createdAt' | 'updatedAt'> &
+      Partial<Pick<EmployeeProps, 'createdAt' | 'updatedAt'>>,
     id?: UniqueEntityID,
   ): Employee {
     const now = new Date();
+    const createdAt = props.createdAt ?? now;
+    const updatedAt = props.updatedAt ?? now;
 
     return new Employee(
       {
         ...props,
-        createdAt: now,
-        updatedAt: now,
+        pendingIssues: props.pendingIssues ?? [],
+        createdAt,
+        updatedAt,
       },
       id,
     );

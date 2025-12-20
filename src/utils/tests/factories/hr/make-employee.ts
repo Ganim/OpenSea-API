@@ -16,9 +16,16 @@ interface MakeEmployeeProps {
   socialName?: string;
   birthDate?: Date;
   gender?: string;
+  pcd?: boolean;
   maritalStatus?: string;
   nationality?: string;
   birthPlace?: string;
+  emergencyContactInfo?: {
+    name?: string;
+    phone?: string;
+    relationship?: string;
+  };
+  healthConditions?: Array<{ description: string; requiresAttention: boolean }>;
   cpf?: CPF;
   rg?: string;
   rgIssuer?: string;
@@ -52,6 +59,7 @@ interface MakeEmployeeProps {
   departmentId?: UniqueEntityID;
   positionId?: UniqueEntityID;
   supervisorId?: UniqueEntityID;
+  enterpriseId?: UniqueEntityID;
   hireDate?: Date;
   terminationDate?: Date;
   status?: EmployeeStatus;
@@ -61,6 +69,7 @@ interface MakeEmployeeProps {
   weeklyHours?: number;
   photoUrl?: string;
   metadata?: Record<string, unknown>;
+  pendingIssues?: string[];
   deletedAt?: Date;
 }
 
@@ -159,6 +168,7 @@ export function makeEmployee(override: MakeEmployeeProps = {}): Employee {
         override.birthDate ??
         faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
       gender: override.gender ?? faker.helpers.arrayElement(['M', 'F', 'O']),
+      pcd: override.pcd ?? false,
       maritalStatus:
         override.maritalStatus ??
         faker.helpers.arrayElement([
@@ -169,6 +179,14 @@ export function makeEmployee(override: MakeEmployeeProps = {}): Employee {
         ]),
       nationality: override.nationality ?? 'Brasileiro(a)',
       birthPlace: override.birthPlace ?? faker.location.city(),
+      emergencyContactInfo:
+        override.emergencyContactInfo ??
+        ({
+          name: faker.person.fullName(),
+          phone: faker.phone.number(),
+          relationship: 'Parente',
+        } satisfies Record<string, string>),
+      healthConditions: override.healthConditions,
       cpf: override.cpf ?? CPF.create(cpfString),
       rg: override.rg ?? faker.string.numeric(9),
       rgIssuer: override.rgIssuer ?? 'SSP/SP',
@@ -209,6 +227,7 @@ export function makeEmployee(override: MakeEmployeeProps = {}): Employee {
       departmentId: override.departmentId,
       positionId: override.positionId,
       supervisorId: override.supervisorId,
+      enterpriseId: override.enterpriseId,
       hireDate: override.hireDate ?? faker.date.past({ years: 5 }),
       terminationDate: override.terminationDate,
       status: override.status ?? EmployeeStatus.ACTIVE(),
@@ -220,6 +239,7 @@ export function makeEmployee(override: MakeEmployeeProps = {}): Employee {
       weeklyHours: override.weeklyHours ?? 44,
       photoUrl: override.photoUrl,
       metadata: override.metadata ?? {},
+      pendingIssues: override.pendingIssues ?? [],
       deletedAt: override.deletedAt,
     },
     new UniqueEntityID(),

@@ -8,9 +8,12 @@ export interface EmployeeDTO {
   socialName?: string | null;
   birthDate?: Date | null;
   gender?: string | null;
+  pcd: boolean;
   maritalStatus?: string | null;
   nationality?: string | null;
   birthPlace?: string | null;
+  emergencyContactInfo?: Record<string, unknown> | null;
+  healthConditions?: Record<string, unknown>[] | null;
   cpf: string;
   rg?: string | null;
   rgIssuer?: string | null;
@@ -44,6 +47,7 @@ export interface EmployeeDTO {
   departmentId?: string | null;
   positionId?: string | null;
   supervisorId?: string | null;
+  enterpriseId?: string | null;
   hireDate: Date;
   terminationDate?: Date | null;
   status: string;
@@ -53,6 +57,7 @@ export interface EmployeeDTO {
   weeklyHours: number;
   photoUrl?: string | null;
   metadata: Record<string, unknown>;
+  pendingIssues: string[];
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date | null;
@@ -67,9 +72,12 @@ export function employeeToDTO(employee: Employee): EmployeeDTO {
     socialName: employee.socialName ?? null,
     birthDate: employee.birthDate ?? null,
     gender: employee.gender ?? null,
+    pcd: employee.pcd,
     maritalStatus: employee.maritalStatus ?? null,
     nationality: employee.nationality ?? null,
     birthPlace: employee.birthPlace ?? null,
+    emergencyContactInfo: employee.emergencyContactInfo ?? null,
+    healthConditions: employee.healthConditions ?? null,
     cpf: employee.cpf.formatted,
     rg: employee.rg ?? null,
     rgIssuer: employee.rgIssuer ?? null,
@@ -103,6 +111,7 @@ export function employeeToDTO(employee: Employee): EmployeeDTO {
     departmentId: employee.departmentId?.toString() ?? null,
     positionId: employee.positionId?.toString() ?? null,
     supervisorId: employee.supervisorId?.toString() ?? null,
+    enterpriseId: employee.enterpriseId?.toString() ?? null,
     hireDate: employee.hireDate,
     terminationDate: employee.terminationDate ?? null,
     status: employee.status.value,
@@ -112,6 +121,7 @@ export function employeeToDTO(employee: Employee): EmployeeDTO {
     weeklyHours: employee.weeklyHours,
     photoUrl: employee.photoUrl ?? null,
     metadata: employee.metadata,
+    pendingIssues: employee.pendingIssues,
     createdAt: employee.createdAt,
     updatedAt: employee.updatedAt,
     deletedAt: employee.deletedAt ?? null,

@@ -11,6 +11,7 @@ export interface ListEmployeesRequest {
   positionId?: string;
   supervisorId?: string;
   search?: string;
+  includeDeleted?: boolean;
 }
 
 export interface ListEmployeesResponse {
@@ -35,6 +36,7 @@ export class ListEmployeesUseCase {
       positionId,
       supervisorId,
       search,
+      includeDeleted = false,
     } = request;
 
     let employees: Employee[];
@@ -42,21 +44,27 @@ export class ListEmployeesUseCase {
     // Get employees based on filters
     if (status) {
       const statusVO = this.mapStatus(status);
-      employees = await this.employeesRepository.findManyByStatus(statusVO);
+      employees = await this.employeesRepository.findManyByStatus(
+        statusVO,
+        includeDeleted,
+      );
     } else if (departmentId) {
       employees = await this.employeesRepository.findManyByDepartment(
         new UniqueEntityID(departmentId),
+        includeDeleted,
       );
     } else if (positionId) {
       employees = await this.employeesRepository.findManyByPosition(
         new UniqueEntityID(positionId),
+        includeDeleted,
       );
     } else if (supervisorId) {
       employees = await this.employeesRepository.findManyBySupervisor(
         new UniqueEntityID(supervisorId),
+        includeDeleted,
       );
     } else {
-      employees = await this.employeesRepository.findMany();
+      employees = await this.employeesRepository.findMany(includeDeleted);
     }
 
     // Apply search filter

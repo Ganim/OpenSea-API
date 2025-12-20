@@ -1,5 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Employee } from '@/entities/hr/employee';
+import {
+  Employee,
+  EmergencyContactInfo,
+  HealthCondition,
+} from '@/entities/hr/employee';
 import {
   ContractType,
   CPF,
@@ -15,9 +19,12 @@ export interface CreateEmployeeSchema {
   socialName?: string;
   birthDate?: Date;
   gender?: string;
+  pcd?: boolean;
   maritalStatus?: string;
   nationality?: string;
   birthPlace?: string;
+  emergencyContactInfo?: EmergencyContactInfo;
+  healthConditions?: HealthCondition[];
   cpf: CPF;
   rg?: string;
   rgIssuer?: string;
@@ -51,6 +58,7 @@ export interface CreateEmployeeSchema {
   departmentId?: UniqueEntityID;
   positionId?: UniqueEntityID;
   supervisorId?: UniqueEntityID;
+  enterpriseId?: UniqueEntityID;
   hireDate: Date;
   terminationDate?: Date;
   status: EmployeeStatus;
@@ -60,6 +68,7 @@ export interface CreateEmployeeSchema {
   weeklyHours: number;
   photoUrl?: string;
   metadata?: Record<string, unknown>;
+  pendingIssues?: string[];
 }
 
 export interface UpdateEmployeeSchema {
@@ -70,9 +79,12 @@ export interface UpdateEmployeeSchema {
   socialName?: string | null;
   birthDate?: Date | null;
   gender?: string | null;
+  pcd?: boolean;
   maritalStatus?: string | null;
   nationality?: string | null;
   birthPlace?: string | null;
+  emergencyContactInfo?: EmergencyContactInfo | null;
+  healthConditions?: HealthCondition[] | null;
   cpf?: CPF;
   rg?: string | null;
   rgIssuer?: string | null;
@@ -106,6 +118,7 @@ export interface UpdateEmployeeSchema {
   departmentId?: UniqueEntityID | null;
   positionId?: UniqueEntityID | null;
   supervisorId?: UniqueEntityID | null;
+  enterpriseId?: UniqueEntityID | null;
   hireDate?: Date;
   terminationDate?: Date | null;
   status?: EmployeeStatus;
@@ -115,24 +128,38 @@ export interface UpdateEmployeeSchema {
   weeklyHours?: number;
   photoUrl?: string | null;
   metadata?: Record<string, unknown>;
+  pendingIssues?: string[];
 }
 
 export interface EmployeesRepository {
   create(data: CreateEmployeeSchema): Promise<Employee>;
-  findById(id: UniqueEntityID): Promise<Employee | null>;
+  findById(id: UniqueEntityID, includeDeleted?: boolean): Promise<Employee | null>;
   findByRegistrationNumber(
     registrationNumber: string,
+    includeDeleted?: boolean,
   ): Promise<Employee | null>;
-  findByCpf(cpf: CPF): Promise<Employee | null>;
-  findByUserId(userId: UniqueEntityID): Promise<Employee | null>;
-  findByPis(pis: PIS): Promise<Employee | null>;
-  findMany(): Promise<Employee[]>;
-  findManyByStatus(status: EmployeeStatus): Promise<Employee[]>;
-  findManyByDepartment(departmentId: UniqueEntityID): Promise<Employee[]>;
-  findManyByPosition(positionId: UniqueEntityID): Promise<Employee[]>;
-  findManyBySupervisor(supervisorId: UniqueEntityID): Promise<Employee[]>;
-  findManyActive(): Promise<Employee[]>;
-  findManyTerminated(): Promise<Employee[]>;
+  findByCpf(cpf: CPF, includeDeleted?: boolean): Promise<Employee | null>;
+  findByUserId(userId: UniqueEntityID, includeDeleted?: boolean): Promise<Employee | null>;
+  findByPis(pis: PIS, includeDeleted?: boolean): Promise<Employee | null>;
+  findMany(includeDeleted?: boolean): Promise<Employee[]>;
+  findManyByStatus(
+    status: EmployeeStatus,
+    includeDeleted?: boolean,
+  ): Promise<Employee[]>;
+  findManyByDepartment(
+    departmentId: UniqueEntityID,
+    includeDeleted?: boolean,
+  ): Promise<Employee[]>;
+  findManyByPosition(
+    positionId: UniqueEntityID,
+    includeDeleted?: boolean,
+  ): Promise<Employee[]>;
+  findManyBySupervisor(
+    supervisorId: UniqueEntityID,
+    includeDeleted?: boolean,
+  ): Promise<Employee[]>;
+  findManyActive(includeDeleted?: boolean): Promise<Employee[]>;
+  findManyTerminated(includeDeleted?: boolean): Promise<Employee[]>;
   update(data: UpdateEmployeeSchema): Promise<Employee | null>;
   save(employee: Employee): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

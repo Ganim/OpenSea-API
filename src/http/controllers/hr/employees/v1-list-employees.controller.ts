@@ -39,6 +39,7 @@ export async function listEmployeesController(app: FastifyInstance) {
         positionId,
         supervisorId,
         search,
+        includeDeleted,
       } = request.query;
 
       const listEmployeesUseCase = makeListEmployeesUseCase();
@@ -50,6 +51,7 @@ export async function listEmployeesController(app: FastifyInstance) {
         positionId,
         supervisorId,
         search,
+        includeDeleted,
       });
 
       return reply.status(200).send({

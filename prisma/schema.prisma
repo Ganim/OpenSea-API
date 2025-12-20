@@ -1607,26 +1607,29 @@ model Employee {
   id String @id @default(uuid())
 
   // Identificação
-  registrationNumber String @unique @map("registration_number") @db.VarChar(32)
+  registrationNumber String @map("registration_number") @db.VarChar(32)
 
   // Vinculação com usuário (opcional)
   userId String? @unique @map("user_id")
 
   // Dados pessoais
-  fullName      String    @db.VarChar(256)
-  socialName    String?   @db.VarChar(256)
-  birthDate     DateTime? @map("birth_date")
-  gender        String?   @db.VarChar(32)
-  maritalStatus String?   @db.VarChar(32)
-  nationality   String?   @db.VarChar(64)
-  birthPlace    String?   @db.VarChar(128)
+  fullName             String    @db.VarChar(256)
+  socialName           String?   @db.VarChar(256)
+  birthDate            DateTime? @map("birth_date")
+  gender               String?   @db.VarChar(32)
+  pcd                  Boolean   @default(false)
+  maritalStatus        String?   @db.VarChar(32)
+  nationality          String?   @db.VarChar(64)
+  birthPlace           String?   @db.VarChar(128)
+  emergencyContactInfo Json?     @map("emergency_contact_info")
+  healthConditions     Json?     @map("health_conditions")
 
   // Documentos
-  cpf         String    @unique @db.VarChar(14)
+  cpf         String    @db.VarChar(14)
   rg          String?   @db.VarChar(20)
   rgIssuer    String?   @map("rg_issuer") @db.VarChar(32)
   rgIssueDate DateTime? @map("rg_issue_date")
-  pis         String?   @unique @db.VarChar(14)
+  pis         String?   @db.VarChar(14)
   ctpsNumber  String?   @db.VarChar(32)
   ctpsSeries  String?   @db.VarChar(16)
   ctpsState   String?   @db.VarChar(2)
@@ -1663,6 +1666,7 @@ model Employee {
   departmentId    String?        @map("department_id")
   positionId      String?        @map("position_id")
   supervisorId    String?        @map("supervisor_id")
+  enterpriseId    String?        @map("enterprise_id")
   hireDate        DateTime       @map("hire_date")
   terminationDate DateTime?      @map("termination_date")
   status          EmployeeStatus @default(ACTIVE)
@@ -1673,7 +1677,8 @@ model Employee {
   photoUrl        String?        @map("photo_url") @db.VarChar(512)
 
   // Metadados flexíveis
-  metadata Json @default("{}")
+  metadata      Json @default("{}")
+  pendingIssues Json @default("[]") @map("pending_issues")
 
   // Soft Delete
   deletedAt DateTime? @map("deleted_at")
@@ -1688,6 +1693,7 @@ model Employee {
   position     Position?   @relation(fields: [positionId], references: [id])
   supervisor   Employee?   @relation("EmployeeSupervisor", fields: [supervisorId], references: [id])
   subordinates Employee[]  @relation("EmployeeSupervisor")
+  enterprise   Enterprise? @relation(fields: [enterpriseId], references: [id])
 
   // Time Control
   timeEntries TimeEntry[]
@@ -1716,6 +1722,9 @@ model Employee {
   // Management
   managedDepartments Department[] @relation("DepartmentManager")
 
+  @@unique([registrationNumber, deletedAt])
+  @@unique([cpf, deletedAt])
+  @@unique([pis, deletedAt])
   @@index([userId])
   @@index([cpf])
   @@index([registrationNumber])
@@ -1726,6 +1735,7 @@ model Employee {
   @@index([hireDate])
   @@index([terminationDate])
   @@index([deletedAt])
+  @@index([enterpriseId])
   @@map("employees")
 }
 
@@ -1936,6 +1946,7 @@ model Absence {
   employeeId           String        @map("employee_id")
   type                 AbsenceType
   status               AbsenceStatus @default(PENDING)
+  userId               String?       @map("user_id")
   startDate            DateTime      @map("start_date")
   endDate              DateTime      @map("end_date")
   totalDays            Int           @map("total_days") // Total days of absence
@@ -2206,6 +2217,9 @@ model Enterprise {
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  employees Employee[]
 
   @@unique([cnpj, deletedAt], name: "enterprises_cnpj_unique_active")
   @@index([cnpj])

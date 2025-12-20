@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { HealthCondition } from '@/entities/hr/employee';
 import {
   ContractType,
   CPF,
@@ -27,9 +28,16 @@ export function mapEmployeePrismaToDomain(
     socialName: employeeDb.socialName ?? undefined,
     birthDate: employeeDb.birthDate ?? undefined,
     gender: employeeDb.gender ?? undefined,
+    pcd: employeeDb.pcd,
     maritalStatus: employeeDb.maritalStatus ?? undefined,
     nationality: employeeDb.nationality ?? undefined,
     birthPlace: employeeDb.birthPlace ?? undefined,
+    emergencyContactInfo: employeeDb.emergencyContactInfo
+      ? (employeeDb.emergencyContactInfo as Record<string, unknown>)
+      : undefined,
+    healthConditions: employeeDb.healthConditions
+      ? (employeeDb.healthConditions as HealthCondition[])
+      : undefined,
     cpf: CPF.create(employeeDb.cpf),
     rg: employeeDb.rg ?? undefined,
     rgIssuer: employeeDb.rgIssuer ?? undefined,
@@ -69,6 +77,9 @@ export function mapEmployeePrismaToDomain(
     supervisorId: employeeDb.supervisorId
       ? new UniqueEntityID(employeeDb.supervisorId)
       : undefined,
+    enterpriseId: employeeDb.enterpriseId
+      ? new UniqueEntityID(employeeDb.enterpriseId)
+      : undefined,
     hireDate: employeeDb.hireDate,
     terminationDate: employeeDb.terminationDate ?? undefined,
     status: EmployeeStatus.create(employeeDb.status),
@@ -78,5 +89,9 @@ export function mapEmployeePrismaToDomain(
     weeklyHours: Number(employeeDb.weeklyHours),
     photoUrl: employeeDb.photoUrl ?? undefined,
     metadata: employeeDb.metadata as Record<string, unknown>,
+    pendingIssues: (employeeDb.pendingIssues as string[]) ?? [],
+    deletedAt: employeeDb.deletedAt ?? undefined,
+    createdAt: employeeDb.createdAt,
+    updatedAt: employeeDb.updatedAt,
   };
 }

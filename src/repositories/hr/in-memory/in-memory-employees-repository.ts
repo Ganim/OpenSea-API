@@ -20,9 +20,12 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
         socialName: data.socialName,
         birthDate: data.birthDate,
         gender: data.gender,
+        pcd: data.pcd ?? false,
         maritalStatus: data.maritalStatus,
         nationality: data.nationality,
         birthPlace: data.birthPlace,
+        emergencyContactInfo: data.emergencyContactInfo,
+        healthConditions: data.healthConditions,
         cpf: data.cpf,
         rg: data.rg,
         rgIssuer: data.rgIssuer,
@@ -56,6 +59,7 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
         departmentId: data.departmentId,
         positionId: data.positionId,
         supervisorId: data.supervisorId,
+        enterpriseId: data.enterpriseId,
         hireDate: data.hireDate,
         terminationDate: data.terminationDate,
         status: data.status,
@@ -65,6 +69,7 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
         weeklyHours: data.weeklyHours,
         photoUrl: data.photoUrl,
         metadata: data.metadata || {},
+        pendingIssues: data.pendingIssues || [],
       },
       id,
     );
@@ -73,85 +78,112 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
     return employee;
   }
 
-  async findById(id: UniqueEntityID): Promise<Employee | null> {
+  async findById(
+    id: UniqueEntityID,
+    includeDeleted = false,
+  ): Promise<Employee | null> {
     const employee = this.items.find(
-      (item) => item.id.equals(id) && !item.deletedAt,
+      (item) => item.id.equals(id) && (includeDeleted || !item.deletedAt),
     );
     return employee || null;
   }
 
   async findByRegistrationNumber(
     registrationNumber: string,
+    includeDeleted = false,
   ): Promise<Employee | null> {
     const employee = this.items.find(
       (item) =>
-        item.registrationNumber === registrationNumber && !item.deletedAt,
+        item.registrationNumber === registrationNumber &&
+        (includeDeleted || !item.deletedAt),
     );
     return employee || null;
   }
 
-  async findByCpf(cpf: CPF): Promise<Employee | null> {
+  async findByCpf(cpf: CPF, includeDeleted = false): Promise<Employee | null> {
     const employee = this.items.find(
-      (item) => item.cpf.equals(cpf) && !item.deletedAt,
+      (item) => item.cpf.equals(cpf) && (includeDeleted || !item.deletedAt),
     );
     return employee || null;
   }
 
-  async findByUserId(userId: UniqueEntityID): Promise<Employee | null> {
+  async findByUserId(
+    userId: UniqueEntityID,
+    includeDeleted = false,
+  ): Promise<Employee | null> {
     const employee = this.items.find(
-      (item) => item.userId?.equals(userId) && !item.deletedAt,
+      (item) =>
+        item.userId?.equals(userId) && (includeDeleted || !item.deletedAt),
     );
     return employee || null;
   }
 
-  async findByPis(pis: PIS): Promise<Employee | null> {
+  async findByPis(pis: PIS, includeDeleted = false): Promise<Employee | null> {
     const employee = this.items.find(
-      (item) => item.pis?.equals(pis) && !item.deletedAt,
+      (item) => item.pis?.equals(pis) && (includeDeleted || !item.deletedAt),
     );
     return employee || null;
   }
 
-  async findMany(): Promise<Employee[]> {
-    return this.items.filter((item) => !item.deletedAt);
+  async findMany(includeDeleted = false): Promise<Employee[]> {
+    return this.items.filter((item) => includeDeleted || !item.deletedAt);
   }
 
-  async findManyByStatus(status: EmployeeStatus): Promise<Employee[]> {
+  async findManyByStatus(
+    status: EmployeeStatus,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
     return this.items.filter(
-      (item) => item.status.equals(status) && !item.deletedAt,
+      (item) =>
+        item.status.equals(status) && (includeDeleted || !item.deletedAt),
     );
   }
 
   async findManyByDepartment(
     departmentId: UniqueEntityID,
+    includeDeleted = false,
   ): Promise<Employee[]> {
     return this.items.filter(
-      (item) => item.departmentId?.equals(departmentId) && !item.deletedAt,
+      (item) =>
+        item.departmentId?.equals(departmentId) &&
+        (includeDeleted || !item.deletedAt),
     );
   }
 
-  async findManyByPosition(positionId: UniqueEntityID): Promise<Employee[]> {
+  async findManyByPosition(
+    positionId: UniqueEntityID,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
     return this.items.filter(
-      (item) => item.positionId?.equals(positionId) && !item.deletedAt,
+      (item) =>
+        item.positionId?.equals(positionId) &&
+        (includeDeleted || !item.deletedAt),
     );
   }
 
   async findManyBySupervisor(
     supervisorId: UniqueEntityID,
+    includeDeleted = false,
   ): Promise<Employee[]> {
     return this.items.filter(
-      (item) => item.supervisorId?.equals(supervisorId) && !item.deletedAt,
+      (item) =>
+        item.supervisorId?.equals(supervisorId) &&
+        (includeDeleted || !item.deletedAt),
     );
   }
 
-  async findManyActive(): Promise<Employee[]> {
+  async findManyActive(includeDeleted = false): Promise<Employee[]> {
     return this.items.filter(
-      (item) => item.status.value === 'ACTIVE' && !item.deletedAt,
+      (item) =>
+        item.status.value === 'ACTIVE' && (includeDeleted || !item.deletedAt),
     );
   }
 
-  async findManyTerminated(): Promise<Employee[]> {
+  async findManyTerminated(includeDeleted = false): Promise<Employee[]> {
     return this.items.filter(
-      (item) => item.status.value === 'TERMINATED' && !item.deletedAt,
+      (item) =>
+        item.status.value === 'TERMINATED' &&
+        (includeDeleted || !item.deletedAt),
     );
   }
 
@@ -186,6 +218,7 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
           data.gender !== undefined
             ? data.gender || undefined
             : existingEmployee.gender,
+        pcd: data.pcd ?? existingEmployee.pcd,
         maritalStatus:
           data.maritalStatus !== undefined
             ? data.maritalStatus || undefined
@@ -198,6 +231,14 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
           data.birthPlace !== undefined
             ? data.birthPlace || undefined
             : existingEmployee.birthPlace,
+        emergencyContactInfo:
+          data.emergencyContactInfo !== undefined
+            ? data.emergencyContactInfo || undefined
+            : existingEmployee.emergencyContactInfo,
+        healthConditions:
+          data.healthConditions !== undefined
+            ? data.healthConditions || undefined
+            : existingEmployee.healthConditions,
         cpf: data.cpf ?? existingEmployee.cpf,
         rg: data.rg !== undefined ? data.rg || undefined : existingEmployee.rg,
         rgIssuer:
@@ -319,6 +360,10 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
           data.supervisorId !== undefined
             ? data.supervisorId || undefined
             : existingEmployee.supervisorId,
+        enterpriseId:
+          data.enterpriseId !== undefined
+            ? data.enterpriseId || undefined
+            : existingEmployee.enterpriseId,
         hireDate: data.hireDate ?? existingEmployee.hireDate,
         terminationDate:
           data.terminationDate !== undefined
@@ -334,6 +379,7 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
             ? data.photoUrl || undefined
             : existingEmployee.photoUrl,
         metadata: data.metadata ?? existingEmployee.metadata,
+        pendingIssues: data.pendingIssues ?? existingEmployee.pendingIssues,
       },
       existingEmployee.id,
     );

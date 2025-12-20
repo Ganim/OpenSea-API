@@ -2,9 +2,11 @@ import { app } from '@/app';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createEmployeeController } from './v1-create-employee.controller';
+import { checkCpfController } from './v1-check-cpf.controller';
 import { getEmployeeByIdController } from './v1-get-employee-by-id.controller';
 import { linkUserToEmployeeController } from './v1-link-user-to-employee.controller';
 import { listEmployeesController } from './v1-list-employees.controller';
+import { deleteEmployeeController } from './v1-delete-employee.controller';
 import { terminateEmployeeController } from './v1-terminate-employee.controller';
 import { transferEmployeeController } from './v1-transfer-employee.controller';
 import { updateEmployeeController } from './v1-update-employee.controller';
@@ -19,6 +21,7 @@ export async function employeesRoutes() {
       managerApp.register(terminateEmployeeController);
       managerApp.register(linkUserToEmployeeController);
       managerApp.register(transferEmployeeController);
+      managerApp.register(deleteEmployeeController);
     },
     { prefix: '' },
   );
@@ -29,6 +32,7 @@ export async function employeesRoutes() {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(getEmployeeByIdController);
       queryApp.register(listEmployeesController);
+      queryApp.register(checkCpfController);
     },
     { prefix: '' },
   );

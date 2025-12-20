@@ -26,7 +26,10 @@ Você deve seguir os seguintes passos:
 
 Fique atento em:
 - Todos os testes e2e devem executar em ambiente isolado;
-- No final todos os testes deve estar passando sem erros;
+- No final execute o comando para verificar se todos os casos de uso possuem seus respectivos testes unitários;
+- No final execute o comando para verificar se todos os testes unitários devem estar passando sem erros;
+- No final execute o comando para verificar se todos os controllers possuem seus respectivos testes e2e;
+- No final execute o comando para verificar se todos os testes unitários devem estar passando sem erros;
 - Todos os testes devem usar factories para gerar dados dentro deles;
 - Todas as ações devem gerar registro de auditoria;
 - Toda a API deve estar documentada com o swagger;

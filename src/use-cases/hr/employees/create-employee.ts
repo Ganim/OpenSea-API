@@ -16,9 +16,16 @@ export interface CreateEmployeeRequest {
   socialName?: string;
   birthDate?: Date;
   gender?: string;
+  pcd?: boolean;
   maritalStatus?: string;
   nationality?: string;
   birthPlace?: string;
+  emergencyContactInfo?: {
+    name?: string;
+    phone?: string;
+    relationship?: string;
+  };
+  healthConditions?: Array<{ description: string; requiresAttention: boolean }>;
   cpf: string;
   rg?: string;
   rgIssuer?: string;
@@ -52,6 +59,7 @@ export interface CreateEmployeeRequest {
   departmentId?: string;
   positionId?: string;
   supervisorId?: string;
+  enterpriseId?: string;
   hireDate: Date;
   baseSalary: number;
   contractType: string;
@@ -78,9 +86,12 @@ export class CreateEmployeeUseCase {
       socialName,
       birthDate,
       gender,
+      pcd = false,
       maritalStatus,
       nationality,
       birthPlace,
+      emergencyContactInfo,
+      healthConditions,
       cpf,
       rg,
       rgIssuer,
@@ -114,6 +125,7 @@ export class CreateEmployeeUseCase {
       departmentId,
       positionId,
       supervisorId,
+      enterpriseId,
       hireDate,
       baseSalary,
       contractType,
@@ -159,6 +171,21 @@ export class CreateEmployeeUseCase {
       }
     }
 
+    const pendingIssues = this.computePendingIssues({
+      gender,
+      birthDate,
+      ctpsNumber,
+      militaryDoc,
+      positionId,
+      enterpriseId,
+      phone,
+      email,
+      address,
+      hireDate,
+      baseSalary,
+      emergencyContactInfo,
+    });
+
     // Create value objects
     const cpfVO = CPF.create(cpf);
     const statusVO = EmployeeStatus.ACTIVE();
@@ -174,9 +201,12 @@ export class CreateEmployeeUseCase {
       socialName,
       birthDate,
       gender,
+      pcd,
       maritalStatus,
       nationality,
       birthPlace,
+      emergencyContactInfo,
+      healthConditions,
       cpf: cpfVO,
       rg,
       rgIssuer,
@@ -210,6 +240,7 @@ export class CreateEmployeeUseCase {
       departmentId: departmentId ? new UniqueEntityID(departmentId) : undefined,
       positionId: positionId ? new UniqueEntityID(positionId) : undefined,
       supervisorId: supervisorId ? new UniqueEntityID(supervisorId) : undefined,
+      enterpriseId: enterpriseId ? new UniqueEntityID(enterpriseId) : undefined,
       hireDate,
       status: statusVO,
       baseSalary,
@@ -218,6 +249,7 @@ export class CreateEmployeeUseCase {
       weeklyHours,
       photoUrl,
       metadata,
+      pendingIssues,
     });
 
     return {
@@ -257,5 +289,43 @@ export class CreateEmployeeUseCase {
       default:
         throw new Error(`Invalid work regime: ${workRegime}`);
     }
+  }
+
+  private computePendingIssues(input: {
+    gender?: string;
+    birthDate?: Date;
+    ctpsNumber?: string;
+    militaryDoc?: string;
+    positionId?: string;
+    enterpriseId?: string;
+    phone?: string;
+    email?: string;
+    address?: string;
+    hireDate?: Date;
+    baseSalary?: number;
+    emergencyContactInfo?: {
+      name?: string;
+      phone?: string;
+      relationship?: string;
+    };
+  }): string[] {
+    const pending: string[] = [];
+
+    if (!input.gender) pending.push('gender');
+    if (!input.birthDate) pending.push('birthDate');
+    if (!input.ctpsNumber) pending.push('workCard');
+    if (!input.positionId) pending.push('position');
+    if (!input.enterpriseId) pending.push('enterprise');
+    if (!input.phone) pending.push('phone');
+    if (!input.email) pending.push('email');
+    if (!input.address) pending.push('address');
+    if (!input.hireDate) pending.push('admissionDate');
+    if (!input.baseSalary) pending.push('salary');
+    if (!input.emergencyContactInfo) pending.push('emergencyContact');
+    if (!input.militaryDoc && input.gender?.toLowerCase() === 'masculino') {
+      pending.push('reservistDocument');
+    }
+
+    return pending;
   }
 }

@@ -101,9 +101,25 @@ export const createEmployeeSchema = z.object({
   socialName: z.string().max(256).optional(),
   birthDate: z.coerce.date().optional(),
   gender: z.string().max(32).optional(),
+  pcd: z.boolean().optional().default(false),
   maritalStatus: z.string().max(32).optional(),
   nationality: z.string().max(64).optional(),
   birthPlace: z.string().max(128).optional(),
+  emergencyContactInfo: z
+    .object({
+      name: z.string().max(128).optional(),
+      phone: hrPhoneSchema.optional(),
+      relationship: z.string().max(64).optional(),
+    })
+    .optional(),
+  healthConditions: z
+    .array(
+      z.object({
+        description: z.string().max(256),
+        requiresAttention: z.boolean(),
+      }),
+    )
+    .optional(),
 
   // Documentos
   rg: z.string().max(20).optional(),
@@ -146,6 +162,7 @@ export const createEmployeeSchema = z.object({
   departmentId: idSchema.optional(),
   positionId: idSchema.optional(),
   supervisorId: idSchema.optional(),
+  enterpriseId: idSchema.optional(),
 
   // Foto
   photoUrl: z.string().url().optional(),
@@ -207,7 +224,9 @@ export const listEmployeesQuerySchema = z.object({
   departmentId: idSchema.optional(),
   positionId: idSchema.optional(),
   supervisorId: idSchema.optional(),
+  enterpriseId: idSchema.optional(),
   search: z.string().optional(),
+  includeDeleted: z.coerce.boolean().optional().default(false),
 });
 
 /**
@@ -221,9 +240,27 @@ export const employeeResponseSchema = z.object({
   socialName: z.string().optional().nullable(),
   birthDate: dateSchema.optional().nullable(),
   gender: z.string().optional().nullable(),
+  pcd: z.boolean(),
   maritalStatus: z.string().optional().nullable(),
   nationality: z.string().optional().nullable(),
   birthPlace: z.string().optional().nullable(),
+  emergencyContactInfo: z
+    .object({
+      name: z.string().max(128).optional(),
+      phone: z.string().optional(),
+      relationship: z.string().max(64).optional(),
+    })
+    .optional()
+    .nullable(),
+  healthConditions: z
+    .array(
+      z.object({
+        description: z.string(),
+        requiresAttention: z.boolean(),
+      }),
+    )
+    .optional()
+    .nullable(),
   cpf: z.string(),
   rg: z.string().optional().nullable(),
   rgIssuer: z.string().optional().nullable(),
@@ -257,6 +294,7 @@ export const employeeResponseSchema = z.object({
   departmentId: idSchema.optional().nullable(),
   positionId: idSchema.optional().nullable(),
   supervisorId: idSchema.optional().nullable(),
+  enterpriseId: idSchema.optional().nullable(),
   hireDate: dateSchema,
   terminationDate: dateSchema.optional().nullable(),
   status: z.string(),
@@ -266,9 +304,18 @@ export const employeeResponseSchema = z.object({
   weeklyHours: z.number(),
   photoUrl: z.string().optional().nullable(),
   metadata: z.record(z.string(), z.unknown()),
+  pendingIssues: z.array(z.string()),
   createdAt: dateSchema,
   updatedAt: dateSchema,
   deletedAt: dateSchema.optional().nullable(),
+});
+
+/**
+ * Schema para checar CPF
+ */
+export const checkCpfSchema = z.object({
+  cpf: hrCpfSchema,
+  includeDeleted: z.coerce.boolean().optional().default(false),
 });
 
 /**

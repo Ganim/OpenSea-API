@@ -17,9 +17,16 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
       socialName: data.socialName,
       birthDate: data.birthDate,
       gender: data.gender,
+      pcd: data.pcd ?? false,
       maritalStatus: data.maritalStatus,
       nationality: data.nationality,
       birthPlace: data.birthPlace,
+      emergencyContactInfo: data.emergencyContactInfo
+        ? JSON.parse(JSON.stringify(data.emergencyContactInfo))
+        : undefined,
+      healthConditions: data.healthConditions
+        ? JSON.parse(JSON.stringify(data.healthConditions))
+        : undefined,
       cpf: data.cpf.value,
       rg: data.rg,
       rgIssuer: data.rgIssuer,
@@ -53,6 +60,7 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
       departmentId: data.departmentId?.toString(),
       positionId: data.positionId?.toString(),
       supervisorId: data.supervisorId?.toString(),
+      enterpriseId: data.enterpriseId?.toString(),
       hireDate: data.hireDate,
       terminationDate: data.terminationDate,
       status: data.status.value,
@@ -62,6 +70,9 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
       weeklyHours: data.weeklyHours,
       photoUrl: data.photoUrl,
       metadata: data.metadata ? JSON.parse(JSON.stringify(data.metadata)) : {},
+      pendingIssues: data.pendingIssues
+        ? JSON.parse(JSON.stringify(data.pendingIssues))
+        : [],
     };
 
     const newEmployeeData = await prisma.employee.create({
@@ -81,11 +92,14 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     return employee;
   }
 
-  async findById(id: UniqueEntityID): Promise<Employee | null> {
+  async findById(
+    id: UniqueEntityID,
+    includeDeleted = false,
+  ): Promise<Employee | null> {
     const employeeData = await prisma.employee.findFirst({
       where: {
         id: id.toString(),
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       include: {
         user: true,
@@ -106,11 +120,12 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findByRegistrationNumber(
     registrationNumber: string,
+    includeDeleted = false,
   ): Promise<Employee | null> {
     const employeeData = await prisma.employee.findFirst({
       where: {
         registrationNumber,
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       include: {
         user: true,
@@ -131,11 +146,12 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findByCpf(
     cpf: import('@/entities/hr/value-objects').CPF,
+    includeDeleted = false,
   ): Promise<Employee | null> {
     const employeeData = await prisma.employee.findFirst({
       where: {
         cpf: cpf.value,
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       include: {
         user: true,
@@ -154,11 +170,14 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     return employee;
   }
 
-  async findByUserId(userId: UniqueEntityID): Promise<Employee | null> {
+  async findByUserId(
+    userId: UniqueEntityID,
+    includeDeleted = false,
+  ): Promise<Employee | null> {
     const employeeData = await prisma.employee.findFirst({
       where: {
         userId: userId.toString(),
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       include: {
         user: true,
@@ -179,11 +198,12 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findByPis(
     pis: import('@/entities/hr/value-objects').PIS,
+    includeDeleted = false,
   ): Promise<Employee | null> {
     const employeeData = await prisma.employee.findFirst({
       where: {
         pis: pis.value,
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       include: {
         user: true,
@@ -202,9 +222,9 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     return employee;
   }
 
-  async findMany(): Promise<Employee[]> {
+  async findMany(includeDeleted = false): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
-      where: { deletedAt: null },
+      where: { deletedAt: includeDeleted ? undefined : null },
       orderBy: { fullName: 'asc' },
       include: {
         user: true,
@@ -224,11 +244,12 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findManyByStatus(
     status: import('@/entities/hr/value-objects').EmployeeStatus,
+    includeDeleted = false,
   ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         status: status.value,
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
       include: {
@@ -249,11 +270,12 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findManyByDepartment(
     departmentId: UniqueEntityID,
+    includeDeleted = false,
   ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         departmentId: departmentId.toString(),
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
       include: {
@@ -272,11 +294,14 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     );
   }
 
-  async findManyByPosition(positionId: UniqueEntityID): Promise<Employee[]> {
+  async findManyByPosition(
+    positionId: UniqueEntityID,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         positionId: positionId.toString(),
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
       include: {
@@ -297,11 +322,12 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findManyBySupervisor(
     supervisorId: UniqueEntityID,
+    includeDeleted = false,
   ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         supervisorId: supervisorId.toString(),
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
       include: {
@@ -320,11 +346,11 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     );
   }
 
-  async findManyActive(): Promise<Employee[]> {
+  async findManyActive(includeDeleted = false): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         status: 'ACTIVE',
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
       include: {
@@ -343,11 +369,11 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     );
   }
 
-  async findManyTerminated(): Promise<Employee[]> {
+  async findManyTerminated(includeDeleted = false): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         status: 'TERMINATED',
-        deletedAt: null,
+        deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
       include: {
@@ -382,6 +408,7 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
           birthDate:
             data.birthDate !== undefined ? data.birthDate || null : undefined,
           gender: data.gender !== undefined ? data.gender || null : undefined,
+          pcd: data.pcd,
           maritalStatus:
             data.maritalStatus !== undefined
               ? data.maritalStatus || null
@@ -392,6 +419,18 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
               : undefined,
           birthPlace:
             data.birthPlace !== undefined ? data.birthPlace || null : undefined,
+          emergencyContactInfo:
+            data.emergencyContactInfo !== undefined
+              ? data.emergencyContactInfo
+                ? JSON.parse(JSON.stringify(data.emergencyContactInfo))
+                : null
+              : undefined,
+          healthConditions:
+            data.healthConditions !== undefined
+              ? data.healthConditions
+                ? JSON.parse(JSON.stringify(data.healthConditions))
+                : null
+              : undefined,
           cpf: data.cpf?.value,
           rg: data.rg !== undefined ? data.rg || null : undefined,
           rgIssuer:
@@ -475,6 +514,10 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
             data.supervisorId !== undefined
               ? data.supervisorId?.toString() || null
               : undefined,
+          enterpriseId:
+            data.enterpriseId !== undefined
+              ? data.enterpriseId?.toString() || null
+              : undefined,
           hireDate: data.hireDate,
           terminationDate:
             data.terminationDate !== undefined
@@ -487,9 +530,18 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
           weeklyHours: data.weeklyHours,
           photoUrl:
             data.photoUrl !== undefined ? data.photoUrl || null : undefined,
-          metadata: data.metadata
-            ? JSON.parse(JSON.stringify(data.metadata))
-            : {},
+          metadata:
+            data.metadata !== undefined
+              ? data.metadata
+                ? JSON.parse(JSON.stringify(data.metadata))
+                : null
+              : undefined,
+          pendingIssues:
+            data.pendingIssues !== undefined
+              ? data.pendingIssues
+                ? JSON.parse(JSON.stringify(data.pendingIssues))
+                : []
+              : undefined,
         },
         include: {
           user: true,

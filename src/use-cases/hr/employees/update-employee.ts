@@ -17,9 +17,16 @@ export interface UpdateEmployeeRequest {
   socialName?: string | null;
   birthDate?: Date | null;
   gender?: string | null;
+  pcd?: boolean;
   maritalStatus?: string | null;
   nationality?: string | null;
   birthPlace?: string | null;
+  emergencyContactInfo?: {
+    name?: string;
+    phone?: string;
+    relationship?: string;
+  } | null;
+  healthConditions?: Array<{ description: string; requiresAttention: boolean }> | null;
   cpf?: string;
   rg?: string | null;
   rgIssuer?: string | null;
@@ -53,6 +60,7 @@ export interface UpdateEmployeeRequest {
   departmentId?: string | null;
   positionId?: string | null;
   supervisorId?: string | null;
+  enterpriseId?: string | null;
   hireDate?: Date;
   baseSalary?: number;
   contractType?: string;
@@ -162,6 +170,10 @@ export class UpdateEmployeeUseCase {
       updateSchema.gender = updateData.gender;
     }
 
+    if (updateData.pcd !== undefined) {
+      updateSchema.pcd = updateData.pcd;
+    }
+
     if (updateData.maritalStatus !== undefined) {
       updateSchema.maritalStatus = updateData.maritalStatus;
     }
@@ -172,6 +184,14 @@ export class UpdateEmployeeUseCase {
 
     if (updateData.birthPlace !== undefined) {
       updateSchema.birthPlace = updateData.birthPlace;
+    }
+
+    if (updateData.emergencyContactInfo !== undefined) {
+      updateSchema.emergencyContactInfo = updateData.emergencyContactInfo;
+    }
+
+    if (updateData.healthConditions !== undefined) {
+      updateSchema.healthConditions = updateData.healthConditions || null;
     }
 
     if (updateData.cpf !== undefined) {
@@ -312,6 +332,12 @@ export class UpdateEmployeeUseCase {
         : null;
     }
 
+    if (updateData.enterpriseId !== undefined) {
+      updateSchema.enterpriseId = updateData.enterpriseId
+        ? new UniqueEntityID(updateData.enterpriseId)
+        : null;
+    }
+
     if (updateData.hireDate !== undefined) {
       updateSchema.hireDate = updateData.hireDate;
     }
@@ -339,6 +365,26 @@ export class UpdateEmployeeUseCase {
     if (updateData.metadata !== undefined) {
       updateSchema.metadata = updateData.metadata;
     }
+
+    const pendingIssues = this.computePendingIssues({
+      gender: updateData.gender ?? existingEmployee.gender,
+      birthDate: updateData.birthDate ?? existingEmployee.birthDate,
+      ctpsNumber: updateData.ctpsNumber ?? existingEmployee.ctpsNumber,
+      militaryDoc: updateData.militaryDoc ?? existingEmployee.militaryDoc,
+      positionId:
+        updateData.positionId ?? existingEmployee.positionId?.toString(),
+      enterpriseId:
+        updateData.enterpriseId ?? existingEmployee.enterpriseId?.toString(),
+      phone: updateData.phone ?? existingEmployee.phone,
+      email: updateData.email ?? existingEmployee.email,
+      address: updateData.address ?? existingEmployee.address,
+      hireDate: updateData.hireDate ?? existingEmployee.hireDate,
+      baseSalary: updateData.baseSalary ?? existingEmployee.baseSalary,
+      emergencyContactInfo:
+        updateData.emergencyContactInfo ?? existingEmployee.emergencyContactInfo,
+    });
+
+    updateSchema.pendingIssues = pendingIssues;
 
     const updatedEmployee = await this.employeesRepository.update(updateSchema);
 
@@ -383,5 +429,43 @@ export class UpdateEmployeeUseCase {
       default:
         throw new Error(`Invalid work regime: ${workRegime}`);
     }
+  }
+
+  private computePendingIssues(input: {
+    gender?: string | null;
+    birthDate?: Date | null;
+    ctpsNumber?: string | null;
+    militaryDoc?: string | null;
+    positionId?: string | null;
+    enterpriseId?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    address?: string | null;
+    hireDate?: Date | null;
+    baseSalary?: number | null;
+    emergencyContactInfo?: {
+      name?: string;
+      phone?: string;
+      relationship?: string;
+    } | null;
+  }): string[] {
+    const pending: string[] = [];
+
+    if (!input.gender) pending.push('gender');
+    if (!input.birthDate) pending.push('birthDate');
+    if (!input.ctpsNumber) pending.push('workCard');
+    if (!input.positionId) pending.push('position');
+    if (!input.enterpriseId) pending.push('enterprise');
+    if (!input.phone) pending.push('phone');
+    if (!input.email) pending.push('email');
+    if (!input.address) pending.push('address');
+    if (!input.hireDate) pending.push('admissionDate');
+    if (!input.baseSalary) pending.push('salary');
+    if (!input.emergencyContactInfo) pending.push('emergencyContact');
+    if (!input.militaryDoc && input.gender?.toLowerCase() === 'masculino') {
+      pending.push('reservistDocument');
+    }
+
+    return pending;
   }
 }
