@@ -413,11 +413,30 @@ enum AuditAction {
   PASSWORD_CHANGE
   PRICE_CHANGE
   STOCK_ADJUSTMENT
+  STATUS_CHANGE
+  PERMISSION_GRANT
+  PERMISSION_REVOKE
+  EXPORT
+  IMPORT
+  SYNC
   OTHER
 }
 
 enum AuditEntity {
+  // Auth & Users
   USER
+  USER_PROFILE
+  SESSION
+  REFRESH_TOKEN
+
+  // RBAC
+  PERMISSION
+  PERMISSION_GROUP
+  PERMISSION_GROUP_PERMISSION
+  USER_PERMISSION_GROUP
+  USER_DIRECT_PERMISSION
+
+  // Stock Management
   PRODUCT
   VARIANT
   ITEM
@@ -426,7 +445,72 @@ enum AuditEntity {
   MANUFACTURER
   LOCATION
   TEMPLATE
-  SESSION
+  ITEM_MOVEMENT
+  PRODUCT_CATEGORY
+  VARIANT_PRICE_HISTORY
+  TAG
+  PRODUCT_TAG
+  VARIANT_IMAGE
+  PURCHASE_ORDER
+  PURCHASE_ORDER_ITEM
+  UNIT_CONVERSION
+  STOCK_SNAPSHOT
+  VARIANT_SUPPLIER_CODE
+  VARIANT_PROMOTION
+
+  // Sales
+  CUSTOMER
+  SALES_ORDER
+  SALES_ORDER_ITEM
+  ITEM_RESERVATION
+
+  // Alerts & Notifications
+  ALERT
+  NOTIFICATION
+  NOTIFICATION_TEMPLATE
+  NOTIFICATION_PREFERENCE
+
+  // Comments
+  COMMENT
+
+  // Requests
+  REQUEST
+  REQUEST_ATTACHMENT
+  REQUEST_COMMENT
+  REQUEST_HISTORY
+
+  // HR
+  EMPLOYEE
+  DEPARTMENT
+  POSITION
+  TIME_ENTRY
+  WORK_SCHEDULE
+  OVERTIME
+  TIME_BANK
+  ABSENCE
+  VACATION_PERIOD
+
+  // Payroll
+  PAYROLL
+  PAYROLL_ITEM
+  BONUS
+  DEDUCTION
+
+  // System
+  OTHER
+}
+
+enum AuditModule {
+  CORE
+  AUTH
+  RBAC
+  STOCK
+  SALES
+  HR
+  PAYROLL
+  REQUESTS
+  NOTIFICATIONS
+  SYSTEM
   OTHER
 }
 
@@ -886,25 +970,38 @@ model AuditLog {
   id          String      @id @default(uuid())
   action      AuditAction
   entity      AuditEntity
+  module      AuditModule // Módulo da entidade
   entityId    String      @map("entity_id") // ID da entidade afetada
   description String?     @db.VarChar(512)
   oldData     Json?       @map("old_data") // Estado anterior (JSON)
   newData     Json?       @map("new_data") // Novo estado (JSON)
-  ip          String?     @db.VarChar(64)
-  userAgent   String?     @map("user_agent") @db.VarChar(512)
-  createdAt   DateTime    @default(now()) @map("created_at")
-  expiresAt   DateTime?   @map("expires_at") // Para limpeza automática
 
-  userId String? @map("user_id") // Nullable para ações do sistema
+  // Request metadata
+  ip        String? @db.VarChar(64)
+  userAgent String? @map("user_agent") @db.VarChar(512)
+  endpoint  String? @db.VarChar(256) // API endpoint chamado
+  method    String? @db.VarChar(10) // HTTP method (GET, POST, etc)
+
+  // User info
+  userId       String? @map("user_id") // Nullable para ações do sistema
+  affectedUser String? @map("affected_user") // Usuário afetado pela ação (quando diferente do executor)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  expiresAt DateTime? @map("expires_at") // Para limpeza automática
 
   user User? @relation(fields: [userId], references: [id])
 
   @@index([userId])
+  @@index([affectedUser])
   @@index([action])
   @@index([entity])
+  @@index([module])
   @@index([entityId])
   @@index([createdAt])
   @@index([expiresAt])
+  @@index([entity, entityId])
+  @@index([module, createdAt])
+  @@index([userId, action])
   @@map("audit_logs")
 }
 
@@ -2074,4 +2171,46 @@ model Deduction {
   @@index([isApplied])
   @@index([isRecurring])
   @@map("deductions")
+}
+
+// ===============================================
+// ENTERPRISE MODULE
+// ===============================================
+
+model Enterprise {
+  id String @id @default(uuid())
+
+  // Dados obrigatórios
+  legalName String @map("legal_name") @db.VarChar(256)
+  cnpj      String @db.VarChar(18)
+
+  // Dados opcionais
+  taxRegime     String? @map("tax_regime") @db.VarChar(128)
+  phone         String? @db.VarChar(20)
+  address       String? @db.VarChar(256)
+  addressNumber String? @map("address_number") @db.VarChar(16)
+  complement    String? @db.VarChar(128)
+  neighborhood  String? @map("neighborhood") @db.VarChar(128)
+  city          String? @db.VarChar(128)
+  state         String? @db.VarChar(2)
+  zipCode       String? @map("zip_code") @db.VarChar(10)
+  country       String? @default("Brasil") @db.VarChar(64)
+  logoUrl       String? @map("logo_url") @db.VarChar(512)
+
+  // Metadados
+  metadata Json @default("{}")
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([cnpj, deletedAt], name: "enterprises_cnpj_unique_active")
+  @@index([cnpj])
+  @@index([legalName])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("enterprises")
 }

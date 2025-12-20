@@ -11,6 +11,11 @@ import { UserBlockedError } from './use-cases/user-blocked-error';
 type FastifyErrorHandler = FastifyInstance['errorHandler'];
 
 export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
+  // Silenciar opcionalmente logs de rate limit (429) em teste/CI
+  const silenceRateLimitLogs =
+    process.env.SILENCE_RATE_LIMIT_LOGS === 'true' ||
+    process.env.SILENCE_RATE_LIMIT_LOGS === '1';
+
   // Handle Fastify validation errors (from Zod schemas)
   if (error.code === 'FST_ERR_VALIDATION') {
     return reply.status(400).send({
@@ -52,6 +57,18 @@ export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
 
   if (error instanceof ResourceNotFoundError) {
     return reply.status(404).send({
+      message: error.message,
+    });
+  }
+
+  // Rate limit errors (429) — manter sem log se silenciado
+  const isRateLimitError =
+    (error as any)?.statusCode === 429 ||
+    error.code === 'FST_ERR_RATE_LIMIT' ||
+    /rate limit/i.test(error.message || '');
+
+  if (isRateLimitError && silenceRateLimitLogs) {
+    return reply.status(429).send({
       message: error.message,
     });
   }

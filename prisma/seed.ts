@@ -1207,6 +1207,41 @@ async function main() {
       resource: 'audit',
       action: 'list',
     },
+
+    // ==================== AUDIT MODULE ====================
+    // Audit Logs
+    {
+      code: 'audit.logs.view',
+      name: 'Ver Logs de Auditoria',
+      description: 'Permite visualizar logs de auditoria do sistema',
+      module: 'audit',
+      resource: 'logs',
+      action: 'view',
+    },
+    {
+      code: 'audit.history.view',
+      name: 'Ver Histórico de Entidade',
+      description: 'Permite visualizar histórico completo de uma entidade',
+      module: 'audit',
+      resource: 'history',
+      action: 'view',
+    },
+    {
+      code: 'audit.rollback.preview',
+      name: 'Visualizar Preview de Rollback',
+      description: 'Permite visualizar preview de rollback de alterações',
+      module: 'audit',
+      resource: 'rollback',
+      action: 'preview',
+    },
+    {
+      code: 'audit.compare.view',
+      name: 'Comparar Versões',
+      description: 'Permite comparar diferentes versões de uma entidade',
+      module: 'audit',
+      resource: 'compare',
+      action: 'view',
+    },
   ];
 
   for (const permission of permissions) {

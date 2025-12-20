@@ -1070,3 +1070,72 @@ export const deductionResponseSchema = z.object({
   createdAt: dateSchema,
   updatedAt: dateSchema,
 });
+// ===============================================
+// ENTERPRISE SCHEMAS
+// ===============================================
+
+/**
+ * Schema para criação de empresa
+ */
+export const createEnterpriseSchema = z.object({
+  legalName: z.string().min(2).max(256),
+  cnpj: z.string().regex(/^\d{14}$|^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/),
+  taxRegime: z.string().max(128).optional(),
+  phone: z.string().max(20).optional(),
+  address: z.string().max(256).optional(),
+  addressNumber: z.string().max(16).optional(),
+  complement: z.string().max(128).optional(),
+  neighborhood: z.string().max(128).optional(),
+  city: z.string().max(128).optional(),
+  state: z.string().length(2).optional(),
+  zipCode: z.string().max(10).optional(),
+  country: z.string().max(64).optional(),
+  logoUrl: z.string().url().max(512).optional(),
+});
+
+/**
+ * Schema para atualização de empresa
+ */
+export const updateEnterpriseSchema = createEnterpriseSchema.partial().omit({
+  cnpj: true,
+});
+
+/**
+ * Schema para filtros de listagem de empresas
+ */
+export const listEnterprisesQuerySchema = z.object({
+  page: z.coerce.number().int().positive().optional().default(1),
+  perPage: z.coerce.number().int().positive().max(100).optional().default(20),
+  search: z.string().optional(),
+  includeDeleted: z.coerce.boolean().optional().default(false),
+});
+
+/**
+ * Schema para resposta de empresa
+ */
+export const enterpriseResponseSchema = z.object({
+  id: idSchema,
+  legalName: z.string(),
+  cnpj: z.string(),
+  taxRegime: z.string().optional().nullable(),
+  phone: z.string().optional().nullable(),
+  address: z.string().optional().nullable(),
+  addressNumber: z.string().optional().nullable(),
+  complement: z.string().optional().nullable(),
+  neighborhood: z.string().optional().nullable(),
+  city: z.string().optional().nullable(),
+  state: z.string().optional().nullable(),
+  zipCode: z.string().optional().nullable(),
+  country: z.string(),
+  logoUrl: z.string().optional().nullable(),
+  createdAt: dateSchema,
+  updatedAt: dateSchema,
+  deletedAt: dateSchema.optional().nullable(),
+});
+
+/**
+ * Schema para verificar CNPJ
+ */
+export const checkCnpjSchema = z.object({
+  cnpj: z.string().regex(/^\d{14}$|^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/),
+});

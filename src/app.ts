@@ -15,11 +15,16 @@ import { errorHandler } from './@errors/error-handler';
 import { rateLimitConfig } from './config/rate-limits';
 import { swaggerTags } from './config/swagger-tags';
 import { registerRoutes } from './http/routes';
+import { auditContextHook } from './http/hooks/audit-context.hook';
+import auditLoggerPlugin from './http/plugins/audit-logger.plugin';
 
 export const app = fastify({ trustProxy: true });
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
+
+// Captura contexto (user/ip/ua/endpoint) para o audit log
+app.addHook('onRequest', auditContextHook);
 
 // Custom JSON parser that allows empty bodies
 app.addContentTypeParser('application/json', function (request, payload, done) {
@@ -44,8 +49,11 @@ app.addContentTypeParser('application/json', function (request, payload, done) {
 // Error handler
 app.setErrorHandler(errorHandler);
 
-// Rate limiting global
-app.register(rateLimit, rateLimitConfig.global);
+// Rate limiting global (disabled in tests to avoid flakiness)
+const isTestEnv = env.NODE_ENV === 'test' || process.env.VITEST === 'true' || process.env.VITEST === '1';
+if (!isTestEnv) {
+  app.register(rateLimit, rateLimitConfig.global);
+}
 
 // CORS - Cross-Origin Resource Sharing
 app.register(cors, {
@@ -94,6 +102,9 @@ app.register(fastifyJwt, {
 });
 
 app.register(fastifyCookie);
+
+// Audit logger - registra operações mutáveis
+app.register(auditLoggerPlugin);
 
 // Routes
 app.after(() => {

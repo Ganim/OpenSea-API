@@ -8,12 +8,12 @@ import { dateSchema, idSchema } from './common.schema';
 
 /**
  * Permission Code Format: module.resource.action
- * Examples: stock.products.read, sales.orders.create
+ * Examples: stock.products.read, sales.orders.create, audit.logs.view
  */
 export const permissionCodeSchema = z
   .string()
   .regex(
-    /^[a-z]+\.[a-z-]+\.(read|create|update|delete|manage|list|request|approve|\*)$/,
+    /^[a-z]+\.[a-z-]+\.(read|create|update|delete|manage|list|request|approve|assign|reject|cancel|complete|process|pay|view|preview|\*)$/,
     'Permission code must follow format: module.resource.action',
   );
 

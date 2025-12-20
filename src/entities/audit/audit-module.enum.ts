@@ -1,0 +1,13 @@
+export enum AuditModule {
+  CORE = 'CORE',
+  AUTH = 'AUTH',
+  RBAC = 'RBAC',
+  STOCK = 'STOCK',
+  SALES = 'SALES',
+  HR = 'HR',
+  PAYROLL = 'PAYROLL',
+  REQUESTS = 'REQUESTS',
+  NOTIFICATIONS = 'NOTIFICATIONS',
+  SYSTEM = 'SYSTEM',
+  OTHER = 'OTHER',
+}

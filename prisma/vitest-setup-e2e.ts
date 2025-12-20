@@ -2,6 +2,9 @@ import { execSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { afterAll } from 'vitest';
 
+process.env.NODE_ENV = 'test';
+process.env.SILENCE_RATE_LIMIT_LOGS = '1';
+
 // Gera schema único ANTES de qualquer importação do app
 const schema = `test_${randomUUID().replace(/-/g, '_')}`;
 

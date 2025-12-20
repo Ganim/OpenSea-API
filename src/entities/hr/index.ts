@@ -3,6 +3,7 @@ export { Bonus, BonusProps } from './bonus';
 export { Deduction, DeductionProps } from './deduction';
 export { Department, DepartmentProps } from './department';
 export { Employee, EmployeeProps } from './employee';
+export { Enterprise, EnterpriseProps } from './enterprise';
 export { Overtime, OvertimeProps } from './overtime';
 export { Payroll, PayrollProps } from './payroll';
 export { PayrollItem, PayrollItemProps } from './payroll-item';

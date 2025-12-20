@@ -15,6 +15,7 @@
     "test:coverage": "vitest run --coverage",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
+    "prisma:reset": "npx prisma migrate reset --force",
     "prisma:seed": "tsx prisma/seed.ts",
     "prisma:sync-permissions": "tsx prisma/sync-permissions.ts"
   },

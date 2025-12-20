@@ -26,6 +26,9 @@ import { notificationsRoutes } from './controllers/notifications/routes';
 // Requests (Workflow)
 import { requestsRoutes } from './controllers/requests/routes';
 
+// Audit routes
+import { auditRoutes } from './controllers/audit/routes';
+
 // Stock routes
 import { categoriesRoutes } from './controllers/stock/categories/routes';
 import { itemMovementsRoutes } from './controllers/stock/item-movements/routes';
@@ -45,6 +48,7 @@ import { bonusesRoutes } from './controllers/hr/bonuses/routes';
 import { deductionsRoutes } from './controllers/hr/deductions/routes';
 import { departmentsRoutes } from './controllers/hr/departments/routes';
 import { employeesRoutes } from './controllers/hr/employees/routes';
+import { enterprisesRoutes } from './controllers/hr/enterprises/routes';
 import { overtimeRoutes } from './controllers/hr/overtime/routes';
 import { payrollsRoutes } from './controllers/hr/payrolls/routes';
 import { positionsRoutes } from './controllers/hr/positions/routes';
@@ -95,6 +99,7 @@ export async function registerRoutes(app: FastifyInstance) {
   // HR routes
   await app.register(employeesRoutes);
   await app.register(departmentsRoutes);
+  await app.register(enterprisesRoutes);
   await app.register(positionsRoutes);
   await app.register(timeControlRoutes);
   await app.register(workSchedulesRoutes);
@@ -105,4 +110,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(payrollsRoutes);
   await app.register(bonusesRoutes);
   await app.register(deductionsRoutes);
+
+  // Audit routes
+  await app.register(auditRoutes);
 }
