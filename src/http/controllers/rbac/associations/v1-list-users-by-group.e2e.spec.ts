@@ -17,22 +17,18 @@ describe('List Users By Group (e2e)', () => {
   });
 
   it('should allow ADMIN to LIST users in group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const createUserUseCase = makeCreateUserUseCase();
     const { user: user1 } = await createUserUseCase.execute({
       email: faker.internet.email(),
       password: 'Pass@123',
-      username: `user${faker.string.uuid().slice(0, 8)}`,
-      role: 'USER',
-    });
+      username: `user${faker.string.uuid().slice(0, 8)}`, });
     const { user: user2 } = await createUserUseCase.execute({
       email: faker.internet.email(),
       password: 'Pass@123',
-      username: `user${faker.string.uuid().slice(0, 8)}`,
-      role: 'USER',
-    });
+      username: `user${faker.string.uuid().slice(0, 8)}`, });
 
     const assignGroupUseCase = makeAssignGroupToUserUseCase();
     await assignGroupUseCase.execute({
@@ -62,7 +58,7 @@ describe('List Users By Group (e2e)', () => {
   });
 
   it('should return EMPTY array for group with no users', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -74,7 +70,7 @@ describe('List Users By Group (e2e)', () => {
   });
 
   it('should support PAGINATION', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -87,8 +83,8 @@ describe('List Users By Group (e2e)', () => {
     expect(Array.isArray(response.body.userIds)).toBe(true);
   });
 
-  it('should NOT allow USER to list users by group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to list users by group', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -99,7 +95,7 @@ describe('List Users By Group (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get(

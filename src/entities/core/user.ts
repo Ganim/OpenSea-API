@@ -6,7 +6,6 @@ import { UserProfile } from './user-profile';
 import { Email } from './value-objects/email';
 import { IpAddress } from './value-objects/ip-address';
 import { Password } from './value-objects/password';
-import { Role } from './value-objects/role';
 import { Token } from './value-objects/token';
 import { Username } from './value-objects/username';
 
@@ -15,12 +14,15 @@ export interface UserProps {
   username: Username;
   email: Email;
   password: Password;
-  role: Role;
   lastLoginIp?: IpAddress;
   failedLoginAttempts: number;
   blockedUntil?: Date;
   passwordResetToken?: Token;
   passwordResetExpires?: Date;
+  forcePasswordReset: boolean;
+  forcePasswordResetReason?: string;
+  forcePasswordResetRequestedBy?: string;
+  forcePasswordResetRequestedAt?: Date;
   deletedAt?: Date;
   lastLoginAt?: Date;
   createdAt: Date;
@@ -41,9 +43,6 @@ export class User extends Entity<UserProps> {
   get password(): Password {
     return this.props.password;
   }
-  get role(): Role {
-    return this.props.role;
-  }
   get lastLoginIp(): IpAddress | undefined {
     return this.props.lastLoginIp;
   }
@@ -58,6 +57,18 @@ export class User extends Entity<UserProps> {
   }
   get passwordResetExpires(): Date | undefined {
     return this.props.passwordResetExpires;
+  }
+  get forcePasswordReset(): boolean {
+    return this.props.forcePasswordReset;
+  }
+  get forcePasswordResetReason(): string | undefined {
+    return this.props.forcePasswordResetReason;
+  }
+  get forcePasswordResetRequestedBy(): string | undefined {
+    return this.props.forcePasswordResetRequestedBy;
+  }
+  get forcePasswordResetRequestedAt(): Date | undefined {
+    return this.props.forcePasswordResetRequestedAt;
   }
   get deletedAt(): Date | undefined {
     return this.props.deletedAt;
@@ -107,11 +118,6 @@ export class User extends Entity<UserProps> {
     this.touch();
   }
 
-  set role(role: Role) {
-    this.props.role = role;
-    this.touch();
-  }
-
   set blockedUntil(date: Date | undefined) {
     this.props.blockedUntil = date;
   }
@@ -141,18 +147,43 @@ export class User extends Entity<UserProps> {
     this.props.failedLoginAttempts = attempts;
   }
 
+  set forcePasswordReset(value: boolean) {
+    this.props.forcePasswordReset = value;
+    this.touch();
+  }
+
+  set forcePasswordResetReason(reason: string | undefined) {
+    this.props.forcePasswordResetReason = reason;
+  }
+
+  set forcePasswordResetRequestedBy(userId: string | undefined) {
+    this.props.forcePasswordResetRequestedBy = userId;
+  }
+
+  set forcePasswordResetRequestedAt(date: Date | undefined) {
+    this.props.forcePasswordResetRequestedAt = date;
+  }
+
+  clearForcedPasswordReset(): void {
+    this.props.forcePasswordReset = false;
+    this.props.forcePasswordResetReason = undefined;
+    this.props.forcePasswordResetRequestedBy = undefined;
+    this.props.forcePasswordResetRequestedAt = undefined;
+    this.touch();
+  }
+
   static create(
     props: Optional<
       UserProps,
-      'createdAt' | 'failedLoginAttempts' | 'role' | 'deletedAt'
+      'createdAt' | 'failedLoginAttempts' | 'deletedAt' | 'forcePasswordReset'
     >,
     id?: UniqueEntityID,
   ) {
     const user = new User(
       {
         ...props,
-        role: props.role ?? Role.create('USER'),
         failedLoginAttempts: props.failedLoginAttempts ?? 0,
+        forcePasswordReset: props.forcePasswordReset ?? false,
         createdAt: props.createdAt ?? new Date(),
         deletedAt: props.deletedAt ?? undefined,
       },

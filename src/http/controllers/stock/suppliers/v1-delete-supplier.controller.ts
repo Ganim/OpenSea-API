@@ -1,4 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeDeleteSupplierUseCase } from '@/use-cases/stock/suppliers/factories/make-delete-supplier-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -8,8 +11,15 @@ export async function deleteSupplierController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/suppliers/:id',
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.SUPPLIERS.DELETE,
+        resource: 'suppliers',
+      }),
+    ],
     schema: {
-      tags: ['Suppliers'],
+      tags: ['Stock - Suppliers'],
       summary: 'Delete a supplier',
       security: [{ bearerAuth: [] }],
       params: z.object({

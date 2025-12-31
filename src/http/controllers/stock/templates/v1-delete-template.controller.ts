@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeDeleteTemplateUseCase } from '@/use-cases/stock/templates/factories/make-delete-template-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,7 +11,13 @@ export async function deleteTemplateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/templates/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.TEMPLATES.DELETE,
+        resource: 'templates',
+      }),
+    ],
     schema: {
       tags: ['Stock - Templates'],
       summary: 'Delete a template',

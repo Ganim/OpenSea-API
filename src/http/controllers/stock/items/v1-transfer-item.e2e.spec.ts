@@ -14,7 +14,7 @@ describe('Transfer Item (e2e)', () => {
   });
 
   it('should allow MANAGER to TRANSFER ITEM between locations', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -100,8 +100,8 @@ describe('Transfer Item (e2e)', () => {
     expect(response.body.movement.movementType).toBe('TRANSFER');
   });
 
-  it('should NOT allow USER to TRANSFER ITEM', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to TRANSFER ITEM', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
 
     const timestamp = Date.now();
 
@@ -177,7 +177,7 @@ describe('Transfer Item (e2e)', () => {
   });
 
   it('should NOT allow TRANSFER to same location', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 

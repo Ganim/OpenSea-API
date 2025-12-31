@@ -16,7 +16,7 @@ describe('Cancel Absence (E2E)', () => {
   });
 
   it('should cancel a pending absence', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { absenceId } = await createAbsenceE2E({
@@ -34,7 +34,7 @@ describe('Cancel Absence (E2E)', () => {
   });
 
   it('should cancel an approved absence', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { absenceId } = await createAbsenceE2E({
@@ -52,7 +52,7 @@ describe('Cancel Absence (E2E)', () => {
   });
 
   it('should not cancel already cancelled absence', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { absenceId } = await createAbsenceE2E({
@@ -69,7 +69,7 @@ describe('Cancel Absence (E2E)', () => {
   });
 
   it('should return 404 for non-existent absence', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .patch('/v1/hr/absences/00000000-0000-0000-0000-000000000000/cancel')

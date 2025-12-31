@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   departmentResponseSchema,
   updateDepartmentSchema,
@@ -17,7 +18,13 @@ export async function updateDepartmentController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/hr/departments/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.DEPARTMENTS.UPDATE,
+        resource: 'departments',
+      }),
+    ],
     schema: {
       tags: ['HR - Departments'],
       summary: 'Update a department',

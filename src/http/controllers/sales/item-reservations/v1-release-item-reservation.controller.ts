@@ -1,6 +1,6 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { itemReservationResponseSchema } from '@/http/schemas/sales.schema';
 import { makeReleaseItemReservationUseCase } from '@/use-cases/sales/item-reservations/factories/make-release-item-reservation-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -13,7 +13,7 @@ export async function releaseItemReservationController(app: FastifyInstance) {
     url: '/v1/item-reservations/:id/release',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Item Reservations'],
+      tags: ['Sales - Item Reservations'],
       summary: 'Release an item reservation',
       params: z.object({ id: z.string().uuid() }),
       response: {

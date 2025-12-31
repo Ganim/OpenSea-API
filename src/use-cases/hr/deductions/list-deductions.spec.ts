@@ -1,9 +1,9 @@
 import { Employee } from '@/entities/hr/employee';
 import {
-    ContractType,
-    CPF,
-    EmployeeStatus,
-    WorkRegime,
+  ContractType,
+  CPF,
+  EmployeeStatus,
+  WorkRegime,
 } from '@/entities/hr/value-objects';
 import { InMemoryDeductionsRepository } from '@/repositories/hr/in-memory/in-memory-deductions-repository';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';

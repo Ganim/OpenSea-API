@@ -14,7 +14,7 @@ describe('List Items (e2e)', () => {
   });
 
   it('should allow authenticated user to LIST items', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -97,7 +97,7 @@ describe('List Items (e2e)', () => {
   });
 
   it('should filter items by variantId', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 

@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { makeListPurchaseOrdersUseCase } from '@/use-cases/stock/purchase-orders/factories/make-list-purchase-orders-use-case';
 
-import { verifyJwt } from '../../../middlewares/verify-jwt';
+import { verifyJwt } from '../../../middlewares/rbac/verify-jwt';
 
 export async function listPurchaseOrdersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -14,7 +14,7 @@ export async function listPurchaseOrdersController(app: FastifyInstance) {
       schema: {
         summary: 'List purchase orders',
         description: 'Returns a list of purchase orders with optional filters',
-        tags: ['Purchase Orders'],
+        tags: ['Stock - Purchase Orders'],
         security: [{ bearerAuth: [] }],
         querystring: z.object({
           supplierId: z.uuid().optional(),

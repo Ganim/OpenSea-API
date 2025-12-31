@@ -24,8 +24,14 @@ export class CreateTemplateUseCase {
   async execute(
     request: CreateTemplateUseCaseRequest,
   ): Promise<CreateTemplateUseCaseResponse> {
-    const { name, unitOfMeasure, productAttributes, variantAttributes, itemAttributes, careLabel } =
-      request;
+    const {
+      name,
+      unitOfMeasure,
+      productAttributes,
+      variantAttributes,
+      itemAttributes,
+      careLabel,
+    } = request;
 
     // Validate name
     if (!name || name.trim().length === 0) {
@@ -38,16 +44,15 @@ export class CreateTemplateUseCase {
 
     // Validate unit of measure if provided
     const validUnits = ['METERS', 'KILOGRAMS', 'UNITS'];
-    let templateUnitOfMeasure: UnitOfMeasure;
-    
+
     if (unitOfMeasure && !validUnits.includes(unitOfMeasure)) {
       throw new BadRequestError(
         'Invalid unit of measure. Must be one of: METERS, KILOGRAMS, UNITS',
       );
     }
-    
-    templateUnitOfMeasure = UnitOfMeasure.create(
-      (unitOfMeasure as 'METERS' | 'KILOGRAMS' | 'UNITS') ?? 'UNITS'
+
+    const templateUnitOfMeasure = UnitOfMeasure.create(
+      (unitOfMeasure as 'METERS' | 'KILOGRAMS' | 'UNITS') ?? 'UNITS',
     );
 
     // Check if template with same name already exists

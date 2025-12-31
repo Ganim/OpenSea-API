@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeCreateRequestUseCase } from '@/use-cases/requests/factories/make-create-request-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,7 +10,7 @@ export async function createRequestController(app: FastifyInstance) {
     url: '/v1/requests',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Requests'],
+      tags: ['Core - Requests'],
       summary: 'Create a new request',
       body: z.object({
         title: z.string().min(3).max(255),
@@ -25,9 +25,8 @@ export async function createRequestController(app: FastifyInstance) {
         ]),
         category: z.string().optional(),
         priority: z.enum(['LOW', 'MEDIUM', 'HIGH', 'URGENT']).optional(),
-        targetType: z.enum(['USER', 'GROUP', 'ROLE']),
+        targetType: z.enum(['USER', 'GROUP']),
         targetId: z.string().optional(),
-        targetRole: z.enum(['USER', 'ADMIN', 'MANAGER']).optional(),
         dueDate: z.string().datetime().optional(),
         metadata: z.record(z.string(), z.unknown()).optional(),
         requiresApproval: z.boolean().optional(),

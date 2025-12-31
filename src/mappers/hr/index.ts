@@ -1,9 +1,10 @@
 export * from './absence';
 export * from './bonus';
-export * from './deduction';
-export * from './department';
-export * from './employee';
-export * from './overtime';
+export * from './company';
+export * from './company-address';
+export * from './company-cnae';
+export * from './company-fiscal-settings';
+export * from './company-stakeholder';
 export * from './payroll';
 export * from './payroll-item';
 export * from './position';
@@ -11,4 +12,3 @@ export * from './time-bank';
 export * from './time-entry';
 export * from './vacation-period';
 export * from './work-schedule';
-

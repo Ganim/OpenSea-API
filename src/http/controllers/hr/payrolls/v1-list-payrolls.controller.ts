@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { listPayrollsQuerySchema, payrollResponseSchema } from '@/http/schemas';
 import { payrollToDTO } from '@/mappers/hr/payroll';
 import { makeListPayrollsUseCase } from '@/use-cases/hr/payrolls/factories/make-list-payrolls-use-case';

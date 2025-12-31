@@ -16,7 +16,7 @@ describe('Adjust Time Bank (E2E)', () => {
   });
 
   it('should allow MANAGER to adjust time bank balance', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     // Create initial time bank
@@ -42,7 +42,7 @@ describe('Adjust Time Bank (E2E)', () => {
   });
 
   it('should allow setting balance to zero', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     await prisma.timeBank.create({
@@ -66,7 +66,7 @@ describe('Adjust Time Bank (E2E)', () => {
   });
 
   it('should allow setting negative balance', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     await prisma.timeBank.create({
@@ -91,7 +91,7 @@ describe('Adjust Time Bank (E2E)', () => {
   });
 
   it('should adjust time bank for specific year', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     await prisma.timeBank.create({
@@ -117,7 +117,7 @@ describe('Adjust Time Bank (E2E)', () => {
   });
 
   it('should allow ADMIN to adjust time bank', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     await prisma.timeBank.create({
@@ -140,8 +140,8 @@ describe('Adjust Time Bank (E2E)', () => {
     expect(response.body.timeBank.balance).toBe(50);
   });
 
-  it('should NOT allow USER to adjust time bank', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to adjust time bank', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const { employeeId } = await createEmployeeE2E();
 
     await prisma.timeBank.create({
@@ -164,7 +164,7 @@ describe('Adjust Time Bank (E2E)', () => {
   });
 
   it('should return 404 for non-existent employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)

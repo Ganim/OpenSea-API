@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { faker } from '@faker-js/faker';
+import { createCompanyE2E } from './create-company.e2e';
 
 interface CreateDepartmentE2EProps {
   name?: string;
@@ -7,6 +8,7 @@ interface CreateDepartmentE2EProps {
   description?: string;
   parentId?: string;
   managerId?: string;
+  companyId?: string;
   isActive?: boolean;
 }
 
@@ -33,6 +35,13 @@ export async function createDepartmentE2E(
 ) {
   const code = override.code ?? generateDepartmentCode();
 
+  // If companyId is not provided, create a new company
+  let companyId = override.companyId;
+  if (!companyId) {
+    const { companyId: newCompanyId } = await createCompanyE2E();
+    companyId = newCompanyId;
+  }
+
   const department = await prisma.department.create({
     data: {
       name: override.name ?? faker.commerce.department(),
@@ -40,6 +49,7 @@ export async function createDepartmentE2E(
       description: override.description ?? faker.lorem.sentence(),
       parentId: override.parentId,
       managerId: override.managerId,
+      companyId,
       isActive: override.isActive ?? true,
     },
   });
@@ -48,6 +58,7 @@ export async function createDepartmentE2E(
     department,
     departmentId: department.id,
     code,
+    companyId,
   };
 }
 
@@ -55,7 +66,7 @@ export async function createDepartmentE2E(
  * Gera dados para criação de departamento via API
  */
 export function generateDepartmentData(
-  override: Partial<CreateDepartmentE2EProps> = {},
+  override: Partial<CreateDepartmentE2EProps> & { companyId: string },
 ) {
   return {
     name: override.name ?? faker.commerce.department(),
@@ -63,6 +74,7 @@ export function generateDepartmentData(
     description: override.description ?? faker.lorem.sentence(),
     parentId: override.parentId,
     managerId: override.managerId,
+    companyId: override.companyId,
     isActive: override.isActive ?? true,
   };
 }

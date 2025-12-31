@@ -1,6 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { overtimeResponseSchema, requestOvertimeSchema } from '@/http/schemas';
 import { overtimeToDTO } from '@/mappers/hr/overtime/overtime-to-dto';
 import { makeRequestOvertimeUseCase } from '@/use-cases/hr/overtime/factories/make-request-overtime-use-case';

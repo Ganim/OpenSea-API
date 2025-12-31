@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserAdmin } from '@/http/middlewares/verify-user-admin';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { strongPasswordSchema, userResponseSchema } from '@/http/schemas';
 import { makeChangeUserPasswordUseCase } from '@/use-cases/core/users/factories/make-change-user-password-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -12,9 +13,15 @@ export async function changeUserPasswordController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/users/:userId/password',
-    preHandler: [verifyJwt, verifyUserAdmin],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.CORE.USERS.MANAGE,
+        resource: 'users',
+      }),
+    ],
     schema: {
-      tags: ['Users'],
+      tags: ['Auth - Users'],
       summary: 'Change user password (Admin)',
       description:
         'Admin endpoint to change user password with strong password requirements',

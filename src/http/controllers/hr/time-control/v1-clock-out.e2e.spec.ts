@@ -16,7 +16,7 @@ describe('Clock Out (E2E)', () => {
   });
 
   it('should register clock out successfully', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     // First, clock in
@@ -43,7 +43,7 @@ describe('Clock Out (E2E)', () => {
   });
 
   it('should return 400 when trying to clock out without clock in', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     const response = await request(app.server)

@@ -6,7 +6,7 @@ import type {
 
 interface ListRequestsUseCaseRequest extends FindManyRequestsParams {
   userId: string;
-  userRole: 'ADMIN' | 'MANAGER' | 'USER';
+  hasViewAllPermission?: boolean;
 }
 
 interface ListRequestsUseCaseResponse {
@@ -24,9 +24,9 @@ export class ListRequestsUseCase {
   ): Promise<ListRequestsUseCaseResponse> {
     const params: FindManyRequestsParams = {
       ...data,
-      // Usuário comum só vê suas próprias requisições ou atribuídas a ele
-      requesterId: data.userRole === 'USER' ? data.userId : data.requesterId,
-      assignedToId: data.userRole === 'USER' ? data.userId : data.assignedToId,
+      // Usuário sem permissão de ver todas só vê suas próprias requisições ou atribuídas a ele
+      requesterId: !data.hasViewAllPermission ? data.userId : data.requesterId,
+      assignedToId: !data.hasViewAllPermission ? data.userId : data.assignedToId,
     };
 
     const [requests, total] = await Promise.all([

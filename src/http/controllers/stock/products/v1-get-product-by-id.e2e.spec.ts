@@ -15,7 +15,7 @@ describe('Get Product By ID (e2e)', () => {
   });
 
   it('should allow authenticated user to GET a PRODUCT by ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create a template first
     const timestamp = Date.now();
@@ -57,7 +57,7 @@ describe('Get Product By ID (e2e)', () => {
   });
 
   it('should return 404 when product does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Use a valid UUID that doesn't exist
     const nonExistentId = '00000000-0000-0000-0000-000000000000';

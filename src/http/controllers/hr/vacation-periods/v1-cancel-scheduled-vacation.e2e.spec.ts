@@ -19,7 +19,7 @@ describe('Cancel Scheduled Vacation (E2E)', () => {
   });
 
   it('should cancel a scheduled vacation', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createScheduledVacationPeriodE2E({
@@ -38,7 +38,7 @@ describe('Cancel Scheduled Vacation (E2E)', () => {
   });
 
   it('should not cancel non-scheduled vacation', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createAvailableVacationPeriodE2E({
@@ -54,7 +54,7 @@ describe('Cancel Scheduled Vacation (E2E)', () => {
   });
 
   it('should return 404 for non-existent vacation period', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .patch(

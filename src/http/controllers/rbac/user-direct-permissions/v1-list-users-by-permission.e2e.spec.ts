@@ -17,7 +17,7 @@ describe('List Users By Permission (e2e)', () => {
   });
 
   it('should allow ADMIN to LIST users with a direct permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -27,25 +27,19 @@ describe('List Users By Permission (e2e)', () => {
     const { user: user1 } = await createUserUseCase.execute({
       email: `user-${uniqueId1}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId1}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId1}`, });
 
     const uniqueId2 = faker.string.uuid().slice(0, 8);
     const { user: user2 } = await createUserUseCase.execute({
       email: `user-${uniqueId2}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId2}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId2}`, });
 
     const uniqueId3 = faker.string.uuid().slice(0, 8);
     const { user: user3 } = await createUserUseCase.execute({
       email: `user-${uniqueId3}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId3}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId3}`, });
 
     // Grant permission to user1 and user2, but not user3
     await makeUserDirectPermission({
@@ -71,7 +65,7 @@ describe('List Users By Permission (e2e)', () => {
   });
 
   it('should return EMPTY array when no users have the permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const response = await request(app.server)
@@ -83,7 +77,7 @@ describe('List Users By Permission (e2e)', () => {
   });
 
   it('should NOT include users with EXPIRED permissions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -93,18 +87,14 @@ describe('List Users By Permission (e2e)', () => {
     const { user: user1 } = await createUserUseCase.execute({
       email: `user-${uniqueId1}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId1}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId1}`, });
 
     // User with expired permission
     const uniqueId2 = faker.string.uuid().slice(0, 8);
     const { user: user2 } = await createUserUseCase.execute({
       email: `user-${uniqueId2}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId2}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId2}`, });
 
     await makeUserDirectPermission({
       userId: user1.id.toString(),
@@ -130,7 +120,7 @@ describe('List Users By Permission (e2e)', () => {
   });
 
   it('should include users with both ALLOW and DENY effects', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -139,17 +129,13 @@ describe('List Users By Permission (e2e)', () => {
     const { user: user1 } = await createUserUseCase.execute({
       email: `user-${uniqueId1}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId1}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId1}`, });
 
     const uniqueId2 = faker.string.uuid().slice(0, 8);
     const { user: user2 } = await createUserUseCase.execute({
       email: `user-${uniqueId2}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId2}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId2}`, });
 
     // User with allow
     await makeUserDirectPermission({
@@ -177,7 +163,7 @@ describe('List Users By Permission (e2e)', () => {
   });
 
   it('should NOT return DUPLICATE user IDs', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -186,9 +172,7 @@ describe('List Users By Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     // Grant permission (should only appear once even if granted multiple times hypothetically)
     await makeUserDirectPermission({
@@ -206,7 +190,7 @@ describe('List Users By Permission (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/rbac/permissions/00000000-0000-0000-0000-000000000000/users')
@@ -215,8 +199,8 @@ describe('List Users By Permission (e2e)', () => {
     expect(response.statusCode).toEqual(404);
   });
 
-  it('should NOT allow USER to list users by permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to list users by permission', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const permission = await makePermission();
 
     const response = await request(app.server)

@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { employeeResponseSchema, updateEmployeeSchema } from '@/http/schemas';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
 import { makeUpdateEmployeeUseCase } from '@/use-cases/hr/employees/factories/make-update-employee-use-case';
@@ -13,7 +14,13 @@ export async function updateEmployeeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/hr/employees/:employeeId',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.EMPLOYEES.UPDATE,
+        resource: 'employees',
+      }),
+    ],
     schema: {
       tags: ['HR - Employees'],
       summary: 'Update an employee',

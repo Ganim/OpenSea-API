@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { PermissionGroupPresenter } from '@/http/presenters/rbac/permission-group-presenter';
 import { idSchema } from '@/http/schemas/common.schema';
 import { permissionGroupWithDetailsSchema } from '@/http/schemas/rbac.schema';
@@ -12,7 +14,13 @@ export async function getPermissionGroupByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/rbac/permission-groups/:groupId',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.GROUPS.READ,
+        resource: 'permission-groups',
+      }),
+    ],
     schema: {
       tags: ['RBAC - Permission Groups'],
       summary: 'Get permission group by ID with users and permissions',

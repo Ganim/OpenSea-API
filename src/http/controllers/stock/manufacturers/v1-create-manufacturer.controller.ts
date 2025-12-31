@@ -1,9 +1,10 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  createManufacturerSchema,
-  manufacturerResponseSchema,
-} from '@/http/schemas';
+    createManufacturerSchema,
+    manufacturerResponseSchema,
+} from '@/http/schemas/stock/manufacturers';
 import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { PrismaManufacturersRepository } from '@/repositories/stock/prisma/prisma-manufacturers-repository';
 import { CreateManufacturerUseCase } from '@/use-cases/stock/manufacturers/create-manufacturer';
@@ -15,9 +16,15 @@ export async function createManufacturerController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/manufacturers',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.MANUFACTURERS.CREATE,
+        resource: 'manufacturers',
+      }),
+    ],
     schema: {
-      tags: ['Manufacturers'],
+      tags: ['Stock - Manufacturers'],
       summary: 'Create a new manufacturer',
       description: 'Create a new manufacturer with the provided information',
       body: createManufacturerSchema,

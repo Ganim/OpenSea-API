@@ -14,7 +14,7 @@ describe('Get User By Username (e2e)', () => {
   });
 
   it('should allow ADMIN to GET another user BY USERNAME', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email = makeUniqueEmail('get-user-by-username');
     const anotherUser = await request(app.server)

@@ -15,7 +15,7 @@ describe('Get Employee By Id (E2E)', () => {
   });
 
   it('should get employee by id as MANAGER', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId, employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
@@ -33,8 +33,8 @@ describe('Get Employee By Id (E2E)', () => {
   });
 
   it('should get employee by id as USER', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
-    const { employeeId, employee } = await createEmployeeE2E();
+    const { token } = await createAndAuthenticateUser(app);
+    const { employeeId } = await createEmployeeE2E();
 
     const response = await request(app.server)
       .get(`/v1/hr/employees/${employeeId}`)
@@ -46,7 +46,7 @@ describe('Get Employee By Id (E2E)', () => {
   });
 
   it('should return 404 when employee does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentId = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
@@ -58,7 +58,7 @@ describe('Get Employee By Id (E2E)', () => {
   });
 
   it('should return 401 when no token is provided', async () => {
-    const { employeeId, employee } = await createEmployeeE2E();
+    const { employeeId } = await createEmployeeE2E();
 
     const response = await request(app.server).get(
       `/v1/hr/employees/${employeeId}`,
@@ -68,8 +68,8 @@ describe('Get Employee By Id (E2E)', () => {
   });
 
   it('should return complete employee data with all fields', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { employeeId, employee } = await createEmployeeE2E({
+    const { token } = await createAndAuthenticateUser(app);
+    const { employeeId } = await createEmployeeE2E({
       fullName: 'Complete Employee Test',
       baseSalary: 5000,
       contractType: 'CLT',
@@ -92,5 +92,3 @@ describe('Get Employee By Id (E2E)', () => {
     });
   });
 });
-
-

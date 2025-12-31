@@ -74,7 +74,9 @@ export class UserDirectPermission extends Entity<UserDirectPermissionProps> {
   }
 
   get hasConditions(): boolean {
-    return !!this.props.conditions && Object.keys(this.props.conditions).length > 0;
+    return (
+      !!this.props.conditions && Object.keys(this.props.conditions).length > 0
+    );
   }
 
   set expiresAt(expiresAt: Date | null) {

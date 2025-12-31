@@ -3,10 +3,10 @@ import { Deduction } from '@/entities/hr/deduction';
 import { prisma } from '@/lib/prisma';
 import { mapDeductionPrismaToDomain } from '@/mappers/hr/deduction';
 import type {
-    CreateDeductionSchema,
-    DeductionsRepository,
-    FindDeductionFilters,
-    UpdateDeductionSchema,
+  CreateDeductionSchema,
+  DeductionsRepository,
+  FindDeductionFilters,
+  UpdateDeductionSchema,
 } from '../deductions-repository';
 
 export class PrismaDeductionsRepository implements DeductionsRepository {

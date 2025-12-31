@@ -1,9 +1,10 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  createVariantPromotionSchema,
-  variantPromotionResponseSchema,
+    createVariantPromotionSchema,
+    variantPromotionResponseSchema,
 } from '@/http/schemas/sales.schema';
 import { makeCreateVariantPromotionUseCase } from '@/use-cases/sales/variant-promotions/factories/make-create-variant-promotion-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,9 +15,15 @@ export async function createVariantPromotionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/variant-promotions',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.PROMOTIONS.CREATE,
+        resource: 'variant-promotions',
+      }),
+    ],
     schema: {
-      tags: ['Variant Promotions'],
+      tags: ['Sales - Variant Promotions'],
       summary: 'Create a new variant promotion',
       body: createVariantPromotionSchema,
       response: {

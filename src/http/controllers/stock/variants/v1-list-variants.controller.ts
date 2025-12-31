@@ -1,4 +1,6 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { variantResponseSchema } from '@/http/schemas';
 import { variantToDTO } from '@/mappers/stock/variant/variant-to-dto';
 import { makeListVariantsUseCase } from '@/use-cases/stock/variants/factories/make-list-variants-use-case';
@@ -10,9 +12,15 @@ export async function listVariantsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/variants',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.VARIANTS.LIST,
+        resource: 'variants',
+      }),
+    ],
     schema: {
-      tags: ['Variants'],
+      tags: ['Stock - Variants'],
       summary: 'List all variants',
       response: {
         200: z.object({

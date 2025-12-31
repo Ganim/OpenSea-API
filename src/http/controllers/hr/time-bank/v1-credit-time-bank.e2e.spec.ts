@@ -16,7 +16,7 @@ describe('Credit Time Bank (E2E)', () => {
   });
 
   it('should allow MANAGER to credit hours to time bank', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     const response = await request(app.server)
@@ -33,7 +33,7 @@ describe('Credit Time Bank (E2E)', () => {
   });
 
   it('should accumulate credits', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     // Create initial time bank
@@ -57,8 +57,8 @@ describe('Credit Time Bank (E2E)', () => {
     expect(response.body.timeBank.balance).toBe(15);
   });
 
-  it('should NOT allow USER to credit time bank', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to credit time bank', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const { employeeId } = await createEmployeeE2E();
 
     const response = await request(app.server)
@@ -73,7 +73,7 @@ describe('Credit Time Bank (E2E)', () => {
   });
 
   it('should return 404 for non-existent employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)

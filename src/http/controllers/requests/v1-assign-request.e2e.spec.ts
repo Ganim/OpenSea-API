@@ -16,14 +16,12 @@ describe('Assign Request (E2E)', () => {
 
     const userAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
     token = userAuthData.token;
     user = userAuthData.user;
 
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
     adminToken = adminAuthData.token;
   });
@@ -35,7 +33,6 @@ describe('Assign Request (E2E)', () => {
   it('should be able to assign a request to a user', async () => {
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     // Create a test request
@@ -67,7 +64,6 @@ describe('Assign Request (E2E)', () => {
   it('should not be able to assign a request without admin privileges', async () => {
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     // Create a test request
@@ -89,7 +85,6 @@ describe('Assign Request (E2E)', () => {
   it('should not be able to assign a request without authentication', async () => {
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
     const fakeId = '00000000-0000-0000-0000-000000000000';
 
@@ -105,7 +100,6 @@ describe('Assign Request (E2E)', () => {
   it('should not be able to assign a request that does not exist', async () => {
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
     const fakeId = '00000000-0000-0000-0000-000000000000';
 
@@ -123,7 +117,6 @@ describe('Assign Request (E2E)', () => {
   it('should not be able to assign a request with invalid id format', async () => {
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     const response = await request(app.server)

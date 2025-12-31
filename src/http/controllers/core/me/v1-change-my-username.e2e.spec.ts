@@ -14,7 +14,7 @@ describe('Change My Username (e2e)', () => {
   });
 
   it('should allow a USER to CHANGE their OWN USERNAME', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const newUsername = `meuser_${faker.string.uuid().slice(0, 8)}`;
     const response = await request(app.server)

@@ -19,7 +19,7 @@ describe('Get Vacation Balance (E2E)', () => {
   });
 
   it('should get vacation balance for employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E({ fullName: 'João Silva' });
 
@@ -51,7 +51,7 @@ describe('Get Vacation Balance (E2E)', () => {
   });
 
   it('should return 404 for non-existent employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get(

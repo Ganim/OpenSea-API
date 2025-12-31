@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserAdmin } from '@/http/middlewares/verify-user-admin';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { grantDirectPermissionSchema } from '@/http/schemas/rbac.schema';
 import { makeGrantDirectPermissionUseCase } from '@/use-cases/rbac/user-direct-permissions/factories/make-grant-direct-permission-use-case';
@@ -13,7 +14,13 @@ export async function grantDirectPermissionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/rbac/users/:userId/direct-permissions',
-    preHandler: [verifyJwt, verifyUserAdmin],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.USER_PERMISSIONS.MANAGE,
+        resource: 'user-permissions',
+      }),
+    ],
     schema: {
       tags: ['RBAC - User Direct Permissions'],
       summary: 'Grant direct permission to user',

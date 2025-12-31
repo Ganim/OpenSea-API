@@ -7,7 +7,9 @@ export function mapItemPrismaToDomain(itemDb: PrismaItem) {
   return {
     id: new UniqueEntityID(itemDb.id),
     variantId: new UniqueEntityID(itemDb.variantId),
-    locationId: itemDb.locationId ? new UniqueEntityID(itemDb.locationId) : undefined,
+    locationId: itemDb.locationId
+      ? new UniqueEntityID(itemDb.locationId)
+      : undefined,
     uniqueCode: itemDb.uniqueCode ?? undefined,
     fullCode: itemDb.fullCode ?? undefined,
     sequentialCode: itemDb.sequentialCode ?? undefined,

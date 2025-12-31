@@ -14,7 +14,7 @@ describe('Get Permission Group By ID (e2e)', () => {
   });
 
   it('should allow authenticated USER to GET group by ID with users and permissions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -35,7 +35,7 @@ describe('Get Permission Group By ID (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/rbac/permission-groups/00000000-0000-0000-0000-000000000000')

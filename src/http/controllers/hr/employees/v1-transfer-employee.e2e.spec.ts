@@ -4,6 +4,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createDepartmentE2E } from '@/utils/tests/factories/hr/create-department.e2e';
 import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
 
 describe('Transfer Employee (E2E)', () => {
@@ -16,43 +17,41 @@ describe('Transfer Employee (E2E)', () => {
   });
 
   it('should transfer employee to new department as MANAGER', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create departments
-    const oldDepartment = await prisma.department.create({
-      data: {
+    const { departmentId: oldDepartmentId, companyId } =
+      await createDepartmentE2E({
         name: `Old Department ${Date.now()}`,
         code: `OLD-${Date.now()}`,
-      },
-    });
+      });
 
-    const newDepartment = await prisma.department.create({
-      data: {
-        name: `New Department ${Date.now()}`,
-        code: `NEW-${Date.now()}`,
-      },
+    const { departmentId: newDepartmentId } = await createDepartmentE2E({
+      name: `New Department ${Date.now()}`,
+      code: `NEW-${Date.now()}`,
+      companyId,
     });
 
     const { employee } = await createEmployeeE2E({
-      departmentId: oldDepartment.id,
+      departmentId: oldDepartmentId,
     });
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employee.id}/transfer`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        newDepartmentId: newDepartment.id,
+        newDepartmentId: newDepartmentId,
         effectiveDate: new Date().toISOString(),
         reason: 'Promoção para novo departamento',
       });
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty('employee');
-    expect(response.body.employee.departmentId).toBe(newDepartment.id);
+    expect(response.body.employee.departmentId).toBe(newDepartmentId);
   });
 
   it('should transfer employee to new position as ADMIN', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create positions
     const oldPosition = await prisma.position.create({
@@ -87,13 +86,11 @@ describe('Transfer Employee (E2E)', () => {
   });
 
   it('should transfer employee to both new department and position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
-    const newDepartment = await prisma.department.create({
-      data: {
-        name: `Dept Transfer Both ${Date.now()}`,
-        code: `DEPTBOTH-${Date.now()}`,
-      },
+    const { departmentId: newDepartmentId } = await createDepartmentE2E({
+      name: `Dept Transfer Both ${Date.now()}`,
+      code: `DEPTBOTH-${Date.now()}`,
     });
 
     const newPosition = await prisma.position.create({
@@ -103,39 +100,37 @@ describe('Transfer Employee (E2E)', () => {
       },
     });
 
-    const { employeeId, employee } = await createEmployeeE2E();
+    const { employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employee.id}/transfer`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        newDepartmentId: newDepartment.id,
+        newDepartmentId: newDepartmentId,
         newPositionId: newPosition.id,
         effectiveDate: new Date().toISOString(),
         reason: 'Reestruturação organizacional',
       });
 
     expect(response.statusCode).toBe(200);
-    expect(response.body.employee.departmentId).toBe(newDepartment.id);
+    expect(response.body.employee.departmentId).toBe(newDepartmentId);
     expect(response.body.employee.positionId).toBe(newPosition.id);
   });
 
-  it('should NOT allow USER to transfer employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
-    const { employeeId, employee } = await createEmployeeE2E();
+  it('should NOT allow user without permission to transfer employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
+    const { employee } = await createEmployeeE2E();
 
-    const newDepartment = await prisma.department.create({
-      data: {
-        name: `User Dept ${Date.now()}`,
-        code: `USERDEPT-${Date.now()}`,
-      },
+    const { departmentId: newDepartmentId } = await createDepartmentE2E({
+      name: `User Dept ${Date.now()}`,
+      code: `USERDEPT-${Date.now()}`,
     });
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employee.id}/transfer`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        newDepartmentId: newDepartment.id,
+        newDepartmentId: newDepartmentId,
         effectiveDate: new Date().toISOString(),
         reason: 'Should not work',
       });
@@ -144,21 +139,19 @@ describe('Transfer Employee (E2E)', () => {
   });
 
   it('should return 404 when employee does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentId = '00000000-0000-0000-0000-000000000000';
 
-    const newDepartment = await prisma.department.create({
-      data: {
-        name: `NonExist Dept ${Date.now()}`,
-        code: `NONEXIST-${Date.now()}`,
-      },
+    const { departmentId: newDepartmentId } = await createDepartmentE2E({
+      name: `NonExist Dept ${Date.now()}`,
+      code: `NONEXIST-${Date.now()}`,
     });
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${nonExistentId}/transfer`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        newDepartmentId: newDepartment.id,
+        newDepartmentId: newDepartmentId,
         effectiveDate: new Date().toISOString(),
         reason: 'Non existent',
       });
@@ -167,19 +160,17 @@ describe('Transfer Employee (E2E)', () => {
   });
 
   it('should return 401 when no token is provided', async () => {
-    const { employeeId, employee } = await createEmployeeE2E();
+    const { employee } = await createEmployeeE2E();
 
-    const newDepartment = await prisma.department.create({
-      data: {
-        name: `NoToken Dept ${Date.now()}`,
-        code: `NOTOKEN-${Date.now()}`,
-      },
+    const { departmentId: newDepartmentId } = await createDepartmentE2E({
+      name: `NoToken Dept ${Date.now()}`,
+      code: `NOTOKEN-${Date.now()}`,
     });
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employee.id}/transfer`)
       .send({
-        newDepartmentId: newDepartment.id,
+        newDepartmentId: newDepartmentId,
         effectiveDate: new Date().toISOString(),
         reason: 'No token',
       });
@@ -188,21 +179,19 @@ describe('Transfer Employee (E2E)', () => {
   });
 
   it('should not allow transfer of terminated employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employee } = await createEmployeeE2E({ status: 'TERMINATED' });
 
-    const newDepartment = await prisma.department.create({
-      data: {
-        name: `Terminated Dept ${Date.now()}`,
-        code: `TERM-${Date.now()}`,
-      },
+    const { departmentId: newDepartmentId } = await createDepartmentE2E({
+      name: `Terminated Dept ${Date.now()}`,
+      code: `TERM-${Date.now()}`,
     });
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employee.id}/transfer`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        newDepartmentId: newDepartment.id,
+        newDepartmentId: newDepartmentId,
         effectiveDate: new Date().toISOString(),
         reason: 'Terminated employee',
       });
@@ -212,13 +201,11 @@ describe('Transfer Employee (E2E)', () => {
   });
 
   it('should update employee base salary on transfer', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
-    const newDepartment = await prisma.department.create({
-      data: {
-        name: `Salary Dept ${Date.now()}`,
-        code: `SALARY-${Date.now()}`,
-      },
+    const { departmentId: newDepartmentId } = await createDepartmentE2E({
+      name: `Salary Dept ${Date.now()}`,
+      code: `SALARY-${Date.now()}`,
     });
 
     const { employee } = await createEmployeeE2E({ baseSalary: 5000 });
@@ -227,7 +214,7 @@ describe('Transfer Employee (E2E)', () => {
       .post(`/v1/hr/employees/${employee.id}/transfer`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        newDepartmentId: newDepartment.id,
+        newDepartmentId: newDepartmentId,
         newBaseSalary: 7500,
         effectiveDate: new Date().toISOString(),
         reason: 'Promoção com aumento salarial',
@@ -237,5 +224,3 @@ describe('Transfer Employee (E2E)', () => {
     expect(response.body.employee.baseSalary).toBe(7500);
   });
 });
-
-

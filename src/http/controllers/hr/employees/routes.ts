@@ -2,6 +2,7 @@ import { app } from '@/app';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createEmployeeController } from './v1-create-employee.controller';
+import { createEmployeeWithUserController } from './v1-create-employee-with-user.controller';
 import { checkCpfController } from './v1-check-cpf.controller';
 import { getEmployeeByIdController } from './v1-get-employee-by-id.controller';
 import { linkUserToEmployeeController } from './v1-link-user-to-employee.controller';
@@ -17,6 +18,7 @@ export async function employeesRoutes() {
     async (managerApp) => {
       managerApp.register(rateLimit, rateLimitConfig.mutation);
       managerApp.register(createEmployeeController);
+      managerApp.register(createEmployeeWithUserController);
       managerApp.register(updateEmployeeController);
       managerApp.register(terminateEmployeeController);
       managerApp.register(linkUserToEmployeeController);

@@ -14,7 +14,7 @@ describe('Send Notification Email (e2e)', () => {
   });
 
   it('should send email notification', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     // Create notification
     const notification = await prisma.notification.create({
@@ -47,7 +47,7 @@ describe('Send Notification Email (e2e)', () => {
   });
 
   it('should not send already sent notification', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     // Create notification already sent
     const notification = await prisma.notification.create({
@@ -72,7 +72,7 @@ describe('Send Notification Email (e2e)', () => {
   });
 
   it('should not send non-email channel notification', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     // Create IN_APP notification
     const notification = await prisma.notification.create({
@@ -95,7 +95,7 @@ describe('Send Notification Email (e2e)', () => {
   });
 
   it('should respect disabled preference', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     // Create disabled preference
     await prisma.notificationPreference.create({
@@ -129,7 +129,7 @@ describe('Send Notification Email (e2e)', () => {
   });
 
   it('should not send notification that does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/notifications/00000000-0000-0000-0000-000000000000/send')

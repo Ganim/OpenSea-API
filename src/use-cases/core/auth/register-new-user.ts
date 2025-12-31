@@ -1,18 +1,15 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { Email } from '@/entities/core/value-objects/email';
 import { Password } from '@/entities/core/value-objects/password';
-import { Role } from '@/entities/core/value-objects/role';
 import { Url } from '@/entities/core/value-objects/url';
 import { Username } from '@/entities/core/value-objects/username';
 import { UserDTO, userToDTO } from '@/mappers/core/user/user-to-dto';
 import { UsersRepository } from '@/repositories/core/users-repository';
-import type { Role as PrismaRole } from '@prisma/client';
 
 interface RegisterNewUserUseCaseRequest {
   username?: string;
   email: string;
   password: string;
-  role?: PrismaRole;
   profile?: {
     name?: string;
     surname?: string;
@@ -33,7 +30,6 @@ export class RegisterNewUserUseCase {
     username,
     email,
     password,
-    role = 'USER',
     profile = {},
   }: RegisterNewUserUseCaseRequest): Promise<RegisterNewUserUseCaseResponse> {
     const validEmail = Email.create(email);
@@ -44,7 +40,6 @@ export class RegisterNewUserUseCase {
     const validUsername = username
       ? Username.create(username)
       : Username.random();
-    const validRole = Role.create(role);
 
     const userWithSameEmail =
       await this.userRespository.findByEmail(validEmail);
@@ -62,7 +57,6 @@ export class RegisterNewUserUseCase {
       email: validEmail,
       username: validUsername,
       passwordHash: validPassword,
-      role: validRole,
       profile: {
         name: profile?.name ?? '',
         surname: profile?.surname ?? '',

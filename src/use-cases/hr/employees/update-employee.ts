@@ -26,7 +26,10 @@ export interface UpdateEmployeeRequest {
     phone?: string;
     relationship?: string;
   } | null;
-  healthConditions?: Array<{ description: string; requiresAttention: boolean }> | null;
+  healthConditions?: Array<{
+    description: string;
+    requiresAttention: boolean;
+  }> | null;
   cpf?: string;
   rg?: string | null;
   rgIssuer?: string | null;
@@ -60,7 +63,7 @@ export interface UpdateEmployeeRequest {
   departmentId?: string | null;
   positionId?: string | null;
   supervisorId?: string | null;
-  enterpriseId?: string | null;
+  companyId?: string | null;
   hireDate?: Date;
   baseSalary?: number;
   contractType?: string;
@@ -332,9 +335,9 @@ export class UpdateEmployeeUseCase {
         : null;
     }
 
-    if (updateData.enterpriseId !== undefined) {
-      updateSchema.enterpriseId = updateData.enterpriseId
-        ? new UniqueEntityID(updateData.enterpriseId)
+    if (updateData.companyId !== undefined) {
+      updateSchema.companyId = updateData.companyId
+        ? new UniqueEntityID(updateData.companyId)
         : null;
     }
 
@@ -373,15 +376,15 @@ export class UpdateEmployeeUseCase {
       militaryDoc: updateData.militaryDoc ?? existingEmployee.militaryDoc,
       positionId:
         updateData.positionId ?? existingEmployee.positionId?.toString(),
-      enterpriseId:
-        updateData.enterpriseId ?? existingEmployee.enterpriseId?.toString(),
+      companyId: updateData.companyId ?? existingEmployee.companyId?.toString(),
       phone: updateData.phone ?? existingEmployee.phone,
       email: updateData.email ?? existingEmployee.email,
       address: updateData.address ?? existingEmployee.address,
       hireDate: updateData.hireDate ?? existingEmployee.hireDate,
       baseSalary: updateData.baseSalary ?? existingEmployee.baseSalary,
       emergencyContactInfo:
-        updateData.emergencyContactInfo ?? existingEmployee.emergencyContactInfo,
+        updateData.emergencyContactInfo ??
+        existingEmployee.emergencyContactInfo,
     });
 
     updateSchema.pendingIssues = pendingIssues;
@@ -437,7 +440,7 @@ export class UpdateEmployeeUseCase {
     ctpsNumber?: string | null;
     militaryDoc?: string | null;
     positionId?: string | null;
-    enterpriseId?: string | null;
+    companyId?: string | null;
     phone?: string | null;
     email?: string | null;
     address?: string | null;
@@ -455,7 +458,7 @@ export class UpdateEmployeeUseCase {
     if (!input.birthDate) pending.push('birthDate');
     if (!input.ctpsNumber) pending.push('workCard');
     if (!input.positionId) pending.push('position');
-    if (!input.enterpriseId) pending.push('enterprise');
+    if (!input.companyId) pending.push('company');
     if (!input.phone) pending.push('phone');
     if (!input.email) pending.push('email');
     if (!input.address) pending.push('address');

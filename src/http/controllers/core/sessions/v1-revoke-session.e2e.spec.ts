@@ -14,7 +14,7 @@ describe('Revoke Session (e2e)', () => {
   });
 
   it('should allow ADMIN to REVOKE an user SESSION', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email = makeUniqueEmail('revoke-session');
     const anotherUser = await request(app.server)

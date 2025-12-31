@@ -34,10 +34,12 @@ export class UpdateDepartmentUseCase {
       throw new Error('Department not found');
     }
 
-    // Validate code uniqueness if changing
+    // Validate code uniqueness if changing (within the same company)
     if (code && code !== existingDepartment.code) {
-      const departmentWithCode =
-        await this.departmentsRepository.findByCode(code);
+      const departmentWithCode = await this.departmentsRepository.findByCode(
+        code,
+        existingDepartment.companyId,
+      );
       if (departmentWithCode) {
         throw new Error('Department with this code already exists');
       }
@@ -56,6 +58,11 @@ export class UpdateDepartmentUseCase {
         await this.departmentsRepository.findById(parentUniqueId);
       if (!parentDepartment) {
         throw new Error('Parent department not found');
+      }
+
+      // Ensure parent belongs to the same company
+      if (!parentDepartment.companyId.equals(existingDepartment.companyId)) {
+        throw new Error('Parent department must belong to the same company');
       }
 
       // Check for circular reference (parent cannot be a child of this department)

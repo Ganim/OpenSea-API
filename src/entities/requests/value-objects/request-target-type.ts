@@ -1,9 +1,8 @@
-export type RequestTargetType = 'USER' | 'GROUP' | 'ROLE';
+export type RequestTargetType = 'USER' | 'GROUP';
 
 export const REQUEST_TARGET_TYPES: RequestTargetType[] = [
   'USER',
   'GROUP',
-  'ROLE',
 ];
 
 export function isValidRequestTargetType(

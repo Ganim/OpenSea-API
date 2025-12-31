@@ -15,7 +15,7 @@ describe('List Employees (E2E)', () => {
   });
 
   it('should list employees with pagination', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create some employees
     await createEmployeeE2E();
@@ -36,7 +36,7 @@ describe('List Employees (E2E)', () => {
   });
 
   it('should allow USER to list employees', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/hr/employees')
@@ -47,7 +47,7 @@ describe('List Employees (E2E)', () => {
   });
 
   it('should filter employees by status', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     await createEmployeeE2E({ status: 'ACTIVE' });
     await createEmployeeE2E({ status: 'ON_LEAVE' });
@@ -65,7 +65,7 @@ describe('List Employees (E2E)', () => {
   });
 
   it('should search employees by name', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const uniqueName = `UniqueTestEmployee${Date.now()}`;
     await createEmployeeE2E({ fullName: uniqueName });
@@ -91,7 +91,7 @@ describe('List Employees (E2E)', () => {
   });
 
   it('should respect pagination perPage', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create enough employees to test pagination
     for (let i = 0; i < 5; i++) {
@@ -108,5 +108,3 @@ describe('List Employees (E2E)', () => {
     expect(response.body.meta.perPage).toBe(2);
   });
 });
-
-

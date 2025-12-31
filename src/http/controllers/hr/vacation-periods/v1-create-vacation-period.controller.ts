@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   createVacationPeriodSchema,
   vacationPeriodResponseSchema,
@@ -17,7 +18,13 @@ export async function createVacationPeriodController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/vacation-periods',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.VACATION_PERIODS.CREATE,
+        resource: 'vacation-periods',
+      }),
+    ],
     schema: {
       tags: ['HR - Vacation Periods'],
       summary: 'Create vacation period',

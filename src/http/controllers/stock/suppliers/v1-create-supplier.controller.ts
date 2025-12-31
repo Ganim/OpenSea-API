@@ -1,9 +1,11 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  createSupplierSchema,
-  supplierResponseSchema,
-} from '@/http/schemas/stock.schema';
+    createSupplierSchema,
+    supplierResponseSchema,
+} from '@/http/schemas/stock/suppliers';
 import { makeCreateSupplierUseCase } from '@/use-cases/stock/suppliers/factories/make-create-supplier-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -13,9 +15,15 @@ export async function createSupplierController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/suppliers',
-    onRequest: [verifyJwt],
+    onRequest: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.SUPPLIERS.CREATE,
+        resource: 'suppliers',
+      }),
+    ],
     schema: {
-      tags: ['Suppliers'],
+      tags: ['Stock - Suppliers'],
       summary: 'Create a new supplier',
       security: [{ bearerAuth: [] }],
       body: createSupplierSchema,

@@ -15,7 +15,7 @@ describe('Get Department By ID (E2E)', () => {
   });
 
   it('should allow MANAGER to get department by ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { department, departmentId } = await createDepartmentE2E();
 
     const response = await request(app.server)
@@ -30,7 +30,7 @@ describe('Get Department By ID (E2E)', () => {
   });
 
   it('should allow ADMIN to get department by ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const { departmentId } = await createDepartmentE2E();
 
     const response = await request(app.server)
@@ -42,7 +42,7 @@ describe('Get Department By ID (E2E)', () => {
   });
 
   it('should allow USER to get department by ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { departmentId } = await createDepartmentE2E();
 
     const response = await request(app.server)
@@ -64,7 +64,7 @@ describe('Get Department By ID (E2E)', () => {
   });
 
   it('should return 404 when department is not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const fakeId = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
@@ -75,7 +75,7 @@ describe('Get Department By ID (E2E)', () => {
   });
 
   it('should return 400 when ID is invalid', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const invalidId = 'invalid-uuid';
 
     const response = await request(app.server)
@@ -86,7 +86,7 @@ describe('Get Department By ID (E2E)', () => {
   });
 
   it('should return department with all fields', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { departmentId } = await createDepartmentE2E({
       description: 'Test description',
     });

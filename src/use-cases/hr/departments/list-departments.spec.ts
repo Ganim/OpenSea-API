@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryDepartmentsRepository } from '@/repositories/hr/in-memory/in-memory-departments-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateDepartmentUseCase } from './create-department';
@@ -6,6 +7,9 @@ import { ListDepartmentsUseCase } from './list-departments';
 let departmentsRepository: InMemoryDepartmentsRepository;
 let createDepartmentUseCase: CreateDepartmentUseCase;
 let sut: ListDepartmentsUseCase;
+
+const companyId = new UniqueEntityID().toString();
+const anotherCompanyId = new UniqueEntityID().toString();
 
 describe('List Departments Use Case', () => {
   beforeEach(() => {
@@ -17,9 +21,21 @@ describe('List Departments Use Case', () => {
   });
 
   it('should list departments with pagination', async () => {
-    await createDepartmentUseCase.execute({ name: 'Engineering', code: 'ENG' });
-    await createDepartmentUseCase.execute({ name: 'Sales', code: 'SALES' });
-    await createDepartmentUseCase.execute({ name: 'Marketing', code: 'MKT' });
+    await createDepartmentUseCase.execute({
+      name: 'Engineering',
+      code: 'ENG',
+      companyId,
+    });
+    await createDepartmentUseCase.execute({
+      name: 'Sales',
+      code: 'SALES',
+      companyId,
+    });
+    await createDepartmentUseCase.execute({
+      name: 'Marketing',
+      code: 'MKT',
+      companyId,
+    });
 
     const result = await sut.execute({ page: 1, perPage: 2 });
 
@@ -31,8 +47,16 @@ describe('List Departments Use Case', () => {
   });
 
   it('should filter by search term', async () => {
-    await createDepartmentUseCase.execute({ name: 'Engineering', code: 'ENG' });
-    await createDepartmentUseCase.execute({ name: 'Sales', code: 'SALES' });
+    await createDepartmentUseCase.execute({
+      name: 'Engineering',
+      code: 'ENG',
+      companyId,
+    });
+    await createDepartmentUseCase.execute({
+      name: 'Sales',
+      code: 'SALES',
+      companyId,
+    });
 
     const result = await sut.execute({ search: 'eng' });
 
@@ -45,11 +69,13 @@ describe('List Departments Use Case', () => {
       name: 'Engineering',
       code: 'ENG',
       isActive: true,
+      companyId,
     });
     await createDepartmentUseCase.execute({
       name: 'Old Dept',
       code: 'OLD',
       isActive: false,
+      companyId,
     });
 
     const result = await sut.execute({ isActive: true });
@@ -62,17 +88,20 @@ describe('List Departments Use Case', () => {
     const parent = await createDepartmentUseCase.execute({
       name: 'Technology',
       code: 'TECH',
+      companyId,
     });
 
     await createDepartmentUseCase.execute({
       name: 'Engineering',
       code: 'ENG',
       parentId: parent.department.id.toString(),
+      companyId,
     });
 
     await createDepartmentUseCase.execute({
       name: 'Sales',
       code: 'SALES',
+      companyId,
     });
 
     const result = await sut.execute({
@@ -81,6 +110,25 @@ describe('List Departments Use Case', () => {
 
     expect(result.departments).toHaveLength(1);
     expect(result.departments[0].name).toBe('Engineering');
+  });
+
+  it('should filter by companyId', async () => {
+    await createDepartmentUseCase.execute({
+      name: 'Engineering',
+      code: 'ENG',
+      companyId,
+    });
+    await createDepartmentUseCase.execute({
+      name: 'Sales',
+      code: 'SALES',
+      companyId: anotherCompanyId,
+    });
+
+    const result = await sut.execute({ companyId });
+
+    expect(result.departments).toHaveLength(1);
+    expect(result.departments[0].name).toBe('Engineering');
+    expect(result.departments[0].companyId.toString()).toBe(companyId);
   });
 
   it('should return empty list when no departments exist', async () => {
@@ -92,7 +140,11 @@ describe('List Departments Use Case', () => {
   });
 
   it('should use default pagination values', async () => {
-    await createDepartmentUseCase.execute({ name: 'Engineering', code: 'ENG' });
+    await createDepartmentUseCase.execute({
+      name: 'Engineering',
+      code: 'ENG',
+      companyId,
+    });
 
     const result = await sut.execute({});
 

@@ -15,7 +15,7 @@ describe('Get Work Schedule (E2E)', () => {
   });
 
   it('should get a work schedule by id', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
@@ -38,7 +38,7 @@ describe('Get Work Schedule (E2E)', () => {
   });
 
   it('should return 404 for non-existent schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)

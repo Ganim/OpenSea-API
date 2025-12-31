@@ -13,7 +13,7 @@ describe('Update Tag (E2E)', () => {
   });
 
   it('should be able to update a tag', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create a tag first
     const createResponse = await request(app.server)
@@ -50,7 +50,7 @@ describe('Update Tag (E2E)', () => {
   });
 
   it('should not be able to update a non-existing tag', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const nonExistingId = '00000000-0000-0000-0000-000000000000';
 
@@ -66,7 +66,7 @@ describe('Update Tag (E2E)', () => {
   });
 
   it('should not be able to update tag with duplicate name', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 

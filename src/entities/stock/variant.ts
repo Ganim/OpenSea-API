@@ -359,7 +359,13 @@ export class Variant extends Entity<VariantProps> {
   static create(
     props: Optional<
       VariantProps,
-      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'attributes' | 'price' | 'isActive'
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
+      | 'attributes'
+      | 'price'
+      | 'isActive'
     >,
     id?: UniqueEntityID,
   ): Variant {

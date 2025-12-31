@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryDepartmentsRepository } from '@/repositories/hr/in-memory/in-memory-departments-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateDepartmentUseCase } from './create-department';
@@ -6,6 +7,8 @@ import { DeleteDepartmentUseCase } from './delete-department';
 let departmentsRepository: InMemoryDepartmentsRepository;
 let createDepartmentUseCase: CreateDepartmentUseCase;
 let sut: DeleteDepartmentUseCase;
+
+const companyId = new UniqueEntityID().toString();
 
 describe('Delete Department Use Case', () => {
   beforeEach(() => {
@@ -20,6 +23,7 @@ describe('Delete Department Use Case', () => {
     const createResult = await createDepartmentUseCase.execute({
       name: 'Engineering',
       code: 'ENG',
+      companyId,
     });
 
     const result = await sut.execute({
@@ -46,12 +50,14 @@ describe('Delete Department Use Case', () => {
     const parentResult = await createDepartmentUseCase.execute({
       name: 'Technology',
       code: 'TECH',
+      companyId,
     });
 
     await createDepartmentUseCase.execute({
       name: 'Engineering',
       code: 'ENG',
       parentId: parentResult.department.id.toString(),
+      companyId,
     });
 
     await expect(

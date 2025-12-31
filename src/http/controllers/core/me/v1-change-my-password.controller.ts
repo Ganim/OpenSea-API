@@ -1,6 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { strongPasswordSchema, userResponseSchema } from '@/http/schemas';
 import { makeChangeMyPasswordUseCase } from '@/use-cases/core/me/factories/make-change-my-password-use-case';
 
@@ -14,7 +14,7 @@ export async function changeMyPasswordController(app: FastifyInstance) {
     url: '/v1/me/password',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Me'],
+      tags: ['Auth - Me'],
       summary: 'Change self password by authenticated user',
       description:
         'Change own password with strong password requirements (8+ chars, uppercase, lowercase, number, special character)',

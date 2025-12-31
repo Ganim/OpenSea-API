@@ -15,7 +15,7 @@ describe('Delete Employee (E2E)', () => {
   });
 
   it('should soft delete employee as MANAGER', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employee, cpf } = await createEmployeeE2E();
 
     const response = await request(app.server)
@@ -41,7 +41,7 @@ describe('Delete Employee (E2E)', () => {
   });
 
   it('should allow ADMIN to delete employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const { employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
@@ -52,8 +52,8 @@ describe('Delete Employee (E2E)', () => {
     expect(response.statusCode).toBe(204);
   });
 
-  it('should NOT allow USER to delete employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to delete employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const { employee } = await createEmployeeE2E();
 
     const response = await request(app.server)
@@ -65,7 +65,7 @@ describe('Delete Employee (E2E)', () => {
   });
 
   it('should return 404 when employee does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .delete('/v1/hr/employees/00000000-0000-0000-0000-000000000000')

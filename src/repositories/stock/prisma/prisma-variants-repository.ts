@@ -4,9 +4,9 @@ import { Variant } from '@/entities/stock/variant';
 import { prisma } from '@/lib/prisma';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-    CreateVariantSchema,
-    UpdateVariantSchema,
-    VariantsRepository,
+  CreateVariantSchema,
+  UpdateVariantSchema,
+  VariantsRepository,
 } from '../variants-repository';
 
 export class PrismaVariantsRepository implements VariantsRepository {

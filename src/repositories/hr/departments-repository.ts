@@ -7,6 +7,7 @@ export interface CreateDepartmentSchema {
   description?: string;
   parentId?: UniqueEntityID;
   managerId?: UniqueEntityID;
+  companyId: UniqueEntityID;
   isActive?: boolean;
 }
 
@@ -26,6 +27,7 @@ export interface FindManyDepartmentsParams {
   search?: string;
   isActive?: boolean;
   parentId?: UniqueEntityID;
+  companyId?: UniqueEntityID;
 }
 
 export interface FindManyDepartmentsResult {
@@ -36,12 +38,16 @@ export interface FindManyDepartmentsResult {
 export interface DepartmentsRepository {
   create(data: CreateDepartmentSchema): Promise<Department>;
   findById(id: UniqueEntityID): Promise<Department | null>;
-  findByCode(code: string): Promise<Department | null>;
+  findByCode(
+    code: string,
+    companyId: UniqueEntityID,
+  ): Promise<Department | null>;
   findMany(
     params: FindManyDepartmentsParams,
   ): Promise<FindManyDepartmentsResult>;
   findManyByParent(parentId: UniqueEntityID): Promise<Department[]>;
   findManyByManager(managerId: UniqueEntityID): Promise<Department[]>;
+  findManyByCompany(companyId: UniqueEntityID): Promise<Department[]>;
   findManyActive(): Promise<Department[]>;
   hasChildren(id: UniqueEntityID): Promise<boolean>;
   hasEmployees(id: UniqueEntityID): Promise<boolean>;

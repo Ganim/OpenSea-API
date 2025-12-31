@@ -16,14 +16,12 @@ describe('Add Request Comment (E2E)', () => {
 
     const userAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
     token = userAuthData.token;
     user = userAuthData.user;
 
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
     adminToken = adminAuthData.token;
   });
@@ -68,7 +66,6 @@ describe('Add Request Comment (E2E)', () => {
   it('should be able to add comment as the assigned user', async () => {
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     // Create a test request assigned to admin
@@ -100,7 +97,6 @@ describe('Add Request Comment (E2E)', () => {
     // Create a test request for another user
     const otherUserAuth = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
 
     const testRequest = await prisma.request.create({
@@ -134,11 +130,9 @@ describe('Add Request Comment (E2E)', () => {
     // Create a test request for another user without assignment
     const otherUserAuth1 = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
     const otherUserAuth2 = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
 
     const testRequest = await prisma.request.create({

@@ -15,7 +15,7 @@ describe('List Payrolls (E2E)', () => {
   });
 
   it('should allow MANAGER to list payrolls', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     await createPayroll({ referenceMonth: 7, referenceYear: 2025 });
     await createPayroll({ referenceMonth: 8, referenceYear: 2025 });
@@ -31,7 +31,7 @@ describe('List Payrolls (E2E)', () => {
   });
 
   it('should filter payrolls by year', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     await createPayroll({ referenceMonth: 9, referenceYear: 2024 });
     await createPayroll({ referenceMonth: 10, referenceYear: 2025 });

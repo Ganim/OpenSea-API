@@ -16,7 +16,7 @@ describe('Get Overtime (E2E)', () => {
   });
 
   it('should get overtime by id', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     const overtime = await prisma.overtime.create({
@@ -43,7 +43,7 @@ describe('Get Overtime (E2E)', () => {
   });
 
   it('should get approved overtime with approver info', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     const overtime = await prisma.overtime.create({
@@ -69,7 +69,7 @@ describe('Get Overtime (E2E)', () => {
   });
 
   it('should return 404 for non-existent overtime', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)

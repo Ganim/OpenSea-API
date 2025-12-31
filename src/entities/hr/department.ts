@@ -7,6 +7,7 @@ export interface DepartmentProps {
   description?: string;
   parentId?: UniqueEntityID;
   managerId?: UniqueEntityID;
+  companyId: UniqueEntityID;
   isActive: boolean;
   deletedAt?: Date;
   createdAt: Date;
@@ -32,6 +33,10 @@ export class Department extends Entity<DepartmentProps> {
 
   get managerId(): UniqueEntityID | undefined {
     return this.props.managerId;
+  }
+
+  get companyId(): UniqueEntityID {
+    return this.props.companyId;
   }
 
   get isActive(): boolean {
@@ -123,7 +128,10 @@ export class Department extends Entity<DepartmentProps> {
   }
 
   static create(
-    props: Omit<DepartmentProps, 'createdAt' | 'updatedAt'>,
+    props: Omit<DepartmentProps, 'createdAt' | 'updatedAt'> & {
+      createdAt?: Date;
+      updatedAt?: Date;
+    },
     id?: UniqueEntityID,
   ): Department {
     const now = new Date();
@@ -132,8 +140,8 @@ export class Department extends Entity<DepartmentProps> {
       {
         ...props,
         isActive: props.isActive ?? true,
-        createdAt: now,
-        updatedAt: now,
+        createdAt: props.createdAt ?? now,
+        updatedAt: props.updatedAt ?? now,
       },
       id,
     );

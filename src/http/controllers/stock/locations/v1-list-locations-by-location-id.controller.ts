@@ -2,7 +2,9 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { locationResponseSchema } from '@/http/schemas';
 import { makeListLocationsByLocationIdUseCase } from '@/use-cases/stock/locations/factories/make-list-locations-by-location-id-use-case';
 
@@ -12,9 +14,15 @@ export async function listLocationsByLocationIdController(
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/locations/:locationId/sub-locations',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.LOCATIONS.LIST,
+        resource: 'locations',
+      }),
+    ],
     schema: {
-      tags: ['Locations'],
+      tags: ['Stock - Locations'],
       summary: 'List sub-locations by location ID',
       description:
         'List all active sub-locations for a specific location with counts',

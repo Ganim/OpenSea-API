@@ -1,15 +1,32 @@
-export { Absence, AbsenceProps } from './absence';
-export { Bonus, BonusProps } from './bonus';
-export { Deduction, DeductionProps } from './deduction';
-export { Department, DepartmentProps } from './department';
-export { Employee, EmployeeProps } from './employee';
-export { Enterprise, EnterpriseProps } from './enterprise';
-export { Overtime, OvertimeProps } from './overtime';
-export { Payroll, PayrollProps } from './payroll';
-export { PayrollItem, PayrollItemProps } from './payroll-item';
-export { Position, PositionProps } from './position';
-export { TimeBank, TimeBankProps } from './time-bank';
-export { TimeEntry, TimeEntryProps } from './time-entry';
-export { VacationPeriod, VacationPeriodProps } from './vacation-period';
-export { WorkSchedule, WorkScheduleProps } from './work-schedule';
+export { Absence } from './absence';
+export type { AbsenceProps } from './absence';
 
+export { Bonus } from './bonus';
+export type { BonusProps } from './bonus';
+
+export { CompanyAddress } from './company-address';
+export type {
+  CompanyAddressProps,
+  CompanyAddressType,
+} from './company-address';
+
+export { CompanyCnae } from './company-cnae';
+export type { CompanyCnaeProps, CompanyCnaeStatus } from './company-cnae';
+
+export { CompanyFiscalSettings } from './company-fiscal-settings';
+export type {
+  CompanyFiscalSettingsProps,
+  DigitalCertificateType,
+  NfeEnvironment,
+} from './company-fiscal-settings';
+
+export { CompanyStakeholder } from './company-stakeholder';
+export type {
+  CompanyStakeholderProps,
+  CompanyStakeholderRole,
+  CompanyStakeholderSource,
+  CompanyStakeholderStatus,
+} from './company-stakeholder';
+
+export { Company } from './company';
+export type { CompanyProps, CompanyStatus, TaxRegime } from './company';

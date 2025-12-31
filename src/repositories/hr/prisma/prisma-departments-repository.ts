@@ -19,11 +19,13 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
         description: data.description,
         parentId: data.parentId?.toString(),
         managerId: data.managerId?.toString(),
+        companyId: data.companyId.toString(),
         isActive: data.isActive ?? true,
       },
       include: {
         parent: true,
         manager: true,
+        company: true,
       },
     });
 
@@ -43,6 +45,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
       include: {
         parent: true,
         manager: true,
+        company: true,
       },
     });
 
@@ -55,15 +58,20 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
     return department;
   }
 
-  async findByCode(code: string): Promise<Department | null> {
+  async findByCode(
+    code: string,
+    companyId: UniqueEntityID,
+  ): Promise<Department | null> {
     const departmentData = await prisma.department.findFirst({
       where: {
         code,
+        companyId: companyId.toString(),
         deletedAt: null,
       },
       include: {
         parent: true,
         manager: true,
+        company: true,
       },
     });
 
@@ -79,7 +87,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
   async findMany(
     params: FindManyDepartmentsParams,
   ): Promise<FindManyDepartmentsResult> {
-    const { page = 1, perPage = 20, search, isActive, parentId } = params;
+    const { page = 1, perPage = 20, search, isActive, parentId, companyId } = params;
 
     const where = {
       deletedAt: null,
@@ -91,6 +99,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
       }),
       ...(isActive !== undefined && { isActive }),
       ...(parentId && { parentId: parentId.toString() }),
+      ...(companyId && { companyId: companyId.toString() }),
     };
 
     const [departments, total] = await Promise.all([
@@ -99,6 +108,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
         include: {
           parent: true,
           manager: true,
+          company: true,
         },
         skip: (page - 1) * perPage,
         take: perPage,
@@ -127,6 +137,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
       include: {
         parent: true,
         manager: true,
+        company: true,
       },
     });
 
@@ -147,6 +158,28 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
       include: {
         parent: true,
         manager: true,
+        company: true,
+      },
+    });
+
+    return departments.map((dep) =>
+      Department.create(
+        mapDepartmentPrismaToDomain(dep),
+        new UniqueEntityID(dep.id),
+      ),
+    );
+  }
+
+  async findManyByCompany(companyId: UniqueEntityID): Promise<Department[]> {
+    const departments = await prisma.department.findMany({
+      where: {
+        companyId: companyId.toString(),
+        deletedAt: null,
+      },
+      include: {
+        parent: true,
+        manager: true,
+        company: true,
       },
     });
 
@@ -167,6 +200,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
       include: {
         parent: true,
         manager: true,
+        company: true,
       },
     });
 
@@ -226,6 +260,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
       include: {
         parent: true,
         manager: true,
+        company: true,
       },
     });
 
@@ -244,6 +279,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
         description: department.description,
         parentId: department.parentId?.toString() ?? null,
         managerId: department.managerId?.toString() ?? null,
+        companyId: department.companyId.toString(),
         isActive: department.isActive,
         deletedAt: department.deletedAt,
       },

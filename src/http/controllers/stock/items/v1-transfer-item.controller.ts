@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { itemTransferResponseSchema, transferItemSchema } from '@/http/schemas';
 import { makeTransferItemUseCase } from '@/use-cases/stock/items/factories/make-transfer-item-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -12,9 +13,15 @@ export async function transferItemController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/items/transfer',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.ITEMS.CREATE,
+        resource: 'items',
+      }),
+    ],
     schema: {
-      tags: ['Items'],
+      tags: ['Stock - Items'],
       summary: 'Transfer item to another location',
       body: transferItemSchema,
       response: {

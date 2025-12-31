@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeDeleteNotificationUseCase } from '@/use-cases/notifications/factories/make-delete-notification-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,7 +10,7 @@ export async function deleteNotificationController(app: FastifyInstance) {
     url: '/v1/notifications/:id',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Notifications'],
+      tags: ['Sales - Notifications'],
       summary: 'Delete a notification (soft delete)',
       params: z.object({ id: z.string().uuid() }),
       response: { 204: z.void() },

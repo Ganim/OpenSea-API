@@ -13,7 +13,7 @@ describe('Update Template (E2E)', () => {
   });
 
   it('should be able to update a template', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create template
     const createResponse = await request(app.server)
@@ -48,7 +48,7 @@ describe('Update Template (E2E)', () => {
   });
 
   it('should not be able to update template with duplicate name', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const uniqueName = `Template ${Date.now()}`;
 
@@ -87,7 +87,7 @@ describe('Update Template (E2E)', () => {
   });
 
   it('should return 404 when updating non-existing template', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const nonExistingId = '00000000-0000-0000-0000-000000000000';
 

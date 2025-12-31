@@ -4,7 +4,7 @@ import type { RequestPriority } from '@/entities/requests/value-objects/request-
 import type { RequestStatus } from '@/entities/requests/value-objects/request-status';
 import type { RequestTargetType } from '@/entities/requests/value-objects/request-target-type';
 import type { RequestType } from '@/entities/requests/value-objects/request-type';
-import type { Prisma, Request as PrismaRequest, Role } from '@prisma/client';
+import type { Prisma, Request as PrismaRequest } from '@prisma/client';
 
 export class RequestMapper {
   static toDomain(raw: PrismaRequest): Request {
@@ -19,7 +19,6 @@ export class RequestMapper {
         requesterId: new UniqueEntityID(raw.requesterId),
         targetType: raw.targetType as RequestTargetType,
         targetId: raw.targetId ?? undefined,
-        targetRole: (raw.targetRole as Role) ?? undefined,
         assignedToId: raw.assignedToId
           ? new UniqueEntityID(raw.assignedToId)
           : undefined,
@@ -50,7 +49,6 @@ export class RequestMapper {
       requesterId: request.requesterId.toString(),
       targetType: request.targetType,
       targetId: request.targetId,
-      targetRole: request.targetRole,
       assignedToId: request.assignedToId?.toString(),
       dueDate: request.dueDate,
       slaDeadline: request.slaDeadline,

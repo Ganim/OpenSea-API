@@ -1,12 +1,10 @@
 import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
 import { CreateUserUseCase } from '@/use-cases/core/users/create-user';
-import type { Role as PrismaRole } from '@prisma/client';
 
 interface makeUserProps {
   email: string;
   password: string;
   username?: string;
-  role?: PrismaRole;
   profile?: {
     name?: string;
     surname?: string;
@@ -22,7 +20,6 @@ export async function makeUser({
   email,
   password,
   username = '',
-  role = 'USER',
   profile = {
     name: '',
     surname: '',
@@ -39,7 +36,6 @@ export async function makeUser({
     email,
     password,
     username,
-    role,
     profile: {
       name: profile.name,
       surname: profile.surname,

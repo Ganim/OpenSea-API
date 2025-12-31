@@ -1,4 +1,4 @@
-﻿import { verifyJwt } from '@/http/middlewares/verify-jwt';
+﻿import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { variantPromotionResponseSchema } from '@/http/schemas/sales.schema';
 import { makeListVariantPromotionsUseCase } from '@/use-cases/sales/variant-promotions/factories/make-list-variant-promotions-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -11,7 +11,7 @@ export async function listVariantPromotionsController(app: FastifyInstance) {
     url: '/v1/variant-promotions',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Variant Promotions'],
+      tags: ['Sales - Variant Promotions'],
       summary: 'List variant promotions',
       querystring: z.object({
         variantId: z.string().uuid().optional(),

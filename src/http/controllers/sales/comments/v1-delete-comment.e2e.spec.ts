@@ -11,7 +11,7 @@ describe('Delete Comment (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     userToken = token;
 
     // Create a customer
@@ -84,7 +84,6 @@ describe('Delete Comment (E2E)', () => {
     // Create another user
     const { token: anotherUserToken } = await createAndAuthenticateUser(
       app,
-      'USER',
     );
 
     // Try to delete with another user

@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { makeDeleteDepartmentUseCase } from '@/use-cases/hr/departments/factories/make-delete-department-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -12,7 +13,13 @@ export async function deleteDepartmentController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/hr/departments/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.DEPARTMENTS.DELETE,
+        resource: 'departments',
+      }),
+    ],
     schema: {
       tags: ['HR - Departments'],
       summary: 'Delete a department',

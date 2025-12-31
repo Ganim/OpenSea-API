@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeDeleteVariantUseCase } from '@/use-cases/stock/variants/factories/make-delete-variant-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,9 +11,15 @@ export async function deleteVariantController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/variants/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.VARIANTS.DELETE,
+        resource: 'variants',
+      }),
+    ],
     schema: {
-      tags: ['Variants'],
+      tags: ['Stock - Variants'],
       summary: 'Delete a variant (soft delete)',
       params: z.object({
         id: z.uuid(),

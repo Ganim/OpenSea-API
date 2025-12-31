@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeCancelRequestUseCase } from '@/use-cases/requests/factories/make-cancel-request-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,7 +10,7 @@ export async function cancelRequestController(app: FastifyInstance) {
     url: '/v1/requests/:id/cancel',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Requests'],
+      tags: ['Core - Requests'],
       summary: 'Cancel a request',
       params: z.object({
         id: z.string().uuid(),
@@ -34,7 +34,9 @@ export async function cancelRequestController(app: FastifyInstance) {
         requestId: request.params.id,
         cancelledById: request.user.sub,
         cancellationReason: request.body.cancellationReason,
-        userRole: request.user.role,
+        hasCancelAllPermission: request.user.permissions?.includes(
+          'REQUESTS:CANCEL_ALL',
+        ),
       });
 
       return reply.status(200).send({ success: true });

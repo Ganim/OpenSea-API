@@ -1,10 +1,11 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  createPurchaseOrderSchema,
-  purchaseOrderResponseSchema,
+    createPurchaseOrderSchema,
+    purchaseOrderResponseSchema,
 } from '@/http/schemas';
 import { makeCreatePurchaseOrderUseCase } from '@/use-cases/stock/purchase-orders/factories/make-create-purchase-order-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -15,9 +16,15 @@ export async function createPurchaseOrderController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/purchase-orders',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.CREATE,
+        resource: 'purchase-orders',
+      }),
+    ],
     schema: {
-      tags: ['Purchase Orders'],
+      tags: ['Stock - Purchase Orders'],
       summary: 'Create a new purchase order',
       body: createPurchaseOrderSchema,
       response: {

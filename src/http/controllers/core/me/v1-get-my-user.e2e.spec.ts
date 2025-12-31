@@ -12,7 +12,7 @@ describe('Change My User (e2e)', () => {
   });
 
   it('should allow a USER to GET their OWN USER data', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/me')

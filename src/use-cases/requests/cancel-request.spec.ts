@@ -51,7 +51,7 @@ describe('CancelRequestUseCase', () => {
       requestId: request.id.toString(),
       cancelledById: 'admin-1',
       cancellationReason: 'Requisição duplicada',
-      userRole: 'ADMIN',
+      hasCancelAllPermission: true,
     });
 
     expect(result.success).toBe(true);
@@ -91,7 +91,6 @@ describe('CancelRequestUseCase', () => {
         requestId: 'non-existent',
         cancelledById: 'user-1',
         cancellationReason: 'Test',
-        userRole: 'USER',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
@@ -120,7 +119,6 @@ describe('CancelRequestUseCase', () => {
       requestId: request.id.toString(),
       cancelledById: 'requester-1',
       cancellationReason: 'Não preciso mais',
-      userRole: 'USER',
     });
 
     // Não deve enviar notificação para o próprio solicitante
@@ -153,7 +151,7 @@ describe('CancelRequestUseCase', () => {
         requestId: request.id.toString(),
         cancelledById: 'admin-1',
         cancellationReason: 'Test',
-        userRole: 'ADMIN',
+        hasCancelAllPermission: true,
       }),
     ).rejects.toThrow('Cannot cancel a completed or already cancelled request');
   });

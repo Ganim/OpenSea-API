@@ -3,17 +3,24 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeDeleteLocationUseCase } from '@/use-cases/stock/locations/factories/make-delete-location-use-case';
 
 export async function deleteLocationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/locations/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.LOCATIONS.DELETE,
+        resource: 'locations',
+      }),
+    ],
     schema: {
-      tags: ['Locations'],
+      tags: ['Stock - Locations'],
       summary: 'Delete location',
       description: 'Soft delete a location',
       security: [{ bearerAuth: [] }],

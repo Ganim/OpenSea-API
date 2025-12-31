@@ -18,7 +18,7 @@ describe('Check CPF (E2E)', () => {
   });
 
   it('should return true when CPF exists', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const cpf = generateValidCPF();
 
     await request(app.server)
@@ -38,7 +38,7 @@ describe('Check CPF (E2E)', () => {
   });
 
   it('should return false when CPF does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/hr/employees/check-cpf')
@@ -51,7 +51,7 @@ describe('Check CPF (E2E)', () => {
   });
 
   it('should include soft-deleted employee when includeDeleted is true', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const cpf = generateValidCPF();
 
     const createResponse = await request(app.server)
@@ -90,7 +90,7 @@ describe('Check CPF (E2E)', () => {
   });
 
   it('should return 400 when CPF is invalid', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/hr/employees/check-cpf')

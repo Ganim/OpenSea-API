@@ -10,6 +10,7 @@ export interface ListEmployeesRequest {
   departmentId?: string;
   positionId?: string;
   supervisorId?: string;
+  companyId?: string;
   search?: string;
   includeDeleted?: boolean;
 }
@@ -35,6 +36,7 @@ export class ListEmployeesUseCase {
       departmentId,
       positionId,
       supervisorId,
+      companyId,
       search,
       includeDeleted = false,
     } = request;
@@ -61,6 +63,11 @@ export class ListEmployeesUseCase {
     } else if (supervisorId) {
       employees = await this.employeesRepository.findManyBySupervisor(
         new UniqueEntityID(supervisorId),
+        includeDeleted,
+      );
+    } else if (companyId) {
+      employees = await this.employeesRepository.findManyByCompany(
+        new UniqueEntityID(companyId),
         includeDeleted,
       );
     } else {

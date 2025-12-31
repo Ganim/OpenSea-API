@@ -12,7 +12,7 @@ describe('List all Users (e2e)', () => {
   });
 
   it('should allow MANAGER/ADMIN to LIST ALL users ', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     await request(app.server)
       .post('/v1/users')

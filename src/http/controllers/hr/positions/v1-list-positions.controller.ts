@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   listPositionsQuerySchema,
   positionResponseSchema,
@@ -35,7 +35,7 @@ export async function listPositionsController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
-      const { page, perPage, search, departmentId, level, isActive } =
+      const { page, perPage, search, departmentId, companyId, level, isActive } =
         request.query;
 
       const listPositionsUseCase = makeListPositionsUseCase();
@@ -44,6 +44,7 @@ export async function listPositionsController(app: FastifyInstance) {
         perPage,
         search,
         departmentId,
+        companyId,
         level,
         isActive,
       });

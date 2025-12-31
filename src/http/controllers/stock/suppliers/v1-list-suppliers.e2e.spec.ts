@@ -14,7 +14,6 @@ describe('List Suppliers (E2E)', () => {
 
     const { token: authToken } = await createAndAuthenticateUser(
       app,
-      'MANAGER',
     );
     token = authToken;
   });

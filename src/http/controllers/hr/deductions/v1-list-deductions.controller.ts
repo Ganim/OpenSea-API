@@ -1,7 +1,7 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-    deductionResponseSchema,
-    listDeductionsQuerySchema,
+  deductionResponseSchema,
+  listDeductionsQuerySchema,
 } from '@/http/schemas';
 import { deductionToDTO } from '@/mappers/hr/deduction';
 import { makeListDeductionsUseCase } from '@/use-cases/hr/deductions/factories/make-list-deductions-use-case';

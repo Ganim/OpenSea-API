@@ -1,4 +1,4 @@
-﻿import { verifyJwt } from '@/http/middlewares/verify-jwt';
+﻿import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { notificationPreferenceResponseSchema } from '@/http/schemas/sales.schema';
 import { makeListNotificationPreferencesByUserUseCase } from '@/use-cases/sales/notification-preferences/factories/make-list-notification-preferences-by-user-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -13,7 +13,7 @@ export async function listNotificationPreferencesByUserController(
     url: '/v1/notification-preferences/user/:userId',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Notification Preferences'],
+      tags: ['Sales - Notification Preferences'],
       summary: 'List notification preferences by user',
       params: z.object({ userId: z.string().uuid() }),
       querystring: z.object({

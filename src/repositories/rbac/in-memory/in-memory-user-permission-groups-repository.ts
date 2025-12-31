@@ -218,10 +218,13 @@ export class InMemoryUserPermissionGroupsRepository
     return [];
   }
 
-  async listUserPermissionsWithEffects(
-    userId: UniqueEntityID,
-  ): Promise<
-    { permission: Permission; effect: string; groupId: UniqueEntityID; conditions: Record<string, unknown> | null }[]
+  async listUserPermissionsWithEffects(userId: UniqueEntityID): Promise<
+    {
+      permission: Permission;
+      effect: string;
+      groupId: UniqueEntityID;
+      conditions: Record<string, unknown> | null;
+    }[]
   > {
     if (!this.permissionGroupPermissionsRepository) return [];
 

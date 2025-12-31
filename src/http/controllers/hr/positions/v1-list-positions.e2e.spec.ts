@@ -15,7 +15,7 @@ describe('List Positions (E2E)', () => {
   });
 
   it('should allow MANAGER to list positions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     await createPositionE2E();
     await createPositionE2E();
 
@@ -34,7 +34,7 @@ describe('List Positions (E2E)', () => {
   });
 
   it('should allow ADMIN to list positions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/hr/positions')
@@ -45,7 +45,7 @@ describe('List Positions (E2E)', () => {
   });
 
   it('should allow USER to list positions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/hr/positions')
@@ -62,7 +62,7 @@ describe('List Positions (E2E)', () => {
   });
 
   it('should paginate results', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     // Create multiple positions
     await createPositionE2E();
     await createPositionE2E();
@@ -79,7 +79,7 @@ describe('List Positions (E2E)', () => {
   });
 
   it('should filter by search query', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     await createPositionE2E({ name: 'Senior Developer' });
     await createPositionE2E({ name: 'Junior Analyst' });
 
@@ -97,7 +97,7 @@ describe('List Positions (E2E)', () => {
   });
 
   it('should filter by isActive status', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     // Cria uma posição ativa
     await createPositionE2E({
       isActive: true,
@@ -119,7 +119,7 @@ describe('List Positions (E2E)', () => {
   });
 
   it('should filter by level', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     await createPositionE2E({ level: 3 });
     await createPositionE2E({ level: 5 });
 
@@ -135,7 +135,7 @@ describe('List Positions (E2E)', () => {
   });
 
   it('should return correct pagination metadata', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/hr/positions')

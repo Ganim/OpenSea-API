@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeGetMyUserUseCase } from '@/use-cases/core/me/factories/make-get-my-user-use-case';
 
 import type { FastifyInstance } from 'fastify';
@@ -12,7 +12,7 @@ export async function getMyUserController(app: FastifyInstance) {
     url: '/v1/me',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Me'],
+      tags: ['Auth - Me'],
       summary: 'Get authenticated user',
       response: {
         200: z.object({
@@ -20,7 +20,6 @@ export async function getMyUserController(app: FastifyInstance) {
             id: z.string(),
             email: z.string(),
             username: z.string(),
-            role: z.string(),
             lastLoginAt: z.coerce.date().nullable(),
             deletedAt: z.coerce.date().nullable().optional(),
             profile: z

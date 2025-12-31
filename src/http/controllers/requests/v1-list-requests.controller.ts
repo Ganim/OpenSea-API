@@ -1,6 +1,6 @@
 import type { RequestStatus } from '@/entities/requests/value-objects/request-status';
 import type { RequestType } from '@/entities/requests/value-objects/request-type';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeListRequestsUseCase } from '@/use-cases/requests/factories/make-list-requests-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -12,7 +12,7 @@ export async function listRequestsController(app: FastifyInstance) {
     url: '/v1/requests',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Requests'],
+      tags: ['Core - Requests'],
       summary: 'List requests with pagination and filters',
       querystring: z.object({
         page: z.string().optional(),
@@ -57,7 +57,9 @@ export async function listRequestsController(app: FastifyInstance) {
         assignedToId: request.query.assignedToId,
         requesterId: request.query.requesterId,
         userId: request.user.sub,
-        userRole: request.user.role as 'ADMIN' | 'MANAGER' | 'USER',
+        hasViewAllPermission: request.user.permissions?.includes(
+          'REQUESTS:VIEW_ALL',
+        ),
       });
 
       return reply.status(200).send({

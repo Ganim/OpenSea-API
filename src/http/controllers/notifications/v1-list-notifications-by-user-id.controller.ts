@@ -1,8 +1,8 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { NotificationPresenter } from '@/http/presenters/notifications/notification-presenter';
 import {
-  listNotificationsQuerySchema,
-  notificationResponseSchema,
+    listNotificationsQuerySchema,
+    notificationResponseSchema,
 } from '@/http/schemas';
 import { makeListNotificationsByUserIdUseCase } from '@/use-cases/notifications/factories/make-list-notifications-by-user-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -17,7 +17,7 @@ export async function listNotificationsByUserIdController(
     url: '/v1/notifications',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Notifications'],
+      tags: ['Sales - Notifications'],
       summary: 'List notifications by userId (authenticated user)',
       querystring: listNotificationsQuerySchema,
       response: {

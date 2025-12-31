@@ -1,7 +1,7 @@
 import { User } from '@/entities/core/user';
 import { Username } from '@/entities/core/value-objects/username';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Permission } from '@/entities/rbac/permission';
+import { PermissionCode } from '@/entities/rbac/value-objects/permission-code';
 import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
 import { InMemoryPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-permissions-repository';
 import { InMemoryUserDirectPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-user-direct-permissions-repository';
@@ -41,11 +41,10 @@ describe('RevokeDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'sales.orders.create',
+      code: PermissionCode.create('sales.orders.create'),
       name: 'Create Sales Orders',
       description: 'Permission to create sales orders',
       module: 'sales',
@@ -68,9 +67,8 @@ describe('RevokeDirectPermissionUseCase', () => {
     });
 
     // Verify it was revoked
-    const userPermissions = await userDirectPermissionsRepository.listByUserId(
-      userId,
-    );
+    const userPermissions =
+      await userDirectPermissionsRepository.listByUserId(userId);
     expect(userPermissions).toHaveLength(0);
   });
 
@@ -78,7 +76,7 @@ describe('RevokeDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValueOnce(null);
 
     const permission = await permissionsRepository.create({
-      code: 'test.permission.read',
+      code: PermissionCode.create('test.permission.read'),
       name: 'Test Permission',
       description: 'Test',
       module: 'test',
@@ -102,7 +100,6 @@ describe('RevokeDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValueOnce({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     await expect(
@@ -119,11 +116,10 @@ describe('RevokeDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValueOnce({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'not.assigned.read',
+      code: PermissionCode.create('not.assigned.read'),
       name: 'Not Assigned',
       description: 'Permission not assigned to user',
       module: 'not',
@@ -147,11 +143,10 @@ describe('RevokeDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'stock.products.delete',
+      code: PermissionCode.create('stock.products.delete'),
       name: 'Delete Products',
       description: 'Permission to delete products',
       module: 'stock',
@@ -175,9 +170,8 @@ describe('RevokeDirectPermissionUseCase', () => {
     });
 
     // Verify it was revoked
-    const userPermissions = await userDirectPermissionsRepository.listByUserId(
-      userId,
-    );
+    const userPermissions =
+      await userDirectPermissionsRepository.listByUserId(userId);
     expect(userPermissions).toHaveLength(0);
   });
 
@@ -187,11 +181,10 @@ describe('RevokeDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'temp.access.read',
+      code: PermissionCode.create('temp.access.read'),
       name: 'Temporary Access',
       description: 'Temporary read access',
       module: 'temp',

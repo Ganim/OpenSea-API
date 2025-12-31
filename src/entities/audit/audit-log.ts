@@ -17,8 +17,8 @@ export interface AuditLogProps {
   module: AuditModule;
   entityId: string;
   description: string | null;
-  oldData: Record<string, any> | null;
-  newData: Record<string, any> | null;
+  oldData: Record<string, unknown> | null;
+  newData: Record<string, unknown> | null;
 
   // Request metadata
   ip: string | null;
@@ -64,11 +64,11 @@ export class AuditLog extends Entity<AuditLogProps> {
     return this.props.description;
   }
 
-  get oldData(): Record<string, any> | null {
+  get oldData(): Record<string, unknown> | null {
     return this.props.oldData;
   }
 
-  get newData(): Record<string, any> | null {
+  get newData(): Record<string, unknown> | null {
     return this.props.newData;
   }
 
@@ -144,12 +144,12 @@ export class AuditLog extends Entity<AuditLogProps> {
   /**
    * Obtém as diferenças entre oldData e newData
    */
-  getDiff(): Record<string, { old: any; new: any }> | null {
+  getDiff(): Record<string, { old: unknown; new: unknown }> | null {
     if (!this.props.oldData || !this.props.newData) {
       return null;
     }
 
-    const diff: Record<string, { old: any; new: any }> = {};
+    const diff: Record<string, { old: unknown; new: unknown }> = {};
     const allKeys = new Set([
       ...Object.keys(this.props.oldData),
       ...Object.keys(this.props.newData),

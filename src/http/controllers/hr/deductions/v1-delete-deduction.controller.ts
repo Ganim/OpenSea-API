@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas';
 import { makeDeleteDeductionUseCase } from '@/use-cases/hr/deductions/factories/make-delete-deduction-use-case';
 
@@ -12,7 +13,13 @@ export async function deleteDeductionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/hr/deductions/:deductionId',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.DEDUCTIONS.DELETE,
+        resource: 'deductions',
+      }),
+    ],
     schema: {
       tags: ['HR - Deduction'],
       summary: 'Delete a deduction',

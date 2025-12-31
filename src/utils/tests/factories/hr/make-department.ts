@@ -8,6 +8,7 @@ interface MakeDepartmentProps {
   description?: string;
   parentId?: UniqueEntityID;
   managerId?: UniqueEntityID;
+  companyId?: UniqueEntityID;
   isActive?: boolean;
   deletedAt?: Date;
 }
@@ -38,6 +39,7 @@ export function makeDepartment(override: MakeDepartmentProps = {}): Department {
       description: override.description ?? faker.lorem.sentence(),
       parentId: override.parentId,
       managerId: override.managerId,
+      companyId: override.companyId ?? new UniqueEntityID(),
       isActive: override.isActive ?? true,
       deletedAt: override.deletedAt,
     },

@@ -14,7 +14,7 @@ describe('Get Permission By ID (e2e)', () => {
   });
 
   it('should allow authenticated USER to GET permission by ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const response = await request(app.server)
@@ -33,7 +33,7 @@ describe('Get Permission By ID (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/rbac/permissions/00000000-0000-0000-0000-000000000000')

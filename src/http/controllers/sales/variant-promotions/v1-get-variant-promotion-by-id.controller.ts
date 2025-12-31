@@ -1,5 +1,5 @@
 ﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { variantPromotionResponseSchema } from '@/http/schemas/sales.schema';
 import { makeGetVariantPromotionByIdUseCase } from '@/use-cases/sales/variant-promotions/factories/make-get-variant-promotion-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -12,7 +12,7 @@ export async function getVariantPromotionByIdController(app: FastifyInstance) {
     url: '/v1/variant-promotions/:id',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Variant Promotions'],
+      tags: ['Sales - Variant Promotions'],
       summary: 'Get variant promotion by ID',
       params: z.object({ id: z.string().uuid() }),
       response: {

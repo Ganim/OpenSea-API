@@ -17,10 +17,10 @@ describe('List Permissions By Modules (e2e)', () => {
   });
 
   it('should allow authenticated USER to LIST permissions grouped by modules', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Criar algumas permissões de teste através da API
-    const adminToken = (await createAndAuthenticateUser(app, 'ADMIN')).token;
+    const adminToken = (await createAndAuthenticateUser(app)).token;
 
     // Criar permissões via API
     await request(app.server)
@@ -100,8 +100,8 @@ describe('List Permissions By Modules (e2e)', () => {
   });
 
   it('should filter out system permissions when includeSystem is false', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
-    const adminToken = (await createAndAuthenticateUser(app, 'ADMIN')).token;
+    const { token } = await createAndAuthenticateUser(app);
+    const adminToken = (await createAndAuthenticateUser(app)).token;
 
     // Criar permissões customizadas (isSystem=false) via API
     await request(app.server)
@@ -133,7 +133,7 @@ describe('List Permissions By Modules (e2e)', () => {
   });
 
   it('should include system permissions by default', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/rbac/permissions/by-modules')

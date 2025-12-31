@@ -16,7 +16,7 @@ describe('Assign Group To User (e2e)', () => {
   });
 
   it('should allow ADMIN to ASSIGN group to user', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -24,9 +24,7 @@ describe('Assign Group To User (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/groups`)
@@ -42,7 +40,7 @@ describe('Assign Group To User (e2e)', () => {
   });
 
   it('should allow assigning with EXPIRATION date', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -50,9 +48,7 @@ describe('Assign Group To User (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 30);
@@ -71,7 +67,6 @@ describe('Assign Group To User (e2e)', () => {
   it('should allow setting GRANTED BY', async () => {
     const { token, user: adminUser } = await createAndAuthenticateUser(
       app,
-      'ADMIN',
     );
     const group = await makePermissionGroup();
 
@@ -80,9 +75,7 @@ describe('Assign Group To User (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/groups`)
@@ -95,8 +88,8 @@ describe('Assign Group To User (e2e)', () => {
     expect(response.statusCode).toEqual(201);
   });
 
-  it('should NOT allow USER to assign groups', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to assign groups', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const group = await makePermissionGroup();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -104,9 +97,7 @@ describe('Assign Group To User (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/groups`)
@@ -119,7 +110,7 @@ describe('Assign Group To User (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT user', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -133,16 +124,14 @@ describe('Assign Group To User (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const createUserUseCase = makeCreateUserUseCase();
     const uniqueId = faker.string.uuid().slice(0, 8);
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/groups`)
@@ -162,9 +151,7 @@ describe('Assign Group To User (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/groups`)

@@ -19,7 +19,7 @@ describe('Complete Vacation (E2E)', () => {
   });
 
   it('should complete an in-progress vacation', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createInProgressVacationPeriodE2E({
@@ -42,7 +42,7 @@ describe('Complete Vacation (E2E)', () => {
   });
 
   it('should complete with all days and set status to COMPLETED', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createInProgressVacationPeriodE2E({
@@ -65,7 +65,7 @@ describe('Complete Vacation (E2E)', () => {
   });
 
   it('should not complete non-in-progress vacation', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createAvailableVacationPeriodE2E({
@@ -84,7 +84,7 @@ describe('Complete Vacation (E2E)', () => {
   });
 
   it('should not complete with more days than remaining', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createInProgressVacationPeriodE2E({
@@ -106,7 +106,7 @@ describe('Complete Vacation (E2E)', () => {
   });
 
   it('should return 404 for non-existent vacation period', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .patch(

@@ -2,14 +2,15 @@ import { AuditAction } from '@/entities/audit/audit-action.enum';
 import { AuditEntity } from '@/entities/audit/audit-entity.enum';
 import { AuditLog } from '@/entities/audit/audit-log';
 import { AuditModule } from '@/entities/audit/audit-module.enum';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { AuditLogsRepository } from '@/repositories/audit/audit-logs-repository';
 
 interface LogAuditUseCaseRequest {
   action: AuditAction;
   entity: AuditEntity;
   entityId: string;
-  oldData?: Record<string, any> | null;
-  newData?: Record<string, any> | null;
+  oldData?: Record<string, unknown> | null;
+  newData?: Record<string, unknown> | null;
   userId?: string | null;
   affectedUser?: string | null;
   ip?: string | null;
@@ -24,10 +25,14 @@ export class LogAuditUseCase {
 
   // Mapeamento automático de entidade para módulo
   private getModuleFromEntity(entity: AuditEntity): AuditModule {
+    // CORE - Usuários e Autenticação
     if (
       [
         AuditEntity.USER,
         AuditEntity.USER_PROFILE,
+        AuditEntity.USER_EMAIL,
+        AuditEntity.USER_PASSWORD,
+        AuditEntity.USER_USERNAME,
         AuditEntity.SESSION,
         AuditEntity.REFRESH_TOKEN,
       ].includes(entity)
@@ -35,6 +40,7 @@ export class LogAuditUseCase {
       return AuditModule.CORE;
     }
 
+    // RBAC - Controle de Acesso
     if (
       [
         AuditEntity.PERMISSION,
@@ -47,6 +53,7 @@ export class LogAuditUseCase {
       return AuditModule.RBAC;
     }
 
+    // STOCK - Estoque
     if (
       [
         AuditEntity.PRODUCT,
@@ -74,6 +81,7 @@ export class LogAuditUseCase {
       return AuditModule.STOCK;
     }
 
+    // SALES - Vendas
     if (
       [
         AuditEntity.CUSTOMER,
@@ -86,6 +94,7 @@ export class LogAuditUseCase {
       return AuditModule.SALES;
     }
 
+    // NOTIFICATIONS - Notificações e Alertas
     if (
       [
         AuditEntity.ALERT,
@@ -97,6 +106,7 @@ export class LogAuditUseCase {
       return AuditModule.NOTIFICATIONS;
     }
 
+    // REQUESTS - Workflow de Solicitações
     if (
       [
         AuditEntity.REQUEST,
@@ -108,22 +118,34 @@ export class LogAuditUseCase {
       return AuditModule.REQUESTS;
     }
 
+    // HR - Recursos Humanos (inclui Empresas e Estrutura Organizacional)
     if (
       [
+        // Empresas/Companies
+        AuditEntity.COMPANY,
+        AuditEntity.COMPANY_ADDRESS,
+        AuditEntity.COMPANY_CNAE,
+        AuditEntity.COMPANY_FISCAL_SETTINGS,
+        AuditEntity.COMPANY_STAKEHOLDER,
+        // Estrutura Organizacional
         AuditEntity.EMPLOYEE,
         AuditEntity.DEPARTMENT,
         AuditEntity.POSITION,
+        // Controle de Tempo
         AuditEntity.TIME_ENTRY,
         AuditEntity.WORK_SCHEDULE,
         AuditEntity.OVERTIME,
         AuditEntity.TIME_BANK,
+        // Ausências e Férias
         AuditEntity.ABSENCE,
         AuditEntity.VACATION_PERIOD,
+        AuditEntity.VACATION_BALANCE,
       ].includes(entity)
     ) {
       return AuditModule.HR;
     }
 
+    // PAYROLL - Folha de Pagamento
     if (
       [
         AuditEntity.PAYROLL,
@@ -140,8 +162,8 @@ export class LogAuditUseCase {
 
   // Sanitiza dados sensíveis
   private sanitizeData(
-    data: Record<string, any> | null,
-  ): Record<string, any> | null {
+    data: Record<string, unknown> | null,
+  ): Record<string, unknown> | null {
     if (!data) return null;
 
     const sensitiveFields = [
@@ -197,7 +219,7 @@ export class LogAuditUseCase {
         entityId,
         oldData: sanitizedOldData,
         newData: sanitizedNewData,
-        userId,
+        userId: userId ? new UniqueEntityID(userId) : null,
         affectedUser,
         ip,
         userAgent,

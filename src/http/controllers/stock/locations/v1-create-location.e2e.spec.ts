@@ -11,7 +11,7 @@ describe('Create Location (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     managerToken = token;
   });
 

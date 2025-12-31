@@ -1,4 +1,8 @@
 import { AuditLog } from '@/entities/audit/audit-log';
+import { AuditAction } from '@/entities/audit/audit-action.enum';
+import { AuditEntity } from '@/entities/audit/audit-entity.enum';
+import { AuditModule } from '@/entities/audit/audit-module.enum';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { AuditLogsRepository } from '@/repositories/audit/audit-logs-repository';
 
 interface ListAuditLogsUseCaseRequest {
@@ -44,12 +48,12 @@ export class ListAuditLogsUseCase {
     // Se entity e entityId forem fornecidos, buscar por entidade específica
     if (entity && entityId) {
       const logs = await this.auditLogsRepository.listByEntity(
-        entity as any,
+        entity as unknown as AuditEntity,
         entityId,
         { page, limit },
       );
       const total = await this.auditLogsRepository.count({
-        entity: entity as any,
+        entity: entity as unknown as AuditEntity,
         entityId,
       });
 
@@ -64,11 +68,11 @@ export class ListAuditLogsUseCase {
 
     // Buscar com filtros gerais
     const logs = await this.auditLogsRepository.listAll({
-      userId,
+      userId: userId ? new UniqueEntityID(userId) : undefined,
       affectedUser,
-      action: action as any,
-      entity: entity as any,
-      module: module as any,
+      action: action as unknown as AuditAction,
+      entity: entity as unknown as AuditEntity,
+      module: module as unknown as AuditModule,
       entityId,
       startDate,
       endDate,
@@ -77,11 +81,11 @@ export class ListAuditLogsUseCase {
     });
 
     const total = await this.auditLogsRepository.count({
-      userId,
+      userId: userId ? new UniqueEntityID(userId) : undefined,
       affectedUser,
-      action: action as any,
-      entity: entity as any,
-      module: module as any,
+      action: action as unknown as AuditAction,
+      entity: entity as unknown as AuditEntity,
+      module: module as unknown as AuditModule,
       entityId,
       startDate,
       endDate,

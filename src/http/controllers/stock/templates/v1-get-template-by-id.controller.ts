@@ -1,8 +1,10 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { templateResponseSchema } from '@/http/schemas/stock.schema';
 import { makeGetTemplateByIdUseCase } from '@/use-cases/stock/templates/factories/make-get-template-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
@@ -10,7 +12,13 @@ export async function getTemplateByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/templates/:id',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.TEMPLATES.READ,
+        resource: 'templates',
+      }),
+    ],
     schema: {
       tags: ['Stock - Templates'],
       summary: 'Get a template by ID',

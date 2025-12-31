@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserAdmin } from '@/http/middlewares/verify-user-admin';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { deletePermissionGroupQuerySchema } from '@/http/schemas/rbac.schema';
 import { makeDeletePermissionGroupUseCase } from '@/use-cases/rbac/factories';
@@ -13,7 +14,13 @@ export async function deletePermissionGroupController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/rbac/permission-groups/:groupId',
-    preHandler: [verifyJwt, verifyUserAdmin],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.GROUPS.DELETE,
+        resource: 'permission-groups',
+      }),
+    ],
     schema: {
       tags: ['RBAC - Permission Groups'],
       summary: 'Delete permission group (soft delete)',

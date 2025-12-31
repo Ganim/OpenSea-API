@@ -14,7 +14,7 @@ describe('Delete Notification (e2e)', () => {
   });
 
   it('should soft delete a notification', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const userId = user.user.id.toString();
     const n = await makeNotification({
       userId,

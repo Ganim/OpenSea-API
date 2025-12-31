@@ -14,7 +14,7 @@ describe('Create Product (e2e)', () => {
   });
 
   it('should allow MANAGER/ADMIN to CREATE a NEW PRODUCT', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
     const templateDb = await prisma.template.create({
@@ -56,8 +56,8 @@ describe('Create Product (e2e)', () => {
     expect(response.body.product.templateId).toBe(templateDb.id);
   });
 
-  it('should NOT allow USER to CREATE a PRODUCT', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to CREATE a PRODUCT', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
 
     const timestamp = Date.now();
     const templateDb = await prisma.template.create({

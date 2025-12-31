@@ -15,7 +15,6 @@ describe('Request Info (E2E)', () => {
 
     const userAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
     token = userAuthData.token;
     user = userAuthData.user;
@@ -28,7 +27,6 @@ describe('Request Info (E2E)', () => {
   it('should be able to request info from assigned user', async () => {
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     // Create a test request and assign it to admin
@@ -63,7 +61,6 @@ describe('Request Info (E2E)', () => {
     // Create a test request assigned to someone else
     const otherUserAuth = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
 
     const testRequest = await createRequestE2E({
@@ -87,7 +84,6 @@ describe('Request Info (E2E)', () => {
   it('should not be able to request info from non-in-progress request', async () => {
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     // Create a test request with SUBMITTED status

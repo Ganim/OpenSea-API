@@ -59,7 +59,7 @@ export interface CreateEmployeeRequest {
   departmentId?: string;
   positionId?: string;
   supervisorId?: string;
-  enterpriseId?: string;
+  companyId?: string;
   hireDate: Date;
   baseSalary: number;
   contractType: string;
@@ -125,7 +125,7 @@ export class CreateEmployeeUseCase {
       departmentId,
       positionId,
       supervisorId,
-      enterpriseId,
+      companyId,
       hireDate,
       baseSalary,
       contractType,
@@ -177,7 +177,7 @@ export class CreateEmployeeUseCase {
       ctpsNumber,
       militaryDoc,
       positionId,
-      enterpriseId,
+      companyId,
       phone,
       email,
       address,
@@ -240,7 +240,7 @@ export class CreateEmployeeUseCase {
       departmentId: departmentId ? new UniqueEntityID(departmentId) : undefined,
       positionId: positionId ? new UniqueEntityID(positionId) : undefined,
       supervisorId: supervisorId ? new UniqueEntityID(supervisorId) : undefined,
-      enterpriseId: enterpriseId ? new UniqueEntityID(enterpriseId) : undefined,
+      companyId: companyId ? new UniqueEntityID(companyId) : undefined,
       hireDate,
       status: statusVO,
       baseSalary,
@@ -297,7 +297,7 @@ export class CreateEmployeeUseCase {
     ctpsNumber?: string;
     militaryDoc?: string;
     positionId?: string;
-    enterpriseId?: string;
+    companyId?: string;
     phone?: string;
     email?: string;
     address?: string;
@@ -315,7 +315,7 @@ export class CreateEmployeeUseCase {
     if (!input.birthDate) pending.push('birthDate');
     if (!input.ctpsNumber) pending.push('workCard');
     if (!input.positionId) pending.push('position');
-    if (!input.enterpriseId) pending.push('enterprise');
+    if (!input.companyId) pending.push('company');
     if (!input.phone) pending.push('phone');
     if (!input.email) pending.push('email');
     if (!input.address) pending.push('address');

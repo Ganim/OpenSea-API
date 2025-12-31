@@ -15,7 +15,7 @@ describe('Terminate Employee (E2E)', () => {
   });
 
   it('should terminate employee as MANAGER', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employee } = await createEmployeeE2E({ status: 'ACTIVE' });
 
     const terminationDate = new Date().toISOString();
@@ -34,7 +34,7 @@ describe('Terminate Employee (E2E)', () => {
   });
 
   it('should terminate employee as ADMIN', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const { employee } = await createEmployeeE2E({ status: 'ACTIVE' });
 
     const response = await request(app.server)
@@ -49,8 +49,8 @@ describe('Terminate Employee (E2E)', () => {
     expect(response.body.employee.status).toBe('TERMINATED');
   });
 
-  it('should NOT allow USER to terminate employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to terminate employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const { employee } = await createEmployeeE2E({ status: 'ACTIVE' });
 
     const response = await request(app.server)
@@ -65,7 +65,7 @@ describe('Terminate Employee (E2E)', () => {
   });
 
   it('should return 404 when employee does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentId = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
@@ -93,7 +93,7 @@ describe('Terminate Employee (E2E)', () => {
   });
 
   it('should return 400 when employee is already terminated', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employee } = await createEmployeeE2E({ status: 'TERMINATED' });
 
     const response = await request(app.server)
@@ -109,7 +109,7 @@ describe('Terminate Employee (E2E)', () => {
   });
 
   it('should terminate employee without reason (optional field)', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employee } = await createEmployeeE2E({ status: 'ACTIVE' });
 
     const response = await request(app.server)
@@ -124,5 +124,3 @@ describe('Terminate Employee (E2E)', () => {
     expect(response.body.employee.status).toBe('TERMINATED');
   });
 });
-
-

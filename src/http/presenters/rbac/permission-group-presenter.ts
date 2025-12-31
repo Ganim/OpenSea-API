@@ -34,7 +34,7 @@ export class PermissionGroupPresenter {
     }>;
   }) {
     const groupData = this.toHTTP(data.group);
-    
+
     return {
       id: groupData.id,
       name: groupData.name,

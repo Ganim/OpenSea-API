@@ -88,19 +88,21 @@ export class ListPermissionGroupsUseCase {
         const permissions = (
           await Promise.all(
             permissionGroupPerms.map(async (pgp) => {
-              const permission =
-                await this.permissionsRepository.findById(pgp.permissionId);
+              const permission = await this.permissionsRepository.findById(
+                pgp.permissionId,
+              );
               if (!permission) return null;
               return {
                 permission,
-                effect: (pgp.effect as any).value ?? pgp.effect,
+                effect:
+                  typeof pgp.effect === 'object'
+                    ? String(pgp.effect)
+                    : pgp.effect,
                 conditions: pgp.conditions,
               };
             }),
           )
-        ).filter(
-          (p) => p !== null,
-        ) as Array<{
+        ).filter((p) => p !== null) as Array<{
           permission: Permission;
           effect: string;
           conditions: Record<string, unknown> | null;

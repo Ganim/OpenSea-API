@@ -1,4 +1,3 @@
-import { prisma } from '@/lib/prisma';
 import { PrismaRequestCommentsRepository } from '@/repositories/requests/prisma/prisma-request-comments-repository';
 import { PrismaRequestHistoryRepository } from '@/repositories/requests/prisma/prisma-request-history-repository';
 import { PrismaRequestsRepository } from '@/repositories/requests/prisma/prisma-requests-repository';

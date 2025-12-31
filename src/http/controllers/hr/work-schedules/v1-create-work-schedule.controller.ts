@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   createWorkScheduleSchema,
   workScheduleResponseSchema,
@@ -15,7 +16,13 @@ export async function createWorkScheduleController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/work-schedules',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.WORK_SCHEDULES.CREATE,
+        resource: 'work-schedules',
+      }),
+    ],
     schema: {
       tags: ['HR - Work Schedules'],
       summary: 'Create a work schedule',

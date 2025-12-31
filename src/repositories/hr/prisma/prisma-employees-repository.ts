@@ -60,7 +60,7 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
       departmentId: data.departmentId?.toString(),
       positionId: data.positionId?.toString(),
       supervisorId: data.supervisorId?.toString(),
-      enterpriseId: data.enterpriseId?.toString(),
+      companyId: data.companyId?.toString(),
       hireDate: data.hireDate,
       terminationDate: data.terminationDate,
       status: data.status.value,
@@ -392,6 +392,32 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     );
   }
 
+  async findManyByCompany(
+    companyId: UniqueEntityID,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
+    const employeesData = await prisma.employee.findMany({
+      where: {
+        companyId: companyId.toString(),
+        deletedAt: includeDeleted ? undefined : null,
+      },
+      orderBy: { fullName: 'asc' },
+      include: {
+        user: true,
+        department: true,
+        position: true,
+        supervisor: true,
+      },
+    });
+
+    return employeesData.map((employeeData) =>
+      Employee.create(
+        mapEmployeePrismaToDomain(employeeData),
+        new UniqueEntityID(employeeData.id),
+      ),
+    );
+  }
+
   async update(data: UpdateEmployeeSchema): Promise<Employee | null> {
     try {
       const updatedEmployeeData = await prisma.employee.update({
@@ -514,9 +540,9 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
             data.supervisorId !== undefined
               ? data.supervisorId?.toString() || null
               : undefined,
-          enterpriseId:
-            data.enterpriseId !== undefined
-              ? data.enterpriseId?.toString() || null
+          companyId:
+            data.companyId !== undefined
+              ? data.companyId?.toString() || null
               : undefined,
           hireDate: data.hireDate,
           terminationDate:

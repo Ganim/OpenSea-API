@@ -4,14 +4,13 @@ import rateLimit from '@fastify/rate-limit';
 import { changeUserEmailController } from './v1-change-user-email.controller';
 import { changeUserPasswordController } from './v1-change-user-password.controller';
 import { changeUserProfileController } from './v1-change-user-profile.controller';
-import { changeUserRoleController } from './v1-change-user-role.controller';
 import { changeUserUsernameController } from './v1-change-user-username.controller';
 import { createUserController } from './v1-create-user.controller';
 import { DeleteUserByIdController } from './v1-delete-user-by-id.controller';
+import { forcePasswordResetController } from './v1-force-password-reset.controller';
 import { getUserByEmailController } from './v1-get-user-by-email.controller';
 import { getUserByIdController } from './v1-get-user-by-id.controller';
 import { getUserByUsernameController } from './v1-get-user-by-username.controller';
-import { listAllUsersByRoleController } from './v1-list-all-users-by-role.controller';
 import { listAllUsersController } from './v1-list-all-users.controller';
 import { listOnlineUsersController } from './v1-list-online-users.controller';
 
@@ -22,11 +21,10 @@ export async function usersRoutes() {
       adminApp.register(rateLimit, rateLimitConfig.admin);
       adminApp.register(changeUserEmailController);
       adminApp.register(changeUserPasswordController);
-      adminApp.register(changeUserRoleController);
       adminApp.register(changeUserUsernameController);
       adminApp.register(changeUserProfileController);
       adminApp.register(DeleteUserByIdController);
-      adminApp.register(listAllUsersByRoleController);
+      adminApp.register(forcePasswordResetController);
     },
     { prefix: '' },
   );

@@ -5,4 +5,3 @@ export * from './make-create-payroll-use-case';
 export * from './make-get-payroll-use-case';
 export * from './make-list-payrolls-use-case';
 export * from './make-process-payroll-payment-use-case';
-

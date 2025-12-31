@@ -13,7 +13,6 @@ describe('List Variants by Product ID (E2E)', () => {
 
     const { token: authToken } = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
     token = authToken;
   });

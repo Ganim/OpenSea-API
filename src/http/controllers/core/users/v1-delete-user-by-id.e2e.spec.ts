@@ -14,7 +14,7 @@ describe('Delete User By Id (e2e)', () => {
   });
 
   it('should allow ADMIN to DELETE another user BY ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email = makeUniqueEmail('delete-user');
     const anotherUser = await request(app.server)
@@ -31,7 +31,7 @@ describe('Delete User By Id (e2e)', () => {
     const response = await request(app.server)
       .delete(`/v1/users/${userId}`)
       .set('Authorization', `Bearer ${token}`)
-      .send({ role: 'ADMIN' });
+      .send();
 
     expect(response.statusCode).toBe(200);
 

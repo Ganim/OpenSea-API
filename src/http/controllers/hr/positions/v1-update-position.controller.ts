@@ -1,5 +1,6 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   positionResponseSchema,
   updatePositionSchema,
@@ -18,7 +19,13 @@ export async function updatePositionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/hr/positions/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.POSITIONS.UPDATE,
+        resource: 'positions',
+      }),
+    ],
     schema: {
       tags: ['HR - Positions'],
       summary: 'Update a position',

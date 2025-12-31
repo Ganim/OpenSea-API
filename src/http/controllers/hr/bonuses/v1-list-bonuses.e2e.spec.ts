@@ -16,7 +16,7 @@ describe('List Bonuses (E2E)', () => {
   });
 
   it('should allow MANAGER to list bonuses', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     await createBonus(employeeId, { name: 'Bonus 1' });
@@ -33,7 +33,7 @@ describe('List Bonuses (E2E)', () => {
   });
 
   it('should filter bonuses by employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const employee1 = await createEmployeeE2E();
     const employee2 = await createEmployeeE2E();
 

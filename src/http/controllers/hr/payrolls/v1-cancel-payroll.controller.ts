@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema, payrollResponseSchema } from '@/http/schemas';
 import { payrollToDTO } from '@/mappers/hr/payroll';
 import { makeCancelPayrollUseCase } from '@/use-cases/hr/payrolls/factories/make-cancel-payroll-use-case';
@@ -13,7 +14,13 @@ export async function cancelPayrollController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/payrolls/:payrollId/cancel',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.PAYROLLS.MANAGE,
+        resource: 'payrolls',
+      }),
+    ],
     schema: {
       tags: ['HR - Payroll'],
       summary: 'Cancel payroll',

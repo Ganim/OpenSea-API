@@ -33,7 +33,6 @@ describe('Authenticate with password (e2e)', () => {
         id: expect.any(String),
         email,
         username: expect.any(String),
-        role: expect.any(String),
         lastLoginAt: expect.any(String),
         deletedAt: expect.toBeOneOf([null, undefined]),
         profile: expect.anything(),

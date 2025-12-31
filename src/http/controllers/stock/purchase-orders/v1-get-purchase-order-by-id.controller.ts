@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeGetPurchaseOrderByIdUseCase } from '@/use-cases/stock/purchase-orders/factories/make-get-purchase-order-by-id-use-case';
 
-import { verifyJwt } from '../../../middlewares/verify-jwt';
+import { verifyJwt } from '../../../middlewares/rbac/verify-jwt';
 
 export async function getPurchaseOrderByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -15,7 +15,7 @@ export async function getPurchaseOrderByIdController(app: FastifyInstance) {
       schema: {
         summary: 'Get purchase order by ID',
         description: 'Returns a single purchase order by its ID',
-        tags: ['Purchase Orders'],
+        tags: ['Stock - Purchase Orders'],
         security: [{ bearerAuth: [] }],
         params: z.object({
           orderId: z.uuid(),

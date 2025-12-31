@@ -15,7 +15,7 @@ describe('Request Overtime (E2E)', () => {
   });
 
   it('should create an overtime request', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     const response = await request(app.server)
@@ -36,7 +36,7 @@ describe('Request Overtime (E2E)', () => {
   });
 
   it('should return 404 for non-existent employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
@@ -53,7 +53,7 @@ describe('Request Overtime (E2E)', () => {
   });
 
   it('should return 400 when reason is too short', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     const response = await request(app.server)

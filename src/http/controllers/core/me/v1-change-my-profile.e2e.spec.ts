@@ -14,7 +14,7 @@ describe('Change My Profile (e2e)', () => {
   });
 
   it('should allow a USER to CHANGE their OWN PROFILE', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .patch('/v1/me')

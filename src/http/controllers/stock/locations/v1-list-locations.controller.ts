@@ -2,7 +2,9 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { locationResponseSchema } from '@/http/schemas';
 import { makeListLocationsUseCase } from '@/use-cases/stock/locations/factories/make-list-locations-use-case';
 
@@ -10,9 +12,15 @@ export async function listLocationsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/locations',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.LOCATIONS.LIST,
+        resource: 'locations',
+      }),
+    ],
     schema: {
-      tags: ['Locations'],
+      tags: ['Stock - Locations'],
       summary: 'List all active locations',
       description:
         'List all active storage locations with optional filtering by type',

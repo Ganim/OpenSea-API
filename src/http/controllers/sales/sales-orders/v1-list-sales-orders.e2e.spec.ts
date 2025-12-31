@@ -14,7 +14,7 @@ describe('List Sales Orders (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     userToken = token;
   });
 

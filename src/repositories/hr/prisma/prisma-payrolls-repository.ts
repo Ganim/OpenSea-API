@@ -4,10 +4,10 @@ import { prisma } from '@/lib/prisma';
 import { mapPayrollPrismaToDomain } from '@/mappers/hr/payroll';
 import type { PayrollStatus } from '@prisma/client';
 import type {
-    CreatePayrollSchema,
-    FindPayrollFilters,
-    PayrollsRepository,
-    UpdatePayrollSchema,
+  CreatePayrollSchema,
+  FindPayrollFilters,
+  PayrollsRepository,
+  UpdatePayrollSchema,
 } from '../payrolls-repository';
 
 export class PrismaPayrollsRepository implements PayrollsRepository {

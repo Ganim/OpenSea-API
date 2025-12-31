@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { updateVariantSchema, variantResponseSchema } from '@/http/schemas';
 import { variantToDTO } from '@/mappers/stock/variant/variant-to-dto';
 import { makeUpdateVariantUseCase } from '@/use-cases/stock/variants/factories/make-update-variant-use-case';
@@ -13,9 +14,15 @@ export async function updateVariantController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/variants/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.VARIANTS.UPDATE,
+        resource: 'variants',
+      }),
+    ],
     schema: {
-      tags: ['Variants'],
+      tags: ['Stock - Variants'],
       summary: 'Update a variant',
       params: z.object({
         id: z.uuid(),

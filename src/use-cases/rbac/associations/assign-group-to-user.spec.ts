@@ -33,7 +33,6 @@ describe('AssignGroupToUserUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValueOnce({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const group = await permissionGroupsRepository.create({
@@ -67,7 +66,6 @@ describe('AssignGroupToUserUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValueOnce({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const group = await permissionGroupsRepository.create({
@@ -102,12 +100,10 @@ describe('AssignGroupToUserUseCase', () => {
       .mockResolvedValueOnce({
         id: userId,
         username: Username.create('john_doe'),
-        role: 'USER',
       } as unknown as User)
       .mockResolvedValueOnce({
         id: adminId,
         username: Username.create('admin'),
-        role: 'ADMIN',
       } as unknown as User);
 
     const group = await permissionGroupsRepository.create({
@@ -161,7 +157,6 @@ describe('AssignGroupToUserUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValueOnce({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     await expect(
@@ -184,7 +179,6 @@ describe('AssignGroupToUserUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValueOnce({
       id: userId,
       username: Username.create('blocked_user'),
-      role: 'USER',
       blockedUntil,
       isBlocked: true, // Mockar o getter
     } as unknown as User);
@@ -216,7 +210,6 @@ describe('AssignGroupToUserUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValueOnce({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const group = await permissionGroupsRepository.create({
@@ -246,7 +239,6 @@ describe('AssignGroupToUserUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const group = await permissionGroupsRepository.create({
@@ -285,7 +277,6 @@ describe('AssignGroupToUserUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValueOnce({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const group = await permissionGroupsRepository.create({

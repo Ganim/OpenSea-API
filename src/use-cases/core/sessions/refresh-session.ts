@@ -83,7 +83,6 @@ export class RefreshSessionUseCase {
 
     const newJWTRefreshToken = await reply.jwtSign(
       {
-        role: storedUser.role.value,
         sessionId: validSessionId.toString(),
         jti: new UniqueEntityID().toString(),
       },

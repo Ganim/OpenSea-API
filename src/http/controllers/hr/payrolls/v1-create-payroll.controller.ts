@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { createPayrollSchema, payrollResponseSchema } from '@/http/schemas';
 import { payrollToDTO } from '@/mappers/hr/payroll';
 import { makeCreatePayrollUseCase } from '@/use-cases/hr/payrolls/factories/make-create-payroll-use-case';
@@ -13,7 +14,13 @@ export async function createPayrollController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/payrolls',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.PAYROLLS.CREATE,
+        resource: 'payrolls',
+      }),
+    ],
     schema: {
       tags: ['HR - Payroll'],
       summary: 'Create payroll',

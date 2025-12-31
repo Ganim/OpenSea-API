@@ -14,7 +14,7 @@ describe('Register Item Exit (e2e)', () => {
   });
 
   it('should allow MANAGER to REGISTER ITEM EXIT', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -92,8 +92,8 @@ describe('Register Item Exit (e2e)', () => {
     expect(response.body.movement.quantity).toBe(30);
   });
 
-  it('should NOT allow USER to REGISTER ITEM EXIT', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to REGISTER ITEM EXIT', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
 
     const response = await request(app.server)
       .post('/v1/items/exit')
@@ -108,7 +108,7 @@ describe('Register Item Exit (e2e)', () => {
   });
 
   it('should NOT allow EXIT with quantity greater than current', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 

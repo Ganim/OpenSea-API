@@ -1,4 +1,6 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { PermissionGroupPresenter } from '@/http/presenters/rbac/permission-group-presenter';
 import {
   listPermissionGroupsQuerySchema,
@@ -13,7 +15,13 @@ export async function listPermissionGroupsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/rbac/permission-groups',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.GROUPS.LIST,
+        resource: 'permission-groups',
+      }),
+    ],
     schema: {
       tags: ['RBAC - Permission Groups'],
       summary: 'List permission groups with filters',

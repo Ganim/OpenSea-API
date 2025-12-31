@@ -45,7 +45,7 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
   }
 
   async findById(id: UniqueEntityID): Promise<AuditLog | null> {
-    const log = this.items.find(item => item.id.equals(id));
+    const log = this.items.find((item) => item.id.equals(id));
     return log || null;
   }
 
@@ -54,35 +54,37 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
 
     // Apply filters
     if (params?.userId) {
-      filtered = filtered.filter(log => log.userId === params.userId);
+      filtered = filtered.filter((log) => log.userId?.equals(params.userId!));
     }
 
     if (params?.affectedUser) {
-      filtered = filtered.filter(log => log.affectedUser === params.affectedUser);
+      filtered = filtered.filter(
+        (log) => log.affectedUser === params.affectedUser,
+      );
     }
 
     if (params?.action) {
-      filtered = filtered.filter(log => log.action === params.action);
+      filtered = filtered.filter((log) => log.action === params.action);
     }
 
     if (params?.entity) {
-      filtered = filtered.filter(log => log.entity === params.entity);
+      filtered = filtered.filter((log) => log.entity === params.entity);
     }
 
     if (params?.module) {
-      filtered = filtered.filter(log => log.module === params.module);
+      filtered = filtered.filter((log) => log.module === params.module);
     }
 
     if (params?.entityId) {
-      filtered = filtered.filter(log => log.entityId === params.entityId);
+      filtered = filtered.filter((log) => log.entityId === params.entityId);
     }
 
     if (params?.startDate) {
-      filtered = filtered.filter(log => log.createdAt >= params.startDate!);
+      filtered = filtered.filter((log) => log.createdAt >= params.startDate!);
     }
 
     if (params?.endDate) {
-      filtered = filtered.filter(log => log.createdAt <= params.endDate!);
+      filtered = filtered.filter((log) => log.createdAt <= params.endDate!);
     }
 
     // Sort
@@ -90,8 +92,8 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
     const sortOrder = params?.sortOrder ?? 'desc';
 
     filtered.sort((a, b) => {
-      let aValue: any;
-      let bValue: any;
+      let aValue: number | string = 0;
+      let bValue: number | string = 0;
 
       if (sortBy === 'createdAt') {
         aValue = a.createdAt.getTime();
@@ -162,12 +164,23 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
     return this.listAll({ ...params, action });
   }
 
-  async getStatistics(params?: ListAuditLogsParams): Promise<AuditLogStatistics> {
+  async getStatistics(
+    params?: ListAuditLogsParams,
+  ): Promise<AuditLogStatistics> {
     const logs = await this.listAll(params);
 
-    const byAction: Record<AuditAction, number> = {} as any;
-    const byEntity: Record<AuditEntity, number> = {} as any;
-    const byModule: Record<AuditModule, number> = {} as any;
+    const byAction: Record<AuditAction, number> = {} as Record<
+      AuditAction,
+      number
+    >;
+    const byEntity: Record<AuditEntity, number> = {} as Record<
+      AuditEntity,
+      number
+    >;
+    const byModule: Record<AuditModule, number> = {} as Record<
+      AuditModule,
+      number
+    >;
     const uniqueUserIds = new Set<string>();
     const uniqueEntityIds = new Set<string>();
 
@@ -206,7 +219,10 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
   ): Promise<ModuleStatistics> {
     const logs = await this.listByModule(module, params);
 
-    const byAction: Record<AuditAction, number> = {} as any;
+    const byAction: Record<AuditAction, number> = {} as Record<
+      AuditAction,
+      number
+    >;
 
     for (const log of logs) {
       byAction[log.action] = (byAction[log.action] || 0) + 1;
@@ -235,7 +251,10 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
     }
 
     // Count actions
-    const actionCounts: Record<AuditAction, number> = {} as any;
+    const actionCounts: Record<AuditAction, number> = {} as Record<
+      AuditAction,
+      number
+    >;
     for (const log of performed) {
       actionCounts[log.action] = (actionCounts[log.action] || 0) + 1;
     }
@@ -272,12 +291,18 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
     const logs = await this.listAll({ startDate, endDate });
 
     // Group by userId
-    const userActivities = new Map<string, { performed: number; received: number }>();
+    const userActivities = new Map<
+      string,
+      { performed: number; received: number }
+    >();
 
     for (const log of logs) {
       if (log.userId) {
         const userId = log.userId.toString();
-        const activity = userActivities.get(userId) || { performed: 0, received: 0 };
+        const activity = userActivities.get(userId) || {
+          performed: 0,
+          received: 0,
+        };
         activity.performed++;
         userActivities.set(userId, activity);
       }
@@ -337,12 +362,15 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
   async getActionTrends(
     startDate: Date,
     endDate: Date,
-    interval: 'hour' | 'day' | 'week' | 'month',
+    _interval: 'hour' | 'day' | 'week' | 'month',
   ): Promise<{ date: Date; action: AuditAction; count: number }[]> {
     const logs = await this.listAll({ startDate, endDate });
 
     // Simple grouping by date and action
-    const trends = new Map<string, { date: Date; action: AuditAction; count: number }>();
+    const trends = new Map<
+      string,
+      { date: Date; action: AuditAction; count: number }
+    >();
 
     for (const log of logs) {
       const key = `${log.createdAt.toISOString()}-${log.action}`;
@@ -364,21 +392,23 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
 
   async deleteOlderThan(date: Date): Promise<number> {
     const before = this.items.length;
-    this.items = this.items.filter(log => log.createdAt >= date);
+    this.items = this.items.filter((log) => log.createdAt >= date);
     return before - this.items.length;
   }
 
   async deleteExpired(): Promise<number> {
     const now = new Date();
     const before = this.items.length;
-    this.items = this.items.filter(log => !log.expiresAt || log.expiresAt > now);
+    this.items = this.items.filter(
+      (log) => !log.expiresAt || log.expiresAt > now,
+    );
     return before - this.items.length;
   }
 
   async deleteByEntity(entity: AuditEntity, entityId: string): Promise<number> {
     const before = this.items.length;
     this.items = this.items.filter(
-      log => !(log.entity === entity && log.entityId === entityId),
+      (log) => !(log.entity === entity && log.entityId === entityId),
     );
     return before - this.items.length;
   }
@@ -393,6 +423,6 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
   }
 
   async exists(id: UniqueEntityID): Promise<boolean> {
-    return this.items.some(log => log.id.equals(id));
+    return this.items.some((log) => log.id.equals(id));
   }
 }

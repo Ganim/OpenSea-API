@@ -16,7 +16,7 @@ describe('List Time Banks (E2E)', () => {
   });
 
   it('should list all time banks', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId: emp1 } = await createEmployeeE2E();
     const { employeeId: emp2 } = await createEmployeeE2E();
 
@@ -37,7 +37,7 @@ describe('List Time Banks (E2E)', () => {
   });
 
   it('should filter by employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
     await createEmployeeE2E();
 
@@ -63,7 +63,7 @@ describe('List Time Banks (E2E)', () => {
   });
 
   it('should filter by year', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     await prisma.timeBank.createMany({

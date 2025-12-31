@@ -15,7 +15,7 @@ describe('Get Position By ID (E2E)', () => {
   });
 
   it('should allow MANAGER to get position by ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { position, positionId } = await createPositionE2E();
 
     const response = await request(app.server)
@@ -30,7 +30,7 @@ describe('Get Position By ID (E2E)', () => {
   });
 
   it('should allow ADMIN to get position by ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E();
 
     const response = await request(app.server)
@@ -42,7 +42,7 @@ describe('Get Position By ID (E2E)', () => {
   });
 
   it('should allow USER to get position by ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E();
 
     const response = await request(app.server)
@@ -64,7 +64,7 @@ describe('Get Position By ID (E2E)', () => {
   });
 
   it('should return 404 when position is not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const fakeId = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
@@ -75,7 +75,7 @@ describe('Get Position By ID (E2E)', () => {
   });
 
   it('should return 400 when ID is invalid', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const invalidId = 'invalid-uuid';
 
     const response = await request(app.server)
@@ -86,7 +86,7 @@ describe('Get Position By ID (E2E)', () => {
   });
 
   it('should return position with all fields', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E({
       description: 'Test description',
       minSalary: 3000,

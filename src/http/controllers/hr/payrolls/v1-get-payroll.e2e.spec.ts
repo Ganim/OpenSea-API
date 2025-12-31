@@ -15,7 +15,7 @@ describe('Get Payroll (E2E)', () => {
   });
 
   it('should allow MANAGER to get a payroll by id', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const payroll = await createPayroll();
 
     const response = await request(app.server)
@@ -30,7 +30,7 @@ describe('Get Payroll (E2E)', () => {
   });
 
   it('should return 404 when payroll not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentId = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)

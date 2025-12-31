@@ -1,7 +1,7 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
-  Employee,
   EmergencyContactInfo,
+  Employee,
   HealthCondition,
 } from '@/entities/hr/employee';
 import {
@@ -58,7 +58,7 @@ export interface CreateEmployeeSchema {
   departmentId?: UniqueEntityID;
   positionId?: UniqueEntityID;
   supervisorId?: UniqueEntityID;
-  enterpriseId?: UniqueEntityID;
+  companyId?: UniqueEntityID;
   hireDate: Date;
   terminationDate?: Date;
   status: EmployeeStatus;
@@ -118,7 +118,7 @@ export interface UpdateEmployeeSchema {
   departmentId?: UniqueEntityID | null;
   positionId?: UniqueEntityID | null;
   supervisorId?: UniqueEntityID | null;
-  enterpriseId?: UniqueEntityID | null;
+  companyId?: UniqueEntityID | null;
   hireDate?: Date;
   terminationDate?: Date | null;
   status?: EmployeeStatus;
@@ -133,13 +133,19 @@ export interface UpdateEmployeeSchema {
 
 export interface EmployeesRepository {
   create(data: CreateEmployeeSchema): Promise<Employee>;
-  findById(id: UniqueEntityID, includeDeleted?: boolean): Promise<Employee | null>;
+  findById(
+    id: UniqueEntityID,
+    includeDeleted?: boolean,
+  ): Promise<Employee | null>;
   findByRegistrationNumber(
     registrationNumber: string,
     includeDeleted?: boolean,
   ): Promise<Employee | null>;
   findByCpf(cpf: CPF, includeDeleted?: boolean): Promise<Employee | null>;
-  findByUserId(userId: UniqueEntityID, includeDeleted?: boolean): Promise<Employee | null>;
+  findByUserId(
+    userId: UniqueEntityID,
+    includeDeleted?: boolean,
+  ): Promise<Employee | null>;
   findByPis(pis: PIS, includeDeleted?: boolean): Promise<Employee | null>;
   findMany(includeDeleted?: boolean): Promise<Employee[]>;
   findManyByStatus(
@@ -160,6 +166,10 @@ export interface EmployeesRepository {
   ): Promise<Employee[]>;
   findManyActive(includeDeleted?: boolean): Promise<Employee[]>;
   findManyTerminated(includeDeleted?: boolean): Promise<Employee[]>;
+  findManyByCompany(
+    companyId: UniqueEntityID,
+    includeDeleted?: boolean,
+  ): Promise<Employee[]>;
   update(data: UpdateEmployeeSchema): Promise<Employee | null>;
   save(employee: Employee): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

@@ -14,7 +14,7 @@ describe('Change User Username (e2e)', () => {
   });
 
   it('should allow ADMIN to CHANGE another user USERNAME', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email = makeUniqueEmail('change-user-username');
     const newUsername = makeUniqueUsername();

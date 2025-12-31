@@ -65,7 +65,7 @@ export interface EmployeeProps {
   departmentId?: UniqueEntityID;
   positionId?: UniqueEntityID;
   supervisorId?: UniqueEntityID;
-  enterpriseId?: UniqueEntityID;
+  companyId?: UniqueEntityID;
   hireDate: Date;
   terminationDate?: Date;
   status: EmployeeStatus;
@@ -262,8 +262,8 @@ export class Employee extends Entity<EmployeeProps> {
     return this.props.supervisorId;
   }
 
-  get enterpriseId(): UniqueEntityID | undefined {
-    return this.props.enterpriseId;
+  get companyId(): UniqueEntityID | undefined {
+    return this.props.companyId;
   }
 
   get hireDate(): Date {

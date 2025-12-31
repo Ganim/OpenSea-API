@@ -10,4 +10,3 @@ export * from './time-bank';
 export * from './time-control';
 export * from './vacation-periods';
 export * from './work-schedules';
-

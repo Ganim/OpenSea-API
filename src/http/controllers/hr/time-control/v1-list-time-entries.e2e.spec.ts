@@ -16,7 +16,7 @@ describe('List Time Entries (E2E)', () => {
   });
 
   it('should list time entries', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     // Create some time entries
@@ -47,7 +47,7 @@ describe('List Time Entries (E2E)', () => {
   });
 
   it('should filter time entries by date range', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     // Create time entries
@@ -85,7 +85,7 @@ describe('List Time Entries (E2E)', () => {
   });
 
   it('should list all time entries for employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     // Create many time entries

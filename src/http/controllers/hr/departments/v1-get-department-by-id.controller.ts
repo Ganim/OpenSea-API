@@ -1,8 +1,8 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { departmentResponseSchema } from '@/http/schemas';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { departmentWithDetailsResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
-import { departmentToDTO } from '@/mappers/hr/department/department-to-dto';
+import { departmentToDetailsDTO } from '@/mappers/hr/department/department-to-dto';
 import { makeGetDepartmentByIdUseCase } from '@/use-cases/hr/departments/factories/make-get-department-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -16,13 +16,14 @@ export async function getDepartmentByIdController(app: FastifyInstance) {
     schema: {
       tags: ['HR - Departments'],
       summary: 'Get department by ID',
-      description: 'Returns a department by its ID',
+      description:
+        'Returns a department by its ID with company and positions list',
       params: z.object({
         id: idSchema,
       }),
       response: {
         200: z.object({
-          department: departmentResponseSchema,
+          department: departmentWithDetailsResponseSchema,
         }),
         404: z.object({
           message: z.string(),
@@ -36,10 +37,10 @@ export async function getDepartmentByIdController(app: FastifyInstance) {
 
       try {
         const getDepartmentByIdUseCase = makeGetDepartmentByIdUseCase();
-        const { department } = await getDepartmentByIdUseCase.execute({ id });
+        const result = await getDepartmentByIdUseCase.execute({ id });
 
         return reply.status(200).send({
-          department: departmentToDTO(department),
+          department: departmentToDetailsDTO(result),
         });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {

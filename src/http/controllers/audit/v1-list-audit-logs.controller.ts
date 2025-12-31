@@ -1,5 +1,6 @@
-import { verifyAuditLogsViewPermission } from '@/http/middlewares/verify-audit-permission';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeListAuditLogsUseCase } from '@/use-cases/audit/factories/make-list-audit-logs-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -9,9 +10,15 @@ export async function listAuditLogsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/audit-logs',
-    preHandler: [verifyJwt, verifyAuditLogsViewPermission],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.AUDIT.LOGS.VIEW,
+        resource: 'audit-logs',
+      }),
+    ],
     schema: {
-      tags: ['Audit'],
+      tags: ['Core - Audit'],
       summary: 'List audit logs with filters',
       querystring: z.object({
         userId: z.string().uuid().optional(),

@@ -16,4 +16,3 @@ export interface PayrollItemDTO {
 }
 
 export { payrollItemToDTO } from './payroll-item-to-dto';
-

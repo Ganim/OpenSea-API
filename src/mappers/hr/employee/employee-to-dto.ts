@@ -1,4 +1,8 @@
-import type { Employee } from '@/entities/hr/employee';
+import type {
+  Employee,
+  EmergencyContactInfo,
+  HealthCondition,
+} from '@/entities/hr/employee';
 
 export interface EmployeeDTO {
   id: string;
@@ -12,8 +16,8 @@ export interface EmployeeDTO {
   maritalStatus?: string | null;
   nationality?: string | null;
   birthPlace?: string | null;
-  emergencyContactInfo?: Record<string, unknown> | null;
-  healthConditions?: Record<string, unknown>[] | null;
+  emergencyContactInfo?: EmergencyContactInfo | null;
+  healthConditions?: HealthCondition[] | null;
   cpf: string;
   rg?: string | null;
   rgIssuer?: string | null;
@@ -47,7 +51,7 @@ export interface EmployeeDTO {
   departmentId?: string | null;
   positionId?: string | null;
   supervisorId?: string | null;
-  enterpriseId?: string | null;
+  companyId?: string | null;
   hireDate: Date;
   terminationDate?: Date | null;
   status: string;
@@ -111,7 +115,7 @@ export function employeeToDTO(employee: Employee): EmployeeDTO {
     departmentId: employee.departmentId?.toString() ?? null,
     positionId: employee.positionId?.toString() ?? null,
     supervisorId: employee.supervisorId?.toString() ?? null,
-    enterpriseId: employee.enterpriseId?.toString() ?? null,
+    companyId: employee.companyId?.toString() ?? null,
     hireDate: employee.hireDate,
     terminationDate: employee.terminationDate ?? null,
     status: employee.status.value,

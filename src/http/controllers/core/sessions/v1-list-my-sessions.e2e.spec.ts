@@ -12,7 +12,7 @@ describe('List My Sessions (e2e)', () => {
   });
 
   it('should allow USER to LIST ALL his SESSIONS', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get(`/v1/sessions/me`)

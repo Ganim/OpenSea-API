@@ -1,6 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PayrollStatus } from '@/entities/hr/value-objects';
-import type { Payroll as PrismaPayroll, PayrollItem as PrismaPayrollItem } from '@prisma/client';
+import type {
+  Payroll as PrismaPayroll,
+  PayrollItem as PrismaPayrollItem,
+} from '@prisma/client';
 
 type PayrollWithItems = PrismaPayroll & {
   items?: PrismaPayrollItem[];
@@ -23,9 +26,7 @@ export function mapPayrollPrismaToDomain(payroll: PayrollWithItems) {
       ? new UniqueEntityID(payroll.approvedBy)
       : undefined,
     paidAt: payroll.paidAt ?? undefined,
-    paidBy: payroll.paidBy
-      ? new UniqueEntityID(payroll.paidBy)
-      : undefined,
+    paidBy: payroll.paidBy ? new UniqueEntityID(payroll.paidBy) : undefined,
     createdAt: payroll.createdAt,
     updatedAt: payroll.updatedAt,
   };

@@ -14,7 +14,7 @@ describe('List Items by Location ID (e2e)', () => {
   });
 
   it('should allow authenticated user to LIST items by location ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -125,7 +125,7 @@ describe('List Items by Location ID (e2e)', () => {
   });
 
   it('should return empty array when location has no items', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 

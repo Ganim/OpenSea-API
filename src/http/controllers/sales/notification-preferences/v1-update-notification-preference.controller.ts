@@ -1,9 +1,10 @@
 ﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  notificationPreferenceResponseSchema,
-  updateNotificationPreferenceSchema,
+    notificationPreferenceResponseSchema,
+    updateNotificationPreferenceSchema,
 } from '@/http/schemas/sales.schema';
 import { makeUpdateNotificationPreferenceUseCase } from '@/use-cases/sales/notification-preferences/factories/make-update-notification-preference-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -16,9 +17,15 @@ export async function updateNotificationPreferenceController(
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/notification-preferences/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.NOTIFICATIONS.UPDATE,
+        resource: 'notification-preferences',
+      }),
+    ],
     schema: {
-      tags: ['Notification Preferences'],
+      tags: ['Sales - Notification Preferences'],
       summary: 'Update a notification preference',
       params: z.object({ id: z.string().uuid() }),
       body: updateNotificationPreferenceSchema,

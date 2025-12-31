@@ -1,7 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeListAllUsersUseCase } from '@/use-cases/core/users/factories/make-list-all-users-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -11,9 +11,15 @@ export async function listAllUsersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/users',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.CORE.USERS.LIST,
+        resource: 'users',
+      }),
+    ],
     schema: {
-      tags: ['Users'],
+      tags: ['Auth - Users'],
       summary: 'List all users',
       response: {
         200: z.object({
@@ -22,7 +28,6 @@ export async function listAllUsersController(app: FastifyInstance) {
               id: z.string(),
               email: z.string(),
               username: z.string(),
-              role: z.string(),
               lastLoginAt: z.coerce.date().nullable(),
               deletedAt: z.coerce.date().nullable().optional(),
               profile: z

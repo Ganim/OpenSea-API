@@ -1,9 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-    createTemplateSchema,
-    templateResponseSchema,
+  createTemplateSchema,
+  templateResponseSchema,
 } from '@/http/schemas/stock.schema';
 import { makeCreateTemplateUseCase } from '@/use-cases/stock/templates/factories/make-create-template-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,7 +15,13 @@ export async function createTemplateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/templates',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.TEMPLATES.CREATE,
+        resource: 'templates',
+      }),
+    ],
     schema: {
       tags: ['Stock - Templates'],
       summary: 'Create a new template',

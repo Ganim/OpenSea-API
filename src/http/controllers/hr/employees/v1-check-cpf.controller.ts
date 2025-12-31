@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { checkCpfSchema } from '@/http/schemas';
 import { makeCheckEmployeeCpfUseCase } from '@/use-cases/hr/employees/factories/make-check-employee-cpf-use-case';
 import type { FastifyInstance } from 'fastify';

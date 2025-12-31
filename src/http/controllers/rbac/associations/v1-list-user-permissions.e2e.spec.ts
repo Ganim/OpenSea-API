@@ -17,7 +17,7 @@ describe('List User Permissions (e2e)', () => {
   });
 
   it('should allow authenticated USER to LIST own effective permissions', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
     const permission1 = await makePermission({
       module: 'stock',
@@ -72,7 +72,7 @@ describe('List User Permissions (e2e)', () => {
   });
 
   it('should include permissions with CONDITIONS', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
     const permission = await makePermission();
 
@@ -108,7 +108,7 @@ describe('List User Permissions (e2e)', () => {
   });
 
   it('should handle DENY permissions', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
     const permission = await makePermission({
       module: 'core',
@@ -148,7 +148,7 @@ describe('List User Permissions (e2e)', () => {
   });
 
   it('should FILTER by module', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
     const productPermission = await makePermission({
       module: 'products',
@@ -200,7 +200,7 @@ describe('List User Permissions (e2e)', () => {
   });
 
   it('should support PAGINATION', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get(`/v1/rbac/users/${user.user.id.toString()}/permissions`)
@@ -213,7 +213,7 @@ describe('List User Permissions (e2e)', () => {
   });
 
   it('should NOT allow unauthenticated request', async () => {
-    const { user } = await createAndAuthenticateUser(app, 'USER');
+    const { user } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server).get(
       `/v1/rbac/users/${user.user.id.toString()}/permissions`,

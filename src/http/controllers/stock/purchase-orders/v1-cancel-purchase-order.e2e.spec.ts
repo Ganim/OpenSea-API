@@ -15,7 +15,7 @@ describe('Cancel Purchase Order (E2E)', () => {
   });
 
   it('should allow MANAGER to cancel a purchase order', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -58,9 +58,9 @@ describe('Cancel Purchase Order (E2E)', () => {
     expect(cancelledOrder?.status).toBe('CANCELLED');
   });
 
-  it('should NOT allow USER to cancel a purchase order', async () => {
-    const { user: manager } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { token: userToken } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to cancel a purchase order', async () => {
+    const { user: manager } = await createAndAuthenticateUser(app);
+    const { token: userToken } = await createAndAuthenticateUser(app, );
 
     const timestamp = Date.now();
 
@@ -98,7 +98,7 @@ describe('Cancel Purchase Order (E2E)', () => {
   });
 
   it('should NOT allow cancelling already delivered purchase order', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -137,7 +137,7 @@ describe('Cancel Purchase Order (E2E)', () => {
   });
 
   it('should return 404 for non-existent purchase order', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/purchase-orders/00000000-0000-0000-0000-000000000000/cancel')

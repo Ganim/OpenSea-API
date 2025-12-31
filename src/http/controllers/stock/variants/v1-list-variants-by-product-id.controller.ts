@@ -1,4 +1,6 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { variantWithAggregationsResponseSchema } from '@/http/schemas/stock.schema';
 import { variantWithAggregationsToDTO } from '@/mappers/stock/variant/variant-to-dto';
 import { makeListVariantsByProductIdUseCase } from '@/use-cases/stock/variants/factories/make-list-variants-by-product-id-use-case';
@@ -10,9 +12,15 @@ export async function listVariantsByProductIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/products/:productId/variants',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.VARIANTS.LIST,
+        resource: 'variants',
+      }),
+    ],
     schema: {
-      tags: ['Variants'],
+      tags: ['Stock - Variants'],
       summary: 'List variants by product ID with aggregations',
       params: z.object({
         productId: z.string().uuid(),

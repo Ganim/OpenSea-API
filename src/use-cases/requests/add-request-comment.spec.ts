@@ -55,7 +55,6 @@ describe('AddRequestCommentUseCase', () => {
       requestId: request.id.toString(),
       authorId: 'assigned-1',
       content: 'Este é um comentário de teste',
-      userRole: 'USER',
     });
 
     expect(result.comment).toBeDefined();
@@ -89,7 +88,6 @@ describe('AddRequestCommentUseCase', () => {
         requestId: 'non-existent',
         authorId: 'user-1',
         content: 'Test comment',
-        userRole: 'USER',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
@@ -120,7 +118,7 @@ describe('AddRequestCommentUseCase', () => {
       authorId: 'admin-1',
       content: 'Comentário interno apenas para equipe',
       isInternal: true,
-      userRole: 'ADMIN',
+      hasViewAllPermission: true,
     });
 
     expect(result.comment.isInternal).toBe(true);
@@ -150,7 +148,6 @@ describe('AddRequestCommentUseCase', () => {
       requestId: request.id.toString(),
       authorId: 'requester-1',
       content: 'Meu próprio comentário',
-      userRole: 'USER',
     });
 
     // Não deve enviar notificação (não tem atribuído e autor é o solicitante)
@@ -184,7 +181,6 @@ describe('AddRequestCommentUseCase', () => {
       requestId: request.id.toString(),
       authorId: 'assigned-1',
       content: longComment,
-      userRole: 'USER',
     });
 
     expect(createNotificationUseCase.execute).toHaveBeenCalledWith(

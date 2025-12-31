@@ -1,7 +1,7 @@
-﻿import { verifyJwt } from '@/http/middlewares/verify-jwt';
+﻿import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  salesOrderResponseSchema,
-  salesOrderStatusEnum,
+    salesOrderResponseSchema,
+    salesOrderStatusEnum,
 } from '@/http/schemas/sales.schema';
 import { makeListSalesOrdersUseCase } from '@/use-cases/sales/sales-orders/factories/make-list-sales-orders-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,7 +14,7 @@ export async function v1ListSalesOrdersController(app: FastifyInstance) {
     url: '/v1/sales-orders',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Sales Orders'],
+      tags: ['Sales - Orders'],
       summary: 'List sales orders',
       querystring: z.object({
         page: z.coerce.number().min(1).default(1),

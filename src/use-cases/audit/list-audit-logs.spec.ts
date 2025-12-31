@@ -38,7 +38,8 @@ describe('ListAuditLogsUseCase', () => {
   });
 
   it('should filter logs by userId', async () => {
-    const userId = new UniqueEntityID().toString();
+    const userId = new UniqueEntityID();
+    const otherUserId = new UniqueEntityID();
 
     await auditLogsRepository.log(
       AuditLog.create({
@@ -56,14 +57,14 @@ describe('ListAuditLogsUseCase', () => {
         entity: AuditEntity.PRODUCT,
         module: AuditModule.STOCK,
         entityId: 'product-2',
-        userId: 'other-user',
+        userId: otherUserId,
       }),
     );
 
-    const result = await sut.execute({ userId });
+    const result = await sut.execute({ userId: userId.toString() });
 
     expect(result.logs).toHaveLength(1);
-    expect(result.logs[0].userId).toBe(userId);
+    expect(result.logs[0].userId?.toString()).toBe(userId.toString());
   });
 
   it('should filter logs by entity', async () => {

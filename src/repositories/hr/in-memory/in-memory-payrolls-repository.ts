@@ -2,10 +2,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Payroll } from '@/entities/hr/payroll';
 import { PayrollStatus } from '@/entities/hr/value-objects';
 import type {
-    CreatePayrollSchema,
-    FindPayrollFilters,
-    PayrollsRepository,
-    UpdatePayrollSchema,
+  CreatePayrollSchema,
+  FindPayrollFilters,
+  PayrollsRepository,
+  UpdatePayrollSchema,
 } from '../payrolls-repository';
 
 export class InMemoryPayrollsRepository implements PayrollsRepository {

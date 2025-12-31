@@ -1,5 +1,5 @@
 ﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { customerResponseSchema } from '@/http/schemas/sales.schema';
 import { makeGetCustomerByIdUseCase } from '@/use-cases/sales/customers/factories/make-get-customer-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -12,7 +12,7 @@ export async function getCustomerByIdController(app: FastifyInstance) {
     url: '/v1/customers/:id',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Customers'],
+      tags: ['Sales - Customers'],
       summary: 'Get customer by ID',
       params: z.object({
         id: z.string().uuid(),

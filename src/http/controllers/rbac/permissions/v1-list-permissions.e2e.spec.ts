@@ -18,7 +18,7 @@ describe('List Permissions (e2e)', () => {
   });
 
   it('should allow authenticated USER to LIST permissions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     await makePermission({
       module: 'sales',
@@ -45,7 +45,7 @@ describe('List Permissions (e2e)', () => {
   });
 
   it('should FILTER permissions by MODULE', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     await makePermission({
       module: 'stock',
@@ -68,7 +68,7 @@ describe('List Permissions (e2e)', () => {
   });
 
   it('should FILTER permissions by RESOURCE', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     await makePermission({
       module: 'sales',
@@ -95,7 +95,7 @@ describe('List Permissions (e2e)', () => {
   });
 
   it('should FILTER permissions by ACTION', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     await makePermission({
       module: 'core',
@@ -117,7 +117,7 @@ describe('List Permissions (e2e)', () => {
   });
 
   it('should PAGINATE results', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/rbac/permissions')

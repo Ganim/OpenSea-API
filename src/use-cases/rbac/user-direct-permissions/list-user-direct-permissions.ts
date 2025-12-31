@@ -42,16 +42,19 @@ export class ListUserDirectPermissionsUseCase {
     }
 
     // Buscar permissões diretas
-    const directPermissions = await this.userDirectPermissionsRepository.listByUserId(
-      userIdEntity,
-      { includeExpired, effect },
-    );
+    const directPermissions =
+      await this.userDirectPermissionsRepository.listByUserId(userIdEntity, {
+        includeExpired,
+        effect,
+      });
 
     // Buscar detalhes das permissões
     const permissionsWithEffects: PermissionWithEffect[] = [];
 
     for (const dp of directPermissions) {
-      const permission = await this.permissionsRepository.findById(dp.permissionId);
+      const permission = await this.permissionsRepository.findById(
+        dp.permissionId,
+      );
       if (permission) {
         permissionsWithEffects.push({
           permission,

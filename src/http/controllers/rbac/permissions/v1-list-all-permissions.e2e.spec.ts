@@ -1,21 +1,21 @@
-import request from 'supertest'
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { app } from '@/app'
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e'
-import { prisma } from '@/lib/prisma'
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { prisma } from '@/lib/prisma';
 
 describe('List All Permissions (e2e)', () => {
   beforeAll(async () => {
-    await app.ready()
-  })
+    await app.ready();
+  });
 
   afterAll(async () => {
-    await app.close()
-  })
+    await app.close();
+  });
 
   it('should be able to list all permissions grouped by module', async () => {
     // Cria e autentica um usuário admin
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN')
+    const { token } = await createAndAuthenticateUser(app);
 
     // Cria algumas permissões de teste
     await prisma.permission.createMany({
@@ -48,61 +48,61 @@ describe('List All Permissions (e2e)', () => {
           isSystem: true,
         },
       ],
-    })
+    });
 
     // Faz a requisição
     const response = await request(app.server)
       .get('/v1/rbac/permissions/all')
       .set('Authorization', `Bearer ${token}`)
-      .send()
+      .send();
 
     // Validações
-    expect(response.statusCode).toEqual(200)
-    expect(response.body).toHaveProperty('permissions')
-    expect(response.body).toHaveProperty('total')
-    expect(response.body).toHaveProperty('modules')
+    expect(response.statusCode).toEqual(200);
+    expect(response.body).toHaveProperty('permissions');
+    expect(response.body).toHaveProperty('total');
+    expect(response.body).toHaveProperty('modules');
 
     // Verifica estrutura dos dados
-    expect(Array.isArray(response.body.permissions)).toBe(true)
-    expect(Array.isArray(response.body.modules)).toBe(true)
-    expect(typeof response.body.total).toBe('number')
+    expect(Array.isArray(response.body.permissions)).toBe(true);
+    expect(Array.isArray(response.body.modules)).toBe(true);
+    expect(typeof response.body.total).toBe('number');
 
     // Verifica se existe o módulo TEST
     const testModule = response.body.permissions.find(
       (m: { module: string }) => m.module === 'TEST',
-    )
-    expect(testModule).toBeDefined()
-    expect(testModule.module).toBe('TEST')
-    expect(testModule.description).toBeTruthy()
-    expect(testModule.resources).toBeDefined()
+    );
+    expect(testModule).toBeDefined();
+    expect(testModule.module).toBe('TEST');
+    expect(testModule.description).toBeTruthy();
+    expect(testModule.resources).toBeDefined();
 
     // Verifica se os recursos existem
-    expect(testModule.resources.resource1).toBeDefined()
-    expect(testModule.resources.resource2).toBeDefined()
+    expect(testModule.resources.resource1).toBeDefined();
+    expect(testModule.resources.resource2).toBeDefined();
 
     // Verifica se as permissões estão agrupadas corretamente
-    expect(testModule.resources.resource1.permissions).toHaveLength(2)
-    expect(testModule.resources.resource2.permissions).toHaveLength(1)
+    expect(testModule.resources.resource1.permissions).toHaveLength(2);
+    expect(testModule.resources.resource2.permissions).toHaveLength(1);
 
     // Verifica estrutura da permissão
-    const permission = testModule.resources.resource1.permissions[0]
-    expect(permission).toHaveProperty('id')
-    expect(permission).toHaveProperty('code')
-    expect(permission).toHaveProperty('name')
-    expect(permission).toHaveProperty('action')
-    expect(permission).toHaveProperty('isDeprecated')
+    const permission = testModule.resources.resource1.permissions[0];
+    expect(permission).toHaveProperty('id');
+    expect(permission).toHaveProperty('code');
+    expect(permission).toHaveProperty('name');
+    expect(permission).toHaveProperty('action');
+    expect(permission).toHaveProperty('isDeprecated');
 
     // Limpa os dados de teste
     await prisma.permission.deleteMany({
       where: {
         module: 'test',
       },
-    })
-  })
+    });
+  });
 
   it('should mark deprecated permissions correctly', async () => {
     // Cria e autentica um usuário admin
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN')
+    const { token } = await createAndAuthenticateUser(app);
 
     // Cria uma permissão deprecated
     await prisma.permission.create({
@@ -120,47 +120,47 @@ describe('List All Permissions (e2e)', () => {
           reason: 'No longer used',
         },
       },
-    })
+    });
 
     // Faz a requisição
     const response = await request(app.server)
       .get('/v1/rbac/permissions/all')
       .set('Authorization', `Bearer ${token}`)
-      .send()
+      .send();
 
     // Encontra a permissão deprecated
     const testModule = response.body.permissions.find(
       (m: { module: string }) => m.module === 'TEST',
-    )
-    expect(testModule).toBeDefined()
+    );
+    expect(testModule).toBeDefined();
 
-    const deprecatedResource = testModule.resources.deprecated
-    expect(deprecatedResource).toBeDefined()
-    expect(deprecatedResource.permissions).toHaveLength(1)
+    const deprecatedResource = testModule.resources.deprecated;
+    expect(deprecatedResource).toBeDefined();
+    expect(deprecatedResource.permissions).toHaveLength(1);
 
-    const permission = deprecatedResource.permissions[0]
-    expect(permission.isDeprecated).toBe(true)
-    expect(permission.code).toBe('test.deprecated.read')
+    const permission = deprecatedResource.permissions[0];
+    expect(permission.isDeprecated).toBe(true);
+    expect(permission.code).toBe('test.deprecated.read');
 
     // Limpa os dados de teste
     await prisma.permission.deleteMany({
       where: {
         module: 'test',
       },
-    })
-  })
+    });
+  });
 
   it('should return 401 if user is not authenticated', async () => {
     const response = await request(app.server)
       .get('/v1/rbac/permissions/all')
-      .send()
+      .send();
 
-    expect(response.statusCode).toEqual(401)
-  })
+    expect(response.statusCode).toEqual(401);
+  });
 
   it('should return permissions sorted by action within each resource', async () => {
     // Cria e autentica um usuário admin
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN')
+    const { token } = await createAndAuthenticateUser(app);
 
     // Cria permissões em ordem não alfabética
     await prisma.permission.createMany({
@@ -202,30 +202,30 @@ describe('List All Permissions (e2e)', () => {
           isSystem: true,
         },
       ],
-    })
+    });
 
     // Faz a requisição
     const response = await request(app.server)
       .get('/v1/rbac/permissions/all')
       .set('Authorization', `Bearer ${token}`)
-      .send()
+      .send();
 
     // Encontra o módulo TEST
     const testModule = response.body.permissions.find(
       (m: { module: string }) => m.module === 'TEST',
-    )
+    );
 
-    const permissions = testModule.resources.sorted.permissions
-    const actions = permissions.map((p: { action: string }) => p.action)
+    const permissions = testModule.resources.sorted.permissions;
+    const actions = permissions.map((p: { action: string }) => p.action);
 
     // Verifica se está ordenado alfabeticamente
-    expect(actions).toEqual(['create', 'delete', 'read', 'update'])
+    expect(actions).toEqual(['create', 'delete', 'read', 'update']);
 
     // Limpa os dados de teste
     await prisma.permission.deleteMany({
       where: {
         module: 'test',
       },
-    })
-  })
-})
+    });
+  });
+});

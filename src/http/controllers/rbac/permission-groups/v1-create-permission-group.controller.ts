@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserAdmin } from '@/http/middlewares/verify-user-admin';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { PermissionGroupPresenter } from '@/http/presenters/rbac/permission-group-presenter';
 import {
   createPermissionGroupSchema,
@@ -15,7 +16,13 @@ export async function createPermissionGroupController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/rbac/permission-groups',
-    preHandler: [verifyJwt, verifyUserAdmin],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.GROUPS.CREATE,
+        resource: 'permission-groups',
+      }),
+    ],
     schema: {
       tags: ['RBAC - Permission Groups'],
       summary: 'Create a new permission group',

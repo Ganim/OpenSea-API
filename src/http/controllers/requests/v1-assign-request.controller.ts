@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeAssignRequestUseCase } from '@/use-cases/requests/factories/make-assign-request-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,7 +10,7 @@ export async function assignRequestController(app: FastifyInstance) {
     url: '/v1/requests/:id/assign',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Requests'],
+      tags: ['Core - Requests'],
       summary: 'Assign request to a user',
       params: z.object({
         id: z.string().uuid(),
@@ -33,7 +33,9 @@ export async function assignRequestController(app: FastifyInstance) {
         requestId: request.params.id,
         assignedToId: request.body.assignedToId,
         performedById: request.user.sub,
-        userRole: request.user.role,
+        hasAssignPermission: request.user.permissions?.includes(
+          'REQUESTS:ASSIGN',
+        ),
       });
 
       return reply.status(200).send({ success: true });

@@ -7,7 +7,7 @@ import type { RequestsRepository } from '@/repositories/requests/requests-reposi
 interface GetRequestByIdUseCaseRequest {
   requestId: string;
   userId: string;
-  userRole: 'ADMIN' | 'MANAGER' | 'USER';
+  hasViewAllPermission?: boolean;
 }
 
 interface GetRequestByIdUseCaseResponse {
@@ -28,7 +28,7 @@ export class GetRequestByIdUseCase {
       throw new ResourceNotFoundError('Request not found');
     }
 
-    if (!request.canBeViewedBy(data.userId, data.userRole)) {
+    if (!request.canBeViewedBy(data.userId, data.hasViewAllPermission)) {
       throw new BadRequestError(
         'You do not have permission to view this request',
       );

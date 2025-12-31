@@ -5,7 +5,6 @@ import { Username } from '@/entities/core/value-objects/username';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
 import { mapUserPrismaToDomain } from '@/mappers/core/user/user-prisma-to-domain';
-import type { Role as PrismaRole } from '@prisma/client';
 import type {
   CreateUserSchema,
   UpdateUserSchema,
@@ -22,7 +21,6 @@ export class PrismaUsersRepository implements UsersRepository {
         username: data.username.toString(),
         email: data.email.toString(),
         password_hash: data.passwordHash.toString(),
-        role: data.role.value as PrismaRole,
         profile: {
           create: {
             name: data.profile.name,
@@ -75,7 +73,6 @@ export class PrismaUsersRepository implements UsersRepository {
                 : ''
             : undefined,
           email: data.email ? data.email.toString() : undefined,
-          role: data.role ? (data.role.value as PrismaRole) : undefined,
           password_hash: data.passwordHash
             ? data.passwordHash.toString()
             : undefined,
@@ -234,7 +231,6 @@ export class PrismaUsersRepository implements UsersRepository {
 
   // LIST
   // - listAll(): Promise<User[]>;
-  // - listAllByRole(role: UserRole): Promise<User[]>;
 
   async listAll(): Promise<User[] | null> {
     const usersDb = await prisma.user.findMany({
@@ -253,20 +249,46 @@ export class PrismaUsersRepository implements UsersRepository {
     return userList;
   }
 
-  async listAllByRole(role: PrismaRole): Promise<User[] | null> {
-    const usersDb = await prisma.user.findMany({
-      where: { role: role, deletedAt: null },
-      orderBy: { email: 'asc' },
-      take: 1000, // Limit to prevent PostgreSQL parameter overflow
-      include: { profile: true },
-    });
+  // FORCED PASSWORD RESET
+  async setForcePasswordReset(
+    id: UniqueEntityID,
+    requestedBy: UniqueEntityID | null,
+    reason?: string,
+  ): Promise<User | null> {
+    try {
+      const newUserData = await prisma.user.update({
+        where: { id: id.toString() },
+        data: {
+          forcePasswordReset: true,
+          forcePasswordResetReason: reason ?? null,
+          forcePasswordResetRequestedBy: requestedBy?.toString() ?? null,
+          forcePasswordResetRequestedAt: new Date(),
+        },
+        include: { profile: true },
+      });
 
-    if (!usersDb || usersDb.length === 0) return null;
+      return User.create(mapUserPrismaToDomain(newUserData));
+    } catch {
+      return null;
+    }
+  }
 
-    const userList = usersDb.map((userDb) =>
-      User.create(mapUserPrismaToDomain(userDb)),
-    );
+  async clearForcePasswordReset(id: UniqueEntityID): Promise<User | null> {
+    try {
+      const newUserData = await prisma.user.update({
+        where: { id: id.toString() },
+        data: {
+          forcePasswordReset: false,
+          forcePasswordResetReason: null,
+          forcePasswordResetRequestedBy: null,
+          forcePasswordResetRequestedAt: null,
+        },
+        include: { profile: true },
+      });
 
-    return userList;
+      return User.create(mapUserPrismaToDomain(newUserData));
+    } catch {
+      return null;
+    }
   }
 }

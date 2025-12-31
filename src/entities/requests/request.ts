@@ -1,5 +1,4 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Role } from '@prisma/client';
 import type { RequestPriority } from './value-objects/request-priority';
 import type { RequestStatus } from './value-objects/request-status';
 import {
@@ -19,7 +18,6 @@ export interface RequestProps {
   requesterId: UniqueEntityID;
   targetType: RequestTargetType;
   targetId?: string;
-  targetRole?: Role;
   assignedToId?: UniqueEntityID;
   dueDate?: Date;
   slaDeadline?: Date;
@@ -75,10 +73,6 @@ export class Request {
 
   get targetId(): string | undefined {
     return this.props.targetId;
-  }
-
-  get targetRole(): Role | undefined {
-    return this.props.targetRole;
   }
 
   get assignedToId(): UniqueEntityID | undefined {
@@ -272,7 +266,7 @@ export class Request {
     return this.props.requesterId.toString() === userId;
   }
 
-  canBeViewedBy(userId: string, userRole: Role): boolean {
+  canBeViewedBy(userId: string, hasViewAllPermission: boolean = false): boolean {
     // Criador pode ver
     if (this.props.requesterId.toString() === userId) {
       return true;
@@ -281,8 +275,8 @@ export class Request {
     if (this.props.assignedToId?.toString() === userId) {
       return true;
     }
-    // ADMIN pode ver tudo
-    if (userRole === 'ADMIN') {
+    // Usuário com permissão de visualizar todas as requests pode ver
+    if (hasViewAllPermission) {
       return true;
     }
     return false;

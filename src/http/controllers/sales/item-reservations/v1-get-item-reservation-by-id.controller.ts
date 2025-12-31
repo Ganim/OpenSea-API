@@ -1,5 +1,5 @@
 ﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { itemReservationResponseSchema } from '@/http/schemas/sales.schema';
 import { makeGetItemReservationByIdUseCase } from '@/use-cases/sales/item-reservations/factories/make-get-item-reservation-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -12,7 +12,7 @@ export async function getItemReservationByIdController(app: FastifyInstance) {
     url: '/v1/item-reservations/:id',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Item Reservations'],
+      tags: ['Sales - Item Reservations'],
       summary: 'Get item reservation by ID',
       params: z.object({ id: z.string().uuid() }),
       response: {

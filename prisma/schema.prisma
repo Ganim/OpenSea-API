@@ -19,10 +19,32 @@ datasource db {
 
 // --- Enums ---
 
-enum Role {
-  ADMIN
-  MANAGER
-  USER
+enum CompanyStatusEnum {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum TaxRegimeEnum {
+  SIMPLES
+  LUCRO_PRESUMIDO
+  LUCRO_REAL
+  IMUNE_ISENTA
+  OUTROS
+}
+
+enum OrganizationType {
+  COMPANY // Empresa própria
+  SUPPLIER // Fornecedor
+  MANUFACTURER // Fabricante
+  CUSTOMER // Cliente (futuro)
+}
+
+enum OrganizationStatusEnum {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  BLOCKED
 }
 
 // --- Entidades ---
@@ -35,9 +57,6 @@ model User {
   email         String  @db.VarChar(254)
   password_hash String  @db.VarChar(100)
 
-  // User Roles
-  role Role @default(USER)
-
   // Access Control
   lastLoginIp         String?   @map("last_login_ip")
   failedLoginAttempts Int       @default(0) @map("failed_login_attempts")
@@ -46,6 +65,12 @@ model User {
   // Recovery
   passwordResetToken   String?   @map("password_reset_token")
   passwordResetExpires DateTime? @map("password_reset_expires")
+
+  // Forced Password Reset
+  forcePasswordReset            Boolean   @default(false) @map("force_password_reset")
+  forcePasswordResetReason      String?   @map("force_password_reset_reason") @db.VarChar(255)
+  forcePasswordResetRequestedBy String?   @map("force_password_reset_requested_by")
+  forcePasswordResetRequestedAt DateTime? @map("force_password_reset_requested_at")
 
   // Soft Delete
   deletedAt DateTime? @map("deleted_at")
@@ -100,7 +125,7 @@ model User {
   // Optimizations
   @@index([failedLoginAttempts, blockedUntil, lastLoginIp])
   @@index([passwordResetToken, passwordResetExpires])
-  @@index([role])
+  @@index([forcePasswordReset])
   @@index([id, deletedAt])
   @@map("users")
 }
@@ -404,18 +429,111 @@ enum MovementType {
 }
 
 enum AuditAction {
+  // CRUD básico
   CREATE
   UPDATE
   DELETE
   RESTORE
+
+  // Autenticação e Sessão
   LOGIN
   LOGOUT
+  SESSION_REFRESH
+  SESSION_EXPIRE
+  SESSION_REVOKE
+
+  // Senha e Segurança
   PASSWORD_CHANGE
-  PRICE_CHANGE
-  STOCK_ADJUSTMENT
-  STATUS_CHANGE
+  PASSWORD_RESET_REQUEST
+  PASSWORD_RESET_COMPLETE
+  PASSWORD_FORCE_RESET
+
+  // Perfil de Usuário
+  EMAIL_CHANGE
+  USERNAME_CHANGE
+  PROFILE_CHANGE
+  ROLE_CHANGE
+
+  // RBAC - Permissões
   PERMISSION_GRANT
   PERMISSION_REVOKE
+  PERMISSION_UPDATE
+  GROUP_ASSIGN
+  GROUP_REMOVE
+  PERMISSION_ADD_TO_GROUP
+  PERMISSION_REMOVE_FROM_GROUP
+
+  // Estoque
+  PRICE_CHANGE
+  STOCK_ENTRY
+  STOCK_EXIT
+  STOCK_TRANSFER
+  STOCK_ADJUSTMENT
+
+  // Pedidos e Compras
+  ORDER_CREATE
+  ORDER_CANCEL
+  STATUS_CHANGE
+
+  // Reservas
+  RESERVATION_CREATE
+  RESERVATION_RELEASE
+
+  // HR - Funcionários
+  EMPLOYEE_HIRE
+  EMPLOYEE_TERMINATE
+  EMPLOYEE_TRANSFER
+  EMPLOYEE_LINK_USER
+
+  // HR - Ponto e Tempo
+  CLOCK_IN
+  CLOCK_OUT
+  TIME_CALCULATE
+  TIME_BANK_CREDIT
+  TIME_BANK_DEBIT
+  TIME_BANK_ADJUST
+
+  // HR - Ausências e Férias
+  ABSENCE_REQUEST
+  ABSENCE_APPROVE
+  ABSENCE_REJECT
+  ABSENCE_CANCEL
+  VACATION_SCHEDULE
+  VACATION_START
+  VACATION_COMPLETE
+  VACATION_CANCEL
+  VACATION_SELL
+
+  // HR - Horas Extras
+  OVERTIME_REQUEST
+  OVERTIME_APPROVE
+
+  // Payroll - Folha de Pagamento
+  PAYROLL_CREATE
+  PAYROLL_CALCULATE
+  PAYROLL_APPROVE
+  PAYROLL_CANCEL
+  PAYROLL_PAY
+
+  // Requests - Workflow
+  REQUEST_CREATE
+  REQUEST_ASSIGN
+  REQUEST_COMPLETE
+  REQUEST_CANCEL
+  REQUEST_COMMENT
+  REQUEST_INFO
+  REQUEST_INFO_PROVIDE
+
+  // Notificações
+  NOTIFICATION_SEND
+  NOTIFICATION_READ
+  NOTIFICATION_DELETE
+
+  // Verificações
+  CHECK_CPF
+  CHECK_CNPJ
+
+  // Sistema
   EXPORT
   IMPORT
   SYNC
@@ -426,17 +544,21 @@ enum AuditEntity {
   // Auth & Users
   USER
   USER_PROFILE
+  USER_EMAIL
+  USER_PASSWORD
+  USER_USERNAME
+  USER_ROLE
   SESSION
   REFRESH_TOKEN
 
-  // RBAC
+  // RBAC - Controle de Acesso
   PERMISSION
   PERMISSION_GROUP
   PERMISSION_GROUP_PERMISSION
   USER_PERMISSION_GROUP
   USER_DIRECT_PERMISSION
 
-  // Stock Management
+  // Stock Management - Estoque
   PRODUCT
   VARIANT
   ITEM
@@ -458,7 +580,7 @@ enum AuditEntity {
   VARIANT_SUPPLIER_CODE
   VARIANT_PROMOTION
 
-  // Sales
+  // Sales - Vendas
   CUSTOMER
   SALES_ORDER
   SALES_ORDER_ITEM
@@ -470,27 +592,39 @@ enum AuditEntity {
   NOTIFICATION_TEMPLATE
   NOTIFICATION_PREFERENCE
 
-  // Comments
+  // Comments - Comentários
   COMMENT
 
-  // Requests
+  // Requests - Workflow de Solicitações
   REQUEST
   REQUEST_ATTACHMENT
   REQUEST_COMMENT
   REQUEST_HISTORY
 
-  // HR
+  // HR - Organization (Empresa/Company)
+  COMPANY
+  COMPANY_ADDRESS
+  COMPANY_CNAE
+  COMPANY_FISCAL_SETTINGS
+  COMPANY_STAKEHOLDER
+
+  // HR - Estrutura Organizacional
   EMPLOYEE
   DEPARTMENT
   POSITION
+
+  // HR - Controle de Ponto e Tempo
   TIME_ENTRY
   WORK_SCHEDULE
   OVERTIME
   TIME_BANK
+
+  // HR - Ausências e Férias
   ABSENCE
   VACATION_PERIOD
+  VACATION_BALANCE
 
-  // Payroll
+  // Payroll - Folha de Pagamento
   PAYROLL
   PAYROLL_ITEM
   BONUS
@@ -601,6 +735,199 @@ enum DiscountType {
 }
 
 // --- Entidades ---
+
+// Organization - Base unificada para Company, Supplier, Manufacturer
+model Organization {
+  id   String           @id @default(uuid())
+  type OrganizationType // COMPANY | SUPPLIER | MANUFACTURER | CUSTOMER
+
+  // Dados obrigatórios
+  legalName String @map("legal_name") @db.VarChar(256)
+
+  // Identificação fiscal
+  cnpj String? @db.VarChar(18) // Para PJ
+  cpf  String? @db.VarChar(14) // Para PF (alguns fornecedores)
+
+  // Dados opcionais principais
+  tradeName             String?                @map("trade_name") @db.VarChar(256)
+  stateRegistration     String?                @map("state_registration") @db.VarChar(128)
+  municipalRegistration String?                @map("municipal_registration") @db.VarChar(128)
+  legalNature           String?                @map("legal_nature") @db.VarChar(256)
+  taxRegime             TaxRegimeEnum?         @map("tax_regime")
+  taxRegimeDetail       String?                @map("tax_regime_detail") @db.VarChar(256)
+  activityStartDate     DateTime?              @map("activity_start_date")
+  status                OrganizationStatusEnum @default(ACTIVE)
+  email                 String?                @db.VarChar(256)
+  phoneMain             String?                @map("phone_main") @db.VarChar(20)
+  phoneAlt              String?                @map("phone_alt") @db.VarChar(20)
+  website               String?                @db.VarChar(512)
+  logoUrl               String?                @map("logo_url") @db.VarChar(512)
+
+  // Dados específicos por tipo (JSON para campos que variam por tipo)
+  // Supplier: { paymentTerms, rating, sequentialCode, etc }
+  // Manufacturer: { rating, country, etc }
+  // Company: { pendingIssues, internalCode, etc }
+  typeSpecificData Json? @default("{}") @map("type_specific_data")
+
+  // Metadados
+  metadata Json    @default("{}")
+  notes    String? @db.Text
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relacionamentos polimórficos
+  addresses      OrganizationAddress[]
+  cnaes          OrganizationCnae[]
+  fiscalSettings OrganizationFiscalSettings?
+  stakeholders   OrganizationStakeholder[]
+  employees      Employee[]
+  products       Product[]
+
+  @@unique([cnpj, type, deletedAt], name: "organizations_cnpj_type_unique_active")
+  @@unique([cpf, type, deletedAt], name: "organizations_cpf_type_unique_active")
+  @@index([type])
+  @@index([cnpj])
+  @@index([cpf])
+  @@index([legalName])
+  @@index([status])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("organizations")
+}
+
+model OrganizationAddress {
+  id String @id @default(uuid())
+
+  organizationId String             @map("organization_id")
+  type           CompanyAddressType @default(OTHER)
+  street         String?            @db.VarChar(256)
+  number         String?            @db.VarChar(32)
+  complement     String?            @db.VarChar(128)
+  district       String?            @db.VarChar(128)
+  city           String?            @db.VarChar(128)
+  state          String?            @db.VarChar(2)
+  zip            String             @db.VarChar(10)
+  ibgeCityCode   String?            @map("ibge_city_code") @db.VarChar(16)
+  countryCode    String?            @default("BR") @map("country_code") @db.VarChar(4)
+  isPrimary      Boolean            @default(false) @map("is_primary")
+
+  metadata      Json      @default("{}")
+  pendingIssues Json      @default("[]") @map("pending_issues")
+  deletedAt     DateTime? @map("deleted_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, type, deletedAt], name: "organization_addresses_org_type_unique_active")
+  @@index([organizationId])
+  @@index([type])
+  @@index([zip])
+  @@index([isPrimary])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("organization_addresses")
+}
+
+model OrganizationCnae {
+  id String @id @default(uuid())
+
+  organizationId String            @map("organization_id")
+  code           String            @db.VarChar(16)
+  description    String?           @db.VarChar(256)
+  isPrimary      Boolean           @default(false) @map("is_primary")
+  status         CompanyCnaeStatus @default(ACTIVE)
+
+  metadata      Json      @default("{}")
+  pendingIssues Json      @default("[]") @map("pending_issues")
+  deletedAt     DateTime? @map("deleted_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, code, deletedAt], name: "organization_cnaes_org_code_unique_active")
+  @@index([organizationId])
+  @@index([code])
+  @@index([isPrimary])
+  @@index([status])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("organization_cnaes")
+}
+
+model OrganizationFiscalSettings {
+  id String @id @default(uuid())
+
+  organizationId String @unique @map("organization_id")
+
+  // NFe - Nota Fiscal Eletrônica
+  nfeEnabled     Boolean?                @default(false) @map("nfe_enabled")
+  nfeSeries      Int?                    @map("nfe_series")
+  nfeNumber      Int?                    @default(1) @map("nfe_number")
+  nfeEnvironment NfeEnvironment?         @map("nfe_environment")
+  nfePassword    String?                 @map("nfe_password") @db.VarChar(128)
+  nfeCertificate String?                 @map("nfe_certificate") @db.Text
+  nfeCertType    DigitalCertificateType? @map("nfe_cert_type")
+
+  // Impostos - Alíquotas padrão
+  defaultIcmsRate   Decimal? @default(0) @map("default_icms_rate") @db.Decimal(5, 2)
+  defaultIpiRate    Decimal? @default(0) @map("default_ipi_rate") @db.Decimal(5, 2)
+  defaultPisRate    Decimal? @default(0) @map("default_pis_rate") @db.Decimal(5, 2)
+  defaultCofinsRate Decimal? @default(0) @map("default_cofins_rate") @db.Decimal(5, 2)
+
+  metadata      Json      @default("{}")
+  pendingIssues Json      @default("[]") @map("pending_issues")
+  deletedAt     DateTime? @map("deleted_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("organization_fiscal_settings")
+}
+
+model OrganizationStakeholder {
+  id String @id @default(uuid())
+
+  organizationId String                    @map("organization_id")
+  name           String                    @db.VarChar(256)
+  cpf            String?                   @db.VarChar(14)
+  role           CompanyStakeholderRole?
+  qualification  String?                   @db.VarChar(256)
+  entryDate      DateTime?                 @map("entry_date")
+  exitDate       DateTime?                 @map("exit_date")
+  status         CompanyStakeholderStatus  @default(ACTIVE)
+  source         CompanyStakeholderSource? @default(MANUAL)
+
+  metadata      Json      @default("{}")
+  pendingIssues Json      @default("[]") @map("pending_issues")
+  deletedAt     DateTime? @map("deleted_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, cpf, deletedAt], name: "organization_stakeholders_org_cpf_unique_active")
+  @@index([organizationId])
+  @@index([cpf])
+  @@index([status])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("organization_stakeholders")
+}
 
 model Supplier {
   id             String  @id @default(uuid())
@@ -762,12 +1089,14 @@ model Product {
   deletedAt      DateTime?     @map("deleted_at")
 
   templateId     String  @map("template_id")
-  supplierId     String? @map("supplier_id")
-  manufacturerId String? @map("manufacturer_id")
+  supplierId     String? @map("supplier_id") // DEPRECATED: Migrar para organizationId
+  manufacturerId String? @map("manufacturer_id") // DEPRECATED: Migrar para organizationId
+  organizationId String? @map("organization_id") // Nova relação unificada
 
   template          Template          @relation(fields: [templateId], references: [id])
   supplier          Supplier?         @relation(fields: [supplierId], references: [id])
   manufacturer      Manufacturer?     @relation(fields: [manufacturerId], references: [id])
+  organization      Organization?     @relation(fields: [organizationId], references: [id])
   variants          Variant[]
   productCategories ProductCategory[]
   productTags       ProductTag[]
@@ -777,6 +1106,7 @@ model Product {
   @@index([templateId])
   @@index([supplierId])
   @@index([manufacturerId])
+  @@index([organizationId])
   @@index([status])
   @@index([sequentialCode])
   @@index([fullCode])
@@ -1454,7 +1784,6 @@ enum RequestPriority {
 enum RequestTargetType {
   USER // Requisição para usuário específico
   GROUP // Requisição para grupo (ex: gestores)
-  ROLE // Requisição para role (ADMIN, MANAGER)
 }
 
 model Request {
@@ -1474,10 +1803,9 @@ model Request {
   requesterId String @map("requester_id")
   requester   User   @relation("RequestsCreated", fields: [requesterId], references: [id])
 
-  // Destinatário (pode ser usuário, grupo ou role)
+  // Destinatário (pode ser usuário ou grupo)
   targetType RequestTargetType @map("target_type")
   targetId   String?           @map("target_id") // ID do usuário ou grupo
-  targetRole Role?             @map("target_role") // Se for por role
 
   // Atribuído a (responsável atual)
   assignedToId String? @map("assigned_to_id")
@@ -1666,7 +1994,7 @@ model Employee {
   departmentId    String?        @map("department_id")
   positionId      String?        @map("position_id")
   supervisorId    String?        @map("supervisor_id")
-  enterpriseId    String?        @map("enterprise_id")
+  organizationId  String?        @map("organization_id")
   hireDate        DateTime       @map("hire_date")
   terminationDate DateTime?      @map("termination_date")
   status          EmployeeStatus @default(ACTIVE)
@@ -1688,12 +2016,12 @@ model Employee {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  user         User?       @relation(fields: [userId], references: [id])
-  department   Department? @relation("DepartmentEmployees", fields: [departmentId], references: [id])
-  position     Position?   @relation(fields: [positionId], references: [id])
-  supervisor   Employee?   @relation("EmployeeSupervisor", fields: [supervisorId], references: [id])
-  subordinates Employee[]  @relation("EmployeeSupervisor")
-  enterprise   Enterprise? @relation(fields: [enterpriseId], references: [id])
+  user         User?         @relation(fields: [userId], references: [id])
+  department   Department?   @relation("DepartmentEmployees", fields: [departmentId], references: [id])
+  position     Position?     @relation(fields: [positionId], references: [id])
+  supervisor   Employee?     @relation("EmployeeSupervisor", fields: [supervisorId], references: [id])
+  subordinates Employee[]    @relation("EmployeeSupervisor")
+  organization Organization? @relation(fields: [organizationId], references: [id])
 
   // Time Control
   timeEntries TimeEntry[]
@@ -1721,6 +2049,8 @@ model Employee {
 
   // Management
   managedDepartments Department[] @relation("DepartmentManager")
+  company            Company?     @relation(fields: [companyId], references: [id])
+  companyId          String?
 
   @@unique([registrationNumber, deletedAt])
   @@unique([cpf, deletedAt])
@@ -1735,7 +2065,7 @@ model Employee {
   @@index([hireDate])
   @@index([terminationDate])
   @@index([deletedAt])
-  @@index([enterpriseId])
+  @@index([organizationId])
   @@map("employees")
 }
 
@@ -1743,10 +2073,11 @@ model Department {
   id String @id @default(uuid())
 
   name        String  @db.VarChar(128)
-  code        String  @unique @db.VarChar(32)
+  code        String  @db.VarChar(32)
   description String? @db.Text
   parentId    String? @map("parent_id")
   managerId   String? @map("manager_id")
+  companyId   String  @map("company_id")
   isActive    Boolean @default(true) @map("is_active")
 
   // Soft Delete
@@ -1760,12 +2091,15 @@ model Department {
   parent    Department?  @relation("DepartmentHierarchy", fields: [parentId], references: [id])
   children  Department[] @relation("DepartmentHierarchy")
   manager   Employee?    @relation("DepartmentManager", fields: [managerId], references: [id])
+  company   Company      @relation(fields: [companyId], references: [id])
   positions Position[]
   employees Employee[]   @relation("DepartmentEmployees")
 
+  @@unique([code, companyId, deletedAt], name: "departments_code_company_unique_active")
   @@index([code])
   @@index([parentId])
   @@index([managerId])
+  @@index([companyId])
   @@index([isActive])
   @@index([deletedAt])
   @@map("departments")
@@ -1781,6 +2115,7 @@ model Position {
   level        Int      @default(1)
   minSalary    Decimal? @map("min_salary") @db.Decimal(10, 2)
   maxSalary    Decimal? @map("max_salary") @db.Decimal(10, 2)
+  baseSalary   Decimal? @map("base_salary") @db.Decimal(10, 2)
   isActive     Boolean  @default(true) @map("is_active")
 
   // Soft Delete
@@ -2185,31 +2520,76 @@ model Deduction {
 }
 
 // ===============================================
-// ENTERPRISE MODULE
+// COMPANY MODULE
 // ===============================================
 
-model Enterprise {
+enum CompanyAddressType {
+  FISCAL
+  DELIVERY
+  BILLING
+  OTHER
+}
+
+enum CompanyCnaeStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum NfeEnvironment {
+  HOMOLOGATION
+  PRODUCTION
+}
+
+enum DigitalCertificateType {
+  NONE
+  A1
+  A3
+}
+
+enum CompanyStakeholderRole {
+  SOCIO
+  ADMINISTRADOR
+  PROCURADOR
+  REPRESENTANTE_LEGAL
+  GERENTE
+  DIRETOR
+  OUTRO
+}
+
+enum CompanyStakeholderStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum CompanyStakeholderSource {
+  CNPJ_API
+  MANUAL
+}
+
+model Company {
   id String @id @default(uuid())
 
   // Dados obrigatórios
   legalName String @map("legal_name") @db.VarChar(256)
   cnpj      String @db.VarChar(18)
 
-  // Dados opcionais
-  taxRegime     String? @map("tax_regime") @db.VarChar(128)
-  phone         String? @db.VarChar(20)
-  address       String? @db.VarChar(256)
-  addressNumber String? @map("address_number") @db.VarChar(16)
-  complement    String? @db.VarChar(128)
-  neighborhood  String? @map("neighborhood") @db.VarChar(128)
-  city          String? @db.VarChar(128)
-  state         String? @db.VarChar(2)
-  zipCode       String? @map("zip_code") @db.VarChar(10)
-  country       String? @default("Brasil") @db.VarChar(64)
-  logoUrl       String? @map("logo_url") @db.VarChar(512)
+  // Dados opcionais principais
+  tradeName             String?           @map("trade_name") @db.VarChar(256)
+  stateRegistration     String?           @map("state_registration") @db.VarChar(128)
+  municipalRegistration String?           @map("municipal_registration") @db.VarChar(128)
+  legalNature           String?           @map("legal_nature") @db.VarChar(256)
+  taxRegime             TaxRegimeEnum?    @map("tax_regime")
+  taxRegimeDetail       String?           @map("tax_regime_detail") @db.VarChar(256)
+  activityStartDate     DateTime?         @map("activity_start_date")
+  status                CompanyStatusEnum @default(ACTIVE)
+  email                 String?           @db.VarChar(256)
+  phoneMain             String?           @map("phone_main") @db.VarChar(20)
+  phoneAlt              String?           @map("phone_alt") @db.VarChar(20)
+  logoUrl               String?           @map("logo_url") @db.VarChar(512)
 
-  // Metadados
-  metadata Json @default("{}")
+  // Metadados e pendências
+  metadata      Json     @default("{}")
+  pendingIssues String[] @default([])
 
   // Soft Delete
   deletedAt DateTime? @map("deleted_at")
@@ -2219,12 +2599,176 @@ model Enterprise {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  employees Employee[]
+  employees      Employee[]
+  departments    Department[]
+  addresses      CompanyAddress[]
+  cnaes          CompanyCnae[]
+  fiscalSettings CompanyFiscalSettings?
+  stakeholders   CompanyStakeholder[]
 
-  @@unique([cnpj, deletedAt], name: "enterprises_cnpj_unique_active")
+  @@unique([cnpj, deletedAt], name: "companies_cnpj_unique_active")
   @@index([cnpj])
   @@index([legalName])
+  @@index([status])
   @@index([deletedAt])
   @@index([createdAt])
-  @@map("enterprises")
+  @@map("companies")
+}
+
+model CompanyAddress {
+  id String @id @default(uuid())
+
+  companyId    String             @map("company_id")
+  type         CompanyAddressType @default(OTHER)
+  street       String?            @db.VarChar(256)
+  number       String?            @db.VarChar(32)
+  complement   String?            @db.VarChar(128)
+  district     String?            @db.VarChar(128)
+  city         String?            @db.VarChar(128)
+  state        String?            @db.VarChar(2)
+  zip          String             @db.VarChar(10)
+  ibgeCityCode String?            @map("ibge_city_code") @db.VarChar(16)
+  countryCode  String?            @default("BR") @map("country_code") @db.VarChar(4)
+  isPrimary    Boolean            @default(false) @map("is_primary")
+
+  metadata      Json      @default("{}")
+  pendingIssues Json      @default("[]") @map("pending_issues")
+  deletedAt     DateTime? @map("deleted_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@unique([companyId, type, deletedAt], name: "company_addresses_company_type_unique_active")
+  @@index([companyId])
+  @@index([type])
+  @@index([zip])
+  @@index([isPrimary])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("company_addresses")
+}
+
+model CompanyCnae {
+  id String @id @default(uuid())
+
+  companyId   String            @map("company_id")
+  code        String            @db.VarChar(16)
+  description String?           @db.VarChar(256)
+  isPrimary   Boolean           @default(false) @map("is_primary")
+  status      CompanyCnaeStatus @default(ACTIVE)
+
+  metadata      Json      @default("{}")
+  pendingIssues Json      @default("[]") @map("pending_issues")
+  deletedAt     DateTime? @map("deleted_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@unique([companyId, code, deletedAt], name: "company_cnaes_company_code_unique_active")
+  @@index([companyId])
+  @@index([code])
+  @@index([isPrimary])
+  @@index([status])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("company_cnaes")
+}
+
+model CompanyFiscalSettings {
+  id String @id @default(uuid())
+
+  companyId String @unique @map("company_id")
+
+  // NF-e Configuration
+  nfeEnvironment            NfeEnvironment? @map("nfe_environment")
+  nfeSeries                 String?         @map("nfe_series") @db.VarChar(16)
+  nfeLastNumber             Int?            @map("nfe_last_number")
+  nfeDefaultOperationNature String?         @map("nfe_default_operation_nature") @db.VarChar(256)
+  nfeDefaultCfop            String?         @map("nfe_default_cfop") @db.VarChar(8)
+
+  // Digital Certificate Configuration
+  digitalCertificateType DigitalCertificateType @default(NONE) @map("digital_certificate_type")
+  certificateA1PfxBlob   Bytes?                 @map("certificate_a1_pfx_blob")
+  certificateA1Password  String?                @map("certificate_a1_password")
+  certificateA1ExpiresAt DateTime?              @map("certificate_a1_expires_at")
+
+  // NFC-e Configuration
+  nfceEnabled  Boolean @default(false) @map("nfce_enabled")
+  nfceCscId    String? @map("nfce_csc_id") @db.VarChar(64)
+  nfceCscToken String? @map("nfce_csc_token") @db.VarChar(256)
+
+  // Optional Tax Profile reference
+  defaultTaxProfileId String? @map("default_tax_profile_id")
+
+  // Metadata
+  metadata      Json @default("{}")
+  pendingIssues Json @default("[]") @map("pending_issues")
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
+  @@index([digitalCertificateType])
+  @@index([nfeEnvironment])
+  @@index([nfceEnabled])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("company_fiscal_settings")
+}
+
+model CompanyStakeholder {
+  id String @id @default(uuid())
+
+  companyId String @map("company_id")
+
+  // Personal Information
+  name                 String                  @db.VarChar(256)
+  role                 CompanyStakeholderRole? @map("role")
+  entryDate            DateTime?               @map("entry_date") @db.Date
+  exitDate             DateTime?               @map("exit_date") @db.Date
+  personDocumentMasked String?                 @map("person_document_masked") @db.VarChar(32)
+
+  // Legal Information
+  isLegalRepresentative Boolean                  @default(false) @map("is_legal_representative")
+  status                CompanyStakeholderStatus @default(ACTIVE)
+
+  // Data Source
+  source        CompanyStakeholderSource @default(MANUAL)
+  rawPayloadRef String?                  @map("raw_payload_ref") @db.VarChar(512)
+
+  // Metadata and Pending Issues
+  metadata      Json @default("{}")
+  pendingIssues Json @default("[]") @map("pending_issues")
+
+  // Soft Delete with Anonimization
+  anonimizedAt DateTime? @map("anonimized_at")
+  deletedAt    DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, name, role, deletedAt], name: "company_stakeholders_company_name_role_unique_active")
+  @@index([companyId])
+  @@index([role])
+  @@index([status])
+  @@index([isLegalRepresentative])
+  @@index([source])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("company_stakeholders")
 }

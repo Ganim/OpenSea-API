@@ -16,14 +16,12 @@ describe('Complete Request (E2E)', () => {
 
     const userAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
     token = userAuthData.token;
     user = userAuthData.user;
 
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
     adminToken = adminAuthData.token;
   });
@@ -35,7 +33,6 @@ describe('Complete Request (E2E)', () => {
   it('should be able to complete an assigned request', async () => {
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     // Create and assign a request
@@ -67,7 +64,6 @@ describe('Complete Request (E2E)', () => {
   it('should not be able to complete a request without being assigned', async () => {
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     // Create a request assigned to someone else

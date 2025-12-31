@@ -1,6 +1,7 @@
 ﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeDeleteNotificationPreferenceUseCase } from '@/use-cases/sales/notification-preferences/factories/make-delete-notification-preference-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -12,9 +13,15 @@ export async function deleteNotificationPreferenceController(
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/notification-preferences/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.NOTIFICATIONS.DELETE,
+        resource: 'notification-preferences',
+      }),
+    ],
     schema: {
-      tags: ['Notification Preferences'],
+      tags: ['Sales - Notification Preferences'],
       summary: 'Delete a notification preference (soft delete)',
       params: z.object({ id: z.string().uuid() }),
       response: {

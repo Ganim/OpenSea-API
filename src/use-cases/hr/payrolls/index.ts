@@ -5,4 +5,3 @@ export * from './create-payroll';
 export * from './get-payroll';
 export * from './list-payrolls';
 export * from './process-payroll-payment';
-

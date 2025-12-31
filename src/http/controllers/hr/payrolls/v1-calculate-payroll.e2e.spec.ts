@@ -32,7 +32,7 @@ describe('Calculate Payroll (E2E)', () => {
   });
 
   it('should allow MANAGER to calculate a payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create employee first
     await createEmployeeE2E();
@@ -52,7 +52,7 @@ describe('Calculate Payroll (E2E)', () => {
   });
 
   it('should return 404 when payroll not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/hr/payrolls/00000000-0000-0000-0000-000000000000/calculate')
@@ -61,8 +61,8 @@ describe('Calculate Payroll (E2E)', () => {
     expect(response.statusCode).toBe(404);
   });
 
-  it('should NOT allow USER to calculate a payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to calculate a payroll', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const payroll = await createPayroll({
       referenceMonth: 12,
       referenceYear: 2024,
@@ -89,7 +89,7 @@ describe('Calculate Payroll (E2E)', () => {
   });
 
   it('should return 400 when payroll is not in DRAFT status', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const payroll = await createPayroll({
       referenceMonth: 2,
       referenceYear: 2026,

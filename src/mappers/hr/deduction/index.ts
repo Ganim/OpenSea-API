@@ -21,4 +21,3 @@ export interface DeductionDTO {
 }
 
 export { deductionToDTO } from './deduction-to-dto';
-

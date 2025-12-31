@@ -18,10 +18,10 @@ export const auditContextStorage = new AsyncLocalStorage<AuditContext>();
  */
 export async function auditContextHook(
   request: FastifyRequest,
-  reply: FastifyReply,
+  _reply: FastifyReply,
 ) {
   const context: AuditContext = {
-    userId: (request.user as any)?.sub || null,
+    userId: (request.user as { sub?: string })?.sub || null,
     ip: getClientIp(request),
     userAgent: request.headers['user-agent'] || null,
     endpoint: request.url,
@@ -57,9 +57,7 @@ function getClientIp(request: FastifyRequest): string | null {
   const xRealIp = request.headers['x-real-ip'];
 
   if (xForwardedFor) {
-    const ips = Array.isArray(xForwardedFor)
-      ? xForwardedFor[0]
-      : xForwardedFor;
+    const ips = Array.isArray(xForwardedFor) ? xForwardedFor[0] : xForwardedFor;
     return ips.split(',')[0]?.trim() || null;
   }
 

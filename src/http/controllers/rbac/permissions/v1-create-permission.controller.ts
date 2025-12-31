@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserAdmin } from '@/http/middlewares/verify-user-admin';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { PermissionPresenter } from '@/http/presenters/rbac/permission-presenter';
 import {
   createPermissionSchema,
@@ -15,7 +16,13 @@ export async function createPermissionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/rbac/permissions',
-    preHandler: [verifyJwt, verifyUserAdmin],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.PERMISSIONS.CREATE,
+        resource: 'permissions',
+      }),
+    ],
     schema: {
       tags: ['RBAC - Permissions'],
       summary: 'Create a new permission',

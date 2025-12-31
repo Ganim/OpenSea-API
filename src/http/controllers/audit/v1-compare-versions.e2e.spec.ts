@@ -4,6 +4,12 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
+interface VersionDifference {
+  field: string;
+  version1Value: unknown;
+  version2Value: unknown;
+}
+
 describe('Compare Versions (e2e)', () => {
   beforeAll(async () => {
     await app.ready();
@@ -14,7 +20,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should compare two versions successfully', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'compare-versions-test-1';
 
@@ -27,7 +33,7 @@ describe('Compare Versions (e2e)', () => {
           module: 'STOCK',
           entityId,
           newData: { name: 'V1', price: 100.0, sku: 'SKU-001' },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-01T10:00:00Z'),
         },
         {
@@ -37,7 +43,7 @@ describe('Compare Versions (e2e)', () => {
           entityId,
           oldData: { name: 'V1', price: 100.0, sku: 'SKU-001' },
           newData: { name: 'V2', price: 150.0, sku: 'SKU-002' },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-02T10:00:00Z'),
         },
         {
@@ -47,7 +53,7 @@ describe('Compare Versions (e2e)', () => {
           entityId,
           oldData: { name: 'V2', price: 150.0, sku: 'SKU-002' },
           newData: { name: 'V3', price: 200.0, sku: 'SKU-003' },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-03T10:00:00Z'),
         },
       ],
@@ -81,7 +87,7 @@ describe('Compare Versions (e2e)', () => {
     expect(response.body.comparison.totalDifferences).toBe(3);
 
     const nameDiff = response.body.comparison.differences.find(
-      (d: any) => d.field === 'name',
+      (d: VersionDifference) => d.field === 'name',
     );
     expect(nameDiff).toEqual({
       field: 'name',
@@ -90,7 +96,7 @@ describe('Compare Versions (e2e)', () => {
     });
 
     const priceDiff = response.body.comparison.differences.find(
-      (d: any) => d.field === 'price',
+      (d: VersionDifference) => d.field === 'price',
     );
     expect(priceDiff).toEqual({
       field: 'price',
@@ -105,7 +111,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should return no differences for identical versions', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'compare-identical-versions';
 
@@ -118,7 +124,7 @@ describe('Compare Versions (e2e)', () => {
           module: 'STOCK',
           entityId,
           newData: { name: 'Product', price: 100.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-01T10:00:00Z'),
         },
         {
@@ -128,7 +134,7 @@ describe('Compare Versions (e2e)', () => {
           entityId,
           oldData: { name: 'Product', price: 100.0 },
           newData: { name: 'Product', price: 100.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-02T10:00:00Z'),
         },
       ],
@@ -149,7 +155,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should handle partial changes', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'compare-partial-changes';
 
@@ -162,7 +168,7 @@ describe('Compare Versions (e2e)', () => {
           module: 'STOCK',
           entityId,
           newData: { name: 'Product', price: 100.0, sku: 'SKU-001', stock: 10 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-01T10:00:00Z'),
         },
         {
@@ -177,7 +183,7 @@ describe('Compare Versions (e2e)', () => {
             sku: 'SKU-001',
             stock: 10,
           },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-02T10:00:00Z'),
         },
       ],
@@ -202,7 +208,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should return error for missing version parameters', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/audit-logs/compare/PRODUCT/test-id')
@@ -213,7 +219,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should return error for invalid version numbers', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/audit-logs/compare/PRODUCT/test-id?v1=abc&v2=def')
@@ -224,7 +230,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should return error for version out of bounds', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'compare-out-of-bounds';
 
@@ -237,7 +243,7 @@ describe('Compare Versions (e2e)', () => {
           module: 'STOCK',
           entityId,
           newData: { name: 'V1' },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-01T10:00:00Z'),
         },
         {
@@ -247,7 +253,7 @@ describe('Compare Versions (e2e)', () => {
           entityId,
           oldData: { name: 'V1' },
           newData: { name: 'V2' },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-02T10:00:00Z'),
         },
       ],
@@ -268,7 +274,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should return error for version 0 or negative', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'compare-zero-version';
 
@@ -279,7 +285,7 @@ describe('Compare Versions (e2e)', () => {
         module: 'STOCK',
         entityId,
         newData: { name: 'V1' },
-        userId: user.id,
+        userId: user.user.id,
       },
     });
 
@@ -297,7 +303,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should compare non-consecutive versions', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'compare-non-consecutive';
 
@@ -310,7 +316,7 @@ describe('Compare Versions (e2e)', () => {
           module: 'STOCK',
           entityId,
           newData: { name: 'V1', price: 100.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-01T10:00:00Z'),
         },
         {
@@ -320,7 +326,7 @@ describe('Compare Versions (e2e)', () => {
           entityId,
           oldData: { name: 'V1', price: 100.0 },
           newData: { name: 'V2', price: 120.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-02T10:00:00Z'),
         },
         {
@@ -330,7 +336,7 @@ describe('Compare Versions (e2e)', () => {
           entityId,
           oldData: { name: 'V2', price: 120.0 },
           newData: { name: 'V3', price: 140.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-03T10:00:00Z'),
         },
         {
@@ -340,7 +346,7 @@ describe('Compare Versions (e2e)', () => {
           entityId,
           oldData: { name: 'V3', price: 140.0 },
           newData: { name: 'V4', price: 160.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-04T10:00:00Z'),
         },
         {
@@ -350,7 +356,7 @@ describe('Compare Versions (e2e)', () => {
           entityId,
           oldData: { name: 'V4', price: 160.0 },
           newData: { name: 'V5', price: 180.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-05T10:00:00Z'),
         },
       ],
@@ -375,7 +381,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should handle comparison in reverse order (v1=2, v2=1)', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'compare-reverse-order';
 
@@ -387,7 +393,7 @@ describe('Compare Versions (e2e)', () => {
           module: 'STOCK',
           entityId,
           newData: { name: 'V1', price: 100.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-01T10:00:00Z'),
         },
         {
@@ -397,7 +403,7 @@ describe('Compare Versions (e2e)', () => {
           entityId,
           oldData: { name: 'V1', price: 100.0 },
           newData: { name: 'V2', price: 150.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-02T10:00:00Z'),
         },
       ],
@@ -417,11 +423,11 @@ describe('Compare Versions (e2e)', () => {
     expect(response.body.comparison.version2.data.name).toBe('V1');
 
     // As diferenças devem estar invertidas
-    const priceDiff = response.body.comparison.differences.find(
-      (d: any) => d.field === 'price',
+    const priceDiff2 = response.body.comparison.differences.find(
+      (d: VersionDifference) => d.field === 'price',
     );
-    expect(priceDiff.version1Value).toBe(150.0);
-    expect(priceDiff.version2Value).toBe(100.0);
+    expect(priceDiff2.version1Value).toBe(150.0);
+    expect(priceDiff2.version2Value).toBe(100.0);
 
     // Cleanup
     await prisma.auditLog.deleteMany({
@@ -430,7 +436,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should return 404 for entity with no logs', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/audit-logs/compare/PRODUCT/non-existent-id?v1=1&v2=2')
@@ -441,7 +447,7 @@ describe('Compare Versions (e2e)', () => {
   });
 
   it('should validate entity type', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/audit-logs/compare/INVALID_ENTITY/test-id?v1=1&v2=2')

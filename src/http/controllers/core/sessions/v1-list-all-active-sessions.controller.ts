@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeListAllActiveSessionsUseCase } from '@/use-cases/core/sessions/factories/make-list-all-active-sessions-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,9 +11,15 @@ export async function listAllActiveSessionsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/sessions/active',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.CORE.SESSIONS.LIST,
+        resource: 'sessions',
+      }),
+    ],
     schema: {
-      tags: ['Sessions'],
+      tags: ['Auth - Sessions'],
       summary: 'List all active sessions',
       response: {
         200: z.object({ sessions: z.array(z.any()) }),

@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeDeleteMyUserUseCase } from '@/use-cases/core/me/factories/make-delete-my-user-use-case';
 
 import type { FastifyInstance } from 'fastify';
@@ -12,7 +12,7 @@ export async function deleteMyUserController(app: FastifyInstance) {
     url: '/v1/me',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Me'],
+      tags: ['Auth - Me'],
       summary: 'Delete authenticated user',
       response: {
         200: z.void(),

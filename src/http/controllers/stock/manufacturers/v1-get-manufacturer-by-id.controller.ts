@@ -1,6 +1,8 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { manufacturerResponseSchema } from '@/http/schemas';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { manufacturerResponseSchema } from '@/http/schemas/stock/manufacturers';
 import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { PrismaManufacturersRepository } from '@/repositories/stock/prisma/prisma-manufacturers-repository';
 import { GetManufacturerByIdUseCase } from '@/use-cases/stock/manufacturers/get-manufacturer-by-id';
@@ -12,9 +14,15 @@ export async function getManufacturerByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/manufacturers/:id',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.MANUFACTURERS.READ,
+        resource: 'manufacturers',
+      }),
+    ],
     schema: {
-      tags: ['Manufacturers'],
+      tags: ['Stock - Manufacturers'],
       summary: 'Get manufacturer by ID',
       params: z.object({
         id: z.uuid(),

@@ -1,5 +1,8 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { supplierResponseSchema } from '@/http/schemas/stock.schema';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { supplierResponseSchema } from '@/http/schemas/stock/suppliers';
 import { makeGetSupplierByIdUseCase } from '@/use-cases/stock/suppliers/factories/make-get-supplier-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -9,8 +12,15 @@ export async function getSupplierByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/suppliers/:id',
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.SUPPLIERS.READ,
+        resource: 'suppliers',
+      }),
+    ],
     schema: {
-      tags: ['Suppliers'],
+      tags: ['Stock - Suppliers'],
       summary: 'Get a supplier by ID',
       security: [{ bearerAuth: [] }],
       params: z.object({

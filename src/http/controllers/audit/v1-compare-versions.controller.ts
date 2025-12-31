@@ -1,8 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
 import { AuditEntity } from '@/entities/audit/audit-entity.enum';
-import { verifyAuditComparePermission } from '@/http/middlewares/verify-audit-permission';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeCompareVersionsUseCase } from '@/use-cases/audit/factories/make-compare-versions-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -12,22 +13,26 @@ export async function compareVersionsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/audit-logs/compare/:entity/:entityId',
-    preHandler: [verifyJwt, verifyAuditComparePermission],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.AUDIT.COMPARE.VIEW,
+        resource: 'audit-logs',
+      }),
+    ],
     schema: {
-      tags: ['Audit'],
+      tags: ['Core - Audit'],
       summary: 'Compare two versions of an entity',
       params: z.object({
         entity: z.nativeEnum(AuditEntity),
         entityId: z.string(),
       }),
       querystring: z.object({
-        v1: z
-          .coerce
+        v1: z.coerce
           .number()
           .int()
           .positive({ message: 'Version numbers must be positive integers' }),
-        v2: z
-          .coerce
+        v2: z.coerce
           .number()
           .int()
           .positive({ message: 'Version numbers must be positive integers' }),

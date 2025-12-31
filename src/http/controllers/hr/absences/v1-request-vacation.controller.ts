@@ -1,6 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { absenceResponseSchema, requestVacationSchema } from '@/http/schemas';
 import { absenceToDTO } from '@/mappers/hr/absence/absence-to-dto';
 import { makeRequestVacationUseCase } from '@/use-cases/hr/absences/factories/make-request-vacation-use-case';

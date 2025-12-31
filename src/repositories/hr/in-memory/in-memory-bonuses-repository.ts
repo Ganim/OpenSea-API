@@ -1,10 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Bonus } from '@/entities/hr/bonus';
 import type {
-    BonusesRepository,
-    CreateBonusSchema,
-    FindBonusFilters,
-    UpdateBonusSchema,
+  BonusesRepository,
+  CreateBonusSchema,
+  FindBonusFilters,
+  UpdateBonusSchema,
 } from '../bonuses-repository';
 
 export class InMemoryBonusesRepository implements BonusesRepository {

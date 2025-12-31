@@ -19,7 +19,7 @@ describe('Schedule Vacation (E2E)', () => {
   });
 
   it('should schedule vacation for available period', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createAvailableVacationPeriodE2E({
@@ -48,7 +48,7 @@ describe('Schedule Vacation (E2E)', () => {
   });
 
   it('should not schedule vacation for less than 5 days', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createAvailableVacationPeriodE2E({
@@ -74,7 +74,7 @@ describe('Schedule Vacation (E2E)', () => {
   });
 
   it('should not schedule vacation for pending period', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createVacationPeriodE2E({
@@ -100,7 +100,7 @@ describe('Schedule Vacation (E2E)', () => {
   });
 
   it('should return 404 for non-existent vacation period', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .patch(

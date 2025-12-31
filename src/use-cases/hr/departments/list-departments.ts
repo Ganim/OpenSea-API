@@ -8,6 +8,7 @@ export interface ListDepartmentsRequest {
   search?: string;
   isActive?: boolean;
   parentId?: string;
+  companyId?: string;
 }
 
 export interface ListDepartmentsResponse {
@@ -26,7 +27,14 @@ export class ListDepartmentsUseCase {
   async execute(
     request: ListDepartmentsRequest,
   ): Promise<ListDepartmentsResponse> {
-    const { page = 1, perPage = 20, search, isActive, parentId } = request;
+    const {
+      page = 1,
+      perPage = 20,
+      search,
+      isActive,
+      parentId,
+      companyId,
+    } = request;
 
     const result = await this.departmentsRepository.findMany({
       page,
@@ -34,6 +42,7 @@ export class ListDepartmentsUseCase {
       search,
       isActive,
       parentId: parentId ? new UniqueEntityID(parentId) : undefined,
+      companyId: companyId ? new UniqueEntityID(companyId) : undefined,
     });
 
     const totalPages = Math.ceil(result.total / perPage);

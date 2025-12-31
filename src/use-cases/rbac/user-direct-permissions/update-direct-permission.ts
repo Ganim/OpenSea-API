@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UserDirectPermission } from '@/entities/rbac/user-direct-permission';
@@ -36,12 +35,14 @@ export class UpdateDirectPermissionUseCase {
     }
 
     // Atualizar permissão
-    const updatedPermission = await this.userDirectPermissionsRepository.update({
-      id: idEntity,
-      effect,
-      conditions,
-      expiresAt,
-    });
+    const updatedPermission = await this.userDirectPermissionsRepository.update(
+      {
+        id: idEntity,
+        effect,
+        conditions,
+        expiresAt,
+      },
+    );
 
     if (!updatedPermission) {
       throw new ResourceNotFoundError('Failed to update direct permission');

@@ -3,6 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createCompanyE2E } from '@/utils/tests/factories/hr/create-company.e2e';
 import {
   createDepartmentE2E,
   generateDepartmentCode,
@@ -18,7 +19,7 @@ describe('Update Department (E2E)', () => {
   });
 
   it('should allow MANAGER to update a department', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { departmentId } = await createDepartmentE2E();
     const updateData = { name: 'Updated Department Name' };
 
@@ -33,7 +34,7 @@ describe('Update Department (E2E)', () => {
   });
 
   it('should allow ADMIN to update a department', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const { departmentId } = await createDepartmentE2E();
     const updateData = { description: 'Updated description' };
 
@@ -46,8 +47,8 @@ describe('Update Department (E2E)', () => {
     expect(response.body.department.description).toBe(updateData.description);
   });
 
-  it('should NOT allow USER to update a department', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to update a department', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const { departmentId } = await createDepartmentE2E();
     const updateData = { name: 'Should Not Work' };
 
@@ -71,7 +72,7 @@ describe('Update Department (E2E)', () => {
   });
 
   it('should return 404 when department is not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const fakeId = '00000000-0000-0000-0000-000000000000';
     const updateData = { name: 'Not Found' };
 
@@ -83,10 +84,11 @@ describe('Update Department (E2E)', () => {
     expect(response.statusCode).toBe(404);
   });
 
-  it('should return 400 when updating to existing code', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { code: existingCode } = await createDepartmentE2E();
-    const { departmentId } = await createDepartmentE2E();
+  it('should return 400 when updating to existing code in same company', async () => {
+    const { token } = await createAndAuthenticateUser(app);
+    const { companyId } = await createCompanyE2E();
+    const { code: existingCode } = await createDepartmentE2E({ companyId });
+    const { departmentId } = await createDepartmentE2E({ companyId });
 
     const response = await request(app.server)
       .put(`/v1/hr/departments/${departmentId}`)
@@ -98,7 +100,7 @@ describe('Update Department (E2E)', () => {
   });
 
   it('should update department isActive status', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { departmentId } = await createDepartmentE2E({ isActive: true });
 
     const response = await request(app.server)
@@ -111,7 +113,7 @@ describe('Update Department (E2E)', () => {
   });
 
   it('should update department code successfully', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { departmentId } = await createDepartmentE2E();
     const newCode = generateDepartmentCode();
 

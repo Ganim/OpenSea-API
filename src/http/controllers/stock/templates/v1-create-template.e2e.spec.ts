@@ -12,7 +12,7 @@ describe('Create Template (E2E)', () => {
   });
 
   it('should be able to create a template with all attributes', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await app.inject({
       method: 'POST',
@@ -60,7 +60,7 @@ describe('Create Template (E2E)', () => {
   });
 
   it('should be able to create a template with only product attributes', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await app.inject({
       method: 'POST',
@@ -92,7 +92,7 @@ describe('Create Template (E2E)', () => {
   });
 
   it('should not be able to create a template with duplicate name', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const uniqueName = `Duplicate Template ${Date.now()}`;
 
@@ -128,7 +128,7 @@ describe('Create Template (E2E)', () => {
   });
 
   it('should be able to create a template without any attributes', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await app.inject({
       method: 'POST',

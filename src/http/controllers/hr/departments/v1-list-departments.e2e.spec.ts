@@ -15,7 +15,7 @@ describe('List Departments (E2E)', () => {
   });
 
   it('should allow MANAGER to list departments', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     await createDepartmentE2E();
     await createDepartmentE2E();
 
@@ -34,7 +34,7 @@ describe('List Departments (E2E)', () => {
   });
 
   it('should allow ADMIN to list departments', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/hr/departments')
@@ -45,7 +45,7 @@ describe('List Departments (E2E)', () => {
   });
 
   it('should allow USER to list departments', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/hr/departments')
@@ -62,7 +62,7 @@ describe('List Departments (E2E)', () => {
   });
 
   it('should paginate results', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     // Create multiple departments
     await createDepartmentE2E();
     await createDepartmentE2E();
@@ -79,7 +79,7 @@ describe('List Departments (E2E)', () => {
   });
 
   it('should filter by search query', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     await createDepartmentE2E({ name: 'Engineering Department' });
     await createDepartmentE2E({ name: 'Marketing Department' });
 
@@ -97,7 +97,7 @@ describe('List Departments (E2E)', () => {
   });
 
   it('should filter by isActive status', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const activeDept = await createDepartmentE2E({
       isActive: true,
       name: 'Active Department Test Unique' + Math.random(),
@@ -124,7 +124,7 @@ describe('List Departments (E2E)', () => {
   });
 
   it('should return correct pagination metadata', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/hr/departments')

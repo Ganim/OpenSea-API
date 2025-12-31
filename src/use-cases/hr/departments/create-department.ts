@@ -8,6 +8,7 @@ export interface CreateDepartmentRequest {
   description?: string;
   parentId?: string;
   managerId?: string;
+  companyId: string;
   isActive?: boolean;
 }
 
@@ -27,12 +28,17 @@ export class CreateDepartmentUseCase {
       description,
       parentId,
       managerId,
+      companyId,
       isActive = true,
     } = request;
 
-    // Validate if code already exists
-    const existingDepartment =
-      await this.departmentsRepository.findByCode(code);
+    const companyUniqueId = new UniqueEntityID(companyId);
+
+    // Validate if code already exists within the same company
+    const existingDepartment = await this.departmentsRepository.findByCode(
+      code,
+      companyUniqueId,
+    );
     if (existingDepartment) {
       throw new Error('Department with this code already exists');
     }
@@ -48,6 +54,10 @@ export class CreateDepartmentUseCase {
       if (!parentDepartment.isActive) {
         throw new Error('Cannot create department under an inactive parent');
       }
+      // Ensure parent belongs to the same company
+      if (!parentDepartment.companyId.equals(companyUniqueId)) {
+        throw new Error('Parent department must belong to the same company');
+      }
     }
 
     // Create department
@@ -57,6 +67,7 @@ export class CreateDepartmentUseCase {
       description,
       parentId: parentId ? new UniqueEntityID(parentId) : undefined,
       managerId: managerId ? new UniqueEntityID(managerId) : undefined,
+      companyId: companyUniqueId,
       isActive,
     });
 

@@ -16,7 +16,7 @@ describe('List Vacation Periods (E2E)', () => {
   });
 
   it('should list vacation periods with pagination', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
 
@@ -38,7 +38,7 @@ describe('List Vacation Periods (E2E)', () => {
   });
 
   it('should filter vacation periods by employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
 
@@ -57,7 +57,7 @@ describe('List Vacation Periods (E2E)', () => {
   });
 
   it('should filter vacation periods by status', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
 

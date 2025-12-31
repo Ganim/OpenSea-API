@@ -22,7 +22,7 @@ export class ListItemsByProductIdUseCase {
     );
 
     return {
-      items: items.map(item => itemToDTO(item)),
+      items: items.map((item) => itemToDTO(item)),
     };
   }
 }

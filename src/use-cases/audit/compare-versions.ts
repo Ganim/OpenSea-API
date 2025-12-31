@@ -15,17 +15,17 @@ interface CompareVersionsUseCaseResponse {
     version1: {
       version: number;
       timestamp: Date;
-      data: Record<string, any> | null;
+      data: Record<string, unknown> | null;
     };
     version2: {
       version: number;
       timestamp: Date;
-      data: Record<string, any> | null;
+      data: Record<string, unknown> | null;
     };
     differences: Array<{
       field: string;
-      version1Value: any;
-      version2Value: any;
+      version1Value: unknown;
+      version2Value: unknown;
     }>;
     totalDifferences: number;
   };
@@ -75,8 +75,8 @@ export class CompareVersionsUseCase {
     // Calcular diferenças
     const differences: Array<{
       field: string;
-      version1Value: any;
-      version2Value: any;
+      version1Value: unknown;
+      version2Value: unknown;
     }> = [];
 
     const allKeys = new Set([...Object.keys(data1), ...Object.keys(data2)]);

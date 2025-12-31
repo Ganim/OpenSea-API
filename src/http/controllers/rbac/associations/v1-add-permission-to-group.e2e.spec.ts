@@ -15,7 +15,7 @@ describe('Add Permission To Group (e2e)', () => {
   });
 
   it('should allow ADMIN to ADD permission to group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
     const permission = await makePermission();
 
@@ -34,7 +34,7 @@ describe('Add Permission To Group (e2e)', () => {
   });
 
   it('should allow adding permission with CONDITIONS', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
     const permission = await makePermission();
 
@@ -54,7 +54,7 @@ describe('Add Permission To Group (e2e)', () => {
   });
 
   it('should allow DENY effect', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
     const permission = await makePermission();
 
@@ -69,8 +69,8 @@ describe('Add Permission To Group (e2e)', () => {
     expect(response.statusCode).toEqual(201);
   });
 
-  it('should NOT allow USER to add permission to group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to add permission to group', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const group = await makePermissionGroup();
     const permission = await makePermission();
 
@@ -86,7 +86,7 @@ describe('Add Permission To Group (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const response = await request(app.server)
@@ -103,7 +103,7 @@ describe('Add Permission To Group (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const response = await request(app.server)

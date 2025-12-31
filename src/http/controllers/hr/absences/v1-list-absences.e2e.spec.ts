@@ -16,7 +16,7 @@ describe('List Absences (E2E)', () => {
   });
 
   it('should list absences with pagination', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
 
@@ -38,7 +38,7 @@ describe('List Absences (E2E)', () => {
   });
 
   it('should filter absences by employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
 
@@ -57,7 +57,7 @@ describe('List Absences (E2E)', () => {
   });
 
   it('should filter absences by type', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
 
@@ -76,7 +76,7 @@ describe('List Absences (E2E)', () => {
   });
 
   it('should filter absences by status', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
 

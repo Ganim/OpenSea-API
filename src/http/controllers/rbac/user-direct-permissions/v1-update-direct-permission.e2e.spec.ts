@@ -17,7 +17,7 @@ describe('Update Direct Permission (e2e)', () => {
   });
 
   it('should allow ADMIN to UPDATE direct permission EFFECT', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -25,9 +25,7 @@ describe('Update Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     // Grant permission
     const directPermission = await makeUserDirectPermission({
@@ -38,7 +36,9 @@ describe('Update Direct Permission (e2e)', () => {
 
     // Update effect to deny
     const response = await request(app.server)
-      .patch(`/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`)
+      .patch(
+        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({
         effect: 'deny',
@@ -51,7 +51,7 @@ describe('Update Direct Permission (e2e)', () => {
   });
 
   it('should allow updating EXPIRATION date', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -59,9 +59,7 @@ describe('Update Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     // Grant permission without expiration
     const directPermission = await makeUserDirectPermission({
@@ -73,7 +71,9 @@ describe('Update Direct Permission (e2e)', () => {
     expiresAt.setDate(expiresAt.getDate() + 30);
 
     const response = await request(app.server)
-      .patch(`/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`)
+      .patch(
+        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({
         expiresAt: expiresAt.toISOString(),
@@ -83,7 +83,7 @@ describe('Update Direct Permission (e2e)', () => {
   });
 
   it('should allow updating CONDITIONS', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -91,9 +91,7 @@ describe('Update Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const directPermission = await makeUserDirectPermission({
       userId: user.id.toString(),
@@ -102,7 +100,9 @@ describe('Update Direct Permission (e2e)', () => {
     });
 
     const response = await request(app.server)
-      .patch(`/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`)
+      .patch(
+        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({
         conditions: {
@@ -115,7 +115,7 @@ describe('Update Direct Permission (e2e)', () => {
   });
 
   it('should allow REMOVING expiration by setting to null', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -123,9 +123,7 @@ describe('Update Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 30);
@@ -137,7 +135,9 @@ describe('Update Direct Permission (e2e)', () => {
     });
 
     const response = await request(app.server)
-      .patch(`/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`)
+      .patch(
+        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({
         expiresAt: null,
@@ -147,10 +147,12 @@ describe('Update Direct Permission (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT direct permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
-      .patch('/v1/rbac/users/direct-permissions/00000000-0000-0000-0000-000000000000')
+      .patch(
+        '/v1/rbac/users/direct-permissions/00000000-0000-0000-0000-000000000000',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({
         effect: 'deny',
@@ -159,9 +161,11 @@ describe('Update Direct Permission (e2e)', () => {
     expect(response.statusCode).toEqual(404);
   });
 
-  it('should NOT allow USER to update permissions', async () => {
-    const { token: adminToken } = await createAndAuthenticateUser(app, 'ADMIN');
-    const { token: userToken } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to update permissions', async () => {
+    const { token: _adminToken } = await createAndAuthenticateUser(
+      app,
+    );
+    const { token: userToken } = await createAndAuthenticateUser(app, );
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -169,9 +173,7 @@ describe('Update Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const directPermission = await makeUserDirectPermission({
       userId: user.id.toString(),
@@ -179,7 +181,9 @@ describe('Update Direct Permission (e2e)', () => {
     });
 
     const response = await request(app.server)
-      .patch(`/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`)
+      .patch(
+        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
+      )
       .set('Authorization', `Bearer ${userToken}`)
       .send({
         effect: 'deny',
@@ -196,9 +200,7 @@ describe('Update Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const directPermission = await makeUserDirectPermission({
       userId: user.id.toString(),
@@ -206,7 +208,9 @@ describe('Update Direct Permission (e2e)', () => {
     });
 
     const response = await request(app.server)
-      .patch(`/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`)
+      .patch(
+        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
+      )
       .send({
         effect: 'deny',
       });

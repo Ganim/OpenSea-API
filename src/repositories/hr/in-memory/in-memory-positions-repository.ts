@@ -22,6 +22,7 @@ export class InMemoryPositionsRepository implements PositionsRepository {
         level: data.level ?? 1,
         minSalary: data.minSalary,
         maxSalary: data.maxSalary,
+        baseSalary: data.baseSalary,
         isActive: data.isActive ?? true,
       },
       id,
@@ -99,6 +100,13 @@ export class InMemoryPositionsRepository implements PositionsRepository {
     );
   }
 
+  async findManyByCompany(companyId: UniqueEntityID): Promise<Position[]> {
+    // In real implementation, this would filter by department.companyId
+    // For in-memory testing, return empty array - tests should mock this
+    void companyId;
+    return [];
+  }
+
   async findManyByLevel(level: number): Promise<Position[]> {
     return this.items.filter((item) => item.level === level && !item.deletedAt);
   }
@@ -112,6 +120,13 @@ export class InMemoryPositionsRepository implements PositionsRepository {
     // For in-memory testing, we return false by default
     void id;
     return false;
+  }
+
+  async countEmployeesByPosition(positionId: UniqueEntityID): Promise<number> {
+    // In real implementation, this would count employees in the employees repository
+    // For in-memory testing, we return 0 by default
+    void positionId;
+    return 0;
   }
 
   async update(data: UpdatePositionSchema): Promise<Position | null> {
@@ -144,6 +159,10 @@ export class InMemoryPositionsRepository implements PositionsRepository {
           data.maxSalary === null
             ? undefined
             : (data.maxSalary ?? position.maxSalary),
+        baseSalary:
+          data.baseSalary === null
+            ? undefined
+            : (data.baseSalary ?? position.baseSalary),
         isActive: data.isActive ?? position.isActive,
         deletedAt: position.deletedAt,
       },

@@ -13,7 +13,7 @@ describe('Update Comment (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
     userToken = token;
     userId = user.user.id;
 
@@ -80,7 +80,6 @@ describe('Update Comment (E2E)', () => {
     // Create another user
     const { token: anotherUserToken } = await createAndAuthenticateUser(
       app,
-      'USER',
     );
 
     const response = await request(app.server)

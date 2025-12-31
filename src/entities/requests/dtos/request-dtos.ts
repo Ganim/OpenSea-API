@@ -1,4 +1,3 @@
-import type { Role } from '@prisma/client';
 import type { RequestPriority } from '../value-objects/request-priority';
 import type { RequestStatus } from '../value-objects/request-status';
 import type { RequestTargetType } from '../value-objects/request-target-type';
@@ -12,7 +11,6 @@ export interface CreateRequestDTO {
   priority?: RequestPriority;
   targetType: RequestTargetType;
   targetId?: string; // ID do usuário ou grupo
-  targetRole?: Role; // Se for por role
   dueDate?: Date;
   metadata?: Record<string, unknown>;
   requiresApproval?: boolean;

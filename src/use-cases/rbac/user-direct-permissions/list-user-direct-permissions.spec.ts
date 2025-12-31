@@ -1,7 +1,7 @@
 import { User } from '@/entities/core/user';
 import { Username } from '@/entities/core/value-objects/username';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Permission } from '@/entities/rbac/permission';
+import { PermissionCode } from '@/entities/rbac/value-objects/permission-code';
 import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
 import { InMemoryPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-permissions-repository';
 import { InMemoryUserDirectPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-user-direct-permissions-repository';
@@ -41,11 +41,10 @@ describe('ListUserDirectPermissionsUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission1 = await permissionsRepository.create({
-      code: 'sales.orders.create',
+      code: PermissionCode.create('sales.orders.create'),
       name: 'Create Sales Orders',
       description: 'Permission to create sales orders',
       module: 'sales',
@@ -56,7 +55,7 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     const permission2 = await permissionsRepository.create({
-      code: 'sales.orders.read',
+      code: PermissionCode.create('sales.orders.read'),
       name: 'Read Sales Orders',
       description: 'Permission to read sales orders',
       module: 'sales',
@@ -82,7 +81,7 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     expect(result.permissions).toHaveLength(2);
-    expect(result.permissions.map((p) => p.permission.code)).toEqual(
+    expect(result.permissions.map((p) => p.permission.code.value)).toEqual(
       expect.arrayContaining(['sales.orders.create', 'sales.orders.read']),
     );
   });
@@ -93,7 +92,6 @@ describe('ListUserDirectPermissionsUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValueOnce({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const result = await sut.execute({
@@ -109,11 +107,10 @@ describe('ListUserDirectPermissionsUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission1 = await permissionsRepository.create({
-      code: 'active.permission.read',
+      code: PermissionCode.create('active.permission.read'),
       name: 'Active Permission',
       description: 'Active permission',
       module: 'active',
@@ -124,7 +121,7 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     const permission2 = await permissionsRepository.create({
-      code: 'expired.permission.read',
+      code: PermissionCode.create('expired.permission.read'),
       name: 'Expired Permission',
       description: 'Expired permission',
       module: 'expired',
@@ -154,7 +151,9 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     expect(result.permissions).toHaveLength(1);
-    expect(result.permissions[0].permission.code).toBe('active.permission.read');
+    expect(result.permissions[0].permission.code.value).toBe(
+      'active.permission.read',
+    );
   });
 
   it('should INCLUDE expired permissions when requested', async () => {
@@ -163,11 +162,10 @@ describe('ListUserDirectPermissionsUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission1 = await permissionsRepository.create({
-      code: 'active.permission.read',
+      code: PermissionCode.create('active.permission.read'),
       name: 'Active Permission',
       description: 'Active permission',
       module: 'active',
@@ -178,7 +176,7 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     const permission2 = await permissionsRepository.create({
-      code: 'expired.permission.read',
+      code: PermissionCode.create('expired.permission.read'),
       name: 'Expired Permission',
       description: 'Expired permission',
       module: 'expired',
@@ -217,11 +215,10 @@ describe('ListUserDirectPermissionsUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission1 = await permissionsRepository.create({
-      code: 'allow.permission.read',
+      code: PermissionCode.create('allow.permission.read'),
       name: 'Allow Permission',
       description: 'Permission with allow effect',
       module: 'allow',
@@ -232,7 +229,7 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     const permission2 = await permissionsRepository.create({
-      code: 'deny.permission.read',
+      code: PermissionCode.create('deny.permission.read'),
       name: 'Deny Permission',
       description: 'Permission with deny effect',
       module: 'deny',
@@ -262,7 +259,7 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     expect(result.permissions).toHaveLength(1);
-    expect(result.permissions[0].permission.code).toBe('allow.permission.read');
+    expect(result.permissions[0].permission.code.value).toBe('allow.permission.read');
     expect(result.permissions[0].effect).toBe('allow');
   });
 
@@ -272,11 +269,10 @@ describe('ListUserDirectPermissionsUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission1 = await permissionsRepository.create({
-      code: 'allow.permission.read',
+      code: PermissionCode.create('allow.permission.read'),
       name: 'Allow Permission',
       description: 'Permission with allow effect',
       module: 'allow',
@@ -287,7 +283,7 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     const permission2 = await permissionsRepository.create({
-      code: 'deny.permission.read',
+      code: PermissionCode.create('deny.permission.read'),
       name: 'Deny Permission',
       description: 'Permission with deny effect',
       module: 'deny',
@@ -317,7 +313,7 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     expect(result.permissions).toHaveLength(1);
-    expect(result.permissions[0].permission.code).toBe('deny.permission.read');
+    expect(result.permissions[0].permission.code.value).toBe('deny.permission.read');
     expect(result.permissions[0].effect).toBe('deny');
   });
 
@@ -327,11 +323,10 @@ describe('ListUserDirectPermissionsUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'sales.orders.approve',
+      code: PermissionCode.create('sales.orders.approve'),
       name: 'Approve Orders',
       description: 'Permission to approve orders',
       module: 'sales',

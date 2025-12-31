@@ -221,7 +221,9 @@ export class Item extends Entity<ItemProps> {
   }
 
   get displayCode(): string {
-    return this.props.fullCode ?? this.props.uniqueCode ?? this.props.id.toString();
+    return (
+      this.props.fullCode ?? this.props.uniqueCode ?? this.props.id.toString()
+    );
   }
 
   // Business Methods
@@ -277,7 +279,10 @@ export class Item extends Entity<ItemProps> {
   }
 
   static create(
-    props: Optional<ItemProps, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'attributes' | 'status'>,
+    props: Optional<
+      ItemProps,
+      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'attributes' | 'status'
+    >,
     id?: UniqueEntityID,
   ): Item {
     const item = new Item(

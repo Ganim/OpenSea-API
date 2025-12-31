@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { bonusResponseSchema, listBonusesQuerySchema } from '@/http/schemas';
 import { bonusToDTO } from '@/mappers/hr/bonus';
 import { makeListBonusesUseCase } from '@/use-cases/hr/bonuses/factories/make-list-bonuses-use-case';

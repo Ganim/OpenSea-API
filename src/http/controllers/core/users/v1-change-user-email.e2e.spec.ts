@@ -14,7 +14,7 @@ describe('Change User Email (e2e)', () => {
   });
 
   it('should allow ADMIN to CHANGE another user EMAIL', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const originalEmail = makeUniqueEmail('change_email');
     const anotherUser = await request(app.server)

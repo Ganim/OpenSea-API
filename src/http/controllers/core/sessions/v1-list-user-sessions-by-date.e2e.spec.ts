@@ -14,7 +14,7 @@ describe('List All User Sessions By Date (e2e)', () => {
   });
 
   it('should allow ADMIN to LIST user SESSIONS by DATE', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email = makeUniqueEmail('sessions-by-date');
     const anotherUser = await request(app.server)

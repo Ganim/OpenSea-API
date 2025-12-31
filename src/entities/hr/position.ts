@@ -9,6 +9,7 @@ export interface PositionProps {
   level: number;
   minSalary?: number;
   maxSalary?: number;
+  baseSalary?: number;
   isActive: boolean;
   deletedAt?: Date;
   createdAt: Date;
@@ -42,6 +43,10 @@ export class Position extends Entity<PositionProps> {
 
   get maxSalary(): number | undefined {
     return this.props.maxSalary;
+  }
+
+  get baseSalary(): number | undefined {
+    return this.props.baseSalary;
   }
 
   get isActive(): boolean {
@@ -132,6 +137,14 @@ export class Position extends Entity<PositionProps> {
     }
     this.props.minSalary = minSalary;
     this.props.maxSalary = maxSalary;
+    this.props.updatedAt = new Date();
+  }
+
+  updateBaseSalary(baseSalary?: number): void {
+    if (baseSalary !== undefined && baseSalary < 0) {
+      throw new Error('Base salary cannot be negative');
+    }
+    this.props.baseSalary = baseSalary;
     this.props.updatedAt = new Date();
   }
 

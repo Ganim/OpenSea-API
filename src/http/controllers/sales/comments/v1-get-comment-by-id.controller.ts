@@ -1,5 +1,5 @@
 ﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { commentResponseSchema } from '@/http/schemas/sales.schema';
 import { makeGetCommentByIdUseCase } from '@/use-cases/sales/comments/factories/make-get-comment-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -12,7 +12,7 @@ export async function getCommentByIdController(app: FastifyInstance) {
     url: '/v1/comments/:id',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Comments'],
+      tags: ['Sales - Comments'],
       summary: 'Get comment by ID',
       params: z.object({ id: z.string().uuid() }),
       response: {

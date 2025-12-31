@@ -1,4 +1,6 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { tagResponseSchema } from '@/http/schemas/stock.schema';
 import { makeListTagsUseCase } from '@/use-cases/stock/tags/factories/make-list-tags-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -9,7 +11,13 @@ export async function listTagsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/tags',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.TAGS.LIST,
+        resource: 'tags',
+      }),
+    ],
     schema: {
       tags: ['Stock - Tags'],
       summary: 'List all tags',

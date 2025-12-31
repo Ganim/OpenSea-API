@@ -1,10 +1,11 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  customerResponseSchema,
-  updateCustomerSchema,
+    customerResponseSchema,
+    updateCustomerSchema,
 } from '@/http/schemas/sales.schema';
 import { makeUpdateCustomerUseCase } from '@/use-cases/sales/customers/factories/make-update-customer-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -15,9 +16,15 @@ export async function updateCustomerController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/customers/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.CUSTOMERS.UPDATE,
+        resource: 'customers',
+      }),
+    ],
     schema: {
-      tags: ['Customers'],
+      tags: ['Sales - Customers'],
       summary: 'Update a customer',
       params: z.object({
         id: z.string().uuid(),

@@ -1,4 +1,6 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { PermissionPresenter } from '@/http/presenters/rbac/permission-presenter';
 import {
   listPermissionsByModulesQuerySchema,
@@ -13,7 +15,13 @@ export async function listPermissionsByModulesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/rbac/permissions/by-modules',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.PERMISSIONS.READ,
+        resource: 'permissions',
+      }),
+    ],
     schema: {
       tags: ['RBAC - Permissions'],
       summary: 'List permissions grouped by modules',

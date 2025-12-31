@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { deductionResponseSchema, idSchema } from '@/http/schemas';
 import { deductionToDTO } from '@/mappers/hr/deduction';
 import { makeGetDeductionUseCase } from '@/use-cases/hr/deductions/factories/make-get-deduction-use-case';

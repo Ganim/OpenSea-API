@@ -14,7 +14,7 @@ describe('Register Item Entry (e2e)', () => {
   });
 
   it('should allow MANAGER to REGISTER ITEM ENTRY', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -89,8 +89,8 @@ describe('Register Item Entry (e2e)', () => {
     expect(response.body.movement.quantity).toBe(100);
   });
 
-  it('should NOT allow USER to REGISTER ITEM ENTRY', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to REGISTER ITEM ENTRY', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
 
     const timestamp = Date.now();
     const uniqueCode = `ITEM-ENTRY-FORBIDDEN-${timestamp}`;
@@ -110,7 +110,7 @@ describe('Register Item Entry (e2e)', () => {
   });
 
   it('should NOT allow DUPLICATE unique code', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 

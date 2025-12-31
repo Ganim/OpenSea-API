@@ -14,7 +14,7 @@ describe('Update User Profile (e2e)', () => {
   });
 
   it('should allow MANAGER/ADMIN to CHANGE another user PROFILE', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email = makeUniqueEmail('change-user-profile');
     const anotherUser = await request(app.server)

@@ -1,9 +1,10 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  createSalesOrderSchema,
-  salesOrderResponseSchema,
+    createSalesOrderSchema,
+    salesOrderResponseSchema,
 } from '@/http/schemas/sales.schema';
 import { makeCreateSalesOrderUseCase } from '@/use-cases/sales/sales-orders/factories/make-create-sales-order-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,9 +15,15 @@ export async function v1CreateSalesOrderController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/sales-orders',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.ORDERS.CREATE,
+        resource: 'sales-orders',
+      }),
+    ],
     schema: {
-      tags: ['Sales Orders'],
+      tags: ['Sales - Orders'],
       summary: 'Create a new sales order',
       body: createSalesOrderSchema,
       response: {

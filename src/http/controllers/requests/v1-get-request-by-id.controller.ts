@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeGetRequestByIdUseCase } from '@/use-cases/requests/factories/make-get-request-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,7 +10,7 @@ export async function getRequestByIdController(app: FastifyInstance) {
     url: '/v1/requests/:id',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Requests'],
+      tags: ['Core - Requests'],
       summary: 'Get request by ID',
       params: z.object({
         id: z.string().uuid(),
@@ -47,7 +47,9 @@ export async function getRequestByIdController(app: FastifyInstance) {
       const { request: requestData } = await useCase.execute({
         requestId: request.params.id,
         userId: request.user.sub,
-        userRole: request.user.role,
+        hasViewAllPermission: request.user.permissions?.includes(
+          'REQUESTS:VIEW_ALL',
+        ),
       });
 
       return reply.status(200).send({

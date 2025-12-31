@@ -18,7 +18,7 @@ describe('Create Position (E2E)', () => {
   });
 
   it('should allow MANAGER to create a new position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const positionData = generatePositionData();
 
     const response = await request(app.server)
@@ -38,7 +38,7 @@ describe('Create Position (E2E)', () => {
   });
 
   it('should allow ADMIN to create a new position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const positionData = generatePositionData();
 
     const response = await request(app.server)
@@ -51,8 +51,8 @@ describe('Create Position (E2E)', () => {
     expect(response.body.position.name).toBe(positionData.name);
   });
 
-  it('should NOT allow USER to create a position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to create a position', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const positionData = generatePositionData();
 
     const response = await request(app.server)
@@ -74,7 +74,7 @@ describe('Create Position (E2E)', () => {
   });
 
   it('should return 400 when code is already registered', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const code = generatePositionCode();
 
     const firstPosition = generatePositionData({ code });
@@ -95,7 +95,7 @@ describe('Create Position (E2E)', () => {
   });
 
   it('should return 400 when required fields are missing', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/hr/positions')
@@ -108,7 +108,7 @@ describe('Create Position (E2E)', () => {
   });
 
   it('should create position with salary range', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const positionData = generatePositionData({
       minSalary: 3000,
       maxSalary: 8000,
@@ -125,7 +125,7 @@ describe('Create Position (E2E)', () => {
   });
 
   it('should return 400 when minSalary is greater than maxSalary', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const positionData = generatePositionData({
       minSalary: 10000,
       maxSalary: 5000,
@@ -141,7 +141,7 @@ describe('Create Position (E2E)', () => {
   });
 
   it('should create inactive position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const positionData = generatePositionData({ isActive: false });
 
     const response = await request(app.server)

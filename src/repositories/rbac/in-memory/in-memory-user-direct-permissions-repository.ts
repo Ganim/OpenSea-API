@@ -99,7 +99,9 @@ export class InMemoryUserDirectPermissionsRepository
     this.items = this.items.filter((item) => !item.userId.equals(userId));
   }
 
-  async revokePermissionFromAllUsers(permissionId: UniqueEntityID): Promise<void> {
+  async revokePermissionFromAllUsers(
+    permissionId: UniqueEntityID,
+  ): Promise<void> {
     this.items = this.items.filter(
       (item) => !item.permissionId.equals(permissionId),
     );
@@ -256,7 +258,9 @@ export class InMemoryUserDirectPermissionsRepository
       .length;
   }
 
-  async countUsersWithPermission(permissionId: UniqueEntityID): Promise<number> {
+  async countUsersWithPermission(
+    permissionId: UniqueEntityID,
+  ): Promise<number> {
     const userIds = await this.listUsersByPermissionId(permissionId);
     return userIds.length;
   }

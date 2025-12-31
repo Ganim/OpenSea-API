@@ -14,7 +14,7 @@ describe('Change My Email (e2e)', () => {
   });
 
   it('should allow a USER to CHANGE their OWN EMAIL', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const newEmail = makeUniqueEmail('change-my-email');
 
     const response = await request(app.server)

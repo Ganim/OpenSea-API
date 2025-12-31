@@ -22,4 +22,3 @@ export interface PayrollDTO {
 }
 
 export { payrollToDTO } from './payroll-to-dto';
-

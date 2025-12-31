@@ -15,7 +15,7 @@ describe('Create Purchase Order (E2E)', () => {
   });
 
   it('should allow MANAGER to create a purchase order', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -87,8 +87,8 @@ describe('Create Purchase Order (E2E)', () => {
     expect(response.body.purchaseOrder.items[0].totalCost).toBe(5000);
   });
 
-  it('should NOT allow USER to create a purchase order', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to create a purchase order', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
 
     const timestamp = Date.now();
 
@@ -148,7 +148,7 @@ describe('Create Purchase Order (E2E)', () => {
   });
 
   it('should NOT allow duplicate order number', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -228,7 +228,7 @@ describe('Create Purchase Order (E2E)', () => {
   });
 
   it('should NOT allow creating purchase order with non-existent supplier', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 

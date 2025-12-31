@@ -4,6 +4,16 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
+interface AuditLogItem {
+  id: string;
+  userId: string;
+  userName: string;
+  userPermissionGroups: unknown[];
+  entity: string;
+  entityId: string;
+  action: string;
+}
+
 describe('List Audit Logs (e2e)', () => {
   beforeAll(async () => {
     await app.ready();
@@ -14,7 +24,7 @@ describe('List Audit Logs (e2e)', () => {
   });
 
   it('should list audit logs with authentication', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     // Criar alguns logs de teste
     await prisma.auditLog.createMany({
@@ -25,7 +35,7 @@ describe('List Audit Logs (e2e)', () => {
           module: 'STOCK',
           entityId: 'product-1',
           newData: { name: 'Product 1' },
-          userId: user.id,
+          userId: user.user.id,
         },
         {
           action: 'UPDATE',
@@ -34,7 +44,7 @@ describe('List Audit Logs (e2e)', () => {
           entityId: 'product-1',
           oldData: { name: 'Product 1' },
           newData: { name: 'Product 1 Updated' },
-          userId: user.id,
+          userId: user.user.id,
         },
       ],
     });
@@ -56,12 +66,12 @@ describe('List Audit Logs (e2e)', () => {
 
     // Cleanup
     await prisma.auditLog.deleteMany({
-      where: { userId: user.id },
+      where: { userId: user.user.id },
     });
   });
 
   it('should filter logs by userId', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     // Criar log específico para o usuário
     const log = await prisma.auditLog.create({
@@ -83,7 +93,7 @@ describe('List Audit Logs (e2e)', () => {
     expect(response.body.logs).toBeInstanceOf(Array);
 
     if (response.body.logs.length > 0) {
-      response.body.logs.forEach((logItem: any) => {
+      response.body.logs.forEach((logItem: AuditLogItem) => {
         expect(logItem.userId).toBe(user.user.id);
         expect(logItem.userName).toBeDefined();
         expect(logItem.userPermissionGroups).toBeInstanceOf(Array);
@@ -95,7 +105,7 @@ describe('List Audit Logs (e2e)', () => {
   });
 
   it('should filter logs by entity and entityId', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'test-product-123';
 
@@ -108,7 +118,7 @@ describe('List Audit Logs (e2e)', () => {
           module: 'STOCK',
           entityId,
           newData: { name: 'Test Product' },
-          userId: user.id,
+          userId: user.user.id,
         },
         {
           action: 'UPDATE',
@@ -117,7 +127,7 @@ describe('List Audit Logs (e2e)', () => {
           entityId,
           oldData: { name: 'Test Product' },
           newData: { name: 'Updated Product' },
-          userId: user.id,
+          userId: user.user.id,
         },
       ],
     });
@@ -129,7 +139,7 @@ describe('List Audit Logs (e2e)', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body.logs.length).toBeGreaterThanOrEqual(2);
 
-    response.body.logs.forEach((log: any) => {
+    response.body.logs.forEach((log: AuditLogItem) => {
       expect(log.entity).toBe('PRODUCT');
       expect(log.entityId).toBe(entityId);
     });
@@ -141,7 +151,7 @@ describe('List Audit Logs (e2e)', () => {
   });
 
   it('should paginate results', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     // Criar 15 logs para testar paginação
     const logs = Array.from({ length: 15 }, (_, i) => ({
@@ -150,7 +160,7 @@ describe('List Audit Logs (e2e)', () => {
       module: 'STOCK' as const,
       entityId: `product-pagination-${i}`,
       newData: { name: `Product ${i}` },
-      userId: user.id,
+      userId: user.user.id,
     }));
 
     await prisma.auditLog.createMany({ data: logs });

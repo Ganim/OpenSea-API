@@ -10,7 +10,6 @@ import {
   UpdateUserSchema,
   UsersRepository,
 } from '@/repositories/core/users-repository';
-import type { Role as PrismaRole } from '@prisma/client';
 
 export class InMemoryUsersRepository implements UsersRepository {
   // IN MEMORY DATABASE
@@ -26,7 +25,6 @@ export class InMemoryUsersRepository implements UsersRepository {
       username: data.username,
       email: data.email,
       password: data.passwordHash,
-      role: data.role ?? 'USER',
       failedLoginAttempts: 0,
       createdAt: new Date(),
       profile: null,
@@ -61,7 +59,6 @@ export class InMemoryUsersRepository implements UsersRepository {
     if (!user) return null;
 
     if (data.email) user.email = data.email;
-    if (data.role) user.role = data.role;
     if (data.username) user.username = data.username;
     if (data.passwordHash) user.password = data.passwordHash;
     if (data.profile && user.profile) {
@@ -180,15 +177,36 @@ export class InMemoryUsersRepository implements UsersRepository {
 
   // LIST
   // - listAll(): Promise<User[] | null>;
-  // - listAllByRole(role: PrismaRole): Promise<User[] | null>;
 
   async listAll(): Promise<User[] | null> {
     return this.items.filter((user) => !user.isDeleted);
   }
 
-  async listAllByRole(role: PrismaRole): Promise<User[] | null> {
-    return this.items.filter(
-      (user) => !user.isDeleted && user.role.value === role,
-    );
+  // FORCED PASSWORD RESET
+  async setForcePasswordReset(
+    id: UniqueEntityID,
+    requestedBy: UniqueEntityID | null,
+    reason?: string,
+  ): Promise<User | null> {
+    const user = await this.findById(id);
+
+    if (!user) return null;
+
+    user.forcePasswordReset = true;
+    user.forcePasswordResetReason = reason;
+    user.forcePasswordResetRequestedBy = requestedBy?.toString();
+    user.forcePasswordResetRequestedAt = new Date();
+
+    return user;
+  }
+
+  async clearForcePasswordReset(id: UniqueEntityID): Promise<User | null> {
+    const user = await this.findById(id);
+
+    if (!user) return null;
+
+    user.clearForcedPasswordReset();
+
+    return user;
   }
 }

@@ -2,7 +2,6 @@ import { prisma } from '@/lib/prisma';
 import type { PayrollStatus } from '@prisma/client';
 
 // Global counter to ensure unique months/years across all tests
-const globalPayrollCounter = Date.now();
 let uniqueIdCounter = 0;
 
 export async function createPayroll(data?: {

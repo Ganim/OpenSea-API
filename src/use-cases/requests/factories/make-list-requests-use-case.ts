@@ -1,4 +1,3 @@
-import { prisma } from '@/lib/prisma';
 import { PrismaRequestsRepository } from '@/repositories/requests/prisma/prisma-requests-repository';
 import { ListRequestsUseCase } from '../list-requests';
 

@@ -1,10 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Deduction } from '@/entities/hr/deduction';
 import type {
-    CreateDeductionSchema,
-    DeductionsRepository,
-    FindDeductionFilters,
-    UpdateDeductionSchema,
+  CreateDeductionSchema,
+  DeductionsRepository,
+  FindDeductionFilters,
+  UpdateDeductionSchema,
 } from '../deductions-repository';
 
 export class InMemoryDeductionsRepository implements DeductionsRepository {

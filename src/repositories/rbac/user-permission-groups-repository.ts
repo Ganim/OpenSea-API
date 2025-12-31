@@ -2,7 +2,6 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Permission } from '@/entities/rbac/permission';
 import { PermissionGroup } from '@/entities/rbac/permission-group';
 import { UserPermissionGroup } from '@/entities/rbac/user-permission-group';
-import { Prisma } from '@prisma/client';
 
 export interface AssignGroupToUserSchema {
   userId: UniqueEntityID;

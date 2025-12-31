@@ -14,7 +14,7 @@ describe('Create User (e2e)', () => {
   });
 
   it('should allow MANAGER/ADMIN to CREATE a NEW USER', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email = makeUniqueEmail('newuser');
     const username = makeUniqueUsername();

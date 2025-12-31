@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { makeDeleteWorkScheduleUseCase } from '@/use-cases/hr/work-schedules/factories/make-delete-work-schedule-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -11,7 +12,13 @@ export async function deleteWorkScheduleController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/hr/work-schedules/:workScheduleId',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.WORK_SCHEDULES.DELETE,
+        resource: 'work-schedules',
+      }),
+    ],
     schema: {
       tags: ['HR - Work Schedules'],
       summary: 'Delete a work schedule',

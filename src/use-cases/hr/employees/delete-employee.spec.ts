@@ -1,5 +1,10 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { ContractType, EmployeeStatus, WorkRegime, CPF } from '@/entities/hr/value-objects';
+import {
+  ContractType,
+  EmployeeStatus,
+  WorkRegime,
+  CPF,
+} from '@/entities/hr/value-objects';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { DeleteEmployeeUseCase } from './delete-employee';
@@ -31,10 +36,7 @@ describe('Delete Employee Use Case', () => {
 
     await sut.execute({ employeeId: employee.id.toString() });
 
-    const deleted = await employeesRepository.findById(
-      employee.id,
-      true,
-    );
+    const deleted = await employeesRepository.findById(employee.id, true);
 
     expect(deleted?.deletedAt).toBeTruthy();
   });

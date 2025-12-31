@@ -2,10 +2,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PayrollItem } from '@/entities/hr/payroll-item';
 import { PayrollItemType } from '@/entities/hr/value-objects';
 import type {
-    CreatePayrollItemSchema,
-    FindPayrollItemFilters,
-    PayrollItemsRepository,
-    UpdatePayrollItemSchema,
+  CreatePayrollItemSchema,
+  FindPayrollItemFilters,
+  PayrollItemsRepository,
+  UpdatePayrollItemSchema,
 } from '../payroll-items-repository';
 
 export class InMemoryPayrollItemsRepository implements PayrollItemsRepository {

@@ -13,7 +13,7 @@ describe('Get Tag By ID (E2E)', () => {
   });
 
   it('should be able to get a tag by ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create a tag first
     const createResponse = await request(app.server)
@@ -49,7 +49,7 @@ describe('Get Tag By ID (E2E)', () => {
   });
 
   it('should not be able to get a non-existing tag', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const nonExistingId = '00000000-0000-0000-0000-000000000000';
 

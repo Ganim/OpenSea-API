@@ -13,7 +13,7 @@ describe('List Templates (E2E)', () => {
   });
 
   it('should be able to list all templates', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create multiple templates
     await request(app.server)

@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { workScheduleResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { workScheduleToDTO } from '@/mappers/hr/work-schedule/work-schedule-to-dto';

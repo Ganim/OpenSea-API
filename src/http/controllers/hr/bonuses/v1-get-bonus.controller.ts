@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { bonusResponseSchema, idSchema } from '@/http/schemas';
 import { bonusToDTO } from '@/mappers/hr/bonus';
 import { makeGetBonusUseCase } from '@/use-cases/hr/bonuses/factories/make-get-bonus-use-case';

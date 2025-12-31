@@ -14,7 +14,7 @@ describe('List All Active Sessions (e2e)', () => {
   });
 
   it('should allow ADMIN to LIST ALL active SESSIONS', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email1 = makeUniqueEmail('active-session-1');
     const user1 = await request(app.server)

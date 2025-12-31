@@ -3,8 +3,9 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { createLocationSchema, locationResponseSchema } from '@/http/schemas';
 import { locationToDTO } from '@/mappers/stock/location/location-to-dto';
 import { makeCreateLocationUseCase } from '@/use-cases/stock/locations/factories/make-create-location-use-case';
@@ -13,9 +14,15 @@ export async function createLocationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/locations',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.LOCATIONS.CREATE,
+        resource: 'locations',
+      }),
+    ],
     schema: {
-      tags: ['Locations'],
+      tags: ['Stock - Locations'],
       summary: 'Create a new location',
       security: [{ bearerAuth: [] }],
       body: createLocationSchema,

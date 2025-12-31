@@ -14,7 +14,6 @@ describe('Get Request by ID (E2E)', () => {
 
     const authData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
     token = authData.token;
     user = authData.user;

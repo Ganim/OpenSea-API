@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { PermissionPresenter } from '@/http/presenters/rbac/permission-presenter';
 import { idSchema } from '@/http/schemas/common.schema';
 import {
@@ -17,7 +19,13 @@ export async function listUserDirectPermissionsController(
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/rbac/users/:userId/direct-permissions',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.USER_PERMISSIONS.READ,
+        resource: 'user-permissions',
+      }),
+    ],
     schema: {
       tags: ['RBAC - User Direct Permissions'],
       summary: 'List user direct permissions',

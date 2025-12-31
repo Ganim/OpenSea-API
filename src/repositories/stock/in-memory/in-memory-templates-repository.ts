@@ -1,9 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Template } from '@/entities/stock/template';
 import type {
-    CreateTemplateSchema,
-    TemplatesRepository,
-    UpdateTemplateSchema,
+  CreateTemplateSchema,
+  TemplatesRepository,
+  UpdateTemplateSchema,
 } from '../templates-repository';
 
 export class InMemoryTemplatesRepository implements TemplatesRepository {
@@ -46,17 +46,16 @@ export class InMemoryTemplatesRepository implements TemplatesRepository {
     if (!template) return null;
 
     if (data.name !== undefined) template.name = data.name;
-    if (data.unitOfMeasure !== undefined) template.unitOfMeasure = data.unitOfMeasure;
+    if (data.unitOfMeasure !== undefined)
+      template.unitOfMeasure = data.unitOfMeasure;
     if (data.productAttributes !== undefined)
       template.productAttributes = data.productAttributes;
     if (data.variantAttributes !== undefined)
       template.variantAttributes = data.variantAttributes;
     if (data.itemAttributes !== undefined)
       template.itemAttributes = data.itemAttributes;
-    if (data.careLabel !== undefined)
-      template.careLabel = data.careLabel;
-    if (data.isActive !== undefined)
-      template.isActive = data.isActive;
+    if (data.careLabel !== undefined) template.careLabel = data.careLabel;
+    if (data.isActive !== undefined) template.isActive = data.isActive;
 
     return template;
   }

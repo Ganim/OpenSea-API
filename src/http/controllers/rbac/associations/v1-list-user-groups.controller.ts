@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { PermissionGroupPresenter } from '@/http/presenters/rbac/permission-group-presenter';
 import { idSchema } from '@/http/schemas/common.schema';
 import {
@@ -15,7 +17,13 @@ export async function listUserGroupsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/rbac/users/:userId/groups',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.ASSOCIATIONS.READ,
+        resource: 'associations',
+      }),
+    ],
     schema: {
       tags: ['RBAC - Associations'],
       summary: 'List permission groups of a user',

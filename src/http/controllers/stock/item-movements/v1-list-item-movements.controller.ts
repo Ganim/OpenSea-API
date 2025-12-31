@@ -1,4 +1,6 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { itemMovementResponseSchema } from '@/http/schemas/stock.schema';
 import { makeListItemMovementsUseCase } from '@/use-cases/stock/item-movements/factories/make-list-item-movements-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -9,9 +11,15 @@ export async function listItemMovementsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/item-movements',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.MOVEMENTS.LIST,
+        resource: 'item-movements',
+      }),
+    ],
     schema: {
-      tags: ['Item Movements'],
+      tags: ['Stock - Item Movements'],
       summary: 'List item movements',
       querystring: z.object({
         itemId: z.uuid().optional(),

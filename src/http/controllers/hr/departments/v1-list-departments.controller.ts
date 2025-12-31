@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   departmentResponseSchema,
   listDepartmentsQuerySchema,
@@ -31,7 +31,8 @@ export async function listDepartmentsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
-      const { page, perPage, search, isActive, parentId } = request.query;
+      const { page, perPage, search, isActive, parentId, companyId } =
+        request.query;
 
       const listDepartmentsUseCase = makeListDepartmentsUseCase();
       const { departments, meta } = await listDepartmentsUseCase.execute({
@@ -40,6 +41,7 @@ export async function listDepartmentsController(app: FastifyInstance) {
         search,
         isActive,
         parentId,
+        companyId,
       });
 
       return reply.status(200).send({

@@ -15,7 +15,7 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should allow MANAGER to update a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
     const workSchedule = await prisma.workSchedule.create({
@@ -48,7 +48,7 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should allow ADMIN to update a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
     const workSchedule = await prisma.workSchedule.create({
@@ -72,8 +72,8 @@ describe('Update Work Schedule (E2E)', () => {
     );
   });
 
-  it('should NOT allow USER to update a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to update a work schedule', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
@@ -94,7 +94,7 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should return 404 for non-existent schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
@@ -108,7 +108,7 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should validate time format on update', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
@@ -129,7 +129,7 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should allow deactivating a schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const workSchedule = await prisma.workSchedule.create({
       data: {

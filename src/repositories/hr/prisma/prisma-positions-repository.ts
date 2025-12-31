@@ -21,6 +21,7 @@ export class PrismaPositionsRepository implements PositionsRepository {
         level: data.level ?? 1,
         minSalary: data.minSalary,
         maxSalary: data.maxSalary,
+        baseSalary: data.baseSalary,
         isActive: data.isActive ?? true,
       },
       include: {
@@ -84,6 +85,7 @@ export class PrismaPositionsRepository implements PositionsRepository {
       search,
       isActive,
       departmentId,
+      companyId,
       level,
     } = params;
 
@@ -97,6 +99,9 @@ export class PrismaPositionsRepository implements PositionsRepository {
       }),
       ...(isActive !== undefined && { isActive }),
       ...(departmentId && { departmentId: departmentId.toString() }),
+      ...(companyId && {
+        department: { companyId: companyId.toString() },
+      }),
       ...(level !== undefined && { level }),
     };
 
@@ -130,6 +135,27 @@ export class PrismaPositionsRepository implements PositionsRepository {
     const positions = await prisma.position.findMany({
       where: {
         departmentId: departmentId.toString(),
+        deletedAt: null,
+      },
+      include: {
+        department: true,
+      },
+    });
+
+    return positions.map((pos) =>
+      Position.create(
+        mapPositionPrismaToDomain(pos),
+        new UniqueEntityID(pos.id),
+      ),
+    );
+  }
+
+  async findManyByCompany(companyId: UniqueEntityID): Promise<Position[]> {
+    const positions = await prisma.position.findMany({
+      where: {
+        department: {
+          companyId: companyId.toString(),
+        },
         deletedAt: null,
       },
       include: {
@@ -193,6 +219,15 @@ export class PrismaPositionsRepository implements PositionsRepository {
     return count > 0;
   }
 
+  async countEmployeesByPosition(positionId: UniqueEntityID): Promise<number> {
+    return prisma.employee.count({
+      where: {
+        positionId: positionId.toString(),
+        deletedAt: null,
+      },
+    });
+  }
+
   async update(data: UpdatePositionSchema): Promise<Position | null> {
     const existing = await prisma.position.findFirst({
       where: {
@@ -214,6 +249,7 @@ export class PrismaPositionsRepository implements PositionsRepository {
     if (data.level !== undefined) updateData.level = data.level;
     if (data.minSalary !== undefined) updateData.minSalary = data.minSalary;
     if (data.maxSalary !== undefined) updateData.maxSalary = data.maxSalary;
+    if (data.baseSalary !== undefined) updateData.baseSalary = data.baseSalary;
     if (data.isActive !== undefined) updateData.isActive = data.isActive;
 
     const positionData = await prisma.position.update({
@@ -241,6 +277,7 @@ export class PrismaPositionsRepository implements PositionsRepository {
         level: position.level,
         minSalary: position.minSalary,
         maxSalary: position.maxSalary,
+        baseSalary: position.baseSalary,
         isActive: position.isActive,
         deletedAt: position.deletedAt,
       },

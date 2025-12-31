@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { categoryResponseSchema, categorySchema } from '@/http/schemas';
 import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
 import { makeCreateCategoryUseCase } from '@/use-cases/stock/categories/factories/make-create-category-use-case';
@@ -12,9 +13,15 @@ export async function createCategoryController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/categories',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.CATEGORIES.CREATE,
+        resource: 'categories',
+      }),
+    ],
     schema: {
-      tags: ['Categories'],
+      tags: ['Stock - Categories'],
       summary: 'Create a new category',
       body: categorySchema,
       response: {

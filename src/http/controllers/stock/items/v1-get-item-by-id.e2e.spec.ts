@@ -14,7 +14,7 @@ describe('Get Item By ID (e2e)', () => {
   });
 
   it('should allow authenticated user to GET an ITEM by ID', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -87,7 +87,7 @@ describe('Get Item By ID (e2e)', () => {
   });
 
   it('should return 404 when item does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const nonExistentId = '00000000-0000-0000-0000-000000000000';
 

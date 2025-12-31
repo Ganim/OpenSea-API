@@ -32,10 +32,17 @@ export class ResetPasswordByTokenUseCase {
     const updatedUser = await this.usersRepository.update({
       id: existingUser.id,
       passwordHash: validPassword,
+      passwordResetToken: null,
+      passwordResetExpires: null,
     });
 
     if (!updatedUser) {
       throw new BadRequestError('Unable to update user password.');
+    }
+
+    // Clear forced password reset if it was set
+    if (existingUser.forcePasswordReset) {
+      await this.usersRepository.clearForcePasswordReset(existingUser.id);
     }
   }
 }

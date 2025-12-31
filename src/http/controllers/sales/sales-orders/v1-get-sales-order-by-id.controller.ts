@@ -1,5 +1,5 @@
 ﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { salesOrderResponseSchema } from '@/http/schemas/sales.schema';
 import { makeGetSalesOrderByIdUseCase } from '@/use-cases/sales/sales-orders/factories/make-get-sales-order-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -12,7 +12,7 @@ export async function v1GetSalesOrderByIdController(app: FastifyInstance) {
     url: '/v1/sales-orders/:id',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Sales Orders'],
+      tags: ['Sales - Orders'],
       summary: 'Get sales order by ID',
       params: z.object({ id: z.string().uuid() }),
       response: {

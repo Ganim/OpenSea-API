@@ -14,7 +14,7 @@ describe('Update Permission (e2e)', () => {
   });
 
   it('should allow ADMIN to UPDATE a permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const response = await request(app.server)
@@ -36,7 +36,7 @@ describe('Update Permission (e2e)', () => {
   });
 
   it('should allow partial UPDATE', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const response = await request(app.server)
@@ -50,8 +50,8 @@ describe('Update Permission (e2e)', () => {
     expect(response.body.permission.name).toBe('Only Name Updated');
   });
 
-  it('should NOT allow USER to UPDATE a permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to UPDATE a permission', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const permission = await makePermission();
 
     const response = await request(app.server)
@@ -65,7 +65,7 @@ describe('Update Permission (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .patch('/v1/rbac/permissions/00000000-0000-0000-0000-000000000000')

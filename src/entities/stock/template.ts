@@ -129,7 +129,9 @@ export class Template extends Entity<TemplateProps> {
   }
 
   get hasCareLabel(): boolean {
-    return !!this.props.careLabel && Object.keys(this.props.careLabel).length > 0;
+    return (
+      !!this.props.careLabel && Object.keys(this.props.careLabel).length > 0
+    );
   }
 
   // Business Methods
@@ -160,7 +162,14 @@ export class Template extends Entity<TemplateProps> {
   static create(
     props: Optional<
       TemplateProps,
-      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'isActive' | 'productAttributes' | 'variantAttributes' | 'itemAttributes'
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
+      | 'isActive'
+      | 'productAttributes'
+      | 'variantAttributes'
+      | 'itemAttributes'
     >,
     id?: UniqueEntityID,
   ): Template {

@@ -9,7 +9,7 @@ describe('Create Notification Preference (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
     userToken = token;
     userId = user.user.id;
   });

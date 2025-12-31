@@ -6,12 +6,12 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
 import { Prisma, AuditLog as PrismaAuditLog } from '@prisma/client';
 import {
-    AuditLogsRepository,
-    AuditLogStatistics,
-    CreateAuditLogSchema,
-    ListAuditLogsParams,
-    ModuleStatistics,
-    UserActivitySummary,
+  AuditLogsRepository,
+  AuditLogStatistics,
+  CreateAuditLogSchema,
+  ListAuditLogsParams,
+  ModuleStatistics,
+  UserActivitySummary,
 } from '../audit-logs-repository';
 
 type PrismaAuditLogWithUser = PrismaAuditLog & {
@@ -33,7 +33,6 @@ type PrismaAuditLogWithUser = PrismaAuditLog & {
 };
 
 export class PrismaAuditLogsRepository implements AuditLogsRepository {
-
   private readonly userSelect = {
     username: true,
     email: true,
@@ -61,13 +60,15 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
       ? `${raw.user.profile.name} ${raw.user.profile.surname}`.trim()
       : '';
 
-    const userName = profileName || raw.user?.username || raw.user?.email || null;
+    const userName =
+      profileName || raw.user?.username || raw.user?.email || null;
 
-    const userPermissionGroups = raw.user?.permissionGroups?.map((relation) => ({
-      id: relation.group.id,
-      name: relation.group.name,
-      slug: relation.group.slug,
-    })) ?? [];
+    const userPermissionGroups =
+      raw.user?.permissionGroups?.map((relation) => ({
+        id: relation.group.id,
+        name: relation.group.name,
+        slug: relation.group.slug,
+      })) ?? [];
 
     return AuditLog.create(
       {
@@ -76,8 +77,8 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
         module: raw.module as AuditModule,
         entityId: raw.entityId,
         description: raw.description,
-        oldData: raw.oldData as Record<string, any> | null,
-        newData: raw.newData as Record<string, any> | null,
+        oldData: raw.oldData as Record<string, unknown> | null,
+        newData: raw.newData as Record<string, unknown> | null,
         ip: raw.ip,
         userAgent: raw.userAgent,
         endpoint: raw.endpoint,
@@ -143,8 +144,8 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
         module: data.module,
         entityId: data.entityId,
         description: data.description ?? null,
-        oldData: data.oldData ?? Prisma.JsonNull,
-        newData: data.newData ?? Prisma.JsonNull,
+        oldData: (data.oldData as Prisma.InputJsonValue) ?? Prisma.JsonNull,
+        newData: (data.newData as Prisma.InputJsonValue) ?? Prisma.JsonNull,
         ip: data.ip ?? null,
         userAgent: data.userAgent ?? null,
         endpoint: data.endpoint ?? null,
@@ -166,8 +167,8 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
         module: item.module,
         entityId: item.entityId,
         description: item.description ?? null,
-        oldData: item.oldData ?? Prisma.JsonNull,
-        newData: item.newData ?? Prisma.JsonNull,
+        oldData: (item.oldData as Prisma.InputJsonValue) ?? Prisma.JsonNull,
+        newData: (item.newData as Prisma.InputJsonValue) ?? Prisma.JsonNull,
         ip: item.ip ?? null,
         userAgent: item.userAgent ?? null,
         endpoint: item.endpoint ?? null,
@@ -302,17 +303,26 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
       distinct: ['entityId'],
     });
 
-    const actionStats: Record<AuditAction, number> = {} as any;
+    const actionStats: Record<AuditAction, number> = {} as Record<
+      AuditAction,
+      number
+    >;
     byAction.forEach((item) => {
       actionStats[item.action as AuditAction] = item._count.action;
     });
 
-    const entityStats: Record<AuditEntity, number> = {} as any;
+    const entityStats: Record<AuditEntity, number> = {} as Record<
+      AuditEntity,
+      number
+    >;
     byEntity.forEach((item) => {
       entityStats[item.entity as AuditEntity] = item._count.entity;
     });
 
-    const moduleStats: Record<AuditModule, number> = {} as any;
+    const moduleStats: Record<AuditModule, number> = {} as Record<
+      AuditModule,
+      number
+    >;
     byModule.forEach((item) => {
       moduleStats[item.module as AuditModule] = item._count.module;
     });
@@ -342,7 +352,10 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
       }),
     ]);
 
-    const actionStats: Record<AuditAction, number> = {} as any;
+    const actionStats: Record<AuditAction, number> = {} as Record<
+      AuditAction,
+      number
+    >;
     byAction.forEach((item) => {
       actionStats[item.action as AuditAction] = item._count.action;
     });
@@ -360,10 +373,7 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
     endDate?: Date,
   ): Promise<UserActivitySummary | null> {
     const where: Prisma.AuditLogWhereInput = {
-      OR: [
-        { userId: userId.toString() },
-        { affectedUser: userId.toString() },
-      ],
+      OR: [{ userId: userId.toString() }, { affectedUser: userId.toString() }],
     };
 
     if (startDate || endDate) {
@@ -374,14 +384,23 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
 
     const [performed, received, byAction, lastLog] = await Promise.all([
       prisma.auditLog.count({
-        where: { userId: userId.toString(), ...where.createdAt },
+        where: {
+          userId: userId.toString(),
+          ...(where.createdAt as Prisma.DateTimeFilter),
+        },
       }),
       prisma.auditLog.count({
-        where: { affectedUser: userId.toString(), ...where.createdAt },
+        where: {
+          affectedUser: userId.toString(),
+          ...(where.createdAt as Prisma.DateTimeFilter),
+        },
       }),
       prisma.auditLog.groupBy({
         by: ['action'],
-        where: { userId: userId.toString(), ...where.createdAt },
+        where: {
+          userId: userId.toString(),
+          ...(where.createdAt as Prisma.DateTimeFilter),
+        },
         _count: { action: true },
         orderBy: { _count: { action: 'desc' } },
         take: 1,
@@ -398,7 +417,8 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
       userId: userId.toString(),
       actionsPerformed: performed,
       actionsReceived: received,
-      mostCommonAction: (byAction[0]?.action as AuditAction) ?? AuditAction.OTHER,
+      mostCommonAction:
+        (byAction[0]?.action as AuditAction) ?? AuditAction.OTHER,
       lastActivity: lastLog.createdAt,
     };
   }
@@ -458,7 +478,7 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
   async getActionTrends(
     startDate: Date,
     endDate: Date,
-    interval: 'hour' | 'day' | 'week' | 'month',
+    _interval: 'hour' | 'day' | 'week' | 'month',
   ): Promise<{ date: Date; action: AuditAction; count: number }[]> {
     // Implementation would require raw SQL for date truncation
     // Simplified version here
@@ -476,7 +496,10 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
     });
 
     // Group by date and action (simplified)
-    const trends = new Map<string, { date: Date; action: AuditAction; count: number }>();
+    const trends = new Map<
+      string,
+      { date: Date; action: AuditAction; count: number }
+    >();
 
     logs.forEach((log) => {
       const key = `${log.createdAt.toISOString()}-${log.action}`;

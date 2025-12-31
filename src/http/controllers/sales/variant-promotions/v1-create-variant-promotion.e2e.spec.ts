@@ -11,7 +11,7 @@ describe('Create Variant Promotion (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     userToken = token;
 
     // Create template, product and variant for testing using Prisma

@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeAddRequestCommentUseCase } from '@/use-cases/requests/factories/make-add-request-comment-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,7 +10,7 @@ export async function addRequestCommentController(app: FastifyInstance) {
     url: '/v1/requests/:id/comments',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Requests'],
+      tags: ['Core - Requests'],
       summary: 'Add a comment to a request',
       params: z.object({
         id: z.string().uuid(),
@@ -39,7 +39,9 @@ export async function addRequestCommentController(app: FastifyInstance) {
         authorId: request.user.sub,
         content: request.body.content,
         isInternal: request.body.isInternal,
-        userRole: request.user.role,
+        hasViewAllPermission: request.user.permissions?.includes(
+          'REQUESTS:VIEW_ALL',
+        ),
       });
 
       return reply.status(201).send({

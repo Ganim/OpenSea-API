@@ -3,10 +3,10 @@ import { PermissionGroup } from '@/entities/rbac/permission-group';
 import { prisma } from '@/lib/prisma';
 import { mapPermissionGroupPrismaToDomain } from '@/mappers/rbac/permission-group-prisma-to-domain';
 import type {
-    CreatePermissionGroupSchema,
-    ListPermissionGroupsParams,
-    PermissionGroupsRepository,
-    UpdatePermissionGroupSchema,
+  CreatePermissionGroupSchema,
+  ListPermissionGroupsParams,
+  PermissionGroupsRepository,
+  UpdatePermissionGroupSchema,
 } from '../permission-groups-repository';
 
 export class PrismaPermissionGroupsRepository

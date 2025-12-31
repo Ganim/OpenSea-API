@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { categoryResponseSchema, updateCategorySchema } from '@/http/schemas';
 import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
 import { makeUpdateCategoryUseCase } from '@/use-cases/stock/categories/factories/make-update-category-use-case';
@@ -13,9 +14,15 @@ export async function updateCategoryController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/categories/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.CATEGORIES.UPDATE,
+        resource: 'categories',
+      }),
+    ],
     schema: {
-      tags: ['Categories'],
+      tags: ['Stock - Categories'],
       summary: 'Update a category',
       params: z.object({
         id: z.uuid(),

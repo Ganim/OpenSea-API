@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserAdmin } from '@/http/middlewares/verify-user-admin';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { makeRemovePermissionFromGroupUseCase } from '@/use-cases/rbac/factories';
 import type { FastifyInstance } from 'fastify';
@@ -13,7 +14,13 @@ export async function removePermissionFromGroupController(
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/rbac/permission-groups/:groupId/permissions/:permissionId',
-    preHandler: [verifyJwt, verifyUserAdmin],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.ASSOCIATIONS.MANAGE,
+        resource: 'associations',
+      }),
+    ],
     schema: {
       tags: ['RBAC - Associations'],
       summary: 'Remove permission from group',

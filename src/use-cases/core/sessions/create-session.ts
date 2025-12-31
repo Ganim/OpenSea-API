@@ -56,15 +56,13 @@ export class CreateSessionUseCase {
       );
     }
 
-    // Assina tokens com a string da role (role.value) para compatibilidade com middlewares
     const token = await reply.jwtSign(
-      { role: user.role.value, sessionId: newSession.id.toString() },
+      { sessionId: newSession.id.toString() },
       { sign: { sub: user.id.toString() } },
     );
 
     const refreshToken = await reply.jwtSign(
       {
-        role: user.role.value,
         sessionId: newSession.id.toString(),
         jti: new UniqueEntityID().toString(),
       },

@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { PermissionPresenter } from '@/http/presenters/rbac/permission-presenter';
 import {
   permissionCodeSchema,
@@ -14,7 +16,13 @@ export async function getPermissionByCodeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/rbac/permissions/code/:code',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.PERMISSIONS.READ,
+        resource: 'permissions',
+      }),
+    ],
     schema: {
       tags: ['RBAC - Permissions'],
       summary: 'Get permission by code',

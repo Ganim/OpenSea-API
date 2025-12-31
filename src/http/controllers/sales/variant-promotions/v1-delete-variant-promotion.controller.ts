@@ -1,6 +1,7 @@
 ﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { variantPromotionResponseSchema } from '@/http/schemas/sales.schema';
 import { variantPromotionToDTO } from '@/mappers/sales/variant-promotion/variant-promotion-to-dto';
 import { makeDeleteVariantPromotionUseCase } from '@/use-cases/sales/variant-promotions/factories/make-delete-variant-promotion-use-case';
@@ -12,9 +13,15 @@ export async function deleteVariantPromotionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/variant-promotions/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.PROMOTIONS.DELETE,
+        resource: 'variant-promotions',
+      }),
+    ],
     schema: {
-      tags: ['Variant Promotions'],
+      tags: ['Sales - Variant Promotions'],
       summary: 'Delete a variant promotion (soft delete)',
       params: z.object({ id: z.string().uuid() }),
       response: {
@@ -27,7 +34,9 @@ export async function deleteVariantPromotionController(app: FastifyInstance) {
         const { id } = request.params as { id: string };
         const useCase = makeDeleteVariantPromotionUseCase();
         const { promotion } = await useCase.execute({ id });
-        return reply.status(200).send({ promotion: variantPromotionToDTO(promotion) });
+        return reply
+          .status(200)
+          .send({ promotion: variantPromotionToDTO(promotion) });
       } catch (err) {
         if (err instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: err.message });

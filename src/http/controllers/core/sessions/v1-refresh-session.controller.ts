@@ -1,6 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeRefreshSessionUseCase } from '@/use-cases/core/sessions/factories/make-refresh-session-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -12,7 +12,7 @@ export async function refreshSessionController(app: FastifyInstance) {
     url: '/v1/sessions/refresh',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Sessions'],
+      tags: ['Auth - Sessions'],
       summary: 'Refresh the current authenticated user session',
       response: {
         200: z.object({
@@ -26,7 +26,7 @@ export async function refreshSessionController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const userId = request.user?.sub;
 
-      const { sessionId, role } = request.user;
+      const { sessionId, permissions } = request.user;
 
       if (!sessionId) {
         return reply
@@ -49,8 +49,8 @@ export async function refreshSessionController(app: FastifyInstance) {
         // Generate new access token
         const newAccessToken = await reply.jwtSign(
           {
-            role: role,
             sessionId: sessionId,
+            permissions: permissions,
           },
           {
             sign: {

@@ -15,7 +15,7 @@ describe('List Products (e2e)', () => {
   });
 
   it('should allow authenticated user to LIST all PRODUCTS', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create a template first
     const timestamp = Date.now();

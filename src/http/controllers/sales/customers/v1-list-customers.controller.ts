@@ -1,4 +1,4 @@
-﻿import { verifyJwt } from '@/http/middlewares/verify-jwt';
+﻿import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { customerResponseSchema } from '@/http/schemas/sales.schema';
 import { makeListCustomersUseCase } from '@/use-cases/sales/customers/factories/make-list-customers-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -11,7 +11,7 @@ export async function listCustomersController(app: FastifyInstance) {
     url: '/v1/customers',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Customers'],
+      tags: ['Sales - Customers'],
       summary: 'List customers',
       querystring: z.object({
         page: z.coerce.number().int().positive().default(1),

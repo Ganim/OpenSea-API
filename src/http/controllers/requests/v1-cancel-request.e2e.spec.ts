@@ -16,14 +16,12 @@ describe('Cancel Request (E2E)', () => {
 
     const userAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
     token = userAuthData.token;
     user = userAuthData.user;
 
     const adminAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
     adminToken = adminAuthData.token;
   });
@@ -100,7 +98,6 @@ describe('Cancel Request (E2E)', () => {
     // Create a test request for another user
     const otherUserAuth = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
 
     const testRequest = await createRequestE2E({

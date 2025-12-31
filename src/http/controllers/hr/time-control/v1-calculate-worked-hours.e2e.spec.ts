@@ -16,7 +16,7 @@ describe('Calculate Worked Hours (E2E)', () => {
   });
 
   it('should calculate worked hours for a date range', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     // Create time entries for a full day

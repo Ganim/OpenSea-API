@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeListMySessionsUseCase } from '@/use-cases/core/sessions/factories/make-list-my-sessions-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -11,7 +11,7 @@ export async function listMySessionsController(app: FastifyInstance) {
     url: '/v1/sessions/me',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Sessions'],
+      tags: ['Auth - Sessions'],
       summary: 'List all my sessions',
       response: {
         200: z.object({ sessions: z.array(z.any()) }),

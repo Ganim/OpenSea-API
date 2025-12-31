@@ -26,6 +26,12 @@ export default defineConfig([
           caughtErrorsIgnorePattern: '^_',
         },
       ],
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto',
+        },
+      ],
     },
   },
   globalIgnores(['build/**/*'], 'Ignore Build Directory'),

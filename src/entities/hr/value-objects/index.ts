@@ -15,4 +15,3 @@ export type { TimeEntryTypeValue } from './time-entry-type';
 export { VacationStatus, VacationStatusEnum } from './vacation-status';
 export type { VacationStatusValue } from './vacation-status';
 export { WorkRegime, WorkRegimeEnum } from './work-regime';
-

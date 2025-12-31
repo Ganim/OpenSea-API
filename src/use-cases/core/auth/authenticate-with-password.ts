@@ -1,10 +1,13 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { PasswordResetRequiredError } from '@/@errors/use-cases/password-reset-required-error';
 import { UserBlockedError } from '@/@errors/use-cases/user-blocked-error';
 import { BLOCK_MINUTES, MAX_ATTEMPTS } from '@/config/auth';
 import { Email } from '@/entities/core/value-objects/email';
 import { Password } from '@/entities/core/value-objects/password';
+import { Token } from '@/entities/core/value-objects/token';
 import { UserDTO, userToDTO } from '@/mappers/core/user/user-to-dto';
 import type { UsersRepository } from '@/repositories/core/users-repository';
+import crypto from 'crypto';
 import type { FastifyReply } from 'fastify';
 import { CreateSessionUseCase } from '../sessions/create-session';
 
@@ -83,6 +86,25 @@ export class AuthenticateWithPasswordUseCase {
       failedLoginAttempts: 0,
       blockedUntil: null,
     });
+
+    // Check for forced password reset
+    if (existingUser.forcePasswordReset) {
+      const tempResetToken = crypto.randomBytes(32).toString('hex');
+      const tempResetExpires = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+
+      await this.usersRepository.updatePasswordReset(
+        existingUser.id,
+        Token.create(tempResetToken),
+        tempResetExpires,
+      );
+
+      throw new PasswordResetRequiredError({
+        userId: existingUser.id.toString(),
+        reason: existingUser.forcePasswordResetReason,
+        resetToken: tempResetToken,
+        requestedAt: existingUser.forcePasswordResetRequestedAt,
+      });
+    }
 
     existingUser.lastLoginAt = new Date();
 

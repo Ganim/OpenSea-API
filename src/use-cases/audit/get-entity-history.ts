@@ -11,8 +11,8 @@ interface HistoryVersion {
   action: string;
   timestamp: Date;
   userId: string | null;
-  data: Record<string, any> | null;
-  changes?: Record<string, { old: any; new: any }> | null;
+  data: Record<string, unknown> | null;
+  changes?: Record<string, { old: unknown; new: unknown }> | null;
   description: string | null;
 }
 

@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
+import { PasswordResetRequiredError } from '@/@errors/use-cases/password-reset-required-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { errorLogger } from '@/lib/logger';
@@ -43,6 +44,16 @@ export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
     });
   }
 
+  if (error instanceof PasswordResetRequiredError) {
+    return reply.status(403).send({
+      message: error.message,
+      code: error.code,
+      resetToken: error.data.resetToken,
+      reason: error.data.reason,
+      requestedAt: error.data.requestedAt,
+    });
+  }
+
   if (error instanceof UnauthorizedError) {
     return reply.status(401).send({
       message: error.message,
@@ -63,7 +74,7 @@ export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
 
   // Rate limit errors (429) — manter sem log se silenciado
   const isRateLimitError =
-    (error as any)?.statusCode === 429 ||
+    (error as { statusCode?: number })?.statusCode === 429 ||
     error.code === 'FST_ERR_RATE_LIMIT' ||
     /rate limit/i.test(error.message || '');
 

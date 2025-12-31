@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema, payrollResponseSchema } from '@/http/schemas';
 import { payrollToDTO } from '@/mappers/hr/payroll';
 import { makeGetPayrollUseCase } from '@/use-cases/hr/payrolls/factories/make-get-payroll-use-case';

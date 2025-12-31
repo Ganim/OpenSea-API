@@ -1,6 +1,7 @@
+import { PermissionCodes } from '@/constants/rbac';
 import { AuditEntity } from '@/entities/audit/audit-entity.enum';
-import { verifyAuditHistoryViewPermission } from '@/http/middlewares/verify-audit-permission';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeGetEntityHistoryUseCase } from '@/use-cases/audit/factories/make-get-entity-history-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,9 +11,15 @@ export async function getEntityHistoryController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/audit-logs/history/:entity/:entityId',
-    preHandler: [verifyJwt, verifyAuditHistoryViewPermission],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.AUDIT.HISTORY.VIEW,
+        resource: 'audit-logs',
+      }),
+    ],
     schema: {
-      tags: ['Audit'],
+      tags: ['Core - Audit'],
       summary: 'Get complete history of an entity',
       params: z.object({
         entity: z.nativeEnum(AuditEntity),

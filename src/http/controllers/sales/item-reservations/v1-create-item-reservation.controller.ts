@@ -1,9 +1,9 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  createItemReservationSchema,
-  itemReservationResponseSchema,
+    createItemReservationSchema,
+    itemReservationResponseSchema,
 } from '@/http/schemas/sales.schema';
 import { makeCreateItemReservationUseCase } from '@/use-cases/sales/item-reservations/factories/make-create-item-reservation-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -16,7 +16,7 @@ export async function createItemReservationController(app: FastifyInstance) {
     url: '/v1/item-reservations',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Item Reservations'],
+      tags: ['Sales - Item Reservations'],
       summary: 'Create a new item reservation',
       body: createItemReservationSchema,
       response: {

@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeProcessScheduledNotificationsUseCase } from '@/use-cases/notifications/factories/make-process-scheduled-notifications-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -12,7 +12,7 @@ export async function processScheduledNotificationsController(
     url: '/v1/notifications/process-scheduled',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Notifications'],
+      tags: ['Sales - Notifications'],
       summary: 'Process pending scheduled notifications manually',
       response: {
         200: z.object({

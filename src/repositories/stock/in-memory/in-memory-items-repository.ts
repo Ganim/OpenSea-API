@@ -2,9 +2,9 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import type {
-    CreateItemSchema,
-    ItemsRepository,
-    UpdateItemSchema,
+  CreateItemSchema,
+  ItemsRepository,
+  UpdateItemSchema,
 } from '../items-repository';
 
 export class InMemoryItemsRepository implements ItemsRepository {

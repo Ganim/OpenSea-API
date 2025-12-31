@@ -1,10 +1,11 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-    idSchema,
-    payrollItemResponseSchema,
-    payrollResponseSchema,
+  idSchema,
+  payrollItemResponseSchema,
+  payrollResponseSchema,
 } from '@/http/schemas';
 import { payrollToDTO } from '@/mappers/hr/payroll';
 import { payrollItemToDTO } from '@/mappers/hr/payroll-item';
@@ -18,7 +19,13 @@ export async function calculatePayrollController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/payrolls/:payrollId/calculate',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.PAYROLLS.MANAGE,
+        resource: 'payrolls',
+      }),
+    ],
     schema: {
       tags: ['HR - Payroll'],
       summary: 'Calculate payroll',

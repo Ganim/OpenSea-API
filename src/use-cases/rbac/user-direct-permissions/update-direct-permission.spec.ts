@@ -1,7 +1,7 @@
 import { User } from '@/entities/core/user';
 import { Username } from '@/entities/core/value-objects/username';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Permission } from '@/entities/rbac/permission';
+import { PermissionCode } from '@/entities/rbac/value-objects/permission-code';
 import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
 import { InMemoryPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-permissions-repository';
 import { InMemoryUserDirectPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-user-direct-permissions-repository';
@@ -28,9 +28,7 @@ describe('UpdateDirectPermissionUseCase', () => {
       userDirectPermissionsRepository,
     );
 
-    sut = new UpdateDirectPermissionUseCase(
-      userDirectPermissionsRepository,
-    );
+    sut = new UpdateDirectPermissionUseCase(userDirectPermissionsRepository);
   });
 
   it('should update permission EFFECT from allow to deny', async () => {
@@ -39,11 +37,10 @@ describe('UpdateDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'sales.orders.create',
+      code: PermissionCode.create('sales.orders.create'),
       name: 'Create Sales Orders',
       description: 'Permission to create sales orders',
       module: 'sales',
@@ -75,11 +72,10 @@ describe('UpdateDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'sales.orders.approve',
+      code: PermissionCode.create('sales.orders.approve'),
       name: 'Approve Orders',
       description: 'Permission to approve orders',
       module: 'sales',
@@ -112,11 +108,10 @@ describe('UpdateDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'temp.access.read',
+      code: PermissionCode.create('temp.access.read'),
       name: 'Temporary Access',
       description: 'Temporary read access',
       module: 'temp',
@@ -150,11 +145,10 @@ describe('UpdateDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'temp.feature.access',
+      code: PermissionCode.create('temp.feature.access'),
       name: 'Temporary Feature',
       description: 'Temporary feature access',
       module: 'temp',
@@ -189,11 +183,10 @@ describe('UpdateDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'complex.update.test',
+      code: PermissionCode.create('complex.update.test'),
       name: 'Complex Update',
       description: 'Test multiple field updates',
       module: 'complex',
@@ -242,11 +235,10 @@ describe('UpdateDirectPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'conditional.access.read',
+      code: PermissionCode.create('conditional.access.read'),
       name: 'Conditional Access',
       description: 'Access with conditions',
       module: 'conditional',

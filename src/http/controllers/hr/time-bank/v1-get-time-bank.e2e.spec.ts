@@ -16,7 +16,7 @@ describe('Get Time Bank (E2E)', () => {
   });
 
   it('should get employee time bank', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     // Create time bank
@@ -39,7 +39,7 @@ describe('Get Time Bank (E2E)', () => {
   });
 
   it('should create time bank if not exists', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     const response = await request(app.server)
@@ -51,7 +51,7 @@ describe('Get Time Bank (E2E)', () => {
   });
 
   it('should get time bank for specific year', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     await prisma.timeBank.create({

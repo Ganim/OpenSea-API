@@ -1,17 +1,31 @@
+import { InMemoryCompaniesRepository } from '@/repositories/hr/in-memory/in-memory-companies-repository';
+import { InMemoryDepartmentsRepository } from '@/repositories/hr/in-memory/in-memory-departments-repository';
+import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { InMemoryPositionsRepository } from '@/repositories/hr/in-memory/in-memory-positions-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreatePositionUseCase } from './create-position';
 import { GetPositionByIdUseCase } from './get-position-by-id';
 
 let positionsRepository: InMemoryPositionsRepository;
+let departmentsRepository: InMemoryDepartmentsRepository;
+let companiesRepository: InMemoryCompaniesRepository;
+let employeesRepository: InMemoryEmployeesRepository;
 let createPositionUseCase: CreatePositionUseCase;
 let sut: GetPositionByIdUseCase;
 
 describe('Get Position By Id Use Case', () => {
   beforeEach(() => {
     positionsRepository = new InMemoryPositionsRepository();
+    departmentsRepository = new InMemoryDepartmentsRepository();
+    companiesRepository = new InMemoryCompaniesRepository();
+    employeesRepository = new InMemoryEmployeesRepository();
     createPositionUseCase = new CreatePositionUseCase(positionsRepository);
-    sut = new GetPositionByIdUseCase(positionsRepository);
+    sut = new GetPositionByIdUseCase(
+      positionsRepository,
+      departmentsRepository,
+      companiesRepository,
+      employeesRepository,
+    );
   });
 
   it('should get position by id', async () => {

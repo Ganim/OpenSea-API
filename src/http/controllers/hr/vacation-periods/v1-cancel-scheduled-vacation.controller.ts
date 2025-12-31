@@ -1,6 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { vacationPeriodResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { vacationPeriodToDTO } from '@/mappers/hr/vacation-period/vacation-period-to-dto';

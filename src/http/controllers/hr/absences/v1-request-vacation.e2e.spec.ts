@@ -16,7 +16,7 @@ describe('Request Vacation (E2E)', () => {
   });
 
   it('should be able to request vacation', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E({ status: 'ACTIVE' });
     const { vacationPeriodId } = await createAvailableVacationPeriodE2E({
@@ -47,7 +47,7 @@ describe('Request Vacation (E2E)', () => {
   });
 
   it('should not request vacation for inactive employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E({ status: 'TERMINATED' });
     const { vacationPeriodId } = await createAvailableVacationPeriodE2E({
@@ -73,7 +73,7 @@ describe('Request Vacation (E2E)', () => {
   });
 
   it('should not request vacation without 30 days advance notice', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E({ status: 'ACTIVE' });
     const { vacationPeriodId } = await createAvailableVacationPeriodE2E({
@@ -99,7 +99,7 @@ describe('Request Vacation (E2E)', () => {
   });
 
   it('should not request vacation with less than 5 days', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E({ status: 'ACTIVE' });
     const { vacationPeriodId } = await createAvailableVacationPeriodE2E({

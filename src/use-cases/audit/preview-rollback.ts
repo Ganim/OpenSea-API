@@ -10,12 +10,12 @@ interface PreviewRollbackUseCaseRequest {
 interface RollbackPreview {
   canRollback: boolean;
   reason?: string;
-  targetState: Record<string, any> | null;
-  currentState: Record<string, any> | null;
+  targetState: Record<string, unknown> | null;
+  currentState: Record<string, unknown> | null;
   changes: Array<{
     field: string;
-    from: any;
-    to: any;
+    from: unknown;
+    to: unknown;
   }>;
 }
 
@@ -74,7 +74,7 @@ export class PreviewRollbackUseCase {
     if (latestLog.action === AuditAction.UPDATE) {
       const targetState = latestLog.oldData || {};
       const currentState = latestLog.newData || {};
-      const changes: Array<{ field: string; from: any; to: any }> = [];
+      const changes: Array<{ field: string; from: unknown; to: unknown }> = [];
 
       // Calcular mudanças
       const allKeys = new Set([
@@ -83,7 +83,9 @@ export class PreviewRollbackUseCase {
       ]);
 
       for (const key of allKeys) {
-        if (JSON.stringify(targetState[key]) !== JSON.stringify(currentState[key])) {
+        if (
+          JSON.stringify(targetState[key]) !== JSON.stringify(currentState[key])
+        ) {
           changes.push({
             field: key,
             from: currentState[key],

@@ -4,9 +4,9 @@ import { CareLabelInfo, Template } from '@/entities/stock/template';
 import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import { prisma } from '@/lib/prisma';
 import type {
-    CreateTemplateSchema,
-    TemplatesRepository,
-    UpdateTemplateSchema,
+  CreateTemplateSchema,
+  TemplatesRepository,
+  UpdateTemplateSchema,
 } from '../templates-repository';
 
 export class PrismaTemplatesRepository implements TemplatesRepository {

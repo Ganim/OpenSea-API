@@ -11,7 +11,7 @@ interface CancelRequestUseCaseRequest {
   requestId: string;
   cancelledById: string;
   cancellationReason: string;
-  userRole: 'ADMIN' | 'MANAGER' | 'USER';
+  hasCancelAllPermission?: boolean;
 }
 
 interface CancelRequestUseCaseResponse {
@@ -36,13 +36,12 @@ export class CancelRequestUseCase {
       throw new ResourceNotFoundError('Request not found');
     }
 
-    // Verificar permissões: apenas o solicitante ou admin pode cancelar
+    // Verificar permissões: apenas o solicitante ou quem tem permissão de cancelar pode cancelar
     const isRequester = request.requesterId.toString() === data.cancelledById;
-    const isAdmin = data.userRole === 'ADMIN';
 
-    if (!isRequester && !isAdmin) {
+    if (!isRequester && !data.hasCancelAllPermission) {
       throw new ForbiddenError(
-        'Only the requester or an administrator can cancel the request',
+        'Only the requester or a user with permission can cancel the request',
       );
     }
 

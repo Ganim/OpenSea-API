@@ -14,7 +14,7 @@ describe('Get Entity History (e2e)', () => {
   });
 
   it('should return complete entity history', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'test-entity-history-123';
 
@@ -27,7 +27,7 @@ describe('Get Entity History (e2e)', () => {
           module: 'STOCK',
           entityId,
           newData: { name: 'V1', price: 100 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-01T10:00:00Z'),
         },
         {
@@ -37,7 +37,7 @@ describe('Get Entity History (e2e)', () => {
           entityId,
           oldData: { name: 'V1', price: 100 },
           newData: { name: 'V2', price: 150 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-02T10:00:00Z'),
         },
         {
@@ -47,7 +47,7 @@ describe('Get Entity History (e2e)', () => {
           entityId,
           oldData: { name: 'V2', price: 150 },
           newData: { name: 'V3', price: 200 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-03T10:00:00Z'),
         },
       ],
@@ -80,7 +80,7 @@ describe('Get Entity History (e2e)', () => {
   });
 
   it('should return empty history for non-existent entity', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/audit-logs/history/PRODUCT/non-existent-id')

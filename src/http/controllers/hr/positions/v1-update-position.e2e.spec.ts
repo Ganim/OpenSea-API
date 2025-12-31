@@ -18,7 +18,7 @@ describe('Update Position (E2E)', () => {
   });
 
   it('should allow MANAGER to update a position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E();
     const updateData = { name: 'Updated Position Name' };
 
@@ -33,7 +33,7 @@ describe('Update Position (E2E)', () => {
   });
 
   it('should allow ADMIN to update a position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E();
     const updateData = { description: 'Updated description' };
 
@@ -46,8 +46,8 @@ describe('Update Position (E2E)', () => {
     expect(response.body.position.description).toBe(updateData.description);
   });
 
-  it('should NOT allow USER to update a position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to update a position', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const { positionId } = await createPositionE2E();
     const updateData = { name: 'Should Not Work' };
 
@@ -71,7 +71,7 @@ describe('Update Position (E2E)', () => {
   });
 
   it('should return 404 when position is not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const fakeId = '00000000-0000-0000-0000-000000000000';
     const updateData = { name: 'Not Found' };
 
@@ -84,7 +84,7 @@ describe('Update Position (E2E)', () => {
   });
 
   it('should return 400 when updating to existing code', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { code: existingCode } = await createPositionE2E();
     const { positionId } = await createPositionE2E();
 
@@ -98,7 +98,7 @@ describe('Update Position (E2E)', () => {
   });
 
   it('should update position salary range', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E();
 
     const response = await request(app.server)
@@ -112,7 +112,7 @@ describe('Update Position (E2E)', () => {
   });
 
   it('should return 400 when minSalary is greater than maxSalary', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E();
 
     const response = await request(app.server)
@@ -125,7 +125,7 @@ describe('Update Position (E2E)', () => {
   });
 
   it('should update position code successfully', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E();
     const newCode = generatePositionCode();
 

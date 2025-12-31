@@ -3,10 +3,10 @@ import { Bonus } from '@/entities/hr/bonus';
 import { prisma } from '@/lib/prisma';
 import { mapBonusPrismaToDomain } from '@/mappers/hr/bonus';
 import type {
-    BonusesRepository,
-    CreateBonusSchema,
-    FindBonusFilters,
-    UpdateBonusSchema,
+  BonusesRepository,
+  CreateBonusSchema,
+  FindBonusFilters,
+  UpdateBonusSchema,
 } from '../bonuses-repository';
 
 export class PrismaBonusesRepository implements BonusesRepository {

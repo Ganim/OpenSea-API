@@ -3,7 +3,9 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { locationResponseSchema } from '@/http/schemas';
 import { makeGetLocationByIdUseCase } from '@/use-cases/stock/locations/factories/make-get-location-by-id-use-case';
 
@@ -11,9 +13,15 @@ export async function getLocationByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/locations/:id',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.LOCATIONS.READ,
+        resource: 'locations',
+      }),
+    ],
     schema: {
-      tags: ['Locations'],
+      tags: ['Stock - Locations'],
       summary: 'Get location by ID',
       description: 'Get location details by ID',
       security: [{ bearerAuth: [] }],

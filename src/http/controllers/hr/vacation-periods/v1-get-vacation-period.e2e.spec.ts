@@ -16,7 +16,7 @@ describe('Get Vacation Period (E2E)', () => {
   });
 
   it('should get vacation period by id', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createVacationPeriodE2E({
@@ -37,7 +37,7 @@ describe('Get Vacation Period (E2E)', () => {
   });
 
   it('should return 404 for non-existent vacation period', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/hr/vacation-periods/00000000-0000-0000-0000-000000000000')

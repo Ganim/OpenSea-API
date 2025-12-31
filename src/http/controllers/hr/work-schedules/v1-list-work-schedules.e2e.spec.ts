@@ -15,7 +15,7 @@ describe('List Work Schedules (E2E)', () => {
   });
 
   it('should list work schedules', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create test work schedules
     await prisma.workSchedule.createMany({
@@ -43,7 +43,7 @@ describe('List Work Schedules (E2E)', () => {
   });
 
   it('should filter only active schedules', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create schedules with different statuses
     await prisma.workSchedule.createMany({

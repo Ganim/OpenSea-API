@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { adjustTimeBankSchema, timeBankResponseSchema } from '@/http/schemas';
 import { timeBankToDTO } from '@/mappers/hr/time-bank/time-bank-to-dto';
 import { makeAdjustTimeBankUseCase } from '@/use-cases/hr/time-bank/factories/make-adjust-time-bank-use-case';
@@ -14,7 +15,13 @@ export async function adjustTimeBankController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/time-bank/adjust',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.TIME_BANK.MANAGE,
+        resource: 'time-bank',
+      }),
+    ],
     schema: {
       tags: ['HR - Time Bank'],
       summary: 'Adjust time bank balance',

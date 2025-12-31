@@ -15,7 +15,6 @@ describe('Provide Info (E2E)', () => {
 
     const userAuthData = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
     token = userAuthData.token;
     user = userAuthData.user;
@@ -29,7 +28,6 @@ describe('Provide Info (E2E)', () => {
     // Create a test request in PENDING_INFO status
     const adminUser = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     const testRequest = await createRequestE2E({
@@ -67,12 +65,10 @@ describe('Provide Info (E2E)', () => {
     // Create a test request for another user in PENDING_INFO status
     const otherUserAuth = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'USER',
     );
 
     const adminUser = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     const testRequest = await createRequestE2E({
@@ -101,7 +97,6 @@ describe('Provide Info (E2E)', () => {
     // Create a test request with IN_PROGRESS status
     const adminUser = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'ADMIN',
     );
 
     const testRequest = await createRequestE2E({

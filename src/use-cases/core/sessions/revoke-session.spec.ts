@@ -129,11 +129,10 @@ it('should revoke a session created a long time ago', async () => {
   expect(updatedSession?.revokedAt).toBeInstanceOf(Date);
 });
 
-it('should revoke a session for user with ADMIN role', async () => {
+it('should revoke a session for user', async () => {
   const { user } = await makeUser({
     email: 'admin@example.com',
     password: 'password',
-    role: 'ADMIN',
     usersRepository,
   });
   const { session } = await makeSession({

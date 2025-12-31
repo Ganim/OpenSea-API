@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { createEmployeeSchema, employeeResponseSchema } from '@/http/schemas';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
 import { makeCreateEmployeeUseCase } from '@/use-cases/hr/employees/factories/make-create-employee-use-case';
@@ -12,7 +13,13 @@ export async function createEmployeeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/employees',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.EMPLOYEES.CREATE,
+        resource: 'employees',
+      }),
+    ],
     schema: {
       tags: ['HR - Employees'],
       summary: 'Create a new employee',

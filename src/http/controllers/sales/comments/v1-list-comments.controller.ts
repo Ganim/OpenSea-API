@@ -1,4 +1,4 @@
-﻿import { verifyJwt } from '@/http/middlewares/verify-jwt';
+﻿import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { commentResponseSchema } from '@/http/schemas/sales.schema';
 import { makeListCommentsUseCase } from '@/use-cases/sales/comments/factories/make-list-comments-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -11,7 +11,7 @@ export async function listCommentsController(app: FastifyInstance) {
     url: '/v1/comments',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Comments'],
+      tags: ['Sales - Comments'],
       summary: 'List comments',
       querystring: z.object({
         entityType: z.string().optional(),

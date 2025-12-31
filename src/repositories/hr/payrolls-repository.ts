@@ -30,7 +30,10 @@ export interface FindPayrollFilters {
 export interface PayrollsRepository {
   create(data: CreatePayrollSchema): Promise<Payroll>;
   findById(id: UniqueEntityID): Promise<Payroll | null>;
-  findByPeriod(referenceMonth: number, referenceYear: number): Promise<Payroll | null>;
+  findByPeriod(
+    referenceMonth: number,
+    referenceYear: number,
+  ): Promise<Payroll | null>;
   findMany(filters?: FindPayrollFilters): Promise<Payroll[]>;
   findManyByYear(year: number): Promise<Payroll[]>;
   findManyByStatus(status: string): Promise<Payroll[]>;

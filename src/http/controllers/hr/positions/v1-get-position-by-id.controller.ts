@@ -1,6 +1,6 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { positionResponseSchema } from '@/http/schemas/hr.schema';
-import { positionToDTO } from '@/mappers/hr/position';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { positionWithDetailsResponseSchema } from '@/http/schemas/hr.schema';
+import { positionToDetailsDTO } from '@/mappers/hr/position';
 import { makeGetPositionByIdUseCase } from '@/use-cases/hr/positions/factories';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -8,6 +8,10 @@ import { z } from 'zod';
 
 const paramsSchema = z.object({
   id: z.string().uuid('Invalid position ID format'),
+});
+
+const querySchema = z.object({
+  includeEmployees: z.coerce.boolean().optional().default(false),
 });
 
 export async function getPositionByIdController(app: FastifyInstance) {
@@ -18,11 +22,13 @@ export async function getPositionByIdController(app: FastifyInstance) {
     schema: {
       tags: ['HR - Positions'],
       summary: 'Get a position by ID',
-      description: 'Retrieves a position by its unique identifier',
+      description:
+        'Retrieves a position by its unique identifier with department, company and employee count',
       params: paramsSchema,
+      querystring: querySchema,
       response: {
         200: z.object({
-          position: positionResponseSchema,
+          position: positionWithDetailsResponseSchema,
         }),
         404: z.object({
           message: z.string(),
@@ -32,12 +38,18 @@ export async function getPositionByIdController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const { id } = request.params;
+      const { includeEmployees } = request.query;
 
       try {
         const getPositionByIdUseCase = makeGetPositionByIdUseCase();
-        const { position } = await getPositionByIdUseCase.execute({ id });
+        const result = await getPositionByIdUseCase.execute({
+          id,
+          includeEmployees,
+        });
 
-        return reply.status(200).send({ position: positionToDTO(position) });
+        return reply.status(200).send({
+          position: positionToDetailsDTO(result),
+        });
       } catch (error) {
         if (error instanceof Error) {
           if (error.message === 'Position not found') {

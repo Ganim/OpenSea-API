@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   employeeResponseSchema,
   listEmployeesQuerySchema,
@@ -38,6 +38,7 @@ export async function listEmployeesController(app: FastifyInstance) {
         departmentId,
         positionId,
         supervisorId,
+        companyId,
         search,
         includeDeleted,
       } = request.query;
@@ -50,6 +51,7 @@ export async function listEmployeesController(app: FastifyInstance) {
         departmentId,
         positionId,
         supervisorId,
+        companyId,
         search,
         includeDeleted,
       });

@@ -190,7 +190,6 @@ describe('List Online Users Use Case', () => {
       expect.objectContaining({
         id: user.id,
         email: 'test@example.com',
-        role: 'USER',
       }),
     );
   });

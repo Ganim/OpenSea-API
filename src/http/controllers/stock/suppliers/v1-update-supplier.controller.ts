@@ -1,9 +1,12 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  supplierResponseSchema,
-  updateSupplierSchema,
-} from '@/http/schemas/stock.schema';
+    supplierResponseSchema,
+    updateSupplierSchema,
+} from '@/http/schemas/stock/suppliers';
 import { makeUpdateSupplierUseCase } from '@/use-cases/stock/suppliers/factories/make-update-supplier-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -13,8 +16,15 @@ export async function updateSupplierController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/suppliers/:id',
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.SUPPLIERS.UPDATE,
+        resource: 'suppliers',
+      }),
+    ],
     schema: {
-      tags: ['Suppliers'],
+      tags: ['Stock - Suppliers'],
       summary: 'Update a supplier',
       security: [{ bearerAuth: [] }],
       params: z.object({

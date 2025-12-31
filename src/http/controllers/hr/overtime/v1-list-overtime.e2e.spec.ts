@@ -16,7 +16,7 @@ describe('List Overtime (E2E)', () => {
   });
 
   it('should list overtime requests', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     // Create overtime requests
@@ -50,7 +50,7 @@ describe('List Overtime (E2E)', () => {
   });
 
   it('should filter overtime by employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId: employee1Id } = await createEmployeeE2E();
     const { employeeId: employee2Id } = await createEmployeeE2E();
 
@@ -87,7 +87,7 @@ describe('List Overtime (E2E)', () => {
   });
 
   it('should filter by approval status', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     await prisma.overtime.createMany({

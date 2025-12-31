@@ -13,7 +13,7 @@ describe('List Tags (E2E)', () => {
   });
 
   it('should be able to list all tags', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create some tags first
     await request(app.server)

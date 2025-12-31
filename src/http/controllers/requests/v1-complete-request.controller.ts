@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeCompleteRequestUseCase } from '@/use-cases/requests/factories/make-complete-request-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,7 +10,7 @@ export async function completeRequestController(app: FastifyInstance) {
     url: '/v1/requests/:id/complete',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Requests'],
+      tags: ['Core - Requests'],
       summary: 'Complete a request',
       params: z.object({
         id: z.string().uuid(),

@@ -15,11 +15,11 @@ describe('Link User to Employee (E2E)', () => {
   });
 
   it('should link user to employee as MANAGER', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { employeeId, employee } = await createEmployeeE2E();
+    const { token } = await createAndAuthenticateUser(app);
+    const { employee } = await createEmployeeE2E();
 
     // Create a different user to link
-    const { user: userToLink } = await createAndAuthenticateUser(app, 'USER');
+    const { user: userToLink } = await createAndAuthenticateUser(app, );
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employee.id}/link-user`)
@@ -34,9 +34,9 @@ describe('Link User to Employee (E2E)', () => {
   });
 
   it('should link user to employee as ADMIN', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
-    const { employeeId, employee } = await createEmployeeE2E();
-    const { user: userToLink } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
+    const { employee } = await createEmployeeE2E();
+    const { user: userToLink } = await createAndAuthenticateUser(app, );
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employee.id}/link-user`)
@@ -49,10 +49,10 @@ describe('Link User to Employee (E2E)', () => {
     expect(response.body.employee.userId).toBe(userToLink.user.id);
   });
 
-  it('should NOT allow USER to link user to employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
-    const { employeeId, employee } = await createEmployeeE2E();
-    const { user: userToLink } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to link user to employee', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
+    const { employee } = await createEmployeeE2E();
+    const { user: userToLink } = await createAndAuthenticateUser(app, );
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employee.id}/link-user`)
@@ -65,9 +65,9 @@ describe('Link User to Employee (E2E)', () => {
   });
 
   it('should return 404 when employee does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentId = '00000000-0000-0000-0000-000000000000';
-    const { user: userToLink } = await createAndAuthenticateUser(app, 'USER');
+    const { user: userToLink } = await createAndAuthenticateUser(app, );
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${nonExistentId}/link-user`)
@@ -80,8 +80,8 @@ describe('Link User to Employee (E2E)', () => {
   });
 
   it('should return 401 when no token is provided', async () => {
-    const { employeeId, employee } = await createEmployeeE2E();
-    const { user: userToLink } = await createAndAuthenticateUser(app, 'USER');
+    const { employee } = await createEmployeeE2E();
+    const { user: userToLink } = await createAndAuthenticateUser(app, );
 
     const response = await request(app.server)
       .post(`/v1/hr/employees/${employee.id}/link-user`)
@@ -93,8 +93,8 @@ describe('Link User to Employee (E2E)', () => {
   });
 
   it('should return 400 when user does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const { employeeId, employee } = await createEmployeeE2E();
+    const { token } = await createAndAuthenticateUser(app);
+    const { employee } = await createEmployeeE2E();
     const nonExistentUserId = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
@@ -108,5 +108,3 @@ describe('Link User to Employee (E2E)', () => {
     expect(response.body.message).toContain('Failed to link user');
   });
 });
-
-

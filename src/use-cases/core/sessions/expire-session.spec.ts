@@ -129,11 +129,10 @@ it('should expire a session created a long time ago', async () => {
   expect(updatedSession?.expiredAt).toBeInstanceOf(Date);
 });
 
-it('should expire a session for user with ADMIN role', async () => {
+it('should expire a session for user', async () => {
   const { user } = await makeUser({
     email: 'admin@example.com',
     password: 'password',
-    role: 'ADMIN',
     usersRepository,
   });
   const { session } = await makeSession({

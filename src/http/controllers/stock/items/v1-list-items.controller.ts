@@ -1,4 +1,6 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { itemResponseSchema } from '@/http/schemas';
 import { makeListItemsUseCase } from '@/use-cases/stock/items/factories/make-list-items-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -9,9 +11,15 @@ export async function listItemsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/items',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.ITEMS.LIST,
+        resource: 'items',
+      }),
+    ],
     schema: {
-      tags: ['Items'],
+      tags: ['Stock - Items'],
       summary: 'List all items',
       querystring: z.object({
         variantId: z.uuid().optional(),

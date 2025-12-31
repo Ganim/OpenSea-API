@@ -16,7 +16,7 @@ describe('Remove Permission From Group (e2e)', () => {
   });
 
   it('should allow ADMIN to REMOVE permission from group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
     const permission = await makePermission();
 
@@ -37,8 +37,8 @@ describe('Remove Permission From Group (e2e)', () => {
     expect(response.statusCode).toEqual(204);
   });
 
-  it('should NOT allow USER to remove permission from group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to remove permission from group', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const group = await makePermissionGroup();
     const permission = await makePermission();
 
@@ -52,7 +52,7 @@ describe('Remove Permission From Group (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const response = await request(app.server)

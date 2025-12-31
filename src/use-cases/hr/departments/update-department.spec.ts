@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryDepartmentsRepository } from '@/repositories/hr/in-memory/in-memory-departments-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateDepartmentUseCase } from './create-department';
@@ -6,6 +7,9 @@ import { UpdateDepartmentUseCase } from './update-department';
 let departmentsRepository: InMemoryDepartmentsRepository;
 let createDepartmentUseCase: CreateDepartmentUseCase;
 let sut: UpdateDepartmentUseCase;
+
+const companyId = new UniqueEntityID().toString();
+const anotherCompanyId = new UniqueEntityID().toString();
 
 describe('Update Department Use Case', () => {
   beforeEach(() => {
@@ -20,6 +24,7 @@ describe('Update Department Use Case', () => {
     const createResult = await createDepartmentUseCase.execute({
       name: 'Engineering',
       code: 'ENG',
+      companyId,
     });
 
     const result = await sut.execute({
@@ -41,15 +46,17 @@ describe('Update Department Use Case', () => {
     ).rejects.toThrow('Department not found');
   });
 
-  it('should not update code to existing code', async () => {
+  it('should not update code to existing code in the same company', async () => {
     await createDepartmentUseCase.execute({
       name: 'Engineering',
       code: 'ENG',
+      companyId,
     });
 
     const result2 = await createDepartmentUseCase.execute({
       name: 'Sales',
       code: 'SALES',
+      companyId,
     });
 
     await expect(
@@ -64,6 +71,7 @@ describe('Update Department Use Case', () => {
     const createResult = await createDepartmentUseCase.execute({
       name: 'Engineering',
       code: 'ENG',
+      companyId,
     });
 
     const result = await sut.execute({
@@ -80,6 +88,7 @@ describe('Update Department Use Case', () => {
     const createResult = await createDepartmentUseCase.execute({
       name: 'Engineering',
       code: 'ENG',
+      companyId,
     });
 
     await expect(
@@ -94,6 +103,7 @@ describe('Update Department Use Case', () => {
     const createResult = await createDepartmentUseCase.execute({
       name: 'Engineering',
       code: 'ENG',
+      companyId,
     });
 
     await expect(
@@ -104,16 +114,39 @@ describe('Update Department Use Case', () => {
     ).rejects.toThrow('Parent department not found');
   });
 
+  it('should not set parent from different company', async () => {
+    const parentResult = await createDepartmentUseCase.execute({
+      name: 'Technology',
+      code: 'TECH',
+      companyId: anotherCompanyId,
+    });
+
+    const childResult = await createDepartmentUseCase.execute({
+      name: 'Engineering',
+      code: 'ENG',
+      companyId,
+    });
+
+    await expect(
+      sut.execute({
+        id: childResult.department.id.toString(),
+        parentId: parentResult.department.id.toString(),
+      }),
+    ).rejects.toThrow('Parent department must belong to the same company');
+  });
+
   it('should remove parent by setting null', async () => {
     const parentResult = await createDepartmentUseCase.execute({
       name: 'Technology',
       code: 'TECH',
+      companyId,
     });
 
     const childResult = await createDepartmentUseCase.execute({
       name: 'Engineering',
       code: 'ENG',
       parentId: parentResult.department.id.toString(),
+      companyId,
     });
 
     const result = await sut.execute({
@@ -129,6 +162,7 @@ describe('Update Department Use Case', () => {
       name: 'Engineering',
       code: 'ENG',
       isActive: true,
+      companyId,
     });
 
     const result = await sut.execute({
@@ -143,12 +177,14 @@ describe('Update Department Use Case', () => {
     const parentResult = await createDepartmentUseCase.execute({
       name: 'Technology',
       code: 'TECH',
+      companyId,
     });
 
     const childResult = await createDepartmentUseCase.execute({
       name: 'Engineering',
       code: 'ENG',
       parentId: parentResult.department.id.toString(),
+      companyId,
     });
 
     await expect(

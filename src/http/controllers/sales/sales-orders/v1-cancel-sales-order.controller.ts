@@ -1,7 +1,8 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeCancelSalesOrderUseCase } from '@/use-cases/sales/sales-orders/factories/make-cancel-sales-order-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -11,9 +12,15 @@ export async function v1CancelSalesOrderController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/sales-orders/:id/cancel',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.ORDERS.MANAGE,
+        resource: 'sales-orders',
+      }),
+    ],
     schema: {
-      tags: ['Sales Orders'],
+      tags: ['Sales - Orders'],
       summary: 'Cancel a sales order',
       params: z.object({ id: z.string().uuid() }),
       response: {

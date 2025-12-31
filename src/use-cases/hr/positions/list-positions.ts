@@ -8,6 +8,7 @@ export interface ListPositionsRequest {
   search?: string;
   isActive?: boolean;
   departmentId?: string;
+  companyId?: string;
   level?: number;
 }
 
@@ -31,6 +32,7 @@ export class ListPositionsUseCase {
       search,
       isActive,
       departmentId,
+      companyId,
       level,
     } = request;
 
@@ -40,6 +42,7 @@ export class ListPositionsUseCase {
       search,
       isActive,
       departmentId: departmentId ? new UniqueEntityID(departmentId) : undefined,
+      companyId: companyId ? new UniqueEntityID(companyId) : undefined,
       level,
     });
 

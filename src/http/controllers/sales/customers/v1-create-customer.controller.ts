@@ -1,9 +1,10 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  createCustomerSchema,
-  customerResponseSchema,
+    createCustomerSchema,
+    customerResponseSchema,
 } from '@/http/schemas/sales.schema';
 import { makeCreateCustomerUseCase } from '@/use-cases/sales/customers/factories/make-create-customer-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,9 +15,15 @@ export async function createCustomerController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/customers',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.CUSTOMERS.CREATE,
+        resource: 'customers',
+      }),
+    ],
     schema: {
-      tags: ['Customers'],
+      tags: ['Sales - Customers'],
       summary: 'Create a new customer',
       body: createCustomerSchema,
       response: {

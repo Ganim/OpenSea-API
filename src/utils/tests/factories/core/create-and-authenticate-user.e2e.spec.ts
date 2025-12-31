@@ -12,7 +12,7 @@ describe('createAndAuthenticateUser factory (e2e)', () => {
     }
   });
 
-  it('deve criar um usuário com role padrão USER e autenticar retornando tokens', async () => {
+  it('deve criar um usuário e autenticar retornando tokens', async () => {
     const { user, token, refreshToken, sessionId } =
       await createAndAuthenticateUser(app);
 
@@ -20,21 +20,14 @@ describe('createAndAuthenticateUser factory (e2e)', () => {
     expect(user.user).toBeDefined();
     expect(user.user.id).toBeTruthy();
     expect(user.user.email).toMatch(/@/);
-    expect(user.user.role).toBe('USER');
 
     expect(token).toBeTypeOf('string');
     expect(refreshToken).toBeTypeOf('string');
     expect(sessionId).toBeTypeOf('string');
   });
 
-  it('deve criar um usuário com role ADMIN quando informado', async () => {
-    const { user } = await createAndAuthenticateUser(app, 'ADMIN');
-
-    expect(user.user.role).toBe('ADMIN');
-  });
-
   it('deve permitir login subsequente com as mesmas credenciais', async () => {
-    const { user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { user } = await createAndAuthenticateUser(app);
 
     const loginResponse = await request(app.server)
       .post('/v1/auth/login/password')

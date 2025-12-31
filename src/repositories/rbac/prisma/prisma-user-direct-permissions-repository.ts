@@ -3,6 +3,7 @@ import { Permission } from '@/entities/rbac/permission';
 import { UserDirectPermission } from '@/entities/rbac/user-direct-permission';
 import { prisma } from '@/lib/prisma';
 import { mapPermissionPrismaToDomain } from '@/mappers/rbac/permission-prisma-to-domain';
+import type { Prisma } from '@prisma/client';
 import type {
   GrantDirectPermissionSchema,
   ListUserDirectPermissionsParams,
@@ -22,7 +23,7 @@ export class PrismaUserDirectPermissionsRepository
         userId: data.userId.toString(),
         permissionId: data.permissionId.toString(),
         effect: data.effect ?? 'allow',
-        conditions: data.conditions ?? null,
+        conditions: (data.conditions as Prisma.InputJsonValue) ?? null,
         expiresAt: data.expiresAt ?? null,
         grantedBy: data.grantedBy?.toString() ?? null,
       },
@@ -34,7 +35,10 @@ export class PrismaUserDirectPermissionsRepository
         userId: new UniqueEntityID(directPermission.userId),
         permissionId: new UniqueEntityID(directPermission.permissionId),
         effect: directPermission.effect as 'allow' | 'deny',
-        conditions: directPermission.conditions as Record<string, unknown> | null,
+        conditions: directPermission.conditions as Record<
+          string,
+          unknown
+        > | null,
         expiresAt: directPermission.expiresAt,
         grantedBy: directPermission.grantedBy
           ? new UniqueEntityID(directPermission.grantedBy)
@@ -51,7 +55,7 @@ export class PrismaUserDirectPermissionsRepository
         userId: d.userId.toString(),
         permissionId: d.permissionId.toString(),
         effect: d.effect ?? 'allow',
-        conditions: d.conditions ?? null,
+        conditions: (d.conditions as Prisma.InputJsonValue) ?? null,
         expiresAt: d.expiresAt ?? null,
         grantedBy: d.grantedBy?.toString() ?? null,
       })),
@@ -68,7 +72,8 @@ export class PrismaUserDirectPermissionsRepository
         where: { id: data.id.toString() },
         data: {
           effect: data.effect,
-          conditions: data.conditions ?? undefined,
+          conditions:
+            (data.conditions as Prisma.InputJsonValue | undefined) ?? undefined,
           expiresAt: data.expiresAt ?? undefined,
         },
       });
@@ -79,7 +84,10 @@ export class PrismaUserDirectPermissionsRepository
           userId: new UniqueEntityID(directPermission.userId),
           permissionId: new UniqueEntityID(directPermission.permissionId),
           effect: directPermission.effect as 'allow' | 'deny',
-          conditions: directPermission.conditions as Record<string, unknown> | null,
+          conditions: directPermission.conditions as Record<
+            string,
+            unknown
+          > | null,
           expiresAt: directPermission.expiresAt,
           grantedBy: directPermission.grantedBy
             ? new UniqueEntityID(directPermission.grantedBy)
@@ -112,7 +120,9 @@ export class PrismaUserDirectPermissionsRepository
     });
   }
 
-  async revokePermissionFromAllUsers(permissionId: UniqueEntityID): Promise<void> {
+  async revokePermissionFromAllUsers(
+    permissionId: UniqueEntityID,
+  ): Promise<void> {
     await prisma.userDirectPermission.deleteMany({
       where: { permissionId: permissionId.toString() },
     });
@@ -144,7 +154,10 @@ export class PrismaUserDirectPermissionsRepository
         userId: new UniqueEntityID(directPermission.userId),
         permissionId: new UniqueEntityID(directPermission.permissionId),
         effect: directPermission.effect as 'allow' | 'deny',
-        conditions: directPermission.conditions as Record<string, unknown> | null,
+        conditions: directPermission.conditions as Record<
+          string,
+          unknown
+        > | null,
         expiresAt: directPermission.expiresAt,
         grantedBy: directPermission.grantedBy
           ? new UniqueEntityID(directPermission.grantedBy)
@@ -176,7 +189,10 @@ export class PrismaUserDirectPermissionsRepository
         userId: new UniqueEntityID(directPermission.userId),
         permissionId: new UniqueEntityID(directPermission.permissionId),
         effect: directPermission.effect as 'allow' | 'deny',
-        conditions: directPermission.conditions as Record<string, unknown> | null,
+        conditions: directPermission.conditions as Record<
+          string,
+          unknown
+        > | null,
         expiresAt: directPermission.expiresAt,
         grantedBy: directPermission.grantedBy
           ? new UniqueEntityID(directPermission.grantedBy)
@@ -362,7 +378,9 @@ export class PrismaUserDirectPermissionsRepository
     });
   }
 
-  async countUsersWithPermission(permissionId: UniqueEntityID): Promise<number> {
+  async countUsersWithPermission(
+    permissionId: UniqueEntityID,
+  ): Promise<number> {
     const directPermissions = await prisma.userDirectPermission.findMany({
       where: { permissionId: permissionId.toString() },
       select: { userId: true },

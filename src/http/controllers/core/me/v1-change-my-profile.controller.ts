@@ -3,7 +3,7 @@ import { makeChangeMyProfileUseCase } from '@/use-cases/core/me/factories/make-c
 
 import z from 'zod';
 
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { FastifyInstance } from 'fastify';
@@ -15,7 +15,7 @@ export async function changeMyProfileController(app: FastifyInstance) {
     url: '/v1/me',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Me'],
+      tags: ['Auth - Me'],
       summary: 'Change self profile by authenticated user',
       body: z.object({
         profile: z.object({
@@ -33,7 +33,6 @@ export async function changeMyProfileController(app: FastifyInstance) {
             id: z.string(),
             email: z.string(),
             username: z.string(),
-            role: z.string(),
             lastLoginAt: z.coerce.date().nullable(),
             deletedAt: z.coerce.date().nullable().optional(),
             profile: z

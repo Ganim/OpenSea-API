@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { approveOvertimeSchema, overtimeResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { overtimeToDTO } from '@/mappers/hr/overtime/overtime-to-dto';
@@ -15,7 +16,13 @@ export async function approveOvertimeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/overtime/:overtimeId/approve',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.OVERTIME.MANAGE,
+        resource: 'overtime',
+      }),
+    ],
     schema: {
       tags: ['HR - Overtime'],
       summary: 'Approve overtime',

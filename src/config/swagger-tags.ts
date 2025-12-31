@@ -1,42 +1,46 @@
 export const swaggerTags = [
   // Core
   { name: 'Health', description: 'Health check endpoints' },
+  { name: 'Core - Requests', description: 'System requests check endpoints' },
+  { name: 'Core - Audit', description: 'Audit log management endpoints' },
+
+  // Authentication and User Management
   { name: 'Auth', description: 'Authentication endpoints' },
-  { name: 'Me', description: 'Authenticated user endpoints' },
-  { name: 'Users', description: 'User management endpoints' },
-  { name: 'Sessions', description: 'Session management endpoints' },
+  { name: 'Auth - Me', description: 'Authenticated user endpoints' },
+  { name: 'Auth - Users', description: 'User management endpoints' },
+  { name: 'Auth - Sessions', description: 'User session management endpoints' },
 
   // Stock Management
-  { name: 'Products', description: 'Product catalog management' },
-  { name: 'Variants', description: 'Product variant management' },
-  { name: 'Categories', description: 'Product category management' },
-  { name: 'Manufacturers', description: 'Manufacturer management' },
-  { name: 'Suppliers', description: 'Supplier management' },
-  { name: 'Locations', description: 'Storage location management' },
-  { name: 'Tags', description: 'Product tag management' },
-  { name: 'Templates', description: 'Product template management' },
-  { name: 'Items', description: 'Inventory item management' },
-  { name: 'Item Movements', description: 'Stock movement tracking' },
-  { name: 'Purchase Orders', description: 'Purchase order management' },
+  { name: 'Stock - Products', description: 'Product catalog management' },
+  { name: 'Stock - Variants', description: 'Product variant management' },
+  { name: 'Stock - Categories', description: 'Product category management' },
+  { name: 'Stock - Manufacturers', description: 'Manufacturer management' },
+  { name: 'Stock - Suppliers', description: 'Supplier management' },
+  { name: 'Stock - Locations', description: 'Storage location management' },
+  { name: 'Stock - Items', description: 'Inventory item management' },
+  { name: 'Stock - Item Movements', description: 'Stock movement tracking' },
+  { name: 'Stock - Purchase Orders', description: 'Purchase order management' },
 
   // Sales Management
-  { name: 'Customers', description: 'Customer management' },
-  { name: 'Sales Orders', description: 'Sales order management' },
-  { name: 'Comments', description: 'Entity comment management' },
-  { name: 'Variant Promotions', description: 'Product promotion management' },
+  { name: 'Sales - Customers', description: 'Customer management' },
+  { name: 'Sales - Orders', description: 'Sales order management' },
+  { name: 'Sales - Comments', description: 'Entity comment management' },
   {
-    name: 'Item Reservations',
+    name: 'Sales - Variant Promotions',
+    description: 'Product promotion management',
+  },
+  {
+    name: 'Sales - Item Reservations',
     description: 'Inventory reservation management',
   },
   {
-    name: 'Notification Preferences',
+    name: 'Sales - Notification Preferences',
     description: 'User notification settings',
   },
   // Workflow Notifications
-  { name: 'Notifications', description: 'User notifications management' },
   {
-    name: 'Notification Templates',
-    description: 'Notification templates management',
+    name: 'Sales - Notifications',
+    description: 'User notifications management',
   },
 
   // HR Management

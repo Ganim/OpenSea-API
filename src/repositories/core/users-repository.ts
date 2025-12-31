@@ -2,18 +2,15 @@ import { User } from '@/entities/core/user';
 import { UserProfile } from '@/entities/core/user-profile';
 import type { Email } from '@/entities/core/value-objects/email';
 import type { Password } from '@/entities/core/value-objects/password';
-import type { Role } from '@/entities/core/value-objects/role';
 import type { Token } from '@/entities/core/value-objects/token';
 import type { Url } from '@/entities/core/value-objects/url';
 import type { Username } from '@/entities/core/value-objects/username';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Role as PrismaRole } from '@prisma/client';
 
 export interface CreateUserSchema {
   username: Username;
   email: Email;
   passwordHash: Password;
-  role: Role;
   profile: {
     name: string;
     surname: string;
@@ -28,7 +25,6 @@ export interface CreateUserSchema {
 export interface UpdateUserSchema {
   id: UniqueEntityID;
   email?: Email;
-  role?: Role;
   username?: Username;
   passwordHash?: Password;
   profile?: UserProfile;
@@ -38,6 +34,10 @@ export interface UpdateUserSchema {
   passwordResetExpires?: Date | null;
   blockedUntil?: Date | null;
   deletedAt?: Date | null;
+  forcePasswordReset?: boolean;
+  forcePasswordResetReason?: string | null;
+  forcePasswordResetRequestedBy?: string | null;
+  forcePasswordResetRequestedAt?: Date | null;
 }
 
 export interface UsersRepository {
@@ -65,5 +65,12 @@ export interface UsersRepository {
 
   // LIST
   listAll(): Promise<User[] | null>;
-  listAllByRole(role: PrismaRole): Promise<User[] | null>;
+
+  // FORCED PASSWORD RESET
+  setForcePasswordReset(
+    id: UniqueEntityID,
+    requestedBy: UniqueEntityID | null,
+    reason?: string,
+  ): Promise<User | null>;
+  clearForcePasswordReset(id: UniqueEntityID): Promise<User | null>;
 }

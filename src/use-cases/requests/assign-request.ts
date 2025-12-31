@@ -11,7 +11,7 @@ interface AssignRequestUseCaseRequest {
   requestId: string;
   assignedToId: string;
   performedById: string;
-  userRole: 'ADMIN' | 'MANAGER' | 'USER';
+  hasAssignPermission?: boolean;
 }
 
 interface AssignRequestUseCaseResponse {
@@ -28,8 +28,8 @@ export class AssignRequestUseCase {
   async execute(
     data: AssignRequestUseCaseRequest,
   ): Promise<AssignRequestUseCaseResponse> {
-    if (data.userRole !== 'ADMIN') {
-      throw new ForbiddenError('Only administrators can assign requests');
+    if (!data.hasAssignPermission) {
+      throw new ForbiddenError('You do not have permission to assign requests');
     }
 
     const request = await this.requestsRepository.findById({

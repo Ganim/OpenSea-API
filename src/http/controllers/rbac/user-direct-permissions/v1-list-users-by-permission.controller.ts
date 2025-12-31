@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserAdmin } from '@/http/middlewares/verify-user-admin';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { makeListUsersByPermissionUseCase } from '@/use-cases/rbac/user-direct-permissions/factories/make-list-users-by-permission-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -11,7 +12,13 @@ export async function listUsersByPermissionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/rbac/permissions/:permissionId/users',
-    preHandler: [verifyJwt, verifyUserAdmin],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.USER_PERMISSIONS.READ,
+        resource: 'user-permissions',
+      }),
+    ],
     schema: {
       tags: ['RBAC - User Direct Permissions'],
       summary: 'List users with direct permission',

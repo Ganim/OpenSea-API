@@ -16,7 +16,7 @@ describe('Request Sick Leave (E2E)', () => {
   });
 
   it('should be able to request sick leave', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E({ status: 'ACTIVE' });
 
@@ -44,7 +44,7 @@ describe('Request Sick Leave (E2E)', () => {
   });
 
   it('should not request sick leave without CID code', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E({ status: 'ACTIVE' });
 
@@ -65,7 +65,7 @@ describe('Request Sick Leave (E2E)', () => {
   });
 
   it('should set isInssResponsibility for sick leave > 15 days', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E({ status: 'ACTIVE' });
 
@@ -88,7 +88,7 @@ describe('Request Sick Leave (E2E)', () => {
   });
 
   it('should not request sick leave for inactive employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E({ status: 'TERMINATED' });
 

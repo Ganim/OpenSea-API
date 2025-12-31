@@ -14,7 +14,7 @@ describe('Get Permission By Code (e2e)', () => {
   });
 
   it('should allow authenticated USER to GET permission by CODE', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission({
       module: 'test',
       resource: 'example',
@@ -38,7 +38,7 @@ describe('Get Permission By Code (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT permission code', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/rbac/permissions/code/nonexistent.permission.read')

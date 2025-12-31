@@ -1,4 +1,4 @@
-﻿import { verifyJwt } from '@/http/middlewares/verify-jwt';
+﻿import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { itemReservationResponseSchema } from '@/http/schemas/sales.schema';
 import { makeListItemReservationsUseCase } from '@/use-cases/sales/item-reservations/factories/make-list-item-reservations-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -11,7 +11,7 @@ export async function listItemReservationsController(app: FastifyInstance) {
     url: '/v1/item-reservations',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Item Reservations'],
+      tags: ['Sales - Item Reservations'],
       summary: 'List item reservations',
       querystring: z.object({
         itemId: z.string().uuid().optional(),

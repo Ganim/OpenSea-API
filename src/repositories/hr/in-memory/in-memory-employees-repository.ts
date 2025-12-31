@@ -59,7 +59,7 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
         departmentId: data.departmentId,
         positionId: data.positionId,
         supervisorId: data.supervisorId,
-        enterpriseId: data.enterpriseId,
+        companyId: data.companyId,
         hireDate: data.hireDate,
         terminationDate: data.terminationDate,
         status: data.status,
@@ -184,6 +184,16 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
       (item) =>
         item.status.value === 'TERMINATED' &&
         (includeDeleted || !item.deletedAt),
+    );
+  }
+
+  async findManyByCompany(
+    companyId: UniqueEntityID,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
+    return this.items.filter(
+      (item) =>
+        item.companyId?.equals(companyId) && (includeDeleted || !item.deletedAt),
     );
   }
 
@@ -360,10 +370,10 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
           data.supervisorId !== undefined
             ? data.supervisorId || undefined
             : existingEmployee.supervisorId,
-        enterpriseId:
-          data.enterpriseId !== undefined
-            ? data.enterpriseId || undefined
-            : existingEmployee.enterpriseId,
+        companyId:
+          data.companyId !== undefined
+            ? data.companyId || undefined
+            : existingEmployee.companyId,
         hireDate: data.hireDate ?? existingEmployee.hireDate,
         terminationDate:
           data.terminationDate !== undefined

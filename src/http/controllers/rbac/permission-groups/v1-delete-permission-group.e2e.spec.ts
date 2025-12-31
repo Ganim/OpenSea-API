@@ -14,7 +14,7 @@ describe('Delete Permission Group (e2e)', () => {
   });
 
   it('should allow ADMIN to soft DELETE a permission group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -25,7 +25,7 @@ describe('Delete Permission Group (e2e)', () => {
   });
 
   it('should allow FORCE delete with query param', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -37,7 +37,7 @@ describe('Delete Permission Group (e2e)', () => {
   });
 
   it('should NOT delete SYSTEM groups', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const systemGroup = await makePermissionGroup({ isSystem: true });
 
     const response = await request(app.server)
@@ -48,8 +48,8 @@ describe('Delete Permission Group (e2e)', () => {
     expect(response.body.message).toContain('system');
   });
 
-  it('should NOT allow USER to DELETE a permission group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to DELETE a permission group', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -60,7 +60,7 @@ describe('Delete Permission Group (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .delete('/v1/rbac/permission-groups/00000000-0000-0000-0000-000000000000')

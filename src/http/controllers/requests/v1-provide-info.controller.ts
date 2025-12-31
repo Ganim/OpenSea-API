@@ -1,4 +1,4 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeProvideInfoUseCase } from '@/use-cases/requests/factories/make-provide-info-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -10,7 +10,7 @@ export async function provideInfoController(app: FastifyInstance) {
     url: '/v1/requests/:id/provide-info',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Requests'],
+      tags: ['Core - Requests'],
       summary: 'Provide requested information',
       params: z.object({
         id: z.string().uuid(),

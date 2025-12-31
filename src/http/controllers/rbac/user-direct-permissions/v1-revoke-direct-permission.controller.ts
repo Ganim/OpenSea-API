@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserAdmin } from '@/http/middlewares/verify-user-admin';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { makeRevokeDirectPermissionUseCase } from '@/use-cases/rbac/user-direct-permissions/factories/make-revoke-direct-permission-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -11,7 +12,13 @@ export async function revokeDirectPermissionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/rbac/users/:userId/direct-permissions/:permissionId',
-    preHandler: [verifyJwt, verifyUserAdmin],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.RBAC.USER_PERMISSIONS.MANAGE,
+        resource: 'user-permissions',
+      }),
+    ],
     schema: {
       tags: ['RBAC - User Direct Permissions'],
       summary: 'Revoke direct permission from user',

@@ -13,7 +13,7 @@ describe('Delete Template (E2E)', () => {
   });
 
   it('should be able to delete a template', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create template
     const createResponse = await request(app.server)
@@ -47,7 +47,7 @@ describe('Delete Template (E2E)', () => {
   });
 
   it('should return 404 when deleting non-existing template', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const nonExistingId = '00000000-0000-0000-0000-000000000000';
 

@@ -19,7 +19,7 @@ describe('List Permission Groups (e2e)', () => {
   });
 
   it('should allow authenticated USER to LIST groups', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const uniqueSuffix = faker.string.alpha({ length: 6 }).toLowerCase();
     await makePermissionGroup({ name: `Test Group 1 ${uniqueSuffix}` });
@@ -41,7 +41,7 @@ describe('List Permission Groups (e2e)', () => {
   });
 
   it('should return groups WITH usersCount and permissionsCount', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/rbac/permission-groups')
@@ -82,7 +82,7 @@ describe('List Permission Groups (e2e)', () => {
   });
 
   it('should FILTER groups by isActive', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const uniqueSuffix = faker.string.alpha({ length: 6 }).toLowerCase();
     await makePermissionGroup({
@@ -108,7 +108,7 @@ describe('List Permission Groups (e2e)', () => {
   });
 
   it('should FILTER groups by isSystem', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const uniqueSuffix = faker.string.alpha({ length: 6 }).toLowerCase();
     await makePermissionGroup({
@@ -130,7 +130,7 @@ describe('List Permission Groups (e2e)', () => {
   });
 
   it('should PAGINATE results', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/rbac/permission-groups')

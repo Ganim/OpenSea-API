@@ -4,10 +4,10 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import {
-    generateEmployeeData,
-    generateRegistrationNumber,
-    generateValidCPF,
-    generateValidPIS,
+  generateEmployeeData,
+  generateRegistrationNumber,
+  generateValidCPF,
+  generateValidPIS,
 } from '@/utils/tests/factories/hr/create-employee.e2e';
 
 describe('Create Employee (E2E)', () => {
@@ -20,7 +20,7 @@ describe('Create Employee (E2E)', () => {
   });
 
   it('should allow MANAGER to create a new employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const employeeData = generateEmployeeData();
 
     const response = await request(app.server)
@@ -42,7 +42,7 @@ describe('Create Employee (E2E)', () => {
   });
 
   it('should allow ADMIN to create a new employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const employeeData = generateEmployeeData();
 
     const response = await request(app.server)
@@ -55,8 +55,9 @@ describe('Create Employee (E2E)', () => {
     expect(response.body.employee.fullName).toBe(employeeData.fullName);
   });
 
-  it('should NOT allow USER to create an employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to create an employee', async () => {
+    // User created with no permissions - will get 403
+    const { token } = await createAndAuthenticateUser(app, );
     const employeeData = generateEmployeeData();
 
     const response = await request(app.server)
@@ -78,7 +79,7 @@ describe('Create Employee (E2E)', () => {
   });
 
   it('should return 400 when CPF is already registered', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const cpf = generateValidCPF();
 
     const firstEmployee = generateEmployeeData({ cpf });
@@ -102,7 +103,7 @@ describe('Create Employee (E2E)', () => {
   });
 
   it('should return 400 when registration number is already used', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const registrationNumber = generateRegistrationNumber();
 
     const firstEmployee = generateEmployeeData({ registrationNumber });
@@ -128,7 +129,7 @@ describe('Create Employee (E2E)', () => {
   });
 
   it('should return 400 when required fields are missing', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/hr/employees')
@@ -142,7 +143,7 @@ describe('Create Employee (E2E)', () => {
   });
 
   it('should create employee with optional PIS', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const validPis = generateValidPIS();
     const employeeData = {
       ...generateEmployeeData(),
@@ -158,5 +159,3 @@ describe('Create Employee (E2E)', () => {
     expect(response.body.employee.pis).toBeDefined();
   });
 });
-
-

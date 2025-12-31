@@ -1,9 +1,10 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  createNotificationPreferenceSchema,
-  notificationPreferenceResponseSchema,
+    createNotificationPreferenceSchema,
+    notificationPreferenceResponseSchema,
 } from '@/http/schemas/sales.schema';
 import { makeCreateNotificationPreferenceUseCase } from '@/use-cases/sales/notification-preferences/factories/make-create-notification-preference-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -16,9 +17,15 @@ export async function createNotificationPreferenceController(
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/notification-preferences',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.NOTIFICATIONS.UPDATE,
+        resource: 'notification-preferences',
+      }),
+    ],
     schema: {
-      tags: ['Notification Preferences'],
+      tags: ['Sales - Notification Preferences'],
       summary: 'Create a new notification preference',
       body: createNotificationPreferenceSchema,
       response: {

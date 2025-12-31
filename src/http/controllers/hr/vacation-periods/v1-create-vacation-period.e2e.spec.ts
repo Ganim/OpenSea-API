@@ -15,7 +15,7 @@ describe('Create Vacation Period (E2E)', () => {
   });
 
   it('should create a vacation period', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
 
@@ -46,7 +46,7 @@ describe('Create Vacation Period (E2E)', () => {
   });
 
   it('should not create vacation period for non-existent employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/hr/vacation-periods')

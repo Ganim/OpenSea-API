@@ -17,7 +17,7 @@ describe('Delete Deduction (E2E)', () => {
   });
 
   it('should allow MANAGER to delete a deduction', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
     const deduction = await createDeduction(employeeId);
 
@@ -34,7 +34,7 @@ describe('Delete Deduction (E2E)', () => {
   });
 
   it('should return 404 when deduction not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .delete('/v1/hr/deductions/00000000-0000-0000-0000-000000000000')
@@ -43,8 +43,8 @@ describe('Delete Deduction (E2E)', () => {
     expect(response.statusCode).toBe(404);
   });
 
-  it('should NOT allow USER to delete a deduction', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to delete a deduction', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const { employeeId } = await createEmployeeE2E();
     const deduction = await createDeduction(employeeId);
 

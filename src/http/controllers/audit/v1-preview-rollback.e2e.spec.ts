@@ -4,6 +4,12 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
+interface RollbackChange {
+  field: string;
+  from: unknown;
+  to: unknown;
+}
+
 describe('Preview Rollback (e2e)', () => {
   beforeAll(async () => {
     await app.ready();
@@ -14,7 +20,7 @@ describe('Preview Rollback (e2e)', () => {
   });
 
   it('should preview rollback successfully for UPDATE action', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'preview-rollback-test-1';
 
@@ -27,7 +33,7 @@ describe('Preview Rollback (e2e)', () => {
         entityId,
         oldData: { name: 'Old Name', price: 100.0 },
         newData: { name: 'New Name', price: 150.0 },
-        userId: user.id,
+        userId: user.user.id,
       },
     });
 
@@ -51,7 +57,7 @@ describe('Preview Rollback (e2e)', () => {
 
     // Verificar que as mudanças estão corretas
     const nameChange = response.body.preview.changes.find(
-      (c: any) => c.field === 'name',
+      (c: RollbackChange) => c.field === 'name',
     );
     expect(nameChange).toEqual({
       field: 'name',
@@ -60,7 +66,7 @@ describe('Preview Rollback (e2e)', () => {
     });
 
     const priceChange = response.body.preview.changes.find(
-      (c: any) => c.field === 'price',
+      (c: RollbackChange) => c.field === 'price',
     );
     expect(priceChange).toEqual({
       field: 'price',
@@ -75,7 +81,7 @@ describe('Preview Rollback (e2e)', () => {
   });
 
   it('should return canRollback false for CREATE action', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'preview-rollback-test-create';
 
@@ -87,7 +93,7 @@ describe('Preview Rollback (e2e)', () => {
         module: 'STOCK',
         entityId,
         newData: { name: 'New Product', price: 200.0 },
-        userId: user.id,
+        userId: user.user.id,
       },
     });
 
@@ -97,7 +103,9 @@ describe('Preview Rollback (e2e)', () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.body.preview.canRollback).toBe(false);
-    expect(response.body.preview.reason).toBe('Cannot rollback a CREATE action');
+    expect(response.body.preview.reason).toBe(
+      'Cannot rollback a CREATE action',
+    );
     expect(response.body.preview.targetState).toBeNull();
     expect(response.body.preview.currentState).toEqual({
       name: 'New Product',
@@ -112,7 +120,7 @@ describe('Preview Rollback (e2e)', () => {
   });
 
   it('should return canRollback false when no logs exist', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/audit-logs/rollback/preview/PRODUCT/non-existent-entity')
@@ -129,7 +137,7 @@ describe('Preview Rollback (e2e)', () => {
   });
 
   it('should use the most recent UPDATE when multiple UPDATEs exist', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'preview-rollback-multiple-updates';
 
@@ -142,7 +150,7 @@ describe('Preview Rollback (e2e)', () => {
           module: 'STOCK',
           entityId,
           newData: { name: 'V1', price: 100.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-01T10:00:00Z'),
         },
         {
@@ -152,7 +160,7 @@ describe('Preview Rollback (e2e)', () => {
           entityId,
           oldData: { name: 'V1', price: 100.0 },
           newData: { name: 'V2', price: 150.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-02T10:00:00Z'),
         },
         {
@@ -162,7 +170,7 @@ describe('Preview Rollback (e2e)', () => {
           entityId,
           oldData: { name: 'V2', price: 150.0 },
           newData: { name: 'V3', price: 200.0 },
-          userId: user.id,
+          userId: user.user.id,
           createdAt: new Date('2025-01-03T10:00:00Z'),
         },
       ],
@@ -192,7 +200,7 @@ describe('Preview Rollback (e2e)', () => {
   });
 
   it('should calculate changes correctly with partial data', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const entityId = 'preview-rollback-partial';
 
@@ -204,8 +212,13 @@ describe('Preview Rollback (e2e)', () => {
         module: 'STOCK',
         entityId,
         oldData: { name: 'Product', price: 100.0, sku: 'SKU-001', stock: 10 },
-        newData: { name: 'Product Updated', price: 100.0, sku: 'SKU-001', stock: 10 },
-        userId: user.id,
+        newData: {
+          name: 'Product Updated',
+          price: 100.0,
+          sku: 'SKU-001',
+          stock: 10,
+        },
+        userId: user.user.id,
       },
     });
 
@@ -239,7 +252,7 @@ describe('Preview Rollback (e2e)', () => {
   });
 
   it('should validate entity type', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/audit-logs/rollback/preview/INVALID_ENTITY/test-id')

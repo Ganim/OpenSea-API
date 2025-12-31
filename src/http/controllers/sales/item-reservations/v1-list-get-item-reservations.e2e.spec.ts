@@ -165,9 +165,11 @@ describe('List and Get Item Reservations (E2E)', () => {
 
     expect(response.status).toBe(200);
     expect(response.body.reservations.length).toBeGreaterThanOrEqual(2);
-    response.body.reservations.forEach((reservation: ItemReservationResponse) => {
-      expect(reservation.userId).toBe(userId);
-    });
+    response.body.reservations.forEach(
+      (reservation: ItemReservationResponse) => {
+        expect(reservation.userId).toBe(userId);
+      },
+    );
   });
 
   it('should return empty array when no filters provided', async () => {

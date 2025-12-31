@@ -16,7 +16,7 @@ describe('List User Groups (e2e)', () => {
   });
 
   it('should allow authenticated USER to LIST own groups', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const uniqueSuffix = faker.string.alpha({ length: 6 }).toLowerCase();
     const group1 = await makePermissionGroup({
       name: `Sales Team ${uniqueSuffix}`,
@@ -59,7 +59,7 @@ describe('List User Groups (e2e)', () => {
   });
 
   it('should FILTER by active status', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const activeGroup = await makePermissionGroup({ isActive: true });
     // Não criamos grupo inativo pois o use-case bloqueia a atribuição de grupos inativos
     // O teste apenas verifica que o filtro retorna somente grupos ativos
@@ -86,7 +86,7 @@ describe('List User Groups (e2e)', () => {
   });
 
   it('should FILTER by expiration status', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const validGroup = await makePermissionGroup();
 
     const assignGroupUseCase = makeAssignGroupToUserUseCase();
@@ -117,7 +117,7 @@ describe('List User Groups (e2e)', () => {
   });
 
   it('should support PAGINATION', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get(`/v1/rbac/users/${user.user.id.toString()}/groups`)
@@ -130,7 +130,7 @@ describe('List User Groups (e2e)', () => {
   });
 
   it('should NOT allow unauthenticated request', async () => {
-    const { user } = await createAndAuthenticateUser(app, 'USER');
+    const { user } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server).get(
       `/v1/rbac/users/${user.user.id.toString()}/groups`,

@@ -3,17 +3,24 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeDeleteManufacturerUseCase } from '@/use-cases/stock/manufacturers/factories/make-delete-manufacturer-use-case';
 
 export async function deleteManufacturerController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/manufacturers/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.MANUFACTURERS.DELETE,
+        resource: 'manufacturers',
+      }),
+    ],
     schema: {
-      tags: ['Manufacturers'],
+      tags: ['Stock - Manufacturers'],
       summary: 'Delete a manufacturer',
       params: z.object({
         id: z.uuid(),

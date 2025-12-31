@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { bonusResponseSchema, createBonusSchema } from '@/http/schemas';
 import { bonusToDTO } from '@/mappers/hr/bonus';
 import { makeCreateBonusUseCase } from '@/use-cases/hr/bonuses/factories/make-create-bonus-use-case';
@@ -13,7 +14,13 @@ export async function createBonusController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/bonuses',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.BONUSES.CREATE,
+        resource: 'bonuses',
+      }),
+    ],
     schema: {
       tags: ['HR - Bonus'],
       summary: 'Create bonus',

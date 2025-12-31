@@ -6,18 +6,25 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { makeCancelPurchaseOrderUseCase } from '@/use-cases/stock/purchase-orders/factories/make-cancel-purchase-order-use-case';
 
-import { verifyJwt } from '../../../middlewares/verify-jwt';
-import { verifyUserManager } from '../../../middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '../../../middlewares/rbac/verify-jwt';
 
 export async function cancelPurchaseOrderController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/v1/purchase-orders/:orderId/cancel',
     {
-      onRequest: [verifyJwt, verifyUserManager],
+      onRequest: [
+        verifyJwt,
+        createPermissionMiddleware({
+          permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.MANAGE,
+          resource: 'purchase-orders',
+        }),
+      ],
       schema: {
         summary: 'Cancel purchase order',
         description: 'Cancels an existing purchase order',
-        tags: ['Purchase Orders'],
+        tags: ['Stock - Purchase Orders'],
         security: [{ bearerAuth: [] }],
         params: z.object({
           orderId: z.uuid(),

@@ -14,7 +14,7 @@ describe('List Item Movements (e2e)', () => {
   });
 
   it('should allow authenticated user to LIST item movements', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -92,7 +92,7 @@ describe('List Item Movements (e2e)', () => {
   });
 
   it('should filter movements by itemId', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -169,7 +169,7 @@ describe('List Item Movements (e2e)', () => {
   });
 
   it('should filter movements by movementType', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 

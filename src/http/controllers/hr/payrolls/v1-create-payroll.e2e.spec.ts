@@ -21,7 +21,7 @@ describe('Create Payroll (E2E)', () => {
   });
 
   it('should allow MANAGER to create a new payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const payrollData = generatePayrollData({
       referenceMonth: 1,
       referenceYear: 2025,
@@ -42,7 +42,7 @@ describe('Create Payroll (E2E)', () => {
   });
 
   it('should allow ADMIN to create a new payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const payrollData = generatePayrollData({
       referenceMonth: 2,
       referenceYear: 2025,
@@ -57,8 +57,8 @@ describe('Create Payroll (E2E)', () => {
     expect(response.body).toHaveProperty('payroll');
   });
 
-  it('should NOT allow USER to create a payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to create a payroll', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const payrollData = generatePayrollData({
       referenceMonth: 3,
       referenceYear: 2025,
@@ -83,7 +83,7 @@ describe('Create Payroll (E2E)', () => {
   });
 
   it('should return 400 when payroll already exists for period', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const payrollData = generatePayrollData({
       referenceMonth: 4,

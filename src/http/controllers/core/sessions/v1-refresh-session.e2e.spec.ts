@@ -12,7 +12,7 @@ describe('Refresh Session (e2e)', () => {
   });
 
   it('should allow USER to REFRESH his SESSION', async () => {
-    const { refreshToken } = await createAndAuthenticateUser(app, 'USER');
+    const { refreshToken } = await createAndAuthenticateUser(app);
 
     const res = await request(app.server)
       .patch('/v1/sessions/refresh')

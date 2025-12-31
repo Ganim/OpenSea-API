@@ -2,9 +2,9 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import type {
-    CreateProductSchema,
-    ProductsRepository,
-    UpdateProductSchema,
+  CreateProductSchema,
+  ProductsRepository,
+  UpdateProductSchema,
 } from '../products-repository';
 
 export class InMemoryProductsRepository implements ProductsRepository {

@@ -14,7 +14,7 @@ describe('Mark Notification As Read (e2e)', () => {
   });
 
   it('should mark a notification as read', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const userId = user.user.id.toString();
     const n = await makeNotification({
       userId,

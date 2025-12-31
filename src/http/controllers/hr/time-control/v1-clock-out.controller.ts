@@ -1,5 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { clockInOutSchema, timeEntryResponseSchema } from '@/http/schemas';
 import { timeEntryToDTO } from '@/mappers/hr/time-entry/time-entry-to-dto';
 import { makeClockOutUseCase } from '@/use-cases/hr/time-control/factories/make-clock-out-use-case';

@@ -6,6 +6,7 @@ export function mapDepartmentPrismaToDomain(
     include: {
       parent: true;
       manager: true;
+      company: true;
     };
   }>,
 ) {
@@ -19,6 +20,7 @@ export function mapDepartmentPrismaToDomain(
     managerId: departmentDb.managerId
       ? new UniqueEntityID(departmentDb.managerId)
       : undefined,
+    companyId: new UniqueEntityID(departmentDb.companyId),
     isActive: departmentDb.isActive,
     deletedAt: departmentDb.deletedAt ?? undefined,
     createdAt: departmentDb.createdAt,

@@ -13,7 +13,7 @@ interface AddRequestCommentUseCaseRequest {
   authorId: string;
   content: string;
   isInternal?: boolean;
-  userRole: 'ADMIN' | 'MANAGER' | 'USER';
+  hasViewAllPermission?: boolean;
 }
 
 interface AddRequestCommentUseCaseResponse {
@@ -40,7 +40,7 @@ export class AddRequestCommentUseCase {
     }
 
     // Verificar se o usuário pode visualizar/comentar na requisição
-    if (!request.canBeViewedBy(data.authorId, data.userRole)) {
+    if (!request.canBeViewedBy(data.authorId, data.hasViewAllPermission)) {
       throw new ForbiddenError(
         'You do not have permission to comment on this request',
       );

@@ -5,7 +5,6 @@ import { UserPermissionGroup } from '@/entities/rbac/user-permission-group';
 import { prisma } from '@/lib/prisma';
 import { mapPermissionGroupPrismaToDomain } from '@/mappers/rbac/permission-group-prisma-to-domain';
 import { mapPermissionPrismaToDomain } from '@/mappers/rbac/permission-prisma-to-domain';
-import type { Prisma } from '@prisma/client';
 import type {
   AssignGroupToUserSchema,
   ListUserGroupsParams,

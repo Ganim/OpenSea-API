@@ -14,7 +14,7 @@ describe('List Online Users (e2e)', () => {
   });
 
   it('should allow USERS to LIST ONLINE users ', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email = makeUniqueEmail('online-user');
     await request(app.server)

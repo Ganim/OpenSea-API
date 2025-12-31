@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { productResponseSchema } from '@/http/schemas';
 import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeGetProductByIdUseCase } from '@/use-cases/stock/products/factories/make-get-product-by-id-use-case';
@@ -11,9 +13,15 @@ export async function getProductByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/products/:productId',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.READ,
+        resource: 'products',
+      }),
+    ],
     schema: {
-      tags: ['Products'],
+      tags: ['Stock - Products'],
       summary: 'Get a product by ID',
       params: z.object({
         productId: z.uuid(),

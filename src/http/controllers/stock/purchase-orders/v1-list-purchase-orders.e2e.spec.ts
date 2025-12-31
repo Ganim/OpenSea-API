@@ -15,7 +15,7 @@ describe('List Purchase Orders (E2E)', () => {
   });
 
   it('should allow authenticated user to list all purchase orders', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -96,7 +96,7 @@ describe('List Purchase Orders (E2E)', () => {
   });
 
   it('should allow filtering purchase orders by supplierId', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -153,7 +153,7 @@ describe('List Purchase Orders (E2E)', () => {
   });
 
   it('should allow filtering purchase orders by status', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 

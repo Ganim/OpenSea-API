@@ -14,7 +14,7 @@ describe('List All User Sessions (e2e)', () => {
   });
 
   it('should allow ADMIN to LIST user SESSIONS', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email = makeUniqueEmail('list-user-sessions');
     const anotherUser = await request(app.server)

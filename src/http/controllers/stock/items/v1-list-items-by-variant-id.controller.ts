@@ -1,4 +1,6 @@
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { itemResponseSchema } from '@/http/schemas';
 import { makeListItemsByVariantIdUseCase } from '@/use-cases/stock/items/factories/make-list-items-by-variant-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -9,9 +11,15 @@ export async function listItemsByVariantIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/items/by-variant/:variantId',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.ITEMS.LIST,
+        resource: 'items',
+      }),
+    ],
     schema: {
-      tags: ['Items'],
+      tags: ['Stock - Items'],
       summary: 'List items by variant ID',
       params: z.object({
         variantId: z.uuid(),

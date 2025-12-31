@@ -14,7 +14,7 @@ describe('Create Permission Group (e2e)', () => {
   });
 
   it('should allow ADMIN to CREATE a permission group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const groupName = `Sales Team ${faker.string.uuid().slice(0, 8)}`;
 
@@ -48,7 +48,7 @@ describe('Create Permission Group (e2e)', () => {
   });
 
   it('should allow creating group WITHOUT optional fields', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const groupName = `Minimal Group ${faker.string.uuid().slice(0, 8)}`;
 
@@ -63,8 +63,8 @@ describe('Create Permission Group (e2e)', () => {
     expect(response.body.group.name).toBe(groupName);
   });
 
-  it('should NOT allow USER to CREATE a permission group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to CREATE a permission group', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
 
     const response = await request(app.server)
       .post('/v1/rbac/permission-groups')
@@ -88,7 +88,7 @@ describe('Create Permission Group (e2e)', () => {
   });
 
   it('should REJECT duplicate group name', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const groupData = {
       name: 'Unique Group Name',
@@ -110,7 +110,7 @@ describe('Create Permission Group (e2e)', () => {
   });
 
   it('should validate COLOR format', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/rbac/permission-groups')

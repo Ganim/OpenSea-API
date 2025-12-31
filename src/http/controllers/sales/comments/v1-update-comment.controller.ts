@@ -1,10 +1,10 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  commentResponseSchema,
-  updateCommentSchema,
+    commentResponseSchema,
+    updateCommentSchema,
 } from '@/http/schemas/sales.schema';
 import { makeUpdateCommentUseCase } from '@/use-cases/sales/comments/factories/make-update-comment-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -17,7 +17,7 @@ export async function updateCommentController(app: FastifyInstance) {
     url: '/v1/comments/:id',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Comments'],
+      tags: ['Sales - Comments'],
       summary: 'Update a comment',
       params: z.object({ id: z.string().uuid() }),
       body: updateCommentSchema,

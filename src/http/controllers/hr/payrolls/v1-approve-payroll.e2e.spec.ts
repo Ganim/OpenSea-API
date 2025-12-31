@@ -18,7 +18,7 @@ describe('Approve Payroll (E2E)', () => {
   });
 
   it('should allow MANAGER to approve a calculated payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const payroll = await createCalculatedPayroll({
       referenceMonth: 3,
       referenceYear: 2026,
@@ -35,7 +35,7 @@ describe('Approve Payroll (E2E)', () => {
   });
 
   it('should return 404 when payroll not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/hr/payrolls/00000000-0000-0000-0000-000000000000/approve')
@@ -44,8 +44,8 @@ describe('Approve Payroll (E2E)', () => {
     expect(response.statusCode).toBe(404);
   });
 
-  it('should NOT allow USER to approve a payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to approve a payroll', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const payroll = await createCalculatedPayroll({
       referenceMonth: 4,
       referenceYear: 2026,
@@ -72,7 +72,7 @@ describe('Approve Payroll (E2E)', () => {
   });
 
   it('should return 400 when payroll is not in CALCULATED status', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const payroll = await createPayroll({
       referenceMonth: 6,
       referenceYear: 2026,

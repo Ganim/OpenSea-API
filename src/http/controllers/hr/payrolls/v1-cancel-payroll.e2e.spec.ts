@@ -20,7 +20,7 @@ describe('Cancel Payroll (E2E)', () => {
   });
 
   it('should allow MANAGER to cancel a draft payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const payroll = await createPayroll({
       referenceMonth: 11,
       referenceYear: 2026,
@@ -36,7 +36,7 @@ describe('Cancel Payroll (E2E)', () => {
   });
 
   it('should allow MANAGER to cancel a calculated payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const payroll = await createCalculatedPayroll({
       referenceMonth: 12,
       referenceYear: 2026,
@@ -51,7 +51,7 @@ describe('Cancel Payroll (E2E)', () => {
   });
 
   it('should return 404 when payroll not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/hr/payrolls/00000000-0000-0000-0000-000000000000/cancel')
@@ -60,8 +60,8 @@ describe('Cancel Payroll (E2E)', () => {
     expect(response.statusCode).toBe(404);
   });
 
-  it('should NOT allow USER to cancel a payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to cancel a payroll', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const payroll = await createPayroll({
       referenceMonth: 1,
       referenceYear: 2027,
@@ -88,7 +88,7 @@ describe('Cancel Payroll (E2E)', () => {
   });
 
   it('should return 400 when trying to cancel a paid payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     // Create a paid payroll
     const payroll = await createApprovedPayroll();

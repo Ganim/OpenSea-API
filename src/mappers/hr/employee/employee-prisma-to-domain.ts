@@ -1,5 +1,8 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { HealthCondition } from '@/entities/hr/employee';
+import type {
+  EmergencyContactInfo,
+  HealthCondition,
+} from '@/entities/hr/employee';
 import {
   ContractType,
   CPF,
@@ -33,10 +36,10 @@ export function mapEmployeePrismaToDomain(
     nationality: employeeDb.nationality ?? undefined,
     birthPlace: employeeDb.birthPlace ?? undefined,
     emergencyContactInfo: employeeDb.emergencyContactInfo
-      ? (employeeDb.emergencyContactInfo as Record<string, unknown>)
+      ? (employeeDb.emergencyContactInfo as unknown as EmergencyContactInfo)
       : undefined,
     healthConditions: employeeDb.healthConditions
-      ? (employeeDb.healthConditions as HealthCondition[])
+      ? (employeeDb.healthConditions as unknown as HealthCondition[])
       : undefined,
     cpf: CPF.create(employeeDb.cpf),
     rg: employeeDb.rg ?? undefined,
@@ -77,8 +80,8 @@ export function mapEmployeePrismaToDomain(
     supervisorId: employeeDb.supervisorId
       ? new UniqueEntityID(employeeDb.supervisorId)
       : undefined,
-    enterpriseId: employeeDb.enterpriseId
-      ? new UniqueEntityID(employeeDb.enterpriseId)
+    companyId: employeeDb.companyId
+      ? new UniqueEntityID(employeeDb.companyId)
       : undefined,
     hireDate: employeeDb.hireDate,
     terminationDate: employeeDb.terminationDate ?? undefined,

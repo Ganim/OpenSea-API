@@ -6,8 +6,8 @@ import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import fastify from 'fastify';
 import {
-    serializerCompiler,
-    validatorCompiler,
+  serializerCompiler,
+  validatorCompiler,
 } from 'fastify-type-provider-zod';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { env } from './@env';
@@ -29,7 +29,7 @@ app.addHook('onRequest', auditContextHook);
 // Custom JSON parser that allows empty bodies
 app.addContentTypeParser('application/json', function (request, payload, done) {
   let body = '';
-  payload.on('data', chunk => {
+  payload.on('data', (chunk) => {
     body += chunk;
   });
   payload.on('end', () => {
@@ -40,7 +40,7 @@ app.addContentTypeParser('application/json', function (request, payload, done) {
         const parsed = JSON.parse(body);
         done(null, parsed);
       } catch (err) {
-        done(err, undefined);
+        done(err instanceof Error ? err : new Error(String(err)), undefined);
       }
     }
   });
@@ -50,7 +50,10 @@ app.addContentTypeParser('application/json', function (request, payload, done) {
 app.setErrorHandler(errorHandler);
 
 // Rate limiting global (disabled in tests to avoid flakiness)
-const isTestEnv = env.NODE_ENV === 'test' || process.env.VITEST === 'true' || process.env.VITEST === '1';
+const isTestEnv =
+  env.NODE_ENV === 'test' ||
+  process.env.VITEST === 'true' ||
+  process.env.VITEST === '1';
 if (!isTestEnv) {
   app.register(rateLimit, rateLimitConfig.global);
 }

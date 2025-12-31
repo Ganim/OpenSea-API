@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeChangeUserProfileUseCase } from '@/use-cases/core/users/factories/make-change-user-profile-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -11,9 +12,15 @@ export async function changeUserProfileController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/users/:userId',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.CORE.USERS.MANAGE,
+        resource: 'users',
+      }),
+    ],
     schema: {
-      tags: ['Users'],
+      tags: ['Auth - Users'],
       summary: 'Change user profile',
       params: z.object({
         userId: z.uuid(),
@@ -34,7 +41,6 @@ export async function changeUserProfileController(app: FastifyInstance) {
             id: z.string(),
             email: z.string(),
             username: z.string(),
-            role: z.string(),
             lastLoginAt: z.coerce.date().nullable(),
             deletedAt: z.coerce.date().nullable().optional(),
             profile: z

@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { createProductSchema, productResponseSchema } from '@/http/schemas';
 import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeCreateProductUseCase } from '@/use-cases/stock/products/factories/make-create-product-use-case';
@@ -12,9 +13,15 @@ export async function createProductController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/products',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.CREATE,
+        resource: 'products',
+      }),
+    ],
     schema: {
-      tags: ['Products'],
+      tags: ['Stock - Products'],
       summary: 'Create a new product',
       body: createProductSchema,
       response: {

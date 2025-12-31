@@ -13,7 +13,6 @@ describe('Update Category (E2E)', () => {
 
     const { token: authToken } = await createAndAuthenticateUser(
       app as unknown as FastifyInstance,
-      'MANAGER',
     );
     token = authToken;
   });

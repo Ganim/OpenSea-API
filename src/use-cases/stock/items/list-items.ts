@@ -58,7 +58,7 @@ export class ListItemsUseCase {
     }
 
     return {
-      items: items.map(item => itemToDTO(item)),
+      items: items.map((item) => itemToDTO(item)),
     };
   }
 }

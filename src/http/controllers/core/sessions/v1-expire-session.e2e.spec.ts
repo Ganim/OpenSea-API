@@ -14,7 +14,7 @@ describe('Expire Session (e2e)', () => {
   });
 
   it('should allow ADMIN to EXPIRE an user SESSION', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const email = makeUniqueEmail('expire-session');
     const anotherUser = await request(app.server)

@@ -1,11 +1,12 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  manufacturerResponseSchema,
-  updateManufacturerSchema,
-} from '@/http/schemas';
+    manufacturerResponseSchema,
+    updateManufacturerSchema,
+} from '@/http/schemas/stock/manufacturers';
 import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { makeUpdateManufacturerUseCase } from '@/use-cases/stock/manufacturers/factories/make-update-manufacturer-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -16,9 +17,15 @@ export async function updateManufacturerController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/manufacturers/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.MANUFACTURERS.UPDATE,
+        resource: 'manufacturers',
+      }),
+    ],
     schema: {
-      tags: ['Manufacturers'],
+      tags: ['Stock - Manufacturers'],
       summary: 'Update an existing manufacturer',
       description:
         'Update an existing manufacturer with the provided information',

@@ -14,7 +14,7 @@ describe('Process Scheduled Notifications (e2e)', () => {
   });
 
   it('should process scheduled notifications', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     // Create scheduled notification in the past
     const pastDate = new Date(Date.now() - 60000); // 1 minute ago
@@ -47,7 +47,7 @@ describe('Process Scheduled Notifications (e2e)', () => {
   });
 
   it('should not process future scheduled notifications', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     // Create scheduled notification in the future
     const futureDate = new Date(Date.now() + 60000); // 1 minute from now
@@ -73,7 +73,7 @@ describe('Process Scheduled Notifications (e2e)', () => {
   });
 
   it('should skip notifications with disabled preference', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     // Create disabled preference
     await prisma.notificationPreference.create({
@@ -117,7 +117,7 @@ describe('Process Scheduled Notifications (e2e)', () => {
   });
 
   it('should process IN_APP notifications without email', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const pastDate = new Date(Date.now() - 60000);
     const notification = await prisma.notification.create({

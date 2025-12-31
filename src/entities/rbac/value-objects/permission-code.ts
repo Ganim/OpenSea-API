@@ -81,8 +81,8 @@ export class PermissionCode {
       return false;
     }
 
-    // Partes podem ser wildcards (*) ou strings alfanuméricas com hífens
-    const validPattern = /^[a-z0-9*-]+$/i;
+    // Partes podem ser wildcards (*) ou strings alfanuméricas com hífens e underscores
+    const validPattern = /^[a-z0-9*_-]+$/i;
 
     return parts.every((part) => validPattern.test(part));
   }

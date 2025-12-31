@@ -16,7 +16,7 @@ describe('List Group Permissions (e2e)', () => {
   });
 
   it('should allow authenticated USER to LIST group permissions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
     const permission1 = await makePermission();
     const permission2 = await makePermission();
@@ -57,7 +57,7 @@ describe('List Group Permissions (e2e)', () => {
   });
 
   it('should return EMPTY array for group with no permissions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -69,7 +69,7 @@ describe('List Group Permissions (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get(

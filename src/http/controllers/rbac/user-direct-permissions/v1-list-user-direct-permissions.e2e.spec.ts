@@ -17,7 +17,7 @@ describe('List User Direct Permissions (e2e)', () => {
   });
 
   it('should allow authenticated user to LIST their direct permissions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const permission1 = await makePermission();
     const permission2 = await makePermission();
 
@@ -26,9 +26,7 @@ describe('List User Direct Permissions (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     // Grant permissions
     await makeUserDirectPermission({
@@ -64,7 +62,7 @@ describe('List User Direct Permissions (e2e)', () => {
   });
 
   it('should filter by EFFECT (allow)', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const permission1 = await makePermission();
     const permission2 = await makePermission();
 
@@ -73,9 +71,7 @@ describe('List User Direct Permissions (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     await makeUserDirectPermission({
       userId: user.id.toString(),
@@ -90,7 +86,9 @@ describe('List User Direct Permissions (e2e)', () => {
     });
 
     const response = await request(app.server)
-      .get(`/v1/rbac/users/${user.id.toString()}/direct-permissions?effect=allow`)
+      .get(
+        `/v1/rbac/users/${user.id.toString()}/direct-permissions?effect=allow`,
+      )
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toEqual(200);
@@ -102,7 +100,7 @@ describe('List User Direct Permissions (e2e)', () => {
   });
 
   it('should filter by EFFECT (deny)', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const permission1 = await makePermission();
     const permission2 = await makePermission();
 
@@ -111,9 +109,7 @@ describe('List User Direct Permissions (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     await makeUserDirectPermission({
       userId: user.id.toString(),
@@ -128,7 +124,9 @@ describe('List User Direct Permissions (e2e)', () => {
     });
 
     const response = await request(app.server)
-      .get(`/v1/rbac/users/${user.id.toString()}/direct-permissions?effect=deny`)
+      .get(
+        `/v1/rbac/users/${user.id.toString()}/direct-permissions?effect=deny`,
+      )
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toEqual(200);
@@ -140,7 +138,7 @@ describe('List User Direct Permissions (e2e)', () => {
   });
 
   it('should NOT include EXPIRED permissions by default', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const permission1 = await makePermission();
     const permission2 = await makePermission();
 
@@ -149,9 +147,7 @@ describe('List User Direct Permissions (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     // Active permission
     await makeUserDirectPermission({
@@ -180,7 +176,7 @@ describe('List User Direct Permissions (e2e)', () => {
   });
 
   it('should include EXPIRED permissions when requested', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const permission1 = await makePermission();
     const permission2 = await makePermission();
 
@@ -189,9 +185,7 @@ describe('List User Direct Permissions (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     // Active permission
     await makeUserDirectPermission({
@@ -219,7 +213,7 @@ describe('List User Direct Permissions (e2e)', () => {
   });
 
   it('should include CONDITIONS in response', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -227,9 +221,7 @@ describe('List User Direct Permissions (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const conditions = {
       maxAmount: 1000,
@@ -254,16 +246,14 @@ describe('List User Direct Permissions (e2e)', () => {
   });
 
   it('should return EMPTY array when user has no permissions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const createUserUseCase = makeCreateUserUseCase();
     const uniqueId = faker.string.uuid().slice(0, 8);
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .get(`/v1/rbac/users/${user.id.toString()}/direct-permissions`)
@@ -274,10 +264,12 @@ describe('List User Direct Permissions (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT user', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
-      .get('/v1/rbac/users/00000000-0000-0000-0000-000000000000/direct-permissions')
+      .get(
+        '/v1/rbac/users/00000000-0000-0000-0000-000000000000/direct-permissions',
+      )
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toEqual(404);
@@ -289,9 +281,7 @@ describe('List User Direct Permissions (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server).get(
       `/v1/rbac/users/${user.id.toString()}/direct-permissions`,

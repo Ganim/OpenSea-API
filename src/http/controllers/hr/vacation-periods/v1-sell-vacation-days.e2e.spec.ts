@@ -19,7 +19,7 @@ describe('Sell Vacation Days (E2E)', () => {
   });
 
   it('should sell vacation days (abono pecuniário)', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createAvailableVacationPeriodE2E({
@@ -43,7 +43,7 @@ describe('Sell Vacation Days (E2E)', () => {
   });
 
   it('should not sell more than 10 days (1/3 of vacation)', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createAvailableVacationPeriodE2E({
@@ -65,7 +65,7 @@ describe('Sell Vacation Days (E2E)', () => {
   });
 
   it('should not sell days from completed period', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createCompletedVacationPeriodE2E({
@@ -84,7 +84,7 @@ describe('Sell Vacation Days (E2E)', () => {
   });
 
   it('should return 404 for non-existent vacation period', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .patch(

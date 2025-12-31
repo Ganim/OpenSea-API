@@ -15,7 +15,7 @@ describe('Clock In (E2E)', () => {
   });
 
   it('should register clock in successfully', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     const response = await request(app.server)
@@ -33,7 +33,7 @@ describe('Clock In (E2E)', () => {
   });
 
   it('should register clock in with geolocation', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
     const response = await request(app.server)
@@ -64,7 +64,7 @@ describe('Clock In (E2E)', () => {
   });
 
   it('should return 404 for non-existent employee', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+    const { token } = await createAndAuthenticateUser(app);
     const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)

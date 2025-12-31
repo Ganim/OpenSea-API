@@ -1,7 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { productResponseSchema, updateProductSchema } from '@/http/schemas';
 import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeUpdateProductUseCase } from '@/use-cases/stock/products/factories/make-update-product-use-case';
@@ -13,9 +14,15 @@ export async function updateProductController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/products/:productId',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.STOCK.PRODUCTS.UPDATE,
+        resource: 'products',
+      }),
+    ],
     schema: {
-      tags: ['Products'],
+      tags: ['Stock - Products'],
       summary: 'Update a product',
       params: z.object({
         productId: z.uuid(),

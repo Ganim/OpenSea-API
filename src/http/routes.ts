@@ -45,10 +45,16 @@ import { variantsRoutes } from './controllers/stock/variants/routes';
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
 import { bonusesRoutes } from './controllers/hr/bonuses/routes';
+import { companyAddressesRoutes } from './controllers/hr/company-addresses/routes';
+import { companyCnaesRoutes } from './controllers/hr/company-cnaes/routes';
+import { companyFiscalSettingsRoutes } from './controllers/hr/company-fiscal-settings/routes';
+import { companyStakeholderRoutes } from './controllers/hr/company-stakeholder/routes';
 import { deductionsRoutes } from './controllers/hr/deductions/routes';
 import { departmentsRoutes } from './controllers/hr/departments/routes';
 import { employeesRoutes } from './controllers/hr/employees/routes';
-import { enterprisesRoutes } from './controllers/hr/enterprises/routes';
+import { companiesRoutes } from './controllers/hr/companies/routes';
+import { suppliersRoutes as hrSuppliersRoutes } from './controllers/hr/suppliers/routes';
+import { manufacturersRoutes as hrManufacturersRoutes } from './controllers/hr/manufacturers/routes';
 import { overtimeRoutes } from './controllers/hr/overtime/routes';
 import { payrollsRoutes } from './controllers/hr/payrolls/routes';
 import { positionsRoutes } from './controllers/hr/positions/routes';
@@ -99,7 +105,9 @@ export async function registerRoutes(app: FastifyInstance) {
   // HR routes
   await app.register(employeesRoutes);
   await app.register(departmentsRoutes);
-  await app.register(enterprisesRoutes);
+  await app.register(companiesRoutes);
+  await app.register(hrSuppliersRoutes);
+  await app.register(hrManufacturersRoutes);
   await app.register(positionsRoutes);
   await app.register(timeControlRoutes);
   await app.register(workSchedulesRoutes);
@@ -110,6 +118,10 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(payrollsRoutes);
   await app.register(bonusesRoutes);
   await app.register(deductionsRoutes);
+  await app.register(companyAddressesRoutes);
+  await app.register(companyCnaesRoutes);
+  await app.register(companyFiscalSettingsRoutes);
+  await app.register(companyStakeholderRoutes);
 
   // Audit routes
   await app.register(auditRoutes);

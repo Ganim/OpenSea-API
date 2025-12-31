@@ -35,7 +35,6 @@ export class CreateRequestUseCase {
       requesterId: new UniqueEntityID(data.requesterId),
       targetType: data.targetType,
       targetId: data.targetId,
-      targetRole: data.targetRole,
       dueDate: data.dueDate,
       slaDeadline,
       metadata: data.metadata ?? {},
@@ -91,7 +90,7 @@ export class CreateRequestUseCase {
     if (request.targetType === 'USER' && request.targetId) {
       targetUserIds = [request.targetId];
     }
-    // TODO: Implementar lógica para GROUP e ROLE quando disponível
+    // TODO: Implementar lógica para GROUP quando disponível
 
     for (const userId of targetUserIds) {
       await this.createNotificationUseCase.execute({

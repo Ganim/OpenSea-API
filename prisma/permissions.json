@@ -134,6 +134,10 @@
     "HR": {
       "description": "Human Resources management",
       "resources": {
+        "companies": {
+          "description": "Company management",
+          "actions": ["create", "read", "update", "delete", "list", "get_by_cnpj", "restore", "manage"]
+        },
         "employees": {
           "description": "Employee management",
           "actions": ["create", "read", "update", "delete", "list", "manage"]
@@ -173,6 +177,14 @@
         "deductions": {
           "description": "Deduction management",
           "actions": ["create", "read", "update", "delete", "list"]
+        },
+        "fiscal-settings": {
+          "description": "Company fiscal settings (NF-e, NFC-e, certificates)",
+          "actions": ["create", "read", "read_sensitive", "update", "delete", "list"]
+        },
+        "stakeholders": {
+          "description": "Company stakeholders (partners, representatives, administrators)",
+          "actions": ["create", "read", "read_sensitive", "update", "delete", "list", "sync_from_cnpj_api"]
         }
       }
     }

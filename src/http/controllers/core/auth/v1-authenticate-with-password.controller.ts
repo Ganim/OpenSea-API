@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { PasswordResetRequiredError } from '@/@errors/use-cases/password-reset-required-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UserBlockedError } from '@/@errors/use-cases/user-blocked-error';
 import { authResponseSchema, loginSchema } from '@/http/schemas';
@@ -19,7 +20,16 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
       response: {
         200: authResponseSchema,
         400: z.object({ message: z.string() }),
-        403: z.object({ message: z.string(), blockedUntil: z.coerce.date() }),
+        403: z.union([
+          z.object({ message: z.string(), blockedUntil: z.coerce.date() }),
+          z.object({
+            message: z.string(),
+            code: z.literal('PASSWORD_RESET_REQUIRED'),
+            resetToken: z.string(),
+            reason: z.string().nullable().optional(),
+            requestedAt: z.coerce.date().nullable().optional(),
+          }),
+        ]),
         404: z.object({ message: z.string() }),
       },
     },
@@ -53,10 +63,19 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }
+        if (error instanceof PasswordResetRequiredError) {
+          return reply.status(403).send({
+            message: error.message,
+            code: error.code,
+            resetToken: error.data.resetToken,
+            reason: error.data.reason ?? null,
+            requestedAt: error.data.requestedAt ?? null,
+          });
+        }
         if (error instanceof UserBlockedError) {
           return reply.status(403).send({
             message: error.message,
-            blockedUntil: error.blockedUntil, //
+            blockedUntil: error.blockedUntil,
           });
         }
         if (error instanceof ResourceNotFoundError) {

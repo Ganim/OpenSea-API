@@ -14,7 +14,7 @@ describe('Create Work Schedule (E2E)', () => {
   });
 
   it('should allow MANAGER to create a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
     const response = await request(app.server)
@@ -44,8 +44,8 @@ describe('Create Work Schedule (E2E)', () => {
     expect(response.body.workSchedule.breakDuration).toBe(60);
   });
 
-  it('should NOT allow USER to create a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to create a work schedule', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
 
     const response = await request(app.server)
       .post('/v1/hr/work-schedules')
@@ -70,7 +70,7 @@ describe('Create Work Schedule (E2E)', () => {
   });
 
   it('should validate time format', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/hr/work-schedules')

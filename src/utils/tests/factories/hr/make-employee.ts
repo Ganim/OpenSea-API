@@ -59,7 +59,7 @@ interface MakeEmployeeProps {
   departmentId?: UniqueEntityID;
   positionId?: UniqueEntityID;
   supervisorId?: UniqueEntityID;
-  enterpriseId?: UniqueEntityID;
+  companyId?: UniqueEntityID;
   hireDate?: Date;
   terminationDate?: Date;
   status?: EmployeeStatus;
@@ -227,7 +227,7 @@ export function makeEmployee(override: MakeEmployeeProps = {}): Employee {
       departmentId: override.departmentId,
       positionId: override.positionId,
       supervisorId: override.supervisorId,
-      enterpriseId: override.enterpriseId,
+      companyId: override.companyId,
       hireDate: override.hireDate ?? faker.date.past({ years: 5 }),
       terminationDate: override.terminationDate,
       status: override.status ?? EmployeeStatus.ACTIVE(),

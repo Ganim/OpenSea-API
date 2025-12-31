@@ -16,7 +16,7 @@ describe('Create Deduction (E2E)', () => {
   });
 
   it('should allow MANAGER to create a new deduction', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
     const deductionData = generateDeductionData(employeeId);
 
@@ -33,7 +33,7 @@ describe('Create Deduction (E2E)', () => {
   });
 
   it('should create a recurring deduction with installments', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
     const deductionData = generateDeductionData(employeeId, {
       isRecurring: true,
@@ -50,8 +50,8 @@ describe('Create Deduction (E2E)', () => {
     expect(response.body.deduction.installments).toBe(12);
   });
 
-  it('should NOT allow USER to create a deduction', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to create a deduction', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const { employeeId } = await createEmployeeE2E();
     const deductionData = generateDeductionData(employeeId);
 
@@ -75,8 +75,10 @@ describe('Create Deduction (E2E)', () => {
   });
 
   it('should return 404 when employee not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
-    const deductionData = generateDeductionData('550e8400-e29b-41d4-a716-446655440000');
+    const { token } = await createAndAuthenticateUser(app);
+    const deductionData = generateDeductionData(
+      '550e8400-e29b-41d4-a716-446655440000',
+    );
 
     const response = await request(app.server)
       .post('/v1/hr/deductions')

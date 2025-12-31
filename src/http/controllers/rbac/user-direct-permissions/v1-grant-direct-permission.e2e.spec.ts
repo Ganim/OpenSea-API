@@ -16,7 +16,7 @@ describe('Grant Direct Permission (e2e)', () => {
   });
 
   it('should allow ADMIN to GRANT direct permission to user', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -24,9 +24,7 @@ describe('Grant Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/direct-permissions`)
@@ -42,7 +40,7 @@ describe('Grant Direct Permission (e2e)', () => {
   });
 
   it('should allow granting with DENY effect', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -50,9 +48,7 @@ describe('Grant Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/direct-permissions`)
@@ -69,7 +65,7 @@ describe('Grant Direct Permission (e2e)', () => {
   });
 
   it('should allow granting with EXPIRATION date', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -77,9 +73,7 @@ describe('Grant Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 30);
@@ -96,7 +90,7 @@ describe('Grant Direct Permission (e2e)', () => {
   });
 
   it('should allow granting with CONDITIONS', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -104,9 +98,7 @@ describe('Grant Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/direct-permissions`)
@@ -125,7 +117,6 @@ describe('Grant Direct Permission (e2e)', () => {
   it('should allow setting GRANTED BY', async () => {
     const { token, user: adminUser } = await createAndAuthenticateUser(
       app,
-      'ADMIN',
     );
     const permission = await makePermission();
 
@@ -134,9 +125,7 @@ describe('Grant Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/direct-permissions`)
@@ -150,7 +139,7 @@ describe('Grant Direct Permission (e2e)', () => {
   });
 
   it('should return 400 when permission is ALREADY ASSIGNED', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -158,9 +147,7 @@ describe('Grant Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     // First grant
     await request(app.server)
@@ -181,8 +168,8 @@ describe('Grant Direct Permission (e2e)', () => {
     expect(response.statusCode).toEqual(400);
   });
 
-  it('should NOT allow USER to grant permissions', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to grant permissions', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -190,9 +177,7 @@ describe('Grant Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/direct-permissions`)
@@ -205,11 +190,13 @@ describe('Grant Direct Permission (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT user', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const response = await request(app.server)
-      .post('/v1/rbac/users/00000000-0000-0000-0000-000000000000/direct-permissions')
+      .post(
+        '/v1/rbac/users/00000000-0000-0000-0000-000000000000/direct-permissions',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({
         permissionId: permission.id.toString(),
@@ -219,16 +206,14 @@ describe('Grant Direct Permission (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const createUserUseCase = makeCreateUserUseCase();
     const uniqueId = faker.string.uuid().slice(0, 8);
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/direct-permissions`)
@@ -248,9 +233,7 @@ describe('Grant Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .post(`/v1/rbac/users/${user.id.toString()}/direct-permissions`)

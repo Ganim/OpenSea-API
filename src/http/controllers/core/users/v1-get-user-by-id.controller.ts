@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 
 import type { FastifyInstance } from 'fastify';
@@ -12,7 +12,7 @@ export async function getUserByIdController(app: FastifyInstance) {
     url: '/v1/users/:userId',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Users'],
+      tags: ['Auth - Users'],
       summary: 'Get user by ID',
       params: z.object({
         userId: z.uuid(),
@@ -23,7 +23,6 @@ export async function getUserByIdController(app: FastifyInstance) {
             id: z.string(),
             email: z.string(),
             username: z.string(),
-            role: z.string(),
             lastLoginAt: z.coerce.date().nullable(),
             deletedAt: z.coerce.date().nullable().optional(),
             profile: z

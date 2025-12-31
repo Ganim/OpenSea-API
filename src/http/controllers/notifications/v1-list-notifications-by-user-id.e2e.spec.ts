@@ -14,7 +14,7 @@ describe('List Notifications By UserId (e2e)', () => {
   });
 
   it('should list notifications of the authenticated user', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const userId = user.user.id.toString();
 
     await makeNotification({ userId, type: 'INFO', channel: 'IN_APP' });
@@ -35,7 +35,7 @@ describe('List Notifications By UserId (e2e)', () => {
   });
 
   it('should filter by read status', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'USER');
+    const { token, user } = await createAndAuthenticateUser(app);
     const userId = user.user.id.toString();
 
     const n = await makeNotification({

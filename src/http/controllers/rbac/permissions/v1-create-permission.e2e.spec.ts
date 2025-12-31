@@ -14,7 +14,7 @@ describe('Create Permission (e2e)', () => {
   });
 
   it('should allow ADMIN to CREATE a permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const uniqueId = faker.string.alpha({ length: 8 }).toLowerCase();
     const resource = `resource-${uniqueId}`;
 
@@ -56,8 +56,8 @@ describe('Create Permission (e2e)', () => {
     });
   });
 
-  it('should NOT allow USER to CREATE a permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to CREATE a permission', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const uniqueId = faker.string.alpha({ length: 8 }).toLowerCase();
     const resource = `resource-${uniqueId}`;
 
@@ -94,7 +94,7 @@ describe('Create Permission (e2e)', () => {
   });
 
   it('should REJECT invalid permission code format', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post('/v1/rbac/permissions')
@@ -112,7 +112,7 @@ describe('Create Permission (e2e)', () => {
   });
 
   it('should REJECT duplicate permission code', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const uniqueId = faker.string.alpha({ length: 8 }).toLowerCase();
     const resource = `duplicate-${uniqueId}`;
 

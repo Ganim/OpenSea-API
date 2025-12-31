@@ -15,7 +15,7 @@ describe('Get Purchase Order By ID (E2E)', () => {
   });
 
   it('should allow authenticated user to get purchase order by ID', async () => {
-    const { token, user } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token, user } = await createAndAuthenticateUser(app);
 
     const timestamp = Date.now();
 
@@ -99,7 +99,7 @@ describe('Get Purchase Order By ID (E2E)', () => {
   });
 
   it('should return 404 for non-existent purchase order', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/purchase-orders/00000000-0000-0000-0000-000000000000')

@@ -1,10 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import {
-    ContractType,
-    CPF,
-    EmployeeStatus,
-    WorkRegime,
+  ContractType,
+  CPF,
+  EmployeeStatus,
+  WorkRegime,
 } from '@/entities/hr/value-objects';
 import { InMemoryBonusesRepository } from '@/repositories/hr/in-memory/in-memory-bonuses-repository';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';

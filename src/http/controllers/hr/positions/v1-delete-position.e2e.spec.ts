@@ -15,7 +15,7 @@ describe('Delete Position (E2E)', () => {
   });
 
   it('should allow MANAGER to delete a position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E();
 
     const response = await request(app.server)
@@ -28,7 +28,7 @@ describe('Delete Position (E2E)', () => {
   });
 
   it('should allow ADMIN to delete a position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E();
 
     const response = await request(app.server)
@@ -39,8 +39,8 @@ describe('Delete Position (E2E)', () => {
     expect(response.body.message).toContain('deleted');
   });
 
-  it('should NOT allow USER to delete a position', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to delete a position', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const { positionId } = await createPositionE2E();
 
     const response = await request(app.server)
@@ -61,7 +61,7 @@ describe('Delete Position (E2E)', () => {
   });
 
   it('should return 404 when position is not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const fakeId = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
@@ -72,7 +72,7 @@ describe('Delete Position (E2E)', () => {
   });
 
   it('should return 400 when ID is invalid', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const invalidId = 'invalid-uuid';
 
     const response = await request(app.server)
@@ -83,7 +83,7 @@ describe('Delete Position (E2E)', () => {
   });
 
   it('should not find position after deletion', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { positionId } = await createPositionE2E();
 
     // Delete

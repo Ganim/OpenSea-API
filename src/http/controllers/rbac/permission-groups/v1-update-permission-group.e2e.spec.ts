@@ -15,7 +15,7 @@ describe('Update Permission Group (e2e)', () => {
   });
 
   it('should allow ADMIN to UPDATE a permission group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const updatedName = `Updated Group ${faker.string.uuid().slice(0, 8)}`;
@@ -40,7 +40,7 @@ describe('Update Permission Group (e2e)', () => {
   });
 
   it('should allow partial UPDATE', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -55,7 +55,7 @@ describe('Update Permission Group (e2e)', () => {
   });
 
   it('should allow DEACTIVATING a group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup({ isActive: true });
 
     const response = await request(app.server)
@@ -69,8 +69,8 @@ describe('Update Permission Group (e2e)', () => {
     expect(response.body.group.isActive).toBe(false);
   });
 
-  it('should NOT allow USER to UPDATE a permission group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to UPDATE a permission group', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const group = await makePermissionGroup();
 
     const response = await request(app.server)
@@ -84,7 +84,7 @@ describe('Update Permission Group (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT group', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .patch('/v1/rbac/permission-groups/00000000-0000-0000-0000-000000000000')

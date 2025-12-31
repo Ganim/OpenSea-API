@@ -1,7 +1,7 @@
 import { User } from '@/entities/core/user';
 import { Username } from '@/entities/core/value-objects/username';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Permission } from '@/entities/rbac/permission';
+import { PermissionCode } from '@/entities/rbac/value-objects/permission-code';
 import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
 import { InMemoryPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-permissions-repository';
 import { InMemoryUserDirectPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-user-direct-permissions-repository';
@@ -43,21 +43,18 @@ describe('ListUsersByPermissionUseCase', () => {
       .mockResolvedValueOnce({
         id: userId1,
         username: Username.create('user1'),
-        role: 'USER',
       } as unknown as User)
       .mockResolvedValueOnce({
         id: userId2,
         username: Username.create('user2'),
-        role: 'USER',
       } as unknown as User)
       .mockResolvedValueOnce({
         id: userId3,
         username: Username.create('user3'),
-        role: 'USER',
       } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'sales.orders.create',
+      code: PermissionCode.create('sales.orders.create'),
       name: 'Create Sales Orders',
       description: 'Permission to create sales orders',
       module: 'sales',
@@ -93,7 +90,7 @@ describe('ListUsersByPermissionUseCase', () => {
 
   it('should return EMPTY array when no users have the permission', async () => {
     const permission = await permissionsRepository.create({
-      code: 'unused.permission.read',
+      code: PermissionCode.create('unused.permission.read'),
       name: 'Unused Permission',
       description: 'Permission not assigned to anyone',
       module: 'unused',
@@ -118,16 +115,14 @@ describe('ListUsersByPermissionUseCase', () => {
       .mockResolvedValueOnce({
         id: userId1,
         username: Username.create('user1'),
-        role: 'USER',
       } as unknown as User)
       .mockResolvedValueOnce({
         id: userId2,
         username: Username.create('user2'),
-        role: 'USER',
       } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'temp.access.read',
+      code: PermissionCode.create('temp.access.read'),
       name: 'Temporary Access',
       description: 'Temporary read access',
       module: 'temp',
@@ -171,16 +166,14 @@ describe('ListUsersByPermissionUseCase', () => {
       .mockResolvedValueOnce({
         id: userId1,
         username: Username.create('user1'),
-        role: 'USER',
       } as unknown as User)
       .mockResolvedValueOnce({
         id: userId2,
         username: Username.create('user2'),
-        role: 'USER',
       } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'stock.products.delete',
+      code: PermissionCode.create('stock.products.delete'),
       name: 'Delete Products',
       description: 'Permission to delete products',
       module: 'stock',
@@ -220,11 +213,10 @@ describe('ListUsersByPermissionUseCase', () => {
     vi.spyOn(usersRepository, 'findById').mockResolvedValue({
       id: userId,
       username: Username.create('john_doe'),
-      role: 'USER',
     } as unknown as User);
 
     const permission = await permissionsRepository.create({
-      code: 'unique.test.read',
+      code: PermissionCode.create('unique.test.read'),
       name: 'Unique Test',
       description: 'Test for unique user IDs',
       module: 'unique',
@@ -265,12 +257,11 @@ describe('ListUsersByPermissionUseCase', () => {
       spy.mockResolvedValueOnce({
         id: userId,
         username: Username.create(`user${index}`),
-        role: 'USER',
       } as unknown as User);
     });
 
     const permission = await permissionsRepository.create({
-      code: 'common.feature.access',
+      code: PermissionCode.create('common.feature.access'),
       name: 'Common Feature',
       description: 'Commonly granted permission',
       module: 'common',

@@ -1,6 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Department } from '@/entities/hr/department';
-import { DepartmentsRepository } from '@/repositories/hr/departments-repository';
+import type { Company } from '@/entities/hr/company';
+import type { Department } from '@/entities/hr/department';
+import type { Position } from '@/entities/hr/position';
+import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
+import type { DepartmentsRepository } from '@/repositories/hr/departments-repository';
+import type { PositionsRepository } from '@/repositories/hr/positions-repository';
 
 export interface GetDepartmentByIdRequest {
   id: string;
@@ -8,10 +12,17 @@ export interface GetDepartmentByIdRequest {
 
 export interface GetDepartmentByIdResponse {
   department: Department;
+  company: Company | null;
+  positions: Position[];
+  positionsCount: number;
 }
 
 export class GetDepartmentByIdUseCase {
-  constructor(private departmentsRepository: DepartmentsRepository) {}
+  constructor(
+    private departmentsRepository: DepartmentsRepository,
+    private companiesRepository: CompaniesRepository,
+    private positionsRepository: PositionsRepository,
+  ) {}
 
   async execute(
     request: GetDepartmentByIdRequest,
@@ -26,6 +37,21 @@ export class GetDepartmentByIdUseCase {
       throw new Error('Department not found');
     }
 
-    return { department };
+    // Get company
+    const company = await this.companiesRepository.findById(
+      department.companyId,
+    );
+
+    // Get positions in this department
+    const positions = await this.positionsRepository.findManyByDepartment(
+      department.id,
+    );
+
+    return {
+      department,
+      company,
+      positions,
+      positionsCount: positions.length,
+    };
   }
 }

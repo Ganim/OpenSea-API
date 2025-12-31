@@ -15,7 +15,7 @@ describe('Delete Department (E2E)', () => {
   });
 
   it('should allow MANAGER to delete a department', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { departmentId } = await createDepartmentE2E();
 
     const response = await request(app.server)
@@ -26,7 +26,7 @@ describe('Delete Department (E2E)', () => {
   });
 
   it('should allow ADMIN to delete a department', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const { departmentId } = await createDepartmentE2E();
 
     const response = await request(app.server)
@@ -36,8 +36,8 @@ describe('Delete Department (E2E)', () => {
     expect(response.statusCode).toBe(204);
   });
 
-  it('should NOT allow USER to delete a department', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to delete a department', async () => {
+    const { token } = await createAndAuthenticateUser(app, );
     const { departmentId } = await createDepartmentE2E();
 
     const response = await request(app.server)
@@ -58,7 +58,7 @@ describe('Delete Department (E2E)', () => {
   });
 
   it('should return 404 when department is not found', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const fakeId = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
@@ -69,7 +69,7 @@ describe('Delete Department (E2E)', () => {
   });
 
   it('should return 400 when ID is invalid', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const invalidId = 'invalid-uuid';
 
     const response = await request(app.server)
@@ -80,7 +80,7 @@ describe('Delete Department (E2E)', () => {
   });
 
   it('should not find department after deletion', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'MANAGER');
+    const { token } = await createAndAuthenticateUser(app);
     const { departmentId } = await createDepartmentE2E();
 
     // Delete

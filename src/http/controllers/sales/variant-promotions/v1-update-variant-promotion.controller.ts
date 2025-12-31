@@ -1,10 +1,11 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-  updateVariantPromotionSchema,
-  variantPromotionResponseSchema,
+    updateVariantPromotionSchema,
+    variantPromotionResponseSchema,
 } from '@/http/schemas/sales.schema';
 import { makeUpdateVariantPromotionUseCase } from '@/use-cases/sales/variant-promotions/factories/make-update-variant-promotion-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -15,9 +16,15 @@ export async function updateVariantPromotionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/variant-promotions/:id',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.PROMOTIONS.UPDATE,
+        resource: 'variant-promotions',
+      }),
+    ],
     schema: {
-      tags: ['Variant Promotions'],
+      tags: ['Sales - Variant Promotions'],
       summary: 'Update a variant promotion',
       params: z.object({ id: z.string().uuid() }),
       body: updateVariantPromotionSchema,

@@ -1,6 +1,6 @@
 ﻿import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeDeleteCommentUseCase } from '@/use-cases/sales/comments/factories/make-delete-comment-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -12,7 +12,7 @@ export async function deleteCommentController(app: FastifyInstance) {
     url: '/v1/comments/:id',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Comments'],
+      tags: ['Sales - Comments'],
       summary: 'Delete a comment (soft delete)',
       params: z.object({ id: z.string().uuid() }),
       response: {

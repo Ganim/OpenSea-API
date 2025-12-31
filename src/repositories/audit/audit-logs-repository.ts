@@ -10,8 +10,8 @@ export interface CreateAuditLogSchema {
   module: AuditModule;
   entityId: string;
   description?: string | null;
-  oldData?: Record<string, any> | null;
-  newData?: Record<string, any> | null;
+  oldData?: Record<string, unknown> | null;
+  newData?: Record<string, unknown> | null;
 
   // Request metadata
   ip?: string | null;

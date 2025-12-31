@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeListOnlineUsersUseCase } from '@/use-cases/core/users/factories/make-list-online-users-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -11,7 +11,7 @@ export async function listOnlineUsersController(app: FastifyInstance) {
     url: '/v1/users/online',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Users'],
+      tags: ['Auth - Users'],
       summary: 'List all online users',
       response: {
         200: z.object({
@@ -20,7 +20,6 @@ export async function listOnlineUsersController(app: FastifyInstance) {
               id: z.string(),
               email: z.string(),
               username: z.string(),
-              role: z.string(),
               lastLoginAt: z.coerce.date().nullable(),
               deletedAt: z.coerce.date().nullable().optional(),
               profile: z

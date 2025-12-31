@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyUserManager } from '@/http/middlewares/verify-user-manager';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   createDepartmentSchema,
   departmentResponseSchema,
@@ -15,7 +16,13 @@ export async function createDepartmentController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/departments',
-    preHandler: [verifyJwt, verifyUserManager],
+    preHandler: [
+      verifyJwt,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.DEPARTMENTS.CREATE,
+        resource: 'departments',
+      }),
+    ],
     schema: {
       tags: ['HR - Departments'],
       summary: 'Create a new department',
@@ -43,6 +50,7 @@ export async function createDepartmentController(app: FastifyInstance) {
           description: data.description,
           parentId: data.parentId ?? undefined,
           managerId: data.managerId ?? undefined,
+          companyId: data.companyId,
           isActive: data.isActive,
         });
 

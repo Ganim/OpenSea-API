@@ -20,6 +20,7 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
         description: data.description,
         parentId: data.parentId,
         managerId: data.managerId,
+        companyId: data.companyId,
         isActive: data.isActive ?? true,
       },
       id,
@@ -36,9 +37,15 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
     return department || null;
   }
 
-  async findByCode(code: string): Promise<Department | null> {
+  async findByCode(
+    code: string,
+    companyId: UniqueEntityID,
+  ): Promise<Department | null> {
     const department = this.items.find(
-      (item) => item.code === code && !item.deletedAt,
+      (item) =>
+        item.code === code &&
+        item.companyId.equals(companyId) &&
+        !item.deletedAt,
     );
     return department || null;
   }
@@ -46,7 +53,7 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
   async findMany(
     params: FindManyDepartmentsParams,
   ): Promise<FindManyDepartmentsResult> {
-    const { page = 1, perPage = 20, search, isActive, parentId } = params;
+    const { page = 1, perPage = 20, search, isActive, parentId, companyId } = params;
 
     let filteredItems = this.items.filter((item) => !item.deletedAt);
 
@@ -71,6 +78,12 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
       );
     }
 
+    if (companyId) {
+      filteredItems = filteredItems.filter((item) =>
+        item.companyId.equals(companyId),
+      );
+    }
+
     const total = filteredItems.length;
     const start = (page - 1) * perPage;
     const departments = filteredItems.slice(start, start + perPage);
@@ -87,6 +100,12 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
   async findManyByManager(managerId: UniqueEntityID): Promise<Department[]> {
     return this.items.filter(
       (item) => item.managerId?.equals(managerId) && !item.deletedAt,
+    );
+  }
+
+  async findManyByCompany(companyId: UniqueEntityID): Promise<Department[]> {
+    return this.items.filter(
+      (item) => item.companyId.equals(companyId) && !item.deletedAt,
     );
   }
 
@@ -132,6 +151,7 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
           data.managerId === null
             ? undefined
             : (data.managerId ?? department.managerId),
+        companyId: department.companyId,
         isActive: data.isActive ?? department.isActive,
         deletedAt: department.deletedAt,
       },

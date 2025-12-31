@@ -17,7 +17,7 @@ describe('Revoke Direct Permission (e2e)', () => {
   });
 
   it('should allow ADMIN to REVOKE direct permission from user', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -25,9 +25,7 @@ describe('Revoke Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     // Grant permission first
     await makeUserDirectPermission({
@@ -46,7 +44,7 @@ describe('Revoke Direct Permission (e2e)', () => {
   });
 
   it('should return 404 when trying to REVOKE non-existent permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -54,9 +52,7 @@ describe('Revoke Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     // Try to revoke without granting
     const response = await request(app.server)
@@ -68,9 +64,11 @@ describe('Revoke Direct Permission (e2e)', () => {
     expect(response.statusCode).toEqual(404);
   });
 
-  it('should NOT allow USER to revoke permissions', async () => {
-    const { token: adminToken } = await createAndAuthenticateUser(app, 'ADMIN');
-    const { token: userToken } = await createAndAuthenticateUser(app, 'USER');
+  it('should NOT allow user without permission to revoke permissions', async () => {
+    const { token: _adminToken } = await createAndAuthenticateUser(
+      app,
+    );
+    const { token: userToken } = await createAndAuthenticateUser(app, );
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();
@@ -78,9 +76,7 @@ describe('Revoke Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     // Grant permission as admin
     await makeUserDirectPermission({
@@ -99,7 +95,7 @@ describe('Revoke Direct Permission (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT user', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
     const response = await request(app.server)
@@ -112,16 +108,14 @@ describe('Revoke Direct Permission (e2e)', () => {
   });
 
   it('should return 404 for NON-EXISTENT permission', async () => {
-    const { token } = await createAndAuthenticateUser(app, 'ADMIN');
+    const { token } = await createAndAuthenticateUser(app);
 
     const createUserUseCase = makeCreateUserUseCase();
     const uniqueId = faker.string.uuid().slice(0, 8);
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server)
       .delete(
@@ -140,9 +134,7 @@ describe('Revoke Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`,
-      role: 'USER',
-    });
+      username: `user${uniqueId}`, });
 
     const response = await request(app.server).delete(
       `/v1/rbac/users/${user.id.toString()}/direct-permissions/${permission.id.toString()}`,

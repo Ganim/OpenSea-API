@@ -36,7 +36,9 @@ export interface PayrollItemsRepository {
     payrollId: UniqueEntityID,
     employeeId: UniqueEntityID,
   ): Promise<PayrollItem[]>;
-  sumByPayroll(payrollId: UniqueEntityID): Promise<{ totalGross: number; totalDeductions: number }>;
+  sumByPayroll(
+    payrollId: UniqueEntityID,
+  ): Promise<{ totalGross: number; totalDeductions: number }>;
   sumByPayrollAndEmployee(
     payrollId: UniqueEntityID,
     employeeId: UniqueEntityID,

@@ -48,14 +48,15 @@ export class RegisterItemEntryUseCase {
   ): Promise<RegisterItemEntryUseCaseOutput> {
     // Validate or generate uniqueCode
     let uniqueCode = input.uniqueCode;
-    
+
     if (uniqueCode) {
       if (uniqueCode.length > 128) {
         throw new BadRequestError('Unique code must not exceed 128 characters');
       }
 
       // Check if uniqueCode is unique
-      const existingItem = await this.itemsRepository.findByUniqueCode(uniqueCode);
+      const existingItem =
+        await this.itemsRepository.findByUniqueCode(uniqueCode);
 
       if (existingItem) {
         throw new BadRequestError('Unique code already exists');

@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeLogoutSessionUseCase } from '@/use-cases/core/sessions/factories/make-logout-session-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -11,7 +11,7 @@ export async function logoutSessionController(app: FastifyInstance) {
     url: '/v1/sessions/logout',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Sessions'],
+      tags: ['Auth - Sessions'],
       summary: 'Logout the current authenticated user session',
       response: {
         204: z.void(),

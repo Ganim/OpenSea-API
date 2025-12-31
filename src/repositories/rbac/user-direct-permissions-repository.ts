@@ -54,9 +54,7 @@ export interface UserDirectPermissionsRepository {
   listByPermissionId(
     permissionId: UniqueEntityID,
   ): Promise<UserDirectPermission[]>;
-  listActiveByUserId(
-    userId: UniqueEntityID,
-  ): Promise<UserDirectPermission[]>;
+  listActiveByUserId(userId: UniqueEntityID): Promise<UserDirectPermission[]>;
 
   // COMPLEX QUERIES
   listPermissionsByUserId(
@@ -80,7 +78,10 @@ export interface UserDirectPermissionsRepository {
   >;
 
   // UTILITY
-  exists(userId: UniqueEntityID, permissionId: UniqueEntityID): Promise<boolean>;
+  exists(
+    userId: UniqueEntityID,
+    permissionId: UniqueEntityID,
+  ): Promise<boolean>;
   countByUserId(userId: UniqueEntityID): Promise<number>;
   countByPermissionId(permissionId: UniqueEntityID): Promise<number>;
   countUsersWithPermission(permissionId: UniqueEntityID): Promise<number>;
