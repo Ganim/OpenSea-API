@@ -1,6 +1,8 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
+import { CareInstructions } from '@/entities/stock/value-objects/care-instructions';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { prisma } from '@/lib/prisma';
 import type { ProductStatus as PrismaProductStatus } from '@prisma/client';
@@ -36,6 +38,9 @@ export class PrismaProductsRepository implements ProductsRepository {
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
         attributes: productData.attributes as Record<string, unknown>,
+        careInstructions: CareInstructions.create(
+          productData.careInstructionIds ?? [],
+        ),
         templateId: new EntityID(productData.templateId),
         supplierId: productData.supplierId
           ? new EntityID(productData.supplierId)
@@ -74,6 +79,9 @@ export class PrismaProductsRepository implements ProductsRepository {
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
         attributes: productData.attributes as Record<string, unknown>,
+        careInstructions: CareInstructions.create(
+          productData.careInstructionIds ?? [],
+        ),
         templateId: new EntityID(productData.templateId),
         supplierId: productData.supplierId
           ? new EntityID(productData.supplierId)
@@ -115,6 +123,9 @@ export class PrismaProductsRepository implements ProductsRepository {
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
         attributes: productData.attributes as Record<string, unknown>,
+        careInstructions: CareInstructions.create(
+          productData.careInstructionIds ?? [],
+        ),
         templateId: new EntityID(productData.templateId),
         supplierId: productData.supplierId
           ? new EntityID(productData.supplierId)
@@ -342,6 +353,63 @@ export class PrismaProductsRepository implements ProductsRepository {
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
         attributes: productData.attributes as Record<string, unknown>,
+        careInstructions: CareInstructions.create(
+          productData.careInstructionIds ?? [],
+        ),
+        templateId: new EntityID(productData.templateId),
+        supplierId: productData.supplierId
+          ? new EntityID(productData.supplierId)
+          : undefined,
+        manufacturerId: productData.manufacturerId
+          ? new EntityID(productData.manufacturerId)
+          : undefined,
+        createdAt: productData.createdAt,
+        updatedAt: productData.updatedAt ?? undefined,
+        deletedAt: productData.deletedAt ?? undefined,
+      },
+      new EntityID(productData.id),
+    );
+  }
+
+  async updateCareInstructions(
+    productId: UniqueEntityID,
+    careInstructionIds: string[],
+  ): Promise<Product> {
+    const existingProduct = await prisma.product.findUnique({
+      where: {
+        id: productId.toString(),
+        deletedAt: null,
+      },
+    });
+
+    if (!existingProduct) {
+      throw new ResourceNotFoundError('Product not found');
+    }
+
+    const productData = await prisma.product.update({
+      where: {
+        id: productId.toString(),
+      },
+      data: {
+        careInstructionIds,
+        updatedAt: new Date(),
+      },
+    });
+
+    const defaultStatus = ProductStatus.create('ACTIVE');
+
+    return Product.create(
+      {
+        name: productData.name,
+        code: productData.code ?? undefined,
+        fullCode: productData.fullCode ?? undefined,
+        sequentialCode: productData.sequentialCode ?? undefined,
+        description: productData.description ?? undefined,
+        status: ProductStatus.create(productData.status) ?? defaultStatus,
+        attributes: productData.attributes as Record<string, unknown>,
+        careInstructions: CareInstructions.create(
+          productData.careInstructionIds ?? [],
+        ),
         templateId: new EntityID(productData.templateId),
         supplierId: productData.supplierId
           ? new EntityID(productData.supplierId)
@@ -368,6 +436,7 @@ export class PrismaProductsRepository implements ProductsRepository {
         description: product.description,
         status: product.status.value as PrismaProductStatus,
         attributes: product.attributes as never,
+        careInstructionIds: product.careInstructionIds,
         templateId: product.templateId.toString(),
         supplierId: product.supplierId?.toString(),
         manufacturerId: product.manufacturerId?.toString(),

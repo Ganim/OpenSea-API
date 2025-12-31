@@ -1088,6 +1088,9 @@ model Product {
   updatedAt      DateTime      @updatedAt @map("updated_at")
   deletedAt      DateTime?     @map("deleted_at")
 
+  // Care Instructions (ISO 3758 codes)
+  careInstructionIds String[] @default([]) @map("care_instruction_ids")
+
   templateId     String  @map("template_id")
   supplierId     String? @map("supplier_id") // DEPRECATED: Migrar para organizationId
   manufacturerId String? @map("manufacturer_id") // DEPRECATED: Migrar para organizationId

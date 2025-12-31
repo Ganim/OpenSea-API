@@ -9,6 +9,7 @@ export interface ProductDTO {
   description?: string;
   status: string;
   attributes: Record<string, unknown>;
+  careInstructionIds: string[];
   templateId: string;
   supplierId?: string;
   manufacturerId?: string;
@@ -27,6 +28,7 @@ export function productToDTO(product: Product): ProductDTO {
     description: product.description,
     status: product.status.value,
     attributes: product.attributes,
+    careInstructionIds: product.careInstructionIds,
     templateId: product.templateId.toString(),
     supplierId: product.supplierId?.toString(),
     manufacturerId: product.manufacturerId?.toString(),

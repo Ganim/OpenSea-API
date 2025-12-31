@@ -52,6 +52,7 @@ export const productResponseSchema = z.object({
   description: z.string().optional(),
   status: z.string(),
   attributes: z.record(z.string(), z.any()),
+  careInstructionIds: z.array(z.string()),
   templateId: idSchema,
   supplierId: idSchema.optional(),
   manufacturerId: idSchema.optional(),

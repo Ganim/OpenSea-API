@@ -13,3 +13,4 @@ export * from './suppliers';
 export * from './tags';
 export * from './templates';
 export * from './purchase-orders';
+export * from './care';

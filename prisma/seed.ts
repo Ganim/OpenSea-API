@@ -779,6 +779,24 @@ async function main() {
       action: 'manage',
     },
 
+    // Care (Instruções de Conservação)
+    {
+      code: 'stock.care.read',
+      name: 'Ler Instruções de Conservação',
+      description: 'Permite visualizar o catálogo de instruções de conservação',
+      module: 'stock',
+      resource: 'care',
+      action: 'read',
+    },
+    {
+      code: 'stock.care.list',
+      name: 'Listar Instruções de Conservação',
+      description: 'Permite listar todas as opções de conservação',
+      module: 'stock',
+      resource: 'care',
+      action: 'list',
+    },
+
     // ==================== SALES MODULE ====================
     // Customers
     {
@@ -2844,6 +2862,8 @@ async function main() {
     'stock.purchase-orders.update',
     'stock.purchase-orders.list',
     'stock.purchase-orders.approve',
+    'stock.care.read',
+    'stock.care.list',
 
     // Sales - sem delete
     'sales.customers.create',
@@ -2952,6 +2972,8 @@ async function main() {
     'stock.templates.list',
     'stock.purchase-orders.read',
     'stock.purchase-orders.list',
+    'stock.care.read',
+    'stock.care.list',
 
     // Sales - apenas leitura e request
     'sales.customers.read',

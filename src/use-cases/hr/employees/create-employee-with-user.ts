@@ -2,22 +2,24 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import {
-  ContractType,
-  CPF,
-  EmployeeStatus,
-  PIS,
-  WorkRegime,
+    ContractType,
+    CPF,
+    EmployeeStatus,
+    PIS,
+    WorkRegime,
 } from '@/entities/hr/value-objects';
 import { UserDTO } from '@/mappers/core/user/user-to-dto';
 import type { UsersRepository } from '@/repositories/core/users-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { CreateUserUseCase } from '@/use-cases/core/users/create-user';
+import { AssignGroupToUserUseCase } from '@/use-cases/rbac/associations/assign-group-to-user';
 
 export interface CreateEmployeeWithUserRequest {
   // User data
   userEmail: string;
   userPassword: string;
   username?: string;
+  permissionGroupId?: string;
 
   // Employee data
   registrationNumber: string;
@@ -88,6 +90,7 @@ export class CreateEmployeeWithUserUseCase {
     private employeesRepository: EmployeesRepository,
     private createUserUseCase: CreateUserUseCase,
     private usersRepository: UsersRepository,
+    private assignGroupToUserUseCase: AssignGroupToUserUseCase,
   ) {}
 
   async execute(
@@ -98,6 +101,7 @@ export class CreateEmployeeWithUserUseCase {
       userEmail,
       userPassword,
       username,
+      permissionGroupId,
 
       // Employee data
       registrationNumber,
@@ -284,6 +288,26 @@ export class CreateEmployeeWithUserUseCase {
       metadata,
       pendingIssues,
     });
+
+    // Step 3: Assign permission group to user (if provided)
+    if (permissionGroupId) {
+      try {
+        await this.assignGroupToUserUseCase.execute({
+          userId: user.id,
+          groupId: permissionGroupId,
+          expiresAt: null,
+          grantedBy: null,
+        });
+      } catch (error) {
+        // Log the error but don't fail the entire operation
+        // The user has been created successfully, just the group assignment failed
+        console.error(
+          `Failed to assign permission group ${permissionGroupId} to user ${user.id}:`,
+          error,
+        );
+        throw error;
+      }
+    }
 
     return {
       employee,

@@ -129,6 +129,10 @@ export const PermissionCodes = {
       APPROVE: 'stock.purchase-orders.approve' as const,
       MANAGE: 'stock.purchase-orders.manage' as const,
     },
+    CARE: {
+      READ: 'stock.care.read' as const,
+      LIST: 'stock.care.list' as const,
+    },
   },
 
   /**

@@ -1,5 +1,7 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
+import { CareInstructions } from '@/entities/stock/value-objects/care-instructions';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import type {
   CreateProductSchema,
@@ -83,6 +85,19 @@ export class InMemoryProductsRepository implements ProductsRepository {
       product.manufacturerId = data.manufacturerId;
     if (data.attributes !== undefined) product.attributes = data.attributes;
 
+    return product;
+  }
+
+  async updateCareInstructions(
+    productId: UniqueEntityID,
+    careInstructionIds: string[],
+  ): Promise<Product> {
+    const product = await this.findById(productId);
+    if (!product) {
+      throw new ResourceNotFoundError('Product not found');
+    }
+
+    product.careInstructions = CareInstructions.create(careInstructionIds);
     return product;
   }
 

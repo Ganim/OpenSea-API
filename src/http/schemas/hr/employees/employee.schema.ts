@@ -6,16 +6,16 @@
 import { z } from 'zod';
 import { dateSchema, idSchema } from '../../common.schema';
 import {
-  contractTypeSchema,
-  employeeStatusSchema,
-  workRegimeSchema,
-} from './employee-enums.schema';
-import {
-  hrCpfSchema,
-  hrPhoneSchema,
-  hrPisSchema,
-  hrZipCodeSchema,
+    hrCpfSchema,
+    hrPhoneSchema,
+    hrPisSchema,
+    hrZipCodeSchema,
 } from './employee-common.schema';
+import {
+    contractTypeSchema,
+    employeeStatusSchema,
+    workRegimeSchema,
+} from './employee-enums.schema';
 
 /**
  * Schema para criação de funcionário
@@ -121,6 +121,8 @@ export const createEmployeeWithUserSchema = createEmployeeSchema
     userEmail: z.string().email(),
     userPassword: z.string().min(8).max(128),
     username: z.string().min(3).max(32).optional(),
+    // Grupo de permissões para o novo usuário
+    permissionGroupId: idSchema.optional(),
   });
 
 /**

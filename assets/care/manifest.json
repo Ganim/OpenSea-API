@@ -1,0 +1,217 @@
+[
+  {
+    "code": "BLEACH_ALLOWED",
+    "category": "BLEACH",
+    "assetPath": "iso3758/BLEACH_ALLOWED.svg"
+  },
+  {
+    "code": "BLEACH_NON_CHLORINE",
+    "category": "BLEACH",
+    "assetPath": "iso3758/BLEACH_NON_CHLORINE.svg"
+  },
+  {
+    "code": "DO_NOT_BLEACH",
+    "category": "BLEACH",
+    "assetPath": "iso3758/DO_NOT_BLEACH.svg"
+  },
+  {
+    "code": "DO_NOT_DRYCLEAN",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/DO_NOT_DRYCLEAN.svg"
+  },
+  {
+    "code": "DO_NOT_IRON",
+    "category": "IRON",
+    "assetPath": "iso3758/DO_NOT_IRON.svg"
+  },
+  {
+    "code": "DO_NOT_TUMBLE_DRY",
+    "category": "DRY",
+    "assetPath": "iso3758/DO_NOT_TUMBLE_DRY.svg"
+  },
+  {
+    "code": "DO_NOT_WASH",
+    "category": "WASH",
+    "assetPath": "iso3758/DO_NOT_WASH.svg"
+  },
+  {
+    "code": "DO_NOT_WETCLEAN",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/DO_NOT_WETCLEAN.svg"
+  },
+  {
+    "code": "DRYCLEAN_ANY",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/DRYCLEAN_ANY.svg"
+  },
+  {
+    "code": "DRYCLEAN_F",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/DRYCLEAN_F.svg"
+  },
+  {
+    "code": "DRYCLEAN_F_GENTLE",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/DRYCLEAN_F_GENTLE.svg"
+  },
+  {
+    "code": "DRYCLEAN_F_VERY_GENTLE",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/DRYCLEAN_F_VERY_GENTLE.svg"
+  },
+  {
+    "code": "DRYCLEAN_P",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/DRYCLEAN_P.svg"
+  },
+  {
+    "code": "DRYCLEAN_P_GENTLE",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/DRYCLEAN_P_GENTLE.svg"
+  },
+  {
+    "code": "DRYCLEAN_P_VERY_GENTLE",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/DRYCLEAN_P_VERY_GENTLE.svg"
+  },
+  {
+    "code": "DRY_DRIP",
+    "category": "DRY",
+    "assetPath": "iso3758/DRY_DRIP.svg"
+  },
+  {
+    "code": "DRY_DRIP_SHADE",
+    "category": "DRY",
+    "assetPath": "iso3758/DRY_DRIP_SHADE.svg"
+  },
+  {
+    "code": "DRY_FLAT",
+    "category": "DRY",
+    "assetPath": "iso3758/DRY_FLAT.svg"
+  },
+  {
+    "code": "DRY_FLAT_SHADE",
+    "category": "DRY",
+    "assetPath": "iso3758/DRY_FLAT_SHADE.svg"
+  },
+  {
+    "code": "DRY_LINE",
+    "category": "DRY",
+    "assetPath": "iso3758/DRY_LINE.svg"
+  },
+  {
+    "code": "DRY_LINE_SHADE",
+    "category": "DRY",
+    "assetPath": "iso3758/DRY_LINE_SHADE.svg"
+  },
+  {
+    "code": "IRON_110",
+    "category": "IRON",
+    "assetPath": "iso3758/IRON_110.svg"
+  },
+  {
+    "code": "IRON_150",
+    "category": "IRON",
+    "assetPath": "iso3758/IRON_150.svg"
+  },
+  {
+    "code": "IRON_200",
+    "category": "IRON",
+    "assetPath": "iso3758/IRON_200.svg"
+  },
+  {
+    "code": "IRON_ALLOWED",
+    "category": "IRON",
+    "assetPath": "iso3758/IRON_ALLOWED.svg"
+  },
+  {
+    "code": "IRON_NO_STEAM",
+    "category": "IRON",
+    "assetPath": "iso3758/IRON_NO_STEAM.svg"
+  },
+  {
+    "code": "TUMBLE_DRY_HIGH",
+    "category": "DRY",
+    "assetPath": "iso3758/TUMBLE_DRY_HIGH.svg"
+  },
+  {
+    "code": "TUMBLE_DRY_LOW",
+    "category": "DRY",
+    "assetPath": "iso3758/TUMBLE_DRY_LOW.svg"
+  },
+  {
+    "code": "TUMBLE_DRY_MEDIUM",
+    "category": "DRY",
+    "assetPath": "iso3758/TUMBLE_DRY_MEDIUM.svg"
+  },
+  {
+    "code": "TUMBLE_DRY_NORMAL",
+    "category": "DRY",
+    "assetPath": "iso3758/TUMBLE_DRY_NORMAL.svg"
+  },
+  {
+    "code": "WASH_30",
+    "category": "WASH",
+    "assetPath": "iso3758/WASH_30.svg"
+  },
+  {
+    "code": "WASH_40",
+    "category": "WASH",
+    "assetPath": "iso3758/WASH_40.svg"
+  },
+  {
+    "code": "WASH_50",
+    "category": "WASH",
+    "assetPath": "iso3758/WASH_50.svg"
+  },
+  {
+    "code": "WASH_60",
+    "category": "WASH",
+    "assetPath": "iso3758/WASH_60.svg"
+  },
+  {
+    "code": "WASH_70",
+    "category": "WASH",
+    "assetPath": "iso3758/WASH_70.svg"
+  },
+  {
+    "code": "WASH_95",
+    "category": "WASH",
+    "assetPath": "iso3758/WASH_95.svg"
+  },
+  {
+    "code": "WASH_GENTLE",
+    "category": "WASH",
+    "assetPath": "iso3758/WASH_GENTLE.svg"
+  },
+  {
+    "code": "WASH_HAND",
+    "category": "WASH",
+    "assetPath": "iso3758/WASH_HAND.svg"
+  },
+  {
+    "code": "WASH_NORMAL",
+    "category": "WASH",
+    "assetPath": "iso3758/WASH_NORMAL.svg"
+  },
+  {
+    "code": "WASH_VERY_GENTLE",
+    "category": "WASH",
+    "assetPath": "iso3758/WASH_VERY_GENTLE.svg"
+  },
+  {
+    "code": "WETCLEAN_W",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/WETCLEAN_W.svg"
+  },
+  {
+    "code": "WETCLEAN_W_GENTLE",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/WETCLEAN_W_GENTLE.svg"
+  },
+  {
+    "code": "WETCLEAN_W_VERY_GENTLE",
+    "category": "PROFESSIONAL",
+    "assetPath": "iso3758/WETCLEAN_W_VERY_GENTLE.svg"
+  }
+]

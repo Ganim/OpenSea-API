@@ -1,6 +1,7 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import { CareInstructions } from './value-objects/care-instructions';
 import { ProductStatus } from './value-objects/product-status';
 
 export interface ProductProps {
@@ -12,6 +13,7 @@ export interface ProductProps {
   description?: string;
   status: ProductStatus;
   attributes: Record<string, unknown>;
+  careInstructions: CareInstructions; // ISO 3758 care instruction IDs
   templateId: UniqueEntityID;
   supplierId?: UniqueEntityID;
   manufacturerId?: UniqueEntityID;
@@ -83,6 +85,19 @@ export class Product extends Entity<ProductProps> {
     this.touch();
   }
 
+  get careInstructions(): CareInstructions {
+    return this.props.careInstructions;
+  }
+
+  set careInstructions(careInstructions: CareInstructions) {
+    this.props.careInstructions = careInstructions;
+    this.touch();
+  }
+
+  get careInstructionIds(): string[] {
+    return this.props.careInstructions.toArray();
+  }
+
   get templateId(): UniqueEntityID {
     return this.props.templateId;
   }
@@ -128,6 +143,10 @@ export class Product extends Entity<ProductProps> {
 
   get hasManufacturer(): boolean {
     return !!this.props.manufacturerId;
+  }
+
+  get hasCareInstructions(): boolean {
+    return !this.props.careInstructions.isEmpty;
   }
 
   get canBeSold(): boolean {
@@ -176,7 +195,13 @@ export class Product extends Entity<ProductProps> {
   static create(
     props: Optional<
       ProductProps,
-      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'attributes' | 'status'
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
+      | 'attributes'
+      | 'status'
+      | 'careInstructions'
     >,
     id?: UniqueEntityID,
   ): Product {
@@ -185,6 +210,7 @@ export class Product extends Entity<ProductProps> {
         ...props,
         id: id ?? new UniqueEntityID(),
         attributes: props.attributes ?? {},
+        careInstructions: props.careInstructions ?? CareInstructions.empty(),
         status: props.status ?? ProductStatus.create('ACTIVE'),
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,

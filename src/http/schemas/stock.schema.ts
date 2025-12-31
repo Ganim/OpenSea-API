@@ -20,3 +20,4 @@ export * from './stock/locations';
 export * from './stock/tags';
 export * from './stock/templates';
 export * from './stock/purchase-orders';
+export * from './stock/care';

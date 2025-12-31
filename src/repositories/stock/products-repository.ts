@@ -35,6 +35,10 @@ export interface ProductsRepository {
   findManyByManufacturer(manufacturerId: UniqueEntityID): Promise<Product[]>;
   findManyByCategory(categoryId: UniqueEntityID): Promise<Product[]>;
   update(data: UpdateProductSchema): Promise<Product | null>;
+  updateCareInstructions(
+    productId: UniqueEntityID,
+    careInstructionIds: string[],
+  ): Promise<Product>;
   save(product: Product): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
 }

@@ -20,6 +20,7 @@ export const swaggerTags = [
   { name: 'Stock - Items', description: 'Inventory item management' },
   { name: 'Stock - Item Movements', description: 'Stock movement tracking' },
   { name: 'Stock - Purchase Orders', description: 'Purchase order management' },
+  { name: 'Stock - Care', description: 'Care label instructions (ISO 3758)' },
 
   // Sales Management
   { name: 'Sales - Customers', description: 'Customer management' },
