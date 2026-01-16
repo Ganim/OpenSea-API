@@ -1,11 +1,35 @@
-version: '3.8'
-
 services:
-  apiopensea:
-    image: bitnami/postgresql
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: opensea-postgres
     environment:
-      POSTGRESQL_USER: docker
+      POSTGRESQL_USERNAME: docker
       POSTGRESQL_PASSWORD: docker
-      POSTGRESQL_DB: apiopensea
+      POSTGRESQL_DATABASE: apiopensea
     ports:
       - '5432:5432'
+    volumes:
+      - postgres_data:/bitnami/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U docker -d apiopensea']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: opensea-redis
+    command: redis-server --appendonly yes
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  redis_data:

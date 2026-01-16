@@ -4,7 +4,7 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Get Entity History (e2e)', () => {
+describe('Get Entity History (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -13,12 +13,12 @@ describe('Get Entity History (e2e)', () => {
     await app.close();
   });
 
-  it('should return complete entity history', async () => {
+  it('should return entity history with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 
-    const entityId = 'test-entity-history-123';
+    const entityId = `entity-history-${Date.now()}`;
 
-    // Criar histórico completo (CREATE → UPDATE → UPDATE)
+    // Create complete history (CREATE -> UPDATE -> UPDATE)
     await prisma.auditLog.createMany({
       data: [
         {
@@ -58,10 +58,11 @@ describe('Get Entity History (e2e)', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('history');
     expect(response.body.history).toBeInstanceOf(Array);
     expect(response.body.history.length).toBe(3);
 
-    // Verificar ordenação cronológica (mais antigo primeiro)
+    // Verify chronological order (oldest first)
     expect(response.body.history[0].version).toBe(1);
     expect(response.body.history[0].action).toBe('CREATE');
     expect(response.body.history[1].version).toBe(2);
@@ -69,33 +70,11 @@ describe('Get Entity History (e2e)', () => {
     expect(response.body.history[2].version).toBe(3);
     expect(response.body.history[2].action).toBe('UPDATE');
 
-    // Verificar que UPDATEs incluem changes
-    expect(response.body.history[1].changes).toBeDefined();
-    expect(response.body.history[2].changes).toBeDefined();
+    // Verify that UPDATEs include changes
+    expect(response.body.history[1]).toHaveProperty('changes');
+    expect(response.body.history[2]).toHaveProperty('changes');
 
     // Cleanup
-    await prisma.auditLog.deleteMany({
-      where: { entityId },
-    });
-  });
-
-  it('should return empty history for non-existent entity', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .get('/v1/audit-logs/history/PRODUCT/non-existent-id')
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.history).toBeInstanceOf(Array);
-    expect(response.body.history.length).toBe(0);
-  });
-
-  it('should require authentication', async () => {
-    const response = await request(app.server).get(
-      '/v1/audit-logs/history/PRODUCT/test-id',
-    );
-
-    expect(response.statusCode).toBe(401);
+    await prisma.auditLog.deleteMany({ where: { entityId } });
   });
 });

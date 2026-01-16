@@ -6,6 +6,7 @@ import { Variant } from '@/entities/stock/variant';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
+import { assertValidAttributes } from '@/utils/validate-template-attributes';
 
 export interface CreateVariantUseCaseInput {
   productId: string;
@@ -26,6 +27,10 @@ export interface CreateVariantUseCaseInput {
   maxStock?: number;
   reorderPoint?: number;
   reorderQuantity?: number;
+  reference?: string;
+  similars?: unknown[];
+  outOfLine?: boolean;
+  isActive?: boolean;
 }
 
 export class CreateVariantUseCase {
@@ -191,25 +196,9 @@ export class CreateVariantUseCase {
     }
 
     // Validate attributes against product template
-    if (input.attributes) {
-      const template = await this.templatesRepository.findById(
-        product.templateId,
-      );
-
-      if (template && template.variantAttributes) {
-        const allowedKeys = Object.keys(template.variantAttributes);
-        const providedKeys = Object.keys(input.attributes);
-
-        const invalidKeys = providedKeys.filter(
-          (key) => !allowedKeys.includes(key),
-        );
-
-        if (invalidKeys.length > 0) {
-          throw new BadRequestError(
-            `Invalid attribute keys: ${invalidKeys.join(', ')}. Allowed keys: ${allowedKeys.join(', ')}`,
-          );
-        }
-      }
+    const template = await this.templatesRepository.findById(product.templateId);
+    if (template) {
+      assertValidAttributes(input.attributes, template.variantAttributes, 'variant');
     }
 
     // Create variant
@@ -232,6 +221,10 @@ export class CreateVariantUseCase {
       maxStock: input.maxStock,
       reorderPoint: input.reorderPoint,
       reorderQuantity: input.reorderQuantity,
+      reference: input.reference,
+      similars: input.similars,
+      outOfLine: input.outOfLine,
+      isActive: input.isActive,
     });
 
     return variant;

@@ -53,7 +53,14 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
   async findMany(
     params: FindManyDepartmentsParams,
   ): Promise<FindManyDepartmentsResult> {
-    const { page = 1, perPage = 20, search, isActive, parentId, companyId } = params;
+    const {
+      page = 1,
+      perPage = 20,
+      search,
+      isActive,
+      parentId,
+      companyId,
+    } = params;
 
     let filteredItems = this.items.filter((item) => !item.deletedAt);
 

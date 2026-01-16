@@ -1,8 +1,12 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeDeleteVariantUseCase } from '@/use-cases/stock/variants/factories/make-delete-variant-use-case';
+import { makeGetVariantByIdUseCase } from '@/use-cases/stock/variants/factories/make-get-variant-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -35,10 +39,33 @@ export async function deleteVariantController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { id } = request.params;
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getVariantByIdUseCase = makeGetVariantByIdUseCase();
+
+        const [{ user }, variant] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getVariantByIdUseCase.execute({ id }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const deleteVariantUseCase = makeDeleteVariantUseCase();
         await deleteVariantUseCase.execute({ id });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.VARIANT_DELETE,
+          entityId: id,
+          placeholders: { userName, variantName: variant.name },
+          oldData: {
+            id: variant.id.toString(),
+            name: variant.name,
+            sku: variant.sku,
+          },
+        });
 
         return reply.status(204).send();
       } catch (error) {

@@ -1,10 +1,16 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
 import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
-import { makeUpdateCompanyUseCase } from '@/use-cases/hr/companies/factories/make-companies';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import {
+  makeGetCompanyByIdUseCase,
+  makeUpdateCompanyUseCase,
+} from '@/use-cases/hr/companies/factories/make-companies';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -48,8 +54,20 @@ export async function v1UpdateCompanyController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
       const data = request.body;
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getCompanyByIdUseCase = makeGetCompanyByIdUseCase();
+
+        const [{ user }, { company: oldCompany }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getCompanyByIdUseCase.execute({ id }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const updateCompanyUseCase = makeUpdateCompanyUseCase();
         const { company } = await updateCompanyUseCase.execute({
           id,
@@ -60,9 +78,23 @@ export async function v1UpdateCompanyController(app: FastifyInstance) {
           return reply.status(404).send({ message: 'Company not found' });
         }
 
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.COMPANY_UPDATE,
+          entityId: id,
+          placeholders: {
+            userName,
+            companyName: company.tradeName || company.legalName,
+          },
+          oldData: {
+            legalName: oldCompany.legalName,
+            tradeName: oldCompany.tradeName,
+          },
+          newData: data,
+        });
+
         return reply
           .status(200)
-          .send(wrapCompanyResponse(companyToDTO(company) as any));
+          .send(wrapCompanyResponse(companyToDTO(company)));
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

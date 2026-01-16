@@ -1,4 +1,5 @@
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateTemplateUseCase } from './create-template';
 import { ListTemplatesUseCase } from './list-templates';
@@ -17,12 +18,12 @@ describe('ListTemplatesUseCase', () => {
   it('should list all templates', async () => {
     await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     await createTemplate.execute({
       name: 'Clothing Template',
-      productAttributes: { size: 'string' },
+      productAttributes: { size: templateAttr.string() },
     });
 
     const result = await sut.execute();

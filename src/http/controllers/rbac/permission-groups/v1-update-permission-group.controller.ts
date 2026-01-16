@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { PermissionGroupPresenter } from '@/http/presenters/rbac/permission-group-presenter';
@@ -9,7 +11,11 @@ import {
   permissionGroupSchema,
   updatePermissionGroupSchema,
 } from '@/http/schemas/rbac.schema';
-import { makeUpdatePermissionGroupUseCase } from '@/use-cases/rbac/factories';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import {
+  makeGetPermissionGroupByIdUseCase,
+  makeUpdatePermissionGroupUseCase,
+} from '@/use-cases/rbac/factories';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -49,10 +55,23 @@ export async function updatePermissionGroupController(app: FastifyInstance) {
       const { groupId } = request.params;
       const { name, description, color, priority, parentId, isActive } =
         request.body;
+      const adminId = request.user.sub;
 
       try {
-        const updatePermissionGroupUseCase = makeUpdatePermissionGroupUseCase();
+        // Busca dados anteriores e nome do admin para auditoria
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getPermissionGroupByIdUseCase =
+          makeGetPermissionGroupByIdUseCase();
 
+        const [{ user: admin }, { group: oldGroup }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId: adminId }),
+          getPermissionGroupByIdUseCase.execute({ id: groupId }),
+        ]);
+        const adminName = admin.profile?.name
+          ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
+          : admin.username || admin.email;
+
+        const updatePermissionGroupUseCase = makeUpdatePermissionGroupUseCase();
         const { group } = await updatePermissionGroupUseCase.execute({
           groupId,
           name,
@@ -61,6 +80,15 @@ export async function updatePermissionGroupController(app: FastifyInstance) {
           priority,
           parentId,
           isActive,
+        });
+
+        // Log de auditoria
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.RBAC.PERMISSION_GROUP_UPDATE,
+          entityId: group.id.toString(),
+          placeholders: { adminName, groupName: group.name },
+          oldData: { name: oldGroup.name, description: oldGroup.description },
+          newData: { name, description, color, priority, parentId, isActive },
         });
 
         return reply

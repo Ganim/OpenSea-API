@@ -2,6 +2,7 @@ import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateTemplateUseCase } from '../templates/create-template';
 import { CreateProductUseCase } from './create-product';
@@ -35,7 +36,7 @@ describe('ListProductsUseCase', () => {
   it('should list all products', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     await createProduct.execute({

@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { strongPasswordSchema, userResponseSchema } from '@/http/schemas';
 import { makeChangeMyPasswordUseCase } from '@/use-cases/core/me/factories/make-change-my-password-use-case';
@@ -46,6 +48,18 @@ export async function changeMyPasswordController(app: FastifyInstance) {
         const { user } = await changeMyPasswordUseCase.execute({
           userId,
           password,
+        });
+
+        // Log de auditoria
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.ME_PASSWORD_CHANGE,
+          entityId: user.id.toString(),
+          placeholders: { userName },
+          newData: { password }, // Será sanitizado para [REDACTED]
         });
 
         return reply.status(200).send({ user });

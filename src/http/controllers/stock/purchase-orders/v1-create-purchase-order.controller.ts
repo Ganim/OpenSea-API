@@ -1,12 +1,15 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-    createPurchaseOrderSchema,
-    purchaseOrderResponseSchema,
+  createPurchaseOrderSchema,
+  purchaseOrderResponseSchema,
 } from '@/http/schemas';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreatePurchaseOrderUseCase } from '@/use-cases/stock/purchase-orders/factories/make-create-purchase-order-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -46,10 +49,26 @@ export async function createPurchaseOrderController(app: FastifyInstance) {
       const data = request.body;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user } = await getUserByIdUseCase.execute({ userId });
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const createPurchaseOrderUseCase = makeCreatePurchaseOrderUseCase();
         const { purchaseOrder } = await createPurchaseOrderUseCase.execute({
           ...data,
           createdBy: userId,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.PURCHASE_ORDER_CREATE,
+          entityId: purchaseOrder.id,
+          placeholders: { userName, orderNumber: purchaseOrder.orderNumber },
+          newData: {
+            supplierId: data.supplierId,
+            itemsCount: data.items?.length || 0,
+          },
         });
 
         return reply.status(201).send({ purchaseOrder });

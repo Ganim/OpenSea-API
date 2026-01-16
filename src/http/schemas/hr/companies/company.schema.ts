@@ -4,6 +4,10 @@
 
 import { z } from 'zod';
 import { idSchema } from '../../common.schema';
+import { companyAddressResponseSchema } from './company-address.schema';
+import { companyCnaeResponseSchema } from './company-cnae.schema';
+import { companyFiscalSettingsResponseSchema } from './company-fiscal-settings.schema';
+import { companyStakeholderResponseSchema } from './company-stakeholder.schema';
 
 /**
  * Status da empresa
@@ -120,6 +124,10 @@ export const departmentSummarySchema = z.object({
 export const companyWithDetailsResponseSchema = companyResponseSchema.extend({
   departments: z.array(departmentSummarySchema).optional(),
   departmentsCount: z.number(),
+  addresses: z.array(companyAddressResponseSchema).optional(),
+  cnaes: z.array(companyCnaeResponseSchema).optional(),
+  fiscalSettings: companyFiscalSettingsResponseSchema.optional(),
+  stakeholders: z.array(companyStakeholderResponseSchema).optional(),
 });
 
 // ===============================================

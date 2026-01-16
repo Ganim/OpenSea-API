@@ -1,0 +1,77 @@
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { ZoneLayout } from '@/entities/stock/value-objects/zone-layout';
+import { ZoneStructure } from '@/entities/stock/value-objects/zone-structure';
+import { prisma } from '@/lib/prisma';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import type { Prisma } from '@prisma/client';
+
+describe('Update Zone Layout (E2E)', () => {
+  beforeAll(async () => {
+    await app.ready();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should update zone layout with custom positions', async () => {
+    const { token } = await createAndAuthenticateUser(app);
+    const timestamp = Date.now().toString();
+
+    const warehouse = await prisma.warehouse.create({
+      data: {
+        code: `W${timestamp.slice(-4)}`,
+        name: `Warehouse ${timestamp}`,
+      },
+    });
+
+    const zone = await prisma.zone.create({
+      data: {
+        warehouseId: warehouse.id,
+        code: `Z${timestamp.slice(-3)}`,
+        name: `Zone ${timestamp}`,
+        structure: ZoneStructure.create({
+          aisles: 2,
+          shelvesPerAisle: 5,
+          binsPerShelf: 4,
+        }).toJSON() as unknown as Prisma.InputJsonValue,
+      },
+    });
+
+    const newLayout = ZoneLayout.create({
+      aislePositions: [
+        { aisleNumber: 1, x: 0, y: 0, rotation: 0 },
+        { aisleNumber: 2, x: 200, y: 0, rotation: 0 },
+      ],
+      canvasWidth: 500,
+      canvasHeight: 400,
+      gridSize: 10,
+    });
+
+    const response = await request(app.server)
+      .put(`/v1/zones/${zone.id}/layout`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        layout: newLayout.toJSON(),
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.zone.layout).toBeDefined();
+    expect(response.body.zone.layout.aislePositions).toHaveLength(2);
+    expect(response.body.zone.layout.canvasWidth).toBe(500);
+
+    const updatedZone = await prisma.zone.findUnique({
+      where: { id: zone.id },
+    });
+
+    expect(updatedZone?.layout).toBeDefined();
+    if (updatedZone?.layout && typeof updatedZone.layout === 'object') {
+      const layoutObj = updatedZone.layout as { aislePositions?: unknown[] };
+      expect(Array.isArray(layoutObj.aislePositions)).toBe(true);
+      expect((layoutObj.aislePositions as unknown[])?.length).toBe(2);
+    }
+  });
+});

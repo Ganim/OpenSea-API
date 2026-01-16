@@ -19,10 +19,16 @@ export interface UpdateVariantUseCaseInput {
   qrCode?: string;
   eanCode?: string;
   upcCode?: string;
+  colorHex?: string;
+  colorPantone?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
   reorderQuantity?: number;
+  reference?: string;
+  similars?: unknown[];
+  outOfLine?: boolean;
+  isActive?: boolean;
 }
 
 export class UpdateVariantUseCase {
@@ -214,10 +220,16 @@ export class UpdateVariantUseCase {
       qrCode: input.qrCode,
       eanCode: input.eanCode,
       upcCode: input.upcCode,
+      colorHex: input.colorHex,
+      colorPantone: input.colorPantone,
       minStock: input.minStock,
       maxStock: input.maxStock,
       reorderPoint: input.reorderPoint,
       reorderQuantity: input.reorderQuantity,
+      reference: input.reference,
+      similars: input.similars,
+      outOfLine: input.outOfLine,
+      isActive: input.isActive,
     });
 
     if (!updatedVariant) {

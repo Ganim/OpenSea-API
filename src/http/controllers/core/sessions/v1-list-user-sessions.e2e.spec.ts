@@ -1,50 +1,46 @@
-import { app } from '@/app';
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
-import { makeUniqueEmail } from '@/utils/tests/factories/core/make-unique-email';
-import { makeUniqueUsername } from '@/utils/tests/factories/core/make-unique-username';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('List All User Sessions (e2e)', () => {
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import { makeCreateUserUseCase } from '@/use-cases/core/users/factories/make-create-user-use-case';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+
+describe('List User Sessions (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
+
   afterAll(async () => {
     await app.close();
   });
 
-  it('should allow ADMIN to LIST user SESSIONS', async () => {
+  it('should list user sessions with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
+    const uniqueId = Math.random().toString(36).substring(2, 10);
 
-    const email = makeUniqueEmail('list-user-sessions');
-    const anotherUser = await request(app.server)
-      .post('/v1/users')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        email,
-        username: makeUniqueUsername(),
-        password: 'Pass@123',
-      });
+    const createUserUseCase = makeCreateUserUseCase();
+    const { user } = await createUserUseCase.execute({
+      email: `sess${uniqueId}@test.com`,
+      username: `sess${uniqueId}`,
+      password: 'Pass@123',
+    });
 
-    expect(anotherUser.statusCode).toEqual(201);
-
-    const authenticateAnotherUser = await request(app.server)
-      .post('/v1/auth/login/password')
-      .send({
-        email,
-        password: 'Pass@123',
-      });
-
-    expect(authenticateAnotherUser.statusCode).toEqual(200);
-
-    const userId = anotherUser.body.user.id;
+    await prisma.session.create({
+      data: {
+        userId: user.id,
+        ip: '192.168.1.1',
+        createdAt: new Date(),
+        lastUsedAt: new Date(),
+      },
+    });
 
     const response = await request(app.server)
-      .get(`/v1/sessions/user/${userId}`)
+      .get(`/v1/sessions/user/${user.id}`)
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-
-    expect(response.body.sessions).toBeInstanceOf(Array);
+    expect(response.body).toHaveProperty('sessions');
+    expect(Array.isArray(response.body.sessions)).toBe(true);
   });
 });

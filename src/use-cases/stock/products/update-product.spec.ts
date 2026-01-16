@@ -4,6 +4,7 @@ import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateManufacturerUseCase } from '../manufacturers/create-manufacturer';
 import { CreateSupplierUseCase } from '../suppliers/create-supplier';
@@ -48,7 +49,7 @@ describe('UpdateProductUseCase', () => {
   it('should update a product', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
@@ -73,7 +74,7 @@ describe('UpdateProductUseCase', () => {
   it('should update only provided fields', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
@@ -96,7 +97,7 @@ describe('UpdateProductUseCase', () => {
   it('should update product with supplier', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
@@ -123,7 +124,7 @@ describe('UpdateProductUseCase', () => {
   it('should update product with manufacturer', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
@@ -159,7 +160,7 @@ describe('UpdateProductUseCase', () => {
   it('should not update with empty name', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
@@ -179,7 +180,7 @@ describe('UpdateProductUseCase', () => {
   it('should not update with duplicate name', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     await createProduct.execute({
@@ -205,7 +206,7 @@ describe('UpdateProductUseCase', () => {
   it('should not update with non-existent supplier', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
@@ -225,7 +226,7 @@ describe('UpdateProductUseCase', () => {
   it('should not update with non-existent manufacturer', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
@@ -245,7 +246,7 @@ describe('UpdateProductUseCase', () => {
   it('should not update with invalid attributes', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string', model: 'string' },
+      productAttributes: { brand: templateAttr.string(), model: templateAttr.string() },
     });
 
     const created = await createProduct.execute({

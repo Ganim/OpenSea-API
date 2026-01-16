@@ -1,9 +1,15 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { idSchema } from '@/http/schemas/common.schema';
-import { makeDeleteCompanyUseCase } from '@/use-cases/hr/companies/factories/make-companies';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import {
+  makeDeleteCompanyUseCase,
+  makeGetCompanyByIdUseCase,
+} from '@/use-cases/hr/companies/factories/make-companies';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -40,10 +46,36 @@ export async function v1DeleteCompanyController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getCompanyByIdUseCase = makeGetCompanyByIdUseCase();
+
+        const [{ user }, { company }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getCompanyByIdUseCase.execute({ id }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const deleteCompanyUseCase = makeDeleteCompanyUseCase();
         await deleteCompanyUseCase.execute({ id });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.COMPANY_DELETE,
+          entityId: id,
+          placeholders: {
+            userName,
+            companyName: company.tradeName || company.legalName,
+          },
+          oldData: {
+            id: company.id,
+            legalName: company.legalName,
+            tradeName: company.tradeName,
+          },
+        });
 
         return reply.status(204).send();
       } catch (error) {

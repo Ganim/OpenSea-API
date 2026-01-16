@@ -1,190 +1,958 @@
 {
-  "version": "1.0.0",
-  "lastUpdated": "2025-12-08",
+  "version": "2.0.0",
+  "lastUpdated": "2026-01-01",
+  "description": "Auto-generated from seed.ts - All permission codes used in the system",
   "modules": {
     "CORE": {
-      "description": "Core system functionality including users, sessions, and profiles",
       "resources": {
-        "users": {
-          "description": "User management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
-        },
-        "sessions": {
-          "description": "Session management",
-          "actions": ["read", "delete", "list"]
+        "label-templates": {
+          "actions": [
+            "create",
+            "delete",
+            "duplicate",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
         },
         "profiles": {
-          "description": "User profile management",
-          "actions": ["read", "update"]
+          "actions": [
+            "read",
+            "update"
+          ]
+        },
+        "sessions": {
+          "actions": [
+            "delete",
+            "list",
+            "read",
+            "revoke",
+            "revoke-all"
+          ]
+        },
+        "users": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
         }
       }
     },
     "STOCK": {
-      "description": "Inventory and stock management",
       "resources": {
-        "products": {
-          "description": "Product management",
-          "actions": ["create", "read", "update", "delete", "list", "request", "approve", "manage"]
+        "bins": {
+          "actions": [
+            "list",
+            "manage",
+            "read",
+            "search",
+            "update"
+          ]
         },
-        "variants": {
-          "description": "Product variant management",
-          "actions": ["create", "read", "update", "delete", "list", "request", "approve", "manage"]
-        },
-        "items": {
-          "description": "Individual item management",
-          "actions": ["create", "read", "update", "delete", "list", "request", "approve", "manage"]
-        },
-        "movements": {
-          "description": "Stock movement tracking",
-          "actions": ["create", "read", "list", "approve"]
-        },
-        "suppliers": {
-          "description": "Supplier management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
-        },
-        "manufacturers": {
-          "description": "Manufacturer management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
-        },
-        "locations": {
-          "description": "Storage location management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        "care": {
+          "actions": [
+            "list",
+            "read",
+            "set"
+          ]
         },
         "categories": {
-          "description": "Product category management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
         },
-        "tags": {
-          "description": "Product tag management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        "items": {
+          "actions": [
+            "approve",
+            "create",
+            "delete",
+            "entry",
+            "exit",
+            "list",
+            "manage",
+            "read",
+            "request",
+            "transfer",
+            "update"
+          ]
         },
-        "templates": {
-          "description": "Product template management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
+        "locations": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "manufacturers": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "movements": {
+          "actions": [
+            "approve",
+            "create",
+            "list",
+            "read"
+          ]
+        },
+        "products": {
+          "actions": [
+            "approve",
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "request",
+            "update"
+          ]
         },
         "purchase-orders": {
-          "description": "Purchase order management",
-          "actions": ["create", "read", "update", "delete", "list", "approve", "manage"]
+          "actions": [
+            "approve",
+            "cancel",
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "suppliers": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "tags": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "templates": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "variants": {
+          "actions": [
+            "approve",
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "request",
+            "update"
+          ]
+        },
+        "warehouses": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "zones": {
+          "actions": [
+            "configure",
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "volumes": {
+          "actions": [
+            "create",
+            "read",
+            "update",
+            "delete",
+            "list",
+            "manage",
+            "close",
+            "reopen",
+            "deliver",
+            "return",
+            "add-item",
+            "remove-item",
+            "romaneio"
+          ]
         }
       }
     },
     "SALES": {
-      "description": "Sales and customer management",
       "resources": {
-        "customers": {
-          "description": "Customer management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
-        },
-        "orders": {
-          "description": "Sales order management",
-          "actions": ["create", "read", "update", "delete", "list", "request", "approve", "manage"]
-        },
-        "promotions": {
-          "description": "Promotion management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
-        },
-        "reservations": {
-          "description": "Item reservation management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
-        },
         "comments": {
-          "description": "Comment management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "customers": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
         },
         "notifications": {
-          "description": "Notification management",
-          "actions": ["create", "read", "update", "delete", "list"]
-        }
-      }
-    },
-    "RBAC": {
-      "description": "Role-Based Access Control",
-      "resources": {
-        "permissions": {
-          "description": "Permission management",
-          "actions": ["create", "read", "update", "delete", "list"]
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "read",
+            "update"
+          ]
         },
-        "groups": {
-          "description": "Permission group management",
-          "actions": ["create", "read", "update", "delete", "list", "assign", "manage"]
+        "orders": {
+          "actions": [
+            "approve",
+            "cancel",
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "request",
+            "update"
+          ]
         },
-        "audit": {
-          "description": "Audit log access",
-          "actions": ["read", "list"]
+        "promotions": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "reservations": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "release",
+            "update"
+          ]
         }
       }
     },
     "REQUESTS": {
-      "description": "Request and workflow system",
       "resources": {
         "requests": {
-          "description": "Request management",
-          "actions": ["create", "read", "update", "delete", "list", "assign", "approve", "reject", "cancel", "complete"]
+          "actions": [
+            "assign",
+            "complete",
+            "reject"
+          ]
+        }
+      }
+    },
+    "RBAC": {
+      "resources": {
+        "assignments": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
         },
-        "comments": {
-          "description": "Request comment management",
-          "actions": ["create", "read", "update", "delete", "list"]
+        "associations": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
         },
-        "attachments": {
-          "description": "Request attachment management",
-          "actions": ["create", "read", "delete", "list"]
+        "audit": {
+          "actions": [
+            "list",
+            "read"
+          ]
+        },
+        "groups": {
+          "actions": [
+            "assign",
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "permissions": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "read",
+            "update"
+          ]
+        },
+        "user-groups": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "user-permissions": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        }
+      }
+    },
+    "AUDIT": {
+      "resources": {
+        "compare": {
+          "actions": [
+            "view"
+          ]
+        },
+        "history": {
+          "actions": [
+            "view"
+          ]
+        },
+        "logs": {
+          "actions": [
+            "search",
+            "view"
+          ]
+        },
+        "rollback": {
+          "actions": [
+            "execute",
+            "preview"
+          ]
         }
       }
     },
     "HR": {
-      "description": "Human Resources management",
       "resources": {
-        "companies": {
-          "description": "Company management",
-          "actions": ["create", "read", "update", "delete", "list", "get_by_cnpj", "restore", "manage"]
-        },
-        "employees": {
-          "description": "Employee management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
-        },
-        "departments": {
-          "description": "Department management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
-        },
-        "positions": {
-          "description": "Position management",
-          "actions": ["create", "read", "update", "delete", "list", "manage"]
-        },
         "absences": {
-          "description": "Absence management",
-          "actions": ["create", "read", "update", "delete", "list", "approve", "reject"]
-        },
-        "vacations": {
-          "description": "Vacation management",
-          "actions": ["create", "read", "update", "delete", "list", "approve", "reject"]
-        },
-        "time-entries": {
-          "description": "Time entry management",
-          "actions": ["create", "read", "list"]
-        },
-        "overtime": {
-          "description": "Overtime management",
-          "actions": ["create", "read", "update", "delete", "list", "approve", "reject"]
-        },
-        "payroll": {
-          "description": "Payroll management",
-          "actions": ["create", "read", "update", "delete", "list", "process", "approve", "pay"]
+          "actions": [
+            "approve",
+            "approve.all",
+            "approve.team",
+            "create",
+            "delete",
+            "list",
+            "list.all",
+            "list.team",
+            "manage",
+            "read",
+            "read.all",
+            "read.team",
+            "update"
+          ]
         },
         "bonuses": {
-          "description": "Bonus management",
-          "actions": ["create", "read", "update", "delete", "list"]
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "companies": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "company-addresses": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "company-cnaes": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "company-fiscal-settings": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "company-stakeholder": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
         },
         "deductions": {
-          "description": "Deduction management",
-          "actions": ["create", "read", "update", "delete", "list"]
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "departments": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "employees": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "list.all",
+            "list.team",
+            "manage",
+            "read",
+            "read.all",
+            "read.team",
+            "terminate",
+            "update",
+            "update.all",
+            "update.team"
+          ]
         },
         "fiscal-settings": {
-          "description": "Company fiscal settings (NF-e, NFC-e, certificates)",
-          "actions": ["create", "read", "read_sensitive", "update", "delete", "list"]
+          "actions": [
+            "create",
+            "delete",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "manufacturers": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "overtime": {
+          "actions": [
+            "approve",
+            "approve.all",
+            "approve.team",
+            "create",
+            "delete",
+            "list",
+            "list.all",
+            "list.team",
+            "manage",
+            "read",
+            "read.all",
+            "read.team",
+            "update"
+          ]
+        },
+        "payroll": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "process",
+            "read",
+            "update"
+          ]
+        },
+        "payrolls": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "positions": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
         },
         "stakeholders": {
-          "description": "Company stakeholders (partners, representatives, administrators)",
-          "actions": ["create", "read", "read_sensitive", "update", "delete", "list", "sync_from_cnpj_api"]
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "suppliers": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "time-bank": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "list.all",
+            "list.team",
+            "manage",
+            "read",
+            "read.all",
+            "read.team",
+            "update"
+          ]
+        },
+        "time-control": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "time-entries": {
+          "actions": [
+            "approve.all",
+            "approve.team",
+            "create",
+            "delete",
+            "list",
+            "list.all",
+            "list.team",
+            "manage",
+            "read",
+            "read.all",
+            "read.team",
+            "update",
+            "update.all",
+            "update.team"
+          ]
+        },
+        "vacation-periods": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        },
+        "vacations": {
+          "actions": [
+            "approve",
+            "approve.all",
+            "approve.team",
+            "create",
+            "delete",
+            "list",
+            "list.all",
+            "list.team",
+            "manage",
+            "read",
+            "read.all",
+            "read.team",
+            "update"
+          ]
+        },
+        "work-schedules": {
+          "actions": [
+            "create",
+            "delete",
+            "list",
+            "manage",
+            "read",
+            "update"
+          ]
+        }
+      }
+    },
+    "SELF": {
+      "resources": {
+        "absences": {
+          "actions": [
+            "cancel",
+            "list",
+            "read",
+            "request"
+          ]
+        },
+        "audit": {
+          "actions": [
+            "list",
+            "read"
+          ]
+        },
+        "employee": {
+          "actions": [
+            "read"
+          ]
+        },
+        "groups": {
+          "actions": [
+            "list",
+            "read"
+          ]
+        },
+        "overtime": {
+          "actions": [
+            "list",
+            "read",
+            "request"
+          ]
+        },
+        "payslips": {
+          "actions": [
+            "download",
+            "list",
+            "read"
+          ]
+        },
+        "permissions": {
+          "actions": [
+            "list",
+            "read"
+          ]
+        },
+        "profile": {
+          "actions": [
+            "delete",
+            "read",
+            "update",
+            "update-email",
+            "update-password",
+            "update-username"
+          ]
+        },
+        "requests": {
+          "actions": [
+            "cancel",
+            "comment",
+            "create",
+            "list",
+            "read"
+          ]
+        },
+        "schedule": {
+          "actions": [
+            "read"
+          ]
+        },
+        "sessions": {
+          "actions": [
+            "list",
+            "read",
+            "revoke"
+          ]
+        },
+        "time-bank": {
+          "actions": [
+            "list",
+            "read"
+          ]
+        },
+        "time-entries": {
+          "actions": [
+            "create",
+            "list",
+            "read"
+          ]
+        },
+        "vacations": {
+          "actions": [
+            "cancel",
+            "list",
+            "read",
+            "request"
+          ]
+        }
+      }
+    },
+    "SETTINGS": {
+      "resources": {
+        "backup": {
+          "actions": [
+            "restore",
+            "view"
+          ]
+        },
+        "company": {
+          "actions": [
+            "view"
+          ]
+        },
+        "integrations": {
+          "actions": [
+            "view"
+          ]
+        },
+        "notifications": {
+          "actions": [
+            "view"
+          ]
+        },
+        "system": {
+          "actions": [
+            "view"
+          ]
+        }
+      }
+    },
+    "REPORTS": {
+      "resources": {
+        "audit": {
+          "actions": [
+            "security",
+            "user-activity"
+          ]
+        },
+        "financial": {
+          "actions": [
+            "cashflow",
+            "expenses",
+            "payroll",
+            "revenue"
+          ]
+        },
+        "hr": {
+          "actions": [
+            "absences",
+            "generate",
+            "headcount",
+            "overtime",
+            "time-entries",
+            "turnover",
+            "vacations",
+            "view"
+          ]
+        },
+        "sales": {
+          "actions": [
+            "by-customer",
+            "by-product",
+            "by-seller",
+            "commissions",
+            "daily",
+            "generate",
+            "monthly",
+            "view"
+          ]
+        },
+        "stock": {
+          "actions": [
+            "generate",
+            "inventory",
+            "low-stock",
+            "movements",
+            "valuation",
+            "view"
+          ]
+        }
+      }
+    },
+    "DATA": {
+      "resources": {
+        "export": {
+          "actions": [
+            "audit",
+            "customers",
+            "employees",
+            "hr",
+            "movements",
+            "orders",
+            "products",
+            "reports",
+            "sales",
+            "stock",
+            "suppliers",
+            "variants"
+          ]
+        },
+        "import": {
+          "actions": [
+            "bulk",
+            "categories",
+            "customers",
+            "employees",
+            "hr",
+            "products",
+            "sales",
+            "stock",
+            "suppliers",
+            "variants"
+          ]
+        },
+        "print": {
+          "actions": [
+            "badges",
+            "barcodes",
+            "contracts",
+            "documents",
+            "invoices",
+            "labels",
+            "payslips",
+            "receipts",
+            "reports"
+          ]
+        }
+      }
+    },
+    "NOTIFICATIONS": {
+      "resources": {
+        "_root": {
+          "description": "Root-level notification actions (notifications.action format)",
+          "actions": [
+            "broadcast",
+            "manage",
+            "schedule",
+            "send"
+          ]
+        }
+      }
+    },
+    "UI": {
+      "resources": {
+        "dashboard": {
+          "actions": [
+            "financial-summary",
+            "hr-summary",
+            "pending-requests",
+            "recent-activity",
+            "sales-summary",
+            "stock-alerts"
+          ]
+        },
+        "menu": {
+          "actions": [
+            "audit",
+            "dashboard",
+            "finance",
+            "hr",
+            "hr.time-control",
+            "notifications",
+            "rbac",
+            "reports",
+            "requests",
+            "sales",
+            "sales.orders",
+            "settings",
+            "stock",
+            "stock.locations",
+            "stock.purchase-orders",
+            "stock.volumes",
+            "stock.zones"
+          ]
         }
       }
     }

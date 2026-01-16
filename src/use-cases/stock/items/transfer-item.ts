@@ -6,13 +6,13 @@ import type { ItemMovementDTO } from '@/mappers/stock/item-movement/item-movemen
 import { itemMovementToDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
 import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
+import { BinsRepository } from '@/repositories/stock/bins-repository';
 import { ItemMovementsRepository } from '@/repositories/stock/item-movements-repository';
 import { ItemsRepository } from '@/repositories/stock/items-repository';
-import { LocationsRepository } from '@/repositories/stock/locations-repository';
 
 interface TransferItemUseCaseRequest {
   itemId: string;
-  destinationLocationId: string;
+  destinationBinId: string;
   userId: string;
   reasonCode?: string;
   notes?: string;
@@ -26,7 +26,7 @@ interface TransferItemUseCaseResponse {
 export class TransferItemUseCase {
   constructor(
     private itemsRepository: ItemsRepository,
-    private locationsRepository: LocationsRepository,
+    private binsRepository: BinsRepository,
     private itemMovementsRepository: ItemMovementsRepository,
   ) {}
 
@@ -51,23 +51,23 @@ export class TransferItemUseCase {
       throw new ResourceNotFoundError('Item not found.');
     }
 
-    // Validation: destination location must exist
-    const destinationLocation = await this.locationsRepository.findById(
-      new UniqueEntityID(input.destinationLocationId),
+    // Validation: destination bin must exist
+    const destinationBin = await this.binsRepository.findById(
+      new UniqueEntityID(input.destinationBinId),
     );
-    if (!destinationLocation) {
-      throw new ResourceNotFoundError('Destination location not found.');
+    if (!destinationBin) {
+      throw new ResourceNotFoundError('Destination bin not found.');
     }
 
-    // Validation: destination must be different from current location
-    if (item.locationId && item.locationId.equals(destinationLocation.id)) {
+    // Validation: destination must be different from current bin
+    if (item.binId && item.binId.equals(destinationBin.binId)) {
       throw new BadRequestError(
-        'Destination location must be different from current location.',
+        'Destination bin must be different from current bin.',
       );
     }
 
-    // Update item location
-    item.locationId = destinationLocation.id;
+    // Update item bin
+    item.binId = destinationBin.binId;
     await this.itemsRepository.save(item);
 
     // Create transfer movement record
@@ -79,7 +79,7 @@ export class TransferItemUseCase {
       quantityAfter: item.currentQuantity, // Quantity doesn't change in transfer
       movementType: MovementType.create('TRANSFER'),
       reasonCode: input.reasonCode,
-      destinationRef: `Location: ${destinationLocation.code}`,
+      destinationRef: `Bin: ${destinationBin.address}`,
       notes: input.notes,
     });
 

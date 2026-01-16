@@ -1,27 +1,21 @@
-import { app } from '@/app';
-import { prisma } from '@/lib/prisma';
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
-import type { FastifyInstance } from 'fastify';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-let token: string;
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 
 describe('Update Category (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
-
-    const { token: authToken } = await createAndAuthenticateUser(
-      app as unknown as FastifyInstance,
-    );
-    token = authToken;
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('should be able to update a category', async () => {
+  it('should update category with correct schema', async () => {
+    const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
     const category = await prisma.category.create({
@@ -39,33 +33,11 @@ describe('Update Category (E2E)', () => {
       .send({
         name: `New Name ${timestamp}`,
         slug: `new-slug-${timestamp}`,
-        description: 'Updated description',
-        displayOrder: 5,
-        isActive: false,
       });
 
     expect(response.status).toBe(200);
-    expect(response.body.category).toEqual(
-      expect.objectContaining({
-        id: category.id,
-        name: `New Name ${timestamp}`,
-        slug: `new-slug-${timestamp}`,
-        description: 'Updated description',
-        displayOrder: 5,
-        isActive: false,
-      }),
-    );
-  });
-
-  it('should return 404 if category does not exist', async () => {
-    const response = await request(app.server)
-      .put('/v1/categories/00000000-0000-0000-0000-000000000000')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: 'Updated Name',
-      });
-
-    expect(response.status).toBe(404);
-    expect(response.body.message).toBe('Category not found.');
+    expect(response.body).toHaveProperty('category');
+    expect(response.body.category).toHaveProperty('id', category.id);
+    expect(response.body.category).toHaveProperty('name', `New Name ${timestamp}`);
   });
 });

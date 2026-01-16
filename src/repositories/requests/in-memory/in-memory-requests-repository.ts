@@ -33,16 +33,26 @@ export class InMemoryRequestsRepository implements RequestsRepository {
   async findMany(params: FindManyRequestsParams): Promise<Request[]> {
     let filtered = this.items.filter((item) => !item.isDeleted());
 
-    if (params.requesterId) {
+    // If userIdForOwnRequests is set, use OR condition
+    if (params.userIdForOwnRequests) {
       filtered = filtered.filter(
-        (item) => item.requesterId.toString() === params.requesterId,
+        (item) =>
+          item.requesterId.toString() === params.userIdForOwnRequests ||
+          item.assignedToId?.toString() === params.userIdForOwnRequests,
       );
-    }
+    } else {
+      // Otherwise use specific filters if provided
+      if (params.requesterId) {
+        filtered = filtered.filter(
+          (item) => item.requesterId.toString() === params.requesterId,
+        );
+      }
 
-    if (params.assignedToId) {
-      filtered = filtered.filter(
-        (item) => item.assignedToId?.toString() === params.assignedToId,
-      );
+      if (params.assignedToId) {
+        filtered = filtered.filter(
+          (item) => item.assignedToId?.toString() === params.assignedToId,
+        );
+      }
     }
 
     if (params.status) {
@@ -79,16 +89,26 @@ export class InMemoryRequestsRepository implements RequestsRepository {
   ): Promise<number> {
     let filtered = this.items.filter((item) => !item.isDeleted());
 
-    if (params.requesterId) {
+    // If userIdForOwnRequests is set, use OR condition
+    if (params.userIdForOwnRequests) {
       filtered = filtered.filter(
-        (item) => item.requesterId.toString() === params.requesterId,
+        (item) =>
+          item.requesterId.toString() === params.userIdForOwnRequests ||
+          item.assignedToId?.toString() === params.userIdForOwnRequests,
       );
-    }
+    } else {
+      // Otherwise use specific filters if provided
+      if (params.requesterId) {
+        filtered = filtered.filter(
+          (item) => item.requesterId.toString() === params.requesterId,
+        );
+      }
 
-    if (params.assignedToId) {
-      filtered = filtered.filter(
-        (item) => item.assignedToId?.toString() === params.assignedToId,
-      );
+      if (params.assignedToId) {
+        filtered = filtered.filter(
+          (item) => item.assignedToId?.toString() === params.assignedToId,
+        );
+      }
     }
 
     if (params.status) {

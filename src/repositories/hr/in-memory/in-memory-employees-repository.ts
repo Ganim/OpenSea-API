@@ -193,7 +193,8 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
   ): Promise<Employee[]> {
     return this.items.filter(
       (item) =>
-        item.companyId?.equals(companyId) && (includeDeleted || !item.deletedAt),
+        item.companyId?.equals(companyId) &&
+        (includeDeleted || !item.deletedAt),
     );
   }
 

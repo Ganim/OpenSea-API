@@ -37,6 +37,9 @@ export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {
     reorderQuantity: variantDb.reorderQuantity
       ? Number(variantDb.reorderQuantity.toString())
       : undefined,
+    reference: variantDb.reference ?? undefined,
+    similars: (variantDb.similars as unknown[]) ?? undefined,
+    outOfLine: variantDb.outOfLine,
     isActive: variantDb.isActive,
     createdAt: variantDb.createdAt,
     updatedAt: variantDb.updatedAt,

@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ListAllPermissionsUseCase } from './list-all-permissions';
 import { InMemoryPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-permissions-repository';
-import { Permission } from '@/entities/rbac/permission';
 import { PermissionCode } from '@/entities/rbac/value-objects/permission-code';
 
 describe('List All Permissions Use Case', () => {

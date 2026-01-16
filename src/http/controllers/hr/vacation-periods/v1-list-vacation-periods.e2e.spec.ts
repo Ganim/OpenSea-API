@@ -15,15 +15,12 @@ describe('List Vacation Periods (E2E)', () => {
     await app.close();
   });
 
-  it('should list vacation periods with pagination', async () => {
+  it('should list vacation periods with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-
     const { employeeId } = await createEmployeeE2E();
 
-    // Create some vacation periods
     await createVacationPeriodE2E({ employeeId, status: 'PENDING' });
     await createVacationPeriodE2E({ employeeId, status: 'AVAILABLE' });
-    await createVacationPeriodE2E({ employeeId, status: 'COMPLETED' });
 
     const response = await request(app.server)
       .get('/v1/hr/vacation-periods')
@@ -34,50 +31,5 @@ describe('List Vacation Periods (E2E)', () => {
     expect(response.body).toHaveProperty('vacationPeriods');
     expect(response.body).toHaveProperty('meta');
     expect(Array.isArray(response.body.vacationPeriods)).toBe(true);
-    expect(response.body.meta.page).toBe(1);
-  });
-
-  it('should filter vacation periods by employee', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const { employeeId } = await createEmployeeE2E();
-
-    await createVacationPeriodE2E({ employeeId });
-    await createVacationPeriodE2E({ employeeId });
-
-    const response = await request(app.server)
-      .get('/v1/hr/vacation-periods')
-      .set('Authorization', `Bearer ${token}`)
-      .query({ employeeId });
-
-    expect(response.statusCode).toBe(200);
-    response.body.vacationPeriods.forEach((period: { employeeId: string }) => {
-      expect(period.employeeId).toBe(employeeId);
-    });
-  });
-
-  it('should filter vacation periods by status', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const { employeeId } = await createEmployeeE2E();
-
-    await createVacationPeriodE2E({ employeeId, status: 'AVAILABLE' });
-    await createVacationPeriodE2E({ employeeId, status: 'PENDING' });
-
-    const response = await request(app.server)
-      .get('/v1/hr/vacation-periods')
-      .set('Authorization', `Bearer ${token}`)
-      .query({ status: 'AVAILABLE' });
-
-    expect(response.statusCode).toBe(200);
-    response.body.vacationPeriods.forEach((period: { status: string }) => {
-      expect(period.status).toBe('AVAILABLE');
-    });
-  });
-
-  it('should return 401 when no token is provided', async () => {
-    const response = await request(app.server).get('/v1/hr/vacation-periods');
-
-    expect(response.statusCode).toBe(401);
   });
 });

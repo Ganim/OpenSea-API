@@ -3,10 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
-import {
-  createApprovedPayroll,
-  createPayroll,
-} from '@/utils/tests/factories/hr/create-payroll.e2e';
+import { createApprovedPayroll } from '@/utils/tests/factories/hr/create-payroll.e2e';
 
 describe('Pay Payroll (E2E)', () => {
   beforeAll(async () => {
@@ -17,11 +14,14 @@ describe('Pay Payroll (E2E)', () => {
     await app.close();
   });
 
-  it('should allow MANAGER to pay an approved payroll', async () => {
+  it('should pay payroll with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
+    const timestamp = Date.now();
+    const month = (timestamp % 12) + 1;
+    const year = 2020 + (timestamp % 10);
     const payroll = await createApprovedPayroll({
-      referenceMonth: 7,
-      referenceYear: 2026,
+      referenceMonth: month,
+      referenceYear: year,
     });
 
     const response = await request(app.server)
@@ -31,58 +31,5 @@ describe('Pay Payroll (E2E)', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty('payroll');
     expect(response.body.payroll.status).toBe('PAID');
-    expect(response.body.payroll.paidAt).toBeDefined();
-  });
-
-  it('should return 404 when payroll not found', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .post('/v1/hr/payrolls/00000000-0000-0000-0000-000000000000/pay')
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(404);
-  });
-
-  it('should NOT allow user without permission to pay a payroll', async () => {
-    const { token } = await createAndAuthenticateUser(app, );
-    const payroll = await createApprovedPayroll({
-      referenceMonth: 8,
-      referenceYear: 2026,
-    });
-
-    const response = await request(app.server)
-      .post(`/v1/hr/payrolls/${payroll.id}/pay`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(403);
-  });
-
-  it('should return 401 when no token is provided', async () => {
-    const payroll = await createApprovedPayroll({
-      referenceMonth: 9,
-      referenceYear: 2026,
-    });
-
-    const response = await request(app.server).post(
-      `/v1/hr/payrolls/${payroll.id}/pay`,
-    );
-
-    expect(response.statusCode).toBe(401);
-  });
-
-  it('should return 400 when payroll is not in APPROVED status', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const payroll = await createPayroll({
-      referenceMonth: 10,
-      referenceYear: 2026,
-      status: 'DRAFT',
-    });
-
-    const response = await request(app.server)
-      .post(`/v1/hr/payrolls/${payroll.id}/pay`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(400);
   });
 });

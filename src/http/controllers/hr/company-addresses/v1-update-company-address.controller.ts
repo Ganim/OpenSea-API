@@ -68,7 +68,9 @@ export async function updateCompanyAddressController(app: FastifyInstance) {
           return reply.status(404).send({ message: 'Address not found' });
         }
 
-        return reply.status(200).send({ address: companyAddressToDTO(address) });
+        return reply
+          .status(200)
+          .send({ address: companyAddressToDTO(address) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

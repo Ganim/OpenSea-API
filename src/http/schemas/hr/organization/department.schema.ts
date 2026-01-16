@@ -69,17 +69,18 @@ export const positionSummarySchema = z.object({
 /**
  * Schema para resposta de departamento com detalhes (GET by ID)
  */
-export const departmentWithDetailsResponseSchema = departmentResponseSchema.extend({
-  company: z
-    .object({
-      id: idSchema,
-      legalName: z.string(),
-      cnpj: z.string(),
-    })
-    .nullable()
-    .optional(),
-  positions: z.array(positionSummarySchema).optional(),
-  positionsCount: z.number(),
-});
+export const departmentWithDetailsResponseSchema =
+  departmentResponseSchema.extend({
+    company: z
+      .object({
+        id: idSchema,
+        legalName: z.string(),
+        cnpj: z.string(),
+      })
+      .nullable()
+      .optional(),
+    positions: z.array(positionSummarySchema).optional(),
+    positionsCount: z.number(),
+  });
 
 // ===============================================

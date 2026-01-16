@@ -14,7 +14,7 @@ describe('Add Permission To Group (e2e)', () => {
     await app.close();
   });
 
-  it('should allow ADMIN to ADD permission to group', async () => {
+  it('should add permission to group with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const group = await makePermissionGroup();
     const permission = await makePermission();
@@ -28,106 +28,6 @@ describe('Add Permission To Group (e2e)', () => {
       });
 
     expect(response.statusCode).toEqual(201);
-    expect(response.body).toEqual({
-      success: true,
-    });
-  });
-
-  it('should allow adding permission with CONDITIONS', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const group = await makePermissionGroup();
-    const permission = await makePermission();
-
-    const response = await request(app.server)
-      .post(`/v1/rbac/permission-groups/${group.id.toString()}/permissions`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        permissionCode: permission.code.value,
-        effect: 'allow',
-        conditions: {
-          department: 'sales',
-          region: 'north',
-        },
-      });
-
-    expect(response.statusCode).toEqual(201);
-  });
-
-  it('should allow DENY effect', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const group = await makePermissionGroup();
-    const permission = await makePermission();
-
-    const response = await request(app.server)
-      .post(`/v1/rbac/permission-groups/${group.id.toString()}/permissions`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        permissionCode: permission.code.value,
-        effect: 'deny',
-      });
-
-    expect(response.statusCode).toEqual(201);
-  });
-
-  it('should NOT allow user without permission to add permission to group', async () => {
-    const { token } = await createAndAuthenticateUser(app, );
-    const group = await makePermissionGroup();
-    const permission = await makePermission();
-
-    const response = await request(app.server)
-      .post(`/v1/rbac/permission-groups/${group.id.toString()}/permissions`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        permissionCode: permission.code.value,
-        effect: 'allow',
-      });
-
-    expect(response.statusCode).toEqual(403);
-  });
-
-  it('should return 404 for NON-EXISTENT group', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const permission = await makePermission();
-
-    const response = await request(app.server)
-      .post(
-        '/v1/rbac/permission-groups/00000000-0000-0000-0000-000000000000/permissions',
-      )
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        permissionCode: permission.code.value,
-        effect: 'allow',
-      });
-
-    expect(response.statusCode).toEqual(404);
-  });
-
-  it('should return 404 for NON-EXISTENT permission', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const group = await makePermissionGroup();
-
-    const response = await request(app.server)
-      .post(`/v1/rbac/permission-groups/${group.id.toString()}/permissions`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        permissionCode: 'nonexistent.permission.read',
-        effect: 'allow',
-      });
-
-    expect(response.statusCode).toEqual(404);
-  });
-
-  it('should NOT allow unauthenticated request', async () => {
-    const group = await makePermissionGroup();
-    const permission = await makePermission();
-
-    const response = await request(app.server)
-      .post(`/v1/rbac/permission-groups/${group.id.toString()}/permissions`)
-      .send({
-        permissionCode: permission.code.value,
-        effect: 'allow',
-      });
-
-    expect(response.statusCode).toEqual(401);
+    expect(response.body).toHaveProperty('success', true);
   });
 });

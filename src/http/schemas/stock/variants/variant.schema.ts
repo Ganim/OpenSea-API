@@ -23,6 +23,9 @@ export const createVariantSchema = z.object({
   maxStock: z.number().int().min(0).optional(),
   reorderPoint: z.number().int().min(0).optional(),
   reorderQuantity: z.number().int().min(0).optional(),
+  reference: z.string().max(128).optional(),
+  similars: z.array(z.unknown()).optional(),
+  outOfLine: z.boolean().optional().default(false),
   isActive: z.boolean().optional().default(true),
 });
 
@@ -48,6 +51,9 @@ export const variantResponseSchema = z.object({
   maxStock: z.number().optional(),
   reorderPoint: z.number().optional(),
   reorderQuantity: z.number().optional(),
+  reference: z.string().optional(),
+  similars: z.array(z.unknown()).optional(),
+  outOfLine: z.boolean(),
   isActive: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),

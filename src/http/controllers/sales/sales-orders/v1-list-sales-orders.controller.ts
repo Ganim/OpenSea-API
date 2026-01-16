@@ -1,7 +1,7 @@
 ﻿import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-    salesOrderResponseSchema,
-    salesOrderStatusEnum,
+  salesOrderResponseSchema,
+  salesOrderStatusEnum,
 } from '@/http/schemas/sales.schema';
 import { makeListSalesOrdersUseCase } from '@/use-cases/sales/sales-orders/factories/make-list-sales-orders-use-case';
 import type { FastifyInstance } from 'fastify';

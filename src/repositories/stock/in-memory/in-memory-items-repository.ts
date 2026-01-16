@@ -4,17 +4,32 @@ import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import type {
   CreateItemSchema,
   ItemsRepository,
+  ItemWithRelationsDTO,
+  ItemRelatedData,
   UpdateItemSchema,
 } from '../items-repository';
 
+export interface MockRelatedData {
+  variants: Map<string, { sku: string; name: string; productId: string }>;
+  products: Map<string, { code: string | null; name: string }>;
+  bins: Map<string, { address: string; zoneId: string }>;
+  zones: Map<string, { warehouseId: string; code: string; name: string }>;
+}
+
 export class InMemoryItemsRepository implements ItemsRepository {
   public items: Item[] = [];
+  public relatedData: MockRelatedData = {
+    variants: new Map(),
+    products: new Map(),
+    bins: new Map(),
+    zones: new Map(),
+  };
 
   async create(data: CreateItemSchema): Promise<Item> {
     const item = Item.create({
       uniqueCode: data.uniqueCode,
       variantId: data.variantId,
-      locationId: data.locationId,
+      binId: data.binId,
       initialQuantity: data.initialQuantity,
       currentQuantity: data.currentQuantity,
       status: data.status,
@@ -53,9 +68,9 @@ export class InMemoryItemsRepository implements ItemsRepository {
     );
   }
 
-  async findManyByLocation(locationId: UniqueEntityID): Promise<Item[]> {
+  async findManyByBin(binId: UniqueEntityID): Promise<Item[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.locationId?.equals(locationId),
+      (item) => !item.deletedAt && item.binId?.equals(binId),
     );
   }
 
@@ -96,7 +111,7 @@ export class InMemoryItemsRepository implements ItemsRepository {
     const item = await this.findById(data.id);
     if (!item) return null;
 
-    if (data.locationId !== undefined) item.locationId = data.locationId;
+    if (data.binId !== undefined) item.binId = data.binId;
     if (data.currentQuantity !== undefined)
       item.currentQuantity = data.currentQuantity;
     if (data.status !== undefined) item.status = data.status;
@@ -123,5 +138,83 @@ export class InMemoryItemsRepository implements ItemsRepository {
     if (item) {
       item.delete();
     }
+  }
+
+  // Helper to build related data for an item
+  private buildRelatedData(item: Item): ItemRelatedData {
+    const variantId = item.variantId.toString();
+    const variant = this.relatedData.variants.get(variantId);
+    const productId = variant?.productId;
+    const product = productId ? this.relatedData.products.get(productId) : undefined;
+    const binId = item.binId?.toString();
+    const bin = binId ? this.relatedData.bins.get(binId) : undefined;
+    const zone = bin?.zoneId ? this.relatedData.zones.get(bin.zoneId) : undefined;
+
+    return {
+      productCode: product?.code ?? null,
+      productName: product?.name ?? 'Mock Product',
+      variantSku: variant?.sku ?? 'MOCK-SKU',
+      variantName: variant?.name ?? 'Mock Variant',
+      binId: binId,
+      binAddress: bin?.address,
+      zoneId: bin?.zoneId,
+      zoneWarehouseId: zone?.warehouseId,
+      zoneCode: zone?.code,
+      zoneName: zone?.name,
+    };
+  }
+
+  async findAllWithRelations(): Promise<ItemWithRelationsDTO[]> {
+    const items = this.items.filter((item) => !item.deletedAt);
+    return items.map((item) => ({
+      item,
+      relatedData: this.buildRelatedData(item),
+    }));
+  }
+
+  async findByIdWithRelations(id: UniqueEntityID): Promise<ItemWithRelationsDTO | null> {
+    const item = this.items.find(
+      (item) => !item.deletedAt && item.id.equals(id),
+    );
+    if (!item) return null;
+    return {
+      item,
+      relatedData: this.buildRelatedData(item),
+    };
+  }
+
+  async findManyByVariantWithRelations(variantId: UniqueEntityID): Promise<ItemWithRelationsDTO[]> {
+    const items = this.items.filter(
+      (item) => !item.deletedAt && item.variantId.equals(variantId),
+    );
+    return items.map((item) => ({
+      item,
+      relatedData: this.buildRelatedData(item),
+    }));
+  }
+
+  async findManyByProductWithRelations(productId: UniqueEntityID): Promise<ItemWithRelationsDTO[]> {
+    // Filter items whose variant belongs to the product
+    const variantIds = Array.from(this.relatedData.variants.entries())
+      .filter(([_, variant]) => variant.productId === productId.toString())
+      .map(([id, _]) => id);
+
+    const items = this.items.filter(
+      (item) => !item.deletedAt && variantIds.includes(item.variantId.toString()),
+    );
+    return items.map((item) => ({
+      item,
+      relatedData: this.buildRelatedData(item),
+    }));
+  }
+
+  async findManyByBinWithRelations(binId: UniqueEntityID): Promise<ItemWithRelationsDTO[]> {
+    const items = this.items.filter(
+      (item) => !item.deletedAt && item.binId?.equals(binId),
+    );
+    return items.map((item) => ({
+      item,
+      relatedData: this.buildRelatedData(item),
+    }));
   }
 }

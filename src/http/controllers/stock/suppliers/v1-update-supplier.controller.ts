@@ -1,12 +1,16 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-    supplierResponseSchema,
-    updateSupplierSchema,
+  supplierResponseSchema,
+  updateSupplierSchema,
 } from '@/http/schemas/stock/suppliers';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import { makeGetSupplierByIdUseCase } from '@/use-cases/stock/suppliers/factories/make-get-supplier-by-id-use-case';
 import { makeUpdateSupplierUseCase } from '@/use-cases/stock/suppliers/factories/make-update-supplier-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -44,12 +48,39 @@ export async function updateSupplierController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const { id } = request.params;
+      const userId = request.user.sub;
+
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getSupplierByIdUseCase = makeGetSupplierByIdUseCase();
+
+        const [{ user }, { supplier: oldSupplier }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getSupplierByIdUseCase.execute({ id }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const useCase = makeUpdateSupplierUseCase();
         const result = await useCase.execute({
-          id: request.params.id,
+          id,
           ...request.body,
         });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.SUPPLIER_UPDATE,
+          entityId: id,
+          placeholders: { userName, supplierName: result.supplier.name },
+          oldData: {
+            name: oldSupplier.name,
+            email: oldSupplier.email,
+            phone: oldSupplier.phone,
+          },
+          newData: request.body,
+        });
+
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {

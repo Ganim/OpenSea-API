@@ -16,6 +16,7 @@ export { makeUpdatePermissionGroupUseCase } from './permission-groups/factories/
 
 // Association Factories
 export { makeAddPermissionToGroupUseCase } from './associations/factories/make-add-permission-to-group-use-case';
+export { makeBulkAddPermissionsToGroupUseCase } from './associations/factories/make-bulk-add-permissions-to-group-use-case';
 export { makeAssignGroupToUserUseCase } from './associations/factories/make-assign-group-to-user-use-case';
 export { makeListGroupPermissionsUseCase } from './associations/factories/make-list-group-permissions-use-case';
 export { makeListUserGroupsUseCase } from './associations/factories/make-list-user-groups-use-case';

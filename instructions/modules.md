@@ -21,7 +21,7 @@ Você deve seguir os seguintes passos:
 - Criar/adequar os schemas que serão usados nos controllers;
 - Criar/adequar a lista de permissões que serão usados nos controllers (atualizar a seed as permissoes necessárias);
 - Criar/adequar os controllers dos casos de uso conforme o padrão do projeto;
-- Criar/adequar os testes e2e para cada controller conforme o padrão do projeto (todos os controllers deve ter um teste);
+- Criar/adequar os testes e2e para cada controller conforme o padrão do projeto (todos os controllers deve ter no máximo um teste);
 - Criar/adequar as rotas dos casos de uso;
 
 Fique atento em:

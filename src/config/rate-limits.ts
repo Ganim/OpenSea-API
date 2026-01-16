@@ -3,22 +3,26 @@
  *
  * Define diferentes limites de taxa para diferentes tipos de endpoints
  * para proteger a API contra abuso e ataques
+ *
+ * NOTA: Os limites são aplicados POR IP. Para aplicações internas,
+ * considere aumentar os limites ou usar keyGenerator por userId.
  */
 
 export const rateLimitConfig = {
   /**
    * Configuração global padrão
    * Aplicada a todos os endpoints que não têm configuração específica
+   * Valor alto para não interferir com limites específicos
    */
   global: {
-    max: 100, // 100 requisições
+    max: 300, // 300 requisições
     timeWindow: '1 minute', // por minuto
     message: 'Too many requests, please try again later.',
   },
 
   /**
    * Endpoints de autenticação
-   * Limite moderado - a proteção principal é o bloqueio de conta após falhas
+   * Limite restritivo - proteção contra brute force
    */
   auth: {
     max: 10, // 10 tentativas
@@ -39,20 +43,20 @@ export const rateLimitConfig = {
 
   /**
    * Endpoints autenticados
-   * Limite mais generoso para usuários logados
+   * Limite generoso para usuários logados
    */
   authenticated: {
-    max: 120, // 120 requisições
+    max: 200, // 200 requisições
     timeWindow: '1 minute', // por minuto
     message: 'Rate limit exceeded, please slow down.',
   },
 
   /**
    * Endpoints de listagem/consulta
-   * Limite específico para endpoints que retornam muitos dados
+   * Limite adequado para SPAs que fazem múltiplas consultas ao carregar páginas
    */
   query: {
-    max: 30, // 30 requisições
+    max: 120, // 120 requisições
     timeWindow: '1 minute', // por minuto
     message: 'Too many queries, please try again later.',
   },
@@ -62,17 +66,17 @@ export const rateLimitConfig = {
    * Limite mais alto para administradores
    */
   admin: {
-    max: 200, // 200 requisições
+    max: 300, // 300 requisições
     timeWindow: '1 minute', // por minuto
     message: 'Admin rate limit exceeded.',
   },
 
   /**
    * Endpoints de criação/modificação
-   * Limite moderado para operações de escrita
+   * Limite adequado para fluxos de cadastro sequencial
    */
   mutation: {
-    max: 50, // 50 requisições
+    max: 100, // 100 requisições
     timeWindow: '1 minute', // por minuto
     message: 'Too many modifications, please slow down.',
   },
@@ -82,7 +86,7 @@ export const rateLimitConfig = {
    * Limite mais restritivo para operações custosas
    */
   heavy: {
-    max: 10, // 10 requisições
+    max: 20, // 20 requisições
     timeWindow: '1 minute', // por minuto
     message: 'Too many heavy operations, please try again later.',
   },

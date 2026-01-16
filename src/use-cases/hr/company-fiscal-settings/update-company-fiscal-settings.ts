@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   CompanyFiscalSettings,
+  type DigitalCertificateType,
   type NfeEnvironment,
 } from '@/entities/hr/company-fiscal-settings';
 import type { CompanyFiscalSettingsRepository } from '@/repositories/hr/company-fiscal-settings-repository';
@@ -83,43 +84,42 @@ export class UpdateCompanyFiscalSettingsUseCase {
             : fiscalSettings.nfeEnvironment,
         nfeSeries:
           request.nfeSeries !== undefined
-            ? request.nfeSeries ?? undefined
+            ? (request.nfeSeries ?? undefined)
             : fiscalSettings.nfeSeries,
         nfeLastNumber:
           request.nfeLastNumber !== undefined
-            ? request.nfeLastNumber ?? undefined
+            ? (request.nfeLastNumber ?? undefined)
             : fiscalSettings.nfeLastNumber,
         nfeDefaultOperationNature:
           request.nfeDefaultOperationNature !== undefined
-            ? request.nfeDefaultOperationNature ?? undefined
+            ? (request.nfeDefaultOperationNature ?? undefined)
             : fiscalSettings.nfeDefaultOperationNature,
         nfeDefaultCfop:
           request.nfeDefaultCfop !== undefined
-            ? request.nfeDefaultCfop ?? undefined
+            ? (request.nfeDefaultCfop ?? undefined)
             : fiscalSettings.nfeDefaultCfop,
-        digitalCertificateType:
-          (request.digitalCertificateType ??
-            fiscalSettings.digitalCertificateType) as any,
+        digitalCertificateType: (request.digitalCertificateType ??
+          fiscalSettings.digitalCertificateType) as DigitalCertificateType,
         certificateA1PfxBlob:
           request.certificateA1PfxBlob !== undefined
-            ? request.certificateA1PfxBlob ?? undefined
+            ? (request.certificateA1PfxBlob ?? undefined)
             : fiscalSettings.certificateA1PfxBlob,
         certificateA1Password:
           request.certificateA1Password !== undefined
-            ? request.certificateA1Password ?? undefined
+            ? (request.certificateA1Password ?? undefined)
             : fiscalSettings.certificateA1Password,
         certificateA1ExpiresAt:
           request.certificateA1ExpiresAt !== undefined
-            ? request.certificateA1ExpiresAt ?? undefined
+            ? (request.certificateA1ExpiresAt ?? undefined)
             : fiscalSettings.certificateA1ExpiresAt,
         nfceEnabled: request.nfceEnabled ?? fiscalSettings.nfceEnabled,
         nfceCscId:
           request.nfceCscId !== undefined
-            ? request.nfceCscId ?? undefined
+            ? (request.nfceCscId ?? undefined)
             : fiscalSettings.nfceCscId,
         nfceCscToken:
           request.nfceCscToken !== undefined
-            ? request.nfceCscToken ?? undefined
+            ? (request.nfceCscToken ?? undefined)
             : fiscalSettings.nfceCscToken,
         defaultTaxProfileId:
           request.defaultTaxProfileId !== undefined

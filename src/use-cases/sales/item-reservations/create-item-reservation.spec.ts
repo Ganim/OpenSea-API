@@ -27,7 +27,7 @@ describe('CreateItemReservationUseCase', () => {
     item = await itemsRepository.create({
       uniqueCode: 'ITEM-001',
       variantId: new UniqueEntityID(),
-      locationId: new UniqueEntityID(),
+      binId: new UniqueEntityID(),
       initialQuantity: 100,
       currentQuantity: 100,
       status: ItemStatus.create('AVAILABLE'),

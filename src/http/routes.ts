@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify';
 
 // Core routes
 import { authRoutes } from './controllers/core/auth/routes';
+import { labelTemplatesRoutes } from './controllers/core/label-templates/routes';
 import { meRoutes } from './controllers/core/me/routes';
 import { sessionsRoutes } from './controllers/core/sessions/routes';
 import { usersRoutes } from './controllers/core/users/routes';
@@ -34,7 +35,10 @@ import { careRoutes } from './controllers/stock/care/routes';
 import { categoriesRoutes } from './controllers/stock/categories/routes';
 import { itemMovementsRoutes } from './controllers/stock/item-movements/routes';
 import { itemsRoutes } from './controllers/stock/items/routes';
-import { locationsRoutes } from './controllers/stock/locations/routes';
+// Location routes replaced by new Warehouse/Zone/Bin system
+import { addressRoutes } from './controllers/stock/address/routes';
+import { binsRoutes } from './controllers/stock/bins/routes';
+import { labelsRoutes } from './controllers/stock/labels/routes';
 import { manufacturersRoutes } from './controllers/stock/manufacturers/routes';
 import { productsRoutes } from './controllers/stock/products/routes';
 import { purchaseOrdersRoutes } from './controllers/stock/purchase-orders/routes';
@@ -42,10 +46,14 @@ import { suppliersRoutes } from './controllers/stock/suppliers/routes';
 import { tagsRoutes } from './controllers/stock/tags/routes';
 import { templatesRoutes } from './controllers/stock/templates/routes';
 import { variantsRoutes } from './controllers/stock/variants/routes';
+import { volumesRoutes } from './controllers/stock/volumes/routes';
+import { warehousesRoutes } from './controllers/stock/warehouses/routes';
+import { zonesRoutes } from './controllers/stock/zones/routes';
 
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
 import { bonusesRoutes } from './controllers/hr/bonuses/routes';
+import { companiesRoutes } from './controllers/hr/companies/routes';
 import { companyAddressesRoutes } from './controllers/hr/company-addresses/routes';
 import { companyCnaesRoutes } from './controllers/hr/company-cnaes/routes';
 import { companyFiscalSettingsRoutes } from './controllers/hr/company-fiscal-settings/routes';
@@ -53,12 +61,11 @@ import { companyStakeholderRoutes } from './controllers/hr/company-stakeholder/r
 import { deductionsRoutes } from './controllers/hr/deductions/routes';
 import { departmentsRoutes } from './controllers/hr/departments/routes';
 import { employeesRoutes } from './controllers/hr/employees/routes';
-import { companiesRoutes } from './controllers/hr/companies/routes';
-import { suppliersRoutes as hrSuppliersRoutes } from './controllers/hr/suppliers/routes';
 import { manufacturersRoutes as hrManufacturersRoutes } from './controllers/hr/manufacturers/routes';
 import { overtimeRoutes } from './controllers/hr/overtime/routes';
 import { payrollsRoutes } from './controllers/hr/payrolls/routes';
 import { positionsRoutes } from './controllers/hr/positions/routes';
+import { suppliersRoutes as hrSuppliersRoutes } from './controllers/hr/suppliers/routes';
 import { timeBankRoutes } from './controllers/hr/time-bank/routes';
 import { timeControlRoutes } from './controllers/hr/time-control/routes';
 import { vacationPeriodsRoutes } from './controllers/hr/vacation-periods/routes';
@@ -71,6 +78,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(authRoutes);
   await app.register(usersRoutes);
   await app.register(sessionsRoutes);
+  await app.register(labelTemplatesRoutes);
 
   // RBAC routes
   await app.register(permissionsRoutes);
@@ -84,7 +92,12 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(categoriesRoutes);
   await app.register(manufacturersRoutes);
   await app.register(suppliersRoutes);
-  await app.register(locationsRoutes);
+  await app.register(warehousesRoutes);
+  await app.register(zonesRoutes);
+  await app.register(binsRoutes);
+  await app.register(volumesRoutes);
+  await app.register(labelsRoutes);
+  await app.register(addressRoutes);
   await app.register(tagsRoutes);
   await app.register(templatesRoutes);
   await app.register(itemsRoutes);

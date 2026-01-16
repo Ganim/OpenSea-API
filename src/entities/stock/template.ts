@@ -3,6 +3,51 @@ import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 import { UnitOfMeasure } from './value-objects/unit-of-measure';
 
+/**
+ * Tipos de dados suportados para atributos de template
+ */
+export type TemplateAttributeType =
+  | 'string'
+  | 'number'
+  | 'boolean'
+  | 'date'
+  | 'select';
+
+/**
+ * Definição de um atributo de template
+ * Usado para definir a estrutura de atributos em productAttributes, variantAttributes e itemAttributes
+ */
+export interface TemplateAttribute {
+  /** Tipo do dado do atributo */
+  type: TemplateAttributeType;
+  /** Rótulo de exibição do atributo (ex: "Marca", "Cor", "Tamanho") */
+  label?: string;
+  /** Se o atributo é obrigatório */
+  required?: boolean;
+  /** Valor padrão do atributo */
+  defaultValue?: unknown;
+  /** Unidade de medida (ex: "kg", "cm", "m²", "un") */
+  unitOfMeasure?: string;
+  /** Se o atributo deve ser incluído na impressão/etiqueta */
+  enablePrint?: boolean;
+  /** Se o atributo deve ser exibido na visualização */
+  enableView?: boolean;
+  /** Opções disponíveis (apenas para type: 'select') */
+  options?: string[];
+  /** Descrição do atributo */
+  description?: string;
+  /** Máscara de entrada (ex: "###.###.###-##" para CPF, "(##) #####-####" para telefone) */
+  mask?: string;
+  /** Texto de placeholder para o campo de entrada */
+  placeholder?: string;
+}
+
+/**
+ * Mapa de atributos do template
+ * Chave: nome do atributo, Valor: definição do atributo
+ */
+export type TemplateAttributesMap = Record<string, TemplateAttribute>;
+
 export interface CareLabelInfo {
   washing?: string; // Símbolo/instrução de lavagem
   drying?: string; // Símbolo/instrução de secagem
@@ -15,10 +60,11 @@ export interface CareLabelInfo {
 export interface TemplateProps {
   id: UniqueEntityID;
   name: string;
+  iconUrl?: string;
   unitOfMeasure: UnitOfMeasure;
-  productAttributes: Record<string, unknown>;
-  variantAttributes: Record<string, unknown>;
-  itemAttributes: Record<string, unknown>;
+  productAttributes: TemplateAttributesMap;
+  variantAttributes: TemplateAttributesMap;
+  itemAttributes: TemplateAttributesMap;
   careLabel?: CareLabelInfo;
   sequentialCode?: number;
   isActive: boolean;
@@ -41,6 +87,15 @@ export class Template extends Entity<TemplateProps> {
     this.touch();
   }
 
+  get iconUrl(): string | undefined {
+    return this.props.iconUrl;
+  }
+
+  set iconUrl(iconUrl: string | undefined) {
+    this.props.iconUrl = iconUrl;
+    this.touch();
+  }
+
   get unitOfMeasure(): UnitOfMeasure {
     return this.props.unitOfMeasure;
   }
@@ -50,31 +105,68 @@ export class Template extends Entity<TemplateProps> {
     this.touch();
   }
 
-  get productAttributes(): Record<string, unknown> {
+  get productAttributes(): TemplateAttributesMap {
     return this.props.productAttributes;
   }
 
-  set productAttributes(attributes: Record<string, unknown>) {
+  set productAttributes(attributes: TemplateAttributesMap) {
     this.props.productAttributes = attributes;
     this.touch();
   }
 
-  get variantAttributes(): Record<string, unknown> {
+  get variantAttributes(): TemplateAttributesMap {
     return this.props.variantAttributes;
   }
 
-  set variantAttributes(attributes: Record<string, unknown>) {
+  set variantAttributes(attributes: TemplateAttributesMap) {
     this.props.variantAttributes = attributes;
     this.touch();
   }
 
-  get itemAttributes(): Record<string, unknown> {
+  get itemAttributes(): TemplateAttributesMap {
     return this.props.itemAttributes;
   }
 
-  set itemAttributes(attributes: Record<string, unknown>) {
+  set itemAttributes(attributes: TemplateAttributesMap) {
     this.props.itemAttributes = attributes;
     this.touch();
+  }
+
+  // Métodos auxiliares para obter apenas atributos com enablePrint/enableView
+  get printableProductAttributes(): TemplateAttributesMap {
+    return this.filterAttributesByFlag(this.props.productAttributes, 'enablePrint');
+  }
+
+  get printableVariantAttributes(): TemplateAttributesMap {
+    return this.filterAttributesByFlag(this.props.variantAttributes, 'enablePrint');
+  }
+
+  get printableItemAttributes(): TemplateAttributesMap {
+    return this.filterAttributesByFlag(this.props.itemAttributes, 'enablePrint');
+  }
+
+  get viewableProductAttributes(): TemplateAttributesMap {
+    return this.filterAttributesByFlag(this.props.productAttributes, 'enableView');
+  }
+
+  get viewableVariantAttributes(): TemplateAttributesMap {
+    return this.filterAttributesByFlag(this.props.variantAttributes, 'enableView');
+  }
+
+  get viewableItemAttributes(): TemplateAttributesMap {
+    return this.filterAttributesByFlag(this.props.itemAttributes, 'enableView');
+  }
+
+  private filterAttributesByFlag(
+    attributes: TemplateAttributesMap,
+    flag: 'enablePrint' | 'enableView',
+  ): TemplateAttributesMap {
+    return Object.entries(attributes).reduce((acc, [key, attr]) => {
+      if (attr[flag] === true) {
+        acc[key] = attr;
+      }
+      return acc;
+    }, {} as TemplateAttributesMap);
   }
 
   get careLabel(): CareLabelInfo | undefined {
@@ -167,6 +259,7 @@ export class Template extends Entity<TemplateProps> {
       | 'updatedAt'
       | 'deletedAt'
       | 'isActive'
+      | 'iconUrl'
       | 'productAttributes'
       | 'variantAttributes'
       | 'itemAttributes'
@@ -177,6 +270,7 @@ export class Template extends Entity<TemplateProps> {
       {
         ...props,
         id: id ?? new UniqueEntityID(),
+        iconUrl: props.iconUrl,
         productAttributes: props.productAttributes ?? {},
         variantAttributes: props.variantAttributes ?? {},
         itemAttributes: props.itemAttributes ?? {},

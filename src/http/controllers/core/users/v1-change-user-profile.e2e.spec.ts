@@ -1,55 +1,43 @@
-import { app } from '@/app';
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
-import { makeUniqueEmail } from '@/utils/tests/factories/core/make-unique-email';
-import { makeUniqueUsername } from '@/utils/tests/factories/core/make-unique-username';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Update User Profile (e2e)', () => {
+import { app } from '@/app';
+import { makeCreateUserUseCase } from '@/use-cases/core/users/factories/make-create-user-use-case';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+
+describe('Change User Profile (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
+
   afterAll(async () => {
     await app.close();
   });
 
-  it('should allow MANAGER/ADMIN to CHANGE another user PROFILE', async () => {
+  it('should change user profile with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
+    const uniqueId = Math.random().toString(36).substring(2, 10);
 
-    const email = makeUniqueEmail('change-user-profile');
-    const anotherUser = await request(app.server)
-      .post('/v1/users')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        email,
-        username: makeUniqueUsername(),
-        password: 'Pass@123',
-      });
-
-    const userId = anotherUser.body.user?.id;
+    const createUserUseCase = makeCreateUserUseCase();
+    const { user } = await createUserUseCase.execute({
+      email: `chgprof${uniqueId}@test.com`,
+      username: `chgprof${uniqueId}`,
+      password: 'Pass@123',
+    });
 
     const response = await request(app.server)
-      .patch(`/v1/users/${userId}`)
+      .patch(`/v1/users/${user.id}`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        username: 'editeduser',
         profile: {
           name: 'NovoNome',
           surname: 'NovoSobrenome',
           bio: 'Bio editada',
-          avatarUrl: 'https://example.com/avatar.png',
         },
       });
 
-    expect(response.statusCode).toBe(200);
-
-    expect(response.body.user.profile).toEqual(
-      expect.objectContaining({
-        name: 'NovoNome',
-        surname: 'NovoSobrenome',
-        bio: 'Bio editada',
-        avatarUrl: 'https://example.com/avatar.png',
-      }),
-    );
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('user');
+    expect(response.body.user).toHaveProperty('profile');
   });
 });

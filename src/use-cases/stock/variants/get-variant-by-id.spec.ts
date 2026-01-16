@@ -5,6 +5,7 @@ import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-me
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateProductUseCase } from '../products/create-product';
 import { CreateTemplateUseCase } from '../templates/create-template';
@@ -46,7 +47,7 @@ describe('GetVariantByIdUseCase', () => {
   it('should be able to get a variant by id', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({

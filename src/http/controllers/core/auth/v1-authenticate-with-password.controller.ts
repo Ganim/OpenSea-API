@@ -1,7 +1,10 @@
+import { env } from '@/@env';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PasswordResetRequiredError } from '@/@errors/use-cases/password-reset-required-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UserBlockedError } from '@/@errors/use-cases/user-blocked-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { authResponseSchema, loginSchema } from '@/http/schemas';
 import { makeAuthenticateWithPasswordUseCase } from '@/use-cases/core/auth/factories/make-authenticate-with-password-use-case';
 
@@ -50,12 +53,26 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
             reply,
           });
 
+        // Auditoria de login bem-sucedido
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.AUTH_LOGIN,
+          entityId: sessionId,
+          placeholders: {
+            userName: user.profile?.name
+              ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+              : user.username || user.email,
+          },
+          affectedUserId: user.id,
+          newData: { email: user.email, sessionId },
+        });
+
         return reply
           .setCookie('refreshToken', refreshToken, {
             path: '/',
-            secure: true,
-            sameSite: true,
+            secure: env.NODE_ENV === 'production',
+            sameSite: env.NODE_ENV === 'production' ? 'strict' : 'lax',
             httpOnly: true,
+            maxAge: 7 * 24 * 60 * 60, // 7 dias em segundos (igual ao JWT refresh token)
           })
           .status(200)
           .send({ user, sessionId, token, refreshToken });

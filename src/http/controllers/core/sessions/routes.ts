@@ -6,18 +6,20 @@ import { listUserSessionsByDateController } from './v1-list-user-sessions-by-dat
 import { listUserSessionsController } from './v1-list-user-sessions.controller';
 import { logoutSessionController } from './v1-logout-session.controller';
 import { refreshSessionController } from './v1-refresh-session.controller';
+import { revokeMySessionController } from './v1-revoke-my-session.controller';
 import { revokeSessionController } from './v1-revoke-session.controller';
 
 export async function sessionsRoutes(app: FastifyInstance) {
-  // Manager Routes
+  // Admin Routes (require permissions)
   app.register(expireSessionController);
   app.register(listAllActiveSessionsController);
   app.register(listUserSessionsByDateController);
   app.register(listUserSessionsController);
   app.register(revokeSessionController);
 
-  // Authenticated Routes
+  // Self Routes (only verifyJwt)
   app.register(listMySessionsController);
   app.register(logoutSessionController);
   app.register(refreshSessionController);
+  app.register(revokeMySessionController);
 }

@@ -5,12 +5,31 @@ import { Product } from '@/entities/stock/product';
 import { CareInstructions } from '@/entities/stock/value-objects/care-instructions';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { prisma } from '@/lib/prisma';
+import { productPrismaToDomain } from '@/mappers/stock/product/product-prisma-to-domain';
 import type { ProductStatus as PrismaProductStatus } from '@prisma/client';
 import type {
-  CreateProductSchema,
-  ProductsRepository,
-  UpdateProductSchema,
+    CreateProductSchema,
+    ProductsRepository,
+    UpdateProductSchema,
 } from '../products-repository';
+
+const productInclude = {
+  template: true,
+  supplier: true,
+  manufacturer: true,
+  organization: true,
+  variants: {
+    where: { deletedAt: null },
+  },
+  productCategories: {
+    include: { category: true },
+    where: { category: { deletedAt: null } },
+  },
+  productTags: {
+    include: { tag: true },
+    where: { tag: { deletedAt: null } },
+  },
+} as const;
 
 export class PrismaProductsRepository implements ProductsRepository {
   async create(data: CreateProductSchema): Promise<Product> {
@@ -62,39 +81,30 @@ export class PrismaProductsRepository implements ProductsRepository {
         id: id.toString(),
         deletedAt: null,
       },
+      include: {
+        template: true,
+        supplier: true,
+        manufacturer: true,
+        organization: true,
+        variants: {
+          where: { deletedAt: null },
+        },
+        productCategories: {
+          include: { category: true },
+          where: { category: { deletedAt: null } },
+        },
+        productTags: {
+          include: { tag: true },
+          where: { tag: { deletedAt: null } },
+        },
+      },
     });
 
     if (!productData) {
       return null;
     }
 
-    const defaultStatus = ProductStatus.create('ACTIVE');
-
-    return Product.create(
-      {
-        name: productData.name,
-        code: productData.code ?? undefined,
-        fullCode: productData.fullCode ?? undefined,
-        sequentialCode: productData.sequentialCode ?? undefined,
-        description: productData.description ?? undefined,
-        status: ProductStatus.create(productData.status) ?? defaultStatus,
-        attributes: productData.attributes as Record<string, unknown>,
-        careInstructions: CareInstructions.create(
-          productData.careInstructionIds ?? [],
-        ),
-        templateId: new EntityID(productData.templateId),
-        supplierId: productData.supplierId
-          ? new EntityID(productData.supplierId)
-          : undefined,
-        manufacturerId: productData.manufacturerId
-          ? new EntityID(productData.manufacturerId)
-          : undefined,
-        createdAt: productData.createdAt,
-        updatedAt: productData.updatedAt ?? undefined,
-        deletedAt: productData.deletedAt ?? undefined,
-      },
-      new EntityID(productData.id),
-    );
+    return productPrismaToDomain(productData);
   }
 
   async findByName(name: string): Promise<Product | null> {
@@ -106,39 +116,14 @@ export class PrismaProductsRepository implements ProductsRepository {
         },
         deletedAt: null,
       },
+      include: productInclude,
     });
 
     if (!productData) {
       return null;
     }
 
-    const defaultStatus = ProductStatus.create('ACTIVE');
-
-    return Product.create(
-      {
-        name: productData.name,
-        code: productData.code ?? undefined,
-        fullCode: productData.fullCode ?? undefined,
-        sequentialCode: productData.sequentialCode ?? undefined,
-        description: productData.description ?? undefined,
-        status: ProductStatus.create(productData.status) ?? defaultStatus,
-        attributes: productData.attributes as Record<string, unknown>,
-        careInstructions: CareInstructions.create(
-          productData.careInstructionIds ?? [],
-        ),
-        templateId: new EntityID(productData.templateId),
-        supplierId: productData.supplierId
-          ? new EntityID(productData.supplierId)
-          : undefined,
-        manufacturerId: productData.manufacturerId
-          ? new EntityID(productData.manufacturerId)
-          : undefined,
-        createdAt: productData.createdAt,
-        updatedAt: productData.updatedAt ?? undefined,
-        deletedAt: productData.deletedAt ?? undefined,
-      },
-      new EntityID(productData.id),
-    );
+    return productPrismaToDomain(productData);
   }
 
   async findMany(): Promise<Product[]> {
@@ -146,34 +131,26 @@ export class PrismaProductsRepository implements ProductsRepository {
       where: {
         deletedAt: null,
       },
+      include: {
+        template: true,
+        supplier: true,
+        manufacturer: true,
+        organization: true,
+        variants: {
+          where: { deletedAt: null },
+        },
+        productCategories: {
+          include: { category: true },
+          where: { category: { deletedAt: null } },
+        },
+        productTags: {
+          include: { tag: true },
+          where: { tag: { deletedAt: null } },
+        },
+      },
     });
 
-    const defaultStatus = ProductStatus.create('ACTIVE');
-
-    return products.map((productData) =>
-      Product.create(
-        {
-          name: productData.name,
-          code: productData.code ?? undefined,
-          fullCode: productData.fullCode ?? undefined,
-          sequentialCode: productData.sequentialCode ?? undefined,
-          description: productData.description ?? undefined,
-          status: ProductStatus.create(productData.status) ?? defaultStatus,
-          attributes: productData.attributes as Record<string, unknown>,
-          templateId: new EntityID(productData.templateId),
-          supplierId: productData.supplierId
-            ? new EntityID(productData.supplierId)
-            : undefined,
-          manufacturerId: productData.manufacturerId
-            ? new EntityID(productData.manufacturerId)
-            : undefined,
-          createdAt: productData.createdAt,
-          updatedAt: productData.updatedAt ?? undefined,
-          deletedAt: productData.deletedAt ?? undefined,
-        },
-        new EntityID(productData.id),
-      ),
-    );
+    return products.map(productPrismaToDomain);
   }
 
   async findManyByStatus(status: ProductStatus): Promise<Product[]> {
@@ -182,34 +159,10 @@ export class PrismaProductsRepository implements ProductsRepository {
         status: status.value as PrismaProductStatus,
         deletedAt: null,
       },
+      include: productInclude,
     });
 
-    const defaultStatus = ProductStatus.create('ACTIVE');
-
-    return products.map((productData) =>
-      Product.create(
-        {
-          name: productData.name,
-          code: productData.code ?? undefined,
-          fullCode: productData.fullCode ?? undefined,
-          sequentialCode: productData.sequentialCode ?? undefined,
-          description: productData.description ?? undefined,
-          status: ProductStatus.create(productData.status) ?? defaultStatus,
-          attributes: productData.attributes as Record<string, unknown>,
-          templateId: new EntityID(productData.templateId),
-          supplierId: productData.supplierId
-            ? new EntityID(productData.supplierId)
-            : undefined,
-          manufacturerId: productData.manufacturerId
-            ? new EntityID(productData.manufacturerId)
-            : undefined,
-          createdAt: productData.createdAt,
-          updatedAt: productData.updatedAt ?? undefined,
-          deletedAt: productData.deletedAt ?? undefined,
-        },
-        new EntityID(productData.id),
-      ),
-    );
+    return products.map(productPrismaToDomain);
   }
 
   async findManyByTemplate(templateId: UniqueEntityID): Promise<Product[]> {
@@ -218,34 +171,10 @@ export class PrismaProductsRepository implements ProductsRepository {
         templateId: templateId.toString(),
         deletedAt: null,
       },
+      include: productInclude,
     });
 
-    const defaultStatus = ProductStatus.create('ACTIVE');
-
-    return products.map((productData) =>
-      Product.create(
-        {
-          name: productData.name,
-          code: productData.code ?? undefined,
-          fullCode: productData.fullCode ?? undefined,
-          sequentialCode: productData.sequentialCode ?? undefined,
-          description: productData.description ?? undefined,
-          status: ProductStatus.create(productData.status) ?? defaultStatus,
-          attributes: productData.attributes as Record<string, unknown>,
-          templateId: new EntityID(productData.templateId),
-          supplierId: productData.supplierId
-            ? new EntityID(productData.supplierId)
-            : undefined,
-          manufacturerId: productData.manufacturerId
-            ? new EntityID(productData.manufacturerId)
-            : undefined,
-          createdAt: productData.createdAt,
-          updatedAt: productData.updatedAt ?? undefined,
-          deletedAt: productData.deletedAt ?? undefined,
-        },
-        new EntityID(productData.id),
-      ),
-    );
+    return products.map(productPrismaToDomain);
   }
 
   async findManyByManufacturer(
@@ -256,34 +185,10 @@ export class PrismaProductsRepository implements ProductsRepository {
         manufacturerId: manufacturerId.toString(),
         deletedAt: null,
       },
+      include: productInclude,
     });
 
-    const defaultStatus = ProductStatus.create('ACTIVE');
-
-    return products.map((productData) =>
-      Product.create(
-        {
-          name: productData.name,
-          code: productData.code ?? undefined,
-          fullCode: productData.fullCode ?? undefined,
-          sequentialCode: productData.sequentialCode ?? undefined,
-          description: productData.description ?? undefined,
-          status: ProductStatus.create(productData.status) ?? defaultStatus,
-          attributes: productData.attributes as Record<string, unknown>,
-          templateId: new EntityID(productData.templateId),
-          supplierId: productData.supplierId
-            ? new EntityID(productData.supplierId)
-            : undefined,
-          manufacturerId: productData.manufacturerId
-            ? new EntityID(productData.manufacturerId)
-            : undefined,
-          createdAt: productData.createdAt,
-          updatedAt: productData.updatedAt ?? undefined,
-          deletedAt: productData.deletedAt ?? undefined,
-        },
-        new EntityID(productData.id),
-      ),
-    );
+    return products.map(productPrismaToDomain);
   }
 
   async findManyByCategory(categoryId: UniqueEntityID): Promise<Product[]> {
@@ -296,34 +201,10 @@ export class PrismaProductsRepository implements ProductsRepository {
         },
         deletedAt: null,
       },
+      include: productInclude,
     });
 
-    const defaultStatus = ProductStatus.create('ACTIVE');
-
-    return products.map((productData) =>
-      Product.create(
-        {
-          name: productData.name,
-          code: productData.code ?? undefined,
-          fullCode: productData.fullCode ?? undefined,
-          sequentialCode: productData.sequentialCode ?? undefined,
-          description: productData.description ?? undefined,
-          status: ProductStatus.create(productData.status) ?? defaultStatus,
-          attributes: productData.attributes as Record<string, unknown>,
-          templateId: new EntityID(productData.templateId),
-          supplierId: productData.supplierId
-            ? new EntityID(productData.supplierId)
-            : undefined,
-          manufacturerId: productData.manufacturerId
-            ? new EntityID(productData.manufacturerId)
-            : undefined,
-          createdAt: productData.createdAt,
-          updatedAt: productData.updatedAt ?? undefined,
-          deletedAt: productData.deletedAt ?? undefined,
-        },
-        new EntityID(productData.id),
-      ),
-    );
+    return products.map(productPrismaToDomain);
   }
 
   async update(data: UpdateProductSchema): Promise<Product | null> {

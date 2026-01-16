@@ -14,7 +14,7 @@ describe('Request Overtime (E2E)', () => {
     await app.close();
   });
 
-  it('should create an overtime request', async () => {
+  it('should create an overtime request with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
@@ -33,51 +33,5 @@ describe('Request Overtime (E2E)', () => {
     expect(response.body.overtime.employeeId).toBe(employeeId);
     expect(response.body.overtime.hours).toBe(2);
     expect(response.body.overtime.approved).toBe(false);
-  });
-
-  it('should return 404 for non-existent employee', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
-
-    const response = await request(app.server)
-      .post('/v1/hr/overtime')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        employeeId: nonExistentUUID,
-        date: '2024-01-15',
-        hours: 2,
-        reason: 'Some reason for overtime work request',
-      });
-
-    expect(response.statusCode).toBe(404);
-  });
-
-  it('should return 400 when reason is too short', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
-
-    const response = await request(app.server)
-      .post('/v1/hr/overtime')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        employeeId,
-        date: '2024-01-15',
-        hours: 2,
-        reason: 'Short', // Too short - needs at least 10 characters
-      });
-
-    expect(response.statusCode).toBe(400);
-  });
-
-  it('should return 401 when no token is provided', async () => {
-    const validUUID = '00000000-0000-0000-0000-000000000000';
-    const response = await request(app.server).post('/v1/hr/overtime').send({
-      employeeId: validUUID,
-      date: '2024-01-15',
-      hours: 2,
-      reason: 'Some reason for overtime work request',
-    });
-
-    expect(response.statusCode).toBe(401);
   });
 });

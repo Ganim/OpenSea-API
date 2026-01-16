@@ -9,7 +9,7 @@ export interface ItemProps {
   fullCode?: string; // Código completo gerado automaticamente (ex: 23.6.23-1)
   sequentialCode?: number; // Código sequencial do item dentro da variante
   variantId: UniqueEntityID;
-  locationId?: UniqueEntityID; // Agora opcional
+  binId?: UniqueEntityID; // Referência ao bin onde o item está armazenado
   initialQuantity: number;
   currentQuantity: number;
   unitCost?: number; // Custo unitário do item
@@ -55,12 +55,12 @@ export class Item extends Entity<ItemProps> {
     return this.props.variantId;
   }
 
-  get locationId(): UniqueEntityID | undefined {
-    return this.props.locationId;
+  get binId(): UniqueEntityID | undefined {
+    return this.props.binId;
   }
 
-  set locationId(locationId: UniqueEntityID | undefined) {
-    this.props.locationId = locationId;
+  set binId(binId: UniqueEntityID | undefined) {
+    this.props.binId = binId;
     this.touch();
   }
 
@@ -158,8 +158,8 @@ export class Item extends Entity<ItemProps> {
     return !!this.props.deletedAt;
   }
 
-  get hasLocation(): boolean {
-    return !!this.props.locationId;
+  get hasBin(): boolean {
+    return !!this.props.binId;
   }
 
   get hasUnitCost(): boolean {

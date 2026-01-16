@@ -39,7 +39,8 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
         email: data.email ?? null,
         phoneMain: data.phoneMain ?? null,
         website: data.website ?? null,
-        typeSpecificData: (data.typeSpecificData ?? {}) as Prisma.InputJsonValue,
+        typeSpecificData: (data.typeSpecificData ??
+          {}) as Prisma.InputJsonValue,
         metadata: (data.metadata ?? {}) as Prisma.InputJsonValue,
       },
     });

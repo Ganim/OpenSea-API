@@ -1,5 +1,6 @@
 import fastifyCookie from '@fastify/cookie';
 import cors from '@fastify/cors';
+import helmet from '@fastify/helmet';
 import fastifyJwt from '@fastify/jwt';
 import rateLimit from '@fastify/rate-limit';
 import swagger from '@fastify/swagger';
@@ -14,26 +15,33 @@ import { env } from './@env';
 import { errorHandler } from './@errors/error-handler';
 import { rateLimitConfig } from './config/rate-limits';
 import { swaggerTags } from './config/swagger-tags';
+import { jwtConfig, getJwtSecret, isUsingRS256 } from './config/jwt';
 import { registerRoutes } from './http/routes';
-import { auditContextHook } from './http/hooks/audit-context.hook';
-import auditLoggerPlugin from './http/plugins/audit-logger.plugin';
+import requestIdPlugin from './http/plugins/request-id.plugin';
+import { initSentry } from './lib/sentry';
+
+// Initialize Sentry for error monitoring
+initSentry();
 
 export const app = fastify({ trustProxy: true });
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
-// Captura contexto (user/ip/ua/endpoint) para o audit log
-app.addHook('onRequest', auditContextHook);
-
 // Custom JSON parser that allows empty bodies
 app.addContentTypeParser('application/json', function (request, payload, done) {
   let body = '';
+
+  payload.on('error', (err) => {
+    done(err instanceof Error ? err : new Error(String(err)), undefined);
+  });
+
   payload.on('data', (chunk) => {
     body += chunk;
   });
+
   payload.on('end', () => {
-    if (body === '') {
+    if (body === '' || body.trim() === '') {
       done(null, {});
     } else {
       try {
@@ -49,6 +57,57 @@ app.addContentTypeParser('application/json', function (request, payload, done) {
 // Error handler
 app.setErrorHandler(errorHandler);
 
+// Request ID correlation - must be registered early
+app.register(requestIdPlugin);
+
+// Security headers with Helmet
+// IMPORTANTE: Deve ser registrado ANTES do CORS
+app.register(helmet, {
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"], // Para Swagger UI
+      scriptSrc: ["'self'", "'unsafe-inline'"], // Para Swagger UI
+      imgSrc: ["'self'", 'data:', 'https:'],
+    },
+  },
+  crossOriginEmbedderPolicy: false, // Para Swagger UI funcionar
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+});
+
+// CORS - Cross-Origin Resource Sharing
+// IMPORTANTE: Deve ser registrado ANTES do rate limit para que
+// respostas de rate limit também incluam headers CORS
+app.register(cors, {
+  origin: (origin, cb) => {
+    // Lista de origens permitidas
+    const allowedOrigins = [
+      env.FRONTEND_URL,
+      'http://localhost:3000',
+      'http://127.0.0.1:3000',
+    ];
+
+    // Permite requests sem origin (ex: Postman, curl, mobile apps)
+    if (!origin) {
+      cb(null, true);
+      return;
+    }
+
+    // Verifica se a origem está na lista permitida
+    if (allowedOrigins.includes(origin)) {
+      cb(null, true);
+      return;
+    }
+
+    // Bloqueia origens não permitidas
+    cb(new Error('Not allowed by CORS'), false);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Length', 'X-Request-Id'],
+});
+
 // Rate limiting global (disabled in tests to avoid flakiness)
 const isTestEnv =
   env.NODE_ENV === 'test' ||
@@ -57,13 +116,6 @@ const isTestEnv =
 if (!isTestEnv) {
   app.register(rateLimit, rateLimitConfig.global);
 }
-
-// CORS - Cross-Origin Resource Sharing
-app.register(cors, {
-  origin: env.FRONTEND_URL,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-});
 
 // Swagger
 app.register(swagger, {
@@ -88,15 +140,24 @@ app.register(swagger, {
   },
 });
 
-// Authentication
+// Authentication with RS256 support
+const jwtSecret = getJwtSecret();
+const usingRS256 = isUsingRS256();
+
 app.register(fastifyJwt, {
-  secret: env.JWT_SECRET,
+  secret: jwtSecret,
   sign: {
-    algorithm: 'HS256',
-    expiresIn: '30m', // 30 minutos - melhor UX mantendo segurança
+    algorithm: jwtConfig.algorithm,
+    expiresIn: jwtConfig.accessTokenExpiresIn,
+    iss: jwtConfig.issuer,
+    aud: jwtConfig.audience,
+    ...(usingRS256 && { key: (jwtSecret as { private: string }).private }),
   },
   verify: {
-    algorithms: ['HS256'],
+    algorithms: [jwtConfig.algorithm],
+    allowedIss: jwtConfig.issuer,
+    allowedAud: jwtConfig.audience,
+    ...(usingRS256 && { key: (jwtSecret as { public: string }).public }),
   },
   cookie: {
     cookieName: 'refreshToken',
@@ -105,9 +166,6 @@ app.register(fastifyJwt, {
 });
 
 app.register(fastifyCookie);
-
-// Audit logger - registra operações mutáveis
-app.register(auditLoggerPlugin);
 
 // Routes
 app.after(() => {

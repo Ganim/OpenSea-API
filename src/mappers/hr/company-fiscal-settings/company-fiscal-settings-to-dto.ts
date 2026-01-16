@@ -1,14 +1,19 @@
 import type { CompanyFiscalSettings } from '@/entities/hr/company-fiscal-settings';
+import type {
+  digitalCertificateTypeSchema,
+  nfeEnvironmentSchema,
+} from '@/http/schemas/hr/companies/company-fiscal-settings.schema';
+import type { z } from 'zod';
 
 export interface CompanyFiscalSettingsDTO {
   id: string;
   companyId: string;
-  nfeEnvironment?: string;
+  nfeEnvironment?: z.infer<typeof nfeEnvironmentSchema>;
   nfeSeries?: string;
   nfeLastNumber?: number;
   nfeDefaultOperationNature?: string;
   nfeDefaultCfop?: string;
-  digitalCertificateType: 'NONE' | 'A1' | 'A3';
+  digitalCertificateType: z.infer<typeof digitalCertificateTypeSchema>;
   certificateA1ExpiresAt?: Date;
   nfceEnabled: boolean;
   defaultTaxProfileId?: string;
@@ -39,10 +44,7 @@ export function companyFiscalSettingsToDTO(
     nfeLastNumber: fiscalSettings.nfeLastNumber,
     nfeDefaultOperationNature: fiscalSettings.nfeDefaultOperationNature,
     nfeDefaultCfop: fiscalSettings.nfeDefaultCfop,
-    digitalCertificateType: fiscalSettings.digitalCertificateType as
-      | 'NONE'
-      | 'A1'
-      | 'A3',
+    digitalCertificateType: fiscalSettings.digitalCertificateType,
     certificateA1ExpiresAt: fiscalSettings.certificateA1ExpiresAt,
     nfceEnabled: fiscalSettings.nfceEnabled,
     defaultTaxProfileId: fiscalSettings.defaultTaxProfileId?.toString(),

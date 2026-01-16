@@ -8,7 +8,12 @@ interface CompanyData {
   stateRegistration?: string;
   municipalRegistration?: string;
   legalNature?: string;
-  taxRegime?: 'SIMPLES' | 'LUCRO_PRESUMIDO' | 'LUCRO_REAL' | 'IMUNE_ISENTA' | 'OUTROS';
+  taxRegime?:
+    | 'SIMPLES'
+    | 'LUCRO_PRESUMIDO'
+    | 'LUCRO_REAL'
+    | 'IMUNE_ISENTA'
+    | 'OUTROS';
   taxRegimeDetail?: string;
   activityStartDate?: Date;
   status?: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';

@@ -24,6 +24,9 @@ export interface VariantProps {
   maxStock?: number;
   reorderPoint?: number;
   reorderQuantity?: number;
+  reference?: string;
+  similars?: unknown[];
+  outOfLine: boolean;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
@@ -229,6 +232,33 @@ export class Variant extends Entity<VariantProps> {
     this.touch();
   }
 
+  get reference(): string | undefined {
+    return this.props.reference;
+  }
+
+  set reference(reference: string | undefined) {
+    this.props.reference = reference;
+    this.touch();
+  }
+
+  get similars(): unknown[] | undefined {
+    return this.props.similars;
+  }
+
+  set similars(similars: unknown[] | undefined) {
+    this.props.similars = similars;
+    this.touch();
+  }
+
+  get outOfLine(): boolean {
+    return this.props.outOfLine;
+  }
+
+  set outOfLine(outOfLine: boolean) {
+    this.props.outOfLine = outOfLine;
+    this.touch();
+  }
+
   get isActive(): boolean {
     return this.props.isActive;
   }
@@ -366,6 +396,7 @@ export class Variant extends Entity<VariantProps> {
       | 'attributes'
       | 'price'
       | 'isActive'
+      | 'outOfLine'
     >,
     id?: UniqueEntityID,
   ): Variant {
@@ -376,6 +407,7 @@ export class Variant extends Entity<VariantProps> {
         attributes: props.attributes ?? {},
         price: props.price ?? 0,
         isActive: props.isActive ?? true,
+        outOfLine: props.outOfLine ?? false,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

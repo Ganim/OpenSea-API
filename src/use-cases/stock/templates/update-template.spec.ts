@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateTemplateUseCase } from './create-template';
 import { UpdateTemplateUseCase } from './update-template';
@@ -19,42 +20,43 @@ describe('UpdateTemplateUseCase', () => {
   it('should update a template', async () => {
     const created = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const result = await sut.execute({
       id: created.template.id,
       name: 'Updated Electronics Template',
-      productAttributes: { brand: 'string', model: 'string' },
+      productAttributes: {
+        brand: templateAttr.string(),
+        model: templateAttr.string(),
+      },
     });
 
-    expect(result.template).toEqual(
-      expect.objectContaining({
-        id: created.template.id,
-        name: 'Updated Electronics Template',
-        productAttributes: { brand: 'string', model: 'string' },
-      }),
-    );
+    expect(result.template.id).toBe(created.template.id);
+    expect(result.template.name).toBe('Updated Electronics Template');
+    expect(result.template.productAttributes).toHaveProperty('brand');
+    expect(result.template.productAttributes).toHaveProperty('model');
   });
 
   it('should update only provided fields', async () => {
     const created = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
-      variantAttributes: { color: 'string' },
+      productAttributes: { brand: templateAttr.string() },
+      variantAttributes: { color: templateAttr.string() },
     });
 
     const result = await sut.execute({
       id: created.template.id,
-      productAttributes: { brand: 'string', model: 'string' },
+      productAttributes: {
+        brand: templateAttr.string(),
+        model: templateAttr.string(),
+      },
     });
 
     expect(result.template.name).toBe('Electronics Template');
-    expect(result.template.productAttributes).toEqual({
-      brand: 'string',
-      model: 'string',
-    });
-    expect(result.template.variantAttributes).toEqual({ color: 'string' });
+    expect(result.template.productAttributes).toHaveProperty('brand');
+    expect(result.template.productAttributes).toHaveProperty('model');
+    expect(result.template.variantAttributes).toHaveProperty('color');
   });
 
   it('should throw error if template not found', async () => {
@@ -69,7 +71,7 @@ describe('UpdateTemplateUseCase', () => {
   it('should not update with empty name', async () => {
     const created = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     await expect(
@@ -83,12 +85,12 @@ describe('UpdateTemplateUseCase', () => {
   it('should not update with duplicate name', async () => {
     await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const second = await createTemplate.execute({
       name: 'Clothing Template',
-      productAttributes: { size: 'string' },
+      productAttributes: { size: templateAttr.string() },
     });
 
     await expect(
@@ -102,7 +104,7 @@ describe('UpdateTemplateUseCase', () => {
   it('should update to have no attributes', async () => {
     const created = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const result = await sut.execute({
@@ -112,13 +114,11 @@ describe('UpdateTemplateUseCase', () => {
       itemAttributes: {},
     });
 
-    expect(result.template).toMatchObject({
-      id: created.template.id,
-      name: 'Electronics Template',
-      productAttributes: {},
-      variantAttributes: {},
-      itemAttributes: {},
-    });
+    expect(result.template.id).toBe(created.template.id);
+    expect(result.template.name).toBe('Electronics Template');
+    expect(result.template.productAttributes).toEqual({});
+    expect(result.template.variantAttributes).toEqual({});
+    expect(result.template.itemAttributes).toEqual({});
   });
 
   it('should update unit of measure', async () => {
@@ -139,7 +139,7 @@ describe('UpdateTemplateUseCase', () => {
   it('should throw error with invalid unit of measure', async () => {
     const created = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     await expect(
@@ -148,5 +148,19 @@ describe('UpdateTemplateUseCase', () => {
         unitOfMeasure: 'INVALID_UNIT',
       }),
     ).rejects.toThrow(BadRequestError);
+  });
+
+  it('should update iconUrl', async () => {
+    const created = await createTemplate.execute({
+      name: 'Electronics Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const result = await sut.execute({
+      id: created.template.id,
+      iconUrl: 'https://example.com/new-icon.svg',
+    });
+
+    expect(result.template.iconUrl).toBe('https://example.com/new-icon.svg');
   });
 });

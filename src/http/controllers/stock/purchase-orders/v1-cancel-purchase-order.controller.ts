@@ -4,7 +4,11 @@ import { z } from 'zod';
 
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCancelPurchaseOrderUseCase } from '@/use-cases/stock/purchase-orders/factories/make-cancel-purchase-order-use-case';
+import { makeGetPurchaseOrderByIdUseCase } from '@/use-cases/stock/purchase-orders/factories/make-get-purchase-order-by-id-use-case';
 
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -70,12 +74,32 @@ export async function cancelPurchaseOrderController(app: FastifyInstance) {
     },
     async (request, reply) => {
       const { orderId } = request.params;
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getPurchaseOrderByIdUseCase = makeGetPurchaseOrderByIdUseCase();
+
+        const [{ user }, { purchaseOrder: oldOrder }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getPurchaseOrderByIdUseCase.execute({ id: orderId }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const cancelPurchaseOrderUseCase = makeCancelPurchaseOrderUseCase();
 
         const { purchaseOrder } = await cancelPurchaseOrderUseCase.execute({
           id: orderId,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.PURCHASE_ORDER_CANCEL,
+          entityId: orderId,
+          placeholders: { userName, orderNumber: oldOrder.orderNumber },
+          oldData: { status: oldOrder.status },
+          newData: { status: purchaseOrder.status },
         });
 
         return reply.status(200).send({

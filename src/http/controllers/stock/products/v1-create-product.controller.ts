@@ -1,9 +1,12 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { createProductSchema, productResponseSchema } from '@/http/schemas';
 import { productToDTO } from '@/mappers/stock/product/product-to-dto';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateProductUseCase } from '@/use-cases/stock/products/factories/make-create-product-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -46,18 +49,44 @@ export async function createProductController(app: FastifyInstance) {
         supplierId,
         manufacturerId,
       } = request.body;
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user } = await getUserByIdUseCase.execute({ userId });
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const createProductUseCase = makeCreateProductUseCase();
         const { product } = await createProductUseCase.execute({
           name,
-          code, // Agora é opcional
+          code,
           description,
           status,
           attributes,
           templateId,
           supplierId,
           manufacturerId,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.PRODUCT_CREATE,
+          entityId: product.id.toString(),
+          placeholders: {
+            userName,
+            productName: product.name,
+            sku: product.code || 'N/A',
+          },
+          newData: {
+            name,
+            code,
+            description,
+            status,
+            templateId,
+            supplierId,
+            manufacturerId,
+          },
         });
 
         return reply.status(201).send({ product: productToDTO(product) });

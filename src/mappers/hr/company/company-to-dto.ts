@@ -1,6 +1,9 @@
-import type { Company } from '@/entities/hr/company';
+import type { Company, TaxRegime } from '@/entities/hr/company';
 import type { Department } from '@/entities/hr/department';
-import { departmentToDTO, type DepartmentDTO } from '../department/department-to-dto';
+import {
+  departmentToDTO,
+  type DepartmentDTO,
+} from '../department/department-to-dto';
 
 export interface CompanyDTO {
   id: string;
@@ -10,7 +13,7 @@ export interface CompanyDTO {
   stateRegistration?: string;
   municipalRegistration?: string;
   legalNature?: string;
-  taxRegime?: string;
+  taxRegime?: TaxRegime;
   taxRegimeDetail?: string;
   activityStartDate?: string;
   status: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';

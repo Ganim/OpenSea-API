@@ -160,10 +160,9 @@ export class CareCatalogProvider {
       return process.env.ASSETS_DIR;
     }
 
-    // Fallback to project root/assets
-    // This handles both development and production scenarios
-    const projectRoot = path.resolve(__dirname, '..', '..', '..');
-    return path.join(projectRoot, 'assets');
+    // Use process.cwd() to get the project root directory
+    // This works correctly regardless of where the code is executed from
+    return path.join(process.cwd(), 'assets');
   }
 
   /**

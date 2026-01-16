@@ -1,4 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeLogoutSessionUseCase } from '@/use-cases/core/sessions/factories/make-logout-session-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -33,7 +35,20 @@ export async function logoutSessionController(app: FastifyInstance) {
           sessionId,
         });
 
-        return reply.status(204).send();
+        // Auditoria de logout
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.SESSION_LOGOUT,
+          entityId: sessionId,
+          placeholders: {
+            userName: request.user?.sub || 'Usuário',
+          },
+        });
+
+        // Limpa o cookie de refresh token para evitar acúmulo
+        return reply
+          .clearCookie('refreshToken', { path: '/' })
+          .status(204)
+          .send();
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

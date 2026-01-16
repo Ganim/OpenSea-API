@@ -259,7 +259,9 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     expect(result.permissions).toHaveLength(1);
-    expect(result.permissions[0].permission.code.value).toBe('allow.permission.read');
+    expect(result.permissions[0].permission.code.value).toBe(
+      'allow.permission.read',
+    );
     expect(result.permissions[0].effect).toBe('allow');
   });
 
@@ -313,7 +315,9 @@ describe('ListUserDirectPermissionsUseCase', () => {
     });
 
     expect(result.permissions).toHaveLength(1);
-    expect(result.permissions[0].permission.code.value).toBe('deny.permission.read');
+    expect(result.permissions[0].permission.code.value).toBe(
+      'deny.permission.read',
+    );
     expect(result.permissions[0].effect).toBe('deny');
   });
 

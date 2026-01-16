@@ -1,46 +1,33 @@
-import { app } from '@/app';
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
-import { makeUniqueEmail } from '@/utils/tests/factories/core/make-unique-email';
-import { makeUniqueUsername } from '@/utils/tests/factories/core/make-unique-username';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Expire Session (e2e)', () => {
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+
+describe('Expire Session (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
+
   afterAll(async () => {
     await app.close();
   });
 
-  it('should allow ADMIN to EXPIRE an user SESSION', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+  it('should expire session with correct schema', async () => {
+    const { token, user } = await createAndAuthenticateUser(app);
 
-    const email = makeUniqueEmail('expire-session');
-    const anotherUser = await request(app.server)
-      .post('/v1/users')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        email,
-        username: makeUniqueUsername(),
-        password: 'Pass@123',
-      });
-
-    expect(anotherUser.statusCode).toEqual(201);
-
-    const authenticateAnotherUser = await request(app.server)
-      .post('/v1/auth/login/password')
-      .send({
-        email,
-        password: 'Pass@123',
-      });
-
-    expect(authenticateAnotherUser.statusCode).toEqual(200);
-
-    const sessionId = authenticateAnotherUser.body.sessionId;
+    const session = await prisma.session.create({
+      data: {
+        userId: user.user.id,
+        ip: '192.168.1.1',
+        createdAt: new Date(),
+        lastUsedAt: new Date(),
+      },
+    });
 
     const response = await request(app.server)
-      .patch(`/v1/sessions/${sessionId}/expire`)
+      .patch(`/v1/sessions/${session.id}/expire`)
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(204);

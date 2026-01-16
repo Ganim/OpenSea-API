@@ -6,15 +6,15 @@
 import { z } from 'zod';
 import { dateSchema, idSchema } from '../../common.schema';
 import {
-    hrCpfSchema,
-    hrPhoneSchema,
-    hrPisSchema,
-    hrZipCodeSchema,
+  hrCpfSchema,
+  hrPhoneSchema,
+  hrPisSchema,
+  hrZipCodeSchema,
 } from './employee-common.schema';
 import {
-    contractTypeSchema,
-    employeeStatusSchema,
-    workRegimeSchema,
+  contractTypeSchema,
+  employeeStatusSchema,
+  workRegimeSchema,
 } from './employee-enums.schema';
 
 /**

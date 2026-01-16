@@ -21,8 +21,8 @@ describe('ListVariantPromotionsUseCase', () => {
       name: 'Promo 1',
       discountType: DiscountType.create('PERCENTAGE'),
       discountValue: 10,
-      startDate: new Date('2025-01-01'),
-      endDate: new Date('2025-12-31'),
+      startDate: new Date('2026-01-01'),
+      endDate: new Date('2026-12-31'),
       isActive: true,
     });
 
@@ -31,8 +31,8 @@ describe('ListVariantPromotionsUseCase', () => {
       name: 'Promo 2',
       discountType: DiscountType.create('FIXED_AMOUNT'),
       discountValue: 50,
-      startDate: new Date('2025-01-01'),
-      endDate: new Date('2025-12-31'),
+      startDate: new Date('2026-01-01'),
+      endDate: new Date('2026-12-31'),
       isActive: false,
     });
 
@@ -41,8 +41,8 @@ describe('ListVariantPromotionsUseCase', () => {
       name: 'Other Promo',
       discountType: DiscountType.create('PERCENTAGE'),
       discountValue: 15,
-      startDate: new Date('2025-01-01'),
-      endDate: new Date('2025-12-31'),
+      startDate: new Date('2026-01-01'),
+      endDate: new Date('2026-12-31'),
       isActive: true,
     });
 
@@ -61,8 +61,8 @@ describe('ListVariantPromotionsUseCase', () => {
       name: 'Active Promo',
       discountType: DiscountType.create('PERCENTAGE'),
       discountValue: 10,
-      startDate: new Date('2025-01-01'),
-      endDate: new Date('2025-12-31'),
+      startDate: new Date('2026-01-01'),
+      endDate: new Date('2026-12-31'),
       isActive: true,
     });
 
@@ -71,8 +71,8 @@ describe('ListVariantPromotionsUseCase', () => {
       name: 'Inactive Promo',
       discountType: DiscountType.create('PERCENTAGE'),
       discountValue: 20,
-      startDate: new Date('2025-01-01'),
-      endDate: new Date('2025-12-31'),
+      startDate: new Date('2026-01-01'),
+      endDate: new Date('2026-12-31'),
       isActive: false,
     });
 
@@ -91,8 +91,8 @@ describe('ListVariantPromotionsUseCase', () => {
       name: 'Some Promo',
       discountType: DiscountType.create('PERCENTAGE'),
       discountValue: 10,
-      startDate: new Date('2025-01-01'),
-      endDate: new Date('2025-12-31'),
+      startDate: new Date('2026-01-01'),
+      endDate: new Date('2026-12-31'),
       isActive: true,
     });
 

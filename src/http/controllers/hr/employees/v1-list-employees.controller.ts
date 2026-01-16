@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac/permission-codes';
+import { createScopeIdentifierMiddleware } from '@/http/middlewares/rbac/verify-scope';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   employeeResponseSchema,
@@ -10,16 +12,22 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
+/**
+ * Middleware para verificar permissão de listagem de funcionários
+ * Aceita hr.employees.list.all ou hr.employees.list.team
+ */
+const checkEmployeesListScope = createScopeIdentifierMiddleware('hr.employees.list');
+
 export async function listEmployeesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/employees',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, checkEmployeesListScope],
     schema: {
       tags: ['HR - Employees'],
-      summary: 'List all employees',
+      summary: 'List employees (scope-based)',
       description:
-        'Returns a paginated list of employees with optional filters',
+        'Returns a paginated list of employees. With hr.employees.list.all permission, returns all employees. With hr.employees.list.team, returns only employees from the same department.',
       querystring: listEmployeesQuerySchema,
       response: {
         200: z.object({
@@ -43,12 +51,19 @@ export async function listEmployeesController(app: FastifyInstance) {
         includeDeleted,
       } = request.query;
 
+      // Se o usuário tem apenas escopo .team, força o filtro por departamento
+      const scopeCheck = request.scopeCheck;
+      const effectiveDepartmentId =
+        scopeCheck?.scope === 'team' && scopeCheck.userDepartmentId
+          ? scopeCheck.userDepartmentId
+          : departmentId;
+
       const listEmployeesUseCase = makeListEmployeesUseCase();
       const { employees, meta } = await listEmployeesUseCase.execute({
         page,
         perPage,
         status,
-        departmentId,
+        departmentId: effectiveDepartmentId,
         positionId,
         supervisorId,
         companyId,

@@ -1,7 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeChangeMyUsernameUseCase } from '@/use-cases/core/me/factories/make-change-my-username-use-case';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -59,11 +62,32 @@ export async function changeMyUsernameController(app: FastifyInstance) {
       const { username } = request.body;
 
       try {
-        const changeMyUsernameUseCase = makeChangeMyUsernameUseCase();
+        // Busca dados anteriores para auditoria
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user: oldUser } = await getUserByIdUseCase.execute({ userId });
+        const oldUsername = oldUser.username;
 
+        const changeMyUsernameUseCase = makeChangeMyUsernameUseCase();
         const { user } = await changeMyUsernameUseCase.execute({
           userId,
           username,
+        });
+
+        // Log de auditoria
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.email;
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.ME_USERNAME_CHANGE,
+          entityId: user.id.toString(),
+          placeholders: {
+            userName,
+            oldUsername: oldUsername || '',
+            newUsername: username,
+          },
+          oldData: { username: oldUsername },
+          newData: { username },
         });
 
         return reply.status(200).send({ user });

@@ -112,6 +112,11 @@ export enum AuditEntity {
   DEDUCTION = 'DEDUCTION',
 
   // ==========================================
+  // Label Templates
+  // ==========================================
+  LABEL_TEMPLATE = 'LABEL_TEMPLATE',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',

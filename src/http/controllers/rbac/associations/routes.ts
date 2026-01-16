@@ -3,6 +3,7 @@ import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { addPermissionToGroupController } from './v1-add-permission-to-group.controller';
 import { assignGroupToUserController } from './v1-assign-group-to-user.controller';
+import { bulkAddPermissionsToGroupController } from './v1-bulk-add-permissions-to-group.controller';
 import { listGroupPermissionsController } from './v1-list-group-permissions.controller';
 import { listUserGroupsController } from './v1-list-user-groups.controller';
 import { listUserPermissionsController } from './v1-list-user-permissions.controller';
@@ -16,6 +17,7 @@ export async function associationsRoutes() {
     async (adminApp) => {
       adminApp.register(rateLimit, rateLimitConfig.admin);
       adminApp.register(addPermissionToGroupController);
+      adminApp.register(bulkAddPermissionsToGroupController);
       adminApp.register(removePermissionFromGroupController);
       adminApp.register(assignGroupToUserController);
       adminApp.register(removeGroupFromUserController);

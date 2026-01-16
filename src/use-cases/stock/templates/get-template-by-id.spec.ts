@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateTemplateUseCase } from './create-template';
 import { GetTemplateByIdUseCase } from './get-template-by-id';
@@ -18,18 +19,18 @@ describe('GetTemplateByIdUseCase', () => {
   it('should get a template by id', async () => {
     const created = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string', model: 'string' },
+      productAttributes: {
+        brand: templateAttr.string(),
+        model: templateAttr.string(),
+      },
     });
 
     const result = await sut.execute({ id: created.template.id });
 
-    expect(result.template).toEqual(
-      expect.objectContaining({
-        id: created.template.id,
-        name: 'Electronics Template',
-        productAttributes: { brand: 'string', model: 'string' },
-      }),
-    );
+    expect(result.template.id).toBe(created.template.id);
+    expect(result.template.name).toBe('Electronics Template');
+    expect(result.template.productAttributes).toHaveProperty('brand');
+    expect(result.template.productAttributes).toHaveProperty('model');
   });
 
   it('should throw error if template not found', async () => {

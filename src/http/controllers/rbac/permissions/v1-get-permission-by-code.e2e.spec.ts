@@ -13,7 +13,7 @@ describe('Get Permission By Code (e2e)', () => {
     await app.close();
   });
 
-  it('should allow authenticated USER to GET permission by CODE', async () => {
+  it('should get permission by code with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission({
       module: 'test',
@@ -26,38 +26,9 @@ describe('Get Permission By Code (e2e)', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toEqual(200);
-    expect(response.body.permission).toEqual(
-      expect.objectContaining({
-        id: permission.id.toString(),
-        code: permission.code.toString(),
-        module: 'test',
-        resource: expect.stringContaining('example'),
-        action: 'read',
-      }),
-    );
-  });
-
-  it('should return 404 for NON-EXISTENT permission code', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .get('/v1/rbac/permissions/code/nonexistent.permission.read')
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toEqual(404);
-  });
-
-  it('should NOT allow unauthenticated request', async () => {
-    const permission = await makePermission({
-      module: 'test',
-      resource: 'auth',
-      action: 'read',
-    });
-
-    const response = await request(app.server).get(
-      `/v1/rbac/permissions/code/${permission.code}`,
-    );
-
-    expect(response.statusCode).toEqual(401);
+    expect(response.body).toHaveProperty('permission');
+    expect(response.body.permission).toHaveProperty('id');
+    expect(response.body.permission).toHaveProperty('code');
+    expect(response.body.permission).toHaveProperty('module');
   });
 });

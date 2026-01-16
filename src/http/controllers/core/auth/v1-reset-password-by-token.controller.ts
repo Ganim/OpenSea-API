@@ -1,4 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { resetPasswordSchema } from '@/http/schemas';
 import { makeResetPasswordByTokenUseCase } from '@/use-cases/core/auth/factories/make-reset-password-by-token-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -25,6 +27,16 @@ export async function resetPasswordByTokenController(app: FastifyInstance) {
       try {
         const useCase = makeResetPasswordByTokenUseCase();
         await useCase.execute({ token, password: newPassword });
+
+        // Log de auditoria (sem contexto de usuário pois é operação anônima)
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.AUTH_PASSWORD_RESET_COMPLETE,
+          entityId: token.slice(0, 8),
+          placeholders: {
+            userName: 'Usuário',
+          },
+        });
+
         return reply
           .status(200)
           .send({ message: 'Password reset successfully.' });

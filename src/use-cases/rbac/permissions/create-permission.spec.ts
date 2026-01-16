@@ -86,9 +86,10 @@ describe('CreatePermissionUseCase', () => {
   });
 
   it('should not create permission with invalid code format', async () => {
+    // Caracteres especiais (@, !) não são permitidos no código de permissão
     await expect(() =>
       sut.execute({
-        code: 'invalid-code',
+        code: 'invalid@code!',
         name: 'Invalid Permission',
         description: null,
         module: 'stock',

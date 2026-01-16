@@ -1,4 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { requestPasswordResetSchema } from '@/http/schemas';
 import { makeSendPasswordResetTokenUseCase } from '@/use-cases/core/auth/factories/make-send-password-reset-token-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -24,6 +26,13 @@ export async function sendPasswordResetTokenController(app: FastifyInstance) {
       try {
         const useCase = makeSendPasswordResetTokenUseCase();
         await useCase.execute({ email });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.AUTH_PASSWORD_RESET_REQUEST,
+          entityId: email,
+          placeholders: { email },
+        });
+
         return reply
           .status(200)
           .send({ message: 'Token sent to the provided email.' });

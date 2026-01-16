@@ -34,7 +34,7 @@ export async function getCompanyFiscalSettingsController(app: FastifyInstance) {
 
         return reply.status(200).send({
           fiscalSettings: fiscalSettings
-            ? (companyFiscalSettingsToDTO(fiscalSettings) as any)
+            ? companyFiscalSettingsToDTO(fiscalSettings)
             : null,
         });
       } catch (error) {

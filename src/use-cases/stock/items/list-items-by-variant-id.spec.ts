@@ -15,12 +15,12 @@ describe('ListItemsByVariantIdUseCase', () => {
 
   it('should be able to list items by variant id', async () => {
     const variantId = new UniqueEntityID();
-    const locationId = new UniqueEntityID();
+    const binId = new UniqueEntityID();
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-001',
       variantId,
-      locationId,
+      binId,
       initialQuantity: 100,
       currentQuantity: 100,
       status: ItemStatus.create('AVAILABLE'),
@@ -29,7 +29,7 @@ describe('ListItemsByVariantIdUseCase', () => {
     await itemsRepository.create({
       uniqueCode: 'ITEM-002',
       variantId,
-      locationId,
+      binId,
       initialQuantity: 50,
       currentQuantity: 50,
       status: ItemStatus.create('AVAILABLE'),

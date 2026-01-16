@@ -1,0 +1,1299 @@
+{
+  "projectName": "Módulo de Volumes/Romaneio",
+  "description": "Sistema para agrupar itens em volumes para expedição e gerar romaneios de entrega",
+  "architecture": "DDD com padrão Repository Pattern",
+  "createdAt": "2025-01-02",
+  "status": "PLANNING",
+  "phases": [
+    {
+      "phase": 1,
+      "name": "Fundação - Prisma & Entidades",
+      "description": "Criar migrations, enums, modelos Prisma e entidades DDD",
+      "priority": "CRITICAL",
+      "dependencies": [],
+      "components": [
+        {
+          "id": "PRISMA_MIGRATION",
+          "name": "Criar Migration Prisma",
+          "type": "database",
+          "path": "prisma/migrations/{timestamp}_add_volumes_system/migration.sql",
+          "file": "N/A (Auto-generated)",
+          "description": "Migration para criar tables Volume, VolumeItem e enum VolumeStatus",
+          "tasks": [
+            "Criar tabela volumes com campos: id, code, name, status, notes, destinationRef, salesOrderId, customerId, createdAt, updatedAt, closedAt, deliveredAt, returnedAt, createdBy, closedBy, deliveredBy, deletedAt",
+            "Criar tabela volume_items com campos: id, volumeId, itemId, addedAt, addedBy, deletedAt",
+            "Criar enum VolumeStatus: OPEN, CLOSED, DELIVERED, RETURNED",
+            "Adicionar índices: status, salesOrderId, customerId, code",
+            "Adicionar constraint unique(code, deletedAt)",
+            "Adicionar constraint unique(volumeId, itemId)"
+          ],
+          "command": "npm run prisma:migrate -- --name add_volumes_system"
+        },
+        {
+          "id": "PRISMA_SCHEMA",
+          "name": "Atualizar schema.prisma",
+          "type": "schema",
+          "path": "prisma/schema.prisma",
+          "file": "schema.prisma (append to file)",
+          "description": "Adicionar modelos Volume, VolumeItem e relações com User, SalesOrder, Customer, Item",
+          "models": [
+            {
+              "name": "Volume",
+              "fields": [
+                { "name": "id", "type": "String @id @default(uuid())", "required": true },
+                { "name": "code", "type": "String @unique @db.VarChar(32)", "required": true, "description": "VOL-YYYY-NNN" },
+                { "name": "name", "type": "String?", "required": false },
+                { "name": "status", "type": "VolumeStatus @default(OPEN)", "required": true },
+                { "name": "notes", "type": "String? @db.Text", "required": false },
+                { "name": "destinationRef", "type": "String? @db.VarChar(128)", "required": false },
+                { "name": "salesOrderId", "type": "String?", "required": false },
+                { "name": "customerId", "type": "String?", "required": false },
+                { "name": "createdAt", "type": "DateTime @default(now())", "required": true },
+                { "name": "updatedAt", "type": "DateTime @updatedAt", "required": true },
+                { "name": "deletedAt", "type": "DateTime?", "required": false },
+                { "name": "closedAt", "type": "DateTime?", "required": false },
+                { "name": "deliveredAt", "type": "DateTime?", "required": false },
+                { "name": "returnedAt", "type": "DateTime?", "required": false },
+                { "name": "createdBy", "type": "String", "required": true },
+                { "name": "closedBy", "type": "String?", "required": false },
+                { "name": "deliveredBy", "type": "String?", "required": false }
+              ],
+              "relations": [
+                { "name": "salesOrder", "type": "SalesOrder?", "fields": "[salesOrderId]", "references": "[id]" },
+                { "name": "customer", "type": "Customer?", "fields": "[customerId]", "references": "[id]" },
+                { "name": "createdByUser", "type": "User", "fields": "[createdBy]", "references": "[id]" },
+                { "name": "closedByUser", "type": "User?", "fields": "[closedBy]", "references": "[id]" },
+                { "name": "deliveredByUser", "type": "User?", "fields": "[deliveredBy]", "references": "[id]" },
+                { "name": "items", "type": "VolumeItem[]" }
+              ],
+              "indexes": [
+                "@@unique([code, deletedAt])",
+                "@@index([status])",
+                "@@index([salesOrderId])",
+                "@@index([customerId])",
+                "@@index([createdBy])",
+                "@@index([code])",
+                "@@index([createdAt(sort: Desc)])"
+              ],
+              "map": "volumes"
+            },
+            {
+              "name": "VolumeItem",
+              "fields": [
+                { "name": "id", "type": "String @id @default(uuid())", "required": true },
+                { "name": "volumeId", "type": "String", "required": true },
+                { "name": "itemId", "type": "String", "required": true },
+                { "name": "addedAt", "type": "DateTime @default(now())", "required": true },
+                { "name": "addedBy", "type": "String", "required": true },
+                { "name": "deletedAt", "type": "DateTime?", "required": false }
+              ],
+              "relations": [
+                { "name": "volume", "type": "Volume", "fields": "[volumeId]", "references": "[id]", "onDelete": "Cascade" },
+                { "name": "item", "type": "Item", "fields": "[itemId]", "references": "[id]" },
+                { "name": "addedByUser", "type": "User", "fields": "[addedBy]", "references": "[id]" }
+              ],
+              "indexes": [
+                "@@unique([volumeId, itemId, deletedAt])",
+                "@@index([itemId])",
+                "@@index([volumeId])",
+                "@@index([addedBy])"
+              ],
+              "map": "volume_items"
+            }
+          ],
+          "enum": {
+            "name": "VolumeStatus",
+            "values": ["OPEN", "CLOSED", "DELIVERED", "RETURNED"]
+          }
+        },
+        {
+          "id": "VOLUME_ENTITY",
+          "name": "Criar Entity Volume",
+          "type": "entity",
+          "path": "src/entities/stock/volume.ts",
+          "description": "Entidade DDD para Volume com métodos de negócio",
+          "responsibilities": [
+            "Representar um volume com todos os dados e validações",
+            "Implementar métodos: close(), reopen(), deliver(), return(), addItem(), removeItem()",
+            "Validar transições de estado",
+            "Manter dados consistentes"
+          ],
+          "methods": [
+            { "name": "create", "type": "static", "return": "Volume", "params": "props: VolumeProps" },
+            { "name": "close", "type": "instance", "return": "void", "description": "Muda status para CLOSED" },
+            { "name": "reopen", "type": "instance", "return": "void", "description": "Volta status para OPEN se era CLOSED" },
+            { "name": "deliver", "type": "instance", "return": "void", "description": "Muda status para DELIVERED" },
+            { "name": "return", "type": "instance", "return": "void", "description": "Muda status para RETURNED" },
+            { "name": "addItem", "type": "instance", "return": "void", "params": "itemId: UniqueEntityID", "description": "Valida e adiciona item" },
+            { "name": "removeItem", "type": "instance", "return": "void", "params": "itemId: UniqueEntityID", "description": "Remove item do volume" },
+            { "name": "canAddItem", "type": "instance", "return": "boolean", "description": "Verifica se pode adicionar item" },
+            { "name": "canClose", "type": "instance", "return": "boolean", "description": "Verifica se pode fechar" }
+          ]
+        },
+        {
+          "id": "VOLUME_ITEM_ENTITY",
+          "name": "Criar Entity VolumeItem",
+          "type": "entity",
+          "path": "src/entities/stock/volume-item.ts",
+          "description": "Entidade DDD para VolumeItem",
+          "responsibilities": [
+            "Representar um item dentro de um volume",
+            "Manter referências para Volume e Item",
+            "Registrar quem adicionou e quando"
+          ]
+        },
+        {
+          "id": "VOLUME_STATUS_VO",
+          "name": "Criar Value Object VolumeStatus",
+          "type": "value-object",
+          "path": "src/entities/stock/value-objects/volume-status.ts",
+          "description": "Value Object para status imutável do volume",
+          "values": ["OPEN", "CLOSED", "DELIVERED", "RETURNED"],
+          "methods": [
+            { "name": "create", "type": "static", "params": "value: string", "return": "VolumeStatus | Error" },
+            { "name": "isOpen", "type": "instance", "return": "boolean" },
+            { "name": "isClosed", "type": "instance", "return": "boolean" },
+            { "name": "isDelivered", "type": "instance", "return": "boolean" },
+            { "name": "isReturned", "type": "instance", "return": "boolean" },
+            { "name": "canAddItems", "type": "instance", "return": "boolean", "description": "Apenas OPEN" },
+            { "name": "canClose", "type": "instance", "return": "boolean", "description": "Apenas OPEN" },
+            { "name": "canDeliver", "type": "instance", "return": "boolean", "description": "Apenas CLOSED" },
+            { "name": "canReopen", "type": "instance", "return": "boolean", "description": "Apenas CLOSED" }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 2,
+      "name": "Repositórios",
+      "description": "Implementar camada de persistência com Interface, In-Memory e Prisma",
+      "priority": "CRITICAL",
+      "dependencies": ["PRISMA_MIGRATION", "VOLUME_ENTITY", "VOLUME_ITEM_ENTITY"],
+      "components": [
+        {
+          "id": "VOLUMES_REPO_INTERFACE",
+          "name": "Criar Interface VolumesRepository",
+          "type": "repository",
+          "path": "src/repositories/stock/volumes-repository.ts",
+          "description": "Interface abstrata para operações CRUD e queries de volumes",
+          "methods": [
+            { "name": "create", "params": "data: CreateVolumeSchema", "return": "Promise<Volume>" },
+            { "name": "findById", "params": "id: UniqueEntityID", "return": "Promise<Volume | null>" },
+            { "name": "findByCode", "params": "code: string", "return": "Promise<Volume | null>" },
+            { "name": "findAll", "params": "filter?: FindVolumesFilter, pagination?: Pagination", "return": "Promise<{ data: Volume[], total: number }>" },
+            { "name": "findByStatus", "params": "status: VolumeStatus", "return": "Promise<Volume[]>" },
+            { "name": "findBySalesOrder", "params": "salesOrderId: UniqueEntityID", "return": "Promise<Volume[]>" },
+            { "name": "findByCustomer", "params": "customerId: UniqueEntityID", "return": "Promise<Volume[]>" },
+            { "name": "update", "params": "data: UpdateVolumeSchema", "return": "Promise<Volume | null>" },
+            { "name": "save", "params": "volume: Volume", "return": "Promise<void>" },
+            { "name": "delete", "params": "id: UniqueEntityID", "return": "Promise<void>" }
+          ]
+        },
+        {
+          "id": "VOLUME_ITEMS_REPO_INTERFACE",
+          "name": "Criar Interface VolumeItemsRepository",
+          "type": "repository",
+          "path": "src/repositories/stock/volume-items-repository.ts",
+          "description": "Interface para operações com itens de volume",
+          "methods": [
+            { "name": "create", "params": "data: CreateVolumeItemSchema", "return": "Promise<VolumeItem>" },
+            { "name": "findById", "params": "id: UniqueEntityID", "return": "Promise<VolumeItem | null>" },
+            { "name": "findByVolumeId", "params": "volumeId: UniqueEntityID", "return": "Promise<VolumeItem[]>" },
+            { "name": "findByItemId", "params": "itemId: UniqueEntityID", "return": "Promise<VolumeItem | null>", "description": "Retorna volume atual do item" },
+            { "name": "findByVolumeAndItem", "params": "volumeId: UniqueEntityID, itemId: UniqueEntityID", "return": "Promise<VolumeItem | null>" },
+            { "name": "delete", "params": "id: UniqueEntityID", "return": "Promise<void>" },
+            { "name": "deleteByVolumeAndItem", "params": "volumeId: UniqueEntityID, itemId: UniqueEntityID", "return": "Promise<void>" }
+          ]
+        },
+        {
+          "id": "VOLUMES_IN_MEMORY",
+          "name": "Implementar VolumesRepository In-Memory",
+          "type": "repository",
+          "path": "src/repositories/stock/in-memory/in-memory-volumes-repository.ts",
+          "description": "Implementação em memória para testes",
+          "extends": "VolumesRepository"
+        },
+        {
+          "id": "VOLUME_ITEMS_IN_MEMORY",
+          "name": "Implementar VolumeItemsRepository In-Memory",
+          "type": "repository",
+          "path": "src/repositories/stock/in-memory/in-memory-volume-items-repository.ts",
+          "description": "Implementação em memória para testes",
+          "extends": "VolumeItemsRepository"
+        },
+        {
+          "id": "VOLUMES_PRISMA",
+          "name": "Implementar VolumesRepository Prisma",
+          "type": "repository",
+          "path": "src/repositories/stock/prisma/prisma-volumes-repository.ts",
+          "description": "Implementação com Prisma ORM",
+          "extends": "VolumesRepository",
+          "methods": [
+            { "name": "_volumeMapper", "type": "private", "description": "Converte Prisma Volume para Entity Volume" }
+          ]
+        },
+        {
+          "id": "VOLUME_ITEMS_PRISMA",
+          "name": "Implementar VolumeItemsRepository Prisma",
+          "type": "repository",
+          "path": "src/repositories/stock/prisma/prisma-volume-items-repository.ts",
+          "description": "Implementação com Prisma ORM",
+          "extends": "VolumeItemsRepository",
+          "methods": [
+            { "name": "_volumeItemMapper", "type": "private", "description": "Converte Prisma VolumeItem para Entity VolumeItem" }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 3,
+      "name": "Use Cases - Operações Básicas",
+      "description": "Implementar use cases para CRUD principal",
+      "priority": "CRITICAL",
+      "dependencies": ["VOLUMES_REPO_INTERFACE", "VOLUME_ITEMS_REPO_INTERFACE"],
+      "components": [
+        {
+          "id": "UC_CREATE_VOLUME",
+          "name": "Create Volume Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/create-volume.ts",
+          "description": "Criar novo volume e gerar código automaticamente",
+          "input": {
+            "name": "string?",
+            "notes": "string?",
+            "destinationRef": "string?",
+            "salesOrderId": "string?",
+            "customerId": "string?"
+          },
+          "output": "Volume",
+          "businessRules": [
+            "Gera código no formato VOL-YYYY-NNN",
+            "Status inicial é OPEN",
+            "createdBy é do usuário logado",
+            "Valida salesOrderId e customerId se fornecidos"
+          ],
+          "errors": [
+            "SalesOrderNotFoundError",
+            "CustomerNotFoundError",
+            "InvalidVolumeNameError"
+          ]
+        },
+        {
+          "id": "UC_GET_VOLUME_BY_ID",
+          "name": "Get Volume By ID Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/get-volume-by-id.ts",
+          "input": "volumeId: string",
+          "output": "Volume | null",
+          "businessRules": ["Retorna null se não encontrado"]
+        },
+        {
+          "id": "UC_LIST_VOLUMES",
+          "name": "List Volumes Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/list-volumes.ts",
+          "input": {
+            "page": "number",
+            "limit": "number",
+            "status": "VolumeStatus?",
+            "search": "string?",
+            "salesOrderId": "string?",
+            "customerId": "string?",
+            "fromDate": "Date?",
+            "toDate": "Date?"
+          },
+          "output": "{ volumes: Volume[], total: number, pages: number }",
+          "businessRules": [
+            "Paginação obrigatória",
+            "Busca por código ou nome (case-insensitive)",
+            "Filtros combinam com AND",
+            "Ordenação por createdAt DESC"
+          ]
+        },
+        {
+          "id": "UC_UPDATE_VOLUME",
+          "name": "Update Volume Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/update-volume.ts",
+          "input": {
+            "volumeId": "string",
+            "name": "string?",
+            "notes": "string?",
+            "destinationRef": "string?"
+          },
+          "output": "Volume",
+          "businessRules": [
+            "Apenas campos específicos podem ser atualizados",
+            "Nome não pode ficar vazio se foi preenchido",
+            "Não pode atualizar volumes deletados"
+          ],
+          "errors": ["VolumeNotFoundError", "InvalidUpdateError"]
+        },
+        {
+          "id": "UC_DELETE_VOLUME",
+          "name": "Delete Volume Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/delete-volume.ts",
+          "input": "volumeId: string",
+          "output": "void",
+          "businessRules": [
+            "Soft delete (deletedAt)",
+            "Apenas volumes OPEN podem ser deletados",
+            "Deleta items relacionados com soft delete"
+          ],
+          "errors": ["VolumeNotFoundError", "InvalidVolumeStatusError"]
+        }
+      ]
+    },
+    {
+      "phase": 4,
+      "name": "Use Cases - Operações de Items",
+      "description": "Implementar adição e remoção de items ao volume",
+      "priority": "CRITICAL",
+      "dependencies": ["UC_CREATE_VOLUME", "VOLUMES_REPO_INTERFACE", "VOLUME_ITEMS_REPO_INTERFACE"],
+      "components": [
+        {
+          "id": "UC_ADD_ITEM_TO_VOLUME",
+          "name": "Add Item To Volume Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/add-item-to-volume.ts",
+          "input": {
+            "volumeId": "string",
+            "itemId": "string",
+            "userId": "string"
+          },
+          "output": "VolumeItem",
+          "businessRules": [
+            "Volume deve estar em status OPEN",
+            "Item não pode estar em outro volume ativo",
+            "Item deve existir no banco",
+            "registra addedBy com usuário logado"
+          ],
+          "errors": [
+            "VolumeNotFoundError",
+            "ItemNotFoundError",
+            "InvalidVolumeStatusError",
+            "ItemAlreadyInVolumeError"
+          ]
+        },
+        {
+          "id": "UC_REMOVE_ITEM_FROM_VOLUME",
+          "name": "Remove Item From Volume Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/remove-item-from-volume.ts",
+          "input": {
+            "volumeId": "string",
+            "itemId": "string"
+          },
+          "output": "void",
+          "businessRules": [
+            "Volume deve estar em status OPEN",
+            "Item deve estar no volume",
+            "Usa soft delete"
+          ],
+          "errors": ["VolumeNotFoundError", "ItemNotInVolumeError", "InvalidVolumeStatusError"]
+        }
+      ]
+    },
+    {
+      "phase": 5,
+      "name": "Use Cases - Transições de Estado",
+      "description": "Implementar fechamento, reabertura, entrega e retorno de volumes",
+      "priority": "CRITICAL",
+      "dependencies": ["UC_CREATE_VOLUME", "UC_ADD_ITEM_TO_VOLUME"],
+      "components": [
+        {
+          "id": "UC_CLOSE_VOLUME",
+          "name": "Close Volume Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/close-volume.ts",
+          "input": {
+            "volumeId": "string",
+            "userId": "string"
+          },
+          "output": "Volume",
+          "businessRules": [
+            "Volume deve estar OPEN",
+            "Deve ter pelo menos 1 item",
+            "Atualiza closedAt e closedBy",
+            "Registra no audit log"
+          ],
+          "errors": [
+            "VolumeNotFoundError",
+            "InvalidVolumeStatusError",
+            "VolumeEmptyError"
+          ]
+        },
+        {
+          "id": "UC_REOPEN_VOLUME",
+          "name": "Reopen Volume Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/reopen-volume.ts",
+          "input": {
+            "volumeId": "string",
+            "userId": "string"
+          },
+          "output": "Volume",
+          "businessRules": [
+            "Volume deve estar CLOSED",
+            "Volta ao status OPEN",
+            "Limpa closedAt e closedBy"
+          ],
+          "errors": ["VolumeNotFoundError", "InvalidVolumeStatusError"]
+        },
+        {
+          "id": "UC_DELIVER_VOLUME",
+          "name": "Deliver Volume Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/deliver-volume.ts",
+          "input": {
+            "volumeId": "string",
+            "userId": "string"
+          },
+          "output": "Volume",
+          "businessRules": [
+            "Volume deve estar CLOSED",
+            "Muda status para DELIVERED",
+            "Atualiza deliveredAt e deliveredBy"
+          ],
+          "errors": ["VolumeNotFoundError", "InvalidVolumeStatusError"]
+        },
+        {
+          "id": "UC_RETURN_VOLUME",
+          "name": "Return Volume Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/return-volume.ts",
+          "input": {
+            "volumeId": "string",
+            "userId": "string"
+          },
+          "output": "Volume",
+          "businessRules": [
+            "Volume pode estar CLOSED ou DELIVERED",
+            "Muda status para RETURNED",
+            "Atualiza returnedAt"
+          ],
+          "errors": ["VolumeNotFoundError", "InvalidVolumeStatusError"]
+        }
+      ]
+    },
+    {
+      "phase": 6,
+      "name": "Use Cases - Romaneio",
+      "description": "Implementar geração de romaneio",
+      "priority": "HIGH",
+      "dependencies": ["UC_CLOSE_VOLUME"],
+      "components": [
+        {
+          "id": "UC_GET_ROMANEIO",
+          "name": "Get Romaneio Use Case",
+          "type": "use-case",
+          "path": "src/use-cases/stock/volumes/get-romaneio.ts",
+          "input": "volumeId: string",
+          "output": {
+            "volumeId": "string",
+            "generatedAt": "Date",
+            "volume": {
+              "code": "string",
+              "name": "string?",
+              "destinationRef": "string?"
+            },
+            "items": [
+              {
+                "item": { "id": "string", "uniqueCode": "string" },
+                "product": { "id": "string", "name": "string", "sku": "string" },
+                "variant": { "id": "string", "name": "string", "sku": "string" }
+              }
+            ],
+            "totalItems": "number"
+          },
+          "businessRules": [
+            "Volume deve estar CLOSED",
+            "Monta estrutura com dados desnormalizados",
+            "Ordena items por código de item"
+          ],
+          "errors": ["VolumeNotFoundError", "InvalidVolumeStatusError"]
+        }
+      ]
+    },
+    {
+      "phase": 7,
+      "name": "Factories - Testes",
+      "description": "Implementar factories para gerar dados fake em testes",
+      "priority": "HIGH",
+      "dependencies": ["VOLUME_ENTITY", "VOLUME_ITEM_ENTITY"],
+      "components": [
+        {
+          "id": "VOLUME_FACTORY",
+          "name": "Factory para Volume",
+          "type": "factory",
+          "path": "src/use-cases/stock/volumes/factories/make-volume.ts",
+          "description": "Factory para criar Volume com dados default",
+          "methods": [
+            { "name": "makeVolume", "type": "export", "params": "overrides?: Partial<VolumeProps>", "return": "Volume" }
+          ],
+          "defaults": {
+            "code": "VOL-2025-001",
+            "status": "OPEN",
+            "createdBy": "user-123",
+            "items": "[]"
+          }
+        },
+        {
+          "id": "VOLUME_ITEM_FACTORY",
+          "name": "Factory para VolumeItem",
+          "type": "factory",
+          "path": "src/use-cases/stock/volumes/factories/make-volume-item.ts",
+          "description": "Factory para criar VolumeItem com dados default",
+          "methods": [
+            { "name": "makeVolumeItem", "type": "export", "params": "overrides?: Partial<VolumeItemProps>", "return": "VolumeItem" }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 8,
+      "name": "Controllers HTTP",
+      "description": "Implementar endpoints HTTP com validação",
+      "priority": "HIGH",
+      "dependencies": [
+        "UC_CREATE_VOLUME",
+        "UC_GET_VOLUME_BY_ID",
+        "UC_LIST_VOLUMES",
+        "UC_UPDATE_VOLUME",
+        "UC_DELETE_VOLUME",
+        "UC_ADD_ITEM_TO_VOLUME",
+        "UC_REMOVE_ITEM_FROM_VOLUME",
+        "UC_CLOSE_VOLUME",
+        "UC_REOPEN_VOLUME",
+        "UC_DELIVER_VOLUME",
+        "UC_RETURN_VOLUME",
+        "UC_GET_ROMANEIO"
+      ],
+      "components": [
+        {
+          "id": "VOLUMES_CONTROLLER",
+          "name": "Create Volumes Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/create-volumes.ts",
+          "method": "POST",
+          "route": "/volumes",
+          "permission": "volumes:create",
+          "description": "Criar novo volume"
+        },
+        {
+          "id": "GET_VOLUME_BY_ID_CONTROLLER",
+          "name": "Get Volume By ID Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/get-volume-by-id.ts",
+          "method": "GET",
+          "route": "/volumes/:volumeId",
+          "permission": "volumes:read"
+        },
+        {
+          "id": "LIST_VOLUMES_CONTROLLER",
+          "name": "List Volumes Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/list-volumes.ts",
+          "method": "GET",
+          "route": "/volumes",
+          "permission": "volumes:read",
+          "queryParams": [
+            "page",
+            "limit",
+            "status",
+            "search",
+            "salesOrderId",
+            "customerId",
+            "fromDate",
+            "toDate"
+          ]
+        },
+        {
+          "id": "UPDATE_VOLUME_CONTROLLER",
+          "name": "Update Volume Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/update-volume.ts",
+          "method": "PATCH",
+          "route": "/volumes/:volumeId",
+          "permission": "volumes:update"
+        },
+        {
+          "id": "DELETE_VOLUME_CONTROLLER",
+          "name": "Delete Volume Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/delete-volume.ts",
+          "method": "DELETE",
+          "route": "/volumes/:volumeId",
+          "permission": "volumes:delete"
+        },
+        {
+          "id": "ADD_ITEM_CONTROLLER",
+          "name": "Add Item To Volume Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/add-item-to-volume.ts",
+          "method": "POST",
+          "route": "/volumes/:volumeId/items",
+          "permission": "volumes:update"
+        },
+        {
+          "id": "REMOVE_ITEM_CONTROLLER",
+          "name": "Remove Item From Volume Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/remove-item-from-volume.ts",
+          "method": "DELETE",
+          "route": "/volumes/:volumeId/items/:itemId",
+          "permission": "volumes:update"
+        },
+        {
+          "id": "CLOSE_VOLUME_CONTROLLER",
+          "name": "Close Volume Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/close-volume.ts",
+          "method": "POST",
+          "route": "/volumes/:volumeId/close",
+          "permission": "volumes:update"
+        },
+        {
+          "id": "REOPEN_VOLUME_CONTROLLER",
+          "name": "Reopen Volume Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/reopen-volume.ts",
+          "method": "POST",
+          "route": "/volumes/:volumeId/reopen",
+          "permission": "volumes:update"
+        },
+        {
+          "id": "DELIVER_VOLUME_CONTROLLER",
+          "name": "Deliver Volume Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/deliver-volume.ts",
+          "method": "POST",
+          "route": "/volumes/:volumeId/deliver",
+          "permission": "volumes:update"
+        },
+        {
+          "id": "RETURN_VOLUME_CONTROLLER",
+          "name": "Return Volume Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/return-volume.ts",
+          "method": "POST",
+          "route": "/volumes/:volumeId/return",
+          "permission": "volumes:update"
+        },
+        {
+          "id": "GET_ROMANEIO_CONTROLLER",
+          "name": "Get Romaneio Controller",
+          "type": "controller",
+          "path": "src/http/controllers/stock/volumes/get-romaneio.ts",
+          "method": "GET",
+          "route": "/volumes/:volumeId/romaneio",
+          "permission": "volumes:read"
+        }
+      ]
+    },
+    {
+      "phase": 9,
+      "name": "HTTP Schemas - Validação",
+      "description": "Criar schemas Zod/Joi para validação de request/response",
+      "priority": "HIGH",
+      "dependencies": ["VOLUMES_CONTROLLER"],
+      "components": [
+        {
+          "id": "CREATE_VOLUME_SCHEMA",
+          "name": "Create Volume Schema",
+          "type": "schema",
+          "path": "src/http/schemas/stock/volumes/create-volume-schema.ts",
+          "validates": "POST /volumes request body"
+        },
+        {
+          "id": "UPDATE_VOLUME_SCHEMA",
+          "name": "Update Volume Schema",
+          "type": "schema",
+          "path": "src/http/schemas/stock/volumes/update-volume-schema.ts"
+        },
+        {
+          "id": "ADD_ITEM_SCHEMA",
+          "name": "Add Item Schema",
+          "type": "schema",
+          "path": "src/http/schemas/stock/volumes/add-item-schema.ts"
+        },
+        {
+          "id": "LIST_VOLUMES_SCHEMA",
+          "name": "List Volumes Query Schema",
+          "type": "schema",
+          "path": "src/http/schemas/stock/volumes/list-volumes-query-schema.ts"
+        },
+        {
+          "id": "VOLUME_RESPONSE_SCHEMA",
+          "name": "Volume Response Schema",
+          "type": "schema",
+          "path": "src/http/schemas/stock/volumes/volume-response-schema.ts"
+        }
+      ]
+    },
+    {
+      "phase": 10,
+      "name": "Permissões RBAC",
+      "description": "Registrar permissões no sistema de autorização",
+      "priority": "HIGH",
+      "dependencies": ["VOLUMES_CONTROLLER"],
+      "components": [
+        {
+          "id": "RBAC_PERMISSIONS",
+          "name": "Registrar Permissões no RBAC",
+          "type": "seed",
+          "path": "prisma/permissions.json (actualizar) e seed.ts",
+          "permissions": [
+            {
+              "code": "volumes:create",
+              "name": "Criar Volume",
+              "description": "Permitir criação de novos volumes",
+              "module": "stock",
+              "resource": "volumes",
+              "action": "create",
+              "isSystem": true
+            },
+            {
+              "code": "volumes:read",
+              "name": "Ler Volume",
+              "description": "Permitir visualização de volumes",
+              "module": "stock",
+              "resource": "volumes",
+              "action": "read",
+              "isSystem": true
+            },
+            {
+              "code": "volumes:update",
+              "name": "Atualizar Volume",
+              "description": "Permitir atualização e gerenciamento de volumes",
+              "module": "stock",
+              "resource": "volumes",
+              "action": "update",
+              "isSystem": true
+            },
+            {
+              "code": "volumes:delete",
+              "name": "Deletar Volume",
+              "description": "Permitir deleção de volumes",
+              "module": "stock",
+              "resource": "volumes",
+              "action": "delete",
+              "isSystem": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 11,
+      "name": "Presenters",
+      "description": "Converter entities para DTOs para resposta HTTP",
+      "priority": "MEDIUM",
+      "dependencies": ["VOLUMES_CONTROLLER"],
+      "components": [
+        {
+          "id": "VOLUME_PRESENTER",
+          "name": "Volume Presenter",
+          "type": "presenter",
+          "path": "src/http/presenters/stock/volume-presenter.ts",
+          "description": "Converte Volume entity para DTO HTTP",
+          "methods": [
+            { "name": "toHTTP", "params": "volume: Volume", "return": "VolumeDTO" }
+          ]
+        },
+        {
+          "id": "VOLUME_ITEM_PRESENTER",
+          "name": "Volume Item Presenter",
+          "type": "presenter",
+          "path": "src/http/presenters/stock/volume-item-presenter.ts",
+          "methods": [
+            { "name": "toHTTP", "params": "volumeItem: VolumeItem", "return": "VolumeItemDTO" }
+          ]
+        },
+        {
+          "id": "ROMANEIO_PRESENTER",
+          "name": "Romaneio Presenter",
+          "type": "presenter",
+          "path": "src/http/presenters/stock/romaneio-presenter.ts",
+          "methods": [
+            { "name": "toHTTP", "params": "romaneio: RomaneioData", "return": "RomaneioDTO" }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 12,
+      "name": "Unit Tests",
+      "description": "Testes unitários para entidades, repositories e use cases",
+      "priority": "HIGH",
+      "dependencies": [
+        "VOLUME_ENTITY",
+        "VOLUMES_IN_MEMORY",
+        "VOLUME_FACTORY"
+      ],
+      "components": [
+        {
+          "id": "TEST_VOLUME_ENTITY",
+          "name": "Volume Entity Tests",
+          "type": "test",
+          "path": "src/entities/stock/volume.spec.ts",
+          "tests": [
+            "should create a new volume",
+            "should close volume when OPEN",
+            "should reopen volume when CLOSED",
+            "should deliver volume when CLOSED",
+            "should return volume when CLOSED or DELIVERED",
+            "should validate state transitions",
+            "should throw error when invalid transition"
+          ]
+        },
+        {
+          "id": "TEST_UC_CREATE_VOLUME",
+          "name": "Create Volume Use Case Tests",
+          "type": "test",
+          "path": "src/use-cases/stock/volumes/create-volume.spec.ts",
+          "tests": [
+            "should create volume with generated code",
+            "should set createdBy from user context",
+            "should throw if sales order not found",
+            "should throw if customer not found"
+          ]
+        },
+        {
+          "id": "TEST_UC_ADD_ITEM",
+          "name": "Add Item To Volume Tests",
+          "type": "test",
+          "path": "src/use-cases/stock/volumes/add-item-to-volume.spec.ts",
+          "tests": [
+            "should add item to open volume",
+            "should throw if volume not OPEN",
+            "should throw if item already in volume",
+            "should throw if item not found"
+          ]
+        },
+        {
+          "id": "TEST_UC_CLOSE_VOLUME",
+          "name": "Close Volume Use Case Tests",
+          "type": "test",
+          "path": "src/use-cases/stock/volumes/close-volume.spec.ts",
+          "tests": [
+            "should close open volume with items",
+            "should throw if volume has no items",
+            "should throw if volume not OPEN"
+          ]
+        },
+        {
+          "id": "TEST_VOLUMES_REPO",
+          "name": "Volumes Repository Tests",
+          "type": "test",
+          "path": "src/repositories/stock/in-memory/in-memory-volumes-repository.spec.ts",
+          "tests": [
+            "should create and retrieve volume",
+            "should find volume by code",
+            "should list volumes with filters",
+            "should update volume",
+            "should soft delete volume"
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 13,
+      "name": "E2E Tests",
+      "description": "Testes end-to-end para fluxo completo (apenas 1 por controller)",
+      "priority": "MEDIUM",
+      "dependencies": ["VOLUMES_CONTROLLER", "VOLUMES_PRISMA"],
+      "components": [
+        {
+          "id": "E2E_CREATE_VOLUME",
+          "name": "E2E: Create Volume",
+          "type": "test",
+          "path": "tests/e2e/volumes/create-volume.e2e.spec.ts",
+          "description": "Teste completo POST /volumes",
+          "scenario": "Usuário cria novo volume com sucesso"
+        },
+        {
+          "id": "E2E_FULL_FLOW",
+          "name": "E2E: Complete Volume Flow",
+          "type": "test",
+          "path": "tests/e2e/volumes/complete-flow.e2e.spec.ts",
+          "description": "Teste fluxo completo: criar → adicionar items → fechar → gerar romaneio",
+          "scenario": "Fluxo operacional completo de um volume"
+        }
+      ]
+    },
+    {
+      "phase": 14,
+      "name": "Integração - Routes & Dependency Injection",
+      "description": "Registrar rotas e dependências no container",
+      "priority": "MEDIUM",
+      "dependencies": ["VOLUMES_CONTROLLER", "VOLUMES_PRISMA"],
+      "components": [
+        {
+          "id": "REGISTER_ROUTES",
+          "name": "Registrar Rotas HTTP",
+          "type": "integration",
+          "path": "src/http/routes.ts (adicionar volumes routes)",
+          "description": "Adicionar rotas POST/GET/PATCH/DELETE para /volumes",
+          "tasks": [
+            "Adicionar todas as 11 rotas de volumes",
+            "Aplicar middleware de autorização com permissões RBAC",
+            "Adicionar validação de schemas"
+          ]
+        },
+        {
+          "id": "REGISTER_DI",
+          "name": "Registrar Container DI",
+          "type": "integration",
+          "path": "src/lib/container.ts (if exists) ou configurar em routes.ts",
+          "description": "Registrar VolumesRepository, VolumeItemsRepository e todos os use cases",
+          "tasks": [
+            "Registrar VolumesRepository com implementação Prisma",
+            "Registrar VolumeItemsRepository com implementação Prisma",
+            "Registrar todos os 10 use cases como singletons"
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 15,
+      "name": "Documentação & Seed",
+      "description": "Documentação e dados iniciais",
+      "priority": "MEDIUM",
+      "dependencies": ["RBAC_PERMISSIONS"],
+      "components": [
+        {
+          "id": "UPDATE_PERMISSIONS_JSON",
+          "name": "Atualizar permissions.json",
+          "type": "seed",
+          "path": "prisma/permissions.json",
+          "description": "Adicionar 4 permissões de volumes ao arquivo"
+        },
+        {
+          "id": "UPDATE_SEED",
+          "name": "Atualizar seed.ts",
+          "type": "seed",
+          "path": "prisma/seed.ts",
+          "description": "Adicionar logic para criar permissões de volumes se não existirem"
+        },
+        {
+          "id": "API_DOCUMENTATION",
+          "name": "Documentação Swagger",
+          "type": "documentation",
+          "path": "api-guide/volumes.md",
+          "description": "Documenta todos endpoints com exemplos de request/response"
+        },
+        {
+          "id": "README_UPDATE",
+          "name": "Atualizar README",
+          "type": "documentation",
+          "path": "README.md",
+          "description": "Adicionar seção sobre módulo de volumes"
+        }
+      ]
+    }
+  ],
+  "folderStructure": {
+    "entities": {
+      "path": "src/entities/stock/",
+      "files": [
+        {
+          "name": "volume.ts",
+          "type": "entity",
+          "phase": "PHASE_1"
+        },
+        {
+          "name": "volume-item.ts",
+          "type": "entity",
+          "phase": "PHASE_1"
+        },
+        {
+          "name": "value-objects/volume-status.ts",
+          "type": "value-object",
+          "phase": "PHASE_1"
+        }
+      ]
+    },
+    "repositories": {
+      "path": "src/repositories/stock/",
+      "files": [
+        {
+          "name": "volumes-repository.ts",
+          "type": "interface",
+          "phase": "PHASE_2"
+        },
+        {
+          "name": "volume-items-repository.ts",
+          "type": "interface",
+          "phase": "PHASE_2"
+        },
+        {
+          "name": "in-memory/in-memory-volumes-repository.ts",
+          "type": "implementation",
+          "phase": "PHASE_2"
+        },
+        {
+          "name": "in-memory/in-memory-volume-items-repository.ts",
+          "type": "implementation",
+          "phase": "PHASE_2"
+        },
+        {
+          "name": "prisma/prisma-volumes-repository.ts",
+          "type": "implementation",
+          "phase": "PHASE_2"
+        },
+        {
+          "name": "prisma/prisma-volume-items-repository.ts",
+          "type": "implementation",
+          "phase": "PHASE_2"
+        }
+      ]
+    },
+    "useCases": {
+      "path": "src/use-cases/stock/volumes/",
+      "files": [
+        {
+          "name": "create-volume.ts",
+          "type": "use-case",
+          "phase": "PHASE_3"
+        },
+        {
+          "name": "create-volume.spec.ts",
+          "type": "test",
+          "phase": "PHASE_12"
+        },
+        {
+          "name": "get-volume-by-id.ts",
+          "type": "use-case",
+          "phase": "PHASE_3"
+        },
+        {
+          "name": "list-volumes.ts",
+          "type": "use-case",
+          "phase": "PHASE_3"
+        },
+        {
+          "name": "update-volume.ts",
+          "type": "use-case",
+          "phase": "PHASE_3"
+        },
+        {
+          "name": "delete-volume.ts",
+          "type": "use-case",
+          "phase": "PHASE_3"
+        },
+        {
+          "name": "add-item-to-volume.ts",
+          "type": "use-case",
+          "phase": "PHASE_4"
+        },
+        {
+          "name": "add-item-to-volume.spec.ts",
+          "type": "test",
+          "phase": "PHASE_12"
+        },
+        {
+          "name": "remove-item-from-volume.ts",
+          "type": "use-case",
+          "phase": "PHASE_4"
+        },
+        {
+          "name": "close-volume.ts",
+          "type": "use-case",
+          "phase": "PHASE_5"
+        },
+        {
+          "name": "close-volume.spec.ts",
+          "type": "test",
+          "phase": "PHASE_12"
+        },
+        {
+          "name": "reopen-volume.ts",
+          "type": "use-case",
+          "phase": "PHASE_5"
+        },
+        {
+          "name": "deliver-volume.ts",
+          "type": "use-case",
+          "phase": "PHASE_5"
+        },
+        {
+          "name": "return-volume.ts",
+          "type": "use-case",
+          "phase": "PHASE_5"
+        },
+        {
+          "name": "get-romaneio.ts",
+          "type": "use-case",
+          "phase": "PHASE_6"
+        },
+        {
+          "name": "factories/make-volume.ts",
+          "type": "factory",
+          "phase": "PHASE_7"
+        },
+        {
+          "name": "factories/make-volume-item.ts",
+          "type": "factory",
+          "phase": "PHASE_7"
+        }
+      ]
+    },
+    "controllers": {
+      "path": "src/http/controllers/stock/volumes/",
+      "files": [
+        {
+          "name": "create-volume.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "get-volume-by-id.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "list-volumes.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "update-volume.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "delete-volume.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "add-item-to-volume.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "remove-item-from-volume.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "close-volume.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "reopen-volume.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "deliver-volume.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "return-volume.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        },
+        {
+          "name": "get-romaneio.ts",
+          "type": "controller",
+          "phase": "PHASE_8"
+        }
+      ]
+    },
+    "schemas": {
+      "path": "src/http/schemas/stock/volumes/",
+      "files": [
+        {
+          "name": "create-volume-schema.ts",
+          "type": "schema",
+          "phase": "PHASE_9"
+        },
+        {
+          "name": "update-volume-schema.ts",
+          "type": "schema",
+          "phase": "PHASE_9"
+        },
+        {
+          "name": "add-item-schema.ts",
+          "type": "schema",
+          "phase": "PHASE_9"
+        },
+        {
+          "name": "list-volumes-query-schema.ts",
+          "type": "schema",
+          "phase": "PHASE_9"
+        },
+        {
+          "name": "volume-response-schema.ts",
+          "type": "schema",
+          "phase": "PHASE_9"
+        }
+      ]
+    },
+    "presenters": {
+      "path": "src/http/presenters/stock/",
+      "files": [
+        {
+          "name": "volume-presenter.ts",
+          "type": "presenter",
+          "phase": "PHASE_11"
+        },
+        {
+          "name": "volume-item-presenter.ts",
+          "type": "presenter",
+          "phase": "PHASE_11"
+        },
+        {
+          "name": "romaneio-presenter.ts",
+          "type": "presenter",
+          "phase": "PHASE_11"
+        }
+      ]
+    },
+    "tests": {
+      "path": "tests/",
+      "files": [
+        {
+          "name": "e2e/volumes/create-volume.e2e.spec.ts",
+          "type": "e2e",
+          "phase": "PHASE_13"
+        },
+        {
+          "name": "e2e/volumes/complete-flow.e2e.spec.ts",
+          "type": "e2e",
+          "phase": "PHASE_13"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "totalComponents": 50,
+    "totalFiles": 70,
+    "totalPhases": 15,
+    "estimatedDuration": "5-7 days",
+    "teamSize": "1-2 developers",
+    "dependencies": [
+      "User entity (auth)",
+      "Item entity (stock)",
+      "SalesOrder entity (sales)",
+      "Customer entity (core)",
+      "Prisma ORM",
+      "Fastify framework",
+      "RBAC system"
+    ],
+    "keyDecisions": [
+      "Usar soft delete para volumes e items deletados",
+      "Código de volume gerado automaticamente (VOL-YYYY-NNN)",
+      "Item só pode estar em um volume de cada vez",
+      "Apenas volumes OPEN aceitam novos items",
+      "Romaneio é gerado automaticamente ao fechar volume",
+      "Usar factories para todos os testes unitários",
+      "1 E2E test por controller (happy path)"
+    ]
+  }
+}

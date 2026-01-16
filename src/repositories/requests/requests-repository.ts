@@ -6,6 +6,8 @@ import type { RequestType } from '@/entities/requests/value-objects/request-type
 export interface FindManyRequestsParams {
   requesterId?: string;
   assignedToId?: string;
+  /** When set, filters requests where requester OR assignedTo matches this userId */
+  userIdForOwnRequests?: string;
   status?: RequestStatus;
   type?: RequestType;
   category?: string;

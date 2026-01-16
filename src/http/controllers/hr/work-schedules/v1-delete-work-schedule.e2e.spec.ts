@@ -57,7 +57,7 @@ describe('Delete Work Schedule (E2E)', () => {
   });
 
   it('should NOT allow user without permission to delete a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, );
+    const { token } = await createAndAuthenticateUser(app, { permissions: [] });
 
     const workSchedule = await prisma.workSchedule.create({
       data: {

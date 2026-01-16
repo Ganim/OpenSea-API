@@ -1,11 +1,11 @@
-import { app } from '@/app';
-import { prisma } from '@/lib/prisma';
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
-import { makeTemplate } from '@/utils/tests/factories/stock/make-template';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Get Product By ID (e2e)', () => {
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+
+describe('Get Product By ID (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -14,34 +14,52 @@ describe('Get Product By ID (e2e)', () => {
     await app.close();
   });
 
-  it('should allow authenticated user to GET a PRODUCT by ID', async () => {
+  it('should get product by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-
-    // Create a template first
     const timestamp = Date.now();
-    const template = makeTemplate({
-      name: `Template Get Test ${timestamp}`,
-    });
-    await prisma.template.create({
+
+    const template = await prisma.template.create({
       data: {
-        id: template.id.toString(),
-        name: template.name,
-        productAttributes: template.productAttributes as object,
-        variantAttributes: template.variantAttributes as object,
-        itemAttributes: template.itemAttributes as object,
-        createdAt: template.createdAt,
+        name: `Template Get Test ${timestamp}`,
+        productAttributes: {},
+        variantAttributes: {},
+        itemAttributes: {},
       },
     });
 
-    // Create a product
-    const productCode = `PROD-GET-${timestamp}`;
+    const supplier = await prisma.supplier.create({
+      data: {
+        name: `Supplier Test ${timestamp}`,
+        isActive: true,
+      },
+    });
+
+    const manufacturer = await prisma.manufacturer.create({
+      data: {
+        name: `Manufacturer Test ${timestamp}`,
+        country: 'BR',
+        isActive: true,
+      },
+    });
+
     const product = await prisma.product.create({
       data: {
-        code: productCode,
+        code: `PROD-GET-${timestamp}`,
         name: 'Product to Get',
         status: 'ACTIVE',
-        templateId: template.id.toString(),
+        templateId: template.id,
+        supplierId: supplier.id,
+        manufacturerId: manufacturer.id,
         attributes: {},
+      },
+    });
+
+    const variant = await prisma.variant.create({
+      data: {
+        productId: product.id,
+        name: 'Variant Test',
+        price: 100,
+        isActive: true,
       },
     });
 
@@ -49,31 +67,24 @@ describe('Get Product By ID (e2e)', () => {
       .get(`/v1/products/${product.id}`)
       .set('Authorization', `Bearer ${token}`);
 
-    expect(response.statusCode).toEqual(200);
-    expect(response.body.product).toBeDefined();
-    expect(response.body.product.id).toBe(product.id);
-    expect(response.body.product.name).toBe('Product to Get');
-    expect(response.body.product.code).toBe(productCode);
-  });
-
-  it('should return 404 when product does not exist', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    // Use a valid UUID that doesn't exist
-    const nonExistentId = '00000000-0000-0000-0000-000000000000';
-
-    const response = await request(app.server)
-      .get(`/v1/products/${nonExistentId}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(404);
-  });
-
-  it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server).get(
-      '/v1/products/00000000-0000-0000-0000-000000000000',
-    );
-
-    expect(response.statusCode).toEqual(401);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('product');
+    expect(response.body.product).toHaveProperty('id', product.id);
+    expect(response.body.product).toHaveProperty('name');
+    // Validate relations are returned
+    expect(response.body.product).toHaveProperty('template');
+    expect(response.body.product.template).not.toBeNull();
+    expect(response.body.product.template).toHaveProperty('id', template.id);
+    expect(response.body.product.template).toHaveProperty('name');
+    expect(response.body.product).toHaveProperty('supplier');
+    expect(response.body.product.supplier).not.toBeNull();
+    expect(response.body.product.supplier).toHaveProperty('id', supplier.id);
+    expect(response.body.product).toHaveProperty('manufacturer');
+    expect(response.body.product.manufacturer).not.toBeNull();
+    expect(response.body.product.manufacturer).toHaveProperty('id', manufacturer.id);
+    expect(response.body.product).toHaveProperty('variants');
+    expect(Array.isArray(response.body.product.variants)).toBe(true);
+    expect(response.body.product.variants?.length).toBe(1);
+    expect(response.body.product.variants?.[0]).toHaveProperty('id', variant.id);
   });
 });

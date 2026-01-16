@@ -1,7 +1,13 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
-import { makeDeletePositionUseCase } from '@/use-cases/hr/positions/factories';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import {
+  makeDeletePositionUseCase,
+  makeGetPositionByIdUseCase,
+} from '@/use-cases/hr/positions/factories';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -43,10 +49,29 @@ export async function deletePositionController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const { id } = request.params;
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getPositionByIdUseCase = makeGetPositionByIdUseCase();
+
+        const [{ user }, { position }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getPositionByIdUseCase.execute({ id }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const deletePositionUseCase = makeDeletePositionUseCase();
         await deletePositionUseCase.execute({ id });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.POSITION_DELETE,
+          entityId: id,
+          placeholders: { userName, positionName: position.name },
+          oldData: { id: position.id, name: position.name },
+        });
 
         return reply.status(200).send({
           message: 'Position deleted successfully',

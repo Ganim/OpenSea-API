@@ -1,11 +1,14 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   createTemplateSchema,
   templateResponseSchema,
 } from '@/http/schemas/stock.schema';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateTemplateUseCase } from '@/use-cases/stock/templates/factories/make-create-template-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -36,10 +39,24 @@ export async function createTemplateController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const createTemplate = makeCreateTemplateUseCase();
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user } = await getUserByIdUseCase.execute({ userId });
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
+        const createTemplate = makeCreateTemplateUseCase();
         const { template } = await createTemplate.execute(request.body);
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.TEMPLATE_CREATE,
+          entityId: template.id,
+          placeholders: { userName, templateName: template.name },
+          newData: request.body,
+        });
 
         return reply.status(201).send({ template });
       } catch (error) {

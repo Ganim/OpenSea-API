@@ -1,4 +1,11 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { PrismaPermissionAuditLogsRepository } from '@/repositories/rbac/prisma/prisma-permission-audit-logs-repository';
+import { PrismaPermissionGroupPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permission-group-permissions-repository';
+import { PrismaPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-permission-groups-repository';
+import { PrismaPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permissions-repository';
+import { PrismaUserPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-user-permission-groups-repository';
+import { PermissionService } from '@/services/rbac/permission-service';
 import { makeGetRequestByIdUseCase } from '@/use-cases/requests/factories/make-get-request-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -44,12 +51,24 @@ export async function getRequestByIdController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const useCase = makeGetRequestByIdUseCase();
 
+      // Verifica permissão via banco de dados (não mais via JWT)
+      const permissionService = new PermissionService(
+        new PrismaPermissionsRepository(),
+        new PrismaPermissionGroupsRepository(),
+        new PrismaPermissionGroupPermissionsRepository(),
+        new PrismaUserPermissionGroupsRepository(),
+        new PrismaPermissionAuditLogsRepository(),
+      );
+
+      const hasViewAllPermission = await permissionService.checkPermission({
+        userId: new UniqueEntityID(request.user.sub),
+        permissionCode: 'REQUESTS:VIEW_ALL',
+      });
+
       const { request: requestData } = await useCase.execute({
         requestId: request.params.id,
         userId: request.user.sub,
-        hasViewAllPermission: request.user.permissions?.includes(
-          'REQUESTS:VIEW_ALL',
-        ),
+        hasViewAllPermission: hasViewAllPermission.allowed,
       });
 
       return reply.status(200).send({

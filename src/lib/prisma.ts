@@ -25,3 +25,23 @@ export function createPrismaClient(url?: string) {
     log: env.NODE_ENV === 'dev' ? ['query'] : [],
   });
 }
+
+// Health check para o banco de dados
+export async function checkDatabaseHealth(): Promise<{
+  status: 'up' | 'down';
+  latency?: number;
+  error?: string;
+}> {
+  try {
+    const start = Date.now();
+    await prisma.$queryRaw`SELECT 1`;
+    const latency = Date.now() - start;
+
+    return { status: 'up', latency };
+  } catch (error) {
+    return {
+      status: 'down',
+      error: error instanceof Error ? error.message : 'Unknown database error',
+    };
+  }
+}

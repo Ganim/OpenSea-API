@@ -1,4 +1,6 @@
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { createScopeMiddleware } from '@/http/middlewares/rbac/verify-scope';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { employeeResponseSchema } from '@/http/schemas';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
@@ -7,21 +9,46 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
+/**
+ * Middleware para verificar permissão de leitura de funcionário
+ * Com .all pode ver qualquer funcionário, com .team apenas do seu departamento
+ */
+const checkEmployeeReadScope = createScopeMiddleware({
+  basePermissionCode: 'hr.employees.read',
+  resource: 'employees',
+  getResourceDepartmentId: async (request) => {
+    const params = request.params as { employeeId: string };
+    const getEmployeeByIdUseCase = makeGetEmployeeByIdUseCase();
+    try {
+      const { employee } = await getEmployeeByIdUseCase.execute({
+        employeeId: params.employeeId,
+      });
+      return employee.departmentId?.toString() ?? null;
+    } catch {
+      return null;
+    }
+  },
+});
+
 export async function getEmployeeByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/employees/:employeeId',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, checkEmployeeReadScope],
     schema: {
       tags: ['HR - Employees'],
-      summary: 'Get an employee by ID',
-      description: 'Returns a single employee by their ID',
+      summary: 'Get an employee by ID (scope-based)',
+      description:
+        'Returns a single employee by their ID. With hr.employees.read.all can view any employee. With hr.employees.read.team can only view employees from the same department.',
       params: z.object({
         employeeId: z.string().uuid(),
       }),
       response: {
         200: z.object({
           employee: employeeResponseSchema,
+        }),
+        403: z.object({
+          message: z.string(),
         }),
         404: z.object({
           message: z.string(),
@@ -43,6 +70,9 @@ export async function getEmployeeByIdController(app: FastifyInstance) {
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
         }
         throw error;
       }

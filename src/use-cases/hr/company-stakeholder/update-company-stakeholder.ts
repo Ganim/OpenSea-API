@@ -99,7 +99,7 @@ export class UpdateCompanyStakeholderUseCase {
         exitDate: exitDate ?? undefined,
         personDocumentMasked:
           request.personDocumentMasked !== undefined
-            ? request.personDocumentMasked ?? undefined
+            ? (request.personDocumentMasked ?? undefined)
             : stakeholder.personDocumentMasked,
         isLegalRepresentative:
           request.isLegalRepresentative ?? stakeholder.isLegalRepresentative,

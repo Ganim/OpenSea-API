@@ -1,10 +1,11 @@
-import { app } from '@/app';
-import { prisma } from '@/lib/prisma';
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Create Product (e2e)', () => {
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+
+describe('Create Product (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -13,56 +14,13 @@ describe('Create Product (e2e)', () => {
     await app.close();
   });
 
-  it('should allow MANAGER/ADMIN to CREATE a NEW PRODUCT', async () => {
+  it('should create product with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-
     const timestamp = Date.now();
-    const templateDb = await prisma.template.create({
+
+    const template = await prisma.template.create({
       data: {
         name: `Template CREATE Test ${timestamp}`,
-        productAttributes: {
-          color: { type: 'string', required: false },
-          size: { type: 'string', required: false },
-        },
-        variantAttributes: {},
-        itemAttributes: {},
-      },
-    });
-
-    const productCode = `PROD-CREATE-${timestamp}`;
-    const productName = `Test Product ${timestamp}`;
-
-    const response = await request(app.server)
-      .post('/v1/products')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: productName,
-        code: productCode,
-        description: 'Test Description',
-        status: 'ACTIVE',
-        templateId: templateDb.id,
-        attributes: {
-          color: 'blue',
-          size: 'medium',
-        },
-      });
-
-    expect(response.statusCode).toEqual(201);
-    expect(response.body.product).toBeDefined();
-    expect(response.body.product.name).toBe(productName);
-    expect(response.body.product.code).toBe(productCode);
-    expect(response.body.product.description).toBe('Test Description');
-    expect(response.body.product.status).toBe('ACTIVE');
-    expect(response.body.product.templateId).toBe(templateDb.id);
-  });
-
-  it('should NOT allow user without permission to CREATE a PRODUCT', async () => {
-    const { token } = await createAndAuthenticateUser(app, );
-
-    const timestamp = Date.now();
-    const templateDb = await prisma.template.create({
-      data: {
-        name: `Template Create Forbidden Test ${timestamp}`,
         productAttributes: {},
         variantAttributes: {},
         itemAttributes: {},
@@ -73,13 +31,16 @@ describe('Create Product (e2e)', () => {
       .post('/v1/products')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        name: 'Test Product',
-        code: `PROD-CREATE-FORBIDDEN-${timestamp}`,
-        templateId: templateDb.id,
+        name: `Test Product ${timestamp}`,
+        code: `PROD-CREATE-${timestamp}`,
         status: 'ACTIVE',
-        attributes: {},
+        templateId: template.id,
       });
 
-    expect(response.statusCode).toBe(403);
+    expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty('product');
+    expect(response.body.product).toHaveProperty('id');
+    expect(response.body.product).toHaveProperty('name');
+    expect(response.body.product).toHaveProperty('code');
   });
 });

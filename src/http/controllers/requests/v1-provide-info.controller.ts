@@ -1,4 +1,7 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeProvideInfoUseCase } from '@/use-cases/requests/factories/make-provide-info-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -28,12 +31,30 @@ export async function provideInfoController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const userId = request.user.sub;
+
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const { user } = await getUserByIdUseCase.execute({ userId });
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
+
       const useCase = makeProvideInfoUseCase();
 
       await useCase.execute({
         requestId: request.params.id,
-        providedById: request.user.sub,
+        providedById: userId,
         informationProvided: request.body.informationProvided,
+      });
+
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.REQUESTS.REQUEST_INFO_PROVIDE,
+        entityId: request.params.id,
+        placeholders: {
+          userName,
+          requestNumber: request.params.id,
+        },
+        newData: { informationProvided: request.body.informationProvided },
       });
 
       return reply.status(200).send({ success: true });

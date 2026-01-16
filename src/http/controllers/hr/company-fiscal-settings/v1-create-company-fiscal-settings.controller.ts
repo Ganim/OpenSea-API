@@ -62,7 +62,7 @@ export async function createCompanyFiscalSettingsController(
         });
 
         return reply.status(201).send({
-          fiscalSettings: companyFiscalSettingsToDTO(fiscalSettings) as any,
+          fiscalSettings: companyFiscalSettingsToDTO(fiscalSettings),
         });
       } catch (error) {
         if (error instanceof BadRequestError) {

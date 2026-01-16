@@ -4,14 +4,23 @@ import { PasswordResetRequiredError } from '@/@errors/use-cases/password-reset-r
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { errorLogger } from '@/lib/logger';
-import type { FastifyInstance } from 'fastify';
+import { captureException } from '@/lib/sentry';
+import type { FastifyInstance, FastifyRequest } from 'fastify';
 import { env } from 'process';
 import z, { ZodError } from 'zod';
 import { UserBlockedError } from './use-cases/user-blocked-error';
+import {
+  VolumeNotFoundError,
+  VolumeAlreadyExistsError,
+  VolumeCannotBeClosed,
+  VolumeItemAlreadyExistsError,
+  VolumeItemNotFoundError,
+  InvalidVolumeStatusError,
+} from './volumes-errors';
 
 type FastifyErrorHandler = FastifyInstance['errorHandler'];
 
-export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
+export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
   // Silenciar opcionalmente logs de rate limit (429) em teste/CI
   const silenceRateLimitLogs =
     process.env.SILENCE_RATE_LIMIT_LOGS === 'true' ||
@@ -72,6 +81,25 @@ export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
     });
   }
 
+  // Volume errors
+  if (error instanceof VolumeNotFoundError || error instanceof VolumeItemNotFoundError) {
+    return reply.status(404).send({
+      message: error.message,
+    });
+  }
+
+  if (error instanceof VolumeAlreadyExistsError || error instanceof VolumeItemAlreadyExistsError) {
+    return reply.status(409).send({
+      message: error.message,
+    });
+  }
+
+  if (error instanceof VolumeCannotBeClosed || error instanceof InvalidVolumeStatusError) {
+    return reply.status(400).send({
+      message: error.message,
+    });
+  }
+
   // Rate limit errors (429) — manter sem log se silenciado
   const isRateLimitError =
     (error as { statusCode?: number })?.statusCode === 429 ||
@@ -89,8 +117,21 @@ export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
     'Internal server error occurred',
   );
 
+  // Capture unexpected errors in Sentry
+  captureException(error, {
+    userId: (request as FastifyRequest & { user?: { sub?: string } }).user?.sub,
+    endpoint: request.url,
+    method: request.method,
+    extra: {
+      requestId: request.requestId,
+      params: request.params,
+      query: request.query,
+    },
+  });
+
   return reply.status(500).send({
     message: 'Internal server error',
+    requestId: request.requestId,
     errors: env.NODE_ENV !== 'production' ? error.message : undefined,
   });
 };

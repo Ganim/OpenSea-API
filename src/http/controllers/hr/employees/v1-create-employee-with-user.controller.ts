@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
@@ -7,6 +9,7 @@ import {
   createEmployeeWithUserSchema,
 } from '@/http/schemas/hr.schema';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateEmployeeWithUserUseCase } from '@/use-cases/hr/employees/factories/make-create-employee-with-user-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -40,12 +43,33 @@ export async function createEmployeeWithUserController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const data = request.body;
+      const adminId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user: admin } = await getUserByIdUseCase.execute({
+          userId: adminId,
+        });
+        const adminName = admin.profile?.name
+          ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
+          : admin.username || admin.email;
+
         const createEmployeeWithUserUseCase =
           makeCreateEmployeeWithUserUseCase();
         const { employee, user } =
           await createEmployeeWithUserUseCase.execute(data);
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.EMPLOYEE_CREATE,
+          entityId: employee.id.toString(),
+          placeholders: { adminName, employeeName: employee.fullName },
+          newData: {
+            fullName: employee.fullName,
+            cpf: data.cpf,
+            email: data.email,
+            positionId: data.positionId,
+          },
+        });
 
         return reply.status(201).send({
           employee: employeeToDTO(employee),

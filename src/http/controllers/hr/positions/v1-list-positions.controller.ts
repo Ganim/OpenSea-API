@@ -35,8 +35,15 @@ export async function listPositionsController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
-      const { page, perPage, search, departmentId, companyId, level, isActive } =
-        request.query;
+      const {
+        page,
+        perPage,
+        search,
+        departmentId,
+        companyId,
+        level,
+        isActive,
+      } = request.query;
 
       const listPositionsUseCase = makeListPositionsUseCase();
       const result = await listPositionsUseCase.execute({

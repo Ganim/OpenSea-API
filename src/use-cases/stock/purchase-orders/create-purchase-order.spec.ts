@@ -6,6 +6,7 @@ import { InMemoryPurchaseOrdersRepository } from '@/repositories/stock/in-memory
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateProductUseCase } from '../products/create-product';
 import { CreateSupplierUseCase } from '../suppliers/create-supplier';
@@ -62,8 +63,8 @@ describe('CreatePurchaseOrderUseCase', () => {
 
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
-      variantAttributes: { color: 'string' },
+      productAttributes: { brand: templateAttr.string() },
+      variantAttributes: { color: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -126,8 +127,8 @@ describe('CreatePurchaseOrderUseCase', () => {
 
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
-      variantAttributes: { color: 'string' },
+      productAttributes: { brand: templateAttr.string() },
+      variantAttributes: { color: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -229,8 +230,8 @@ describe('CreatePurchaseOrderUseCase', () => {
 
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
-      variantAttributes: { color: 'string' },
+      productAttributes: { brand: templateAttr.string() },
+      variantAttributes: { color: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -270,8 +271,8 @@ describe('CreatePurchaseOrderUseCase', () => {
 
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
-      variantAttributes: { color: 'string' },
+      productAttributes: { brand: templateAttr.string() },
+      variantAttributes: { color: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({

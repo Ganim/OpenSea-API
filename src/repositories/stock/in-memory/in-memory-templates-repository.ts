@@ -12,6 +12,7 @@ export class InMemoryTemplatesRepository implements TemplatesRepository {
   async create(data: CreateTemplateSchema): Promise<Template> {
     const template = Template.create({
       name: data.name,
+      iconUrl: data.iconUrl,
       unitOfMeasure: data.unitOfMeasure,
       productAttributes: data.productAttributes ?? {},
       variantAttributes: data.variantAttributes ?? {},
@@ -46,6 +47,7 @@ export class InMemoryTemplatesRepository implements TemplatesRepository {
     if (!template) return null;
 
     if (data.name !== undefined) template.name = data.name;
+    if (data.iconUrl !== undefined) template.iconUrl = data.iconUrl;
     if (data.unitOfMeasure !== undefined)
       template.unitOfMeasure = data.unitOfMeasure;
     if (data.productAttributes !== undefined)

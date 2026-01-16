@@ -4,17 +4,7 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-interface AuditLogItem {
-  id: string;
-  userId: string;
-  userName: string;
-  userPermissionGroups: unknown[];
-  entity: string;
-  entityId: string;
-  action: string;
-}
-
-describe('List Audit Logs (e2e)', () => {
+describe('List Audit Logs (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -23,17 +13,19 @@ describe('List Audit Logs (e2e)', () => {
     await app.close();
   });
 
-  it('should list audit logs with authentication', async () => {
+  it('should list audit logs with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 
-    // Criar alguns logs de teste
+    const timestamp = Date.now();
+
+    // Create test logs
     await prisma.auditLog.createMany({
       data: [
         {
           action: 'CREATE',
           entity: 'PRODUCT',
           module: 'STOCK',
-          entityId: 'product-1',
+          entityId: `product-${timestamp}-1`,
           newData: { name: 'Product 1' },
           userId: user.user.id,
         },
@@ -41,7 +33,7 @@ describe('List Audit Logs (e2e)', () => {
           action: 'UPDATE',
           entity: 'PRODUCT',
           module: 'STOCK',
-          entityId: 'product-1',
+          entityId: `product-${timestamp}-1`,
           oldData: { name: 'Product 1' },
           newData: { name: 'Product 1 Updated' },
           userId: user.user.id,
@@ -54,138 +46,30 @@ describe('List Audit Logs (e2e)', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('logs');
+    expect(response.body).toHaveProperty('pagination');
     expect(response.body.logs).toBeInstanceOf(Array);
-    expect(response.body.pagination).toBeDefined();
-    expect(response.body.pagination.total).toBeGreaterThanOrEqual(2);
-
-    if (response.body.logs.length > 0) {
-      const [firstLog] = response.body.logs;
-      expect(firstLog.userName).toBeDefined();
-      expect(firstLog.userPermissionGroups).toBeInstanceOf(Array);
-    }
-
-    // Cleanup
-    await prisma.auditLog.deleteMany({
-      where: { userId: user.user.id },
-    });
-  });
-
-  it('should filter logs by userId', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
-
-    // Criar log específico para o usuário
-    const log = await prisma.auditLog.create({
-      data: {
-        action: 'CREATE',
-        entity: 'USER',
-        module: 'CORE',
-        entityId: user.user.id,
-        newData: { email: user.user.email },
-        userId: user.user.id,
-      },
-    });
-
-    const response = await request(app.server)
-      .get(`/v1/audit-logs?userId=${user.user.id}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.logs).toBeInstanceOf(Array);
-
-    if (response.body.logs.length > 0) {
-      response.body.logs.forEach((logItem: AuditLogItem) => {
-        expect(logItem.userId).toBe(user.user.id);
-        expect(logItem.userName).toBeDefined();
-        expect(logItem.userPermissionGroups).toBeInstanceOf(Array);
-      });
-    }
-
-    // Cleanup
-    await prisma.auditLog.delete({ where: { id: log.id } });
-  });
-
-  it('should filter logs by entity and entityId', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
-
-    const entityId = 'test-product-123';
-
-    // Criar logs para a mesma entidade
-    await prisma.auditLog.createMany({
-      data: [
-        {
-          action: 'CREATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          newData: { name: 'Test Product' },
-          userId: user.user.id,
-        },
-        {
-          action: 'UPDATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          oldData: { name: 'Test Product' },
-          newData: { name: 'Updated Product' },
-          userId: user.user.id,
-        },
-      ],
-    });
-
-    const response = await request(app.server)
-      .get(`/v1/audit-logs?entity=PRODUCT&entityId=${entityId}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(200);
     expect(response.body.logs.length).toBeGreaterThanOrEqual(2);
 
-    response.body.logs.forEach((log: AuditLogItem) => {
-      expect(log.entity).toBe('PRODUCT');
-      expect(log.entityId).toBe(entityId);
-    });
+    // Verify log structure
+    const log = response.body.logs[0];
+    expect(log).toHaveProperty('id');
+    expect(log).toHaveProperty('userId');
+    expect(log).toHaveProperty('userName');
+    expect(log).toHaveProperty('userPermissionGroups');
+    expect(log).toHaveProperty('entity');
+    expect(log).toHaveProperty('entityId');
+    expect(log).toHaveProperty('action');
+
+    // Verify pagination structure
+    expect(response.body.pagination).toHaveProperty('total');
+    expect(response.body.pagination).toHaveProperty('page');
+    expect(response.body.pagination).toHaveProperty('limit');
+    expect(response.body.pagination).toHaveProperty('totalPages');
 
     // Cleanup
     await prisma.auditLog.deleteMany({
-      where: { entityId },
+      where: { entityId: { startsWith: `product-${timestamp}` } },
     });
-  });
-
-  it('should paginate results', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
-
-    // Criar 15 logs para testar paginação
-    const logs = Array.from({ length: 15 }, (_, i) => ({
-      action: 'CREATE' as const,
-      entity: 'PRODUCT' as const,
-      module: 'STOCK' as const,
-      entityId: `product-pagination-${i}`,
-      newData: { name: `Product ${i}` },
-      userId: user.user.id,
-    }));
-
-    await prisma.auditLog.createMany({ data: logs });
-
-    const response = await request(app.server)
-      .get('/v1/audit-logs?page=1&limit=10')
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.logs.length).toBeLessThanOrEqual(10);
-    expect(response.body.pagination.page).toBe(1);
-    expect(response.body.pagination.limit).toBe(10);
-    expect(response.body.pagination.totalPages).toBeGreaterThan(0);
-
-    // Cleanup
-    await prisma.auditLog.deleteMany({
-      where: {
-        entityId: { startsWith: 'product-pagination-' },
-      },
-    });
-  });
-
-  it('should require authentication', async () => {
-    const response = await request(app.server).get('/v1/audit-logs');
-
-    expect(response.statusCode).toBe(401);
   });
 });

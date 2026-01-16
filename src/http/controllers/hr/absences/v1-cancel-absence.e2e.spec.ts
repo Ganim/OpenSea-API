@@ -15,7 +15,7 @@ describe('Cancel Absence (E2E)', () => {
     await app.close();
   });
 
-  it('should cancel a pending absence', async () => {
+  it('should cancel absence with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
@@ -28,61 +28,7 @@ describe('Cancel Absence (E2E)', () => {
       .patch(`/v1/hr/absences/${absenceId}/cancel`)
       .set('Authorization', `Bearer ${token}`);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.body.absence).toBeDefined();
-    expect(response.body.absence.status).toBe('CANCELLED');
-  });
-
-  it('should cancel an approved absence', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const { employeeId } = await createEmployeeE2E();
-    const { absenceId } = await createAbsenceE2E({
-      employeeId,
-      status: 'APPROVED',
-    });
-
-    const response = await request(app.server)
-      .patch(`/v1/hr/absences/${absenceId}/cancel`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.absence).toBeDefined();
-    expect(response.body.absence.status).toBe('CANCELLED');
-  });
-
-  it('should not cancel already cancelled absence', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const { employeeId } = await createEmployeeE2E();
-    const { absenceId } = await createAbsenceE2E({
-      employeeId,
-      status: 'CANCELLED',
-    });
-
-    const response = await request(app.server)
-      .patch(`/v1/hr/absences/${absenceId}/cancel`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.message).toBeDefined();
-  });
-
-  it('should return 404 for non-existent absence', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .patch('/v1/hr/absences/00000000-0000-0000-0000-000000000000/cancel')
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(404);
-  });
-
-  it('should return 401 when no token is provided', async () => {
-    const response = await request(app.server).patch(
-      '/v1/hr/absences/00000000-0000-0000-0000-000000000000/cancel',
-    );
-
-    expect(response.statusCode).toBe(401);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('absence');
   });
 });

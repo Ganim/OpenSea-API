@@ -4,6 +4,7 @@ import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateManufacturerUseCase } from '../manufacturers/create-manufacturer';
 import { CreateSupplierUseCase } from '../suppliers/create-supplier';
@@ -42,9 +43,9 @@ describe('CreateProductUseCase', () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
       productAttributes: {
-        brand: 'string',
-        model: 'string',
-        warranty: 'number',
+        brand: templateAttr.string(),
+        model: templateAttr.string(),
+        warranty: templateAttr.number({ unitOfMeasure: 'months' }),
       },
     });
 
@@ -81,7 +82,7 @@ describe('CreateProductUseCase', () => {
   it('should create a product with supplier', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const supplier = await createSupplier.execute({
@@ -104,7 +105,7 @@ describe('CreateProductUseCase', () => {
   it('should create a product with manufacturer', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const manufacturer = await createManufacturer.execute({
@@ -127,7 +128,7 @@ describe('CreateProductUseCase', () => {
   it('should create a product with default ACTIVE status', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
-      productAttributes: { category: 'string' },
+      productAttributes: { category: templateAttr.string() },
     });
 
     const result = await sut.execute({
@@ -142,7 +143,7 @@ describe('CreateProductUseCase', () => {
   it('should create a product without optional fields', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
-      productAttributes: { category: 'string' },
+      productAttributes: { category: templateAttr.string() },
     });
 
     const result = await sut.execute({
@@ -160,7 +161,7 @@ describe('CreateProductUseCase', () => {
   it('should not create a product with empty name', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
-      productAttributes: { category: 'string' },
+      productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
@@ -175,7 +176,7 @@ describe('CreateProductUseCase', () => {
   it('should not create a product with name longer than 200 characters', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
-      productAttributes: { category: 'string' },
+      productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
@@ -190,7 +191,7 @@ describe('CreateProductUseCase', () => {
   it('should create a product without code (optional)', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
-      productAttributes: { category: 'string' },
+      productAttributes: { category: templateAttr.string() },
     });
 
     const result = await sut.execute({
@@ -205,7 +206,7 @@ describe('CreateProductUseCase', () => {
   it('should not create a product with code longer than 100 characters', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
-      productAttributes: { category: 'string' },
+      productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
@@ -220,7 +221,7 @@ describe('CreateProductUseCase', () => {
   it('should not create a product with duplicate name', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
-      productAttributes: { category: 'string' },
+      productAttributes: { category: templateAttr.string() },
     });
 
     await sut.execute({
@@ -241,7 +242,7 @@ describe('CreateProductUseCase', () => {
   it('should not create a product with invalid status', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
-      productAttributes: { category: 'string' },
+      productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
@@ -269,7 +270,7 @@ describe('CreateProductUseCase', () => {
   it('should not create a product with non-existent supplier', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
-      productAttributes: { category: 'string' },
+      productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
@@ -285,7 +286,7 @@ describe('CreateProductUseCase', () => {
   it('should not create a product with non-existent manufacturer', async () => {
     const template = await createTemplate.execute({
       name: 'Simple Template',
-      productAttributes: { category: 'string' },
+      productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
@@ -302,8 +303,8 @@ describe('CreateProductUseCase', () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
       productAttributes: {
-        brand: 'string',
-        model: 'string',
+        brand: templateAttr.string(),
+        model: templateAttr.string(),
       },
     });
 
@@ -315,6 +316,47 @@ describe('CreateProductUseCase', () => {
         attributes: {
           brand: 'Dell',
           invalidAttribute: 'value', // Não está no template
+        },
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
+
+  it('should validate required attributes', async () => {
+    const template = await createTemplate.execute({
+      name: 'Electronics Template',
+      productAttributes: {
+        brand: templateAttr.string({ required: true }),
+        model: templateAttr.string(),
+      },
+    });
+
+    await expect(
+      sut.execute({
+        name: 'Test Product',
+        code: 'TEST-001',
+        templateId: template.template.id.toString(),
+        attributes: {
+          model: 'X123', // Missing required 'brand'
+        },
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
+
+  it('should validate attribute types', async () => {
+    const template = await createTemplate.execute({
+      name: 'Electronics Template',
+      productAttributes: {
+        warranty: templateAttr.number({ unitOfMeasure: 'months' }),
+      },
+    });
+
+    await expect(
+      sut.execute({
+        name: 'Test Product',
+        code: 'TEST-001',
+        templateId: template.template.id.toString(),
+        attributes: {
+          warranty: 'invalid-number', // Should be a number
         },
       }),
     ).rejects.toThrow(BadRequestError);

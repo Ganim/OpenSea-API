@@ -1,8 +1,15 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import type { Organization } from '../hr/organization/organization';
+import type { Category } from './category';
+import type { Manufacturer } from './manufacturer';
+import type { Supplier } from './supplier';
+import type { Tag } from './tag';
+import type { Template } from './template';
 import { CareInstructions } from './value-objects/care-instructions';
 import { ProductStatus } from './value-objects/product-status';
+import type { Variant } from './variant';
 
 export interface ProductProps {
   id: UniqueEntityID;
@@ -15,8 +22,16 @@ export interface ProductProps {
   attributes: Record<string, unknown>;
   careInstructions: CareInstructions; // ISO 3758 care instruction IDs
   templateId: UniqueEntityID;
+  template?: Template; // Relação com o template
   supplierId?: UniqueEntityID;
+  supplier?: Supplier | null; // Relação com o fornecedor
   manufacturerId?: UniqueEntityID;
+  manufacturer?: Manufacturer | null; // Relação com o fabricante
+  organizationId?: UniqueEntityID;
+  organization?: Organization | null; // Relação com a organização
+  variants?: Variant[]; // Variantes do produto
+  productCategories?: Array<{ category: Category }>; // Categorias
+  productTags?: Array<{ tag: Tag }>; // Tags
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -102,12 +117,25 @@ export class Product extends Entity<ProductProps> {
     return this.props.templateId;
   }
 
+  get template(): Template | undefined {
+    return this.props.template;
+  }
+
   get supplierId(): UniqueEntityID | undefined {
     return this.props.supplierId;
   }
 
   set supplierId(supplierId: UniqueEntityID | undefined) {
     this.props.supplierId = supplierId;
+    this.touch();
+  }
+
+  get supplier(): Supplier | null | undefined {
+    return this.props.supplier;
+  }
+
+  set supplier(supplier: Supplier | null | undefined) {
+    this.props.supplier = supplier ?? undefined;
     this.touch();
   }
 
@@ -118,6 +146,70 @@ export class Product extends Entity<ProductProps> {
   set manufacturerId(manufacturerId: UniqueEntityID | undefined) {
     this.props.manufacturerId = manufacturerId;
     this.touch();
+  }
+
+  get manufacturer(): Manufacturer | null | undefined {
+    return this.props.manufacturer;
+  }
+
+  set manufacturer(manufacturer: Manufacturer | null | undefined) {
+    this.props.manufacturer = manufacturer ?? undefined;
+    this.touch();
+  }
+
+  get organizationId(): UniqueEntityID | undefined {
+    return this.props.organizationId;
+  }
+
+  set organizationId(organizationId: UniqueEntityID | undefined) {
+    this.props.organizationId = organizationId;
+    this.touch();
+  }
+
+  get organization(): Organization | null | undefined {
+    return this.props.organization;
+  }
+
+  set organization(organization: Organization | null | undefined) {
+    this.props.organization = organization ?? undefined;
+    this.touch();
+  }
+
+  get variants(): Variant[] | undefined {
+    return this.props.variants;
+  }
+
+  set variants(variants: Variant[] | undefined) {
+    this.props.variants = variants;
+    this.touch();
+  }
+
+  get productCategories(): Array<{ category: Category }> | undefined {
+    return this.props.productCategories;
+  }
+
+  set productCategories(
+    productCategories: Array<{ category: Category }> | undefined,
+  ) {
+    this.props.productCategories = productCategories;
+    this.touch();
+  }
+
+  get categories(): Category[] | undefined {
+    return this.props.productCategories?.map((pc) => pc.category);
+  }
+
+  get productTags(): Array<{ tag: Tag }> | undefined {
+    return this.props.productTags;
+  }
+
+  set productTags(productTags: Array<{ tag: Tag }> | undefined) {
+    this.props.productTags = productTags;
+    this.touch();
+  }
+
+  get tags(): Tag[] | undefined {
+    return this.props.productTags?.map((pt) => pt.tag);
   }
 
   get createdAt(): Date {

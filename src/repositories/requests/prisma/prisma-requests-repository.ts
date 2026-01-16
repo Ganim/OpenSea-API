@@ -41,15 +41,28 @@ export class PrismaRequestsRepository implements RequestsRepository {
     const limit = params.limit ?? 20;
     const skip = (page - 1) * limit;
 
+    // Build where clause based on params
+    const where: any = {
+      status: params.status,
+      type: params.type,
+      category: params.category,
+      deletedAt: null,
+    };
+
+    // If userIdForOwnRequests is set, use OR condition
+    if (params.userIdForOwnRequests) {
+      where.OR = [
+        { requesterId: params.userIdForOwnRequests },
+        { assignedToId: params.userIdForOwnRequests },
+      ];
+    } else {
+      // Otherwise use specific filters if provided
+      if (params.requesterId) where.requesterId = params.requesterId;
+      if (params.assignedToId) where.assignedToId = params.assignedToId;
+    }
+
     const requests = await prisma.request.findMany({
-      where: {
-        requesterId: params.requesterId,
-        assignedToId: params.assignedToId,
-        status: params.status,
-        type: params.type,
-        category: params.category,
-        deletedAt: null,
-      },
+      where,
       orderBy: [
         {
           priority: 'desc', // URGENT > HIGH > MEDIUM > LOW
@@ -68,16 +81,27 @@ export class PrismaRequestsRepository implements RequestsRepository {
   async countMany(
     params: Omit<FindManyRequestsParams, 'page' | 'limit'>,
   ): Promise<number> {
-    return prisma.request.count({
-      where: {
-        requesterId: params.requesterId,
-        assignedToId: params.assignedToId,
-        status: params.status,
-        type: params.type,
-        category: params.category,
-        deletedAt: null,
-      },
-    });
+    // Build where clause based on params
+    const where: any = {
+      status: params.status,
+      type: params.type,
+      category: params.category,
+      deletedAt: null,
+    };
+
+    // If userIdForOwnRequests is set, use OR condition
+    if (params.userIdForOwnRequests) {
+      where.OR = [
+        { requesterId: params.userIdForOwnRequests },
+        { assignedToId: params.userIdForOwnRequests },
+      ];
+    } else {
+      // Otherwise use specific filters if provided
+      if (params.requesterId) where.requesterId = params.requesterId;
+      if (params.assignedToId) where.assignedToId = params.assignedToId;
+    }
+
+    return prisma.request.count({ where });
   }
 
   async delete(id: UniqueEntityID): Promise<void> {

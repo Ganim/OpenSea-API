@@ -1,8 +1,12 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeDeleteProductUseCase } from '@/use-cases/stock/products/factories/make-delete-product-use-case';
+import { makeGetProductByIdUseCase } from '@/use-cases/stock/products/factories/make-get-product-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -35,10 +39,33 @@ export async function deleteProductController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { productId } = request.params;
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getProductByIdUseCase = makeGetProductByIdUseCase();
+
+        const [{ user }, { product }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getProductByIdUseCase.execute({ id: productId }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const deleteProductUseCase = makeDeleteProductUseCase();
         await deleteProductUseCase.execute({ id: productId });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.PRODUCT_DELETE,
+          entityId: productId,
+          placeholders: { userName, productName: product.name },
+          oldData: {
+            id: product.id.toString(),
+            name: product.name,
+            code: product.code,
+          },
+        });
 
         return reply.status(204).send();
       } catch (error) {

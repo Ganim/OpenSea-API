@@ -1,6 +1,8 @@
 import { env } from '@/@env';
+import { getAllCircuitBreakerStats } from '@/lib/circuit-breaker';
 import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma';
+import { checkRedisHealth } from '@/lib/redis';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import os from 'node:os';
@@ -10,6 +12,7 @@ import z from 'zod';
 const startTime = Date.now();
 
 export async function healthCheckController(app: FastifyInstance) {
+  // Health check completo
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/health',
@@ -17,17 +20,22 @@ export async function healthCheckController(app: FastifyInstance) {
       tags: ['Health'],
       summary: 'Detailed health check of the API',
       description:
-        'Returns comprehensive health information including database, memory, uptime, and system details',
+        'Returns comprehensive health information including database, Redis, memory, uptime, and system details',
       response: {
         200: z.object({
-          status: z.enum(['healthy', 'degraded']),
+          status: z.enum(['healthy', 'degraded', 'unhealthy']),
           timestamp: z.string(),
           uptime: z.number(),
           version: z.string(),
           environment: z.string(),
           checks: z.object({
             database: z.object({
-              status: z.enum(['healthy', 'unhealthy']),
+              status: z.enum(['up', 'down']),
+              responseTime: z.number().optional(),
+              error: z.string().optional(),
+            }),
+            redis: z.object({
+              status: z.enum(['up', 'down']),
               responseTime: z.number().optional(),
               error: z.string().optional(),
             }),
@@ -49,22 +57,39 @@ export async function healthCheckController(app: FastifyInstance) {
               freeMemory: z.number(),
             }),
           }),
+          circuitBreakers: z
+            .record(
+              z.string(),
+              z.object({
+                name: z.string(),
+                state: z.enum(['CLOSED', 'OPEN', 'HALF_OPEN']),
+                stats: z.object({
+                  successes: z.number(),
+                  failures: z.number(),
+                  rejects: z.number(),
+                  timeouts: z.number(),
+                  fallbacks: z.number(),
+                }),
+              }),
+            )
+            .optional(),
         }),
         503: z.object({
-          status: z.literal('unhealthy'),
+          status: z.enum(['degraded', 'unhealthy']),
           timestamp: z.string(),
-          error: z.string(),
+          error: z.string().optional(),
+          checks: z.any().optional(),
         }),
       },
     },
     handler: async (request, reply) => {
       const timestamp = new Date().toISOString();
-      const uptime = (Date.now() - startTime) / 1000; // em segundos
+      const uptime = (Date.now() - startTime) / 1000;
 
       try {
         // Check database
         const dbStart = Date.now();
-        let databaseStatus: 'healthy' | 'unhealthy' = 'healthy';
+        let databaseStatus: 'up' | 'down' = 'up';
         let dbResponseTime: number | undefined;
         let dbError: string | undefined;
 
@@ -72,13 +97,16 @@ export async function healthCheckController(app: FastifyInstance) {
           await prisma.$queryRaw`SELECT 1`;
           dbResponseTime = Date.now() - dbStart;
         } catch (error) {
-          databaseStatus = 'unhealthy';
+          databaseStatus = 'down';
           dbError =
             error instanceof Error
               ? error.message
               : 'Database connection failed';
           logger.error({ error }, 'Database health check failed');
         }
+
+        // Check Redis
+        const redisHealth = await checkRedisHealth();
 
         // Check memory
         const memoryUsage = process.memoryUsage();
@@ -101,17 +129,34 @@ export async function healthCheckController(app: FastifyInstance) {
           platform: process.platform,
           nodeVersion: process.version,
           cpus: os.cpus().length,
-          totalMemory: Math.round(totalMemory / 1024 / 1024), // MB
-          freeMemory: Math.round(freeMemory / 1024 / 1024), // MB
+          totalMemory: Math.round(totalMemory / 1024 / 1024),
+          freeMemory: Math.round(freeMemory / 1024 / 1024),
         };
 
-        // Determine overall status
-        const overallStatus =
-          databaseStatus === 'unhealthy' || memoryStatus === 'critical'
-            ? 'degraded'
-            : 'healthy';
+        // Circuit breakers status
+        const circuitBreakers = getAllCircuitBreakerStats();
 
-        const statusCode = overallStatus === 'healthy' ? 200 : 503;
+        // Determine overall status
+        let overallStatus: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
+
+        if (databaseStatus === 'down') {
+          overallStatus = 'unhealthy';
+        } else if (
+          redisHealth.status === 'down' ||
+          memoryStatus === 'critical'
+        ) {
+          overallStatus = 'degraded';
+        }
+
+        // Check if any circuit breaker is open
+        const hasOpenCircuit = Object.values(circuitBreakers).some(
+          (cb) => cb.state === 'OPEN',
+        );
+        if (hasOpenCircuit && overallStatus === 'healthy') {
+          overallStatus = 'degraded';
+        }
+
+        const statusCode = overallStatus === 'unhealthy' ? 503 : 200;
 
         return reply.status(statusCode).send({
           status: overallStatus,
@@ -125,18 +170,27 @@ export async function healthCheckController(app: FastifyInstance) {
               responseTime: dbResponseTime,
               error: dbError,
             },
+            redis: {
+              status: redisHealth.status,
+              responseTime: redisHealth.latency,
+              error: redisHealth.error,
+            },
             memory: {
               status: memoryStatus,
               usage: {
-                heapUsed: Math.round(memoryUsage.heapUsed / 1024 / 1024), // MB
-                heapTotal: Math.round(memoryUsage.heapTotal / 1024 / 1024), // MB
-                external: Math.round(memoryUsage.external / 1024 / 1024), // MB
-                rss: Math.round(memoryUsage.rss / 1024 / 1024), // MB
+                heapUsed: Math.round(memoryUsage.heapUsed / 1024 / 1024),
+                heapTotal: Math.round(memoryUsage.heapTotal / 1024 / 1024),
+                external: Math.round(memoryUsage.external / 1024 / 1024),
+                rss: Math.round(memoryUsage.rss / 1024 / 1024),
               },
               percentage: parseFloat(memoryPercentage),
             },
             system: systemInfo,
           },
+          circuitBreakers:
+            Object.keys(circuitBreakers).length > 0
+              ? circuitBreakers
+              : undefined,
         });
       } catch (error) {
         logger.error({ error }, 'Health check failed');
@@ -149,6 +203,97 @@ export async function healthCheckController(app: FastifyInstance) {
               : 'Health check failed unexpectedly',
         });
       }
+    },
+  });
+
+  // Readiness probe (para Kubernetes)
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/health/ready',
+    schema: {
+      tags: ['Health'],
+      summary: 'Readiness probe for Kubernetes',
+      description: 'Checks if the application is ready to receive traffic',
+      response: {
+        200: z.object({
+          status: z.literal('ready'),
+          timestamp: z.string(),
+          checks: z.object({
+            database: z.object({
+              status: z.enum(['up', 'down']),
+            }),
+            redis: z.object({
+              status: z.enum(['up', 'down']),
+            }),
+          }),
+        }),
+        503: z.object({
+          status: z.literal('not_ready'),
+          timestamp: z.string(),
+          checks: z.object({
+            database: z.object({
+              status: z.enum(['up', 'down']),
+            }),
+            redis: z.object({
+              status: z.enum(['up', 'down']),
+            }),
+          }),
+        }),
+      },
+    },
+    handler: async (request, reply) => {
+      const timestamp = new Date().toISOString();
+
+      // Check database
+      let databaseStatus: 'up' | 'down' = 'up';
+      try {
+        await prisma.$queryRaw`SELECT 1`;
+      } catch {
+        databaseStatus = 'down';
+      }
+
+      // Check Redis
+      const redisHealth = await checkRedisHealth();
+
+      // Para estar ready, o banco precisa estar up
+      // Redis pode estar down (degraded mode)
+      const isReady = databaseStatus === 'up';
+
+      const response = {
+        status: isReady ? ('ready' as const) : ('not_ready' as const),
+        timestamp,
+        checks: {
+          database: { status: databaseStatus },
+          redis: { status: redisHealth.status },
+        },
+      };
+
+      return reply.status(isReady ? 200 : 503).send(response);
+    },
+  });
+
+  // Liveness probe (para Kubernetes)
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/health/live',
+    schema: {
+      tags: ['Health'],
+      summary: 'Liveness probe for Kubernetes',
+      description: 'Checks if the application process is alive',
+      response: {
+        200: z.object({
+          status: z.literal('alive'),
+          timestamp: z.string(),
+        }),
+      },
+    },
+    handler: async (request, reply) => {
+      // Liveness é simples - se responde, está vivo
+      // Não verifica dependências para evitar restarts desnecessários
+      return reply.status(200).send({
+        status: 'alive',
+        timestamp: new Date().toISOString(),
+      });
     },
   });
 }

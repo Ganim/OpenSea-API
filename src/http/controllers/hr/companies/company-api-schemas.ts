@@ -16,7 +16,13 @@ export { listCompaniesQuerySchema };
 
 // Response schemas (following project pattern with camelCase)
 export const companyResponseSchema = hrCompanyResponseSchema;
-export const companyWithDetailsResponseSchema = hrCompanyWithDetailsResponseSchema;
+export const companyWithDetailsResponseSchema =
+  hrCompanyWithDetailsResponseSchema;
+
+// Type inferred from the Zod schema
+export type CompanyWithDetailsResponse = z.infer<
+  typeof companyWithDetailsResponseSchema
+>;
 
 export const companiesListResponseSchema = z.object({
   companies: z.array(hrCompanyResponseSchema),
@@ -36,7 +42,9 @@ export const checkCnpjResponseSchema = z.object({
 });
 
 // Wrapper helpers (following project pattern)
-export function wrapCompanyResponse(dto: any) {
+export function wrapCompanyResponse<
+  T extends CompanyDTO | CompanyWithDetailsResponse,
+>(dto: T): T {
   return dto;
 }
 

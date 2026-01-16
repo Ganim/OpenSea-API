@@ -1,13 +1,17 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-    manufacturerResponseSchema,
-    updateManufacturerSchema,
+  manufacturerResponseSchema,
+  updateManufacturerSchema,
 } from '@/http/schemas/stock/manufacturers';
 import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import { makeGetManufacturerByIdUseCase } from '@/use-cases/stock/manufacturers/factories/make-get-manufacturer-by-id-use-case';
 import { makeUpdateManufacturerUseCase } from '@/use-cases/stock/manufacturers/factories/make-update-manufacturer-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -50,13 +54,37 @@ export async function updateManufacturerController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
       const body = request.body;
+      const userId = request.user.sub;
 
       try {
-        const useCase = makeUpdateManufacturerUseCase();
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getManufacturerByIdUseCase = makeGetManufacturerByIdUseCase();
 
+        const [{ user }, { manufacturer: oldManufacturer }] = await Promise.all(
+          [
+            getUserByIdUseCase.execute({ userId }),
+            getManufacturerByIdUseCase.execute({ id }),
+          ],
+        );
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
+        const useCase = makeUpdateManufacturerUseCase();
         const result = await useCase.execute({
           id,
           ...body,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.MANUFACTURER_UPDATE,
+          entityId: result.manufacturer.id.toString(),
+          placeholders: {
+            userName,
+            manufacturerName: result.manufacturer.name,
+          },
+          oldData: { name: oldManufacturer.name },
+          newData: body,
         });
 
         return reply.send({

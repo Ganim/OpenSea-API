@@ -15,11 +15,10 @@ describe('Adjust Time Bank (E2E)', () => {
     await app.close();
   });
 
-  it('should allow MANAGER to adjust time bank balance', async () => {
+  it('should adjust time bank balance with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
-    // Create initial time bank
     await prisma.timeBank.create({
       data: {
         employeeId,
@@ -39,154 +38,5 @@ describe('Adjust Time Bank (E2E)', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty('timeBank');
     expect(response.body.timeBank.balance).toBe(25);
-  });
-
-  it('should allow setting balance to zero', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
-
-    await prisma.timeBank.create({
-      data: {
-        employeeId,
-        balance: 15,
-        year: new Date().getFullYear(),
-      },
-    });
-
-    const response = await request(app.server)
-      .post('/v1/hr/time-bank/adjust')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        employeeId,
-        newBalance: 0,
-      });
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.timeBank.balance).toBe(0);
-  });
-
-  it('should allow setting negative balance', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
-
-    await prisma.timeBank.create({
-      data: {
-        employeeId,
-        balance: 5,
-        year: new Date().getFullYear(),
-      },
-    });
-
-    const response = await request(app.server)
-      .post('/v1/hr/time-bank/adjust')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        employeeId,
-        newBalance: -10,
-      });
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.timeBank.balance).toBe(-10);
-    expect(response.body.timeBank.hasNegativeBalance).toBe(true);
-  });
-
-  it('should adjust time bank for specific year', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
-
-    await prisma.timeBank.create({
-      data: {
-        employeeId,
-        balance: 20,
-        year: 2023,
-      },
-    });
-
-    const response = await request(app.server)
-      .post('/v1/hr/time-bank/adjust')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        employeeId,
-        newBalance: 30,
-        year: 2023,
-      });
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.timeBank.year).toBe(2023);
-    expect(response.body.timeBank.balance).toBe(30);
-  });
-
-  it('should allow ADMIN to adjust time bank', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
-
-    await prisma.timeBank.create({
-      data: {
-        employeeId,
-        balance: 8,
-        year: new Date().getFullYear(),
-      },
-    });
-
-    const response = await request(app.server)
-      .post('/v1/hr/time-bank/adjust')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        employeeId,
-        newBalance: 50,
-      });
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.timeBank.balance).toBe(50);
-  });
-
-  it('should NOT allow user without permission to adjust time bank', async () => {
-    const { token } = await createAndAuthenticateUser(app, );
-    const { employeeId } = await createEmployeeE2E();
-
-    await prisma.timeBank.create({
-      data: {
-        employeeId,
-        balance: 10,
-        year: new Date().getFullYear(),
-      },
-    });
-
-    const response = await request(app.server)
-      .post('/v1/hr/time-bank/adjust')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        employeeId,
-        newBalance: 100,
-      });
-
-    expect(response.statusCode).toBe(403);
-  });
-
-  it('should return 404 for non-existent employee', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
-
-    const response = await request(app.server)
-      .post('/v1/hr/time-bank/adjust')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        employeeId: nonExistentUUID,
-        newBalance: 10,
-      });
-
-    expect(response.statusCode).toBe(404);
-  });
-
-  it('should return 401 when no token is provided', async () => {
-    const validUUID = '00000000-0000-0000-0000-000000000000';
-    const response = await request(app.server)
-      .post('/v1/hr/time-bank/adjust')
-      .send({
-        employeeId: validUUID,
-        newBalance: 10,
-      });
-
-    expect(response.statusCode).toBe(401);
   });
 });

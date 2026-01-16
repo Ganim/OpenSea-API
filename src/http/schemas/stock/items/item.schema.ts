@@ -6,9 +6,26 @@ import { z } from 'zod';
 import { itemStatusEnum } from '../common/enums.schema';
 import { itemMovementResponseSchema } from './item-movement.schema';
 
+/**
+ * Validation helper for quantity fields
+ * - Must be positive
+ * - Maximum 3 decimal places
+ */
+const quantitySchema = z
+  .number()
+  .positive('Quantidade deve ser positiva')
+  .refine(
+    (val) => {
+      // Check if has at most 3 decimal places
+      const decimalPart = val.toString().split('.')[1];
+      return !decimalPart || decimalPart.length <= 3;
+    },
+    { message: 'Quantidade deve ter no máximo 3 casas decimais' },
+  );
+
 export const createItemSchema = z.object({
   variantId: z.uuid(),
-  locationId: z.uuid().optional(), // Agora opcional
+  binId: z.uuid().optional(), // Referência ao bin onde o item está armazenado
   serialNumber: z.string().min(1).max(100).optional(),
   batchNumber: z.string().min(1).max(100).optional(),
   expirationDate: z.coerce.date().optional(),
@@ -18,7 +35,9 @@ export const createItemSchema = z.object({
 export const itemResponseSchema = z.object({
   id: z.uuid(),
   variantId: z.uuid(),
+  binId: z.uuid().optional(),
   locationId: z.uuid().optional(),
+  resolvedAddress: z.string().optional(),
   uniqueCode: z.string().optional(),
   fullCode: z.string().optional(),
   sequentialCode: z.number().optional(),
@@ -39,11 +58,23 @@ export const itemResponseSchema = z.object({
   productName: z.string(),
   variantSku: z.string(),
   variantName: z.string(),
+  bin: z
+    .object({
+      id: z.string(),
+      address: z.string(),
+      zone: z.object({
+        id: z.string(),
+        warehouseId: z.string().uuid(),
+        code: z.string(),
+        name: z.string(),
+      }),
+    })
+    .optional(),
 });
 
 export const transferItemSchema = z.object({
   itemId: z.uuid(),
-  destinationLocationId: z.uuid(),
+  destinationBinId: z.uuid(),
   reasonCode: z.string().max(50).optional(),
   notes: z.string().max(1000).optional(),
 });
@@ -54,10 +85,10 @@ export const itemTransferResponseSchema = z.object({
 });
 
 export const registerItemEntrySchema = z.object({
-  uniqueCode: z.string().min(1).max(128).optional(), // Agora opcional
+  uniqueCode: z.string().min(1).max(128).optional(),
   variantId: z.uuid(),
-  locationId: z.uuid().optional(), // Agora opcional
-  quantity: z.number().positive(),
+  binId: z.uuid().optional(), // Referência ao bin onde o item está armazenado
+  quantity: quantitySchema,
   unitCost: z.number().nonnegative().optional(),
   attributes: z.record(z.string(), z.unknown()).optional(),
   batchNumber: z.string().max(100).optional(),
@@ -80,7 +111,7 @@ export const itemEntryResponseSchema = z.object({
 
 export const registerItemExitSchema = z.object({
   itemId: z.uuid(),
-  quantity: z.number().positive(),
+  quantity: quantitySchema,
   movementType: z.enum(['SALE', 'PRODUCTION', 'SAMPLE', 'LOSS']),
   reasonCode: z.string().max(50).optional(),
   destinationRef: z.string().max(255).optional(),

@@ -1,9 +1,12 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeChangeUserProfileUseCase } from '@/use-cases/core/users/factories/make-change-user-profile-use-case';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -72,15 +75,40 @@ export async function changeUserProfileController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { userId } = request.params;
-
       const { profile } = request.body;
+      const adminId = request.user.sub;
 
       try {
-        const changeUserProfileUseCase = makeChangeUserProfileUseCase();
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
 
+        // Busca dados anteriores e nome do admin para auditoria
+        const [{ user: targetUser }, { user: admin }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getUserByIdUseCase.execute({ userId: adminId }),
+        ]);
+        const oldProfile = targetUser.profile;
+        const adminName = admin.profile?.name
+          ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
+          : admin.username || admin.email;
+
+        const changeUserProfileUseCase = makeChangeUserProfileUseCase();
         const { user } = await changeUserProfileUseCase.execute({
           userId,
           profile,
+        });
+
+        // Log de auditoria
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.USER_PROFILE_CHANGE,
+          entityId: user.id.toString(),
+          placeholders: { adminName, userName },
+          oldData: oldProfile as Record<string, unknown> | null,
+          newData: profile as Record<string, unknown>,
+          affectedUserId: userId,
         });
 
         return reply.status(200).send({ user });

@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
 import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
-import { ItemsRepository } from '@/repositories/stock/items-repository';
+import type { ItemsRepository } from '@/repositories/stock/items-repository';
 
 interface ListItemsByVariantIdUseCaseRequest {
   variantId: string;
@@ -17,12 +17,15 @@ export class ListItemsByVariantIdUseCase {
   async execute(
     input: ListItemsByVariantIdUseCaseRequest,
   ): Promise<ListItemsByVariantIdUseCaseResponse> {
-    const items = await this.itemsRepository.findManyByVariant(
-      new UniqueEntityID(input.variantId),
-    );
+    const itemsWithRelations =
+      await this.itemsRepository.findManyByVariantWithRelations(
+        new UniqueEntityID(input.variantId),
+      );
 
     return {
-      items: items.map((item) => itemToDTO(item)),
+      items: itemsWithRelations.map(({ item, relatedData }) =>
+        itemToDTO(item, relatedData),
+      ),
     };
   }
 }

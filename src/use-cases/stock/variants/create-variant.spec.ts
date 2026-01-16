@@ -6,6 +6,7 @@ import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-me
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateProductUseCase } from '../products/create-product';
 import { CreateTemplateUseCase } from '../templates/create-template';
@@ -44,8 +45,8 @@ describe('CreateVariantUseCase', () => {
   it('should be able to create a variant', async () => {
     const { template } = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
-      variantAttributes: { color: 'string', storage: 'string' },
+      productAttributes: { brand: templateAttr.string() },
+      variantAttributes: { color: templateAttr.string(), storage: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -74,8 +75,8 @@ describe('CreateVariantUseCase', () => {
   it('should be able to create a variant with all optional fields', async () => {
     const { template } = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
-      variantAttributes: { color: 'string' },
+      productAttributes: { brand: templateAttr.string() },
+      variantAttributes: { color: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -117,7 +118,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow creating variant with SKU exceeding 64 characters', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -141,7 +142,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow creating variant with empty name', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -165,7 +166,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow creating variant with name exceeding 256 characters', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -189,7 +190,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow creating variant with negative price', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -213,7 +214,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow creating variant with profit margin below 0', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -238,7 +239,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow creating variant with profit margin above 100', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -263,7 +264,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow creating variant with negative cost price', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -324,7 +325,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow duplicate SKU', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -355,7 +356,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow duplicate barcode', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -388,7 +389,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow duplicate EAN code', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -421,7 +422,7 @@ describe('CreateVariantUseCase', () => {
   it('should not allow duplicate UPC code', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -454,8 +455,8 @@ describe('CreateVariantUseCase', () => {
   it('should not allow invalid variant attributes not in template', async () => {
     const { template } = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
-      variantAttributes: { color: 'string', storage: 'string' },
+      productAttributes: { brand: templateAttr.string() },
+      variantAttributes: { color: templateAttr.string(), storage: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({

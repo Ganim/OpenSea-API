@@ -37,6 +37,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
         reorderQuantity: data.reorderQuantity
           ? new Decimal(data.reorderQuantity)
           : undefined,
+        reference: data.reference,
+        similars: (data.similars ?? []) as never,
+        outOfLine: data.outOfLine ?? false,
+        isActive: data.isActive ?? true,
       },
     });
 
@@ -58,6 +62,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
         qrCode: variantData.qrCode ?? undefined,
         eanCode: variantData.eanCode ?? undefined,
         upcCode: variantData.upcCode ?? undefined,
+        colorHex: variantData.colorHex ?? undefined,
+        colorPantone: variantData.colorPantone ?? undefined,
         minStock: variantData.minStock
           ? Number(variantData.minStock.toString())
           : undefined,
@@ -70,6 +76,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
         reorderQuantity: variantData.reorderQuantity
           ? Number(variantData.reorderQuantity.toString())
           : undefined,
+        reference: variantData.reference ?? undefined,
+        similars: (variantData.similars as unknown[]) ?? undefined,
+        outOfLine: variantData.outOfLine,
+        isActive: variantData.isActive,
         createdAt: variantData.createdAt,
         updatedAt: variantData.updatedAt ?? undefined,
       },
@@ -107,6 +117,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
         qrCode: variantData.qrCode ?? undefined,
         eanCode: variantData.eanCode ?? undefined,
         upcCode: variantData.upcCode ?? undefined,
+        colorHex: variantData.colorHex ?? undefined,
+        colorPantone: variantData.colorPantone ?? undefined,
         minStock: variantData.minStock
           ? Number(variantData.minStock.toString())
           : undefined,
@@ -119,6 +131,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
         reorderQuantity: variantData.reorderQuantity
           ? Number(variantData.reorderQuantity.toString())
           : undefined,
+        reference: variantData.reference ?? undefined,
+        similars: (variantData.similars as unknown[]) ?? undefined,
+        outOfLine: variantData.outOfLine,
+        isActive: variantData.isActive,
         createdAt: variantData.createdAt,
         updatedAt: variantData.updatedAt ?? undefined,
       },
@@ -156,6 +172,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
         qrCode: variantData.qrCode ?? undefined,
         eanCode: variantData.eanCode ?? undefined,
         upcCode: variantData.upcCode ?? undefined,
+        colorHex: variantData.colorHex ?? undefined,
+        colorPantone: variantData.colorPantone ?? undefined,
         minStock: variantData.minStock
           ? Number(variantData.minStock.toString())
           : undefined,
@@ -168,6 +186,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
         reorderQuantity: variantData.reorderQuantity
           ? Number(variantData.reorderQuantity.toString())
           : undefined,
+        reference: variantData.reference ?? undefined,
+        similars: (variantData.similars as unknown[]) ?? undefined,
+        outOfLine: variantData.outOfLine,
+        isActive: variantData.isActive,
         createdAt: variantData.createdAt,
         updatedAt: variantData.updatedAt ?? undefined,
       },
@@ -205,6 +227,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
         qrCode: variantData.qrCode ?? undefined,
         eanCode: variantData.eanCode ?? undefined,
         upcCode: variantData.upcCode ?? undefined,
+        colorHex: variantData.colorHex ?? undefined,
+        colorPantone: variantData.colorPantone ?? undefined,
         minStock: variantData.minStock
           ? Number(variantData.minStock.toString())
           : undefined,
@@ -217,6 +241,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
         reorderQuantity: variantData.reorderQuantity
           ? Number(variantData.reorderQuantity.toString())
           : undefined,
+        reference: variantData.reference ?? undefined,
+        similars: (variantData.similars as unknown[]) ?? undefined,
+        outOfLine: variantData.outOfLine,
+        isActive: variantData.isActive,
         createdAt: variantData.createdAt,
         updatedAt: variantData.updatedAt ?? undefined,
       },
@@ -225,12 +253,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
   }
 
   async findByEANCode(eanCode: string): Promise<Variant | null> {
-    const variantData = await prisma.variant.findUnique({
+    const variantData = await prisma.variant.findFirst({
       where: {
-        variants_eanCode_unique_active: {
-          eanCode,
-          deletedAt: null as any,
-        },
+        eanCode,
+        deletedAt: null,
       },
     });
 
@@ -256,6 +282,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
         qrCode: variantData.qrCode ?? undefined,
         eanCode: variantData.eanCode ?? undefined,
         upcCode: variantData.upcCode ?? undefined,
+        colorHex: variantData.colorHex ?? undefined,
+        colorPantone: variantData.colorPantone ?? undefined,
         minStock: variantData.minStock
           ? Number(variantData.minStock.toString())
           : undefined,
@@ -268,6 +296,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
         reorderQuantity: variantData.reorderQuantity
           ? Number(variantData.reorderQuantity.toString())
           : undefined,
+        reference: variantData.reference ?? undefined,
+        similars: (variantData.similars as unknown[]) ?? undefined,
+        outOfLine: variantData.outOfLine,
+        isActive: variantData.isActive,
         createdAt: variantData.createdAt,
         updatedAt: variantData.updatedAt ?? undefined,
       },
@@ -276,12 +308,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
   }
 
   async findByUPCCode(upcCode: string): Promise<Variant | null> {
-    const variantData = await prisma.variant.findUnique({
+    const variantData = await prisma.variant.findFirst({
       where: {
-        variants_upcCode_unique_active: {
-          upcCode,
-          deletedAt: null as any,
-        },
+        upcCode,
+        deletedAt: null,
       },
     });
 
@@ -307,6 +337,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
         qrCode: variantData.qrCode ?? undefined,
         eanCode: variantData.eanCode ?? undefined,
         upcCode: variantData.upcCode ?? undefined,
+        colorHex: variantData.colorHex ?? undefined,
+        colorPantone: variantData.colorPantone ?? undefined,
         minStock: variantData.minStock
           ? Number(variantData.minStock.toString())
           : undefined,
@@ -319,6 +351,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
         reorderQuantity: variantData.reorderQuantity
           ? Number(variantData.reorderQuantity.toString())
           : undefined,
+        reference: variantData.reference ?? undefined,
+        similars: (variantData.similars as unknown[]) ?? undefined,
+        outOfLine: variantData.outOfLine,
+        isActive: variantData.isActive,
         createdAt: variantData.createdAt,
         updatedAt: variantData.updatedAt ?? undefined,
       },
@@ -352,6 +388,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
           qrCode: variantData.qrCode ?? undefined,
           eanCode: variantData.eanCode ?? undefined,
           upcCode: variantData.upcCode ?? undefined,
+          colorHex: variantData.colorHex ?? undefined,
+          colorPantone: variantData.colorPantone ?? undefined,
           minStock: variantData.minStock
             ? Number(variantData.minStock.toString())
             : undefined,
@@ -364,6 +402,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
           reorderQuantity: variantData.reorderQuantity
             ? Number(variantData.reorderQuantity.toString())
             : undefined,
+          reference: variantData.reference ?? undefined,
+          similars: (variantData.similars as unknown[]) ?? undefined,
+          outOfLine: variantData.outOfLine,
+          isActive: variantData.isActive,
           createdAt: variantData.createdAt,
           updatedAt: variantData.updatedAt ?? undefined,
         },
@@ -399,6 +441,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
           qrCode: variantData.qrCode ?? undefined,
           eanCode: variantData.eanCode ?? undefined,
           upcCode: variantData.upcCode ?? undefined,
+          colorHex: variantData.colorHex ?? undefined,
+          colorPantone: variantData.colorPantone ?? undefined,
           minStock: variantData.minStock
             ? Number(variantData.minStock.toString())
             : undefined,
@@ -411,6 +455,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
           reorderQuantity: variantData.reorderQuantity
             ? Number(variantData.reorderQuantity.toString())
             : undefined,
+          reference: variantData.reference ?? undefined,
+          similars: (variantData.similars as unknown[]) ?? undefined,
+          outOfLine: variantData.outOfLine,
+          isActive: variantData.isActive,
           createdAt: variantData.createdAt,
           updatedAt: variantData.updatedAt ?? undefined,
         },
@@ -470,6 +518,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
           qrCode: variantData.qrCode ?? undefined,
           eanCode: variantData.eanCode ?? undefined,
           upcCode: variantData.upcCode ?? undefined,
+          colorHex: variantData.colorHex ?? undefined,
+          colorPantone: variantData.colorPantone ?? undefined,
           minStock: variantData.minStock
             ? Number(variantData.minStock.toString())
             : undefined,
@@ -482,6 +532,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
           reorderQuantity: variantData.reorderQuantity
             ? Number(variantData.reorderQuantity.toString())
             : undefined,
+          reference: variantData.reference ?? undefined,
+          similars: (variantData.similars as unknown[]) ?? undefined,
+          outOfLine: variantData.outOfLine,
+          isActive: variantData.isActive,
           createdAt: variantData.createdAt,
           updatedAt: variantData.updatedAt ?? undefined,
         },
@@ -537,6 +591,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
           qrCode: variantData.qrCode ?? undefined,
           eanCode: variantData.eanCode ?? undefined,
           upcCode: variantData.upcCode ?? undefined,
+          colorHex: variantData.colorHex ?? undefined,
+          colorPantone: variantData.colorPantone ?? undefined,
           minStock: variantData.minStock
             ? Number(variantData.minStock.toString())
             : undefined,
@@ -549,6 +605,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
           reorderQuantity: variantData.reorderQuantity
             ? Number(variantData.reorderQuantity.toString())
             : undefined,
+          reference: variantData.reference ?? undefined,
+          similars: (variantData.similars as unknown[]) ?? undefined,
+          outOfLine: variantData.outOfLine,
+          isActive: variantData.isActive,
           createdAt: variantData.createdAt,
           updatedAt: variantData.updatedAt ?? undefined,
         },
@@ -589,6 +649,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
           qrCode: variantData.qrCode ?? undefined,
           eanCode: variantData.eanCode ?? undefined,
           upcCode: variantData.upcCode ?? undefined,
+          colorHex: variantData.colorHex ?? undefined,
+          colorPantone: variantData.colorPantone ?? undefined,
           minStock: variantData.minStock
             ? Number(variantData.minStock.toString())
             : undefined,
@@ -601,6 +663,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
           reorderQuantity: variantData.reorderQuantity
             ? Number(variantData.reorderQuantity.toString())
             : undefined,
+          reference: variantData.reference ?? undefined,
+          similars: (variantData.similars as unknown[]) ?? undefined,
+          outOfLine: variantData.outOfLine,
+          isActive: variantData.isActive,
           createdAt: variantData.createdAt,
           updatedAt: variantData.updatedAt ?? undefined,
         },
@@ -628,6 +694,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
         qrCode: data.qrCode,
         eanCode: data.eanCode,
         upcCode: data.upcCode,
+        colorHex: data.colorHex,
+        colorPantone: data.colorPantone,
         minStock: data.minStock ? new Decimal(data.minStock) : undefined,
         maxStock: data.maxStock ? new Decimal(data.maxStock) : undefined,
         reorderPoint: data.reorderPoint
@@ -636,6 +704,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
         reorderQuantity: data.reorderQuantity
           ? new Decimal(data.reorderQuantity)
           : undefined,
+        reference: data.reference,
+        similars: data.similars as never,
+        outOfLine: data.outOfLine,
+        isActive: data.isActive,
       },
     });
 
@@ -657,6 +729,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
         qrCode: variantData.qrCode ?? undefined,
         eanCode: variantData.eanCode ?? undefined,
         upcCode: variantData.upcCode ?? undefined,
+        colorHex: variantData.colorHex ?? undefined,
+        colorPantone: variantData.colorPantone ?? undefined,
         minStock: variantData.minStock
           ? Number(variantData.minStock.toString())
           : undefined,
@@ -669,6 +743,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
         reorderQuantity: variantData.reorderQuantity
           ? Number(variantData.reorderQuantity.toString())
           : undefined,
+        reference: variantData.reference ?? undefined,
+        similars: (variantData.similars as unknown[]) ?? undefined,
+        outOfLine: variantData.outOfLine,
+        isActive: variantData.isActive,
         createdAt: variantData.createdAt,
         updatedAt: variantData.updatedAt ?? undefined,
       },
@@ -697,6 +775,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
         qrCode: variant.qrCode,
         eanCode: variant.eanCode,
         upcCode: variant.upcCode,
+        colorHex: variant.colorHex,
+        colorPantone: variant.colorPantone,
         minStock: variant.minStock ? new Decimal(variant.minStock) : undefined,
         maxStock: variant.maxStock ? new Decimal(variant.maxStock) : undefined,
         reorderPoint: variant.reorderPoint
@@ -705,6 +785,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
         reorderQuantity: variant.reorderQuantity
           ? new Decimal(variant.reorderQuantity)
           : undefined,
+        reference: variant.reference,
+        similars: variant.similars as never,
+        outOfLine: variant.outOfLine,
+        isActive: variant.isActive,
         updatedAt: new Date(),
       },
     });

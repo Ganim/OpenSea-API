@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
@@ -9,6 +11,8 @@ import {
 } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { departmentToDTO } from '@/mappers/hr/department/department-to-dto';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import { makeGetDepartmentByIdUseCase } from '@/use-cases/hr/departments/factories/make-get-department-by-id-use-case';
 import { makeUpdateDepartmentUseCase } from '@/use-cases/hr/departments/factories/make-update-department-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -50,8 +54,20 @@ export async function updateDepartmentController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { id } = request.params;
       const data = request.body;
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getDepartmentByIdUseCase = makeGetDepartmentByIdUseCase();
+
+        const [{ user }, { department: oldDepartment }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getDepartmentByIdUseCase.execute({ id }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const updateDepartmentUseCase = makeUpdateDepartmentUseCase();
         const { department } = await updateDepartmentUseCase.execute({
           id,
@@ -61,6 +77,14 @@ export async function updateDepartmentController(app: FastifyInstance) {
           parentId: data.parentId,
           managerId: data.managerId,
           isActive: data.isActive,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.DEPARTMENT_UPDATE,
+          entityId: id,
+          placeholders: { userName, departmentName: department.name },
+          oldData: { name: oldDepartment.name, code: oldDepartment.code },
+          newData: data,
         });
 
         return reply.status(200).send({

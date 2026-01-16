@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { TemplateAttributesMap } from '@/entities/stock/template';
 import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import type { TemplateDTO } from '@/mappers/stock/template/template-to-dto';
 import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
@@ -9,10 +10,11 @@ import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 interface UpdateTemplateUseCaseRequest {
   id: string;
   name?: string;
+  iconUrl?: string;
   unitOfMeasure?: string;
-  productAttributes?: Record<string, unknown>;
-  variantAttributes?: Record<string, unknown>;
-  itemAttributes?: Record<string, unknown>;
+  productAttributes?: TemplateAttributesMap;
+  variantAttributes?: TemplateAttributesMap;
+  itemAttributes?: TemplateAttributesMap;
 }
 
 interface UpdateTemplateUseCaseResponse {
@@ -28,6 +30,7 @@ export class UpdateTemplateUseCase {
     const {
       id,
       name,
+      iconUrl,
       unitOfMeasure,
       productAttributes,
       variantAttributes,
@@ -82,6 +85,7 @@ export class UpdateTemplateUseCase {
     const updatedTemplate = await this.templatesRepository.update({
       id: new UniqueEntityID(id),
       name,
+      iconUrl,
       unitOfMeasure: templateUnitOfMeasure,
       productAttributes,
       variantAttributes,

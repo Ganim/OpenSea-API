@@ -1,16 +1,18 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { InMemoryBinsRepository } from '@/repositories/stock/in-memory/in-memory-bins-repository';
 import { InMemoryItemMovementsRepository } from '@/repositories/stock/in-memory/in-memory-item-movements-repository';
 import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
-import { InMemoryLocationsRepository } from '@/repositories/stock/in-memory/in-memory-locations-repository';
 import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
+import { InMemoryWarehousesRepository } from '@/repositories/stock/in-memory/in-memory-warehouses-repository';
+import { InMemoryZonesRepository } from '@/repositories/stock/in-memory/in-memory-zones-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { CreateLocationUseCase } from '../locations/create-location';
 import { CreateProductUseCase } from '../products/create-product';
 import { CreateTemplateUseCase } from '../templates/create-template';
 import { CreateVariantUseCase } from '../variants/create-variant';
@@ -19,7 +21,9 @@ import { RegisterItemExitUseCase } from './register-item-exit';
 
 let itemsRepository: InMemoryItemsRepository;
 let variantsRepository: InMemoryVariantsRepository;
-let locationsRepository: InMemoryLocationsRepository;
+let binsRepository: InMemoryBinsRepository;
+let warehousesRepository: InMemoryWarehousesRepository;
+let zonesRepository: InMemoryZonesRepository;
 let itemMovementsRepository: InMemoryItemMovementsRepository;
 let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
@@ -28,51 +32,90 @@ let manufacturersRepository: InMemoryManufacturersRepository;
 let registerItemEntry: RegisterItemEntryUseCase;
 let registerItemExit: RegisterItemExitUseCase;
 let createVariant: CreateVariantUseCase;
-let createLocation: CreateLocationUseCase;
 let createProduct: CreateProductUseCase;
 let createTemplate: CreateTemplateUseCase;
+
+async function createTestBin(
+  warehousesRepo: InMemoryWarehousesRepository,
+  zonesRepo: InMemoryZonesRepository,
+  binsRepo: InMemoryBinsRepository,
+  code: string,
+) {
+  let warehouse = await warehousesRepo.findByCode('FAB');
+  if (!warehouse) {
+    warehouse = await warehousesRepo.create({
+      code: 'FAB',
+      name: 'Fábrica Principal',
+    });
+  }
+
+  let zone = await zonesRepo.findByCode(warehouse.warehouseId, 'EST');
+  if (!zone) {
+    zone = await zonesRepo.create({
+      warehouseId: warehouse.warehouseId,
+      code: 'EST',
+      name: 'Estoque',
+    });
+  }
+
+  const bin = await binsRepo.create({
+    zoneId: zone.zoneId,
+    address: `FAB-EST-${code}`,
+    aisle: 1,
+    shelf: 1,
+    position: code,
+  });
+
+  return { warehouse, zone, bin };
+}
 
 describe('RegisterItemExitUseCase', () => {
   beforeEach(() => {
     itemsRepository = new InMemoryItemsRepository();
     variantsRepository = new InMemoryVariantsRepository();
-    locationsRepository = new InMemoryLocationsRepository();
+    binsRepository = new InMemoryBinsRepository();
+    warehousesRepository = new InMemoryWarehousesRepository();
+    zonesRepository = new InMemoryZonesRepository();
     itemMovementsRepository = new InMemoryItemMovementsRepository();
     productsRepository = new InMemoryProductsRepository();
     templatesRepository = new InMemoryTemplatesRepository();
     suppliersRepository = new InMemorySuppliersRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
+
     registerItemEntry = new RegisterItemEntryUseCase(
       itemsRepository,
       variantsRepository,
-      locationsRepository,
+      binsRepository,
       itemMovementsRepository,
       productsRepository,
       templatesRepository,
     );
+
     registerItemExit = new RegisterItemExitUseCase(
       itemsRepository,
       itemMovementsRepository,
     );
+
     createVariant = new CreateVariantUseCase(
       variantsRepository,
       productsRepository,
       templatesRepository,
     );
-    createLocation = new CreateLocationUseCase(locationsRepository);
+
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
     );
+
     createTemplate = new CreateTemplateUseCase(templatesRepository);
   });
 
   it('should be able to register an item exit for sale', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -90,11 +133,12 @@ describe('RegisterItemExitUseCase', () => {
       price: 100,
     });
 
-    const { location } = await createLocation.execute({
-      code: 'WH-A',
-      titulo: 'Warehouse A',
-      type: 'WAREHOUSE',
-    });
+    const { bin } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'A',
+    );
 
     const userId = new UniqueEntityID().toString();
 
@@ -102,7 +146,7 @@ describe('RegisterItemExitUseCase', () => {
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-001',
       variantId: variant.id.toString(),
-      locationId: location.id.toString(),
+      binId: bin.binId.toString(),
       quantity: 100,
       userId,
     });
@@ -130,7 +174,7 @@ describe('RegisterItemExitUseCase', () => {
   it('should be able to register item exit for loss', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -148,18 +192,19 @@ describe('RegisterItemExitUseCase', () => {
       price: 100,
     });
 
-    const { location } = await createLocation.execute({
-      code: 'WH-A',
-      titulo: 'Warehouse A',
-      type: 'WAREHOUSE',
-    });
+    const { bin } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'B',
+    );
 
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-002',
       variantId: variant.id.toString(),
-      locationId: location.id.toString(),
+      binId: bin.binId.toString(),
       quantity: 50,
       userId,
     });
@@ -210,7 +255,7 @@ describe('RegisterItemExitUseCase', () => {
   it('should not allow exit with insufficient quantity', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -228,18 +273,19 @@ describe('RegisterItemExitUseCase', () => {
       price: 100,
     });
 
-    const { location } = await createLocation.execute({
-      code: 'WH-A',
-      titulo: 'Warehouse A',
-      type: 'WAREHOUSE',
-    });
+    const { bin } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'C',
+    );
 
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-003',
       variantId: variant.id.toString(),
-      locationId: location.id.toString(),
+      binId: bin.binId.toString(),
       quantity: 10,
       userId,
     });
@@ -257,7 +303,7 @@ describe('RegisterItemExitUseCase', () => {
   it('should allow exit with exact available quantity', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -275,18 +321,19 @@ describe('RegisterItemExitUseCase', () => {
       price: 100,
     });
 
-    const { location } = await createLocation.execute({
-      code: 'WH-A',
-      titulo: 'Warehouse A',
-      type: 'WAREHOUSE',
-    });
+    const { bin } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'D',
+    );
 
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-004',
       variantId: variant.id.toString(),
-      locationId: location.id.toString(),
+      binId: bin.binId.toString(),
       quantity: 20,
       userId,
     });
@@ -304,7 +351,7 @@ describe('RegisterItemExitUseCase', () => {
   it('should be able to register exit for production', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -322,18 +369,19 @@ describe('RegisterItemExitUseCase', () => {
       price: 100,
     });
 
-    const { location } = await createLocation.execute({
-      code: 'WH-A',
-      titulo: 'Warehouse A',
-      type: 'WAREHOUSE',
-    });
+    const { bin } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'E',
+    );
 
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-005',
       variantId: variant.id.toString(),
-      locationId: location.id.toString(),
+      binId: bin.binId.toString(),
       quantity: 100,
       userId,
     });
@@ -353,7 +401,7 @@ describe('RegisterItemExitUseCase', () => {
   it('should be able to register exit for sample', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -371,18 +419,19 @@ describe('RegisterItemExitUseCase', () => {
       price: 100,
     });
 
-    const { location } = await createLocation.execute({
-      code: 'WH-A',
-      titulo: 'Warehouse A',
-      type: 'WAREHOUSE',
-    });
+    const { bin } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'F',
+    );
 
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-006',
       variantId: variant.id.toString(),
-      locationId: location.id.toString(),
+      binId: bin.binId.toString(),
       quantity: 100,
       userId,
     });
@@ -402,7 +451,7 @@ describe('RegisterItemExitUseCase', () => {
   it('should handle multiple exits from same item', async () => {
     const { template } = await createTemplate.execute({
       name: 'Test Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
@@ -420,18 +469,19 @@ describe('RegisterItemExitUseCase', () => {
       price: 100,
     });
 
-    const { location } = await createLocation.execute({
-      code: 'WH-A',
-      titulo: 'Warehouse A',
-      type: 'WAREHOUSE',
-    });
+    const { bin } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'G',
+    );
 
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
       uniqueCode: 'ITEM-007',
       variantId: variant.id.toString(),
-      locationId: location.id.toString(),
+      binId: bin.binId.toString(),
       quantity: 100,
       userId,
     });

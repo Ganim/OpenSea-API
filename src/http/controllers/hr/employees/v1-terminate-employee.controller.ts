@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
@@ -8,6 +10,8 @@ import {
   terminateEmployeeSchema,
 } from '@/http/schemas';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import { makeGetEmployeeByIdUseCase } from '@/use-cases/hr/employees/factories/make-get-employee-by-id-use-case';
 import { makeTerminateEmployeeUseCase } from '@/use-cases/hr/employees/factories/make-terminate-employee-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -49,13 +53,33 @@ export async function terminateEmployeeController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { employeeId } = request.params;
       const { terminationDate, reason } = request.body;
+      const adminId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getEmployeeByIdUseCase = makeGetEmployeeByIdUseCase();
+
+        const [{ user: admin }, { employee: oldEmployee }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId: adminId }),
+          getEmployeeByIdUseCase.execute({ employeeId }),
+        ]);
+        const adminName = admin.profile?.name
+          ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
+          : admin.username || admin.email;
+
         const terminateEmployeeUseCase = makeTerminateEmployeeUseCase();
         const { employee } = await terminateEmployeeUseCase.execute({
           employeeId,
           terminationDate,
           reason,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.EMPLOYEE_TERMINATE,
+          entityId: employeeId,
+          placeholders: { adminName, employeeName: oldEmployee.fullName },
+          oldData: { status: oldEmployee.status },
+          newData: { terminationDate, reason },
         });
 
         return reply.status(200).send({ employee: employeeToDTO(employee) });

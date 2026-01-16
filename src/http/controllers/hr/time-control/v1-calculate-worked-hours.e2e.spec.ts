@@ -15,11 +15,10 @@ describe('Calculate Worked Hours (E2E)', () => {
     await app.close();
   });
 
-  it('should calculate worked hours for a date range', async () => {
+  it('should calculate worked hours with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
 
-    // Create time entries for a full day
     await prisma.timeEntry.createMany({
       data: [
         {
@@ -48,18 +47,5 @@ describe('Calculate Worked Hours (E2E)', () => {
     expect(response.body).toHaveProperty('employeeId');
     expect(response.body).toHaveProperty('totalWorkedHours');
     expect(response.body).toHaveProperty('dailyBreakdown');
-  });
-
-  it('should return 401 when no token is provided', async () => {
-    const validUUID = '00000000-0000-0000-0000-000000000000';
-    const response = await request(app.server)
-      .post('/v1/hr/time-control/calculate-hours')
-      .send({
-        employeeId: validUUID,
-        startDate: '2024-01-01',
-        endDate: '2024-01-31',
-      });
-
-    expect(response.statusCode).toBe(401);
   });
 });

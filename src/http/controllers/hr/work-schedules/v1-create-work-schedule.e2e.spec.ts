@@ -45,7 +45,7 @@ describe('Create Work Schedule (E2E)', () => {
   });
 
   it('should NOT allow user without permission to create a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, );
+    const { token } = await createAndAuthenticateUser(app, { permissions: [] });
 
     const response = await request(app.server)
       .post('/v1/hr/work-schedules')

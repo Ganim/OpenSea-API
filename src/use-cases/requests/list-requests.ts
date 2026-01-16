@@ -25,8 +25,13 @@ export class ListRequestsUseCase {
     const params: FindManyRequestsParams = {
       ...data,
       // Usuário sem permissão de ver todas só vê suas próprias requisições ou atribuídas a ele
-      requesterId: !data.hasViewAllPermission ? data.userId : data.requesterId,
-      assignedToId: !data.hasViewAllPermission ? data.userId : data.assignedToId,
+      // Usamos userIdForOwnRequests para indicar ao repository que deve usar OR
+      userIdForOwnRequests: !data.hasViewAllPermission
+        ? data.userId
+        : undefined,
+      // Se tem permissão de ver todas, pode filtrar por requester/assignee específico
+      requesterId: data.hasViewAllPermission ? data.requesterId : undefined,
+      assignedToId: data.hasViewAllPermission ? data.assignedToId : undefined,
     };
 
     const [requests, total] = await Promise.all([

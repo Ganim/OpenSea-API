@@ -7,15 +7,37 @@ const envSchema = z.object({
   DATABASE_URL: z
     .url()
     .default(
-      'postgresql://docker:docker@localhost:5432/opensea-db?schema=public',
+      'postgresql://docker:docker@localhost:5432/apiopensea?schema=public',
     ),
   PORT: z.coerce.number().default(3333),
+
+  // Redis configuration
+  REDIS_HOST: z.string().default('localhost'),
+  REDIS_PORT: z.coerce.number().default(6379),
+  REDIS_PASSWORD: z.string().optional(),
+  REDIS_DB: z.coerce.number().default(0),
+
+  // SMTP configuration
   SMTP_HOST: z.string().default('localhost'),
   SMTP_PORT: z.coerce.number().default(587),
   SMTP_USER: z.string().default('user'),
   SMTP_PASS: z.string().default('pass'),
+
+  // Frontend
   FRONTEND_URL: z.url().default('http://localhost:3000'),
+
+  // Workers
   NOTIFICATIONS_CRON_INTERVAL_MS: z.coerce.number().default(60000),
+
+  // JWT RS256 (opcional - se não definido, usa HS256)
+  JWT_PRIVATE_KEY: z.string().optional(),
+  JWT_PUBLIC_KEY: z.string().optional(),
+
+  // Sentry (opcional)
+  SENTRY_DSN: z.string().optional(),
+
+  // Audit HMAC (opcional - deriva de JWT_SECRET se não definido)
+  AUDIT_HMAC_SECRET: z.string().optional(),
 });
 
 const _env = envSchema.safeParse(process.env);

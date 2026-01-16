@@ -1,24 +1,26 @@
-import { app } from '@/app';
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Change My User (e2e)', () => {
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+
+describe('Get My User (E2E)', () => {
   beforeAll(async () => {
-    app.ready();
+    await app.ready();
   });
+
   afterAll(async () => {
     await app.close();
   });
 
-  it('should allow a USER to GET their OWN USER data', async () => {
+  it('should get my user with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/me')
-      .set('Authorization', `Bearer ${token}`)
-      .send();
+      .set('Authorization', `Bearer ${token}`);
 
-    expect(response.statusCode).toEqual(200);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('user');
   });
 });

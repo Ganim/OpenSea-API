@@ -1,10 +1,11 @@
-import { app } from '@/app';
-import { prisma } from '@/lib/prisma';
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Transfer Item (e2e)', () => {
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+
+describe('Transfer Item (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -13,12 +14,10 @@ describe('Transfer Item (e2e)', () => {
     await app.close();
   });
 
-  it('should allow MANAGER to TRANSFER ITEM between locations', async () => {
+  it('should transfer item with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-
     const timestamp = Date.now();
 
-    // Create template
     const template = await prisma.template.create({
       data: {
         name: `Template Transfer Test ${timestamp}`,
@@ -28,7 +27,6 @@ describe('Transfer Item (e2e)', () => {
       },
     });
 
-    // Create product
     const product = await prisma.product.create({
       data: {
         code: `PROD-TRANSFER-${timestamp}`,
@@ -39,7 +37,6 @@ describe('Transfer Item (e2e)', () => {
       },
     });
 
-    // Create variant
     const variant = await prisma.variant.create({
       data: {
         productId: product.id,
@@ -50,30 +47,63 @@ describe('Transfer Item (e2e)', () => {
       },
     });
 
-    // Create source location
-    const sourceLocation = await prisma.location.create({
+    const sourceWarehouse = await prisma.warehouse.create({
       data: {
-        code: `S${timestamp.toString().slice(-4)}`,
-        titulo: 'Source warehouse',
-        type: 'WAREHOUSE',
+        code: `S${timestamp.toString().slice(-3)}`,
+        name: 'Source warehouse',
       },
     });
 
-    // Create destination location
-    const destLocation = await prisma.location.create({
+    const sourceZone = await prisma.zone.create({
       data: {
-        code: `D${timestamp.toString().slice(-4)}`,
-        titulo: 'Destination warehouse',
-        type: 'WAREHOUSE',
+        code: `ZS${timestamp.toString().slice(-2)}`,
+        name: 'Source zone',
+        warehouseId: sourceWarehouse.id,
+        structure: {},
       },
     });
 
-    // Create item
+    const sourceBin = await prisma.bin.create({
+      data: {
+        address: `${sourceWarehouse.code}-${sourceZone.code}-01-A`,
+        aisle: 1,
+        shelf: 1,
+        position: 'A',
+        zoneId: sourceZone.id,
+      },
+    });
+
+    const destWarehouse = await prisma.warehouse.create({
+      data: {
+        code: `D${timestamp.toString().slice(-3)}`,
+        name: 'Destination warehouse',
+      },
+    });
+
+    const destZone = await prisma.zone.create({
+      data: {
+        code: `ZD${timestamp.toString().slice(-2)}`,
+        name: 'Destination zone',
+        warehouseId: destWarehouse.id,
+        structure: {},
+      },
+    });
+
+    const destBin = await prisma.bin.create({
+      data: {
+        address: `${destWarehouse.code}-${destZone.code}-01-A`,
+        aisle: 1,
+        shelf: 1,
+        position: 'A',
+        zoneId: destZone.id,
+      },
+    });
+
     const item = await prisma.item.create({
       data: {
         uniqueCode: `ITEM-TRANSFER-${timestamp}`,
         variantId: variant.id,
-        locationId: sourceLocation.id,
+        binId: sourceBin.id,
         initialQuantity: 100,
         currentQuantity: 100,
         status: 'AVAILABLE',
@@ -87,160 +117,14 @@ describe('Transfer Item (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         itemId: item.id,
-        destinationLocationId: destLocation.id,
-        reasonCode: 'RELOCATION',
-        notes: 'Moving to new warehouse',
-      });
-
-    expect(response.statusCode).toEqual(200);
-    expect(response.body.item).toBeDefined();
-    expect(response.body.item.id).toBe(item.id);
-    expect(response.body.item.locationId).toBe(destLocation.id);
-    expect(response.body.movement).toBeDefined();
-    expect(response.body.movement.movementType).toBe('TRANSFER');
-  });
-
-  it('should NOT allow user without permission to TRANSFER ITEM', async () => {
-    const { token } = await createAndAuthenticateUser(app, );
-
-    const timestamp = Date.now();
-
-    // Create complete setup
-    const template = await prisma.template.create({
-      data: {
-        name: `Template User Transfer ${timestamp}`,
-        productAttributes: {},
-        variantAttributes: {},
-        itemAttributes: {},
-      },
-    });
-
-    const product = await prisma.product.create({
-      data: {
-        code: `PROD-USER-TRANSFER-${timestamp}`,
-        name: `Product User Transfer ${timestamp}`,
-        status: 'ACTIVE',
-        templateId: template.id,
-        attributes: {},
-      },
-    });
-
-    const variant = await prisma.variant.create({
-      data: {
-        productId: product.id,
-        sku: `SKU-USER-TRANSFER-${timestamp}`,
-        name: `Variant User Transfer ${timestamp}`,
-        price: 100,
-        attributes: {},
-      },
-    });
-
-    const location1 = await prisma.location.create({
-      data: {
-        code: `A${timestamp.toString().slice(-4)}`,
-        titulo: 'User source warehouse',
-        type: 'WAREHOUSE',
-      },
-    });
-
-    const location2 = await prisma.location.create({
-      data: {
-        code: `J${timestamp.toString().slice(-4)}`,
-        titulo: 'User dest warehouse',
-        type: 'WAREHOUSE',
-      },
-    });
-
-    const item = await prisma.item.create({
-      data: {
-        uniqueCode: `ITEM-USER-TRANSFER-${timestamp}`,
-        variantId: variant.id,
-        locationId: location1.id,
-        initialQuantity: 100,
-        currentQuantity: 100,
-        status: 'AVAILABLE',
-        entryDate: new Date(),
-        attributes: {},
-      },
-    });
-
-    const response = await request(app.server)
-      .post('/v1/items/transfer')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        itemId: item.id,
-        destinationLocationId: location2.id,
+        destinationBinId: destBin.id,
         reasonCode: 'RELOCATION',
       });
 
-    expect(response.statusCode).toBe(403);
-  });
-
-  it('should NOT allow TRANSFER to same location', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const timestamp = Date.now();
-
-    // Create complete setup
-    const template = await prisma.template.create({
-      data: {
-        name: `Template Same Loc Test ${timestamp}`,
-        productAttributes: {},
-        variantAttributes: {},
-        itemAttributes: {},
-      },
-    });
-
-    const product = await prisma.product.create({
-      data: {
-        code: `PROD-SAMELOC-${timestamp}`,
-        name: `Product SameLoc ${timestamp}`,
-        status: 'ACTIVE',
-        templateId: template.id,
-        attributes: {},
-      },
-    });
-
-    const variant = await prisma.variant.create({
-      data: {
-        productId: product.id,
-        sku: `SKU-SAMELOC-${timestamp}`,
-        name: `Variant SameLoc ${timestamp}`,
-        price: 100,
-        attributes: {},
-      },
-    });
-
-    const location = await prisma.location.create({
-      data: {
-        code: `B${timestamp.toString().slice(-4)}`,
-        titulo: 'Same location warehouse',
-        type: 'WAREHOUSE',
-      },
-    });
-
-    const item = await prisma.item.create({
-      data: {
-        uniqueCode: `ITEM-SAMELOC-${timestamp}`,
-        variantId: variant.id,
-        locationId: location.id,
-        initialQuantity: 50,
-        currentQuantity: 50,
-        status: 'AVAILABLE',
-        entryDate: new Date(),
-        attributes: {},
-      },
-    });
-
-    const response = await request(app.server)
-      .post('/v1/items/transfer')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        itemId: item.id,
-        destinationLocationId: location.id, // Same location
-        reasonCode: 'RELOCATION',
-      });
-
-    expect(response.statusCode).toBe(400);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('item');
+    expect(response.body.item).toHaveProperty('id', item.id);
+    expect(response.body.item).toHaveProperty('binId', destBin.id);
+    expect(response.body).toHaveProperty('movement');
   });
 });

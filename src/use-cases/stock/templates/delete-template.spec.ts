@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateTemplateUseCase } from './create-template';
 import { DeleteTemplateUseCase } from './delete-template';
@@ -21,7 +22,7 @@ describe('DeleteTemplateUseCase', () => {
   it('should delete a template', async () => {
     const created = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     await sut.execute({ id: created.template.id });

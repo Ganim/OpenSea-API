@@ -6,6 +6,7 @@ import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repo
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
+import { assertValidAttributes } from '@/utils/validate-template-attributes';
 
 interface CreateProductUseCaseRequest {
   name: string;
@@ -116,21 +117,7 @@ export class CreateProductUseCase {
     }
 
     // Validate attributes against template
-    if (attributes) {
-      const templateAttributes = template.productAttributes;
-      const attributeKeys = Object.keys(attributes);
-      const templateKeys = Object.keys(templateAttributes);
-
-      // Check for invalid attribute keys
-      const invalidKeys = attributeKeys.filter(
-        (key) => !templateKeys.includes(key),
-      );
-      if (invalidKeys.length > 0) {
-        throw new BadRequestError(
-          `Invalid attributes: ${invalidKeys.join(', ')}. Template only allows: ${templateKeys.join(', ')}`,
-        );
-      }
-    }
+    assertValidAttributes(attributes, template.productAttributes, 'product');
 
     // Save to repository
     // O código sequencial e fullCode serão gerados pelo Prisma (autoincrement)

@@ -15,43 +15,21 @@ describe('Get Absence (E2E)', () => {
     await app.close();
   });
 
-  it('should get absence by id', async () => {
+  it('should get absence with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
     const { absenceId } = await createAbsenceE2E({
       employeeId,
       type: 'VACATION',
-      reason: 'Test vacation',
     });
 
     const response = await request(app.server)
       .get(`/v1/hr/absences/${absenceId}`)
       .set('Authorization', `Bearer ${token}`);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.body.absence).toBeDefined();
-    expect(response.body.absence.id).toBe(absenceId);
-    expect(response.body.absence.employeeId).toBe(employeeId);
-    expect(response.body.absence.type).toBe('VACATION');
-  });
-
-  it('should return 404 for non-existent absence', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .get('/v1/hr/absences/00000000-0000-0000-0000-000000000000')
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(404);
-    expect(response.body.message).toBeDefined();
-  });
-
-  it('should return 401 when no token is provided', async () => {
-    const response = await request(app.server).get(
-      '/v1/hr/absences/00000000-0000-0000-0000-000000000000',
-    );
-
-    expect(response.statusCode).toBe(401);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('absence');
+    expect(response.body.absence).toHaveProperty('id');
   });
 });

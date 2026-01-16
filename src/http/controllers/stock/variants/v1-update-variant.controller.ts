@@ -1,10 +1,14 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { updateVariantSchema, variantResponseSchema } from '@/http/schemas';
 import { variantToDTO } from '@/mappers/stock/variant/variant-to-dto';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import { makeGetVariantByIdUseCase } from '@/use-cases/stock/variants/factories/make-get-variant-by-id-use-case';
 import { makeUpdateVariantUseCase } from '@/use-cases/stock/variants/factories/make-update-variant-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -56,13 +60,31 @@ export async function updateVariantController(app: FastifyInstance) {
         qrCode,
         eanCode,
         upcCode,
+        colorHex,
+        colorPantone,
         minStock,
         maxStock,
         reorderPoint,
         reorderQuantity,
+        reference,
+        similars,
+        outOfLine,
+        isActive,
       } = request.body;
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getVariantByIdUseCase = makeGetVariantByIdUseCase();
+
+        const [{ user }, oldVariant] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getVariantByIdUseCase.execute({ id }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const updateVariantUseCase = makeUpdateVariantUseCase();
         const variant = await updateVariantUseCase.execute({
           id,
@@ -77,10 +99,24 @@ export async function updateVariantController(app: FastifyInstance) {
           qrCode,
           eanCode,
           upcCode,
+          colorHex,
+          colorPantone,
           minStock,
           maxStock,
           reorderPoint,
           reorderQuantity,
+          reference,
+          similars,
+          outOfLine,
+          isActive,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.VARIANT_UPDATE,
+          entityId: variant.id.toString(),
+          placeholders: { userName, variantName: variant.name },
+          oldData: { name: oldVariant.name, sku: oldVariant.sku },
+          newData: { sku, name, price },
         });
 
         return reply.status(200).send({ variant: variantToDTO(variant) });

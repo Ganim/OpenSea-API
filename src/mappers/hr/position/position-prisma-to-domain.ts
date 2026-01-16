@@ -18,7 +18,9 @@ export function mapPositionPrismaToDomain(
     level: positionDb.level,
     minSalary: positionDb.minSalary ? Number(positionDb.minSalary) : undefined,
     maxSalary: positionDb.maxSalary ? Number(positionDb.maxSalary) : undefined,
-    baseSalary: positionDb.baseSalary ? Number(positionDb.baseSalary) : undefined,
+    baseSalary: positionDb.baseSalary
+      ? Number(positionDb.baseSalary)
+      : undefined,
     isActive: positionDb.isActive,
     deletedAt: positionDb.deletedAt ?? undefined,
     createdAt: positionDb.createdAt,

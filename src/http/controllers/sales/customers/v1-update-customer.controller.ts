@@ -1,12 +1,16 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-    customerResponseSchema,
-    updateCustomerSchema,
+  customerResponseSchema,
+  updateCustomerSchema,
 } from '@/http/schemas/sales.schema';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import { makeGetCustomerByIdUseCase } from '@/use-cases/sales/customers/factories/make-get-customer-by-id-use-case';
 import { makeUpdateCustomerUseCase } from '@/use-cases/sales/customers/factories/make-update-customer-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -50,10 +54,30 @@ export async function updateCustomerController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
       const body = request.body;
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getCustomerByIdUseCase = makeGetCustomerByIdUseCase();
+
+        const [{ user }, { customer: oldCustomer }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getCustomerByIdUseCase.execute({ id }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const useCase = makeUpdateCustomerUseCase();
         const { customer } = await useCase.execute({ id, ...body });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.CUSTOMER_UPDATE,
+          entityId: id,
+          placeholders: { userName, customerName: customer.name },
+          oldData: { name: oldCustomer.name, email: oldCustomer.email },
+          newData: body,
+        });
 
         return reply.status(200).send({ customer });
       } catch (error) {

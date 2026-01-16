@@ -106,5 +106,7 @@ export enum AuditAction {
   EXPORT = 'EXPORT',
   IMPORT = 'IMPORT',
   SYNC = 'SYNC',
+  DUPLICATE = 'DUPLICATE',
+  GENERATE = 'GENERATE',
   OTHER = 'OTHER',
 }

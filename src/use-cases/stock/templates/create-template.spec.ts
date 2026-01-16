@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
+import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateTemplateUseCase } from './create-template';
 
@@ -16,17 +17,17 @@ describe('CreateTemplateUseCase', () => {
     const result = await sut.execute({
       name: 'Electronics Template',
       productAttributes: {
-        brand: 'string',
-        model: 'string',
-        warranty: 'number',
+        brand: templateAttr.string(),
+        model: templateAttr.string(),
+        warranty: templateAttr.number({ unitOfMeasure: 'months' }),
       },
       variantAttributes: {
-        color: 'string',
-        storage: 'string',
+        color: templateAttr.string({ enablePrint: true }),
+        storage: templateAttr.string(),
       },
       itemAttributes: {
-        serialNumber: 'string',
-        condition: 'string',
+        serialNumber: templateAttr.string({ required: true }),
+        condition: templateAttr.select(['NEW', 'USED', 'REFURBISHED']),
       },
     });
 
@@ -34,33 +35,25 @@ describe('CreateTemplateUseCase', () => {
       expect.objectContaining({
         id: expect.any(String),
         name: 'Electronics Template',
-        productAttributes: {
-          brand: 'string',
-          model: 'string',
-          warranty: 'number',
-        },
-        variantAttributes: {
-          color: 'string',
-          storage: 'string',
-        },
-        itemAttributes: {
-          serialNumber: 'string',
-          condition: 'string',
-        },
       }),
     );
+    expect(result.template.productAttributes).toHaveProperty('brand');
+    expect(result.template.productAttributes.brand.type).toBe('string');
+    expect(result.template.variantAttributes).toHaveProperty('color');
+    expect(result.template.itemAttributes).toHaveProperty('serialNumber');
+    expect(result.template.itemAttributes.serialNumber.required).toBe(true);
   });
 
   it('should create a template with only product attributes', async () => {
     const result = await sut.execute({
       name: 'Simple Template',
       productAttributes: {
-        category: 'string',
+        category: templateAttr.string(),
       },
     });
 
     expect(result.template.name).toBe('Simple Template');
-    expect(result.template.productAttributes).toEqual({ category: 'string' });
+    expect(result.template.productAttributes.category.type).toBe('string');
     expect(result.template.variantAttributes).toEqual({});
     expect(result.template.itemAttributes).toEqual({});
   });
@@ -69,7 +62,7 @@ describe('CreateTemplateUseCase', () => {
     await expect(
       sut.execute({
         name: '',
-        productAttributes: { test: 'string' },
+        productAttributes: { test: templateAttr.string() },
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -78,7 +71,7 @@ describe('CreateTemplateUseCase', () => {
     await expect(
       sut.execute({
         name: 'a'.repeat(201),
-        productAttributes: { test: 'string' },
+        productAttributes: { test: templateAttr.string() },
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -86,13 +79,13 @@ describe('CreateTemplateUseCase', () => {
   it('should not create a template with duplicate name', async () => {
     await sut.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: 'string' },
+      productAttributes: { brand: templateAttr.string() },
     });
 
     await expect(
       sut.execute({
         name: 'Electronics Template',
-        productAttributes: { model: 'string' },
+        productAttributes: { model: templateAttr.string() },
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -124,5 +117,47 @@ describe('CreateTemplateUseCase', () => {
       variantAttributes: {},
       itemAttributes: {},
     });
+  });
+
+  it('should create a template with iconUrl', async () => {
+    const result = await sut.execute({
+      name: 'Template with Icon',
+      iconUrl: 'https://example.com/icon.svg',
+      productAttributes: { name: templateAttr.string() },
+    });
+
+    expect(result.template.iconUrl).toBe('https://example.com/icon.svg');
+  });
+
+  it('should create a template with all attribute options', async () => {
+    const result = await sut.execute({
+      name: 'Full Options Template',
+      productAttributes: {
+        weight: templateAttr.number({
+          required: true,
+          unitOfMeasure: 'kg',
+          enablePrint: true,
+          enableView: true,
+          description: 'Product weight in kilograms',
+        }),
+        category: templateAttr.select(['A', 'B', 'C'], {
+          required: true,
+          enableView: true,
+        }),
+      },
+    });
+
+    expect(result.template.productAttributes.weight).toMatchObject({
+      type: 'number',
+      required: true,
+      unitOfMeasure: 'kg',
+      enablePrint: true,
+      enableView: true,
+    });
+    expect(result.template.productAttributes.category.options).toEqual([
+      'A',
+      'B',
+      'C',
+    ]);
   });
 });

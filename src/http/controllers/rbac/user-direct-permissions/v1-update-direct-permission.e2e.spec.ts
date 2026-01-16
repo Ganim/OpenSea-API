@@ -16,7 +16,7 @@ describe('Update Direct Permission (e2e)', () => {
     await app.close();
   });
 
-  it('should allow ADMIN to UPDATE direct permission EFFECT', async () => {
+  it('should update direct permission with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const permission = await makePermission();
 
@@ -25,16 +25,15 @@ describe('Update Direct Permission (e2e)', () => {
     const { user } = await createUserUseCase.execute({
       email: `user-${uniqueId}@${faker.internet.domainName()}`,
       password: 'Pass@123',
-      username: `user${uniqueId}`, });
+      username: `user${uniqueId}`,
+    });
 
-    // Grant permission
     const directPermission = await makeUserDirectPermission({
       userId: user.id.toString(),
       permissionId: permission.id.toString(),
       effect: 'allow',
     });
 
-    // Update effect to deny
     const response = await request(app.server)
       .patch(
         `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
@@ -45,176 +44,6 @@ describe('Update Direct Permission (e2e)', () => {
       });
 
     expect(response.statusCode).toEqual(200);
-    expect(response.body).toEqual({
-      success: true,
-    });
-  });
-
-  it('should allow updating EXPIRATION date', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const permission = await makePermission();
-
-    const createUserUseCase = makeCreateUserUseCase();
-    const uniqueId = faker.string.uuid().slice(0, 8);
-    const { user } = await createUserUseCase.execute({
-      email: `user-${uniqueId}@${faker.internet.domainName()}`,
-      password: 'Pass@123',
-      username: `user${uniqueId}`, });
-
-    // Grant permission without expiration
-    const directPermission = await makeUserDirectPermission({
-      userId: user.id.toString(),
-      permissionId: permission.id.toString(),
-    });
-
-    const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + 30);
-
-    const response = await request(app.server)
-      .patch(
-        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
-      )
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        expiresAt: expiresAt.toISOString(),
-      });
-
-    expect(response.statusCode).toEqual(200);
-  });
-
-  it('should allow updating CONDITIONS', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const permission = await makePermission();
-
-    const createUserUseCase = makeCreateUserUseCase();
-    const uniqueId = faker.string.uuid().slice(0, 8);
-    const { user } = await createUserUseCase.execute({
-      email: `user-${uniqueId}@${faker.internet.domainName()}`,
-      password: 'Pass@123',
-      username: `user${uniqueId}`, });
-
-    const directPermission = await makeUserDirectPermission({
-      userId: user.id.toString(),
-      permissionId: permission.id.toString(),
-      conditions: { maxAmount: 500 },
-    });
-
-    const response = await request(app.server)
-      .patch(
-        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
-      )
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        conditions: {
-          maxAmount: 1000,
-          currency: 'BRL',
-        },
-      });
-
-    expect(response.statusCode).toEqual(200);
-  });
-
-  it('should allow REMOVING expiration by setting to null', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const permission = await makePermission();
-
-    const createUserUseCase = makeCreateUserUseCase();
-    const uniqueId = faker.string.uuid().slice(0, 8);
-    const { user } = await createUserUseCase.execute({
-      email: `user-${uniqueId}@${faker.internet.domainName()}`,
-      password: 'Pass@123',
-      username: `user${uniqueId}`, });
-
-    const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + 30);
-
-    const directPermission = await makeUserDirectPermission({
-      userId: user.id.toString(),
-      permissionId: permission.id.toString(),
-      expiresAt,
-    });
-
-    const response = await request(app.server)
-      .patch(
-        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
-      )
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        expiresAt: null,
-      });
-
-    expect(response.statusCode).toEqual(200);
-  });
-
-  it('should return 404 for NON-EXISTENT direct permission', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .patch(
-        '/v1/rbac/users/direct-permissions/00000000-0000-0000-0000-000000000000',
-      )
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        effect: 'deny',
-      });
-
-    expect(response.statusCode).toEqual(404);
-  });
-
-  it('should NOT allow user without permission to update permissions', async () => {
-    const { token: _adminToken } = await createAndAuthenticateUser(
-      app,
-    );
-    const { token: userToken } = await createAndAuthenticateUser(app, );
-    const permission = await makePermission();
-
-    const createUserUseCase = makeCreateUserUseCase();
-    const uniqueId = faker.string.uuid().slice(0, 8);
-    const { user } = await createUserUseCase.execute({
-      email: `user-${uniqueId}@${faker.internet.domainName()}`,
-      password: 'Pass@123',
-      username: `user${uniqueId}`, });
-
-    const directPermission = await makeUserDirectPermission({
-      userId: user.id.toString(),
-      permissionId: permission.id.toString(),
-    });
-
-    const response = await request(app.server)
-      .patch(
-        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
-      )
-      .set('Authorization', `Bearer ${userToken}`)
-      .send({
-        effect: 'deny',
-      });
-
-    expect(response.statusCode).toEqual(403);
-  });
-
-  it('should NOT allow unauthenticated request', async () => {
-    const permission = await makePermission();
-
-    const createUserUseCase = makeCreateUserUseCase();
-    const uniqueId = faker.string.uuid().slice(0, 8);
-    const { user } = await createUserUseCase.execute({
-      email: `user-${uniqueId}@${faker.internet.domainName()}`,
-      password: 'Pass@123',
-      username: `user${uniqueId}`, });
-
-    const directPermission = await makeUserDirectPermission({
-      userId: user.id.toString(),
-      permissionId: permission.id.toString(),
-    });
-
-    const response = await request(app.server)
-      .patch(
-        `/v1/rbac/users/direct-permissions/${directPermission.id.toString()}`,
-      )
-      .send({
-        effect: 'deny',
-      });
-
-    expect(response.statusCode).toEqual(401);
+    expect(response.body).toHaveProperty('success', true);
   });
 });

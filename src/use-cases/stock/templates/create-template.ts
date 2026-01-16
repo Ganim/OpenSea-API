@@ -1,5 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { CareLabelInfo } from '@/entities/stock/template';
+import {
+  CareLabelInfo,
+  TemplateAttributesMap,
+} from '@/entities/stock/template';
 import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import type { TemplateDTO } from '@/mappers/stock/template/template-to-dto';
 import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
@@ -7,10 +10,11 @@ import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface CreateTemplateUseCaseRequest {
   name: string;
+  iconUrl?: string;
   unitOfMeasure?: string;
-  productAttributes?: Record<string, unknown>;
-  variantAttributes?: Record<string, unknown>;
-  itemAttributes?: Record<string, unknown>;
+  productAttributes?: TemplateAttributesMap;
+  variantAttributes?: TemplateAttributesMap;
+  itemAttributes?: TemplateAttributesMap;
   careLabel?: CareLabelInfo;
 }
 
@@ -26,6 +30,7 @@ export class CreateTemplateUseCase {
   ): Promise<CreateTemplateUseCaseResponse> {
     const {
       name,
+      iconUrl,
       unitOfMeasure,
       productAttributes,
       variantAttributes,
@@ -64,6 +69,7 @@ export class CreateTemplateUseCase {
     // Save to repository
     const createdTemplate = await this.templatesRepository.create({
       name,
+      iconUrl,
       unitOfMeasure: templateUnitOfMeasure,
       productAttributes: productAttributes ?? {},
       variantAttributes: variantAttributes ?? {},

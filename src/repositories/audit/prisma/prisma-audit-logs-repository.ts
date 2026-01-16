@@ -4,7 +4,13 @@ import { AuditLog } from '@/entities/audit/audit-log';
 import { AuditModule } from '@/entities/audit/audit-module.enum';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
-import { Prisma, AuditLog as PrismaAuditLog } from '@prisma/client';
+import {
+  Prisma,
+  AuditLog as PrismaAuditLog,
+  AuditAction as PrismaAuditAction,
+  AuditEntity as PrismaAuditEntity,
+  AuditModule as PrismaAuditModule,
+} from '@prisma/client';
 import {
   AuditLogsRepository,
   AuditLogStatistics,
@@ -108,15 +114,15 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
     }
 
     if (params?.action) {
-      where.action = params.action;
+      where.action = params.action as PrismaAuditAction;
     }
 
     if (params?.entity) {
-      where.entity = params.entity;
+      where.entity = params.entity as PrismaAuditEntity;
     }
 
     if (params?.module) {
-      where.module = params.module;
+      where.module = params.module as PrismaAuditModule;
     }
 
     if (params?.entityId) {
@@ -139,9 +145,9 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
   async log(data: CreateAuditLogSchema): Promise<AuditLog> {
     const auditLog = await prisma.auditLog.create({
       data: {
-        action: data.action,
-        entity: data.entity,
-        module: data.module,
+        action: data.action as PrismaAuditAction,
+        entity: data.entity as PrismaAuditEntity,
+        module: data.module as PrismaAuditModule,
         entityId: data.entityId,
         description: data.description ?? null,
         oldData: (data.oldData as Prisma.InputJsonValue) ?? Prisma.JsonNull,
@@ -162,9 +168,9 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
   async logMany(data: CreateAuditLogSchema[]): Promise<void> {
     await prisma.auditLog.createMany({
       data: data.map((item) => ({
-        action: item.action,
-        entity: item.entity,
-        module: item.module,
+        action: item.action as PrismaAuditAction,
+        entity: item.entity as PrismaAuditEntity,
+        module: item.module as PrismaAuditModule,
         entityId: item.entityId,
         description: item.description ?? null,
         oldData: (item.oldData as Prisma.InputJsonValue) ?? Prisma.JsonNull,
@@ -545,7 +551,7 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
   async deleteByEntity(entity: AuditEntity, entityId: string): Promise<number> {
     const result = await prisma.auditLog.deleteMany({
       where: {
-        entity,
+        entity: entity as PrismaAuditEntity,
         entityId,
       },
     });

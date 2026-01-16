@@ -1,10 +1,13 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { userResponseSchema } from '@/http/schemas';
 import { makeForcePasswordResetUseCase } from '@/use-cases/core/users/factories/make-force-password-reset-use-case';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -60,13 +63,38 @@ export async function forcePasswordResetController(app: FastifyInstance) {
       const requestedByUserId = request.user.sub;
 
       try {
-        const forcePasswordResetUseCase = makeForcePasswordResetUseCase();
+        // Busca nome do admin para auditoria
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user: admin } = await getUserByIdUseCase.execute({
+          userId: requestedByUserId,
+        });
+        const adminName = admin.profile?.name
+          ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
+          : admin.username || admin.email;
 
+        const forcePasswordResetUseCase = makeForcePasswordResetUseCase();
         const { user, message } = await forcePasswordResetUseCase.execute({
           targetUserId: userId,
           requestedByUserId,
           reason,
           sendEmail,
+        });
+
+        // Log de auditoria
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.USER_FORCE_PASSWORD_RESET,
+          entityId: user.id.toString(),
+          placeholders: {
+            adminName,
+            userName,
+            reason: reason || 'Não informado',
+          },
+          newData: { reason, sendEmail },
+          affectedUserId: userId,
         });
 
         return reply.status(200).send({ user, message });

@@ -1,7 +1,8 @@
-﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { PermissionCodes } from '@/constants/rbac';
-import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeDeleteNotificationPreferenceUseCase } from '@/use-cases/sales/notification-preferences/factories/make-delete-notification-preference-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -13,13 +14,7 @@ export async function deleteNotificationPreferenceController(
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/notification-preferences/:id',
-    preHandler: [
-      verifyJwt,
-      createPermissionMiddleware({
-        permissionCode: PermissionCodes.SALES.NOTIFICATIONS.DELETE,
-        resource: 'notification-preferences',
-      }),
-    ],
+    preHandler: [verifyJwt],
     schema: {
       tags: ['Sales - Notification Preferences'],
       summary: 'Delete a notification preference (soft delete)',
@@ -30,10 +25,24 @@ export async function deleteNotificationPreferenceController(
       },
     },
     handler: async (request, reply) => {
+      const { id } = request.params as { id: string };
+      const userId = request.user.sub;
+
       try {
-        const { id } = request.params as { id: string };
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user } = await getUserByIdUseCase.execute({ userId });
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const useCase = makeDeleteNotificationPreferenceUseCase();
         await useCase.execute({ id });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.NOTIFICATION_PREFERENCE_DELETE,
+          entityId: id,
+          placeholders: { userName },
+        });
 
         return reply.status(204).send();
       } catch (err) {

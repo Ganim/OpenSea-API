@@ -61,7 +61,7 @@ export async function updateCompanyFiscalSettingsController(
         });
 
         return reply.status(200).send({
-          fiscalSettings: companyFiscalSettingsToDTO(fiscalSettings) as any,
+          fiscalSettings: companyFiscalSettingsToDTO(fiscalSettings),
         });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {

@@ -20,6 +20,10 @@ export interface CreateVariantSchema {
   reorderPoint?: number;
   reorderQuantity?: number;
   attributes?: Record<string, unknown>;
+  reference?: string;
+  similars?: unknown[];
+  outOfLine?: boolean;
+  isActive?: boolean;
 }
 
 export interface UpdateVariantSchema {
@@ -41,6 +45,10 @@ export interface UpdateVariantSchema {
   reorderPoint?: number;
   reorderQuantity?: number;
   attributes?: Record<string, unknown>;
+  reference?: string;
+  similars?: unknown[];
+  outOfLine?: boolean;
+  isActive?: boolean;
 }
 
 export interface VariantsRepository {

@@ -15,12 +15,12 @@ describe('ListItemsUseCase', () => {
 
   it('should be able to list items by variant', async () => {
     const variantId = new UniqueEntityID();
-    const locationId = new UniqueEntityID();
+    const binId = new UniqueEntityID();
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-001',
       variantId,
-      locationId,
+      binId,
       initialQuantity: 100,
       currentQuantity: 100,
       status: ItemStatus.create('AVAILABLE'),
@@ -29,7 +29,7 @@ describe('ListItemsUseCase', () => {
     await itemsRepository.create({
       uniqueCode: 'ITEM-002',
       variantId,
-      locationId,
+      binId,
       initialQuantity: 50,
       currentQuantity: 50,
       status: ItemStatus.create('AVAILABLE'),
@@ -44,15 +44,15 @@ describe('ListItemsUseCase', () => {
     expect(result.items[1].uniqueCode).toBe('ITEM-002');
   });
 
-  it('should be able to list items by location', async () => {
+  it('should be able to list items by bin', async () => {
     const variantId = new UniqueEntityID();
-    const locationIdA = new UniqueEntityID();
-    const locationIdB = new UniqueEntityID();
+    const binIdA = new UniqueEntityID();
+    const binIdB = new UniqueEntityID();
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-003',
       variantId,
-      locationId: locationIdA,
+      binId: binIdA,
       initialQuantity: 100,
       currentQuantity: 100,
       status: ItemStatus.create('AVAILABLE'),
@@ -61,14 +61,14 @@ describe('ListItemsUseCase', () => {
     await itemsRepository.create({
       uniqueCode: 'ITEM-004',
       variantId,
-      locationId: locationIdB,
+      binId: binIdB,
       initialQuantity: 50,
       currentQuantity: 50,
       status: ItemStatus.create('AVAILABLE'),
     });
 
     const result = await listItems.execute({
-      locationId: locationIdA.toString(),
+      binId: binIdA.toString(),
     });
 
     expect(result.items).toHaveLength(1);
@@ -77,12 +77,12 @@ describe('ListItemsUseCase', () => {
 
   it('should return all items when no filters provided', async () => {
     const variantId = new UniqueEntityID();
-    const locationId = new UniqueEntityID();
+    const binId = new UniqueEntityID();
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-001',
       variantId,
-      locationId,
+      binId,
       initialQuantity: 100,
       currentQuantity: 100,
       status: ItemStatus.create('AVAILABLE'),
@@ -91,7 +91,7 @@ describe('ListItemsUseCase', () => {
     await itemsRepository.create({
       uniqueCode: 'ITEM-002',
       variantId,
-      locationId,
+      binId,
       initialQuantity: 50,
       currentQuantity: 50,
       status: ItemStatus.create('AVAILABLE'),

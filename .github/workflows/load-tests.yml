@@ -1,0 +1,125 @@
+name: Load Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: 'Test scenario to run'
+        required: true
+        default: 'smoke'
+        type: choice
+        options:
+          - smoke
+          - auth-flow
+          - products-crud
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+  # Smoke test automático após deploy em staging
+  repository_dispatch:
+    types: [deploy-completed]
+
+jobs:
+  load-test:
+    name: Run Load Test - ${{ inputs.scenario || 'smoke' }}
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: docker
+          POSTGRES_PASSWORD: docker
+          POSTGRES_DB: apiopensea
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup database
+        env:
+          DATABASE_URL: postgresql://docker:docker@localhost:5432/apiopensea
+        run: |
+          npx prisma migrate deploy
+          npx prisma db seed
+
+      - name: Start API server
+        env:
+          DATABASE_URL: postgresql://docker:docker@localhost:5432/apiopensea
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          JWT_SECRET: test-secret-key
+          NODE_ENV: test
+        run: |
+          npm run build
+          npm start &
+          sleep 10
+
+      - name: Install k6
+        run: |
+          sudo gpg -k
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+
+      - name: Run smoke test
+        if: ${{ inputs.scenario == 'smoke' || github.event_name == 'repository_dispatch' }}
+        env:
+          BASE_URL: http://localhost:3333
+        run: k6 run tests/load/smoke.js
+
+      - name: Run auth flow test
+        if: ${{ inputs.scenario == 'auth-flow' }}
+        env:
+          BASE_URL: http://localhost:3333
+          TEST_EMAIL: admin@teste.com
+          TEST_PASSWORD: Teste@123
+        run: k6 run tests/load/scenarios/auth-flow.js
+
+      - name: Run products CRUD test
+        if: ${{ inputs.scenario == 'products-crud' }}
+        env:
+          BASE_URL: http://localhost:3333
+          TEST_EMAIL: admin@teste.com
+          TEST_PASSWORD: Teste@123
+        run: k6 run tests/load/scenarios/products-crud.js
+
+      - name: Upload test reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-test-reports
+          path: tests/load/reports/
+          retention-days: 30

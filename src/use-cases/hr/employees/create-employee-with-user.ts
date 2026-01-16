@@ -2,11 +2,11 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import {
-    ContractType,
-    CPF,
-    EmployeeStatus,
-    PIS,
-    WorkRegime,
+  ContractType,
+  CPF,
+  EmployeeStatus,
+  PIS,
+  WorkRegime,
 } from '@/entities/hr/value-objects';
 import { UserDTO } from '@/mappers/core/user/user-to-dto';
 import type { UsersRepository } from '@/repositories/core/users-repository';

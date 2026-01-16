@@ -23,12 +23,53 @@ describe('PermissionCode Value Object', () => {
       expect(code.isWildcard).toBe(true);
     });
 
-    it('should throw error for invalid format (missing parts)', () => {
-      expect(() => PermissionCode.create('core.users')).toThrow();
+    it('should create a two-part permission code with hyphen (module.resource)', () => {
+      const code = PermissionCode.create('stock.purchase-orders');
+
+      expect(code.value).toBe('stock.purchase-orders');
+      expect(code.module).toBe('stock');
+      expect(code.resource).toBe('purchase-orders');
+      expect(code.action).toBe('_root');
+      expect(code.isWildcard).toBe(false);
     });
 
-    it('should throw error for invalid format (too many parts)', () => {
-      expect(() => PermissionCode.create('core.users.create.extra')).toThrow();
+    it('should create a one-part permission code (module only - menu access)', () => {
+      const code = PermissionCode.create('stock');
+
+      expect(code.value).toBe('stock');
+      expect(code.module).toBe('stock');
+      expect(code.resource).toBe('_root');
+      expect(code.action).toBe('_root');
+      expect(code.scope).toBe(null);
+      expect(code.isWildcard).toBe(false);
+    });
+
+    it('should create a two-part permission code (module.resource - submenu access)', () => {
+      const code = PermissionCode.create('stock.locations');
+
+      expect(code.value).toBe('stock.locations');
+      expect(code.module).toBe('stock');
+      expect(code.resource).toBe('locations');
+      expect(code.action).toBe('_root');
+      expect(code.scope).toBe(null);
+      expect(code.isWildcard).toBe(false);
+    });
+
+    it('should create a four-part permission code (module.resource.action.scope)', () => {
+      const code = PermissionCode.create('hr.employees.read.all');
+
+      expect(code.value).toBe('hr.employees.read.all');
+      expect(code.module).toBe('hr');
+      expect(code.resource).toBe('employees');
+      expect(code.action).toBe('read');
+      expect(code.scope).toBe('all');
+      expect(code.isWildcard).toBe(false);
+    });
+
+    it('should throw error for invalid format (too many parts - 5+)', () => {
+      expect(() =>
+        PermissionCode.create('core.users.create.extra.more'),
+      ).toThrow();
     });
 
     it('should throw error for empty parts', () => {
@@ -52,10 +93,28 @@ describe('PermissionCode Value Object', () => {
   });
 
   describe('isValid', () => {
-    it('should validate correct format', () => {
+    it('should validate correct 1-part format (module only)', () => {
+      expect(PermissionCode.isValid('stock')).toBe(true);
+      expect(PermissionCode.isValid('sales')).toBe(true);
+      expect(PermissionCode.isValid('hr')).toBe(true);
+    });
+
+    it('should validate correct 2-part format (module.resource)', () => {
+      expect(PermissionCode.isValid('stock.locations')).toBe(true);
+      expect(PermissionCode.isValid('stock.volumes')).toBe(true);
+      expect(PermissionCode.isValid('stock.purchase-orders')).toBe(true);
+    });
+
+    it('should validate correct 3-part format', () => {
       expect(PermissionCode.isValid('core.users.create')).toBe(true);
       expect(PermissionCode.isValid('stock.products.read')).toBe(true);
       expect(PermissionCode.isValid('sales.orders.delete')).toBe(true);
+    });
+
+    it('should validate correct 4-part format (module.resource.action.scope)', () => {
+      expect(PermissionCode.isValid('hr.employees.read.all')).toBe(true);
+      expect(PermissionCode.isValid('hr.employees.list.team')).toBe(true);
+      expect(PermissionCode.isValid('hr.absences.approve.all')).toBe(true);
     });
 
     it('should validate wildcards', () => {
@@ -69,10 +128,11 @@ describe('PermissionCode Value Object', () => {
     });
 
     it('should reject invalid formats', () => {
-      expect(PermissionCode.isValid('core.users')).toBe(false);
-      expect(PermissionCode.isValid('core')).toBe(false);
       expect(PermissionCode.isValid('')).toBe(false);
-      expect(PermissionCode.isValid('core.users.create.extra')).toBe(false);
+      expect(PermissionCode.isValid('core.users.create.extra.more')).toBe(false);
+      expect(PermissionCode.isValid('stock..products')).toBe(false);
+      expect(PermissionCode.isValid('.stock')).toBe(false);
+      expect(PermissionCode.isValid('stock.')).toBe(false);
     });
   });
 

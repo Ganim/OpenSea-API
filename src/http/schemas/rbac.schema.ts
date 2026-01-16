@@ -7,14 +7,19 @@ import { z } from 'zod';
 import { dateSchema, idSchema } from './common.schema';
 
 /**
- * Permission Code Format: module.resource.action
- * Examples: stock.products.read, sales.orders.create, audit.logs.view
+ * Permission Code Format (1-4 parts):
+ * - module (1 part) - ex: stock, sales (menu access)
+ * - module.resource (2 parts) - ex: stock.locations, stock.volumes (submenu access)
+ * - module.resource.action (3 parts) - ex: stock.products.read, sales.orders.create
+ * - module.resource.action.scope (4 parts) - ex: hr.employees.read.all, hr.employees.list.team
+ *
+ * Wildcards are also supported: stock.*.read, *.products.*, *.*.*
  */
 export const permissionCodeSchema = z
   .string()
   .regex(
-    /^[a-z]+\.[a-z-]+\.(read|create|update|delete|manage|list|request|approve|assign|reject|cancel|complete|process|pay|view|preview|\*)$/,
-    'Permission code must follow format: module.resource.action',
+    /^[a-z][a-z0-9_-]*(\.[a-z*][a-z0-9_-]*){0,3}$/i,
+    'Permission code must follow format: module[.resource[.action[.scope]]]',
   );
 
 /**
@@ -179,6 +184,23 @@ export const addPermissionToGroupSchema = z.object({
   permissionCode: permissionCodeSchema,
   effect: permissionEffectSchema.default('allow'),
   conditions: z.record(z.string(), z.unknown()).nullable().optional(),
+});
+
+/**
+ * Bulk Add Permissions to Group Schema
+ * Permite adicionar múltiplas permissões de uma vez (mais eficiente)
+ */
+export const bulkAddPermissionsToGroupSchema = z.object({
+  permissions: z
+    .array(
+      z.object({
+        permissionCode: permissionCodeSchema,
+        effect: permissionEffectSchema.default('allow'),
+        conditions: z.record(z.string(), z.unknown()).nullable().optional(),
+      }),
+    )
+    .min(1, 'At least one permission is required')
+    .max(500, 'Maximum 500 permissions per request'),
 });
 
 /**

@@ -9,15 +9,19 @@
  * - @/http/schemas/stock/suppliers
  */
 
-export * from './stock/common';
-export * from './stock/products';
+export * from './stock/address';
+export * from './stock/bins';
 export * from './stock/categories';
-export * from './stock/variants';
+export * from './stock/common';
 export * from './stock/items';
-export * from './stock/locations';
+export * from './stock/labels';
+export * from './stock/products';
+export * from './stock/variants';
+export * from './stock/warehouses';
+export * from './stock/zones';
 // Manufacturers and Suppliers are NOT exported to avoid conflicts with HR schemas
 // Import directly from './stock/manufacturers' or './stock/suppliers' if needed
+export * from './stock/care';
+export * from './stock/purchase-orders';
 export * from './stock/tags';
 export * from './stock/templates';
-export * from './stock/purchase-orders';
-export * from './stock/care';

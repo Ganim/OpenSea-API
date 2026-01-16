@@ -7,17 +7,18 @@ import type { ItemMovementDTO } from '@/mappers/stock/item-movement/item-movemen
 import { itemMovementToDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
 import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
+import { BinsRepository } from '@/repositories/stock/bins-repository';
 import { ItemMovementsRepository } from '@/repositories/stock/item-movements-repository';
 import { ItemsRepository } from '@/repositories/stock/items-repository';
-import { LocationsRepository } from '@/repositories/stock/locations-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
+import { assertValidAttributes } from '@/utils/validate-template-attributes';
 
 export interface RegisterItemEntryUseCaseInput {
   uniqueCode?: string; // Agora opcional - será gerado automaticamente se não fornecido
   variantId: string;
-  locationId?: string; // Agora opcional
+  binId?: string; // Referência ao bin onde o item está armazenado
   quantity: number;
   userId: string;
   unitCost?: number; // Custo unitário do item
@@ -37,7 +38,7 @@ export class RegisterItemEntryUseCase {
   constructor(
     private itemsRepository: ItemsRepository,
     private variantsRepository: VariantsRepository,
-    private locationsRepository: LocationsRepository,
+    private binsRepository: BinsRepository,
     private itemMovementsRepository: ItemMovementsRepository,
     private productsRepository: ProductsRepository,
     private templatesRepository: TemplatesRepository,
@@ -79,14 +80,14 @@ export class RegisterItemEntryUseCase {
       throw new ResourceNotFoundError('Variant not found');
     }
 
-    // Validate location exists if provided
-    let locationId: UniqueEntityID | undefined;
-    if (input.locationId) {
-      locationId = new UniqueEntityID(input.locationId);
-      const location = await this.locationsRepository.findById(locationId);
+    // Validate bin exists if provided
+    let binId: UniqueEntityID | undefined;
+    if (input.binId) {
+      binId = new UniqueEntityID(input.binId);
+      const bin = await this.binsRepository.findById(binId);
 
-      if (!location) {
-        throw new ResourceNotFoundError('Location not found');
+      if (!bin) {
+        throw new ResourceNotFoundError('Bin not found');
       }
     }
 
@@ -109,28 +110,11 @@ export class RegisterItemEntryUseCase {
     }
 
     // Validate attributes against template
-    if (input.attributes) {
-      const product = await this.productsRepository.findById(variant.productId);
-
-      if (product) {
-        const template = await this.templatesRepository.findById(
-          product.templateId,
-        );
-
-        if (template && template.itemAttributes) {
-          const allowedKeys = Object.keys(template.itemAttributes);
-          const providedKeys = Object.keys(input.attributes);
-
-          const invalidKeys = providedKeys.filter(
-            (key) => !allowedKeys.includes(key),
-          );
-
-          if (invalidKeys.length > 0) {
-            throw new BadRequestError(
-              `Invalid attribute keys: ${invalidKeys.join(', ')}. Allowed keys: ${allowedKeys.join(', ')}`,
-            );
-          }
-        }
+    const product = await this.productsRepository.findById(variant.productId);
+    if (product) {
+      const template = await this.templatesRepository.findById(product.templateId);
+      if (template) {
+        assertValidAttributes(input.attributes, template.itemAttributes, 'item');
       }
     }
 
@@ -138,7 +122,7 @@ export class RegisterItemEntryUseCase {
     const item = await this.itemsRepository.create({
       uniqueCode,
       variantId,
-      locationId,
+      binId,
       initialQuantity: input.quantity,
       currentQuantity: input.quantity,
       status: ItemStatus.create('AVAILABLE'),

@@ -178,6 +178,27 @@ export class PermissionService {
   }
 
   /**
+   * Obtém todos os códigos de permissão de um usuário
+   * Retorna apenas as permissões com effect 'allow'
+   */
+  async getUserPermissionCodes(userId: UniqueEntityID): Promise<string[]> {
+    const permissions = await this.getUserPermissions(userId);
+    const codes: string[] = [];
+
+    for (const [code, effects] of permissions.entries()) {
+      // Aplicar precedência: se tem deny, não incluir
+      const hasDeny = effects.some((p) => p.effect === 'deny');
+      const hasAllow = effects.some((p) => p.effect === 'allow');
+
+      if (hasAllow && !hasDeny) {
+        codes.push(code);
+      }
+    }
+
+    return codes;
+  }
+
+  /**
    * Obtém todas as permissões de um usuário (com cache)
    * Inclui herança de grupos
    */

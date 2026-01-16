@@ -1,6 +1,8 @@
 import z from 'zod';
 
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import {
   registerSchema,
   userProfileSchema,
@@ -41,6 +43,17 @@ export async function registerNewUserController(app: FastifyInstance) {
           password,
           username,
           profile,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.AUTH_REGISTER,
+          entityId: user.id,
+          placeholders: {
+            userName: user.profile?.name
+              ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+              : user.username || user.email,
+          },
+          newData: { email, username, profile },
         });
 
         return reply.status(201).send({ user });

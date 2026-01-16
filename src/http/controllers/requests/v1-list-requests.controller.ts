@@ -1,7 +1,14 @@
 import type { RequestStatus } from '@/entities/requests/value-objects/request-status';
 import type { RequestType } from '@/entities/requests/value-objects/request-type';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeListRequestsUseCase } from '@/use-cases/requests/factories/make-list-requests-use-case';
+import { PrismaPermissionAuditLogsRepository } from '@/repositories/rbac/prisma/prisma-permission-audit-logs-repository';
+import { PrismaPermissionGroupPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permission-group-permissions-repository';
+import { PrismaPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-permission-groups-repository';
+import { PrismaPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permissions-repository';
+import { PrismaUserPermissionGroupsRepository } from '@/repositories/rbac/prisma/prisma-user-permission-groups-repository';
+import { PermissionService } from '@/services/rbac/permission-service';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -50,6 +57,20 @@ export async function listRequestsController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const useCase = makeListRequestsUseCase();
 
+      // Verifica permissão via banco de dados (não mais via JWT)
+      const permissionService = new PermissionService(
+        new PrismaPermissionsRepository(),
+        new PrismaPermissionGroupsRepository(),
+        new PrismaPermissionGroupPermissionsRepository(),
+        new PrismaUserPermissionGroupsRepository(),
+        new PrismaPermissionAuditLogsRepository(),
+      );
+
+      const hasViewAllPermission = await permissionService.checkPermission({
+        userId: new UniqueEntityID(request.user.sub),
+        permissionCode: 'REQUESTS:VIEW_ALL',
+      });
+
       const { requests, total, page, limit } = await useCase.execute({
         page: request.query.page ? Number.parseInt(request.query.page) : 1,
         status: request.query.status as RequestStatus | undefined,
@@ -57,9 +78,7 @@ export async function listRequestsController(app: FastifyInstance) {
         assignedToId: request.query.assignedToId,
         requesterId: request.query.requesterId,
         userId: request.user.sub,
-        hasViewAllPermission: request.user.permissions?.includes(
-          'REQUESTS:VIEW_ALL',
-        ),
+        hasViewAllPermission: hasViewAllPermission.allowed,
       });
 
       return reply.status(200).send({

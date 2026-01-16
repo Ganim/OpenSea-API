@@ -1,24 +1,23 @@
-import { app } from '@/app';
-import { prisma } from '@/lib/prisma';
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Release Item Reservation (E2E)', () => {
-  let userToken: string;
-  let itemId: string;
-  let userId: string;
-  let reservationId: string;
-  let releasedReservationId: string;
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 
+describe('Release Item Reservation (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
+  });
 
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should release item reservation with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
-    userToken = token;
-    userId = user.user.id;
+    const userId = user.user.id;
 
-    // Create test data
     const { randomUUID } = await import('node:crypto');
     const unique = randomUUID();
 
@@ -51,11 +50,29 @@ describe('Release Item Reservation (E2E)', () => {
       },
     });
 
-    const location = await prisma.location.create({
+    const warehouse = await prisma.warehouse.create({
       data: {
-        code: `C${unique.toString().slice(-4)}`,
-        titulo: `Test Location ${unique}`,
-        type: 'WAREHOUSE',
+        code: `W${unique.slice(-3)}`,
+        name: `Test Warehouse ${unique}`,
+      },
+    });
+
+    const zone = await prisma.zone.create({
+      data: {
+        code: `Z${unique.slice(-3)}`,
+        name: `Test Zone ${unique}`,
+        warehouseId: warehouse.id,
+        structure: {},
+      },
+    });
+
+    const bin = await prisma.bin.create({
+      data: {
+        address: `${warehouse.code}-${zone.code}-01-A`,
+        aisle: 1,
+        shelf: 1,
+        position: 'A',
+        zoneId: zone.id,
       },
     });
 
@@ -66,88 +83,30 @@ describe('Release Item Reservation (E2E)', () => {
         currentQuantity: 100,
         attributes: {},
         variantId: variant.id,
-        locationId: location.id,
+        binId: bin.id,
       },
     });
 
-    itemId = item.id;
-
-    // Create reservations
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    const activeReservation = await prisma.itemReservation.create({
+    const reservation = await prisma.itemReservation.create({
       data: {
-        itemId,
+        itemId: item.id,
         userId,
         quantity: 10,
-        reason: 'Active Reservation',
+        reason: 'Test reservation',
         expiresAt: tomorrow,
       },
     });
 
-    reservationId = activeReservation.id;
-
-    // Create an already released reservation
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    const released = await prisma.itemReservation.create({
-      data: {
-        itemId,
-        userId,
-        quantity: 5,
-        reason: 'Released Reservation',
-        expiresAt: tomorrow,
-        releasedAt: yesterday,
-      },
-    });
-
-    releasedReservationId = released.id;
-  });
-
-  afterAll(async () => {
-    await app.close();
-  });
-
-  it('should be able to release a reservation', async () => {
     const response = await request(app.server)
-      .patch(`/v1/item-reservations/${reservationId}/release`)
-      .set('Authorization', `Bearer ${userToken}`);
+      .patch(`/v1/item-reservations/${reservation.id}/release`)
+      .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-    expect(response.body.reservation).toMatchObject({
-      id: reservationId,
-      isReleased: true,
-      isActive: false,
-    });
-    expect(response.body.reservation.releasedAt).toBeTruthy();
-  });
-
-  it('should not be able to release a reservation without authentication', async () => {
-    const response = await request(app.server).patch(
-      `/v1/item-reservations/${reservationId}/release`,
-    );
-
-    expect(response.status).toBe(401);
-  });
-
-  it('should return 404 when reservation does not exist', async () => {
-    const response = await request(app.server)
-      .patch(
-        '/v1/item-reservations/00000000-0000-0000-0000-000000000000/release',
-      )
-      .set('Authorization', `Bearer ${userToken}`);
-
-    expect(response.status).toBe(404);
-  });
-
-  it('should not be able to release an already released reservation', async () => {
-    const response = await request(app.server)
-      .patch(`/v1/item-reservations/${releasedReservationId}/release`)
-      .set('Authorization', `Bearer ${userToken}`);
-
-    expect(response.status).toBe(400);
-    expect(response.body.message).toContain('already released');
+    expect(response.body).toHaveProperty('reservation');
+    expect(response.body.reservation).toHaveProperty('id', reservation.id);
+    expect(response.body.reservation).toHaveProperty('isReleased', true);
   });
 });

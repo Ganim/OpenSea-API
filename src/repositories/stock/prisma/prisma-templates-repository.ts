@@ -1,8 +1,7 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
-import { CareLabelInfo, Template } from '@/entities/stock/template';
-import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
+import { Template } from '@/entities/stock/template';
 import { prisma } from '@/lib/prisma';
+import { templatePrismaToDomain } from '@/mappers/stock/template/template-prisma-to-domain';
 import type {
   CreateTemplateSchema,
   TemplatesRepository,
@@ -14,6 +13,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
     const templateData = await prisma.template.create({
       data: {
         name: data.name,
+        iconUrl: data.iconUrl,
         unitOfMeasure: data.unitOfMeasure.value,
         productAttributes: (data.productAttributes ?? {}) as never,
         variantAttributes: (data.variantAttributes ?? {}) as never,
@@ -22,27 +22,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
       },
     });
 
-    return Template.create(
-      {
-        name: templateData.name,
-        unitOfMeasure: UnitOfMeasure.create(templateData.unitOfMeasure),
-        productAttributes: templateData.productAttributes as Record<
-          string,
-          unknown
-        >,
-        variantAttributes: templateData.variantAttributes as Record<
-          string,
-          unknown
-        >,
-        itemAttributes: templateData.itemAttributes as Record<string, unknown>,
-        careLabel: templateData.careLabel as CareLabelInfo | undefined,
-        sequentialCode: templateData.sequentialCode,
-        isActive: templateData.isActive,
-        createdAt: templateData.createdAt,
-        updatedAt: templateData.updatedAt ?? undefined,
-      },
-      new EntityID(templateData.id),
-    );
+    return templatePrismaToDomain(templateData);
   }
 
   async findById(id: UniqueEntityID): Promise<Template | null> {
@@ -57,27 +37,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
       return null;
     }
 
-    return Template.create(
-      {
-        name: templateData.name,
-        unitOfMeasure: UnitOfMeasure.create(templateData.unitOfMeasure),
-        productAttributes: templateData.productAttributes as Record<
-          string,
-          unknown
-        >,
-        variantAttributes: templateData.variantAttributes as Record<
-          string,
-          unknown
-        >,
-        itemAttributes: templateData.itemAttributes as Record<string, unknown>,
-        careLabel: templateData.careLabel as CareLabelInfo | undefined,
-        sequentialCode: templateData.sequentialCode,
-        isActive: templateData.isActive,
-        createdAt: templateData.createdAt,
-        updatedAt: templateData.updatedAt ?? undefined,
-      },
-      new EntityID(templateData.id),
-    );
+    return templatePrismaToDomain(templateData);
   }
 
   async findByName(name: string): Promise<Template | null> {
@@ -92,27 +52,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
       return null;
     }
 
-    return Template.create(
-      {
-        name: templateData.name,
-        unitOfMeasure: UnitOfMeasure.create(templateData.unitOfMeasure),
-        productAttributes: templateData.productAttributes as Record<
-          string,
-          unknown
-        >,
-        variantAttributes: templateData.variantAttributes as Record<
-          string,
-          unknown
-        >,
-        itemAttributes: templateData.itemAttributes as Record<string, unknown>,
-        careLabel: templateData.careLabel as CareLabelInfo | undefined,
-        sequentialCode: templateData.sequentialCode,
-        isActive: templateData.isActive,
-        createdAt: templateData.createdAt,
-        updatedAt: templateData.updatedAt ?? undefined,
-      },
-      new EntityID(templateData.id),
-    );
+    return templatePrismaToDomain(templateData);
   }
 
   async findMany(): Promise<Template[]> {
@@ -122,32 +62,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
       },
     });
 
-    return templates.map((templateData) =>
-      Template.create(
-        {
-          name: templateData.name,
-          unitOfMeasure: UnitOfMeasure.create(templateData.unitOfMeasure),
-          productAttributes: templateData.productAttributes as Record<
-            string,
-            unknown
-          >,
-          variantAttributes: templateData.variantAttributes as Record<
-            string,
-            unknown
-          >,
-          itemAttributes: templateData.itemAttributes as Record<
-            string,
-            unknown
-          >,
-          careLabel: templateData.careLabel as CareLabelInfo | undefined,
-          sequentialCode: templateData.sequentialCode,
-          isActive: templateData.isActive,
-          createdAt: templateData.createdAt,
-          updatedAt: templateData.updatedAt ?? undefined,
-        },
-        new EntityID(templateData.id),
-      ),
-    );
+    return templates.map(templatePrismaToDomain);
   }
 
   async update(data: UpdateTemplateSchema): Promise<Template | null> {
@@ -157,6 +72,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
       },
       data: {
         name: data.name,
+        iconUrl: data.iconUrl,
         unitOfMeasure: data.unitOfMeasure?.value,
         productAttributes: data.productAttributes as never,
         variantAttributes: data.variantAttributes as never,
@@ -166,27 +82,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
       },
     });
 
-    return Template.create(
-      {
-        name: templateData.name,
-        unitOfMeasure: UnitOfMeasure.create(templateData.unitOfMeasure),
-        productAttributes: templateData.productAttributes as Record<
-          string,
-          unknown
-        >,
-        variantAttributes: templateData.variantAttributes as Record<
-          string,
-          unknown
-        >,
-        itemAttributes: templateData.itemAttributes as Record<string, unknown>,
-        careLabel: templateData.careLabel as CareLabelInfo | undefined,
-        sequentialCode: templateData.sequentialCode,
-        isActive: templateData.isActive,
-        createdAt: templateData.createdAt,
-        updatedAt: templateData.updatedAt ?? undefined,
-      },
-      new EntityID(templateData.id),
-    );
+    return templatePrismaToDomain(templateData);
   }
 
   async save(template: Template): Promise<void> {
@@ -196,6 +92,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
       },
       data: {
         name: template.name,
+        iconUrl: template.iconUrl,
         unitOfMeasure: template.unitOfMeasure.value,
         productAttributes: template.productAttributes as never,
         variantAttributes: template.variantAttributes as never,

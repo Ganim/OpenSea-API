@@ -22,6 +22,9 @@ export interface VariantDTO {
   maxStock?: number;
   reorderPoint?: number;
   reorderQuantity?: number;
+  reference?: string;
+  similars?: unknown[];
+  outOfLine: boolean;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
@@ -58,6 +61,9 @@ export function variantToDTO(variant: Variant): VariantDTO {
     maxStock: variant.maxStock,
     reorderPoint: variant.reorderPoint,
     reorderQuantity: variant.reorderQuantity,
+    reference: variant.reference,
+    similars: variant.similars,
+    outOfLine: variant.outOfLine,
     isActive: variant.isActive,
     createdAt: variant.createdAt,
     updatedAt: variant.updatedAt,

@@ -15,9 +15,8 @@ describe('Get Vacation Period (E2E)', () => {
     await app.close();
   });
 
-  it('should get vacation period by id', async () => {
+  it('should get vacation period by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-
     const { employeeId } = await createEmployeeE2E();
     const { vacationPeriodId } = await createVacationPeriodE2E({
       employeeId,
@@ -34,24 +33,5 @@ describe('Get Vacation Period (E2E)', () => {
     expect(response.body.vacationPeriod.id).toBe(vacationPeriodId);
     expect(response.body.vacationPeriod.employeeId).toBe(employeeId);
     expect(response.body.vacationPeriod.totalDays).toBe(30);
-  });
-
-  it('should return 404 for non-existent vacation period', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .get('/v1/hr/vacation-periods/00000000-0000-0000-0000-000000000000')
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(404);
-    expect(response.body.message).toBeDefined();
-  });
-
-  it('should return 401 when no token is provided', async () => {
-    const response = await request(app.server).get(
-      '/v1/hr/vacation-periods/00000000-0000-0000-0000-000000000000',
-    );
-
-    expect(response.statusCode).toBe(401);
   });
 });

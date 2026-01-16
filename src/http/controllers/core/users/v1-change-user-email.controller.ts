@@ -1,9 +1,12 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeChangeUserEmailUseCase } from '@/use-cases/core/users/factories/make-change-user-email-use-case';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -65,15 +68,40 @@ export async function changeUserEmailController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { userId } = request.params;
-
       const { email } = request.body;
+      const adminId = request.user.sub;
 
       try {
-        const changeUserEmailUseCase = makeChangeUserEmailUseCase();
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
 
+        // Busca dados anteriores e nome do admin para auditoria
+        const [{ user: targetUser }, { user: admin }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getUserByIdUseCase.execute({ userId: adminId }),
+        ]);
+        const oldEmail = targetUser.email;
+        const adminName = admin.profile?.name
+          ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
+          : admin.username || admin.email;
+
+        const changeUserEmailUseCase = makeChangeUserEmailUseCase();
         const { user } = await changeUserEmailUseCase.execute({
           userId,
           email,
+        });
+
+        // Log de auditoria
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.USER_EMAIL_CHANGE,
+          entityId: user.id.toString(),
+          placeholders: { adminName, userName, oldEmail, newEmail: email },
+          oldData: { email: oldEmail },
+          newData: { email },
+          affectedUserId: userId,
         });
 
         return reply.status(200).send({ user });

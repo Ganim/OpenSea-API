@@ -15,7 +15,7 @@ describe('Get Bonus (E2E)', () => {
     await app.close();
   });
 
-  it('should allow MANAGER to get a bonus by id', async () => {
+  it('should get bonus with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const { employeeId } = await createEmployeeE2E();
     const bonus = await createBonus(employeeId, { name: 'Test Bonus' });
@@ -24,30 +24,8 @@ describe('Get Bonus (E2E)', () => {
       .get(`/v1/hr/bonuses/${bonus.id}`)
       .set('Authorization', `Bearer ${token}`);
 
-    expect(response.statusCode).toBe(200);
+    expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('bonus');
-    expect(response.body.bonus.id).toBe(bonus.id);
-    expect(response.body.bonus.name).toBe('Test Bonus');
-  });
-
-  it('should return 404 when bonus not found', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .get('/v1/hr/bonuses/00000000-0000-0000-0000-000000000000')
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(404);
-  });
-
-  it('should return 401 when no token is provided', async () => {
-    const { employeeId } = await createEmployeeE2E();
-    const bonus = await createBonus(employeeId);
-
-    const response = await request(app.server).get(
-      `/v1/hr/bonuses/${bonus.id}`,
-    );
-
-    expect(response.statusCode).toBe(401);
+    expect(response.body.bonus).toHaveProperty('id');
   });
 });

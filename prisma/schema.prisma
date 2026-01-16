@@ -120,6 +120,14 @@ model User {
   // Absence Relations
   approvedAbsences Absence[]
 
+  // Volume Relations (Expedição)
+  VolumesCreated   Volume[] @relation("VolumeCreatedBy")
+  VolumesClosed    Volume[] @relation("VolumeClosedBy")
+  VolumesDelivered Volume[] @relation("VolumeDeliveredBy")
+
+  // Label Templates Relations
+  LabelTemplatesCreated LabelTemplate[]
+
   @@unique([email, deletedAt], name: "users_email_unique_active")
   @@unique([username, deletedAt], name: "users_username_unique_active")
   // Optimizations
@@ -177,7 +185,7 @@ model RefreshToken {
   id        String    @id @default(uuid())
   userId    String    @map("user_id")
   sessionId String    @map("session_id")
-  token     String    @unique @db.VarChar(512)
+  token     String    @unique @db.VarChar(2048)
   expiresAt DateTime  @map("expires_at")
   createdAt DateTime  @default(now()) @map("created_at")
   revokedAt DateTime? @map("revoked_at")
@@ -684,13 +692,36 @@ enum OrderStatus {
   RETURNED
 }
 
+// --- Location System v2 Enums ---
+
 enum LocationType {
   WAREHOUSE
   ZONE
   AISLE
+  RACK
   SHELF
   BIN
+  FLOOR
+  ROOM
   OTHER
+}
+
+enum BinLabeling {
+  LETTERS
+  NUMBERS
+}
+
+enum BinDirection {
+  BOTTOM_UP
+  TOP_DOWN
+}
+
+enum LayoutAnnotationType {
+  DOOR
+  PILLAR
+  WALL
+  LABEL
+  AREA
 }
 
 enum CustomerType {
@@ -787,6 +818,9 @@ model Organization {
   stakeholders   OrganizationStakeholder[]
   employees      Employee[]
   products       Product[]
+
+  // Label Templates
+  labelTemplates LabelTemplate[]
 
   @@unique([cnpj, type, deletedAt], name: "organizations_cnpj_type_unique_active")
   @@unique([cpf, type, deletedAt], name: "organizations_cpf_type_unique_active")
@@ -1023,32 +1057,160 @@ model Category {
   @@map("categories")
 }
 
-model Location {
-  id          String       @id @default(uuid())
-  code        String       @db.VarChar(5)
-  titulo      String       @db.VarChar(256)
-  label       String?      @db.VarChar(128)
-  type        LocationType @map("location_type")
-  parentId    String?      @map("parent_id")
-  totalChilds Int          @default(0) @map("total_childs")
+// ============================================
+// LOCATION SYSTEM V2 - Warehouse/Zone/Bin
+// ============================================
 
-  // Capacidade
-  capacity         Decimal? @db.Decimal(10, 3)
-  currentOccupancy Decimal? @default(0) @map("current_occupancy") @db.Decimal(10, 3)
-  isActive         Boolean  @default(true) @map("is_active")
+model Warehouse {
+  id          String  @id @default(uuid())
+  code        String  @db.VarChar(5) // Ex: "FAB", "CD1"
+  name        String  @db.VarChar(128)
+  description String? @db.VarChar(500)
+  address     String? @db.VarChar(256)
+
+  isActive  Boolean   @default(true) @map("is_active")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  zones Zone[]
+
+  @@unique([code, deletedAt], name: "warehouses_code_unique_active")
+  @@index([isActive])
+  @@map("warehouses")
+}
+
+model Zone {
+  id          String  @id @default(uuid())
+  warehouseId String  @map("warehouse_id")
+  code        String  @db.VarChar(5) // Ex: "EST", "PRD", "EXP"
+  name        String  @db.VarChar(128)
+  description String? @db.VarChar(500)
+
+  // Configuração da estrutura física (JSONB)
+  structure Json @default("{}") // ZoneStructure
+
+  // Layout visual customizado (JSONB, opcional)
+  layout Json? // ZoneLayout
+
+  isActive  Boolean   @default(true) @map("is_active")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  warehouse Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  bins      Bin[]
+
+  @@unique([warehouseId, code, deletedAt], name: "zones_warehouse_code_unique_active")
+  @@index([warehouseId])
+  @@index([isActive])
+  @@map("zones")
+}
+
+model Bin {
+  id     String @id @default(uuid())
+  zoneId String @map("zone_id")
+
+  // Endereço completo - índice único (Ex: "FAB-EST-102-B")
+  address String @db.VarChar(32)
+
+  // Posição (derivada, mas indexada para queries rápidas)
+  aisle    Int // Corredor (1-99)
+  shelf    Int // Prateleira (1-999)
+  position String @db.VarChar(3) // Nicho ("A", "B", "C" ou "1", "2", "3")
+
+  // Capacidade e ocupação
+  capacity         Int? // Capacidade máxima (opcional)
+  currentOccupancy Int  @default(0) @map("current_occupancy")
+
+  // Status
+  isActive    Boolean @default(true) @map("is_active")
+  isBlocked   Boolean @default(false) @map("is_blocked")
+  blockReason String? @map("block_reason") @db.VarChar(256)
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  parent         Location?       @relation("SubLocations", fields: [parentId], references: [id])
-  subLocations   Location[]      @relation("SubLocations")
+  zone           Zone            @relation(fields: [zoneId], references: [id], onDelete: Cascade)
   items          Item[]
   stockSnapshots StockSnapshot[]
 
+  @@unique([address, deletedAt], name: "bins_address_unique_active")
+  @@unique([zoneId, aisle, shelf, position, deletedAt], name: "bins_position_unique_active")
+  @@index([zoneId])
+  @@index([address])
+  @@index([aisle])
   @@index([isActive])
-  @@index([type])
-  @@map("locations")
+  @@index([isBlocked])
+  @@index([zoneId, aisle, shelf])
+  @@map("bins")
+}
+
+// ===============================================
+// VOLUMES / ROMANEIO (EXPEDIÇÃO)
+// ===============================================
+
+enum VolumeStatus {
+  OPEN
+  CLOSED
+  DELIVERED
+  RETURNED
+}
+
+model Volume {
+  id             String       @id @default(uuid())
+  code           String       @unique
+  name           String?      @db.VarChar(256)
+  status         VolumeStatus @default(OPEN)
+  notes          String?      @db.Text
+  destinationRef String?      @db.VarChar(256)
+
+  // Relacionamentos
+  salesOrderId String? @map("sales_order_id")
+  customerId   String? @map("customer_id")
+
+  items VolumeItem[]
+
+  // Timestamps
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  closedAt    DateTime? @map("closed_at")
+  deliveredAt DateTime? @map("delivered_at")
+  returnedAt  DateTime? @map("returned_at")
+  deletedAt   DateTime? @map("deleted_at")
+
+  // Audit
+  createdBy   String  @map("created_by")
+  closedBy    String? @map("closed_by")
+  deliveredBy String? @map("delivered_by")
+
+  createdByUser   User  @relation("VolumeCreatedBy", fields: [createdBy], references: [id])
+  closedByUser    User? @relation("VolumeClosedBy", fields: [closedBy], references: [id])
+  deliveredByUser User? @relation("VolumeDeliveredBy", fields: [deliveredBy], references: [id])
+
+  @@index([status])
+  @@index([code])
+  @@index([createdAt])
+  @@index([closedAt])
+  @@index([deletedAt])
+  @@map("volumes")
+}
+
+model VolumeItem {
+  id       String @id @default(uuid())
+  volumeId String @map("volume_id")
+  volume   Volume @relation(fields: [volumeId], references: [id], onDelete: Cascade)
+  itemId   String @map("item_id")
+  item     Item   @relation("VolumeItems", fields: [itemId], references: [id])
+
+  addedAt DateTime @default(now()) @map("added_at")
+  addedBy String   @map("added_by")
+
+  @@unique([volumeId, itemId], name: "volume_items_unique")
+  @@index([volumeId])
+  @@index([itemId])
+  @@map("volume_items")
 }
 
 // --- Hierarquia Principal de Estoque ---
@@ -1056,10 +1218,11 @@ model Location {
 model Template {
   id                String        @id @default(uuid())
   name              String        @db.VarChar(128)
+  iconUrl           String?       @map("icon_url") @db.VarChar(512) // URL do ícone SVG do template
   unitOfMeasure     UnitOfMeasure @default(UNITS) @map("unit_of_measure")
-  productAttributes Json          @default("{}") @map("product_attributes")
-  variantAttributes Json          @default("{}") @map("variant_attributes")
-  itemAttributes    Json          @default("{}") @map("item_attributes")
+  productAttributes Json          @default("{}") @map("product_attributes") // TemplateAttribute[] - atributos tipados com unitOfMeasure, enablePrint, enableView
+  variantAttributes Json          @default("{}") @map("variant_attributes") // TemplateAttribute[] - atributos tipados com unitOfMeasure, enablePrint, enableView
+  itemAttributes    Json          @default("{}") @map("item_attributes") // TemplateAttribute[] - atributos tipados com unitOfMeasure, enablePrint, enableView
   careLabel         Json?         @map("care_label") // Etiqueta de conservação: { washing, drying, ironing, bleaching, dryClean, composition }
   sequentialCode    Int           @default(autoincrement()) @map("sequential_code")
   isActive          Boolean       @default(true) @map("is_active")
@@ -1149,6 +1312,11 @@ model Variant {
   reorderPoint    Decimal? @map("reorder_point") @db.Decimal(10, 3)
   reorderQuantity Decimal? @map("reorder_quantity") @db.Decimal(10, 3)
 
+  // Referência e Semelhantes
+  reference  String?  @db.VarChar(128) // Referência do fornecedor/fabricante
+  similars   Json?    @default("[]") // IDs de variantes semelhantes
+  outOfLine  Boolean  @default(false) @map("out_of_line") // Fora de linha/descontinuado
+
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
@@ -1202,24 +1370,25 @@ model Item {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  variantId  String  @map("variant_id")
-  locationId String? @map("location_id") // Opcional, pode ser definido depois
+  variantId String  @map("variant_id")
+  binId     String? @map("bin_id") // Referência ao Bin (localização específica)
 
   variant      Variant           @relation(fields: [variantId], references: [id])
-  location     Location?         @relation(fields: [locationId], references: [id])
+  bin          Bin?              @relation(fields: [binId], references: [id])
   movements    ItemMovement[]
   reservations ItemReservation[]
+  volumeItems  VolumeItem[]      @relation("VolumeItems")
 
   @@unique([uniqueCode, deletedAt], name: "items_uniqueCode_unique_active")
   @@unique([fullCode, deletedAt], name: "items_fullCode_unique_active")
   @@index([variantId])
-  @@index([locationId])
+  @@index([binId])
   @@index([sequentialCode])
   @@index([fullCode])
   @@index([batchNumber])
   @@index([expiryDate])
   @@index([status])
-  @@index([variantId, locationId])
+  @@index([variantId, binId])
   @@index([expiryDate, deletedAt])
   @@index([batchNumber, variantId])
   @@map("items")
@@ -1488,18 +1657,18 @@ model UnitConversion {
 model StockSnapshot {
   id           String   @id @default(uuid())
   variantId    String   @map("variant_id")
-  locationId   String?  @map("location_id")
+  binId        String?  @map("bin_id")
   quantity     Decimal  @db.Decimal(10, 3)
   totalValue   Decimal  @map("total_value") @db.Decimal(12, 2)
   snapshotDate DateTime @map("snapshot_date")
   notes        String?  @db.Text
   createdAt    DateTime @default(now()) @map("created_at")
 
-  variant  Variant   @relation(fields: [variantId], references: [id])
-  location Location? @relation(fields: [locationId], references: [id])
+  variant Variant @relation(fields: [variantId], references: [id])
+  bin     Bin?    @relation(fields: [binId], references: [id])
 
   @@index([variantId])
-  @@index([locationId])
+  @@index([binId])
   @@index([snapshotDate])
   @@index([variantId, snapshotDate])
   @@map("stock_snapshots")
@@ -2774,4 +2943,58 @@ model CompanyStakeholder {
   @@index([deletedAt])
   @@index([createdAt])
   @@map("company_stakeholders")
+}
+
+// ===============================================
+// LABEL TEMPLATES MODULE (Core)
+// ===============================================
+
+model LabelTemplate {
+  id String @id @default(uuid())
+
+  // Identificação
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+
+  // Sistema (templates pré-definidos que não podem ser editados/deletados)
+  isSystem Boolean @default(false) @map("is_system")
+
+  // Dimensões em milímetros
+  width  Int // 10-300mm
+  height Int // 10-300mm
+
+  // Dados do GrapesJS (editor de templates)
+  grapesJsData String @map("grapes_js_data") @db.Text // JSON do projeto GrapesJS
+
+  // HTML/CSS compilados para impressão
+  compiledHtml String? @map("compiled_html") @db.Text
+  compiledCss  String? @map("compiled_css") @db.Text
+
+  // Thumbnail gerada
+  thumbnailUrl String? @map("thumbnail_url") @db.VarChar(500)
+
+  // Organização (multi-tenant)
+  organizationId String @map("organization_id")
+
+  // Criado por
+  createdById String @map("created_by_id")
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id])
+  createdBy    User         @relation(fields: [createdById], references: [id])
+
+  @@unique([organizationId, name, deletedAt], name: "label_templates_name_org_unique_active")
+  @@index([organizationId])
+  @@index([isSystem])
+  @@index([createdById])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("label_templates")
 }

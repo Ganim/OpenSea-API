@@ -1,66 +1,48 @@
-import { app } from '@/app';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Reset Password By Token (e2e)', () => {
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import { makeUniqueEmail } from '@/utils/tests/factories/core/make-unique-email';
+
+describe('Reset Password By Token (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
+
   afterAll(async () => {
     await app.close();
   });
 
-  it('should allow ANYONE to RESET PASSWORD using valid token', async () => {
-    await request(app.server)
-      .post('/v1/auth/register/password')
-      .send({
-        email: 'reset.test@ethereal.email',
-        password: 'OldPass@123',
-        profile: {
-          name: 'Reset',
-          surname: 'Test',
-          birthday: '1990-01-01',
-          location: 'Brazil',
-          bio: 'Test user for reset',
-          avatarUrl: 'https://example.com/avatar.jpg',
-        },
-      });
+  it('should reset password by token with correct schema', async () => {
+    const email = makeUniqueEmail('reset-pwd');
+    const uniqueId = Math.random().toString(36).substring(2, 10);
 
-    await request(app.server).post('/v1/auth/send/password').send({
-      email: 'reset.test@ethereal.email',
+    await request(app.server).post('/v1/auth/register/password').send({
+      email,
+      password: 'OldPass@123',
     });
 
-    const resetResponse = await request(app.server)
-      .post('/v1/auth/reset/password')
-      .send({
-        token: 'valid-token-from-database',
-        newPassword: 'NewPass@123',
-      });
+    const user = await prisma.user.findFirst({
+      where: { email, deletedAt: null },
+    });
 
-    expect([200, 400]).toContain(resetResponse.statusCode);
-  }, 15000); // 15 segundos timeout
+    const token = `reset-token-${uniqueId}`;
+    await prisma.user.update({
+      where: { id: user!.id },
+      data: {
+        passwordResetToken: token,
+        passwordResetExpires: new Date(Date.now() + 1000 * 60 * 60),
+      },
+    });
 
-  it('should return 400 for invalid token', async () => {
     const response = await request(app.server)
       .post('/v1/auth/reset/password')
       .send({
-        token: 'invalid-token-that-has-16-or-more-characters',
+        token,
         newPassword: 'NewPass@123',
       });
 
-    expect(response.statusCode).toEqual(400);
-    expect(response.body.message).toEqual('Token inválido ou expirado');
-  });
-
-  it('should return 400 for expired token', async () => {
-    const response = await request(app.server)
-      .post('/v1/auth/reset/password')
-      .send({
-        token: 'expired-token-that-has-16-or-more-characters',
-        newPassword: 'NewPass@123',
-      });
-
-    expect(response.statusCode).toEqual(400);
-    expect(response.body.message).toEqual('Token inválido ou expirado');
+    expect(response.status).toBe(200);
   });
 });

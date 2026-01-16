@@ -1,10 +1,14 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { categoryResponseSchema, updateCategorySchema } from '@/http/schemas';
 import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import { makeGetCategoryByIdUseCase } from '@/use-cases/stock/categories/factories/make-get-category-by-id-use-case';
 import { makeUpdateCategoryUseCase } from '@/use-cases/stock/categories/factories/make-update-category-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -46,8 +50,20 @@ export async function updateCategoryController(app: FastifyInstance) {
       const { id } = request.params;
       const { name, slug, description, parentId, displayOrder, isActive } =
         request.body;
+      const userId = request.user.sub;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const getCategoryByIdUseCase = makeGetCategoryByIdUseCase();
+
+        const [{ user }, { category: oldCategory }] = await Promise.all([
+          getUserByIdUseCase.execute({ userId }),
+          getCategoryByIdUseCase.execute({ id }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const updateCategoryUseCase = makeUpdateCategoryUseCase();
         const { category } = await updateCategoryUseCase.execute({
           id,
@@ -57,6 +73,21 @@ export async function updateCategoryController(app: FastifyInstance) {
           parentId,
           displayOrder,
           isActive,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.CATEGORY_UPDATE,
+          entityId: category.id.toString(),
+          placeholders: { userName, categoryName: category.name },
+          oldData: { name: oldCategory.name, slug: oldCategory.slug },
+          newData: {
+            name,
+            slug,
+            description,
+            parentId,
+            displayOrder,
+            isActive,
+          },
         });
 
         return reply.status(200).send({ category: categoryToDTO(category) });

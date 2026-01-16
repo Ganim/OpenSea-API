@@ -6,16 +6,17 @@ import { prisma } from '@/lib/prisma';
 import type { ItemStatus as PrismaItemStatus } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import type {
-  CreateItemSchema,
-  ItemsRepository,
-  UpdateItemSchema,
+    CreateItemSchema,
+    ItemsRepository,
+    ItemWithRelationsDTO,
+    UpdateItemSchema,
 } from '../items-repository';
 
 export interface ItemWithRelations {
   id: string;
   uniqueCode: string;
   variantId: string;
-  locationId: string | null;
+  binId: string | null;
   initialQuantity: Decimal;
   currentQuantity: Decimal;
   status: PrismaItemStatus;
@@ -35,7 +36,19 @@ export interface ItemWithRelations {
       name: string;
     };
   };
+  bin?: {
+    id: string;
+    address: string;
+    zone: {
+      id: string;
+      warehouseId: string;
+      code: string;
+      name: string;
+    };
+  } | null;
 }
+
+// ItemWithRelationsDTO is imported from items-repository.ts
 
 export class PrismaItemsRepository implements ItemsRepository {
   private extractRelatedData(itemData: ItemWithRelations) {
@@ -44,14 +57,153 @@ export class PrismaItemsRepository implements ItemsRepository {
       productName: itemData.variant.product.name,
       variantSku: itemData.variant.sku,
       variantName: itemData.variant.name,
+      binId: itemData.bin?.id,
+      binAddress: itemData.bin?.address,
+      zoneId: itemData.bin?.zone.id,
+      zoneWarehouseId: itemData.bin?.zone.warehouseId,
+      zoneCode: itemData.bin?.zone.code,
+      zoneName: itemData.bin?.zone.name,
     };
+  }
+
+  private createItemEntity(itemData: ItemWithRelations): Item {
+    return Item.create(
+      {
+        uniqueCode: itemData.uniqueCode ?? undefined,
+        variantId: new EntityID(itemData.variantId),
+        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
+        initialQuantity: itemData.initialQuantity.toNumber(),
+        currentQuantity: itemData.currentQuantity.toNumber(),
+        status: ItemStatus.create(itemData.status),
+        entryDate: itemData.entryDate,
+        attributes: itemData.attributes as Record<string, unknown>,
+        batchNumber: itemData.batchNumber ?? undefined,
+        manufacturingDate: itemData.manufacturingDate ?? undefined,
+        expiryDate: itemData.expiryDate ?? undefined,
+        createdAt: itemData.createdAt,
+        updatedAt: itemData.updatedAt,
+        deletedAt: itemData.deletedAt ?? undefined,
+      },
+      new EntityID(itemData.id),
+    );
+  }
+
+  async findAllWithRelations(): Promise<ItemWithRelationsDTO[]> {
+    const items = await prisma.item.findMany({
+      where: {
+        deletedAt: null,
+      },
+      include: {
+        variant: {
+          include: {
+            product: true,
+          },
+        },
+        bin: {
+          include: {
+            zone: true,
+          },
+        },
+      },
+    });
+
+    return items.map((itemData) => ({
+      item: this.createItemEntity(itemData as ItemWithRelations),
+      relatedData: this.extractRelatedData(itemData as ItemWithRelations),
+    }));
+  }
+
+  async findManyByVariantWithRelations(
+    variantId: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO[]> {
+    const items = await prisma.item.findMany({
+      where: {
+        variantId: variantId.toString(),
+        deletedAt: null,
+      },
+      include: {
+        variant: {
+          include: {
+            product: true,
+          },
+        },
+        bin: {
+          include: {
+            zone: true,
+          },
+        },
+      },
+    });
+
+    return items.map((itemData) => ({
+      item: this.createItemEntity(itemData as ItemWithRelations),
+      relatedData: this.extractRelatedData(itemData as ItemWithRelations),
+    }));
+  }
+
+  async findManyByProductWithRelations(
+    productId: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO[]> {
+    const items = await prisma.item.findMany({
+      where: {
+        variant: {
+          productId: productId.toString(),
+        },
+        deletedAt: null,
+      },
+      include: {
+        variant: {
+          include: {
+            product: true,
+          },
+        },
+        bin: {
+          include: {
+            zone: true,
+          },
+        },
+      },
+    });
+
+    return items.map((itemData) => ({
+      item: this.createItemEntity(itemData as ItemWithRelations),
+      relatedData: this.extractRelatedData(itemData as ItemWithRelations),
+    }));
+  }
+
+  async findManyByBinWithRelations(
+    binId: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO[]> {
+    const items = await prisma.item.findMany({
+      where: {
+        binId: binId.toString(),
+        deletedAt: null,
+      },
+      include: {
+        variant: {
+          include: {
+            product: true,
+          },
+        },
+        bin: {
+          include: {
+            zone: true,
+          },
+        },
+      },
+    });
+
+    return items.map((itemData) => ({
+      item: this.createItemEntity(itemData as ItemWithRelations),
+      relatedData: this.extractRelatedData(itemData as ItemWithRelations),
+    }));
   }
   async create(data: CreateItemSchema): Promise<Item> {
     const itemData = await prisma.item.create({
       data: {
         uniqueCode: data.uniqueCode,
         variantId: data.variantId.toString(),
-        locationId: data.locationId?.toString() ?? null,
+        binId: data.binId?.toString() ?? null,
         initialQuantity: new Decimal(data.initialQuantity),
         currentQuantity: new Decimal(data.currentQuantity),
         status: data.status.value as PrismaItemStatus,
@@ -67,9 +219,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       {
         uniqueCode: itemData.uniqueCode ?? undefined,
         variantId: new EntityID(itemData.variantId),
-        locationId: itemData.locationId
-          ? new EntityID(itemData.locationId)
-          : undefined,
+        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
         initialQuantity: itemData.initialQuantity.toNumber(),
         currentQuantity: itemData.currentQuantity.toNumber(),
         status: ItemStatus.create(itemData.status),
@@ -100,9 +250,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       {
         uniqueCode: itemData.uniqueCode ?? undefined,
         variantId: new EntityID(itemData.variantId),
-        locationId: itemData.locationId
-          ? new EntityID(itemData.locationId)
-          : undefined,
+        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
         initialQuantity: itemData.initialQuantity.toNumber(),
         currentQuantity: itemData.currentQuantity.toNumber(),
         status: ItemStatus.create(itemData.status),
@@ -119,6 +267,36 @@ export class PrismaItemsRepository implements ItemsRepository {
     );
   }
 
+  async findByIdWithRelations(
+    id: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO | null> {
+    const itemData = await prisma.item.findFirst({
+      where: {
+        id: id.toString(),
+        deletedAt: null,
+      },
+      include: {
+        variant: {
+          include: {
+            product: true,
+          },
+        },
+        bin: {
+          include: {
+            zone: true,
+          },
+        },
+      },
+    });
+
+    if (!itemData) return null;
+
+    return {
+      item: this.createItemEntity(itemData as ItemWithRelations),
+      relatedData: this.extractRelatedData(itemData as ItemWithRelations),
+    };
+  }
+
   async findByUniqueCode(uniqueCode: string): Promise<Item | null> {
     const itemData = await prisma.item.findFirst({
       where: {
@@ -133,9 +311,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       {
         uniqueCode: itemData.uniqueCode ?? undefined,
         variantId: new EntityID(itemData.variantId),
-        locationId: itemData.locationId
-          ? new EntityID(itemData.locationId)
-          : undefined,
+        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
         initialQuantity: itemData.initialQuantity.toNumber(),
         currentQuantity: itemData.currentQuantity.toNumber(),
         status: ItemStatus.create(itemData.status),
@@ -163,6 +339,11 @@ export class PrismaItemsRepository implements ItemsRepository {
             product: true,
           },
         },
+        bin: {
+          include: {
+            zone: true,
+          },
+        },
       },
     });
 
@@ -171,9 +352,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         {
           uniqueCode: itemData.uniqueCode ?? undefined,
           variantId: new EntityID(itemData.variantId),
-          locationId: itemData.locationId
-            ? new EntityID(itemData.locationId)
-            : undefined,
+          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
           initialQuantity: itemData.initialQuantity.toNumber(),
           currentQuantity: itemData.currentQuantity.toNumber(),
           status: ItemStatus.create(itemData.status),
@@ -203,6 +382,11 @@ export class PrismaItemsRepository implements ItemsRepository {
             product: true,
           },
         },
+        bin: {
+          include: {
+            zone: true,
+          },
+        },
       },
     });
 
@@ -211,9 +395,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         {
           uniqueCode: itemData.uniqueCode ?? undefined,
           variantId: new EntityID(itemData.variantId),
-          locationId: itemData.locationId
-            ? new EntityID(itemData.locationId)
-            : undefined,
+          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
           initialQuantity: itemData.initialQuantity.toNumber(),
           currentQuantity: itemData.currentQuantity.toNumber(),
           status: ItemStatus.create(itemData.status),
@@ -245,6 +427,11 @@ export class PrismaItemsRepository implements ItemsRepository {
             product: true,
           },
         },
+        bin: {
+          include: {
+            zone: true,
+          },
+        },
       },
     });
 
@@ -253,9 +440,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         {
           uniqueCode: itemData.uniqueCode ?? undefined,
           variantId: new EntityID(itemData.variantId),
-          locationId: itemData.locationId
-            ? new EntityID(itemData.locationId)
-            : undefined,
+          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
           initialQuantity: itemData.initialQuantity.toNumber(),
           currentQuantity: itemData.currentQuantity.toNumber(),
           status: ItemStatus.create(itemData.status),
@@ -273,16 +458,21 @@ export class PrismaItemsRepository implements ItemsRepository {
     );
   }
 
-  async findManyByLocation(locationId: UniqueEntityID): Promise<Item[]> {
+  async findManyByBin(binId: UniqueEntityID): Promise<Item[]> {
     const items = await prisma.item.findMany({
       where: {
-        locationId: locationId.toString(),
+        binId: binId.toString(),
         deletedAt: null,
       },
       include: {
         variant: {
           include: {
             product: true,
+          },
+        },
+        bin: {
+          include: {
+            zone: true,
           },
         },
       },
@@ -294,8 +484,8 @@ export class PrismaItemsRepository implements ItemsRepository {
         {
           uniqueCode: itemWithRelations.uniqueCode,
           variantId: new EntityID(itemWithRelations.variantId),
-          locationId: itemWithRelations.locationId
-            ? new EntityID(itemWithRelations.locationId)
+          binId: itemWithRelations.binId
+            ? new EntityID(itemWithRelations.binId)
             : undefined,
           initialQuantity: itemWithRelations.initialQuantity.toNumber(),
           currentQuantity: itemWithRelations.currentQuantity.toNumber(),
@@ -327,9 +517,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         {
           uniqueCode: itemData.uniqueCode ?? undefined,
           variantId: new EntityID(itemData.variantId),
-          locationId: itemData.locationId
-            ? new EntityID(itemData.locationId)
-            : undefined,
+          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
           initialQuantity: itemData.initialQuantity.toNumber(),
           currentQuantity: itemData.currentQuantity.toNumber(),
           status: ItemStatus.create(itemData.status),
@@ -360,9 +548,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         {
           uniqueCode: itemData.uniqueCode ?? undefined,
           variantId: new EntityID(itemData.variantId),
-          locationId: itemData.locationId
-            ? new EntityID(itemData.locationId)
-            : undefined,
+          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
           initialQuantity: itemData.initialQuantity.toNumber(),
           currentQuantity: itemData.currentQuantity.toNumber(),
           status: ItemStatus.create(itemData.status),
@@ -399,9 +585,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         {
           uniqueCode: itemData.uniqueCode ?? undefined,
           variantId: new EntityID(itemData.variantId),
-          locationId: itemData.locationId
-            ? new EntityID(itemData.locationId)
-            : undefined,
+          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
           initialQuantity: itemData.initialQuantity.toNumber(),
           currentQuantity: itemData.currentQuantity.toNumber(),
           status: ItemStatus.create(itemData.status),
@@ -434,9 +618,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         {
           uniqueCode: itemData.uniqueCode ?? undefined,
           variantId: new EntityID(itemData.variantId),
-          locationId: itemData.locationId
-            ? new EntityID(itemData.locationId)
-            : undefined,
+          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
           initialQuantity: itemData.initialQuantity.toNumber(),
           currentQuantity: itemData.currentQuantity.toNumber(),
           status: ItemStatus.create(itemData.status),
@@ -460,7 +642,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         id: data.id.toString(),
       },
       data: {
-        locationId: data.locationId?.toString() ?? undefined,
+        binId: data.binId?.toString() ?? undefined,
         currentQuantity: data.currentQuantity
           ? new Decimal(data.currentQuantity)
           : undefined,
@@ -476,9 +658,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       {
         uniqueCode: itemData.uniqueCode ?? undefined,
         variantId: new EntityID(itemData.variantId),
-        locationId: itemData.locationId
-          ? new EntityID(itemData.locationId)
-          : undefined,
+        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
         initialQuantity: itemData.initialQuantity.toNumber(),
         currentQuantity: itemData.currentQuantity.toNumber(),
         status: ItemStatus.create(itemData.status),
@@ -501,7 +681,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         id: item.id.toString(),
       },
       data: {
-        locationId: item.locationId?.toString() ?? null,
+        binId: item.binId?.toString() ?? null,
         currentQuantity: new Decimal(item.currentQuantity),
         status: item.status.value as PrismaItemStatus,
         attributes: item.attributes as object,

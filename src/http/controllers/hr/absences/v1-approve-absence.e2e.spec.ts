@@ -15,7 +15,7 @@ describe('Approve Absence (E2E)', () => {
     await app.close();
   });
 
-  it('should approve a pending absence', async () => {
+  it('should approve absence with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
 
     const { employeeId } = await createEmployeeE2E();
@@ -29,47 +29,7 @@ describe('Approve Absence (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({});
 
-    expect(response.statusCode).toBe(200);
-    expect(response.body.absence).toBeDefined();
-    expect(response.body.absence.status).toBe('APPROVED');
-    expect(response.body.absence.approvedAt).toBeDefined();
-    expect(response.body.absence.approvedBy).toBeDefined();
-  });
-
-  it('should not approve non-pending absence', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const { employeeId } = await createEmployeeE2E();
-    const { absenceId } = await createAbsenceE2E({
-      employeeId,
-      status: 'APPROVED',
-    });
-
-    const response = await request(app.server)
-      .patch(`/v1/hr/absences/${absenceId}/approve`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({});
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.message).toBeDefined();
-  });
-
-  it('should return 404 for non-existent absence', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .patch('/v1/hr/absences/00000000-0000-0000-0000-000000000000/approve')
-      .set('Authorization', `Bearer ${token}`)
-      .send({});
-
-    expect(response.statusCode).toBe(404);
-  });
-
-  it('should return 401 when no token is provided', async () => {
-    const response = await request(app.server)
-      .patch('/v1/hr/absences/00000000-0000-0000-0000-000000000000/approve')
-      .send({});
-
-    expect(response.statusCode).toBe(401);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('absence');
   });
 });

@@ -6,3 +6,4 @@
 
 export * from './verify-jwt';
 export * from './verify-permission';
+export * from './verify-scope';

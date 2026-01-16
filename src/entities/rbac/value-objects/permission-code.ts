@@ -3,10 +3,13 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 /**
  * Value Object para código de permissão
  *
- * Formato: module.resource.action
- * Exemplos:
- * - core.users.create
- * - stock.products.read
+ * Formatos suportados:
+ * - module (1 parte) - ex: stock, sales (permissões de menu/acesso ao módulo)
+ * - module.resource (2 partes) - ex: stock.locations, stock.volumes (permissões de submenu)
+ * - module.resource.action (3 partes) - ex: core.users.create, stock.products.read
+ * - module.resource.action.scope (4 partes) - ex: hr.employees.read.all, hr.employees.list.team
+ *
+ * Wildcards:
  * - stock.*.read (wildcard para todas as operações de leitura)
  * - *.products.* (wildcard completo)
  */
@@ -15,6 +18,7 @@ export class PermissionCode {
   private readonly _module: string;
   private readonly _resource: string;
   private readonly _action: string;
+  private readonly _scope: string | null;
   private readonly _isWildcard: boolean;
 
   private constructor(
@@ -22,28 +26,54 @@ export class PermissionCode {
     module: string,
     resource: string,
     action: string,
+    scope: string | null = null,
   ) {
     this._value = value;
     this._module = module;
     this._resource = resource;
     this._action = action;
+    this._scope = scope;
     this._isWildcard = value.includes('*');
   }
 
   /**
    * Cria um PermissionCode a partir de uma string
-   * @param value String no formato module.resource.action
+   * Formatos suportados:
+   * - module (1 parte) - ex: stock (permissão de acesso ao módulo/menu)
+   * - module.resource (2 partes) - ex: stock.locations (permissão de submenu)
+   * - module.resource.action (3 partes) - ex: core.users.create
+   * - module.resource.action.scope (4 partes) - ex: hr.employees.read.all
    */
   static create(value: string): PermissionCode {
     if (!PermissionCode.isValid(value)) {
       throw new BadRequestError(
-        `Permission code '${value}' is invalid. Format: module.resource.action`,
+        `Permission code '${value}' is invalid. Format: module[.resource[.action[.scope]]]`,
       );
     }
 
-    const [module, resource, action] = value.split('.');
+    const parts = value.split('.');
 
-    return new PermissionCode(value, module, resource, action);
+    // Formato de 1 parte: module (resource e action são '_root')
+    if (parts.length === 1) {
+      const [module] = parts;
+      return new PermissionCode(value, module, '_root', '_root', null);
+    }
+
+    // Formato de 2 partes: module.resource (action é '_root')
+    if (parts.length === 2) {
+      const [module, resource] = parts;
+      return new PermissionCode(value, module, resource, '_root', null);
+    }
+
+    // Formato de 3 partes: module.resource.action
+    if (parts.length === 3) {
+      const [module, resource, action] = parts;
+      return new PermissionCode(value, module, resource, action, null);
+    }
+
+    // Formato de 4 partes: module.resource.action.scope
+    const [module, resource, action, scope] = parts;
+    return new PermissionCode(value, module, resource, action, scope);
   }
 
   /**
@@ -63,6 +93,11 @@ export class PermissionCode {
 
   /**
    * Valida o formato do código de permissão
+   * Aceita formatos:
+   * - module (1 parte) - ex: stock (permissão de menu)
+   * - module.resource (2 partes) - ex: stock.locations (permissão de submenu)
+   * - module.resource.action (3 partes) - ex: core.users.create
+   * - module.resource.action.scope (4 partes) - ex: hr.employees.read.all
    */
   static isValid(value: string): boolean {
     if (!value || typeof value !== 'string') {
@@ -71,8 +106,8 @@ export class PermissionCode {
 
     const parts = value.split('.');
 
-    // Deve ter exatamente 3 partes
-    if (parts.length !== 3) {
+    // Deve ter entre 1 e 4 partes
+    if (parts.length < 1 || parts.length > 4) {
       return false;
     }
 
@@ -132,6 +167,10 @@ export class PermissionCode {
 
   get action(): string {
     return this._action;
+  }
+
+  get scope(): string | null {
+    return this._scope;
   }
 
   get isWildcard(): boolean {

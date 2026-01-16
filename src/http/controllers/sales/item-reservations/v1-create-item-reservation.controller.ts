@@ -1,10 +1,13 @@
 ﻿import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-    createItemReservationSchema,
-    itemReservationResponseSchema,
+  createItemReservationSchema,
+  itemReservationResponseSchema,
 } from '@/http/schemas/sales.schema';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateItemReservationUseCase } from '@/use-cases/sales/item-reservations/factories/make-create-item-reservation-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -26,9 +29,34 @@ export async function createItemReservationController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const userId = request.user.sub;
+      const data = request.body;
+
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user } = await getUserByIdUseCase.execute({ userId });
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const useCase = makeCreateItemReservationUseCase();
-        const { reservation } = await useCase.execute(request.body);
+        const { reservation } = await useCase.execute(data);
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.ITEM_RESERVATION_CREATE,
+          entityId: reservation.id,
+          placeholders: {
+            userName,
+            quantity: String(data.quantity || 1),
+            productName: data.itemId,
+            orderNumber: data.reference || 'N/A',
+          },
+          newData: {
+            itemId: data.itemId,
+            quantity: data.quantity,
+            reference: data.reference,
+          },
+        });
 
         return reply.status(201).send({ reservation });
       } catch (err) {

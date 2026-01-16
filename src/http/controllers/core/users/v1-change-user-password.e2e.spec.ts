@@ -1,38 +1,37 @@
-import { app } from '@/app';
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
-import { makeUniqueEmail } from '@/utils/tests/factories/core/make-unique-email';
-import { makeUniqueUsername } from '@/utils/tests/factories/core/make-unique-username';
+import { hash } from 'bcryptjs';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Change User Password (e2e)', () => {
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+
+describe('Change User Password (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
+
   afterAll(async () => {
     await app.close();
   });
 
-  it('should allow ADMIN to CHANGE another user PASSWORD', async () => {
+  it('should change user password with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
+    const timestamp = Date.now();
 
-    const email = makeUniqueEmail('change-user-password');
-    const anotherUser = await request(app.server)
-      .post('/v1/users')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        email,
-        username: makeUniqueUsername(),
-        password: 'Pass@123',
-      });
-
-    const userId = anotherUser.body.user?.id;
+    const user = await prisma.user.create({
+      data: {
+        email: `change-pwd-${timestamp}@test.com`,
+        username: `chgpwd${timestamp}`,
+        password_hash: await hash('Pass@123', 6),
+      },
+    });
 
     const response = await request(app.server)
-      .patch(`/v1/users/${userId}/password`)
+      .patch(`/v1/users/${user.id}/password`)
       .set('Authorization', `Bearer ${token}`)
       .send({ password: 'NewPass@123' });
 
-    expect(response.statusCode).toBe(200);
+    expect(response.status).toBe(200);
   });
 });

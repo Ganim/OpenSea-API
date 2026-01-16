@@ -1,7 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeChangeMyEmailUseCase } from '@/use-cases/core/me/factories/make-change-my-email-use-case';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -57,9 +60,30 @@ export async function changeMyEmailController(app: FastifyInstance) {
       const { email } = request.body;
 
       try {
-        const changeMyEmailUseCase = makeChangeMyEmailUseCase();
+        // Busca dados anteriores para auditoria
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user: oldUser } = await getUserByIdUseCase.execute({ userId });
+        const oldEmail = oldUser.email;
 
+        const changeMyEmailUseCase = makeChangeMyEmailUseCase();
         const { user } = await changeMyEmailUseCase.execute({ userId, email });
+
+        // Log de auditoria
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.ME_EMAIL_CHANGE,
+          entityId: user.id.toString(),
+          placeholders: {
+            userName,
+            oldEmail,
+            newEmail: email,
+          },
+          oldData: { email: oldEmail },
+          newData: { email },
+        });
 
         return reply.status(200).send({ user });
       } catch (error) {

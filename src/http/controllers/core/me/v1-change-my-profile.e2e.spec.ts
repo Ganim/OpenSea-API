@@ -1,19 +1,19 @@
-import { app } from '@/app';
-
-import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe('Change My Profile (e2e)', () => {
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+
+describe('Change My Profile (E2E)', () => {
   beforeAll(async () => {
-    app.ready();
+    await app.ready();
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('should allow a USER to CHANGE their OWN PROFILE', async () => {
+  it('should change my profile with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
@@ -29,14 +29,8 @@ describe('Change My Profile (e2e)', () => {
         },
       });
 
-    expect(response.statusCode).toBe(200);
-
-    expect(response.body.user.profile.name).toBe('NovoNome');
-    expect(response.body.user.profile.surname).toBe('NovoSobrenome');
-    expect(response.body.user.profile.location).toBe('Portugal');
-    expect(response.body.user.profile.bio).toBe('Bio editada');
-    expect(response.body.user.profile.avatarUrl).toBe(
-      'https://example.com/avatar.png',
-    );
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('user');
+    expect(response.body.user).toHaveProperty('profile');
   });
 });

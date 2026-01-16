@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { createEmployeeSchema, employeeResponseSchema } from '@/http/schemas';
@@ -42,6 +44,17 @@ export async function createEmployeeController(app: FastifyInstance) {
       try {
         const createEmployeeUseCase = makeCreateEmployeeUseCase();
         const { employee } = await createEmployeeUseCase.execute(data);
+
+        // Auditoria de criação de funcionário
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.EMPLOYEE_CREATE,
+          entityId: employee.id.toString(),
+          placeholders: {
+            adminName: request.user?.sub || 'Sistema',
+            employeeName: employee.socialName || employee.fullName,
+          },
+          newData: data as Record<string, unknown>,
+        });
 
         return reply.status(201).send({ employee: employeeToDTO(employee) });
       } catch (error) {

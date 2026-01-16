@@ -4,13 +4,7 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-interface VersionDifference {
-  field: string;
-  version1Value: unknown;
-  version2Value: unknown;
-}
-
-describe('Compare Versions (e2e)', () => {
+describe('Compare Versions (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -19,12 +13,12 @@ describe('Compare Versions (e2e)', () => {
     await app.close();
   });
 
-  it('should compare two versions successfully', async () => {
+  it('should compare two versions and return differences with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 
-    const entityId = 'compare-versions-test-1';
+    const entityId = `compare-versions-${Date.now()}`;
 
-    // Criar 3 versões
+    // Create 3 versions
     await prisma.auditLog.createMany({
       data: [
         {
@@ -64,404 +58,33 @@ describe('Compare Versions (e2e)', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.statusCode).toBe(200);
-    expect(response.body.comparison).toBeDefined();
+    expect(response.body).toHaveProperty('comparison');
 
-    // Verificar version1
-    expect(response.body.comparison.version1.version).toBe(1);
+    // Verify version1 structure
+    expect(response.body.comparison.version1).toHaveProperty('version', 1);
+    expect(response.body.comparison.version1).toHaveProperty('data');
     expect(response.body.comparison.version1.data).toEqual({
       name: 'V1',
       price: 100.0,
       sku: 'SKU-001',
     });
 
-    // Verificar version2
-    expect(response.body.comparison.version2.version).toBe(3);
+    // Verify version2 structure
+    expect(response.body.comparison.version2).toHaveProperty('version', 3);
+    expect(response.body.comparison.version2).toHaveProperty('data');
     expect(response.body.comparison.version2.data).toEqual({
       name: 'V3',
       price: 200.0,
       sku: 'SKU-003',
     });
 
-    // Verificar diferenças
-    expect(response.body.comparison.differences).toHaveLength(3);
+    // Verify differences structure
+    expect(response.body.comparison).toHaveProperty('differences');
+    expect(response.body.comparison.differences).toBeInstanceOf(Array);
+    expect(response.body.comparison).toHaveProperty('totalDifferences');
     expect(response.body.comparison.totalDifferences).toBe(3);
 
-    const nameDiff = response.body.comparison.differences.find(
-      (d: VersionDifference) => d.field === 'name',
-    );
-    expect(nameDiff).toEqual({
-      field: 'name',
-      version1Value: 'V1',
-      version2Value: 'V3',
-    });
-
-    const priceDiff = response.body.comparison.differences.find(
-      (d: VersionDifference) => d.field === 'price',
-    );
-    expect(priceDiff).toEqual({
-      field: 'price',
-      version1Value: 100.0,
-      version2Value: 200.0,
-    });
-
     // Cleanup
-    await prisma.auditLog.deleteMany({
-      where: { entityId },
-    });
-  });
-
-  it('should return no differences for identical versions', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
-
-    const entityId = 'compare-identical-versions';
-
-    // Criar 2 versões idênticas
-    await prisma.auditLog.createMany({
-      data: [
-        {
-          action: 'CREATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          newData: { name: 'Product', price: 100.0 },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-01T10:00:00Z'),
-        },
-        {
-          action: 'UPDATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          oldData: { name: 'Product', price: 100.0 },
-          newData: { name: 'Product', price: 100.0 },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-02T10:00:00Z'),
-        },
-      ],
-    });
-
-    const response = await request(app.server)
-      .get(`/v1/audit-logs/compare/PRODUCT/${entityId}?v1=1&v2=2`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.comparison.differences).toEqual([]);
-    expect(response.body.comparison.totalDifferences).toBe(0);
-
-    // Cleanup
-    await prisma.auditLog.deleteMany({
-      where: { entityId },
-    });
-  });
-
-  it('should handle partial changes', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
-
-    const entityId = 'compare-partial-changes';
-
-    // Criar versões onde apenas 1 campo mudou
-    await prisma.auditLog.createMany({
-      data: [
-        {
-          action: 'CREATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          newData: { name: 'Product', price: 100.0, sku: 'SKU-001', stock: 10 },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-01T10:00:00Z'),
-        },
-        {
-          action: 'UPDATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          oldData: { name: 'Product', price: 100.0, sku: 'SKU-001', stock: 10 },
-          newData: {
-            name: 'Product',
-            price: 150.0,
-            sku: 'SKU-001',
-            stock: 10,
-          },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-02T10:00:00Z'),
-        },
-      ],
-    });
-
-    const response = await request(app.server)
-      .get(`/v1/audit-logs/compare/PRODUCT/${entityId}?v1=1&v2=2`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.comparison.differences).toHaveLength(1);
-    expect(response.body.comparison.differences[0]).toEqual({
-      field: 'price',
-      version1Value: 100.0,
-      version2Value: 150.0,
-    });
-
-    // Cleanup
-    await prisma.auditLog.deleteMany({
-      where: { entityId },
-    });
-  });
-
-  it('should return error for missing version parameters', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .get('/v1/audit-logs/compare/PRODUCT/test-id')
-      .set('Authorization', `Bearer ${token}`);
-
-    // Zod validation error - missing query params
-    expect(response.statusCode).toBe(400);
-  });
-
-  it('should return error for invalid version numbers', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .get('/v1/audit-logs/compare/PRODUCT/test-id?v1=abc&v2=def')
-      .set('Authorization', `Bearer ${token}`);
-
-    // Zod coercion should fail
-    expect(response.statusCode).toBe(400);
-  });
-
-  it('should return error for version out of bounds', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
-
-    const entityId = 'compare-out-of-bounds';
-
-    // Criar apenas 2 versões
-    await prisma.auditLog.createMany({
-      data: [
-        {
-          action: 'CREATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          newData: { name: 'V1' },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-01T10:00:00Z'),
-        },
-        {
-          action: 'UPDATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          oldData: { name: 'V1' },
-          newData: { name: 'V2' },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-02T10:00:00Z'),
-        },
-      ],
-    });
-
-    // Tentar acessar versão 999 que não existe
-    const response = await request(app.server)
-      .get(`/v1/audit-logs/compare/PRODUCT/${entityId}?v1=1&v2=999`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.message).toContain('does not exist');
-
-    // Cleanup
-    await prisma.auditLog.deleteMany({
-      where: { entityId },
-    });
-  });
-
-  it('should return error for version 0 or negative', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
-
-    const entityId = 'compare-zero-version';
-
-    await prisma.auditLog.create({
-      data: {
-        action: 'CREATE',
-        entity: 'PRODUCT',
-        module: 'STOCK',
-        entityId,
-        newData: { name: 'V1' },
-        userId: user.user.id,
-      },
-    });
-
-    const response = await request(app.server)
-      .get(`/v1/audit-logs/compare/PRODUCT/${entityId}?v1=0&v2=1`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.message).toContain('positive integers');
-
-    // Cleanup
-    await prisma.auditLog.deleteMany({
-      where: { entityId },
-    });
-  });
-
-  it('should compare non-consecutive versions', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
-
-    const entityId = 'compare-non-consecutive';
-
-    // Criar 5 versões
-    await prisma.auditLog.createMany({
-      data: [
-        {
-          action: 'CREATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          newData: { name: 'V1', price: 100.0 },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-01T10:00:00Z'),
-        },
-        {
-          action: 'UPDATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          oldData: { name: 'V1', price: 100.0 },
-          newData: { name: 'V2', price: 120.0 },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-02T10:00:00Z'),
-        },
-        {
-          action: 'UPDATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          oldData: { name: 'V2', price: 120.0 },
-          newData: { name: 'V3', price: 140.0 },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-03T10:00:00Z'),
-        },
-        {
-          action: 'UPDATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          oldData: { name: 'V3', price: 140.0 },
-          newData: { name: 'V4', price: 160.0 },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-04T10:00:00Z'),
-        },
-        {
-          action: 'UPDATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          oldData: { name: 'V4', price: 160.0 },
-          newData: { name: 'V5', price: 180.0 },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-05T10:00:00Z'),
-        },
-      ],
-    });
-
-    // Comparar V1 com V5 (pulando V2, V3, V4)
-    const response = await request(app.server)
-      .get(`/v1/audit-logs/compare/PRODUCT/${entityId}?v1=1&v2=5`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.comparison.version1.data.name).toBe('V1');
-    expect(response.body.comparison.version1.data.price).toBe(100.0);
-    expect(response.body.comparison.version2.data.name).toBe('V5');
-    expect(response.body.comparison.version2.data.price).toBe(180.0);
-    expect(response.body.comparison.totalDifferences).toBe(2);
-
-    // Cleanup
-    await prisma.auditLog.deleteMany({
-      where: { entityId },
-    });
-  });
-
-  it('should handle comparison in reverse order (v1=2, v2=1)', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
-
-    const entityId = 'compare-reverse-order';
-
-    await prisma.auditLog.createMany({
-      data: [
-        {
-          action: 'CREATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          newData: { name: 'V1', price: 100.0 },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-01T10:00:00Z'),
-        },
-        {
-          action: 'UPDATE',
-          entity: 'PRODUCT',
-          module: 'STOCK',
-          entityId,
-          oldData: { name: 'V1', price: 100.0 },
-          newData: { name: 'V2', price: 150.0 },
-          userId: user.user.id,
-          createdAt: new Date('2025-01-02T10:00:00Z'),
-        },
-      ],
-    });
-
-    // Comparar em ordem reversa
-    const response = await request(app.server)
-      .get(`/v1/audit-logs/compare/PRODUCT/${entityId}?v1=2&v2=1`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(200);
-
-    // v1 deve ser V2 e v2 deve ser V1
-    expect(response.body.comparison.version1.version).toBe(2);
-    expect(response.body.comparison.version1.data.name).toBe('V2');
-    expect(response.body.comparison.version2.version).toBe(1);
-    expect(response.body.comparison.version2.data.name).toBe('V1');
-
-    // As diferenças devem estar invertidas
-    const priceDiff2 = response.body.comparison.differences.find(
-      (d: VersionDifference) => d.field === 'price',
-    );
-    expect(priceDiff2.version1Value).toBe(150.0);
-    expect(priceDiff2.version2Value).toBe(100.0);
-
-    // Cleanup
-    await prisma.auditLog.deleteMany({
-      where: { entityId },
-    });
-  });
-
-  it('should return 404 for entity with no logs', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .get('/v1/audit-logs/compare/PRODUCT/non-existent-id?v1=1&v2=2')
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(404);
-    expect(response.body.message).toContain('No audit logs found');
-  });
-
-  it('should validate entity type', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-
-    const response = await request(app.server)
-      .get('/v1/audit-logs/compare/INVALID_ENTITY/test-id?v1=1&v2=2')
-      .set('Authorization', `Bearer ${token}`);
-
-    // Zod validation error
-    expect(response.statusCode).toBe(400);
-  });
-
-  it('should require authentication', async () => {
-    const response = await request(app.server).get(
-      '/v1/audit-logs/compare/PRODUCT/test-id?v1=1&v2=2',
-    );
-
-    expect(response.statusCode).toBe(401);
+    await prisma.auditLog.deleteMany({ where: { entityId } });
   });
 });

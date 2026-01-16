@@ -266,7 +266,10 @@ export class Request {
     return this.props.requesterId.toString() === userId;
   }
 
-  canBeViewedBy(userId: string, hasViewAllPermission: boolean = false): boolean {
+  canBeViewedBy(
+    userId: string,
+    hasViewAllPermission: boolean = false,
+  ): boolean {
     // Criador pode ver
     if (this.props.requesterId.toString() === userId) {
       return true;

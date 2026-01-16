@@ -87,7 +87,14 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
   async findMany(
     params: FindManyDepartmentsParams,
   ): Promise<FindManyDepartmentsResult> {
-    const { page = 1, perPage = 20, search, isActive, parentId, companyId } = params;
+    const {
+      page = 1,
+      perPage = 20,
+      search,
+      isActive,
+      parentId,
+      companyId,
+    } = params;
 
     const where = {
       deletedAt: null,

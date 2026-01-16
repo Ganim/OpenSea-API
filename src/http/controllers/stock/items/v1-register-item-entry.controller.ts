@@ -1,12 +1,15 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
-    itemEntryResponseSchema,
-    registerItemEntrySchema,
+  itemEntryResponseSchema,
+  registerItemEntrySchema,
 } from '@/http/schemas';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeRegisterItemEntryUseCase } from '@/use-cases/stock/items/factories/make-register-item-entry-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -44,10 +47,30 @@ export async function registerItemEntryController(app: FastifyInstance) {
       const data = request.body;
 
       try {
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user } = await getUserByIdUseCase.execute({ userId });
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         const registerItemEntryUseCase = makeRegisterItemEntryUseCase();
         const result = await registerItemEntryUseCase.execute({
           ...data,
           userId,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STOCK.ITEM_ENTRY,
+          entityId: result.item?.id?.toString() || data.variantId,
+          placeholders: {
+            userName,
+            quantity: data.quantity.toString(),
+          },
+          newData: {
+            variantId: data.variantId,
+            quantity: data.quantity,
+            binId: data.binId,
+          },
         });
 
         return reply.status(201).send(result);
