@@ -89,7 +89,8 @@ export function makeLabelTemplate(
           'Etiqueta Grande',
         ]),
       description:
-        override.description ?? faker.commerce.productDescription().slice(0, 100),
+        override.description ??
+        faker.commerce.productDescription().slice(0, 100),
       isSystem: override.isSystem ?? false,
       width: override.width ?? faker.number.int({ min: 30, max: 100 }),
       height: override.height ?? faker.number.int({ min: 20, max: 60 }),

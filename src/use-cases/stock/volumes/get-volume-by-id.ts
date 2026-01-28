@@ -1,14 +1,14 @@
-import { VolumeMapper } from '@/mappers/stock/volume.mapper'
-import { VolumeNotFoundError } from '@/@errors/volumes-errors'
-import type { VolumeRepository } from '@/repositories/stock/volumes-repository'
-import type { VolumeDTO } from '@/mappers/stock/volume.mapper'
+import { VolumeNotFoundError } from '@/@errors/volumes-errors';
+import type { VolumeDTO } from '@/mappers/stock/volume.mapper';
+import { VolumeMapper } from '@/mappers/stock/volume.mapper';
+import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface GetVolumeByIdUseCaseRequest {
-  volumeId: string
+  volumeId: string;
 }
 
 export interface GetVolumeByIdUseCaseResponse {
-  volume: VolumeDTO & { itemCount: number }
+  volume: VolumeDTO & { itemCount: number };
 }
 
 export class GetVolumeByIdUseCase {
@@ -17,20 +17,22 @@ export class GetVolumeByIdUseCase {
   async execute(
     request: GetVolumeByIdUseCaseRequest,
   ): Promise<GetVolumeByIdUseCaseResponse> {
-    const volume = await this.volumesRepository.findById(request.volumeId)
+    const volume = await this.volumesRepository.findById(request.volumeId);
     if (!volume) {
-      throw new VolumeNotFoundError(request.volumeId)
+      throw new VolumeNotFoundError(request.volumeId);
     }
 
-    const itemCount = await this.volumesRepository.countItemsByVolumeId(request.volumeId)
+    const itemCount = await this.volumesRepository.countItemsByVolumeId(
+      request.volumeId,
+    );
 
-    const volumeDTO = VolumeMapper.toDTO(volume)
+    const volumeDTO = VolumeMapper.toDTO(volume);
 
     return {
       volume: {
         ...volumeDTO,
         itemCount,
       },
-    }
+    };
   }
 }

@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
+import { sessionResponseSchema } from '@/http/schemas';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeListUserSessionsUseCase } from '@/use-cases/core/sessions/factories/make-list-user-sessions-use-case';
@@ -23,7 +24,7 @@ export async function listUserSessionsController(app: FastifyInstance) {
       summary: 'List sessions by user',
       params: z.object({ userId: z.uuid() }),
       response: {
-        200: z.object({ sessions: z.array(z.any()) }),
+        200: z.object({ sessions: z.array(sessionResponseSchema) }),
         404: z.object({ message: z.string() }),
       },
     },

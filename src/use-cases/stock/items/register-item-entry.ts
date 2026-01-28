@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
+import { Slug } from '@/entities/stock/value-objects/slug';
 import type { ItemMovementDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import { itemMovementToDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
@@ -13,7 +14,20 @@ import { ItemsRepository } from '@/repositories/stock/items-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
+import {
+  generateBarcode,
+  generateEAN13,
+  generateUPC,
+} from '@/utils/barcode-generator';
 import { assertValidAttributes } from '@/utils/validate-template-attributes';
+
+/**
+ * Gera código hierárquico com padding
+ * @example padCode(1, 5) => "00001"
+ */
+function padCode(seq: number, digits: number): string {
+  return seq.toString().padStart(digits, '0');
+}
 
 export interface RegisterItemEntryUseCaseInput {
   uniqueCode?: string; // Agora opcional - será gerado automaticamente se não fornecido
@@ -112,15 +126,43 @@ export class RegisterItemEntryUseCase {
     // Validate attributes against template
     const product = await this.productsRepository.findById(variant.productId);
     if (product) {
-      const template = await this.templatesRepository.findById(product.templateId);
+      const template = await this.templatesRepository.findById(
+        product.templateId,
+      );
       if (template) {
-        assertValidAttributes(input.attributes, template.itemAttributes, 'item');
+        assertValidAttributes(
+          input.attributes,
+          template.itemAttributes,
+          'item',
+        );
       }
     }
+
+    // Get next sequential code LOCAL to this variant
+    const lastItem = await this.itemsRepository.findLastByVariantId(variantId);
+    const nextSeq = (lastItem?.sequentialCode ?? 0) + 1;
+
+    // Generate fullCode: VARIANT_FULLCODE-ITEM_SEQ (ex: 001.001.0001.001-00001)
+    // Note: Uses DASH (-) to differentiate item level from variant level
+    const fullCode = `${variant.fullCode}-${padCode(nextSeq, 5)}`;
+
+    // Generate slug from variant name + sequential (to ensure uniqueness)
+    const slug = Slug.createUniqueFromText(variant.name, `${variant.fullCode}-${nextSeq}`);
+
+    // Generate barcode codes from fullCode (IMUTÁVEIS)
+    const barcode = generateBarcode(fullCode);
+    const eanCode = generateEAN13(fullCode);
+    const upcCode = generateUPC(fullCode);
 
     // Create item
     const item = await this.itemsRepository.create({
       uniqueCode,
+      slug,
+      fullCode,
+      sequentialCode: nextSeq,
+      barcode,
+      eanCode,
+      upcCode,
       variantId,
       binId,
       initialQuantity: input.quantity,

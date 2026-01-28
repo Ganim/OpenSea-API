@@ -17,9 +17,10 @@ export class ListItemsByBinIdUseCase {
   async execute(
     input: ListItemsByBinIdUseCaseRequest,
   ): Promise<ListItemsByBinIdUseCaseResponse> {
-    const itemsWithRelations = await this.itemsRepository.findManyByBinWithRelations(
-      new UniqueEntityID(input.binId),
-    );
+    const itemsWithRelations =
+      await this.itemsRepository.findManyByBinWithRelations(
+        new UniqueEntityID(input.binId),
+      );
 
     return {
       items: itemsWithRelations.map(({ item, relatedData }) =>

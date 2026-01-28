@@ -1,12 +1,12 @@
-import { VolumeNotFoundError } from '@/@errors/volumes-errors'
-import type { VolumeRepository } from '@/repositories/stock/volumes-repository'
+import { VolumeNotFoundError } from '@/@errors/volumes-errors';
+import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface DeleteVolumeUseCaseRequest {
-  volumeId: string
+  volumeId: string;
 }
 
 export interface DeleteVolumeUseCaseResponse {
-  success: boolean
+  success: boolean;
 }
 
 export class DeleteVolumeUseCase {
@@ -15,15 +15,15 @@ export class DeleteVolumeUseCase {
   async execute(
     request: DeleteVolumeUseCaseRequest,
   ): Promise<DeleteVolumeUseCaseResponse> {
-    const volume = await this.volumesRepository.findById(request.volumeId)
+    const volume = await this.volumesRepository.findById(request.volumeId);
     if (!volume) {
-      throw new VolumeNotFoundError(request.volumeId)
+      throw new VolumeNotFoundError(request.volumeId);
     }
 
-    await this.volumesRepository.delete(request.volumeId)
+    await this.volumesRepository.delete(request.volumeId);
 
     return {
       success: true,
-    }
+    };
   }
 }

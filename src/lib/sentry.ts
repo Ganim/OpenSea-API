@@ -39,7 +39,7 @@ export function initSentry(): void {
     ],
 
     // Filtrar dados sensíveis antes de enviar
-    beforeSend(event, hint) {
+    beforeSend(event, _hint) {
       // Remove headers sensíveis
       if (event.request?.headers) {
         delete event.request.headers['authorization'];
@@ -130,7 +130,9 @@ export function captureMessage(
 /**
  * Define o usuário atual para o contexto do Sentry
  */
-export function setUser(user: { id: string; email?: string; username?: string } | null): void {
+export function setUser(
+  user: { id: string; email?: string; username?: string } | null,
+): void {
   if (!env.SENTRY_DSN) return;
 
   if (user) {

@@ -26,9 +26,10 @@ export const unitOfMeasureSchema = z.enum(['METERS', 'KILOGRAMS', 'UNITS']);
  */
 export const createProductSchema = z.object({
   name: nameSchema,
-  code: z.string().min(1).max(50).optional(), // Agora opcional
+  code: z.string().min(1).max(64).optional(), // Código manual opcional (importação) - IMUTÁVEL após criação
   description: z.string().max(1000).optional(),
   status: productStatusSchema.optional().default('ACTIVE'),
+  outOfLine: z.boolean().optional().default(false),
   attributes: z.record(z.string(), z.any()).optional(),
   templateId: idSchema,
   supplierId: idSchema.optional(),
@@ -37,8 +38,18 @@ export const createProductSchema = z.object({
 
 /**
  * Schema para atualização de produto
+ * code e fullCode são IMUTÁVEIS após criação
  */
-export const updateProductSchema = createProductSchema.partial();
+export const updateProductSchema = z.object({
+  name: nameSchema.optional(),
+  // code e fullCode são imutáveis após criação
+  description: z.string().max(1000).optional(),
+  status: productStatusSchema.optional(),
+  outOfLine: z.boolean().optional(),
+  attributes: z.record(z.string(), z.any()).optional(),
+  supplierId: idSchema.optional(),
+  manufacturerId: idSchema.optional(),
+});
 
 /**
  * Schema para resposta de produto com entidades relacionadas
@@ -52,6 +63,7 @@ export const productResponseSchema = z.object({
   sequentialCode: z.number().optional(),
   description: z.string().optional(),
   status: z.string(),
+  outOfLine: z.boolean(),
   attributes: z.record(z.string(), z.any()),
   careInstructionIds: z.array(z.string()),
   templateId: idSchema,

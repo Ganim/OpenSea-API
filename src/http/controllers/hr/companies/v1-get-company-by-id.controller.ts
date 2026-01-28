@@ -10,7 +10,7 @@ import type {
   CompanyCnae,
   CompanyFiscalSettings,
   CompanyStakeholder,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';

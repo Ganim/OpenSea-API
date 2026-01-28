@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { AbsenceStatus, AbsenceType } from '@/entities/hr/value-objects';
-import type { Absence as PrismaAbsence } from '@prisma/client';
+import type { Absence as PrismaAbsence } from '@prisma/generated/client.js';
 
 export function mapAbsencePrismaToDomain(absence: PrismaAbsence) {
   return {

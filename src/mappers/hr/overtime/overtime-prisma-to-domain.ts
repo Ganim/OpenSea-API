@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Overtime as PrismaOvertime } from '@prisma/client';
+import type { Overtime as PrismaOvertime } from '@prisma/generated/client.js';
 
 export function mapOvertimePrismaToDomain(overtime: PrismaOvertime) {
   return {

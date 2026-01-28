@@ -69,7 +69,9 @@ export class BulkAddPermissionsToGroupUseCase {
     for (const input of permissions) {
       try {
         // Validar código da permissão
-        const permissionCodeEntity = PermissionCode.create(input.permissionCode);
+        const permissionCodeEntity = PermissionCode.create(
+          input.permissionCode,
+        );
 
         // Buscar permissão no banco
         const permission =

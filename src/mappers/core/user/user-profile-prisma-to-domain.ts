@@ -1,7 +1,7 @@
 import { UserProfile } from '@/entities/core/user-profile';
 import { Url } from '@/entities/core/value-objects/url';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/generated/client.js';
 
 export function mapUserProfilePrismaToDomain(
   userProfileDB: Prisma.UserProfileGetPayload<object>,

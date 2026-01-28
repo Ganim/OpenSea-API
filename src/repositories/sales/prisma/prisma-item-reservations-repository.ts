@@ -2,7 +2,6 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { ItemReservation } from '@/entities/sales/item-reservation';
 import { prisma } from '@/lib/prisma';
-import { Decimal } from '@prisma/client/runtime/library';
 import type {
   CreateItemReservationSchema,
   ItemReservationsRepository,
@@ -16,7 +15,7 @@ export class PrismaItemReservationsRepository
       data: {
         itemId: data.itemId.toString(),
         userId: data.userId.toString(),
-        quantity: new Decimal(data.quantity),
+        quantity: data.quantity,
         reason: data.reason,
         reference: data.reference,
         expiresAt: data.expiresAt,
@@ -176,7 +175,7 @@ export class PrismaItemReservationsRepository
         id: reservation.id.toString(),
         itemId: reservation.itemId.toString(),
         userId: reservation.userId.toString(),
-        quantity: new Decimal(reservation.quantity),
+        quantity: reservation.quantity,
         reason: reservation.reason,
         reference: reservation.reference,
         expiresAt: reservation.expiresAt,

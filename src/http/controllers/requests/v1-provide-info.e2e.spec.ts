@@ -28,7 +28,8 @@ describe('Provide Info (E2E)', () => {
       .patch(`/v1/requests/${testRequest.id}/provide-info`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        informationProvided: 'Here is the additional information you requested with more than 10 characters',
+        informationProvided:
+          'Here is the additional information you requested with more than 10 characters',
       });
 
     expect(response.status).toBe(200);

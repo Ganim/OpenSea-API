@@ -17,6 +17,7 @@ describe('Delete Product (E2E)', () => {
   it('should delete product with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
+    const suffix = String(timestamp).slice(-4);
 
     const template = await prisma.template.create({
       data: {
@@ -29,7 +30,11 @@ describe('Delete Product (E2E)', () => {
 
     const product = await prisma.product.create({
       data: {
-        code: `PROD-DELETE-${timestamp}`,
+        fullCode: `001.000.${suffix}`,
+        slug: `product-to-delete-${timestamp}`,
+        barcode: `BCDEL${suffix}`,
+        eanCode: `EAN${suffix}DEL00`,
+        upcCode: `UPC${suffix}DEL0`,
         name: 'Product to Delete',
         status: 'ACTIVE',
         templateId: template.id,

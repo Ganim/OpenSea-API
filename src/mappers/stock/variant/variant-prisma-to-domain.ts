@@ -1,12 +1,19 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
-import type { Variant as PrismaVariant } from '@prisma/client';
+import { Slug } from '@/entities/stock/value-objects/slug';
+import type { Variant as PrismaVariant } from '@prisma/generated/client.js';
 
 export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {
+  // Garante que slug não é vazio
+  const slug = variantDb.slug && variantDb.slug.trim()
+    ? Slug.create(variantDb.slug)
+    : Slug.createFromText(variantDb.name || 'variant');
+
   return {
     id: new UniqueEntityID(variantDb.id),
     productId: new UniqueEntityID(variantDb.productId),
     sku: variantDb.sku ?? undefined,
+    slug: slug,
     fullCode: variantDb.fullCode ?? undefined,
     sequentialCode: variantDb.sequentialCode ?? undefined,
     name: variantDb.name,

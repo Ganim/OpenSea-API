@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { DiscountType } from '@/entities/sales/value-objects/discount-type';
 import { VariantPromotion } from '@/entities/sales/variant-promotion';
-import type { VariantPromotion as PrismaVariantPromotion } from '@prisma/client';
+import type { VariantPromotion as PrismaVariantPromotion } from '@prisma/generated/client.js';
 
 export function mapVariantPromotionPrismaToDomain(
   promotionDb: PrismaVariantPromotion,

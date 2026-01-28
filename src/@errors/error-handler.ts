@@ -82,19 +82,28 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
   }
 
   // Volume errors
-  if (error instanceof VolumeNotFoundError || error instanceof VolumeItemNotFoundError) {
+  if (
+    error instanceof VolumeNotFoundError ||
+    error instanceof VolumeItemNotFoundError
+  ) {
     return reply.status(404).send({
       message: error.message,
     });
   }
 
-  if (error instanceof VolumeAlreadyExistsError || error instanceof VolumeItemAlreadyExistsError) {
+  if (
+    error instanceof VolumeAlreadyExistsError ||
+    error instanceof VolumeItemAlreadyExistsError
+  ) {
     return reply.status(409).send({
       message: error.message,
     });
   }
 
-  if (error instanceof VolumeCannotBeClosed || error instanceof InvalidVolumeStatusError) {
+  if (
+    error instanceof VolumeCannotBeClosed ||
+    error instanceof InvalidVolumeStatusError
+  ) {
     return reply.status(400).send({
       message: error.message,
     });

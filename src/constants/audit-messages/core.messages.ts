@@ -207,7 +207,8 @@ export const CORE_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.LABEL_TEMPLATE,
     module: AuditModule.CORE,
-    description: '{{userName}} atualizou o template de etiqueta {{templateName}}',
+    description:
+      '{{userName}} atualizou o template de etiqueta {{templateName}}',
   } satisfies AuditMessage,
 
   /** Excluiu template de etiqueta */

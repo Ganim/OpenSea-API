@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
 
 export interface CreateManufacturerSchema {
+  code: string; // Código hierárquico auto-gerado (3 dígitos: 001)
   name: string;
   country: string;
   email?: string;
@@ -45,4 +46,5 @@ export interface ManufacturersRepository {
   update(data: UpdateManufacturerSchema): Promise<Manufacturer | null>;
   save(manufacturer: Manufacturer): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
+  getNextSequentialCode(): Promise<number>;
 }

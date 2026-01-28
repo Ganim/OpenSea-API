@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Bonus as PrismaBonus } from '@prisma/client';
+import type { Bonus as PrismaBonus } from '@prisma/generated/client.js';
 
 export function mapBonusPrismaToDomain(bonus: PrismaBonus) {
   return {

@@ -5,7 +5,7 @@ import {
   type CompanyStatus,
 } from '@/entities/hr/company';
 import { prisma } from '@/lib/prisma';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 import { mapCompanyPrismaToDomain } from '@/mappers/hr/company/company-prisma-to-domain';
 import type {
   CreateCompanySchema,
@@ -256,6 +256,9 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
     if (data.metadata !== undefined) {
       company.updateMetadata(data.metadata);
     }
+
+    // Persistir alterações no banco de dados
+    await this.save(company);
 
     return company;
   }

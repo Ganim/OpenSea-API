@@ -1,19 +1,19 @@
-import { VolumeMapper } from '@/mappers/stock/volume.mapper'
 import {
-  VolumeNotFoundError,
   VolumeCannotBeClosed,
-} from '@/@errors/volumes-errors'
-import { VolumeStatus } from '@/entities/stock/value-objects/volume-status'
-import type { VolumeRepository } from '@/repositories/stock/volumes-repository'
-import type { VolumeDTO } from '@/mappers/stock/volume.mapper'
+  VolumeNotFoundError,
+} from '@/@errors/volumes-errors';
+import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
+import type { VolumeDTO } from '@/mappers/stock/volume.mapper';
+import { VolumeMapper } from '@/mappers/stock/volume.mapper';
+import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface CloseVolumeUseCaseRequest {
-  volumeId: string
-  closedBy: string
+  volumeId: string;
+  closedBy: string;
 }
 
 export interface CloseVolumeUseCaseResponse {
-  volume: VolumeDTO
+  volume: VolumeDTO;
 }
 
 export class CloseVolumeUseCase {
@@ -22,28 +22,28 @@ export class CloseVolumeUseCase {
   async execute(
     request: CloseVolumeUseCaseRequest,
   ): Promise<CloseVolumeUseCaseResponse> {
-    const volume = await this.volumesRepository.findById(request.volumeId)
+    const volume = await this.volumesRepository.findById(request.volumeId);
     if (!volume) {
-      throw new VolumeNotFoundError(request.volumeId)
+      throw new VolumeNotFoundError(request.volumeId);
     }
 
     // Validar se pode ser fechado (apenas volumes abertos)
     if (volume.status !== VolumeStatus.OPEN) {
-      throw new VolumeCannotBeClosed()
+      throw new VolumeCannotBeClosed();
     }
 
     // Atualizar volume
-    volume.status = VolumeStatus.CLOSED
-    volume.closedAt = new Date()
-    volume.closedBy = request.closedBy
-    volume.updatedAt = new Date()
+    volume.status = VolumeStatus.CLOSED;
+    volume.closedAt = new Date();
+    volume.closedBy = request.closedBy;
+    volume.updatedAt = new Date();
 
-    await this.volumesRepository.update(volume)
+    await this.volumesRepository.update(volume);
 
-    const volumeDTO = VolumeMapper.toDTO(volume)
+    const volumeDTO = VolumeMapper.toDTO(volume);
 
     return {
       volume: volumeDTO,
-    }
+    };
   }
 }

@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Permission } from '@/entities/rbac/permission';
 import { PermissionCode } from '@/entities/rbac/value-objects/permission-code';
-import type { Permission as PrismaPermission } from '@prisma/client';
+import type { Permission as PrismaPermission } from '@prisma/generated/client.js';
 
 export function mapPermissionPrismaToDomain(
   prismaPermission: PrismaPermission,

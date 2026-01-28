@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 
 export function mapPositionPrismaToDomain(
   positionDb: Prisma.PositionGetPayload<{

@@ -59,6 +59,8 @@ export interface CareLabelInfo {
 
 export interface TemplateProps {
   id: UniqueEntityID;
+  code?: string; // Código hierárquico manual ou auto-gerado (3 dígitos: 001)
+  sequentialCode?: number; // Para fallback na geração do code
   name: string;
   iconUrl?: string;
   unitOfMeasure: UnitOfMeasure;
@@ -66,7 +68,6 @@ export interface TemplateProps {
   variantAttributes: TemplateAttributesMap;
   itemAttributes: TemplateAttributesMap;
   careLabel?: CareLabelInfo;
-  sequentialCode?: number;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
@@ -76,6 +77,14 @@ export interface TemplateProps {
 export class Template extends Entity<TemplateProps> {
   get id(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get code(): string | undefined {
+    return this.props.code;
+  }
+
+  get sequentialCode(): number | undefined {
+    return this.props.sequentialCode;
   }
 
   get name(): string {
@@ -134,23 +143,38 @@ export class Template extends Entity<TemplateProps> {
 
   // Métodos auxiliares para obter apenas atributos com enablePrint/enableView
   get printableProductAttributes(): TemplateAttributesMap {
-    return this.filterAttributesByFlag(this.props.productAttributes, 'enablePrint');
+    return this.filterAttributesByFlag(
+      this.props.productAttributes,
+      'enablePrint',
+    );
   }
 
   get printableVariantAttributes(): TemplateAttributesMap {
-    return this.filterAttributesByFlag(this.props.variantAttributes, 'enablePrint');
+    return this.filterAttributesByFlag(
+      this.props.variantAttributes,
+      'enablePrint',
+    );
   }
 
   get printableItemAttributes(): TemplateAttributesMap {
-    return this.filterAttributesByFlag(this.props.itemAttributes, 'enablePrint');
+    return this.filterAttributesByFlag(
+      this.props.itemAttributes,
+      'enablePrint',
+    );
   }
 
   get viewableProductAttributes(): TemplateAttributesMap {
-    return this.filterAttributesByFlag(this.props.productAttributes, 'enableView');
+    return this.filterAttributesByFlag(
+      this.props.productAttributes,
+      'enableView',
+    );
   }
 
   get viewableVariantAttributes(): TemplateAttributesMap {
-    return this.filterAttributesByFlag(this.props.variantAttributes, 'enableView');
+    return this.filterAttributesByFlag(
+      this.props.variantAttributes,
+      'enableView',
+    );
   }
 
   get viewableItemAttributes(): TemplateAttributesMap {
@@ -176,10 +200,6 @@ export class Template extends Entity<TemplateProps> {
   set careLabel(careLabel: CareLabelInfo | undefined) {
     this.props.careLabel = careLabel;
     this.touch();
-  }
-
-  get sequentialCode(): number | undefined {
-    return this.props.sequentialCode;
   }
 
   get isActive(): boolean {

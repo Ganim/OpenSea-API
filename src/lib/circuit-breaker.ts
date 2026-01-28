@@ -1,5 +1,8 @@
 import CircuitBreaker from 'opossum';
-import { circuitBreakerConfig, CircuitBreakerType } from '@/config/circuit-breaker';
+import {
+  circuitBreakerConfig,
+  CircuitBreakerType,
+} from '@/config/circuit-breaker';
 
 // Store para manter referência dos circuit breakers criados
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,17 +42,23 @@ export function createCircuitBreaker<TArgs extends unknown[], TResult>(
 
   // Event handlers
   breaker.on('open', () => {
-    console.error(`[CircuitBreaker] ${options.name} OPENED - requests will fail fast`);
+    console.error(
+      `[CircuitBreaker] ${options.name} OPENED - requests will fail fast`,
+    );
     options.onOpen?.();
   });
 
   breaker.on('close', () => {
-    console.log(`[CircuitBreaker] ${options.name} CLOSED - back to normal operation`);
+    console.log(
+      `[CircuitBreaker] ${options.name} CLOSED - back to normal operation`,
+    );
     options.onClose?.();
   });
 
   breaker.on('halfOpen', () => {
-    console.log(`[CircuitBreaker] ${options.name} HALF-OPEN - testing if service recovered`);
+    console.log(
+      `[CircuitBreaker] ${options.name} HALF-OPEN - testing if service recovered`,
+    );
     options.onHalfOpen?.();
   });
 
@@ -59,7 +68,9 @@ export function createCircuitBreaker<TArgs extends unknown[], TResult>(
   });
 
   breaker.on('timeout', () => {
-    console.warn(`[CircuitBreaker] ${options.name} timeout after ${config.timeout}ms`);
+    console.warn(
+      `[CircuitBreaker] ${options.name} timeout after ${config.timeout}ms`,
+    );
   });
 
   breaker.on('reject', () => {
@@ -76,14 +87,19 @@ export function createCircuitBreaker<TArgs extends unknown[], TResult>(
  * Obtém um circuit breaker existente pelo nome
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getCircuitBreaker(name: string): CircuitBreaker<any[], any> | undefined {
+export function getCircuitBreaker(
+  name: string,
+): CircuitBreaker<any[], any> | undefined {
   return circuitBreakers.get(name);
 }
 
 /**
  * Obtém estatísticas de todos os circuit breakers
  */
-export function getAllCircuitBreakerStats(): Record<string, CircuitBreakerStats> {
+export function getAllCircuitBreakerStats(): Record<
+  string,
+  CircuitBreakerStats
+> {
   const stats: Record<string, CircuitBreakerStats> = {};
 
   for (const [name, breaker] of circuitBreakers) {
@@ -109,7 +125,9 @@ export interface CircuitBreakerStats {
  * Obtém estatísticas de um circuit breaker específico
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getCircuitBreakerStats(breaker: CircuitBreaker<any[], any>): CircuitBreakerStats {
+export function getCircuitBreakerStats(
+  breaker: CircuitBreaker<any[], any>,
+): CircuitBreakerStats {
   const stats = breaker.stats;
 
   let state: 'CLOSED' | 'OPEN' | 'HALF_OPEN' = 'CLOSED';
@@ -150,7 +168,9 @@ export async function withCircuitBreaker<TResult>(
   type: CircuitBreakerType,
   fn: () => Promise<TResult>,
 ): Promise<TResult> {
-  let breaker = circuitBreakers.get(name) as CircuitBreaker<[], TResult> | undefined;
+  let breaker = circuitBreakers.get(name) as
+    | CircuitBreaker<[], TResult>
+    | undefined;
 
   if (!breaker) {
     breaker = createCircuitBreaker(fn, { name, type });

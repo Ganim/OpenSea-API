@@ -42,7 +42,6 @@ describe('GetProductByIdUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
       description: 'High performance laptop',
       templateId: template.template.id.toString(),
     });
@@ -52,7 +51,7 @@ describe('GetProductByIdUseCase', () => {
     expect(result.product.id.toString()).toBe(created.product.id.toString());
     expect(result.product.name).toBe('Laptop Dell');
     expect(result.product.description).toBe('High performance laptop');
-    expect(result.product.code).toBe('LAPTOP-001');
+    expect(result.product.slug).toBeDefined();
     expect(result.product.status.value).toBe('ACTIVE');
   });
 

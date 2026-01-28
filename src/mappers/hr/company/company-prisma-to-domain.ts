@@ -3,7 +3,7 @@ import type {
   CompanyStatus,
   TaxRegime,
 } from '@/entities/hr/company';
-import type { Company as PrismaCompany } from '@prisma/client';
+import type { Company as PrismaCompany } from '@prisma/generated/client.js';
 
 export function mapCompanyPrismaToDomain(raw: PrismaCompany): CompanyProps {
   return {

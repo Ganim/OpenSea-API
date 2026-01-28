@@ -27,22 +27,29 @@ export const aisleConfigSchema = z.object({
 const defaultCodePattern = codePatternSchema.parse({});
 
 // Zone structure schema
-export const zoneStructureSchema = z.object({
-  aisles: z.number().int().min(0).max(99),
-  shelvesPerAisle: z.number().int().min(0).max(999),
-  binsPerShelf: z.number().int().min(0).max(26),
-  aisleConfigs: z.array(aisleConfigSchema).optional(),
-  codePattern: codePatternSchema.optional().default(defaultCodePattern),
-  dimensions: zoneDimensionsSchema.optional(),
-}).refine((data) => {
-  if (!data.aisleConfigs?.length) return true;
+export const zoneStructureSchema = z
+  .object({
+    aisles: z.number().int().min(0).max(99),
+    shelvesPerAisle: z.number().int().min(0).max(999),
+    binsPerShelf: z.number().int().min(0).max(26),
+    aisleConfigs: z.array(aisleConfigSchema).optional(),
+    codePattern: codePatternSchema.optional().default(defaultCodePattern),
+    dimensions: zoneDimensionsSchema.optional(),
+  })
+  .refine(
+    (data) => {
+      if (!data.aisleConfigs?.length) return true;
 
-  const aisleNumbers = data.aisleConfigs.map((config) => config.aisleNumber);
-  return new Set(aisleNumbers).size === aisleNumbers.length;
-}, {
-  message: 'Aisle numbers must be unique.',
-  path: ['aisleConfigs'],
-});
+      const aisleNumbers = data.aisleConfigs.map(
+        (config) => config.aisleNumber,
+      );
+      return new Set(aisleNumbers).size === aisleNumbers.length;
+    },
+    {
+      message: 'Aisle numbers must be unique.',
+      path: ['aisleConfigs'],
+    },
+  );
 
 // Aisle position schema
 export const aislePositionSchema = z.object({

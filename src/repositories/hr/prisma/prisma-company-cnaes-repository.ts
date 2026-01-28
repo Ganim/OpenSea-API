@@ -2,7 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { CompanyCnae } from '@/entities/hr/company-cnae';
 import { prisma } from '@/lib/prisma';
 import { mapCompanyCnaePrismaToDomain } from '@/mappers/hr/company-cnae';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 import type {
   CompanyAeRepository,
   CreateCompanyCnaeSchema,

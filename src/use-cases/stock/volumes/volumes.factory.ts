@@ -1,15 +1,15 @@
 // This file is deprecated. Use the individual factory functions from the factories folder instead.
 // Example: import { makeCreateVolumeUseCase } from '@/use-cases/stock/volumes/factories/make-create-volume-use-case'
 
-export { makeCreateVolumeUseCase } from './factories/make-create-volume-use-case'
-export { makeListVolumesUseCase } from './factories/make-list-volumes-use-case'
-export { makeGetVolumeByIdUseCase } from './factories/make-get-volume-by-id-use-case'
-export { makeUpdateVolumeUseCase } from './factories/make-update-volume-use-case'
-export { makeDeleteVolumeUseCase } from './factories/make-delete-volume-use-case'
-export { makeAddItemToVolumeUseCase } from './factories/make-add-item-to-volume-use-case'
-export { makeRemoveItemFromVolumeUseCase } from './factories/make-remove-item-from-volume-use-case'
-export { makeCloseVolumeUseCase } from './factories/make-close-volume-use-case'
-export { makeReopenVolumeUseCase } from './factories/make-reopen-volume-use-case'
-export { makeDeliverVolumeUseCase } from './factories/make-deliver-volume-use-case'
-export { makeReturnVolumeUseCase } from './factories/make-return-volume-use-case'
-export { makeGetRomaneioUseCase } from './factories/make-get-romaneio-use-case'
+export { makeAddItemToVolumeUseCase } from './factories/make-add-item-to-volume-use-case';
+export { makeCloseVolumeUseCase } from './factories/make-close-volume-use-case';
+export { makeCreateVolumeUseCase } from './factories/make-create-volume-use-case';
+export { makeDeleteVolumeUseCase } from './factories/make-delete-volume-use-case';
+export { makeDeliverVolumeUseCase } from './factories/make-deliver-volume-use-case';
+export { makeGetRomaneioUseCase } from './factories/make-get-romaneio-use-case';
+export { makeGetVolumeByIdUseCase } from './factories/make-get-volume-by-id-use-case';
+export { makeListVolumesUseCase } from './factories/make-list-volumes-use-case';
+export { makeRemoveItemFromVolumeUseCase } from './factories/make-remove-item-from-volume-use-case';
+export { makeReopenVolumeUseCase } from './factories/make-reopen-volume-use-case';
+export { makeReturnVolumeUseCase } from './factories/make-return-volume-use-case';
+export { makeUpdateVolumeUseCase } from './factories/make-update-volume-use-case';

@@ -5,7 +5,7 @@ import type {
   NotificationTypeValue,
 } from '@/entities/notifications/notification';
 import { Notification } from '@/entities/notifications/notification';
-import type { Notification as PrismaNotification } from '@prisma/client';
+import type { Notification as PrismaNotification } from '@prisma/generated/client.js';
 
 export function mapNotificationPrismaToDomain(model: PrismaNotification) {
   return {

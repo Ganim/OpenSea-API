@@ -151,7 +151,8 @@ export function createScopeMiddleware(options: ScopePermissionCheckOptions) {
 
     // Se há uma função para obter o departmentId do recurso, usamos ela
     if (options.getResourceDepartmentId) {
-      const resourceDepartmentId = await options.getResourceDepartmentId(request);
+      const resourceDepartmentId =
+        await options.getResourceDepartmentId(request);
 
       if (resourceDepartmentId && resourceDepartmentId !== userDepartmentId) {
         throw new ForbiddenError(

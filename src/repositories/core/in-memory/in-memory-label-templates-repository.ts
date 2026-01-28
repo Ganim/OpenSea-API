@@ -104,9 +104,7 @@ export class InMemoryLabelTemplatesRepository
     return this.items.filter((item) => !item.deletedAt && item.isSystem);
   }
 
-  async update(
-    data: UpdateLabelTemplateSchema,
-  ): Promise<LabelTemplate | null> {
+  async update(data: UpdateLabelTemplateSchema): Promise<LabelTemplate | null> {
     const labelTemplate = await this.findById(data.id);
     if (!labelTemplate) return null;
 

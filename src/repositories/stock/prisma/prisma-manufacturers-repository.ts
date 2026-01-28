@@ -2,7 +2,6 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
 import { prisma } from '@/lib/prisma';
-import { Decimal } from '@prisma/client/runtime/library';
 import type {
   CreateManufacturerSchema,
   ManufacturersRepository,
@@ -13,6 +12,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
   async create(data: CreateManufacturerSchema): Promise<Manufacturer> {
     const manufacturerData = await prisma.manufacturer.create({
       data: {
+        code: data.code, // Código hierárquico auto-gerado
         name: data.name,
         country: data.country,
         email: data.email,
@@ -23,13 +23,15 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
         state: data.state,
         zipCode: data.postalCode,
         isActive: data.isActive ?? true,
-        rating: data.rating ? new Decimal(data.rating) : undefined,
+        rating: data.rating ? data.rating : undefined,
         notes: data.notes,
       },
     });
 
     return Manufacturer.create(
       {
+        code: manufacturerData.code,
+        sequentialCode: manufacturerData.sequentialCode,
         name: manufacturerData.name,
         country: manufacturerData.country ?? '',
         email: manufacturerData.email,
@@ -66,6 +68,8 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
 
     return Manufacturer.create(
       {
+        code: manufacturerData.code,
+        sequentialCode: manufacturerData.sequentialCode,
         name: manufacturerData.name,
         country: manufacturerData.country ?? '',
         email: manufacturerData.email,
@@ -105,6 +109,8 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
 
     return Manufacturer.create(
       {
+        code: manufacturerData.code,
+        sequentialCode: manufacturerData.sequentialCode,
         name: manufacturerData.name,
         country: manufacturerData.country ?? '',
         email: manufacturerData.email,
@@ -137,6 +143,8 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     return manufacturers.map((manufacturerData) =>
       Manufacturer.create(
         {
+          code: manufacturerData.code,
+          sequentialCode: manufacturerData.sequentialCode,
           name: manufacturerData.name,
           country: manufacturerData.country ?? '',
           email: manufacturerData.email,
@@ -171,6 +179,8 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     return manufacturers.map((manufacturerData) =>
       Manufacturer.create(
         {
+          code: manufacturerData.code,
+          sequentialCode: manufacturerData.sequentialCode,
           name: manufacturerData.name,
           country: manufacturerData.country ?? '',
           email: manufacturerData.email,
@@ -198,7 +208,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     const manufacturers = await prisma.manufacturer.findMany({
       where: {
         rating: {
-          gte: new Decimal(minRating),
+          gte: minRating,
         },
         deletedAt: null,
       },
@@ -207,6 +217,8 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     return manufacturers.map((manufacturerData) =>
       Manufacturer.create(
         {
+          code: manufacturerData.code,
+          sequentialCode: manufacturerData.sequentialCode,
           name: manufacturerData.name,
           country: manufacturerData.country ?? '',
           email: manufacturerData.email,
@@ -241,6 +253,8 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     return manufacturers.map((manufacturerData) =>
       Manufacturer.create(
         {
+          code: manufacturerData.code,
+          sequentialCode: manufacturerData.sequentialCode,
           name: manufacturerData.name,
           country: manufacturerData.country ?? '',
           email: manufacturerData.email,
@@ -280,13 +294,15 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
         ...(data.state !== undefined && { state: data.state }),
         ...(data.postalCode !== undefined && { zipCode: data.postalCode }),
         ...(data.isActive !== undefined && { isActive: data.isActive }),
-        ...(data.rating !== undefined && { rating: new Decimal(data.rating) }),
+        ...(data.rating !== undefined && { rating: data.rating }),
         ...(data.notes !== undefined && { notes: data.notes }),
       },
     });
 
     return Manufacturer.create(
       {
+        code: manufacturerData.code,
+        sequentialCode: manufacturerData.sequentialCode,
         name: manufacturerData.name,
         country: manufacturerData.country ?? '',
         email: manufacturerData.email,
@@ -325,7 +341,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
         state: manufacturer.state,
         zipCode: manufacturer.postalCode,
         isActive: manufacturer.isActive,
-        rating: manufacturer.rating ? new Decimal(manufacturer.rating) : null,
+        rating: manufacturer.rating ? manufacturer.rating : null,
         notes: manufacturer.notes,
         updatedAt: new Date(),
       },
@@ -341,5 +357,12 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
         deletedAt: new Date(),
       },
     });
+  }
+
+  async getNextSequentialCode(): Promise<number> {
+    const result = await prisma.$queryRaw<[{ nextval: bigint }]>`
+      SELECT nextval(pg_get_serial_sequence('manufacturers', 'sequential_code'))
+    `;
+    return Number(result[0].nextval);
   }
 }

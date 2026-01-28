@@ -2,7 +2,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import type { ItemDTO } from '@/mappers/stock/item/item-to-dto';
 import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
-import type { ItemsRepository, ItemWithRelationsDTO } from '@/repositories/stock/items-repository';
+import type {
+  ItemsRepository,
+  ItemWithRelationsDTO,
+} from '@/repositories/stock/items-repository';
 
 interface ListItemsUseCaseRequest {
   variantId?: string;
@@ -36,9 +39,10 @@ export class ListItemsUseCase {
           new UniqueEntityID(input.variantId),
         );
     } else if (input.binId) {
-      itemsWithRelations = await this.itemsRepository.findManyByBinWithRelations(
-        new UniqueEntityID(input.binId),
-      );
+      itemsWithRelations =
+        await this.itemsRepository.findManyByBinWithRelations(
+          new UniqueEntityID(input.binId),
+        );
     } else if (input.status) {
       const items = await this.itemsRepository.findManyByStatus(
         ItemStatus.create(

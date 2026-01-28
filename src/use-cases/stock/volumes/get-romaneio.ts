@@ -1,19 +1,19 @@
-import { VolumeNotFoundError } from '@/@errors/volumes-errors'
-import type { VolumeRepository } from '@/repositories/stock/volumes-repository'
-import type { VolumeItemDTO } from '@/mappers/stock/volume.mapper'
+import { VolumeNotFoundError } from '@/@errors/volumes-errors';
+import type { VolumeItemDTO } from '@/mappers/stock/volume.mapper';
+import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface GetRomaneioUseCaseRequest {
-  volumeId: string
+  volumeId: string;
 }
 
 export interface GetRomaneioUseCaseResponse {
   romaneio: {
-    volumeId: string
-    volumeCode: string
-    totalItems: number
-    items: VolumeItemDTO[]
-    generatedAt: Date
-  }
+    volumeId: string;
+    volumeCode: string;
+    totalItems: number;
+    items: VolumeItemDTO[];
+    generatedAt: Date;
+  };
 }
 
 export class GetRomaneioUseCase {
@@ -22,13 +22,15 @@ export class GetRomaneioUseCase {
   async execute(
     request: GetRomaneioUseCaseRequest,
   ): Promise<GetRomaneioUseCaseResponse> {
-    const volume = await this.volumesRepository.findById(request.volumeId)
+    const volume = await this.volumesRepository.findById(request.volumeId);
     if (!volume) {
-      throw new VolumeNotFoundError(request.volumeId)
+      throw new VolumeNotFoundError(request.volumeId);
     }
 
     // Obter itens do volume
-    const items = await this.volumesRepository.getItemsByVolumeId(request.volumeId)
+    const items = await this.volumesRepository.getItemsByVolumeId(
+      request.volumeId,
+    );
 
     // Mapear para DTO
     const itemDTOs = items.map((item) => ({
@@ -37,7 +39,7 @@ export class GetRomaneioUseCase {
       itemId: item.itemId,
       addedAt: item.addedAt,
       addedBy: item.addedBy,
-    }))
+    }));
 
     return {
       romaneio: {
@@ -47,6 +49,6 @@ export class GetRomaneioUseCase {
         items: itemDTOs,
         generatedAt: new Date(),
       },
-    }
+    };
   }
 }

@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Category } from '@/entities/stock/category';
-import type { Category as PrismaCategory } from '@prisma/client';
+import type { Category as PrismaCategory } from '@prisma/generated/client.js';
 
 export function mapCategoryPrismaToDomain(categoryDb: PrismaCategory) {
   return {

@@ -13,6 +13,8 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     const variant = Variant.create({
       productId: data.productId,
       sku: data.sku,
+      fullCode: data.fullCode,
+      sequentialCode: data.sequentialCode,
       name: data.name,
       price: data.price,
       imageUrl: data.imageUrl,
@@ -76,6 +78,13 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     return this.items.filter(
       (item) => !item.deletedAt && item.productId.equals(productId),
     );
+  }
+
+  async findLastByProductId(productId: UniqueEntityID): Promise<Variant | null> {
+    const variants = this.items
+      .filter((item) => !item.deletedAt && item.productId.equals(productId))
+      .sort((a, b) => (b.sequentialCode ?? 0) - (a.sequentialCode ?? 0));
+    return variants[0] ?? null;
   }
 
   async findManyByPriceRange(

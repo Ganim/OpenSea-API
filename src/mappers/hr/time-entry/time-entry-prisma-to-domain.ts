@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntryType } from '@/entities/hr/value-objects';
-import type { TimeEntry as PrismaTimeEntry } from '@prisma/client';
+import type { TimeEntry as PrismaTimeEntry } from '@prisma/generated/client.js';
 
 export function mapTimeEntryPrismaToDomain(timeEntry: PrismaTimeEntry) {
   return {

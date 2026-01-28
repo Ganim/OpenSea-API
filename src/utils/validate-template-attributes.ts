@@ -24,7 +24,11 @@ export function validateAttributesAgainstTemplate(
   const templateKeys = Object.keys(templateAttributes);
 
   // Se não há atributos definidos no template, qualquer atributo é inválido
-  if (templateKeys.length === 0 && attributes && Object.keys(attributes).length > 0) {
+  if (
+    templateKeys.length === 0 &&
+    attributes &&
+    Object.keys(attributes).length > 0
+  ) {
     errors.push(`Template does not define any ${context} attributes`);
     return { valid: false, errors };
   }
@@ -32,7 +36,9 @@ export function validateAttributesAgainstTemplate(
   // Verificar chaves inválidas (atributos que não existem no template)
   if (attributes) {
     const attributeKeys = Object.keys(attributes);
-    const invalidKeys = attributeKeys.filter((key) => !templateKeys.includes(key));
+    const invalidKeys = attributeKeys.filter(
+      (key) => !templateKeys.includes(key),
+    );
     if (invalidKeys.length > 0) {
       errors.push(
         `Invalid attributes: ${invalidKeys.join(', ')}. Template only allows: ${templateKeys.join(', ')}`,

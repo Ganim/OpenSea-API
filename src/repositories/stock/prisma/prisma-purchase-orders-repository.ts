@@ -3,8 +3,7 @@ import { OrderStatus } from '@/entities/sales/value-objects/order-status';
 import { PurchaseOrder } from '@/entities/stock/purchase-order';
 import { prisma } from '@/lib/prisma';
 import { purchaseOrderPrismaToDomain } from '@/mappers/stock/purchase-order/purchase-order-prisma-to-domain';
-import type { OrderStatus as PrismaOrderStatus } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime/library';
+import type { OrderStatus as PrismaOrderStatus } from '@prisma/generated/client.js';
 import type {
   CreatePurchaseOrderSchema,
   PurchaseOrdersRepository,
@@ -27,15 +26,15 @@ export class PrismaPurchaseOrdersRepository
         status: data.status.value as PrismaOrderStatus,
         supplierId: data.supplierId.toString(),
         createdBy: data.createdBy?.toString(),
-        totalCost: new Decimal(totalCost),
+        totalCost: totalCost,
         expectedDate: data.expectedDate,
         notes: data.notes,
         items: {
           create: data.items.map((item) => ({
             variantId: item.variantId.toString(),
-            quantity: new Decimal(item.quantity),
-            unitCost: new Decimal(item.unitCost),
-            totalCost: new Decimal(item.quantity * item.unitCost),
+            quantity: item.quantity,
+            unitCost: item.unitCost,
+            totalCost: item.quantity * item.unitCost,
             notes: item.notes,
           })),
         },

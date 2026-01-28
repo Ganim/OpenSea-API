@@ -4,7 +4,7 @@ import type {
   NotificationPriorityValue,
 } from '@/entities/notifications/notification';
 import { NotificationTemplate } from '@/entities/notifications/notification-template';
-import type { NotificationTemplate as PrismaNotificationTemplate } from '@prisma/client';
+import type { NotificationTemplate as PrismaNotificationTemplate } from '@prisma/generated/client.js';
 
 export function mapNotificationTemplatePrismaToDomain(
   model: PrismaNotificationTemplate,

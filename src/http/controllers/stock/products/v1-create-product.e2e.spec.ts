@@ -41,6 +41,6 @@ describe('Create Product (E2E)', () => {
     expect(response.body).toHaveProperty('product');
     expect(response.body.product).toHaveProperty('id');
     expect(response.body.product).toHaveProperty('name');
-    expect(response.body.product).toHaveProperty('code');
+    expect(response.body.product).toHaveProperty('fullCode');
   });
 });

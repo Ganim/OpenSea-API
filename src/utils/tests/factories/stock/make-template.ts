@@ -52,8 +52,10 @@ export const templateAttr = {
     makeTemplateAttribute('boolean', options),
   date: (options?: Partial<Omit<TemplateAttribute, 'type'>>) =>
     makeTemplateAttribute('date', options),
-  select: (selectOptions: string[], options?: Partial<Omit<TemplateAttribute, 'type' | 'options'>>) =>
-    makeTemplateAttribute('select', { ...options, options: selectOptions }),
+  select: (
+    selectOptions: string[],
+    options?: Partial<Omit<TemplateAttribute, 'type' | 'options'>>,
+  ) => makeTemplateAttribute('select', { ...options, options: selectOptions }),
 };
 
 export function makeTemplate(override: MakeTemplateProps = {}): Template {

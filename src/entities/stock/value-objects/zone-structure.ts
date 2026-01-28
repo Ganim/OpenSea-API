@@ -64,13 +64,13 @@ export class ZoneStructure {
     return {
       aisles: hasConfigs
         ? Math.max(props.aisles ?? 0, derivedAisles)
-        : props.aisles ?? 0,
+        : (props.aisles ?? 0),
       shelvesPerAisle: hasConfigs
         ? Math.max(props.shelvesPerAisle ?? 0, derivedShelves)
-        : props.shelvesPerAisle ?? 0,
+        : (props.shelvesPerAisle ?? 0),
       binsPerShelf: hasConfigs
         ? Math.max(props.binsPerShelf ?? 0, derivedBinsPerShelf)
-        : props.binsPerShelf ?? 0,
+        : (props.binsPerShelf ?? 0),
       aisleConfigs: hasConfigs ? normalizedAisleConfigs : undefined,
       codePattern: props.codePattern ?? CodePattern.default().toJSON(),
       dimensions: props.dimensions,
@@ -227,7 +227,9 @@ export class ZoneStructure {
         return true;
       }
 
-      if ((this.aisleConfigs?.length ?? 0) !== (other.aisleConfigs?.length ?? 0)) {
+      if (
+        (this.aisleConfigs?.length ?? 0) !== (other.aisleConfigs?.length ?? 0)
+      ) {
         return false;
       }
 

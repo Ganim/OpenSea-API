@@ -1,6 +1,6 @@
 import { VolumeNotFoundError } from '@/@errors/volumes-errors';
-import { Volume } from '@/entities/stock/volume';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
+import { Volume } from '@/entities/stock/volume';
 import { InMemoryVolumesRepository } from '@/repositories/stock/in-memory/in-memory-volumes-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { DeleteVolumeUseCase } from './delete-volume';
@@ -39,7 +39,9 @@ describe('DeleteVolumeUseCase', () => {
     expect(result.success).toBe(true);
 
     // Verify the volume is soft deleted
-    const deletedVolume = await volumesRepository.findById(volume.id.toString());
+    const deletedVolume = await volumesRepository.findById(
+      volume.id.toString(),
+    );
     expect(deletedVolume).toBeNull();
   });
 });

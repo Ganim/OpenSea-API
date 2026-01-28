@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import type { LoginMethod } from '@/entities/core/session';
 import { IpAddress } from '@/entities/core/value-objects/ip-address';
 import { Token } from '@/entities/core/value-objects/token';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -10,11 +11,14 @@ import {
 import type { RefreshTokensRepository } from '@/repositories/core/refresh-tokens-repository';
 import type { SessionsRepository } from '@/repositories/core/sessions-repository';
 import type { UsersRepository } from '@/repositories/core/users-repository';
+import { SessionInfoService } from '@/services/session';
 import type { FastifyReply } from 'fastify';
 
 interface CreateSessionUseCaseRequest {
   userId: string;
   ip: string;
+  userAgent?: string;
+  loginMethod?: LoginMethod;
   reply: FastifyReply;
 }
 
@@ -34,6 +38,8 @@ export class CreateSessionUseCase {
   async execute({
     userId,
     ip,
+    userAgent,
+    loginMethod,
     reply,
   }: CreateSessionUseCaseRequest): Promise<CreateSessionUseCaseResponse> {
     const validId = new UniqueEntityID(userId);
@@ -45,9 +51,18 @@ export class CreateSessionUseCase {
       throw new ResourceNotFoundError('User not found.');
     }
 
+    // Parse device info and get geolocation
+    const { deviceInfo, geoLocation } = await SessionInfoService.getSessionContext({
+      userAgent,
+      ip,
+    });
+
     const newSession = await this.sessionsRepository.create({
       userId: validId,
       ip: validIp,
+      deviceInfo,
+      geoLocation,
+      loginMethod: loginMethod ?? 'password',
     });
 
     if (!newSession) {

@@ -27,7 +27,8 @@ export class AuditSignatureService {
 
   constructor() {
     // Usa uma variável de ambiente específica ou deriva do JWT_SECRET
-    this.hmacSecret = process.env.AUDIT_HMAC_SECRET || env.JWT_SECRET + '-audit';
+    this.hmacSecret =
+      process.env.AUDIT_HMAC_SECRET || env.JWT_SECRET + '-audit';
   }
 
   /**
@@ -35,9 +36,7 @@ export class AuditSignatureService {
    */
   generateSignature(data: AuditLogSignatureData): string {
     const payload = this.normalizePayload(data);
-    return createHmac('sha256', this.hmacSecret)
-      .update(payload)
-      .digest('hex');
+    return createHmac('sha256', this.hmacSecret).update(payload).digest('hex');
   }
 
   /**
@@ -100,7 +99,9 @@ export class AuditSignatureService {
       const keys = Object.keys(obj as Record<string, unknown>).sort();
 
       for (const key of keys) {
-        sorted[key] = this.sortObjectKeys((obj as Record<string, unknown>)[key]);
+        sorted[key] = this.sortObjectKeys(
+          (obj as Record<string, unknown>)[key],
+        );
       }
 
       return sorted;
@@ -139,7 +140,7 @@ export async function verifyAuditLogChain(
     metadata?: unknown;
     createdAt: Date;
     signature: string;
-  }>
+  }>,
 ): Promise<{
   valid: boolean;
   invalidLogIds: string[];
@@ -161,7 +162,7 @@ export async function verifyAuditLogChain(
         metadata: log.metadata,
         createdAt: log.createdAt,
       },
-      log.signature
+      log.signature,
     );
 
     if (!isValid) {

@@ -2,7 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Customer } from '@/entities/sales/customer';
 import { CustomerType } from '@/entities/sales/value-objects/customer-type';
 import { Document } from '@/entities/sales/value-objects/document';
-import type { Customer as PrismaCustomer } from '@prisma/client';
+import type { Customer as PrismaCustomer } from '@prisma/generated/client.js';
 
 export function mapCustomerPrismaToDomain(customerDb: PrismaCustomer) {
   return {

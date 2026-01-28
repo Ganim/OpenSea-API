@@ -3,7 +3,7 @@ import { RequestComment } from '@/entities/requests/request-comment';
 import type {
   Prisma,
   RequestComment as PrismaRequestComment,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 
 export class RequestCommentMapper {
   static toDomain(raw: PrismaRequestComment): RequestComment {

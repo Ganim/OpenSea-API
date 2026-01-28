@@ -1,20 +1,20 @@
-import { VolumeItem } from '@/entities/stock/volume-item'
-import { VolumeItemMapper } from '@/mappers/stock/volume.mapper'
 import {
-  VolumeNotFoundError,
   VolumeItemAlreadyExistsError,
-} from '@/@errors/volumes-errors'
-import type { VolumeRepository } from '@/repositories/stock/volumes-repository'
-import type { VolumeItemDTO } from '@/mappers/stock/volume.mapper'
+  VolumeNotFoundError,
+} from '@/@errors/volumes-errors';
+import { VolumeItem } from '@/entities/stock/volume-item';
+import type { VolumeItemDTO } from '@/mappers/stock/volume.mapper';
+import { VolumeItemMapper } from '@/mappers/stock/volume.mapper';
+import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface AddItemToVolumeUseCaseRequest {
-  volumeId: string
-  itemId: string
-  addedBy: string
+  volumeId: string;
+  itemId: string;
+  addedBy: string;
 }
 
 export interface AddItemToVolumeUseCaseResponse {
-  volumeItem: VolumeItemDTO
+  volumeItem: VolumeItemDTO;
 }
 
 export class AddItemToVolumeUseCase {
@@ -24,20 +24,20 @@ export class AddItemToVolumeUseCase {
     request: AddItemToVolumeUseCaseRequest,
   ): Promise<AddItemToVolumeUseCaseResponse> {
     // Verificar se volume existe
-    const volume = await this.volumesRepository.findById(request.volumeId)
+    const volume = await this.volumesRepository.findById(request.volumeId);
     if (!volume) {
-      throw new VolumeNotFoundError(request.volumeId)
+      throw new VolumeNotFoundError(request.volumeId);
     }
 
     // Verificar se item já existe no volume
     const existingItems = await this.volumesRepository.getItemsByVolumeId(
       request.volumeId,
-    )
+    );
     const itemExists = existingItems.some(
       (item) => item.itemId === request.itemId,
-    )
+    );
     if (itemExists) {
-      throw new VolumeItemAlreadyExistsError(request.volumeId, request.itemId)
+      throw new VolumeItemAlreadyExistsError(request.volumeId, request.itemId);
     }
 
     // Criar novo item de volume
@@ -45,14 +45,14 @@ export class AddItemToVolumeUseCase {
       volumeId: request.volumeId,
       itemId: request.itemId,
       addedBy: request.addedBy,
-    })
+    });
 
-    await this.volumesRepository.addItem(volumeItem)
+    await this.volumesRepository.addItem(volumeItem);
 
-    const volumeItemDTO = VolumeItemMapper.toDTO(volumeItem)
+    const volumeItemDTO = VolumeItemMapper.toDTO(volumeItem);
 
     return {
       volumeItem: volumeItemDTO,
-    }
+    };
   }
 }

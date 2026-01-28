@@ -27,10 +27,7 @@ export class GetItemByIdUseCase {
     }
 
     return {
-      item: itemToDTO(
-        itemWithRelations.item,
-        itemWithRelations.relatedData,
-      ),
+      item: itemToDTO(itemWithRelations.item, itemWithRelations.relatedData),
     };
   }
 }

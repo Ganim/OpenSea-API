@@ -2,6 +2,8 @@ import type { Manufacturer } from '@/entities/stock/manufacturer';
 
 export interface ManufacturerDTO {
   id: string;
+  code: string; // Código hierárquico auto-gerado (3 dígitos: 001)
+  sequentialCode: number | null;
   name: string;
   country: string;
   email: string | null;
@@ -23,6 +25,8 @@ export interface ManufacturerDTO {
 export function manufacturerToDTO(manufacturer: Manufacturer): ManufacturerDTO {
   return {
     id: manufacturer.manufacturerId.toString(),
+    code: manufacturer.code,
+    sequentialCode: manufacturer.sequentialCode ?? null,
     name: manufacturer.name,
     country: manufacturer.country,
     email: manufacturer.email,

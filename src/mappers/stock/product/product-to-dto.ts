@@ -98,6 +98,7 @@ export interface ProductDTO {
   sequentialCode?: number;
   description?: string;
   status: string;
+  outOfLine: boolean;
   attributes: Record<string, unknown>;
   careInstructionIds: string[];
   templateId: string;
@@ -116,7 +117,9 @@ export interface ProductDTO {
 }
 
 // Função auxiliar para converter Template
-function templateToDTO(template: Template | undefined): TemplateDTO | undefined {
+function templateToDTO(
+  template: Template | undefined,
+): TemplateDTO | undefined {
   if (!template) return undefined;
   return {
     id: template.id.toString(),
@@ -133,7 +136,9 @@ function templateToDTO(template: Template | undefined): TemplateDTO | undefined 
 }
 
 // Função auxiliar para converter Supplier
-function supplierToDTO(supplier: Supplier | null | undefined): SupplierDTO | null | undefined {
+function supplierToDTO(
+  supplier: Supplier | null | undefined,
+): SupplierDTO | null | undefined {
   if (!supplier) return supplier;
   return {
     id: supplier.id.toString(),
@@ -159,7 +164,9 @@ function supplierToDTO(supplier: Supplier | null | undefined): SupplierDTO | nul
 }
 
 // Função auxiliar para converter Manufacturer
-function manufacturerToDTO(manufacturer: Manufacturer | null | undefined): ManufacturerDTO | null | undefined {
+function manufacturerToDTO(
+  manufacturer: Manufacturer | null | undefined,
+): ManufacturerDTO | null | undefined {
   if (!manufacturer) return manufacturer;
   return {
     id: manufacturer.id.toString(),
@@ -228,6 +235,7 @@ export function productToDTO(product: Product): ProductDTO {
     sequentialCode: product.sequentialCode,
     description: product.description,
     status: product.status.value,
+    outOfLine: product.outOfLine,
     attributes: product.attributes,
     careInstructionIds: product.careInstructionIds,
     templateId: product.templateId.toString(),

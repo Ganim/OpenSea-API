@@ -4,7 +4,7 @@ import { Customer } from '@/entities/sales/customer';
 import { CustomerType } from '@/entities/sales/value-objects/customer-type';
 import { Document } from '@/entities/sales/value-objects/document';
 import { prisma } from '@/lib/prisma';
-import type { CustomerType as PrismaCustomerType } from '@prisma/client';
+import type { CustomerType as PrismaCustomerType } from '@prisma/generated/client.js';
 import type {
   CreateCustomerSchema,
   CustomersRepository,

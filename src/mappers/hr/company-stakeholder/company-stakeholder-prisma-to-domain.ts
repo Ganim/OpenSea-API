@@ -5,7 +5,7 @@ import type {
   CompanyStakeholderStatus,
 } from '@/entities/hr/company-stakeholder';
 import { CompanyStakeholder } from '@/entities/hr';
-import { CompanyStakeholder as PrismaCompanyStakeholder } from '@prisma/client';
+import { CompanyStakeholder as PrismaCompanyStakeholder } from '@prisma/generated/client.js';
 
 export function mapCompanyStakeholderPrismaToDomain(
   raw: PrismaCompanyStakeholder,

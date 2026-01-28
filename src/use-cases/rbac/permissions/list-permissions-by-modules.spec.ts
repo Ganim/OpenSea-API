@@ -1,6 +1,5 @@
 import { PermissionCode } from '@/entities/rbac/value-objects/permission-code';
 import { InMemoryPermissionsRepository } from '@/repositories/rbac/in-memory/in-memory-permissions-repository';
-import { makePermission } from '@/utils/tests/factories/rbac/make-permission';
 import { ListPermissionsByModulesUseCase } from './list-permissions-by-modules';
 
 let permissionsRepository: InMemoryPermissionsRepository;
@@ -13,68 +12,46 @@ describe('List Permissions By Modules Use Case', () => {
   });
 
   it('should list permissions grouped by modules', async () => {
-    // Criar permissões de diferentes módulos
-    const permission1 = await makePermission({
+    // Criar permissões de diferentes módulos diretamente no repositório
+    await permissionsRepository.create({
+      code: PermissionCode.create('stock.products.read'),
+      name: 'Read Products',
+      description: 'Read products permission',
       module: 'stock',
       resource: 'products',
       action: 'read',
+      isSystem: false,
+      metadata: {},
     });
-    const permission2 = await makePermission({
+    await permissionsRepository.create({
+      code: PermissionCode.create('stock.products.create'),
+      name: 'Create Products',
+      description: 'Create products permission',
       module: 'stock',
       resource: 'products',
       action: 'create',
+      isSystem: false,
+      metadata: {},
     });
-    const permission3 = await makePermission({
+    await permissionsRepository.create({
+      code: PermissionCode.create('core.users.read'),
+      name: 'Read Users',
+      description: 'Read users permission',
       module: 'core',
       resource: 'users',
       action: 'read',
+      isSystem: false,
+      metadata: {},
     });
-    const permission4 = await makePermission({
+    await permissionsRepository.create({
+      code: PermissionCode.create('core.users.update'),
+      name: 'Update Users',
+      description: 'Update users permission',
       module: 'core',
       resource: 'users',
       action: 'update',
-    });
-
-    // Adicionar permissões ao repositório
-    await permissionsRepository.create({
-      code: permission1.code,
-      name: permission1.name,
-      description: permission1.description,
-      module: permission1.module,
-      resource: permission1.resource,
-      action: permission1.action,
-      isSystem: permission1.isSystem,
-      metadata: permission1.metadata,
-    });
-    await permissionsRepository.create({
-      code: permission2.code,
-      name: permission2.name,
-      description: permission2.description,
-      module: permission2.module,
-      resource: permission2.resource,
-      action: permission2.action,
-      isSystem: permission2.isSystem,
-      metadata: permission2.metadata,
-    });
-    await permissionsRepository.create({
-      code: permission3.code,
-      name: permission3.name,
-      description: permission3.description,
-      module: permission3.module,
-      resource: permission3.resource,
-      action: permission3.action,
-      isSystem: permission3.isSystem,
-      metadata: permission3.metadata,
-    });
-    await permissionsRepository.create({
-      code: permission4.code,
-      name: permission4.name,
-      description: permission4.description,
-      module: permission4.module,
-      resource: permission4.resource,
-      action: permission4.action,
-      isSystem: permission4.isSystem,
-      metadata: permission4.metadata,
+      isSystem: false,
+      metadata: {},
     });
 
     const result = await sut.execute();
@@ -100,38 +77,25 @@ describe('List Permissions By Modules Use Case', () => {
   });
 
   it('should filter out system permissions when includeSystem is false', async () => {
-    const systemPermission = await makePermission({
+    await permissionsRepository.create({
+      code: PermissionCode.create('rbac.permissions.read'),
+      name: 'Read Permissions',
+      description: 'Read permissions permission',
       module: 'rbac',
       resource: 'permissions',
       action: 'read',
       isSystem: true,
+      metadata: {},
     });
-    const regularPermission = await makePermission({
+    await permissionsRepository.create({
+      code: PermissionCode.create('stock.products.read'),
+      name: 'Read Products',
+      description: 'Read products permission',
       module: 'stock',
       resource: 'products',
       action: 'read',
       isSystem: false,
-    });
-
-    await permissionsRepository.create({
-      code: systemPermission.code,
-      name: systemPermission.name,
-      description: systemPermission.description,
-      module: systemPermission.module,
-      resource: systemPermission.resource,
-      action: systemPermission.action,
-      isSystem: systemPermission.isSystem,
-      metadata: systemPermission.metadata,
-    });
-    await permissionsRepository.create({
-      code: regularPermission.code,
-      name: regularPermission.name,
-      description: regularPermission.description,
-      module: regularPermission.module,
-      resource: regularPermission.resource,
-      action: regularPermission.action,
-      isSystem: regularPermission.isSystem,
-      metadata: regularPermission.metadata,
+      metadata: {},
     });
 
     const result = await sut.execute({ includeSystem: false });
@@ -142,22 +106,15 @@ describe('List Permissions By Modules Use Case', () => {
   });
 
   it('should include system permissions by default', async () => {
-    const systemPermission = await makePermission({
+    await permissionsRepository.create({
+      code: PermissionCode.create('rbac.permissions.read'),
+      name: 'Read Permissions',
+      description: 'Read permissions permission',
       module: 'rbac',
       resource: 'permissions',
       action: 'read',
       isSystem: true,
-    });
-
-    await permissionsRepository.create({
-      code: systemPermission.code,
-      name: systemPermission.name,
-      description: systemPermission.description,
-      module: systemPermission.module,
-      resource: systemPermission.resource,
-      action: systemPermission.action,
-      isSystem: systemPermission.isSystem,
-      metadata: systemPermission.metadata,
+      metadata: {},
     });
 
     const result = await sut.execute();

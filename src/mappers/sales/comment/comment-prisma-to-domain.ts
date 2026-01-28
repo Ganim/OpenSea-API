@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Comment } from '@/entities/sales/comment';
 import { EntityType } from '@/entities/sales/value-objects/entity-type';
-import type { Comment as PrismaComment } from '@prisma/client';
+import type { Comment as PrismaComment } from '@prisma/generated/client.js';
 
 export function mapCommentPrismaToDomain(commentDb: PrismaComment) {
   return {

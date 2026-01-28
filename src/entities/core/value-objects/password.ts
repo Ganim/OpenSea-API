@@ -1,6 +1,24 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { HASH_ROUNDS, PASSWORD_PATTERN } from '@/config/auth';
+import {
+  HASH_ROUNDS,
+  PASSWORD_PATTERN,
+  PASSWORD_VALIDATION_MESSAGES,
+} from '@/config/auth';
 import { compare as bcryptCompare, hash as bcryptHash } from 'bcryptjs';
+
+export interface PasswordStrengthOptions {
+  minLength?: number;
+  requireUppercase?: boolean;
+  requireLowercase?: boolean;
+  requireNumber?: boolean;
+  requireSpecial?: boolean;
+  regex?: RegExp;
+}
+
+export interface PasswordStrengthResult {
+  valid: boolean;
+  errors: string[];
+}
 
 export class Password {
   private static readonly DEFAULT_ROUNDS = HASH_ROUNDS ?? 6;
@@ -25,57 +43,65 @@ export class Password {
     return bcryptCompare(password, hash);
   }
 
+  /**
+   * Valida a força da senha com base nos requisitos configurados.
+   * Retorna mensagens de erro traduzidas para o português.
+   */
   static isStrong(
     password: string,
-    options?: {
-      minLength?: number;
-      requireUppercase?: boolean;
-      requireLowercase?: boolean;
-      requireNumber?: boolean;
-      requireSpecial?: boolean;
-      regex?: RegExp;
-    },
-  ): {
-    valid: boolean;
-    errors: string[];
-  } {
+    options?: PasswordStrengthOptions,
+  ): PasswordStrengthResult {
     const errors: string[] = [];
     const minLength = options?.minLength ?? 6;
+
     if (password.length < minLength) {
-      errors.push(`Password must be at least ${minLength} characters.`);
+      errors.push(PASSWORD_VALIDATION_MESSAGES.minLength(minLength));
     }
     if (options?.requireUppercase && !/[A-Z]/.test(password)) {
-      errors.push('Password must contain at least one uppercase letter.');
+      errors.push(PASSWORD_VALIDATION_MESSAGES.requireUppercase);
     }
     if (options?.requireLowercase && !/[a-z]/.test(password)) {
-      errors.push('Password must contain at least one lowercase letter.');
+      errors.push(PASSWORD_VALIDATION_MESSAGES.requireLowercase);
     }
     if (options?.requireNumber && !/[0-9]/.test(password)) {
-      errors.push('Password must contain at least one number.');
+      errors.push(PASSWORD_VALIDATION_MESSAGES.requireNumber);
     }
     if (options?.requireSpecial && !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      errors.push('Password must contain at least one special character.');
+      errors.push(PASSWORD_VALIDATION_MESSAGES.requireSpecial);
     }
     if (options?.regex && !options.regex.test(password)) {
-      errors.push('Password does not match the required pattern.');
+      errors.push('A senha não corresponde ao padrão requerido.');
     }
+
     return {
       valid: errors.length === 0,
       errors,
     };
   }
 
+  /**
+   * Cria uma nova senha hasheada após validar os requisitos de força.
+   * @throws BadRequestError se a senha não atender aos requisitos
+   */
   static async create(password: string): Promise<Password> {
-    const passwordStrong = await Password.isStrong(password, PASSWORD_PATTERN);
+    const passwordStrength = Password.isStrong(password, PASSWORD_PATTERN);
 
-    if (!passwordStrong.valid) {
-      throw new BadRequestError('Password is not strong enough.');
+    if (!passwordStrength.valid) {
+      // Retorna a primeira mensagem de erro para o usuário
+      throw new BadRequestError(
+        passwordStrength.errors[0] || PASSWORD_VALIDATION_MESSAGES.notStrong,
+      );
     }
 
     const passwordHash = await Password.hash(password);
-    const validPassword = Password.fromHash(passwordHash);
+    return Password.fromHash(passwordHash);
+  }
 
-    return validPassword;
+  /**
+   * Retorna os requisitos de senha atuais (útil para exibir no frontend)
+   */
+  static getRequirements(): PasswordStrengthOptions {
+    return { ...PASSWORD_PATTERN };
   }
 
   get value(): string {

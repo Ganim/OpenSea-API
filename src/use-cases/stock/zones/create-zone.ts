@@ -2,8 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
-    ZoneStructure,
-    type ZoneStructureProps,
+  ZoneStructure,
+  type ZoneStructureProps,
 } from '@/entities/stock/value-objects/zone-structure';
 import type { Zone } from '@/entities/stock/zone';
 import type { WarehousesRepository } from '@/repositories/stock/warehouses-repository';

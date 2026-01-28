@@ -1,9 +1,10 @@
 import { Email } from '@/entities/core/value-objects/email';
+import { IpAddress } from '@/entities/core/value-objects/ip-address';
 import { Password } from '@/entities/core/value-objects/password';
 import { Token } from '@/entities/core/value-objects/token';
 import { Username } from '@/entities/core/value-objects/username';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 import { mapUserProfilePrismaToDomain } from './user-profile-prisma-to-domain';
 
 export function mapUserPrismaToDomain(
@@ -14,6 +15,9 @@ export function mapUserPrismaToDomain(
     username: Username.create(userDb.username ?? ''),
     email: Email.create(userDb.email),
     password: Password.fromHash(userDb.password_hash),
+    lastLoginIp: userDb.lastLoginIp
+      ? IpAddress.create(userDb.lastLoginIp)
+      : undefined,
     failedLoginAttempts: userDb.failedLoginAttempts,
     blockedUntil: userDb.blockedUntil ?? undefined,
     deletedAt: userDb.deletedAt ?? undefined,

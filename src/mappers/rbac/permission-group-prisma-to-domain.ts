@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PermissionGroup } from '@/entities/rbac/permission-group';
-import type { PermissionGroup as PrismaPermissionGroup } from '@prisma/client';
+import type { PermissionGroup as PrismaPermissionGroup } from '@prisma/generated/client.js';
 
 export function mapPermissionGroupPrismaToDomain(
   prismaGroup: PrismaPermissionGroup,

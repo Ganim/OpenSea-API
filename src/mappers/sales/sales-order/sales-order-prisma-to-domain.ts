@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { SalesOrder, SalesOrderItem } from '@/entities/sales/sales-order';
 import { OrderStatus } from '@/entities/sales/value-objects/order-status';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 
 export function mapSalesOrderPrismaToDomain(
   orderDb: Prisma.SalesOrderGetPayload<{ include: { items: true } }>,

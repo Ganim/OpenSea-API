@@ -4,6 +4,8 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface ManufacturerProps {
   id: UniqueEntityID;
+  code: string; // Código hierárquico auto-gerado (3 dígitos: 001)
+  sequentialCode?: number; // Para geração do code
   name: string;
   country: string;
   email: string | null;
@@ -26,6 +28,14 @@ export class Manufacturer extends Entity<ManufacturerProps> {
   // Getters
   get manufacturerId(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get code(): string {
+    return this.props.code;
+  }
+
+  get sequentialCode(): number | undefined {
+    return this.props.sequentialCode;
   }
 
   get name(): string {

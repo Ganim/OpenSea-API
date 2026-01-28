@@ -20,6 +20,14 @@ interface CreateManufacturerUseCaseResponse {
   manufacturer: import('@/entities/stock/manufacturer').Manufacturer;
 }
 
+/**
+ * Gera código hierárquico de 3 dígitos a partir do sequentialCode
+ * @example padCode(1) => "001", padCode(42) => "042"
+ */
+function padCode(seq: number, digits = 3): string {
+  return seq.toString().padStart(digits, '0');
+}
+
 export class CreateManufacturerUseCase {
   constructor(private manufacturersRepository: ManufacturersRepository) {}
 
@@ -81,8 +89,13 @@ export class CreateManufacturerUseCase {
       throw new BadRequestError('Manufacturer with this name already exists');
     }
 
-    // Save to repository
+    // Get next sequential code to generate the hierarchical code
+    const sequentialCode = await this.manufacturersRepository.getNextSequentialCode();
+    const code = padCode(sequentialCode);
+
+    // Save to repository with generated code
     const createdManufacturer = await this.manufacturersRepository.create({
+      code,
       name,
       country,
       email,

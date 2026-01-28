@@ -3,7 +3,7 @@ import { Permission } from '@/entities/rbac/permission';
 import { UserDirectPermission } from '@/entities/rbac/user-direct-permission';
 import { prisma } from '@/lib/prisma';
 import { mapPermissionPrismaToDomain } from '@/mappers/rbac/permission-prisma-to-domain';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 import type {
   GrantDirectPermissionSchema,
   ListUserDirectPermissionsParams,

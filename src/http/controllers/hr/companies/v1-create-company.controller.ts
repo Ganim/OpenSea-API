@@ -61,6 +61,7 @@ export async function v1CreateCompanyController(app: FastifyInstance) {
           placeholders: {
             userName,
             companyName: company.tradeName || company.legalName,
+            cnpj: data.cnpj,
           },
           newData: {
             legalName: data.legalName,

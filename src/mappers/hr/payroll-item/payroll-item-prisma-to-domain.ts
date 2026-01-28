@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PayrollItemType } from '@/entities/hr/value-objects';
-import type { PayrollItem as PrismaPayrollItem } from '@prisma/client';
+import type { PayrollItem as PrismaPayrollItem } from '@prisma/generated/client.js';
 
 export function mapPayrollItemPrismaToDomain(item: PrismaPayrollItem) {
   return {

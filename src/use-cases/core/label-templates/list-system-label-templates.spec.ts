@@ -44,7 +44,10 @@ describe('ListSystemLabelTemplatesUseCase', () => {
   it('should not return deleted system templates', async () => {
     labelTemplatesRepository.items.push(
       makeSystemLabelTemplate({ name: 'Sistema Ativo' }),
-      makeSystemLabelTemplate({ name: 'Sistema Deletado', deletedAt: new Date() }),
+      makeSystemLabelTemplate({
+        name: 'Sistema Deletado',
+        deletedAt: new Date(),
+      }),
     );
 
     const result = await sut.execute();

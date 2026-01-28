@@ -4,7 +4,10 @@ import type { RequestPriority } from '@/entities/requests/value-objects/request-
 import type { RequestStatus } from '@/entities/requests/value-objects/request-status';
 import type { RequestTargetType } from '@/entities/requests/value-objects/request-target-type';
 import type { RequestType } from '@/entities/requests/value-objects/request-type';
-import type { Prisma, Request as PrismaRequest } from '@prisma/client';
+import type {
+  Prisma,
+  Request as PrismaRequest,
+} from '@prisma/generated/client.js';
 
 export class RequestMapper {
   static toDomain(raw: PrismaRequest): Request {

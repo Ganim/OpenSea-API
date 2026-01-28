@@ -26,7 +26,8 @@ describe('Cancel Request (E2E)', () => {
       .patch(`/v1/requests/${testRequest.id}/cancel`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        cancellationReason: 'Test cancellation reason with more than 10 characters',
+        cancellationReason:
+          'Test cancellation reason with more than 10 characters',
       });
 
     expect(response.status).toBe(200);

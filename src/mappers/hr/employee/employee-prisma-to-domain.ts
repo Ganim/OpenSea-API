@@ -10,7 +10,7 @@ import {
   PIS,
   WorkRegime,
 } from '@/entities/hr/value-objects';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 
 export function mapEmployeePrismaToDomain(
   employeeDb: Prisma.EmployeeGetPayload<{

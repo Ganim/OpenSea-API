@@ -55,7 +55,7 @@ export function startNotificationWorker() {
   return createWorker<NotificationJobData>(
     QUEUE_NAMES.NOTIFICATIONS,
     async (job: Job<NotificationJobData>) => {
-      const { userId, title, type } = job.data;
+      const { userId, title, type: _type } = job.data;
 
       console.log(
         `[NotificationWorker] Processing notification for user: ${userId}, title: ${title}`,
@@ -72,7 +72,9 @@ export function startNotificationWorker() {
       //   },
       // });
 
-      console.log(`[NotificationWorker] Notification created for user: ${userId}`);
+      console.log(
+        `[NotificationWorker] Notification created for user: ${userId}`,
+      );
     },
     {
       concurrency: 10,

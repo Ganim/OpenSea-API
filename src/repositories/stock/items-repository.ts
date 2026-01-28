@@ -21,7 +21,9 @@ export interface ItemWithRelationsDTO {
 }
 
 export interface CreateItemSchema {
-  uniqueCode: string;
+  uniqueCode?: string; // Código único manual ou UUID (opcional)
+  fullCode: string; // Código hierárquico gerado: TEMPLATE.FABRICANTE.PRODUTO.VARIANTE-ITEM
+  sequentialCode: number; // Sequencial local à variante
   variantId: UniqueEntityID;
   binId?: UniqueEntityID; // Referência ao bin onde o item está armazenado
   initialQuantity: number;
@@ -57,14 +59,23 @@ export interface ItemsRepository {
   findManyByBatch(batchNumber: string): Promise<Item[]>;
   findManyExpiring(daysUntilExpiry: number): Promise<Item[]>;
   findManyExpired(): Promise<Item[]>;
+  findLastByVariantId(variantId: UniqueEntityID): Promise<Item | null>;
   update(data: UpdateItemSchema): Promise<Item | null>;
   save(item: Item): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
 
   // Methods with relations (for list/get with related data)
   findAllWithRelations(): Promise<ItemWithRelationsDTO[]>;
-  findByIdWithRelations(id: UniqueEntityID): Promise<ItemWithRelationsDTO | null>;
-  findManyByVariantWithRelations(variantId: UniqueEntityID): Promise<ItemWithRelationsDTO[]>;
-  findManyByProductWithRelations(productId: UniqueEntityID): Promise<ItemWithRelationsDTO[]>;
-  findManyByBinWithRelations(binId: UniqueEntityID): Promise<ItemWithRelationsDTO[]>;
+  findByIdWithRelations(
+    id: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO | null>;
+  findManyByVariantWithRelations(
+    variantId: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO[]>;
+  findManyByProductWithRelations(
+    productId: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO[]>;
+  findManyByBinWithRelations(
+    binId: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO[]>;
 }

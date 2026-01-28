@@ -2,7 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntry } from '@/entities/hr/time-entry';
 import { prisma } from '@/lib/prisma';
 import { mapTimeEntryPrismaToDomain } from '@/mappers/hr/time-entry';
-import type { TimeEntryType as PrismaTimeEntryType } from '@prisma/client';
+import type { TimeEntryType as PrismaTimeEntryType } from '@prisma/generated/client.js';
 import type {
   CreateTimeEntrySchema,
   FindTimeEntriesFilters,

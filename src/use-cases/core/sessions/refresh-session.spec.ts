@@ -229,7 +229,7 @@ describe('RefreshSessionUseCase', () => {
       usersRepository,
     });
 
-    const { session, refreshToken } = await makeSession({
+    const { refreshToken } = await makeSession({
       userId: user.id,
       ip: '9.9.9.9',
       sessionsRepository,

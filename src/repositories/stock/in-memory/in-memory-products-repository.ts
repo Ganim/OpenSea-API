@@ -11,13 +11,20 @@ import type {
 
 export class InMemoryProductsRepository implements ProductsRepository {
   public items: Product[] = [];
+  private sequentialCounter = 0;
 
   async create(data: CreateProductSchema): Promise<Product> {
     const product = Product.create({
       name: data.name,
-      code: data.code,
+      slug: data.slug,
+      fullCode: data.fullCode,
+      barcode: data.barcode,
+      eanCode: data.eanCode,
+      upcCode: data.upcCode,
+      qrCode: data.qrCode,
       description: data.description,
       status: data.status,
+      outOfLine: data.outOfLine ?? false,
       templateId: data.templateId, // Obrigatório
       supplierId: data.supplierId,
       manufacturerId: data.manufacturerId,
@@ -77,9 +84,10 @@ export class InMemoryProductsRepository implements ProductsRepository {
     if (!product) return null;
 
     if (data.name !== undefined) product.name = data.name;
-    if (data.code !== undefined) product.code = data.code;
+    // code e fullCode são imutáveis após criação
     if (data.description !== undefined) product.description = data.description;
     if (data.status !== undefined) product.status = data.status;
+    if (data.outOfLine !== undefined) product.outOfLine = data.outOfLine;
     if (data.supplierId !== undefined) product.supplierId = data.supplierId;
     if (data.manufacturerId !== undefined)
       product.manufacturerId = data.manufacturerId;
@@ -115,5 +123,10 @@ export class InMemoryProductsRepository implements ProductsRepository {
     if (product) {
       product.delete();
     }
+  }
+
+  async getNextSequentialCode(): Promise<number> {
+    this.sequentialCounter += 1;
+    return this.sequentialCounter;
   }
 }

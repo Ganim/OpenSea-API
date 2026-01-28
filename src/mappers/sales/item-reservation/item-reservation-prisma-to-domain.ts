@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemReservation } from '@/entities/sales/item-reservation';
-import type { ItemReservation as PrismaItemReservation } from '@prisma/client';
+import type { ItemReservation as PrismaItemReservation } from '@prisma/generated/client.js';
 
 export function mapItemReservationPrismaToDomain(
   reservationDb: PrismaItemReservation,

@@ -8,9 +8,17 @@ import type {
 
 export class InMemoryTemplatesRepository implements TemplatesRepository {
   public items: Template[] = [];
+  private sequentialCounter = 0;
 
   async create(data: CreateTemplateSchema): Promise<Template> {
+    this.sequentialCounter += 1;
+    const sequentialCode = this.sequentialCounter;
+    // Use provided code or generate from sequentialCode
+    const code = data.code ?? sequentialCode.toString().padStart(3, '0');
+
     const template = Template.create({
+      code,
+      sequentialCode,
       name: data.name,
       iconUrl: data.iconUrl,
       unitOfMeasure: data.unitOfMeasure,

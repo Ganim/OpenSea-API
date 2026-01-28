@@ -1,23 +1,25 @@
 import { Entity } from '../domain/entities';
 import { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import { Slug } from './value-objects/slug';
 
 export interface VariantProps {
   id: UniqueEntityID;
   productId: UniqueEntityID;
   sku?: string; // SKU manual opcional
-  fullCode?: string; // Código completo gerado automaticamente (ex: 23.6.23)
+  slug: Slug; // Slug gerado automaticamente - IMUTÁVEL
+  fullCode: string; // Código completo gerado automaticamente (ex: 001.001.0001.001) - IMUTÁVEL
   sequentialCode?: number; // Código sequencial da variante
+  barcode: string; // Code128 gerado do fullCode - IMUTÁVEL
+  eanCode: string; // EAN-13 gerado do fullCode - IMUTÁVEL
+  upcCode: string; // UPC gerado do fullCode - IMUTÁVEL
+  qrCode?: string; // QR Code editável
   name: string;
   price: number;
   imageUrl?: string;
   attributes: Record<string, unknown>;
   costPrice?: number;
   profitMargin?: number;
-  barcode?: string;
-  qrCode?: string;
-  eanCode?: string;
-  upcCode?: string;
   colorHex?: string;
   colorPantone?: string;
   minStock?: number;
@@ -51,12 +53,42 @@ export class Variant extends Entity<VariantProps> {
     this.touch();
   }
 
-  get fullCode(): string | undefined {
+  get slug(): Slug {
+    return this.props.slug;
+  }
+
+  // slug é imutável após criação (gerado automaticamente)
+
+  get fullCode(): string {
     return this.props.fullCode;
   }
 
-  set fullCode(fullCode: string | undefined) {
-    this.props.fullCode = fullCode;
+  // fullCode é imutável após criação (gerado automaticamente)
+
+  get barcode(): string {
+    return this.props.barcode;
+  }
+
+  // barcode é imutável após criação (gerado automaticamente)
+
+  get eanCode(): string {
+    return this.props.eanCode;
+  }
+
+  // eanCode é imutável após criação (gerado automaticamente)
+
+  get upcCode(): string {
+    return this.props.upcCode;
+  }
+
+  // upcCode é imutável após criação (gerado automaticamente)
+
+  get qrCode(): string | undefined {
+    return this.props.qrCode;
+  }
+
+  set qrCode(qrCode: string | undefined) {
+    this.props.qrCode = qrCode;
     this.touch();
   }
 
@@ -127,42 +159,6 @@ export class Variant extends Entity<VariantProps> {
       throw new Error('Profit margin must be between 0 and 100');
     }
     this.props.profitMargin = profitMargin;
-    this.touch();
-  }
-
-  get barcode(): string | undefined {
-    return this.props.barcode;
-  }
-
-  set barcode(barcode: string | undefined) {
-    this.props.barcode = barcode;
-    this.touch();
-  }
-
-  get qrCode(): string | undefined {
-    return this.props.qrCode;
-  }
-
-  set qrCode(qrCode: string | undefined) {
-    this.props.qrCode = qrCode;
-    this.touch();
-  }
-
-  get eanCode(): string | undefined {
-    return this.props.eanCode;
-  }
-
-  set eanCode(eanCode: string | undefined) {
-    this.props.eanCode = eanCode;
-    this.touch();
-  }
-
-  get upcCode(): string | undefined {
-    return this.props.upcCode;
-  }
-
-  set upcCode(upcCode: string | undefined) {
-    this.props.upcCode = upcCode;
     this.touch();
   }
 

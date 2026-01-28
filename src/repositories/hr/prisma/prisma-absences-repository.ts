@@ -2,7 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Absence } from '@/entities/hr/absence';
 import { prisma } from '@/lib/prisma';
 import { mapAbsencePrismaToDomain } from '@/mappers/hr/absence';
-import type { AbsenceStatus, AbsenceType } from '@prisma/client';
+import type { AbsenceStatus, AbsenceType } from '@prisma/generated/client.js';
 import type {
   AbsencesRepository,
   CreateAbsenceSchema,

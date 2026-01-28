@@ -84,7 +84,12 @@ export class PrismaLabelTemplatesRepository
         ? {
             AND: {
               OR: [
-                { name: { contains: filters.search, mode: 'insensitive' as const } },
+                {
+                  name: {
+                    contains: filters.search,
+                    mode: 'insensitive' as const,
+                  },
+                },
                 {
                   description: {
                     contains: filters.search,
@@ -127,9 +132,7 @@ export class PrismaLabelTemplatesRepository
     return templates.map(labelTemplatePrismaToDomain);
   }
 
-  async update(
-    data: UpdateLabelTemplateSchema,
-  ): Promise<LabelTemplate | null> {
+  async update(data: UpdateLabelTemplateSchema): Promise<LabelTemplate | null> {
     const existing = await prisma.labelTemplate.findUnique({
       where: { id: data.id.toString() },
     });

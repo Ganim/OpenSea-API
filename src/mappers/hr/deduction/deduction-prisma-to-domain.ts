@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Deduction as PrismaDeduction } from '@prisma/client';
+import type { Deduction as PrismaDeduction } from '@prisma/generated/client.js';
 
 export function mapDeductionPrismaToDomain(deduction: PrismaDeduction) {
   return {

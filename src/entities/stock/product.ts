@@ -9,16 +9,22 @@ import type { Tag } from './tag';
 import type { Template } from './template';
 import { CareInstructions } from './value-objects/care-instructions';
 import { ProductStatus } from './value-objects/product-status';
+import { Slug } from './value-objects/slug';
 import type { Variant } from './variant';
 
 export interface ProductProps {
   id: UniqueEntityID;
   name: string;
-  code?: string; // Código manual opcional
-  fullCode?: string; // Código completo gerado automaticamente (ex: 23.6)
+  slug: Slug; // Slug gerado automaticamente - IMUTÁVEL
+  fullCode: string; // Código completo gerado automaticamente (ex: 001.001.0001) - IMUTÁVEL
   sequentialCode?: number; // Código sequencial do produto
+  barcode: string; // Code128 gerado do fullCode - IMUTÁVEL
+  eanCode: string; // EAN-13 gerado do fullCode - IMUTÁVEL
+  upcCode: string; // UPC gerado do fullCode - IMUTÁVEL
+  qrCode?: string; // QR Code editável
   description?: string;
   status: ProductStatus;
+  outOfLine: boolean; // Indica se o produto está fora de linha
   attributes: Record<string, unknown>;
   careInstructions: CareInstructions; // ISO 3758 care instruction IDs
   templateId: UniqueEntityID;
@@ -51,21 +57,42 @@ export class Product extends Entity<ProductProps> {
     this.touch();
   }
 
-  get code(): string | undefined {
-    return this.props.code;
+  get slug(): Slug {
+    return this.props.slug;
   }
 
-  set code(code: string | undefined) {
-    this.props.code = code;
-    this.touch();
-  }
+  // slug é imutável após criação (gerado automaticamente)
 
-  get fullCode(): string | undefined {
+  get fullCode(): string {
     return this.props.fullCode;
   }
 
-  set fullCode(fullCode: string | undefined) {
-    this.props.fullCode = fullCode;
+  // fullCode é imutável após criação (gerado automaticamente)
+
+  get barcode(): string {
+    return this.props.barcode;
+  }
+
+  // barcode é imutável após criação (gerado automaticamente)
+
+  get eanCode(): string {
+    return this.props.eanCode;
+  }
+
+  // eanCode é imutável após criação (gerado automaticamente)
+
+  get upcCode(): string {
+    return this.props.upcCode;
+  }
+
+  // upcCode é imutável após criação (gerado automaticamente)
+
+  get qrCode(): string | undefined {
+    return this.props.qrCode;
+  }
+
+  set qrCode(qrCode: string | undefined) {
+    this.props.qrCode = qrCode;
     this.touch();
   }
 
@@ -97,6 +124,15 @@ export class Product extends Entity<ProductProps> {
 
   set attributes(attributes: Record<string, unknown>) {
     this.props.attributes = attributes;
+    this.touch();
+  }
+
+  get outOfLine(): boolean {
+    return this.props.outOfLine;
+  }
+
+  set outOfLine(outOfLine: boolean) {
+    this.props.outOfLine = outOfLine;
     this.touch();
   }
 
@@ -250,7 +286,7 @@ export class Product extends Entity<ProductProps> {
   }
 
   get displayCode(): string {
-    return this.props.fullCode ?? this.props.code ?? this.props.id.toString();
+    return this.props.fullCode ?? this.props.id.toString();
   }
 
   // Business Methods
@@ -294,6 +330,7 @@ export class Product extends Entity<ProductProps> {
       | 'attributes'
       | 'status'
       | 'careInstructions'
+      | 'outOfLine'
     >,
     id?: UniqueEntityID,
   ): Product {
@@ -304,6 +341,7 @@ export class Product extends Entity<ProductProps> {
         attributes: props.attributes ?? {},
         careInstructions: props.careInstructions ?? CareInstructions.empty(),
         status: props.status ?? ProductStatus.create('ACTIVE'),
+        outOfLine: props.outOfLine ?? false,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

@@ -17,7 +17,9 @@ export interface LabelTemplateDTO {
   updatedAt: Date | null;
 }
 
-export function labelTemplateToDTO(labelTemplate: LabelTemplate): LabelTemplateDTO {
+export function labelTemplateToDTO(
+  labelTemplate: LabelTemplate,
+): LabelTemplateDTO {
   return {
     id: labelTemplate.id.toString(),
     name: labelTemplate.name,

@@ -5,12 +5,12 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // ===============================================
@@ -172,12 +172,38 @@ model Session {
   revokedAt  DateTime? @map("revoked_at")
   lastUsedAt DateTime? @map("last_used_at")
 
+  // Device Information
+  userAgent      String? @map("user_agent") @db.VarChar(512)
+  deviceType     String? @map("device_type") @db.VarChar(32) // desktop, mobile, tablet, bot, unknown
+  deviceName     String? @map("device_name") @db.VarChar(128) // iPhone 15, Samsung Galaxy S24, etc.
+  browserName    String? @map("browser_name") @db.VarChar(64) // Chrome, Firefox, Safari, etc.
+  browserVersion String? @map("browser_version") @db.VarChar(32)
+  osName         String? @map("os_name") @db.VarChar(64) // Windows, macOS, iOS, Android, Linux
+  osVersion      String? @map("os_version") @db.VarChar(32)
+
+  // Geolocation (based on IP)
+  country     String? @db.VarChar(64) // Brazil, United States, etc.
+  countryCode String? @map("country_code") @db.VarChar(2) // BR, US, etc.
+  region      String? @db.VarChar(64) // São Paulo, California, etc.
+  city        String? @db.VarChar(64)
+  timezone    String? @db.VarChar(64) // America/Sao_Paulo, etc.
+  latitude    Float?
+  longitude   Float?
+
+  // Security & Trust
+  isTrusted       Boolean   @default(false) @map("is_trusted") // User marked as trusted device
+  trustVerifiedAt DateTime? @map("trust_verified_at") // When device was verified
+  loginMethod     String?   @map("login_method") @db.VarChar(32) // password, oauth, magic_link, api_key
+
   // Relations
   user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   refreshTokens RefreshToken[]
 
   @@index([userId])
   @@index([ip])
+  @@index([deviceType])
+  @@index([country])
+  @@index([isTrusted])
   @@map("sessions")
 }
 
@@ -1005,9 +1031,11 @@ model Supplier {
 }
 
 model Manufacturer {
-  id      String  @id @default(uuid())
-  name    String  @db.VarChar(128)
-  country String? @db.VarChar(64)
+  id             String @id @default(uuid())
+  code           String @unique @db.VarChar(3) // Código hierárquico auto-gerado (ex: 001)
+  sequentialCode Int    @default(autoincrement()) @map("sequential_code") // Para geração do code
+  name           String @db.VarChar(128)
+  country        String? @db.VarChar(64)
 
   // Contato
   email   String? @db.VarChar(254)
@@ -1033,6 +1061,7 @@ model Manufacturer {
 
   @@index([isActive])
   @@index([rating])
+  @@index([sequentialCode])
   @@map("manufacturers")
 }
 
@@ -1217,6 +1246,8 @@ model VolumeItem {
 
 model Template {
   id                String        @id @default(uuid())
+  code              String?       @unique @db.VarChar(3) // Código hierárquico manual ou auto-gerado (ex: 001)
+  sequentialCode    Int           @default(autoincrement()) @map("sequential_code") // Para fallback na geração do code
   name              String        @db.VarChar(128)
   iconUrl           String?       @map("icon_url") @db.VarChar(512) // URL do ícone SVG do template
   unitOfMeasure     UnitOfMeasure @default(UNITS) @map("unit_of_measure")
@@ -1224,7 +1255,6 @@ model Template {
   variantAttributes Json          @default("{}") @map("variant_attributes") // TemplateAttribute[] - atributos tipados com unitOfMeasure, enablePrint, enableView
   itemAttributes    Json          @default("{}") @map("item_attributes") // TemplateAttribute[] - atributos tipados com unitOfMeasure, enablePrint, enableView
   careLabel         Json?         @map("care_label") // Etiqueta de conservação: { washing, drying, ironing, bleaching, dryClean, composition }
-  sequentialCode    Int           @default(autoincrement()) @map("sequential_code")
   isActive          Boolean       @default(true) @map("is_active")
   createdAt         DateTime      @default(now()) @map("created_at")
   updatedAt         DateTime      @updatedAt @map("updated_at")
@@ -1235,18 +1265,27 @@ model Template {
   @@unique([name, deletedAt], name: "templates_name_unique_active")
   @@index([sequentialCode])
   @@index([isActive])
+  @@index([code])
   @@map("templates")
 }
 
 model Product {
   id             String        @id @default(uuid())
   name           String        @db.VarChar(256)
-  code           String?       @db.VarChar(64) // Opcional, gerado automaticamente se não informado
-  fullCode       String?       @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product (ex: 23.6)
+  slug           String        @unique @db.VarChar(300) // Slug gerado automaticamente do nome - IMUTÁVEL
+  fullCode       String        @unique @map("full_code") @db.VarChar(20) // Código hierárquico: TEMPLATE.FABRICANTE.PRODUTO (ex: 001.001.0001) - IMUTÁVEL
   sequentialCode Int           @default(autoincrement()) @map("sequential_code")
   description    String?       @db.Text
   status         ProductStatus @default(ACTIVE)
+  outOfLine      Boolean       @default(false) @map("out_of_line")
   attributes     Json          @default("{}")
+  
+  // Códigos de Barras (gerados automaticamente do fullCode) - IMUTÁVEIS
+  barcode String @unique @db.VarChar(30) // Code128 baseado no fullCode
+  eanCode String @unique @map("ean_code") @db.VarChar(13) // EAN-13 gerado do fullCode
+  upcCode String @unique @map("upc_code") @db.VarChar(12) // UPC gerado do fullCode
+  qrCode  String? @map("qr_code") @db.VarChar(512) // QR Code editável
+  
   createdAt      DateTime      @default(now()) @map("created_at")
   updatedAt      DateTime      @updatedAt @map("updated_at")
   deletedAt      DateTime?     @map("deleted_at")
@@ -1256,7 +1295,7 @@ model Product {
 
   templateId     String  @map("template_id")
   supplierId     String? @map("supplier_id") // DEPRECATED: Migrar para organizationId
-  manufacturerId String? @map("manufacturer_id") // DEPRECATED: Migrar para organizationId
+  manufacturerId String? @map("manufacturer_id") // Código do fabricante no fullCode (000 se não houver)
   organizationId String? @map("organization_id") // Nova relação unificada
 
   template          Template          @relation(fields: [templateId], references: [id])
@@ -1267,8 +1306,7 @@ model Product {
   productCategories ProductCategory[]
   productTags       ProductTag[]
 
-  @@unique([code, deletedAt], name: "products_code_unique_active")
-  @@unique([fullCode, deletedAt], name: "products_fullCode_unique_active")
+  @@unique([slug, deletedAt], name: "products_slug_unique_active")
   @@index([templateId])
   @@index([supplierId])
   @@index([manufacturerId])
@@ -1276,16 +1314,20 @@ model Product {
   @@index([status])
   @@index([sequentialCode])
   @@index([fullCode])
-  @@index([code, deletedAt])
+  @@index([barcode])
+  @@index([eanCode])
+  @@index([upcCode])
+  @@index([slug, deletedAt])
   @@index([name, deletedAt])
   @@map("products")
 }
 
 model Variant {
   id             String  @id @default(uuid())
-  sku            String? @db.VarChar(64) // Opcional, gerado automaticamente se não informado
-  fullCode       String? @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product.Variant (ex: 23.6.23)
-  sequentialCode Int     @default(autoincrement()) @map("sequential_code")
+  sku            String? @db.VarChar(64) // SKU manual ou gerado do nome
+  slug           String  @unique @db.VarChar(300) // Slug gerado automaticamente do nome - IMUTÁVEL
+  fullCode       String  @unique @map("full_code") @db.VarChar(24) // Código hierárquico: TEMPLATE.FABRICANTE.PRODUTO.VARIANTE (ex: 001.001.0001.001) - IMUTÁVEL
+  sequentialCode Int     @map("sequential_code") // Sequencial LOCAL ao produto (NÃO autoincrement)
   name           String  @db.VarChar(256)
   price          Decimal @default(0) @db.Decimal(10, 2)
   imageUrl       String? @map("image_url") @db.VarChar(512)
@@ -1296,11 +1338,11 @@ model Variant {
   costPrice    Decimal? @map("cost_price") @db.Decimal(10, 2)
   profitMargin Decimal? @map("profit_margin") @db.Decimal(5, 2) // Percentual
 
-  // Códigos de Barras
-  barcode String? @db.VarChar(128)
-  qrCode  String? @map("qr_code") @db.VarChar(512)
-  eanCode String? @map("ean_code") @db.VarChar(13)
-  upcCode String? @map("upc_code") @db.VarChar(12)
+  // Códigos de Barras (gerados automaticamente do fullCode) - IMUTÁVEIS
+  barcode String @unique @db.VarChar(30) // Code128 baseado no fullCode
+  eanCode String @unique @map("ean_code") @db.VarChar(13) // EAN-13 gerado do fullCode
+  upcCode String @unique @map("upc_code") @db.VarChar(12) // UPC gerado do fullCode
+  qrCode  String? @map("qr_code") @db.VarChar(512) // QR Code editável
 
   // Cores
   colorHex     String? @map("color_hex") @db.VarChar(7) // Formato hex: #FF5733
@@ -1335,10 +1377,7 @@ model Variant {
   supplierCodes      VariantSupplierCode[]
 
   @@unique([sku, deletedAt], name: "variants_sku_unique_active")
-  @@unique([fullCode, deletedAt], name: "variants_fullCode_unique_active")
-  @@unique([barcode, deletedAt], name: "variants_barcode_unique_active")
-  @@unique([eanCode, deletedAt], name: "variants_eanCode_unique_active")
-  @@unique([upcCode, deletedAt], name: "variants_upcCode_unique_active")
+  @@unique([slug, deletedAt], name: "variants_slug_unique_active")
   @@index([productId])
   @@index([sequentialCode])
   @@index([fullCode])
@@ -1346,20 +1385,28 @@ model Variant {
   @@index([barcode])
   @@index([eanCode])
   @@index([upcCode])
+  @@index([slug, deletedAt])
   @@map("variants")
 }
 
 model Item {
   id              String     @id @default(uuid())
-  uniqueCode      String?    @map("unique_code") @db.VarChar(128) // Opcional, gerado automaticamente
-  fullCode        String?    @map("full_code") @db.VarChar(32) // Código completo: Supplier.Product.Variant-Seq (ex: 23.6.23-1)
-  sequentialCode  Int        @default(autoincrement()) @map("sequential_code")
+  uniqueCode      String?    @map("unique_code") @db.VarChar(128) // Código único manual ou UUID
+  slug            String     @unique @db.VarChar(300) // Slug gerado automaticamente - IMUTÁVEL
+  fullCode        String     @unique @map("full_code") @db.VarChar(30) // Código hierárquico: TEMPLATE.FABRICANTE.PRODUTO.VARIANTE-ITEM (ex: 001.001.0001.001-00001) - IMUTÁVEL
+  sequentialCode  Int        @map("sequential_code") // Sequencial LOCAL à variante (NÃO autoincrement)
   initialQuantity Decimal    @map("initial_quantity") @db.Decimal(10, 3)
   currentQuantity Decimal    @map("current_quantity") @db.Decimal(10, 3)
   unitCost        Decimal?   @map("unit_cost") @db.Decimal(10, 2) // Custo unitário de aquisição
   status          ItemStatus @default(AVAILABLE)
   entryDate       DateTime   @default(now()) @map("entry_date")
   attributes      Json       @default("{}")
+  
+  // Códigos de Barras (gerados automaticamente do fullCode) - IMUTÁVEIS
+  barcode String @unique @db.VarChar(30) // Code128 baseado no fullCode
+  eanCode String @unique @map("ean_code") @db.VarChar(13) // EAN-13 gerado do fullCode
+  upcCode String @unique @map("upc_code") @db.VarChar(12) // UPC gerado do fullCode
+  qrCode  String? @map("qr_code") @db.VarChar(512) // QR Code editável
 
   // Lote e Validade
   batchNumber       String?   @map("batch_number") @db.VarChar(64)
@@ -1380,7 +1427,7 @@ model Item {
   volumeItems  VolumeItem[]      @relation("VolumeItems")
 
   @@unique([uniqueCode, deletedAt], name: "items_uniqueCode_unique_active")
-  @@unique([fullCode, deletedAt], name: "items_fullCode_unique_active")
+  @@unique([slug, deletedAt], name: "items_slug_unique_active")
   @@index([variantId])
   @@index([binId])
   @@index([sequentialCode])
@@ -1388,6 +1435,10 @@ model Item {
   @@index([batchNumber])
   @@index([expiryDate])
   @@index([status])
+  @@index([barcode])
+  @@index([eanCode])
+  @@index([upcCode])
+  @@index([slug, deletedAt])
   @@index([variantId, binId])
   @@index([expiryDate, deletedAt])
   @@index([batchNumber, variantId])

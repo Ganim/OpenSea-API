@@ -5,6 +5,7 @@ import { mapSessionPrismaToDomain } from '@/mappers/core/session/session-prisma-
 import {
   CreateSessionSchema,
   SessionsRepository,
+  TrustSessionSchema,
   UpdateSessionSchema,
 } from '../sessions-repository';
 
@@ -13,11 +14,36 @@ export class PrismaSessionsRepository implements SessionsRepository {
   // - create(data: CreateSessionSchema): Promise<Session>;
 
   async create(data: CreateSessionSchema): Promise<Session> {
+    const deviceInfo = data.deviceInfo;
+    const geoLocation = data.geoLocation;
+
     const sessionDb = await prisma.session.create({
       data: {
         userId: data.userId.toString(),
         ip: data.ip.value,
         createdAt: new Date(),
+
+        // Device Information
+        userAgent: deviceInfo?.userAgent,
+        deviceType: deviceInfo?.deviceType,
+        deviceName: deviceInfo?.deviceName,
+        browserName: deviceInfo?.browserName,
+        browserVersion: deviceInfo?.browserVersion,
+        osName: deviceInfo?.osName,
+        osVersion: deviceInfo?.osVersion,
+
+        // Geolocation
+        country: geoLocation?.country,
+        countryCode: geoLocation?.countryCode,
+        region: geoLocation?.region,
+        city: geoLocation?.city,
+        timezone: geoLocation?.timezone,
+        latitude: geoLocation?.latitude,
+        longitude: geoLocation?.longitude,
+
+        // Security
+        loginMethod: data.loginMethod,
+        isTrusted: false,
       },
     });
     return mapSessionPrismaToDomain(sessionDb);
@@ -31,11 +57,54 @@ export class PrismaSessionsRepository implements SessionsRepository {
     });
     if (!sessionDb) return null;
 
+    const deviceInfo = data.deviceInfo;
+    const geoLocation = data.geoLocation;
+
     const updatedSessionDb = await prisma.session.update({
       where: { id: data.sessionId.toString() },
       data: {
         ip: data.ip.value,
         lastUsedAt: new Date(),
+
+        // Update device info if provided
+        ...(deviceInfo && {
+          userAgent: deviceInfo.userAgent,
+          deviceType: deviceInfo.deviceType,
+          deviceName: deviceInfo.deviceName,
+          browserName: deviceInfo.browserName,
+          browserVersion: deviceInfo.browserVersion,
+          osName: deviceInfo.osName,
+          osVersion: deviceInfo.osVersion,
+        }),
+
+        // Update geo location if provided
+        ...(geoLocation && {
+          country: geoLocation.country,
+          countryCode: geoLocation.countryCode,
+          region: geoLocation.region,
+          city: geoLocation.city,
+          timezone: geoLocation.timezone,
+          latitude: geoLocation.latitude,
+          longitude: geoLocation.longitude,
+        }),
+      },
+    });
+
+    return mapSessionPrismaToDomain(updatedSessionDb);
+  }
+
+  // - setTrust(data: TrustSessionSchema): Promise<Session | null>;
+  async setTrust(data: TrustSessionSchema): Promise<Session | null> {
+    const sessionDb = await prisma.session.findUnique({
+      where: { id: data.sessionId.toString() },
+    });
+    if (!sessionDb) return null;
+
+    const updatedSessionDb = await prisma.session.update({
+      where: { id: data.sessionId.toString() },
+      data: {
+        isTrusted: data.trusted,
+        trustVerifiedAt: data.trusted ? new Date() : null,
       },
     });
 

@@ -19,7 +19,10 @@ describe('Get Payroll (E2E)', () => {
     const timestamp = Date.now();
     const month = (timestamp % 12) + 1;
     const year = 2020 + (timestamp % 10);
-    const payroll = await createPayroll({ referenceMonth: month, referenceYear: year });
+    const payroll = await createPayroll({
+      referenceMonth: month,
+      referenceYear: year,
+    });
 
     const response = await request(app.server)
       .get(`/v1/hr/payrolls/${payroll.id}`)

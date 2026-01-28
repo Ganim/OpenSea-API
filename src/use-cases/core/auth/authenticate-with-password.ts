@@ -15,6 +15,7 @@ interface AuthenticateWithPasswordUseCaseRequest {
   email: string;
   password: string;
   ip: string;
+  userAgent?: string;
   reply: FastifyReply;
 }
 interface AuthenticateWithPasswordUseCaseResponse {
@@ -34,6 +35,7 @@ export class AuthenticateWithPasswordUseCase {
     email,
     password,
     ip,
+    userAgent,
     reply,
   }: AuthenticateWithPasswordUseCaseRequest): Promise<AuthenticateWithPasswordUseCaseResponse> {
     const validEmail = Email.create(email);
@@ -117,6 +119,8 @@ export class AuthenticateWithPasswordUseCase {
       await this.createSessionUseCase.execute({
         userId: existingUser.id.toString(),
         ip,
+        userAgent,
+        loginMethod: 'password',
         reply,
       });
 

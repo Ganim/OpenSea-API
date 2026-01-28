@@ -8,7 +8,7 @@ import type {
   OrganizationStatus,
   TaxRegime,
 } from '@/entities/hr/organization/organization';
-import type { Organization as PrismaOrganization } from '@prisma/client';
+import type { Organization as PrismaOrganization } from '@prisma/generated/client.js';
 
 interface TypeSpecificDataShape {
   legalNature?: string | null;

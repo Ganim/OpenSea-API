@@ -16,7 +16,9 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function bulkAddPermissionsToGroupController(app: FastifyInstance) {
+export async function bulkAddPermissionsToGroupController(
+  app: FastifyInstance,
+) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/rbac/permission-groups/:groupId/permissions/bulk',

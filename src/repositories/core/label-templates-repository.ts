@@ -47,7 +47,9 @@ export interface LabelTemplatesRepository {
     name: string,
     organizationId: UniqueEntityID,
   ): Promise<LabelTemplate | null>;
-  findMany(filters: ListLabelTemplatesFilters): Promise<ListLabelTemplatesResult>;
+  findMany(
+    filters: ListLabelTemplatesFilters,
+  ): Promise<ListLabelTemplatesResult>;
   findSystemTemplates(): Promise<LabelTemplate[]>;
   update(data: UpdateLabelTemplateSchema): Promise<LabelTemplate | null>;
   save(labelTemplate: LabelTemplate): Promise<void>;

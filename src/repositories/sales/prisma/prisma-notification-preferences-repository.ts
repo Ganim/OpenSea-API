@@ -9,7 +9,7 @@ import { prisma } from '@/lib/prisma';
 import type {
   AlertType as PrismaAlertType,
   NotificationChannel as PrismaNotificationChannel,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 import type {
   CreateNotificationPreferenceSchema,
   NotificationPreferencesRepository,

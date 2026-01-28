@@ -78,7 +78,15 @@ const ALL_PERMISSIONS = {
     care: ['list', 'read', 'set'],
     bins: ['list', 'read', 'update', 'manage', 'search'],
     warehouses: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    zones: ['create', 'read', 'update', 'delete', 'list', 'manage', 'configure'],
+    zones: [
+      'create',
+      'read',
+      'update',
+      'delete',
+      'list',
+      'manage',
+      'configure',
+    ],
     volumes: [
       'create',
       'read',

@@ -46,12 +46,14 @@ describe('CreateVariantUseCase', () => {
     const { template } = await createTemplate.execute({
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
-      variantAttributes: { color: templateAttr.string(), storage: templateAttr.string() },
+      variantAttributes: {
+        color: templateAttr.string(),
+        storage: templateAttr.string(),
+      },
     });
 
     const { product } = await createProduct.execute({
       name: 'Smartphone',
-      code: 'PHONE-001',
       status: 'ACTIVE',
       attributes: { brand: 'Samsung' },
       templateId: template.id.toString(),
@@ -81,7 +83,6 @@ describe('CreateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Smartphone',
-      code: 'PHONE-001',
       status: 'ACTIVE',
       attributes: { brand: 'Samsung' },
       templateId: template.id.toString(),
@@ -96,10 +97,7 @@ describe('CreateVariantUseCase', () => {
       attributes: { color: 'Black' },
       costPrice: 600,
       profitMargin: 40,
-      barcode: '123456789012',
       qrCode: 'QR123456',
-      eanCode: '1234567890123',
-      upcCode: '123456789012',
       minStock: 10,
       maxStock: 100,
       reorderPoint: 20,
@@ -108,9 +106,10 @@ describe('CreateVariantUseCase', () => {
 
     expect(result.costPrice).toBe(600);
     expect(result.profitMargin).toBe(40);
-    expect(result.barcode).toBe('123456789012');
-    expect(result.eanCode).toBe('1234567890123');
-    expect(result.upcCode).toBe('123456789012');
+    // Barcode, eanCode e upcCode são gerados automaticamente
+    expect(result.barcode).toBeDefined();
+    expect(result.eanCode).toBeDefined();
+    expect(result.upcCode).toBeDefined();
     expect(result.minStock).toBe(10);
     expect(result.maxStock).toBe(100);
   });
@@ -123,7 +122,6 @@ describe('CreateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -147,7 +145,6 @@ describe('CreateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -171,7 +168,6 @@ describe('CreateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -195,7 +191,6 @@ describe('CreateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -219,7 +214,6 @@ describe('CreateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -244,7 +238,6 @@ describe('CreateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -269,7 +262,6 @@ describe('CreateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -330,7 +322,6 @@ describe('CreateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -353,115 +344,18 @@ describe('CreateVariantUseCase', () => {
     ).rejects.toThrow(BadRequestError);
   });
 
-  it('should not allow duplicate barcode', async () => {
-    const { template } = await createTemplate.execute({
-      name: 'Test Template',
-      productAttributes: { brand: templateAttr.string() },
-    });
-
-    const { product } = await createProduct.execute({
-      name: 'Test Product',
-      code: 'PROD-001',
-      status: 'ACTIVE',
-      attributes: {},
-      templateId: template.id.toString(),
-    });
-
-    await createVariant.execute({
-      productId: product.id.toString(),
-      sku: 'SKU-001',
-      name: 'Variant 1',
-      price: 100,
-      barcode: '123456789012',
-    });
-
-    await expect(() =>
-      createVariant.execute({
-        productId: product.id.toString(),
-        sku: 'SKU-002',
-        name: 'Variant 2',
-        price: 200,
-        barcode: '123456789012',
-      }),
-    ).rejects.toThrow(BadRequestError);
-  });
-
-  it('should not allow duplicate EAN code', async () => {
-    const { template } = await createTemplate.execute({
-      name: 'Test Template',
-      productAttributes: { brand: templateAttr.string() },
-    });
-
-    const { product } = await createProduct.execute({
-      name: 'Test Product',
-      code: 'PROD-001',
-      status: 'ACTIVE',
-      attributes: {},
-      templateId: template.id.toString(),
-    });
-
-    await createVariant.execute({
-      productId: product.id.toString(),
-      sku: 'SKU-001',
-      name: 'Variant 1',
-      price: 100,
-      eanCode: '1234567890123',
-    });
-
-    await expect(() =>
-      createVariant.execute({
-        productId: product.id.toString(),
-        sku: 'SKU-002',
-        name: 'Variant 2',
-        price: 200,
-        eanCode: '1234567890123',
-      }),
-    ).rejects.toThrow(BadRequestError);
-  });
-
-  it('should not allow duplicate UPC code', async () => {
-    const { template } = await createTemplate.execute({
-      name: 'Test Template',
-      productAttributes: { brand: templateAttr.string() },
-    });
-
-    const { product } = await createProduct.execute({
-      name: 'Test Product',
-      code: 'PROD-001',
-      status: 'ACTIVE',
-      attributes: {},
-      templateId: template.id.toString(),
-    });
-
-    await createVariant.execute({
-      productId: product.id.toString(),
-      sku: 'SKU-001',
-      name: 'Variant 1',
-      price: 100,
-      upcCode: '123456789012',
-    });
-
-    await expect(() =>
-      createVariant.execute({
-        productId: product.id.toString(),
-        sku: 'SKU-002',
-        name: 'Variant 2',
-        price: 200,
-        upcCode: '123456789012',
-      }),
-    ).rejects.toThrow(BadRequestError);
-  });
-
   it('should not allow invalid variant attributes not in template', async () => {
     const { template } = await createTemplate.execute({
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
-      variantAttributes: { color: templateAttr.string(), storage: templateAttr.string() },
+      variantAttributes: {
+        color: templateAttr.string(),
+        storage: templateAttr.string(),
+      },
     });
 
     const { product } = await createProduct.execute({
       name: 'Smartphone',
-      code: 'PHONE-001',
       status: 'ACTIVE',
       attributes: { brand: 'Samsung' },
       templateId: template.id.toString(),

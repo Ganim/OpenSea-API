@@ -17,6 +17,7 @@ describe('Update Product (E2E)', () => {
   it('should update product with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
+    const suffix = String(timestamp).slice(-4);
 
     const template = await prisma.template.create({
       data: {
@@ -29,7 +30,11 @@ describe('Update Product (E2E)', () => {
 
     const product = await prisma.product.create({
       data: {
-        code: `PROD-UPDATE-${timestamp}`,
+        fullCode: `001.000.${suffix}`,
+        slug: `old-product-name-${timestamp}`,
+        barcode: `BCUPD${suffix}`,
+        eanCode: `EAN${suffix}UPD00`,
+        upcCode: `UPC${suffix}UPD0`,
         name: `Old Product Name ${timestamp}`,
         status: 'ACTIVE',
         templateId: template.id,

@@ -17,6 +17,7 @@ describe('Get Product By ID (E2E)', () => {
   it('should get product by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
+    const suffix = String(timestamp).slice(-4);
 
     const template = await prisma.template.create({
       data: {
@@ -36,6 +37,7 @@ describe('Get Product By ID (E2E)', () => {
 
     const manufacturer = await prisma.manufacturer.create({
       data: {
+        code: `M${suffix.slice(0, 2)}`,
         name: `Manufacturer Test ${timestamp}`,
         country: 'BR',
         isActive: true,
@@ -44,7 +46,11 @@ describe('Get Product By ID (E2E)', () => {
 
     const product = await prisma.product.create({
       data: {
-        code: `PROD-GET-${timestamp}`,
+        fullCode: `001.M01.${suffix}`,
+        slug: `product-to-get-${timestamp}`,
+        barcode: `BCGET${suffix}`,
+        eanCode: `EAN${suffix}GET00`,
+        upcCode: `UPC${suffix}GET0`,
         name: 'Product to Get',
         status: 'ACTIVE',
         templateId: template.id,
@@ -58,6 +64,12 @@ describe('Get Product By ID (E2E)', () => {
       data: {
         productId: product.id,
         name: 'Variant Test',
+        slug: `variant-test-${timestamp}`,
+        fullCode: `001.M01.${suffix}.001`,
+        sequentialCode: 1,
+        barcode: `BCVAR${suffix}`,
+        eanCode: `EAN${suffix}VAR00`,
+        upcCode: `UPC${suffix}VAR0`,
         price: 100,
         isActive: true,
       },

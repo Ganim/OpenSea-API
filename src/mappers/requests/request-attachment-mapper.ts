@@ -3,7 +3,7 @@ import { RequestAttachment } from '@/entities/requests/request-attachment';
 import type {
   Prisma,
   RequestAttachment as PrismaRequestAttachment,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 
 export class RequestAttachmentMapper {
   static toDomain(raw: PrismaRequestAttachment): RequestAttachment {

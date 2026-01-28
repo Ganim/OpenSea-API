@@ -1,7 +1,7 @@
 import { RefreshToken } from '@/entities/core/refresh-token';
 import { Token } from '@/entities/core/value-objects/token';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 
 export function mapRefreshTokenPrismaToDomain(
   refreshTokenDb: Prisma.RefreshTokenGetPayload<object>,

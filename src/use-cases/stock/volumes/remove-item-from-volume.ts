@@ -1,16 +1,16 @@
 import {
-  VolumeNotFoundError,
   VolumeItemNotFoundError,
-} from '@/@errors/volumes-errors'
-import type { VolumeRepository } from '@/repositories/stock/volumes-repository'
+  VolumeNotFoundError,
+} from '@/@errors/volumes-errors';
+import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface RemoveItemFromVolumeUseCaseRequest {
-  volumeId: string
-  itemId: string
+  volumeId: string;
+  itemId: string;
 }
 
 export interface RemoveItemFromVolumeUseCaseResponse {
-  success: boolean
+  success: boolean;
 }
 
 export class RemoveItemFromVolumeUseCase {
@@ -20,22 +20,24 @@ export class RemoveItemFromVolumeUseCase {
     request: RemoveItemFromVolumeUseCaseRequest,
   ): Promise<RemoveItemFromVolumeUseCaseResponse> {
     // Verificar se volume existe
-    const volume = await this.volumesRepository.findById(request.volumeId)
+    const volume = await this.volumesRepository.findById(request.volumeId);
     if (!volume) {
-      throw new VolumeNotFoundError(request.volumeId)
+      throw new VolumeNotFoundError(request.volumeId);
     }
 
     // Verificar se item existe no volume
-    const items = await this.volumesRepository.getItemsByVolumeId(request.volumeId)
-    const itemExists = items.some((item) => item.itemId === request.itemId)
+    const items = await this.volumesRepository.getItemsByVolumeId(
+      request.volumeId,
+    );
+    const itemExists = items.some((item) => item.itemId === request.itemId);
     if (!itemExists) {
-      throw new VolumeItemNotFoundError(request.volumeId, request.itemId)
+      throw new VolumeItemNotFoundError(request.volumeId, request.itemId);
     }
 
-    await this.volumesRepository.removeItem(request.volumeId, request.itemId)
+    await this.volumesRepository.removeItem(request.volumeId, request.itemId);
 
     return {
       success: true,
-    }
+    };
   }
 }

@@ -5,7 +5,7 @@ import type { Environment } from 'vitest/environments';
 function generateDatabaseUrl(schemaName: string) {
   const baseUrl =
     process.env.DATABASE_URL ||
-    'postgresql://docker:docker@localhost:5432/opensea-db?schema=public';
+    'postgresql://docker:docker@localhost:5432/apiopensea?schema=public';
 
   const url = new URL(baseUrl);
   url.searchParams.set('schema', schemaName);
@@ -17,29 +17,19 @@ export default <Environment>{
   transformMode: 'ssr',
   async setup() {
     const schema = `test_${randomUUID().replace(/-/g, '_')}`;
+
+    // Salva a URL original ANTES de sobrescrever
+    const originalDatabaseUrl =
+      process.env.DATABASE_URL ||
+      'postgresql://docker:docker@localhost:5432/apiopensea?schema=public';
+
     const databaseUrl = generateDatabaseUrl(schema);
 
     // Define a URL ANTES de qualquer código do app ser importado
     process.env.DATABASE_URL = databaseUrl;
 
-    // Primeiro, conecta ao banco base para dropar enums globais se existirem
-    const baseUrl = process.env.DATABASE_URL || 'postgresql://docker:docker@localhost:5432/opensea-db?schema=public';
-    const { PrismaClient } = await import('@prisma/client');
-    const basePrisma = new PrismaClient({
-      datasources: { db: { url: baseUrl } },
-    });
-
-    try {
-      // Drop enums globais que podem conflitar
-      await basePrisma.$executeRawUnsafe(`DROP TYPE IF EXISTS "Role" CASCADE`);
-      console.log('🧹 Enums globais removidos');
-    } catch (error) {
-      console.error('❌ Erro ao remover enums globais:', error);
-    } finally {
-      await basePrisma.$disconnect();
-    }
-
-    execSync('npx prisma db push --force-reset', {
+    // Aplica as migrations no schema de teste isolado
+    execSync('npx prisma migrate deploy', {
       env: {
         ...process.env,
         DATABASE_URL: databaseUrl,
@@ -50,11 +40,12 @@ export default <Environment>{
 
     return {
       async teardown() {
-        // Importa dinamicamente para usar a URL correta
-        const { PrismaClient } = await import('@prisma/client');
-        const prisma = new PrismaClient({
-          datasources: { db: { url: databaseUrl } },
-        });
+        const { PrismaClient } = await import('../generated/prisma/client.js');
+        const { PrismaPg } = await import('@prisma/adapter-pg');
+
+        // Conecta ao schema público para dropar o schema de teste
+        const adapter = new PrismaPg({ connectionString: originalDatabaseUrl });
+        const prisma = new PrismaClient({ adapter });
 
         try {
           await prisma.$executeRawUnsafe(

@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Supplier } from '@/entities/stock/supplier';
 import { CNPJ } from '@/entities/stock/value-objects/cnpj';
-import type { Supplier as PrismaSupplier } from '@prisma/client';
+import type { Supplier as PrismaSupplier } from '@prisma/generated/client.js';
 
 export function mapSupplierPrismaToDomain(supplierDb: PrismaSupplier) {
   return {

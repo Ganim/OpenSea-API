@@ -7,7 +7,7 @@ import {
 import type {
   PurchaseOrder as PrismaPurchaseOrder,
   PurchaseOrderItem as PrismaPurchaseOrderItem,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 
 type PurchaseOrderWithItems = PrismaPurchaseOrder & {
   items: PrismaPurchaseOrderItem[];

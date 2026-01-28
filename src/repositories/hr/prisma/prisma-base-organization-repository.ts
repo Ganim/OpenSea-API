@@ -6,7 +6,7 @@ import type {
   OrganizationStatus,
 } from '@/entities/hr/organization';
 import { prisma } from '@/lib/prisma';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 import type {
   BaseOrganizationRepository,
   CreateOrganizationSchema,

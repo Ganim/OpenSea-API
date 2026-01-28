@@ -6,7 +6,7 @@ import {
 } from '@/entities/hr/company-fiscal-settings';
 import { prisma } from '@/lib/prisma';
 import { mapCompanyFiscalSettingsPrismaToDomain } from '@/mappers/hr/company-fiscal-settings';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 import type {
   CompanyFiscalSettingsRepository,
   CreateCompanyFiscalSettingsSchema,

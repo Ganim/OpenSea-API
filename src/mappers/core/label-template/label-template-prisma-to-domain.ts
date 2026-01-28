@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { LabelTemplate } from '@/entities/core/label-template';
-import type { LabelTemplate as PrismaLabelTemplate } from '@prisma/client';
+import type { LabelTemplate as PrismaLabelTemplate } from '@prisma/generated/client.js';
 
 export function mapLabelTemplatePrismaToDomain(
   labelTemplateDb: PrismaLabelTemplate,

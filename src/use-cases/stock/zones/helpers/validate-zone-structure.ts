@@ -70,7 +70,8 @@ export function validateZoneStructureInput(
   }
 
   if (!hasConfigs && !allowEmpty) {
-    const isEmptyStructure = aisles === 0 || shelvesPerAisle === 0 || binsPerShelf === 0;
+    const isEmptyStructure =
+      aisles === 0 || shelvesPerAisle === 0 || binsPerShelf === 0;
 
     if (isEmptyStructure) {
       throw new BadRequestError(

@@ -1,4 +1,3 @@
-import { PermissionCodes } from '@/constants/rbac/permission-codes';
 import { createScopeIdentifierMiddleware } from '@/http/middlewares/rbac/verify-scope';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
@@ -16,7 +15,8 @@ import z from 'zod';
  * Middleware para verificar permissão de listagem de funcionários
  * Aceita hr.employees.list.all ou hr.employees.list.team
  */
-const checkEmployeesListScope = createScopeIdentifierMiddleware('hr.employees.list');
+const checkEmployeesListScope =
+  createScopeIdentifierMiddleware('hr.employees.list');
 
 export async function listEmployeesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({

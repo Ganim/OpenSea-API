@@ -4,7 +4,7 @@ import { httpLogger } from './lib/logger';
 
 app
   .listen({
-    host: '::',  // Escuta em todas as interfaces (IPv4 e IPv6 com dual-stack)
+    host: '::', // Escuta em todas as interfaces (IPv4 e IPv6 com dual-stack)
     port: env.PORT,
   })
   .then(() => {

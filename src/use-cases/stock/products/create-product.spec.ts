@@ -51,7 +51,6 @@ describe('CreateProductUseCase', () => {
 
     const result = await sut.execute({
       name: 'Laptop Dell Inspiron',
-      code: 'LAPTOP-001',
       description: 'High performance laptop',
       status: 'ACTIVE',
       templateId: template.template.id.toString(),
@@ -62,21 +61,17 @@ describe('CreateProductUseCase', () => {
       },
     });
 
-    expect(result.product).toEqual(
-      expect.objectContaining({
-        id: expect.any(Object), // UniqueEntityID
-        name: 'Laptop Dell Inspiron',
-        code: 'LAPTOP-001',
-        description: 'High performance laptop',
-        status: expect.any(Object), // ProductStatus
-        templateId: expect.any(Object), // UniqueEntityID
-        attributes: {
-          brand: 'Dell',
-          model: 'Inspiron 15',
-          warranty: 12,
-        },
-      }),
-    );
+    // Verifica os campos básicos
+    expect(result.product.name).toBe('Laptop Dell Inspiron');
+    expect(result.product.description).toBe('High performance laptop');
+    expect(result.product.id).toBeDefined();
+    expect(result.product.slug).toBeDefined();
+    expect(result.product.fullCode).toEqual(expect.any(String));
+    expect(result.product.barcode).toEqual(expect.any(String));
+    expect(result.product.eanCode).toEqual(expect.any(String));
+    expect(result.product.upcCode).toEqual(expect.any(String));
+    expect(result.product.status).toBeDefined();
+    expect(result.product.templateId).toBeDefined();
   });
 
   it('should create a product with supplier', async () => {
@@ -92,7 +87,6 @@ describe('CreateProductUseCase', () => {
 
     const result = await sut.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
       templateId: template.template.id.toString(),
       supplierId: supplier.supplier.id.toString(),
     });
@@ -115,7 +109,6 @@ describe('CreateProductUseCase', () => {
 
     const result = await sut.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
       templateId: template.template.id.toString(),
       manufacturerId: manufacturer.manufacturer.manufacturerId.toString(),
     });
@@ -133,11 +126,39 @@ describe('CreateProductUseCase', () => {
 
     const result = await sut.execute({
       name: 'Test Product',
-      code: 'TEST-001',
       templateId: template.template.id.toString(),
     });
 
     expect(result.product.status.value).toBe('ACTIVE');
+  });
+
+  it('should create a product with outOfLine false by default', async () => {
+    const template = await createTemplate.execute({
+      name: 'Simple Template',
+      productAttributes: { category: templateAttr.string() },
+    });
+
+    const result = await sut.execute({
+      name: 'Test Product OutOfLine',
+      templateId: template.template.id.toString(),
+    });
+
+    expect(result.product.outOfLine).toBe(false);
+  });
+
+  it('should create a product with outOfLine true', async () => {
+    const template = await createTemplate.execute({
+      name: 'Simple Template',
+      productAttributes: { category: templateAttr.string() },
+    });
+
+    const result = await sut.execute({
+      name: 'Test Product OutOfLine True',
+      templateId: template.template.id.toString(),
+      outOfLine: true,
+    });
+
+    expect(result.product.outOfLine).toBe(true);
   });
 
   it('should create a product without optional fields', async () => {
@@ -148,7 +169,6 @@ describe('CreateProductUseCase', () => {
 
     const result = await sut.execute({
       name: 'Simple Product',
-      code: 'SIMPLE-001',
       templateId: template.template.id.toString(),
     });
 
@@ -167,7 +187,6 @@ describe('CreateProductUseCase', () => {
     await expect(
       sut.execute({
         name: '',
-        code: 'TEST-001',
         templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
@@ -182,37 +201,6 @@ describe('CreateProductUseCase', () => {
     await expect(
       sut.execute({
         name: 'a'.repeat(201),
-        code: 'TEST-001',
-        templateId: template.template.id.toString(),
-      }),
-    ).rejects.toThrow(BadRequestError);
-  });
-
-  it('should create a product without code (optional)', async () => {
-    const template = await createTemplate.execute({
-      name: 'Simple Template',
-      productAttributes: { category: templateAttr.string() },
-    });
-
-    const result = await sut.execute({
-      name: 'Product Without Code',
-      templateId: template.template.id.toString(),
-    });
-
-    expect(result.product.name).toBe('Product Without Code');
-    expect(result.product.code).toBeUndefined();
-  });
-
-  it('should not create a product with code longer than 100 characters', async () => {
-    const template = await createTemplate.execute({
-      name: 'Simple Template',
-      productAttributes: { category: templateAttr.string() },
-    });
-
-    await expect(
-      sut.execute({
-        name: 'Test Product',
-        code: 'a'.repeat(101),
         templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
@@ -226,14 +214,12 @@ describe('CreateProductUseCase', () => {
 
     await sut.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
       templateId: template.template.id.toString(),
     });
 
     await expect(
       sut.execute({
         name: 'Laptop Dell',
-        code: 'LAPTOP-002',
         templateId: template.template.id.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
@@ -248,7 +234,6 @@ describe('CreateProductUseCase', () => {
     await expect(
       sut.execute({
         name: 'Test Product',
-        code: 'TEST-001',
         status: 'INVALID_STATUS',
         templateId: template.template.id.toString(),
       }),
@@ -261,7 +246,6 @@ describe('CreateProductUseCase', () => {
     await expect(
       sut.execute({
         name: 'Test Product',
-        code: 'TEST-001',
         templateId: 'non-existent-template-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -276,7 +260,6 @@ describe('CreateProductUseCase', () => {
     await expect(
       sut.execute({
         name: 'Test Product',
-        code: 'TEST-001',
         templateId: template.template.id.toString(),
         supplierId: 'non-existent-supplier-id',
       }),
@@ -292,7 +275,6 @@ describe('CreateProductUseCase', () => {
     await expect(
       sut.execute({
         name: 'Test Product',
-        code: 'TEST-001',
         templateId: template.template.id.toString(),
         manufacturerId: 'non-existent-manufacturer-id',
       }),
@@ -311,7 +293,6 @@ describe('CreateProductUseCase', () => {
     await expect(
       sut.execute({
         name: 'Test Product',
-        code: 'TEST-001',
         templateId: template.template.id.toString(),
         attributes: {
           brand: 'Dell',
@@ -333,7 +314,6 @@ describe('CreateProductUseCase', () => {
     await expect(
       sut.execute({
         name: 'Test Product',
-        code: 'TEST-001',
         templateId: template.template.id.toString(),
         attributes: {
           model: 'X123', // Missing required 'brand'
@@ -353,7 +333,6 @@ describe('CreateProductUseCase', () => {
     await expect(
       sut.execute({
         name: 'Test Product',
-        code: 'TEST-001',
         templateId: template.template.id.toString(),
         attributes: {
           warranty: 'invalid-number', // Should be a number

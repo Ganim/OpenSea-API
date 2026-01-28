@@ -1,12 +1,19 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
+import { Slug } from '@/entities/stock/value-objects/slug';
 
 export interface CreateProductSchema {
   name: string;
-  code?: string; // Agora opcional - será gerado automaticamente
+  slug: Slug; // Slug gerado automaticamente - IMUTÁVEL
+  fullCode: string; // Código hierárquico: TEMPLATE.FABRICANTE.PRODUTO (ex: 001.001.0001)
+  barcode: string; // Code128 gerado do fullCode - IMUTÁVEL
+  eanCode: string; // EAN-13 gerado do fullCode - IMUTÁVEL
+  upcCode: string; // UPC gerado do fullCode - IMUTÁVEL
+  code?: string; // Código manual opcional (importação) - IMUTÁVEL após criação
   description?: string;
   status?: ProductStatus;
+  outOfLine?: boolean;
   templateId: UniqueEntityID; // Obrigatório
   supplierId?: UniqueEntityID;
   manufacturerId?: UniqueEntityID;
@@ -16,9 +23,10 @@ export interface CreateProductSchema {
 export interface UpdateProductSchema {
   id: UniqueEntityID;
   name?: string;
-  code?: string;
+  // code e fullCode não podem ser alterados após criação
   description?: string;
   status?: ProductStatus;
+  outOfLine?: boolean;
   // templateId não pode ser alterado após criação
   supplierId?: UniqueEntityID;
   manufacturerId?: UniqueEntityID;
@@ -41,4 +49,5 @@ export interface ProductsRepository {
   ): Promise<Product>;
   save(product: Product): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
+  getNextSequentialCode(): Promise<number>;
 }

@@ -12,6 +12,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
   async create(data: CreateTemplateSchema): Promise<Template> {
     const templateData = await prisma.template.create({
       data: {
+        code: data.code, // Código hierárquico manual (auto-gerado no use case se não fornecido)
         name: data.name,
         iconUrl: data.iconUrl,
         unitOfMeasure: data.unitOfMeasure.value,

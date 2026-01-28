@@ -2,11 +2,25 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { SKU } from '@/entities/stock/value-objects/sku';
+import { Slug } from '@/entities/stock/value-objects/slug';
 import { Variant } from '@/entities/stock/variant';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
+import {
+  generateBarcode,
+  generateEAN13,
+  generateUPC,
+} from '@/utils/barcode-generator';
 import { assertValidAttributes } from '@/utils/validate-template-attributes';
+
+/**
+ * Gera código hierárquico com padding
+ * @example padCode(1, 3) => "001", padCode(42, 4) => "0042"
+ */
+function padCode(seq: number, digits: number): string {
+  return seq.toString().padStart(digits, '0');
+}
 
 export interface CreateVariantUseCaseInput {
   productId: string;
@@ -17,10 +31,7 @@ export interface CreateVariantUseCaseInput {
   attributes?: Record<string, unknown>;
   costPrice?: number;
   profitMargin?: number;
-  barcode?: string;
-  qrCode?: string;
-  eanCode?: string;
-  upcCode?: string;
+  qrCode?: string; // QR Code é o único campo editável
   colorHex?: string;
   colorPantone?: string;
   minStock?: number;
@@ -118,21 +129,6 @@ export class CreateVariantUseCase {
       throw new BadRequestError('Image URL must not exceed 512 characters');
     }
 
-    // Validate barcode length
-    if (input.barcode && input.barcode.length > 128) {
-      throw new BadRequestError('Barcode must not exceed 128 characters');
-    }
-
-    // Validate eanCode length
-    if (input.eanCode && input.eanCode.length > 13) {
-      throw new BadRequestError('EAN code must not exceed 13 characters');
-    }
-
-    // Validate upcCode length
-    if (input.upcCode && input.upcCode.length > 12) {
-      throw new BadRequestError('UPC code must not exceed 12 characters');
-    }
-
     // Validate qrCode length
     if (input.qrCode && input.qrCode.length > 512) {
       throw new BadRequestError('QR code must not exceed 512 characters');
@@ -165,45 +161,42 @@ export class CreateVariantUseCase {
       }
     }
 
-    // Check if barcode is unique (if provided)
-    if (input.barcode) {
-      const existingVariantByBarcode =
-        await this.variantsRepository.findByBarcode(input.barcode);
-
-      if (existingVariantByBarcode) {
-        throw new BadRequestError('Barcode already exists');
-      }
-    }
-
-    // Check if eanCode is unique (if provided)
-    if (input.eanCode) {
-      const existingVariantByEANCode =
-        await this.variantsRepository.findByEANCode(input.eanCode);
-
-      if (existingVariantByEANCode) {
-        throw new BadRequestError('EAN code already exists');
-      }
-    }
-
-    // Check if upcCode is unique (if provided)
-    if (input.upcCode) {
-      const existingVariantByUPCCode =
-        await this.variantsRepository.findByUPCCode(input.upcCode);
-
-      if (existingVariantByUPCCode) {
-        throw new BadRequestError('UPC code already exists');
-      }
-    }
-
     // Validate attributes against product template
-    const template = await this.templatesRepository.findById(product.templateId);
+    const template = await this.templatesRepository.findById(
+      product.templateId,
+    );
     if (template) {
-      assertValidAttributes(input.attributes, template.variantAttributes, 'variant');
+      assertValidAttributes(
+        input.attributes,
+        template.variantAttributes,
+        'variant',
+      );
     }
+
+    // Get next sequential code LOCAL to this product
+    const lastVariant = await this.variantsRepository.findLastByProductId(productId);
+    const nextSeq = (lastVariant?.sequentialCode ?? 0) + 1;
+
+    // Generate fullCode: PRODUCT_FULLCODE.VARIANT_SEQ (ex: 001.001.0001.001)
+    const fullCode = `${product.fullCode}.${padCode(nextSeq, 3)}`;
+
+    // Generate slug from name (with nextSeq as suffix to ensure uniqueness)
+    const slug = Slug.createUniqueFromText(input.name, `${product.fullCode}-${nextSeq}`);
+
+    // Generate barcode codes from fullCode (IMUTÁVEIS)
+    const barcode = generateBarcode(fullCode);
+    const eanCode = generateEAN13(fullCode);
+    const upcCode = generateUPC(fullCode);
 
     // Create variant
     const variant = await this.variantsRepository.create({
       productId,
+      slug,
+      fullCode,
+      sequentialCode: nextSeq,
+      barcode,
+      eanCode,
+      upcCode,
       sku,
       name: input.name,
       price,
@@ -211,10 +204,7 @@ export class CreateVariantUseCase {
       attributes: input.attributes ?? {},
       costPrice: input.costPrice,
       profitMargin: input.profitMargin,
-      barcode: input.barcode,
       qrCode: input.qrCode,
-      eanCode: input.eanCode,
-      upcCode: input.upcCode,
       colorHex: input.colorHex,
       colorPantone: input.colorPantone,
       minStock: input.minStock,

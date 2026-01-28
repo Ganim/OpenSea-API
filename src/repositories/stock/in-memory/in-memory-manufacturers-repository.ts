@@ -10,9 +10,12 @@ export class InMemoryManufacturersRepository
   implements ManufacturersRepository
 {
   public items: Manufacturer[] = [];
+  private sequentialCounter = 0;
 
   async create(data: CreateManufacturerSchema): Promise<Manufacturer> {
     const manufacturer = Manufacturer.create({
+      code: data.code,
+      sequentialCode: this.sequentialCounter,
       name: data.name,
       country: data.country,
       email: data.email ?? null,
@@ -111,5 +114,10 @@ export class InMemoryManufacturersRepository
     if (manufacturer) {
       manufacturer.delete();
     }
+  }
+
+  async getNextSequentialCode(): Promise<number> {
+    this.sequentialCounter += 1;
+    return this.sequentialCounter;
   }
 }

@@ -7,7 +7,7 @@ import type {
   NotificationChannel as PrismaNotificationChannel,
   NotificationPriority as PrismaNotificationPriority,
   NotificationType as PrismaNotificationType,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 import type {
   CreateNotificationSchema,
   ListNotificationsFilter,

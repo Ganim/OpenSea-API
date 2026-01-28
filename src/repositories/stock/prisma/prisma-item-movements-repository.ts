@@ -3,8 +3,7 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { ItemMovement } from '@/entities/stock/item-movement';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
 import { prisma } from '@/lib/prisma';
-import type { MovementType as PrismaMovementType } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime/library';
+import type { MovementType as PrismaMovementType } from '@prisma/generated/client.js';
 import type {
   CreateItemMovementSchema,
   ItemMovementsRepository,
@@ -17,13 +16,9 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
       data: {
         itemId: data.itemId.toString(),
         userId: data.userId.toString(),
-        quantity: new Decimal(data.quantity),
-        quantityBefore: data.quantityBefore
-          ? new Decimal(data.quantityBefore)
-          : undefined,
-        quantityAfter: data.quantityAfter
-          ? new Decimal(data.quantityAfter)
-          : undefined,
+        quantity: data.quantity,
+        quantityBefore: data.quantityBefore,
+        quantityAfter: data.quantityAfter,
         movementType: data.movementType.value as PrismaMovementType,
         reasonCode: data.reasonCode,
         destinationRef: data.destinationRef,

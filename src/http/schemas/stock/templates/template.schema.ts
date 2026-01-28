@@ -58,6 +58,10 @@ export const templateAttributesMapSchema = z.record(
 );
 
 export const createTemplateSchema = z.object({
+  code: z
+    .string()
+    .regex(/^\d{3}$/, 'Code must be exactly 3 digits (e.g., 001, 042)')
+    .optional(), // Código hierárquico manual (auto-gerado se não fornecido)
   name: z.string().min(1).max(100),
   iconUrl: z.string().url().max(512).optional(),
   unitOfMeasure: z
@@ -73,6 +77,8 @@ export const createTemplateSchema = z.object({
 
 export const templateResponseSchema = z.object({
   id: z.uuid(),
+  code: z.string().nullable(), // Código hierárquico (3 dígitos: 001)
+  sequentialCode: z.number().nullable(),
   name: z.string(),
   iconUrl: z.string().nullable(),
   unitOfMeasure: z.string(),
@@ -80,7 +86,6 @@ export const templateResponseSchema = z.object({
   variantAttributes: templateAttributesMapSchema,
   itemAttributes: templateAttributesMapSchema,
   careLabel: careLabelSchema.nullable(),
-  sequentialCode: z.number().nullable(),
   isActive: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().nullable(),

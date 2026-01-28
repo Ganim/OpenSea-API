@@ -17,6 +17,7 @@ describe('List Products (E2E)', () => {
   it('should list products with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
+    const suffix = String(timestamp).slice(-4);
 
     const template = await prisma.template.create({
       data: {
@@ -29,7 +30,11 @@ describe('List Products (E2E)', () => {
 
     await prisma.product.create({
       data: {
-        code: `PROD-LIST-${timestamp}`,
+        fullCode: `001.000.${suffix}`,
+        slug: `product-to-list-${timestamp}`,
+        barcode: `BCLST${suffix}`,
+        eanCode: `EAN${suffix}LST00`,
+        upcCode: `UPC${suffix}LST0`,
         name: 'Product to List',
         status: 'ACTIVE',
         templateId: template.id,

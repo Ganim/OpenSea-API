@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
-import type { Manufacturer as PrismaManufacturer } from '@prisma/client';
+import type { Manufacturer as PrismaManufacturer } from '@prisma/generated/client.js';
 
 export function mapManufacturerPrismaToDomain(
   manufacturerDb: PrismaManufacturer,

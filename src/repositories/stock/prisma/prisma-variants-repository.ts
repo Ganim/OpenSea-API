@@ -2,7 +2,6 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
 import { prisma } from '@/lib/prisma';
-import { Decimal } from '@prisma/client/runtime/library';
 import type {
   CreateVariantSchema,
   UpdateVariantSchema,
@@ -14,28 +13,26 @@ export class PrismaVariantsRepository implements VariantsRepository {
     const variantData = await prisma.variant.create({
       data: {
         productId: data.productId.toString(),
+        fullCode: data.fullCode,
+        sequentialCode: data.sequentialCode,
         sku: data.sku,
         name: data.name,
-        price: new Decimal(data.price),
+        price: data.price,
         imageUrl: data.imageUrl,
         attributes: (data.attributes ?? {}) as never,
-        costPrice: data.costPrice ? new Decimal(data.costPrice) : undefined,
-        profitMargin: data.profitMargin
-          ? new Decimal(data.profitMargin)
-          : undefined,
+        costPrice: data.costPrice ? data.costPrice : undefined,
+        profitMargin: data.profitMargin ? data.profitMargin : undefined,
         barcode: data.barcode,
         qrCode: data.qrCode,
         eanCode: data.eanCode,
         upcCode: data.upcCode,
         colorHex: data.colorHex,
         colorPantone: data.colorPantone,
-        minStock: data.minStock ? new Decimal(data.minStock) : undefined,
-        maxStock: data.maxStock ? new Decimal(data.maxStock) : undefined,
-        reorderPoint: data.reorderPoint
-          ? new Decimal(data.reorderPoint)
-          : undefined,
+        minStock: data.minStock ? data.minStock : undefined,
+        maxStock: data.maxStock ? data.maxStock : undefined,
+        reorderPoint: data.reorderPoint ? data.reorderPoint : undefined,
         reorderQuantity: data.reorderQuantity
-          ? new Decimal(data.reorderQuantity)
+          ? data.reorderQuantity
           : undefined,
         reference: data.reference,
         similars: (data.similars ?? []) as never,
@@ -47,6 +44,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return Variant.create(
       {
         productId: new EntityID(variantData.productId),
+        fullCode: variantData.fullCode ?? undefined,
+        sequentialCode: variantData.sequentialCode ?? undefined,
         sku: variantData.sku ?? undefined,
         name: variantData.name,
         price: Number(variantData.price.toString()),
@@ -558,6 +557,66 @@ export class PrismaVariantsRepository implements VariantsRepository {
     });
   }
 
+  async findLastByProductId(productId: UniqueEntityID): Promise<Variant | null> {
+    const variantData = await prisma.variant.findFirst({
+      where: {
+        productId: productId.toString(),
+        deletedAt: null,
+      },
+      orderBy: {
+        sequentialCode: 'desc',
+      },
+    });
+
+    if (!variantData) {
+      return null;
+    }
+
+    return Variant.create(
+      {
+        productId: new EntityID(variantData.productId),
+        sku: variantData.sku ?? undefined,
+        fullCode: variantData.fullCode ?? undefined,
+        sequentialCode: variantData.sequentialCode ?? undefined,
+        name: variantData.name,
+        price: Number(variantData.price.toString()),
+        imageUrl: variantData.imageUrl ?? undefined,
+        attributes: variantData.attributes as Record<string, unknown>,
+        costPrice: variantData.costPrice
+          ? Number(variantData.costPrice.toString())
+          : undefined,
+        profitMargin: variantData.profitMargin
+          ? Number(variantData.profitMargin.toString())
+          : undefined,
+        barcode: variantData.barcode ?? undefined,
+        qrCode: variantData.qrCode ?? undefined,
+        eanCode: variantData.eanCode ?? undefined,
+        upcCode: variantData.upcCode ?? undefined,
+        colorHex: variantData.colorHex ?? undefined,
+        colorPantone: variantData.colorPantone ?? undefined,
+        minStock: variantData.minStock
+          ? Number(variantData.minStock.toString())
+          : undefined,
+        maxStock: variantData.maxStock
+          ? Number(variantData.maxStock.toString())
+          : undefined,
+        reorderPoint: variantData.reorderPoint
+          ? Number(variantData.reorderPoint.toString())
+          : undefined,
+        reorderQuantity: variantData.reorderQuantity
+          ? Number(variantData.reorderQuantity.toString())
+          : undefined,
+        reference: variantData.reference ?? undefined,
+        similars: (variantData.similars as unknown[]) ?? undefined,
+        outOfLine: variantData.outOfLine,
+        isActive: variantData.isActive,
+        createdAt: variantData.createdAt,
+        updatedAt: variantData.updatedAt ?? undefined,
+      },
+      new EntityID(variantData.id),
+    );
+  }
+
   async findManyByPriceRange(
     minPrice: number,
     maxPrice: number,
@@ -565,8 +624,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
     const variants = await prisma.variant.findMany({
       where: {
         price: {
-          gte: new Decimal(minPrice),
-          lte: new Decimal(maxPrice),
+          gte: minPrice,
+          lte: maxPrice,
         },
         deletedAt: null,
       },
@@ -683,26 +742,22 @@ export class PrismaVariantsRepository implements VariantsRepository {
       data: {
         sku: data.sku,
         name: data.name,
-        price: data.price ? new Decimal(data.price) : undefined,
+        price: data.price ? data.price : undefined,
         imageUrl: data.imageUrl,
         attributes: data.attributes as never,
-        costPrice: data.costPrice ? new Decimal(data.costPrice) : undefined,
-        profitMargin: data.profitMargin
-          ? new Decimal(data.profitMargin)
-          : undefined,
+        costPrice: data.costPrice ? data.costPrice : undefined,
+        profitMargin: data.profitMargin ? data.profitMargin : undefined,
         barcode: data.barcode,
         qrCode: data.qrCode,
         eanCode: data.eanCode,
         upcCode: data.upcCode,
         colorHex: data.colorHex,
         colorPantone: data.colorPantone,
-        minStock: data.minStock ? new Decimal(data.minStock) : undefined,
-        maxStock: data.maxStock ? new Decimal(data.maxStock) : undefined,
-        reorderPoint: data.reorderPoint
-          ? new Decimal(data.reorderPoint)
-          : undefined,
+        minStock: data.minStock ? data.minStock : undefined,
+        maxStock: data.maxStock ? data.maxStock : undefined,
+        reorderPoint: data.reorderPoint ? data.reorderPoint : undefined,
         reorderQuantity: data.reorderQuantity
-          ? new Decimal(data.reorderQuantity)
+          ? data.reorderQuantity
           : undefined,
         reference: data.reference,
         similars: data.similars as never,
@@ -762,28 +817,22 @@ export class PrismaVariantsRepository implements VariantsRepository {
       data: {
         sku: variant.sku,
         name: variant.name,
-        price: new Decimal(variant.price),
+        price: variant.price,
         imageUrl: variant.imageUrl,
         attributes: variant.attributes as never,
-        costPrice: variant.costPrice
-          ? new Decimal(variant.costPrice)
-          : undefined,
-        profitMargin: variant.profitMargin
-          ? new Decimal(variant.profitMargin)
-          : undefined,
+        costPrice: variant.costPrice ? variant.costPrice : undefined,
+        profitMargin: variant.profitMargin ? variant.profitMargin : undefined,
         barcode: variant.barcode,
         qrCode: variant.qrCode,
         eanCode: variant.eanCode,
         upcCode: variant.upcCode,
         colorHex: variant.colorHex,
         colorPantone: variant.colorPantone,
-        minStock: variant.minStock ? new Decimal(variant.minStock) : undefined,
-        maxStock: variant.maxStock ? new Decimal(variant.maxStock) : undefined,
-        reorderPoint: variant.reorderPoint
-          ? new Decimal(variant.reorderPoint)
-          : undefined,
+        minStock: variant.minStock ? variant.minStock : undefined,
+        maxStock: variant.maxStock ? variant.maxStock : undefined,
+        reorderPoint: variant.reorderPoint ? variant.reorderPoint : undefined,
         reorderQuantity: variant.reorderQuantity
-          ? new Decimal(variant.reorderQuantity)
+          ? variant.reorderQuantity
           : undefined,
         reference: variant.reference,
         similars: variant.similars as never,

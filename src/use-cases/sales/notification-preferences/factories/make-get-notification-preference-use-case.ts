@@ -4,5 +4,7 @@ import { GetNotificationPreferenceUseCase } from '../get-notification-preference
 export function makeGetNotificationPreferenceUseCase() {
   const notificationPreferencesRepository =
     new PrismaNotificationPreferencesRepository();
-  return new GetNotificationPreferenceUseCase(notificationPreferencesRepository);
+  return new GetNotificationPreferenceUseCase(
+    notificationPreferencesRepository,
+  );
 }

@@ -8,12 +8,13 @@ process.env.SILENCE_RATE_LIMIT_LOGS = '1';
 // Gera schema único ANTES de qualquer importação do app
 const schema = `test_${randomUUID().replace(/-/g, '_')}`;
 
-function generateDatabaseUrl(schemaName: string) {
-  const baseUrl =
-    process.env.DATABASE_URL ||
-    'postgresql://docker:docker@localhost:5432/opensea-db?schema=public';
+// Salva a URL original ANTES de sobrescrever
+const originalDatabaseUrl =
+  process.env.DATABASE_URL ||
+  'postgresql://docker:docker@localhost:5432/apiopensea?schema=public';
 
-  const url = new URL(baseUrl);
+function generateDatabaseUrl(schemaName: string) {
+  const url = new URL(originalDatabaseUrl);
   url.searchParams.set('schema', schemaName);
   return url.toString();
 }
@@ -22,7 +23,7 @@ function generateDatabaseUrl(schemaName: string) {
 const testDatabaseUrl = generateDatabaseUrl(schema);
 process.env.DATABASE_URL = testDatabaseUrl;
 
-// Aplica as migrations no schema de teste
+// Aplica as migrations no schema de teste isolado
 execSync('npx prisma migrate deploy', {
   env: {
     ...process.env,
@@ -34,7 +35,6 @@ console.log(`🧪 Testes E2E usando schema: ${schema}`);
 
 // Cleanup após todos os testes do arquivo
 afterAll(async () => {
-  // Importa o prisma apenas no cleanup para garantir que use a URL correta
   const { prisma } = await import('@/lib/prisma');
 
   try {

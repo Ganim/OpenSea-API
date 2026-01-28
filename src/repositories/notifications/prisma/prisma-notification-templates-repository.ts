@@ -4,7 +4,7 @@ import { notificationTemplatePrismaToDomain } from '@/mappers/notifications/noti
 import type {
   NotificationChannel as PrismaNotificationChannel,
   NotificationPriority as PrismaNotificationPriority,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 import type {
   CreateTemplateSchema,
   NotificationTemplatesRepository,

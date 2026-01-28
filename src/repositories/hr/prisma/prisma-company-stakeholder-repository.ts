@@ -6,7 +6,7 @@ import {
   type CompanyStakeholderSource,
 } from '@/entities/hr';
 import { mapCompanyStakeholderPrismaToDomain } from '@/mappers/hr/company-stakeholder';
-import { PrismaClient, type Prisma } from '@prisma/client';
+import { PrismaClient, type Prisma } from '@prisma/generated/client.js';
 import {
   CompanyStakeholderRepository,
   CreateCompanyStakeholderSchema,

@@ -22,6 +22,8 @@ export const createManufacturerSchema = z.object({
 
 export const manufacturerResponseSchema = z.object({
   id: z.uuid(),
+  code: z.string(), // Código hierárquico auto-gerado (3 dígitos: 001)
+  sequentialCode: z.number().nullable(),
   name: z.string(),
   country: z.string(),
   email: z.string().nullable(),

@@ -10,7 +10,7 @@ import {
   AuditAction as PrismaAuditAction,
   AuditEntity as PrismaAuditEntity,
   AuditModule as PrismaAuditModule,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 import {
   AuditLogsRepository,
   AuditLogStatistics,

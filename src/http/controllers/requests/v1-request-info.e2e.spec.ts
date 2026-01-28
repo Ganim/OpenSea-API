@@ -15,7 +15,8 @@ describe('Request Info (E2E)', () => {
   });
 
   it('should request info with correct schema', async () => {
-    const { token: assignedToken, user: assignedUser } = await createAndAuthenticateUser(app);
+    const { token: assignedToken, user: assignedUser } =
+      await createAndAuthenticateUser(app);
     const { user: requesterUser } = await createAndAuthenticateUser(app);
 
     const testRequest = await createRequestE2E({
@@ -29,7 +30,8 @@ describe('Request Info (E2E)', () => {
       .patch(`/v1/requests/${testRequest.id}/request-info`)
       .set('Authorization', `Bearer ${assignedToken}`)
       .send({
-        infoRequested: 'Please provide additional information about your request with at least 10 characters',
+        infoRequested:
+          'Please provide additional information about your request with at least 10 characters',
       });
 
     expect(response.status).toBe(200);

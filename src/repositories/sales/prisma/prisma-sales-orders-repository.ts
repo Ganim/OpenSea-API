@@ -3,8 +3,10 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { SalesOrder, SalesOrderItem } from '@/entities/sales/sales-order';
 import { OrderStatus } from '@/entities/sales/value-objects/order-status';
 import { prisma } from '@/lib/prisma';
-import { Prisma, type OrderStatus as PrismaOrderStatus } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime/library';
+import {
+  Prisma,
+  type OrderStatus as PrismaOrderStatus,
+} from '@prisma/generated/client.js';
 import type {
   CreateSalesOrderSchema,
   SalesOrdersRepository,
@@ -19,19 +21,17 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
         customerId: data.customerId.toString(),
         createdBy: data.createdBy?.toString(),
         status: data.status.value as PrismaOrderStatus,
-        discount: new Decimal(data.discount ?? 0),
+        discount: data.discount ?? 0,
         notes: data.notes,
-        totalPrice: new Decimal(0), // Will be calculated from items
-        finalPrice: new Decimal(0), // Will be calculated
+        totalPrice: 0, // Will be calculated from items
+        finalPrice: 0, // Will be calculated
         items: {
           create: data.items.map((item) => ({
             variantId: item.variantId.toString(),
-            quantity: new Decimal(item.quantity),
-            unitPrice: new Decimal(item.unitPrice),
-            discount: new Decimal(item.discount ?? 0),
-            totalPrice: new Decimal(
-              item.quantity * item.unitPrice - (item.discount ?? 0),
-            ),
+            quantity: item.quantity,
+            unitPrice: item.unitPrice,
+            discount: item.discount ?? 0,
+            totalPrice: item.quantity * item.unitPrice - (item.discount ?? 0),
             notes: item.notes,
           })),
         },
@@ -52,8 +52,8 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
     const updatedOrder = await prisma.salesOrder.update({
       where: { id: orderData.id },
       data: {
-        totalPrice: new Decimal(totalPrice),
-        finalPrice: new Decimal(finalPrice),
+        totalPrice: totalPrice,
+        finalPrice: finalPrice,
       },
       include: {
         items: true,
@@ -159,10 +159,7 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
         where: { id: data.id.toString() },
         data: {
           status: data.status?.value as PrismaOrderStatus | undefined,
-          discount:
-            data.discount !== undefined
-              ? new Decimal(data.discount)
-              : undefined,
+          discount: data.discount !== undefined ? data.discount : undefined,
           notes: data.notes,
         },
         include: {
@@ -178,7 +175,7 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
         const updatedOrder = await prisma.salesOrder.update({
           where: { id: data.id.toString() },
           data: {
-            finalPrice: new Decimal(finalPrice),
+            finalPrice: finalPrice,
           },
           include: {
             items: true,
@@ -203,9 +200,9 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
         customerId: order.customerId.toString(),
         createdBy: order.createdBy?.toString(),
         status: order.status.value as PrismaOrderStatus,
-        totalPrice: new Decimal(order.totalPrice),
-        discount: new Decimal(order.discount),
-        finalPrice: new Decimal(order.finalPrice),
+        totalPrice: order.totalPrice,
+        discount: order.discount,
+        finalPrice: order.finalPrice,
         notes: order.notes,
         createdAt: order.createdAt,
         updatedAt: order.updatedAt ?? new Date(),
@@ -213,9 +210,9 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
       },
       update: {
         status: order.status.value as PrismaOrderStatus,
-        totalPrice: new Decimal(order.totalPrice),
-        discount: new Decimal(order.discount),
-        finalPrice: new Decimal(order.finalPrice),
+        totalPrice: order.totalPrice,
+        discount: order.discount,
+        finalPrice: order.finalPrice,
         notes: order.notes,
         updatedAt: order.updatedAt ?? new Date(),
         deletedAt: order.deletedAt,
@@ -230,19 +227,19 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
           id: item.id.toString(),
           orderId: order.id.toString(),
           variantId: item.variantId.toString(),
-          quantity: new Decimal(item.quantity),
-          unitPrice: new Decimal(item.unitPrice),
-          discount: new Decimal(item.discount),
-          totalPrice: new Decimal(item.totalPrice),
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          discount: item.discount,
+          totalPrice: item.totalPrice,
           notes: item.notes,
           createdAt: item.createdAt,
           updatedAt: item.updatedAt ?? new Date(),
         },
         update: {
-          quantity: new Decimal(item.quantity),
-          unitPrice: new Decimal(item.unitPrice),
-          discount: new Decimal(item.discount),
-          totalPrice: new Decimal(item.totalPrice),
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          discount: item.discount,
+          totalPrice: item.totalPrice,
           notes: item.notes,
           updatedAt: item.updatedAt ?? new Date(),
         },

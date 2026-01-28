@@ -42,9 +42,11 @@ export function startEmailWorker() {
   return createWorker<EmailJobData>(
     QUEUE_NAMES.EMAILS,
     async (job: Job<EmailJobData>) => {
-      const { to, subject, html, text } = job.data;
+      const { to, subject, html: _html, text: _text } = job.data;
 
-      console.log(`[EmailWorker] Processing email to: ${to}, subject: ${subject}`);
+      console.log(
+        `[EmailWorker] Processing email to: ${to}, subject: ${subject}`,
+      );
 
       // TODO: Implementar envio real com nodemailer
       // Por enquanto, apenas loga

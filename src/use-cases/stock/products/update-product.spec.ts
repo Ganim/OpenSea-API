@@ -79,7 +79,6 @@ describe('UpdateProductUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
       description: 'Original',
       templateId: template.template.id.toString(),
     });
@@ -90,7 +89,7 @@ describe('UpdateProductUseCase', () => {
     });
 
     expect(result.product.name).toBe('Laptop Dell');
-    expect(result.product.code).toBe('LAPTOP-001');
+    expect(result.product.slug).toBeDefined();
     expect(result.product.description).toBe('Updated');
   });
 
@@ -146,6 +145,28 @@ describe('UpdateProductUseCase', () => {
     expect(result.product.manufacturerId?.toString()).toBe(
       manufacturer.manufacturer.manufacturerId.toString(),
     );
+  });
+
+  it('should update product outOfLine field', async () => {
+    const template = await createTemplate.execute({
+      name: 'Electronics Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const created = await createProduct.execute({
+      name: 'Product OutOfLine Test',
+      code: 'LAPTOP-OOL',
+      templateId: template.template.id.toString(),
+    });
+
+    expect(created.product.outOfLine).toBe(false);
+
+    const result = await sut.execute({
+      id: created.product.id.toString(),
+      outOfLine: true,
+    });
+
+    expect(result.product.outOfLine).toBe(true);
   });
 
   it('should throw error if product not found', async () => {
@@ -246,7 +267,10 @@ describe('UpdateProductUseCase', () => {
   it('should not update with invalid attributes', async () => {
     const template = await createTemplate.execute({
       name: 'Electronics Template',
-      productAttributes: { brand: templateAttr.string(), model: templateAttr.string() },
+      productAttributes: {
+        brand: templateAttr.string(),
+        model: templateAttr.string(),
+      },
     });
 
     const created = await createProduct.execute({

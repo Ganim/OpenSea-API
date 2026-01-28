@@ -3,13 +3,16 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import { prisma } from '@/lib/prisma';
-import type { ItemStatus as PrismaItemStatus } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime/library';
+import {
+  Prisma,
+  type ItemStatus as PrismaItemStatus,
+} from '@prisma/generated/client.js';
+
 import type {
-    CreateItemSchema,
-    ItemsRepository,
-    ItemWithRelationsDTO,
-    UpdateItemSchema,
+  CreateItemSchema,
+  ItemsRepository,
+  ItemWithRelationsDTO,
+  UpdateItemSchema,
 } from '../items-repository';
 
 export interface ItemWithRelations {
@@ -17,8 +20,8 @@ export interface ItemWithRelations {
   uniqueCode: string;
   variantId: string;
   binId: string | null;
-  initialQuantity: Decimal;
-  currentQuantity: Decimal;
+  initialQuantity: Prisma.Decimal;
+  currentQuantity: Prisma.Decimal;
   status: PrismaItemStatus;
   entryDate: Date;
   attributes: object;
@@ -202,10 +205,12 @@ export class PrismaItemsRepository implements ItemsRepository {
     const itemData = await prisma.item.create({
       data: {
         uniqueCode: data.uniqueCode,
+        fullCode: data.fullCode,
+        sequentialCode: data.sequentialCode,
         variantId: data.variantId.toString(),
         binId: data.binId?.toString() ?? null,
-        initialQuantity: new Decimal(data.initialQuantity),
-        currentQuantity: new Decimal(data.currentQuantity),
+        initialQuantity: data.initialQuantity,
+        currentQuantity: data.currentQuantity,
         status: data.status.value as PrismaItemStatus,
         entryDate: data.entryDate,
         attributes: data.attributes as object,
@@ -218,6 +223,8 @@ export class PrismaItemsRepository implements ItemsRepository {
     return Item.create(
       {
         uniqueCode: itemData.uniqueCode ?? undefined,
+        fullCode: itemData.fullCode ?? undefined,
+        sequentialCode: itemData.sequentialCode ?? undefined,
         variantId: new EntityID(itemData.variantId),
         binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
         initialQuantity: itemData.initialQuantity.toNumber(),
@@ -617,6 +624,8 @@ export class PrismaItemsRepository implements ItemsRepository {
       Item.create(
         {
           uniqueCode: itemData.uniqueCode ?? undefined,
+          fullCode: itemData.fullCode ?? undefined,
+          sequentialCode: itemData.sequentialCode ?? undefined,
           variantId: new EntityID(itemData.variantId),
           binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
           initialQuantity: itemData.initialQuantity.toNumber(),
@@ -636,6 +645,44 @@ export class PrismaItemsRepository implements ItemsRepository {
     );
   }
 
+  async findLastByVariantId(variantId: UniqueEntityID): Promise<Item | null> {
+    const itemData = await prisma.item.findFirst({
+      where: {
+        variantId: variantId.toString(),
+        deletedAt: null,
+      },
+      orderBy: {
+        sequentialCode: 'desc',
+      },
+    });
+
+    if (!itemData) {
+      return null;
+    }
+
+    return Item.create(
+      {
+        uniqueCode: itemData.uniqueCode ?? undefined,
+        fullCode: itemData.fullCode ?? undefined,
+        sequentialCode: itemData.sequentialCode ?? undefined,
+        variantId: new EntityID(itemData.variantId),
+        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
+        initialQuantity: itemData.initialQuantity.toNumber(),
+        currentQuantity: itemData.currentQuantity.toNumber(),
+        status: ItemStatus.create(itemData.status),
+        entryDate: itemData.entryDate,
+        attributes: itemData.attributes as Record<string, unknown>,
+        batchNumber: itemData.batchNumber ?? undefined,
+        manufacturingDate: itemData.manufacturingDate ?? undefined,
+        expiryDate: itemData.expiryDate ?? undefined,
+        createdAt: itemData.createdAt,
+        updatedAt: itemData.updatedAt,
+        deletedAt: itemData.deletedAt ?? undefined,
+      },
+      new EntityID(itemData.id),
+    );
+  }
+
   async update(data: UpdateItemSchema): Promise<Item | null> {
     const itemData = await prisma.item.update({
       where: {
@@ -644,7 +691,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       data: {
         binId: data.binId?.toString() ?? undefined,
         currentQuantity: data.currentQuantity
-          ? new Decimal(data.currentQuantity)
+          ? data.currentQuantity
           : undefined,
         status: data.status?.value as PrismaItemStatus | undefined,
         attributes: data.attributes as object | undefined,
@@ -682,7 +729,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
       data: {
         binId: item.binId?.toString() ?? null,
-        currentQuantity: new Decimal(item.currentQuantity),
+        currentQuantity: item.currentQuantity,
         status: item.status.value as PrismaItemStatus,
         attributes: item.attributes as object,
         batchNumber: item.batchNumber,

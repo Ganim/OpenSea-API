@@ -69,8 +69,13 @@ export const userResponseSchema = z.object({
   id: idSchema,
   username: z.string(),
   email: z.string(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date().nullable().optional(),
   lastLoginAt: z.coerce.date().nullable(),
   deletedAt: z.coerce.date().nullable().optional(),
+  forcePasswordReset: z.boolean().optional(),
+  forcePasswordResetReason: z.string().nullable().optional(),
+  forcePasswordResetRequestedAt: z.coerce.date().nullable().optional(),
   profile: z
     .object({
       id: idSchema,

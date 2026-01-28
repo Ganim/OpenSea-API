@@ -6,6 +6,8 @@ import type {
 
 export interface TemplateDTO {
   id: string;
+  code: string | null; // Código hierárquico (3 dígitos: 001)
+  sequentialCode: number | null;
   name: string;
   iconUrl: string | null;
   unitOfMeasure: string;
@@ -13,7 +15,6 @@ export interface TemplateDTO {
   variantAttributes: TemplateAttributesMap;
   itemAttributes: TemplateAttributesMap;
   careLabel: CareLabelInfo | null;
-  sequentialCode: number | null;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date | null;
@@ -23,6 +24,8 @@ export interface TemplateDTO {
 export function templateToDTO(template: Template): TemplateDTO {
   return {
     id: template.id.toString(),
+    code: template.code ?? null,
+    sequentialCode: template.sequentialCode ?? null,
     name: template.name,
     iconUrl: template.iconUrl ?? null,
     unitOfMeasure: template.unitOfMeasure?.value ?? 'UNITS',
@@ -30,7 +33,6 @@ export function templateToDTO(template: Template): TemplateDTO {
     variantAttributes: template.variantAttributes,
     itemAttributes: template.itemAttributes,
     careLabel: template.careLabel ?? null,
-    sequentialCode: template.sequentialCode ?? null,
     isActive: template.isActive,
     createdAt: template.createdAt,
     updatedAt: template.updatedAt ?? null,

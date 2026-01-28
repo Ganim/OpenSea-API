@@ -35,9 +35,9 @@ export async function refreshSessionController(app: FastifyInstance) {
       const authHeader = request.headers.authorization;
 
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return reply
-          .status(401)
-          .send({ message: 'Refresh token is required in Authorization header.' });
+        return reply.status(401).send({
+          message: 'Refresh token is required in Authorization header.',
+        });
       }
 
       const refreshTokenValue = authHeader.substring(7); // Remove 'Bearer '

@@ -2,9 +2,9 @@ import {
   VolumeItemNotFoundError,
   VolumeNotFoundError,
 } from '@/@errors/volumes-errors';
+import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { Volume } from '@/entities/stock/volume';
 import { VolumeItem } from '@/entities/stock/volume-item';
-import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { InMemoryVolumesRepository } from '@/repositories/stock/in-memory/in-memory-volumes-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { RemoveItemFromVolumeUseCase } from './remove-item-from-volume';
@@ -72,7 +72,9 @@ describe('RemoveItemFromVolumeUseCase', () => {
     expect(result.success).toBe(true);
 
     // Verify the item is removed
-    const items = await volumesRepository.getItemsByVolumeId(volume.id.toString());
+    const items = await volumesRepository.getItemsByVolumeId(
+      volume.id.toString(),
+    );
     expect(items.length).toBe(0);
   });
 });

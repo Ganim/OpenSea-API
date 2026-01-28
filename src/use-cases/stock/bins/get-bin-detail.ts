@@ -61,7 +61,9 @@ export class GetBinDetailUseCase {
       throw new ResourceNotFoundError('Zone');
     }
 
-    const warehouse = await this.warehousesRepository.findById(zone.warehouseId);
+    const warehouse = await this.warehousesRepository.findById(
+      zone.warehouseId,
+    );
 
     if (!warehouse) {
       throw new ResourceNotFoundError('Warehouse');
@@ -70,14 +72,24 @@ export class GetBinDetailUseCase {
     const itemCount = await this.binsRepository.countItemsInBin(binId);
 
     // Get items in the bin with their variant and product info
-    const itemsWithRelations = await this.itemsRepository.findManyByBinWithRelations(binId);
+    const itemsWithRelations =
+      await this.itemsRepository.findManyByBinWithRelations(binId);
 
     const items: BinItemDTO[] = itemsWithRelations
-      .filter((itemDTO) => itemDTO.item.currentQuantity > 0 && itemDTO.item.status.isAvailable)
+      .filter(
+        (itemDTO) =>
+          itemDTO.item.currentQuantity > 0 && itemDTO.item.status.isAvailable,
+      )
       .map((itemDTO) => ({
         id: itemDTO.item.id.toString(),
-        itemCode: itemDTO.item.fullCode || itemDTO.item.uniqueCode || itemDTO.item.id.toString().slice(0, 8),
-        sku: itemDTO.relatedData.variantSku || itemDTO.item.uniqueCode || itemDTO.item.id.toString().slice(0, 8),
+        itemCode:
+          itemDTO.item.fullCode ||
+          itemDTO.item.uniqueCode ||
+          itemDTO.item.id.toString().slice(0, 8),
+        sku:
+          itemDTO.relatedData.variantSku ||
+          itemDTO.item.uniqueCode ||
+          itemDTO.item.id.toString().slice(0, 8),
         productName: itemDTO.relatedData.productName,
         variantName: itemDTO.relatedData.variantName || null,
         quantity: itemDTO.item.currentQuantity,

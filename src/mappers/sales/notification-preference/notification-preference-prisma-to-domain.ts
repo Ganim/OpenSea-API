@@ -4,7 +4,7 @@ import type {
   NotificationChannelValue,
 } from '@/entities/sales/notification-preference';
 import { NotificationPreference } from '@/entities/sales/notification-preference';
-import type { NotificationPreference as PrismaNotificationPreference } from '@prisma/client';
+import type { NotificationPreference as PrismaNotificationPreference } from '@prisma/generated/client.js';
 
 export function mapNotificationPreferencePrismaToDomain(
   preferenceDb: PrismaNotificationPreference,

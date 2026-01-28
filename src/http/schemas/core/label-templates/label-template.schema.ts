@@ -60,9 +60,19 @@ export const thumbnailResponseSchema = z.object({
   thumbnailUrl: z.string(),
 });
 
-export type CreateLabelTemplateInput = z.infer<typeof createLabelTemplateSchema>;
-export type UpdateLabelTemplateInput = z.infer<typeof updateLabelTemplateSchema>;
-export type DuplicateLabelTemplateInput = z.infer<typeof duplicateLabelTemplateSchema>;
-export type ListLabelTemplatesQuery = z.infer<typeof listLabelTemplatesQuerySchema>;
+export type CreateLabelTemplateInput = z.infer<
+  typeof createLabelTemplateSchema
+>;
+export type UpdateLabelTemplateInput = z.infer<
+  typeof updateLabelTemplateSchema
+>;
+export type DuplicateLabelTemplateInput = z.infer<
+  typeof duplicateLabelTemplateSchema
+>;
+export type ListLabelTemplatesQuery = z.infer<
+  typeof listLabelTemplatesQuerySchema
+>;
 export type LabelTemplateResponse = z.infer<typeof labelTemplateResponseSchema>;
-export type LabelTemplatesListResponse = z.infer<typeof labelTemplatesListResponseSchema>;
+export type LabelTemplatesListResponse = z.infer<
+  typeof labelTemplatesListResponseSchema
+>;

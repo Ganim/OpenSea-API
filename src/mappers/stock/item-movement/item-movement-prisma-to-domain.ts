@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemMovement } from '@/entities/stock/item-movement';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
-import type { ItemMovement as PrismaItemMovement } from '@prisma/client';
+import type { ItemMovement as PrismaItemMovement } from '@prisma/generated/client.js';
 
 export function mapItemMovementPrismaToDomain(movementDb: PrismaItemMovement) {
   return {

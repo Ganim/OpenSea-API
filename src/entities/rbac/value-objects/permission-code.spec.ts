@@ -129,7 +129,9 @@ describe('PermissionCode Value Object', () => {
 
     it('should reject invalid formats', () => {
       expect(PermissionCode.isValid('')).toBe(false);
-      expect(PermissionCode.isValid('core.users.create.extra.more')).toBe(false);
+      expect(PermissionCode.isValid('core.users.create.extra.more')).toBe(
+        false,
+      );
       expect(PermissionCode.isValid('stock..products')).toBe(false);
       expect(PermissionCode.isValid('.stock')).toBe(false);
       expect(PermissionCode.isValid('stock.')).toBe(false);

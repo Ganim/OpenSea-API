@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { VacationStatus } from '@/entities/hr/value-objects';
-import type { VacationPeriod as PrismaVacationPeriod } from '@prisma/client';
+import type { VacationPeriod as PrismaVacationPeriod } from '@prisma/generated/client.js';
 
 export function mapVacationPeriodPrismaToDomain(
   vacationPeriod: PrismaVacationPeriod,

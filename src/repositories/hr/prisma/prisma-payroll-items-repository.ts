@@ -2,7 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PayrollItem } from '@/entities/hr/payroll-item';
 import { prisma } from '@/lib/prisma';
 import { mapPayrollItemPrismaToDomain } from '@/mappers/hr/payroll-item';
-import type { PayrollItemType } from '@prisma/client';
+import type { PayrollItemType } from '@prisma/generated/client.js';
 import type {
   CreatePayrollItemSchema,
   FindPayrollItemFilters,

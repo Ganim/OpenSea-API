@@ -3,7 +3,7 @@ import { PayrollStatus } from '@/entities/hr/value-objects';
 import type {
   Payroll as PrismaPayroll,
   PayrollItem as PrismaPayrollItem,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 
 type PayrollWithItems = PrismaPayroll & {
   items?: PrismaPayrollItem[];

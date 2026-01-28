@@ -1,22 +1,22 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import {
-    ZoneLayout,
-    type ZoneLayoutProps,
+  ZoneLayout,
+  type ZoneLayoutProps,
 } from '@/entities/stock/value-objects/zone-layout';
 import {
-    ZoneStructure,
-    type ZoneStructureProps,
+  ZoneStructure,
+  type ZoneStructureProps,
 } from '@/entities/stock/value-objects/zone-structure';
 import { Zone } from '@/entities/stock/zone';
 import { prisma } from '@/lib/prisma';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/generated/client.js';
 import type {
-    CreateZoneSchema,
-    UpdateZoneLayoutSchema,
-    UpdateZoneSchema,
-    UpdateZoneStructureSchema,
-    ZonesRepository,
+  CreateZoneSchema,
+  UpdateZoneLayoutSchema,
+  UpdateZoneSchema,
+  UpdateZoneStructureSchema,
+  ZonesRepository,
 } from '../zones-repository';
 
 function mapToZone(zoneData: {

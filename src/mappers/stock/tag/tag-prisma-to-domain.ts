@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Tag } from '@/entities/stock/tag';
-import type { Tag as PrismaTag } from '@prisma/client';
+import type { Tag as PrismaTag } from '@prisma/generated/client.js';
 
 export function mapTagPrismaToDomain(tagDb: PrismaTag) {
   return {

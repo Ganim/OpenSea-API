@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import type { PayrollStatus } from '@prisma/client';
+import type { PayrollStatus } from '@prisma/generated/client.js';
 
 // Global counter to ensure unique months/years across all tests
 let uniqueIdCounter = 0;

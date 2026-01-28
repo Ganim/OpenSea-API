@@ -27,6 +27,9 @@ describe('Update Permission (e2e)', () => {
 
     expect(response.statusCode).toEqual(200);
     expect(response.body).toHaveProperty('permission');
-    expect(response.body.permission).toHaveProperty('name', 'Updated Permission Name');
+    expect(response.body.permission).toHaveProperty(
+      'name',
+      'Updated Permission Name',
+    );
   });
 });

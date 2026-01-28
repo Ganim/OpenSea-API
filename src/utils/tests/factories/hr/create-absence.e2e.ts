@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { faker } from '@faker-js/faker';
-import type { AbsenceStatus, AbsenceType } from '@prisma/client';
+import type { AbsenceStatus, AbsenceType } from '@prisma/generated/client.js';
 
 interface CreateAbsenceE2EProps {
   employeeId: string;

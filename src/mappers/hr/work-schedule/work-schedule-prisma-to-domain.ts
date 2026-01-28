@@ -1,4 +1,4 @@
-import type { WorkSchedule as PrismaWorkSchedule } from '@prisma/client';
+import type { WorkSchedule as PrismaWorkSchedule } from '@prisma/generated/client.js';
 
 export function mapWorkSchedulePrismaToDomain(
   workSchedule: PrismaWorkSchedule,

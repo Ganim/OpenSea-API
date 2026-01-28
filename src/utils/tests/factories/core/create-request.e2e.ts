@@ -4,7 +4,7 @@ import type {
   RequestStatus,
   RequestType,
   RequestTargetType,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 
 interface CreateRequestProps {
   title?: string;

@@ -28,6 +28,8 @@ export class InMemoryItemsRepository implements ItemsRepository {
   async create(data: CreateItemSchema): Promise<Item> {
     const item = Item.create({
       uniqueCode: data.uniqueCode,
+      fullCode: data.fullCode,
+      sequentialCode: data.sequentialCode,
       variantId: data.variantId,
       binId: data.binId,
       initialQuantity: data.initialQuantity,
@@ -66,6 +68,13 @@ export class InMemoryItemsRepository implements ItemsRepository {
     return this.items.filter(
       (item) => !item.deletedAt && item.variantId.equals(variantId),
     );
+  }
+
+  async findLastByVariantId(variantId: UniqueEntityID): Promise<Item | null> {
+    const items = this.items
+      .filter((item) => !item.deletedAt && item.variantId.equals(variantId))
+      .sort((a, b) => (b.sequentialCode ?? 0) - (a.sequentialCode ?? 0));
+    return items[0] ?? null;
   }
 
   async findManyByBin(binId: UniqueEntityID): Promise<Item[]> {
@@ -145,10 +154,14 @@ export class InMemoryItemsRepository implements ItemsRepository {
     const variantId = item.variantId.toString();
     const variant = this.relatedData.variants.get(variantId);
     const productId = variant?.productId;
-    const product = productId ? this.relatedData.products.get(productId) : undefined;
+    const product = productId
+      ? this.relatedData.products.get(productId)
+      : undefined;
     const binId = item.binId?.toString();
     const bin = binId ? this.relatedData.bins.get(binId) : undefined;
-    const zone = bin?.zoneId ? this.relatedData.zones.get(bin.zoneId) : undefined;
+    const zone = bin?.zoneId
+      ? this.relatedData.zones.get(bin.zoneId)
+      : undefined;
 
     return {
       productCode: product?.code ?? null,
@@ -172,7 +185,9 @@ export class InMemoryItemsRepository implements ItemsRepository {
     }));
   }
 
-  async findByIdWithRelations(id: UniqueEntityID): Promise<ItemWithRelationsDTO | null> {
+  async findByIdWithRelations(
+    id: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO | null> {
     const item = this.items.find(
       (item) => !item.deletedAt && item.id.equals(id),
     );
@@ -183,7 +198,9 @@ export class InMemoryItemsRepository implements ItemsRepository {
     };
   }
 
-  async findManyByVariantWithRelations(variantId: UniqueEntityID): Promise<ItemWithRelationsDTO[]> {
+  async findManyByVariantWithRelations(
+    variantId: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO[]> {
     const items = this.items.filter(
       (item) => !item.deletedAt && item.variantId.equals(variantId),
     );
@@ -193,14 +210,17 @@ export class InMemoryItemsRepository implements ItemsRepository {
     }));
   }
 
-  async findManyByProductWithRelations(productId: UniqueEntityID): Promise<ItemWithRelationsDTO[]> {
+  async findManyByProductWithRelations(
+    productId: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO[]> {
     // Filter items whose variant belongs to the product
     const variantIds = Array.from(this.relatedData.variants.entries())
       .filter(([_, variant]) => variant.productId === productId.toString())
       .map(([id, _]) => id);
 
     const items = this.items.filter(
-      (item) => !item.deletedAt && variantIds.includes(item.variantId.toString()),
+      (item) =>
+        !item.deletedAt && variantIds.includes(item.variantId.toString()),
     );
     return items.map((item) => ({
       item,
@@ -208,7 +228,9 @@ export class InMemoryItemsRepository implements ItemsRepository {
     }));
   }
 
-  async findManyByBinWithRelations(binId: UniqueEntityID): Promise<ItemWithRelationsDTO[]> {
+  async findManyByBinWithRelations(
+    binId: UniqueEntityID,
+  ): Promise<ItemWithRelationsDTO[]> {
     const items = this.items.filter(
       (item) => !item.deletedAt && item.binId?.equals(binId),
     );

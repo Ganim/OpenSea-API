@@ -3,8 +3,7 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { DiscountType } from '@/entities/sales/value-objects/discount-type';
 import { VariantPromotion } from '@/entities/sales/variant-promotion';
 import { prisma } from '@/lib/prisma';
-import type { DiscountType as PrismaDiscountType } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime/library';
+import type { DiscountType as PrismaDiscountType } from '@prisma/generated/client.js';
 import type {
   CreateVariantPromotionSchema,
   UpdateVariantPromotionSchema,
@@ -20,7 +19,7 @@ export class PrismaVariantPromotionsRepository
         variantId: data.variantId.toString(),
         name: data.name,
         discountType: data.discountType.value as PrismaDiscountType,
-        discountValue: new Decimal(data.discountValue),
+        discountValue: data.discountValue,
         startDate: data.startDate,
         endDate: data.endDate,
         isActive: data.isActive ?? true,
@@ -175,10 +174,7 @@ export class PrismaVariantPromotionsRepository
         where: { id: data.id.toString() },
         data: {
           name: data.name,
-          discountValue:
-            data.discountValue !== undefined
-              ? new Decimal(data.discountValue)
-              : undefined,
+          discountValue: data.discountValue,
           startDate: data.startDate,
           endDate: data.endDate,
           isActive: data.isActive,
@@ -215,7 +211,7 @@ export class PrismaVariantPromotionsRepository
         variantId: promotion.variantId.toString(),
         name: promotion.name,
         discountType: promotion.discountType.value as PrismaDiscountType,
-        discountValue: new Decimal(promotion.discountValue),
+        discountValue: promotion.discountValue,
         startDate: promotion.startDate,
         endDate: promotion.endDate,
         isActive: promotion.isActive,
@@ -226,7 +222,7 @@ export class PrismaVariantPromotionsRepository
       },
       update: {
         name: promotion.name,
-        discountValue: new Decimal(promotion.discountValue),
+        discountValue: promotion.discountValue,
         startDate: promotion.startDate,
         endDate: promotion.endDate,
         isActive: promotion.isActive,

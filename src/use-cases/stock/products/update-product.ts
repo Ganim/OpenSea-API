@@ -10,9 +10,10 @@ import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 interface UpdateProductUseCaseRequest {
   id: string;
   name?: string;
-  code?: string;
+  // code e fullCode são imutáveis após criação
   description?: string;
   status?: string;
+  outOfLine?: boolean;
   supplierId?: string;
   manufacturerId?: string;
   attributes?: Record<string, unknown>;
@@ -36,9 +37,10 @@ export class UpdateProductUseCase {
     const {
       id,
       name,
-      code,
+      // code e fullCode são imutáveis após criação
       description,
       status,
+      outOfLine,
       supplierId,
       manufacturerId,
       attributes,
@@ -72,16 +74,7 @@ export class UpdateProductUseCase {
       }
     }
 
-    // Validate code if provided
-    if (code !== undefined) {
-      if (!code || code.trim().length === 0) {
-        throw new BadRequestError('Code is required');
-      }
-
-      if (code.length > 100) {
-        throw new BadRequestError('Code must be at most 100 characters long');
-      }
-    }
+    // code e fullCode são imutáveis após criação
 
     // Validate status if provided
     let productStatus: ProductStatus | undefined;
@@ -153,12 +146,13 @@ export class UpdateProductUseCase {
     }
 
     // Update product
+    // code e fullCode são imutáveis após criação
     const updatedProduct = await this.productsRepository.update({
       id: new UniqueEntityID(id),
       name,
-      code,
       description,
       status: productStatus,
+      outOfLine,
       supplierId: supplierId ? new UniqueEntityID(supplierId) : undefined,
       manufacturerId: manufacturerId
         ? new UniqueEntityID(manufacturerId)

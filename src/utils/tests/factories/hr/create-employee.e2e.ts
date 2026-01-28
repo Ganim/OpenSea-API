@@ -1,6 +1,10 @@
 import { prisma } from '@/lib/prisma';
 import { faker } from '@faker-js/faker';
-import type { ContractType, EmployeeStatus, WorkRegime } from '@prisma/client';
+import type {
+  ContractType,
+  EmployeeStatus,
+  WorkRegime,
+} from '@prisma/generated/client.js';
 
 interface CreateEmployeeE2EProps {
   registrationNumber?: string;

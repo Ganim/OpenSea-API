@@ -30,7 +30,10 @@ describe('Add Request Comment (E2E)', () => {
 
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('id');
-    expect(response.body).toHaveProperty('content', 'This is a test comment from the requester');
+    expect(response.body).toHaveProperty(
+      'content',
+      'This is a test comment from the requester',
+    );
     expect(response.body).toHaveProperty('createdAt');
   });
 });

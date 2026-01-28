@@ -41,6 +41,7 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
       const { email, password } = request.body;
 
       const ip = request.ip;
+      const userAgent = request.headers['user-agent'];
 
       try {
         const authenticateUseCase = makeAuthenticateWithPasswordUseCase();
@@ -50,6 +51,7 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
             email,
             password,
             ip,
+            userAgent,
             reply,
           });
 

@@ -70,14 +70,19 @@ export class CreatePermissionUseCase {
 
     // Carregar configurações das permissões do sistema
     // Use process.cwd() to get the project root directory
-    const configPath = path.join(process.cwd(), 'prisma/permissions.json');
-    const configFile = fs.readFileSync(configPath, 'utf-8');
-    const config: PermissionsConfig = JSON.parse(configFile);
+    let isSystemPermission = false;
+    try {
+      const configPath = path.join(process.cwd(), 'prisma/permissions.json');
+      const configFile = fs.readFileSync(configPath, 'utf-8');
+      const config: PermissionsConfig = JSON.parse(configFile);
 
-    // Verificar se a permissão é do sistema (está definida no permissions.json)
-    const moduleConfig = config.modules[module];
-    const isSystemPermission =
-      moduleConfig?.resources[resource]?.actions.includes(action) ?? false;
+      // Verificar se a permissão é do sistema (está definida no permissions.json)
+      const moduleConfig = config.modules[module];
+      isSystemPermission =
+        moduleConfig?.resources[resource]?.actions.includes(action) ?? false;
+    } catch {
+      // Se o arquivo não existir, não marca como permissão do sistema automaticamente
+    }
 
     // Criar permissão
     const permission = await this.permissionsRepository.create({

@@ -21,7 +21,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.EMPLOYEE_HIRE,
     entity: AuditEntity.EMPLOYEE,
     module: AuditModule.HR,
-    description: '{{adminName}} cadastrou o funcionário {{employeeName}}',
+    description: '{{userName}} cadastrou o funcionário {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Funcionário cadastrado com usuário vinculado */
@@ -30,7 +30,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.EMPLOYEE,
     module: AuditModule.HR,
     description:
-      '{{adminName}} cadastrou o funcionário {{employeeName}} com acesso ao sistema',
+      '{{userName}} cadastrou o funcionário {{employeeName}} com acesso ao sistema',
   } satisfies AuditMessage,
 
   /** Dados do funcionário atualizados */
@@ -38,7 +38,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.EMPLOYEE,
     module: AuditModule.HR,
-    description: '{{adminName}} atualizou os dados de {{employeeName}}',
+    description: '{{userName}} atualizou os dados de {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Funcionário excluído */
@@ -46,7 +46,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.EMPLOYEE,
     module: AuditModule.HR,
-    description: '{{adminName}} excluiu o cadastro de {{employeeName}}',
+    description: '{{userName}} excluiu o cadastro de {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Funcionário desligado */
@@ -54,7 +54,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.EMPLOYEE_TERMINATE,
     entity: AuditEntity.EMPLOYEE,
     module: AuditModule.HR,
-    description: '{{adminName}} registrou desligamento de {{employeeName}}',
+    description: '{{userName}} registrou desligamento de {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Funcionário transferido */
@@ -63,7 +63,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.EMPLOYEE,
     module: AuditModule.HR,
     description:
-      '{{adminName}} transferiu {{employeeName}} de {{oldDepartment}} para {{newDepartment}}',
+      '{{userName}} transferiu {{employeeName}} de {{oldDepartment}} para {{newDepartment}}',
   } satisfies AuditMessage,
 
   /** Usuário vinculado ao funcionário */
@@ -72,7 +72,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.EMPLOYEE,
     module: AuditModule.HR,
     description:
-      '{{adminName}} vinculou o usuário {{userName}} ao funcionário {{employeeName}}',
+      '{{userName}} vinculou o usuário {{userName}} ao funcionário {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Verificação de CPF */
@@ -92,7 +92,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.DEPARTMENT,
     module: AuditModule.HR,
-    description: '{{adminName}} criou o departamento {{departmentName}}',
+    description: '{{userName}} criou o departamento {{departmentName}}',
   } satisfies AuditMessage,
 
   /** Departamento atualizado */
@@ -100,7 +100,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.DEPARTMENT,
     module: AuditModule.HR,
-    description: '{{adminName}} atualizou o departamento {{departmentName}}',
+    description: '{{userName}} atualizou o departamento {{departmentName}}',
   } satisfies AuditMessage,
 
   /** Departamento excluído */
@@ -108,7 +108,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.DEPARTMENT,
     module: AuditModule.HR,
-    description: '{{adminName}} excluiu o departamento {{departmentName}}',
+    description: '{{userName}} excluiu o departamento {{departmentName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -120,7 +120,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.POSITION,
     module: AuditModule.HR,
-    description: '{{adminName}} criou o cargo {{positionName}}',
+    description: '{{userName}} criou o cargo {{positionName}}',
   } satisfies AuditMessage,
 
   /** Cargo atualizado */
@@ -128,7 +128,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.POSITION,
     module: AuditModule.HR,
-    description: '{{adminName}} atualizou o cargo {{positionName}}',
+    description: '{{userName}} atualizou o cargo {{positionName}}',
   } satisfies AuditMessage,
 
   /** Cargo excluído */
@@ -136,7 +136,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.POSITION,
     module: AuditModule.HR,
-    description: '{{adminName}} excluiu o cargo {{positionName}}',
+    description: '{{userName}} excluiu o cargo {{positionName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -195,7 +195,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.ABSENCE_APPROVE,
     entity: AuditEntity.ABSENCE,
     module: AuditModule.HR,
-    description: '{{adminName}} aprovou a ausência de {{employeeName}}',
+    description: '{{userName}} aprovou a ausência de {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Ausência rejeitada */
@@ -204,7 +204,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.ABSENCE,
     module: AuditModule.HR,
     description:
-      '{{adminName}} rejeitou a ausência de {{employeeName}}: {{reason}}',
+      '{{userName}} rejeitou a ausência de {{employeeName}}: {{reason}}',
   } satisfies AuditMessage,
 
   /** Ausência cancelada */
@@ -212,7 +212,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.ABSENCE_CANCEL,
     entity: AuditEntity.ABSENCE,
     module: AuditModule.HR,
-    description: '{{adminName}} cancelou a ausência de {{employeeName}}',
+    description: '{{userName}} cancelou a ausência de {{employeeName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -225,7 +225,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.VACATION_PERIOD,
     module: AuditModule.HR,
     description:
-      '{{adminName}} criou período aquisitivo de férias para {{employeeName}}',
+      '{{userName}} criou período aquisitivo de férias para {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Férias agendadas */
@@ -234,7 +234,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.VACATION_PERIOD,
     module: AuditModule.HR,
     description:
-      '{{adminName}} agendou férias de {{employeeName}} para {{startDate}} a {{endDate}}',
+      '{{userName}} agendou férias de {{employeeName}} para {{startDate}} a {{endDate}}',
   } satisfies AuditMessage,
 
   /** Férias iniciadas */
@@ -259,7 +259,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.VACATION_PERIOD,
     module: AuditModule.HR,
     description:
-      '{{adminName}} cancelou as férias agendadas de {{employeeName}}',
+      '{{userName}} cancelou as férias agendadas de {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Dias de férias vendidos */
@@ -289,7 +289,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.OVERTIME,
     module: AuditModule.HR,
     description:
-      '{{adminName}} aprovou {{hours}} horas extras de {{employeeName}}',
+      '{{userName}} aprovou {{hours}} horas extras de {{employeeName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -302,7 +302,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.TIME_BANK,
     module: AuditModule.HR,
     description:
-      '{{adminName}} creditou {{hours}} horas no banco de {{employeeName}}',
+      '{{userName}} creditou {{hours}} horas no banco de {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Débito no banco de horas */
@@ -311,7 +311,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.TIME_BANK,
     module: AuditModule.HR,
     description:
-      '{{adminName}} debitou {{hours}} horas do banco de {{employeeName}}',
+      '{{userName}} debitou {{hours}} horas do banco de {{employeeName}}',
   } satisfies AuditMessage,
 
   /** Ajuste no banco de horas */
@@ -320,7 +320,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.TIME_BANK,
     module: AuditModule.HR,
     description:
-      '{{adminName}} ajustou o banco de horas de {{employeeName}}: {{adjustment}}',
+      '{{userName}} ajustou o banco de horas de {{employeeName}}: {{adjustment}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -333,7 +333,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.PAYROLL,
     module: AuditModule.HR,
     description:
-      '{{adminName}} criou a folha de pagamento de {{month}}/{{year}}',
+      '{{userName}} criou a folha de pagamento de {{month}}/{{year}}',
   } satisfies AuditMessage,
 
   /** Folha de pagamento calculada */
@@ -342,7 +342,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.PAYROLL,
     module: AuditModule.HR,
     description:
-      '{{adminName}} calculou a folha de pagamento de {{month}}/{{year}}',
+      '{{userName}} calculou a folha de pagamento de {{month}}/{{year}}',
   } satisfies AuditMessage,
 
   /** Folha de pagamento aprovada */
@@ -351,7 +351,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.PAYROLL,
     module: AuditModule.HR,
     description:
-      '{{adminName}} aprovou a folha de pagamento de {{month}}/{{year}}',
+      '{{userName}} aprovou a folha de pagamento de {{month}}/{{year}}',
   } satisfies AuditMessage,
 
   /** Folha de pagamento paga */
@@ -360,7 +360,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.PAYROLL,
     module: AuditModule.HR,
     description:
-      '{{adminName}} registrou pagamento da folha de {{month}}/{{year}}',
+      '{{userName}} registrou pagamento da folha de {{month}}/{{year}}',
   } satisfies AuditMessage,
 
   /** Folha de pagamento cancelada */
@@ -369,7 +369,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.PAYROLL,
     module: AuditModule.HR,
     description:
-      '{{adminName}} cancelou a folha de pagamento de {{month}}/{{year}}',
+      '{{userName}} cancelou a folha de pagamento de {{month}}/{{year}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -382,7 +382,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.BONUS,
     module: AuditModule.HR,
     description:
-      '{{adminName}} concedeu bônus de R$ {{amount}} para {{employeeName}}: {{description}}',
+      '{{userName}} concedeu bônus de R$ {{amount}} para {{employeeName}}: {{description}}',
   } satisfies AuditMessage,
 
   /** Bônus excluído */
@@ -390,7 +390,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.BONUS,
     module: AuditModule.HR,
-    description: '{{adminName}} removeu bônus de {{employeeName}}',
+    description: '{{userName}} removeu bônus de {{employeeName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -403,7 +403,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.DEDUCTION,
     module: AuditModule.HR,
     description:
-      '{{adminName}} registrou desconto de R$ {{amount}} para {{employeeName}}: {{description}}',
+      '{{userName}} registrou desconto de R$ {{amount}} para {{employeeName}}: {{description}}',
   } satisfies AuditMessage,
 
   /** Desconto excluído */
@@ -411,7 +411,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.DEDUCTION,
     module: AuditModule.HR,
-    description: '{{adminName}} removeu desconto de {{employeeName}}',
+    description: '{{userName}} removeu desconto de {{employeeName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -423,7 +423,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.WORK_SCHEDULE,
     module: AuditModule.HR,
-    description: '{{adminName}} criou a escala de trabalho {{scheduleName}}',
+    description: '{{userName}} criou a escala de trabalho {{scheduleName}}',
   } satisfies AuditMessage,
 
   /** Escala de trabalho atualizada */
@@ -432,7 +432,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.WORK_SCHEDULE,
     module: AuditModule.HR,
     description:
-      '{{adminName}} atualizou a escala de trabalho {{scheduleName}}',
+      '{{userName}} atualizou a escala de trabalho {{scheduleName}}',
   } satisfies AuditMessage,
 
   /** Escala de trabalho excluída */
@@ -440,7 +440,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.WORK_SCHEDULE,
     module: AuditModule.HR,
-    description: '{{adminName}} excluiu a escala de trabalho {{scheduleName}}',
+    description: '{{userName}} excluiu a escala de trabalho {{scheduleName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -453,7 +453,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.COMPANY,
     module: AuditModule.HR,
     description:
-      '{{adminName}} cadastrou a empresa {{companyName}} (CNPJ: {{cnpj}})',
+      '{{userName}} cadastrou a empresa {{companyName}} (CNPJ: {{cnpj}})',
   } satisfies AuditMessage,
 
   /** Empresa atualizada */
@@ -461,7 +461,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.COMPANY,
     module: AuditModule.HR,
-    description: '{{adminName}} atualizou os dados da empresa {{companyName}}',
+    description: '{{userName}} atualizou os dados da empresa {{companyName}}',
   } satisfies AuditMessage,
 
   /** Empresa excluída */
@@ -469,7 +469,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.COMPANY,
     module: AuditModule.HR,
-    description: '{{adminName}} excluiu a empresa {{companyName}}',
+    description: '{{userName}} excluiu a empresa {{companyName}}',
   } satisfies AuditMessage,
 
   /** Verificação de CNPJ */
@@ -489,7 +489,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.COMPANY_ADDRESS,
     module: AuditModule.HR,
-    description: '{{adminName}} adicionou endereço para {{companyName}}',
+    description: '{{userName}} adicionou endereço para {{companyName}}',
   } satisfies AuditMessage,
 
   /** Endereço de empresa atualizado */
@@ -497,7 +497,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.COMPANY_ADDRESS,
     module: AuditModule.HR,
-    description: '{{adminName}} atualizou endereço de {{companyName}}',
+    description: '{{userName}} atualizou endereço de {{companyName}}',
   } satisfies AuditMessage,
 
   /** Endereço de empresa excluído */
@@ -505,7 +505,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.COMPANY_ADDRESS,
     module: AuditModule.HR,
-    description: '{{adminName}} removeu endereço de {{companyName}}',
+    description: '{{userName}} removeu endereço de {{companyName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -518,7 +518,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.COMPANY_CNAE,
     module: AuditModule.HR,
     description:
-      '{{adminName}} adicionou CNAE {{cnaeCode}} para {{companyName}}',
+      '{{userName}} adicionou CNAE {{cnaeCode}} para {{companyName}}',
   } satisfies AuditMessage,
 
   /** CNAE atualizado */
@@ -526,7 +526,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.COMPANY_CNAE,
     module: AuditModule.HR,
-    description: '{{adminName}} atualizou CNAE de {{companyName}}',
+    description: '{{userName}} atualizou CNAE de {{companyName}}',
   } satisfies AuditMessage,
 
   /** CNAE removido da empresa */
@@ -534,7 +534,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.COMPANY_CNAE,
     module: AuditModule.HR,
-    description: '{{adminName}} removeu CNAE {{cnaeCode}} de {{companyName}}',
+    description: '{{userName}} removeu CNAE {{cnaeCode}} de {{companyName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -546,7 +546,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.COMPANY_FISCAL_SETTINGS,
     module: AuditModule.HR,
-    description: '{{adminName}} configurou dados fiscais de {{companyName}}',
+    description: '{{userName}} configurou dados fiscais de {{companyName}}',
   } satisfies AuditMessage,
 
   /** Configurações fiscais atualizadas */
@@ -554,7 +554,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.COMPANY_FISCAL_SETTINGS,
     module: AuditModule.HR,
-    description: '{{adminName}} atualizou dados fiscais de {{companyName}}',
+    description: '{{userName}} atualizou dados fiscais de {{companyName}}',
   } satisfies AuditMessage,
 
   /** Configurações fiscais excluídas */
@@ -562,7 +562,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.COMPANY_FISCAL_SETTINGS,
     module: AuditModule.HR,
-    description: '{{adminName}} removeu dados fiscais de {{companyName}}',
+    description: '{{userName}} removeu dados fiscais de {{companyName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -575,7 +575,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.COMPANY_STAKEHOLDER,
     module: AuditModule.HR,
     description:
-      '{{adminName}} adicionou {{stakeholderName}} como sócio de {{companyName}}',
+      '{{userName}} adicionou {{stakeholderName}} como sócio de {{companyName}}',
   } satisfies AuditMessage,
 
   /** Stakeholder atualizado */
@@ -584,7 +584,7 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.COMPANY_STAKEHOLDER,
     module: AuditModule.HR,
     description:
-      '{{adminName}} atualizou dados de {{stakeholderName}} em {{companyName}}',
+      '{{userName}} atualizou dados de {{stakeholderName}} em {{companyName}}',
   } satisfies AuditMessage,
 
   /** Stakeholder removido */
@@ -592,7 +592,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.COMPANY_STAKEHOLDER,
     module: AuditModule.HR,
-    description: '{{adminName}} removeu {{stakeholderName}} de {{companyName}}',
+    description: '{{userName}} removeu {{stakeholderName}} de {{companyName}}',
   } satisfies AuditMessage,
 
   // ============================================================================

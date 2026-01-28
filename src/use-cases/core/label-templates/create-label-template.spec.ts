@@ -29,7 +29,9 @@ describe('CreateLabelTemplateUseCase', () => {
 
     expect(result.template).toBeDefined();
     expect(result.template.name).toBe('Etiqueta Padrão');
-    expect(result.template.description).toBe('Template para etiquetas de produto');
+    expect(result.template.description).toBe(
+      'Template para etiquetas de produto',
+    );
     expect(result.template.width).toBe(60);
     expect(result.template.height).toBe(40);
     expect(result.template.isSystem).toBe(false);

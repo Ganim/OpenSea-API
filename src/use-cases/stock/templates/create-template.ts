@@ -9,6 +9,7 @@ import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface CreateTemplateUseCaseRequest {
+  code?: string; // Código hierárquico manual (3 dígitos: 001) - auto-gerado se não fornecido
   name: string;
   iconUrl?: string;
   unitOfMeasure?: string;
@@ -29,6 +30,7 @@ export class CreateTemplateUseCase {
     request: CreateTemplateUseCaseRequest,
   ): Promise<CreateTemplateUseCaseResponse> {
     const {
+      code,
       name,
       iconUrl,
       unitOfMeasure,
@@ -45,6 +47,15 @@ export class CreateTemplateUseCase {
 
     if (name.length > 200) {
       throw new BadRequestError('Name must be at most 200 characters long');
+    }
+
+    // Validate code format if provided
+    if (code) {
+      if (!/^\d{3}$/.test(code)) {
+        throw new BadRequestError(
+          'Code must be exactly 3 digits (e.g., 001, 042)',
+        );
+      }
     }
 
     // Validate unit of measure if provided
@@ -66,8 +77,10 @@ export class CreateTemplateUseCase {
       throw new BadRequestError('Template with this name already exists');
     }
 
-    // Save to repository
+    // Save to repository - code will be auto-generated from sequentialCode if not provided
+    // The code generation happens after create to get the sequentialCode
     const createdTemplate = await this.templatesRepository.create({
+      code, // Will be set in repository or left undefined for auto-generation
       name,
       iconUrl,
       unitOfMeasure: templateUnitOfMeasure,

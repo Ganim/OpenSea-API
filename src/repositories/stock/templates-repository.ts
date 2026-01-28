@@ -7,6 +7,7 @@ import { Template } from '@/entities/stock/template';
 import type { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 
 export interface CreateTemplateSchema {
+  code?: string; // Código hierárquico manual (3 dígitos: 001) - auto-gerado se não fornecido
   name: string;
   iconUrl?: string;
   unitOfMeasure: UnitOfMeasure;

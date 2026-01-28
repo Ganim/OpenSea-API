@@ -1,15 +1,18 @@
-import { prisma } from '@/lib/prisma'
-import { Volume } from '@/entities/stock/volume'
-import { VolumeItem } from '@/entities/stock/volume-item'
-import { VolumeMapper, VolumeItemMapper } from '@/mappers/stock/volume.mapper'
-import type { VolumeRepository } from '../volumes-repository'
-import type { PaginationParams } from '@/repositories/pagination-params'
-import type { Volume as PrismaVolume, VolumeItem as PrismaVolumeItem } from '@prisma/client'
+import { Volume } from '@/entities/stock/volume';
+import { VolumeItem } from '@/entities/stock/volume-item';
+import { prisma } from '@/lib/prisma';
+import { VolumeItemMapper, VolumeMapper } from '@/mappers/stock/volume.mapper';
+import type { PaginationParams } from '@/repositories/pagination-params';
+import type {
+  Volume as PrismaVolume,
+  VolumeItem as PrismaVolumeItem,
+} from '@prisma/generated/client';
+import type { VolumeRepository } from '../volumes-repository';
 
 export class PrismaVolumesRepository implements VolumeRepository {
   async create(volume: Volume): Promise<void> {
-    const data = VolumeMapper.toPersistence(volume)
-    await prisma.volume.create({ data })
+    const data = VolumeMapper.toPersistence(volume);
+    await prisma.volume.create({ data });
   }
 
   async findById(id: string): Promise<Volume | null> {
@@ -18,13 +21,13 @@ export class PrismaVolumesRepository implements VolumeRepository {
         id,
         deletedAt: null,
       },
-    })
+    });
 
     if (!volume) {
-      return null
+      return null;
     }
 
-    return VolumeMapper.toDomain(volume)
+    return VolumeMapper.toDomain(volume);
   }
 
   async findByCode(code: string): Promise<Volume | null> {
@@ -33,23 +36,23 @@ export class PrismaVolumesRepository implements VolumeRepository {
         code,
         deletedAt: null,
       },
-    })
+    });
 
     if (!volume) {
-      return null
+      return null;
     }
 
-    return VolumeMapper.toDomain(volume)
+    return VolumeMapper.toDomain(volume);
   }
 
   async update(volume: Volume): Promise<void> {
-    const data = VolumeMapper.toPersistence(volume)
+    const data = VolumeMapper.toPersistence(volume);
     await prisma.volume.update({
       where: {
         id: volume.id.toString(),
       },
       data,
-    })
+    });
   }
 
   async delete(id: string): Promise<void> {
@@ -60,10 +63,12 @@ export class PrismaVolumesRepository implements VolumeRepository {
       data: {
         deletedAt: new Date(),
       },
-    })
+    });
   }
 
-  async list(params: PaginationParams): Promise<{ volumes: Volume[]; total: number }> {
+  async list(
+    params: PaginationParams,
+  ): Promise<{ volumes: Volume[]; total: number }> {
     const [volumes, total] = await Promise.all([
       prisma.volume.findMany({
         where: {
@@ -80,17 +85,19 @@ export class PrismaVolumesRepository implements VolumeRepository {
           deletedAt: null,
         },
       }),
-    ])
+    ]);
 
     return {
-      volumes: volumes.map((volume: PrismaVolume) => VolumeMapper.toDomain(volume)),
+      volumes: volumes.map((volume: PrismaVolume) =>
+        VolumeMapper.toDomain(volume),
+      ),
       total,
-    }
+    };
   }
 
   async addItem(volumeItem: VolumeItem): Promise<void> {
-    const data = VolumeItemMapper.toPersistence(volumeItem)
-    await prisma.volumeItem.create({ data })
+    const data = VolumeItemMapper.toPersistence(volumeItem);
+    await prisma.volumeItem.create({ data });
   }
 
   async removeItem(volumeId: string, itemId: string): Promise<void> {
@@ -99,7 +106,7 @@ export class PrismaVolumesRepository implements VolumeRepository {
         volumeId,
         itemId,
       },
-    })
+    });
   }
 
   async getItemsByVolumeId(volumeId: string): Promise<VolumeItem[]> {
@@ -107,9 +114,11 @@ export class PrismaVolumesRepository implements VolumeRepository {
       where: {
         volumeId,
       },
-    })
+    });
 
-    return items.map((item: PrismaVolumeItem) => VolumeItemMapper.toDomain(item))
+    return items.map((item: PrismaVolumeItem) =>
+      VolumeItemMapper.toDomain(item),
+    );
   }
 
   async countItemsByVolumeId(volumeId: string): Promise<number> {
@@ -117,6 +126,6 @@ export class PrismaVolumesRepository implements VolumeRepository {
       where: {
         volumeId,
       },
-    })
+    });
   }
 }

@@ -39,7 +39,9 @@ describe('List User Sessions By Date (E2E)', () => {
     const to = new Date().toISOString();
 
     const response = await request(app.server)
-      .get(`/v1/sessions/user/${user.id}/by-date?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`)
+      .get(
+        `/v1/sessions/user/${user.id}/by-date?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`,
+      )
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);

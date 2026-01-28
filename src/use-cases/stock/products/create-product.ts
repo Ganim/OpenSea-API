@@ -2,17 +2,31 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
+import { Slug } from '@/entities/stock/value-objects/slug';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
+import {
+  generateBarcode,
+  generateEAN13,
+  generateUPC,
+} from '@/utils/barcode-generator';
 import { assertValidAttributes } from '@/utils/validate-template-attributes';
+
+/**
+ * Gera código hierárquico com padding
+ * @example padCode(1, 3) => "001", padCode(42, 4) => "0042"
+ */
+function padCode(seq: number, digits: number): string {
+  return seq.toString().padStart(digits, '0');
+}
 
 interface CreateProductUseCaseRequest {
   name: string;
-  code?: string; // Agora é opcional - será gerado automaticamente
   description?: string;
   status?: string;
+  outOfLine?: boolean;
   templateId: string;
   supplierId?: string;
   manufacturerId?: string;
@@ -36,9 +50,9 @@ export class CreateProductUseCase {
   ): Promise<CreateProductUseCaseResponse> {
     const {
       name,
-      code,
       description,
       status,
+      outOfLine,
       templateId,
       supplierId,
       manufacturerId,
@@ -52,11 +66,6 @@ export class CreateProductUseCase {
 
     if (name.length > 200) {
       throw new BadRequestError('Name must be at most 200 characters long');
-    }
-
-    // Validate code if provided
-    if (code && code.length > 100) {
-      throw new BadRequestError('Code must be at most 100 characters long');
     }
 
     // Check if product with same name already exists
@@ -119,13 +128,46 @@ export class CreateProductUseCase {
     // Validate attributes against template
     assertValidAttributes(attributes, template.productAttributes, 'product');
 
+    // Get template code (manual or auto-generated from sequentialCode)
+    const templateCode =
+      template.code ?? padCode(template.sequentialCode ?? 1, 3);
+
+    // Get manufacturer code (or '000' if no manufacturer)
+    let manufacturerCode = '000';
+    if (manufacturerId) {
+      const manufacturer = await this.manufacturersRepository.findById(
+        new UniqueEntityID(manufacturerId),
+      );
+      if (manufacturer) {
+        manufacturerCode = manufacturer.code;
+      }
+    }
+
+    // Get next product sequential code
+    const productSeq = await this.productsRepository.getNextSequentialCode();
+
+    // Generate fullCode: TEMPLATE.FABRICANTE.PRODUTO (ex: 001.001.0001)
+    const fullCode = `${templateCode}.${manufacturerCode}.${padCode(productSeq, 4)}`;
+
+    // Generate slug from name (with productSeq as suffix to ensure uniqueness)
+    const slug = Slug.createUniqueFromText(name, productSeq.toString());
+
+    // Generate barcode codes from fullCode (IMUTÁVEIS)
+    const barcode = generateBarcode(fullCode);
+    const eanCode = generateEAN13(fullCode);
+    const upcCode = generateUPC(fullCode);
+
     // Save to repository
-    // O código sequencial e fullCode serão gerados pelo Prisma (autoincrement)
     const createdProduct = await this.productsRepository.create({
       name,
-      code, // Pode ser undefined
+      slug,
+      fullCode,
+      barcode,
+      eanCode,
+      upcCode,
       description,
       status: productStatus,
+      outOfLine: outOfLine ?? false,
       templateId: new UniqueEntityID(templateId),
       supplierId: supplierId ? new UniqueEntityID(supplierId) : undefined,
       manufacturerId: manufacturerId

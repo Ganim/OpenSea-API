@@ -138,6 +138,10 @@ export class RefreshSessionUseCase {
     const session = sessionToDTO(newSession);
     const newRefreshToken = refreshTokenToDTO(newDBRefreshToken);
 
-    return { session, refreshToken: newRefreshToken, permissions: permissionCodes };
+    return {
+      session,
+      refreshToken: newRefreshToken,
+      permissions: permissionCodes,
+    };
   }
 }

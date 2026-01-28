@@ -36,6 +36,9 @@ describe('Update Customer (E2E)', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('customer');
-    expect(response.body.customer).toHaveProperty('name', `Updated Customer ${timestamp}`);
+    expect(response.body.customer).toHaveProperty(
+      'name',
+      `Updated Customer ${timestamp}`,
+    );
   });
 });

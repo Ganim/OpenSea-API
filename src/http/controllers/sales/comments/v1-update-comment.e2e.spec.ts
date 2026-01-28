@@ -47,6 +47,9 @@ describe('Update Comment (E2E)', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('comment');
-    expect(response.body.comment).toHaveProperty('content', 'Updated comment content');
+    expect(response.body.comment).toHaveProperty(
+      'content',
+      'Updated comment content',
+    );
   });
 });

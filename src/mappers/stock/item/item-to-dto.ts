@@ -39,10 +39,7 @@ export interface ItemDTO {
   };
 }
 
-export function itemToDTO(
-  item: Item,
-  relatedData?: ItemRelatedData,
-): ItemDTO {
+export function itemToDTO(item: Item, relatedData?: ItemRelatedData): ItemDTO {
   return {
     id: item.id.toString(),
     variantId: item.variantId.toString(),
@@ -69,15 +66,21 @@ export function itemToDTO(
     productName: relatedData?.productName ?? '',
     variantSku: relatedData?.variantSku ?? '',
     variantName: relatedData?.variantName ?? '',
-    bin: relatedData?.binId && relatedData?.binAddress && relatedData?.zoneId && relatedData?.zoneWarehouseId ? {
-      id: relatedData.binId,
-      address: relatedData.binAddress,
-      zone: {
-        id: relatedData.zoneId,
-        warehouseId: relatedData.zoneWarehouseId,
-        code: relatedData.zoneCode ?? '',
-        name: relatedData.zoneName ?? '',
-      },
-    } : undefined,
+    bin:
+      relatedData?.binId &&
+      relatedData?.binAddress &&
+      relatedData?.zoneId &&
+      relatedData?.zoneWarehouseId
+        ? {
+            id: relatedData.binId,
+            address: relatedData.binAddress,
+            zone: {
+              id: relatedData.zoneId,
+              warehouseId: relatedData.zoneWarehouseId,
+              code: relatedData.zoneCode ?? '',
+              name: relatedData.zoneName ?? '',
+            },
+          }
+        : undefined,
   };
 }

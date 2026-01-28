@@ -3,7 +3,7 @@ import { RequestHistory } from '@/entities/requests/request-history';
 import type {
   Prisma,
   RequestHistory as PrismaRequestHistory,
-} from '@prisma/client';
+} from '@prisma/generated/client.js';
 
 export class RequestHistoryMapper {
   static toDomain(raw: PrismaRequestHistory): RequestHistory {

@@ -3,7 +3,6 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Supplier } from '@/entities/stock/supplier';
 import { CNPJ } from '@/entities/stock/value-objects/cnpj';
 import { prisma } from '@/lib/prisma';
-import { Decimal } from '@prisma/client/runtime/library';
 import type {
   CreateSupplierSchema,
   SuppliersRepository,
@@ -27,7 +26,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
         zipCode: data.zipCode,
         country: data.country,
         paymentTerms: data.paymentTerms,
-        rating: data.rating ? new Decimal(data.rating) : undefined,
+        rating: data.rating ? data.rating : undefined,
         isActive: data.isActive ?? true,
         notes: data.notes,
       },
@@ -190,7 +189,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     const suppliers = await prisma.supplier.findMany({
       where: {
         rating: {
-          gte: new Decimal(minRating),
+          gte: minRating,
         },
         deletedAt: null,
       },
@@ -323,7 +322,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
         zipCode: data.zipCode,
         country: data.country,
         paymentTerms: data.paymentTerms,
-        rating: data.rating ? new Decimal(data.rating) : undefined,
+        rating: data.rating ? data.rating : undefined,
         isActive: data.isActive,
         notes: data.notes,
       },
@@ -377,7 +376,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
         zipCode: supplier.zipCode,
         country: supplier.country,
         paymentTerms: supplier.paymentTerms,
-        rating: supplier.rating ? new Decimal(supplier.rating) : undefined,
+        rating: supplier.rating ? supplier.rating : undefined,
         isActive: supplier.isActive,
         notes: supplier.notes,
         updatedAt: new Date(),

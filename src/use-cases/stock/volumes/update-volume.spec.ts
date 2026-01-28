@@ -1,6 +1,9 @@
-import { InvalidVolumeStatusError, VolumeNotFoundError } from '@/@errors/volumes-errors';
-import { Volume } from '@/entities/stock/volume';
+import {
+  InvalidVolumeStatusError,
+  VolumeNotFoundError,
+} from '@/@errors/volumes-errors';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
+import { Volume } from '@/entities/stock/volume';
 import { InMemoryVolumesRepository } from '@/repositories/stock/in-memory/in-memory-volumes-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { UpdateVolumeUseCase } from './update-volume';

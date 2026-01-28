@@ -1,27 +1,27 @@
-import { env } from '@/@env';
-import { PrismaClient } from '@prisma/client';
+import { env } from '@/@env/index.js';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '../../prisma/generated/prisma/client.js';
 
 // Usa process.env.DATABASE_URL diretamente para suportar testes E2E
 // que modificam a URL antes da importação
 const databaseUrl = process.env.DATABASE_URL || env.DATABASE_URL;
 
+// Cria o adapter PostgreSQL para Prisma 7
+const adapter = new PrismaPg({ connectionString: databaseUrl });
+
 export const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: databaseUrl,
-    },
-  },
+  adapter,
   log: env.NODE_ENV === 'dev' ? ['query'] : [],
 });
 
 // Função para criar um novo client com URL específica (útil para testes)
 export function createPrismaClient(url?: string) {
+  const testAdapter = new PrismaPg({
+    connectionString: url || databaseUrl,
+  });
+
   return new PrismaClient({
-    datasources: {
-      db: {
-        url: url || databaseUrl,
-      },
-    },
+    adapter: testAdapter,
     log: env.NODE_ENV === 'dev' ? ['query'] : [],
   });
 }
@@ -45,3 +45,7 @@ export async function checkDatabaseHealth(): Promise<{
     };
   }
 }
+
+// Re-export tipos do Prisma para facilitar imports em outros arquivos
+export { Prisma } from '../../prisma/generated/prisma/client.js';
+

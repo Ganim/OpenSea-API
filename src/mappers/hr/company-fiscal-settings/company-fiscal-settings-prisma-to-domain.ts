@@ -4,7 +4,7 @@ import type {
   DigitalCertificateType,
   NfeEnvironment,
 } from '@/entities/hr/company-fiscal-settings';
-import type { CompanyFiscalSettings as PrismaCompanyFiscalSettings } from '@prisma/client';
+import type { CompanyFiscalSettings as PrismaCompanyFiscalSettings } from '@prisma/generated/client.js';
 
 export function mapCompanyFiscalSettingsPrismaToDomain(
   raw: PrismaCompanyFiscalSettings,

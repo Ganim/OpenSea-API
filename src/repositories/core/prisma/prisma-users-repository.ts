@@ -21,6 +21,9 @@ export class PrismaUsersRepository implements UsersRepository {
         username: data.username.toString(),
         email: data.email.toString(),
         password_hash: data.passwordHash.toString(),
+        // Campos com valores default explícitos (bug do Prisma 7 com PrismaPg adapter)
+        failedLoginAttempts: 0,
+        forcePasswordReset: false,
         profile: {
           create: {
             name: data.profile.name,
@@ -80,13 +83,23 @@ export class PrismaUsersRepository implements UsersRepository {
           blockedUntil: data.blockedUntil ?? undefined,
           profile: data.profile
             ? {
-                update: {
-                  name: data.profile.name,
-                  surname: data.profile.surname,
-                  birthday: data.profile.birthday,
-                  location: data.profile.location,
-                  bio: data.profile.bio,
-                  avatarUrl: data.profile.avatarUrl?.toString(),
+                upsert: {
+                  create: {
+                    name: data.profile.name ?? '',
+                    surname: data.profile.surname ?? '',
+                    birthday: data.profile.birthday,
+                    location: data.profile.location ?? '',
+                    bio: data.profile.bio ?? '',
+                    avatarUrl: data.profile.avatarUrl?.toString() ?? '',
+                  },
+                  update: {
+                    name: data.profile.name,
+                    surname: data.profile.surname,
+                    birthday: data.profile.birthday,
+                    location: data.profile.location,
+                    bio: data.profile.bio,
+                    avatarUrl: data.profile.avatarUrl?.toString(),
+                  },
                 },
               }
             : undefined,

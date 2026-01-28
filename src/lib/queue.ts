@@ -1,6 +1,5 @@
 import { Queue, Worker, Job, QueueEvents } from 'bullmq';
 import { env } from '@/@env';
-import { getRedisClient } from './redis';
 
 // Configuração de conexão para o BullMQ
 const getConnection = () => ({
@@ -117,7 +116,7 @@ export async function addJob<T = unknown>(
       limit?: number;
     };
   },
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<Job<T, any, string>> {
   const queue = createQueue<T>(queueName);
 

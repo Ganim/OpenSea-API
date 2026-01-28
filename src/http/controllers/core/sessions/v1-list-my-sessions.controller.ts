@@ -1,4 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { sessionResponseSchema } from '@/http/schemas';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeListMySessionsUseCase } from '@/use-cases/core/sessions/factories/make-list-my-sessions-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,7 +15,7 @@ export async function listMySessionsController(app: FastifyInstance) {
       tags: ['Auth - Sessions'],
       summary: 'List all my sessions',
       response: {
-        200: z.object({ sessions: z.array(z.any()) }),
+        200: z.object({ sessions: z.array(sessionResponseSchema) }),
         401: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },

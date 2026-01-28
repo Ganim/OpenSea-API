@@ -6,11 +6,11 @@ import { CareInstructions } from '@/entities/stock/value-objects/care-instructio
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { prisma } from '@/lib/prisma';
 import { productPrismaToDomain } from '@/mappers/stock/product/product-prisma-to-domain';
-import type { ProductStatus as PrismaProductStatus } from '@prisma/client';
+import type { ProductStatus as PrismaProductStatus } from '@prisma/generated/client';
 import type {
-    CreateProductSchema,
-    ProductsRepository,
-    UpdateProductSchema,
+  CreateProductSchema,
+  ProductsRepository,
+  UpdateProductSchema,
 } from '../products-repository';
 
 const productInclude = {
@@ -36,9 +36,15 @@ export class PrismaProductsRepository implements ProductsRepository {
     const productData = await prisma.product.create({
       data: {
         name: data.name,
+        slug: data.slug.value,
+        fullCode: data.fullCode,
+        barcode: data.barcode,
+        eanCode: data.eanCode,
+        upcCode: data.upcCode,
         code: data.code,
         description: data.description,
         status: (data.status?.value ?? 'ACTIVE') as PrismaProductStatus,
+        outOfLine: data.outOfLine ?? false,
         attributes: (data.attributes ?? {}) as never,
         templateId: data.templateId.toString(),
         supplierId: data.supplierId?.toString(),
@@ -48,14 +54,19 @@ export class PrismaProductsRepository implements ProductsRepository {
 
     const defaultStatus = ProductStatus.create('ACTIVE');
 
-    return Product.create(
+    const createdProduct = Product.create(
       {
         name: productData.name,
-        code: productData.code ?? undefined,
+        slug: data.slug, // Usar o slug original que foi passado
         fullCode: productData.fullCode ?? undefined,
+        barcode: productData.barcode,
+        eanCode: productData.eanCode,
+        upcCode: productData.upcCode,
+        qrCode: productData.qrCode ?? undefined,
         sequentialCode: productData.sequentialCode ?? undefined,
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
+        outOfLine: productData.outOfLine ?? false,
         attributes: productData.attributes as Record<string, unknown>,
         careInstructions: CareInstructions.create(
           productData.careInstructionIds ?? [],
@@ -73,6 +84,8 @@ export class PrismaProductsRepository implements ProductsRepository {
       },
       new EntityID(productData.id),
     );
+
+    return createdProduct;
   }
 
   async findById(id: UniqueEntityID): Promise<Product | null> {
@@ -214,9 +227,10 @@ export class PrismaProductsRepository implements ProductsRepository {
       },
       data: {
         name: data.name,
-        code: data.code,
+        // code e fullCode são imutáveis após criação
         description: data.description,
         status: data.status?.value as PrismaProductStatus | undefined,
+        outOfLine: data.outOfLine,
         attributes: data.attributes as never,
         supplierId: data.supplierId?.toString(),
         manufacturerId: data.manufacturerId?.toString(),
@@ -233,6 +247,7 @@ export class PrismaProductsRepository implements ProductsRepository {
         sequentialCode: productData.sequentialCode ?? undefined,
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
+        outOfLine: productData.outOfLine ?? false,
         attributes: productData.attributes as Record<string, unknown>,
         careInstructions: CareInstructions.create(
           productData.careInstructionIds ?? [],
@@ -287,6 +302,7 @@ export class PrismaProductsRepository implements ProductsRepository {
         sequentialCode: productData.sequentialCode ?? undefined,
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
+        outOfLine: productData.outOfLine ?? false,
         attributes: productData.attributes as Record<string, unknown>,
         careInstructions: CareInstructions.create(
           productData.careInstructionIds ?? [],
@@ -316,6 +332,7 @@ export class PrismaProductsRepository implements ProductsRepository {
         code: product.code,
         description: product.description,
         status: product.status.value as PrismaProductStatus,
+        outOfLine: product.outOfLine,
         attributes: product.attributes as never,
         careInstructionIds: product.careInstructionIds,
         templateId: product.templateId.toString(),
@@ -335,5 +352,12 @@ export class PrismaProductsRepository implements ProductsRepository {
         deletedAt: new Date(),
       },
     });
+  }
+
+  async getNextSequentialCode(): Promise<number> {
+    const result = await prisma.$queryRaw<[{ nextval: bigint }]>`
+      SELECT nextval(pg_get_serial_sequence('products', 'sequential_code'))
+    `;
+    return Number(result[0].nextval);
   }
 }

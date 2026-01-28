@@ -3,7 +3,9 @@ import { Variant } from '@/entities/stock/variant';
 
 export interface CreateVariantSchema {
   productId: UniqueEntityID;
-  sku: string;
+  fullCode: string; // Código hierárquico gerado: TEMPLATE.FABRICANTE.PRODUTO.VARIANTE
+  sequentialCode: number; // Sequencial local ao produto
+  sku?: string;
   name: string;
   price: number;
   imageUrl?: string;
@@ -71,6 +73,7 @@ export interface VariantsRepository {
       totalCurrentQuantity: number;
     }>
   >;
+  findLastByProductId(productId: UniqueEntityID): Promise<Variant | null>;
   update(data: UpdateVariantSchema): Promise<Variant | null>;
   save(variant: Variant): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
+import { sessionResponseSchema } from '@/http/schemas';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeListAllActiveSessionsUseCase } from '@/use-cases/core/sessions/factories/make-list-all-active-sessions-use-case';
@@ -22,7 +23,7 @@ export async function listAllActiveSessionsController(app: FastifyInstance) {
       tags: ['Auth - Sessions'],
       summary: 'List all active sessions',
       response: {
-        200: z.object({ sessions: z.array(z.any()) }),
+        200: z.object({ sessions: z.array(sessionResponseSchema) }),
         404: z.object({ message: z.string() }),
       },
     },

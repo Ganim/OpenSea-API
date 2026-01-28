@@ -1,7 +1,7 @@
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Volume } from '@/entities/stock/volume';
 import { VolumeItem } from '@/entities/stock/volume-item';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 
 export interface VolumeDTO {
   id: string;
