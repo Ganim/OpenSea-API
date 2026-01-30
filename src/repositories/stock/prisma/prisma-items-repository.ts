@@ -35,7 +35,7 @@ export interface ItemWithRelations {
     sku: string;
     name: string;
     product: {
-      code: string | null;
+      fullCode: string | null;
       name: string;
     };
   };
@@ -56,7 +56,7 @@ export interface ItemWithRelations {
 export class PrismaItemsRepository implements ItemsRepository {
   private extractRelatedData(itemData: ItemWithRelations) {
     return {
-      productCode: itemData.variant.product.code,
+      productCode: itemData.variant.product.fullCode,
       productName: itemData.variant.product.name,
       variantSku: itemData.variant.sku,
       variantName: itemData.variant.name,
@@ -205,12 +205,17 @@ export class PrismaItemsRepository implements ItemsRepository {
     const itemData = await prisma.item.create({
       data: {
         uniqueCode: data.uniqueCode,
+        slug: data.slug.value,
         fullCode: data.fullCode,
         sequentialCode: data.sequentialCode,
+        barcode: data.barcode,
+        eanCode: data.eanCode,
+        upcCode: data.upcCode,
         variantId: data.variantId.toString(),
         binId: data.binId?.toString() ?? null,
         initialQuantity: data.initialQuantity,
         currentQuantity: data.currentQuantity,
+        unitCost: data.unitCost,
         status: data.status.value as PrismaItemStatus,
         entryDate: data.entryDate,
         attributes: data.attributes as object,
@@ -229,6 +234,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
         initialQuantity: itemData.initialQuantity.toNumber(),
         currentQuantity: itemData.currentQuantity.toNumber(),
+        unitCost: itemData.unitCost?.toNumber(),
         status: ItemStatus.create(itemData.status),
         entryDate: itemData.entryDate,
         attributes: itemData.attributes as Record<string, unknown>,

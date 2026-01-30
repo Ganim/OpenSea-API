@@ -8,6 +8,7 @@ interface UpdateCategoryUseCaseRequest {
   name?: string;
   slug?: string;
   description?: string;
+  iconUrl?: string | null;
   parentId?: string | null;
   displayOrder?: number;
   isActive?: boolean;
@@ -25,6 +26,7 @@ export class UpdateCategoryUseCase {
     name,
     slug,
     description,
+    iconUrl,
     parentId,
     displayOrder,
     isActive,
@@ -100,6 +102,7 @@ export class UpdateCategoryUseCase {
       name,
       slug,
       description,
+      iconUrl,
       parentId:
         parentId === null
           ? null

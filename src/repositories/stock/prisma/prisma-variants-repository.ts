@@ -102,6 +102,8 @@ export class PrismaVariantsRepository implements VariantsRepository {
       {
         productId: new EntityID(variantData.productId),
         sku: variantData.sku ?? undefined,
+        fullCode: variantData.fullCode ?? undefined,
+        sequentialCode: variantData.sequentialCode ?? undefined,
         name: variantData.name,
         price: Number(variantData.price.toString()),
         imageUrl: variantData.imageUrl ?? undefined,
@@ -483,7 +485,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       include: {
         product: {
           select: {
-            code: true,
+            fullCode: true,
             name: true,
           },
         },
@@ -549,7 +551,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
 
       return {
         variant,
-        productCode: variantData.product.code,
+        productCode: variantData.product.fullCode,
         productName: variantData.product.name,
         itemCount,
         totalCurrentQuantity,
@@ -557,7 +559,9 @@ export class PrismaVariantsRepository implements VariantsRepository {
     });
   }
 
-  async findLastByProductId(productId: UniqueEntityID): Promise<Variant | null> {
+  async findLastByProductId(
+    productId: UniqueEntityID,
+  ): Promise<Variant | null> {
     const variantData = await prisma.variant.findFirst({
       where: {
         productId: productId.toString(),

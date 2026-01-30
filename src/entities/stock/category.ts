@@ -7,9 +7,12 @@ export interface CategoryProps {
   name: string;
   slug: string;
   description: string | null;
+  iconUrl: string | null;
   parentId: UniqueEntityID | null;
   displayOrder: number;
   isActive: boolean;
+  childrenCount: number;
+  productCount: number;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
@@ -33,6 +36,10 @@ export class Category extends Entity<CategoryProps> {
     return this.props.description;
   }
 
+  get iconUrl(): string | null {
+    return this.props.iconUrl;
+  }
+
   get parentId(): UniqueEntityID | null {
     return this.props.parentId;
   }
@@ -43,6 +50,14 @@ export class Category extends Entity<CategoryProps> {
 
   get isActive(): boolean {
     return this.props.isActive;
+  }
+
+  get childrenCount(): number {
+    return this.props.childrenCount;
+  }
+
+  get productCount(): number {
+    return this.props.productCount;
   }
 
   get createdAt(): Date {
@@ -70,6 +85,11 @@ export class Category extends Entity<CategoryProps> {
 
   set description(description: string | null) {
     this.props.description = description;
+    this.touch();
+  }
+
+  set iconUrl(iconUrl: string | null) {
+    this.props.iconUrl = iconUrl;
     this.touch();
   }
 
@@ -153,7 +173,13 @@ export class Category extends Entity<CategoryProps> {
   static create(
     props: Optional<
       CategoryProps,
-      'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
+      | 'iconUrl'
+      | 'childrenCount'
+      | 'productCount'
     >,
     id?: UniqueEntityID,
   ): Category {
@@ -163,6 +189,9 @@ export class Category extends Entity<CategoryProps> {
       {
         ...props,
         id: categoryId,
+        iconUrl: props.iconUrl ?? null,
+        childrenCount: props.childrenCount ?? 0,
+        productCount: props.productCount ?? 0,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
         deletedAt: props.deletedAt ?? null,

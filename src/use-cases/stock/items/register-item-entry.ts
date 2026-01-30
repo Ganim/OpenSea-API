@@ -147,7 +147,10 @@ export class RegisterItemEntryUseCase {
     const fullCode = `${variant.fullCode}-${padCode(nextSeq, 5)}`;
 
     // Generate slug from variant name + sequential (to ensure uniqueness)
-    const slug = Slug.createUniqueFromText(variant.name, `${variant.fullCode}-${nextSeq}`);
+    const slug = Slug.createUniqueFromText(
+      variant.name,
+      `${variant.fullCode}-${nextSeq}`,
+    );
 
     // Generate barcode codes from fullCode (IMUTÁVEIS)
     const barcode = generateBarcode(fullCode);
@@ -167,6 +170,7 @@ export class RegisterItemEntryUseCase {
       binId,
       initialQuantity: input.quantity,
       currentQuantity: input.quantity,
+      unitCost: input.unitCost,
       status: ItemStatus.create('AVAILABLE'),
       entryDate: new Date(),
       attributes: input.attributes ?? {},

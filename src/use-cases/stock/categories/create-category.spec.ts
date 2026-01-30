@@ -96,6 +96,23 @@ describe('Create Category Use Case', () => {
 
   // VALIDATIONS
 
+  it('should create a category with iconUrl', async () => {
+    const { category } = await sut.execute({
+      name: 'Category With Icon',
+      iconUrl: 'https://example.com/icons/category.svg',
+    });
+
+    expect(category.iconUrl).toBe('https://example.com/icons/category.svg');
+  });
+
+  it('should create a category without iconUrl (defaults to null)', async () => {
+    const { category } = await sut.execute({
+      name: 'Category Without Icon',
+    });
+
+    expect(category.iconUrl).toBeNull();
+  });
+
   it('should create inactive category when specified', async () => {
     const { category } = await sut.execute({
       name: 'Inactive Category',

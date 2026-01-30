@@ -39,8 +39,15 @@ export async function createCategoryController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
-      const { name, slug, description, parentId, displayOrder, isActive } =
-        request.body;
+      const {
+        name,
+        slug,
+        description,
+        iconUrl,
+        parentId,
+        displayOrder,
+        isActive,
+      } = request.body;
       const userId = request.user.sub;
 
       try {
@@ -55,6 +62,7 @@ export async function createCategoryController(app: FastifyInstance) {
           name,
           slug,
           description,
+          iconUrl,
           parentId,
           displayOrder,
           isActive,
@@ -68,6 +76,7 @@ export async function createCategoryController(app: FastifyInstance) {
             name,
             slug,
             description,
+            iconUrl,
             parentId,
             displayOrder,
             isActive,

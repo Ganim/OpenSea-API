@@ -28,18 +28,12 @@ export default defineConfig({
           dir: 'src/http/controllers',
           include: ['**/*.spec.ts', '**/*.e2e.spec.ts', '**/*.e2e-spec.ts'],
           exclude: [],
-          environment:
-            './prisma/vitest-environment-prisma/prisma-test-environment.ts',
+          setupFiles: ['./prisma/vitest-setup-e2e.ts'],
           env: {
             NODE_ENV: 'test',
           },
-          // Garante que cada arquivo de teste rode isoladamente
-          poolOptions: {
-            forks: {
-              singleFork: true,
-            },
-          },
-          // Timeout maior para migrations
+          // Cada arquivo de teste roda em processo isolado
+          // com seu próprio schema PostgreSQL (criado pelo setupFile)
           testTimeout: 30000,
           hookTimeout: 30000,
         },

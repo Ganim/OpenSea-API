@@ -31,6 +31,7 @@ export interface UpdateProductSchema {
   supplierId?: UniqueEntityID;
   manufacturerId?: UniqueEntityID;
   attributes?: Record<string, unknown>;
+  categoryIds?: string[];
 }
 
 export interface ProductsRepository {

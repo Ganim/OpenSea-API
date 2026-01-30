@@ -6,8 +6,18 @@ import { PrismaClient } from '../../prisma/generated/prisma/client.js';
 // que modificam a URL antes da importação
 const databaseUrl = process.env.DATABASE_URL || env.DATABASE_URL;
 
-// Cria o adapter PostgreSQL para Prisma 7
-const adapter = new PrismaPg({ connectionString: databaseUrl });
+// PrismaPg (driver adapter) não honra o parâmetro ?schema= da URL.
+// Extraímos o schema e passamos explicitamente via option.
+function extractSchema(url: string): string | undefined {
+  try {
+    return new URL(url).searchParams.get('schema') ?? undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+const schema = extractSchema(databaseUrl);
+const adapter = new PrismaPg({ connectionString: databaseUrl }, schema ? { schema } : undefined);
 
 export const prisma = new PrismaClient({
   adapter,
@@ -16,9 +26,12 @@ export const prisma = new PrismaClient({
 
 // Função para criar um novo client com URL específica (útil para testes)
 export function createPrismaClient(url?: string) {
-  const testAdapter = new PrismaPg({
-    connectionString: url || databaseUrl,
-  });
+  const clientUrl = url || databaseUrl;
+  const clientSchema = extractSchema(clientUrl);
+  const testAdapter = new PrismaPg(
+    { connectionString: clientUrl },
+    clientSchema ? { schema: clientSchema } : undefined,
+  );
 
   return new PrismaClient({
     adapter: testAdapter,

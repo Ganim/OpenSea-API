@@ -4,6 +4,8 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createProduct } from '@/utils/tests/factories/stock/create-product.e2e';
+import { createVariant } from '@/utils/tests/factories/stock/create-variant.e2e';
 
 describe('Register Item Entry (E2E)', () => {
   beforeAll(async () => {
@@ -18,34 +20,8 @@ describe('Register Item Entry (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
-    const template = await prisma.template.create({
-      data: {
-        name: `Template Entry Test ${timestamp}`,
-        productAttributes: {},
-        variantAttributes: {},
-        itemAttributes: {},
-      },
-    });
-
-    const product = await prisma.product.create({
-      data: {
-        code: `PROD-ENTRY-${timestamp}`,
-        name: `Product Entry ${timestamp}`,
-        status: 'ACTIVE',
-        templateId: template.id,
-        attributes: {},
-      },
-    });
-
-    const variant = await prisma.variant.create({
-      data: {
-        productId: product.id,
-        sku: `SKU-ENTRY-${timestamp}`,
-        name: `Variant Entry ${timestamp}`,
-        price: 100,
-        attributes: {},
-      },
-    });
+    const { product } = await createProduct();
+    const { variant } = await createVariant({ productId: product.id });
 
     const warehouse = await prisma.warehouse.create({
       data: {
@@ -89,5 +65,60 @@ describe('Register Item Entry (E2E)', () => {
     expect(response.body.item).toHaveProperty('id');
     expect(response.body.item).toHaveProperty('uniqueCode');
     expect(response.body).toHaveProperty('movement');
+  });
+
+  it('should persist unitCost when provided in item entry', async () => {
+    const { token } = await createAndAuthenticateUser(app);
+    const timestamp = Date.now();
+
+    const { product } = await createProduct({
+      name: `Product UnitCost ${timestamp}`,
+    });
+    const { variant } = await createVariant({
+      productId: product.id,
+      name: `Variant UnitCost ${timestamp}`,
+    });
+
+    const warehouse = await prisma.warehouse.create({
+      data: {
+        code: `U${timestamp.toString().slice(-3)}`,
+        name: 'Warehouse for unitCost',
+      },
+    });
+
+    const zone = await prisma.zone.create({
+      data: {
+        code: `ZU${timestamp.toString().slice(-2)}`,
+        name: 'Zone for unitCost',
+        warehouseId: warehouse.id,
+        structure: {},
+      },
+    });
+
+    const bin = await prisma.bin.create({
+      data: {
+        address: `${warehouse.code}-${zone.code}-01-B`,
+        aisle: 1,
+        shelf: 1,
+        position: 'B',
+        zoneId: zone.id,
+      },
+    });
+
+    const response = await request(app.server)
+      .post('/v1/items/entry')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        uniqueCode: `ITEM-UC-${timestamp}`,
+        variantId: variant.id,
+        binId: bin.id,
+        quantity: 10,
+        unitCost: 49.9,
+        attributes: {},
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body.item).toHaveProperty('unitCost', 49.9);
+    expect(response.body.item).toHaveProperty('totalCost', 49.9 * 10);
   });
 });

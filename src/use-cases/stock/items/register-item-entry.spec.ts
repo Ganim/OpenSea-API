@@ -459,6 +459,95 @@ describe('RegisterItemEntryUseCase', () => {
     ).rejects.toThrow(BadRequestError);
   });
 
+  it('should persist unitCost when provided', async () => {
+    const { template } = await createTemplate.execute({
+      name: 'Test Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const { product } = await createProduct.execute({
+      name: 'Test Product',
+      code: 'PROD-001',
+      status: 'ACTIVE',
+      attributes: { brand: 'Samsung' },
+      templateId: template.id,
+    });
+
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
+      sku: 'SKU-001',
+      name: 'Test Variant',
+      price: 100,
+    });
+
+    const { bin } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'A',
+    );
+
+    const userId = new UniqueEntityID().toString();
+
+    const result = await registerItemEntry.execute({
+      uniqueCode: 'ITEM-COST-001',
+      variantId: variant.id.toString(),
+      binId: bin.binId.toString(),
+      quantity: 50,
+      unitCost: 29.99,
+      userId,
+    });
+
+    expect(result.item.unitCost).toBe(29.99);
+    expect(result.item.totalCost).toBe(29.99 * 50);
+
+    // Verify persistence in repository
+    const persistedItem = itemsRepository.items[0];
+    expect(persistedItem.unitCost).toBe(29.99);
+  });
+
+  it('should work without unitCost (optional field)', async () => {
+    const { template } = await createTemplate.execute({
+      name: 'Test Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const { product } = await createProduct.execute({
+      name: 'Test Product',
+      code: 'PROD-001',
+      status: 'ACTIVE',
+      attributes: { brand: 'Samsung' },
+      templateId: template.id,
+    });
+
+    const variant = await createVariant.execute({
+      productId: product.id.toString(),
+      sku: 'SKU-001',
+      name: 'Test Variant',
+      price: 100,
+    });
+
+    const { bin } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'A',
+    );
+
+    const userId = new UniqueEntityID().toString();
+
+    const result = await registerItemEntry.execute({
+      uniqueCode: 'ITEM-NO-COST',
+      variantId: variant.id.toString(),
+      binId: bin.binId.toString(),
+      quantity: 25,
+      userId,
+    });
+
+    expect(result.item.unitCost).toBeUndefined();
+    expect(result.item.totalCost).toBeUndefined();
+  });
+
   it('should not allow invalid item attributes not in template', async () => {
     const { template } = await createTemplate.execute({
       name: 'Electronics Template',

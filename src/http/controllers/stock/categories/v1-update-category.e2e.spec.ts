@@ -33,11 +33,19 @@ describe('Update Category (E2E)', () => {
       .send({
         name: `New Name ${timestamp}`,
         slug: `new-slug-${timestamp}`,
+        iconUrl: 'https://example.com/icons/updated.svg',
       });
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('category');
     expect(response.body.category).toHaveProperty('id', category.id);
-    expect(response.body.category).toHaveProperty('name', `New Name ${timestamp}`);
+    expect(response.body.category).toHaveProperty(
+      'name',
+      `New Name ${timestamp}`,
+    );
+    expect(response.body.category).toHaveProperty(
+      'iconUrl',
+      'https://example.com/icons/updated.svg',
+    );
   });
 });

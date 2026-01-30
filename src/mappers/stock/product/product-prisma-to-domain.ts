@@ -23,9 +23,10 @@ type ProductWithRelations = PrismaProduct & {
 
 export function mapProductPrismaToDomain(productDb: ProductWithRelations) {
   // Garante que slug não é vazio
-  const slug = productDb.slug && productDb.slug.trim() 
-    ? Slug.create(productDb.slug)
-    : Slug.createFromText(productDb.name || 'product');
+  const slug =
+    productDb.slug && productDb.slug.trim()
+      ? Slug.create(productDb.slug)
+      : Slug.createFromText(productDb.name || 'product');
 
   return {
     id: new UniqueEntityID(productDb.id),

@@ -49,6 +49,7 @@ export const updateProductSchema = z.object({
   attributes: z.record(z.string(), z.any()).optional(),
   supplierId: idSchema.optional(),
   manufacturerId: idSchema.optional(),
+  categoryIds: z.array(z.string().uuid()).optional(),
 });
 
 /**

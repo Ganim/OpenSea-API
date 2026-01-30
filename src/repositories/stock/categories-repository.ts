@@ -5,6 +5,7 @@ export interface CreateCategorySchema {
   name: string;
   slug: string;
   description?: string;
+  iconUrl?: string;
   parentId?: UniqueEntityID;
   displayOrder?: number;
   isActive?: boolean;
@@ -15,6 +16,7 @@ export interface UpdateCategorySchema {
   name?: string;
   slug?: string;
   description?: string;
+  iconUrl?: string | null;
   parentId?: UniqueEntityID | null;
   displayOrder?: number;
   isActive?: boolean;

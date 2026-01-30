@@ -8,6 +8,15 @@ import type {
   UpdateCategorySchema,
 } from '../categories-repository';
 
+const CATEGORY_COUNT_INCLUDE = {
+  _count: {
+    select: {
+      subCategories: true,
+      productCategories: true,
+    },
+  },
+} as const;
+
 export class PrismaCategoriesRepository implements CategoriesRepository {
   async create(data: CreateCategorySchema): Promise<Category> {
     const categoryData = await prisma.category.create({
@@ -15,6 +24,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         name: data.name,
         slug: data.slug,
         description: data.description ?? null,
+        iconUrl: data.iconUrl ?? null,
         parentId: data.parentId?.toString(),
         displayOrder: data.displayOrder ?? 0,
         isActive: data.isActive ?? true,
@@ -26,6 +36,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         name: categoryData.name,
         slug: categoryData.slug,
         description: categoryData.description ?? null,
+        iconUrl: categoryData.iconUrl ?? null,
         parentId: categoryData.parentId
           ? new EntityID(categoryData.parentId)
           : null,
@@ -55,6 +66,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         name: categoryData.name,
         slug: categoryData.slug,
         description: categoryData.description ?? null,
+        iconUrl: categoryData.iconUrl ?? null,
         parentId: categoryData.parentId
           ? new EntityID(categoryData.parentId)
           : null,
@@ -87,6 +99,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         name: categoryData.name,
         slug: categoryData.slug,
         description: categoryData.description ?? null,
+        iconUrl: categoryData.iconUrl ?? null,
         parentId: categoryData.parentId
           ? new EntityID(categoryData.parentId)
           : null,
@@ -119,6 +132,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         name: categoryData.name,
         slug: categoryData.slug,
         description: categoryData.description ?? null,
+        iconUrl: categoryData.iconUrl ?? null,
         parentId: categoryData.parentId
           ? new EntityID(categoryData.parentId)
           : null,
@@ -136,6 +150,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
       where: {
         deletedAt: null,
       },
+      include: CATEGORY_COUNT_INCLUDE,
     });
 
     return categories.map((categoryData) =>
@@ -144,11 +159,14 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
           name: categoryData.name,
           slug: categoryData.slug,
           description: categoryData.description ?? null,
+          iconUrl: categoryData.iconUrl ?? null,
           parentId: categoryData.parentId
             ? new EntityID(categoryData.parentId)
             : null,
           displayOrder: categoryData.displayOrder,
           isActive: categoryData.isActive,
+          childrenCount: categoryData._count?.subCategories ?? 0,
+          productCount: categoryData._count?.productCategories ?? 0,
           createdAt: categoryData.createdAt,
           updatedAt: categoryData.updatedAt,
         },
@@ -163,6 +181,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         parentId: parentId.toString(),
         deletedAt: null,
       },
+      include: CATEGORY_COUNT_INCLUDE,
     });
 
     return categories.map((categoryData) =>
@@ -171,11 +190,14 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
           name: categoryData.name,
           slug: categoryData.slug,
           description: categoryData.description ?? null,
+          iconUrl: categoryData.iconUrl ?? null,
           parentId: categoryData.parentId
             ? new EntityID(categoryData.parentId)
             : null,
           displayOrder: categoryData.displayOrder,
           isActive: categoryData.isActive,
+          childrenCount: categoryData._count?.subCategories ?? 0,
+          productCount: categoryData._count?.productCategories ?? 0,
           createdAt: categoryData.createdAt,
           updatedAt: categoryData.updatedAt,
         },
@@ -190,6 +212,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         parentId: null,
         deletedAt: null,
       },
+      include: CATEGORY_COUNT_INCLUDE,
     });
 
     return categories.map((categoryData) =>
@@ -198,9 +221,12 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
           name: categoryData.name,
           slug: categoryData.slug,
           description: categoryData.description ?? null,
+          iconUrl: categoryData.iconUrl ?? null,
           parentId: null,
           displayOrder: categoryData.displayOrder,
           isActive: categoryData.isActive,
+          childrenCount: categoryData._count?.subCategories ?? 0,
+          productCount: categoryData._count?.productCategories ?? 0,
           createdAt: categoryData.createdAt,
           updatedAt: categoryData.updatedAt,
         },
@@ -215,6 +241,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         isActive: true,
         deletedAt: null,
       },
+      include: CATEGORY_COUNT_INCLUDE,
     });
 
     return categories.map((categoryData) =>
@@ -223,11 +250,14 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
           name: categoryData.name,
           slug: categoryData.slug,
           description: categoryData.description ?? null,
+          iconUrl: categoryData.iconUrl ?? null,
           parentId: categoryData.parentId
             ? new EntityID(categoryData.parentId)
             : null,
           displayOrder: categoryData.displayOrder,
           isActive: categoryData.isActive,
+          childrenCount: categoryData._count?.subCategories ?? 0,
+          productCount: categoryData._count?.productCategories ?? 0,
           createdAt: categoryData.createdAt,
           updatedAt: categoryData.updatedAt,
         },
@@ -241,6 +271,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
       name?: string;
       slug?: string;
       description?: string | null;
+      iconUrl?: string | null;
       parentId?: string | null;
       displayOrder?: number;
       isActive?: boolean;
@@ -250,6 +281,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     if (data.slug !== undefined) updateData.slug = data.slug;
     if (data.description !== undefined)
       updateData.description = data.description;
+    if (data.iconUrl !== undefined) updateData.iconUrl = data.iconUrl;
     if (data.parentId !== undefined)
       updateData.parentId = data.parentId?.toString() ?? null;
     if (data.displayOrder !== undefined)
@@ -268,6 +300,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         name: categoryData.name,
         slug: categoryData.slug,
         description: categoryData.description ?? null,
+        iconUrl: categoryData.iconUrl ?? null,
         parentId: categoryData.parentId
           ? new EntityID(categoryData.parentId)
           : null,
@@ -289,6 +322,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
         name: category.name,
         slug: category.slug,
         description: category.description,
+        iconUrl: category.iconUrl,
         parentId: category.parentId?.toString(),
         displayOrder: category.displayOrder,
         isActive: category.isActive,

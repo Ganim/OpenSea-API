@@ -8,9 +8,9 @@ import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
 import {
-  generateBarcode,
-  generateEAN13,
-  generateUPC,
+    generateBarcode,
+    generateEAN13,
+    generateUPC,
 } from '@/utils/barcode-generator';
 import { assertValidAttributes } from '@/utils/validate-template-attributes';
 
@@ -174,14 +174,18 @@ export class CreateVariantUseCase {
     }
 
     // Get next sequential code LOCAL to this product
-    const lastVariant = await this.variantsRepository.findLastByProductId(productId);
+    const lastVariant =
+      await this.variantsRepository.findLastByProductId(productId);
     const nextSeq = (lastVariant?.sequentialCode ?? 0) + 1;
 
     // Generate fullCode: PRODUCT_FULLCODE.VARIANT_SEQ (ex: 001.001.0001.001)
     const fullCode = `${product.fullCode}.${padCode(nextSeq, 3)}`;
 
     // Generate slug from name (with nextSeq as suffix to ensure uniqueness)
-    const slug = Slug.createUniqueFromText(input.name, `${product.fullCode}-${nextSeq}`);
+    const slug = Slug.createUniqueFromText(
+      input.name,
+      `${product.fullCode}-${nextSeq}`,
+    );
 
     // Generate barcode codes from fullCode (IMUTÁVEIS)
     const barcode = generateBarcode(fullCode);

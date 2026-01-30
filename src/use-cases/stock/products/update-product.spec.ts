@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { InMemoryCategoriesRepository } from '@/repositories/stock/in-memory/in-memory-categories-repository';
 import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
@@ -16,6 +17,7 @@ let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
 let suppliersRepository: InMemorySuppliersRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
+let categoriesRepository: InMemoryCategoriesRepository;
 let sut: UpdateProductUseCase;
 let createProduct: CreateProductUseCase;
 let createTemplate: CreateTemplateUseCase;
@@ -28,12 +30,14 @@ describe('UpdateProductUseCase', () => {
     templatesRepository = new InMemoryTemplatesRepository();
     suppliersRepository = new InMemorySuppliersRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
+    categoriesRepository = new InMemoryCategoriesRepository();
 
     sut = new UpdateProductUseCase(
       productsRepository,
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
+      categoriesRepository,
     );
     createProduct = new CreateProductUseCase(
       productsRepository,

@@ -105,6 +105,33 @@ describe('Update Category Use Case', () => {
     expect(category.isActive).toBe(false);
   });
 
+  it('should update category iconUrl', async () => {
+    const { category: createdCategory } = await createCategoryUseCase.execute({
+      name: 'Electronics',
+    });
+
+    const { category } = await sut.execute({
+      id: createdCategory.id.toString(),
+      iconUrl: 'https://example.com/icons/electronics.svg',
+    });
+
+    expect(category.iconUrl).toBe('https://example.com/icons/electronics.svg');
+  });
+
+  it('should remove category iconUrl by setting it to null', async () => {
+    const { category: createdCategory } = await createCategoryUseCase.execute({
+      name: 'Electronics',
+      iconUrl: 'https://example.com/icons/electronics.svg',
+    });
+
+    const { category } = await sut.execute({
+      id: createdCategory.id.toString(),
+      iconUrl: null,
+    });
+
+    expect(category.iconUrl).toBeNull();
+  });
+
   // REJECTS
 
   it('should throw error if category does not exist', async () => {

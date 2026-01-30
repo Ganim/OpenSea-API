@@ -55,6 +55,7 @@ export async function updateProductController(app: FastifyInstance) {
         attributes,
         supplierId,
         manufacturerId,
+        categoryIds,
       } = request.body;
       const userId = request.user.sub;
 
@@ -79,6 +80,7 @@ export async function updateProductController(app: FastifyInstance) {
           attributes,
           supplierId,
           manufacturerId,
+          categoryIds,
         });
 
         await logAudit(request, {

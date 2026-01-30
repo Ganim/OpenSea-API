@@ -14,6 +14,7 @@ export class InMemoryCategoriesRepository implements CategoriesRepository {
       name: data.name,
       slug: data.slug,
       description: data.description ?? null,
+      iconUrl: data.iconUrl ?? null,
       parentId: data.parentId ?? null,
       displayOrder: data.displayOrder ?? 0,
       isActive: data.isActive ?? true,
@@ -71,6 +72,7 @@ export class InMemoryCategoriesRepository implements CategoriesRepository {
     if (data.name !== undefined) category.name = data.name;
     if (data.slug !== undefined) category.slug = data.slug;
     if (data.description !== undefined) category.description = data.description;
+    if (data.iconUrl !== undefined) category.iconUrl = data.iconUrl;
     if (data.parentId !== undefined) category.parentId = data.parentId;
     if (data.displayOrder !== undefined)
       category.displayOrder = data.displayOrder;

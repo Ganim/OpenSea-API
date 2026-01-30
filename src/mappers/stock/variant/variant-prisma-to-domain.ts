@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Variant } from '@/entities/stock/variant';
 import { Slug } from '@/entities/stock/value-objects/slug';
+import { Variant } from '@/entities/stock/variant';
 import type { Variant as PrismaVariant } from '@prisma/generated/client.js';
 
 export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {

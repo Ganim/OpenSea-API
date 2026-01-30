@@ -15,7 +15,7 @@ function generateTestBarcode(fullCode: string): string {
 
 function generateTestEAN13(fullCode: string): string {
   const hash = Math.abs(
-    fullCode.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+    fullCode.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0),
   );
   const digits = String(hash).padStart(12, '0').slice(0, 12);
   return digits + '0';
@@ -23,22 +23,24 @@ function generateTestEAN13(fullCode: string): string {
 
 function generateTestUPC(fullCode: string): string {
   const hash = Math.abs(
-    fullCode.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+    fullCode.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0),
   );
   const digits = String(hash).padStart(11, '0').slice(0, 11);
   return digits + '0';
 }
 
 function generateTestSlug(name: string, suffix: string): string {
-  return name
-    .normalize('NFKD')
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w-]+/g, '')
-    .replace(/_/g, '-')
-    .replace(/--+/g, '-')
-    .replace(/^-+|-+$/g, '') + `-${suffix}`;
+  return (
+    name
+      .normalize('NFKD')
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]+/g, '')
+      .replace(/_/g, '-')
+      .replace(/--+/g, '-')
+      .replace(/^-+|-+$/g, '') + `-${suffix}`
+  );
 }
 
 export async function createVariant(props: CreateVariantProps) {
@@ -58,7 +60,7 @@ export async function createVariant(props: CreateVariantProps) {
   const sequentialCode = variantCount + 1;
   const productFullCode = product?.fullCode ?? '000.000.0000';
   const fullCode = `${productFullCode}.${String(sequentialCode).padStart(3, '0')}`;
-  
+
   const name = props.name ?? `Test Variant ${timestamp}`;
   const slug = generateTestSlug(name, `${productFullCode}-${sequentialCode}`);
   const barcode = generateTestBarcode(fullCode);

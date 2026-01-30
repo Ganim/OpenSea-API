@@ -6,6 +6,7 @@ interface CreateCategoryUseCaseRequest {
   name: string;
   slug?: string;
   description?: string;
+  iconUrl?: string;
   parentId?: string;
   displayOrder?: number;
   isActive?: boolean;
@@ -31,6 +32,7 @@ export class CreateCategoryUseCase {
     name,
     slug,
     description,
+    iconUrl,
     parentId,
     displayOrder,
     isActive = true,
@@ -69,6 +71,7 @@ export class CreateCategoryUseCase {
       name,
       slug: categorySlug,
       description,
+      iconUrl,
       parentId: parentId ? new UniqueEntityID(parentId) : undefined,
       displayOrder,
       isActive,

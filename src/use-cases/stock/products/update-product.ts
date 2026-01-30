@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
+import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
@@ -17,6 +18,7 @@ interface UpdateProductUseCaseRequest {
   supplierId?: string;
   manufacturerId?: string;
   attributes?: Record<string, unknown>;
+  categoryIds?: string[];
 }
 
 interface UpdateProductUseCaseResponse {
@@ -29,6 +31,7 @@ export class UpdateProductUseCase {
     private templatesRepository: TemplatesRepository,
     private suppliersRepository: SuppliersRepository,
     private manufacturersRepository: ManufacturersRepository,
+    private categoriesRepository: CategoriesRepository,
   ) {}
 
   async execute(
@@ -44,6 +47,7 @@ export class UpdateProductUseCase {
       supplierId,
       manufacturerId,
       attributes,
+      categoryIds,
     } = request;
 
     // Validate ID
@@ -145,6 +149,18 @@ export class UpdateProductUseCase {
       }
     }
 
+    // Validate categories exist if provided
+    if (categoryIds !== undefined) {
+      for (const categoryId of categoryIds) {
+        const category = await this.categoriesRepository.findById(
+          new UniqueEntityID(categoryId),
+        );
+        if (!category) {
+          throw new ResourceNotFoundError(`Category not found: ${categoryId}`);
+        }
+      }
+    }
+
     // Update product
     // code e fullCode são imutáveis após criação
     const updatedProduct = await this.productsRepository.update({
@@ -158,6 +174,7 @@ export class UpdateProductUseCase {
         ? new UniqueEntityID(manufacturerId)
         : undefined,
       attributes,
+      categoryIds,
     });
 
     if (!updatedProduct) {

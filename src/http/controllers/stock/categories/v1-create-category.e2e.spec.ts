@@ -23,6 +23,7 @@ describe('Create Category (E2E)', () => {
       .send({
         name: `Electronics ${timestamp}`,
         description: 'Electronic products',
+        iconUrl: 'https://example.com/icons/electronics.svg',
         isActive: true,
       });
 
@@ -31,5 +32,9 @@ describe('Create Category (E2E)', () => {
     expect(response.body.category).toHaveProperty('id');
     expect(response.body.category).toHaveProperty('name');
     expect(response.body.category).toHaveProperty('slug');
+    expect(response.body.category).toHaveProperty(
+      'iconUrl',
+      'https://example.com/icons/electronics.svg',
+    );
   });
 });

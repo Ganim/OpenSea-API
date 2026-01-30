@@ -28,12 +28,17 @@ export class InMemoryItemsRepository implements ItemsRepository {
   async create(data: CreateItemSchema): Promise<Item> {
     const item = Item.create({
       uniqueCode: data.uniqueCode,
+      slug: data.slug,
       fullCode: data.fullCode,
       sequentialCode: data.sequentialCode,
+      barcode: data.barcode,
+      eanCode: data.eanCode,
+      upcCode: data.upcCode,
       variantId: data.variantId,
       binId: data.binId,
       initialQuantity: data.initialQuantity,
       currentQuantity: data.currentQuantity,
+      unitCost: data.unitCost,
       status: data.status,
       entryDate: data.entryDate ?? new Date(),
       attributes: data.attributes ?? {},
@@ -164,7 +169,7 @@ export class InMemoryItemsRepository implements ItemsRepository {
       : undefined;
 
     return {
-      productCode: product?.code ?? null,
+      productCode: product?.fullCode ?? null,
       productName: product?.name ?? 'Mock Product',
       variantSku: variant?.sku ?? 'MOCK-SKU',
       variantName: variant?.name ?? 'Mock Variant',

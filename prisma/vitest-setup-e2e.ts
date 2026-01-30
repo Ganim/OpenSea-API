@@ -33,16 +33,31 @@ execSync('npx prisma migrate deploy', {
 
 console.log(`🧪 Testes E2E usando schema: ${schema}`);
 
-// Cleanup após todos os testes do arquivo
+// Cleanup após todos os testes
 afterAll(async () => {
-  const { prisma } = await import('@/lib/prisma');
+  // Desconecta o client do app primeiro
+  try {
+    const { prisma } = await import('@/lib/prisma');
+    await prisma.$disconnect();
+  } catch {
+    // ignora se não conseguir desconectar
+  }
+
+  // Usa conexão separada no schema público para dropar o schema de teste
+  const { PrismaClient } = await import('./generated/prisma/client.js');
+  const { PrismaPg } = await import('@prisma/adapter-pg');
+
+  const adapter = new PrismaPg({ connectionString: originalDatabaseUrl });
+  const cleanupClient = new PrismaClient({ adapter });
 
   try {
-    await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
+    await cleanupClient.$executeRawUnsafe(
+      `DROP SCHEMA IF EXISTS "${schema}" CASCADE`,
+    );
     console.log(`🧹 Schema ${schema} removido com sucesso`);
   } catch (error) {
     console.error(`❌ Erro ao remover schema ${schema}:`, error);
   } finally {
-    await prisma.$disconnect();
+    await cleanupClient.$disconnect();
   }
 });

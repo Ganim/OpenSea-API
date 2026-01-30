@@ -1031,10 +1031,10 @@ model Supplier {
 }
 
 model Manufacturer {
-  id             String @id @default(uuid())
-  code           String @unique @db.VarChar(3) // Código hierárquico auto-gerado (ex: 001)
-  sequentialCode Int    @default(autoincrement()) @map("sequential_code") // Para geração do code
-  name           String @db.VarChar(128)
+  id             String  @id @default(uuid())
+  code           String  @unique @db.VarChar(3) // Código hierárquico auto-gerado (ex: 001)
+  sequentialCode Int     @default(autoincrement()) @map("sequential_code") // Para geração do code
+  name           String  @db.VarChar(128)
   country        String? @db.VarChar(64)
 
   // Contato
@@ -1070,6 +1070,7 @@ model Category {
   name         String    @db.VarChar(128)
   slug         String    @db.VarChar(128)
   description  String?   @db.VarChar(500)
+  iconUrl      String?   @map("icon_url") @db.VarChar(512) // URL do ícone SVG da categoria
   parentId     String?   @map("parent_id")
   displayOrder Int       @default(0) @map("display_order")
   isActive     Boolean   @default(true) @map("is_active")
@@ -1279,16 +1280,16 @@ model Product {
   status         ProductStatus @default(ACTIVE)
   outOfLine      Boolean       @default(false) @map("out_of_line")
   attributes     Json          @default("{}")
-  
+
   // Códigos de Barras (gerados automaticamente do fullCode) - IMUTÁVEIS
-  barcode String @unique @db.VarChar(30) // Code128 baseado no fullCode
-  eanCode String @unique @map("ean_code") @db.VarChar(13) // EAN-13 gerado do fullCode
-  upcCode String @unique @map("upc_code") @db.VarChar(12) // UPC gerado do fullCode
+  barcode String  @unique @db.VarChar(30) // Code128 baseado no fullCode
+  eanCode String  @unique @map("ean_code") @db.VarChar(13) // EAN-13 gerado do fullCode
+  upcCode String  @unique @map("upc_code") @db.VarChar(12) // UPC gerado do fullCode
   qrCode  String? @map("qr_code") @db.VarChar(512) // QR Code editável
-  
-  createdAt      DateTime      @default(now()) @map("created_at")
-  updatedAt      DateTime      @updatedAt @map("updated_at")
-  deletedAt      DateTime?     @map("deleted_at")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
   // Care Instructions (ISO 3758 codes)
   careInstructionIds String[] @default([]) @map("care_instruction_ids")
@@ -1339,9 +1340,9 @@ model Variant {
   profitMargin Decimal? @map("profit_margin") @db.Decimal(5, 2) // Percentual
 
   // Códigos de Barras (gerados automaticamente do fullCode) - IMUTÁVEIS
-  barcode String @unique @db.VarChar(30) // Code128 baseado no fullCode
-  eanCode String @unique @map("ean_code") @db.VarChar(13) // EAN-13 gerado do fullCode
-  upcCode String @unique @map("upc_code") @db.VarChar(12) // UPC gerado do fullCode
+  barcode String  @unique @db.VarChar(30) // Code128 baseado no fullCode
+  eanCode String  @unique @map("ean_code") @db.VarChar(13) // EAN-13 gerado do fullCode
+  upcCode String  @unique @map("upc_code") @db.VarChar(12) // UPC gerado do fullCode
   qrCode  String? @map("qr_code") @db.VarChar(512) // QR Code editável
 
   // Cores
@@ -1355,9 +1356,9 @@ model Variant {
   reorderQuantity Decimal? @map("reorder_quantity") @db.Decimal(10, 3)
 
   // Referência e Semelhantes
-  reference  String?  @db.VarChar(128) // Referência do fornecedor/fabricante
-  similars   Json?    @default("[]") // IDs de variantes semelhantes
-  outOfLine  Boolean  @default(false) @map("out_of_line") // Fora de linha/descontinuado
+  reference String? @db.VarChar(128) // Referência do fornecedor/fabricante
+  similars  Json?   @default("[]") // IDs de variantes semelhantes
+  outOfLine Boolean @default(false) @map("out_of_line") // Fora de linha/descontinuado
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -1401,11 +1402,11 @@ model Item {
   status          ItemStatus @default(AVAILABLE)
   entryDate       DateTime   @default(now()) @map("entry_date")
   attributes      Json       @default("{}")
-  
+
   // Códigos de Barras (gerados automaticamente do fullCode) - IMUTÁVEIS
-  barcode String @unique @db.VarChar(30) // Code128 baseado no fullCode
-  eanCode String @unique @map("ean_code") @db.VarChar(13) // EAN-13 gerado do fullCode
-  upcCode String @unique @map("upc_code") @db.VarChar(12) // UPC gerado do fullCode
+  barcode String  @unique @db.VarChar(30) // Code128 baseado no fullCode
+  eanCode String  @unique @map("ean_code") @db.VarChar(13) // EAN-13 gerado do fullCode
+  upcCode String  @unique @map("upc_code") @db.VarChar(12) // UPC gerado do fullCode
   qrCode  String? @map("qr_code") @db.VarChar(512) // QR Code editável
 
   // Lote e Validade

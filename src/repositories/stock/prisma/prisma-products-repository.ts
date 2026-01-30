@@ -8,9 +8,9 @@ import { prisma } from '@/lib/prisma';
 import { productPrismaToDomain } from '@/mappers/stock/product/product-prisma-to-domain';
 import type { ProductStatus as PrismaProductStatus } from '@prisma/generated/client';
 import type {
-  CreateProductSchema,
-  ProductsRepository,
-  UpdateProductSchema,
+    CreateProductSchema,
+    ProductsRepository,
+    UpdateProductSchema,
 } from '../products-repository';
 
 const productInclude = {
@@ -221,10 +221,53 @@ export class PrismaProductsRepository implements ProductsRepository {
   }
 
   async update(data: UpdateProductSchema): Promise<Product | null> {
+    const productId = data.id.toString();
+
+    // Se categoryIds foi fornecido, usar transação para atualizar produto e categorias
+    if (data.categoryIds !== undefined) {
+      const productData = await prisma.$transaction(async (tx) => {
+        // Atualizar dados do produto
+        await tx.product.update({
+          where: { id: productId },
+          data: {
+            name: data.name,
+            description: data.description,
+            status: data.status?.value as PrismaProductStatus | undefined,
+            outOfLine: data.outOfLine,
+            attributes: data.attributes as never,
+            supplierId: data.supplierId?.toString(),
+            manufacturerId: data.manufacturerId?.toString(),
+          },
+        });
+
+        // Remover todas as categorias existentes
+        await tx.productCategory.deleteMany({
+          where: { productId },
+        });
+
+        // Recriar com as novas categorias
+        if (data.categoryIds!.length > 0) {
+          await tx.productCategory.createMany({
+            data: data.categoryIds!.map((categoryId, index) => ({
+              productId,
+              categoryId,
+              order: index,
+            })),
+          });
+        }
+
+        // Re-fetch com includes para retornar dados atualizados
+        return tx.product.findUniqueOrThrow({
+          where: { id: productId },
+          include: productInclude,
+        });
+      });
+
+      return productPrismaToDomain(productData);
+    }
+
     const productData = await prisma.product.update({
-      where: {
-        id: data.id.toString(),
-      },
+      where: { id: productId },
       data: {
         name: data.name,
         // code e fullCode são imutáveis após criação
@@ -235,36 +278,10 @@ export class PrismaProductsRepository implements ProductsRepository {
         supplierId: data.supplierId?.toString(),
         manufacturerId: data.manufacturerId?.toString(),
       },
+      include: productInclude,
     });
 
-    const defaultStatus = ProductStatus.create('ACTIVE');
-
-    return Product.create(
-      {
-        name: productData.name,
-        code: productData.code ?? undefined,
-        fullCode: productData.fullCode ?? undefined,
-        sequentialCode: productData.sequentialCode ?? undefined,
-        description: productData.description ?? undefined,
-        status: ProductStatus.create(productData.status) ?? defaultStatus,
-        outOfLine: productData.outOfLine ?? false,
-        attributes: productData.attributes as Record<string, unknown>,
-        careInstructions: CareInstructions.create(
-          productData.careInstructionIds ?? [],
-        ),
-        templateId: new EntityID(productData.templateId),
-        supplierId: productData.supplierId
-          ? new EntityID(productData.supplierId)
-          : undefined,
-        manufacturerId: productData.manufacturerId
-          ? new EntityID(productData.manufacturerId)
-          : undefined,
-        createdAt: productData.createdAt,
-        updatedAt: productData.updatedAt ?? undefined,
-        deletedAt: productData.deletedAt ?? undefined,
-      },
-      new EntityID(productData.id),
-    );
+    return productPrismaToDomain(productData);
   }
 
   async updateCareInstructions(
