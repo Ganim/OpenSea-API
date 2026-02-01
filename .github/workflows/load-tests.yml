@@ -71,6 +71,7 @@ jobs:
         env:
           DATABASE_URL: postgresql://docker:docker@localhost:5432/apiopensea
         run: |
+          npx prisma generate
           npx prisma migrate deploy
           npx prisma db seed
 
@@ -84,7 +85,18 @@ jobs:
         run: |
           npm run build
           npm start &
-          sleep 10
+          echo "Waiting for API server to be ready..."
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3333/health/live > /dev/null 2>&1; then
+              echo "API server is ready!"
+              break
+            fi
+            if [ "$i" -eq 30 ]; then
+              echo "API server failed to start within 60 seconds"
+              exit 1
+            fi
+            sleep 2
+          done
 
       - name: Install k6
         run: |

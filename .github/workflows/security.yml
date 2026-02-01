@@ -9,6 +9,10 @@ on:
     # Toda segunda-feira às 00:00 UTC
     - cron: '0 0 * * 1'
 
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # Análise de dependências com npm audit
   npm-audit:
@@ -28,7 +32,6 @@ jobs:
 
       - name: Run npm audit
         run: npm audit --audit-level=high
-        continue-on-error: true
 
       - name: Run npm audit (production only)
         run: npm audit --omit=dev --audit-level=high
@@ -113,12 +116,13 @@ jobs:
         run: npm ci
 
       - name: Check licenses
-        run: npx license-checker --production --failOn "GPL-3.0;AGPL-3.0" || true
+        run: npx license-checker --production --failOn "GPL-3.0;AGPL-3.0"
 
-  # OWASP Dependency Check
+  # OWASP Dependency Check (apenas no schedule semanal)
   owasp-check:
     name: OWASP Dependency Check
     runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
     steps:
       - uses: actions/checkout@v4
 
