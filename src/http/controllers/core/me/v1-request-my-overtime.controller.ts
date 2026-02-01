@@ -16,6 +16,9 @@ export async function requestMyOvertimeController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'Request overtime for myself',
+      description:
+        'Registra uma solicitacao de hora extra para o funcionario vinculado ao usuario autenticado. Requer vinculo com registro de funcionario.',
+      security: [{ bearerAuth: [] }],
       body: z.object({
         date: z.coerce.date(),
         hours: z.number().positive().max(12),

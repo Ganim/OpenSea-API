@@ -13,6 +13,7 @@ export interface UserDTO {
   forcePasswordReset?: boolean;
   forcePasswordResetReason?: string | null;
   forcePasswordResetRequestedAt?: Date | null;
+  isSuperAdmin: boolean;
 }
 
 export function userToDTO(user: User): UserDTO {
@@ -28,5 +29,6 @@ export function userToDTO(user: User): UserDTO {
     forcePasswordReset: user.forcePasswordReset,
     forcePasswordResetReason: user.forcePasswordResetReason ?? null,
     forcePasswordResetRequestedAt: user.forcePasswordResetRequestedAt ?? null,
+    isSuperAdmin: user.isSuperAdmin,
   };
 }

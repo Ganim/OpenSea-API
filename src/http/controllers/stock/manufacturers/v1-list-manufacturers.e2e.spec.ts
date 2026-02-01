@@ -2,8 +2,8 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
-import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createManufacturer } from '@/utils/tests/factories/stock/create-manufacturer.e2e';
 
 describe('List Manufacturers (E2E)', () => {
   beforeAll(async () => {
@@ -18,12 +18,8 @@ describe('List Manufacturers (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
-    await prisma.manufacturer.create({
-      data: {
-        name: `Manufacturer ${timestamp}`,
-        country: 'United States',
-        isActive: true,
-      },
+    await createManufacturer({
+      name: `Manufacturer ${timestamp}`,
     });
 
     const response = await request(app.server)

@@ -24,6 +24,8 @@ export async function unblockBinController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Bins'],
       summary: 'Unblock a bin',
+      description:
+        'Desbloqueia um bin previamente bloqueado, permitindo novas alocacoes de itens.',
       params: z.object({
         id: z.string().uuid(),
       }),

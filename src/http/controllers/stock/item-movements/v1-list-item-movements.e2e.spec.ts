@@ -4,6 +4,8 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createProduct } from '@/utils/tests/factories/stock/create-product.e2e';
+import { createVariant } from '@/utils/tests/factories/stock/create-variant.e2e';
 
 describe('List Item Movements (E2E)', () => {
   beforeAll(async () => {
@@ -27,24 +29,16 @@ describe('List Item Movements (E2E)', () => {
       },
     });
 
-    const product = await prisma.product.create({
-      data: {
-        code: `PROD-MOV-${timestamp}`,
-        name: `Product Mov ${timestamp}`,
-        status: 'ACTIVE',
-        templateId: template.id,
-        attributes: {},
-      },
+    const { product } = await createProduct({
+      name: `Product Mov ${timestamp}`,
+      templateId: template.id,
     });
 
-    const variant = await prisma.variant.create({
-      data: {
-        productId: product.id,
-        sku: `SKU-MOV-${timestamp}`,
-        name: `Variant Mov ${timestamp}`,
-        price: 100,
-        attributes: {},
-      },
+    const { variant } = await createVariant({
+      productId: product.id,
+      sku: `SKU-MOV-${timestamp}`,
+      name: `Variant Mov ${timestamp}`,
+      price: 100,
     });
 
     const warehouse = await prisma.warehouse.create({
@@ -76,6 +70,12 @@ describe('List Item Movements (E2E)', () => {
     const item = await prisma.item.create({
       data: {
         uniqueCode: `ITEM-MOV-${timestamp}`,
+        slug: `item-mov-${timestamp}`,
+        fullCode: `001.000.0001.001-${timestamp.toString().slice(-5)}`,
+        sequentialCode: 1,
+        barcode: `BCMOV${timestamp.toString().slice(-5)}`,
+        eanCode: `EAN${timestamp.toString().slice(-8)}M`,
+        upcCode: `UPC${timestamp.toString().slice(-7)}M`,
         variantId: variant.id,
         binId: bin.id,
         initialQuantity: 100,

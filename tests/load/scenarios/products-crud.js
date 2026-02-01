@@ -46,7 +46,7 @@ export function setup() {
     }),
     {
       headers: { 'Content-Type': 'application/json' },
-    }
+    },
   );
 
   if (loginRes.status !== 200) {
@@ -65,7 +65,7 @@ export default function (data) {
 
   const headers = {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${data.token}`,
+    Authorization: `Bearer ${data.token}`,
   };
 
   const vuId = __VU;
@@ -75,10 +75,9 @@ export default function (data) {
     const start = Date.now();
     const page = Math.floor(Math.random() * 5) + 1;
 
-    const res = http.get(
-      `${BASE_URL}/v1/products?page=${page}&limit=20`,
-      { headers }
-    );
+    const res = http.get(`${BASE_URL}/v1/products?page=${page}&limit=20`, {
+      headers,
+    });
 
     crudDuration.add(Date.now() - start);
 
@@ -94,7 +93,9 @@ export default function (data) {
 
   group('Get Single Product', () => {
     // Primeiro, listar para pegar um ID válido
-    const listRes = http.get(`${BASE_URL}/v1/products?page=1&limit=1`, { headers });
+    const listRes = http.get(`${BASE_URL}/v1/products?page=1&limit=1`, {
+      headers,
+    });
 
     if (listRes.status === 200) {
       const products = listRes.json('data');
@@ -103,7 +104,9 @@ export default function (data) {
         const productId = products[0].id;
         const start = Date.now();
 
-        const res = http.get(`${BASE_URL}/v1/products/${productId}`, { headers });
+        const res = http.get(`${BASE_URL}/v1/products/${productId}`, {
+          headers,
+        });
 
         crudDuration.add(Date.now() - start);
 
@@ -131,13 +134,14 @@ export default function (data) {
           sku: uniqueSku,
           description: 'Product created during load test',
         }),
-        { headers }
+        { headers },
       );
 
       crudDuration.add(Date.now() - start);
 
       const success = check(res, {
-        'create status is 201 or 403': (r) => r.status === 201 || r.status === 403,
+        'create status is 201 or 403': (r) =>
+          r.status === 201 || r.status === 403,
       });
 
       if (res.status === 201) {

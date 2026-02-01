@@ -23,6 +23,7 @@ export interface UserProps {
   forcePasswordResetReason?: string;
   forcePasswordResetRequestedBy?: string;
   forcePasswordResetRequestedAt?: Date;
+  isSuperAdmin: boolean;
   deletedAt?: Date;
   lastLoginAt?: Date;
   createdAt: Date;
@@ -69,6 +70,9 @@ export class User extends Entity<UserProps> {
   }
   get forcePasswordResetRequestedAt(): Date | undefined {
     return this.props.forcePasswordResetRequestedAt;
+  }
+  get isSuperAdmin(): boolean {
+    return this.props.isSuperAdmin;
   }
   get deletedAt(): Date | undefined {
     return this.props.deletedAt;
@@ -175,7 +179,11 @@ export class User extends Entity<UserProps> {
   static create(
     props: Optional<
       UserProps,
-      'createdAt' | 'failedLoginAttempts' | 'deletedAt' | 'forcePasswordReset'
+      | 'createdAt'
+      | 'failedLoginAttempts'
+      | 'deletedAt'
+      | 'forcePasswordReset'
+      | 'isSuperAdmin'
     >,
     id?: UniqueEntityID,
   ) {
@@ -184,6 +192,7 @@ export class User extends Entity<UserProps> {
         ...props,
         failedLoginAttempts: props.failedLoginAttempts ?? 0,
         forcePasswordReset: props.forcePasswordReset ?? false,
+        isSuperAdmin: props.isSuperAdmin ?? false,
         createdAt: props.createdAt ?? new Date(),
         deletedAt: props.deletedAt ?? undefined,
       },

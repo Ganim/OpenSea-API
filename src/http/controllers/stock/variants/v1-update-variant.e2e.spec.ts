@@ -4,6 +4,8 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createProduct } from '@/utils/tests/factories/stock/create-product.e2e';
+import { createVariant } from '@/utils/tests/factories/stock/create-variant.e2e';
 
 describe('Update Variant (E2E)', () => {
   beforeAll(async () => {
@@ -27,24 +29,16 @@ describe('Update Variant (E2E)', () => {
       },
     });
 
-    const product = await prisma.product.create({
-      data: {
-        code: `PROD-UPDATE-${timestamp}`,
-        name: `Product For Update ${timestamp}`,
-        status: 'ACTIVE',
-        templateId: template.id,
-        attributes: {},
-      },
+    const { product } = await createProduct({
+      name: `Product For Update ${timestamp}`,
+      templateId: template.id,
     });
 
-    const variant = await prisma.variant.create({
-      data: {
-        productId: product.id,
-        sku: `SKU-UPDATE-${timestamp}`,
-        name: `Old Variant Name ${timestamp}`,
-        price: 99.99,
-        attributes: {},
-      },
+    const { variant } = await createVariant({
+      productId: product.id,
+      sku: `SKU-UPDATE-${timestamp}`,
+      name: `Old Variant Name ${timestamp}`,
+      price: 99.99,
     });
 
     const response = await request(app.server)
@@ -58,6 +52,9 @@ describe('Update Variant (E2E)', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('variant');
     expect(response.body.variant).toHaveProperty('id', variant.id);
-    expect(response.body.variant).toHaveProperty('name', `Updated Variant Name ${timestamp}`);
+    expect(response.body.variant).toHaveProperty(
+      'name',
+      `Updated Variant Name ${timestamp}`,
+    );
   });
 });

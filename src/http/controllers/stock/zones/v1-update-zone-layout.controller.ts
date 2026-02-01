@@ -26,6 +26,8 @@ export async function updateZoneLayoutController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Zones'],
       summary: 'Update zone custom layout',
+      description:
+        'Atualiza o layout personalizado de visualizacao de uma zona. Permite configurar posicionamento e aparencia dos bins na interface 2D.',
       params: z.object({
         id: z.string().uuid(),
       }),

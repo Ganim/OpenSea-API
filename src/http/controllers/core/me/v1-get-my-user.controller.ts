@@ -14,6 +14,9 @@ export async function getMyUserController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Me'],
       summary: 'Get authenticated user',
+      description:
+        'Retorna os dados do usuario autenticado, incluindo perfil e informacoes da conta.',
+      security: [{ bearerAuth: [] }],
       response: {
         200: z.object({
           user: z.object({

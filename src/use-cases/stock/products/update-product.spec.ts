@@ -58,7 +58,7 @@ describe('UpdateProductUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
+
       templateId: template.template.id.toString(),
     });
 
@@ -105,7 +105,7 @@ describe('UpdateProductUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
+
       templateId: template.template.id.toString(),
     });
 
@@ -132,7 +132,7 @@ describe('UpdateProductUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
+
       templateId: template.template.id.toString(),
     });
 
@@ -159,7 +159,7 @@ describe('UpdateProductUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Product OutOfLine Test',
-      code: 'LAPTOP-OOL',
+
       templateId: template.template.id.toString(),
     });
 
@@ -190,7 +190,7 @@ describe('UpdateProductUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
+
       templateId: template.template.id.toString(),
     });
 
@@ -210,13 +210,13 @@ describe('UpdateProductUseCase', () => {
 
     await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
+
       templateId: template.template.id.toString(),
     });
 
     const second = await createProduct.execute({
       name: 'Mouse Logitech',
-      code: 'MOUSE-001',
+
       templateId: template.template.id.toString(),
     });
 
@@ -236,7 +236,7 @@ describe('UpdateProductUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
+
       templateId: template.template.id.toString(),
     });
 
@@ -256,7 +256,7 @@ describe('UpdateProductUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
+
       templateId: template.template.id.toString(),
     });
 
@@ -279,7 +279,7 @@ describe('UpdateProductUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
+
       templateId: template.template.id.toString(),
       attributes: { brand: 'Dell' },
     });

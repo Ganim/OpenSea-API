@@ -6,7 +6,7 @@ import { ZoneLayout } from '@/entities/stock/value-objects/zone-layout';
 import { ZoneStructure } from '@/entities/stock/value-objects/zone-structure';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 
 describe('Reset Zone Layout (E2E)', () => {
   beforeAll(async () => {

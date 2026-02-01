@@ -17,6 +17,9 @@ export async function deleteMyUserController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Me'],
       summary: 'Delete authenticated user',
+      description:
+        'Realiza a exclusao (soft delete) da conta do usuario autenticado. Esta acao e irreversivel.',
+      security: [{ bearerAuth: [] }],
       response: {
         200: z.void(),
         404: z.object({

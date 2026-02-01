@@ -33,7 +33,7 @@ describe('Get Sales Order By ID (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Test Template GET-${timestamp}`,
-        productAttributes: { test: 'value' },
+        productAttributes: { test: { type: 'string', label: 'Test' } },
       });
     const templateId = templateResponse.body.template.id;
 

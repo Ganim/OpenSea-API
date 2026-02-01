@@ -16,6 +16,9 @@ export async function revokeMySessionController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Sessions'],
       summary: 'Revoke one of my sessions',
+      description:
+        'Revoga uma sessao especifica do usuario autenticado. Apenas sessoes proprias podem ser revogadas por este endpoint.',
+      security: [{ bearerAuth: [] }],
       params: z.object({ sessionId: z.string().uuid() }),
       response: {
         204: z.void(),

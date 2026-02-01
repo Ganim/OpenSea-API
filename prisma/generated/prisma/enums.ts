@@ -75,6 +75,7 @@ export const AuditAction = {
   UPDATE: 'UPDATE',
   DELETE: 'DELETE',
   RESTORE: 'RESTORE',
+  DUPLICATE: 'DUPLICATE',
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
   SESSION_REFRESH: 'SESSION_REFRESH',
@@ -166,6 +167,7 @@ export const AuditEntity = {
   PERMISSION_GROUP_PERMISSION: 'PERMISSION_GROUP_PERMISSION',
   USER_PERMISSION_GROUP: 'USER_PERMISSION_GROUP',
   USER_DIRECT_PERMISSION: 'USER_DIRECT_PERMISSION',
+  LABEL_TEMPLATE: 'LABEL_TEMPLATE',
   PRODUCT: 'PRODUCT',
   VARIANT: 'VARIANT',
   ITEM: 'ITEM',
@@ -617,3 +619,37 @@ export const CompanyStakeholderSource = {
 } as const
 
 export type CompanyStakeholderSource = (typeof CompanyStakeholderSource)[keyof typeof CompanyStakeholderSource]
+
+
+export const TenantStatusEnum = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type TenantStatusEnum = (typeof TenantStatusEnum)[keyof typeof TenantStatusEnum]
+
+
+export const PlanTierEnum = {
+  FREE: 'FREE',
+  STARTER: 'STARTER',
+  PROFESSIONAL: 'PROFESSIONAL',
+  ENTERPRISE: 'ENTERPRISE'
+} as const
+
+export type PlanTierEnum = (typeof PlanTierEnum)[keyof typeof PlanTierEnum]
+
+
+export const SystemModuleEnum = {
+  CORE: 'CORE',
+  STOCK: 'STOCK',
+  SALES: 'SALES',
+  HR: 'HR',
+  PAYROLL: 'PAYROLL',
+  REPORTS: 'REPORTS',
+  AUDIT: 'AUDIT',
+  REQUESTS: 'REQUESTS',
+  NOTIFICATIONS: 'NOTIFICATIONS'
+} as const
+
+export type SystemModuleEnum = (typeof SystemModuleEnum)[keyof typeof SystemModuleEnum]

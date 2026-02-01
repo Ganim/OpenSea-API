@@ -22,7 +22,9 @@ describe('Delete Template (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Template to Delete ${timestamp}`,
-        productAttributes: { color: 'string' },
+        productAttributes: {
+          color: { type: 'string' },
+        },
       });
 
     const templateId = createResponse.body.template.id;

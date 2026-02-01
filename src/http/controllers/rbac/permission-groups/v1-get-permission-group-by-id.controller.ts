@@ -24,6 +24,9 @@ export async function getPermissionGroupByIdController(app: FastifyInstance) {
     schema: {
       tags: ['RBAC - Permission Groups'],
       summary: 'Get permission group by ID with users and permissions',
+      description:
+        'Retorna os detalhes de um grupo de permissoes, incluindo usuarios associados e permissoes atribuidas ao grupo.',
+      security: [{ bearerAuth: [] }],
       params: z.object({
         groupId: idSchema,
       }),

@@ -48,6 +48,7 @@ export type UserMinAggregateOutputType = {
   forcePasswordResetReason: string | null
   forcePasswordResetRequestedBy: string | null
   forcePasswordResetRequestedAt: Date | null
+  isSuperAdmin: boolean | null
   deletedAt: Date | null
   lastLoginAt: Date | null
   createdAt: Date | null
@@ -68,6 +69,7 @@ export type UserMaxAggregateOutputType = {
   forcePasswordResetReason: string | null
   forcePasswordResetRequestedBy: string | null
   forcePasswordResetRequestedAt: Date | null
+  isSuperAdmin: boolean | null
   deletedAt: Date | null
   lastLoginAt: Date | null
   createdAt: Date | null
@@ -88,6 +90,7 @@ export type UserCountAggregateOutputType = {
   forcePasswordResetReason: number
   forcePasswordResetRequestedBy: number
   forcePasswordResetRequestedAt: number
+  isSuperAdmin: number
   deletedAt: number
   lastLoginAt: number
   createdAt: number
@@ -118,6 +121,7 @@ export type UserMinAggregateInputType = {
   forcePasswordResetReason?: true
   forcePasswordResetRequestedBy?: true
   forcePasswordResetRequestedAt?: true
+  isSuperAdmin?: true
   deletedAt?: true
   lastLoginAt?: true
   createdAt?: true
@@ -138,6 +142,7 @@ export type UserMaxAggregateInputType = {
   forcePasswordResetReason?: true
   forcePasswordResetRequestedBy?: true
   forcePasswordResetRequestedAt?: true
+  isSuperAdmin?: true
   deletedAt?: true
   lastLoginAt?: true
   createdAt?: true
@@ -158,6 +163,7 @@ export type UserCountAggregateInputType = {
   forcePasswordResetReason?: true
   forcePasswordResetRequestedBy?: true
   forcePasswordResetRequestedAt?: true
+  isSuperAdmin?: true
   deletedAt?: true
   lastLoginAt?: true
   createdAt?: true
@@ -265,6 +271,7 @@ export type UserGroupByOutputType = {
   forcePasswordResetReason: string | null
   forcePasswordResetRequestedBy: string | null
   forcePasswordResetRequestedAt: Date | null
+  isSuperAdmin: boolean
   deletedAt: Date | null
   lastLoginAt: Date | null
   createdAt: Date
@@ -308,6 +315,7 @@ export type UserWhereInput = {
   forcePasswordResetReason?: Prisma.StringNullableFilter<"User"> | string | null
   forcePasswordResetRequestedBy?: Prisma.StringNullableFilter<"User"> | string | null
   forcePasswordResetRequestedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  isSuperAdmin?: Prisma.BoolFilter<"User"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -315,6 +323,7 @@ export type UserWhereInput = {
   profile?: Prisma.XOR<Prisma.UserProfileNullableScalarRelationFilter, Prisma.UserProfileWhereInput> | null
   RefreshToken?: Prisma.RefreshTokenListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  tenantUsers?: Prisma.TenantUserListRelationFilter
   ItemMovement?: Prisma.ItemMovementListRelationFilter
   ApprovedMovements?: Prisma.ItemMovementListRelationFilter
   AuditLogs?: Prisma.AuditLogListRelationFilter
@@ -362,6 +371,7 @@ export type UserOrderByWithRelationInput = {
   forcePasswordResetReason?: Prisma.SortOrderInput | Prisma.SortOrder
   forcePasswordResetRequestedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   forcePasswordResetRequestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  isSuperAdmin?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -369,6 +379,7 @@ export type UserOrderByWithRelationInput = {
   profile?: Prisma.UserProfileOrderByWithRelationInput
   RefreshToken?: Prisma.RefreshTokenOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
+  tenantUsers?: Prisma.TenantUserOrderByRelationAggregateInput
   ItemMovement?: Prisma.ItemMovementOrderByRelationAggregateInput
   ApprovedMovements?: Prisma.ItemMovementOrderByRelationAggregateInput
   AuditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
@@ -421,6 +432,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   forcePasswordResetReason?: Prisma.StringNullableFilter<"User"> | string | null
   forcePasswordResetRequestedBy?: Prisma.StringNullableFilter<"User"> | string | null
   forcePasswordResetRequestedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  isSuperAdmin?: Prisma.BoolFilter<"User"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -428,6 +440,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   profile?: Prisma.XOR<Prisma.UserProfileNullableScalarRelationFilter, Prisma.UserProfileWhereInput> | null
   RefreshToken?: Prisma.RefreshTokenListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  tenantUsers?: Prisma.TenantUserListRelationFilter
   ItemMovement?: Prisma.ItemMovementListRelationFilter
   ApprovedMovements?: Prisma.ItemMovementListRelationFilter
   AuditLogs?: Prisma.AuditLogListRelationFilter
@@ -475,6 +488,7 @@ export type UserOrderByWithAggregationInput = {
   forcePasswordResetReason?: Prisma.SortOrderInput | Prisma.SortOrder
   forcePasswordResetRequestedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   forcePasswordResetRequestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  isSuperAdmin?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -503,6 +517,7 @@ export type UserScalarWhereWithAggregatesInput = {
   forcePasswordResetReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   forcePasswordResetRequestedBy?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   forcePasswordResetRequestedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  isSuperAdmin?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -523,6 +538,7 @@ export type UserCreateInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -530,6 +546,7 @@ export type UserCreateInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -577,6 +594,7 @@ export type UserUncheckedCreateInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -584,6 +602,7 @@ export type UserUncheckedCreateInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -631,6 +650,7 @@ export type UserUpdateInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -638,6 +658,7 @@ export type UserUpdateInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -685,6 +706,7 @@ export type UserUncheckedUpdateInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -692,6 +714,7 @@ export type UserUncheckedUpdateInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -739,6 +762,7 @@ export type UserCreateManyInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -759,6 +783,7 @@ export type UserUpdateManyMutationInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -779,6 +804,7 @@ export type UserUncheckedUpdateManyInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -809,6 +835,7 @@ export type UserCountOrderByAggregateInput = {
   forcePasswordResetReason?: Prisma.SortOrder
   forcePasswordResetRequestedBy?: Prisma.SortOrder
   forcePasswordResetRequestedAt?: Prisma.SortOrder
+  isSuperAdmin?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -833,6 +860,7 @@ export type UserMaxOrderByAggregateInput = {
   forcePasswordResetReason?: Prisma.SortOrder
   forcePasswordResetRequestedBy?: Prisma.SortOrder
   forcePasswordResetRequestedAt?: Prisma.SortOrder
+  isSuperAdmin?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -853,6 +881,7 @@ export type UserMinOrderByAggregateInput = {
   forcePasswordResetReason?: Prisma.SortOrder
   forcePasswordResetRequestedBy?: Prisma.SortOrder
   forcePasswordResetRequestedAt?: Prisma.SortOrder
+  isSuperAdmin?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -1407,6 +1436,20 @@ export type UserUpdateOneRequiredWithoutLabelTemplatesCreatedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLabelTemplatesCreatedInput, Prisma.UserUpdateWithoutLabelTemplatesCreatedInput>, Prisma.UserUncheckedUpdateWithoutLabelTemplatesCreatedInput>
 }
 
+export type UserCreateNestedOneWithoutTenantUsersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTenantUsersInput, Prisma.UserUncheckedCreateWithoutTenantUsersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTenantUsersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTenantUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTenantUsersInput, Prisma.UserUncheckedCreateWithoutTenantUsersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTenantUsersInput
+  upsert?: Prisma.UserUpsertWithoutTenantUsersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTenantUsersInput, Prisma.UserUpdateWithoutTenantUsersInput>, Prisma.UserUncheckedUpdateWithoutTenantUsersInput>
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   username?: string | null
@@ -1421,12 +1464,14 @@ export type UserCreateWithoutProfileInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -1474,12 +1519,14 @@ export type UserUncheckedCreateWithoutProfileInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -1543,12 +1590,14 @@ export type UserUpdateWithoutProfileInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -1596,12 +1645,14 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1649,12 +1700,14 @@ export type UserCreateWithoutSessionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -1702,12 +1755,14 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -1771,12 +1826,14 @@ export type UserUpdateWithoutSessionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -1824,12 +1881,14 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1877,12 +1936,14 @@ export type UserCreateWithoutRefreshTokenInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -1930,12 +1991,14 @@ export type UserUncheckedCreateWithoutRefreshTokenInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -1999,12 +2062,14 @@ export type UserUpdateWithoutRefreshTokenInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -2052,12 +2117,14 @@ export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2105,6 +2172,7 @@ export type UserCreateWithoutPermissionGroupsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -2112,6 +2180,7 @@ export type UserCreateWithoutPermissionGroupsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -2158,6 +2227,7 @@ export type UserUncheckedCreateWithoutPermissionGroupsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -2165,6 +2235,7 @@ export type UserUncheckedCreateWithoutPermissionGroupsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -2216,6 +2287,7 @@ export type UserCreateWithoutGrantedPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -2223,6 +2295,7 @@ export type UserCreateWithoutGrantedPermissionsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -2269,6 +2342,7 @@ export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -2276,6 +2350,7 @@ export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -2338,6 +2413,7 @@ export type UserUpdateWithoutPermissionGroupsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2345,6 +2421,7 @@ export type UserUpdateWithoutPermissionGroupsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -2391,6 +2468,7 @@ export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2398,6 +2476,7 @@ export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2455,6 +2534,7 @@ export type UserUpdateWithoutGrantedPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2462,6 +2542,7 @@ export type UserUpdateWithoutGrantedPermissionsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -2508,6 +2589,7 @@ export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2515,6 +2597,7 @@ export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2561,6 +2644,7 @@ export type UserCreateWithoutDirectPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -2568,6 +2652,7 @@ export type UserCreateWithoutDirectPermissionsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -2614,6 +2699,7 @@ export type UserUncheckedCreateWithoutDirectPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -2621,6 +2707,7 @@ export type UserUncheckedCreateWithoutDirectPermissionsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -2672,6 +2759,7 @@ export type UserCreateWithoutGrantedDirectPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -2679,6 +2767,7 @@ export type UserCreateWithoutGrantedDirectPermissionsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -2725,6 +2814,7 @@ export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -2732,6 +2822,7 @@ export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -2794,6 +2885,7 @@ export type UserUpdateWithoutDirectPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2801,6 +2893,7 @@ export type UserUpdateWithoutDirectPermissionsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -2847,6 +2940,7 @@ export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2854,6 +2948,7 @@ export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2911,6 +3006,7 @@ export type UserUpdateWithoutGrantedDirectPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2918,6 +3014,7 @@ export type UserUpdateWithoutGrantedDirectPermissionsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -2964,6 +3061,7 @@ export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2971,6 +3069,7 @@ export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3017,6 +3116,7 @@ export type UserCreateWithoutPermissionAuditLogsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -3024,6 +3124,7 @@ export type UserCreateWithoutPermissionAuditLogsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -3070,6 +3171,7 @@ export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -3077,6 +3179,7 @@ export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -3139,6 +3242,7 @@ export type UserUpdateWithoutPermissionAuditLogsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3146,6 +3250,7 @@ export type UserUpdateWithoutPermissionAuditLogsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -3192,6 +3297,7 @@ export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3199,6 +3305,7 @@ export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3245,6 +3352,7 @@ export type UserCreateWithoutVolumesCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -3252,6 +3360,7 @@ export type UserCreateWithoutVolumesCreatedInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -3298,6 +3407,7 @@ export type UserUncheckedCreateWithoutVolumesCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -3305,6 +3415,7 @@ export type UserUncheckedCreateWithoutVolumesCreatedInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -3356,6 +3467,7 @@ export type UserCreateWithoutVolumesClosedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -3363,6 +3475,7 @@ export type UserCreateWithoutVolumesClosedInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -3409,6 +3522,7 @@ export type UserUncheckedCreateWithoutVolumesClosedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -3416,6 +3530,7 @@ export type UserUncheckedCreateWithoutVolumesClosedInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -3467,6 +3582,7 @@ export type UserCreateWithoutVolumesDeliveredInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -3474,6 +3590,7 @@ export type UserCreateWithoutVolumesDeliveredInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -3520,6 +3637,7 @@ export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -3527,6 +3645,7 @@ export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -3589,6 +3708,7 @@ export type UserUpdateWithoutVolumesCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3596,6 +3716,7 @@ export type UserUpdateWithoutVolumesCreatedInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -3642,6 +3763,7 @@ export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3649,6 +3771,7 @@ export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3706,6 +3829,7 @@ export type UserUpdateWithoutVolumesClosedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3713,6 +3837,7 @@ export type UserUpdateWithoutVolumesClosedInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -3759,6 +3884,7 @@ export type UserUncheckedUpdateWithoutVolumesClosedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3766,6 +3892,7 @@ export type UserUncheckedUpdateWithoutVolumesClosedInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3823,6 +3950,7 @@ export type UserUpdateWithoutVolumesDeliveredInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3830,6 +3958,7 @@ export type UserUpdateWithoutVolumesDeliveredInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -3876,6 +4005,7 @@ export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3883,6 +4013,7 @@ export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3929,6 +4060,7 @@ export type UserCreateWithoutItemMovementInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -3936,6 +4068,7 @@ export type UserCreateWithoutItemMovementInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
@@ -3982,6 +4115,7 @@ export type UserUncheckedCreateWithoutItemMovementInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -3989,6 +4123,7 @@ export type UserUncheckedCreateWithoutItemMovementInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
@@ -4040,6 +4175,7 @@ export type UserCreateWithoutApprovedMovementsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -4047,6 +4183,7 @@ export type UserCreateWithoutApprovedMovementsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
@@ -4093,6 +4230,7 @@ export type UserUncheckedCreateWithoutApprovedMovementsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -4100,6 +4238,7 @@ export type UserUncheckedCreateWithoutApprovedMovementsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
@@ -4162,6 +4301,7 @@ export type UserUpdateWithoutItemMovementInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4169,6 +4309,7 @@ export type UserUpdateWithoutItemMovementInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
@@ -4215,6 +4356,7 @@ export type UserUncheckedUpdateWithoutItemMovementInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4222,6 +4364,7 @@ export type UserUncheckedUpdateWithoutItemMovementInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
@@ -4279,6 +4422,7 @@ export type UserUpdateWithoutApprovedMovementsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4286,6 +4430,7 @@ export type UserUpdateWithoutApprovedMovementsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
@@ -4332,6 +4477,7 @@ export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4339,6 +4485,7 @@ export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
@@ -4385,6 +4532,7 @@ export type UserCreateWithoutVariantPriceHistoryInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -4392,6 +4540,7 @@ export type UserCreateWithoutVariantPriceHistoryInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -4438,6 +4587,7 @@ export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -4445,6 +4595,7 @@ export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -4507,6 +4658,7 @@ export type UserUpdateWithoutVariantPriceHistoryInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4514,6 +4666,7 @@ export type UserUpdateWithoutVariantPriceHistoryInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -4560,6 +4713,7 @@ export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4567,6 +4721,7 @@ export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -4613,6 +4768,7 @@ export type UserCreateWithoutAuditLogsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -4620,6 +4776,7 @@ export type UserCreateWithoutAuditLogsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
@@ -4666,6 +4823,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -4673,6 +4831,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
@@ -4735,6 +4894,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4742,6 +4902,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
@@ -4788,6 +4949,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4795,6 +4957,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
@@ -4841,6 +5004,7 @@ export type UserCreateWithoutAlertsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -4848,6 +5012,7 @@ export type UserCreateWithoutAlertsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -4894,6 +5059,7 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -4901,6 +5067,7 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -4963,6 +5130,7 @@ export type UserUpdateWithoutAlertsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4970,6 +5138,7 @@ export type UserUpdateWithoutAlertsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -5016,6 +5185,7 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5023,6 +5193,7 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5069,6 +5240,7 @@ export type UserCreateWithoutCreatedPurchaseOrdersInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -5076,6 +5248,7 @@ export type UserCreateWithoutCreatedPurchaseOrdersInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -5122,6 +5295,7 @@ export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -5129,6 +5303,7 @@ export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -5191,6 +5366,7 @@ export type UserUpdateWithoutCreatedPurchaseOrdersInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5198,6 +5374,7 @@ export type UserUpdateWithoutCreatedPurchaseOrdersInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -5244,6 +5421,7 @@ export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5251,6 +5429,7 @@ export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5297,6 +5476,7 @@ export type UserCreateWithoutCreatedSalesOrdersInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -5304,6 +5484,7 @@ export type UserCreateWithoutCreatedSalesOrdersInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -5350,6 +5531,7 @@ export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -5357,6 +5539,7 @@ export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -5419,6 +5602,7 @@ export type UserUpdateWithoutCreatedSalesOrdersInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5426,6 +5610,7 @@ export type UserUpdateWithoutCreatedSalesOrdersInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -5472,6 +5657,7 @@ export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5479,6 +5665,7 @@ export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5525,6 +5712,7 @@ export type UserCreateWithoutItemReservationsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -5532,6 +5720,7 @@ export type UserCreateWithoutItemReservationsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -5578,6 +5767,7 @@ export type UserUncheckedCreateWithoutItemReservationsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -5585,6 +5775,7 @@ export type UserUncheckedCreateWithoutItemReservationsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -5647,6 +5838,7 @@ export type UserUpdateWithoutItemReservationsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5654,6 +5846,7 @@ export type UserUpdateWithoutItemReservationsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -5700,6 +5893,7 @@ export type UserUncheckedUpdateWithoutItemReservationsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5707,6 +5901,7 @@ export type UserUncheckedUpdateWithoutItemReservationsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5753,6 +5948,7 @@ export type UserCreateWithoutCommentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -5760,6 +5956,7 @@ export type UserCreateWithoutCommentsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -5806,6 +6003,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -5813,6 +6011,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -5875,6 +6074,7 @@ export type UserUpdateWithoutCommentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5882,6 +6082,7 @@ export type UserUpdateWithoutCommentsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -5928,6 +6129,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5935,6 +6137,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5981,6 +6184,7 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -5988,6 +6192,7 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -6034,6 +6239,7 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -6041,6 +6247,7 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -6103,6 +6310,7 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6110,6 +6318,7 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -6156,6 +6365,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6163,6 +6373,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6209,6 +6420,7 @@ export type UserCreateWithoutNotificationsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -6216,6 +6428,7 @@ export type UserCreateWithoutNotificationsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -6262,6 +6475,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -6269,6 +6483,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -6331,6 +6546,7 @@ export type UserUpdateWithoutNotificationsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6338,6 +6554,7 @@ export type UserUpdateWithoutNotificationsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -6384,6 +6601,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6391,6 +6609,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6437,6 +6656,7 @@ export type UserCreateWithoutRequestsCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -6444,6 +6664,7 @@ export type UserCreateWithoutRequestsCreatedInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -6490,6 +6711,7 @@ export type UserUncheckedCreateWithoutRequestsCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -6497,6 +6719,7 @@ export type UserUncheckedCreateWithoutRequestsCreatedInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -6548,6 +6771,7 @@ export type UserCreateWithoutRequestsAssignedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -6555,6 +6779,7 @@ export type UserCreateWithoutRequestsAssignedInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -6601,6 +6826,7 @@ export type UserUncheckedCreateWithoutRequestsAssignedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -6608,6 +6834,7 @@ export type UserUncheckedCreateWithoutRequestsAssignedInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -6670,6 +6897,7 @@ export type UserUpdateWithoutRequestsCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6677,6 +6905,7 @@ export type UserUpdateWithoutRequestsCreatedInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -6723,6 +6952,7 @@ export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6730,6 +6960,7 @@ export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6787,6 +7018,7 @@ export type UserUpdateWithoutRequestsAssignedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6794,6 +7026,7 @@ export type UserUpdateWithoutRequestsAssignedInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -6840,6 +7073,7 @@ export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6847,6 +7081,7 @@ export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6893,6 +7128,7 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -6900,6 +7136,7 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -6946,6 +7183,7 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -6953,6 +7191,7 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -7015,6 +7254,7 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7022,6 +7262,7 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -7068,6 +7309,7 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7075,6 +7317,7 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7121,6 +7364,7 @@ export type UserCreateWithoutRequestCommentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -7128,6 +7372,7 @@ export type UserCreateWithoutRequestCommentsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -7174,6 +7419,7 @@ export type UserUncheckedCreateWithoutRequestCommentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -7181,6 +7427,7 @@ export type UserUncheckedCreateWithoutRequestCommentsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -7243,6 +7490,7 @@ export type UserUpdateWithoutRequestCommentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7250,6 +7498,7 @@ export type UserUpdateWithoutRequestCommentsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -7296,6 +7545,7 @@ export type UserUncheckedUpdateWithoutRequestCommentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7303,6 +7553,7 @@ export type UserUncheckedUpdateWithoutRequestCommentsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7349,6 +7600,7 @@ export type UserCreateWithoutRequestHistoryActionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -7356,6 +7608,7 @@ export type UserCreateWithoutRequestHistoryActionsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -7402,6 +7655,7 @@ export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -7409,6 +7663,7 @@ export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -7471,6 +7726,7 @@ export type UserUpdateWithoutRequestHistoryActionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7478,6 +7734,7 @@ export type UserUpdateWithoutRequestHistoryActionsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -7524,6 +7781,7 @@ export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7531,6 +7789,7 @@ export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7577,6 +7836,7 @@ export type UserCreateWithoutEmployeeInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -7584,6 +7844,7 @@ export type UserCreateWithoutEmployeeInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -7630,6 +7891,7 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -7637,6 +7899,7 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -7699,6 +7962,7 @@ export type UserUpdateWithoutEmployeeInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7706,6 +7970,7 @@ export type UserUpdateWithoutEmployeeInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -7752,6 +8017,7 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7759,6 +8025,7 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7805,6 +8072,7 @@ export type UserCreateWithoutApprovedOvertimeInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -7812,6 +8080,7 @@ export type UserCreateWithoutApprovedOvertimeInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -7858,6 +8127,7 @@ export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -7865,6 +8135,7 @@ export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -7927,6 +8198,7 @@ export type UserUpdateWithoutApprovedOvertimeInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7934,6 +8206,7 @@ export type UserUpdateWithoutApprovedOvertimeInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -7980,6 +8253,7 @@ export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7987,6 +8261,7 @@ export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8033,6 +8308,7 @@ export type UserCreateWithoutApprovedAbsencesInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -8040,6 +8316,7 @@ export type UserCreateWithoutApprovedAbsencesInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -8086,6 +8363,7 @@ export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -8093,6 +8371,7 @@ export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -8155,6 +8434,7 @@ export type UserUpdateWithoutApprovedAbsencesInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8162,6 +8442,7 @@ export type UserUpdateWithoutApprovedAbsencesInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -8208,6 +8489,7 @@ export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8215,6 +8497,7 @@ export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8261,6 +8544,7 @@ export type UserCreateWithoutProcessedPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -8268,6 +8552,7 @@ export type UserCreateWithoutProcessedPayrollsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -8314,6 +8599,7 @@ export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -8321,6 +8607,7 @@ export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -8372,6 +8659,7 @@ export type UserCreateWithoutApprovedPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -8379,6 +8667,7 @@ export type UserCreateWithoutApprovedPayrollsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -8425,6 +8714,7 @@ export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -8432,6 +8722,7 @@ export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -8483,6 +8774,7 @@ export type UserCreateWithoutPaidPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -8490,6 +8782,7 @@ export type UserCreateWithoutPaidPayrollsInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -8536,6 +8829,7 @@ export type UserUncheckedCreateWithoutPaidPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -8543,6 +8837,7 @@ export type UserUncheckedCreateWithoutPaidPayrollsInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -8605,6 +8900,7 @@ export type UserUpdateWithoutProcessedPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8612,6 +8908,7 @@ export type UserUpdateWithoutProcessedPayrollsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -8658,6 +8955,7 @@ export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8665,6 +8963,7 @@ export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8722,6 +9021,7 @@ export type UserUpdateWithoutApprovedPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8729,6 +9029,7 @@ export type UserUpdateWithoutApprovedPayrollsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -8775,6 +9076,7 @@ export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8782,6 +9084,7 @@ export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8839,6 +9142,7 @@ export type UserUpdateWithoutPaidPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8846,6 +9150,7 @@ export type UserUpdateWithoutPaidPayrollsInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -8892,6 +9197,7 @@ export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8899,6 +9205,7 @@ export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
   profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8945,6 +9252,7 @@ export type UserCreateWithoutLabelTemplatesCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -8952,6 +9260,7 @@ export type UserCreateWithoutLabelTemplatesCreatedInput = {
   profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
@@ -8998,6 +9307,7 @@ export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
@@ -9005,6 +9315,7 @@ export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
   profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
   RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
   ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
   ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
   AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
@@ -9067,6 +9378,7 @@ export type UserUpdateWithoutLabelTemplatesCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -9074,6 +9386,7 @@ export type UserUpdateWithoutLabelTemplatesCreatedInput = {
   profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
   RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
   ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
   ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
   AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
@@ -9120,6 +9433,243 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+}
+
+export type UserCreateWithoutTenantUsersInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutTenantUsersInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutTenantUsersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTenantUsersInput, Prisma.UserUncheckedCreateWithoutTenantUsersInput>
+}
+
+export type UserUpsertWithoutTenantUsersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTenantUsersInput, Prisma.UserUncheckedUpdateWithoutTenantUsersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTenantUsersInput, Prisma.UserUncheckedCreateWithoutTenantUsersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTenantUsersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTenantUsersInput, Prisma.UserUncheckedUpdateWithoutTenantUsersInput>
+}
+
+export type UserUpdateWithoutTenantUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTenantUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -9157,6 +9707,7 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
   VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
   VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
   VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 
@@ -9167,6 +9718,7 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
 export type UserCountOutputType = {
   RefreshToken: number
   sessions: number
+  tenantUsers: number
   ItemMovement: number
   ApprovedMovements: number
   AuditLogs: number
@@ -9202,6 +9754,7 @@ export type UserCountOutputType = {
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   RefreshToken?: boolean | UserCountOutputTypeCountRefreshTokenArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  tenantUsers?: boolean | UserCountOutputTypeCountTenantUsersArgs
   ItemMovement?: boolean | UserCountOutputTypeCountItemMovementArgs
   ApprovedMovements?: boolean | UserCountOutputTypeCountApprovedMovementsArgs
   AuditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
@@ -9256,6 +9809,13 @@ export type UserCountOutputTypeCountRefreshTokenArgs<ExtArgs extends runtime.Typ
  */
 export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTenantUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantUserWhereInput
 }
 
 /**
@@ -9483,6 +10043,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   forcePasswordResetReason?: boolean
   forcePasswordResetRequestedBy?: boolean
   forcePasswordResetRequestedAt?: boolean
+  isSuperAdmin?: boolean
   deletedAt?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
@@ -9490,6 +10051,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   RefreshToken?: boolean | Prisma.User$RefreshTokenArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  tenantUsers?: boolean | Prisma.User$tenantUsersArgs<ExtArgs>
   ItemMovement?: boolean | Prisma.User$ItemMovementArgs<ExtArgs>
   ApprovedMovements?: boolean | Prisma.User$ApprovedMovementsArgs<ExtArgs>
   AuditLogs?: boolean | Prisma.User$AuditLogsArgs<ExtArgs>
@@ -9538,6 +10100,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   forcePasswordResetReason?: boolean
   forcePasswordResetRequestedBy?: boolean
   forcePasswordResetRequestedAt?: boolean
+  isSuperAdmin?: boolean
   deletedAt?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
@@ -9558,6 +10121,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   forcePasswordResetReason?: boolean
   forcePasswordResetRequestedBy?: boolean
   forcePasswordResetRequestedAt?: boolean
+  isSuperAdmin?: boolean
   deletedAt?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
@@ -9578,17 +10142,19 @@ export type UserSelectScalar = {
   forcePasswordResetReason?: boolean
   forcePasswordResetRequestedBy?: boolean
   forcePasswordResetRequestedAt?: boolean
+  isSuperAdmin?: boolean
   deletedAt?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "password_hash" | "lastLoginIp" | "failedLoginAttempts" | "blockedUntil" | "passwordResetToken" | "passwordResetExpires" | "forcePasswordReset" | "forcePasswordResetReason" | "forcePasswordResetRequestedBy" | "forcePasswordResetRequestedAt" | "deletedAt" | "lastLoginAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "password_hash" | "lastLoginIp" | "failedLoginAttempts" | "blockedUntil" | "passwordResetToken" | "passwordResetExpires" | "forcePasswordReset" | "forcePasswordResetReason" | "forcePasswordResetRequestedBy" | "forcePasswordResetRequestedAt" | "isSuperAdmin" | "deletedAt" | "lastLoginAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   RefreshToken?: boolean | Prisma.User$RefreshTokenArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  tenantUsers?: boolean | Prisma.User$tenantUsersArgs<ExtArgs>
   ItemMovement?: boolean | Prisma.User$ItemMovementArgs<ExtArgs>
   ApprovedMovements?: boolean | Prisma.User$ApprovedMovementsArgs<ExtArgs>
   AuditLogs?: boolean | Prisma.User$AuditLogsArgs<ExtArgs>
@@ -9631,6 +10197,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     profile: Prisma.$UserProfilePayload<ExtArgs> | null
     RefreshToken: Prisma.$RefreshTokenPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
+    tenantUsers: Prisma.$TenantUserPayload<ExtArgs>[]
     ItemMovement: Prisma.$ItemMovementPayload<ExtArgs>[]
     ApprovedMovements: Prisma.$ItemMovementPayload<ExtArgs>[]
     AuditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
@@ -9677,6 +10244,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     forcePasswordResetReason: string | null
     forcePasswordResetRequestedBy: string | null
     forcePasswordResetRequestedAt: Date | null
+    isSuperAdmin: boolean
     deletedAt: Date | null
     lastLoginAt: Date | null
     createdAt: Date
@@ -10078,6 +10646,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__UserProfileClient<runtime.Types.Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   RefreshToken<T extends Prisma.User$RefreshTokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$RefreshTokenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tenantUsers<T extends Prisma.User$tenantUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tenantUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ItemMovement<T extends Prisma.User$ItemMovementArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ItemMovementArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ApprovedMovements<T extends Prisma.User$ApprovedMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ApprovedMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   AuditLogs<T extends Prisma.User$AuditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$AuditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -10151,6 +10720,7 @@ export interface UserFieldRefs {
   readonly forcePasswordResetReason: Prisma.FieldRef<"User", 'String'>
   readonly forcePasswordResetRequestedBy: Prisma.FieldRef<"User", 'String'>
   readonly forcePasswordResetRequestedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly isSuperAdmin: Prisma.FieldRef<"User", 'Boolean'>
   readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -10607,6 +11177,30 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.tenantUsers
+ */
+export type User$tenantUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantUser
+   */
+  select?: Prisma.TenantUserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantUser
+   */
+  omit?: Prisma.TenantUserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantUserInclude<ExtArgs> | null
+  where?: Prisma.TenantUserWhereInput
+  orderBy?: Prisma.TenantUserOrderByWithRelationInput | Prisma.TenantUserOrderByWithRelationInput[]
+  cursor?: Prisma.TenantUserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantUserScalarFieldEnum | Prisma.TenantUserScalarFieldEnum[]
 }
 
 /**

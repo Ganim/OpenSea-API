@@ -25,6 +25,8 @@ export async function getZoneByIdController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Zones'],
       summary: 'Get a zone by ID',
+      description:
+        'Retorna os detalhes de uma zona especifica, incluindo informacoes do armazem associado e contagem de bins.',
       params: z.object({
         id: z.string().uuid(),
       }),

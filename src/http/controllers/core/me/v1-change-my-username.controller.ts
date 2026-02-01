@@ -18,6 +18,9 @@ export async function changeMyUsernameController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Me'],
       summary: 'Change self username by authenticated user',
+      description:
+        'Altera o nome de usuario do usuario autenticado. O username deve ter entre 3 e 30 caracteres e ser unico.',
+      security: [{ bearerAuth: [] }],
       body: z.object({
         username: z.string().min(3).max(30),
       }),

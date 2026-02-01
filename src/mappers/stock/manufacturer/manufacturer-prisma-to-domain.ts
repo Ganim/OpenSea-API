@@ -7,6 +7,7 @@ export function mapManufacturerPrismaToDomain(
 ) {
   return {
     id: new UniqueEntityID(manufacturerDb.id),
+    code: manufacturerDb.code,
     name: manufacturerDb.name,
     country: manufacturerDb.country ?? '',
     email: manufacturerDb.email,

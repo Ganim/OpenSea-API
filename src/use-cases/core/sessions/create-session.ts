@@ -52,10 +52,11 @@ export class CreateSessionUseCase {
     }
 
     // Parse device info and get geolocation
-    const { deviceInfo, geoLocation } = await SessionInfoService.getSessionContext({
-      userAgent,
-      ip,
-    });
+    const { deviceInfo, geoLocation } =
+      SessionInfoService.getSessionContextSync({
+        userAgent,
+        ip,
+      });
 
     const newSession = await this.sessionsRepository.create({
       userId: validId,
@@ -72,7 +73,10 @@ export class CreateSessionUseCase {
     }
 
     const token = await reply.jwtSign(
-      { sessionId: newSession.id.toString() },
+      {
+        sessionId: newSession.id.toString(),
+        isSuperAdmin: user.isSuperAdmin ?? false,
+      },
       { sign: { sub: user.id.toString() } },
     );
 

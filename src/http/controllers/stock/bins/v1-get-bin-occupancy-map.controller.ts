@@ -22,6 +22,8 @@ export async function getBinOccupancyMapController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Bins'],
       summary: 'Get bin occupancy map for a zone (for 2D visualization)',
+      description:
+        'Retorna o mapa de ocupacao dos bins de uma zona para visualizacao 2D, incluindo estatisticas de ocupacao.',
       querystring: z.object({
         zoneId: z.string().uuid(),
       }),

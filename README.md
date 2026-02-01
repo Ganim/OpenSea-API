@@ -30,6 +30,8 @@ Uma API REST completa para gerenciamento de estoque e vendas, construída com **
 
 - 🏗️ **Clean Architecture** - Separação clara de responsabilidades
 - 🔐 **Autenticação JWT** - Sistema completo com refresh tokens
+- 🏢 **Multi-Tenant** - Isolamento por tenant com planos, módulos e feature flags
+- 👑 **Central de Gerenciamento** - Painel administrativo para super admins
 - 📊 **Gestão de Estoque** - Controle de produtos, variantes, itens e movimentações
 - 💰 **Gestão de Vendas** - Pedidos, clientes, promoções e reservas
 - 🧪 **Testes Abrangentes** - 569 testes unitários + 285 testes E2E
@@ -400,7 +402,8 @@ GET /health
 ```
 OpenSea-API/
 ├── prisma/
-│   ├── schema.prisma              # Schema do banco de dados
+│   ├── schema.prisma              # Schema do banco (inclui multi-tenant)
+│   ├── seed.ts                    # Seed (superadmin, planos, tenant demo)
 │   ├── migrations/                # Histórico de migrations
 │   └── vitest-environment-prisma/ # Ambiente de testes
 │
@@ -414,13 +417,14 @@ OpenSea-API/
 │   │   └── swagger-tags.ts        # Tags do Swagger
 │   │
 │   ├── entities/                  # 🎯 DOMAIN LAYER
-│   │   ├── core/                  # Entidades de autenticação
+│   │   ├── core/                  # Entidades de auth + tenant + plan
 │   │   ├── sales/                 # Entidades de vendas
 │   │   ├── stock/                 # Entidades de estoque
 │   │   └── domain/                # Base classes (Entity, ValueObject)
 │   │
 │   ├── use-cases/                 # 🎯 APPLICATION LAYER
-│   │   ├── core/                  # Casos de uso de autenticação
+│   │   ├── core/                  # Casos de uso de auth + tenants
+│   │   ├── admin/                 # Casos de uso de admin (plans, dashboard)
 │   │   ├── sales/                 # Casos de uso de vendas
 │   │   └── stock/                 # Casos de uso de estoque
 │   │
@@ -432,12 +436,15 @@ OpenSea-API/
 │   │   └── stock/
 │   │
 │   ├── http/                      # 🎯 HTTP LAYER
-│   │   ├── controllers/           # Controllers organizados por módulo
-│   │   ├── middlewares/           # Middlewares (auth, roles)
+│   │   ├── controllers/
+│   │   │   ├── admin/             # Controllers admin (super admin)
+│   │   │   ├── core/              # Controllers auth, me, sessions, tenants
+│   │   │   └── ...                # Demais módulos
+│   │   ├── middlewares/           # Middlewares (auth, tenant, superadmin)
 │   │   └── routes.ts              # Registro de rotas
 │   │
 │   ├── mappers/                   # Conversores (Entity ↔ DTO ↔ Prisma)
-│   ├── services/                  # Serviços externos (email, etc)
+│   ├── services/                  # Serviços (email, tenant-context)
 │   ├── utils/                     # Utilitários e helpers
 │   ├── lib/                       # Bibliotecas configuradas
 │   │
@@ -454,15 +461,25 @@ OpenSea-API/
 
 ## 🧩 Módulos
 
-### Core (Autenticação)
+### Core (Autenticação & Multi-Tenant)
 
 - ✅ Registro de usuários
 - ✅ Login com senha
-- ✅ JWT + Refresh Tokens
+- ✅ JWT + Refresh Tokens (com `isSuperAdmin` e `tenantId`)
 - ✅ Recuperação de senha
 - ✅ Gestão de sessões
 - ✅ Perfis de usuário
 - ✅ Controle de acesso (ADMIN, MANAGER, USER)
+- ✅ **Multi-Tenant** - Tenants, planos, módulos, feature flags
+- ✅ **Seleção de Tenant** - JWT tenant-scoped após seleção
+- ✅ **Super Admin** - Usuários com `isSuperAdmin` acessam Central
+
+### Admin (Super Admin)
+
+- ✅ **Dashboard** - Estatísticas do sistema
+- ✅ **Gestão de Tenants** - Listar, detalhes, status, plano, feature flags, usuários
+- ✅ **Gestão de Planos** - CRUD completo + módulos do sistema
+- ✅ **Seed** - Super admin, 4 planos padrão, tenant demo
 
 ### Stock (Estoque)
 

@@ -27,6 +27,8 @@ export async function updateBinController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Bins'],
       summary: 'Update a bin',
+      description:
+        'Atualiza as propriedades de um bin, como capacidade e status ativo/inativo.',
       params: z.object({
         id: z.string().uuid(),
       }),

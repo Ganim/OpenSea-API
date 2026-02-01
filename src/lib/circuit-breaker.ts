@@ -5,8 +5,7 @@ import {
 } from '@/config/circuit-breaker';
 
 // Store para manter referência dos circuit breakers criados
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const circuitBreakers = new Map<string, CircuitBreaker<any[], any>>();
+const circuitBreakers = new Map<string, CircuitBreaker<unknown[], unknown>>();
 
 export interface CircuitBreakerOptions {
   /** Nome identificador do circuit breaker */
@@ -86,10 +85,10 @@ export function createCircuitBreaker<TArgs extends unknown[], TResult>(
 /**
  * Obtém um circuit breaker existente pelo nome
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export function getCircuitBreaker(
   name: string,
-): CircuitBreaker<any[], any> | undefined {
+): CircuitBreaker<unknown[], unknown> | undefined {
   return circuitBreakers.get(name);
 }
 
@@ -124,9 +123,9 @@ export interface CircuitBreakerStats {
 /**
  * Obtém estatísticas de um circuit breaker específico
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export function getCircuitBreakerStats(
-  breaker: CircuitBreaker<any[], any>,
+  breaker: CircuitBreaker<unknown[], unknown>,
 ): CircuitBreakerStats {
   const stats = breaker.stats;
 

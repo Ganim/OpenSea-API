@@ -372,6 +372,170 @@ async function assignOrphanUsers(userGroupId: string) {
 }
 
 // ---------------------------------------------------------------------------
+// Multi-Tenant Seed Steps
+// ---------------------------------------------------------------------------
+
+async function seedSuperAdmin() {
+  console.log('🔐 Criando superadmin...');
+
+  const passwordHash = await hash('Super@123', 6);
+
+  let superAdmin = await prisma.user.findFirst({
+    where: { email: 'super@teste.com', deletedAt: null },
+  });
+
+  if (!superAdmin) {
+    superAdmin = await prisma.user.create({
+      data: {
+        email: 'super@teste.com',
+        username: 'superadmin',
+        password_hash: passwordHash,
+        isSuperAdmin: true,
+      },
+    });
+  } else {
+    superAdmin = await prisma.user.update({
+      where: { id: superAdmin.id },
+      data: { password_hash: passwordHash, isSuperAdmin: true },
+    });
+  }
+
+  console.log('   ✅ super@teste.com (senha: Super@123, isSuperAdmin: true)');
+  return superAdmin.id;
+}
+
+async function seedPlans() {
+  console.log('📋 Criando planos...');
+
+  const plans = [
+    { name: 'Free', tier: 'FREE' as const, price: 0, maxUsers: 3, maxWarehouses: 1, maxProducts: 50, description: 'Plano gratuito para pequenas operações' },
+    { name: 'Starter', tier: 'STARTER' as const, price: 99.90, maxUsers: 10, maxWarehouses: 3, maxProducts: 500, description: 'Plano inicial para empresas em crescimento' },
+    { name: 'Professional', tier: 'PROFESSIONAL' as const, price: 299.90, maxUsers: 50, maxWarehouses: 10, maxProducts: 5000, description: 'Plano profissional com recursos avançados' },
+    { name: 'Enterprise', tier: 'ENTERPRISE' as const, price: 0, maxUsers: 999999, maxWarehouses: 999999, maxProducts: 999999, description: 'Plano empresarial com recursos ilimitados' },
+  ];
+
+  const createdPlans: Record<string, string> = {};
+
+  for (const plan of plans) {
+    const upserted = await prisma.plan.upsert({
+      where: { name: plan.name },
+      update: {
+        tier: plan.tier,
+        price: plan.price,
+        maxUsers: plan.maxUsers,
+        maxWarehouses: plan.maxWarehouses,
+        maxProducts: plan.maxProducts,
+        description: plan.description,
+        isActive: true,
+      },
+      create: plan,
+    });
+    createdPlans[plan.name] = upserted.id;
+    console.log(`   ✅ Plano "${plan.name}" (${plan.tier}) - R$ ${plan.price}`);
+  }
+
+  return createdPlans;
+}
+
+async function seedPlanModules(planIds: Record<string, string>) {
+  console.log('📦 Configurando módulos dos planos...');
+
+  const modulesByPlan: Record<string, string[]> = {
+    Free: ['CORE'],
+    Starter: ['CORE', 'STOCK', 'SALES'],
+    Professional: ['CORE', 'STOCK', 'SALES', 'HR', 'REPORTS', 'AUDIT', 'NOTIFICATIONS', 'REQUESTS'],
+    Enterprise: ['CORE', 'STOCK', 'SALES', 'HR', 'PAYROLL', 'REPORTS', 'AUDIT', 'REQUESTS', 'NOTIFICATIONS'],
+  };
+
+  for (const [planName, modules] of Object.entries(modulesByPlan)) {
+    const planId = planIds[planName];
+    if (!planId) continue;
+
+    // Remove existing modules for this plan
+    await prisma.planModule.deleteMany({ where: { planId } });
+
+    // Create new modules
+    await prisma.planModule.createMany({
+      data: modules.map((mod) => ({
+        planId,
+        module: mod as any,
+      })),
+      skipDuplicates: true,
+    });
+
+    console.log(`   ✅ ${planName}: [${modules.join(', ')}]`);
+  }
+}
+
+async function seedDemoTenant(adminUserId: string, freePlanId: string) {
+  console.log('🏢 Criando tenant demo...');
+
+  // Find admin user
+  const adminUser = await prisma.user.findFirst({
+    where: { email: 'admin@teste.com', deletedAt: null },
+  });
+
+  if (!adminUser) {
+    console.log('   ⚠️ admin@teste.com não encontrado, pulando tenant demo');
+    return;
+  }
+
+  // Upsert tenant
+  let tenant = await prisma.tenant.findFirst({
+    where: { slug: 'empresa-demo' },
+  });
+
+  if (!tenant) {
+    tenant = await prisma.tenant.create({
+      data: {
+        name: 'Empresa Demo',
+        slug: 'empresa-demo',
+        status: 'ACTIVE',
+        settings: {},
+        metadata: {},
+      },
+    });
+  }
+
+  // Upsert tenant user (admin@teste.com as owner)
+  const existingTu = await prisma.tenantUser.findFirst({
+    where: {
+      tenantId: tenant.id,
+      userId: adminUser.id,
+      deletedAt: null,
+    },
+  });
+
+  if (!existingTu) {
+    await prisma.tenantUser.create({
+      data: {
+        tenantId: tenant.id,
+        userId: adminUser.id,
+        role: 'owner',
+      },
+    });
+  }
+
+  // Upsert tenant plan
+  const existingTp = await prisma.tenantPlan.findFirst({
+    where: { tenantId: tenant.id },
+  });
+
+  if (!existingTp) {
+    await prisma.tenantPlan.create({
+      data: {
+        tenantId: tenant.id,
+        planId: freePlanId,
+      },
+    });
+  }
+
+  console.log(`   ✅ Tenant "Empresa Demo" (slug: empresa-demo)`);
+  console.log(`   ✅ admin@teste.com como owner`);
+  console.log(`   ✅ Plano Free atribuído`);
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -386,6 +550,13 @@ async function main() {
 
   const { adminGroupId, userGroupId } = await seedGroups();
   await seedAdminUser(adminGroupId);
+
+  // Multi-tenant seeds
+  await seedSuperAdmin();
+  const planIds = await seedPlans();
+  await seedPlanModules(planIds);
+  await seedDemoTenant(planIds['Free'], planIds['Free']);
+
   await assignOrphanUsers(userGroupId);
 
   console.log('\n🎉 Seed concluído com sucesso!');

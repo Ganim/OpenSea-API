@@ -3,7 +3,16 @@ import { Product } from '@/entities/stock/product';
 import { CareInstructions } from '@/entities/stock/value-objects/care-instructions';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { Slug } from '@/entities/stock/value-objects/slug';
-import type { Product as PrismaProduct } from '@prisma/generated/client';
+import type {
+  Category as PrismaCategory,
+  Manufacturer as PrismaManufacturer,
+  Organization as PrismaOrganization,
+  Product as PrismaProduct,
+  Supplier as PrismaSupplier,
+  Tag as PrismaTag,
+  Template as PrismaTemplate,
+  Variant as PrismaVariant,
+} from '@prisma/generated/client';
 import { categoryPrismaToDomain } from '../category/category-prisma-to-domain';
 import { manufacturerPrismaToDomain } from '../manufacturer/manufacturer-prisma-to-domain';
 import { supplierPrismaToDomain } from '../supplier/supplier-prisma-to-domain';
@@ -11,14 +20,21 @@ import { tagPrismaToDomain } from '../tag/tag-prisma-to-domain';
 import { templatePrismaToDomain } from '../template/template-prisma-to-domain';
 import { variantPrismaToDomain } from '../variant/variant-prisma-to-domain';
 
+type PrismaCategoryWithCount = PrismaCategory & {
+  _count?: {
+    subCategories?: number;
+    productCategories?: number;
+  };
+};
+
 type ProductWithRelations = PrismaProduct & {
-  template?: any;
-  supplier?: any;
-  manufacturer?: any;
-  organization?: any;
-  variants?: any[];
-  productCategories?: Array<{ category: any }>;
-  productTags?: Array<{ tag: any }>;
+  template?: PrismaTemplate;
+  supplier?: PrismaSupplier | null;
+  manufacturer?: PrismaManufacturer | null;
+  organization?: PrismaOrganization | null;
+  variants?: PrismaVariant[];
+  productCategories?: Array<{ category: PrismaCategoryWithCount }>;
+  productTags?: Array<{ tag: PrismaTag }>;
 };
 
 export function mapProductPrismaToDomain(productDb: ProductWithRelations) {
@@ -69,12 +85,12 @@ export function mapProductPrismaToDomain(productDb: ProductWithRelations) {
       ? productDb.variants.map(variantPrismaToDomain)
       : undefined,
     productCategories: productDb.productCategories
-      ? productDb.productCategories.map((pc: any) => ({
+      ? productDb.productCategories.map((pc) => ({
           category: categoryPrismaToDomain(pc.category),
         }))
       : undefined,
     productTags: productDb.productTags
-      ? productDb.productTags.map((pt: any) => ({
+      ? productDb.productTags.map((pt) => ({
           tag: tagPrismaToDomain(pt.tag),
         }))
       : undefined,

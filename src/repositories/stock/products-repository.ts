@@ -10,7 +10,6 @@ export interface CreateProductSchema {
   barcode: string; // Code128 gerado do fullCode - IMUTÁVEL
   eanCode: string; // EAN-13 gerado do fullCode - IMUTÁVEL
   upcCode: string; // UPC gerado do fullCode - IMUTÁVEL
-  code?: string; // Código manual opcional (importação) - IMUTÁVEL após criação
   description?: string;
   status?: ProductStatus;
   outOfLine?: boolean;

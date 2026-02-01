@@ -21,7 +21,6 @@ export class InMemoryProductsRepository implements ProductsRepository {
       barcode: data.barcode,
       eanCode: data.eanCode,
       upcCode: data.upcCode,
-      qrCode: data.qrCode,
       description: data.description,
       status: data.status,
       outOfLine: data.outOfLine ?? false,

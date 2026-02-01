@@ -17,6 +17,7 @@ export interface CreateLabelTemplateSchema {
 
 export interface UpdateLabelTemplateSchema {
   id: UniqueEntityID;
+  organizationId: UniqueEntityID;
   name?: string;
   description?: string;
   width?: number;
@@ -42,7 +43,10 @@ export interface ListLabelTemplatesResult {
 
 export interface LabelTemplatesRepository {
   create(data: CreateLabelTemplateSchema): Promise<LabelTemplate>;
-  findById(id: UniqueEntityID): Promise<LabelTemplate | null>;
+  findById(
+    organizationId: UniqueEntityID,
+    id: UniqueEntityID,
+  ): Promise<LabelTemplate | null>;
   findByNameAndOrganization(
     name: string,
     organizationId: UniqueEntityID,
@@ -53,5 +57,5 @@ export interface LabelTemplatesRepository {
   findSystemTemplates(): Promise<LabelTemplate[]>;
   update(data: UpdateLabelTemplateSchema): Promise<LabelTemplate | null>;
   save(labelTemplate: LabelTemplate): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(organizationId: UniqueEntityID, id: UniqueEntityID): Promise<void>;
 }

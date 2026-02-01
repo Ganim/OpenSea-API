@@ -22,7 +22,9 @@ describe('Update Template (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Original Template ${timestamp}`,
-        productAttributes: { color: 'string' },
+        productAttributes: {
+          color: { type: 'string' },
+        },
       });
 
     const templateId = createResponse.body.template.id;
@@ -32,12 +34,17 @@ describe('Update Template (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Updated Template ${timestamp}`,
-        variantAttributes: { sku: 'string' },
+        variantAttributes: {
+          sku: { type: 'string' },
+        },
       });
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('template');
     expect(response.body.template).toHaveProperty('id', templateId);
-    expect(response.body.template).toHaveProperty('name', `Updated Template ${timestamp}`);
+    expect(response.body.template).toHaveProperty(
+      'name',
+      `Updated Template ${timestamp}`,
+    );
   });
 });

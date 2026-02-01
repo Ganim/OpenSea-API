@@ -399,3 +399,33 @@ export type CompanyStakeholder = Prisma.CompanyStakeholderModel
  * 
  */
 export type LabelTemplate = Prisma.LabelTemplateModel
+/**
+ * Model Tenant
+ * 
+ */
+export type Tenant = Prisma.TenantModel
+/**
+ * Model Plan
+ * 
+ */
+export type Plan = Prisma.PlanModel
+/**
+ * Model PlanModule
+ * 
+ */
+export type PlanModule = Prisma.PlanModuleModel
+/**
+ * Model TenantPlan
+ * 
+ */
+export type TenantPlan = Prisma.TenantPlanModel
+/**
+ * Model TenantUser
+ * 
+ */
+export type TenantUser = Prisma.TenantUserModel
+/**
+ * Model TenantFeatureFlag
+ * 
+ */
+export type TenantFeatureFlag = Prisma.TenantFeatureFlagModel

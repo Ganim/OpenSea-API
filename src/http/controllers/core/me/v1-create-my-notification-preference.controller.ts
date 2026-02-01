@@ -22,6 +22,9 @@ export async function createMyNotificationPreferenceController(
     schema: {
       tags: ['Me'],
       summary: 'Create my notification preference',
+      description:
+        'Cria uma nova preferencia de notificacao para o usuario autenticado.',
+      security: [{ bearerAuth: [] }],
       body: createNotificationPreferenceSchema,
       response: {
         201: z.object({ preference: notificationPreferenceResponseSchema }),

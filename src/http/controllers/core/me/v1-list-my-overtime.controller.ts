@@ -16,6 +16,9 @@ export async function listMyOvertimeController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'List my overtime requests',
+      description:
+        'Lista as solicitacoes de hora extra do funcionario vinculado ao usuario autenticado, com filtros por periodo e status de aprovacao.',
+      security: [{ bearerAuth: [] }],
       querystring: z.object({
         startDate: z.coerce.date().optional(),
         endDate: z.coerce.date().optional(),

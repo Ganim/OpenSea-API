@@ -52,7 +52,7 @@ describe('DeleteVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),

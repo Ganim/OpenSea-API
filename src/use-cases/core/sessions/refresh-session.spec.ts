@@ -1,3 +1,4 @@
+import { IpAddress } from '@/entities/core/value-objects/ip-address';
 import { Token } from '@/entities/core/value-objects/token';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryRefreshTokensRepository } from '@/repositories/core/in-memory/in-memory-refresh-tokens-repository';
@@ -172,7 +173,7 @@ describe('RefreshSessionUseCase', () => {
 
     const session = await sessionsRepository.create({
       userId: fakeUserId,
-      ip: { value: '1.1.1.1' } as any,
+      ip: IpAddress.create('1.1.1.1'),
     });
 
     const token = faker.internet.jwt();

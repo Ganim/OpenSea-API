@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
+import { Slug } from '@/entities/stock/value-objects/slug';
 import { InMemoryItemReservationsRepository } from '@/repositories/sales/in-memory/in-memory-item-reservations-repository';
 import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -26,6 +27,12 @@ describe('CreateItemReservationUseCase', () => {
     // Create test item with 100 units
     item = await itemsRepository.create({
       uniqueCode: 'ITEM-001',
+      slug: Slug.createFromText('item-001'),
+      fullCode: '001.001.0001.001-00001',
+      sequentialCode: 1,
+      barcode: 'BC000001',
+      eanCode: 'EAN0000000001',
+      upcCode: 'UPC000000001',
       variantId: new UniqueEntityID(),
       binId: new UniqueEntityID(),
       initialQuantity: 100,

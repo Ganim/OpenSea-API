@@ -31,6 +31,7 @@ export function mapUserPrismaToDomain(
       userDb.forcePasswordResetRequestedBy ?? undefined,
     forcePasswordResetRequestedAt:
       userDb.forcePasswordResetRequestedAt ?? undefined,
+    isSuperAdmin: userDb.isSuperAdmin ?? false,
     lastLoginAt: userDb.lastLoginAt ?? undefined,
     createdAt: userDb.createdAt,
     updatedAt: userDb.updatedAt,

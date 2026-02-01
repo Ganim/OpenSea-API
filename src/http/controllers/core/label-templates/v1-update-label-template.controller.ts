@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { getUserOrganizationId } from '@/http/helpers/organization.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
@@ -49,6 +50,13 @@ export async function updateLabelTemplateController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const userId = request.user.sub;
       const { id } = request.params;
+      const organizationId = await getUserOrganizationId(userId);
+
+      if (!organizationId) {
+        return reply
+          .status(400)
+          .send({ message: 'User must belong to an organization' });
+      }
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -60,6 +68,7 @@ export async function updateLabelTemplateController(app: FastifyInstance) {
         const updateLabelTemplateUseCase = makeUpdateLabelTemplateUseCase();
         const { template } = await updateLabelTemplateUseCase.execute({
           id,
+          organizationId,
           ...request.body,
         });
 

@@ -19,6 +19,9 @@ export async function getMyTimeBankController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'Get my time bank balance',
+      description:
+        'Retorna o saldo do banco de horas do funcionario vinculado ao usuario autenticado, com filtro por ano.',
+      security: [{ bearerAuth: [] }],
       querystring: getTimeBankQuerySchema,
       response: {
         200: z.object({ timeBank: timeBankResponseSchema }),

@@ -16,12 +16,11 @@ describe('Create Payroll (E2E)', () => {
 
   it('should create payroll with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-    const timestamp = Date.now();
-    const month = (timestamp % 12) + 1;
-    const year = 2020 + (timestamp % 10);
+    const currentYear = new Date().getFullYear();
+    const month = (Date.now() % 12) + 1;
     const payrollData = generatePayrollData({
       referenceMonth: month,
-      referenceYear: year,
+      referenceYear: currentYear,
     });
 
     const response = await request(app.server)

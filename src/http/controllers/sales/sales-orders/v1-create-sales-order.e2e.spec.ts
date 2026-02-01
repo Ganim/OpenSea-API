@@ -33,7 +33,7 @@ describe('Create Sales Order (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Test Template CREATE-${timestamp}`,
-        productAttributes: { test: 'value' },
+        productAttributes: { test: { type: 'string', label: 'Test' } },
       });
     const templateId = templateResponse.body.template.id;
 

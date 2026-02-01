@@ -27,6 +27,8 @@ export async function createZoneController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Zones'],
       summary: 'Create a new zone',
+      description:
+        'Cria uma nova zona de armazenamento dentro de um armazem, com codigo, nome e estrutura de bins.',
       body: createZoneSchema,
       response: {
         201: z.object({

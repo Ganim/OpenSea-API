@@ -1,7 +1,9 @@
 import { env } from '@/@env';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { getRateLimitConfig } from '@/config/rate-limits';
+import { Token } from '@/entities/core/value-objects/token';
 import { makeRefreshSessionUseCase } from '@/use-cases/core/sessions/factories/make-refresh-session-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -17,8 +19,10 @@ export async function refreshSessionController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Sessions'],
       summary: 'Refresh the current authenticated user session',
+      description:
+        'Renova a sessao do usuario utilizando o refresh token. Retorna novos tokens de acesso e refresh.',
       headers: z.object({
-        authorization: z.string().describe('Bearer <refresh_token>'),
+        authorization: z.string().describe('Bearer <refresh_token>').optional(),
       }),
       response: {
         200: z.object({
@@ -42,7 +46,7 @@ export async function refreshSessionController(app: FastifyInstance) {
 
       const refreshTokenValue = authHeader.substring(7); // Remove 'Bearer '
 
-      if (!refreshTokenValue) {
+      if (!refreshTokenValue || !Token.isValid(refreshTokenValue)) {
         return reply
           .status(401)
           .send({ message: 'Invalid refresh token format.' });
@@ -88,6 +92,9 @@ export async function refreshSessionController(app: FastifyInstance) {
             refreshToken: refreshToken.token,
           });
       } catch (error) {
+        if (error instanceof UnauthorizedError) {
+          return reply.status(401).send({ message: error.message });
+        }
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }

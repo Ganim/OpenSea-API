@@ -18,6 +18,9 @@ export async function listMyGroupsController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'List my permission groups',
+      description:
+        'Lista os grupos de permissoes aos quais o usuario autenticado pertence.',
+      security: [{ bearerAuth: [] }],
       querystring: listUserGroupsQuerySchema,
       response: {
         200: z.object({

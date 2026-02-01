@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
+import { Slug } from '@/entities/stock/value-objects/slug';
 import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ListItemsByVariantIdUseCase } from './list-items-by-variant-id';
@@ -19,6 +20,12 @@ describe('ListItemsByVariantIdUseCase', () => {
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-001',
+      slug: Slug.createFromText('item-001'),
+      fullCode: '001.001.0001.001-00001',
+      sequentialCode: 1,
+      barcode: 'BC000001',
+      eanCode: 'EAN0000000001',
+      upcCode: 'UPC000000001',
       variantId,
       binId,
       initialQuantity: 100,
@@ -28,6 +35,12 @@ describe('ListItemsByVariantIdUseCase', () => {
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-002',
+      slug: Slug.createFromText('item-002'),
+      fullCode: '001.001.0001.001-00002',
+      sequentialCode: 2,
+      barcode: 'BC000002',
+      eanCode: 'EAN0000000002',
+      upcCode: 'UPC000000002',
       variantId,
       binId,
       initialQuantity: 50,

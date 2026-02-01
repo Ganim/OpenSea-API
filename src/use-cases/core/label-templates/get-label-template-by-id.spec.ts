@@ -17,7 +17,10 @@ describe('GetLabelTemplateByIdUseCase', () => {
     const labelTemplate = makeLabelTemplate({ name: 'Etiqueta Teste' });
     labelTemplatesRepository.items.push(labelTemplate);
 
-    const result = await sut.execute({ id: labelTemplate.id.toString() });
+    const result = await sut.execute({
+      id: labelTemplate.id.toString(),
+      organizationId: labelTemplate.organizationId.toString(),
+    });
 
     expect(result.template).toBeDefined();
     expect(result.template.id).toBe(labelTemplate.id.toString());
@@ -26,7 +29,10 @@ describe('GetLabelTemplateByIdUseCase', () => {
 
   it('should throw error when label template is not found', async () => {
     await expect(
-      sut.execute({ id: new UniqueEntityID().toString() }),
+      sut.execute({
+        id: new UniqueEntityID().toString(),
+        organizationId: new UniqueEntityID().toString(),
+      }),
     ).rejects.toThrow('Label template not found');
   });
 
@@ -35,7 +41,10 @@ describe('GetLabelTemplateByIdUseCase', () => {
     labelTemplatesRepository.items.push(labelTemplate);
 
     await expect(
-      sut.execute({ id: labelTemplate.id.toString() }),
+      sut.execute({
+        id: labelTemplate.id.toString(),
+        organizationId: labelTemplate.organizationId.toString(),
+      }),
     ).rejects.toThrow('Label template not found');
   });
 });

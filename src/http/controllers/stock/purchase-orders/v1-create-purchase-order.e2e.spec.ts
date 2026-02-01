@@ -4,6 +4,8 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createProduct } from '@/utils/tests/factories/stock/create-product.e2e';
+import { createVariant } from '@/utils/tests/factories/stock/create-variant.e2e';
 
 describe('Create Purchase Order (E2E)', () => {
   beforeAll(async () => {
@@ -34,24 +36,16 @@ describe('Create Purchase Order (E2E)', () => {
       },
     });
 
-    const product = await prisma.product.create({
-      data: {
-        code: `PROD-PO-${timestamp}`,
-        name: `Product PO ${timestamp}`,
-        status: 'ACTIVE',
-        templateId: template.id,
-        attributes: {},
-      },
+    const { product } = await createProduct({
+      name: `Product PO ${timestamp}`,
+      templateId: template.id,
     });
 
-    const variant = await prisma.variant.create({
-      data: {
-        productId: product.id,
-        sku: `SKU-PO-${timestamp}`,
-        name: `Variant PO ${timestamp}`,
-        price: 150,
-        attributes: {},
-      },
+    const { variant } = await createVariant({
+      productId: product.id,
+      sku: `SKU-PO-${timestamp}`,
+      name: `Variant PO ${timestamp}`,
+      price: 150,
     });
 
     const response = await request(app.server)

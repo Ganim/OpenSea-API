@@ -30,10 +30,16 @@ describe('List and Get Item Reservations (E2E)', () => {
       },
     });
 
+    const suffix = unique.replace(/-/g, '').slice(0, 4);
+
     const product = await prisma.product.create({
       data: {
         name: `Test Product ${unique}`,
-        code: `TEST-${unique}`,
+        slug: `test-product-${unique}`,
+        fullCode: `001.000.${suffix}`,
+        barcode: `BCLS${suffix}`,
+        eanCode: `EAN${suffix}LS000`,
+        upcCode: `UPC${suffix}LS00`,
         status: 'ACTIVE',
         attributes: {},
         templateId: template.id,
@@ -44,6 +50,12 @@ describe('List and Get Item Reservations (E2E)', () => {
       data: {
         sku: `SKU-${unique}`,
         name: 'Test Variant',
+        slug: `test-variant-${unique}`,
+        fullCode: `001.000.${suffix}.001`,
+        sequentialCode: 1,
+        barcode: `BCVL${suffix}`,
+        eanCode: `EAN${suffix}VL000`,
+        upcCode: `UPC${suffix}VL00`,
         price: 100,
         attributes: {},
         productId: product.id,
@@ -79,6 +91,12 @@ describe('List and Get Item Reservations (E2E)', () => {
     const item = await prisma.item.create({
       data: {
         uniqueCode: `ITEM-${unique}`,
+        slug: `item-${unique}`,
+        fullCode: `001.000.${suffix}.001-00001`,
+        sequentialCode: 1,
+        barcode: `BCILS${suffix}`,
+        eanCode: `EAN${suffix}IL00`,
+        upcCode: `UPC${suffix}IL0`,
         initialQuantity: 100,
         currentQuantity: 100,
         attributes: {},

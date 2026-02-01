@@ -25,6 +25,7 @@ export class DuplicateLabelTemplateUseCase {
     const { id, name, organizationId, createdById } = request;
 
     const sourceTemplate = await this.labelTemplatesRepository.findById(
+      new UniqueEntityID(organizationId),
       new UniqueEntityID(id),
     );
 

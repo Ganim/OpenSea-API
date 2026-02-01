@@ -23,6 +23,9 @@ export async function listUserSessionsByDateController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Sessions'],
       summary: 'List user sessions by date',
+      description:
+        'Lista as sessoes de um usuario em um periodo especifico. Requer permissao de listagem de sessoes.',
+      security: [{ bearerAuth: [] }],
       params: z.object({ userId: z.uuid() }),
       querystring: z.object({
         from: z.coerce.date(),

@@ -17,6 +17,9 @@ export async function changeMyEmailController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Me'],
       summary: 'Change self email by authenticated user',
+      description:
+        'Altera o e-mail do usuario autenticado. O novo e-mail deve ser unico no sistema.',
+      security: [{ bearerAuth: [] }],
       body: z.object({
         email: z.email(),
       }),

@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { getUserOrganizationId } from '@/http/helpers/organization.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -43,6 +44,13 @@ export async function deleteLabelTemplateController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const userId = request.user.sub;
       const { id } = request.params;
+      const organizationId = await getUserOrganizationId(userId);
+
+      if (!organizationId) {
+        return reply
+          .status(400)
+          .send({ message: 'User must belong to an organization' });
+      }
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -52,10 +60,16 @@ export async function deleteLabelTemplateController(app: FastifyInstance) {
           : user.username || user.email;
 
         const getLabelTemplateByIdUseCase = makeGetLabelTemplateByIdUseCase();
-        const { template } = await getLabelTemplateByIdUseCase.execute({ id });
+        const { template } = await getLabelTemplateByIdUseCase.execute({
+          id,
+          organizationId,
+        });
 
         const deleteLabelTemplateUseCase = makeDeleteLabelTemplateUseCase();
-        await deleteLabelTemplateUseCase.execute({ id });
+        await deleteLabelTemplateUseCase.execute({
+          id,
+          organizationId,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.CORE.LABEL_TEMPLATE_DELETE,

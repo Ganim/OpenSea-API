@@ -24,6 +24,8 @@ export async function listZonesController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Zones'],
       summary: 'List all zones',
+      description:
+        'Lista todas as zonas com filtros opcionais por armazem e status ativo.',
       querystring: listZonesQuerySchema,
       response: {
         200: zoneListResponseSchema,

@@ -6,9 +6,10 @@ import type { Item as PrismaItem } from '@prisma/generated/client.js';
 
 export function mapItemPrismaToDomain(itemDb: PrismaItem) {
   // Garante que slug não é vazio
-  const slug = itemDb.slug && itemDb.slug.trim()
-    ? Slug.create(itemDb.slug)
-    : Slug.createFromText('item');
+  const slug =
+    itemDb.slug && itemDb.slug.trim()
+      ? Slug.create(itemDb.slug)
+      : Slug.createFromText('item');
 
   return {
     id: new UniqueEntityID(itemDb.id),

@@ -25,7 +25,9 @@ export class SessionInfoService {
    * Obtém o contexto completo da sessão de forma assíncrona
    * Inclui informações de dispositivo e geolocalização
    */
-  static async getSessionContext(input: SessionContextInput): Promise<SessionContext> {
+  static async getSessionContext(
+    input: SessionContextInput,
+  ): Promise<SessionContext> {
     const [deviceInfo, geoLocation] = await Promise.all([
       Promise.resolve(UserAgentParser.parse(input.userAgent)),
       GeoIpService.lookup(input.ip),

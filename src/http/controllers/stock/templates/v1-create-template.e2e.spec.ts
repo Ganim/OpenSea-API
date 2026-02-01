@@ -22,8 +22,17 @@ describe('Create Template (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Full Template ${timestamp}`,
-        productAttributes: { brand: 'string', model: 'string' },
-        variantAttributes: { color: 'string', size: 'string' },
+        productAttributes: {
+          brand: { type: 'string' },
+          model: { type: 'string' },
+        },
+        variantAttributes: {
+          color: { type: 'string' },
+          size: { type: 'string' },
+        },
+        itemAttributes: {
+          lot: { type: 'string' },
+        },
       });
 
     expect(response.status).toBe(201);

@@ -14,6 +14,9 @@ export async function listMySessionsController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Sessions'],
       summary: 'List all my sessions',
+      description:
+        'Lista todas as sessoes do usuario autenticado, incluindo sessoes ativas e expiradas.',
+      security: [{ bearerAuth: [] }],
       response: {
         200: z.object({ sessions: z.array(sessionResponseSchema) }),
         401: z.object({ message: z.string() }),

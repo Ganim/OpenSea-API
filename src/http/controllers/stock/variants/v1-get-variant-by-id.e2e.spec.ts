@@ -4,6 +4,8 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createProduct } from '@/utils/tests/factories/stock/create-product.e2e';
+import { createVariant } from '@/utils/tests/factories/stock/create-variant.e2e';
 
 describe('Get Variant By ID (E2E)', () => {
   beforeAll(async () => {
@@ -27,24 +29,16 @@ describe('Get Variant By ID (E2E)', () => {
       },
     });
 
-    const product = await prisma.product.create({
-      data: {
-        code: `PROD-GET-${timestamp}`,
-        name: `Product For Get ${timestamp}`,
-        status: 'ACTIVE',
-        templateId: template.id,
-        attributes: {},
-      },
+    const { product } = await createProduct({
+      name: `Product For Get ${timestamp}`,
+      templateId: template.id,
     });
 
-    const variant = await prisma.variant.create({
-      data: {
-        productId: product.id,
-        sku: `SKU-GET-${timestamp}`,
-        name: `Variant Get ${timestamp}`,
-        price: 99.99,
-        attributes: {},
-      },
+    const { variant } = await createVariant({
+      productId: product.id,
+      sku: `SKU-GET-${timestamp}`,
+      name: `Variant Get ${timestamp}`,
+      price: 99.99,
     });
 
     const response = await request(app.server)

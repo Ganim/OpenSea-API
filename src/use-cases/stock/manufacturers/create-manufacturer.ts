@@ -90,7 +90,8 @@ export class CreateManufacturerUseCase {
     }
 
     // Get next sequential code to generate the hierarchical code
-    const sequentialCode = await this.manufacturersRepository.getNextSequentialCode();
+    const sequentialCode =
+      await this.manufacturersRepository.getNextSequentialCode();
     const code = padCode(sequentialCode);
 
     // Save to repository with generated code

@@ -12,6 +12,7 @@ export class InMemoryVariantsRepository implements VariantsRepository {
   async create(data: CreateVariantSchema): Promise<Variant> {
     const variant = Variant.create({
       productId: data.productId,
+      slug: data.slug,
       sku: data.sku,
       fullCode: data.fullCode,
       sequentialCode: data.sequentialCode,
@@ -20,15 +21,21 @@ export class InMemoryVariantsRepository implements VariantsRepository {
       imageUrl: data.imageUrl,
       costPrice: data.costPrice,
       profitMargin: data.profitMargin,
-      barcode: data.barcode,
+      barcode: data.barcode ?? '',
       qrCode: data.qrCode,
-      eanCode: data.eanCode,
-      upcCode: data.upcCode,
+      eanCode: data.eanCode ?? '',
+      upcCode: data.upcCode ?? '',
+      colorHex: data.colorHex,
+      colorPantone: data.colorPantone,
       minStock: data.minStock,
       maxStock: data.maxStock,
       reorderPoint: data.reorderPoint,
       reorderQuantity: data.reorderQuantity,
       attributes: data.attributes ?? {},
+      reference: data.reference,
+      similars: data.similars,
+      outOfLine: data.outOfLine,
+      isActive: data.isActive,
     });
 
     this.items.push(variant);
@@ -80,7 +87,9 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findLastByProductId(productId: UniqueEntityID): Promise<Variant | null> {
+  async findLastByProductId(
+    productId: UniqueEntityID,
+  ): Promise<Variant | null> {
     const variants = this.items
       .filter((item) => !item.deletedAt && item.productId.equals(productId))
       .sort((a, b) => (b.sequentialCode ?? 0) - (a.sequentialCode ?? 0));
@@ -140,10 +149,8 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     if (data.costPrice !== undefined) variant.costPrice = data.costPrice;
     if (data.profitMargin !== undefined)
       variant.profitMargin = data.profitMargin;
-    if (data.barcode !== undefined) variant.barcode = data.barcode;
+    // barcode, eanCode, upcCode are immutable after creation - skip them
     if (data.qrCode !== undefined) variant.qrCode = data.qrCode;
-    if (data.eanCode !== undefined) variant.eanCode = data.eanCode;
-    if (data.upcCode !== undefined) variant.upcCode = data.upcCode;
     if (data.minStock !== undefined) variant.minStock = data.minStock;
     if (data.maxStock !== undefined) variant.maxStock = data.maxStock;
     if (data.reorderPoint !== undefined)

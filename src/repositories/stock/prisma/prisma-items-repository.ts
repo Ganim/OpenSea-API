@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
+import { Slug } from '@/entities/stock/value-objects/slug';
 import { prisma } from '@/lib/prisma';
 import {
   Prisma,
@@ -18,10 +19,18 @@ import type {
 export interface ItemWithRelations {
   id: string;
   uniqueCode: string;
+  slug: string;
+  fullCode: string;
+  sequentialCode: number;
+  barcode: string;
+  eanCode: string;
+  upcCode: string;
+  qrCode: string | null;
   variantId: string;
   binId: string | null;
   initialQuantity: Prisma.Decimal;
   currentQuantity: Prisma.Decimal;
+  unitCost: Prisma.Decimal | null;
   status: PrismaItemStatus;
   entryDate: Date;
   attributes: object;
@@ -70,13 +79,49 @@ export class PrismaItemsRepository implements ItemsRepository {
   }
 
   private createItemEntity(itemData: ItemWithRelations): Item {
+    return this.toDomainItem(itemData);
+  }
+
+  private toDomainItem(itemData: {
+    id: string;
+    uniqueCode: string | null;
+    slug: string;
+    fullCode: string;
+    sequentialCode: number;
+    barcode: string;
+    eanCode: string;
+    upcCode: string;
+    qrCode?: string | null;
+    variantId: string;
+    binId: string | null;
+    initialQuantity: Prisma.Decimal;
+    currentQuantity: Prisma.Decimal;
+    unitCost?: Prisma.Decimal | null;
+    status: PrismaItemStatus;
+    entryDate: Date;
+    attributes: unknown;
+    batchNumber: string | null;
+    manufacturingDate: Date | null;
+    expiryDate: Date | null;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date | null;
+  }): Item {
     return Item.create(
       {
         uniqueCode: itemData.uniqueCode ?? undefined,
+        slug: Slug.create(itemData.slug),
+        fullCode: itemData.fullCode,
+        sequentialCode: itemData.sequentialCode,
+        barcode: itemData.barcode,
+        eanCode: itemData.eanCode,
+        upcCode: itemData.upcCode,
+        qrCode: itemData.qrCode ?? undefined,
         variantId: new EntityID(itemData.variantId),
         binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
         initialQuantity: itemData.initialQuantity.toNumber(),
         currentQuantity: itemData.currentQuantity.toNumber(),
+        unitCost: itemData.unitCost?.toNumber(),
         status: ItemStatus.create(itemData.status),
         entryDate: itemData.entryDate,
         attributes: itemData.attributes as Record<string, unknown>,
@@ -218,35 +263,14 @@ export class PrismaItemsRepository implements ItemsRepository {
         unitCost: data.unitCost,
         status: data.status.value as PrismaItemStatus,
         entryDate: data.entryDate,
-        attributes: data.attributes as object,
+        attributes: (data.attributes ?? {}) as Prisma.InputJsonValue,
         batchNumber: data.batchNumber,
         manufacturingDate: data.manufacturingDate,
         expiryDate: data.expiryDate,
       },
     });
 
-    return Item.create(
-      {
-        uniqueCode: itemData.uniqueCode ?? undefined,
-        fullCode: itemData.fullCode ?? undefined,
-        sequentialCode: itemData.sequentialCode ?? undefined,
-        variantId: new EntityID(itemData.variantId),
-        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-        initialQuantity: itemData.initialQuantity.toNumber(),
-        currentQuantity: itemData.currentQuantity.toNumber(),
-        unitCost: itemData.unitCost?.toNumber(),
-        status: ItemStatus.create(itemData.status),
-        entryDate: itemData.entryDate,
-        attributes: itemData.attributes as Record<string, unknown>,
-        batchNumber: itemData.batchNumber ?? undefined,
-        manufacturingDate: itemData.manufacturingDate ?? undefined,
-        expiryDate: itemData.expiryDate ?? undefined,
-        createdAt: itemData.createdAt,
-        updatedAt: itemData.updatedAt,
-        deletedAt: itemData.deletedAt ?? undefined,
-      },
-      new EntityID(itemData.id),
-    );
+    return this.toDomainItem(itemData);
   }
 
   async findById(id: UniqueEntityID): Promise<Item | null> {
@@ -259,25 +283,7 @@ export class PrismaItemsRepository implements ItemsRepository {
 
     if (!itemData) return null;
 
-    return Item.create(
-      {
-        uniqueCode: itemData.uniqueCode ?? undefined,
-        variantId: new EntityID(itemData.variantId),
-        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-        initialQuantity: itemData.initialQuantity.toNumber(),
-        currentQuantity: itemData.currentQuantity.toNumber(),
-        status: ItemStatus.create(itemData.status),
-        entryDate: itemData.entryDate,
-        attributes: itemData.attributes as Record<string, unknown>,
-        batchNumber: itemData.batchNumber ?? undefined,
-        manufacturingDate: itemData.manufacturingDate ?? undefined,
-        expiryDate: itemData.expiryDate ?? undefined,
-        createdAt: itemData.createdAt,
-        updatedAt: itemData.updatedAt,
-        deletedAt: itemData.deletedAt ?? undefined,
-      },
-      new EntityID(itemData.id),
-    );
+    return this.toDomainItem(itemData);
   }
 
   async findByIdWithRelations(
@@ -320,25 +326,7 @@ export class PrismaItemsRepository implements ItemsRepository {
 
     if (!itemData) return null;
 
-    return Item.create(
-      {
-        uniqueCode: itemData.uniqueCode ?? undefined,
-        variantId: new EntityID(itemData.variantId),
-        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-        initialQuantity: itemData.initialQuantity.toNumber(),
-        currentQuantity: itemData.currentQuantity.toNumber(),
-        status: ItemStatus.create(itemData.status),
-        entryDate: itemData.entryDate,
-        attributes: itemData.attributes as Record<string, unknown>,
-        batchNumber: itemData.batchNumber ?? undefined,
-        manufacturingDate: itemData.manufacturingDate ?? undefined,
-        expiryDate: itemData.expiryDate ?? undefined,
-        createdAt: itemData.createdAt,
-        updatedAt: itemData.updatedAt,
-        deletedAt: itemData.deletedAt ?? undefined,
-      },
-      new EntityID(itemData.id),
-    );
+    return this.toDomainItem(itemData);
   }
 
   async findAll(): Promise<Item[]> {
@@ -360,27 +348,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
     });
 
-    return items.map((itemData) =>
-      Item.create(
-        {
-          uniqueCode: itemData.uniqueCode ?? undefined,
-          variantId: new EntityID(itemData.variantId),
-          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-          initialQuantity: itemData.initialQuantity.toNumber(),
-          currentQuantity: itemData.currentQuantity.toNumber(),
-          status: ItemStatus.create(itemData.status),
-          entryDate: itemData.entryDate,
-          attributes: itemData.attributes as Record<string, unknown>,
-          batchNumber: itemData.batchNumber ?? undefined,
-          manufacturingDate: itemData.manufacturingDate ?? undefined,
-          expiryDate: itemData.expiryDate ?? undefined,
-          createdAt: itemData.createdAt,
-          updatedAt: itemData.updatedAt,
-          deletedAt: itemData.deletedAt ?? undefined,
-        },
-        new EntityID(itemData.id),
-      ),
-    );
+    return items.map((itemData) => this.toDomainItem(itemData));
   }
 
   async findManyByVariant(variantId: UniqueEntityID): Promise<Item[]> {
@@ -403,27 +371,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
     });
 
-    return items.map((itemData) =>
-      Item.create(
-        {
-          uniqueCode: itemData.uniqueCode ?? undefined,
-          variantId: new EntityID(itemData.variantId),
-          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-          initialQuantity: itemData.initialQuantity.toNumber(),
-          currentQuantity: itemData.currentQuantity.toNumber(),
-          status: ItemStatus.create(itemData.status),
-          entryDate: itemData.entryDate,
-          attributes: itemData.attributes as Record<string, unknown>,
-          batchNumber: itemData.batchNumber ?? undefined,
-          manufacturingDate: itemData.manufacturingDate ?? undefined,
-          expiryDate: itemData.expiryDate ?? undefined,
-          createdAt: itemData.createdAt,
-          updatedAt: itemData.updatedAt,
-          deletedAt: itemData.deletedAt ?? undefined,
-        },
-        new EntityID(itemData.id),
-      ),
-    );
+    return items.map((itemData) => this.toDomainItem(itemData));
   }
 
   async findManyByProduct(productId: UniqueEntityID): Promise<Item[]> {
@@ -448,27 +396,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
     });
 
-    return items.map((itemData) =>
-      Item.create(
-        {
-          uniqueCode: itemData.uniqueCode ?? undefined,
-          variantId: new EntityID(itemData.variantId),
-          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-          initialQuantity: itemData.initialQuantity.toNumber(),
-          currentQuantity: itemData.currentQuantity.toNumber(),
-          status: ItemStatus.create(itemData.status),
-          entryDate: itemData.entryDate,
-          attributes: itemData.attributes as Record<string, unknown>,
-          batchNumber: itemData.batchNumber ?? undefined,
-          manufacturingDate: itemData.manufacturingDate ?? undefined,
-          expiryDate: itemData.expiryDate ?? undefined,
-          createdAt: itemData.createdAt,
-          updatedAt: itemData.updatedAt,
-          deletedAt: itemData.deletedAt ?? undefined,
-        },
-        new EntityID(itemData.id),
-      ),
-    );
+    return items.map((itemData) => this.toDomainItem(itemData));
   }
 
   async findManyByBin(binId: UniqueEntityID): Promise<Item[]> {
@@ -491,30 +419,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
     });
 
-    return items.map((itemData) => {
-      const itemWithRelations = itemData as ItemWithRelations;
-      return Item.create(
-        {
-          uniqueCode: itemWithRelations.uniqueCode,
-          variantId: new EntityID(itemWithRelations.variantId),
-          binId: itemWithRelations.binId
-            ? new EntityID(itemWithRelations.binId)
-            : undefined,
-          initialQuantity: itemWithRelations.initialQuantity.toNumber(),
-          currentQuantity: itemWithRelations.currentQuantity.toNumber(),
-          status: ItemStatus.create(itemWithRelations.status),
-          entryDate: itemWithRelations.entryDate,
-          attributes: itemWithRelations.attributes as Record<string, unknown>,
-          batchNumber: itemWithRelations.batchNumber ?? undefined,
-          manufacturingDate: itemWithRelations.manufacturingDate ?? undefined,
-          expiryDate: itemWithRelations.expiryDate ?? undefined,
-          createdAt: itemWithRelations.createdAt,
-          updatedAt: itemWithRelations.updatedAt,
-          deletedAt: itemWithRelations.deletedAt ?? undefined,
-        },
-        new EntityID(itemWithRelations.id),
-      );
-    });
+    return items.map((itemData) => this.toDomainItem(itemData));
   }
 
   async findManyByStatus(status: ItemStatus): Promise<Item[]> {
@@ -525,27 +430,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
     });
 
-    return items.map((itemData) =>
-      Item.create(
-        {
-          uniqueCode: itemData.uniqueCode ?? undefined,
-          variantId: new EntityID(itemData.variantId),
-          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-          initialQuantity: itemData.initialQuantity.toNumber(),
-          currentQuantity: itemData.currentQuantity.toNumber(),
-          status: ItemStatus.create(itemData.status),
-          entryDate: itemData.entryDate,
-          attributes: itemData.attributes as Record<string, unknown>,
-          batchNumber: itemData.batchNumber ?? undefined,
-          manufacturingDate: itemData.manufacturingDate ?? undefined,
-          expiryDate: itemData.expiryDate ?? undefined,
-          createdAt: itemData.createdAt,
-          updatedAt: itemData.updatedAt,
-          deletedAt: itemData.deletedAt ?? undefined,
-        },
-        new EntityID(itemData.id),
-      ),
-    );
+    return items.map((itemData) => this.toDomainItem(itemData));
   }
 
   async findManyByBatch(batchNumber: string): Promise<Item[]> {
@@ -556,27 +441,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
     });
 
-    return items.map((itemData) =>
-      Item.create(
-        {
-          uniqueCode: itemData.uniqueCode ?? undefined,
-          variantId: new EntityID(itemData.variantId),
-          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-          initialQuantity: itemData.initialQuantity.toNumber(),
-          currentQuantity: itemData.currentQuantity.toNumber(),
-          status: ItemStatus.create(itemData.status),
-          entryDate: itemData.entryDate,
-          attributes: itemData.attributes as Record<string, unknown>,
-          batchNumber: itemData.batchNumber ?? undefined,
-          manufacturingDate: itemData.manufacturingDate ?? undefined,
-          expiryDate: itemData.expiryDate ?? undefined,
-          createdAt: itemData.createdAt,
-          updatedAt: itemData.updatedAt,
-          deletedAt: itemData.deletedAt ?? undefined,
-        },
-        new EntityID(itemData.id),
-      ),
-    );
+    return items.map((itemData) => this.toDomainItem(itemData));
   }
 
   async findManyExpiring(daysUntilExpiry: number): Promise<Item[]> {
@@ -593,27 +458,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
     });
 
-    return items.map((itemData) =>
-      Item.create(
-        {
-          uniqueCode: itemData.uniqueCode ?? undefined,
-          variantId: new EntityID(itemData.variantId),
-          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-          initialQuantity: itemData.initialQuantity.toNumber(),
-          currentQuantity: itemData.currentQuantity.toNumber(),
-          status: ItemStatus.create(itemData.status),
-          entryDate: itemData.entryDate,
-          attributes: itemData.attributes as Record<string, unknown>,
-          batchNumber: itemData.batchNumber ?? undefined,
-          manufacturingDate: itemData.manufacturingDate ?? undefined,
-          expiryDate: itemData.expiryDate ?? undefined,
-          createdAt: itemData.createdAt,
-          updatedAt: itemData.updatedAt,
-          deletedAt: itemData.deletedAt ?? undefined,
-        },
-        new EntityID(itemData.id),
-      ),
-    );
+    return items.map((itemData) => this.toDomainItem(itemData));
   }
 
   async findManyExpired(): Promise<Item[]> {
@@ -626,29 +471,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
     });
 
-    return items.map((itemData) =>
-      Item.create(
-        {
-          uniqueCode: itemData.uniqueCode ?? undefined,
-          fullCode: itemData.fullCode ?? undefined,
-          sequentialCode: itemData.sequentialCode ?? undefined,
-          variantId: new EntityID(itemData.variantId),
-          binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-          initialQuantity: itemData.initialQuantity.toNumber(),
-          currentQuantity: itemData.currentQuantity.toNumber(),
-          status: ItemStatus.create(itemData.status),
-          entryDate: itemData.entryDate,
-          attributes: itemData.attributes as Record<string, unknown>,
-          batchNumber: itemData.batchNumber ?? undefined,
-          manufacturingDate: itemData.manufacturingDate ?? undefined,
-          expiryDate: itemData.expiryDate ?? undefined,
-          createdAt: itemData.createdAt,
-          updatedAt: itemData.updatedAt,
-          deletedAt: itemData.deletedAt ?? undefined,
-        },
-        new EntityID(itemData.id),
-      ),
-    );
+    return items.map((itemData) => this.toDomainItem(itemData));
   }
 
   async findLastByVariantId(variantId: UniqueEntityID): Promise<Item | null> {
@@ -666,27 +489,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       return null;
     }
 
-    return Item.create(
-      {
-        uniqueCode: itemData.uniqueCode ?? undefined,
-        fullCode: itemData.fullCode ?? undefined,
-        sequentialCode: itemData.sequentialCode ?? undefined,
-        variantId: new EntityID(itemData.variantId),
-        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-        initialQuantity: itemData.initialQuantity.toNumber(),
-        currentQuantity: itemData.currentQuantity.toNumber(),
-        status: ItemStatus.create(itemData.status),
-        entryDate: itemData.entryDate,
-        attributes: itemData.attributes as Record<string, unknown>,
-        batchNumber: itemData.batchNumber ?? undefined,
-        manufacturingDate: itemData.manufacturingDate ?? undefined,
-        expiryDate: itemData.expiryDate ?? undefined,
-        createdAt: itemData.createdAt,
-        updatedAt: itemData.updatedAt,
-        deletedAt: itemData.deletedAt ?? undefined,
-      },
-      new EntityID(itemData.id),
-    );
+    return this.toDomainItem(itemData);
   }
 
   async update(data: UpdateItemSchema): Promise<Item | null> {
@@ -700,32 +503,14 @@ export class PrismaItemsRepository implements ItemsRepository {
           ? data.currentQuantity
           : undefined,
         status: data.status?.value as PrismaItemStatus | undefined,
-        attributes: data.attributes as object | undefined,
+        attributes: data.attributes as Prisma.InputJsonValue,
         batchNumber: data.batchNumber,
         manufacturingDate: data.manufacturingDate,
         expiryDate: data.expiryDate,
       },
     });
 
-    return Item.create(
-      {
-        uniqueCode: itemData.uniqueCode ?? undefined,
-        variantId: new EntityID(itemData.variantId),
-        binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
-        initialQuantity: itemData.initialQuantity.toNumber(),
-        currentQuantity: itemData.currentQuantity.toNumber(),
-        status: ItemStatus.create(itemData.status),
-        entryDate: itemData.entryDate,
-        attributes: itemData.attributes as Record<string, unknown>,
-        batchNumber: itemData.batchNumber ?? undefined,
-        manufacturingDate: itemData.manufacturingDate ?? undefined,
-        expiryDate: itemData.expiryDate ?? undefined,
-        createdAt: itemData.createdAt,
-        updatedAt: itemData.updatedAt,
-        deletedAt: itemData.deletedAt ?? undefined,
-      },
-      new EntityID(itemData.id),
-    );
+    return this.toDomainItem(itemData);
   }
 
   async save(item: Item): Promise<void> {
@@ -737,7 +522,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         binId: item.binId?.toString() ?? null,
         currentQuantity: item.currentQuantity,
         status: item.status.value as PrismaItemStatus,
-        attributes: item.attributes as object,
+        attributes: item.attributes as Prisma.InputJsonValue,
         batchNumber: item.batchNumber,
         manufacturingDate: item.manufacturingDate,
         expiryDate: item.expiryDate,

@@ -23,6 +23,8 @@ export async function getBinByIdController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Bins'],
       summary: 'Get a bin by ID',
+      description:
+        'Retorna os dados de um bin especifico pelo seu identificador unico, incluindo contagem de itens alocados.',
       params: z.object({
         id: z.string().uuid(),
       }),

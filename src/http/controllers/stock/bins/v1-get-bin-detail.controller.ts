@@ -2,7 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
-import { binDetailResponseSchema, binResponseSchema } from '@/http/schemas/stock/bins/bin.schema';
+import { binDetailResponseSchema } from '@/http/schemas/stock/bins/bin.schema';
 import { binToDTO } from '@/mappers/stock/bin/bin-to-dto';
 import { makeGetBinDetailUseCase } from '@/use-cases/stock/bins/factories/make-get-bin-detail-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -22,7 +22,10 @@ export async function getBinDetailController(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Stock - Bins'],
-      summary: 'Get detailed bin information including items, zone and warehouse',
+      summary:
+        'Get detailed bin information including items, zone and warehouse',
+      description:
+        'Retorna informacoes detalhadas de um bin, incluindo itens armazenados, zona e armazem associados.',
       params: z.object({
         id: z.string().uuid(),
       }),

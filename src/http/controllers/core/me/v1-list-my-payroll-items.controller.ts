@@ -17,6 +17,9 @@ export async function listMyPayrollItemsController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'List my payroll items (salary history)',
+      description:
+        'Lista os itens da folha de pagamento (historico salarial) do funcionario vinculado ao usuario autenticado, com filtro por mes e ano de referencia.',
+      security: [{ bearerAuth: [] }],
       querystring: z.object({
         referenceMonth: z.coerce.number().int().min(1).max(12).optional(),
         referenceYear: z.coerce.number().int().min(2000).max(2100).optional(),

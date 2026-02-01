@@ -4,13 +4,17 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { CareInstructions } from '@/entities/stock/value-objects/care-instructions';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
+import { Slug } from '@/entities/stock/value-objects/slug';
 import { prisma } from '@/lib/prisma';
 import { productPrismaToDomain } from '@/mappers/stock/product/product-prisma-to-domain';
-import type { ProductStatus as PrismaProductStatus } from '@prisma/generated/client';
 import type {
-    CreateProductSchema,
-    ProductsRepository,
-    UpdateProductSchema,
+  Prisma,
+  ProductStatus as PrismaProductStatus,
+} from '@prisma/generated/client';
+import type {
+  CreateProductSchema,
+  ProductsRepository,
+  UpdateProductSchema,
 } from '../products-repository';
 
 const productInclude = {
@@ -41,11 +45,10 @@ export class PrismaProductsRepository implements ProductsRepository {
         barcode: data.barcode,
         eanCode: data.eanCode,
         upcCode: data.upcCode,
-        code: data.code,
         description: data.description,
         status: (data.status?.value ?? 'ACTIVE') as PrismaProductStatus,
         outOfLine: data.outOfLine ?? false,
-        attributes: (data.attributes ?? {}) as never,
+        attributes: (data.attributes ?? {}) as Prisma.InputJsonValue,
         templateId: data.templateId.toString(),
         supplierId: data.supplierId?.toString(),
         manufacturerId: data.manufacturerId?.toString(),
@@ -234,7 +237,7 @@ export class PrismaProductsRepository implements ProductsRepository {
             description: data.description,
             status: data.status?.value as PrismaProductStatus | undefined,
             outOfLine: data.outOfLine,
-            attributes: data.attributes as never,
+            attributes: data.attributes as Prisma.InputJsonValue,
             supplierId: data.supplierId?.toString(),
             manufacturerId: data.manufacturerId?.toString(),
           },
@@ -274,7 +277,7 @@ export class PrismaProductsRepository implements ProductsRepository {
         description: data.description,
         status: data.status?.value as PrismaProductStatus | undefined,
         outOfLine: data.outOfLine,
-        attributes: data.attributes as never,
+        attributes: data.attributes as Prisma.InputJsonValue,
         supplierId: data.supplierId?.toString(),
         manufacturerId: data.manufacturerId?.toString(),
       },
@@ -314,9 +317,13 @@ export class PrismaProductsRepository implements ProductsRepository {
     return Product.create(
       {
         name: productData.name,
-        code: productData.code ?? undefined,
+        slug: Slug.create(productData.slug),
         fullCode: productData.fullCode ?? undefined,
         sequentialCode: productData.sequentialCode ?? undefined,
+        barcode: productData.barcode,
+        eanCode: productData.eanCode,
+        upcCode: productData.upcCode,
+        qrCode: productData.qrCode ?? undefined,
         description: productData.description ?? undefined,
         status: ProductStatus.create(productData.status) ?? defaultStatus,
         outOfLine: productData.outOfLine ?? false,
@@ -346,11 +353,10 @@ export class PrismaProductsRepository implements ProductsRepository {
       },
       data: {
         name: product.name,
-        code: product.code,
         description: product.description,
         status: product.status.value as PrismaProductStatus,
         outOfLine: product.outOfLine,
-        attributes: product.attributes as never,
+        attributes: product.attributes as Prisma.InputJsonValue,
         careInstructionIds: product.careInstructionIds,
         templateId: product.templateId.toString(),
         supplierId: product.supplierId?.toString(),

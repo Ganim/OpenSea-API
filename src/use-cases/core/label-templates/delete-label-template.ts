@@ -5,17 +5,20 @@ import type { LabelTemplatesRepository } from '@/repositories/core/label-templat
 
 interface DeleteLabelTemplateUseCaseRequest {
   id: string;
+  organizationId: string;
 }
 
 export class DeleteLabelTemplateUseCase {
   constructor(private labelTemplatesRepository: LabelTemplatesRepository) {}
 
   async execute(request: DeleteLabelTemplateUseCaseRequest): Promise<void> {
-    const { id } = request;
+    const { id, organizationId } = request;
 
     const templateId = new UniqueEntityID(id);
-    const existingTemplate =
-      await this.labelTemplatesRepository.findById(templateId);
+    const existingTemplate = await this.labelTemplatesRepository.findById(
+      new UniqueEntityID(organizationId),
+      templateId,
+    );
 
     if (!existingTemplate) {
       throw new ResourceNotFoundError('Label template not found');
@@ -25,6 +28,9 @@ export class DeleteLabelTemplateUseCase {
       throw new BadRequestError('Cannot delete system templates');
     }
 
-    await this.labelTemplatesRepository.delete(templateId);
+    await this.labelTemplatesRepository.delete(
+      new UniqueEntityID(organizationId),
+      templateId,
+    );
   }
 }

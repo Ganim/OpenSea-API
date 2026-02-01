@@ -3,8 +3,8 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { VolumeHttpPresenter } from '@/http/presenters/stock/volume-presenter';
 import {
-    listVolumesQuerySchema,
-    volumeResponseSchema,
+  listVolumesQuerySchema,
+  volumeResponseSchema,
 } from '@/http/schemas/stock/volumes/volume.schema';
 import { makeListVolumesUseCase } from '@/use-cases/stock/volumes/factories/make-list-volumes-use-case';
 import type { FastifyInstance } from 'fastify';

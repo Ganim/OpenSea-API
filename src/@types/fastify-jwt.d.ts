@@ -7,6 +7,8 @@ declare module '@fastify/jwt' {
       sub: string;
       sessionId: string;
       permissions?: string[];
+      tenantId?: string;
+      isSuperAdmin?: boolean;
     };
   }
 }

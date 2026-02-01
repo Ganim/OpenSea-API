@@ -25,6 +25,8 @@ export async function deleteSupplierController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Suppliers'],
       summary: 'Delete a supplier',
+      description:
+        'Remove permanentemente um fornecedor do modulo de estoque pelo seu identificador. Requer permissao de exclusao de fornecedores.',
       security: [{ bearerAuth: [] }],
       params: z.object({
         id: z.uuid(),

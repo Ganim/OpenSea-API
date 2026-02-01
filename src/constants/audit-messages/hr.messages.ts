@@ -431,8 +431,7 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.WORK_SCHEDULE,
     module: AuditModule.HR,
-    description:
-      '{{userName}} atualizou a escala de trabalho {{scheduleName}}',
+    description: '{{userName}} atualizou a escala de trabalho {{scheduleName}}',
   } satisfies AuditMessage,
 
   /** Escala de trabalho excluída */

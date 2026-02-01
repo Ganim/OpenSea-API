@@ -7,6 +7,7 @@ import type { LabelTemplatesRepository } from '@/repositories/core/label-templat
 
 interface UpdateLabelTemplateUseCaseRequest {
   id: string;
+  organizationId: string;
   name?: string;
   description?: string;
   width?: number;
@@ -28,6 +29,7 @@ export class UpdateLabelTemplateUseCase {
   ): Promise<UpdateLabelTemplateUseCaseResponse> {
     const {
       id,
+      organizationId,
       name,
       description,
       width,
@@ -38,8 +40,10 @@ export class UpdateLabelTemplateUseCase {
     } = request;
 
     const templateId = new UniqueEntityID(id);
-    const existingTemplate =
-      await this.labelTemplatesRepository.findById(templateId);
+    const existingTemplate = await this.labelTemplatesRepository.findById(
+      new UniqueEntityID(organizationId),
+      templateId,
+    );
 
     if (!existingTemplate) {
       throw new ResourceNotFoundError('Label template not found');
@@ -93,6 +97,7 @@ export class UpdateLabelTemplateUseCase {
 
     const updatedTemplate = await this.labelTemplatesRepository.update({
       id: templateId,
+      organizationId: new UniqueEntityID(organizationId),
       name: name?.trim(),
       description: description?.trim(),
       width,

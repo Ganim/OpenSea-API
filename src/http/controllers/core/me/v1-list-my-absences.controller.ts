@@ -20,6 +20,9 @@ export async function listMyAbsencesController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'List my absences (vacations, sick leaves, etc.)',
+      description:
+        'Lista as ausencias (ferias, licencas medicas, etc.) do funcionario vinculado ao usuario autenticado, com filtros por tipo, status e periodo.',
+      security: [{ bearerAuth: [] }],
       querystring: z.object({
         type: absenceTypeSchema.optional(),
         status: absenceStatusSchema.optional(),

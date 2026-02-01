@@ -15,6 +15,9 @@ export async function listMyPermissionsController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'List my effective permissions',
+      description:
+        'Lista as permissoes efetivas do usuario autenticado, considerando todos os seus grupos. Permite filtrar por modulo, recurso e acao.',
+      security: [{ bearerAuth: [] }],
       querystring: z.object({
         module: z.string().optional(),
         resource: z.string().optional(),

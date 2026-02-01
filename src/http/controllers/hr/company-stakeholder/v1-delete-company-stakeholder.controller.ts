@@ -26,7 +26,7 @@ export async function v1DeleteCompanyStakeholder(app: FastifyInstance) {
         companyId: idSchema,
         stakeholderId: idSchema,
       }),
-      body: z.object({ anonimize: z.boolean().optional() }).optional(),
+      body: z.object({ anonimize: z.boolean().optional() }).nullish(),
       response: {
         204: z.null(),
         400: z.object({ message: z.string() }),

@@ -69,7 +69,10 @@ export async function duplicateLabelTemplateController(app: FastifyInstance) {
 
         const getLabelTemplateByIdUseCase = makeGetLabelTemplateByIdUseCase();
         const { template: sourceTemplate } =
-          await getLabelTemplateByIdUseCase.execute({ id });
+          await getLabelTemplateByIdUseCase.execute({
+            id,
+            organizationId,
+          });
 
         const duplicateLabelTemplateUseCase =
           makeDuplicateLabelTemplateUseCase();

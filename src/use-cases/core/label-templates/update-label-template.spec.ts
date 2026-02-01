@@ -23,6 +23,7 @@ describe('UpdateLabelTemplateUseCase', () => {
 
     const result = await sut.execute({
       id: labelTemplate.id.toString(),
+      organizationId: labelTemplate.organizationId.toString(),
       name: 'Nome Atualizado',
       description: 'Nova descrição',
       width: 80,
@@ -42,6 +43,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: systemTemplate.id.toString(),
+        organizationId: systemTemplate.organizationId.toString(),
         name: 'Tentativa de Atualização',
       }),
     ).rejects.toThrow('Cannot edit system templates');
@@ -51,6 +53,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: new UniqueEntityID().toString(),
+        organizationId: new UniqueEntityID().toString(),
         name: 'Teste',
       }),
     ).rejects.toThrow('Label template not found');
@@ -63,6 +66,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: labelTemplate.id.toString(),
+        organizationId: labelTemplate.organizationId.toString(),
         name: '',
       }),
     ).rejects.toThrow('Name cannot be empty');
@@ -75,6 +79,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: labelTemplate.id.toString(),
+        organizationId: labelTemplate.organizationId.toString(),
         name: 'a'.repeat(256),
       }),
     ).rejects.toThrow('Name must be at most 255 characters long');
@@ -90,6 +95,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: template2.id.toString(),
+        organizationId: organizationId.toString(),
         name: 'Etiqueta 1',
       }),
     ).rejects.toThrow(
@@ -103,6 +109,7 @@ describe('UpdateLabelTemplateUseCase', () => {
 
     const result = await sut.execute({
       id: labelTemplate.id.toString(),
+      organizationId: labelTemplate.organizationId.toString(),
       name: 'Etiqueta Teste',
       description: 'Nova descrição',
     });
@@ -118,6 +125,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: labelTemplate.id.toString(),
+        organizationId: labelTemplate.organizationId.toString(),
         width: 5,
       }),
     ).rejects.toThrow('Width must be between 10 and 300 mm');
@@ -125,6 +133,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: labelTemplate.id.toString(),
+        organizationId: labelTemplate.organizationId.toString(),
         width: 350,
       }),
     ).rejects.toThrow('Width must be between 10 and 300 mm');
@@ -137,6 +146,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: labelTemplate.id.toString(),
+        organizationId: labelTemplate.organizationId.toString(),
         height: 5,
       }),
     ).rejects.toThrow('Height must be between 10 and 300 mm');
@@ -144,6 +154,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: labelTemplate.id.toString(),
+        organizationId: labelTemplate.organizationId.toString(),
         height: 350,
       }),
     ).rejects.toThrow('Height must be between 10 and 300 mm');
@@ -156,6 +167,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: labelTemplate.id.toString(),
+        organizationId: labelTemplate.organizationId.toString(),
         grapesJsData: 'invalid json',
       }),
     ).rejects.toThrow('GrapesJS data must be valid JSON');
@@ -168,6 +180,7 @@ describe('UpdateLabelTemplateUseCase', () => {
     const newGrapesJsData = makeGrapesJsData();
     const result = await sut.execute({
       id: labelTemplate.id.toString(),
+      organizationId: labelTemplate.organizationId.toString(),
       grapesJsData: newGrapesJsData,
     });
 

@@ -41,7 +41,6 @@ export async function createProductController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const {
         name,
-        code,
         description,
         status,
         attributes,
@@ -61,7 +60,6 @@ export async function createProductController(app: FastifyInstance) {
         const createProductUseCase = makeCreateProductUseCase();
         const { product } = await createProductUseCase.execute({
           name,
-          code,
           description,
           status,
           attributes,
@@ -76,11 +74,10 @@ export async function createProductController(app: FastifyInstance) {
           placeholders: {
             userName,
             productName: product.name,
-            sku: product.code || 'N/A',
+            sku: product.fullCode || 'N/A',
           },
           newData: {
             name,
-            code,
             description,
             status,
             templateId,

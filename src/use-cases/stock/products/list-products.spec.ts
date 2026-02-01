@@ -41,13 +41,11 @@ describe('ListProductsUseCase', () => {
 
     await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
       templateId: template.template.id.toString(),
     });
 
     await createProduct.execute({
       name: 'Mouse Logitech',
-      code: 'MOUSE-001',
       templateId: template.template.id.toString(),
     });
 

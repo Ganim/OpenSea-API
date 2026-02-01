@@ -35,6 +35,9 @@ export async function createManufacturerController(app: FastifyInstance) {
         201: z.object({
           manufacturer: manufacturerResponseSchema,
         }),
+        400: z.object({
+          message: z.string(),
+        }),
       },
       security: [{ bearerAuth: [] }],
     },

@@ -6,9 +6,12 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import { createOrganizationE2E } from '@/utils/tests/factories/core/create-organization.e2e';
 
 describe('Generate Label Template Thumbnail (E2E)', () => {
+  let organizationId: string;
+
   beforeAll(async () => {
     await app.ready();
-    await createOrganizationE2E();
+    const { organizationId: orgId } = await createOrganizationE2E();
+    organizationId = orgId;
   });
 
   afterAll(async () => {
@@ -16,7 +19,7 @@ describe('Generate Label Template Thumbnail (E2E)', () => {
   });
 
   it('should generate label template thumbnail with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { organizationId });
     const timestamp = Date.now();
 
     const createResponse = await request(app.server)
@@ -32,18 +35,11 @@ describe('Generate Label Template Thumbnail (E2E)', () => {
     const templateId = createResponse.body.template.id;
 
     const response = await request(app.server)
-      .post(`/v1/label-templates/${templateId}/thumbnail`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        thumbnailUrl: 'https://example.com/thumbnail.png',
-      });
+      .post(`/v1/label-templates/${templateId}/generate-thumbnail`)
+      .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('template');
-    expect(response.body.template).toHaveProperty('id', templateId);
-    expect(response.body.template).toHaveProperty(
-      'thumbnailUrl',
-      'https://example.com/thumbnail.png',
-    );
+    expect(response.body).toHaveProperty('thumbnailUrl');
+    expect(typeof response.body.thumbnailUrl).toBe('string');
   });
 });

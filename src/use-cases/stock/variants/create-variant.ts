@@ -8,9 +8,9 @@ import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
 import {
-    generateBarcode,
-    generateEAN13,
-    generateUPC,
+  generateBarcode,
+  generateEAN13,
+  generateUPC,
 } from '@/utils/barcode-generator';
 import { assertValidAttributes } from '@/utils/validate-template-attributes';
 

@@ -22,7 +22,9 @@ describe('List Templates (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Template ${timestamp}`,
-        productAttributes: { color: 'string' },
+        productAttributes: {
+          color: { type: 'string' },
+        },
       });
 
     const response = await request(app.server)

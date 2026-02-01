@@ -15,6 +15,9 @@ export async function logoutSessionController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Sessions'],
       summary: 'Logout the current authenticated user session',
+      description:
+        'Encerra a sessao atual do usuario autenticado e limpa o cookie de refresh token.',
+      security: [{ bearerAuth: [] }],
       response: {
         204: z.void(),
         404: z.object({ message: z.string() }),

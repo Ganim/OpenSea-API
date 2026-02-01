@@ -16,6 +16,9 @@ export async function requestMyVacationController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'Request vacation for myself',
+      description:
+        'Registra uma solicitacao de ferias para o funcionario vinculado ao usuario autenticado. Requer um periodo de ferias valido.',
+      security: [{ bearerAuth: [] }],
       body: z.object({
         vacationPeriodId: z.string().uuid(),
         startDate: z.coerce.date(),

@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
+import { Slug } from '@/entities/stock/value-objects/slug';
 import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ListItemsUseCase } from './list-items';
@@ -19,6 +20,12 @@ describe('ListItemsUseCase', () => {
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-001',
+      slug: Slug.createFromText('item-001'),
+      fullCode: '001.001.0001.001-00001',
+      sequentialCode: 1,
+      barcode: 'BC000001',
+      eanCode: 'EAN0000000001',
+      upcCode: 'UPC000000001',
       variantId,
       binId,
       initialQuantity: 100,
@@ -28,6 +35,12 @@ describe('ListItemsUseCase', () => {
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-002',
+      slug: Slug.createFromText('item-002'),
+      fullCode: '001.001.0001.001-00002',
+      sequentialCode: 2,
+      barcode: 'BC000002',
+      eanCode: 'EAN0000000002',
+      upcCode: 'UPC000000002',
       variantId,
       binId,
       initialQuantity: 50,
@@ -51,6 +64,12 @@ describe('ListItemsUseCase', () => {
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-003',
+      slug: Slug.createFromText('item-003'),
+      fullCode: '001.001.0001.001-00003',
+      sequentialCode: 3,
+      barcode: 'BC000003',
+      eanCode: 'EAN0000000003',
+      upcCode: 'UPC000000003',
       variantId,
       binId: binIdA,
       initialQuantity: 100,
@@ -60,6 +79,12 @@ describe('ListItemsUseCase', () => {
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-004',
+      slug: Slug.createFromText('item-004'),
+      fullCode: '001.001.0001.001-00004',
+      sequentialCode: 4,
+      barcode: 'BC000004',
+      eanCode: 'EAN0000000004',
+      upcCode: 'UPC000000004',
       variantId,
       binId: binIdB,
       initialQuantity: 50,
@@ -81,6 +106,12 @@ describe('ListItemsUseCase', () => {
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-001',
+      slug: Slug.createFromText('item-001'),
+      fullCode: '001.001.0001.001-00001',
+      sequentialCode: 1,
+      barcode: 'BC000001',
+      eanCode: 'EAN0000000001',
+      upcCode: 'UPC000000001',
       variantId,
       binId,
       initialQuantity: 100,
@@ -90,6 +121,12 @@ describe('ListItemsUseCase', () => {
 
     await itemsRepository.create({
       uniqueCode: 'ITEM-002',
+      slug: Slug.createFromText('item-002'),
+      fullCode: '001.001.0001.001-00002',
+      sequentialCode: 2,
+      barcode: 'BC000002',
+      eanCode: 'EAN0000000002',
+      upcCode: 'UPC000000002',
       variantId,
       binId,
       initialQuantity: 50,

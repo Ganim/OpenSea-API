@@ -14,20 +14,20 @@ export const options = {
       executor: 'ramping-vus',
       startVUs: 0,
       stages: [
-        { duration: '1m', target: 20 },   // Ramp up
-        { duration: '3m', target: 20 },   // Sustain
-        { duration: '1m', target: 50 },   // Increase
-        { duration: '3m', target: 50 },   // Sustain
-        { duration: '1m', target: 0 },    // Ramp down
+        { duration: '1m', target: 20 }, // Ramp up
+        { duration: '3m', target: 20 }, // Sustain
+        { duration: '1m', target: 50 }, // Increase
+        { duration: '3m', target: 50 }, // Sustain
+        { duration: '1m', target: 0 }, // Ramp down
       ],
     },
   },
   thresholds: {
-    http_req_duration: ['p(95)<500'],     // 95% < 500ms
-    http_req_failed: ['rate<0.01'],       // < 1% falhas
-    login_success: ['rate>0.95'],         // > 95% login sucesso
-    login_duration: ['p(95)<300'],        // 95% login < 300ms
-    refresh_success: ['rate>0.99'],       // > 99% refresh sucesso
+    http_req_duration: ['p(95)<500'], // 95% < 500ms
+    http_req_failed: ['rate<0.01'], // < 1% falhas
+    login_success: ['rate>0.95'], // > 95% login sucesso
+    login_duration: ['p(95)<300'], // 95% login < 300ms
+    refresh_success: ['rate>0.99'], // > 99% refresh sucesso
   },
 };
 
@@ -54,7 +54,7 @@ export default function () {
       }),
       {
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
     loginDuration.add(Date.now() - loginStart);
 
@@ -82,7 +82,7 @@ export default function () {
       const meRes = http.get(`${BASE_URL}/v1/me`, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -97,7 +97,7 @@ export default function () {
       const productsRes = http.get(`${BASE_URL}/v1/products?page=1&limit=10`, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -111,16 +111,12 @@ export default function () {
 
     group('Token Refresh', () => {
       // 4. Refresh token
-      const refreshRes = http.post(
-        `${BASE_URL}/v1/sessions/refresh`,
-        null,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Cookie': `refreshToken=${refreshToken}`,
-          },
-        }
-      );
+      const refreshRes = http.post(`${BASE_URL}/v1/sessions/refresh`, null, {
+        headers: {
+          'Content-Type': 'application/json',
+          Cookie: `refreshToken=${refreshToken}`,
+        },
+      });
 
       const refreshSuccess = check(refreshRes, {
         'refresh status is 200': (r) => r.status === 200,

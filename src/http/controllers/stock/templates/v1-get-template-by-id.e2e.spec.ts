@@ -22,7 +22,9 @@ describe('Get Template By ID (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Template ${timestamp}`,
-        productAttributes: { color: 'string' },
+        productAttributes: {
+          color: { type: 'string' },
+        },
       });
 
     const templateId = createResponse.body.template.id;

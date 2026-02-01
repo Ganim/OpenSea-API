@@ -1,4 +1,7 @@
-import { getVolumeStatusLabel } from '@/entities/stock/value-objects/volume-status';
+import {
+  getVolumeStatusLabel,
+  type VolumeStatus,
+} from '@/entities/stock/value-objects/volume-status';
 import type { VolumeDTO, VolumeItemDTO } from '@/mappers/stock/volume.mapper';
 
 export interface VolumePresenter {
@@ -45,7 +48,7 @@ export class VolumeHttpPresenter {
       code: volume.code,
       name: volume.name,
       status: volume.status,
-      statusLabel: getVolumeStatusLabel(volume.status as any),
+      statusLabel: getVolumeStatusLabel(volume.status as VolumeStatus),
       notes: volume.notes,
       destinationRef: volume.destinationRef,
       salesOrderId: volume.salesOrderId,

@@ -20,6 +20,9 @@ export async function deleteMyNotificationPreferenceController(
     schema: {
       tags: ['Me'],
       summary: 'Delete my notification preference',
+      description:
+        'Remove uma preferencia de notificacao do usuario autenticado. Apenas preferencias proprias podem ser removidas.',
+      security: [{ bearerAuth: [] }],
       params: z.object({ id: z.string().uuid() }),
       response: {
         204: z.null(),

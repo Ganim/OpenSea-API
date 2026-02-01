@@ -14,6 +14,9 @@ export async function getVariantPromotionByIdController(app: FastifyInstance) {
     schema: {
       tags: ['Sales - Variant Promotions'],
       summary: 'Get variant promotion by ID',
+      description:
+        'Retorna os detalhes de uma promocao de variante pelo seu identificador unico.',
+      security: [{ bearerAuth: [] }],
       params: z.object({ id: z.string().uuid() }),
       response: {
         200: z.object({ promotion: variantPromotionResponseSchema }),

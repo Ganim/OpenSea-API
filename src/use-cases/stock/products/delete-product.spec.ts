@@ -45,7 +45,6 @@ describe('DeleteProductUseCase', () => {
 
     const created = await createProduct.execute({
       name: 'Laptop Dell',
-      code: 'LAPTOP-001',
       templateId: template.template.id.toString(),
     });
 

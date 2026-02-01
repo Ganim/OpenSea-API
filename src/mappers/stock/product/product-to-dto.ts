@@ -93,7 +93,6 @@ export interface VariantDTO {
 export interface ProductDTO {
   id: string;
   name: string;
-  code?: string;
   fullCode?: string;
   sequentialCode?: number;
   description?: string;
@@ -230,7 +229,6 @@ export function productToDTO(product: Product): ProductDTO {
   return {
     id: product.id.toString(),
     name: product.name,
-    code: product.code,
     fullCode: product.fullCode,
     sequentialCode: product.sequentialCode,
     description: product.description,

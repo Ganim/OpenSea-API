@@ -63,7 +63,7 @@ export async function deleteProductController(app: FastifyInstance) {
           oldData: {
             id: product.id.toString(),
             name: product.name,
-            code: product.code,
+            fullCode: product.fullCode,
           },
         });
 

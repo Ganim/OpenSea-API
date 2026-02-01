@@ -49,7 +49,7 @@ describe('CreateVolumeUseCase', () => {
       sut.execute({
         name: 'Volume 3',
         createdBy: 'user-1',
-        status: 'INVALID' as any,
+        status: 'INVALID' as unknown as VolumeStatus,
       }),
     ).rejects.toThrow(BadRequestError);
   });

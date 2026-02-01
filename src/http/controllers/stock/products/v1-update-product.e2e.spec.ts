@@ -53,6 +53,9 @@ describe('Update Product (E2E)', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('product');
     expect(response.body.product).toHaveProperty('id', product.id);
-    expect(response.body.product).toHaveProperty('name', `Updated Product Name ${timestamp}`);
+    expect(response.body.product).toHaveProperty(
+      'name',
+      `Updated Product Name ${timestamp}`,
+    );
   });
 });

@@ -17,6 +17,9 @@ export async function changeMyProfileController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Me'],
       summary: 'Change self profile by authenticated user',
+      description:
+        'Atualiza os dados do perfil do usuario autenticado (nome, sobrenome, data de nascimento, localizacao, bio e avatar).',
+      security: [{ bearerAuth: [] }],
       body: z.object({
         profile: z.object({
           name: z.string().optional(),

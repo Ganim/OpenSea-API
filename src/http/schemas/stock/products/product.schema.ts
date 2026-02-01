@@ -26,7 +26,6 @@ export const unitOfMeasureSchema = z.enum(['METERS', 'KILOGRAMS', 'UNITS']);
  */
 export const createProductSchema = z.object({
   name: nameSchema,
-  code: z.string().min(1).max(64).optional(), // Código manual opcional (importação) - IMUTÁVEL após criação
   description: z.string().max(1000).optional(),
   status: productStatusSchema.optional().default('ACTIVE'),
   outOfLine: z.boolean().optional().default(false),
@@ -59,7 +58,6 @@ export const updateProductSchema = z.object({
 export const productResponseSchema = z.object({
   id: idSchema,
   name: z.string(),
-  code: z.string().optional(),
   fullCode: z.string().optional(),
   sequentialCode: z.number().optional(),
   description: z.string().optional(),

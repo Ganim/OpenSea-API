@@ -11,7 +11,7 @@ import type {
 
 export interface MockRelatedData {
   variants: Map<string, { sku: string; name: string; productId: string }>;
-  products: Map<string, { code: string | null; name: string }>;
+  products: Map<string, { fullCode: string | null; name: string }>;
   bins: Map<string, { address: string; zoneId: string }>;
   zones: Map<string, { warehouseId: string; code: string; name: string }>;
 }

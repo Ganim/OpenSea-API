@@ -121,7 +121,7 @@ describe('DuplicateLabelTemplateUseCase', () => {
       sut.execute({
         id: sourceTemplate.id.toString(),
         name: 'a'.repeat(256),
-        organizationId: new UniqueEntityID().toString(),
+        organizationId: sourceTemplate.organizationId.toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Name must be at most 255 characters long');

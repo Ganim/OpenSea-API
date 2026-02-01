@@ -1,7 +1,11 @@
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Volume } from '@/entities/stock/volume';
 import { VolumeItem } from '@/entities/stock/volume-item';
-import type { Prisma } from '@prisma/generated/client.js';
+import type {
+  Prisma,
+  Volume as PrismaVolume,
+  VolumeItem as PrismaVolumeItem,
+} from '@prisma/generated/client.js';
 
 export interface VolumeDTO {
   id: string;
@@ -55,7 +59,7 @@ export class VolumeMapper {
     };
   }
 
-  static toDomain(raw: any): Volume {
+  static toDomain(raw: PrismaVolume): Volume {
     return Volume.create(
       {
         code: raw.code,
@@ -115,7 +119,7 @@ export class VolumeItemMapper {
     };
   }
 
-  static toDomain(raw: any): VolumeItem {
+  static toDomain(raw: PrismaVolumeItem): VolumeItem {
     return VolumeItem.create(
       {
         volumeId: raw.volumeId,

@@ -26,6 +26,8 @@ export async function previewZoneStructureController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Zones'],
       summary: 'Preview zone structure without creating bins',
+      description:
+        'Simula a configuracao de estrutura de uma zona sem efetivamente criar os bins. Util para visualizar o resultado antes de aplicar.',
       params: z.object({
         id: z.string().uuid(),
       }),

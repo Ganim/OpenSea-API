@@ -23,6 +23,8 @@ export async function resetZoneLayoutController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Zones'],
       summary: 'Reset zone layout to automatic',
+      description:
+        'Reseta o layout personalizado de uma zona para o modo automatico, removendo customizacoes de posicionamento.',
       params: z.object({
         id: z.string().uuid(),
       }),

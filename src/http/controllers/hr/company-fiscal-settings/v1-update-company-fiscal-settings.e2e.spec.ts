@@ -37,7 +37,7 @@ describe('Update Company Fiscal Settings (E2E)', () => {
       .patch(`/v1/hr/companies/${companyId}/fiscal-settings`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        nfeEnvironment: 'HOMOLOGACAO',
+        nfeEnvironment: 'HOMOLOGATION',
       });
 
     expect(response.statusCode).toBe(200);

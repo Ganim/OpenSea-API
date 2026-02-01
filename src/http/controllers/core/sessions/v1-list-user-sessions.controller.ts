@@ -22,6 +22,9 @@ export async function listUserSessionsController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Sessions'],
       summary: 'List sessions by user',
+      description:
+        'Lista todas as sessoes de um usuario especifico. Requer permissao de listagem de sessoes.',
+      security: [{ bearerAuth: [] }],
       params: z.object({ userId: z.uuid() }),
       response: {
         200: z.object({ sessions: z.array(sessionResponseSchema) }),

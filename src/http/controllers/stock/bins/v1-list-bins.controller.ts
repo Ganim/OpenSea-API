@@ -24,6 +24,8 @@ export async function listBinsController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Bins'],
       summary: 'List bins with filters',
+      description:
+        'Lista os bins do estoque com filtros por zona, status, capacidade e outros criterios.',
       querystring: listBinsQuerySchema,
       response: {
         200: binListResponseSchema,

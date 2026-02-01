@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
+import { Slug } from '@/entities/stock/value-objects/slug';
 import { InMemoryVariantPromotionsRepository } from '@/repositories/sales/in-memory/in-memory-variant-promotions-repository';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -22,6 +23,9 @@ describe('CreateVariantPromotionUseCase', () => {
     // Create a test variant using repository
     variant = await variantsRepository.create({
       productId: new UniqueEntityID(),
+      slug: Slug.createFromText('test-variant'),
+      fullCode: '001.001.0001.001',
+      sequentialCode: 1,
       sku: 'TEST-001-M',
       name: 'Test Variant',
       price: 100,

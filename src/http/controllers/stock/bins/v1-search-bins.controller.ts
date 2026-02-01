@@ -24,6 +24,8 @@ export async function searchBinsController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Bins'],
       summary: 'Search bins by address',
+      description:
+        'Pesquisa bins pelo endereco com funcionalidade de busca textual parcial (autocomplete).',
       querystring: searchBinsQuerySchema,
       response: {
         200: binListResponseSchema,

@@ -5,9 +5,10 @@ import type { Variant as PrismaVariant } from '@prisma/generated/client.js';
 
 export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {
   // Garante que slug não é vazio
-  const slug = variantDb.slug && variantDb.slug.trim()
-    ? Slug.create(variantDb.slug)
-    : Slug.createFromText(variantDb.name || 'variant');
+  const slug =
+    variantDb.slug && variantDb.slug.trim()
+      ? Slug.create(variantDb.slug)
+      : Slug.createFromText(variantDb.name || 'variant');
 
   return {
     id: new UniqueEntityID(variantDb.id),

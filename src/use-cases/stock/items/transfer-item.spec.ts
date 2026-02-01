@@ -124,7 +124,7 @@ describe('TransferItemUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
@@ -184,7 +184,7 @@ describe('TransferItemUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
@@ -248,7 +248,7 @@ describe('TransferItemUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
@@ -295,7 +295,7 @@ describe('TransferItemUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: { brand: 'Samsung' },
       templateId: template.id,
@@ -353,7 +353,7 @@ describe('TransferItemUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: { brand: 'Samsung' },
       templateId: template.id,

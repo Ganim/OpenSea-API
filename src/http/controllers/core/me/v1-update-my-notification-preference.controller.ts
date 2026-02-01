@@ -24,6 +24,9 @@ export async function updateMyNotificationPreferenceController(
     schema: {
       tags: ['Me'],
       summary: 'Update my notification preference',
+      description:
+        'Atualiza uma preferencia de notificacao do usuario autenticado. Apenas preferencias proprias podem ser atualizadas.',
+      security: [{ bearerAuth: [] }],
       params: z.object({ id: z.string().uuid() }),
       body: updateNotificationPreferenceSchema,
       response: {

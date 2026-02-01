@@ -6,9 +6,12 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import { createOrganizationE2E } from '@/utils/tests/factories/core/create-organization.e2e';
 
 describe('Duplicate Label Template (E2E)', () => {
+  let organizationId: string;
+
   beforeAll(async () => {
     await app.ready();
-    await createOrganizationE2E();
+    const { organizationId: orgId } = await createOrganizationE2E();
+    organizationId = orgId;
   });
 
   afterAll(async () => {
@@ -16,7 +19,7 @@ describe('Duplicate Label Template (E2E)', () => {
   });
 
   it('should duplicate label template with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { organizationId });
     const timestamp = Date.now();
 
     const createResponse = await request(app.server)

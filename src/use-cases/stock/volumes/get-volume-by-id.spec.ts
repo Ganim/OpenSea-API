@@ -1,6 +1,7 @@
 import { VolumeNotFoundError } from '@/@errors/volumes-errors';
 import { Volume } from '@/entities/stock/volume';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
+import { VolumeItem } from '@/entities/stock/volume-item';
 import { InMemoryVolumesRepository } from '@/repositories/stock/in-memory/in-memory-volumes-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { GetVolumeByIdUseCase } from './get-volume-by-id';
@@ -53,21 +54,23 @@ describe('GetVolumeByIdUseCase', () => {
     await volumesRepository.create(volume);
 
     // Add some items
-    await volumesRepository.addItem({
-      id: 'item-1',
-      volumeId: volume.id.toString(),
-      itemId: 'product-item-1',
-      addedAt: new Date(),
-      addedBy: 'user-1',
-    } as any);
+    await volumesRepository.addItem(
+      VolumeItem.create({
+        volumeId: volume.id.toString(),
+        itemId: 'product-item-1',
+        addedAt: new Date(),
+        addedBy: 'user-1',
+      }),
+    );
 
-    await volumesRepository.addItem({
-      id: 'item-2',
-      volumeId: volume.id.toString(),
-      itemId: 'product-item-2',
-      addedAt: new Date(),
-      addedBy: 'user-1',
-    } as any);
+    await volumesRepository.addItem(
+      VolumeItem.create({
+        volumeId: volume.id.toString(),
+        itemId: 'product-item-2',
+        addedAt: new Date(),
+        addedBy: 'user-1',
+      }),
+    );
 
     const result = await sut.execute({
       volumeId: volume.id.toString(),

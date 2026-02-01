@@ -5,7 +5,7 @@ import { app } from '@/app';
 import { ZoneStructure } from '@/entities/stock/value-objects/zone-structure';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/generated/client.js';
 
 describe('Configure Zone Structure (E2E)', () => {
   beforeAll(async () => {
@@ -32,7 +32,8 @@ describe('Configure Zone Structure (E2E)', () => {
         warehouseId: warehouse.id,
         code: `Z${timestamp.slice(-3)}`,
         name: `Zone ${timestamp}`,
-        structure: ZoneStructure.empty().toJSON() as unknown as Prisma.InputJsonValue,
+        structure:
+          ZoneStructure.empty().toJSON() as unknown as Prisma.InputJsonValue,
       },
     });
 
@@ -75,7 +76,9 @@ describe('Configure Zone Structure (E2E)', () => {
 
     expect(binCount).toBe(56);
 
-    const persistedZone = await prisma.zone.findUnique({ where: { id: zone.id } });
+    const persistedZone = await prisma.zone.findUnique({
+      where: { id: zone.id },
+    });
     expect(persistedZone?.structure).toMatchObject({
       aisleConfigs: [
         { aisleNumber: 1, shelvesCount: 10, binsPerShelf: 5 },

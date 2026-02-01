@@ -39,9 +39,9 @@ export const scenarios = {
     executor: 'ramping-vus',
     startVUs: 0,
     stages: [
-      { duration: '2m', target: 50 },   // Ramp up
-      { duration: '5m', target: 50 },   // Sustain
-      { duration: '2m', target: 0 },    // Ramp down
+      { duration: '2m', target: 50 }, // Ramp up
+      { duration: '5m', target: 50 }, // Sustain
+      { duration: '2m', target: 0 }, // Ramp down
     ],
   },
 
@@ -50,11 +50,11 @@ export const scenarios = {
     executor: 'ramping-vus',
     startVUs: 0,
     stages: [
-      { duration: '2m', target: 100 },  // Ramp up
-      { duration: '5m', target: 100 },  // Sustain
-      { duration: '2m', target: 200 },  // Push to stress
-      { duration: '5m', target: 200 },  // Sustain stress
-      { duration: '2m', target: 0 },    // Ramp down
+      { duration: '2m', target: 100 }, // Ramp up
+      { duration: '5m', target: 100 }, // Sustain
+      { duration: '2m', target: 200 }, // Push to stress
+      { duration: '5m', target: 200 }, // Sustain stress
+      { duration: '2m', target: 0 }, // Ramp down
     ],
   },
 
@@ -63,11 +63,11 @@ export const scenarios = {
     executor: 'ramping-vus',
     startVUs: 0,
     stages: [
-      { duration: '1m', target: 10 },   // Warm up
+      { duration: '1m', target: 10 }, // Warm up
       { duration: '10s', target: 500 }, // Spike!
-      { duration: '2m', target: 500 },  // Sustain spike
-      { duration: '10s', target: 10 },  // Scale down
-      { duration: '1m', target: 0 },    // Recovery
+      { duration: '2m', target: 500 }, // Sustain spike
+      { duration: '10s', target: 10 }, // Scale down
+      { duration: '1m', target: 0 }, // Recovery
     ],
   },
 
@@ -85,7 +85,7 @@ export const scenarios = {
 export function getAuthHeaders(token) {
   return {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
   };
 }
 

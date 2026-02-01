@@ -32,9 +32,15 @@ export class InMemoryLabelTemplatesRepository
     return labelTemplate;
   }
 
-  async findById(id: UniqueEntityID): Promise<LabelTemplate | null> {
+  async findById(
+    organizationId: UniqueEntityID,
+    id: UniqueEntityID,
+  ): Promise<LabelTemplate | null> {
     const labelTemplate = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        (item.organizationId.equals(organizationId) || item.isSystem),
     );
     return labelTemplate ?? null;
   }
@@ -105,7 +111,7 @@ export class InMemoryLabelTemplatesRepository
   }
 
   async update(data: UpdateLabelTemplateSchema): Promise<LabelTemplate | null> {
-    const labelTemplate = await this.findById(data.id);
+    const labelTemplate = await this.findById(data.organizationId, data.id);
     if (!labelTemplate) return null;
 
     if (labelTemplate.isSystem) {
@@ -138,8 +144,11 @@ export class InMemoryLabelTemplatesRepository
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const labelTemplate = await this.findById(id);
+  async delete(
+    organizationId: UniqueEntityID,
+    id: UniqueEntityID,
+  ): Promise<void> {
+    const labelTemplate = await this.findById(organizationId, id);
     if (labelTemplate && !labelTemplate.isSystem) {
       labelTemplate.delete();
     }

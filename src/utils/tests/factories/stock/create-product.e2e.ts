@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/generated/client.js';
 import { prisma } from '@/lib/prisma';
 import { randomUUID } from 'node:crypto';
 
@@ -5,6 +6,12 @@ interface CreateProductProps {
   name?: string;
   templateId?: string;
   outOfLine?: boolean;
+  status?: 'ACTIVE' | 'INACTIVE';
+  attributes?: Record<string, unknown>;
+  description?: string;
+  organizationId?: string;
+  manufacturerId?: string;
+  supplierId?: string;
 }
 
 // Funções auxiliares para gerar códigos de barras (simplificadas para testes)
@@ -80,9 +87,14 @@ export async function createProduct(override: CreateProductProps = {}) {
       barcode,
       eanCode,
       upcCode,
-      status: 'ACTIVE',
+      status: override.status ?? 'ACTIVE',
       outOfLine: override.outOfLine ?? false,
+      attributes: (override.attributes ?? {}) as Prisma.InputJsonValue,
+      description: override.description,
       templateId,
+      organizationId: override.organizationId,
+      manufacturerId: override.manufacturerId,
+      supplierId: override.supplierId,
       createdAt: new Date(),
       updatedAt: new Date(),
     },

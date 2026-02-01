@@ -122,7 +122,13 @@ export const ModelName = {
   CompanyCnae: 'CompanyCnae',
   CompanyFiscalSettings: 'CompanyFiscalSettings',
   CompanyStakeholder: 'CompanyStakeholder',
-  LabelTemplate: 'LabelTemplate'
+  LabelTemplate: 'LabelTemplate',
+  Tenant: 'Tenant',
+  Plan: 'Plan',
+  PlanModule: 'PlanModule',
+  TenantPlan: 'TenantPlan',
+  TenantUser: 'TenantUser',
+  TenantFeatureFlag: 'TenantFeatureFlag'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -155,6 +161,7 @@ export const UserScalarFieldEnum = {
   forcePasswordResetReason: 'forcePasswordResetReason',
   forcePasswordResetRequestedBy: 'forcePasswordResetRequestedBy',
   forcePasswordResetRequestedAt: 'forcePasswordResetRequestedAt',
+  isSuperAdmin: 'isSuperAdmin',
   deletedAt: 'deletedAt',
   lastLoginAt: 'lastLoginAt',
   createdAt: 'createdAt',
@@ -1550,6 +1557,88 @@ export const LabelTemplateScalarFieldEnum = {
 } as const
 
 export type LabelTemplateScalarFieldEnum = (typeof LabelTemplateScalarFieldEnum)[keyof typeof LabelTemplateScalarFieldEnum]
+
+
+export const TenantScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  logoUrl: 'logoUrl',
+  status: 'status',
+  settings: 'settings',
+  metadata: 'metadata',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
+
+
+export const PlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  tier: 'tier',
+  description: 'description',
+  price: 'price',
+  isActive: 'isActive',
+  maxUsers: 'maxUsers',
+  maxWarehouses: 'maxWarehouses',
+  maxProducts: 'maxProducts',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlanScalarFieldEnum = (typeof PlanScalarFieldEnum)[keyof typeof PlanScalarFieldEnum]
+
+
+export const PlanModuleScalarFieldEnum = {
+  id: 'id',
+  planId: 'planId',
+  module: 'module'
+} as const
+
+export type PlanModuleScalarFieldEnum = (typeof PlanModuleScalarFieldEnum)[keyof typeof PlanModuleScalarFieldEnum]
+
+
+export const TenantPlanScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  planId: 'planId',
+  startsAt: 'startsAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantPlanScalarFieldEnum = (typeof TenantPlanScalarFieldEnum)[keyof typeof TenantPlanScalarFieldEnum]
+
+
+export const TenantUserScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  role: 'role',
+  joinedAt: 'joinedAt',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantUserScalarFieldEnum = (typeof TenantUserScalarFieldEnum)[keyof typeof TenantUserScalarFieldEnum]
+
+
+export const TenantFeatureFlagScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  flag: 'flag',
+  enabled: 'enabled',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantFeatureFlagScalarFieldEnum = (typeof TenantFeatureFlagScalarFieldEnum)[keyof typeof TenantFeatureFlagScalarFieldEnum]
 
 
 export const SortOrder = {

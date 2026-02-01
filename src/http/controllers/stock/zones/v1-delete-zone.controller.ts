@@ -22,6 +22,8 @@ export async function deleteZoneController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Zones'],
       summary: 'Delete a zone',
+      description:
+        'Remove uma zona e opcionalmente seus bins associados. Bins com itens alocados impedem a exclusao, a menos que forceDeleteBins esteja habilitado.',
       params: z.object({
         id: z.string().uuid(),
       }),

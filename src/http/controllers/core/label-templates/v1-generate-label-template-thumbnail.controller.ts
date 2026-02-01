@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { getUserOrganizationId } from '@/http/helpers/organization.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { thumbnailResponseSchema } from '@/http/schemas/core/label-templates/label-template.schema';
@@ -42,6 +43,13 @@ export async function generateLabelTemplateThumbnailController(
     handler: async (request, reply) => {
       const userId = request.user.sub;
       const { id } = request.params;
+      const organizationId = await getUserOrganizationId(userId);
+
+      if (!organizationId) {
+        return reply
+          .status(400)
+          .send({ message: 'User must belong to an organization' });
+      }
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -51,11 +59,17 @@ export async function generateLabelTemplateThumbnailController(
           : user.username || user.email;
 
         const getLabelTemplateByIdUseCase = makeGetLabelTemplateByIdUseCase();
-        const { template } = await getLabelTemplateByIdUseCase.execute({ id });
+        const { template } = await getLabelTemplateByIdUseCase.execute({
+          id,
+          organizationId,
+        });
 
         const generateThumbnailUseCase =
           makeGenerateLabelTemplateThumbnailUseCase();
-        const { thumbnailUrl } = await generateThumbnailUseCase.execute({ id });
+        const { thumbnailUrl } = await generateThumbnailUseCase.execute({
+          id,
+          organizationId,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.CORE.LABEL_TEMPLATE_THUMBNAIL_GENERATE,

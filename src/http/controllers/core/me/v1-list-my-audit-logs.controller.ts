@@ -12,6 +12,8 @@ export async function listMyAuditLogsController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'List my audit logs',
+      description:
+        'Lista os registros de auditoria do usuario autenticado, com filtros por acao, entidade, modulo e periodo.',
       querystring: z.object({
         action: z.string().optional(),
         entity: z.string().optional(),

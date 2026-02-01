@@ -27,6 +27,8 @@ export async function configureZoneStructureController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Zones'],
       summary: 'Configure zone structure and generate bins',
+      description:
+        'Configura a estrutura fisica de uma zona (corredores, prateleiras, posicoes) e gera automaticamente os bins correspondentes.',
       params: z.object({
         id: z.string().uuid(),
       }),

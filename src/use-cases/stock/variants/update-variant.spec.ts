@@ -57,7 +57,7 @@ describe('UpdateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -88,7 +88,7 @@ describe('UpdateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -127,7 +127,7 @@ describe('UpdateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -156,7 +156,7 @@ describe('UpdateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -192,7 +192,7 @@ describe('UpdateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -221,7 +221,7 @@ describe('UpdateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -250,7 +250,7 @@ describe('UpdateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Test Product',
-      code: 'PROD-001',
+
       status: 'ACTIVE',
       attributes: {},
       templateId: template.id.toString(),
@@ -281,7 +281,7 @@ describe('UpdateVariantUseCase', () => {
 
     const { product } = await createProduct.execute({
       name: 'Smartphone',
-      code: 'PHONE-001',
+
       status: 'ACTIVE',
       attributes: { brand: 'Samsung' },
       templateId: template.id.toString(),

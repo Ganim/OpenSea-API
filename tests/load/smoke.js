@@ -70,7 +70,7 @@ export default function () {
     {
       headers: { 'Content-Type': 'application/json' },
       tags: { expected_error: 'true' }, // Tag para identificar erros esperados
-    }
+    },
   );
   check(loginRes, {
     'login endpoint responds': (r) => r.status === 401 || r.status === 400,
@@ -89,14 +89,16 @@ export default function () {
 
 export function handleSummary(data) {
   const passed = Object.values(data.metrics)
-    .filter(m => m.thresholds)
-    .every(m => Object.values(m.thresholds).every(t => t.ok));
+    .filter((m) => m.thresholds)
+    .every((m) => Object.values(m.thresholds).every((t) => t.ok));
 
   // Calcular falhas reais (excluindo erros esperados como login 400/401)
   const totalRequests = data.metrics.http_reqs.values.count;
   const expectedErrors = totalRequests / 5; // 1 login request por cada 5 requests
-  const realFailures = (data.metrics.http_req_failed.values.rate * totalRequests) - expectedErrors;
-  const realFailureRate = Math.max(0, realFailures / (totalRequests - expectedErrors)) * 100;
+  const realFailures =
+    data.metrics.http_req_failed.values.rate * totalRequests - expectedErrors;
+  const realFailureRate =
+    Math.max(0, realFailures / (totalRequests - expectedErrors)) * 100;
 
   console.log(`\n${'='.repeat(60)}`);
   console.log('                    SMOKE TEST RESULTS');
@@ -105,7 +107,9 @@ export function handleSummary(data) {
   console.log(`Total Requests: ${totalRequests}`);
   console.log(`Expected Errors (login 400): ${Math.round(expectedErrors)}`);
   console.log(`Real Failure Rate: ${realFailureRate.toFixed(2)}%`);
-  console.log(`Avg Duration: ${data.metrics.http_req_duration.values.avg.toFixed(2)}ms`);
+  console.log(
+    `Avg Duration: ${data.metrics.http_req_duration.values.avg.toFixed(2)}ms`,
+  );
   console.log('='.repeat(60) + '\n');
 
   return {

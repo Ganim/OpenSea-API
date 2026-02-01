@@ -17,7 +17,10 @@ function extractSchema(url: string): string | undefined {
 }
 
 const schema = extractSchema(databaseUrl);
-const adapter = new PrismaPg({ connectionString: databaseUrl }, schema ? { schema } : undefined);
+const adapter = new PrismaPg(
+  { connectionString: databaseUrl },
+  schema ? { schema } : undefined,
+);
 
 export const prisma = new PrismaClient({
   adapter,
@@ -61,4 +64,3 @@ export async function checkDatabaseHealth(): Promise<{
 
 // Re-export tipos do Prisma para facilitar imports em outros arquivos
 export { Prisma } from '../../prisma/generated/prisma/client.js';
-

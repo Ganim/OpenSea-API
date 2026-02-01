@@ -15,6 +15,9 @@ export async function getMyEmployeeController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'Get my employee data',
+      description:
+        'Retorna os dados do registro de funcionario vinculado ao usuario autenticado.',
+      security: [{ bearerAuth: [] }],
       response: {
         200: z.object({ employee: employeeResponseSchema }),
         404: z.object({ message: z.string() }),

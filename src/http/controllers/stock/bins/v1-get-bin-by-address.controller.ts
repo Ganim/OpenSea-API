@@ -23,6 +23,8 @@ export async function getBinByAddressController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Bins'],
       summary: 'Get a bin by address (e.g., FAB-EST-102-B)',
+      description:
+        'Busca um bin pelo seu endereco formatado (ex: FAB-EST-102-B). Retorna os dados do bin com contagem de itens.',
       params: z.object({
         address: z.string().min(1),
       }),

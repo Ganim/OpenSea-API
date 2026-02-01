@@ -36,6 +36,13 @@ export default defineConfig({
           // com seu próprio schema PostgreSQL (criado pelo setupFile)
           testTimeout: 30000,
           hookTimeout: 30000,
+          pool: 'forks',
+          poolOptions: {
+            forks: {
+              singleFork: true,
+            },
+          },
+          fileParallelism: false,
         },
       },
     ],

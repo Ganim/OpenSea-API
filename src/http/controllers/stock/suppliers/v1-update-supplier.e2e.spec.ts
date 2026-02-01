@@ -39,6 +39,9 @@ describe('Update Supplier (E2E)', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('supplier');
     expect(response.body.supplier).toHaveProperty('id', supplier.id);
-    expect(response.body.supplier).toHaveProperty('name', `Updated Supplier ${timestamp}`);
+    expect(response.body.supplier).toHaveProperty(
+      'name',
+      `Updated Supplier ${timestamp}`,
+    );
   });
 });

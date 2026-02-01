@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { Slug } from '@/entities/stock/value-objects/slug';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ListVariantsByProductIdUseCase } from './list-variants-by-product-id';
@@ -17,6 +18,9 @@ describe('ListVariantsByProductIdUseCase', () => {
     const productId = new UniqueEntityID();
     await variantsRepository.create({
       productId,
+      slug: Slug.createFromText('test-variant'),
+      fullCode: '001.001.0001.001',
+      sequentialCode: 1,
       sku: 'SKU001',
       name: 'Test Variant',
       price: 100,

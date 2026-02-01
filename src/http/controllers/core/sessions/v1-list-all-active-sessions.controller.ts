@@ -22,6 +22,9 @@ export async function listAllActiveSessionsController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Sessions'],
       summary: 'List all active sessions',
+      description:
+        'Lista todas as sessoes ativas do sistema. Requer permissao de listagem de sessoes.',
+      security: [{ bearerAuth: [] }],
       response: {
         200: z.object({ sessions: z.array(sessionResponseSchema) }),
         404: z.object({ message: z.string() }),

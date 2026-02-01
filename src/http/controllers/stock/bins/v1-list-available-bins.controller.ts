@@ -23,6 +23,8 @@ export async function listAvailableBinsController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Bins'],
       summary: 'List available bins (not full, not blocked)',
+      description:
+        'Lista os bins disponiveis (nao lotados e nao bloqueados) de uma zona especifica para alocacao de itens.',
       querystring: z.object({
         zoneId: z.string().uuid(),
       }),

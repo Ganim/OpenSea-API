@@ -2,6 +2,7 @@ import { Session } from '@/entities/core/session';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   type CreateSessionSchema,
+  type TrustSessionSchema,
   type UpdateSessionSchema,
   SessionsRepository,
 } from '../sessions-repository';
@@ -38,6 +39,19 @@ export class InMemorySessionsRepository implements SessionsRepository {
     if (session.ip.value !== data.ip.value) {
       session.ip = data.ip;
     }
+
+    return session;
+  }
+
+  // SET TRUST
+  //  - setTrust(data: TrustSessionSchema): Promise<Session | null>;
+
+  async setTrust(data: TrustSessionSchema): Promise<Session | null> {
+    const session = this.items.find((item) => item.id.equals(data.sessionId));
+
+    if (!session) return null;
+
+    session.isTrusted = data.trusted;
 
     return session;
   }

@@ -78,8 +78,16 @@ const OS_PATTERNS: Array<{
     pattern: /Windows NT/i,
     versionPattern: /Windows NT (\d+\.\d+)/i,
   },
-  { name: 'macOS', pattern: /Mac OS X/i, versionPattern: /Mac OS X (\d+[._]\d+)/i },
-  { name: 'iOS', pattern: /iPhone|iPad|iPod/i, versionPattern: /OS (\d+[._]\d+)/i },
+  {
+    name: 'macOS',
+    pattern: /Mac OS X/i,
+    versionPattern: /Mac OS X (\d+[._]\d+)/i,
+  },
+  {
+    name: 'iOS',
+    pattern: /iPhone|iPad|iPod/i,
+    versionPattern: /OS (\d+[._]\d+)/i,
+  },
   {
     name: 'Android',
     pattern: /Android/i,
@@ -217,7 +225,9 @@ export class UserAgentParser {
   /**
    * Detecta o sistema operacional
    */
-  private static detectOS(ua: string): { name: string; version?: string } | null {
+  private static detectOS(
+    ua: string,
+  ): { name: string; version?: string } | null {
     for (const os of OS_PATTERNS) {
       if (os.pattern.test(ua)) {
         let version: string | undefined;
@@ -256,7 +266,9 @@ export class UserAgentParser {
 
     // Verifica se é mobile
     if (
-      /Mobile|Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)
+      /Mobile|Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        ua,
+      )
     ) {
       const device = this.detectMobileDevice(ua);
       return { type: 'mobile', name: device };

@@ -4,6 +4,9 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createProduct } from '@/utils/tests/factories/stock/create-product.e2e';
+import { createVariant } from '@/utils/tests/factories/stock/create-variant.e2e';
+import { createItemE2E } from '@/utils/tests/factories/stock/create-item.e2e';
 
 describe('Register Item Exit (E2E)', () => {
   beforeAll(async () => {
@@ -27,24 +30,16 @@ describe('Register Item Exit (E2E)', () => {
       },
     });
 
-    const product = await prisma.product.create({
-      data: {
-        code: `PROD-EXIT-${timestamp}`,
-        name: `Product Exit ${timestamp}`,
-        status: 'ACTIVE',
-        templateId: template.id,
-        attributes: {},
-      },
+    const { product } = await createProduct({
+      name: `Product Exit ${timestamp}`,
+      templateId: template.id,
     });
 
-    const variant = await prisma.variant.create({
-      data: {
-        productId: product.id,
-        sku: `SKU-EXIT-${timestamp}`,
-        name: `Variant Exit ${timestamp}`,
-        price: 100,
-        attributes: {},
-      },
+    const { variant } = await createVariant({
+      productId: product.id,
+      sku: `SKU-EXIT-${timestamp}`,
+      name: `Variant Exit ${timestamp}`,
+      price: 100,
     });
 
     const warehouse = await prisma.warehouse.create({
@@ -73,17 +68,14 @@ describe('Register Item Exit (E2E)', () => {
       },
     });
 
-    const item = await prisma.item.create({
-      data: {
-        uniqueCode: `ITEM-EXIT-${timestamp}`,
-        variantId: variant.id,
-        binId: bin.id,
-        initialQuantity: 100,
-        currentQuantity: 100,
-        status: 'AVAILABLE',
-        entryDate: new Date(),
-        attributes: {},
-      },
+    const { item } = await createItemE2E({
+      variantId: variant.id,
+      uniqueCode: `ITEM-EXIT-${timestamp}`,
+      binId: bin.id,
+      initialQuantity: 100,
+      status: 'AVAILABLE',
+      attributes: {},
+      entryDate: new Date(),
     });
 
     const response = await request(app.server)

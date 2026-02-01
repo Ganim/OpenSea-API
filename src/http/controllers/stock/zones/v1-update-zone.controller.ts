@@ -27,6 +27,8 @@ export async function updateZoneController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Zones'],
       summary: 'Update a zone',
+      description:
+        'Atualiza os dados de uma zona existente, como codigo, nome, descricao e status ativo/inativo.',
       params: z.object({
         id: z.string().uuid(),
       }),

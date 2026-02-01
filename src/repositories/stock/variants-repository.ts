@@ -1,8 +1,10 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
+import type { Slug } from '@/entities/stock/value-objects/slug';
 
 export interface CreateVariantSchema {
   productId: UniqueEntityID;
+  slug: Slug; // Slug gerado automaticamente do nome - IMUTAVEL
   fullCode: string; // Código hierárquico gerado: TEMPLATE.FABRICANTE.PRODUTO.VARIANTE
   sequentialCode: number; // Sequencial local ao produto
   sku?: string;

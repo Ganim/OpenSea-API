@@ -27,6 +27,8 @@ export async function blockBinController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Bins'],
       summary: 'Block a bin',
+      description:
+        'Bloqueia um bin impedindo novas alocacoes de itens. Requer um motivo para o bloqueio.',
       params: z.object({
         id: z.string().uuid(),
       }),

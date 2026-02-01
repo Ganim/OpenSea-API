@@ -53,6 +53,7 @@ describe('ProcessScheduledNotificationsUseCase', () => {
       email: 'test@example.com',
       username: 'testuser',
       password_hash: 'hash',
+      isSuperAdmin: false,
       lastLoginIp: null,
       failedLoginAttempts: 0,
       blockedUntil: null,

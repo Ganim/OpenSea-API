@@ -72,6 +72,9 @@ model User {
   forcePasswordResetRequestedBy String?   @map("force_password_reset_requested_by")
   forcePasswordResetRequestedAt DateTime? @map("force_password_reset_requested_at")
 
+  // Multi-Tenant
+  isSuperAdmin Boolean @default(false) @map("is_super_admin")
+
   // Soft Delete
   deletedAt DateTime? @map("deleted_at")
 
@@ -84,6 +87,7 @@ model User {
   profile                  UserProfile?
   RefreshToken             RefreshToken[]
   sessions                 Session[]
+  tenantUsers              TenantUser[]
   ItemMovement             ItemMovement[]
   ApprovedMovements        ItemMovement[]           @relation("ApprovedMovements")
   AuditLogs                AuditLog[]
@@ -468,6 +472,7 @@ enum AuditAction {
   UPDATE
   DELETE
   RESTORE
+  DUPLICATE
 
   // Autenticação e Sessão
   LOGIN
@@ -591,6 +596,9 @@ enum AuditEntity {
   PERMISSION_GROUP_PERMISSION
   USER_PERMISSION_GROUP
   USER_DIRECT_PERMISSION
+
+  // Core
+  LABEL_TEMPLATE
 
   // Stock Management - Estoque
   PRODUCT
@@ -3049,4 +3057,177 @@ model LabelTemplate {
   @@index([deletedAt])
   @@index([createdAt])
   @@map("label_templates")
+}
+
+// ===============================================
+// MULTI-TENANT MODULE
+// ===============================================
+
+// --- Enums ---
+
+enum TenantStatusEnum {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum PlanTierEnum {
+  FREE
+  STARTER
+  PROFESSIONAL
+  ENTERPRISE
+}
+
+enum SystemModuleEnum {
+  CORE
+  STOCK
+  SALES
+  HR
+  PAYROLL
+  REPORTS
+  AUDIT
+  REQUESTS
+  NOTIFICATIONS
+}
+
+// --- Entidades ---
+
+model Tenant {
+  id String @id @default(uuid())
+
+  name    String           @db.VarChar(128)
+  slug    String           @unique @db.VarChar(128)
+  logoUrl String?          @map("logo_url") @db.VarChar(500)
+  status  TenantStatusEnum @default(ACTIVE)
+
+  // JSON fields
+  settings Json @default("{}")
+  metadata Json @default("{}")
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenantUsers       TenantUser[]
+  tenantPlans       TenantPlan[]
+  tenantFeatureFlags TenantFeatureFlag[]
+
+  @@index([status])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("tenants")
+}
+
+model Plan {
+  id String @id @default(uuid())
+
+  name        String       @unique @db.VarChar(64)
+  tier        PlanTierEnum @default(FREE)
+  description String?      @db.VarChar(500)
+  price       Float        @default(0)
+  isActive    Boolean      @default(true) @map("is_active")
+
+  // Limits
+  maxUsers      Int @default(5) @map("max_users")
+  maxWarehouses Int @default(1) @map("max_warehouses")
+  maxProducts   Int @default(100) @map("max_products")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenantPlans TenantPlan[]
+  planModules PlanModule[]
+
+  @@index([tier])
+  @@index([isActive])
+  @@map("plans")
+}
+
+model PlanModule {
+  id String @id @default(uuid())
+
+  planId String           @map("plan_id")
+  module SystemModuleEnum
+
+  // Relations
+  plan Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, module])
+  @@index([planId])
+  @@map("plan_modules")
+}
+
+model TenantPlan {
+  id String @id @default(uuid())
+
+  tenantId  String    @map("tenant_id")
+  planId    String    @map("plan_id")
+  startsAt  DateTime  @default(now()) @map("starts_at")
+  expiresAt DateTime? @map("expires_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  plan   Plan   @relation(fields: [planId], references: [id])
+
+  @@index([tenantId])
+  @@index([planId])
+  @@map("tenant_plans")
+}
+
+model TenantUser {
+  id String @id @default(uuid())
+
+  tenantId String @map("tenant_id")
+  userId   String @map("user_id")
+  role     String @default("member") @db.VarChar(32)
+
+  // Dates
+  joinedAt  DateTime  @default(now()) @map("joined_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, userId, deletedAt], name: "tenant_users_unique_active")
+  @@index([tenantId])
+  @@index([userId])
+  @@index([deletedAt])
+  @@map("tenant_users")
+}
+
+model TenantFeatureFlag {
+  id String @id @default(uuid())
+
+  tenantId String  @map("tenant_id")
+  flag     String  @db.VarChar(64)
+  enabled  Boolean @default(false)
+
+  // JSON metadata
+  metadata Json @default("{}")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, flag])
+  @@index([tenantId])
+  @@map("tenant_feature_flags")
 }

@@ -33,10 +33,14 @@ export class PrismaLabelTemplatesRepository
     return labelTemplatePrismaToDomain(labelTemplateData);
   }
 
-  async findById(id: UniqueEntityID): Promise<LabelTemplate | null> {
-    const labelTemplateData = await prisma.labelTemplate.findUnique({
+  async findById(
+    organizationId: UniqueEntityID,
+    id: UniqueEntityID,
+  ): Promise<LabelTemplate | null> {
+    const labelTemplateData = await prisma.labelTemplate.findFirst({
       where: {
         id: id.toString(),
+        OR: [{ organizationId: organizationId.toString() }, { isSystem: true }],
         deletedAt: null,
       },
     });
@@ -179,9 +183,16 @@ export class PrismaLabelTemplatesRepository
     });
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const existing = await prisma.labelTemplate.findUnique({
-      where: { id: id.toString() },
+  async delete(
+    organizationId: UniqueEntityID,
+    id: UniqueEntityID,
+  ): Promise<void> {
+    const existing = await prisma.labelTemplate.findFirst({
+      where: {
+        id: id.toString(),
+        organizationId: organizationId.toString(),
+        deletedAt: null,
+      },
     });
 
     if (!existing || existing.isSystem) {

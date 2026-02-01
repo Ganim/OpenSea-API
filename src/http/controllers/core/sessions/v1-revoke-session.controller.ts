@@ -24,6 +24,9 @@ export async function revokeSessionController(app: FastifyInstance) {
     schema: {
       tags: ['Auth - Sessions'],
       summary: 'Revoke session',
+      description:
+        'Revoga uma sessao ativa de qualquer usuario pelo ID da sessao. Requer permissao de revogacao de sessoes.',
+      security: [{ bearerAuth: [] }],
       params: z.object({ sessionId: z.uuid() }),
       response: {
         204: z.void(),

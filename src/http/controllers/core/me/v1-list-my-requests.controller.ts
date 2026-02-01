@@ -1,4 +1,6 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import type { RequestStatus } from '@/entities/requests/value-objects/request-status';
+import type { RequestType } from '@/entities/requests/value-objects/request-type';
 import { makeListRequestsUseCase } from '@/use-cases/requests/factories/make-list-requests-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -12,6 +14,9 @@ export async function listMyRequestsController(app: FastifyInstance) {
     schema: {
       tags: ['Me'],
       summary: 'List my requests (created by me or assigned to me)',
+      description:
+        'Lista as solicitacoes criadas pelo usuario autenticado, com filtros por status, tipo e prioridade. Apenas solicitacoes proprias sao exibidas.',
+      security: [{ bearerAuth: [] }],
       querystring: z.object({
         page: z.coerce.number().int().positive().optional().default(1),
         status: z.string().optional(),
@@ -51,8 +56,8 @@ export async function listMyRequestsController(app: FastifyInstance) {
       // List requests where user is the requester (self-service, no view all permission)
       const { requests, total, limit } = await useCase.execute({
         page,
-        status: status as any,
-        type: type as any,
+        status: status as RequestStatus | undefined,
+        type: type as RequestType | undefined,
         userId,
         hasViewAllPermission: false, // Force to only see own requests
       });

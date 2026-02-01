@@ -5,8 +5,12 @@ import { authRoutes } from './controllers/core/auth/routes';
 import { labelTemplatesRoutes } from './controllers/core/label-templates/routes';
 import { meRoutes } from './controllers/core/me/routes';
 import { sessionsRoutes } from './controllers/core/sessions/routes';
+import { tenantsRoutes } from './controllers/core/tenants/routes';
 import { usersRoutes } from './controllers/core/users/routes';
 import { healthRoutes } from './controllers/health/routes';
+
+// Admin routes
+import { adminRoutes } from './controllers/admin/routes';
 
 // RBAC routes
 import { associationsRoutes } from './controllers/rbac/associations/routes';
@@ -79,6 +83,10 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(usersRoutes);
   await app.register(sessionsRoutes);
   await app.register(labelTemplatesRoutes);
+  await app.register(tenantsRoutes);
+
+  // Admin routes
+  await app.register(adminRoutes);
 
   // RBAC routes
   await app.register(permissionsRoutes);

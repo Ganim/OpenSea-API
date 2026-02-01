@@ -112,7 +112,7 @@ export function createScopeMiddleware(options: ScopePermissionCheckOptions) {
 
     if (allResult.allowed) {
       // Usuário tem permissão .all, permite acesso irrestrito
-      (request as any).scopeCheck = {
+      request.scopeCheck = {
         allowed: true,
         scope: 'all',
       } as ScopeCheckResult;
@@ -162,7 +162,7 @@ export function createScopeMiddleware(options: ScopePermissionCheckOptions) {
     }
 
     // Salva resultado da verificação para uso posterior
-    (request as any).scopeCheck = {
+    request.scopeCheck = {
       allowed: true,
       scope: 'team',
       userDepartmentId,
@@ -221,7 +221,7 @@ export function createScopeIdentifierMiddleware(basePermissionCode: string) {
     });
 
     if (allResult.allowed) {
-      (request as any).scopeCheck = {
+      request.scopeCheck = {
         allowed: true,
         scope: 'all',
       } as ScopeCheckResult;
@@ -254,7 +254,7 @@ export function createScopeIdentifierMiddleware(basePermissionCode: string) {
       );
     }
 
-    (request as any).scopeCheck = {
+    request.scopeCheck = {
       allowed: true,
       scope: 'team',
       userDepartmentId: userEmployee.departmentId.toString(),

@@ -1,6 +1,7 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Request } from '@/entities/requests/request';
 import { prisma } from '@/lib/prisma';
+import type { Prisma } from '@prisma/generated/client.js';
 import { RequestMapper } from '@/mappers/requests/request-mapper';
 import type {
   FindManyRequestsParams,
@@ -42,24 +43,25 @@ export class PrismaRequestsRepository implements RequestsRepository {
     const skip = (page - 1) * limit;
 
     // Build where clause based on params
-    const where: any = {
+    const where: Prisma.RequestWhereInput = {
       status: params.status,
       type: params.type,
       category: params.category,
       deletedAt: null,
+      ...(params.userIdForOwnRequests
+        ? {
+            OR: [
+              { requesterId: params.userIdForOwnRequests },
+              { assignedToId: params.userIdForOwnRequests },
+            ],
+          }
+        : {
+            ...(params.requesterId ? { requesterId: params.requesterId } : {}),
+            ...(params.assignedToId
+              ? { assignedToId: params.assignedToId }
+              : {}),
+          }),
     };
-
-    // If userIdForOwnRequests is set, use OR condition
-    if (params.userIdForOwnRequests) {
-      where.OR = [
-        { requesterId: params.userIdForOwnRequests },
-        { assignedToId: params.userIdForOwnRequests },
-      ];
-    } else {
-      // Otherwise use specific filters if provided
-      if (params.requesterId) where.requesterId = params.requesterId;
-      if (params.assignedToId) where.assignedToId = params.assignedToId;
-    }
 
     const requests = await prisma.request.findMany({
       where,
@@ -82,24 +84,25 @@ export class PrismaRequestsRepository implements RequestsRepository {
     params: Omit<FindManyRequestsParams, 'page' | 'limit'>,
   ): Promise<number> {
     // Build where clause based on params
-    const where: any = {
+    const where: Prisma.RequestWhereInput = {
       status: params.status,
       type: params.type,
       category: params.category,
       deletedAt: null,
+      ...(params.userIdForOwnRequests
+        ? {
+            OR: [
+              { requesterId: params.userIdForOwnRequests },
+              { assignedToId: params.userIdForOwnRequests },
+            ],
+          }
+        : {
+            ...(params.requesterId ? { requesterId: params.requesterId } : {}),
+            ...(params.assignedToId
+              ? { assignedToId: params.assignedToId }
+              : {}),
+          }),
     };
-
-    // If userIdForOwnRequests is set, use OR condition
-    if (params.userIdForOwnRequests) {
-      where.OR = [
-        { requesterId: params.userIdForOwnRequests },
-        { assignedToId: params.userIdForOwnRequests },
-      ];
-    } else {
-      // Otherwise use specific filters if provided
-      if (params.requesterId) where.requesterId = params.requesterId;
-      if (params.assignedToId) where.assignedToId = params.assignedToId;
-    }
 
     return prisma.request.count({ where });
   }

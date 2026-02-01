@@ -33,7 +33,7 @@ describe('Update Sales Order Status (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Test Template STATUS-${timestamp}`,
-        productAttributes: { test: 'value' },
+        productAttributes: { test: { type: 'string', label: 'Test' } },
       });
     const templateId = templateResponse.body.template.id;
 

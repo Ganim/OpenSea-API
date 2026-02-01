@@ -15,6 +15,9 @@ export async function listMyNotificationPreferencesController(
     schema: {
       tags: ['Me'],
       summary: 'List my notification preferences',
+      description:
+        'Lista as preferencias de notificacao do usuario autenticado, com filtro opcional para exibir apenas as habilitadas.',
+      security: [{ bearerAuth: [] }],
       querystring: z.object({
         enabledOnly: z.coerce.boolean().optional(),
       }),

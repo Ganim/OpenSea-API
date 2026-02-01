@@ -93,10 +93,16 @@ describe('Get Product By ID (E2E)', () => {
     expect(response.body.product.supplier).toHaveProperty('id', supplier.id);
     expect(response.body.product).toHaveProperty('manufacturer');
     expect(response.body.product.manufacturer).not.toBeNull();
-    expect(response.body.product.manufacturer).toHaveProperty('id', manufacturer.id);
+    expect(response.body.product.manufacturer).toHaveProperty(
+      'id',
+      manufacturer.id,
+    );
     expect(response.body.product).toHaveProperty('variants');
     expect(Array.isArray(response.body.product.variants)).toBe(true);
     expect(response.body.product.variants?.length).toBe(1);
-    expect(response.body.product.variants?.[0]).toHaveProperty('id', variant.id);
+    expect(response.body.product.variants?.[0]).toHaveProperty(
+      'id',
+      variant.id,
+    );
   });
 });
