@@ -6,6 +6,7 @@ export const redisConfig: RedisOptions = {
   port: env.REDIS_PORT,
   password: env.REDIS_PASSWORD || undefined,
   db: env.REDIS_DB,
+  tls: env.REDIS_TLS ? {} : undefined, // Upstash requires TLS
   maxRetriesPerRequest: 3,
   retryStrategy(times) {
     const delay = Math.min(times * 50, 2000);

@@ -15,6 +15,10 @@ const envSchema = z.object({
   REDIS_PORT: z.coerce.number().default(6379),
   REDIS_PASSWORD: z.string().optional(),
   REDIS_DB: z.coerce.number().default(0),
+  REDIS_TLS: z
+    .string()
+    .transform((v) => v === 'true' || v === '1')
+    .default('false'),
 
   // SMTP configuration
   SMTP_HOST: z.string().default('localhost'),
