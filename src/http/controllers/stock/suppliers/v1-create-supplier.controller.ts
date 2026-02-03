@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createSupplierSchema,
   supplierResponseSchema,
@@ -20,6 +21,7 @@ export async function createSupplierController(app: FastifyInstance) {
     url: '/v1/suppliers',
     onRequest: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.SUPPLIERS.CREATE,
         resource: 'suppliers',
@@ -41,6 +43,7 @@ export async function createSupplierController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -50,7 +53,7 @@ export async function createSupplierController(app: FastifyInstance) {
           : user.username || user.email;
 
         const useCase = makeCreateSupplierUseCase();
-        const result = await useCase.execute(request.body);
+        const result = await useCase.execute({ tenantId, ...request.body });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STOCK.SUPPLIER_CREATE,

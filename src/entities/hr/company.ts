@@ -11,6 +11,7 @@ export type TaxRegime =
 
 export interface CompanyProps {
   // Obrigatórios
+  tenantId: UniqueEntityID;
   legalName: string;
   cnpj: string;
 
@@ -40,6 +41,10 @@ export interface CompanyProps {
 
 export class Company extends Entity<CompanyProps> {
   // Getters obrigatórios
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get legalName(): string {
     return this.props.legalName;
   }

@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   searchBinsQuerySchema,
   binListResponseSchema,
@@ -16,6 +17,7 @@ export async function searchBinsController(app: FastifyInstance) {
     url: '/v1/bins/search',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.BINS.LIST,
         resource: 'bins',
@@ -34,10 +36,15 @@ export async function searchBinsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { q, limit } = request.query;
 
       const searchBinsUseCase = makeSearchBinsUseCase();
-      const { bins } = await searchBinsUseCase.execute({ query: q, limit });
+      const { bins } = await searchBinsUseCase.execute({
+        tenantId,
+        query: q,
+        limit,
+      });
 
       return reply.status(200).send({
         bins: bins.map((b) => binToDTO(b)),

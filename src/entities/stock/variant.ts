@@ -5,6 +5,7 @@ import { Slug } from './value-objects/slug';
 
 export interface VariantProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   productId: UniqueEntityID;
   sku?: string; // SKU manual opcional
   slug: Slug; // Slug gerado automaticamente - IMUTÁVEL
@@ -38,6 +39,10 @@ export interface VariantProps {
 export class Variant extends Entity<VariantProps> {
   get id(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get productId(): UniqueEntityID {

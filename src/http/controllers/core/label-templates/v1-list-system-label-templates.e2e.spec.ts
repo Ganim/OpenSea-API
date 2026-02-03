@@ -19,7 +19,7 @@ describe('List System Label Templates (E2E)', () => {
   });
 
   it('should list system label templates with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app, { organizationId });
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .get('/v1/label-templates/system')

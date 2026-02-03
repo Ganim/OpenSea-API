@@ -21,6 +21,7 @@ import type {
 
 function mapToZone(zoneData: {
   id: string;
+  tenantId: string;
   warehouseId: string;
   code: string;
   name: string;
@@ -37,6 +38,7 @@ function mapToZone(zoneData: {
 
   return Zone.create(
     {
+      tenantId: new EntityID(zoneData.tenantId),
       warehouseId: new EntityID(zoneData.warehouseId),
       code: zoneData.code,
       name: zoneData.name,
@@ -58,6 +60,7 @@ export class PrismaZonesRepository implements ZonesRepository {
 
     const zoneData = await prisma.zone.create({
       data: {
+        tenantId: data.tenantId,
         warehouseId: data.warehouseId.toString(),
         code: data.code.toUpperCase(),
         name: data.name,
@@ -74,10 +77,11 @@ export class PrismaZonesRepository implements ZonesRepository {
     return mapToZone(zoneData);
   }
 
-  async findById(id: UniqueEntityID): Promise<Zone | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Zone | null> {
     const zoneData = await prisma.zone.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -92,6 +96,7 @@ export class PrismaZonesRepository implements ZonesRepository {
   async findByCode(
     warehouseId: UniqueEntityID,
     code: string,
+    tenantId: string,
   ): Promise<Zone | null> {
     const zoneData = await prisma.zone.findFirst({
       where: {
@@ -100,6 +105,7 @@ export class PrismaZonesRepository implements ZonesRepository {
           equals: code.toUpperCase(),
           mode: 'insensitive',
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -111,9 +117,10 @@ export class PrismaZonesRepository implements ZonesRepository {
     return mapToZone(zoneData);
   }
 
-  async findMany(): Promise<Zone[]> {
+  async findMany(tenantId: string): Promise<Zone[]> {
     const zones = await prisma.zone.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
       orderBy: [{ warehouseId: 'asc' }, { name: 'asc' }],
@@ -122,10 +129,14 @@ export class PrismaZonesRepository implements ZonesRepository {
     return zones.map(mapToZone);
   }
 
-  async findManyByWarehouse(warehouseId: UniqueEntityID): Promise<Zone[]> {
+  async findManyByWarehouse(
+    warehouseId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Zone[]> {
     const zones = await prisma.zone.findMany({
       where: {
         warehouseId: warehouseId.toString(),
+        tenantId,
         deletedAt: null,
       },
       orderBy: {
@@ -136,9 +147,10 @@ export class PrismaZonesRepository implements ZonesRepository {
     return zones.map(mapToZone);
   }
 
-  async findManyActive(): Promise<Zone[]> {
+  async findManyActive(tenantId: string): Promise<Zone[]> {
     const zones = await prisma.zone.findMany({
       where: {
+        tenantId,
         isActive: true,
         deletedAt: null,
       },
@@ -150,10 +162,12 @@ export class PrismaZonesRepository implements ZonesRepository {
 
   async findManyActiveByWarehouse(
     warehouseId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Zone[]> {
     const zones = await prisma.zone.findMany({
       where: {
         warehouseId: warehouseId.toString(),
+        tenantId,
         isActive: true,
         deletedAt: null,
       },

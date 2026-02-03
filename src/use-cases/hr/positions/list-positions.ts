@@ -3,6 +3,7 @@ import { Position } from '@/entities/hr/position';
 import { PositionsRepository } from '@/repositories/hr/positions-repository';
 
 export interface ListPositionsRequest {
+  tenantId: string;
   page?: number;
   perPage?: number;
   search?: string;
@@ -27,6 +28,7 @@ export class ListPositionsUseCase {
 
   async execute(request: ListPositionsRequest): Promise<ListPositionsResponse> {
     const {
+      tenantId,
       page = 1,
       perPage = 20,
       search,
@@ -37,6 +39,7 @@ export class ListPositionsUseCase {
     } = request;
 
     const result = await this.positionsRepository.findMany({
+      tenantId,
       page,
       perPage,
       search,

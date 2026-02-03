@@ -44,15 +44,18 @@ export class ChangeTenantPlanUseCase {
       throw new ResourceNotFoundError('Plan not found');
     }
 
-    const updatedTenantPlan = await this.tenantPlansRepository.updatePlan(
+    let tenantPlan = await this.tenantPlansRepository.updatePlan(
       new UniqueEntityID(tenantId),
       new UniqueEntityID(planId),
     );
 
-    if (!updatedTenantPlan) {
-      throw new ResourceNotFoundError('Tenant plan assignment not found');
+    if (!tenantPlan) {
+      tenantPlan = await this.tenantPlansRepository.create({
+        tenantId: new UniqueEntityID(tenantId),
+        planId: new UniqueEntityID(planId),
+      });
     }
 
-    return { tenantPlan: tenantPlanToDTO(updatedTenantPlan) };
+    return { tenantPlan: tenantPlanToDTO(tenantPlan) };
   }
 }

@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   generateLabelsResponseSchema,
   generateLabelsSchema,
@@ -17,6 +18,7 @@ export async function generateLabelsController(app: FastifyInstance) {
     url: '/v1/labels/generate',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.BINS.READ,
         resource: 'labels',
@@ -38,12 +40,14 @@ export async function generateLabelsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { binIds, format, size, includeWarehouse, includeZone } =
         request.body;
 
       try {
         const generateLabelsUseCase = makeGenerateLabelsUseCase();
         const result = await generateLabelsUseCase.execute({
+          tenantId,
           binIds,
           format,
           size,

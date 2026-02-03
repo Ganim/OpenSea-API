@@ -4,6 +4,7 @@ import type { FindVacationPeriodFilters } from '@/repositories/hr/vacation-perio
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
 
 export interface ListVacationPeriodsRequest {
+  tenantId: string;
   employeeId?: string;
   status?: string;
   year?: number;
@@ -19,7 +20,7 @@ export class ListVacationPeriodsUseCase {
   async execute(
     request: ListVacationPeriodsRequest,
   ): Promise<ListVacationPeriodsResponse> {
-    const { employeeId, status, year } = request;
+    const { tenantId, employeeId, status, year } = request;
 
     const filters: FindVacationPeriodFilters = {};
 
@@ -33,8 +34,10 @@ export class ListVacationPeriodsUseCase {
       filters.year = year;
     }
 
-    const vacationPeriods =
-      await this.vacationPeriodsRepository.findMany(filters);
+    const vacationPeriods = await this.vacationPeriodsRepository.findMany(
+      tenantId,
+      filters,
+    );
 
     return {
       vacationPeriods,

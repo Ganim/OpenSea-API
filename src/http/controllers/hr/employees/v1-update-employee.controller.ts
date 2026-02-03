@@ -5,6 +5,7 @@ import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createScopeMiddleware } from '@/http/middlewares/rbac/verify-scope';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { employeeResponseSchema, updateEmployeeSchema } from '@/http/schemas';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -23,9 +24,11 @@ const checkEmployeeUpdateScope = createScopeMiddleware({
   resource: 'employees',
   getResourceDepartmentId: async (request) => {
     const params = request.params as { employeeId: string };
+    const tenantId = request.user.tenantId!;
     const getEmployeeByIdUseCase = makeGetEmployeeByIdUseCase();
     try {
       const { employee } = await getEmployeeByIdUseCase.execute({
+        tenantId,
         employeeId: params.employeeId,
       });
       return employee.departmentId?.toString() ?? null;
@@ -39,7 +42,7 @@ export async function updateEmployeeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/hr/employees/:employeeId',
-    preHandler: [verifyJwt, checkEmployeeUpdateScope],
+    preHandler: [verifyJwt, verifyTenant, checkEmployeeUpdateScope],
     schema: {
       tags: ['HR - Employees'],
       summary: 'Update an employee (scope-based)',
@@ -70,6 +73,7 @@ export async function updateEmployeeController(app: FastifyInstance) {
       const { employeeId } = request.params;
       const data = request.body;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -77,7 +81,7 @@ export async function updateEmployeeController(app: FastifyInstance) {
 
         const [{ user: admin }, { employee: oldEmployee }] = await Promise.all([
           getUserByIdUseCase.execute({ userId: adminId }),
-          getEmployeeByIdUseCase.execute({ employeeId }),
+          getEmployeeByIdUseCase.execute({ tenantId, employeeId }),
         ]);
         const adminName = admin.profile?.name
           ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
@@ -85,6 +89,7 @@ export async function updateEmployeeController(app: FastifyInstance) {
 
         const updateEmployeeUseCase = makeUpdateEmployeeUseCase();
         const { employee } = await updateEmployeeUseCase.execute({
+          tenantId,
           employeeId,
           ...data,
         });

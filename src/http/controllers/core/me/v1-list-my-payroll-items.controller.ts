@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { payrollItemResponseSchema } from '@/http/schemas/hr/payroll/payroll.schema';
 import { payrollItemToDTO } from '@/mappers/hr/payroll-item/payroll-item-to-dto';
 import { makeGetMyEmployeeUseCase } from '@/use-cases/hr/employees/factories/make-get-my-employee-use-case';
@@ -13,7 +14,7 @@ export async function listMyPayrollItemsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/me/payroll-items',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['Me'],
       summary: 'List my payroll items (salary history)',
@@ -33,11 +34,15 @@ export async function listMyPayrollItemsController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         // First get my employee record
         const getMyEmployeeUseCase = makeGetMyEmployeeUseCase();
-        const { employee } = await getMyEmployeeUseCase.execute({ userId });
+        const { employee } = await getMyEmployeeUseCase.execute({
+          tenantId,
+          userId,
+        });
 
         // Then list my payroll items
         const payrollItemsRepository = new PrismaPayrollItemsRepository();

@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { createDeductionSchema, deductionResponseSchema } from '@/http/schemas';
 import { deductionToDTO } from '@/mappers/hr/deduction';
 import { makeCreateDeductionUseCase } from '@/use-cases/hr/deductions/factories/make-create-deduction-use-case';
@@ -16,6 +17,7 @@ export async function createDeductionController(app: FastifyInstance) {
     url: '/v1/hr/deductions',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.DEDUCTIONS.CREATE,
         resource: 'deductions',
@@ -41,11 +43,15 @@ export async function createDeductionController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const createDeductionUseCase = makeCreateDeductionUseCase();
-        const { deduction } = await createDeductionUseCase.execute(data);
+        const { deduction } = await createDeductionUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         return reply.status(201).send({ deduction: deductionToDTO(deduction) });
       } catch (error) {

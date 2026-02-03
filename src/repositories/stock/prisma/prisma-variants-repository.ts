@@ -14,6 +14,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
   async create(data: CreateVariantSchema): Promise<Variant> {
     const variantData = await prisma.variant.create({
       data: {
+        tenantId: data.tenantId,
         productId: data.productId.toString(),
         slug: data.slug.value,
         fullCode: data.fullCode,
@@ -46,6 +47,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
 
     return Variant.create(
       {
+        tenantId: new EntityID(variantData.tenantId),
         productId: new EntityID(variantData.productId),
         slug: data.slug,
         fullCode: variantData.fullCode ?? undefined,
@@ -90,10 +92,14 @@ export class PrismaVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<Variant | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Variant | null> {
     const variantData = await prisma.variant.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -104,6 +110,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
 
     return Variant.create(
       {
+        tenantId: new EntityID(variantData.tenantId),
         productId: new EntityID(variantData.productId),
         slug: Slug.create(variantData.slug),
         sku: variantData.sku ?? undefined,
@@ -148,10 +155,11 @@ export class PrismaVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findBySKU(sku: string): Promise<Variant | null> {
+  async findBySKU(sku: string, tenantId: string): Promise<Variant | null> {
     const variantData = await prisma.variant.findFirst({
       where: {
         sku,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -162,6 +170,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
 
     return Variant.create(
       {
+        tenantId: new EntityID(variantData.tenantId),
         productId: new EntityID(variantData.productId),
         slug: Slug.create(variantData.slug),
         sku: variantData.sku ?? undefined,
@@ -206,10 +215,14 @@ export class PrismaVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findByBarcode(barcode: string): Promise<Variant | null> {
+  async findByBarcode(
+    barcode: string,
+    tenantId: string,
+  ): Promise<Variant | null> {
     const variantData = await prisma.variant.findFirst({
       where: {
         barcode,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -220,6 +233,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
 
     return Variant.create(
       {
+        tenantId: new EntityID(variantData.tenantId),
         productId: new EntityID(variantData.productId),
         slug: Slug.create(variantData.slug),
         sku: variantData.sku ?? undefined,
@@ -264,10 +278,14 @@ export class PrismaVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findByEANCode(eanCode: string): Promise<Variant | null> {
+  async findByEANCode(
+    eanCode: string,
+    tenantId: string,
+  ): Promise<Variant | null> {
     const variantData = await prisma.variant.findFirst({
       where: {
         eanCode,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -278,6 +296,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
 
     return Variant.create(
       {
+        tenantId: new EntityID(variantData.tenantId),
         productId: new EntityID(variantData.productId),
         slug: Slug.create(variantData.slug),
         sku: variantData.sku ?? undefined,
@@ -322,10 +341,14 @@ export class PrismaVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findByUPCCode(upcCode: string): Promise<Variant | null> {
+  async findByUPCCode(
+    upcCode: string,
+    tenantId: string,
+  ): Promise<Variant | null> {
     const variantData = await prisma.variant.findFirst({
       where: {
         upcCode,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -336,6 +359,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
 
     return Variant.create(
       {
+        tenantId: new EntityID(variantData.tenantId),
         productId: new EntityID(variantData.productId),
         slug: Slug.create(variantData.slug),
         sku: variantData.sku ?? undefined,
@@ -380,9 +404,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findMany(): Promise<Variant[]> {
+  async findMany(tenantId: string): Promise<Variant[]> {
     const variants = await prisma.variant.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
     });
@@ -390,6 +415,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return variants.map((variantData) =>
       Variant.create(
         {
+          tenantId: new EntityID(variantData.tenantId),
           productId: new EntityID(variantData.productId),
           slug: Slug.create(variantData.slug),
           sku: variantData.sku ?? undefined,
@@ -435,10 +461,14 @@ export class PrismaVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findManyByProduct(productId: UniqueEntityID): Promise<Variant[]> {
+  async findManyByProduct(
+    productId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Variant[]> {
     const variants = await prisma.variant.findMany({
       where: {
         productId: productId.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -446,6 +476,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return variants.map((variantData) =>
       Variant.create(
         {
+          tenantId: new EntityID(variantData.tenantId),
           productId: new EntityID(variantData.productId),
           slug: Slug.create(variantData.slug),
           sku: variantData.sku ?? undefined,
@@ -491,7 +522,10 @@ export class PrismaVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findManyByProductWithAggregations(productId: UniqueEntityID): Promise<
+  async findManyByProductWithAggregations(
+    productId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<
     Array<{
       variant: Variant;
       productCode: string | null;
@@ -503,6 +537,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     const variantsWithAggregations = await prisma.variant.findMany({
       where: {
         productId: productId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -526,6 +561,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return variantsWithAggregations.map((variantData) => {
       const variant = Variant.create(
         {
+          tenantId: new EntityID(variantData.tenantId),
           productId: new EntityID(variantData.productId),
           slug: Slug.create(variantData.slug),
           sku: variantData.sku ?? undefined,
@@ -587,10 +623,12 @@ export class PrismaVariantsRepository implements VariantsRepository {
 
   async findLastByProductId(
     productId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Variant | null> {
     const variantData = await prisma.variant.findFirst({
       where: {
         productId: productId.toString(),
+        tenantId,
         deletedAt: null,
       },
       orderBy: {
@@ -604,6 +642,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
 
     return Variant.create(
       {
+        tenantId: new EntityID(variantData.tenantId),
         productId: new EntityID(variantData.productId),
         slug: Slug.create(variantData.slug),
         sku: variantData.sku ?? undefined,
@@ -651,6 +690,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
   async findManyByPriceRange(
     minPrice: number,
     maxPrice: number,
+    tenantId: string,
   ): Promise<Variant[]> {
     const variants = await prisma.variant.findMany({
       where: {
@@ -658,6 +698,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
           gte: minPrice,
           lte: maxPrice,
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -665,6 +706,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return variants.map((variantData) =>
       Variant.create(
         {
+          tenantId: new EntityID(variantData.tenantId),
           productId: new EntityID(variantData.productId),
           slug: Slug.create(variantData.slug),
           sku: variantData.sku ?? undefined,
@@ -710,12 +752,13 @@ export class PrismaVariantsRepository implements VariantsRepository {
     );
   }
 
-  async findManyBelowReorderPoint(): Promise<Variant[]> {
+  async findManyBelowReorderPoint(tenantId: string): Promise<Variant[]> {
     const variants = await prisma.variant.findMany({
       where: {
         reorderPoint: {
           not: null,
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -726,6 +769,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return variants.map((variantData) =>
       Variant.create(
         {
+          tenantId: new EntityID(variantData.tenantId),
           productId: new EntityID(variantData.productId),
           slug: Slug.create(variantData.slug),
           sku: variantData.sku ?? undefined,
@@ -805,6 +849,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
 
     return Variant.create(
       {
+        tenantId: new EntityID(variantData.tenantId),
         productId: new EntityID(variantData.productId),
         slug: Slug.create(variantData.slug),
         sku: variantData.sku ?? undefined,

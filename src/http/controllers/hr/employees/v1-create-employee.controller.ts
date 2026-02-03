@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { createEmployeeSchema, employeeResponseSchema } from '@/http/schemas';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
 import { makeCreateEmployeeUseCase } from '@/use-cases/hr/employees/factories/make-create-employee-use-case';
@@ -17,6 +18,7 @@ export async function createEmployeeController(app: FastifyInstance) {
     url: '/v1/hr/employees',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.EMPLOYEES.CREATE,
         resource: 'employees',
@@ -40,10 +42,14 @@ export async function createEmployeeController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const data = request.body;
+      const tenantId = request.user.tenantId!;
 
       try {
         const createEmployeeUseCase = makeCreateEmployeeUseCase();
-        const { employee } = await createEmployeeUseCase.execute(data);
+        const { employee } = await createEmployeeUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         // Auditoria de criação de funcionário
         await logAudit(request, {

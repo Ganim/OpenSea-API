@@ -18,11 +18,21 @@ describe('Delete Customer (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `Tenant Delete Customer ${timestamp}`,
+        slug: `tenant-delete-customer-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const customer = await prisma.customer.create({
       data: {
         name: `Customer Delete ${timestamp}`,
         type: 'INDIVIDUAL',
         isActive: true,
+        tenantId,
       },
     });
 

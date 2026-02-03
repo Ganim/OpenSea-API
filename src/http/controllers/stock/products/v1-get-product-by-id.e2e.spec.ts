@@ -19,8 +19,18 @@ describe('Get Product By ID (E2E)', () => {
     const timestamp = Date.now();
     const suffix = String(timestamp).slice(-4);
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const template = await prisma.template.create({
       data: {
+        tenantId,
         name: `Template Get Test ${timestamp}`,
         productAttributes: {},
         variantAttributes: {},
@@ -30,6 +40,7 @@ describe('Get Product By ID (E2E)', () => {
 
     const supplier = await prisma.supplier.create({
       data: {
+        tenantId,
         name: `Supplier Test ${timestamp}`,
         isActive: true,
       },
@@ -37,6 +48,7 @@ describe('Get Product By ID (E2E)', () => {
 
     const manufacturer = await prisma.manufacturer.create({
       data: {
+        tenantId,
         code: `M${suffix.slice(0, 2)}`,
         name: `Manufacturer Test ${timestamp}`,
         country: 'BR',
@@ -46,6 +58,7 @@ describe('Get Product By ID (E2E)', () => {
 
     const product = await prisma.product.create({
       data: {
+        tenantId,
         fullCode: `001.M01.${suffix}`,
         slug: `product-to-get-${timestamp}`,
         barcode: `BCGET${suffix}`,
@@ -62,6 +75,7 @@ describe('Get Product By ID (E2E)', () => {
 
     const variant = await prisma.variant.create({
       data: {
+        tenantId,
         productId: product.id,
         name: 'Variant Test',
         slug: `variant-test-${timestamp}`,

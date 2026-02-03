@@ -6,6 +6,7 @@ import { Document } from './value-objects/document';
 
 export interface CustomerProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   name: string;
   type: CustomerType;
   document?: Document;
@@ -26,6 +27,10 @@ export interface CustomerProps {
 export class Customer extends Entity<CustomerProps> {
   get id(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get name(): string {

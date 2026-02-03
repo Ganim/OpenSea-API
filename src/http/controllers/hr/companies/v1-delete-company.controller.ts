@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas/common.schema';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import {
@@ -20,6 +21,7 @@ export async function v1DeleteCompanyController(app: FastifyInstance) {
     url: '/v1/hr/companies/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.COMPANIES.DELETE,
         resource: 'companies',
@@ -45,6 +47,7 @@ export async function v1DeleteCompanyController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params as { id: string };
       const userId = request.user.sub;
 
@@ -54,14 +57,14 @@ export async function v1DeleteCompanyController(app: FastifyInstance) {
 
         const [{ user }, { company }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getCompanyByIdUseCase.execute({ id }),
+          getCompanyByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const deleteCompanyUseCase = makeDeleteCompanyUseCase();
-        await deleteCompanyUseCase.execute({ id });
+        await deleteCompanyUseCase.execute({ tenantId, id });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.HR.COMPANY_DELETE,

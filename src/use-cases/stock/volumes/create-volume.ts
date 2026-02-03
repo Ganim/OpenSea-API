@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { Volume } from '@/entities/stock/volume';
 import type { VolumeDTO } from '@/mappers/stock/volume.mapper';
@@ -6,6 +7,7 @@ import { VolumeMapper } from '@/mappers/stock/volume.mapper';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface CreateVolumeUseCaseRequest {
+  tenantId: string;
   name?: string;
   notes?: string;
   destinationRef?: string;
@@ -39,11 +41,17 @@ export class CreateVolumeUseCase {
     let code = this.generateVolumeCode();
 
     // Garantir que o código é único (tentativa de retry)
-    let existingVolume = await this.volumesRepository.findByCode(code);
+    let existingVolume = await this.volumesRepository.findByCode(
+      code,
+      request.tenantId,
+    );
     let attempts = 0;
     while (existingVolume && attempts < 5) {
       code = this.generateVolumeCode();
-      existingVolume = await this.volumesRepository.findByCode(code);
+      existingVolume = await this.volumesRepository.findByCode(
+        code,
+        request.tenantId,
+      );
       attempts++;
     }
 
@@ -61,6 +69,7 @@ export class CreateVolumeUseCase {
 
     // Criar novo volume
     const volume = Volume.create({
+      tenantId: new UniqueEntityID(request.tenantId),
       code,
       name: request.name,
       status,

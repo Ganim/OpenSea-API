@@ -5,6 +5,7 @@ import { PayrollItemsRepository } from '@/repositories/hr/payroll-items-reposito
 import { PayrollsRepository } from '@/repositories/hr/payrolls-repository';
 
 export interface CancelPayrollRequest {
+  tenantId: string;
   payrollId: string;
 }
 
@@ -19,10 +20,11 @@ export class CancelPayrollUseCase {
   ) {}
 
   async execute(request: CancelPayrollRequest): Promise<CancelPayrollResponse> {
-    const { payrollId } = request;
+    const { tenantId, payrollId } = request;
 
     const payroll = await this.payrollsRepository.findById(
       new UniqueEntityID(payrollId),
+      tenantId,
     );
 
     if (!payroll) {

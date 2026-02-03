@@ -30,6 +30,7 @@ export async function createItemReservationController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
@@ -40,7 +41,7 @@ export async function createItemReservationController(app: FastifyInstance) {
           : user.username || user.email;
 
         const useCase = makeCreateItemReservationUseCase();
-        const { reservation } = await useCase.execute(data);
+        const { reservation } = await useCase.execute({ ...data, tenantId });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.ITEM_RESERVATION_CREATE,

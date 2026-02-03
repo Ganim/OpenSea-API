@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { PermissionGroupPresenter } from '@/http/presenters/rbac/permission-group-presenter';
 import {
   createPermissionGroupSchema,
@@ -21,6 +22,7 @@ export async function createPermissionGroupController(app: FastifyInstance) {
     url: '/v1/rbac/permission-groups',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.RBAC.GROUPS.CREATE,
         resource: 'permission-groups',
@@ -43,6 +45,7 @@ export async function createPermissionGroupController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { name, description, color, priority, parentId } = request.body;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         // Busca nome do admin para auditoria
@@ -66,6 +69,7 @@ export async function createPermissionGroupController(app: FastifyInstance) {
           color: color ?? null,
           priority: priority ?? 100,
           parentId: parentId ?? null,
+          tenantId,
         });
 
         // Log de auditoria

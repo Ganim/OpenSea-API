@@ -22,17 +22,20 @@ describe('BlockBinUseCase', () => {
 
   async function createTestBin(isBlocked = false) {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
     });
 
     const bin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-101-A',
       aisle: 1,
@@ -49,6 +52,7 @@ describe('BlockBinUseCase', () => {
     const { bin } = await createTestBin();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
       reason: 'Em manutenção',
     });
@@ -61,6 +65,7 @@ describe('BlockBinUseCase', () => {
     const { bin } = await createTestBin();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
       reason: '  Em manutenção  ',
     });
@@ -71,6 +76,7 @@ describe('BlockBinUseCase', () => {
   it('should fail when bin is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
         reason: 'Em manutenção',
       }),
@@ -82,6 +88,7 @@ describe('BlockBinUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: bin.binId.toString(),
         reason: 'Nova razão',
       }),
@@ -93,6 +100,7 @@ describe('BlockBinUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: bin.binId.toString(),
         reason: '',
       }),
@@ -104,6 +112,7 @@ describe('BlockBinUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: bin.binId.toString(),
         reason: '   ',
       }),
@@ -114,11 +123,12 @@ describe('BlockBinUseCase', () => {
     const { bin } = await createTestBin();
 
     await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
       reason: 'Em manutenção',
     });
 
-    const savedBin = await binsRepository.findById(bin.binId);
+    const savedBin = await binsRepository.findById(bin.binId, 'tenant-1');
     expect(savedBin?.isBlocked).toBe(true);
     expect(savedBin?.blockReason).toBe('Em manutenção');
   });

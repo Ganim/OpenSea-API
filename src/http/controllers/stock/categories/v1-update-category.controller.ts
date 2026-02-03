@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { categoryResponseSchema, updateCategorySchema } from '@/http/schemas';
 import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -20,6 +21,7 @@ export async function updateCategoryController(app: FastifyInstance) {
     url: '/v1/categories/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.CATEGORIES.UPDATE,
         resource: 'categories',
@@ -47,6 +49,7 @@ export async function updateCategoryController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const {
         name,
@@ -65,7 +68,7 @@ export async function updateCategoryController(app: FastifyInstance) {
 
         const [{ user }, { category: oldCategory }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getCategoryByIdUseCase.execute({ id }),
+          getCategoryByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -73,6 +76,7 @@ export async function updateCategoryController(app: FastifyInstance) {
 
         const updateCategoryUseCase = makeUpdateCategoryUseCase();
         const { category } = await updateCategoryUseCase.execute({
+          tenantId,
           id,
           name,
           slug,

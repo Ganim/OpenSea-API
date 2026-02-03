@@ -6,6 +6,8 @@ import { ListPayrollsUseCase } from './list-payrolls';
 let payrollsRepository: InMemoryPayrollsRepository;
 let sut: ListPayrollsUseCase;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('List Payrolls Use Case', () => {
   beforeEach(async () => {
     payrollsRepository = new InMemoryPayrollsRepository();
@@ -13,21 +15,45 @@ describe('List Payrolls Use Case', () => {
   });
 
   it('should list all payrolls', async () => {
-    await payrollsRepository.create({ referenceMonth: 1, referenceYear: 2024 });
-    await payrollsRepository.create({ referenceMonth: 2, referenceYear: 2024 });
-    await payrollsRepository.create({ referenceMonth: 3, referenceYear: 2024 });
+    await payrollsRepository.create({
+      tenantId,
+      referenceMonth: 1,
+      referenceYear: 2024,
+    });
+    await payrollsRepository.create({
+      tenantId,
+      referenceMonth: 2,
+      referenceYear: 2024,
+    });
+    await payrollsRepository.create({
+      tenantId,
+      referenceMonth: 3,
+      referenceYear: 2024,
+    });
 
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId });
 
     expect(result.payrolls).toHaveLength(3);
   });
 
   it('should filter payrolls by year', async () => {
-    await payrollsRepository.create({ referenceMonth: 6, referenceYear: 2023 });
-    await payrollsRepository.create({ referenceMonth: 1, referenceYear: 2024 });
-    await payrollsRepository.create({ referenceMonth: 2, referenceYear: 2024 });
+    await payrollsRepository.create({
+      tenantId,
+      referenceMonth: 6,
+      referenceYear: 2023,
+    });
+    await payrollsRepository.create({
+      tenantId,
+      referenceMonth: 1,
+      referenceYear: 2024,
+    });
+    await payrollsRepository.create({
+      tenantId,
+      referenceMonth: 2,
+      referenceYear: 2024,
+    });
 
-    const result = await sut.execute({ referenceYear: 2024 });
+    const result = await sut.execute({ tenantId, referenceYear: 2024 });
 
     expect(result.payrolls).toHaveLength(2);
     result.payrolls.forEach((payroll) => {
@@ -36,11 +62,23 @@ describe('List Payrolls Use Case', () => {
   });
 
   it('should filter payrolls by month', async () => {
-    await payrollsRepository.create({ referenceMonth: 6, referenceYear: 2023 });
-    await payrollsRepository.create({ referenceMonth: 6, referenceYear: 2024 });
-    await payrollsRepository.create({ referenceMonth: 7, referenceYear: 2024 });
+    await payrollsRepository.create({
+      tenantId,
+      referenceMonth: 6,
+      referenceYear: 2023,
+    });
+    await payrollsRepository.create({
+      tenantId,
+      referenceMonth: 6,
+      referenceYear: 2024,
+    });
+    await payrollsRepository.create({
+      tenantId,
+      referenceMonth: 7,
+      referenceYear: 2024,
+    });
 
-    const result = await sut.execute({ referenceMonth: 6 });
+    const result = await sut.execute({ tenantId, referenceMonth: 6 });
 
     expect(result.payrolls).toHaveLength(2);
     result.payrolls.forEach((payroll) => {
@@ -50,10 +88,15 @@ describe('List Payrolls Use Case', () => {
 
   it('should filter payrolls by status', async () => {
     const payroll1 = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 1,
       referenceYear: 2024,
     });
-    await payrollsRepository.create({ referenceMonth: 2, referenceYear: 2024 });
+    await payrollsRepository.create({
+      tenantId,
+      referenceMonth: 2,
+      referenceYear: 2024,
+    });
 
     // Aprovar o primeiro payroll
     payroll1.startProcessing(new UniqueEntityID());
@@ -61,14 +104,14 @@ describe('List Payrolls Use Case', () => {
     payroll1.approve(new UniqueEntityID());
     await payrollsRepository.save(payroll1);
 
-    const result = await sut.execute({ status: 'APPROVED' });
+    const result = await sut.execute({ tenantId, status: 'APPROVED' });
 
     expect(result.payrolls).toHaveLength(1);
     expect(result.payrolls[0].status.isApproved()).toBe(true);
   });
 
   it('should return empty array when no payrolls exist', async () => {
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId });
 
     expect(result.payrolls).toHaveLength(0);
   });

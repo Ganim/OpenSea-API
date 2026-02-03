@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { Email } from '@/entities/core/value-objects/email';
+import { Password } from '@/entities/core/value-objects/password';
+import { Url } from '@/entities/core/value-objects/url';
 import { Username } from '@/entities/core/value-objects/username';
 import { InMemoryTenantPlansRepository } from '@/repositories/core/in-memory/in-memory-tenant-plans-repository';
 import { InMemoryTenantUsersRepository } from '@/repositories/core/in-memory/in-memory-tenant-users-repository';
@@ -37,8 +39,15 @@ describe('InviteUserToTenantUseCase', () => {
     const user = await usersRepository.create({
       email: Email.create('user@test.com'),
       username: Username.create('testuser'),
-      passwordHash: 'hashed',
-      profile: { name: 'Test', surname: 'User' },
+      passwordHash: Password.fromHash('hashed'),
+      profile: {
+        name: 'Test',
+        surname: 'User',
+        birthday: null,
+        location: '',
+        bio: '',
+        avatarUrl: Url.empty(),
+      },
     });
     const { tenantUser } = await sut.execute({
       tenantId: tenant.tenantId.toString(),
@@ -52,8 +61,15 @@ describe('InviteUserToTenantUseCase', () => {
     const user = await usersRepository.create({
       email: Email.create('u@t.com'),
       username: Username.create('testuser2'),
-      passwordHash: 'h',
-      profile: { name: 'T', surname: 'U' },
+      passwordHash: Password.fromHash('h'),
+      profile: {
+        name: 'T',
+        surname: 'U',
+        birthday: null,
+        location: '',
+        bio: '',
+        avatarUrl: Url.empty(),
+      },
     });
     await expect(() =>
       sut.execute({ tenantId: 'non-existent', userId: user.id.toString() }),
@@ -81,8 +97,15 @@ describe('InviteUserToTenantUseCase', () => {
     const user = await usersRepository.create({
       email: Email.create('u2@t.com'),
       username: Username.create('testuser3'),
-      passwordHash: 'h',
-      profile: { name: 'T', surname: 'U' },
+      passwordHash: Password.fromHash('h'),
+      profile: {
+        name: 'T',
+        surname: 'U',
+        birthday: null,
+        location: '',
+        bio: '',
+        avatarUrl: Url.empty(),
+      },
     });
     await sut.execute({
       tenantId: tenant.tenantId.toString(),

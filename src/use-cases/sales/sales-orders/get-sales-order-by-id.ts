@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { SalesOrdersRepository } from '@/repositories/sales/sales-orders-repository';
 
 interface GetSalesOrderByIdUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -39,6 +40,7 @@ export class GetSalesOrderByIdUseCase {
   ): Promise<GetSalesOrderByIdUseCaseResponse> {
     const order = await this.salesOrdersRepository.findById(
       new UniqueEntityID(input.id),
+      input.tenantId,
     );
 
     if (!order) {

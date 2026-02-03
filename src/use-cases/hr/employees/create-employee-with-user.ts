@@ -15,6 +15,7 @@ import { CreateUserUseCase } from '@/use-cases/core/users/create-user';
 import { AssignGroupToUserUseCase } from '@/use-cases/rbac/associations/assign-group-to-user';
 
 export interface CreateEmployeeWithUserRequest {
+  tenantId: string;
   // User data
   userEmail: string;
   userPassword: string;
@@ -97,6 +98,7 @@ export class CreateEmployeeWithUserUseCase {
     request: CreateEmployeeWithUserRequest,
   ): Promise<CreateEmployeeWithUserResponse> {
     const {
+      tenantId,
       // User data
       userEmail,
       userPassword,
@@ -161,6 +163,7 @@ export class CreateEmployeeWithUserUseCase {
     // Validate if CPF already exists
     const existingEmployeeByCpf = await this.employeesRepository.findByCpf(
       CPF.create(cpf),
+      tenantId,
     );
     if (existingEmployeeByCpf) {
       throw new BadRequestError('Employee with this CPF already exists');
@@ -170,6 +173,7 @@ export class CreateEmployeeWithUserUseCase {
     const existingEmployeeByRegistration =
       await this.employeesRepository.findByRegistrationNumber(
         registrationNumber,
+        tenantId,
       );
     if (existingEmployeeByRegistration) {
       throw new BadRequestError(
@@ -181,6 +185,7 @@ export class CreateEmployeeWithUserUseCase {
     if (pis) {
       const existingEmployeeByPis = await this.employeesRepository.findByPis(
         PIS.create(pis),
+        tenantId,
       );
       if (existingEmployeeByPis) {
         throw new BadRequestError('Employee with this PIS already exists');
@@ -232,6 +237,7 @@ export class CreateEmployeeWithUserUseCase {
 
     // Create employee via repository
     const employee = await this.employeesRepository.create({
+      tenantId,
       registrationNumber,
       userId: new UniqueEntityID(user.id),
       fullName,

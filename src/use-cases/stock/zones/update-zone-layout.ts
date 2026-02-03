@@ -5,6 +5,7 @@ import type { Zone } from '@/entities/stock/zone';
 import type { ZonesRepository } from '@/repositories/stock/zones-repository';
 
 interface UpdateZoneLayoutUseCaseRequest {
+  tenantId: string;
   zoneId: string;
   layout: ZoneLayoutProps | null;
 }
@@ -17,13 +18,14 @@ export class UpdateZoneLayoutUseCase {
   constructor(private zonesRepository: ZonesRepository) {}
 
   async execute({
+    tenantId,
     zoneId,
     layout,
   }: UpdateZoneLayoutUseCaseRequest): Promise<UpdateZoneLayoutUseCaseResponse> {
     const zoneEntityId = new UniqueEntityID(zoneId);
 
     // Check if zone exists
-    const zone = await this.zonesRepository.findById(zoneEntityId);
+    const zone = await this.zonesRepository.findById(zoneEntityId, tenantId);
 
     if (!zone) {
       throw new ResourceNotFoundError('Zone');

@@ -12,6 +12,7 @@ type PrismaCategoryWithCount = PrismaCategory & {
 export function mapCategoryPrismaToDomain(categoryDb: PrismaCategoryWithCount) {
   return {
     id: new UniqueEntityID(categoryDb.id),
+    tenantId: new UniqueEntityID(categoryDb.tenantId),
     name: categoryDb.name,
     slug: categoryDb.name.toLowerCase().replace(/\s+/g, '-'),
     description: null,

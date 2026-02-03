@@ -13,18 +13,21 @@ describe('ListWarehousesUseCase', () => {
 
   async function createTestWarehouses() {
     await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica',
       isActive: true,
     });
 
     await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'WH1',
       name: 'Warehouse 1',
       isActive: true,
     });
 
     await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'OLD',
       name: 'Armazém Antigo',
       isActive: false,
@@ -34,7 +37,7 @@ describe('ListWarehousesUseCase', () => {
   it('should list all warehouses', async () => {
     await createTestWarehouses();
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.warehouses).toHaveLength(3);
   });
@@ -42,7 +45,10 @@ describe('ListWarehousesUseCase', () => {
   it('should list only active warehouses when activeOnly is true', async () => {
     await createTestWarehouses();
 
-    const result = await sut.execute({ activeOnly: true });
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      activeOnly: true,
+    });
 
     expect(result.warehouses).toHaveLength(2);
     result.warehouses.forEach((w) => {
@@ -51,7 +57,7 @@ describe('ListWarehousesUseCase', () => {
   });
 
   it('should return empty array when no warehouses exist', async () => {
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.warehouses).toHaveLength(0);
   });
@@ -62,7 +68,7 @@ describe('ListWarehousesUseCase', () => {
     const warehouse = warehousesRepository.warehouses[0];
     await warehousesRepository.delete(warehouse.warehouseId);
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.warehouses).toHaveLength(2);
   });
@@ -70,7 +76,7 @@ describe('ListWarehousesUseCase', () => {
   it('should default to activeOnly false', async () => {
     await createTestWarehouses();
 
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.warehouses).toHaveLength(3);
   });

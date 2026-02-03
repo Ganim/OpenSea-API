@@ -4,6 +4,7 @@ import type { ZoneStructureProps } from '@/entities/stock/value-objects/zone-str
 import type { ZoneLayoutProps } from '@/entities/stock/value-objects/zone-layout';
 
 export interface CreateZoneSchema {
+  tenantId: string;
   warehouseId: UniqueEntityID;
   code: string;
   name: string;
@@ -33,12 +34,22 @@ export interface UpdateZoneLayoutSchema {
 
 export interface ZonesRepository {
   create(data: CreateZoneSchema): Promise<Zone>;
-  findById(id: UniqueEntityID): Promise<Zone | null>;
-  findByCode(warehouseId: UniqueEntityID, code: string): Promise<Zone | null>;
-  findMany(): Promise<Zone[]>;
-  findManyByWarehouse(warehouseId: UniqueEntityID): Promise<Zone[]>;
-  findManyActive(): Promise<Zone[]>;
-  findManyActiveByWarehouse(warehouseId: UniqueEntityID): Promise<Zone[]>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Zone | null>;
+  findByCode(
+    warehouseId: UniqueEntityID,
+    code: string,
+    tenantId: string,
+  ): Promise<Zone | null>;
+  findMany(tenantId: string): Promise<Zone[]>;
+  findManyByWarehouse(
+    warehouseId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Zone[]>;
+  findManyActive(tenantId: string): Promise<Zone[]>;
+  findManyActiveByWarehouse(
+    warehouseId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Zone[]>;
   update(data: UpdateZoneSchema): Promise<Zone | null>;
   updateStructure(data: UpdateZoneStructureSchema): Promise<Zone | null>;
   updateLayout(data: UpdateZoneLayoutSchema): Promise<Zone | null>;

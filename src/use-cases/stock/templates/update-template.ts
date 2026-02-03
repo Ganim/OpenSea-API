@@ -8,6 +8,7 @@ import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface UpdateTemplateUseCaseRequest {
+  tenantId: string;
   id: string;
   name?: string;
   iconUrl?: string;
@@ -28,6 +29,7 @@ export class UpdateTemplateUseCase {
     request: UpdateTemplateUseCaseRequest,
   ): Promise<UpdateTemplateUseCaseResponse> {
     const {
+      tenantId,
       id,
       name,
       iconUrl,
@@ -40,6 +42,7 @@ export class UpdateTemplateUseCase {
     // Validate ID
     const template = await this.templatesRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!template) {
@@ -58,8 +61,10 @@ export class UpdateTemplateUseCase {
 
       // Check if name is already used by another template
       if (name !== template.name) {
-        const existingTemplate =
-          await this.templatesRepository.findByName(name);
+        const existingTemplate = await this.templatesRepository.findByName(
+          name,
+          tenantId,
+        );
         if (existingTemplate && !existingTemplate.id.equals(template.id)) {
           throw new BadRequestError('Template with this name already exists');
         }

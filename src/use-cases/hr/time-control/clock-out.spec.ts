@@ -16,6 +16,7 @@ let timeEntriesRepository: InMemoryTimeEntriesRepository;
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: ClockOutUseCase;
 let testEmployee: Employee;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Clock Out Use Case', () => {
   beforeEach(async () => {
@@ -25,6 +26,7 @@ describe('Clock Out Use Case', () => {
 
     // Create test employee
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -41,6 +43,7 @@ describe('Clock Out Use Case', () => {
   it('should clock out successfully after clock in', async () => {
     // First clock in
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date(),
@@ -48,6 +51,7 @@ describe('Clock Out Use Case', () => {
 
     // Then clock out
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
     });
 
@@ -59,6 +63,7 @@ describe('Clock Out Use Case', () => {
   it('should clock out with geolocation data', async () => {
     // First clock in
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date(),
@@ -66,6 +71,7 @@ describe('Clock Out Use Case', () => {
 
     // Then clock out with geolocation
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       latitude: -23.5505,
       longitude: -46.6333,
@@ -82,6 +88,7 @@ describe('Clock Out Use Case', () => {
   it('should not clock out if employee does not exist', async () => {
     await expect(
       sut.execute({
+        tenantId,
         employeeId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Employee not found');
@@ -90,6 +97,7 @@ describe('Clock Out Use Case', () => {
   it('should not clock out if employee is not active', async () => {
     // Create inactive employee
     const inactiveEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Inactive Employee',
       cpf: CPF.create('123.456.789-09'),
@@ -104,6 +112,7 @@ describe('Clock Out Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: inactiveEmployee.id.toString(),
       }),
     ).rejects.toThrow('Employee is not active');
@@ -112,6 +121,7 @@ describe('Clock Out Use Case', () => {
   it('should not clock out if not clocked in', async () => {
     await expect(
       sut.execute({
+        tenantId,
         employeeId: testEmployee.id.toString(),
       }),
     ).rejects.toThrow('Employee has not clocked in. Please clock in first');
@@ -120,6 +130,7 @@ describe('Clock Out Use Case', () => {
   it('should not clock out if already clocked out', async () => {
     // Clock in
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-15T08:00:00Z'),
@@ -127,6 +138,7 @@ describe('Clock Out Use Case', () => {
 
     // Clock out
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_OUT(),
       timestamp: new Date('2024-01-15T17:00:00Z'),
@@ -135,6 +147,7 @@ describe('Clock Out Use Case', () => {
     // Try to clock out again
     await expect(
       sut.execute({
+        tenantId,
         employeeId: testEmployee.id.toString(),
       }),
     ).rejects.toThrow('Employee has not clocked in. Please clock in first');

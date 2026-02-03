@@ -25,17 +25,20 @@ describe('GetLabelPreviewUseCase', () => {
 
   async function createTestData() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
     });
 
     const bin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-101-A',
       aisle: 1,
@@ -52,6 +55,7 @@ describe('GetLabelPreviewUseCase', () => {
     const { warehouse, zone, bin } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binId: bin.binId.toString(),
     });
 
@@ -72,6 +76,7 @@ describe('GetLabelPreviewUseCase', () => {
     const { bin } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binId: bin.binId.toString(),
     });
 
@@ -82,17 +87,20 @@ describe('GetLabelPreviewUseCase', () => {
 
   it('should handle bin without capacity', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
     });
 
     const bin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-102-B',
       aisle: 1,
@@ -101,6 +109,7 @@ describe('GetLabelPreviewUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binId: bin.binId.toString(),
     });
 
@@ -111,6 +120,7 @@ describe('GetLabelPreviewUseCase', () => {
   it('should throw error when bin is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         binId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -118,6 +128,7 @@ describe('GetLabelPreviewUseCase', () => {
 
   it('should throw error when zone is not found', async () => {
     const bin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: new UniqueEntityID(),
       address: 'ORPHAN-101-A',
       aisle: 1,
@@ -127,6 +138,7 @@ describe('GetLabelPreviewUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         binId: bin.binId.toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -134,12 +146,14 @@ describe('GetLabelPreviewUseCase', () => {
 
   it('should throw error when warehouse is not found', async () => {
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: new UniqueEntityID(),
       code: 'ORPHAN',
       name: 'Zona Órfã',
     });
 
     const bin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'ORPHAN-101-A',
       aisle: 1,
@@ -149,6 +163,7 @@ describe('GetLabelPreviewUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         binId: bin.binId.toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);

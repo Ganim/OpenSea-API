@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   absenceResponseSchema,
   listAbsencesQuerySchema,
@@ -15,7 +16,7 @@ export async function listAbsencesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/absences',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Absences'],
       summary: 'List absences',
@@ -32,11 +33,13 @@ export async function listAbsencesController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { employeeId, type, status, startDate, endDate, page, perPage } =
         request.query;
 
       const listAbsencesUseCase = makeListAbsencesUseCase();
       const { absences } = await listAbsencesUseCase.execute({
+        tenantId,
         employeeId,
         type,
         status,

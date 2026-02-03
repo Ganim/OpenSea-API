@@ -33,10 +33,14 @@ export async function validateAddressController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { address } = request.params;
 
       const validateAddressUseCase = makeValidateAddressUseCase();
-      const result = await validateAddressUseCase.execute({ address });
+      const result = await validateAddressUseCase.execute({
+        tenantId,
+        address,
+      });
 
       return reply.status(200).send(result);
     },

@@ -15,6 +15,7 @@ export class InMemoryVacationPeriodsRepository
 
   async create(data: CreateVacationPeriodSchema): Promise<VacationPeriod> {
     const vacationPeriod = VacationPeriod.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       employeeId: data.employeeId,
       acquisitionStart: data.acquisitionStart,
       acquisitionEnd: data.acquisitionEnd,
@@ -34,14 +35,24 @@ export class InMemoryVacationPeriodsRepository
     return vacationPeriod;
   }
 
-  async findById(id: UniqueEntityID): Promise<VacationPeriod | null> {
-    return this.items.find((item) => item.id.equals(id)) ?? null;
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<VacationPeriod | null> {
+    return (
+      this.items.find(
+        (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+      ) ?? null
+    );
   }
 
   async findMany(
+    tenantId: string,
     filters?: FindVacationPeriodFilters,
   ): Promise<VacationPeriod[]> {
-    let filtered = [...this.items];
+    let filtered = this.items.filter(
+      (item) => item.tenantId.toString() === tenantId,
+    );
 
     if (filters?.employeeId) {
       filtered = filtered.filter((item) =>
@@ -70,9 +81,14 @@ export class InMemoryVacationPeriodsRepository
 
   async findManyByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<VacationPeriod[]> {
     return this.items
-      .filter((item) => item.employeeId.equals(employeeId))
+      .filter(
+        (item) =>
+          item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort(
         (a, b) => b.acquisitionStart.getTime() - a.acquisitionStart.getTime(),
       );
@@ -81,20 +97,29 @@ export class InMemoryVacationPeriodsRepository
   async findManyByEmployeeAndStatus(
     employeeId: UniqueEntityID,
     status: string,
+    tenantId: string,
   ): Promise<VacationPeriod[]> {
     return this.items
       .filter(
         (item) =>
-          item.employeeId.equals(employeeId) && item.status.value === status,
+          item.employeeId.equals(employeeId) &&
+          item.status.value === status &&
+          item.tenantId.toString() === tenantId,
       )
       .sort(
         (a, b) => b.acquisitionStart.getTime() - a.acquisitionStart.getTime(),
       );
   }
 
-  async findManyByStatus(status: string): Promise<VacationPeriod[]> {
+  async findManyByStatus(
+    status: string,
+    tenantId: string,
+  ): Promise<VacationPeriod[]> {
     return this.items
-      .filter((item) => item.status.value === status)
+      .filter(
+        (item) =>
+          item.status.value === status && item.tenantId.toString() === tenantId,
+      )
       .sort(
         (a, b) => b.acquisitionStart.getTime() - a.acquisitionStart.getTime(),
       );
@@ -102,11 +127,13 @@ export class InMemoryVacationPeriodsRepository
 
   async findAvailableByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<VacationPeriod[]> {
     return this.items
       .filter(
         (item) =>
           item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId &&
           (item.status.isAvailable() || item.status.isScheduled()) &&
           item.remainingDays > 0,
       )
@@ -115,6 +142,7 @@ export class InMemoryVacationPeriodsRepository
 
   async findCurrentByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<VacationPeriod | null> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -123,16 +151,21 @@ export class InMemoryVacationPeriodsRepository
       this.items.find(
         (item) =>
           item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId &&
           item.status.isPending() &&
           item.acquisitionEnd >= today,
       ) ?? null
     );
   }
 
-  async findExpiring(beforeDate: Date): Promise<VacationPeriod[]> {
+  async findExpiring(
+    beforeDate: Date,
+    tenantId: string,
+  ): Promise<VacationPeriod[]> {
     return this.items
       .filter(
         (item) =>
+          item.tenantId.toString() === tenantId &&
           (item.status.isAvailable() || item.status.isScheduled()) &&
           item.concessionEnd <= beforeDate &&
           item.remainingDays > 0,

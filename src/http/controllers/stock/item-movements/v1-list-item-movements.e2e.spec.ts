@@ -20,8 +20,18 @@ describe('List Item Movements (E2E)', () => {
     const { token, user } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const template = await prisma.template.create({
       data: {
+        tenantId,
         name: `Template Movement Test ${timestamp}`,
         productAttributes: {},
         variantAttributes: {},
@@ -30,11 +40,13 @@ describe('List Item Movements (E2E)', () => {
     });
 
     const { product } = await createProduct({
+      tenantId,
       name: `Product Mov ${timestamp}`,
       templateId: template.id,
     });
 
     const { variant } = await createVariant({
+      tenantId,
       productId: product.id,
       sku: `SKU-MOV-${timestamp}`,
       name: `Variant Mov ${timestamp}`,
@@ -43,6 +55,7 @@ describe('List Item Movements (E2E)', () => {
 
     const warehouse = await prisma.warehouse.create({
       data: {
+        tenantId,
         code: `L${timestamp.toString().slice(-3)}`,
         name: 'Warehouse for movements',
       },
@@ -50,6 +63,7 @@ describe('List Item Movements (E2E)', () => {
 
     const zone = await prisma.zone.create({
       data: {
+        tenantId,
         code: `ZL${timestamp.toString().slice(-2)}`,
         name: 'Zone for movements',
         warehouseId: warehouse.id,
@@ -59,6 +73,7 @@ describe('List Item Movements (E2E)', () => {
 
     const bin = await prisma.bin.create({
       data: {
+        tenantId,
         address: `${warehouse.code}-${zone.code}-01-A`,
         aisle: 1,
         shelf: 1,
@@ -69,6 +84,7 @@ describe('List Item Movements (E2E)', () => {
 
     const item = await prisma.item.create({
       data: {
+        tenantId,
         uniqueCode: `ITEM-MOV-${timestamp}`,
         slug: `item-mov-${timestamp}`,
         fullCode: `001.000.0001.001-${timestamp.toString().slice(-5)}`,
@@ -88,6 +104,7 @@ describe('List Item Movements (E2E)', () => {
 
     await prisma.itemMovement.create({
       data: {
+        tenantId,
         itemId: item.id,
         userId: user.user.id.toString(),
         quantity: 100,

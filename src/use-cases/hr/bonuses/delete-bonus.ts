@@ -4,6 +4,7 @@ import type { Bonus } from '@/entities/hr/bonus';
 import { BonusesRepository } from '@/repositories/hr/bonuses-repository';
 
 export interface DeleteBonusRequest {
+  tenantId: string;
   bonusId: string;
 }
 
@@ -15,10 +16,11 @@ export class DeleteBonusUseCase {
   constructor(private bonusesRepository: BonusesRepository) {}
 
   async execute(request: DeleteBonusRequest): Promise<DeleteBonusResponse> {
-    const { bonusId } = request;
+    const { tenantId, bonusId } = request;
 
     const bonus = await this.bonusesRepository.findById(
       new UniqueEntityID(bonusId),
+      tenantId,
     );
 
     if (!bonus) {

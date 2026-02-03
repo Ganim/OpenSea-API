@@ -55,6 +55,7 @@ export type ManufacturerMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  tenantId: string | null
 }
 
 export type ManufacturerMaxAggregateOutputType = {
@@ -76,6 +77,7 @@ export type ManufacturerMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  tenantId: string | null
 }
 
 export type ManufacturerCountAggregateOutputType = {
@@ -97,6 +99,7 @@ export type ManufacturerCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   deletedAt: number
+  tenantId: number
   _all: number
 }
 
@@ -130,6 +133,7 @@ export type ManufacturerMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  tenantId?: true
 }
 
 export type ManufacturerMaxAggregateInputType = {
@@ -151,6 +155,7 @@ export type ManufacturerMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  tenantId?: true
 }
 
 export type ManufacturerCountAggregateInputType = {
@@ -172,6 +177,7 @@ export type ManufacturerCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  tenantId?: true
   _all?: true
 }
 
@@ -280,6 +286,7 @@ export type ManufacturerGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
+  tenantId: string
   _count: ManufacturerCountAggregateOutputType | null
   _avg: ManufacturerAvgAggregateOutputType | null
   _sum: ManufacturerSumAggregateOutputType | null
@@ -324,6 +331,8 @@ export type ManufacturerWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Manufacturer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Manufacturer"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Manufacturer"> | Date | string | null
+  tenantId?: Prisma.StringFilter<"Manufacturer"> | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   products?: Prisma.ProductListRelationFilter
 }
 
@@ -346,15 +355,18 @@ export type ManufacturerOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   products?: Prisma.ProductOrderByRelationAggregateInput
 }
 
 export type ManufacturerWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  code?: string
+  manufacturers_code_tenant_unique?: Prisma.ManufacturerManufacturers_code_tenant_uniqueCompoundUniqueInput
   AND?: Prisma.ManufacturerWhereInput | Prisma.ManufacturerWhereInput[]
   OR?: Prisma.ManufacturerWhereInput[]
   NOT?: Prisma.ManufacturerWhereInput | Prisma.ManufacturerWhereInput[]
+  code?: Prisma.StringFilter<"Manufacturer"> | string
   sequentialCode?: Prisma.IntFilter<"Manufacturer"> | number
   name?: Prisma.StringFilter<"Manufacturer"> | string
   country?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
@@ -371,8 +383,10 @@ export type ManufacturerWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Manufacturer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Manufacturer"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Manufacturer"> | Date | string | null
+  tenantId?: Prisma.StringFilter<"Manufacturer"> | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   products?: Prisma.ProductListRelationFilter
-}, "id" | "code">
+}, "id" | "manufacturers_code_tenant_unique">
 
 export type ManufacturerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -393,6 +407,7 @@ export type ManufacturerOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   _count?: Prisma.ManufacturerCountOrderByAggregateInput
   _avg?: Prisma.ManufacturerAvgOrderByAggregateInput
   _max?: Prisma.ManufacturerMaxOrderByAggregateInput
@@ -422,6 +437,7 @@ export type ManufacturerScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Manufacturer"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Manufacturer"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Manufacturer"> | Date | string | null
+  tenantId?: Prisma.StringWithAggregatesFilter<"Manufacturer"> | string
 }
 
 export type ManufacturerCreateInput = {
@@ -443,6 +459,7 @@ export type ManufacturerCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutManufacturersInput
   products?: Prisma.ProductCreateNestedManyWithoutManufacturerInput
 }
 
@@ -465,6 +482,7 @@ export type ManufacturerUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenantId: string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutManufacturerInput
 }
 
@@ -487,6 +505,7 @@ export type ManufacturerUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutManufacturersNestedInput
   products?: Prisma.ProductUpdateManyWithoutManufacturerNestedInput
 }
 
@@ -509,6 +528,7 @@ export type ManufacturerUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutManufacturerNestedInput
 }
 
@@ -531,6 +551,7 @@ export type ManufacturerCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenantId: string
 }
 
 export type ManufacturerUpdateManyMutationInput = {
@@ -573,6 +594,12 @@ export type ManufacturerUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type ManufacturerManufacturers_code_tenant_uniqueCompoundUniqueInput = {
+  code: string
+  tenantId: string
 }
 
 export type ManufacturerCountOrderByAggregateInput = {
@@ -594,6 +621,7 @@ export type ManufacturerCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type ManufacturerAvgOrderByAggregateInput = {
@@ -620,6 +648,7 @@ export type ManufacturerMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type ManufacturerMinOrderByAggregateInput = {
@@ -641,6 +670,7 @@ export type ManufacturerMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type ManufacturerSumOrderByAggregateInput = {
@@ -651,6 +681,16 @@ export type ManufacturerSumOrderByAggregateInput = {
 export type ManufacturerNullableScalarRelationFilter = {
   is?: Prisma.ManufacturerWhereInput | null
   isNot?: Prisma.ManufacturerWhereInput | null
+}
+
+export type ManufacturerListRelationFilter = {
+  every?: Prisma.ManufacturerWhereInput
+  some?: Prisma.ManufacturerWhereInput
+  none?: Prisma.ManufacturerWhereInput
+}
+
+export type ManufacturerOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ManufacturerCreateNestedOneWithoutProductsInput = {
@@ -667,6 +707,48 @@ export type ManufacturerUpdateOneWithoutProductsNestedInput = {
   delete?: Prisma.ManufacturerWhereInput | boolean
   connect?: Prisma.ManufacturerWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ManufacturerUpdateToOneWithWhereWithoutProductsInput, Prisma.ManufacturerUpdateWithoutProductsInput>, Prisma.ManufacturerUncheckedUpdateWithoutProductsInput>
+}
+
+export type ManufacturerCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.ManufacturerCreateWithoutTenantInput, Prisma.ManufacturerUncheckedCreateWithoutTenantInput> | Prisma.ManufacturerCreateWithoutTenantInput[] | Prisma.ManufacturerUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ManufacturerCreateOrConnectWithoutTenantInput | Prisma.ManufacturerCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.ManufacturerCreateManyTenantInputEnvelope
+  connect?: Prisma.ManufacturerWhereUniqueInput | Prisma.ManufacturerWhereUniqueInput[]
+}
+
+export type ManufacturerUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.ManufacturerCreateWithoutTenantInput, Prisma.ManufacturerUncheckedCreateWithoutTenantInput> | Prisma.ManufacturerCreateWithoutTenantInput[] | Prisma.ManufacturerUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ManufacturerCreateOrConnectWithoutTenantInput | Prisma.ManufacturerCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.ManufacturerCreateManyTenantInputEnvelope
+  connect?: Prisma.ManufacturerWhereUniqueInput | Prisma.ManufacturerWhereUniqueInput[]
+}
+
+export type ManufacturerUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.ManufacturerCreateWithoutTenantInput, Prisma.ManufacturerUncheckedCreateWithoutTenantInput> | Prisma.ManufacturerCreateWithoutTenantInput[] | Prisma.ManufacturerUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ManufacturerCreateOrConnectWithoutTenantInput | Prisma.ManufacturerCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.ManufacturerUpsertWithWhereUniqueWithoutTenantInput | Prisma.ManufacturerUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.ManufacturerCreateManyTenantInputEnvelope
+  set?: Prisma.ManufacturerWhereUniqueInput | Prisma.ManufacturerWhereUniqueInput[]
+  disconnect?: Prisma.ManufacturerWhereUniqueInput | Prisma.ManufacturerWhereUniqueInput[]
+  delete?: Prisma.ManufacturerWhereUniqueInput | Prisma.ManufacturerWhereUniqueInput[]
+  connect?: Prisma.ManufacturerWhereUniqueInput | Prisma.ManufacturerWhereUniqueInput[]
+  update?: Prisma.ManufacturerUpdateWithWhereUniqueWithoutTenantInput | Prisma.ManufacturerUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.ManufacturerUpdateManyWithWhereWithoutTenantInput | Prisma.ManufacturerUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.ManufacturerScalarWhereInput | Prisma.ManufacturerScalarWhereInput[]
+}
+
+export type ManufacturerUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.ManufacturerCreateWithoutTenantInput, Prisma.ManufacturerUncheckedCreateWithoutTenantInput> | Prisma.ManufacturerCreateWithoutTenantInput[] | Prisma.ManufacturerUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ManufacturerCreateOrConnectWithoutTenantInput | Prisma.ManufacturerCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.ManufacturerUpsertWithWhereUniqueWithoutTenantInput | Prisma.ManufacturerUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.ManufacturerCreateManyTenantInputEnvelope
+  set?: Prisma.ManufacturerWhereUniqueInput | Prisma.ManufacturerWhereUniqueInput[]
+  disconnect?: Prisma.ManufacturerWhereUniqueInput | Prisma.ManufacturerWhereUniqueInput[]
+  delete?: Prisma.ManufacturerWhereUniqueInput | Prisma.ManufacturerWhereUniqueInput[]
+  connect?: Prisma.ManufacturerWhereUniqueInput | Prisma.ManufacturerWhereUniqueInput[]
+  update?: Prisma.ManufacturerUpdateWithWhereUniqueWithoutTenantInput | Prisma.ManufacturerUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.ManufacturerUpdateManyWithWhereWithoutTenantInput | Prisma.ManufacturerUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.ManufacturerScalarWhereInput | Prisma.ManufacturerScalarWhereInput[]
 }
 
 export type ManufacturerCreateWithoutProductsInput = {
@@ -688,6 +770,7 @@ export type ManufacturerCreateWithoutProductsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutManufacturersInput
 }
 
 export type ManufacturerUncheckedCreateWithoutProductsInput = {
@@ -709,6 +792,7 @@ export type ManufacturerUncheckedCreateWithoutProductsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenantId: string
 }
 
 export type ManufacturerCreateOrConnectWithoutProductsInput = {
@@ -746,9 +830,192 @@ export type ManufacturerUpdateWithoutProductsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutManufacturersNestedInput
 }
 
 export type ManufacturerUncheckedUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type ManufacturerCreateWithoutTenantInput = {
+  id?: string
+  code: string
+  sequentialCode?: number
+  name: string
+  country?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  isActive?: boolean
+  notes?: string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  products?: Prisma.ProductCreateNestedManyWithoutManufacturerInput
+}
+
+export type ManufacturerUncheckedCreateWithoutTenantInput = {
+  id?: string
+  code: string
+  sequentialCode?: number
+  name: string
+  country?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  isActive?: boolean
+  notes?: string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutManufacturerInput
+}
+
+export type ManufacturerCreateOrConnectWithoutTenantInput = {
+  where: Prisma.ManufacturerWhereUniqueInput
+  create: Prisma.XOR<Prisma.ManufacturerCreateWithoutTenantInput, Prisma.ManufacturerUncheckedCreateWithoutTenantInput>
+}
+
+export type ManufacturerCreateManyTenantInputEnvelope = {
+  data: Prisma.ManufacturerCreateManyTenantInput | Prisma.ManufacturerCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type ManufacturerUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.ManufacturerWhereUniqueInput
+  update: Prisma.XOR<Prisma.ManufacturerUpdateWithoutTenantInput, Prisma.ManufacturerUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.ManufacturerCreateWithoutTenantInput, Prisma.ManufacturerUncheckedCreateWithoutTenantInput>
+}
+
+export type ManufacturerUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.ManufacturerWhereUniqueInput
+  data: Prisma.XOR<Prisma.ManufacturerUpdateWithoutTenantInput, Prisma.ManufacturerUncheckedUpdateWithoutTenantInput>
+}
+
+export type ManufacturerUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.ManufacturerScalarWhereInput
+  data: Prisma.XOR<Prisma.ManufacturerUpdateManyMutationInput, Prisma.ManufacturerUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type ManufacturerScalarWhereInput = {
+  AND?: Prisma.ManufacturerScalarWhereInput | Prisma.ManufacturerScalarWhereInput[]
+  OR?: Prisma.ManufacturerScalarWhereInput[]
+  NOT?: Prisma.ManufacturerScalarWhereInput | Prisma.ManufacturerScalarWhereInput[]
+  id?: Prisma.StringFilter<"Manufacturer"> | string
+  code?: Prisma.StringFilter<"Manufacturer"> | string
+  sequentialCode?: Prisma.IntFilter<"Manufacturer"> | number
+  name?: Prisma.StringFilter<"Manufacturer"> | string
+  country?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  email?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  phone?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  website?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  address?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  city?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  state?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  zipCode?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  isActive?: Prisma.BoolFilter<"Manufacturer"> | boolean
+  notes?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  rating?: Prisma.DecimalNullableFilter<"Manufacturer"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFilter<"Manufacturer"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Manufacturer"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Manufacturer"> | Date | string | null
+  tenantId?: Prisma.StringFilter<"Manufacturer"> | string
+}
+
+export type ManufacturerCreateManyTenantInput = {
+  id?: string
+  code: string
+  sequentialCode?: number
+  name: string
+  country?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  isActive?: boolean
+  notes?: string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type ManufacturerUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  products?: Prisma.ProductUpdateManyWithoutManufacturerNestedInput
+}
+
+export type ManufacturerUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  products?: Prisma.ProductUncheckedUpdateManyWithoutManufacturerNestedInput
+}
+
+export type ManufacturerUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
@@ -819,6 +1086,8 @@ export type ManufacturerSelect<ExtArgs extends runtime.Types.Extensions.Internal
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Manufacturer$productsArgs<ExtArgs>
   _count?: boolean | Prisma.ManufacturerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["manufacturer"]>
@@ -842,6 +1111,8 @@ export type ManufacturerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["manufacturer"]>
 
 export type ManufacturerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -863,6 +1134,8 @@ export type ManufacturerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["manufacturer"]>
 
 export type ManufacturerSelectScalar = {
@@ -884,19 +1157,26 @@ export type ManufacturerSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
 }
 
-export type ManufacturerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "sequentialCode" | "name" | "country" | "email" | "phone" | "website" | "address" | "city" | "state" | "zipCode" | "isActive" | "notes" | "rating" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["manufacturer"]>
+export type ManufacturerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "sequentialCode" | "name" | "country" | "email" | "phone" | "website" | "address" | "city" | "state" | "zipCode" | "isActive" | "notes" | "rating" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["manufacturer"]>
 export type ManufacturerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Manufacturer$productsArgs<ExtArgs>
   _count?: boolean | Prisma.ManufacturerCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ManufacturerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type ManufacturerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ManufacturerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+}
+export type ManufacturerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+}
 
 export type $ManufacturerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Manufacturer"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     products: Prisma.$ProductPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -918,6 +1198,7 @@ export type $ManufacturerPayload<ExtArgs extends runtime.Types.Extensions.Intern
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    tenantId: string
   }, ExtArgs["result"]["manufacturer"]>
   composites: {}
 }
@@ -1312,6 +1593,7 @@ readonly fields: ManufacturerFieldRefs;
  */
 export interface Prisma__ManufacturerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   products<T extends Prisma.Manufacturer$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Manufacturer$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1360,6 +1642,7 @@ export interface ManufacturerFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Manufacturer", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Manufacturer", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Manufacturer", 'DateTime'>
+  readonly tenantId: Prisma.FieldRef<"Manufacturer", 'String'>
 }
     
 
@@ -1609,6 +1892,10 @@ export type ManufacturerCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    */
   data: Prisma.ManufacturerCreateManyInput | Prisma.ManufacturerCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ManufacturerIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1679,6 +1966,10 @@ export type ManufacturerUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    * Limit how many Manufacturers to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ManufacturerIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

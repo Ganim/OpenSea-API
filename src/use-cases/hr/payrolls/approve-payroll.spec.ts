@@ -6,6 +6,8 @@ import { ApprovePayrollUseCase } from './approve-payroll';
 let payrollsRepository: InMemoryPayrollsRepository;
 let sut: ApprovePayrollUseCase;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('Approve Payroll Use Case', () => {
   beforeEach(async () => {
     payrollsRepository = new InMemoryPayrollsRepository();
@@ -14,6 +16,7 @@ describe('Approve Payroll Use Case', () => {
 
   it('should approve a calculated payroll', async () => {
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
@@ -25,6 +28,7 @@ describe('Approve Payroll Use Case', () => {
 
     const approvedBy = new UniqueEntityID();
     const result = await sut.execute({
+      tenantId,
       payrollId: payroll.id.toString(),
       approvedBy: approvedBy.toString(),
     });
@@ -37,6 +41,7 @@ describe('Approve Payroll Use Case', () => {
   it('should throw error if payroll not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         payrollId: new UniqueEntityID().toString(),
         approvedBy: new UniqueEntityID().toString(),
       }),
@@ -45,12 +50,14 @@ describe('Approve Payroll Use Case', () => {
 
   it('should throw error if payroll is not calculated', async () => {
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
 
     await expect(
       sut.execute({
+        tenantId,
         payrollId: payroll.id.toString(),
         approvedBy: new UniqueEntityID().toString(),
       }),
@@ -59,6 +66,7 @@ describe('Approve Payroll Use Case', () => {
 
   it('should throw error if payroll is already approved', async () => {
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
@@ -71,6 +79,7 @@ describe('Approve Payroll Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         payrollId: payroll.id.toString(),
         approvedBy: new UniqueEntityID().toString(),
       }),

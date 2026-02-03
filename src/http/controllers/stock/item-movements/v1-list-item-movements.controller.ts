@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { itemMovementResponseSchema } from '@/http/schemas/stock.schema';
 import { makeListItemMovementsUseCase } from '@/use-cases/stock/item-movements/factories/make-list-item-movements-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -13,6 +14,7 @@ export async function listItemMovementsController(app: FastifyInstance) {
     url: '/v1/item-movements',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.MOVEMENTS.LIST,
         resource: 'item-movements',
@@ -38,10 +40,14 @@ export async function listItemMovementsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const filters = request.query;
 
       const listItemMovementsUseCase = makeListItemMovementsUseCase();
-      const { movements } = await listItemMovementsUseCase.execute(filters);
+      const { movements } = await listItemMovementsUseCase.execute({
+        tenantId,
+        ...filters,
+      });
 
       return reply.status(200).send({ movements });
     },

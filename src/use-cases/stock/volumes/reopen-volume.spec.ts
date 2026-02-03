@@ -1,5 +1,6 @@
 import { VolumeNotFoundError } from '@/@errors/volumes-errors';
 import { Volume } from '@/entities/stock/volume';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { InMemoryVolumesRepository } from '@/repositories/stock/in-memory/in-memory-volumes-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -17,6 +18,7 @@ describe('ReopenVolumeUseCase', () => {
   it('should throw error if volume not found', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         volumeId: 'non-existent-id',
       }),
     ).rejects.toThrow(VolumeNotFoundError);
@@ -24,6 +26,7 @@ describe('ReopenVolumeUseCase', () => {
 
   it('should reopen volume successfully', async () => {
     const volume = Volume.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       code: 'VOL-001',
       name: 'Volume Test',
       status: VolumeStatus.CLOSED,
@@ -35,6 +38,7 @@ describe('ReopenVolumeUseCase', () => {
     await volumesRepository.create(volume);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       volumeId: volume.id.toString(),
     });
 

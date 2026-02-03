@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeDeleteTagUseCase } from '@/use-cases/stock/tags/factories/make-delete-tag-use-case';
 import { makeGetTagByIdUseCase } from '@/use-cases/stock/tags/factories/make-get-tag-by-id-use-case';
@@ -17,6 +18,7 @@ export async function deleteTagController(app: FastifyInstance) {
     url: '/v1/tags/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.TAGS.DELETE,
         resource: 'tags',
@@ -36,6 +38,7 @@ export async function deleteTagController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params as { id: string };
       const userId = request.user.sub;
 
@@ -45,14 +48,14 @@ export async function deleteTagController(app: FastifyInstance) {
 
         const [{ user }, { tag }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getTagByIdUseCase.execute({ id }),
+          getTagByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const deleteTag = makeDeleteTagUseCase();
-        await deleteTag.execute({ id });
+        await deleteTag.execute({ tenantId, id });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STOCK.TAG_DELETE,

@@ -20,11 +20,13 @@ describe('UpdateZoneLayoutUseCase', () => {
 
   it('should update zone layout', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Main Warehouse',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'Z1',
       name: 'Zone 1',
@@ -46,6 +48,7 @@ describe('UpdateZoneLayoutUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       layout: newLayout.toJSON(),
     });
@@ -56,6 +59,7 @@ describe('UpdateZoneLayoutUseCase', () => {
 
   it('should clear zone layout when layout is null', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Main Warehouse',
     });
@@ -68,6 +72,7 @@ describe('UpdateZoneLayoutUseCase', () => {
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'Z2',
       name: 'Zone 2',
@@ -82,6 +87,7 @@ describe('UpdateZoneLayoutUseCase', () => {
     expect(zone.layout).toBeDefined();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       layout: null,
     });
@@ -92,6 +98,7 @@ describe('UpdateZoneLayoutUseCase', () => {
   it('should throw when zone does not exist', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         zoneId: new UniqueEntityID().toString(),
         layout: ZoneLayout.create({
           aislePositions: [{ aisleNumber: 1, x: 0, y: 0, rotation: 0 }],

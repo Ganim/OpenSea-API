@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas';
 import { makeDeleteCompanyFiscalSettingsUseCase } from '@/use-cases/hr/company-fiscal-settings/factories/make-company-fiscal-settings';
 import type { FastifyInstance } from 'fastify';
@@ -16,6 +17,7 @@ export async function deleteCompanyFiscalSettingsController(
     url: '/v1/hr/companies/:companyId/fiscal-settings',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.COMPANY_FISCAL_SETTINGS.DELETE,
         resource: 'company-fiscal-settings',

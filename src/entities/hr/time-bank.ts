@@ -2,6 +2,7 @@ import { Entity } from '../domain/entities';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface TimeBankProps {
+  tenantId: UniqueEntityID;
   employeeId: UniqueEntityID;
   balance: number; // Saldo em horas (pode ser positivo ou negativo)
   year: number;
@@ -10,6 +11,10 @@ export interface TimeBankProps {
 }
 
 export class TimeBank extends Entity<TimeBankProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get employeeId(): UniqueEntityID {
     return this.props.employeeId;
   }

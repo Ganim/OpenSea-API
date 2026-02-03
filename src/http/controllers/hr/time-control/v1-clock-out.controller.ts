@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { clockInOutSchema, timeEntryResponseSchema } from '@/http/schemas';
 import { timeEntryToDTO } from '@/mappers/hr/time-entry/time-entry-to-dto';
 import { makeClockOutUseCase } from '@/use-cases/hr/time-control/factories/make-clock-out-use-case';
@@ -12,7 +13,7 @@ export async function clockOutController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/time-control/clock-out',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Time Control'],
       summary: 'Register clock out',
@@ -31,10 +32,14 @@ export async function clockOutController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const data = request.body;
+      const tenantId = request.user.tenantId!;
 
       try {
         const clockOutUseCase = makeClockOutUseCase();
-        const { timeEntry } = await clockOutUseCase.execute(data);
+        const { timeEntry } = await clockOutUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         return reply.status(201).send({ timeEntry: timeEntryToDTO(timeEntry) });
       } catch (error) {

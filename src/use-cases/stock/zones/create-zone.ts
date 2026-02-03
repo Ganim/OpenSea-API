@@ -11,6 +11,7 @@ import type { ZonesRepository } from '@/repositories/stock/zones-repository';
 import { validateZoneStructureInput } from './helpers/validate-zone-structure';
 
 interface CreateZoneUseCaseRequest {
+  tenantId: string;
   warehouseId: string;
   code: string;
   name: string;
@@ -30,6 +31,7 @@ export class CreateZoneUseCase {
   ) {}
 
   async execute({
+    tenantId,
     warehouseId,
     code,
     name,
@@ -47,8 +49,10 @@ export class CreateZoneUseCase {
     const warehouseEntityId = new UniqueEntityID(warehouseId);
 
     // Check if warehouse exists
-    const warehouse =
-      await this.warehousesRepository.findById(warehouseEntityId);
+    const warehouse = await this.warehousesRepository.findById(
+      warehouseEntityId,
+      tenantId,
+    );
 
     if (!warehouse) {
       throw new ResourceNotFoundError('Warehouse');
@@ -58,6 +62,7 @@ export class CreateZoneUseCase {
     const existingZone = await this.zonesRepository.findByCode(
       warehouseEntityId,
       code,
+      tenantId,
     );
 
     if (existingZone) {
@@ -83,6 +88,7 @@ export class CreateZoneUseCase {
     }
 
     const zone = await this.zonesRepository.create({
+      tenantId,
       warehouseId: warehouseEntityId,
       code: code.toUpperCase(),
       name,

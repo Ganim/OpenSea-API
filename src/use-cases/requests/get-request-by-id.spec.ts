@@ -20,7 +20,7 @@ describe('GetRequestByIdUseCase', () => {
     const req = Request.create({
       title: 'Test',
       description: 'D',
-      type: 'GENERAL',
+      type: 'CUSTOM',
       status: 'SUBMITTED',
       priority: 'MEDIUM',
       requesterId: reqId,
@@ -49,7 +49,7 @@ describe('GetRequestByIdUseCase', () => {
     const req = Request.create({
       title: 'T',
       description: 'D',
-      type: 'GENERAL',
+      type: 'CUSTOM',
       status: 'SUBMITTED',
       priority: 'MEDIUM',
       requesterId: reqId,

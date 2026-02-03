@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { occupancyMapResponseSchema } from '@/http/schemas/stock/bins/bin.schema';
 import { makeGetBinOccupancyMapUseCase } from '@/use-cases/stock/bins/factories/make-get-bin-occupancy-map-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,6 +15,7 @@ export async function getBinOccupancyMapController(app: FastifyInstance) {
     url: '/v1/bins/occupancy',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.BINS.LIST,
         resource: 'bins',
@@ -37,12 +39,14 @@ export async function getBinOccupancyMapController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { zoneId } = request.query;
 
       try {
         const getBinOccupancyMapUseCase = makeGetBinOccupancyMapUseCase();
         const { occupancyData, stats } =
           await getBinOccupancyMapUseCase.execute({
+            tenantId,
             zoneId,
           });
 

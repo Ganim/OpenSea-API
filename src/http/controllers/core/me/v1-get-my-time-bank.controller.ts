@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   getTimeBankQuerySchema,
   timeBankResponseSchema,
@@ -15,7 +16,7 @@ export async function getMyTimeBankController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/me/time-bank',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['Me'],
       summary: 'Get my time bank balance',
@@ -30,16 +31,21 @@ export async function getMyTimeBankController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const { year } = request.query;
 
       try {
         // First get my employee record
         const getMyEmployeeUseCase = makeGetMyEmployeeUseCase();
-        const { employee } = await getMyEmployeeUseCase.execute({ userId });
+        const { employee } = await getMyEmployeeUseCase.execute({
+          tenantId,
+          userId,
+        });
 
         // Then get my time bank
         const getTimeBankUseCase = makeGetTimeBankUseCase();
         const { timeBank } = await getTimeBankUseCase.execute({
+          tenantId,
           employeeId: employee.id.toString(),
           year,
         });

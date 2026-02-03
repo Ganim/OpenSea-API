@@ -5,6 +5,7 @@ import type { VacationPeriod } from '@/entities/hr/vacation-period';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
 
 export interface SellVacationDaysRequest {
+  tenantId: string;
   vacationPeriodId: string;
   daysToSell: number;
 }
@@ -19,10 +20,11 @@ export class SellVacationDaysUseCase {
   async execute(
     request: SellVacationDaysRequest,
   ): Promise<SellVacationDaysResponse> {
-    const { vacationPeriodId, daysToSell } = request;
+    const { tenantId, vacationPeriodId, daysToSell } = request;
 
     const vacationPeriod = await this.vacationPeriodsRepository.findById(
       new UniqueEntityID(vacationPeriodId),
+      tenantId,
     );
 
     if (!vacationPeriod) {

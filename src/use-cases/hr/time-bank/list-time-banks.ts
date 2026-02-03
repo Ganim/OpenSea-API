@@ -3,6 +3,7 @@ import { TimeBank } from '@/entities/hr/time-bank';
 import { TimeBankRepository } from '@/repositories/hr/time-bank-repository';
 
 export interface ListTimeBanksRequest {
+  tenantId: string;
   employeeId?: string;
   year?: number;
 }
@@ -16,20 +17,22 @@ export class ListTimeBanksUseCase {
   constructor(private timeBankRepository: TimeBankRepository) {}
 
   async execute(request: ListTimeBanksRequest): Promise<ListTimeBanksResponse> {
-    const { employeeId, year } = request;
+    const { tenantId, employeeId, year } = request;
 
     let timeBanks: TimeBank[];
 
     if (employeeId) {
       timeBanks = await this.timeBankRepository.findManyByEmployee(
         new UniqueEntityID(employeeId),
+        tenantId,
       );
     } else if (year) {
-      timeBanks = await this.timeBankRepository.findManyByYear(year);
+      timeBanks = await this.timeBankRepository.findManyByYear(year, tenantId);
     } else {
       // Default: current year
       timeBanks = await this.timeBankRepository.findManyByYear(
         new Date().getFullYear(),
+        tenantId,
       );
     }
 

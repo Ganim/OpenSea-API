@@ -7,6 +7,7 @@ import type {
 import type { ZonesRepository } from '@/repositories/stock/zones-repository';
 
 interface GetBinOccupancyMapUseCaseRequest {
+  tenantId: string;
   zoneId: string;
 }
 
@@ -28,19 +29,22 @@ export class GetBinOccupancyMapUseCase {
   ) {}
 
   async execute({
+    tenantId,
     zoneId,
   }: GetBinOccupancyMapUseCaseRequest): Promise<GetBinOccupancyMapUseCaseResponse> {
     const zoneEntityId = new UniqueEntityID(zoneId);
 
     // Check if zone exists
-    const zone = await this.zonesRepository.findById(zoneEntityId);
+    const zone = await this.zonesRepository.findById(zoneEntityId, tenantId);
 
     if (!zone) {
       throw new ResourceNotFoundError('Zone');
     }
 
-    const occupancyData =
-      await this.binsRepository.getOccupancyMap(zoneEntityId);
+    const occupancyData = await this.binsRepository.getOccupancyMap(
+      zoneEntityId,
+      tenantId,
+    );
 
     // Calculate stats
     let emptyBins = 0;

@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createWorkScheduleSchema,
   workScheduleResponseSchema,
@@ -18,6 +19,7 @@ export async function createWorkScheduleController(app: FastifyInstance) {
     url: '/v1/hr/work-schedules',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.WORK_SCHEDULES.CREATE,
         resource: 'work-schedules',
@@ -40,11 +42,15 @@ export async function createWorkScheduleController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const createWorkScheduleUseCase = makeCreateWorkScheduleUseCase();
-        const { workSchedule } = await createWorkScheduleUseCase.execute(data);
+        const { workSchedule } = await createWorkScheduleUseCase.execute({
+          ...data,
+          tenantId,
+        });
 
         return reply
           .status(201)

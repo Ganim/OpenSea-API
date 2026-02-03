@@ -2,6 +2,7 @@ import { VolumeNotFoundError } from '@/@errors/volumes-errors';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface DeleteVolumeUseCaseRequest {
+  tenantId: string;
   volumeId: string;
 }
 
@@ -15,7 +16,10 @@ export class DeleteVolumeUseCase {
   async execute(
     request: DeleteVolumeUseCaseRequest,
   ): Promise<DeleteVolumeUseCaseResponse> {
-    const volume = await this.volumesRepository.findById(request.volumeId);
+    const volume = await this.volumesRepository.findById(
+      request.volumeId,
+      request.tenantId,
+    );
     if (!volume) {
       throw new VolumeNotFoundError(request.volumeId);
     }

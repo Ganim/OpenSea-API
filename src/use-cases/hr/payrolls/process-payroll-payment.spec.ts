@@ -1,4 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryBonusesRepository } from '@/repositories/hr/in-memory/in-memory-bonuses-repository';
 import { InMemoryDeductionsRepository } from '@/repositories/hr/in-memory/in-memory-deductions-repository';
 import { InMemoryPayrollItemsRepository } from '@/repositories/hr/in-memory/in-memory-payroll-items-repository';
@@ -11,6 +12,8 @@ let payrollItemsRepository: InMemoryPayrollItemsRepository;
 let bonusesRepository: InMemoryBonusesRepository;
 let deductionsRepository: InMemoryDeductionsRepository;
 let sut: ProcessPayrollPaymentUseCase;
+
+const tenantId = new UniqueEntityID().toString();
 
 describe('ProcessPayrollPaymentUseCase', () => {
   beforeEach(() => {
@@ -28,7 +31,7 @@ describe('ProcessPayrollPaymentUseCase', () => {
 
   it('should throw ResourceNotFoundError for non-existent payroll', async () => {
     await expect(() =>
-      sut.execute({ payrollId: 'non-existent', paidBy: 'admin' }),
+      sut.execute({ tenantId, payrollId: 'non-existent', paidBy: 'admin' }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

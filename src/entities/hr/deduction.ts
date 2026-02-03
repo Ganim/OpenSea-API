@@ -2,6 +2,7 @@ import { Entity } from '../domain/entities';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface DeductionProps {
+  tenantId: UniqueEntityID;
   employeeId: UniqueEntityID;
   name: string;
   amount: number;
@@ -18,6 +19,10 @@ export interface DeductionProps {
 }
 
 export class Deduction extends Entity<DeductionProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get employeeId(): UniqueEntityID {
     return this.props.employeeId;
   }

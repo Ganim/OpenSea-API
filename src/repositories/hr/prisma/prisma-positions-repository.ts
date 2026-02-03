@@ -14,6 +14,7 @@ export class PrismaPositionsRepository implements PositionsRepository {
   async create(data: CreatePositionSchema): Promise<Position> {
     const positionData = await prisma.position.create({
       data: {
+        tenantId: data.tenantId,
         name: data.name,
         code: data.code,
         description: data.description,
@@ -36,10 +37,14 @@ export class PrismaPositionsRepository implements PositionsRepository {
     return position;
   }
 
-  async findById(id: UniqueEntityID): Promise<Position | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Position | null> {
     const positionData = await prisma.position.findFirst({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -56,10 +61,11 @@ export class PrismaPositionsRepository implements PositionsRepository {
     return position;
   }
 
-  async findByCode(code: string): Promise<Position | null> {
+  async findByCode(code: string, tenantId: string): Promise<Position | null> {
     const positionData = await prisma.position.findFirst({
       where: {
         code,
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -80,6 +86,7 @@ export class PrismaPositionsRepository implements PositionsRepository {
     params: FindManyPositionsParams,
   ): Promise<FindManyPositionsResult> {
     const {
+      tenantId,
       page = 1,
       perPage = 20,
       search,
@@ -90,6 +97,7 @@ export class PrismaPositionsRepository implements PositionsRepository {
     } = params;
 
     const where = {
+      tenantId,
       deletedAt: null,
       ...(search && {
         OR: [
@@ -131,10 +139,12 @@ export class PrismaPositionsRepository implements PositionsRepository {
 
   async findManyByDepartment(
     departmentId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Position[]> {
     const positions = await prisma.position.findMany({
       where: {
         departmentId: departmentId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -150,9 +160,13 @@ export class PrismaPositionsRepository implements PositionsRepository {
     );
   }
 
-  async findManyByCompany(companyId: UniqueEntityID): Promise<Position[]> {
+  async findManyByCompany(
+    companyId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Position[]> {
     const positions = await prisma.position.findMany({
       where: {
+        tenantId,
         department: {
           companyId: companyId.toString(),
         },
@@ -171,10 +185,11 @@ export class PrismaPositionsRepository implements PositionsRepository {
     );
   }
 
-  async findManyByLevel(level: number): Promise<Position[]> {
+  async findManyByLevel(level: number, tenantId: string): Promise<Position[]> {
     const positions = await prisma.position.findMany({
       where: {
         level,
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -190,10 +205,11 @@ export class PrismaPositionsRepository implements PositionsRepository {
     );
   }
 
-  async findManyActive(): Promise<Position[]> {
+  async findManyActive(tenantId: string): Promise<Position[]> {
     const positions = await prisma.position.findMany({
       where: {
         isActive: true,
+        tenantId,
         deletedAt: null,
       },
       include: {

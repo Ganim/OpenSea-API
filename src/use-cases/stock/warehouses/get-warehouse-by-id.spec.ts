@@ -15,6 +15,7 @@ describe('GetWarehouseByIdUseCase', () => {
 
   async function createTestWarehouse() {
     return warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
       description: 'Descrição da fábrica',
@@ -26,6 +27,7 @@ describe('GetWarehouseByIdUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
     });
 
@@ -40,6 +42,7 @@ describe('GetWarehouseByIdUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
     });
 
@@ -52,6 +55,7 @@ describe('GetWarehouseByIdUseCase', () => {
     vi.spyOn(warehousesRepository, 'countZones').mockResolvedValue(3);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
     });
 
@@ -61,6 +65,7 @@ describe('GetWarehouseByIdUseCase', () => {
   it('should fail when warehouse is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -73,6 +78,7 @@ describe('GetWarehouseByIdUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: warehouse.warehouseId.toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);

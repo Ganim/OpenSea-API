@@ -14,6 +14,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
   async create(data: CreateDepartmentSchema): Promise<Department> {
     const departmentData = await prisma.department.create({
       data: {
+        tenantId: data.tenantId,
         name: data.name,
         code: data.code,
         description: data.description,
@@ -36,10 +37,14 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
     return department;
   }
 
-  async findById(id: UniqueEntityID): Promise<Department | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department | null> {
     const departmentData = await prisma.department.findFirst({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -61,11 +66,13 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
   async findByCode(
     code: string,
     companyId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Department | null> {
     const departmentData = await prisma.department.findFirst({
       where: {
         code,
         companyId: companyId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -88,6 +95,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
     params: FindManyDepartmentsParams,
   ): Promise<FindManyDepartmentsResult> {
     const {
+      tenantId,
       page = 1,
       perPage = 20,
       search,
@@ -97,6 +105,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
     } = params;
 
     const where = {
+      tenantId,
       deletedAt: null,
       ...(search && {
         OR: [
@@ -135,10 +144,14 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
     };
   }
 
-  async findManyByParent(parentId: UniqueEntityID): Promise<Department[]> {
+  async findManyByParent(
+    parentId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department[]> {
     const departments = await prisma.department.findMany({
       where: {
         parentId: parentId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -156,10 +169,14 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
     );
   }
 
-  async findManyByManager(managerId: UniqueEntityID): Promise<Department[]> {
+  async findManyByManager(
+    managerId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department[]> {
     const departments = await prisma.department.findMany({
       where: {
         managerId: managerId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -177,10 +194,14 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
     );
   }
 
-  async findManyByCompany(companyId: UniqueEntityID): Promise<Department[]> {
+  async findManyByCompany(
+    companyId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department[]> {
     const departments = await prisma.department.findMany({
       where: {
         companyId: companyId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -198,10 +219,11 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
     );
   }
 
-  async findManyActive(): Promise<Department[]> {
+  async findManyActive(tenantId: string): Promise<Department[]> {
     const departments = await prisma.department.findMany({
       where: {
         isActive: true,
+        tenantId,
         deletedAt: null,
       },
       include: {

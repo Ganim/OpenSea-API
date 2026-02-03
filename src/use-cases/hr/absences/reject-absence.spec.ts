@@ -8,6 +8,7 @@ import { RejectAbsenceUseCase } from './reject-absence';
 let absencesRepository: InMemoryAbsencesRepository;
 let sut: RejectAbsenceUseCase;
 let testAbsence: Absence;
+const tenantId = new UniqueEntityID().toString();
 const employeeId = new UniqueEntityID();
 const rejectedById = new UniqueEntityID();
 
@@ -17,6 +18,7 @@ describe('Reject Absence Use Case', () => {
     sut = new RejectAbsenceUseCase(absencesRepository);
 
     testAbsence = Absence.create({
+      tenantId: new UniqueEntityID(tenantId),
       employeeId,
       type: AbsenceType.create('VACATION'),
       status: AbsenceStatus.pending(),
@@ -34,6 +36,7 @@ describe('Reject Absence Use Case', () => {
     const reason = 'Período solicitado conflita com projeto crítico';
 
     const result = await sut.execute({
+      tenantId,
       absenceId: testAbsence.id.toString(),
       rejectedBy: rejectedById.toString(),
       reason,
@@ -47,6 +50,7 @@ describe('Reject Absence Use Case', () => {
   it('should throw error if absence not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         absenceId: new UniqueEntityID().toString(),
         rejectedBy: rejectedById.toString(),
         reason: 'Motivo da rejeição para teste',
@@ -60,6 +64,7 @@ describe('Reject Absence Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         absenceId: testAbsence.id.toString(),
         rejectedBy: rejectedById.toString(),
         reason: 'Motivo da rejeição para teste',
@@ -70,6 +75,7 @@ describe('Reject Absence Use Case', () => {
   it('should throw error if rejection reason is too short', async () => {
     await expect(
       sut.execute({
+        tenantId,
         absenceId: testAbsence.id.toString(),
         rejectedBy: rejectedById.toString(),
         reason: 'Curto',

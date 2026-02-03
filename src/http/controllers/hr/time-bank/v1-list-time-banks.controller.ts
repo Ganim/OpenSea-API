@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listTimeBanksQuerySchema,
   timeBankResponseSchema,
@@ -14,7 +15,7 @@ export async function listTimeBanksController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/time-bank',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Time Bank'],
       summary: 'List time banks',
@@ -29,10 +30,14 @@ export async function listTimeBanksController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const query = request.query;
 
       const listTimeBanksUseCase = makeListTimeBanksUseCase();
-      const { timeBanks } = await listTimeBanksUseCase.execute(query);
+      const { timeBanks } = await listTimeBanksUseCase.execute({
+        ...query,
+        tenantId,
+      });
 
       return reply.status(200).send({
         timeBanks: timeBanks.map(timeBankToDTO),

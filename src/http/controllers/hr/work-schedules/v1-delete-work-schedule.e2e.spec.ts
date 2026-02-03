@@ -4,10 +4,15 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Delete Work Schedule (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -15,10 +20,11 @@ describe('Delete Work Schedule (E2E)', () => {
   });
 
   it('should allow MANAGER to delete a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
+        tenantId,
         name: 'To Delete Schedule',
         breakDuration: 60,
         isActive: true,
@@ -39,10 +45,11 @@ describe('Delete Work Schedule (E2E)', () => {
   });
 
   it('should allow ADMIN to delete a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
+        tenantId,
         name: 'Admin Delete Schedule',
         breakDuration: 60,
         isActive: true,
@@ -57,10 +64,14 @@ describe('Delete Work Schedule (E2E)', () => {
   });
 
   it('should NOT allow user without permission to delete a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, { permissions: [] });
+    const { token } = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: [],
+    });
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
+        tenantId,
         name: 'User Cannot Delete',
         breakDuration: 60,
         isActive: true,

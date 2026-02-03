@@ -21,8 +21,18 @@ describe('Transfer Item (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const template = await prisma.template.create({
       data: {
+        tenantId,
         name: `Template Transfer Test ${timestamp}`,
         productAttributes: {},
         variantAttributes: {},
@@ -31,11 +41,13 @@ describe('Transfer Item (E2E)', () => {
     });
 
     const { product } = await createProduct({
+      tenantId,
       name: `Product Transfer ${timestamp}`,
       templateId: template.id,
     });
 
     const { variant } = await createVariant({
+      tenantId,
       productId: product.id,
       sku: `SKU-TRANSFER-${timestamp}`,
       name: `Variant Transfer ${timestamp}`,
@@ -44,6 +56,7 @@ describe('Transfer Item (E2E)', () => {
 
     const sourceWarehouse = await prisma.warehouse.create({
       data: {
+        tenantId,
         code: `S${timestamp.toString().slice(-3)}`,
         name: 'Source warehouse',
       },
@@ -51,6 +64,7 @@ describe('Transfer Item (E2E)', () => {
 
     const sourceZone = await prisma.zone.create({
       data: {
+        tenantId,
         code: `ZS${timestamp.toString().slice(-2)}`,
         name: 'Source zone',
         warehouseId: sourceWarehouse.id,
@@ -60,6 +74,7 @@ describe('Transfer Item (E2E)', () => {
 
     const sourceBin = await prisma.bin.create({
       data: {
+        tenantId,
         address: `${sourceWarehouse.code}-${sourceZone.code}-01-A`,
         aisle: 1,
         shelf: 1,
@@ -70,6 +85,7 @@ describe('Transfer Item (E2E)', () => {
 
     const destWarehouse = await prisma.warehouse.create({
       data: {
+        tenantId,
         code: `D${timestamp.toString().slice(-3)}`,
         name: 'Destination warehouse',
       },
@@ -77,6 +93,7 @@ describe('Transfer Item (E2E)', () => {
 
     const destZone = await prisma.zone.create({
       data: {
+        tenantId,
         code: `ZD${timestamp.toString().slice(-2)}`,
         name: 'Destination zone',
         warehouseId: destWarehouse.id,
@@ -86,6 +103,7 @@ describe('Transfer Item (E2E)', () => {
 
     const destBin = await prisma.bin.create({
       data: {
+        tenantId,
         address: `${destWarehouse.code}-${destZone.code}-01-A`,
         aisle: 1,
         shelf: 1,
@@ -95,6 +113,7 @@ describe('Transfer Item (E2E)', () => {
     });
 
     const { item } = await createItemE2E({
+      tenantId,
       variantId: variant.id,
       uniqueCode: `ITEM-TRANSFER-${timestamp}`,
       binId: sourceBin.id,

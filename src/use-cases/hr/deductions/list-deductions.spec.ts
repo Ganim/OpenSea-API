@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import {
   ContractType,
@@ -16,6 +17,8 @@ let sut: ListDeductionsUseCase;
 let testEmployee1: Employee;
 let testEmployee2: Employee;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('List Deductions Use Case', () => {
   beforeEach(async () => {
     deductionsRepository = new InMemoryDeductionsRepository();
@@ -23,6 +26,7 @@ describe('List Deductions Use Case', () => {
     sut = new ListDeductionsUseCase(deductionsRepository);
 
     testEmployee1 = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee 1',
       cpf: CPF.create('529.982.247-25'),
@@ -36,6 +40,7 @@ describe('List Deductions Use Case', () => {
     });
 
     testEmployee2 = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Test Employee 2',
       cpf: CPF.create('123.456.789-09'),
@@ -51,6 +56,7 @@ describe('List Deductions Use Case', () => {
 
   it('should list all deductions', async () => {
     await deductionsRepository.create({
+      tenantId,
       employeeId: testEmployee1.id,
       name: 'Deduction 1',
       amount: 200,
@@ -59,6 +65,7 @@ describe('List Deductions Use Case', () => {
     });
 
     await deductionsRepository.create({
+      tenantId,
       employeeId: testEmployee2.id,
       name: 'Deduction 2',
       amount: 300,
@@ -66,13 +73,14 @@ describe('List Deductions Use Case', () => {
       date: new Date(),
     });
 
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId });
 
     expect(result.deductions).toHaveLength(2);
   });
 
   it('should filter deductions by employee', async () => {
     await deductionsRepository.create({
+      tenantId,
       employeeId: testEmployee1.id,
       name: 'Deduction 1',
       amount: 200,
@@ -81,6 +89,7 @@ describe('List Deductions Use Case', () => {
     });
 
     await deductionsRepository.create({
+      tenantId,
       employeeId: testEmployee2.id,
       name: 'Deduction 2',
       amount: 300,
@@ -89,6 +98,7 @@ describe('List Deductions Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee1.id.toString(),
     });
 
@@ -98,6 +108,7 @@ describe('List Deductions Use Case', () => {
 
   it('should filter deductions by recurring status', async () => {
     await deductionsRepository.create({
+      tenantId,
       employeeId: testEmployee1.id,
       name: 'One-time Deduction',
       amount: 200,
@@ -107,6 +118,7 @@ describe('List Deductions Use Case', () => {
     });
 
     await deductionsRepository.create({
+      tenantId,
       employeeId: testEmployee1.id,
       name: 'Recurring Deduction',
       amount: 300,
@@ -116,17 +128,17 @@ describe('List Deductions Use Case', () => {
       installments: 6,
     });
 
-    const recurringResult = await sut.execute({ isRecurring: true });
+    const recurringResult = await sut.execute({ tenantId, isRecurring: true });
     expect(recurringResult.deductions).toHaveLength(1);
     expect(recurringResult.deductions[0].isRecurring).toBe(true);
 
-    const oneTimeResult = await sut.execute({ isRecurring: false });
+    const oneTimeResult = await sut.execute({ tenantId, isRecurring: false });
     expect(oneTimeResult.deductions).toHaveLength(1);
     expect(oneTimeResult.deductions[0].isRecurring).toBe(false);
   });
 
   it('should return empty array when no deductions exist', async () => {
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId });
 
     expect(result.deductions).toHaveLength(0);
   });

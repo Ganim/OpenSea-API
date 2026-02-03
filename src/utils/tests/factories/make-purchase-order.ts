@@ -5,6 +5,7 @@ import { faker } from '@faker-js/faker';
 
 export function makePurchaseOrder(
   override?: Partial<{
+    tenantId: UniqueEntityID;
     orderNumber: string;
     supplierId: UniqueEntityID;
     createdBy: UniqueEntityID;
@@ -19,6 +20,7 @@ export function makePurchaseOrder(
       : OrderStatus.create('PENDING');
 
   return PurchaseOrder.create({
+    tenantId: override?.tenantId ?? new UniqueEntityID('tenant-1'),
     orderNumber:
       override?.orderNumber ?? faker.string.alphanumeric(10).toUpperCase(),
     supplierId: override?.supplierId ?? new UniqueEntityID(),

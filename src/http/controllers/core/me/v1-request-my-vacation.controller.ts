@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { absenceResponseSchema } from '@/http/schemas/hr/leave/absence.schema';
 import { absenceToDTO } from '@/mappers/hr/absence/absence-to-dto';
 import { makeRequestVacationUseCase } from '@/use-cases/hr/absences/factories/make-request-vacation-use-case';
@@ -12,7 +13,7 @@ export async function requestMyVacationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/me/vacations',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['Me'],
       summary: 'Request vacation for myself',
@@ -33,16 +34,21 @@ export async function requestMyVacationController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const { vacationPeriodId, startDate, endDate, reason } = request.body;
 
       try {
         // First get my employee record
         const getMyEmployeeUseCase = makeGetMyEmployeeUseCase();
-        const { employee } = await getMyEmployeeUseCase.execute({ userId });
+        const { employee } = await getMyEmployeeUseCase.execute({
+          tenantId,
+          userId,
+        });
 
         // Then request vacation
         const requestVacationUseCase = makeRequestVacationUseCase();
         const { absence } = await requestVacationUseCase.execute({
+          tenantId,
           employeeId: employee.id.toString(),
           vacationPeriodId,
           startDate,

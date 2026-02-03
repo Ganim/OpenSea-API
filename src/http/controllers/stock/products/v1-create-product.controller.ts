@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { createProductSchema, productResponseSchema } from '@/http/schemas';
 import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -18,6 +19,7 @@ export async function createProductController(app: FastifyInstance) {
     url: '/v1/products',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.PRODUCTS.CREATE,
         resource: 'products',
@@ -39,6 +41,7 @@ export async function createProductController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const {
         name,
         description,
@@ -59,6 +62,7 @@ export async function createProductController(app: FastifyInstance) {
 
         const createProductUseCase = makeCreateProductUseCase();
         const { product } = await createProductUseCase.execute({
+          tenantId,
           name,
           description,
           status,

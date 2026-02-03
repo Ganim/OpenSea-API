@@ -26,11 +26,13 @@ describe('ConfigureZoneStructureUseCase', () => {
 
   it('should generate bins using independent aisle configurations', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Main Warehouse',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'Z1',
       name: 'Zone 1',
@@ -38,6 +40,7 @@ describe('ConfigureZoneStructureUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       regenerateBins: true,
       structure: {
@@ -70,11 +73,13 @@ describe('ConfigureZoneStructureUseCase', () => {
 
   it('should reject duplicated aisle numbers', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Main Warehouse',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'Z2',
       name: 'Zone 2',
@@ -83,6 +88,7 @@ describe('ConfigureZoneStructureUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId.toString(),
         regenerateBins: true,
         structure: {
@@ -100,10 +106,15 @@ describe('ConfigureZoneStructureUseCase', () => {
   });
 
   it('should throw when zone does not exist', async () => {
-    await warehousesRepository.create({ code: 'FAB', name: 'Main Warehouse' });
+    await warehousesRepository.create({
+      tenantId: 'tenant-1',
+      code: 'FAB',
+      name: 'Main Warehouse',
+    });
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         zoneId: new UniqueEntityID().toString(),
         structure: {
           aisles: 1,

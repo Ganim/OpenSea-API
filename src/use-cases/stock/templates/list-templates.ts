@@ -2,6 +2,10 @@ import type { TemplateDTO } from '@/mappers/stock/template/template-to-dto';
 import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
+interface ListTemplatesUseCaseRequest {
+  tenantId: string;
+}
+
 interface ListTemplatesUseCaseResponse {
   templates: TemplateDTO[];
 }
@@ -9,8 +13,10 @@ interface ListTemplatesUseCaseResponse {
 export class ListTemplatesUseCase {
   constructor(private templatesRepository: TemplatesRepository) {}
 
-  async execute(): Promise<ListTemplatesUseCaseResponse> {
-    const templates = await this.templatesRepository.findMany();
+  async execute({
+    tenantId,
+  }: ListTemplatesUseCaseRequest): Promise<ListTemplatesUseCaseResponse> {
+    const templates = await this.templatesRepository.findMany(tenantId);
 
     return {
       templates: templates.map(templateToDTO),

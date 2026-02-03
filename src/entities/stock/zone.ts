@@ -6,6 +6,7 @@ import { ZoneLayout } from './value-objects/zone-layout';
 
 export interface ZoneProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   warehouseId: UniqueEntityID;
   code: string;
   name: string;
@@ -22,6 +23,10 @@ export class Zone extends Entity<ZoneProps> {
   // Getters
   get zoneId(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get warehouseId(): UniqueEntityID {

@@ -1,4 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Category } from '@/entities/stock/category';
 import type {
   CategoriesRepository,
@@ -11,6 +12,7 @@ export class InMemoryCategoriesRepository implements CategoriesRepository {
 
   async create(data: CreateCategorySchema): Promise<Category> {
     const category = Category.create({
+      tenantId: new EntityID(data.tenantId),
       name: data.name,
       slug: data.slug,
       description: data.description ?? null,
@@ -24,49 +26,79 @@ export class InMemoryCategoriesRepository implements CategoriesRepository {
     return category;
   }
 
-  async findById(id: UniqueEntityID): Promise<Category | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Category | null> {
     const category = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return category ?? null;
   }
 
-  async findBySlug(slug: string): Promise<Category | null> {
+  async findBySlug(slug: string, tenantId: string): Promise<Category | null> {
     const category = this.items.find(
-      (item) => !item.deletedAt && item.slug === slug,
+      (item) =>
+        !item.deletedAt &&
+        item.slug === slug &&
+        item.tenantId.toString() === tenantId,
     );
     return category ?? null;
   }
 
-  async findByName(name: string): Promise<Category | null> {
+  async findByName(name: string, tenantId: string): Promise<Category | null> {
     const category = this.items.find(
-      (item) => !item.deletedAt && item.name === name,
+      (item) =>
+        !item.deletedAt &&
+        item.name === name &&
+        item.tenantId.toString() === tenantId,
     );
     return category ?? null;
   }
 
-  async findMany(): Promise<Category[]> {
-    return this.items.filter((item) => !item.deletedAt);
-  }
-
-  async findManyByParent(parentId: UniqueEntityID): Promise<Category[]> {
+  async findMany(tenantId: string): Promise<Category[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.parentId?.equals(parentId),
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyRootCategories(): Promise<Category[]> {
+  async findManyByParent(
+    parentId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Category[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.parentId === null,
+      (item) =>
+        !item.deletedAt &&
+        item.parentId?.equals(parentId) &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyActive(): Promise<Category[]> {
-    return this.items.filter((item) => !item.deletedAt && item.isActive);
+  async findManyRootCategories(tenantId: string): Promise<Category[]> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.parentId === null &&
+        item.tenantId.toString() === tenantId,
+    );
+  }
+
+  async findManyActive(tenantId: string): Promise<Category[]> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.isActive &&
+        item.tenantId.toString() === tenantId,
+    );
   }
 
   async update(data: UpdateCategorySchema): Promise<Category | null> {
-    const category = await this.findById(data.id);
+    const category = this.items.find(
+      (item) => !item.deletedAt && item.id.equals(data.id),
+    );
     if (!category) return null;
 
     if (data.name !== undefined) category.name = data.name;
@@ -91,7 +123,9 @@ export class InMemoryCategoriesRepository implements CategoriesRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const category = await this.findById(id);
+    const category = this.items.find(
+      (item) => !item.deletedAt && item.id.equals(id),
+    );
     if (category) {
       category.delete();
     }

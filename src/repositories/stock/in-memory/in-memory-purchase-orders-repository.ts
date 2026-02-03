@@ -1,4 +1,4 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { OrderStatus } from '@/entities/sales/value-objects/order-status';
 import {
   PurchaseOrder,
@@ -17,6 +17,7 @@ export class InMemoryPurchaseOrdersRepository
 
   async create(data: CreatePurchaseOrderSchema): Promise<PurchaseOrder> {
     const order = PurchaseOrder.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       orderNumber: data.orderNumber,
       supplierId: data.supplierId,
       createdBy: data.createdBy,
@@ -44,16 +45,28 @@ export class InMemoryPurchaseOrdersRepository
     return order;
   }
 
-  async findById(id: UniqueEntityID): Promise<PurchaseOrder | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<PurchaseOrder | null> {
     const order = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return order ?? null;
   }
 
-  async findByOrderNumber(orderNumber: string): Promise<PurchaseOrder | null> {
+  async findByOrderNumber(
+    orderNumber: string,
+    tenantId: string,
+  ): Promise<PurchaseOrder | null> {
     const order = this.items.find(
-      (item) => !item.deletedAt && item.orderNumber === orderNumber,
+      (item) =>
+        !item.deletedAt &&
+        item.orderNumber === orderNumber &&
+        item.tenantId.toString() === tenantId,
     );
     return order ?? null;
   }
@@ -62,10 +75,16 @@ export class InMemoryPurchaseOrdersRepository
     status: OrderStatus,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<PurchaseOrder[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt && item.status.value === status.value)
+      .filter(
+        (item) =>
+          !item.deletedAt &&
+          item.status.value === status.value &&
+          item.tenantId.toString() === tenantId,
+      )
       .slice(start, start + perPage);
   }
 
@@ -73,10 +92,16 @@ export class InMemoryPurchaseOrdersRepository
     supplierId: UniqueEntityID,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<PurchaseOrder[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt && item.supplierId.equals(supplierId))
+      .filter(
+        (item) =>
+          !item.deletedAt &&
+          item.supplierId.equals(supplierId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .slice(start, start + perPage);
   }
 

@@ -1,6 +1,7 @@
 import { VolumeNotFoundError } from '@/@errors/volumes-errors';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { Volume } from '@/entities/stock/volume';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryVolumesRepository } from '@/repositories/stock/in-memory/in-memory-volumes-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { DeleteVolumeUseCase } from './delete-volume';
@@ -17,6 +18,7 @@ describe('DeleteVolumeUseCase', () => {
   it('should throw error if volume not found', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         volumeId: 'non-existent-id',
       }),
     ).rejects.toThrow(VolumeNotFoundError);
@@ -24,6 +26,7 @@ describe('DeleteVolumeUseCase', () => {
 
   it('should delete volume successfully', async () => {
     const volume = Volume.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       code: 'VOL-001',
       name: 'Volume Test',
       status: VolumeStatus.OPEN,
@@ -33,6 +36,7 @@ describe('DeleteVolumeUseCase', () => {
     await volumesRepository.create(volume);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       volumeId: volume.id.toString(),
     });
 
@@ -41,6 +45,7 @@ describe('DeleteVolumeUseCase', () => {
     // Verify the volume is soft deleted
     const deletedVolume = await volumesRepository.findById(
       volume.id.toString(),
+      'tenant-1',
     );
     expect(deletedVolume).toBeNull();
   });

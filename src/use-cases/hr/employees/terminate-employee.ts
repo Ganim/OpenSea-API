@@ -5,6 +5,7 @@ import { EmployeeStatus } from '@/entities/hr/value-objects';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface TerminateEmployeeRequest {
+  tenantId: string;
   employeeId: string;
   terminationDate: Date;
   reason?: string;
@@ -20,10 +21,11 @@ export class TerminateEmployeeUseCase {
   async execute(
     request: TerminateEmployeeRequest,
   ): Promise<TerminateEmployeeResponse> {
-    const { employeeId, terminationDate, reason } = request;
+    const { tenantId, employeeId, terminationDate, reason } = request;
 
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!employee) {

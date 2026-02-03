@@ -24,6 +24,7 @@ export class PrismaPermissionGroupsRepository
         color: data.color,
         priority: data.priority,
         parentId: data.parentId?.toString() ?? null,
+        tenantId: data.tenantId?.toString() ?? null,
       },
     });
 
@@ -252,6 +253,37 @@ export class PrismaPermissionGroupsRepository
     }
 
     return ancestors;
+  }
+
+  // TENANT-SCOPED
+  async findBySlugAndTenantId(
+    slug: string,
+    tenantId: UniqueEntityID,
+    includeDeleted = false,
+  ): Promise<PermissionGroup | null> {
+    const group = await prisma.permissionGroup.findFirst({
+      where: {
+        slug,
+        tenantId: tenantId.toString(),
+        ...(includeDeleted ? {} : { deletedAt: null }),
+      },
+    });
+
+    if (!group) return null;
+
+    return mapPermissionGroupPrismaToDomain(group);
+  }
+
+  async listByTenantId(tenantId: UniqueEntityID): Promise<PermissionGroup[]> {
+    const groups = await prisma.permissionGroup.findMany({
+      where: {
+        tenantId: tenantId.toString(),
+        deletedAt: null,
+      },
+      orderBy: [{ priority: 'desc' }, { name: 'asc' }],
+    });
+
+    return groups.map(mapPermissionGroupPrismaToDomain);
   }
 
   // UTILITY

@@ -4,6 +4,7 @@ import type { Payroll } from '@/entities/hr/payroll';
 import { PayrollsRepository } from '@/repositories/hr/payrolls-repository';
 
 export interface GetPayrollRequest {
+  tenantId: string;
   payrollId: string;
 }
 
@@ -15,10 +16,11 @@ export class GetPayrollUseCase {
   constructor(private payrollsRepository: PayrollsRepository) {}
 
   async execute(request: GetPayrollRequest): Promise<GetPayrollResponse> {
-    const { payrollId } = request;
+    const { tenantId, payrollId } = request;
 
     const payroll = await this.payrollsRepository.findById(
       new UniqueEntityID(payrollId),
+      tenantId,
     );
 
     if (!payroll) {

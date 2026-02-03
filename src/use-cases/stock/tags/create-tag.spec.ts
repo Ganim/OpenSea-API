@@ -14,6 +14,7 @@ describe('CreateTagUseCase', () => {
 
   it('should create a tag', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
       color: '#FF5733',
@@ -33,6 +34,7 @@ describe('CreateTagUseCase', () => {
 
   it('should create a tag without slug (auto-generate)', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics & Gadgets',
     });
 
@@ -41,6 +43,7 @@ describe('CreateTagUseCase', () => {
 
   it('should create a tag without color', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
@@ -49,6 +52,7 @@ describe('CreateTagUseCase', () => {
 
   it('should create a tag without description', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
@@ -58,6 +62,7 @@ describe('CreateTagUseCase', () => {
   it('should not create a tag with empty name', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: '',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -66,6 +71,7 @@ describe('CreateTagUseCase', () => {
   it('should not create a tag with name longer than 100 characters', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'a'.repeat(101),
       }),
     ).rejects.toThrow(BadRequestError);
@@ -73,11 +79,13 @@ describe('CreateTagUseCase', () => {
 
   it('should not create a tag with duplicate name', async () => {
     await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Electronics',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -85,12 +93,14 @@ describe('CreateTagUseCase', () => {
 
   it('should not create a tag with duplicate slug', async () => {
     await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Electronics 2',
         slug: 'electronics',
       }),
@@ -100,6 +110,7 @@ describe('CreateTagUseCase', () => {
   it('should not create a tag with invalid color format', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Electronics',
         color: 'red',
       }),
@@ -109,6 +120,7 @@ describe('CreateTagUseCase', () => {
   it('should not create a tag with slug longer than 100 characters', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Electronics',
         slug: 'a'.repeat(101),
       }),

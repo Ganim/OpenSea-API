@@ -19,6 +19,7 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
   async create(data: CreateCompanySchema): Promise<Company> {
     const companyData = await prisma.company.create({
       data: {
+        tenantId: data.tenantId,
         legalName: data.legalName,
         cnpj: data.cnpj,
         tradeName: data.tradeName ?? null,
@@ -64,10 +65,14 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
     return company;
   }
 
-  async findById(id: UniqueEntityID): Promise<Company | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Company | null> {
     const companyData = await prisma.company.findFirst({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -100,11 +105,13 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
 
   async findByCnpj(
     cnpj: string,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Company | null> {
     const companyData = await prisma.company.findFirst({
       where: {
         cnpj,
+        tenantId,
         ...(includeDeleted ? {} : { deletedAt: null }),
       },
     });
@@ -121,9 +128,16 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
   async findMany(
     params: FindManyCompaniesParams,
   ): Promise<FindManyCompaniesResult> {
-    const { page = 1, perPage = 20, search, includeDeleted = false } = params;
+    const {
+      tenantId,
+      page = 1,
+      perPage = 20,
+      search,
+      includeDeleted = false,
+    } = params;
 
     const where: Prisma.CompanyWhereInput = {
+      tenantId,
       ...(includeDeleted ? {} : { deletedAt: null }),
       ...(search && {
         OR: [
@@ -153,9 +167,10 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
     return { companies: companyDomains, total };
   }
 
-  async findManyActive(): Promise<Company[]> {
+  async findManyActive(tenantId: string): Promise<Company[]> {
     const companies = await prisma.company.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
       orderBy: { createdAt: 'desc' },
@@ -169,9 +184,10 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
     );
   }
 
-  async findManyInactive(): Promise<Company[]> {
+  async findManyInactive(tenantId: string): Promise<Company[]> {
     const companies = await prisma.company.findMany({
       where: {
+        tenantId,
         deletedAt: { not: null },
       },
       orderBy: { createdAt: 'desc' },
@@ -186,10 +202,20 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
   }
 
   async update(data: UpdateCompanySchema): Promise<Company | null> {
-    const company = await this.findById(data.id);
-    if (!company) {
-      return null;
-    }
+    // Find company without tenantId filter (update uses id which is unique)
+    const companyData = await prisma.company.findFirst({
+      where: {
+        id: data.id.toString(),
+        deletedAt: null,
+      },
+    });
+
+    if (!companyData) return null;
+
+    const company = Company.create(
+      mapCompanyPrismaToDomain(companyData),
+      new UniqueEntityID(companyData.id),
+    );
 
     // Atualizar campos principais
     if (
@@ -292,8 +318,14 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const company = await this.findById(id);
-    if (company) {
+    const companyData = await prisma.company.findFirst({
+      where: { id: id.toString(), deletedAt: null },
+    });
+    if (companyData) {
+      const company = Company.create(
+        mapCompanyPrismaToDomain(companyData),
+        new UniqueEntityID(companyData.id),
+      );
       company.delete();
       await this.save(company);
     }

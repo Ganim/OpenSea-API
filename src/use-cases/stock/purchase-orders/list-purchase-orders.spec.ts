@@ -23,6 +23,7 @@ describe('ListPurchaseOrdersUseCase', () => {
     purchaseOrdersRepository.items.push(order1, order2, order3);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       supplierId: supplierId.toString(),
     });
 
@@ -41,6 +42,7 @@ describe('ListPurchaseOrdersUseCase', () => {
     purchaseOrdersRepository.items.push(order1, order2, order3);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       status: 'PENDING',
     });
 
@@ -53,7 +55,7 @@ describe('ListPurchaseOrdersUseCase', () => {
 
     purchaseOrdersRepository.items.push(order1, order2);
 
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.purchaseOrders).toHaveLength(1);
     expect(result.purchaseOrders[0]).toEqual(purchaseOrderToDTO(order1));

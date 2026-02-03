@@ -12,7 +12,8 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
   async create(data: CreateManufacturerSchema): Promise<Manufacturer> {
     const manufacturerData = await prisma.manufacturer.create({
       data: {
-        code: data.code, // Código hierárquico auto-gerado
+        tenantId: data.tenantId,
+        code: data.code, // Codigo hierarquico auto-gerado
         name: data.name,
         country: data.country,
         email: data.email,
@@ -30,6 +31,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
 
     return Manufacturer.create(
       {
+        tenantId: new EntityID(manufacturerData.tenantId),
         code: manufacturerData.code,
         sequentialCode: manufacturerData.sequentialCode,
         name: manufacturerData.name,
@@ -54,10 +56,14 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<Manufacturer | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Manufacturer | null> {
     const manufacturerData = await prisma.manufacturer.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -68,6 +74,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
 
     return Manufacturer.create(
       {
+        tenantId: new EntityID(manufacturerData.tenantId),
         code: manufacturerData.code,
         sequentialCode: manufacturerData.sequentialCode,
         name: manufacturerData.name,
@@ -92,13 +99,17 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     );
   }
 
-  async findByName(name: string): Promise<Manufacturer | null> {
+  async findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<Manufacturer | null> {
     const manufacturerData = await prisma.manufacturer.findFirst({
       where: {
         name: {
           contains: name,
           mode: 'insensitive',
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -109,6 +120,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
 
     return Manufacturer.create(
       {
+        tenantId: new EntityID(manufacturerData.tenantId),
         code: manufacturerData.code,
         sequentialCode: manufacturerData.sequentialCode,
         name: manufacturerData.name,
@@ -133,9 +145,10 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     );
   }
 
-  async findMany(): Promise<Manufacturer[]> {
+  async findMany(tenantId: string): Promise<Manufacturer[]> {
     const manufacturers = await prisma.manufacturer.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
     });
@@ -143,6 +156,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     return manufacturers.map((manufacturerData) =>
       Manufacturer.create(
         {
+          tenantId: new EntityID(manufacturerData.tenantId),
           code: manufacturerData.code,
           sequentialCode: manufacturerData.sequentialCode,
           name: manufacturerData.name,
@@ -168,10 +182,14 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     );
   }
 
-  async findManyByCountry(country: string): Promise<Manufacturer[]> {
+  async findManyByCountry(
+    country: string,
+    tenantId: string,
+  ): Promise<Manufacturer[]> {
     const manufacturers = await prisma.manufacturer.findMany({
       where: {
         country,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -179,6 +197,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     return manufacturers.map((manufacturerData) =>
       Manufacturer.create(
         {
+          tenantId: new EntityID(manufacturerData.tenantId),
           code: manufacturerData.code,
           sequentialCode: manufacturerData.sequentialCode,
           name: manufacturerData.name,
@@ -204,12 +223,16 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     );
   }
 
-  async findManyByRating(minRating: number): Promise<Manufacturer[]> {
+  async findManyByRating(
+    minRating: number,
+    tenantId: string,
+  ): Promise<Manufacturer[]> {
     const manufacturers = await prisma.manufacturer.findMany({
       where: {
         rating: {
           gte: minRating,
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -217,6 +240,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     return manufacturers.map((manufacturerData) =>
       Manufacturer.create(
         {
+          tenantId: new EntityID(manufacturerData.tenantId),
           code: manufacturerData.code,
           sequentialCode: manufacturerData.sequentialCode,
           name: manufacturerData.name,
@@ -242,10 +266,11 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     );
   }
 
-  async findManyActive(): Promise<Manufacturer[]> {
+  async findManyActive(tenantId: string): Promise<Manufacturer[]> {
     const manufacturers = await prisma.manufacturer.findMany({
       where: {
         isActive: true,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -253,6 +278,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     return manufacturers.map((manufacturerData) =>
       Manufacturer.create(
         {
+          tenantId: new EntityID(manufacturerData.tenantId),
           code: manufacturerData.code,
           sequentialCode: manufacturerData.sequentialCode,
           name: manufacturerData.name,
@@ -301,6 +327,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
 
     return Manufacturer.create(
       {
+        tenantId: new EntityID(manufacturerData.tenantId),
         code: manufacturerData.code,
         sequentialCode: manufacturerData.sequentialCode,
         name: manufacturerData.name,
@@ -359,7 +386,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     });
   }
 
-  async getNextSequentialCode(): Promise<number> {
+  async getNextSequentialCode(_tenantId: string): Promise<number> {
     const result = await prisma.$queryRaw<[{ nextval: bigint }]>`
       SELECT nextval(pg_get_serial_sequence('manufacturers', 'sequential_code'))
     `;

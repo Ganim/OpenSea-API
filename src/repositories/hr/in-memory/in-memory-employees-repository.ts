@@ -14,6 +14,7 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
     const id = new UniqueEntityID();
     const employee = Employee.create(
       {
+        tenantId: new UniqueEntityID(data.tenantId),
         registrationNumber: data.registrationNumber,
         userId: data.userId,
         fullName: data.fullName,
@@ -80,120 +81,170 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
 
   async findById(
     id: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee | null> {
     const employee = this.items.find(
-      (item) => item.id.equals(id) && (includeDeleted || !item.deletedAt),
+      (item) =>
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId &&
+        (includeDeleted || !item.deletedAt),
     );
     return employee || null;
   }
 
   async findByRegistrationNumber(
     registrationNumber: string,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee | null> {
     const employee = this.items.find(
       (item) =>
         item.registrationNumber === registrationNumber &&
+        item.tenantId.toString() === tenantId &&
         (includeDeleted || !item.deletedAt),
     );
     return employee || null;
   }
 
-  async findByCpf(cpf: CPF, includeDeleted = false): Promise<Employee | null> {
+  async findByCpf(
+    cpf: CPF,
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee | null> {
     const employee = this.items.find(
-      (item) => item.cpf.equals(cpf) && (includeDeleted || !item.deletedAt),
+      (item) =>
+        item.cpf.equals(cpf) &&
+        item.tenantId.toString() === tenantId &&
+        (includeDeleted || !item.deletedAt),
     );
     return employee || null;
   }
 
   async findByUserId(
     userId: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee | null> {
     const employee = this.items.find(
       (item) =>
-        item.userId?.equals(userId) && (includeDeleted || !item.deletedAt),
+        item.userId?.equals(userId) &&
+        item.tenantId.toString() === tenantId &&
+        (includeDeleted || !item.deletedAt),
     );
     return employee || null;
   }
 
-  async findByPis(pis: PIS, includeDeleted = false): Promise<Employee | null> {
+  async findByPis(
+    pis: PIS,
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee | null> {
     const employee = this.items.find(
-      (item) => item.pis?.equals(pis) && (includeDeleted || !item.deletedAt),
+      (item) =>
+        item.pis?.equals(pis) &&
+        item.tenantId.toString() === tenantId &&
+        (includeDeleted || !item.deletedAt),
     );
     return employee || null;
   }
 
-  async findMany(includeDeleted = false): Promise<Employee[]> {
-    return this.items.filter((item) => includeDeleted || !item.deletedAt);
-  }
-
-  async findManyByStatus(
-    status: EmployeeStatus,
+  async findMany(
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee[]> {
     return this.items.filter(
       (item) =>
-        item.status.equals(status) && (includeDeleted || !item.deletedAt),
+        item.tenantId.toString() === tenantId &&
+        (includeDeleted || !item.deletedAt),
+    );
+  }
+
+  async findManyByStatus(
+    status: EmployeeStatus,
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
+    return this.items.filter(
+      (item) =>
+        item.status.equals(status) &&
+        item.tenantId.toString() === tenantId &&
+        (includeDeleted || !item.deletedAt),
     );
   }
 
   async findManyByDepartment(
     departmentId: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee[]> {
     return this.items.filter(
       (item) =>
         item.departmentId?.equals(departmentId) &&
+        item.tenantId.toString() === tenantId &&
         (includeDeleted || !item.deletedAt),
     );
   }
 
   async findManyByPosition(
     positionId: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee[]> {
     return this.items.filter(
       (item) =>
         item.positionId?.equals(positionId) &&
+        item.tenantId.toString() === tenantId &&
         (includeDeleted || !item.deletedAt),
     );
   }
 
   async findManyBySupervisor(
     supervisorId: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee[]> {
     return this.items.filter(
       (item) =>
         item.supervisorId?.equals(supervisorId) &&
+        item.tenantId.toString() === tenantId &&
         (includeDeleted || !item.deletedAt),
     );
   }
 
-  async findManyActive(includeDeleted = false): Promise<Employee[]> {
+  async findManyActive(
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
     return this.items.filter(
       (item) =>
-        item.status.value === 'ACTIVE' && (includeDeleted || !item.deletedAt),
+        item.status.value === 'ACTIVE' &&
+        item.tenantId.toString() === tenantId &&
+        (includeDeleted || !item.deletedAt),
     );
   }
 
-  async findManyTerminated(includeDeleted = false): Promise<Employee[]> {
+  async findManyTerminated(
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
     return this.items.filter(
       (item) =>
         item.status.value === 'TERMINATED' &&
+        item.tenantId.toString() === tenantId &&
         (includeDeleted || !item.deletedAt),
     );
   }
 
   async findManyByCompany(
     companyId: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee[]> {
     return this.items.filter(
       (item) =>
         item.companyId?.equals(companyId) &&
+        item.tenantId.toString() === tenantId &&
         (includeDeleted || !item.deletedAt),
     );
   }
@@ -210,6 +261,7 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
     // Create updated employee with merged data
     const updatedEmployee = Employee.create(
       {
+        tenantId: existingEmployee.tenantId,
         registrationNumber:
           data.registrationNumber ?? existingEmployee.registrationNumber,
         userId:

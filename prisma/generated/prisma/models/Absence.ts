@@ -36,6 +36,7 @@ export type AbsenceSumAggregateOutputType = {
 
 export type AbsenceMinAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   type: $Enums.AbsenceType | null
   status: $Enums.AbsenceStatus | null
@@ -61,6 +62,7 @@ export type AbsenceMinAggregateOutputType = {
 
 export type AbsenceMaxAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   type: $Enums.AbsenceType | null
   status: $Enums.AbsenceStatus | null
@@ -86,6 +88,7 @@ export type AbsenceMaxAggregateOutputType = {
 
 export type AbsenceCountAggregateOutputType = {
   id: number
+  tenantId: number
   employeeId: number
   type: number
   status: number
@@ -121,6 +124,7 @@ export type AbsenceSumAggregateInputType = {
 
 export type AbsenceMinAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   type?: true
   status?: true
@@ -146,6 +150,7 @@ export type AbsenceMinAggregateInputType = {
 
 export type AbsenceMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   type?: true
   status?: true
@@ -171,6 +176,7 @@ export type AbsenceMaxAggregateInputType = {
 
 export type AbsenceCountAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   type?: true
   status?: true
@@ -283,6 +289,7 @@ export type AbsenceGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type AbsenceGroupByOutputType = {
   id: string
+  tenantId: string
   employeeId: string
   type: $Enums.AbsenceType
   status: $Enums.AbsenceStatus
@@ -331,6 +338,7 @@ export type AbsenceWhereInput = {
   OR?: Prisma.AbsenceWhereInput[]
   NOT?: Prisma.AbsenceWhereInput | Prisma.AbsenceWhereInput[]
   id?: Prisma.StringFilter<"Absence"> | string
+  tenantId?: Prisma.StringFilter<"Absence"> | string
   employeeId?: Prisma.StringFilter<"Absence"> | string
   type?: Prisma.EnumAbsenceTypeFilter<"Absence"> | $Enums.AbsenceType
   status?: Prisma.EnumAbsenceStatusFilter<"Absence"> | $Enums.AbsenceStatus
@@ -352,12 +360,14 @@ export type AbsenceWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"Absence"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Absence"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Absence"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   approver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type AbsenceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -379,6 +389,7 @@ export type AbsenceOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
   approver?: Prisma.UserOrderByWithRelationInput
 }
@@ -388,6 +399,7 @@ export type AbsenceWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AbsenceWhereInput | Prisma.AbsenceWhereInput[]
   OR?: Prisma.AbsenceWhereInput[]
   NOT?: Prisma.AbsenceWhereInput | Prisma.AbsenceWhereInput[]
+  tenantId?: Prisma.StringFilter<"Absence"> | string
   employeeId?: Prisma.StringFilter<"Absence"> | string
   type?: Prisma.EnumAbsenceTypeFilter<"Absence"> | $Enums.AbsenceType
   status?: Prisma.EnumAbsenceStatusFilter<"Absence"> | $Enums.AbsenceStatus
@@ -409,12 +421,14 @@ export type AbsenceWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"Absence"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Absence"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Absence"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   approver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type AbsenceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -448,6 +462,7 @@ export type AbsenceScalarWhereWithAggregatesInput = {
   OR?: Prisma.AbsenceScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AbsenceScalarWhereWithAggregatesInput | Prisma.AbsenceScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Absence"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"Absence"> | string
   employeeId?: Prisma.StringWithAggregatesFilter<"Absence"> | string
   type?: Prisma.EnumAbsenceTypeWithAggregatesFilter<"Absence"> | $Enums.AbsenceType
   status?: Prisma.EnumAbsenceStatusWithAggregatesFilter<"Absence"> | $Enums.AbsenceStatus
@@ -492,12 +507,14 @@ export type AbsenceCreateInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutAbsencesInput
   employee: Prisma.EmployeeCreateNestedOneWithoutAbsencesInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedAbsencesInput
 }
 
 export type AbsenceUncheckedCreateInput = {
   id?: string
+  tenantId: string
   employeeId: string
   type: $Enums.AbsenceType
   status?: $Enums.AbsenceStatus
@@ -542,12 +559,14 @@ export type AbsenceUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutAbsencesNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutAbsencesNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedAbsencesNestedInput
 }
 
 export type AbsenceUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAbsenceTypeFieldUpdateOperationsInput | $Enums.AbsenceType
   status?: Prisma.EnumAbsenceStatusFieldUpdateOperationsInput | $Enums.AbsenceStatus
@@ -573,6 +592,7 @@ export type AbsenceUncheckedUpdateInput = {
 
 export type AbsenceCreateManyInput = {
   id?: string
+  tenantId: string
   employeeId: string
   type: $Enums.AbsenceType
   status?: $Enums.AbsenceStatus
@@ -621,6 +641,7 @@ export type AbsenceUpdateManyMutationInput = {
 
 export type AbsenceUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAbsenceTypeFieldUpdateOperationsInput | $Enums.AbsenceType
   status?: Prisma.EnumAbsenceStatusFieldUpdateOperationsInput | $Enums.AbsenceStatus
@@ -656,6 +677,7 @@ export type AbsenceOrderByRelationAggregateInput = {
 
 export type AbsenceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -685,6 +707,7 @@ export type AbsenceAvgOrderByAggregateInput = {
 
 export type AbsenceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -710,6 +733,7 @@ export type AbsenceMaxOrderByAggregateInput = {
 
 export type AbsenceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -829,6 +853,48 @@ export type EnumAbsenceStatusFieldUpdateOperationsInput = {
   set?: $Enums.AbsenceStatus
 }
 
+export type AbsenceCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.AbsenceCreateWithoutTenantInput, Prisma.AbsenceUncheckedCreateWithoutTenantInput> | Prisma.AbsenceCreateWithoutTenantInput[] | Prisma.AbsenceUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.AbsenceCreateOrConnectWithoutTenantInput | Prisma.AbsenceCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.AbsenceCreateManyTenantInputEnvelope
+  connect?: Prisma.AbsenceWhereUniqueInput | Prisma.AbsenceWhereUniqueInput[]
+}
+
+export type AbsenceUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.AbsenceCreateWithoutTenantInput, Prisma.AbsenceUncheckedCreateWithoutTenantInput> | Prisma.AbsenceCreateWithoutTenantInput[] | Prisma.AbsenceUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.AbsenceCreateOrConnectWithoutTenantInput | Prisma.AbsenceCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.AbsenceCreateManyTenantInputEnvelope
+  connect?: Prisma.AbsenceWhereUniqueInput | Prisma.AbsenceWhereUniqueInput[]
+}
+
+export type AbsenceUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.AbsenceCreateWithoutTenantInput, Prisma.AbsenceUncheckedCreateWithoutTenantInput> | Prisma.AbsenceCreateWithoutTenantInput[] | Prisma.AbsenceUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.AbsenceCreateOrConnectWithoutTenantInput | Prisma.AbsenceCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.AbsenceUpsertWithWhereUniqueWithoutTenantInput | Prisma.AbsenceUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.AbsenceCreateManyTenantInputEnvelope
+  set?: Prisma.AbsenceWhereUniqueInput | Prisma.AbsenceWhereUniqueInput[]
+  disconnect?: Prisma.AbsenceWhereUniqueInput | Prisma.AbsenceWhereUniqueInput[]
+  delete?: Prisma.AbsenceWhereUniqueInput | Prisma.AbsenceWhereUniqueInput[]
+  connect?: Prisma.AbsenceWhereUniqueInput | Prisma.AbsenceWhereUniqueInput[]
+  update?: Prisma.AbsenceUpdateWithWhereUniqueWithoutTenantInput | Prisma.AbsenceUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.AbsenceUpdateManyWithWhereWithoutTenantInput | Prisma.AbsenceUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.AbsenceScalarWhereInput | Prisma.AbsenceScalarWhereInput[]
+}
+
+export type AbsenceUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.AbsenceCreateWithoutTenantInput, Prisma.AbsenceUncheckedCreateWithoutTenantInput> | Prisma.AbsenceCreateWithoutTenantInput[] | Prisma.AbsenceUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.AbsenceCreateOrConnectWithoutTenantInput | Prisma.AbsenceCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.AbsenceUpsertWithWhereUniqueWithoutTenantInput | Prisma.AbsenceUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.AbsenceCreateManyTenantInputEnvelope
+  set?: Prisma.AbsenceWhereUniqueInput | Prisma.AbsenceWhereUniqueInput[]
+  disconnect?: Prisma.AbsenceWhereUniqueInput | Prisma.AbsenceWhereUniqueInput[]
+  delete?: Prisma.AbsenceWhereUniqueInput | Prisma.AbsenceWhereUniqueInput[]
+  connect?: Prisma.AbsenceWhereUniqueInput | Prisma.AbsenceWhereUniqueInput[]
+  update?: Prisma.AbsenceUpdateWithWhereUniqueWithoutTenantInput | Prisma.AbsenceUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.AbsenceUpdateManyWithWhereWithoutTenantInput | Prisma.AbsenceUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.AbsenceScalarWhereInput | Prisma.AbsenceScalarWhereInput[]
+}
+
 export type AbsenceCreateWithoutApproverInput = {
   id?: string
   type: $Enums.AbsenceType
@@ -850,11 +916,13 @@ export type AbsenceCreateWithoutApproverInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutAbsencesInput
   employee: Prisma.EmployeeCreateNestedOneWithoutAbsencesInput
 }
 
 export type AbsenceUncheckedCreateWithoutApproverInput = {
   id?: string
+  tenantId: string
   employeeId: string
   type: $Enums.AbsenceType
   status?: $Enums.AbsenceStatus
@@ -908,6 +976,7 @@ export type AbsenceScalarWhereInput = {
   OR?: Prisma.AbsenceScalarWhereInput[]
   NOT?: Prisma.AbsenceScalarWhereInput | Prisma.AbsenceScalarWhereInput[]
   id?: Prisma.StringFilter<"Absence"> | string
+  tenantId?: Prisma.StringFilter<"Absence"> | string
   employeeId?: Prisma.StringFilter<"Absence"> | string
   type?: Prisma.EnumAbsenceTypeFilter<"Absence"> | $Enums.AbsenceType
   status?: Prisma.EnumAbsenceStatusFilter<"Absence"> | $Enums.AbsenceStatus
@@ -952,11 +1021,13 @@ export type AbsenceCreateWithoutEmployeeInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutAbsencesInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedAbsencesInput
 }
 
 export type AbsenceUncheckedCreateWithoutEmployeeInput = {
   id?: string
+  tenantId: string
   type: $Enums.AbsenceType
   status?: $Enums.AbsenceStatus
   userId?: string | null
@@ -1005,8 +1076,85 @@ export type AbsenceUpdateManyWithWhereWithoutEmployeeInput = {
   data: Prisma.XOR<Prisma.AbsenceUpdateManyMutationInput, Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeInput>
 }
 
+export type AbsenceCreateWithoutTenantInput = {
+  id?: string
+  type: $Enums.AbsenceType
+  status?: $Enums.AbsenceStatus
+  userId?: string | null
+  startDate: Date | string
+  endDate: Date | string
+  totalDays: number
+  reason?: string | null
+  documentUrl?: string | null
+  cid?: string | null
+  isPaid?: boolean
+  isInssResponsibility?: boolean
+  vacationPeriodId?: string | null
+  notes?: string | null
+  requestedBy?: string | null
+  approvedAt?: Date | string | null
+  rejectionReason?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  employee: Prisma.EmployeeCreateNestedOneWithoutAbsencesInput
+  approver?: Prisma.UserCreateNestedOneWithoutApprovedAbsencesInput
+}
+
+export type AbsenceUncheckedCreateWithoutTenantInput = {
+  id?: string
+  employeeId: string
+  type: $Enums.AbsenceType
+  status?: $Enums.AbsenceStatus
+  userId?: string | null
+  startDate: Date | string
+  endDate: Date | string
+  totalDays: number
+  reason?: string | null
+  documentUrl?: string | null
+  cid?: string | null
+  isPaid?: boolean
+  isInssResponsibility?: boolean
+  vacationPeriodId?: string | null
+  notes?: string | null
+  requestedBy?: string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
+  rejectionReason?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AbsenceCreateOrConnectWithoutTenantInput = {
+  where: Prisma.AbsenceWhereUniqueInput
+  create: Prisma.XOR<Prisma.AbsenceCreateWithoutTenantInput, Prisma.AbsenceUncheckedCreateWithoutTenantInput>
+}
+
+export type AbsenceCreateManyTenantInputEnvelope = {
+  data: Prisma.AbsenceCreateManyTenantInput | Prisma.AbsenceCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type AbsenceUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.AbsenceWhereUniqueInput
+  update: Prisma.XOR<Prisma.AbsenceUpdateWithoutTenantInput, Prisma.AbsenceUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.AbsenceCreateWithoutTenantInput, Prisma.AbsenceUncheckedCreateWithoutTenantInput>
+}
+
+export type AbsenceUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.AbsenceWhereUniqueInput
+  data: Prisma.XOR<Prisma.AbsenceUpdateWithoutTenantInput, Prisma.AbsenceUncheckedUpdateWithoutTenantInput>
+}
+
+export type AbsenceUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.AbsenceScalarWhereInput
+  data: Prisma.XOR<Prisma.AbsenceUpdateManyMutationInput, Prisma.AbsenceUncheckedUpdateManyWithoutTenantInput>
+}
+
 export type AbsenceCreateManyApproverInput = {
   id?: string
+  tenantId: string
   employeeId: string
   type: $Enums.AbsenceType
   status?: $Enums.AbsenceStatus
@@ -1050,11 +1198,13 @@ export type AbsenceUpdateWithoutApproverInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutAbsencesNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutAbsencesNestedInput
 }
 
 export type AbsenceUncheckedUpdateWithoutApproverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAbsenceTypeFieldUpdateOperationsInput | $Enums.AbsenceType
   status?: Prisma.EnumAbsenceStatusFieldUpdateOperationsInput | $Enums.AbsenceStatus
@@ -1079,6 +1229,7 @@ export type AbsenceUncheckedUpdateWithoutApproverInput = {
 
 export type AbsenceUncheckedUpdateManyWithoutApproverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAbsenceTypeFieldUpdateOperationsInput | $Enums.AbsenceType
   status?: Prisma.EnumAbsenceStatusFieldUpdateOperationsInput | $Enums.AbsenceStatus
@@ -1103,6 +1254,7 @@ export type AbsenceUncheckedUpdateManyWithoutApproverInput = {
 
 export type AbsenceCreateManyEmployeeInput = {
   id?: string
+  tenantId: string
   type: $Enums.AbsenceType
   status?: $Enums.AbsenceStatus
   userId?: string | null
@@ -1146,11 +1298,13 @@ export type AbsenceUpdateWithoutEmployeeInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutAbsencesNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedAbsencesNestedInput
 }
 
 export type AbsenceUncheckedUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAbsenceTypeFieldUpdateOperationsInput | $Enums.AbsenceType
   status?: Prisma.EnumAbsenceStatusFieldUpdateOperationsInput | $Enums.AbsenceStatus
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1175,6 +1329,107 @@ export type AbsenceUncheckedUpdateWithoutEmployeeInput = {
 
 export type AbsenceUncheckedUpdateManyWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAbsenceTypeFieldUpdateOperationsInput | $Enums.AbsenceType
+  status?: Prisma.EnumAbsenceStatusFieldUpdateOperationsInput | $Enums.AbsenceStatus
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isInssResponsibility?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vacationPeriodId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AbsenceCreateManyTenantInput = {
+  id?: string
+  employeeId: string
+  type: $Enums.AbsenceType
+  status?: $Enums.AbsenceStatus
+  userId?: string | null
+  startDate: Date | string
+  endDate: Date | string
+  totalDays: number
+  reason?: string | null
+  documentUrl?: string | null
+  cid?: string | null
+  isPaid?: boolean
+  isInssResponsibility?: boolean
+  vacationPeriodId?: string | null
+  notes?: string | null
+  requestedBy?: string | null
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
+  rejectionReason?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AbsenceUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAbsenceTypeFieldUpdateOperationsInput | $Enums.AbsenceType
+  status?: Prisma.EnumAbsenceStatusFieldUpdateOperationsInput | $Enums.AbsenceStatus
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isInssResponsibility?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vacationPeriodId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUpdateOneRequiredWithoutAbsencesNestedInput
+  approver?: Prisma.UserUpdateOneWithoutApprovedAbsencesNestedInput
+}
+
+export type AbsenceUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAbsenceTypeFieldUpdateOperationsInput | $Enums.AbsenceType
+  status?: Prisma.EnumAbsenceStatusFieldUpdateOperationsInput | $Enums.AbsenceStatus
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isInssResponsibility?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vacationPeriodId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AbsenceUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAbsenceTypeFieldUpdateOperationsInput | $Enums.AbsenceType
   status?: Prisma.EnumAbsenceStatusFieldUpdateOperationsInput | $Enums.AbsenceStatus
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1201,6 +1456,7 @@ export type AbsenceUncheckedUpdateManyWithoutEmployeeInput = {
 
 export type AbsenceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   type?: boolean
   status?: boolean
@@ -1222,12 +1478,14 @@ export type AbsenceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Absence$approverArgs<ExtArgs>
 }, ExtArgs["result"]["absence"]>
 
 export type AbsenceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   type?: boolean
   status?: boolean
@@ -1249,12 +1507,14 @@ export type AbsenceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Absence$approverArgs<ExtArgs>
 }, ExtArgs["result"]["absence"]>
 
 export type AbsenceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   type?: boolean
   status?: boolean
@@ -1276,12 +1536,14 @@ export type AbsenceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Absence$approverArgs<ExtArgs>
 }, ExtArgs["result"]["absence"]>
 
 export type AbsenceSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   type?: boolean
   status?: boolean
@@ -1305,16 +1567,19 @@ export type AbsenceSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AbsenceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeId" | "type" | "status" | "userId" | "startDate" | "endDate" | "totalDays" | "reason" | "documentUrl" | "cid" | "isPaid" | "isInssResponsibility" | "vacationPeriodId" | "notes" | "requestedBy" | "approvedBy" | "approvedAt" | "rejectionReason" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["absence"]>
+export type AbsenceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "type" | "status" | "userId" | "startDate" | "endDate" | "totalDays" | "reason" | "documentUrl" | "cid" | "isPaid" | "isInssResponsibility" | "vacationPeriodId" | "notes" | "requestedBy" | "approvedBy" | "approvedAt" | "rejectionReason" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["absence"]>
 export type AbsenceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Absence$approverArgs<ExtArgs>
 }
 export type AbsenceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Absence$approverArgs<ExtArgs>
 }
 export type AbsenceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Absence$approverArgs<ExtArgs>
 }
@@ -1322,11 +1587,13 @@ export type AbsenceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $AbsencePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Absence"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     employee: Prisma.$EmployeePayload<ExtArgs>
     approver: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    tenantId: string
     employeeId: string
     type: $Enums.AbsenceType
     status: $Enums.AbsenceStatus
@@ -1742,6 +2009,7 @@ readonly fields: AbsenceFieldRefs;
  */
 export interface Prisma__AbsenceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   employee<T extends Prisma.EmployeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   approver<T extends Prisma.Absence$approverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Absence$approverArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1774,6 +2042,7 @@ export interface Prisma__AbsenceClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface AbsenceFieldRefs {
   readonly id: Prisma.FieldRef<"Absence", 'String'>
+  readonly tenantId: Prisma.FieldRef<"Absence", 'String'>
   readonly employeeId: Prisma.FieldRef<"Absence", 'String'>
   readonly type: Prisma.FieldRef<"Absence", 'AbsenceType'>
   readonly status: Prisma.FieldRef<"Absence", 'AbsenceStatus'>

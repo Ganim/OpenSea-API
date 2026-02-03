@@ -35,6 +35,7 @@ describe('List Sales Orders', () => {
     salesOrdersRepository.items.push(order3);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       customerId: customer1.id.toString(),
     });
 
@@ -63,6 +64,7 @@ describe('List Sales Orders', () => {
     salesOrdersRepository.items.push(order3);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       status: 'PENDING',
     });
 
@@ -83,12 +85,14 @@ describe('List Sales Orders', () => {
     }
 
     const page1 = await sut.execute({
+      tenantId: 'tenant-1',
       customerId: customer.id.toString(),
       page: 1,
       perPage: 10,
     });
 
     const page2 = await sut.execute({
+      tenantId: 'tenant-1',
       customerId: customer.id.toString(),
       page: 2,
       perPage: 10,

@@ -104,6 +104,7 @@ export class PurchaseOrderItem extends Entity<PurchaseOrderItemProps> {
 
 export interface PurchaseOrderProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   orderNumber: string;
   status: OrderStatus;
   supplierId: UniqueEntityID;
@@ -121,6 +122,10 @@ export interface PurchaseOrderProps {
 export class PurchaseOrder extends Entity<PurchaseOrderProps> {
   get id(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get orderNumber(): string {

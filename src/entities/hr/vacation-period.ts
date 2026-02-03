@@ -3,6 +3,7 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 import { VacationStatus } from './value-objects';
 
 export interface VacationPeriodProps {
+  tenantId: UniqueEntityID;
   employeeId: UniqueEntityID;
 
   // Período Aquisitivo (12 meses de trabalho)
@@ -30,6 +31,10 @@ export interface VacationPeriodProps {
 }
 
 export class VacationPeriod extends Entity<VacationPeriodProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get employeeId(): UniqueEntityID {
     return this.props.employeeId;
   }
@@ -330,6 +335,7 @@ export class VacationPeriod extends Entity<VacationPeriodProps> {
    * Concession period: 12 months after acquisition ends
    */
   static createFromHireDate(
+    tenantId: UniqueEntityID,
     employeeId: UniqueEntityID,
     hireDate: Date,
     totalDays: number = 30,
@@ -348,6 +354,7 @@ export class VacationPeriod extends Entity<VacationPeriodProps> {
 
     return VacationPeriod.create(
       {
+        tenantId,
         employeeId,
         acquisitionStart,
         acquisitionEnd,

@@ -20,6 +20,7 @@ export interface HealthCondition {
 }
 
 export interface EmployeeProps {
+  tenantId: UniqueEntityID;
   registrationNumber: string;
   userId?: UniqueEntityID;
   fullName: string;
@@ -82,6 +83,10 @@ export interface EmployeeProps {
 }
 
 export class Employee extends Entity<EmployeeProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get registrationNumber(): string {
     return this.props.registrationNumber;
   }

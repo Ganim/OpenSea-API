@@ -2,6 +2,8 @@ import { InMemoryCompaniesRepository } from '@/repositories/hr/in-memory/in-memo
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyUseCase } from './create-company';
 
+const TENANT_ID = 'tenant-1';
+
 let companiesRepository: InMemoryCompaniesRepository;
 let sut: CreateCompanyUseCase;
 
@@ -13,6 +15,7 @@ describe('Create Company Use Case', () => {
 
   it('should create an company successfully with minimal data', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -27,6 +30,7 @@ describe('Create Company Use Case', () => {
   it('should create company with all fields', async () => {
     const activityStartDate = new Date('2020-01-15');
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       tradeName: 'Tech Solutions',
@@ -59,12 +63,14 @@ describe('Create Company Use Case', () => {
 
   it('should not create company with existing CNPJ', async () => {
     await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         legalName: 'Different Name',
         cnpj: '12345678000100',
       }),
@@ -73,6 +79,7 @@ describe('Create Company Use Case', () => {
 
   it('should create company with different statuses', async () => {
     const resultActive = await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Active Company',
       cnpj: '11111111111111',
       status: 'ACTIVE',
@@ -81,6 +88,7 @@ describe('Create Company Use Case', () => {
     expect(resultActive.company.status).toBe('ACTIVE');
 
     const resultInactive = await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Inactive Company',
       cnpj: '22222222222222',
       status: 'INACTIVE',
@@ -90,6 +98,7 @@ describe('Create Company Use Case', () => {
     expect(resultInactive.company.isActive()).toBe(false);
 
     const resultSuspended = await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Suspended Company',
       cnpj: '33333333333333',
       status: 'SUSPENDED',
@@ -102,6 +111,7 @@ describe('Create Company Use Case', () => {
   it('should validate email format', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         legalName: 'Tech Solutions LTDA',
         cnpj: '12345678000100',
         email: 'invalid-email',
@@ -110,6 +120,7 @@ describe('Create Company Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         legalName: 'Tech Solutions LTDA',
         cnpj: '12345678000100',
         email: 'valid@email.com',
@@ -121,6 +132,7 @@ describe('Create Company Use Case', () => {
     // Phone too short
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         legalName: 'Tech Solutions LTDA',
         cnpj: '12345678000100',
         phoneMain: '123',
@@ -129,6 +141,7 @@ describe('Create Company Use Case', () => {
 
     // Valid phone
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       phoneMain: '(11) 3333-4444',
@@ -141,6 +154,7 @@ describe('Create Company Use Case', () => {
     // Phone too short
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         legalName: 'Tech Solutions LTDA',
         cnpj: '12345678000100',
         phoneAlt: '456',
@@ -154,6 +168,7 @@ describe('Create Company Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         legalName: 'Tech Solutions LTDA',
         cnpj: '12345678000100',
         activityStartDate: futureDate,
@@ -165,6 +180,7 @@ describe('Create Company Use Case', () => {
     const pastDate = new Date('2020-01-15');
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       activityStartDate: pastDate,
@@ -175,6 +191,7 @@ describe('Create Company Use Case', () => {
 
   it('should calculate pending issues for incomplete company', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -189,6 +206,7 @@ describe('Create Company Use Case', () => {
   it('should not have pending issues for complete company', async () => {
     const activityStartDate = new Date('2020-01-15');
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       tradeName: 'Tech Solutions',
@@ -220,6 +238,7 @@ describe('Create Company Use Case', () => {
     for (const regime of regimes) {
       cnpjCounter++;
       const result = await sut.execute({
+        tenantId: TENANT_ID,
         legalName: `Company ${regime}`,
         cnpj: `${String(cnpjCounter).padStart(14, '0')}`,
         taxRegime: regime,
@@ -237,6 +256,7 @@ describe('Create Company Use Case', () => {
     };
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       metadata,

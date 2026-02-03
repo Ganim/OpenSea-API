@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { absenceResponseSchema, requestSickLeaveSchema } from '@/http/schemas';
 import { absenceToDTO } from '@/mappers/hr/absence/absence-to-dto';
 import { makeRequestSickLeaveUseCase } from '@/use-cases/hr/absences/factories/make-request-sick-leave-use-case';
@@ -13,7 +14,7 @@ export async function requestSickLeaveController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/absences/sick-leave',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Absences'],
       summary: 'Request sick leave',
@@ -34,11 +35,15 @@ export async function requestSickLeaveController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const requestSickLeaveUseCase = makeRequestSickLeaveUseCase();
-        const { absence } = await requestSickLeaveUseCase.execute(data);
+        const { absence } = await requestSickLeaveUseCase.execute({
+          ...data,
+          tenantId,
+        });
 
         return reply.status(201).send({ absence: absenceToDTO(absence) });
       } catch (error) {

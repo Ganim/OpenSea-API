@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listWorkSchedulesQuerySchema,
   workScheduleResponseSchema,
@@ -13,7 +14,7 @@ export async function listWorkSchedulesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/work-schedules',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Work Schedules'],
       summary: 'List work schedules',
@@ -28,10 +29,12 @@ export async function listWorkSchedulesController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const query = request.query;
 
       const listWorkSchedulesUseCase = makeListWorkSchedulesUseCase();
       const { workSchedules } = await listWorkSchedulesUseCase.execute({
+        tenantId,
         activeOnly: query.activeOnly,
       });
 

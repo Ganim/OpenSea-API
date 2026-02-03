@@ -12,6 +12,7 @@ export interface PermissionGroupProps {
   color: string | null;
   priority: number;
   parentId: UniqueEntityID | null;
+  tenantId: UniqueEntityID | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
@@ -58,6 +59,10 @@ export class PermissionGroup extends Entity<PermissionGroupProps> {
 
   get parentId(): UniqueEntityID | null {
     return this.props.parentId;
+  }
+
+  get tenantId(): UniqueEntityID | null {
+    return this.props.tenantId;
   }
 
   get createdAt(): Date {
@@ -165,6 +170,7 @@ export class PermissionGroup extends Entity<PermissionGroupProps> {
       | 'isSystem'
       | 'isActive'
       | 'priority'
+      | 'tenantId'
     >,
     id?: UniqueEntityID,
   ) {
@@ -174,6 +180,7 @@ export class PermissionGroup extends Entity<PermissionGroupProps> {
         isSystem: props.isSystem ?? false,
         isActive: props.isActive ?? true,
         priority: props.priority ?? 0,
+        tenantId: props.tenantId ?? null,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
         deletedAt: props.deletedAt ?? null,

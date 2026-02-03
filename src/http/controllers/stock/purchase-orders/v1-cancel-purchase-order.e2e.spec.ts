@@ -18,8 +18,18 @@ describe('Cancel Purchase Order (E2E)', () => {
     const { token, user } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const supplier = await prisma.supplier.create({
       data: {
+        tenantId,
         name: `Supplier Cancel ${timestamp}`,
         isActive: true,
       },
@@ -27,6 +37,7 @@ describe('Cancel Purchase Order (E2E)', () => {
 
     const purchaseOrder = await prisma.purchaseOrder.create({
       data: {
+        tenantId,
         orderNumber: `PO-CANCEL-${timestamp}`,
         status: 'PENDING',
         supplierId: supplier.id,

@@ -8,6 +8,7 @@ import { VolumeItemMapper } from '@/mappers/stock/volume.mapper';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface AddItemToVolumeUseCaseRequest {
+  tenantId: string;
   volumeId: string;
   itemId: string;
   addedBy: string;
@@ -24,7 +25,10 @@ export class AddItemToVolumeUseCase {
     request: AddItemToVolumeUseCaseRequest,
   ): Promise<AddItemToVolumeUseCaseResponse> {
     // Verificar se volume existe
-    const volume = await this.volumesRepository.findById(request.volumeId);
+    const volume = await this.volumesRepository.findById(
+      request.volumeId,
+      request.tenantId,
+    );
     if (!volume) {
       throw new VolumeNotFoundError(request.volumeId);
     }

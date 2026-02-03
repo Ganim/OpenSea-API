@@ -1,5 +1,6 @@
 import { VolumeNotFoundError } from '@/@errors/volumes-errors';
 import { Volume } from '@/entities/stock/volume';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { VolumeItem } from '@/entities/stock/volume-item';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { InMemoryVolumesRepository } from '@/repositories/stock/in-memory/in-memory-volumes-repository';
@@ -18,6 +19,7 @@ describe('GetRomaneioUseCase', () => {
   it('should throw error if volume not found', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         volumeId: 'non-existent-id',
       }),
     ).rejects.toThrow(VolumeNotFoundError);
@@ -25,6 +27,7 @@ describe('GetRomaneioUseCase', () => {
 
   it('should get romaneio with empty items', async () => {
     const volume = Volume.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       code: 'VOL-001',
       name: 'Volume Test',
       status: VolumeStatus.OPEN,
@@ -34,6 +37,7 @@ describe('GetRomaneioUseCase', () => {
     await volumesRepository.create(volume);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       volumeId: volume.id.toString(),
     });
 
@@ -44,6 +48,7 @@ describe('GetRomaneioUseCase', () => {
 
   it('should get romaneio with items', async () => {
     const volume = Volume.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       code: 'VOL-002',
       name: 'Volume with Items',
       status: VolumeStatus.OPEN,
@@ -69,6 +74,7 @@ describe('GetRomaneioUseCase', () => {
     await volumesRepository.addItem(item2);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       volumeId: volume.id.toString(),
     });
 

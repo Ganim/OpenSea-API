@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker';
 import { createCompanyE2E } from './create-company.e2e';
 
 interface CreateDepartmentE2EProps {
+  tenantId?: string;
   name?: string;
   code?: string;
   description?: string;
@@ -35,15 +36,31 @@ export async function createDepartmentE2E(
 ) {
   const code = override.code ?? generateDepartmentCode();
 
+  let tenantId = override.tenantId;
+  if (!tenantId) {
+    const timestamp = Date.now();
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `Auto Tenant ${timestamp}`,
+        slug: `auto-tenant-${timestamp}-${Math.random().toString(36).substring(2, 6)}`,
+        status: 'ACTIVE',
+        settings: {},
+        metadata: {},
+      },
+    });
+    tenantId = tenant.id;
+  }
+
   // If companyId is not provided, create a new company
   let companyId = override.companyId;
   if (!companyId) {
-    const { companyId: newCompanyId } = await createCompanyE2E();
+    const { companyId: newCompanyId } = await createCompanyE2E({ tenantId });
     companyId = newCompanyId;
   }
 
   const department = await prisma.department.create({
     data: {
+      tenantId,
       name: override.name ?? faker.commerce.department(),
       code,
       description: override.description ?? faker.lorem.sentence(),

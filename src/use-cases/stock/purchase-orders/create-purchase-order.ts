@@ -9,6 +9,7 @@ import type { SuppliersRepository } from '@/repositories/stock/suppliers-reposit
 import type { VariantsRepository } from '@/repositories/stock/variants-repository';
 
 interface CreatePurchaseOrderUseCaseRequest {
+  tenantId: string;
   orderNumber: string;
   supplierId: string;
   createdBy?: string;
@@ -38,6 +39,7 @@ export class CreatePurchaseOrderUseCase {
     request: CreatePurchaseOrderUseCaseRequest,
   ): Promise<CreatePurchaseOrderUseCaseResponse> {
     const {
+      tenantId,
       orderNumber,
       supplierId,
       createdBy,
@@ -59,8 +61,10 @@ export class CreatePurchaseOrderUseCase {
     }
 
     // Check if order number already exists
-    const existingOrder =
-      await this.purchaseOrdersRepository.findByOrderNumber(orderNumber);
+    const existingOrder = await this.purchaseOrdersRepository.findByOrderNumber(
+      orderNumber,
+      tenantId,
+    );
     if (existingOrder) {
       throw new BadRequestError('Order number already exists');
     }
@@ -72,6 +76,7 @@ export class CreatePurchaseOrderUseCase {
 
     const supplier = await this.suppliersRepository.findById(
       new UniqueEntityID(supplierId),
+      tenantId,
     );
     if (!supplier) {
       throw new ResourceNotFoundError('Supplier not found');
@@ -90,6 +95,7 @@ export class CreatePurchaseOrderUseCase {
 
       const variant = await this.variantsRepository.findById(
         new UniqueEntityID(item.variantId),
+        tenantId,
       );
       if (!variant) {
         throw new ResourceNotFoundError(
@@ -114,6 +120,7 @@ export class CreatePurchaseOrderUseCase {
       : OrderStatus.create('PENDING');
 
     const purchaseOrder = await this.purchaseOrdersRepository.create({
+      tenantId,
       orderNumber,
       supplierId: new UniqueEntityID(supplierId),
       createdBy: createdBy ? new UniqueEntityID(createdBy) : undefined,

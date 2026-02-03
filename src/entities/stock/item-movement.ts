@@ -5,6 +5,7 @@ import { MovementType } from './value-objects/movement-type';
 
 export interface ItemMovementProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   itemId: UniqueEntityID;
   userId: UniqueEntityID;
   quantity: number;
@@ -23,6 +24,10 @@ export interface ItemMovementProps {
 export class ItemMovement extends Entity<ItemMovementProps> {
   get id(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get itemId(): UniqueEntityID {

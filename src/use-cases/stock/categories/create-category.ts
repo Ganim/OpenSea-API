@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 
 interface CreateCategoryUseCaseRequest {
+  tenantId: string;
   name: string;
   slug?: string;
   description?: string;
@@ -29,6 +30,7 @@ export class CreateCategoryUseCase {
   }
 
   async execute({
+    tenantId,
     name,
     slug,
     description,
@@ -41,16 +43,20 @@ export class CreateCategoryUseCase {
     const categorySlug = slug || this.generateSlug(name);
 
     // Verifica se já existe uma categoria com o mesmo nome
-    const categoryWithSameName =
-      await this.categoriesRepository.findByName(name);
+    const categoryWithSameName = await this.categoriesRepository.findByName(
+      name,
+      tenantId,
+    );
 
     if (categoryWithSameName) {
       throw new BadRequestError('A category with this name already exists.');
     }
 
     // Verifica se já existe uma categoria com o mesmo slug
-    const categoryWithSameSlug =
-      await this.categoriesRepository.findBySlug(categorySlug);
+    const categoryWithSameSlug = await this.categoriesRepository.findBySlug(
+      categorySlug,
+      tenantId,
+    );
 
     if (categoryWithSameSlug) {
       throw new BadRequestError('A category with this slug already exists.');
@@ -60,6 +66,7 @@ export class CreateCategoryUseCase {
     if (parentId) {
       const parentCategory = await this.categoriesRepository.findById(
         new UniqueEntityID(parentId),
+        tenantId,
       );
 
       if (!parentCategory) {
@@ -68,6 +75,7 @@ export class CreateCategoryUseCase {
     }
 
     const newCategory = await this.categoriesRepository.create({
+      tenantId,
       name,
       slug: categorySlug,
       description,

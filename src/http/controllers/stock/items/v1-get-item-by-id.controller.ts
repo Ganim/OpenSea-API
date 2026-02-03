@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { itemResponseSchema } from '@/http/schemas';
 import { makeGetItemByIdUseCase } from '@/use-cases/stock/items/factories/make-get-item-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,6 +15,7 @@ export async function getItemByIdController(app: FastifyInstance) {
     url: '/v1/items/:itemId',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.ITEMS.READ,
         resource: 'items',
@@ -37,11 +39,13 @@ export async function getItemByIdController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { itemId } = request.params;
 
       try {
         const getItemByIdUseCase = makeGetItemByIdUseCase();
         const { item } = await getItemByIdUseCase.execute({
+          tenantId,
           id: itemId,
         });
 

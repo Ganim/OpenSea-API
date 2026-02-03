@@ -4,6 +4,7 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface BinProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   zoneId: UniqueEntityID;
   address: string;
   aisle: number;
@@ -23,6 +24,10 @@ export class Bin extends Entity<BinProps> {
   // Getters
   get binId(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get zoneId(): UniqueEntityID {

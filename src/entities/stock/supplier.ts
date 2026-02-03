@@ -5,6 +5,7 @@ import { CNPJ } from './value-objects/cnpj';
 
 export interface SupplierProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   name: string;
   sequentialCode?: number; // Código sequencial do fornecedor
   cnpj?: CNPJ;
@@ -30,6 +31,10 @@ export interface SupplierProps {
 export class Supplier extends Entity<SupplierProps> {
   get id(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get name(): string {

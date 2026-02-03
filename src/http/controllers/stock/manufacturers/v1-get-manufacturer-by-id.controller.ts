@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { manufacturerResponseSchema } from '@/http/schemas/stock/manufacturers';
 import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { PrismaManufacturersRepository } from '@/repositories/stock/prisma/prisma-manufacturers-repository';
@@ -16,6 +17,7 @@ export async function getManufacturerByIdController(app: FastifyInstance) {
     url: '/v1/manufacturers/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.MANUFACTURERS.READ,
         resource: 'manufacturers',
@@ -40,6 +42,7 @@ export async function getManufacturerByIdController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
+      const tenantId = request.user.tenantId!;
 
       const manufacturersRepository = new PrismaManufacturersRepository();
       const getManufacturerByIdUseCase = new GetManufacturerByIdUseCase(
@@ -47,7 +50,10 @@ export async function getManufacturerByIdController(app: FastifyInstance) {
       );
 
       try {
-        const result = await getManufacturerByIdUseCase.execute({ id });
+        const result = await getManufacturerByIdUseCase.execute({
+          tenantId,
+          id,
+        });
 
         return reply.status(200).send({
           manufacturer: manufacturerToDTO(result.manufacturer),

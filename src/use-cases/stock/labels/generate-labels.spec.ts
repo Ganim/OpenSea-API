@@ -25,17 +25,20 @@ describe('GenerateLabelsUseCase', () => {
 
   async function createTestData() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
     });
 
     const bin1 = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-101-A',
       aisle: 1,
@@ -44,6 +47,7 @@ describe('GenerateLabelsUseCase', () => {
     });
 
     const bin2 = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-102-B',
       aisle: 1,
@@ -52,6 +56,7 @@ describe('GenerateLabelsUseCase', () => {
     });
 
     const bin3 = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-201-A',
       aisle: 2,
@@ -66,6 +71,7 @@ describe('GenerateLabelsUseCase', () => {
     const { warehouse, zone, bins } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binIds: bins.map((b) => b.binId.toString()),
       format: 'qr',
       size: 'medium',
@@ -89,6 +95,7 @@ describe('GenerateLabelsUseCase', () => {
     const { bins } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binIds: [bins[0].binId.toString()],
       format: 'barcode',
       size: 'large',
@@ -102,6 +109,7 @@ describe('GenerateLabelsUseCase', () => {
     const { bins } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binIds: [bins[0].binId.toString()],
       format: 'qr',
       size: 'small',
@@ -115,6 +123,7 @@ describe('GenerateLabelsUseCase', () => {
     const { bins } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binIds: [bins[0].binId.toString()],
       format: 'qr',
       size: 'medium',
@@ -129,6 +138,7 @@ describe('GenerateLabelsUseCase', () => {
     const { bins } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binIds: [bins[0].binId.toString()],
       format: 'qr',
       size: 'medium',
@@ -143,6 +153,7 @@ describe('GenerateLabelsUseCase', () => {
   it('should throw error when no bins are found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         binIds: [new UniqueEntityID().toString()],
         format: 'qr',
         size: 'medium',
@@ -152,17 +163,20 @@ describe('GenerateLabelsUseCase', () => {
 
   it('should skip bins with missing zones', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
     });
 
     const validBin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-101-A',
       aisle: 1,
@@ -172,6 +186,7 @@ describe('GenerateLabelsUseCase', () => {
 
     // Create a bin with a non-existent zone (simulating orphaned data)
     const orphanBin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: new UniqueEntityID(),
       address: 'ORPHAN-101-A',
       aisle: 1,
@@ -180,6 +195,7 @@ describe('GenerateLabelsUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binIds: [validBin.binId.toString(), orphanBin.binId.toString()],
       format: 'qr',
       size: 'medium',
@@ -193,6 +209,7 @@ describe('GenerateLabelsUseCase', () => {
     const { bins } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binIds: bins.map((b) => b.binId.toString()),
       format: 'qr',
       size: 'medium',
@@ -210,6 +227,7 @@ describe('GenerateLabelsUseCase', () => {
     const { bins } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       binIds: bins.map((b) => b.binId.toString()),
       format: 'qr',
       size: 'medium',

@@ -7,6 +7,7 @@ import {
 import type { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 
 interface GetSupplierByIdUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -18,10 +19,12 @@ export class GetSupplierByIdUseCase {
   constructor(private suppliersRepository: SuppliersRepository) {}
 
   async execute({
+    tenantId,
     id,
   }: GetSupplierByIdUseCaseRequest): Promise<GetSupplierByIdUseCaseResponse> {
     const supplier = await this.suppliersRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!supplier) {

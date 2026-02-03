@@ -17,11 +17,13 @@ describe('Get Category By Id Use Case', () => {
 
   it('should get a category by id', async () => {
     const { category: createdCategory } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       description: 'Electronic products',
     });
 
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdCategory.id.toString(),
     });
 
@@ -30,7 +32,7 @@ describe('Get Category By Id Use Case', () => {
 
   it('should throw error if category does not exist', async () => {
     await expect(() =>
-      sut.execute({ id: 'non-existent-id' }),
+      sut.execute({ tenantId: 'tenant-1', id: 'non-existent-id' }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

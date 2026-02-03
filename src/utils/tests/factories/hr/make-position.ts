@@ -3,6 +3,7 @@ import { Position } from '@/entities/hr/position';
 import { faker } from '@faker-js/faker';
 
 interface MakePositionProps {
+  tenantId?: UniqueEntityID;
   name?: string;
   code?: string;
   description?: string;
@@ -46,6 +47,7 @@ export function makePosition(override: MakePositionProps = {}): Position {
 
   const position = Position.create(
     {
+      tenantId: override.tenantId ?? new UniqueEntityID(),
       name: override.name ?? faker.person.jobTitle(),
       code: override.code ?? generatePositionCode(),
       description: override.description ?? faker.lorem.sentence(),

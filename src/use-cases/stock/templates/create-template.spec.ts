@@ -15,6 +15,7 @@ describe('CreateTemplateUseCase', () => {
 
   it('should create a template', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: {
         brand: templateAttr.string(),
@@ -46,6 +47,7 @@ describe('CreateTemplateUseCase', () => {
 
   it('should create a template with only product attributes', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Simple Template',
       productAttributes: {
         category: templateAttr.string(),
@@ -61,6 +63,7 @@ describe('CreateTemplateUseCase', () => {
   it('should not create a template with empty name', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: '',
         productAttributes: { test: templateAttr.string() },
       }),
@@ -70,6 +73,7 @@ describe('CreateTemplateUseCase', () => {
   it('should not create a template with name longer than 200 characters', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'a'.repeat(201),
         productAttributes: { test: templateAttr.string() },
       }),
@@ -78,12 +82,14 @@ describe('CreateTemplateUseCase', () => {
 
   it('should not create a template with duplicate name', async () => {
     await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Electronics Template',
         productAttributes: { model: templateAttr.string() },
       }),
@@ -92,6 +98,7 @@ describe('CreateTemplateUseCase', () => {
 
   it('should create a template without any attributes', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Empty Template',
     });
 
@@ -105,6 +112,7 @@ describe('CreateTemplateUseCase', () => {
 
   it('should create a template with empty attribute objects', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Empty Attributes Template',
       productAttributes: {},
       variantAttributes: {},
@@ -121,6 +129,7 @@ describe('CreateTemplateUseCase', () => {
 
   it('should create a template with iconUrl', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Template with Icon',
       iconUrl: 'https://example.com/icon.svg',
       productAttributes: { name: templateAttr.string() },
@@ -131,6 +140,7 @@ describe('CreateTemplateUseCase', () => {
 
   it('should create a template with all attribute options', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Full Options Template',
       productAttributes: {
         weight: templateAttr.number({

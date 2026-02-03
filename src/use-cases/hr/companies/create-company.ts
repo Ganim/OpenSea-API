@@ -2,6 +2,7 @@ import { Company } from '@/entities/hr/company';
 import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
 
 export interface CreateCompanyRequest {
+  tenantId: string;
   legalName: string;
   cnpj: string;
   tradeName?: string;
@@ -28,6 +29,7 @@ export class CreateCompanyUseCase {
 
   async execute(request: CreateCompanyRequest): Promise<CreateCompanyResponse> {
     const {
+      tenantId,
       legalName,
       cnpj,
       tradeName,
@@ -50,7 +52,10 @@ export class CreateCompanyUseCase {
       throw new Error('CNPJ is required');
     }
 
-    const existingCompany = await this.companiesRepository.findByCnpj(cnpj);
+    const existingCompany = await this.companiesRepository.findByCnpj(
+      cnpj,
+      tenantId,
+    );
     if (existingCompany) {
       throw new Error('Company with this CNPJ already exists');
     }
@@ -76,6 +81,7 @@ export class CreateCompanyUseCase {
 
     // Criar empresa
     const company = await this.companiesRepository.create({
+      tenantId,
       legalName,
       cnpj,
       tradeName,

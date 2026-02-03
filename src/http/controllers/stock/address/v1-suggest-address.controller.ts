@@ -33,10 +33,15 @@ export async function suggestAddressController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { partial, limit } = request.body;
 
       const suggestAddressUseCase = makeSuggestAddressUseCase();
-      const result = await suggestAddressUseCase.execute({ partial, limit });
+      const result = await suggestAddressUseCase.execute({
+        tenantId,
+        partial,
+        limit,
+      });
 
       return reply.status(200).send(result);
     },

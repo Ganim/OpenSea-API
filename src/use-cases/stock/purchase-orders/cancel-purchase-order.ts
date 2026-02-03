@@ -6,6 +6,7 @@ import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-orde
 import type { PurchaseOrdersRepository } from '@/repositories/stock/purchase-orders-repository';
 
 interface CancelPurchaseOrderUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -19,10 +20,11 @@ export class CancelPurchaseOrderUseCase {
   async execute(
     request: CancelPurchaseOrderUseCaseRequest,
   ): Promise<CancelPurchaseOrderUseCaseResponse> {
-    const { id } = request;
+    const { tenantId, id } = request;
 
     const purchaseOrder = await this.purchaseOrdersRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!purchaseOrder) {

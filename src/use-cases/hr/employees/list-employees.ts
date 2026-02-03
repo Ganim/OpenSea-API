@@ -4,6 +4,7 @@ import { EmployeeStatus } from '@/entities/hr/value-objects';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface ListEmployeesRequest {
+  tenantId: string;
   page?: number;
   perPage?: number;
   status?: string;
@@ -30,6 +31,7 @@ export class ListEmployeesUseCase {
 
   async execute(request: ListEmployeesRequest): Promise<ListEmployeesResponse> {
     const {
+      tenantId,
       page = 1,
       perPage = 20,
       status,
@@ -48,30 +50,38 @@ export class ListEmployeesUseCase {
       const statusVO = this.mapStatus(status);
       employees = await this.employeesRepository.findManyByStatus(
         statusVO,
+        tenantId,
         includeDeleted,
       );
     } else if (departmentId) {
       employees = await this.employeesRepository.findManyByDepartment(
         new UniqueEntityID(departmentId),
+        tenantId,
         includeDeleted,
       );
     } else if (positionId) {
       employees = await this.employeesRepository.findManyByPosition(
         new UniqueEntityID(positionId),
+        tenantId,
         includeDeleted,
       );
     } else if (supervisorId) {
       employees = await this.employeesRepository.findManyBySupervisor(
         new UniqueEntityID(supervisorId),
+        tenantId,
         includeDeleted,
       );
     } else if (companyId) {
       employees = await this.employeesRepository.findManyByCompany(
         new UniqueEntityID(companyId),
+        tenantId,
         includeDeleted,
       );
     } else {
-      employees = await this.employeesRepository.findMany(includeDeleted);
+      employees = await this.employeesRepository.findMany(
+        tenantId,
+        includeDeleted,
+      );
     }
 
     // Apply search filter

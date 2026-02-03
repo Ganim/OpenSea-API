@@ -6,6 +6,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreatePositionUseCase } from './create-position';
 import { GetPositionByIdUseCase } from './get-position-by-id';
 
+const TENANT_ID = 'tenant-1';
+
 let positionsRepository: InMemoryPositionsRepository;
 let departmentsRepository: InMemoryDepartmentsRepository;
 let companiesRepository: InMemoryCompaniesRepository;
@@ -30,12 +32,14 @@ describe('Get Position By Id Use Case', () => {
 
   it('should get position by id', async () => {
     const createResult = await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
       description: 'Develops software applications',
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.position.id.toString(),
     });
 
@@ -50,6 +54,7 @@ describe('Get Position By Id Use Case', () => {
   it('should not get non-existent position', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: 'non-existent-id',
       }),
     ).rejects.toThrow('Position not found');
@@ -57,6 +62,7 @@ describe('Get Position By Id Use Case', () => {
 
   it('should not get deleted position', async () => {
     const createResult = await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
     });
@@ -65,6 +71,7 @@ describe('Get Position By Id Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: createResult.position.id.toString(),
       }),
     ).rejects.toThrow('Position not found');

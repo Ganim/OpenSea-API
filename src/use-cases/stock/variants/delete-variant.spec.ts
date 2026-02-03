@@ -46,11 +46,13 @@ describe('DeleteVariantUseCase', () => {
 
   it('should be able to delete a variant', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -59,23 +61,31 @@ describe('DeleteVariantUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
     });
 
-    await deleteVariant.execute({ id: variant.id.toString() });
+    await deleteVariant.execute({
+      tenantId: 'tenant-1',
+      id: variant.id.toString(),
+    });
 
     const deletedVariant = await variantsRepository.findById(
       new UniqueEntityID(variant.id.toString()),
+      'tenant-1',
     );
     expect(deletedVariant).toBeNull();
   });
 
   it('should throw error if variant not found', async () => {
     await expect(() =>
-      deleteVariant.execute({ id: new UniqueEntityID().toString() }),
+      deleteVariant.execute({
+        tenantId: 'tenant-1',
+        id: new UniqueEntityID().toString(),
+      }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
 });

@@ -303,6 +303,9 @@ model PermissionGroup {
   // Grupo pai (para herança)
   parentId String? @map("parent_id")
 
+  // Tenant scope (null = grupo global/template, non-null = grupo do tenant)
+  tenantId String? @map("tenant_id")
+
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
@@ -312,12 +315,14 @@ model PermissionGroup {
   children    PermissionGroup[]           @relation("GroupHierarchy")
   permissions PermissionGroupPermission[]
   users       UserPermissionGroup[]
+  tenant      Tenant?                     @relation(fields: [tenantId], references: [id])
 
-  @@unique([name, deletedAt], name: "permission_groups_name_unique_active")
-  @@unique([slug, deletedAt], name: "permission_groups_slug_unique_active")
+  @@unique([name, tenantId, deletedAt], name: "permission_groups_name_tenant_unique_active")
+  @@unique([slug, tenantId, deletedAt], name: "permission_groups_slug_tenant_unique_active")
   @@index([slug])
   @@index([isActive])
   @@index([parentId])
+  @@index([tenantId])
   @@map("permission_groups")
 }
 
@@ -1027,20 +1032,24 @@ model Supplier {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   products             Product[]
   purchaseOrders       PurchaseOrder[]
   variantSupplierCodes VariantSupplierCode[]
 
-  @@unique([cnpj, deletedAt], name: "suppliers_cnpj_unique_active")
+  @@unique([cnpj, tenantId, deletedAt], name: "suppliers_cnpj_unique_active")
   @@index([sequentialCode])
   @@index([isActive])
   @@index([rating])
+  @@index([tenantId])
   @@map("suppliers")
 }
 
 model Manufacturer {
   id             String  @id @default(uuid())
-  code           String  @unique @db.VarChar(3) // Código hierárquico auto-gerado (ex: 001)
+  code           String  @db.VarChar(3) // Código hierárquico auto-gerado (ex: 001)
   sequentialCode Int     @default(autoincrement()) @map("sequential_code") // Para geração do code
   name           String  @db.VarChar(128)
   country        String? @db.VarChar(64)
@@ -1065,11 +1074,16 @@ model Manufacturer {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   products Product[]
 
+  @@unique([code, tenantId], name: "manufacturers_code_tenant_unique")
   @@index([isActive])
   @@index([rating])
   @@index([sequentialCode])
+  @@index([tenantId])
   @@map("manufacturers")
 }
 
@@ -1086,12 +1100,16 @@ model Category {
   updatedAt    DateTime  @updatedAt @map("updated_at")
   deletedAt    DateTime? @map("deleted_at")
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   parent            Category?         @relation("SubCategories", fields: [parentId], references: [id])
   subCategories     Category[]        @relation("SubCategories")
   productCategories ProductCategory[]
 
-  @@unique([slug, deletedAt], name: "categories_slug_unique_active")
+  @@unique([slug, tenantId, deletedAt], name: "categories_slug_unique_active")
   @@index([parentId, deletedAt])
+  @@index([tenantId])
   @@map("categories")
 }
 
@@ -1111,10 +1129,14 @@ model Warehouse {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   zones Zone[]
 
-  @@unique([code, deletedAt], name: "warehouses_code_unique_active")
+  @@unique([code, tenantId, deletedAt], name: "warehouses_code_unique_active")
   @@index([isActive])
+  @@index([tenantId])
   @@map("warehouses")
 }
 
@@ -1136,12 +1158,16 @@ model Zone {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   warehouse Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
   bins      Bin[]
 
   @@unique([warehouseId, code, deletedAt], name: "zones_warehouse_code_unique_active")
   @@index([warehouseId])
   @@index([isActive])
+  @@index([tenantId])
   @@map("zones")
 }
 
@@ -1170,11 +1196,14 @@ model Bin {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   zone           Zone            @relation(fields: [zoneId], references: [id], onDelete: Cascade)
   items          Item[]
   stockSnapshots StockSnapshot[]
 
-  @@unique([address, deletedAt], name: "bins_address_unique_active")
+  @@unique([address, tenantId, deletedAt], name: "bins_address_unique_active")
   @@unique([zoneId, aisle, shelf, position, deletedAt], name: "bins_position_unique_active")
   @@index([zoneId])
   @@index([address])
@@ -1182,6 +1211,7 @@ model Bin {
   @@index([isActive])
   @@index([isBlocked])
   @@index([zoneId, aisle, shelf])
+  @@index([tenantId])
   @@map("bins")
 }
 
@@ -1198,7 +1228,7 @@ enum VolumeStatus {
 
 model Volume {
   id             String       @id @default(uuid())
-  code           String       @unique
+  code           String
   name           String?      @db.VarChar(256)
   status         VolumeStatus @default(OPEN)
   notes          String?      @db.Text
@@ -1223,15 +1253,20 @@ model Volume {
   closedBy    String? @map("closed_by")
   deliveredBy String? @map("delivered_by")
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   createdByUser   User  @relation("VolumeCreatedBy", fields: [createdBy], references: [id])
   closedByUser    User? @relation("VolumeClosedBy", fields: [closedBy], references: [id])
   deliveredByUser User? @relation("VolumeDeliveredBy", fields: [deliveredBy], references: [id])
 
+  @@unique([code, tenantId], name: "volumes_code_tenant_unique")
   @@index([status])
   @@index([code])
   @@index([createdAt])
   @@index([closedAt])
   @@index([deletedAt])
+  @@index([tenantId])
   @@map("volumes")
 }
 
@@ -1269,19 +1304,23 @@ model Template {
   updatedAt         DateTime      @updatedAt @map("updated_at")
   deletedAt         DateTime?     @map("deleted_at")
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   products Product[]
 
-  @@unique([name, deletedAt], name: "templates_name_unique_active")
+  @@unique([name, tenantId, deletedAt], name: "templates_name_unique_active")
   @@index([sequentialCode])
   @@index([isActive])
   @@index([code])
+  @@index([tenantId])
   @@map("templates")
 }
 
 model Product {
   id             String        @id @default(uuid())
   name           String        @db.VarChar(256)
-  slug           String        @unique @db.VarChar(300) // Slug gerado automaticamente do nome - IMUTÁVEL
+  slug           String        @db.VarChar(300) // Slug gerado automaticamente do nome - IMUTÁVEL
   fullCode       String        @unique @map("full_code") @db.VarChar(20) // Código hierárquico: TEMPLATE.FABRICANTE.PRODUTO (ex: 001.001.0001) - IMUTÁVEL
   sequentialCode Int           @default(autoincrement()) @map("sequential_code")
   description    String?       @db.Text
@@ -1307,6 +1346,9 @@ model Product {
   manufacturerId String? @map("manufacturer_id") // Código do fabricante no fullCode (000 se não houver)
   organizationId String? @map("organization_id") // Nova relação unificada
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   template          Template          @relation(fields: [templateId], references: [id])
   supplier          Supplier?         @relation(fields: [supplierId], references: [id])
   manufacturer      Manufacturer?     @relation(fields: [manufacturerId], references: [id])
@@ -1315,7 +1357,7 @@ model Product {
   productCategories ProductCategory[]
   productTags       ProductTag[]
 
-  @@unique([slug, deletedAt], name: "products_slug_unique_active")
+  @@unique([slug, tenantId, deletedAt], name: "products_slug_unique_active")
   @@index([templateId])
   @@index([supplierId])
   @@index([manufacturerId])
@@ -1328,13 +1370,14 @@ model Product {
   @@index([upcCode])
   @@index([slug, deletedAt])
   @@index([name, deletedAt])
+  @@index([tenantId])
   @@map("products")
 }
 
 model Variant {
   id             String  @id @default(uuid())
   sku            String? @db.VarChar(64) // SKU manual ou gerado do nome
-  slug           String  @unique @db.VarChar(300) // Slug gerado automaticamente do nome - IMUTÁVEL
+  slug           String  @db.VarChar(300) // Slug gerado automaticamente do nome - IMUTÁVEL
   fullCode       String  @unique @map("full_code") @db.VarChar(24) // Código hierárquico: TEMPLATE.FABRICANTE.PRODUTO.VARIANTE (ex: 001.001.0001.001) - IMUTÁVEL
   sequentialCode Int     @map("sequential_code") // Sequencial LOCAL ao produto (NÃO autoincrement)
   name           String  @db.VarChar(256)
@@ -1373,6 +1416,8 @@ model Variant {
   deletedAt DateTime? @map("deleted_at")
 
   productId String  @map("product_id")
+  tenantId  String  @map("tenant_id")
+  tenant    Tenant  @relation(fields: [tenantId], references: [id])
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   items              Item[]
@@ -1385,8 +1430,8 @@ model Variant {
   variantPromotions  VariantPromotion[]
   supplierCodes      VariantSupplierCode[]
 
-  @@unique([sku, deletedAt], name: "variants_sku_unique_active")
-  @@unique([slug, deletedAt], name: "variants_slug_unique_active")
+  @@unique([sku, tenantId, deletedAt], name: "variants_sku_unique_active")
+  @@unique([slug, tenantId, deletedAt], name: "variants_slug_unique_active")
   @@index([productId])
   @@index([sequentialCode])
   @@index([fullCode])
@@ -1395,13 +1440,14 @@ model Variant {
   @@index([eanCode])
   @@index([upcCode])
   @@index([slug, deletedAt])
+  @@index([tenantId])
   @@map("variants")
 }
 
 model Item {
   id              String     @id @default(uuid())
   uniqueCode      String?    @map("unique_code") @db.VarChar(128) // Código único manual ou UUID
-  slug            String     @unique @db.VarChar(300) // Slug gerado automaticamente - IMUTÁVEL
+  slug            String     @db.VarChar(300) // Slug gerado automaticamente - IMUTÁVEL
   fullCode        String     @unique @map("full_code") @db.VarChar(30) // Código hierárquico: TEMPLATE.FABRICANTE.PRODUTO.VARIANTE-ITEM (ex: 001.001.0001.001-00001) - IMUTÁVEL
   sequentialCode  Int        @map("sequential_code") // Sequencial LOCAL à variante (NÃO autoincrement)
   initialQuantity Decimal    @map("initial_quantity") @db.Decimal(10, 3)
@@ -1428,6 +1474,8 @@ model Item {
 
   variantId String  @map("variant_id")
   binId     String? @map("bin_id") // Referência ao Bin (localização específica)
+  tenantId  String  @map("tenant_id")
+  tenant    Tenant  @relation(fields: [tenantId], references: [id])
 
   variant      Variant           @relation(fields: [variantId], references: [id])
   bin          Bin?              @relation(fields: [binId], references: [id])
@@ -1435,8 +1483,8 @@ model Item {
   reservations ItemReservation[]
   volumeItems  VolumeItem[]      @relation("VolumeItems")
 
-  @@unique([uniqueCode, deletedAt], name: "items_uniqueCode_unique_active")
-  @@unique([slug, deletedAt], name: "items_slug_unique_active")
+  @@unique([uniqueCode, tenantId, deletedAt], name: "items_uniqueCode_unique_active")
+  @@unique([slug, tenantId, deletedAt], name: "items_slug_unique_active")
   @@index([variantId])
   @@index([binId])
   @@index([sequentialCode])
@@ -1451,6 +1499,7 @@ model Item {
   @@index([variantId, binId])
   @@index([expiryDate, deletedAt])
   @@index([batchNumber, variantId])
+  @@index([tenantId])
   @@map("items")
 }
 
@@ -1470,6 +1519,8 @@ model ItemMovement {
   userId       String  @map("user_id")
   approvedBy   String? @map("approved_by")
   salesOrderId String? @map("sales_order_id")
+  tenantId     String  @map("tenant_id")
+  tenant       Tenant  @relation(fields: [tenantId], references: [id])
 
   item       Item        @relation(fields: [itemId], references: [id])
   user       User        @relation(fields: [userId], references: [id])
@@ -1485,6 +1536,7 @@ model ItemMovement {
   @@index([itemId, createdAt])
   @@index([userId, movementType])
   @@index([createdAt(sort: Desc)])
+  @@index([tenantId])
   @@map("item_movements")
 }
 
@@ -1530,6 +1582,10 @@ model VariantPriceHistory {
 
 model AuditLog {
   id          String      @id @default(uuid())
+
+  // Multi-Tenant (nullable for system actions)
+  tenantId    String?     @map("tenant_id")
+
   action      AuditAction
   entity      AuditEntity
   module      AuditModule // Módulo da entidade
@@ -1551,8 +1607,11 @@ model AuditLog {
   createdAt DateTime  @default(now()) @map("created_at")
   expiresAt DateTime? @map("expires_at") // Para limpeza automática
 
-  user User? @relation(fields: [userId], references: [id])
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
 
+  @@index([tenantId])
+  @@index([tenantId, createdAt])
   @@index([userId])
   @@index([affectedUser])
   @@index([action])
@@ -1571,17 +1630,23 @@ model AuditLog {
 
 model Tag {
   id          String    @id @default(uuid())
-  name        String    @unique @db.VarChar(64)
-  slug        String    @unique @db.VarChar(64)
+  name        String    @db.VarChar(64)
+  slug        String    @db.VarChar(64)
   color       String?   @db.VarChar(7) // Formato hex: #FF5733
   description String?   @db.VarChar(256)
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
   deletedAt   DateTime? @map("deleted_at")
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   productTags ProductTag[]
 
+  @@unique([name, tenantId], name: "tags_name_tenant_unique")
+  @@unique([slug, tenantId], name: "tags_slug_tenant_unique")
   @@index([slug])
+  @@index([tenantId])
   @@map("tags")
 }
 
@@ -1649,7 +1714,7 @@ model Alert {
 
 model PurchaseOrder {
   id           String      @id @default(uuid())
-  orderNumber  String      @unique @map("order_number") @db.VarChar(64)
+  orderNumber  String      @map("order_number") @db.VarChar(64)
   status       OrderStatus @default(PENDING)
   totalCost    Decimal     @map("total_cost") @db.Decimal(10, 2)
   expectedDate DateTime?   @map("expected_date")
@@ -1661,17 +1726,21 @@ model PurchaseOrder {
 
   supplierId String  @map("supplier_id")
   createdBy  String? @map("created_by")
+  tenantId   String  @map("tenant_id")
+  tenant     Tenant  @relation(fields: [tenantId], references: [id])
 
   supplier Supplier @relation(fields: [supplierId], references: [id])
   creator  User?    @relation("CreatedPurchaseOrders", fields: [createdBy], references: [id])
 
   items PurchaseOrderItem[]
 
+  @@unique([orderNumber, tenantId], name: "purchase_orders_order_number_tenant_unique")
   @@index([supplierId])
   @@index([status])
   @@index([orderNumber])
   @@index([expectedDate])
   @@index([createdBy])
+  @@index([tenantId])
   @@map("purchase_orders")
 }
 
@@ -1754,13 +1823,17 @@ model Customer {
   updatedAt DateTime     @updatedAt @map("updated_at")
   deletedAt DateTime?    @map("deleted_at")
 
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
   salesOrders SalesOrder[]
 
-  @@unique([document, deletedAt], name: "customers_document_unique_active")
+  @@unique([document, tenantId, deletedAt], name: "customers_document_unique_active")
   @@index([document])
   @@index([email])
   @@index([isActive])
   @@index([type])
+  @@index([tenantId])
   @@map("customers")
 }
 
@@ -1778,18 +1851,21 @@ model SalesOrder {
 
   customerId String  @map("customer_id")
   createdBy  String? @map("created_by")
+  tenantId   String  @map("tenant_id")
+  tenant     Tenant  @relation(fields: [tenantId], references: [id])
 
   customer      Customer         @relation(fields: [customerId], references: [id])
   creator       User?            @relation("CreatedSalesOrders", fields: [createdBy], references: [id])
   items         SalesOrderItem[]
   itemMovements ItemMovement[]
 
-  @@unique([orderNumber, deletedAt], name: "sales_orders_order_number_unique_active")
+  @@unique([orderNumber, tenantId, deletedAt], name: "sales_orders_order_number_unique_active")
   @@index([customerId])
   @@index([status])
   @@index([orderNumber])
   @@index([createdBy])
   @@index([createdAt])
+  @@index([tenantId])
   @@map("sales_orders")
 }
 
@@ -2166,6 +2242,9 @@ enum WorkRegime {
 model Employee {
   id String @id @default(uuid())
 
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
+
   // Identificação
   registrationNumber String @map("registration_number") @db.VarChar(32)
 
@@ -2248,6 +2327,7 @@ model Employee {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant       Tenant        @relation(fields: [tenantId], references: [id])
   user         User?         @relation(fields: [userId], references: [id])
   department   Department?   @relation("DepartmentEmployees", fields: [departmentId], references: [id])
   position     Position?     @relation(fields: [positionId], references: [id])
@@ -2284,9 +2364,10 @@ model Employee {
   company            Company?     @relation(fields: [companyId], references: [id])
   companyId          String?
 
-  @@unique([registrationNumber, deletedAt])
-  @@unique([cpf, deletedAt])
-  @@unique([pis, deletedAt])
+  @@unique([registrationNumber, tenantId, deletedAt], name: "employees_registration_tenant_unique_active")
+  @@unique([cpf, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
+  @@unique([pis, tenantId, deletedAt], name: "employees_pis_tenant_unique_active")
+  @@index([tenantId])
   @@index([userId])
   @@index([cpf])
   @@index([registrationNumber])
@@ -2304,6 +2385,9 @@ model Employee {
 model Department {
   id String @id @default(uuid())
 
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
+
   name        String  @db.VarChar(128)
   code        String  @db.VarChar(32)
   description String? @db.Text
@@ -2320,6 +2404,7 @@ model Department {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant    Tenant       @relation(fields: [tenantId], references: [id])
   parent    Department?  @relation("DepartmentHierarchy", fields: [parentId], references: [id])
   children  Department[] @relation("DepartmentHierarchy")
   manager   Employee?    @relation("DepartmentManager", fields: [managerId], references: [id])
@@ -2327,7 +2412,8 @@ model Department {
   positions Position[]
   employees Employee[]   @relation("DepartmentEmployees")
 
-  @@unique([code, companyId, deletedAt], name: "departments_code_company_unique_active")
+  @@unique([code, companyId, tenantId, deletedAt], name: "departments_code_company_tenant_unique_active")
+  @@index([tenantId])
   @@index([code])
   @@index([parentId])
   @@index([managerId])
@@ -2340,10 +2426,13 @@ model Department {
 model Position {
   id String @id @default(uuid())
 
-  name         String   @db.VarChar(128)
-  code         String   @unique @db.VarChar(32)
-  description  String?  @db.Text
-  departmentId String?  @map("department_id")
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
+
+  name         String  @db.VarChar(128)
+  code         String  @db.VarChar(32)
+  description  String? @db.Text
+  departmentId String? @map("department_id")
   level        Int      @default(1)
   minSalary    Decimal? @map("min_salary") @db.Decimal(10, 2)
   maxSalary    Decimal? @map("max_salary") @db.Decimal(10, 2)
@@ -2358,9 +2447,12 @@ model Position {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant     Tenant      @relation(fields: [tenantId], references: [id])
   department Department? @relation(fields: [departmentId], references: [id])
   employees  Employee[]
 
+  @@unique([code, tenantId], name: "positions_code_tenant_unique")
+  @@index([tenantId])
   @@index([code])
   @@index([departmentId])
   @@index([level])
@@ -2385,6 +2477,9 @@ enum TimeEntryType {
 model TimeEntry {
   id String @id @default(uuid())
 
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
+
   employeeId String        @map("employee_id")
   entryType  TimeEntryType @map("entry_type")
   timestamp  DateTime
@@ -2397,8 +2492,10 @@ model TimeEntry {
   createdAt DateTime @default(now()) @map("created_at")
 
   // Relations
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
   employee Employee @relation(fields: [employeeId], references: [id])
 
+  @@index([tenantId])
   @@index([employeeId])
   @@index([timestamp])
   @@index([entryType])
@@ -2408,6 +2505,9 @@ model TimeEntry {
 
 model WorkSchedule {
   id String @id @default(uuid())
+
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
 
   name           String  @db.VarChar(128)
   description    String? @db.Text
@@ -2433,11 +2533,18 @@ model WorkSchedule {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
   @@map("work_schedules")
 }
 
 model Overtime {
   id String @id @default(uuid())
+
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
 
   employeeId String    @map("employee_id")
   date       DateTime
@@ -2452,9 +2559,11 @@ model Overtime {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
   employee Employee @relation(fields: [employeeId], references: [id])
   approver User?    @relation(fields: [approvedBy], references: [id])
 
+  @@index([tenantId])
   @@index([employeeId])
   @@index([date])
   @@index([approved])
@@ -2463,6 +2572,9 @@ model Overtime {
 
 model TimeBank {
   id String @id @default(uuid())
+
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
 
   employeeId String  @map("employee_id")
   balance    Decimal @db.Decimal(8, 2) // Saldo em horas
@@ -2473,9 +2585,11 @@ model TimeBank {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
   employee Employee @relation(fields: [employeeId], references: [id])
 
   @@unique([employeeId, year])
+  @@index([tenantId])
   @@index([employeeId])
   @@map("time_banks")
 }
@@ -2510,6 +2624,9 @@ enum AbsenceStatus {
 model Absence {
   id String @id @default(uuid())
 
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
+
   employeeId           String        @map("employee_id")
   type                 AbsenceType
   status               AbsenceStatus @default(PENDING)
@@ -2541,9 +2658,11 @@ model Absence {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
   employee Employee @relation(fields: [employeeId], references: [id])
   approver User?    @relation(fields: [approvedBy], references: [id])
 
+  @@index([tenantId])
   @@index([employeeId])
   @@index([type])
   @@index([status])
@@ -2555,6 +2674,9 @@ model Absence {
 
 model VacationPeriod {
   id String @id @default(uuid())
+
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
 
   employeeId String @map("employee_id")
 
@@ -2587,8 +2709,10 @@ model VacationPeriod {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
   employee Employee @relation(fields: [employeeId], references: [id])
 
+  @@index([tenantId])
   @@index([employeeId])
   @@index([status])
   @@index([acquisitionStart, acquisitionEnd])
@@ -2637,6 +2761,9 @@ enum PayrollItemType {
 model Payroll {
   id String @id @default(uuid())
 
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
+
   referenceMonth  Int           @map("reference_month") // 1-12
   referenceYear   Int           @map("reference_year")
   status          PayrollStatus @default(DRAFT)
@@ -2661,12 +2788,14 @@ model Payroll {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant    Tenant        @relation(fields: [tenantId], references: [id])
   processor User?         @relation("PayrollProcessor", fields: [processedBy], references: [id])
   approver  User?         @relation("PayrollApprover", fields: [approvedBy], references: [id])
   payer     User?         @relation("PayrollPayer", fields: [paidBy], references: [id])
   items     PayrollItem[]
 
-  @@unique([referenceMonth, referenceYear])
+  @@unique([referenceMonth, referenceYear, tenantId], name: "payrolls_month_year_tenant_unique")
+  @@index([tenantId])
   @@index([status])
   @@index([referenceYear, referenceMonth])
   @@map("payrolls")
@@ -2703,6 +2832,9 @@ model PayrollItem {
 model Bonus {
   id String @id @default(uuid())
 
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
+
   employeeId String   @map("employee_id")
   name       String   @db.VarChar(128)
   amount     Decimal  @db.Decimal(10, 2)
@@ -2715,8 +2847,10 @@ model Bonus {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
   employee Employee @relation(fields: [employeeId], references: [id])
 
+  @@index([tenantId])
   @@index([employeeId])
   @@index([date])
   @@index([isPaid])
@@ -2725,6 +2859,9 @@ model Bonus {
 
 model Deduction {
   id String @id @default(uuid())
+
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
 
   employeeId         String    @map("employee_id")
   name               String    @db.VarChar(128)
@@ -2742,8 +2879,10 @@ model Deduction {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
   employee Employee @relation(fields: [employeeId], references: [id])
 
+  @@index([tenantId])
   @@index([employeeId])
   @@index([date])
   @@index([isApplied])
@@ -2801,6 +2940,9 @@ enum CompanyStakeholderSource {
 model Company {
   id String @id @default(uuid())
 
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
+
   // Dados obrigatórios
   legalName String @map("legal_name") @db.VarChar(256)
   cnpj      String @db.VarChar(18)
@@ -2831,6 +2973,7 @@ model Company {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
+  tenant         Tenant @relation(fields: [tenantId], references: [id])
   employees      Employee[]
   departments    Department[]
   addresses      CompanyAddress[]
@@ -2838,7 +2981,8 @@ model Company {
   fiscalSettings CompanyFiscalSettings?
   stakeholders   CompanyStakeholder[]
 
-  @@unique([cnpj, deletedAt], name: "companies_cnpj_unique_active")
+  @@unique([cnpj, tenantId, deletedAt], name: "companies_cnpj_tenant_unique_active")
+  @@index([tenantId])
   @@index([cnpj])
   @@index([legalName])
   @@index([status])
@@ -3112,9 +3256,45 @@ model Tenant {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  tenantUsers       TenantUser[]
-  tenantPlans       TenantPlan[]
+  tenantUsers        TenantUser[]
+  tenantPlans        TenantPlan[]
   tenantFeatureFlags TenantFeatureFlag[]
+  permissionGroups   PermissionGroup[]
+
+  // Stock domain
+  warehouses     Warehouse[]
+  zones          Zone[]
+  bins           Bin[]
+  templates      Template[]
+  products       Product[]
+  variants       Variant[]
+  items          Item[]
+  itemMovements  ItemMovement[]
+  categories     Category[]
+  tags           Tag[]
+  suppliers      Supplier[]
+  manufacturers  Manufacturer[]
+  volumes        Volume[]
+  purchaseOrders PurchaseOrder[]
+  // Sales domain
+  customers      Customer[]
+  salesOrders    SalesOrder[]
+  // HR domain
+  companies       Company[]
+  departments     Department[]
+  positions       Position[]
+  employees       Employee[]
+  timeEntries     TimeEntry[]
+  workSchedules   WorkSchedule[]
+  overtime        Overtime[]
+  timeBanks       TimeBank[]
+  absences        Absence[]
+  vacationPeriods VacationPeriod[]
+  payrolls        Payroll[]
+  bonuses         Bonus[]
+  deductions      Deduction[]
+  // Audit domain
+  auditLogs       AuditLog[]
 
   @@index([status])
   @@index([deletedAt])

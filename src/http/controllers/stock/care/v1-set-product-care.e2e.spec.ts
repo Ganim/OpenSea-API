@@ -19,8 +19,18 @@ describe('Set Product Care Instructions (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const template = await prisma.template.create({
       data: {
+        tenantId,
         name: `Template Care Test ${timestamp}`,
         productAttributes: {},
         variantAttributes: {},
@@ -29,6 +39,7 @@ describe('Set Product Care Instructions (E2E)', () => {
     });
 
     const { product } = await createProduct({
+      tenantId,
       name: `Product Care Test ${timestamp}`,
       templateId: template.id,
     });

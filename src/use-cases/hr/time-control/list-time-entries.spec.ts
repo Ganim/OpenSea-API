@@ -6,6 +6,7 @@ import { ListTimeEntriesUseCase } from './list-time-entries';
 
 let timeEntriesRepository: InMemoryTimeEntriesRepository;
 let sut: ListTimeEntriesUseCase;
+const tenantId = new UniqueEntityID().toString();
 
 describe('List Time Entries Use Case', () => {
   beforeEach(() => {
@@ -18,18 +19,20 @@ describe('List Time Entries Use Case', () => {
 
     // Create some entries
     await timeEntriesRepository.create({
+      tenantId,
       employeeId,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-15T08:00:00Z'),
     });
 
     await timeEntriesRepository.create({
+      tenantId,
       employeeId,
       entryType: TimeEntryType.CLOCK_OUT(),
       timestamp: new Date('2024-01-15T17:00:00Z'),
     });
 
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId });
 
     expect(result.timeEntries).toHaveLength(2);
     expect(result.total).toBe(2);
@@ -41,6 +44,7 @@ describe('List Time Entries Use Case', () => {
 
     // Create entries for employee 1
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: employeeId1,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-15T08:00:00Z'),
@@ -48,12 +52,14 @@ describe('List Time Entries Use Case', () => {
 
     // Create entries for employee 2
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: employeeId2,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-15T09:00:00Z'),
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: employeeId1.toString(),
     });
 
@@ -66,6 +72,7 @@ describe('List Time Entries Use Case', () => {
 
     // Entry within range
     await timeEntriesRepository.create({
+      tenantId,
       employeeId,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-15T08:00:00Z'),
@@ -73,12 +80,14 @@ describe('List Time Entries Use Case', () => {
 
     // Entry outside range
     await timeEntriesRepository.create({
+      tenantId,
       employeeId,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-20T08:00:00Z'),
     });
 
     const result = await sut.execute({
+      tenantId,
       startDate: new Date('2024-01-14T00:00:00Z'),
       endDate: new Date('2024-01-16T23:59:59Z'),
     });
@@ -90,18 +99,21 @@ describe('List Time Entries Use Case', () => {
     const employeeId = new UniqueEntityID();
 
     await timeEntriesRepository.create({
+      tenantId,
       employeeId,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-15T08:00:00Z'),
     });
 
     await timeEntriesRepository.create({
+      tenantId,
       employeeId,
       entryType: TimeEntryType.CLOCK_OUT(),
       timestamp: new Date('2024-01-15T17:00:00Z'),
     });
 
     const result = await sut.execute({
+      tenantId,
       entryType: 'CLOCK_IN',
     });
 
@@ -112,13 +124,14 @@ describe('List Time Entries Use Case', () => {
   it('should throw error for invalid entry type', async () => {
     await expect(
       sut.execute({
+        tenantId,
         entryType: 'INVALID_TYPE',
       }),
     ).rejects.toThrow('Invalid entry type: INVALID_TYPE');
   });
 
   it('should return empty array when no entries found', async () => {
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId });
 
     expect(result.timeEntries).toHaveLength(0);
     expect(result.total).toBe(0);

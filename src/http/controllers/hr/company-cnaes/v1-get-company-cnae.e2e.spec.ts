@@ -5,10 +5,15 @@ import { app } from '@/app';
 import { makeCreateCompanyUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import { makeCreateCompanyCnaeUseCase } from '@/use-cases/hr/company-cnaes/factories/make-company-cnaes';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Get Company CNAE (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -16,11 +21,12 @@ describe('Get Company CNAE (E2E)', () => {
   });
 
   it('should get company cnae with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();
 
     const createCompanyUseCase = makeCreateCompanyUseCase();
     const { company } = await createCompanyUseCase.execute({
+      tenantId,
       legalName: `Test Company ${timestamp}`,
       cnpj: `${timestamp}`.slice(-14).padStart(14, '0'),
     });

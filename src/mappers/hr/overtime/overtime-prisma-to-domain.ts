@@ -3,6 +3,7 @@ import type { Overtime as PrismaOvertime } from '@prisma/generated/client.js';
 
 export function mapOvertimePrismaToDomain(overtime: PrismaOvertime) {
   return {
+    tenantId: new UniqueEntityID(overtime.tenantId),
     employeeId: new UniqueEntityID(overtime.employeeId),
     date: overtime.date,
     hours: Number(overtime.hours),

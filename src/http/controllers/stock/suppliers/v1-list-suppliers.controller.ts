@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { supplierResponseSchema } from '@/http/schemas/stock/suppliers';
 import { makeListSuppliersUseCase } from '@/use-cases/stock/suppliers/factories/make-list-suppliers-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -13,6 +14,7 @@ export async function listSuppliersController(app: FastifyInstance) {
     url: '/v1/suppliers',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.SUPPLIERS.LIST,
         resource: 'suppliers',
@@ -29,8 +31,10 @@ export async function listSuppliersController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+
       const useCase = makeListSuppliersUseCase();
-      const result = await useCase.execute();
+      const result = await useCase.execute({ tenantId });
       return reply.status(200).send(result);
     },
   });

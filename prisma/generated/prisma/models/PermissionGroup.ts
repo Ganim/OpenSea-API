@@ -44,6 +44,7 @@ export type PermissionGroupMinAggregateOutputType = {
   color: string | null
   priority: number | null
   parentId: string | null
+  tenantId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -59,6 +60,7 @@ export type PermissionGroupMaxAggregateOutputType = {
   color: string | null
   priority: number | null
   parentId: string | null
+  tenantId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -74,6 +76,7 @@ export type PermissionGroupCountAggregateOutputType = {
   color: number
   priority: number
   parentId: number
+  tenantId: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -99,6 +102,7 @@ export type PermissionGroupMinAggregateInputType = {
   color?: true
   priority?: true
   parentId?: true
+  tenantId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -114,6 +118,7 @@ export type PermissionGroupMaxAggregateInputType = {
   color?: true
   priority?: true
   parentId?: true
+  tenantId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -129,6 +134,7 @@ export type PermissionGroupCountAggregateInputType = {
   color?: true
   priority?: true
   parentId?: true
+  tenantId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -231,6 +237,7 @@ export type PermissionGroupGroupByOutputType = {
   color: string | null
   priority: number
   parentId: string | null
+  tenantId: string | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -269,6 +276,7 @@ export type PermissionGroupWhereInput = {
   color?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   priority?: Prisma.IntFilter<"PermissionGroup"> | number
   parentId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
+  tenantId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PermissionGroup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PermissionGroup"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"PermissionGroup"> | Date | string | null
@@ -276,6 +284,7 @@ export type PermissionGroupWhereInput = {
   children?: Prisma.PermissionGroupListRelationFilter
   permissions?: Prisma.PermissionGroupPermissionListRelationFilter
   users?: Prisma.UserPermissionGroupListRelationFilter
+  tenant?: Prisma.XOR<Prisma.TenantNullableScalarRelationFilter, Prisma.TenantWhereInput> | null
 }
 
 export type PermissionGroupOrderByWithRelationInput = {
@@ -288,6 +297,7 @@ export type PermissionGroupOrderByWithRelationInput = {
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   priority?: Prisma.SortOrder
   parentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -295,12 +305,13 @@ export type PermissionGroupOrderByWithRelationInput = {
   children?: Prisma.PermissionGroupOrderByRelationAggregateInput
   permissions?: Prisma.PermissionGroupPermissionOrderByRelationAggregateInput
   users?: Prisma.UserPermissionGroupOrderByRelationAggregateInput
+  tenant?: Prisma.TenantOrderByWithRelationInput
 }
 
 export type PermissionGroupWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  permission_groups_name_unique_active?: Prisma.PermissionGroupPermission_groups_name_unique_activeCompoundUniqueInput
-  permission_groups_slug_unique_active?: Prisma.PermissionGroupPermission_groups_slug_unique_activeCompoundUniqueInput
+  permission_groups_name_tenant_unique_active?: Prisma.PermissionGroupPermission_groups_name_tenant_unique_activeCompoundUniqueInput
+  permission_groups_slug_tenant_unique_active?: Prisma.PermissionGroupPermission_groups_slug_tenant_unique_activeCompoundUniqueInput
   AND?: Prisma.PermissionGroupWhereInput | Prisma.PermissionGroupWhereInput[]
   OR?: Prisma.PermissionGroupWhereInput[]
   NOT?: Prisma.PermissionGroupWhereInput | Prisma.PermissionGroupWhereInput[]
@@ -312,6 +323,7 @@ export type PermissionGroupWhereUniqueInput = Prisma.AtLeast<{
   color?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   priority?: Prisma.IntFilter<"PermissionGroup"> | number
   parentId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
+  tenantId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PermissionGroup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PermissionGroup"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"PermissionGroup"> | Date | string | null
@@ -319,7 +331,8 @@ export type PermissionGroupWhereUniqueInput = Prisma.AtLeast<{
   children?: Prisma.PermissionGroupListRelationFilter
   permissions?: Prisma.PermissionGroupPermissionListRelationFilter
   users?: Prisma.UserPermissionGroupListRelationFilter
-}, "id" | "permission_groups_name_unique_active" | "permission_groups_slug_unique_active">
+  tenant?: Prisma.XOR<Prisma.TenantNullableScalarRelationFilter, Prisma.TenantWhereInput> | null
+}, "id" | "permission_groups_name_tenant_unique_active" | "permission_groups_slug_tenant_unique_active">
 
 export type PermissionGroupOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -331,6 +344,7 @@ export type PermissionGroupOrderByWithAggregationInput = {
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   priority?: Prisma.SortOrder
   parentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -354,6 +368,7 @@ export type PermissionGroupScalarWhereWithAggregatesInput = {
   color?: Prisma.StringNullableWithAggregatesFilter<"PermissionGroup"> | string | null
   priority?: Prisma.IntWithAggregatesFilter<"PermissionGroup"> | number
   parentId?: Prisma.StringNullableWithAggregatesFilter<"PermissionGroup"> | string | null
+  tenantId?: Prisma.StringNullableWithAggregatesFilter<"PermissionGroup"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PermissionGroup"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PermissionGroup"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PermissionGroup"> | Date | string | null
@@ -375,6 +390,7 @@ export type PermissionGroupCreateInput = {
   children?: Prisma.PermissionGroupCreateNestedManyWithoutParentInput
   permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
+  tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
 }
 
 export type PermissionGroupUncheckedCreateInput = {
@@ -387,6 +403,7 @@ export type PermissionGroupUncheckedCreateInput = {
   color?: string | null
   priority?: number
   parentId?: string | null
+  tenantId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -411,6 +428,7 @@ export type PermissionGroupUpdateInput = {
   children?: Prisma.PermissionGroupUpdateManyWithoutParentNestedInput
   permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
+  tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateInput = {
@@ -423,6 +441,7 @@ export type PermissionGroupUncheckedUpdateInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -441,6 +460,7 @@ export type PermissionGroupCreateManyInput = {
   color?: string | null
   priority?: number
   parentId?: string | null
+  tenantId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -470,6 +490,7 @@ export type PermissionGroupUncheckedUpdateManyInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -490,13 +511,15 @@ export type PermissionGroupOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type PermissionGroupPermission_groups_name_unique_activeCompoundUniqueInput = {
+export type PermissionGroupPermission_groups_name_tenant_unique_activeCompoundUniqueInput = {
   name: string
+  tenantId: string
   deletedAt: Date | string
 }
 
-export type PermissionGroupPermission_groups_slug_unique_activeCompoundUniqueInput = {
+export type PermissionGroupPermission_groups_slug_tenant_unique_activeCompoundUniqueInput = {
   slug: string
+  tenantId: string
   deletedAt: Date | string
 }
 
@@ -510,6 +533,7 @@ export type PermissionGroupCountOrderByAggregateInput = {
   color?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -529,6 +553,7 @@ export type PermissionGroupMaxOrderByAggregateInput = {
   color?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -544,6 +569,7 @@ export type PermissionGroupMinOrderByAggregateInput = {
   color?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -644,6 +670,48 @@ export type PermissionGroupUpdateOneRequiredWithoutUsersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PermissionGroupUpdateToOneWithWhereWithoutUsersInput, Prisma.PermissionGroupUpdateWithoutUsersInput>, Prisma.PermissionGroupUncheckedUpdateWithoutUsersInput>
 }
 
+export type PermissionGroupCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.PermissionGroupCreateWithoutTenantInput, Prisma.PermissionGroupUncheckedCreateWithoutTenantInput> | Prisma.PermissionGroupCreateWithoutTenantInput[] | Prisma.PermissionGroupUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PermissionGroupCreateOrConnectWithoutTenantInput | Prisma.PermissionGroupCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.PermissionGroupCreateManyTenantInputEnvelope
+  connect?: Prisma.PermissionGroupWhereUniqueInput | Prisma.PermissionGroupWhereUniqueInput[]
+}
+
+export type PermissionGroupUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.PermissionGroupCreateWithoutTenantInput, Prisma.PermissionGroupUncheckedCreateWithoutTenantInput> | Prisma.PermissionGroupCreateWithoutTenantInput[] | Prisma.PermissionGroupUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PermissionGroupCreateOrConnectWithoutTenantInput | Prisma.PermissionGroupCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.PermissionGroupCreateManyTenantInputEnvelope
+  connect?: Prisma.PermissionGroupWhereUniqueInput | Prisma.PermissionGroupWhereUniqueInput[]
+}
+
+export type PermissionGroupUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.PermissionGroupCreateWithoutTenantInput, Prisma.PermissionGroupUncheckedCreateWithoutTenantInput> | Prisma.PermissionGroupCreateWithoutTenantInput[] | Prisma.PermissionGroupUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PermissionGroupCreateOrConnectWithoutTenantInput | Prisma.PermissionGroupCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.PermissionGroupUpsertWithWhereUniqueWithoutTenantInput | Prisma.PermissionGroupUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.PermissionGroupCreateManyTenantInputEnvelope
+  set?: Prisma.PermissionGroupWhereUniqueInput | Prisma.PermissionGroupWhereUniqueInput[]
+  disconnect?: Prisma.PermissionGroupWhereUniqueInput | Prisma.PermissionGroupWhereUniqueInput[]
+  delete?: Prisma.PermissionGroupWhereUniqueInput | Prisma.PermissionGroupWhereUniqueInput[]
+  connect?: Prisma.PermissionGroupWhereUniqueInput | Prisma.PermissionGroupWhereUniqueInput[]
+  update?: Prisma.PermissionGroupUpdateWithWhereUniqueWithoutTenantInput | Prisma.PermissionGroupUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.PermissionGroupUpdateManyWithWhereWithoutTenantInput | Prisma.PermissionGroupUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.PermissionGroupScalarWhereInput | Prisma.PermissionGroupScalarWhereInput[]
+}
+
+export type PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.PermissionGroupCreateWithoutTenantInput, Prisma.PermissionGroupUncheckedCreateWithoutTenantInput> | Prisma.PermissionGroupCreateWithoutTenantInput[] | Prisma.PermissionGroupUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PermissionGroupCreateOrConnectWithoutTenantInput | Prisma.PermissionGroupCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.PermissionGroupUpsertWithWhereUniqueWithoutTenantInput | Prisma.PermissionGroupUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.PermissionGroupCreateManyTenantInputEnvelope
+  set?: Prisma.PermissionGroupWhereUniqueInput | Prisma.PermissionGroupWhereUniqueInput[]
+  disconnect?: Prisma.PermissionGroupWhereUniqueInput | Prisma.PermissionGroupWhereUniqueInput[]
+  delete?: Prisma.PermissionGroupWhereUniqueInput | Prisma.PermissionGroupWhereUniqueInput[]
+  connect?: Prisma.PermissionGroupWhereUniqueInput | Prisma.PermissionGroupWhereUniqueInput[]
+  update?: Prisma.PermissionGroupUpdateWithWhereUniqueWithoutTenantInput | Prisma.PermissionGroupUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.PermissionGroupUpdateManyWithWhereWithoutTenantInput | Prisma.PermissionGroupUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.PermissionGroupScalarWhereInput | Prisma.PermissionGroupScalarWhereInput[]
+}
+
 export type PermissionGroupCreateWithoutChildrenInput = {
   id?: string
   name: string
@@ -659,6 +727,7 @@ export type PermissionGroupCreateWithoutChildrenInput = {
   parent?: Prisma.PermissionGroupCreateNestedOneWithoutChildrenInput
   permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
+  tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
 }
 
 export type PermissionGroupUncheckedCreateWithoutChildrenInput = {
@@ -671,6 +740,7 @@ export type PermissionGroupUncheckedCreateWithoutChildrenInput = {
   color?: string | null
   priority?: number
   parentId?: string | null
+  tenantId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -698,6 +768,7 @@ export type PermissionGroupCreateWithoutParentInput = {
   children?: Prisma.PermissionGroupCreateNestedManyWithoutParentInput
   permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
+  tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
 }
 
 export type PermissionGroupUncheckedCreateWithoutParentInput = {
@@ -709,6 +780,7 @@ export type PermissionGroupUncheckedCreateWithoutParentInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  tenantId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -753,6 +825,7 @@ export type PermissionGroupUpdateWithoutChildrenInput = {
   parent?: Prisma.PermissionGroupUpdateOneWithoutChildrenNestedInput
   permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
+  tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateWithoutChildrenInput = {
@@ -765,6 +838,7 @@ export type PermissionGroupUncheckedUpdateWithoutChildrenInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -801,6 +875,7 @@ export type PermissionGroupScalarWhereInput = {
   color?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   priority?: Prisma.IntFilter<"PermissionGroup"> | number
   parentId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
+  tenantId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PermissionGroup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PermissionGroup"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"PermissionGroup"> | Date | string | null
@@ -821,6 +896,7 @@ export type PermissionGroupCreateWithoutPermissionsInput = {
   parent?: Prisma.PermissionGroupCreateNestedOneWithoutChildrenInput
   children?: Prisma.PermissionGroupCreateNestedManyWithoutParentInput
   users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
+  tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
 }
 
 export type PermissionGroupUncheckedCreateWithoutPermissionsInput = {
@@ -833,6 +909,7 @@ export type PermissionGroupUncheckedCreateWithoutPermissionsInput = {
   color?: string | null
   priority?: number
   parentId?: string | null
+  tenantId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -871,6 +948,7 @@ export type PermissionGroupUpdateWithoutPermissionsInput = {
   parent?: Prisma.PermissionGroupUpdateOneWithoutChildrenNestedInput
   children?: Prisma.PermissionGroupUpdateManyWithoutParentNestedInput
   users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
+  tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateWithoutPermissionsInput = {
@@ -883,6 +961,7 @@ export type PermissionGroupUncheckedUpdateWithoutPermissionsInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -905,6 +984,7 @@ export type PermissionGroupCreateWithoutUsersInput = {
   parent?: Prisma.PermissionGroupCreateNestedOneWithoutChildrenInput
   children?: Prisma.PermissionGroupCreateNestedManyWithoutParentInput
   permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
+  tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
 }
 
 export type PermissionGroupUncheckedCreateWithoutUsersInput = {
@@ -917,6 +997,7 @@ export type PermissionGroupUncheckedCreateWithoutUsersInput = {
   color?: string | null
   priority?: number
   parentId?: string | null
+  tenantId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -955,6 +1036,7 @@ export type PermissionGroupUpdateWithoutUsersInput = {
   parent?: Prisma.PermissionGroupUpdateOneWithoutChildrenNestedInput
   children?: Prisma.PermissionGroupUpdateManyWithoutParentNestedInput
   permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
+  tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateWithoutUsersInput = {
@@ -967,11 +1049,74 @@ export type PermissionGroupUncheckedUpdateWithoutUsersInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   children?: Prisma.PermissionGroupUncheckedUpdateManyWithoutParentNestedInput
   permissions?: Prisma.PermissionGroupPermissionUncheckedUpdateManyWithoutGroupNestedInput
+}
+
+export type PermissionGroupCreateWithoutTenantInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  isSystem?: boolean
+  isActive?: boolean
+  color?: string | null
+  priority?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  parent?: Prisma.PermissionGroupCreateNestedOneWithoutChildrenInput
+  children?: Prisma.PermissionGroupCreateNestedManyWithoutParentInput
+  permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
+  users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
+}
+
+export type PermissionGroupUncheckedCreateWithoutTenantInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  isSystem?: boolean
+  isActive?: boolean
+  color?: string | null
+  priority?: number
+  parentId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  children?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutParentInput
+  permissions?: Prisma.PermissionGroupPermissionUncheckedCreateNestedManyWithoutGroupInput
+  users?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGroupInput
+}
+
+export type PermissionGroupCreateOrConnectWithoutTenantInput = {
+  where: Prisma.PermissionGroupWhereUniqueInput
+  create: Prisma.XOR<Prisma.PermissionGroupCreateWithoutTenantInput, Prisma.PermissionGroupUncheckedCreateWithoutTenantInput>
+}
+
+export type PermissionGroupCreateManyTenantInputEnvelope = {
+  data: Prisma.PermissionGroupCreateManyTenantInput | Prisma.PermissionGroupCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type PermissionGroupUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.PermissionGroupWhereUniqueInput
+  update: Prisma.XOR<Prisma.PermissionGroupUpdateWithoutTenantInput, Prisma.PermissionGroupUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.PermissionGroupCreateWithoutTenantInput, Prisma.PermissionGroupUncheckedCreateWithoutTenantInput>
+}
+
+export type PermissionGroupUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.PermissionGroupWhereUniqueInput
+  data: Prisma.XOR<Prisma.PermissionGroupUpdateWithoutTenantInput, Prisma.PermissionGroupUncheckedUpdateWithoutTenantInput>
+}
+
+export type PermissionGroupUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.PermissionGroupScalarWhereInput
+  data: Prisma.XOR<Prisma.PermissionGroupUpdateManyMutationInput, Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantInput>
 }
 
 export type PermissionGroupCreateManyParentInput = {
@@ -983,6 +1128,7 @@ export type PermissionGroupCreateManyParentInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  tenantId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1003,6 +1149,7 @@ export type PermissionGroupUpdateWithoutParentInput = {
   children?: Prisma.PermissionGroupUpdateManyWithoutParentNestedInput
   permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
+  tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateWithoutParentInput = {
@@ -1014,6 +1161,7 @@ export type PermissionGroupUncheckedUpdateWithoutParentInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1031,6 +1179,73 @@ export type PermissionGroupUncheckedUpdateManyWithoutParentInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type PermissionGroupCreateManyTenantInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  isSystem?: boolean
+  isActive?: boolean
+  color?: string | null
+  priority?: number
+  parentId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type PermissionGroupUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PermissionGroupUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.PermissionGroupUpdateManyWithoutParentNestedInput
+  permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
+  users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
+}
+
+export type PermissionGroupUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  children?: Prisma.PermissionGroupUncheckedUpdateManyWithoutParentNestedInput
+  permissions?: Prisma.PermissionGroupPermissionUncheckedUpdateManyWithoutGroupNestedInput
+  users?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGroupNestedInput
+}
+
+export type PermissionGroupUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1095,6 +1310,7 @@ export type PermissionGroupSelect<ExtArgs extends runtime.Types.Extensions.Inter
   color?: boolean
   priority?: boolean
   parentId?: boolean
+  tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1102,6 +1318,7 @@ export type PermissionGroupSelect<ExtArgs extends runtime.Types.Extensions.Inter
   children?: boolean | Prisma.PermissionGroup$childrenArgs<ExtArgs>
   permissions?: boolean | Prisma.PermissionGroup$permissionsArgs<ExtArgs>
   users?: boolean | Prisma.PermissionGroup$usersArgs<ExtArgs>
+  tenant?: boolean | Prisma.PermissionGroup$tenantArgs<ExtArgs>
   _count?: boolean | Prisma.PermissionGroupCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["permissionGroup"]>
 
@@ -1115,10 +1332,12 @@ export type PermissionGroupSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   color?: boolean
   priority?: boolean
   parentId?: boolean
+  tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   parent?: boolean | Prisma.PermissionGroup$parentArgs<ExtArgs>
+  tenant?: boolean | Prisma.PermissionGroup$tenantArgs<ExtArgs>
 }, ExtArgs["result"]["permissionGroup"]>
 
 export type PermissionGroupSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1131,10 +1350,12 @@ export type PermissionGroupSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   color?: boolean
   priority?: boolean
   parentId?: boolean
+  tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   parent?: boolean | Prisma.PermissionGroup$parentArgs<ExtArgs>
+  tenant?: boolean | Prisma.PermissionGroup$tenantArgs<ExtArgs>
 }, ExtArgs["result"]["permissionGroup"]>
 
 export type PermissionGroupSelectScalar = {
@@ -1147,24 +1368,28 @@ export type PermissionGroupSelectScalar = {
   color?: boolean
   priority?: boolean
   parentId?: boolean
+  tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type PermissionGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "isSystem" | "isActive" | "color" | "priority" | "parentId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["permissionGroup"]>
+export type PermissionGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "isSystem" | "isActive" | "color" | "priority" | "parentId" | "tenantId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["permissionGroup"]>
 export type PermissionGroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   parent?: boolean | Prisma.PermissionGroup$parentArgs<ExtArgs>
   children?: boolean | Prisma.PermissionGroup$childrenArgs<ExtArgs>
   permissions?: boolean | Prisma.PermissionGroup$permissionsArgs<ExtArgs>
   users?: boolean | Prisma.PermissionGroup$usersArgs<ExtArgs>
+  tenant?: boolean | Prisma.PermissionGroup$tenantArgs<ExtArgs>
   _count?: boolean | Prisma.PermissionGroupCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PermissionGroupIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   parent?: boolean | Prisma.PermissionGroup$parentArgs<ExtArgs>
+  tenant?: boolean | Prisma.PermissionGroup$tenantArgs<ExtArgs>
 }
 export type PermissionGroupIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   parent?: boolean | Prisma.PermissionGroup$parentArgs<ExtArgs>
+  tenant?: boolean | Prisma.PermissionGroup$tenantArgs<ExtArgs>
 }
 
 export type $PermissionGroupPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1174,6 +1399,7 @@ export type $PermissionGroupPayload<ExtArgs extends runtime.Types.Extensions.Int
     children: Prisma.$PermissionGroupPayload<ExtArgs>[]
     permissions: Prisma.$PermissionGroupPermissionPayload<ExtArgs>[]
     users: Prisma.$UserPermissionGroupPayload<ExtArgs>[]
+    tenant: Prisma.$TenantPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1185,6 +1411,7 @@ export type $PermissionGroupPayload<ExtArgs extends runtime.Types.Extensions.Int
     color: string | null
     priority: number
     parentId: string | null
+    tenantId: string | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1586,6 +1813,7 @@ export interface Prisma__PermissionGroupClient<T, Null = never, ExtArgs extends 
   children<T extends Prisma.PermissionGroup$childrenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PermissionGroup$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PermissionGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   permissions<T extends Prisma.PermissionGroup$permissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PermissionGroup$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PermissionGroupPermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   users<T extends Prisma.PermissionGroup$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PermissionGroup$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPermissionGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tenant<T extends Prisma.PermissionGroup$tenantArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PermissionGroup$tenantArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1624,6 +1852,7 @@ export interface PermissionGroupFieldRefs {
   readonly color: Prisma.FieldRef<"PermissionGroup", 'String'>
   readonly priority: Prisma.FieldRef<"PermissionGroup", 'Int'>
   readonly parentId: Prisma.FieldRef<"PermissionGroup", 'String'>
+  readonly tenantId: Prisma.FieldRef<"PermissionGroup", 'String'>
   readonly createdAt: Prisma.FieldRef<"PermissionGroup", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PermissionGroup", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"PermissionGroup", 'DateTime'>
@@ -2111,6 +2340,25 @@ export type PermissionGroup$usersArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.UserPermissionGroupScalarFieldEnum | Prisma.UserPermissionGroupScalarFieldEnum[]
+}
+
+/**
+ * PermissionGroup.tenant
+ */
+export type PermissionGroup$tenantArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Tenant
+   */
+  select?: Prisma.TenantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Tenant
+   */
+  omit?: Prisma.TenantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantInclude<ExtArgs> | null
+  where?: Prisma.TenantWhereInput
 }
 
 /**

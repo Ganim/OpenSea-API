@@ -3,6 +3,7 @@ import { Overtime } from '@/entities/hr/overtime';
 import { OvertimeRepository } from '@/repositories/hr/overtime-repository';
 
 export interface GetOvertimeRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -14,10 +15,11 @@ export class GetOvertimeUseCase {
   constructor(private overtimeRepository: OvertimeRepository) {}
 
   async execute(request: GetOvertimeRequest): Promise<GetOvertimeResponse> {
-    const { id } = request;
+    const { tenantId, id } = request;
 
     const overtime = await this.overtimeRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!overtime) {

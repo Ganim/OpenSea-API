@@ -3,6 +3,7 @@ import { Company } from '@/entities/hr/company';
 import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
 
 export interface UpdateCompanyRequest {
+  tenantId: string;
   id: string;
   legalName?: string;
   tradeName?: string | null;

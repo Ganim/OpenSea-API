@@ -7,6 +7,7 @@ import type { ZonesRepository } from '@/repositories/stock/zones-repository';
 import type { LabelData } from './generate-labels';
 
 interface GenerateLabelsByZoneUseCaseRequest {
+  tenantId: string;
   zoneId: string;
   format: 'qr' | 'barcode';
   size: 'small' | 'medium' | 'large';
@@ -36,6 +37,7 @@ export class GenerateLabelsByZoneUseCase {
     input: GenerateLabelsByZoneUseCaseRequest,
   ): Promise<GenerateLabelsByZoneUseCaseResponse> {
     const {
+      tenantId,
       zoneId,
       format,
       size,
@@ -50,6 +52,7 @@ export class GenerateLabelsByZoneUseCase {
     // Fetch the zone
     const zone = await this.zonesRepository.findById(
       new UniqueEntityID(zoneId),
+      tenantId,
     );
 
     if (!zone) {
@@ -59,6 +62,7 @@ export class GenerateLabelsByZoneUseCase {
     // Fetch the warehouse
     const warehouse = await this.warehousesRepository.findById(
       zone.warehouseId,
+      tenantId,
     );
 
     if (!warehouse) {
@@ -68,6 +72,7 @@ export class GenerateLabelsByZoneUseCase {
     // Fetch all bins for the zone
     let bins = await this.binsRepository.findManyByZone(
       new UniqueEntityID(zoneId),
+      tenantId,
     );
 
     // Apply filters

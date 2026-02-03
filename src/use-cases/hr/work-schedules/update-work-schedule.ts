@@ -3,6 +3,7 @@ import { WorkSchedule } from '@/entities/hr/work-schedule';
 import { WorkSchedulesRepository } from '@/repositories/hr/work-schedules-repository';
 
 export interface UpdateWorkScheduleRequest {
+  tenantId: string;
   id: string;
   name?: string;
   description?: string | null;
@@ -34,11 +35,12 @@ export class UpdateWorkScheduleUseCase {
   async execute(
     request: UpdateWorkScheduleRequest,
   ): Promise<UpdateWorkScheduleResponse> {
-    const { id, name, breakDuration, ...rest } = request;
+    const { tenantId, id, name, breakDuration, ...rest } = request;
 
     // Check if schedule exists
     const existingSchedule = await this.workSchedulesRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
     if (!existingSchedule) {
       throw new Error('Work schedule not found');
@@ -47,7 +49,7 @@ export class UpdateWorkScheduleUseCase {
     // Check if new name conflicts with another schedule
     if (name && name !== existingSchedule.name) {
       const scheduleWithSameName =
-        await this.workSchedulesRepository.findByName(name);
+        await this.workSchedulesRepository.findByName(name, tenantId);
       if (scheduleWithSameName) {
         throw new Error('Work schedule with this name already exists');
       }

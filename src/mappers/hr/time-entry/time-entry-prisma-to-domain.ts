@@ -4,6 +4,7 @@ import type { TimeEntry as PrismaTimeEntry } from '@prisma/generated/client.js';
 
 export function mapTimeEntryPrismaToDomain(timeEntry: PrismaTimeEntry) {
   return {
+    tenantId: new UniqueEntityID(timeEntry.tenantId),
     employeeId: new UniqueEntityID(timeEntry.employeeId),
     entryType: TimeEntryType.create(timeEntry.entryType),
     timestamp: timeEntry.timestamp,

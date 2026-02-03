@@ -15,6 +15,7 @@ let timeEntriesRepository: InMemoryTimeEntriesRepository;
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: ClockInUseCase;
 let testEmployee: Employee;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Clock In Use Case', () => {
   beforeEach(async () => {
@@ -24,6 +25,7 @@ describe('Clock In Use Case', () => {
 
     // Create test employee
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -39,6 +41,7 @@ describe('Clock In Use Case', () => {
 
   it('should clock in successfully', async () => {
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
     });
 
@@ -50,6 +53,7 @@ describe('Clock In Use Case', () => {
 
   it('should clock in with geolocation data', async () => {
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       latitude: -23.5505,
       longitude: -46.6333,
@@ -66,6 +70,7 @@ describe('Clock In Use Case', () => {
   it('should clock in with custom timestamp', async () => {
     const customTimestamp = new Date('2024-01-15T08:00:00Z');
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       timestamp: customTimestamp,
     });
@@ -78,6 +83,7 @@ describe('Clock In Use Case', () => {
   it('should not clock in if employee does not exist', async () => {
     await expect(
       sut.execute({
+        tenantId,
         employeeId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Employee not found');
@@ -86,6 +92,7 @@ describe('Clock In Use Case', () => {
   it('should not clock in if employee is not active', async () => {
     // Create inactive employee
     const inactiveEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Inactive Employee',
       cpf: CPF.create('123.456.789-09'),
@@ -100,6 +107,7 @@ describe('Clock In Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: inactiveEmployee.id.toString(),
       }),
     ).rejects.toThrow('Employee is not active');
@@ -108,12 +116,14 @@ describe('Clock In Use Case', () => {
   it('should not clock in if already clocked in', async () => {
     // First clock in
     await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
     });
 
     // Try to clock in again
     await expect(
       sut.execute({
+        tenantId,
         employeeId: testEmployee.id.toString(),
       }),
     ).rejects.toThrow(

@@ -28,7 +28,7 @@ describe('CreateRequestUseCase', () => {
     const { request } = await sut.execute({
       title: 'New Request',
       description: 'Desc',
-      type: 'GENERAL',
+      type: 'CUSTOM',
       targetType: 'USER',
       requesterId: 'u1',
     });
@@ -42,7 +42,7 @@ describe('CreateRequestUseCase', () => {
     const { request } = await sut.execute({
       title: 'R',
       description: 'D',
-      type: 'GENERAL',
+      type: 'CUSTOM',
       targetType: 'USER',
       requesterId: 'u1',
     });
@@ -53,7 +53,7 @@ describe('CreateRequestUseCase', () => {
     const { request } = await sut.execute({
       title: 'R',
       description: 'D',
-      type: 'GENERAL',
+      type: 'CUSTOM',
       targetType: 'USER',
       requesterId: 'u1',
     });

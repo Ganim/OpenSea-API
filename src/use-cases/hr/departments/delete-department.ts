@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { DepartmentsRepository } from '@/repositories/hr/departments-repository';
 
 export interface DeleteDepartmentRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -18,7 +19,10 @@ export class DeleteDepartmentUseCase {
     const { id } = request;
     const departmentId = new UniqueEntityID(id);
 
-    const department = await this.departmentsRepository.findById(departmentId);
+    const department = await this.departmentsRepository.findById(
+      departmentId,
+      request.tenantId,
+    );
     if (!department) {
       throw new Error('Department not found');
     }

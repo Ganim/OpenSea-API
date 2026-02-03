@@ -19,6 +19,9 @@ export interface CreateAuditLogSchema {
   endpoint?: string | null;
   method?: string | null;
 
+  // Multi-Tenant (nullable for system actions)
+  tenantId?: UniqueEntityID | null;
+
   // User info
   userId?: UniqueEntityID | null;
   affectedUser?: string | null;
@@ -28,6 +31,7 @@ export interface CreateAuditLogSchema {
 
 export interface ListAuditLogsParams {
   // Filters
+  tenantId?: UniqueEntityID;
   userId?: UniqueEntityID;
   affectedUser?: string;
   action?: AuditAction;

@@ -20,7 +20,7 @@ describe('List Customers', () => {
       makeCustomer({ name: 'Customer 2', type: 'BUSINESS' }),
     );
 
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.customers).toHaveLength(2);
     expect(result.total).toBe(2);
@@ -34,7 +34,7 @@ describe('List Customers', () => {
       makeCustomer({ name: 'Inactive', isActive: false }),
     );
 
-    const result = await sut.execute({ isActive: true });
+    const result = await sut.execute({ tenantId: 'tenant-1', isActive: true });
 
     expect(result.customers).toHaveLength(1);
     expect(result.customers[0].name).toBe('Active');
@@ -45,7 +45,10 @@ describe('List Customers', () => {
     customersRepository.items.push(makeCustomer({ type: 'INDIVIDUAL' }));
     customersRepository.items.push(makeCustomer({ type: 'BUSINESS' }));
 
-    const result = await sut.execute({ type: 'INDIVIDUAL' });
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      type: 'INDIVIDUAL',
+    });
 
     expect(result.customers).toHaveLength(2);
     expect(result.customers[0].type).toBe('INDIVIDUAL');
@@ -57,8 +60,16 @@ describe('List Customers', () => {
       customersRepository.items.push(makeCustomer({ name: `Customer ${i}` }));
     }
 
-    const page1 = await sut.execute({ page: 1, perPage: 10 });
-    const page2 = await sut.execute({ page: 2, perPage: 10 });
+    const page1 = await sut.execute({
+      tenantId: 'tenant-1',
+      page: 1,
+      perPage: 10,
+    });
+    const page2 = await sut.execute({
+      tenantId: 'tenant-1',
+      page: 2,
+      perPage: 10,
+    });
 
     expect(page1.customers).toHaveLength(10);
     expect(page2.customers).toHaveLength(10);

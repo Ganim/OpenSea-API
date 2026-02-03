@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { binResponseSchema } from '@/http/schemas/stock/bins/bin.schema';
 import { binToDTO } from '@/mappers/stock/bin/bin-to-dto';
 import { makeUnblockBinUseCase } from '@/use-cases/stock/bins/factories/make-unblock-bin-use-case';
@@ -16,6 +17,7 @@ export async function unblockBinController(app: FastifyInstance) {
     url: '/v1/bins/:id/unblock',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.BINS.UPDATE,
         resource: 'bins',
@@ -44,11 +46,12 @@ export async function unblockBinController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
       try {
         const unblockBinUseCase = makeUnblockBinUseCase();
-        const { bin } = await unblockBinUseCase.execute({ id });
+        const { bin } = await unblockBinUseCase.execute({ tenantId, id });
 
         return reply.status(200).send({ bin: binToDTO(bin) });
       } catch (error) {

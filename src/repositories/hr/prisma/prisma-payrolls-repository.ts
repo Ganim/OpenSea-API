@@ -14,6 +14,7 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
   async create(data: CreatePayrollSchema): Promise<Payroll> {
     const payrollData = await prisma.payroll.create({
       data: {
+        tenantId: data.tenantId,
         referenceMonth: data.referenceMonth,
         referenceYear: data.referenceYear,
         status: 'DRAFT',
@@ -29,9 +30,12 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<Payroll | null> {
-    const payrollData = await prisma.payroll.findUnique({
-      where: { id: id.toString() },
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Payroll | null> {
+    const payrollData = await prisma.payroll.findFirst({
+      where: { id: id.toString(), tenantId },
       include: {
         items: true,
       },
@@ -48,12 +52,14 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
   async findByPeriod(
     referenceMonth: number,
     referenceYear: number,
+    tenantId: string,
   ): Promise<Payroll | null> {
     const payrollData = await prisma.payroll.findUnique({
       where: {
-        referenceMonth_referenceYear: {
+        payrolls_month_year_tenant_unique: {
           referenceMonth,
           referenceYear,
+          tenantId,
         },
       },
       include: {
@@ -69,9 +75,13 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
     );
   }
 
-  async findMany(filters?: FindPayrollFilters): Promise<Payroll[]> {
+  async findMany(
+    tenantId: string,
+    filters?: FindPayrollFilters,
+  ): Promise<Payroll[]> {
     const payrolls = await prisma.payroll.findMany({
       where: {
+        tenantId,
         referenceMonth: filters?.referenceMonth,
         referenceYear: filters?.referenceYear,
         status: filters?.status as PayrollStatus | undefined,
@@ -90,9 +100,10 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
     );
   }
 
-  async findManyByYear(year: number): Promise<Payroll[]> {
+  async findManyByYear(year: number, tenantId: string): Promise<Payroll[]> {
     const payrolls = await prisma.payroll.findMany({
       where: {
+        tenantId,
         referenceYear: year,
       },
       include: {
@@ -109,9 +120,10 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
     );
   }
 
-  async findManyByStatus(status: string): Promise<Payroll[]> {
+  async findManyByStatus(status: string, tenantId: string): Promise<Payroll[]> {
     const payrolls = await prisma.payroll.findMany({
       where: {
+        tenantId,
         status: status as PayrollStatus,
       },
       include: {

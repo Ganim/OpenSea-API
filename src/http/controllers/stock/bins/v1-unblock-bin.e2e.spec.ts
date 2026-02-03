@@ -18,8 +18,18 @@ describe('Unblock Bin (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now().toString();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const warehouse = await prisma.warehouse.create({
       data: {
+        tenantId,
         code: `U${timestamp.slice(-3)}`,
         name: `Warehouse Unblock ${timestamp}`,
       },
@@ -27,6 +37,7 @@ describe('Unblock Bin (E2E)', () => {
 
     const zone = await prisma.zone.create({
       data: {
+        tenantId,
         code: `ZU${timestamp.slice(-2)}`,
         name: `Zone Unblock ${timestamp}`,
         warehouseId: warehouse.id,
@@ -36,6 +47,7 @@ describe('Unblock Bin (E2E)', () => {
 
     const bin = await prisma.bin.create({
       data: {
+        tenantId,
         address: `${warehouse.code}-${zone.code}-01-A`,
         aisle: 1,
         shelf: 1,

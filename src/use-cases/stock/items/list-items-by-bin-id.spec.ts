@@ -12,7 +12,10 @@ describe('ListItemsByBinIdUseCase', () => {
   });
 
   it('should return empty list when no items exist in the bin', async () => {
-    const { items } = await sut.execute({ binId: 'empty-bin' });
+    const { items } = await sut.execute({
+      tenantId: 'tenant-1',
+      binId: 'empty-bin',
+    });
     expect(items).toHaveLength(0);
   });
 });

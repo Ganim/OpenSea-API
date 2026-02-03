@@ -13,6 +13,8 @@ import { CreditTimeBankUseCase } from './credit-time-bank';
 import { DebitTimeBankUseCase } from './debit-time-bank';
 import { GetTimeBankUseCase } from './get-time-bank';
 
+const TENANT_ID = 'tenant-1';
+
 let timeBankRepository: InMemoryTimeBankRepository;
 let employeesRepository: InMemoryEmployeesRepository;
 let getTimeBankUseCase: GetTimeBankUseCase;
@@ -39,6 +41,7 @@ describe('Time Bank Use Cases', () => {
     );
 
     testEmployee = await employeesRepository.create({
+      tenantId: TENANT_ID,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -55,6 +58,7 @@ describe('Time Bank Use Cases', () => {
   describe('Get Time Bank', () => {
     it('should create time bank if not exists', async () => {
       const result = await getTimeBankUseCase.execute({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id.toString(),
         year: 2024,
       });
@@ -66,12 +70,14 @@ describe('Time Bank Use Cases', () => {
 
     it('should return existing time bank', async () => {
       await timeBankRepository.create({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id,
         balance: 10,
         year: 2024,
       });
 
       const result = await getTimeBankUseCase.execute({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id.toString(),
         year: 2024,
       });
@@ -82,6 +88,7 @@ describe('Time Bank Use Cases', () => {
     it('should throw error if employee not found', async () => {
       await expect(
         getTimeBankUseCase.execute({
+          tenantId: TENANT_ID,
           employeeId: new UniqueEntityID().toString(),
           year: 2024,
         }),
@@ -92,6 +99,7 @@ describe('Time Bank Use Cases', () => {
   describe('Credit Time Bank', () => {
     it('should credit hours to new time bank', async () => {
       const result = await creditTimeBankUseCase.execute({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id.toString(),
         hours: 5,
         year: 2024,
@@ -102,12 +110,14 @@ describe('Time Bank Use Cases', () => {
 
     it('should credit hours to existing time bank', async () => {
       await timeBankRepository.create({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id,
         balance: 10,
         year: 2024,
       });
 
       const result = await creditTimeBankUseCase.execute({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id.toString(),
         hours: 5,
         year: 2024,
@@ -119,6 +129,7 @@ describe('Time Bank Use Cases', () => {
     it('should throw error for invalid hours', async () => {
       await expect(
         creditTimeBankUseCase.execute({
+          tenantId: TENANT_ID,
           employeeId: testEmployee.id.toString(),
           hours: -5,
           year: 2024,
@@ -130,12 +141,14 @@ describe('Time Bank Use Cases', () => {
   describe('Debit Time Bank', () => {
     it('should debit hours from time bank', async () => {
       await timeBankRepository.create({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id,
         balance: 10,
         year: 2024,
       });
 
       const result = await debitTimeBankUseCase.execute({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id.toString(),
         hours: 3,
         year: 2024,
@@ -146,12 +159,14 @@ describe('Time Bank Use Cases', () => {
 
     it('should allow negative balance', async () => {
       await timeBankRepository.create({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id,
         balance: 2,
         year: 2024,
       });
 
       const result = await debitTimeBankUseCase.execute({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id.toString(),
         hours: 5,
         year: 2024,
@@ -163,6 +178,7 @@ describe('Time Bank Use Cases', () => {
     it('should throw error if time bank not found', async () => {
       await expect(
         debitTimeBankUseCase.execute({
+          tenantId: TENANT_ID,
           employeeId: testEmployee.id.toString(),
           hours: 5,
           year: 2024,
@@ -172,6 +188,7 @@ describe('Time Bank Use Cases', () => {
 
     it('should throw error for invalid hours', async () => {
       await timeBankRepository.create({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id,
         balance: 10,
         year: 2024,
@@ -179,6 +196,7 @@ describe('Time Bank Use Cases', () => {
 
       await expect(
         debitTimeBankUseCase.execute({
+          tenantId: TENANT_ID,
           employeeId: testEmployee.id.toString(),
           hours: 0,
           year: 2024,

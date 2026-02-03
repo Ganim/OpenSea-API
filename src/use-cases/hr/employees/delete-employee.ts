@@ -4,16 +4,18 @@ import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface DeleteEmployeeRequest {
   employeeId: string;
+  tenantId: string;
 }
 
 export class DeleteEmployeeUseCase {
   constructor(private employeesRepository: EmployeesRepository) {}
 
   async execute(request: DeleteEmployeeRequest): Promise<void> {
-    const { employeeId } = request;
+    const { employeeId, tenantId } = request;
 
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!employee) {

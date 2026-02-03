@@ -14,6 +14,7 @@ describe('CreateManufacturerUseCase', () => {
 
   it('should create a manufacturer', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'TechCorp',
       country: 'United States',
       email: 'contact@techcorp.com',
@@ -42,6 +43,7 @@ describe('CreateManufacturerUseCase', () => {
 
   it('should create a manufacturer without optional fields', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Simple Manufacturing',
       country: 'Brazil',
     });
@@ -55,6 +57,7 @@ describe('CreateManufacturerUseCase', () => {
   it('should not create a manufacturer with empty name', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: '',
         country: 'Brazil',
       }),
@@ -64,6 +67,7 @@ describe('CreateManufacturerUseCase', () => {
   it('should not create a manufacturer with name longer than 200 characters', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'a'.repeat(201),
         country: 'Brazil',
       }),
@@ -73,6 +77,7 @@ describe('CreateManufacturerUseCase', () => {
   it('should not create a manufacturer with empty country', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'TechCorp',
         country: '',
       }),
@@ -82,6 +87,7 @@ describe('CreateManufacturerUseCase', () => {
   it('should not create a manufacturer with country longer than 100 characters', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'TechCorp',
         country: 'a'.repeat(101),
       }),
@@ -90,12 +96,14 @@ describe('CreateManufacturerUseCase', () => {
 
   it('should not create a manufacturer with duplicate name', async () => {
     await sut.execute({
+      tenantId: 'tenant-1',
       name: 'TechCorp',
       country: 'United States',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'TechCorp',
         country: 'Brazil',
       }),
@@ -105,6 +113,7 @@ describe('CreateManufacturerUseCase', () => {
   it('should not create a manufacturer with invalid email', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'TechCorp',
         country: 'United States',
         email: 'invalid-email',
@@ -115,6 +124,7 @@ describe('CreateManufacturerUseCase', () => {
   it('should not create a manufacturer with invalid rating', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'TechCorp',
         country: 'United States',
         rating: 6,

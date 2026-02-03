@@ -25,11 +25,13 @@ describe('GenerateLabelsByZoneUseCase', () => {
 
   async function createTestData() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
@@ -38,6 +40,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     // Create bins with different aisles, shelves, and positions
     const bins = await Promise.all([
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-101-A',
         aisle: 1,
@@ -45,6 +48,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
         position: 'A',
       }),
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-101-B',
         aisle: 1,
@@ -52,6 +56,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
         position: 'B',
       }),
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-102-A',
         aisle: 1,
@@ -59,6 +64,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
         position: 'A',
       }),
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-103-A',
         aisle: 1,
@@ -66,6 +72,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
         position: 'A',
       }),
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-201-A',
         aisle: 2,
@@ -73,6 +80,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
         position: 'A',
       }),
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-202-C',
         aisle: 2,
@@ -80,6 +88,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
         position: 'C',
       }),
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-301-A',
         aisle: 3,
@@ -95,6 +104,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { warehouse, zone, bins } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -115,6 +125,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -131,6 +142,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -147,6 +159,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -163,6 +176,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -179,6 +193,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -197,6 +212,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -213,6 +229,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -229,6 +246,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -251,6 +269,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -267,6 +286,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -284,6 +304,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
   it('should throw error when zone is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         zoneId: new UniqueEntityID().toString(),
         format: 'qr',
         size: 'medium',
@@ -293,6 +314,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
 
   it('should throw error when warehouse is not found', async () => {
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: new UniqueEntityID(),
       code: 'ORPHAN',
       name: 'Zona Órfã',
@@ -300,6 +322,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId.toString(),
         format: 'qr',
         size: 'medium',
@@ -309,17 +332,20 @@ describe('GenerateLabelsByZoneUseCase', () => {
 
   it('should return empty labels when zone has no bins', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EMPTY',
       name: 'Zona Vazia',
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'qr',
       size: 'medium',
@@ -333,6 +359,7 @@ describe('GenerateLabelsByZoneUseCase', () => {
     const { zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       format: 'barcode',
       size: 'large',

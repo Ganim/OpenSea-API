@@ -11,6 +11,8 @@ import { InMemoryOvertimeRepository } from '@/repositories/hr/in-memory/in-memor
 import { beforeEach, describe, expect, it } from 'vitest';
 import { RequestOvertimeUseCase } from './request-overtime';
 
+const TENANT_ID = 'tenant-1';
+
 let overtimeRepository: InMemoryOvertimeRepository;
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: RequestOvertimeUseCase;
@@ -23,6 +25,7 @@ describe('Request Overtime Use Case', () => {
     sut = new RequestOvertimeUseCase(overtimeRepository, employeesRepository);
 
     testEmployee = await employeesRepository.create({
+      tenantId: TENANT_ID,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -38,6 +41,7 @@ describe('Request Overtime Use Case', () => {
 
   it('should request overtime successfully', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       employeeId: testEmployee.id.toString(),
       date: new Date('2024-01-15'),
       hours: 2,
@@ -53,6 +57,7 @@ describe('Request Overtime Use Case', () => {
   it('should throw error if employee not found', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         employeeId: new UniqueEntityID().toString(),
         date: new Date('2024-01-15'),
         hours: 2,
@@ -63,6 +68,7 @@ describe('Request Overtime Use Case', () => {
 
   it('should throw error if employee is not active', async () => {
     const inactiveEmployee = await employeesRepository.create({
+      tenantId: TENANT_ID,
       registrationNumber: 'EMP002',
       fullName: 'Inactive Employee',
       cpf: CPF.create('123.456.789-09'),
@@ -77,6 +83,7 @@ describe('Request Overtime Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         employeeId: inactiveEmployee.id.toString(),
         date: new Date('2024-01-15'),
         hours: 2,
@@ -88,6 +95,7 @@ describe('Request Overtime Use Case', () => {
   it('should throw error for invalid hours (zero or negative)', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id.toString(),
         date: new Date('2024-01-15'),
         hours: 0,
@@ -99,6 +107,7 @@ describe('Request Overtime Use Case', () => {
   it('should throw error for hours exceeding 12', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id.toString(),
         date: new Date('2024-01-15'),
         hours: 15,
@@ -110,6 +119,7 @@ describe('Request Overtime Use Case', () => {
   it('should throw error for reason too short', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         employeeId: testEmployee.id.toString(),
         date: new Date('2024-01-15'),
         hours: 2,

@@ -9,6 +9,7 @@ import type { EmployeesRepository } from '@/repositories/hr/employees-repository
 import type { PositionsRepository } from '@/repositories/hr/positions-repository';
 
 export interface GetPositionByIdRequest {
+  tenantId: string;
   id: string;
   includeEmployees?: boolean;
 }
@@ -34,8 +35,11 @@ export class GetPositionByIdUseCase {
   ): Promise<GetPositionByIdResponse> {
     const { id, includeEmployees = false } = request;
 
+    const { tenantId } = request;
+
     const position = await this.positionsRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!position) {
@@ -49,11 +53,15 @@ export class GetPositionByIdUseCase {
     if (position.departmentId) {
       department = await this.departmentsRepository.findById(
         position.departmentId,
+        tenantId,
       );
 
       // Get company from department
       if (department) {
-        company = await this.companiesRepository.findById(department.companyId);
+        company = await this.companiesRepository.findById(
+          department.companyId,
+          tenantId,
+        );
       }
     }
 
@@ -66,6 +74,7 @@ export class GetPositionByIdUseCase {
     if (includeEmployees) {
       employees = await this.employeesRepository.findManyByPosition(
         position.id,
+        tenantId,
       );
     }
 

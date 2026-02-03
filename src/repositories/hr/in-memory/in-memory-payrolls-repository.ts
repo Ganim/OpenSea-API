@@ -13,6 +13,7 @@ export class InMemoryPayrollsRepository implements PayrollsRepository {
 
   async create(data: CreatePayrollSchema): Promise<Payroll> {
     const payroll = Payroll.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       referenceMonth: data.referenceMonth,
       referenceYear: data.referenceYear,
       totalGross: data.totalGross ?? 0,
@@ -24,25 +25,39 @@ export class InMemoryPayrollsRepository implements PayrollsRepository {
     return payroll;
   }
 
-  async findById(id: UniqueEntityID): Promise<Payroll | null> {
-    return this.items.find((item) => item.id.equals(id)) ?? null;
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Payroll | null> {
+    return (
+      this.items.find(
+        (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+      ) ?? null
+    );
   }
 
   async findByPeriod(
     referenceMonth: number,
     referenceYear: number,
+    tenantId: string,
   ): Promise<Payroll | null> {
     return (
       this.items.find(
         (item) =>
           item.referenceMonth === referenceMonth &&
-          item.referenceYear === referenceYear,
+          item.referenceYear === referenceYear &&
+          item.tenantId.toString() === tenantId,
       ) ?? null
     );
   }
 
-  async findMany(filters?: FindPayrollFilters): Promise<Payroll[]> {
-    let filtered = [...this.items];
+  async findMany(
+    tenantId: string,
+    filters?: FindPayrollFilters,
+  ): Promise<Payroll[]> {
+    let filtered = this.items.filter(
+      (item) => item.tenantId.toString() === tenantId,
+    );
 
     if (filters?.referenceMonth) {
       filtered = filtered.filter(
@@ -69,15 +84,21 @@ export class InMemoryPayrollsRepository implements PayrollsRepository {
     });
   }
 
-  async findManyByYear(year: number): Promise<Payroll[]> {
+  async findManyByYear(year: number, tenantId: string): Promise<Payroll[]> {
     return this.items
-      .filter((item) => item.referenceYear === year)
+      .filter(
+        (item) =>
+          item.referenceYear === year && item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.referenceMonth - a.referenceMonth);
   }
 
-  async findManyByStatus(status: string): Promise<Payroll[]> {
+  async findManyByStatus(status: string, tenantId: string): Promise<Payroll[]> {
     return this.items
-      .filter((item) => item.status.value === status)
+      .filter(
+        (item) =>
+          item.status.value === status && item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => {
         if (a.referenceYear !== b.referenceYear) {
           return b.referenceYear - a.referenceYear;

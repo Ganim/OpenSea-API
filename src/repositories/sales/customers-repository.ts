@@ -4,6 +4,7 @@ import { CustomerType } from '@/entities/sales/value-objects/customer-type';
 import { Document } from '@/entities/sales/value-objects/document';
 
 export interface CreateCustomerSchema {
+  tenantId: string;
   name: string;
   type: CustomerType;
   document?: Document;
@@ -39,15 +40,27 @@ export interface CustomersRepository {
   create(data: CreateCustomerSchema): Promise<Customer>;
 
   // READ
-  findById(id: UniqueEntityID): Promise<Customer | null>;
-  findByDocument(document: Document): Promise<Customer | null>;
-  findByEmail(email: string): Promise<Customer | null>;
-  findMany(page: number, perPage: number): Promise<Customer[]>;
-  findManyActive(page: number, perPage: number): Promise<Customer[]>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Customer | null>;
+  findByDocument(
+    document: Document,
+    tenantId: string,
+  ): Promise<Customer | null>;
+  findByEmail(email: string, tenantId: string): Promise<Customer | null>;
+  findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<Customer[]>;
+  findManyActive(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<Customer[]>;
   findManyByType(
     type: CustomerType,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<Customer[]>;
 
   // UPDATE

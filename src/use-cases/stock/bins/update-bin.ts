@@ -5,6 +5,7 @@ import type { Bin } from '@/entities/stock/bin';
 import type { BinsRepository } from '@/repositories/stock/bins-repository';
 
 interface UpdateBinUseCaseRequest {
+  tenantId: string;
   id: string;
   capacity?: number | null;
   isActive?: boolean;
@@ -18,13 +19,14 @@ export class UpdateBinUseCase {
   constructor(private binsRepository: BinsRepository) {}
 
   async execute({
+    tenantId,
     id,
     capacity,
     isActive,
   }: UpdateBinUseCaseRequest): Promise<UpdateBinUseCaseResponse> {
     const binId = new UniqueEntityID(id);
 
-    const bin = await this.binsRepository.findById(binId);
+    const bin = await this.binsRepository.findById(binId, tenantId);
 
     if (!bin) {
       throw new ResourceNotFoundError('Bin');

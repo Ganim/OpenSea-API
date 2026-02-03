@@ -13,6 +13,7 @@ import { makeGetPurchaseOrderByIdUseCase } from '@/use-cases/stock/purchase-orde
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '../../../middlewares/rbac/verify-jwt';
+import { verifyTenant } from '../../../middlewares/rbac/verify-tenant';
 
 export async function cancelPurchaseOrderController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -20,6 +21,7 @@ export async function cancelPurchaseOrderController(app: FastifyInstance) {
     {
       onRequest: [
         verifyJwt,
+        verifyTenant,
         createPermissionMiddleware({
           permissionCode: PermissionCodes.STOCK.PURCHASE_ORDERS.MANAGE,
           resource: 'purchase-orders',
@@ -75,6 +77,7 @@ export async function cancelPurchaseOrderController(app: FastifyInstance) {
     async (request, reply) => {
       const { orderId } = request.params;
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -82,7 +85,7 @@ export async function cancelPurchaseOrderController(app: FastifyInstance) {
 
         const [{ user }, { purchaseOrder: oldOrder }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getPurchaseOrderByIdUseCase.execute({ id: orderId }),
+          getPurchaseOrderByIdUseCase.execute({ tenantId, id: orderId }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -91,6 +94,7 @@ export async function cancelPurchaseOrderController(app: FastifyInstance) {
         const cancelPurchaseOrderUseCase = makeCancelPurchaseOrderUseCase();
 
         const { purchaseOrder } = await cancelPurchaseOrderUseCase.execute({
+          tenantId,
           id: orderId,
         });
 

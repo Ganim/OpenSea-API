@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateCompanyUseCase } from '@/use-cases/hr/companies/factories/make-companies';
@@ -22,6 +23,7 @@ export async function v1CreateCompanyController(app: FastifyInstance) {
     url: '/v1/hr/companies',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.COMPANIES.CREATE,
         resource: 'companies',
@@ -42,6 +44,7 @@ export async function v1CreateCompanyController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
       const userId = request.user.sub;
 
@@ -53,7 +56,10 @@ export async function v1CreateCompanyController(app: FastifyInstance) {
           : user.username || user.email;
 
         const createCompanyUseCase = makeCreateCompanyUseCase();
-        const { company } = await createCompanyUseCase.execute(data);
+        const { company } = await createCompanyUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.HR.COMPANY_CREATE,

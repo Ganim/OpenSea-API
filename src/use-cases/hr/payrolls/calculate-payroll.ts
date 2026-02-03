@@ -11,6 +11,7 @@ import { PayrollItemsRepository } from '@/repositories/hr/payroll-items-reposito
 import { PayrollsRepository } from '@/repositories/hr/payrolls-repository';
 
 export interface CalculatePayrollRequest {
+  tenantId: string;
   payrollId: string;
   processedBy: string;
 }
@@ -34,11 +35,12 @@ export class CalculatePayrollUseCase {
   async execute(
     request: CalculatePayrollRequest,
   ): Promise<CalculatePayrollResponse> {
-    const { payrollId, processedBy } = request;
+    const { tenantId, payrollId, processedBy } = request;
 
     // Find payroll
     const payroll = await this.payrollsRepository.findById(
       new UniqueEntityID(payrollId),
+      tenantId,
     );
 
     if (!payroll) {
@@ -54,7 +56,7 @@ export class CalculatePayrollUseCase {
     payroll.startProcessing(new UniqueEntityID(processedBy));
 
     // Get all active employees
-    const employees = await this.employeesRepository.findManyActive();
+    const employees = await this.employeesRepository.findManyActive(tenantId);
 
     const createdItems: PayrollItem[] = [];
 
@@ -63,6 +65,7 @@ export class CalculatePayrollUseCase {
       const employeeItems = await this.calculateEmployeePayroll(
         payroll,
         employee.id,
+        tenantId,
       );
       createdItems.push(...employeeItems);
     }
@@ -86,6 +89,7 @@ export class CalculatePayrollUseCase {
   private async calculateEmployeePayroll(
     payroll: Payroll,
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<PayrollItem[]> {
     const items: PayrollItem[] = [];
     const periodStart = new Date(
@@ -100,7 +104,10 @@ export class CalculatePayrollUseCase {
     );
 
     // 1. Get base salary from employee
-    const employee = await this.employeesRepository.findById(employeeId);
+    const employee = await this.employeesRepository.findById(
+      employeeId,
+      tenantId,
+    );
     if (!employee || !employee.status.isActive()) return items;
 
     const baseSalary = employee.baseSalary;
@@ -122,6 +129,7 @@ export class CalculatePayrollUseCase {
         employeeId,
         periodStart,
         periodEnd,
+        tenantId,
       );
 
     for (const overtime of overtimes) {
@@ -150,6 +158,7 @@ export class CalculatePayrollUseCase {
         employeeId,
         periodStart,
         periodEnd,
+        tenantId,
       );
 
     for (const absence of absences) {
@@ -173,8 +182,10 @@ export class CalculatePayrollUseCase {
     }
 
     // 4. Apply bonuses
-    const bonuses =
-      await this.bonusesRepository.findManyPendingByEmployee(employeeId);
+    const bonuses = await this.bonusesRepository.findManyPendingByEmployee(
+      employeeId,
+      tenantId,
+    );
 
     for (const bonus of bonuses) {
       if (!bonus.isPaid) {
@@ -194,7 +205,10 @@ export class CalculatePayrollUseCase {
 
     // 5. Apply deductions
     const deductions =
-      await this.deductionsRepository.findManyPendingByEmployee(employeeId);
+      await this.deductionsRepository.findManyPendingByEmployee(
+        employeeId,
+        tenantId,
+      );
 
     for (const deduction of deductions) {
       const deductionItem = await this.payrollItemsRepository.create({

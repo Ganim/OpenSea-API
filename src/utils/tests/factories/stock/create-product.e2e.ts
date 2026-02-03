@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { randomUUID } from 'node:crypto';
 
 interface CreateProductProps {
+  tenantId: string;
   name?: string;
   templateId?: string;
   outOfLine?: boolean;
@@ -49,7 +50,7 @@ function generateTestSlug(name: string, seq: number): string {
   );
 }
 
-export async function createProduct(override: CreateProductProps = {}) {
+export async function createProduct(override: CreateProductProps) {
   const productId = randomUUID();
   const timestamp = Date.now();
   const seq = Math.floor(Math.random() * 10000) + 1;
@@ -61,6 +62,7 @@ export async function createProduct(override: CreateProductProps = {}) {
     const template = await prisma.template.create({
       data: {
         id: randomUUID(),
+        tenantId: override.tenantId,
         name: `Test Template ${timestamp}`,
         code: templateCode,
         productAttributes: {},
@@ -81,6 +83,7 @@ export async function createProduct(override: CreateProductProps = {}) {
   const product = await prisma.product.create({
     data: {
       id: productId,
+      tenantId: override.tenantId,
       name,
       slug,
       fullCode,

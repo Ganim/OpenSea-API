@@ -36,6 +36,7 @@ export type BonusSumAggregateOutputType = {
 
 export type BonusMinAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   name: string | null
   amount: runtime.Decimal | null
@@ -48,6 +49,7 @@ export type BonusMinAggregateOutputType = {
 
 export type BonusMaxAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   name: string | null
   amount: runtime.Decimal | null
@@ -60,6 +62,7 @@ export type BonusMaxAggregateOutputType = {
 
 export type BonusCountAggregateOutputType = {
   id: number
+  tenantId: number
   employeeId: number
   name: number
   amount: number
@@ -82,6 +85,7 @@ export type BonusSumAggregateInputType = {
 
 export type BonusMinAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   name?: true
   amount?: true
@@ -94,6 +98,7 @@ export type BonusMinAggregateInputType = {
 
 export type BonusMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   name?: true
   amount?: true
@@ -106,6 +111,7 @@ export type BonusMaxAggregateInputType = {
 
 export type BonusCountAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   name?: true
   amount?: true
@@ -205,6 +211,7 @@ export type BonusGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type BonusGroupByOutputType = {
   id: string
+  tenantId: string
   employeeId: string
   name: string
   amount: runtime.Decimal
@@ -240,6 +247,7 @@ export type BonusWhereInput = {
   OR?: Prisma.BonusWhereInput[]
   NOT?: Prisma.BonusWhereInput | Prisma.BonusWhereInput[]
   id?: Prisma.StringFilter<"Bonus"> | string
+  tenantId?: Prisma.StringFilter<"Bonus"> | string
   employeeId?: Prisma.StringFilter<"Bonus"> | string
   name?: Prisma.StringFilter<"Bonus"> | string
   amount?: Prisma.DecimalFilter<"Bonus"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -248,11 +256,13 @@ export type BonusWhereInput = {
   isPaid?: Prisma.BoolFilter<"Bonus"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Bonus"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Bonus"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
 }
 
 export type BonusOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   amount?: Prisma.SortOrder
@@ -261,6 +271,7 @@ export type BonusOrderByWithRelationInput = {
   isPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
 }
 
@@ -269,6 +280,7 @@ export type BonusWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.BonusWhereInput | Prisma.BonusWhereInput[]
   OR?: Prisma.BonusWhereInput[]
   NOT?: Prisma.BonusWhereInput | Prisma.BonusWhereInput[]
+  tenantId?: Prisma.StringFilter<"Bonus"> | string
   employeeId?: Prisma.StringFilter<"Bonus"> | string
   name?: Prisma.StringFilter<"Bonus"> | string
   amount?: Prisma.DecimalFilter<"Bonus"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -277,11 +289,13 @@ export type BonusWhereUniqueInput = Prisma.AtLeast<{
   isPaid?: Prisma.BoolFilter<"Bonus"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Bonus"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Bonus"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
 }, "id">
 
 export type BonusOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   amount?: Prisma.SortOrder
@@ -302,6 +316,7 @@ export type BonusScalarWhereWithAggregatesInput = {
   OR?: Prisma.BonusScalarWhereWithAggregatesInput[]
   NOT?: Prisma.BonusScalarWhereWithAggregatesInput | Prisma.BonusScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Bonus"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"Bonus"> | string
   employeeId?: Prisma.StringWithAggregatesFilter<"Bonus"> | string
   name?: Prisma.StringWithAggregatesFilter<"Bonus"> | string
   amount?: Prisma.DecimalWithAggregatesFilter<"Bonus"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -321,11 +336,13 @@ export type BonusCreateInput = {
   isPaid?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutBonusesInput
   employee: Prisma.EmployeeCreateNestedOneWithoutBonusesInput
 }
 
 export type BonusUncheckedCreateInput = {
   id?: string
+  tenantId: string
   employeeId: string
   name: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -345,11 +362,13 @@ export type BonusUpdateInput = {
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutBonusesNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutBonusesNestedInput
 }
 
 export type BonusUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -362,6 +381,7 @@ export type BonusUncheckedUpdateInput = {
 
 export type BonusCreateManyInput = {
   id?: string
+  tenantId: string
   employeeId: string
   name: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -385,6 +405,7 @@ export type BonusUpdateManyMutationInput = {
 
 export type BonusUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -407,6 +428,7 @@ export type BonusOrderByRelationAggregateInput = {
 
 export type BonusCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   amount?: Prisma.SortOrder
@@ -423,6 +445,7 @@ export type BonusAvgOrderByAggregateInput = {
 
 export type BonusMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   amount?: Prisma.SortOrder
@@ -435,6 +458,7 @@ export type BonusMaxOrderByAggregateInput = {
 
 export type BonusMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   amount?: Prisma.SortOrder
@@ -491,6 +515,48 @@ export type BonusUncheckedUpdateManyWithoutEmployeeNestedInput = {
   deleteMany?: Prisma.BonusScalarWhereInput | Prisma.BonusScalarWhereInput[]
 }
 
+export type BonusCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.BonusCreateWithoutTenantInput, Prisma.BonusUncheckedCreateWithoutTenantInput> | Prisma.BonusCreateWithoutTenantInput[] | Prisma.BonusUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.BonusCreateOrConnectWithoutTenantInput | Prisma.BonusCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.BonusCreateManyTenantInputEnvelope
+  connect?: Prisma.BonusWhereUniqueInput | Prisma.BonusWhereUniqueInput[]
+}
+
+export type BonusUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.BonusCreateWithoutTenantInput, Prisma.BonusUncheckedCreateWithoutTenantInput> | Prisma.BonusCreateWithoutTenantInput[] | Prisma.BonusUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.BonusCreateOrConnectWithoutTenantInput | Prisma.BonusCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.BonusCreateManyTenantInputEnvelope
+  connect?: Prisma.BonusWhereUniqueInput | Prisma.BonusWhereUniqueInput[]
+}
+
+export type BonusUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.BonusCreateWithoutTenantInput, Prisma.BonusUncheckedCreateWithoutTenantInput> | Prisma.BonusCreateWithoutTenantInput[] | Prisma.BonusUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.BonusCreateOrConnectWithoutTenantInput | Prisma.BonusCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.BonusUpsertWithWhereUniqueWithoutTenantInput | Prisma.BonusUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.BonusCreateManyTenantInputEnvelope
+  set?: Prisma.BonusWhereUniqueInput | Prisma.BonusWhereUniqueInput[]
+  disconnect?: Prisma.BonusWhereUniqueInput | Prisma.BonusWhereUniqueInput[]
+  delete?: Prisma.BonusWhereUniqueInput | Prisma.BonusWhereUniqueInput[]
+  connect?: Prisma.BonusWhereUniqueInput | Prisma.BonusWhereUniqueInput[]
+  update?: Prisma.BonusUpdateWithWhereUniqueWithoutTenantInput | Prisma.BonusUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.BonusUpdateManyWithWhereWithoutTenantInput | Prisma.BonusUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.BonusScalarWhereInput | Prisma.BonusScalarWhereInput[]
+}
+
+export type BonusUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.BonusCreateWithoutTenantInput, Prisma.BonusUncheckedCreateWithoutTenantInput> | Prisma.BonusCreateWithoutTenantInput[] | Prisma.BonusUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.BonusCreateOrConnectWithoutTenantInput | Prisma.BonusCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.BonusUpsertWithWhereUniqueWithoutTenantInput | Prisma.BonusUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.BonusCreateManyTenantInputEnvelope
+  set?: Prisma.BonusWhereUniqueInput | Prisma.BonusWhereUniqueInput[]
+  disconnect?: Prisma.BonusWhereUniqueInput | Prisma.BonusWhereUniqueInput[]
+  delete?: Prisma.BonusWhereUniqueInput | Prisma.BonusWhereUniqueInput[]
+  connect?: Prisma.BonusWhereUniqueInput | Prisma.BonusWhereUniqueInput[]
+  update?: Prisma.BonusUpdateWithWhereUniqueWithoutTenantInput | Prisma.BonusUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.BonusUpdateManyWithWhereWithoutTenantInput | Prisma.BonusUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.BonusScalarWhereInput | Prisma.BonusScalarWhereInput[]
+}
+
 export type BonusCreateWithoutEmployeeInput = {
   id?: string
   name: string
@@ -500,10 +566,12 @@ export type BonusCreateWithoutEmployeeInput = {
   isPaid?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutBonusesInput
 }
 
 export type BonusUncheckedCreateWithoutEmployeeInput = {
   id?: string
+  tenantId: string
   name: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: string
@@ -544,6 +612,7 @@ export type BonusScalarWhereInput = {
   OR?: Prisma.BonusScalarWhereInput[]
   NOT?: Prisma.BonusScalarWhereInput | Prisma.BonusScalarWhereInput[]
   id?: Prisma.StringFilter<"Bonus"> | string
+  tenantId?: Prisma.StringFilter<"Bonus"> | string
   employeeId?: Prisma.StringFilter<"Bonus"> | string
   name?: Prisma.StringFilter<"Bonus"> | string
   amount?: Prisma.DecimalFilter<"Bonus"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -554,8 +623,59 @@ export type BonusScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Bonus"> | Date | string
 }
 
+export type BonusCreateWithoutTenantInput = {
+  id?: string
+  name: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  date: Date | string
+  isPaid?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  employee: Prisma.EmployeeCreateNestedOneWithoutBonusesInput
+}
+
+export type BonusUncheckedCreateWithoutTenantInput = {
+  id?: string
+  employeeId: string
+  name: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  date: Date | string
+  isPaid?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BonusCreateOrConnectWithoutTenantInput = {
+  where: Prisma.BonusWhereUniqueInput
+  create: Prisma.XOR<Prisma.BonusCreateWithoutTenantInput, Prisma.BonusUncheckedCreateWithoutTenantInput>
+}
+
+export type BonusCreateManyTenantInputEnvelope = {
+  data: Prisma.BonusCreateManyTenantInput | Prisma.BonusCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type BonusUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.BonusWhereUniqueInput
+  update: Prisma.XOR<Prisma.BonusUpdateWithoutTenantInput, Prisma.BonusUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.BonusCreateWithoutTenantInput, Prisma.BonusUncheckedCreateWithoutTenantInput>
+}
+
+export type BonusUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.BonusWhereUniqueInput
+  data: Prisma.XOR<Prisma.BonusUpdateWithoutTenantInput, Prisma.BonusUncheckedUpdateWithoutTenantInput>
+}
+
+export type BonusUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.BonusScalarWhereInput
+  data: Prisma.XOR<Prisma.BonusUpdateManyMutationInput, Prisma.BonusUncheckedUpdateManyWithoutTenantInput>
+}
+
 export type BonusCreateManyEmployeeInput = {
   id?: string
+  tenantId: string
   name: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: string
@@ -574,10 +694,12 @@ export type BonusUpdateWithoutEmployeeInput = {
   isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutBonusesNestedInput
 }
 
 export type BonusUncheckedUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
@@ -589,6 +711,55 @@ export type BonusUncheckedUpdateWithoutEmployeeInput = {
 
 export type BonusUncheckedUpdateManyWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BonusCreateManyTenantInput = {
+  id?: string
+  employeeId: string
+  name: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  date: Date | string
+  isPaid?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BonusUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUpdateOneRequiredWithoutBonusesNestedInput
+}
+
+export type BonusUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BonusUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
@@ -602,6 +773,7 @@ export type BonusUncheckedUpdateManyWithoutEmployeeInput = {
 
 export type BonusSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   name?: boolean
   amount?: boolean
@@ -610,11 +782,13 @@ export type BonusSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   isPaid?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bonus"]>
 
 export type BonusSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   name?: boolean
   amount?: boolean
@@ -623,11 +797,13 @@ export type BonusSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   isPaid?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bonus"]>
 
 export type BonusSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   name?: boolean
   amount?: boolean
@@ -636,11 +812,13 @@ export type BonusSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   isPaid?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bonus"]>
 
 export type BonusSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   name?: boolean
   amount?: boolean
@@ -651,24 +829,29 @@ export type BonusSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BonusOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeId" | "name" | "amount" | "reason" | "date" | "isPaid" | "createdAt" | "updatedAt", ExtArgs["result"]["bonus"]>
+export type BonusOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "name" | "amount" | "reason" | "date" | "isPaid" | "createdAt" | "updatedAt", ExtArgs["result"]["bonus"]>
 export type BonusInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 export type BonusIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 export type BonusIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 
 export type $BonusPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Bonus"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     employee: Prisma.$EmployeePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    tenantId: string
     employeeId: string
     name: string
     amount: runtime.Decimal
@@ -1071,6 +1254,7 @@ readonly fields: BonusFieldRefs;
  */
 export interface Prisma__BonusClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   employee<T extends Prisma.EmployeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1102,6 +1286,7 @@ export interface Prisma__BonusClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface BonusFieldRefs {
   readonly id: Prisma.FieldRef<"Bonus", 'String'>
+  readonly tenantId: Prisma.FieldRef<"Bonus", 'String'>
   readonly employeeId: Prisma.FieldRef<"Bonus", 'String'>
   readonly name: Prisma.FieldRef<"Bonus", 'String'>
   readonly amount: Prisma.FieldRef<"Bonus", 'Decimal'>

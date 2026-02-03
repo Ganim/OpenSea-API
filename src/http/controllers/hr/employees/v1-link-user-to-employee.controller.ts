@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   employeeResponseSchema,
   linkUserToEmployeeSchema,
@@ -19,6 +20,7 @@ export async function linkUserToEmployeeController(app: FastifyInstance) {
     url: '/v1/hr/employees/:employeeId/link-user',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.EMPLOYEES.MANAGE,
         resource: 'employees',
@@ -50,10 +52,12 @@ export async function linkUserToEmployeeController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { employeeId } = request.params;
       const { userId } = request.body;
+      const tenantId = request.user.tenantId!;
 
       try {
         const linkUserToEmployeeUseCase = makeLinkUserToEmployeeUseCase();
         const { employee } = await linkUserToEmployeeUseCase.execute({
+          tenantId,
           employeeId,
           userId,
         });

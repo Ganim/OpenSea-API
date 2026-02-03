@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas/common.schema';
 import { prisma } from '@/lib/prisma';
 import { companyToDetailsDTO } from '@/mappers/hr/company/company-to-dto';
@@ -124,7 +125,7 @@ export async function v1GetCompanyByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/companies/:id',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Companies'],
       summary: 'Get company by ID',
@@ -142,11 +143,12 @@ export async function v1GetCompanyByIdController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params as { id: string };
 
       try {
         const getCompanyUseCase = makeGetCompanyByIdUseCase();
-        const result = await getCompanyUseCase.execute({ id });
+        const result = await getCompanyUseCase.execute({ tenantId, id });
 
         // Buscar relacionamentos adicionais (addresses, cnaes, fiscalSettings, stakeholders)
         const [addresses, cnaes, fiscalSettings, stakeholders] =

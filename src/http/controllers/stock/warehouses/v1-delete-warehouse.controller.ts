@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeDeleteWarehouseUseCase } from '@/use-cases/stock/warehouses/factories/make-delete-warehouse-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -14,6 +15,7 @@ export async function deleteWarehouseController(app: FastifyInstance) {
     url: '/v1/warehouses/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.WAREHOUSES.DELETE,
         resource: 'warehouses',
@@ -40,11 +42,15 @@ export async function deleteWarehouseController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
       try {
         const deleteWarehouseUseCase = makeDeleteWarehouseUseCase();
-        const { success } = await deleteWarehouseUseCase.execute({ id });
+        const { success } = await deleteWarehouseUseCase.execute({
+          tenantId,
+          id,
+        });
 
         return reply.status(200).send({ success });
       } catch (error) {

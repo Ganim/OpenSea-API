@@ -40,9 +40,13 @@ export async function listPermissionGroupsController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { isActive, isSystem, page = 1, limit = 20 } = request.query;
 
+      // Tenant users see only their tenant's groups + system groups
+      const tenantId = request.user.tenantId;
+
       const listPermissionGroupsUseCase = makeListPermissionGroupsUseCase();
 
       const { groups } = await listPermissionGroupsUseCase.execute({
+        tenantId,
         isActive,
         isSystem,
       });

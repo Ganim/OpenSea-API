@@ -18,6 +18,7 @@ import type {
 
 export interface ItemWithRelations {
   id: string;
+  tenantId: string;
   uniqueCode: string;
   slug: string;
   fullCode: string;
@@ -84,6 +85,7 @@ export class PrismaItemsRepository implements ItemsRepository {
 
   private toDomainItem(itemData: {
     id: string;
+    tenantId: string;
     uniqueCode: string | null;
     slug: string;
     fullCode: string;
@@ -109,6 +111,7 @@ export class PrismaItemsRepository implements ItemsRepository {
   }): Item {
     return Item.create(
       {
+        tenantId: new EntityID(itemData.tenantId),
         uniqueCode: itemData.uniqueCode ?? undefined,
         slug: Slug.create(itemData.slug),
         fullCode: itemData.fullCode,
@@ -136,9 +139,12 @@ export class PrismaItemsRepository implements ItemsRepository {
     );
   }
 
-  async findAllWithRelations(): Promise<ItemWithRelationsDTO[]> {
+  async findAllWithRelations(
+    tenantId: string,
+  ): Promise<ItemWithRelationsDTO[]> {
     const items = await prisma.item.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -163,10 +169,12 @@ export class PrismaItemsRepository implements ItemsRepository {
 
   async findManyByVariantWithRelations(
     variantId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO[]> {
     const items = await prisma.item.findMany({
       where: {
         variantId: variantId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -191,12 +199,14 @@ export class PrismaItemsRepository implements ItemsRepository {
 
   async findManyByProductWithRelations(
     productId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO[]> {
     const items = await prisma.item.findMany({
       where: {
         variant: {
           productId: productId.toString(),
         },
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -221,10 +231,12 @@ export class PrismaItemsRepository implements ItemsRepository {
 
   async findManyByBinWithRelations(
     binId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO[]> {
     const items = await prisma.item.findMany({
       where: {
         binId: binId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -249,6 +261,7 @@ export class PrismaItemsRepository implements ItemsRepository {
   async create(data: CreateItemSchema): Promise<Item> {
     const itemData = await prisma.item.create({
       data: {
+        tenantId: data.tenantId,
         uniqueCode: data.uniqueCode,
         slug: data.slug.value,
         fullCode: data.fullCode,
@@ -273,10 +286,11 @@ export class PrismaItemsRepository implements ItemsRepository {
     return this.toDomainItem(itemData);
   }
 
-  async findById(id: UniqueEntityID): Promise<Item | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Item | null> {
     const itemData = await prisma.item.findFirst({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -288,10 +302,12 @@ export class PrismaItemsRepository implements ItemsRepository {
 
   async findByIdWithRelations(
     id: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO | null> {
     const itemData = await prisma.item.findFirst({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -316,10 +332,14 @@ export class PrismaItemsRepository implements ItemsRepository {
     };
   }
 
-  async findByUniqueCode(uniqueCode: string): Promise<Item | null> {
+  async findByUniqueCode(
+    uniqueCode: string,
+    tenantId: string,
+  ): Promise<Item | null> {
     const itemData = await prisma.item.findFirst({
       where: {
         uniqueCode,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -329,9 +349,10 @@ export class PrismaItemsRepository implements ItemsRepository {
     return this.toDomainItem(itemData);
   }
 
-  async findAll(): Promise<Item[]> {
+  async findAll(tenantId: string): Promise<Item[]> {
     const items = await prisma.item.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -351,10 +372,14 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((itemData) => this.toDomainItem(itemData));
   }
 
-  async findManyByVariant(variantId: UniqueEntityID): Promise<Item[]> {
+  async findManyByVariant(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Item[]> {
     const items = await prisma.item.findMany({
       where: {
         variantId: variantId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -374,12 +399,16 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((itemData) => this.toDomainItem(itemData));
   }
 
-  async findManyByProduct(productId: UniqueEntityID): Promise<Item[]> {
+  async findManyByProduct(
+    productId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Item[]> {
     const items = await prisma.item.findMany({
       where: {
         variant: {
           productId: productId.toString(),
         },
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -399,10 +428,14 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((itemData) => this.toDomainItem(itemData));
   }
 
-  async findManyByBin(binId: UniqueEntityID): Promise<Item[]> {
+  async findManyByBin(
+    binId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Item[]> {
     const items = await prisma.item.findMany({
       where: {
         binId: binId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -422,10 +455,14 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((itemData) => this.toDomainItem(itemData));
   }
 
-  async findManyByStatus(status: ItemStatus): Promise<Item[]> {
+  async findManyByStatus(
+    status: ItemStatus,
+    tenantId: string,
+  ): Promise<Item[]> {
     const items = await prisma.item.findMany({
       where: {
         status: status.value as PrismaItemStatus,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -433,10 +470,14 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((itemData) => this.toDomainItem(itemData));
   }
 
-  async findManyByBatch(batchNumber: string): Promise<Item[]> {
+  async findManyByBatch(
+    batchNumber: string,
+    tenantId: string,
+  ): Promise<Item[]> {
     const items = await prisma.item.findMany({
       where: {
         batchNumber,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -444,7 +485,10 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((itemData) => this.toDomainItem(itemData));
   }
 
-  async findManyExpiring(daysUntilExpiry: number): Promise<Item[]> {
+  async findManyExpiring(
+    daysUntilExpiry: number,
+    tenantId: string,
+  ): Promise<Item[]> {
     const targetDate = new Date();
     targetDate.setDate(targetDate.getDate() + daysUntilExpiry);
 
@@ -454,6 +498,7 @@ export class PrismaItemsRepository implements ItemsRepository {
           lte: targetDate,
           gt: new Date(),
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -461,12 +506,13 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((itemData) => this.toDomainItem(itemData));
   }
 
-  async findManyExpired(): Promise<Item[]> {
+  async findManyExpired(tenantId: string): Promise<Item[]> {
     const items = await prisma.item.findMany({
       where: {
         expiryDate: {
           lt: new Date(),
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -474,10 +520,14 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((itemData) => this.toDomainItem(itemData));
   }
 
-  async findLastByVariantId(variantId: UniqueEntityID): Promise<Item | null> {
+  async findLastByVariantId(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Item | null> {
     const itemData = await prisma.item.findFirst({
       where: {
         variantId: variantId.toString(),
+        tenantId,
         deletedAt: null,
       },
       orderBy: {

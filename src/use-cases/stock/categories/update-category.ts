@@ -4,6 +4,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 
 interface UpdateCategoryUseCaseRequest {
+  tenantId: string;
   id: string;
   name?: string;
   slug?: string;
@@ -22,6 +23,7 @@ export class UpdateCategoryUseCase {
   constructor(private categoriesRepository: CategoriesRepository) {}
 
   async execute({
+    tenantId,
     id,
     name,
     slug,
@@ -33,6 +35,7 @@ export class UpdateCategoryUseCase {
   }: UpdateCategoryUseCaseRequest): Promise<UpdateCategoryUseCaseResponse> {
     const category = await this.categoriesRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!category) {
@@ -41,8 +44,10 @@ export class UpdateCategoryUseCase {
 
     // Se o nome está sendo atualizado, verifica se já existe outra categoria com esse nome
     if (name && name !== category.name) {
-      const categoryWithSameName =
-        await this.categoriesRepository.findByName(name);
+      const categoryWithSameName = await this.categoriesRepository.findByName(
+        name,
+        tenantId,
+      );
 
       if (
         categoryWithSameName &&
@@ -54,8 +59,10 @@ export class UpdateCategoryUseCase {
 
     // Se o slug está sendo atualizado, verifica se já existe outra categoria com esse slug
     if (slug && slug !== category.slug) {
-      const categoryWithSameSlug =
-        await this.categoriesRepository.findBySlug(slug);
+      const categoryWithSameSlug = await this.categoriesRepository.findBySlug(
+        slug,
+        tenantId,
+      );
 
       if (
         categoryWithSameSlug &&
@@ -74,6 +81,7 @@ export class UpdateCategoryUseCase {
       } else {
         const parentCategory = await this.categoriesRepository.findById(
           new UniqueEntityID(parentId),
+          tenantId,
         );
 
         if (!parentCategory) {
@@ -90,6 +98,7 @@ export class UpdateCategoryUseCase {
           }
           const nextParent = await this.categoriesRepository.findById(
             currentParent.parentId,
+            tenantId,
           );
           if (!nextParent) break;
           currentParent = nextParent;

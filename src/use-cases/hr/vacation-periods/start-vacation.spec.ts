@@ -5,6 +5,8 @@ import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/i
 import { beforeEach, describe, expect, it } from 'vitest';
 import { StartVacationUseCase } from './start-vacation';
 
+const TENANT_ID = 'tenant-1';
+
 let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let sut: StartVacationUseCase;
 let testVacationPeriod: VacationPeriod;
@@ -16,6 +18,7 @@ describe('Start Vacation Use Case', () => {
     sut = new StartVacationUseCase(vacationPeriodsRepository);
 
     testVacationPeriod = VacationPeriod.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       employeeId,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -35,6 +38,7 @@ describe('Start Vacation Use Case', () => {
 
   it('should start vacation successfully', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       vacationPeriodId: testVacationPeriod.id.toString(),
     });
 
@@ -45,6 +49,7 @@ describe('Start Vacation Use Case', () => {
   it('should throw error if vacation period not found', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('VacationPeriod');
@@ -52,6 +57,7 @@ describe('Start Vacation Use Case', () => {
 
   it('should throw error if vacation is not scheduled', async () => {
     const availablePeriod = VacationPeriod.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       employeeId,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -68,6 +74,7 @@ describe('Start Vacation Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: availablePeriod.id.toString(),
       }),
     ).rejects.toThrow('precisam estar agendadas');

@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Absence } from '@/entities/hr/absence';
 import { VacationPeriod } from '@/entities/hr/vacation-period';
-import { AbsenceStatus, AbsenceType } from '@/entities/hr/value-objects';
+import { AbsenceStatus, AbsenceType, VacationStatus } from '@/entities/hr/value-objects';
 import { InMemoryAbsencesRepository } from '@/repositories/hr/in-memory/in-memory-absences-repository';
 import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/in-memory-vacation-periods-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -13,6 +13,7 @@ let sut: CancelAbsenceUseCase;
 let testAbsence: Absence;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let testVacationPeriod: VacationPeriod;
+const tenantId = new UniqueEntityID().toString();
 const employeeId = new UniqueEntityID();
 
 describe('Cancel Absence Use Case', () => {
@@ -25,6 +26,7 @@ describe('Cancel Absence Use Case', () => {
     );
 
     testVacationPeriod = await vacationPeriodsRepository.create({
+      tenantId,
       employeeId,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -44,6 +46,7 @@ describe('Cancel Absence Use Case', () => {
     futureEnd.setDate(futureEnd.getDate() + 9);
 
     testAbsence = Absence.create({
+      tenantId: new UniqueEntityID(tenantId),
       employeeId,
       type: AbsenceType.create('VACATION'),
       status: AbsenceStatus.pending(),
@@ -59,6 +62,7 @@ describe('Cancel Absence Use Case', () => {
 
   it('should cancel pending absence successfully', async () => {
     const result = await sut.execute({
+      tenantId,
       absenceId: testAbsence.id.toString(),
     });
 
@@ -69,6 +73,7 @@ describe('Cancel Absence Use Case', () => {
   it('should throw error if absence not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         absenceId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Absence not found');
@@ -83,6 +88,7 @@ describe('Cancel Absence Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         absenceId: testAbsence.id.toString(),
       }),
     ).rejects.toThrow();
@@ -94,6 +100,7 @@ describe('Cancel Absence Use Case', () => {
     await absencesRepository.save(testAbsence);
 
     const result = await sut.execute({
+      tenantId,
       absenceId: testAbsence.id.toString(),
     });
 
@@ -102,6 +109,7 @@ describe('Cancel Absence Use Case', () => {
 
   it('should cancel sick leave successfully', async () => {
     const sickLeave = Absence.create({
+      tenantId: new UniqueEntityID(tenantId),
       employeeId,
       type: AbsenceType.create('SICK_LEAVE'),
       status: AbsenceStatus.pending(),
@@ -116,6 +124,7 @@ describe('Cancel Absence Use Case', () => {
     absencesRepository.items.push(sickLeave);
 
     const result = await sut.execute({
+      tenantId,
       absenceId: sickLeave.id.toString(),
     });
 

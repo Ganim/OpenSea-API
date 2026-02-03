@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { companyCnaeResponseSchema, idSchema } from '@/http/schemas';
 import { companyCnaeToDTO } from '@/mappers/hr/company-cnae';
 import { makeGetPrimaryCompanyCnaeUseCase } from '@/use-cases/hr/company-cnaes/factories/make-company-cnaes';
@@ -14,6 +15,7 @@ export async function getPrimaryCompanyCnaeController(app: FastifyInstance) {
     url: '/v1/hr/companies/:companyId/cnaes/primary',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.COMPANY_CNAES.READ,
         resource: 'company-cnaes',

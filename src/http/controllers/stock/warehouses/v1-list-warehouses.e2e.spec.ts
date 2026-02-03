@@ -18,8 +18,18 @@ describe('List Warehouses (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now().toString();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     await prisma.warehouse.create({
       data: {
+        tenantId,
         code: `L1${timestamp.slice(-3)}`,
         name: `Warehouse List 1 ${timestamp}`,
         isActive: true,
@@ -28,6 +38,7 @@ describe('List Warehouses (E2E)', () => {
 
     await prisma.warehouse.create({
       data: {
+        tenantId,
         code: `L2${timestamp.slice(-3)}`,
         name: `Warehouse List 2 ${timestamp}`,
         isActive: false,

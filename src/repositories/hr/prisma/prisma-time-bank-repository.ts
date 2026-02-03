@@ -12,6 +12,7 @@ export class PrismaTimeBankRepository implements TimeBankRepository {
   async create(data: CreateTimeBankSchema): Promise<TimeBank> {
     const timeBankData = await prisma.timeBank.create({
       data: {
+        tenantId: data.tenantId,
         employeeId: data.employeeId.toString(),
         balance: data.balance,
         year: data.year,
@@ -25,9 +26,12 @@ export class PrismaTimeBankRepository implements TimeBankRepository {
     return timeBank;
   }
 
-  async findById(id: UniqueEntityID): Promise<TimeBank | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<TimeBank | null> {
     const timeBankData = await prisma.timeBank.findUnique({
-      where: { id: id.toString() },
+      where: { id: id.toString(), tenantId },
     });
 
     if (!timeBankData) return null;
@@ -42,13 +46,13 @@ export class PrismaTimeBankRepository implements TimeBankRepository {
   async findByEmployeeAndYear(
     employeeId: UniqueEntityID,
     year: number,
+    tenantId: string,
   ): Promise<TimeBank | null> {
-    const timeBankData = await prisma.timeBank.findUnique({
+    const timeBankData = await prisma.timeBank.findFirst({
       where: {
-        employeeId_year: {
-          employeeId: employeeId.toString(),
-          year,
-        },
+        employeeId: employeeId.toString(),
+        year,
+        tenantId,
       },
     });
 
@@ -61,30 +65,33 @@ export class PrismaTimeBankRepository implements TimeBankRepository {
     return timeBank;
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<TimeBank[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<TimeBank[]> {
     const timeBanks = await prisma.timeBank.findMany({
-      where: { employeeId: employeeId.toString() },
+      where: { employeeId: employeeId.toString(), tenantId },
       orderBy: { year: 'desc' },
     });
 
-    return timeBanks.map((item) =>
+    return timeBanks.map((timeBankRecord) =>
       TimeBank.create(
-        mapTimeBankPrismaToDomain(item),
-        new UniqueEntityID(item.id),
+        mapTimeBankPrismaToDomain(timeBankRecord),
+        new UniqueEntityID(timeBankRecord.id),
       ),
     );
   }
 
-  async findManyByYear(year: number): Promise<TimeBank[]> {
+  async findManyByYear(year: number, tenantId: string): Promise<TimeBank[]> {
     const timeBanks = await prisma.timeBank.findMany({
-      where: { year },
+      where: { year, tenantId },
       orderBy: { employeeId: 'asc' },
     });
 
-    return timeBanks.map((item) =>
+    return timeBanks.map((timeBankRecord) =>
       TimeBank.create(
-        mapTimeBankPrismaToDomain(item),
-        new UniqueEntityID(item.id),
+        mapTimeBankPrismaToDomain(timeBankRecord),
+        new UniqueEntityID(timeBankRecord.id),
       ),
     );
   }

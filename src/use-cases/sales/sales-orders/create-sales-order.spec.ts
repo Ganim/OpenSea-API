@@ -36,6 +36,7 @@ describe('Create Sales Order', () => {
     variantsRepository.items.push(variant2);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       orderNumber: 'SO-2024-001',
       customerId: customer.id.toString(),
       items: [
@@ -90,6 +91,7 @@ describe('Create Sales Order', () => {
     variantsRepository.items.push(variant);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       orderNumber: 'SO-2024-002',
       customerId: customer.id.toString(),
       discount: 50,
@@ -115,6 +117,7 @@ describe('Create Sales Order', () => {
     variantsRepository.items.push(variant);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       orderNumber: 'SO-2024-003',
       customerId: customer.id.toString(),
       status: 'DRAFT',
@@ -138,6 +141,7 @@ describe('Create Sales Order', () => {
     variantsRepository.items.push(variant);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       orderNumber: 'SO-2024-004',
       customerId: customer.id.toString(),
       notes: 'Important order',
@@ -164,6 +168,7 @@ describe('Create Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: '',
         customerId: customer.id.toString(),
         items: [
@@ -185,6 +190,7 @@ describe('Create Sales Order', () => {
     variantsRepository.items.push(variant);
 
     await sut.execute({
+      tenantId: 'tenant-1',
       orderNumber: 'SO-2024-001',
       customerId: customer.id.toString(),
       items: [
@@ -198,6 +204,7 @@ describe('Create Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'SO-2024-001',
         customerId: customer.id.toString(),
         items: [
@@ -217,6 +224,7 @@ describe('Create Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'SO-2024-001',
         customerId: 'non-existing-id',
         items: [
@@ -236,6 +244,7 @@ describe('Create Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'SO-2024-001',
         customerId: customer.id.toString(),
         items: [],
@@ -249,6 +258,7 @@ describe('Create Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'SO-2024-001',
         customerId: customer.id.toString(),
         items: [
@@ -271,6 +281,7 @@ describe('Create Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'SO-2024-001',
         customerId: customer.id.toString(),
         items: [
@@ -293,6 +304,7 @@ describe('Create Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'SO-2024-001',
         customerId: customer.id.toString(),
         items: [
@@ -315,6 +327,7 @@ describe('Create Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'SO-2024-001',
         customerId: customer.id.toString(),
         discount: -50,
@@ -338,6 +351,7 @@ describe('Create Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'A'.repeat(51),
         customerId: customer.id.toString(),
         items: [

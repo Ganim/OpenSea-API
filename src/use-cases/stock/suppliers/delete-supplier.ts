@@ -3,15 +3,17 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 
 interface DeleteSupplierUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
 export class DeleteSupplierUseCase {
   constructor(private suppliersRepository: SuppliersRepository) {}
 
-  async execute({ id }: DeleteSupplierUseCaseRequest): Promise<void> {
+  async execute({ tenantId, id }: DeleteSupplierUseCaseRequest): Promise<void> {
     const supplier = await this.suppliersRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!supplier) {

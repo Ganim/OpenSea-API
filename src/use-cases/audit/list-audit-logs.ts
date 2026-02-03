@@ -6,6 +6,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { AuditLogsRepository } from '@/repositories/audit/audit-logs-repository';
 
 interface ListAuditLogsUseCaseRequest {
+  tenantId?: string;
   userId?: string;
   affectedUser?: string;
   action?: string;
@@ -33,6 +34,7 @@ export class ListAuditLogsUseCase {
     request: ListAuditLogsUseCaseRequest,
   ): Promise<ListAuditLogsUseCaseResponse> {
     const {
+      tenantId,
       userId,
       affectedUser,
       action,
@@ -45,16 +47,19 @@ export class ListAuditLogsUseCase {
       limit = 20,
     } = request;
 
+    const tenantIdEntity = tenantId ? new UniqueEntityID(tenantId) : undefined;
+
     // Se entity e entityId forem fornecidos, buscar por entidade específica
     if (entity && entityId) {
       const logs = await this.auditLogsRepository.listByEntity(
         entity as unknown as AuditEntity,
         entityId,
-        { page, limit },
+        { page, limit, tenantId: tenantIdEntity },
       );
       const total = await this.auditLogsRepository.count({
         entity: entity as unknown as AuditEntity,
         entityId,
+        tenantId: tenantIdEntity,
       });
 
       return {
@@ -68,6 +73,7 @@ export class ListAuditLogsUseCase {
 
     // Buscar com filtros gerais
     const logs = await this.auditLogsRepository.listAll({
+      tenantId: tenantIdEntity,
       userId: userId ? new UniqueEntityID(userId) : undefined,
       affectedUser,
       action: action as unknown as AuditAction,
@@ -81,6 +87,7 @@ export class ListAuditLogsUseCase {
     });
 
     const total = await this.auditLogsRepository.count({
+      tenantId: tenantIdEntity,
       userId: userId ? new UniqueEntityID(userId) : undefined,
       affectedUser,
       action: action as unknown as AuditAction,

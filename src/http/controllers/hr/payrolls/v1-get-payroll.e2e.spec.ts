@@ -3,6 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
 import { createPayroll } from '@/utils/tests/factories/hr/create-payroll.e2e';
 
 describe('Get Payroll (E2E)', () => {
@@ -16,10 +17,11 @@ describe('Get Payroll (E2E)', () => {
 
   it('should get payroll by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
+    const { employee } = await createEmployeeE2E();
     const timestamp = Date.now();
     const month = (timestamp % 12) + 1;
     const year = 2020 + (timestamp % 10);
-    const payroll = await createPayroll({
+    const payroll = await createPayroll(employee.tenantId, {
       referenceMonth: month,
       referenceYear: year,
     });

@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { productResponseSchema } from '@/http/schemas';
 import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeListProductsUseCase } from '@/use-cases/stock/products/factories/make-list-products-use-case';
@@ -14,6 +15,7 @@ export async function listProductsController(app: FastifyInstance) {
     url: '/v1/products',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.PRODUCTS.LIST,
         resource: 'products',
@@ -30,9 +32,11 @@ export async function listProductsController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
 
-    handler: async (_, reply) => {
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+
       const listProductsUseCase = makeListProductsUseCase();
-      const { products } = await listProductsUseCase.execute();
+      const { products } = await listProductsUseCase.execute({ tenantId });
 
       return reply.status(200).send({ products: products.map(productToDTO) });
     },

@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { vacationBalanceResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { makeCalculateVacationBalanceUseCase } from '@/use-cases/hr/absences/factories/make-calculate-vacation-balance-use-case';
@@ -12,7 +13,7 @@ export async function getVacationBalanceController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/employees/:employeeId/vacation-balance',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Absences'],
       summary: 'Get vacation balance',
@@ -31,12 +32,14 @@ export async function getVacationBalanceController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { employeeId } = request.params;
 
       try {
         const calculateVacationBalanceUseCase =
           makeCalculateVacationBalanceUseCase();
         const result = await calculateVacationBalanceUseCase.execute({
+          tenantId,
           employeeId,
         });
 

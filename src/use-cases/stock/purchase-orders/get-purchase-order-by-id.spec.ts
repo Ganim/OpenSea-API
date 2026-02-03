@@ -19,6 +19,7 @@ describe('GetPurchaseOrderByIdUseCase', () => {
     purchaseOrdersRepository.items.push(order);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: order.id.toString(),
     });
 
@@ -28,6 +29,7 @@ describe('GetPurchaseOrderByIdUseCase', () => {
   it('should not be able to get a nonexistent purchase order', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'nonexistent-id',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);

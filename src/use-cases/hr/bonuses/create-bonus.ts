@@ -5,6 +5,7 @@ import { BonusesRepository } from '@/repositories/hr/bonuses-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface CreateBonusRequest {
+  tenantId: string;
   employeeId: string;
   name: string;
   amount: number;
@@ -23,7 +24,7 @@ export class CreateBonusUseCase {
   ) {}
 
   async execute(request: CreateBonusRequest): Promise<CreateBonusResponse> {
-    const { employeeId, name, amount, reason, date } = request;
+    const { tenantId, employeeId, name, amount, reason, date } = request;
 
     // Validate amount
     if (amount <= 0) {
@@ -43,6 +44,7 @@ export class CreateBonusUseCase {
     // Verify employee exists
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!employee) {
@@ -51,6 +53,7 @@ export class CreateBonusUseCase {
 
     // Create bonus
     const bonus = await this.bonusesRepository.create({
+      tenantId,
       employeeId: new UniqueEntityID(employeeId),
       name: name.trim(),
       amount,

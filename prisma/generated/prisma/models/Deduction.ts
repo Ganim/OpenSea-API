@@ -40,6 +40,7 @@ export type DeductionSumAggregateOutputType = {
 
 export type DeductionMinAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   name: string | null
   amount: runtime.Decimal | null
@@ -56,6 +57,7 @@ export type DeductionMinAggregateOutputType = {
 
 export type DeductionMaxAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   name: string | null
   amount: runtime.Decimal | null
@@ -72,6 +74,7 @@ export type DeductionMaxAggregateOutputType = {
 
 export type DeductionCountAggregateOutputType = {
   id: number
+  tenantId: number
   employeeId: number
   name: number
   amount: number
@@ -102,6 +105,7 @@ export type DeductionSumAggregateInputType = {
 
 export type DeductionMinAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   name?: true
   amount?: true
@@ -118,6 +122,7 @@ export type DeductionMinAggregateInputType = {
 
 export type DeductionMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   name?: true
   amount?: true
@@ -134,6 +139,7 @@ export type DeductionMaxAggregateInputType = {
 
 export type DeductionCountAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   name?: true
   amount?: true
@@ -237,6 +243,7 @@ export type DeductionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type DeductionGroupByOutputType = {
   id: string
+  tenantId: string
   employeeId: string
   name: string
   amount: runtime.Decimal
@@ -276,6 +283,7 @@ export type DeductionWhereInput = {
   OR?: Prisma.DeductionWhereInput[]
   NOT?: Prisma.DeductionWhereInput | Prisma.DeductionWhereInput[]
   id?: Prisma.StringFilter<"Deduction"> | string
+  tenantId?: Prisma.StringFilter<"Deduction"> | string
   employeeId?: Prisma.StringFilter<"Deduction"> | string
   name?: Prisma.StringFilter<"Deduction"> | string
   amount?: Prisma.DecimalFilter<"Deduction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -288,11 +296,13 @@ export type DeductionWhereInput = {
   appliedAt?: Prisma.DateTimeNullableFilter<"Deduction"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Deduction"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Deduction"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
 }
 
 export type DeductionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   amount?: Prisma.SortOrder
@@ -305,6 +315,7 @@ export type DeductionOrderByWithRelationInput = {
   appliedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
 }
 
@@ -313,6 +324,7 @@ export type DeductionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.DeductionWhereInput | Prisma.DeductionWhereInput[]
   OR?: Prisma.DeductionWhereInput[]
   NOT?: Prisma.DeductionWhereInput | Prisma.DeductionWhereInput[]
+  tenantId?: Prisma.StringFilter<"Deduction"> | string
   employeeId?: Prisma.StringFilter<"Deduction"> | string
   name?: Prisma.StringFilter<"Deduction"> | string
   amount?: Prisma.DecimalFilter<"Deduction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -325,11 +337,13 @@ export type DeductionWhereUniqueInput = Prisma.AtLeast<{
   appliedAt?: Prisma.DateTimeNullableFilter<"Deduction"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Deduction"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Deduction"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
 }, "id">
 
 export type DeductionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   amount?: Prisma.SortOrder
@@ -354,6 +368,7 @@ export type DeductionScalarWhereWithAggregatesInput = {
   OR?: Prisma.DeductionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.DeductionScalarWhereWithAggregatesInput | Prisma.DeductionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Deduction"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"Deduction"> | string
   employeeId?: Prisma.StringWithAggregatesFilter<"Deduction"> | string
   name?: Prisma.StringWithAggregatesFilter<"Deduction"> | string
   amount?: Prisma.DecimalWithAggregatesFilter<"Deduction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -381,11 +396,13 @@ export type DeductionCreateInput = {
   appliedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutDeductionsInput
   employee: Prisma.EmployeeCreateNestedOneWithoutDeductionsInput
 }
 
 export type DeductionUncheckedCreateInput = {
   id?: string
+  tenantId: string
   employeeId: string
   name: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -413,11 +430,13 @@ export type DeductionUpdateInput = {
   appliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutDeductionsNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutDeductionsNestedInput
 }
 
 export type DeductionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -434,6 +453,7 @@ export type DeductionUncheckedUpdateInput = {
 
 export type DeductionCreateManyInput = {
   id?: string
+  tenantId: string
   employeeId: string
   name: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -465,6 +485,7 @@ export type DeductionUpdateManyMutationInput = {
 
 export type DeductionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -491,6 +512,7 @@ export type DeductionOrderByRelationAggregateInput = {
 
 export type DeductionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   amount?: Prisma.SortOrder
@@ -513,6 +535,7 @@ export type DeductionAvgOrderByAggregateInput = {
 
 export type DeductionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   amount?: Prisma.SortOrder
@@ -529,6 +552,7 @@ export type DeductionMaxOrderByAggregateInput = {
 
 export type DeductionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   amount?: Prisma.SortOrder
@@ -591,6 +615,48 @@ export type DeductionUncheckedUpdateManyWithoutEmployeeNestedInput = {
   deleteMany?: Prisma.DeductionScalarWhereInput | Prisma.DeductionScalarWhereInput[]
 }
 
+export type DeductionCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.DeductionCreateWithoutTenantInput, Prisma.DeductionUncheckedCreateWithoutTenantInput> | Prisma.DeductionCreateWithoutTenantInput[] | Prisma.DeductionUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.DeductionCreateOrConnectWithoutTenantInput | Prisma.DeductionCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.DeductionCreateManyTenantInputEnvelope
+  connect?: Prisma.DeductionWhereUniqueInput | Prisma.DeductionWhereUniqueInput[]
+}
+
+export type DeductionUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.DeductionCreateWithoutTenantInput, Prisma.DeductionUncheckedCreateWithoutTenantInput> | Prisma.DeductionCreateWithoutTenantInput[] | Prisma.DeductionUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.DeductionCreateOrConnectWithoutTenantInput | Prisma.DeductionCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.DeductionCreateManyTenantInputEnvelope
+  connect?: Prisma.DeductionWhereUniqueInput | Prisma.DeductionWhereUniqueInput[]
+}
+
+export type DeductionUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.DeductionCreateWithoutTenantInput, Prisma.DeductionUncheckedCreateWithoutTenantInput> | Prisma.DeductionCreateWithoutTenantInput[] | Prisma.DeductionUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.DeductionCreateOrConnectWithoutTenantInput | Prisma.DeductionCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.DeductionUpsertWithWhereUniqueWithoutTenantInput | Prisma.DeductionUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.DeductionCreateManyTenantInputEnvelope
+  set?: Prisma.DeductionWhereUniqueInput | Prisma.DeductionWhereUniqueInput[]
+  disconnect?: Prisma.DeductionWhereUniqueInput | Prisma.DeductionWhereUniqueInput[]
+  delete?: Prisma.DeductionWhereUniqueInput | Prisma.DeductionWhereUniqueInput[]
+  connect?: Prisma.DeductionWhereUniqueInput | Prisma.DeductionWhereUniqueInput[]
+  update?: Prisma.DeductionUpdateWithWhereUniqueWithoutTenantInput | Prisma.DeductionUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.DeductionUpdateManyWithWhereWithoutTenantInput | Prisma.DeductionUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.DeductionScalarWhereInput | Prisma.DeductionScalarWhereInput[]
+}
+
+export type DeductionUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.DeductionCreateWithoutTenantInput, Prisma.DeductionUncheckedCreateWithoutTenantInput> | Prisma.DeductionCreateWithoutTenantInput[] | Prisma.DeductionUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.DeductionCreateOrConnectWithoutTenantInput | Prisma.DeductionCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.DeductionUpsertWithWhereUniqueWithoutTenantInput | Prisma.DeductionUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.DeductionCreateManyTenantInputEnvelope
+  set?: Prisma.DeductionWhereUniqueInput | Prisma.DeductionWhereUniqueInput[]
+  disconnect?: Prisma.DeductionWhereUniqueInput | Prisma.DeductionWhereUniqueInput[]
+  delete?: Prisma.DeductionWhereUniqueInput | Prisma.DeductionWhereUniqueInput[]
+  connect?: Prisma.DeductionWhereUniqueInput | Prisma.DeductionWhereUniqueInput[]
+  update?: Prisma.DeductionUpdateWithWhereUniqueWithoutTenantInput | Prisma.DeductionUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.DeductionUpdateManyWithWhereWithoutTenantInput | Prisma.DeductionUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.DeductionScalarWhereInput | Prisma.DeductionScalarWhereInput[]
+}
+
 export type DeductionCreateWithoutEmployeeInput = {
   id?: string
   name: string
@@ -604,10 +670,12 @@ export type DeductionCreateWithoutEmployeeInput = {
   appliedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutDeductionsInput
 }
 
 export type DeductionUncheckedCreateWithoutEmployeeInput = {
   id?: string
+  tenantId: string
   name: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: string
@@ -652,6 +720,7 @@ export type DeductionScalarWhereInput = {
   OR?: Prisma.DeductionScalarWhereInput[]
   NOT?: Prisma.DeductionScalarWhereInput | Prisma.DeductionScalarWhereInput[]
   id?: Prisma.StringFilter<"Deduction"> | string
+  tenantId?: Prisma.StringFilter<"Deduction"> | string
   employeeId?: Prisma.StringFilter<"Deduction"> | string
   name?: Prisma.StringFilter<"Deduction"> | string
   amount?: Prisma.DecimalFilter<"Deduction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -666,8 +735,67 @@ export type DeductionScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Deduction"> | Date | string
 }
 
+export type DeductionCreateWithoutTenantInput = {
+  id?: string
+  name: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  date: Date | string
+  isRecurring?: boolean
+  installments?: number | null
+  currentInstallment?: number
+  isApplied?: boolean
+  appliedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  employee: Prisma.EmployeeCreateNestedOneWithoutDeductionsInput
+}
+
+export type DeductionUncheckedCreateWithoutTenantInput = {
+  id?: string
+  employeeId: string
+  name: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  date: Date | string
+  isRecurring?: boolean
+  installments?: number | null
+  currentInstallment?: number
+  isApplied?: boolean
+  appliedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type DeductionCreateOrConnectWithoutTenantInput = {
+  where: Prisma.DeductionWhereUniqueInput
+  create: Prisma.XOR<Prisma.DeductionCreateWithoutTenantInput, Prisma.DeductionUncheckedCreateWithoutTenantInput>
+}
+
+export type DeductionCreateManyTenantInputEnvelope = {
+  data: Prisma.DeductionCreateManyTenantInput | Prisma.DeductionCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type DeductionUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.DeductionWhereUniqueInput
+  update: Prisma.XOR<Prisma.DeductionUpdateWithoutTenantInput, Prisma.DeductionUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.DeductionCreateWithoutTenantInput, Prisma.DeductionUncheckedCreateWithoutTenantInput>
+}
+
+export type DeductionUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.DeductionWhereUniqueInput
+  data: Prisma.XOR<Prisma.DeductionUpdateWithoutTenantInput, Prisma.DeductionUncheckedUpdateWithoutTenantInput>
+}
+
+export type DeductionUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.DeductionScalarWhereInput
+  data: Prisma.XOR<Prisma.DeductionUpdateManyMutationInput, Prisma.DeductionUncheckedUpdateManyWithoutTenantInput>
+}
+
 export type DeductionCreateManyEmployeeInput = {
   id?: string
+  tenantId: string
   name: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: string
@@ -694,10 +822,12 @@ export type DeductionUpdateWithoutEmployeeInput = {
   appliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutDeductionsNestedInput
 }
 
 export type DeductionUncheckedUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
@@ -713,6 +843,71 @@ export type DeductionUncheckedUpdateWithoutEmployeeInput = {
 
 export type DeductionUncheckedUpdateManyWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isRecurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  installments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.IntFieldUpdateOperationsInput | number
+  isApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  appliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type DeductionCreateManyTenantInput = {
+  id?: string
+  employeeId: string
+  name: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  date: Date | string
+  isRecurring?: boolean
+  installments?: number | null
+  currentInstallment?: number
+  isApplied?: boolean
+  appliedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type DeductionUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isRecurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  installments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.IntFieldUpdateOperationsInput | number
+  isApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  appliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUpdateOneRequiredWithoutDeductionsNestedInput
+}
+
+export type DeductionUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isRecurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  installments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.IntFieldUpdateOperationsInput | number
+  isApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  appliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type DeductionUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
@@ -730,6 +925,7 @@ export type DeductionUncheckedUpdateManyWithoutEmployeeInput = {
 
 export type DeductionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   name?: boolean
   amount?: boolean
@@ -742,11 +938,13 @@ export type DeductionSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   appliedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["deduction"]>
 
 export type DeductionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   name?: boolean
   amount?: boolean
@@ -759,11 +957,13 @@ export type DeductionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   appliedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["deduction"]>
 
 export type DeductionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   name?: boolean
   amount?: boolean
@@ -776,11 +976,13 @@ export type DeductionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   appliedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["deduction"]>
 
 export type DeductionSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   name?: boolean
   amount?: boolean
@@ -795,24 +997,29 @@ export type DeductionSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DeductionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeId" | "name" | "amount" | "reason" | "date" | "isRecurring" | "installments" | "currentInstallment" | "isApplied" | "appliedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["deduction"]>
+export type DeductionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "name" | "amount" | "reason" | "date" | "isRecurring" | "installments" | "currentInstallment" | "isApplied" | "appliedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["deduction"]>
 export type DeductionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 export type DeductionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 export type DeductionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 
 export type $DeductionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Deduction"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     employee: Prisma.$EmployeePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    tenantId: string
     employeeId: string
     name: string
     amount: runtime.Decimal
@@ -1219,6 +1426,7 @@ readonly fields: DeductionFieldRefs;
  */
 export interface Prisma__DeductionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   employee<T extends Prisma.EmployeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1250,6 +1458,7 @@ export interface Prisma__DeductionClient<T, Null = never, ExtArgs extends runtim
  */
 export interface DeductionFieldRefs {
   readonly id: Prisma.FieldRef<"Deduction", 'String'>
+  readonly tenantId: Prisma.FieldRef<"Deduction", 'String'>
   readonly employeeId: Prisma.FieldRef<"Deduction", 'String'>
   readonly name: Prisma.FieldRef<"Deduction", 'String'>
   readonly amount: Prisma.FieldRef<"Deduction", 'Decimal'>

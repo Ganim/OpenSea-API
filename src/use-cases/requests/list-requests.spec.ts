@@ -18,7 +18,7 @@ describe('ListRequestsUseCase', () => {
     const req = Request.create({
       title: 'My Req',
       description: 'D',
-      type: 'GENERAL',
+      type: 'CUSTOM',
       status: 'SUBMITTED',
       priority: 'MEDIUM',
       requesterId: userId,

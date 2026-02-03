@@ -2,6 +2,7 @@ import { Entity } from '../domain/entities';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface WorkScheduleProps {
+  tenantId: UniqueEntityID;
   name: string;
   description?: string;
   mondayStart?: string;
@@ -25,6 +26,10 @@ export interface WorkScheduleProps {
 }
 
 export class WorkSchedule extends Entity<WorkScheduleProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get name(): string {
     return this.props.name;
   }

@@ -2,6 +2,8 @@ import { InMemoryPositionsRepository } from '@/repositories/hr/in-memory/in-memo
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreatePositionUseCase } from './create-position';
 
+const TENANT_ID = 'tenant-1';
+
 let positionsRepository: InMemoryPositionsRepository;
 let sut: CreatePositionUseCase;
 
@@ -13,6 +15,7 @@ describe('Create Position Use Case', () => {
 
   it('should create a position successfully', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
       description: 'Develops software applications',
@@ -28,12 +31,14 @@ describe('Create Position Use Case', () => {
 
   it('should not create position with existing code', async () => {
     await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
     });
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Different Name',
         code: 'SE',
       }),
@@ -42,6 +47,7 @@ describe('Create Position Use Case', () => {
 
   it('should create position with salary range', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
       minSalary: 3000,
@@ -55,6 +61,7 @@ describe('Create Position Use Case', () => {
   it('should not create position with invalid salary range', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Software Engineer',
         code: 'SE',
         minSalary: 8000,
@@ -65,6 +72,7 @@ describe('Create Position Use Case', () => {
 
   it('should create position with department', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
       departmentId: 'dept-123',
@@ -75,6 +83,7 @@ describe('Create Position Use Case', () => {
 
   it('should create position with level', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Senior Software Engineer',
       code: 'SSE',
       level: 3,
@@ -85,6 +94,7 @@ describe('Create Position Use Case', () => {
 
   it('should create inactive position', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Old Position',
       code: 'OLD',
       isActive: false,

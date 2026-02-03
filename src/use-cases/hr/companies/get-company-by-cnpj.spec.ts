@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyUseCase } from './create-company';
 import { GetCompanyByCnpjUseCase } from './get-company-by-cnpj';
 
+const TENANT_ID = 'tenant-1';
+
 let companiesRepository: InMemoryCompaniesRepository;
 let getByCnpjUseCase: GetCompanyByCnpjUseCase;
 let createCompanyUseCase: CreateCompanyUseCase;
@@ -17,11 +19,15 @@ describe('Get Company By CNPJ Use Case', () => {
   it('should find an company by CNPJ', async () => {
     const cnpj = '12345678000100';
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj,
     });
 
-    const result = await getByCnpjUseCase.execute({ cnpj });
+    const result = await getByCnpjUseCase.execute({
+      tenantId: TENANT_ID,
+      cnpj,
+    });
 
     expect(result.exists).toBe(true);
     expect(result.companyId).toBeDefined();
@@ -29,6 +35,7 @@ describe('Get Company By CNPJ Use Case', () => {
 
   it('should return exists: false when CNPJ not found', async () => {
     const result = await getByCnpjUseCase.execute({
+      tenantId: TENANT_ID,
       cnpj: '99999999999999',
     });
 
@@ -39,22 +46,7 @@ describe('Get Company By CNPJ Use Case', () => {
   it('should not find deleted company by default', async () => {
     const cnpj = '12345678000100';
     const created = await createCompanyUseCase.execute({
-      legalName: 'Tech Solutions LTDA',
-      cnpj,
-    });
-
-    const company = created.company;
-    company.delete();
-    await companiesRepository.save(company);
-
-    const result = await getByCnpjUseCase.execute({ cnpj });
-
-    expect(result.exists).toBe(false);
-  });
-
-  it('should find deleted company when includeDeleted is true', async () => {
-    const cnpj = '12345678000100';
-    const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj,
     });
@@ -64,6 +56,27 @@ describe('Get Company By CNPJ Use Case', () => {
     await companiesRepository.save(company);
 
     const result = await getByCnpjUseCase.execute({
+      tenantId: TENANT_ID,
+      cnpj,
+    });
+
+    expect(result.exists).toBe(false);
+  });
+
+  it('should find deleted company when includeDeleted is true', async () => {
+    const cnpj = '12345678000100';
+    const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
+      legalName: 'Tech Solutions LTDA',
+      cnpj,
+    });
+
+    const company = created.company;
+    company.delete();
+    await companiesRepository.save(company);
+
+    const result = await getByCnpjUseCase.execute({
+      tenantId: TENANT_ID,
       cnpj,
       includeDeleted: true,
     });
@@ -77,19 +90,25 @@ describe('Get Company By CNPJ Use Case', () => {
     const cnpjInactive = '22222222222222';
 
     const _activeResult = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Active Company',
       cnpj: cnpjActive,
       status: 'ACTIVE',
     });
 
     const _inactiveResult = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Inactive Company',
       cnpj: cnpjInactive,
       status: 'INACTIVE',
     });
 
-    const foundActive = await getByCnpjUseCase.execute({ cnpj: cnpjActive });
+    const foundActive = await getByCnpjUseCase.execute({
+      tenantId: TENANT_ID,
+      cnpj: cnpjActive,
+    });
     const foundInactive = await getByCnpjUseCase.execute({
+      tenantId: TENANT_ID,
       cnpj: cnpjInactive,
     });
 
@@ -102,17 +121,25 @@ describe('Get Company By CNPJ Use Case', () => {
     const cnpj2 = '22222222222222';
 
     const result1 = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Company 1',
       cnpj: cnpj1,
     });
 
     const result2 = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Company 2',
       cnpj: cnpj2,
     });
 
-    const found1 = await getByCnpjUseCase.execute({ cnpj: cnpj1 });
-    const found2 = await getByCnpjUseCase.execute({ cnpj: cnpj2 });
+    const found1 = await getByCnpjUseCase.execute({
+      tenantId: TENANT_ID,
+      cnpj: cnpj1,
+    });
+    const found2 = await getByCnpjUseCase.execute({
+      tenantId: TENANT_ID,
+      cnpj: cnpj2,
+    });
 
     expect(found1.companyId).toBe(result1.company.id.toString());
     expect(found2.companyId).toBe(result2.company.id.toString());
@@ -124,12 +151,16 @@ describe('Get Company By CNPJ Use Case', () => {
     const cnpjUnformatted = '12345678000100';
 
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: cnpjFormatted,
     });
 
     // Should find with unformatted version (depends on normalization in use case)
-    const result = await getByCnpjUseCase.execute({ cnpj: cnpjUnformatted });
+    const result = await getByCnpjUseCase.execute({
+      tenantId: TENANT_ID,
+      cnpj: cnpjUnformatted,
+    });
 
     // Either format should work - behavior depends on implementation
     expect(result.exists || true).toBe(true);
@@ -138,6 +169,7 @@ describe('Get Company By CNPJ Use Case', () => {
   it('should find restored company', async () => {
     const cnpj = '12345678000100';
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj,
     });
@@ -147,20 +179,21 @@ describe('Get Company By CNPJ Use Case', () => {
     company.delete();
     await companiesRepository.save(company);
 
-    let result = await getByCnpjUseCase.execute({ cnpj });
+    let result = await getByCnpjUseCase.execute({ tenantId: TENANT_ID, cnpj });
     expect(result.exists).toBe(false);
 
     // Restore
     company.restore();
     await companiesRepository.save(company);
 
-    result = await getByCnpjUseCase.execute({ cnpj });
+    result = await getByCnpjUseCase.execute({ tenantId: TENANT_ID, cnpj });
     expect(result.exists).toBe(true);
   });
 
   it('should find company with all fields populated', async () => {
     const cnpj = '12345678000100';
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj,
       tradeName: 'Tech Solutions',
@@ -173,7 +206,10 @@ describe('Get Company By CNPJ Use Case', () => {
       logoUrl: 'https://example.com/logo.png',
     });
 
-    const result = await getByCnpjUseCase.execute({ cnpj });
+    const result = await getByCnpjUseCase.execute({
+      tenantId: TENANT_ID,
+      cnpj,
+    });
 
     expect(result.exists).toBe(true);
     expect(result.companyId).toBe(created.company.id.toString());

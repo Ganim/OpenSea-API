@@ -3,6 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   positionResponseSchema,
   updatePositionSchema,
@@ -27,6 +28,7 @@ export async function updatePositionController(app: FastifyInstance) {
     url: '/v1/hr/positions/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.POSITIONS.UPDATE,
         resource: 'positions',
@@ -52,6 +54,7 @@ export async function updatePositionController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const {
         name,
@@ -71,7 +74,7 @@ export async function updatePositionController(app: FastifyInstance) {
 
         const [{ user }, { position: oldPosition }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getPositionByIdUseCase.execute({ id }),
+          getPositionByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -79,6 +82,7 @@ export async function updatePositionController(app: FastifyInstance) {
 
         const updatePositionUseCase = makeUpdatePositionUseCase();
         const { position } = await updatePositionUseCase.execute({
+          tenantId,
           id,
           name,
           code,

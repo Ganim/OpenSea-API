@@ -45,6 +45,7 @@ export async function selectTenantController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const userId = request.user.sub;
       const sessionId = request.user.sessionId;
+      const isSuperAdmin = request.user.isSuperAdmin ?? false;
       const { tenantId } = request.body;
 
       try {
@@ -53,6 +54,7 @@ export async function selectTenantController(app: FastifyInstance) {
           userId,
           tenantId,
           sessionId,
+          isSuperAdmin,
           reply,
         });
 

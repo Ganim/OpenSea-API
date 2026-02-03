@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   employeeResponseSchema,
   terminateEmployeeSchema,
@@ -23,6 +24,7 @@ export async function terminateEmployeeController(app: FastifyInstance) {
     url: '/v1/hr/employees/:employeeId/terminate',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.EMPLOYEES.MANAGE,
         resource: 'employees',
@@ -54,6 +56,7 @@ export async function terminateEmployeeController(app: FastifyInstance) {
       const { employeeId } = request.params;
       const { terminationDate, reason } = request.body;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -61,7 +64,7 @@ export async function terminateEmployeeController(app: FastifyInstance) {
 
         const [{ user: admin }, { employee: oldEmployee }] = await Promise.all([
           getUserByIdUseCase.execute({ userId: adminId }),
-          getEmployeeByIdUseCase.execute({ employeeId }),
+          getEmployeeByIdUseCase.execute({ tenantId, employeeId }),
         ]);
         const adminName = admin.profile?.name
           ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
@@ -69,6 +72,7 @@ export async function terminateEmployeeController(app: FastifyInstance) {
 
         const terminateEmployeeUseCase = makeTerminateEmployeeUseCase();
         const { employee } = await terminateEmployeeUseCase.execute({
+          tenantId,
           employeeId,
           terminationDate,
           reason,

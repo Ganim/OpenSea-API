@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   salesOrderResponseSchema,
   updateSalesOrderStatusSchema,
@@ -22,6 +23,7 @@ export async function v1UpdateSalesOrderStatusController(app: FastifyInstance) {
     url: '/v1/sales-orders/:id/status',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.SALES.ORDERS.MANAGE,
         resource: 'sales-orders',
@@ -41,6 +43,7 @@ export async function v1UpdateSalesOrderStatusController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
@@ -49,14 +52,14 @@ export async function v1UpdateSalesOrderStatusController(app: FastifyInstance) {
 
         const [{ user }, { salesOrder: oldOrder }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getSalesOrderByIdUseCase.execute({ id }),
+          getSalesOrderByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const useCase = makeUpdateSalesOrderStatusUseCase();
-        const { salesOrder } = await useCase.execute({ id, ...data });
+        const { salesOrder } = await useCase.execute({ tenantId, id, ...data });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.ORDER_STATUS_CHANGE,

@@ -6,6 +6,7 @@ import type { Supplier as PrismaSupplier } from '@prisma/generated/client.js';
 export function mapSupplierPrismaToDomain(supplierDb: PrismaSupplier) {
   return {
     id: new UniqueEntityID(supplierDb.id),
+    tenantId: new UniqueEntityID(supplierDb.tenantId),
     name: supplierDb.name,
     sequentialCode: supplierDb.sequentialCode ?? undefined,
     cnpj: supplierDb.cnpj

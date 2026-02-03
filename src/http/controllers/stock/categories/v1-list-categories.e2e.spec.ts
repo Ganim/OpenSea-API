@@ -18,8 +18,18 @@ describe('List Categories (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     await prisma.category.create({
       data: {
+        tenantId,
         name: `Category ${timestamp}`,
         slug: `category-${timestamp}`,
         displayOrder: 1,

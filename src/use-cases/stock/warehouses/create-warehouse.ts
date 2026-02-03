@@ -3,6 +3,7 @@ import type { Warehouse } from '@/entities/stock/warehouse';
 import type { WarehousesRepository } from '@/repositories/stock/warehouses-repository';
 
 interface CreateWarehouseUseCaseRequest {
+  tenantId: string;
   code: string;
   name: string;
   description?: string;
@@ -18,6 +19,7 @@ export class CreateWarehouseUseCase {
   constructor(private warehousesRepository: WarehousesRepository) {}
 
   async execute({
+    tenantId,
     code,
     name,
     description,
@@ -32,13 +34,17 @@ export class CreateWarehouseUseCase {
     }
 
     // Check if code already exists
-    const existingWarehouse = await this.warehousesRepository.findByCode(code);
+    const existingWarehouse = await this.warehousesRepository.findByCode(
+      code,
+      tenantId,
+    );
 
     if (existingWarehouse) {
       throw new BadRequestError('A warehouse with this code already exists.');
     }
 
     const warehouse = await this.warehousesRepository.create({
+      tenantId,
       code: code.toUpperCase(),
       name,
       description,

@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyUseCase } from './create-company';
 import { ListCompaniesUseCase } from './list-companies';
 
+const TENANT_ID = 'tenant-1';
+
 let companiesRepository: InMemoryCompaniesRepository;
 let listCompaniesUseCase: ListCompaniesUseCase;
 let createCompanyUseCase: CreateCompanyUseCase;
@@ -16,16 +18,19 @@ describe('List Companies Use Case', () => {
 
   it('should list all active companies', async () => {
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Innovation Corp',
       cnpj: '98765432000100',
     });
 
     const result = await listCompaniesUseCase.execute({
+      tenantId: TENANT_ID,
       page: 1,
       perPage: 20,
     });
@@ -38,12 +43,14 @@ describe('List Companies Use Case', () => {
   it('should list companies with pagination', async () => {
     for (let i = 0; i < 25; i++) {
       await createCompanyUseCase.execute({
+        tenantId: TENANT_ID,
         legalName: `Company ${i}`,
         cnpj: `${String(i).padStart(14, '0')}`,
       });
     }
 
     const result = await listCompaniesUseCase.execute({
+      tenantId: TENANT_ID,
       page: 1,
       perPage: 10,
     });
@@ -55,17 +62,20 @@ describe('List Companies Use Case', () => {
   it('should get second page of results', async () => {
     for (let i = 0; i < 25; i++) {
       await createCompanyUseCase.execute({
+        tenantId: TENANT_ID,
         legalName: `Company ${i}`,
         cnpj: `${String(i).padStart(14, '0')}`,
       });
     }
 
     const page1 = await listCompaniesUseCase.execute({
+      tenantId: TENANT_ID,
       page: 1,
       perPage: 10,
     });
 
     const page2 = await listCompaniesUseCase.execute({
+      tenantId: TENANT_ID,
       page: 2,
       perPage: 10,
     });
@@ -77,16 +87,19 @@ describe('List Companies Use Case', () => {
 
   it('should search companies by legal name', async () => {
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Innovation Corp',
       cnpj: '98765432000100',
     });
 
     const result = await listCompaniesUseCase.execute({
+      tenantId: TENANT_ID,
       search: 'Tech',
     });
 
@@ -96,16 +109,19 @@ describe('List Companies Use Case', () => {
 
   it('should search companies by CNPJ', async () => {
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Innovation Corp',
       cnpj: '98765432000100',
     });
 
     const result = await listCompaniesUseCase.execute({
+      tenantId: TENANT_ID,
       search: '12345678000100',
     });
 
@@ -115,18 +131,21 @@ describe('List Companies Use Case', () => {
 
   it('should search companies by trade name', async () => {
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       tradeName: 'Tech Solutions',
     });
 
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Innovation Corp LTDA',
       cnpj: '98765432000100',
       tradeName: 'Innovation',
     });
 
     const result = await listCompaniesUseCase.execute({
+      tenantId: TENANT_ID,
       search: 'Tech',
     });
 
@@ -135,6 +154,7 @@ describe('List Companies Use Case', () => {
 
   it('should not list deleted companies by default', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -143,13 +163,14 @@ describe('List Companies Use Case', () => {
     company.delete();
     await companiesRepository.save(company);
 
-    const result = await listCompaniesUseCase.execute({});
+    const result = await listCompaniesUseCase.execute({ tenantId: TENANT_ID });
 
     expect(result.companies).toHaveLength(0);
   });
 
   it('should list deleted companies when includeDeleted is true', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -159,6 +180,7 @@ describe('List Companies Use Case', () => {
     await companiesRepository.save(company);
 
     const result = await listCompaniesUseCase.execute({
+      tenantId: TENANT_ID,
       includeDeleted: true,
     });
 
@@ -167,24 +189,27 @@ describe('List Companies Use Case', () => {
 
   it('should list companies with different statuses', async () => {
     const _active = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Active Company',
       cnpj: '11111111111111',
       status: 'ACTIVE',
     });
 
     const _inactive = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Inactive Company',
       cnpj: '22222222222222',
       status: 'INACTIVE',
     });
 
     const _suspended = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Suspended Company',
       cnpj: '33333333333333',
       status: 'SUSPENDED',
     });
 
-    const result = await listCompaniesUseCase.execute({});
+    const result = await listCompaniesUseCase.execute({ tenantId: TENANT_ID });
 
     expect(result.companies).toHaveLength(3);
     expect(result.companies.some((e) => e.status === 'ACTIVE')).toBe(true);
@@ -195,6 +220,7 @@ describe('List Companies Use Case', () => {
   it('should return all fields for listed companies', async () => {
     const activityStartDate = new Date('2020-01-15');
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       tradeName: 'Tech Solutions',
@@ -211,7 +237,7 @@ describe('List Companies Use Case', () => {
       logoUrl: 'https://example.com/logo.png',
     });
 
-    const result = await listCompaniesUseCase.execute({});
+    const result = await listCompaniesUseCase.execute({ tenantId: TENANT_ID });
 
     expect(result.companies).toHaveLength(1);
     const company = result.companies[0];
@@ -225,11 +251,13 @@ describe('List Companies Use Case', () => {
 
   it('should return pending issues in listed companies', async () => {
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Incomplete Company',
       cnpj: '11111111111111',
     });
 
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Complete Company',
       cnpj: '22222222222222',
       tradeName: 'Complete',
@@ -244,7 +272,7 @@ describe('List Companies Use Case', () => {
       logoUrl: 'https://example.com/logo.png',
     });
 
-    const result = await listCompaniesUseCase.execute({});
+    const result = await listCompaniesUseCase.execute({ tenantId: TENANT_ID });
 
     expect(result.companies).toHaveLength(2);
 
@@ -260,7 +288,7 @@ describe('List Companies Use Case', () => {
   });
 
   it('should handle empty list', async () => {
-    const result = await listCompaniesUseCase.execute({});
+    const result = await listCompaniesUseCase.execute({ tenantId: TENANT_ID });
 
     expect(result.companies).toHaveLength(0);
     expect(result.total).toBe(0);
@@ -270,13 +298,14 @@ describe('List Companies Use Case', () => {
     // Create 30 companies
     for (let i = 0; i < 30; i++) {
       await createCompanyUseCase.execute({
+        tenantId: TENANT_ID,
         legalName: `Company ${i}`,
         cnpj: `${String(i).padStart(14, '0')}`,
       });
     }
 
     // List without specifying page/perPage should use defaults (page 1, perPage 20)
-    const result = await listCompaniesUseCase.execute({});
+    const result = await listCompaniesUseCase.execute({ tenantId: TENANT_ID });
 
     expect(result.companies).toHaveLength(20);
     expect(result.page).toBe(1);
@@ -285,24 +314,28 @@ describe('List Companies Use Case', () => {
 
   it('should combine search with other companies', async () => {
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '11111111111111',
       status: 'ACTIVE',
     });
 
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Innovations LTDA',
       cnpj: '22222222222222',
       status: 'INACTIVE',
     });
 
     await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Innovation Corp',
       cnpj: '33333333333333',
       status: 'ACTIVE',
     });
 
     const result = await listCompaniesUseCase.execute({
+      tenantId: TENANT_ID,
       search: 'Tech',
     });
 

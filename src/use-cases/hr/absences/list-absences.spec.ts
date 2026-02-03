@@ -7,6 +7,7 @@ import { ListAbsencesUseCase } from './list-absences';
 
 let absencesRepository: InMemoryAbsencesRepository;
 let sut: ListAbsencesUseCase;
+const tenantId = new UniqueEntityID().toString();
 const employeeId1 = new UniqueEntityID();
 const employeeId2 = new UniqueEntityID();
 
@@ -17,6 +18,7 @@ describe('List Absences Use Case', () => {
 
     // Create multiple absences
     const absence1 = Absence.create({
+      tenantId: new UniqueEntityID(tenantId),
       employeeId: employeeId1,
       type: AbsenceType.create('VACATION'),
       status: AbsenceStatus.pending(),
@@ -28,6 +30,7 @@ describe('List Absences Use Case', () => {
     });
 
     const absence2 = Absence.create({
+      tenantId: new UniqueEntityID(tenantId),
       employeeId: employeeId1,
       type: AbsenceType.create('SICK_LEAVE'),
       status: AbsenceStatus.approved(),
@@ -40,6 +43,7 @@ describe('List Absences Use Case', () => {
     });
 
     const absence3 = Absence.create({
+      tenantId: new UniqueEntityID(tenantId),
       employeeId: employeeId2,
       type: AbsenceType.create('VACATION'),
       status: AbsenceStatus.pending(),
@@ -54,13 +58,14 @@ describe('List Absences Use Case', () => {
   });
 
   it('should list all absences', async () => {
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId });
 
     expect(result.absences).toHaveLength(3);
   });
 
   it('should filter absences by employee id', async () => {
     const result = await sut.execute({
+      tenantId,
       employeeId: employeeId1.toString(),
     });
 
@@ -72,6 +77,7 @@ describe('List Absences Use Case', () => {
 
   it('should filter absences by type', async () => {
     const result = await sut.execute({
+      tenantId,
       type: 'VACATION',
     });
 
@@ -83,6 +89,7 @@ describe('List Absences Use Case', () => {
 
   it('should filter absences by status', async () => {
     const result = await sut.execute({
+      tenantId,
       status: 'PENDING',
     });
 
@@ -94,6 +101,7 @@ describe('List Absences Use Case', () => {
 
   it('should combine multiple filters', async () => {
     const result = await sut.execute({
+      tenantId,
       employeeId: employeeId1.toString(),
       type: 'VACATION',
     });

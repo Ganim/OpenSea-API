@@ -5,10 +5,15 @@ import { app } from '@/app';
 import { makeCreateCompanyAddressUseCase } from '@/use-cases/hr/company-addresses/factories/make-company-addresses';
 import { makeCreateCompanyUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Update Company Address (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -16,10 +21,11 @@ describe('Update Company Address (E2E)', () => {
   });
 
   it('should update company address with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const createCompanyUseCase = makeCreateCompanyUseCase();
     const { company } = await createCompanyUseCase.execute({
+      tenantId,
       legalName: `Test Company ${Date.now()}`,
       cnpj: `${Date.now()}`.slice(-14).padStart(14, '0'),
     });

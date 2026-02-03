@@ -21,6 +21,7 @@ export interface AddressSuggestion {
 }
 
 interface SuggestAddressUseCaseRequest {
+  tenantId: string;
   partial: string;
   limit?: number;
 }
@@ -41,10 +42,10 @@ export class SuggestAddressUseCase {
   async execute(
     input: SuggestAddressUseCaseRequest,
   ): Promise<SuggestAddressUseCaseResponse> {
-    const { partial, limit = 10 } = input;
+    const { tenantId, partial, limit = 10 } = input;
 
     // Search for bins matching the partial address
-    const bins = await this.binsRepository.search(partial, limit);
+    const bins = await this.binsRepository.search(partial, tenantId, limit);
 
     if (bins.length === 0) {
       return {
@@ -68,7 +69,7 @@ export class SuggestAddressUseCase {
 
       // Get zone info from cache or fetch
       if (!zoneCache.has(zoneId)) {
-        const zone = await this.zonesRepository.findById(bin.zoneId);
+        const zone = await this.zonesRepository.findById(bin.zoneId, tenantId);
         if (!zone) continue;
         zoneCache.set(zoneId, {
           code: zone.code,
@@ -84,6 +85,7 @@ export class SuggestAddressUseCase {
       if (!warehouseCache.has(warehouseId)) {
         const warehouse = await this.warehousesRepository.findById(
           new UniqueEntityID(warehouseId),
+          tenantId,
         );
         if (!warehouse) continue;
         warehouseCache.set(warehouseId, {

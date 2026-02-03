@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
   CompanyProps,
   CompanyStatus,
@@ -7,6 +8,7 @@ import type { Company as PrismaCompany } from '@prisma/generated/client.js';
 
 export function mapCompanyPrismaToDomain(raw: PrismaCompany): CompanyProps {
   return {
+    tenantId: new UniqueEntityID(raw.tenantId),
     legalName: raw.legalName,
     cnpj: raw.cnpj,
     tradeName: raw.tradeName ?? undefined,

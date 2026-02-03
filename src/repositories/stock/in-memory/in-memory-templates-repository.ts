@@ -1,4 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Template } from '@/entities/stock/template';
 import type {
   CreateTemplateSchema,
@@ -17,6 +18,7 @@ export class InMemoryTemplatesRepository implements TemplatesRepository {
     const code = data.code ?? sequentialCode.toString().padStart(3, '0');
 
     const template = Template.create({
+      tenantId: new EntityID(data.tenantId),
       code,
       sequentialCode,
       name: data.name,
@@ -32,26 +34,39 @@ export class InMemoryTemplatesRepository implements TemplatesRepository {
     return template;
   }
 
-  async findById(id: UniqueEntityID): Promise<Template | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Template | null> {
     const template = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return template ?? null;
   }
 
-  async findByName(name: string): Promise<Template | null> {
+  async findByName(name: string, tenantId: string): Promise<Template | null> {
     const template = this.items.find(
-      (item) => !item.deletedAt && item.name === name,
+      (item) =>
+        !item.deletedAt &&
+        item.name === name &&
+        item.tenantId.toString() === tenantId,
     );
     return template ?? null;
   }
 
-  async findMany(): Promise<Template[]> {
-    return this.items.filter((item) => !item.deletedAt);
+  async findMany(tenantId: string): Promise<Template[]> {
+    return this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
   }
 
   async update(data: UpdateTemplateSchema): Promise<Template | null> {
-    const template = await this.findById(data.id);
+    const template = this.items.find(
+      (item) => !item.deletedAt && item.id.equals(data.id),
+    );
     if (!template) return null;
 
     if (data.name !== undefined) template.name = data.name;
@@ -80,7 +95,9 @@ export class InMemoryTemplatesRepository implements TemplatesRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const template = await this.findById(id);
+    const template = this.items.find(
+      (item) => !item.deletedAt && item.id.equals(id),
+    );
     if (template) {
       template.delete();
     }

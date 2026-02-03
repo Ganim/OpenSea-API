@@ -2,6 +2,7 @@ import { Entity } from '../domain/entities';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface OvertimeProps {
+  tenantId: UniqueEntityID;
   employeeId: UniqueEntityID;
   date: Date;
   hours: number;
@@ -14,6 +15,10 @@ export interface OvertimeProps {
 }
 
 export class Overtime extends Entity<OvertimeProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get employeeId(): UniqueEntityID {
     return this.props.employeeId;
   }

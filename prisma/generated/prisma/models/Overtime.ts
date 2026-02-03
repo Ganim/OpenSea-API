@@ -36,6 +36,7 @@ export type OvertimeSumAggregateOutputType = {
 
 export type OvertimeMinAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   date: Date | null
   hours: runtime.Decimal | null
@@ -49,6 +50,7 @@ export type OvertimeMinAggregateOutputType = {
 
 export type OvertimeMaxAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   date: Date | null
   hours: runtime.Decimal | null
@@ -62,6 +64,7 @@ export type OvertimeMaxAggregateOutputType = {
 
 export type OvertimeCountAggregateOutputType = {
   id: number
+  tenantId: number
   employeeId: number
   date: number
   hours: number
@@ -85,6 +88,7 @@ export type OvertimeSumAggregateInputType = {
 
 export type OvertimeMinAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   date?: true
   hours?: true
@@ -98,6 +102,7 @@ export type OvertimeMinAggregateInputType = {
 
 export type OvertimeMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   date?: true
   hours?: true
@@ -111,6 +116,7 @@ export type OvertimeMaxAggregateInputType = {
 
 export type OvertimeCountAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   date?: true
   hours?: true
@@ -211,6 +217,7 @@ export type OvertimeGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type OvertimeGroupByOutputType = {
   id: string
+  tenantId: string
   employeeId: string
   date: Date
   hours: runtime.Decimal
@@ -247,6 +254,7 @@ export type OvertimeWhereInput = {
   OR?: Prisma.OvertimeWhereInput[]
   NOT?: Prisma.OvertimeWhereInput | Prisma.OvertimeWhereInput[]
   id?: Prisma.StringFilter<"Overtime"> | string
+  tenantId?: Prisma.StringFilter<"Overtime"> | string
   employeeId?: Prisma.StringFilter<"Overtime"> | string
   date?: Prisma.DateTimeFilter<"Overtime"> | Date | string
   hours?: Prisma.DecimalFilter<"Overtime"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -256,12 +264,14 @@ export type OvertimeWhereInput = {
   approvedAt?: Prisma.DateTimeNullableFilter<"Overtime"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Overtime"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Overtime"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   approver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type OvertimeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   hours?: Prisma.SortOrder
@@ -271,6 +281,7 @@ export type OvertimeOrderByWithRelationInput = {
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
   approver?: Prisma.UserOrderByWithRelationInput
 }
@@ -280,6 +291,7 @@ export type OvertimeWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.OvertimeWhereInput | Prisma.OvertimeWhereInput[]
   OR?: Prisma.OvertimeWhereInput[]
   NOT?: Prisma.OvertimeWhereInput | Prisma.OvertimeWhereInput[]
+  tenantId?: Prisma.StringFilter<"Overtime"> | string
   employeeId?: Prisma.StringFilter<"Overtime"> | string
   date?: Prisma.DateTimeFilter<"Overtime"> | Date | string
   hours?: Prisma.DecimalFilter<"Overtime"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -289,12 +301,14 @@ export type OvertimeWhereUniqueInput = Prisma.AtLeast<{
   approvedAt?: Prisma.DateTimeNullableFilter<"Overtime"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Overtime"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Overtime"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   approver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type OvertimeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   hours?: Prisma.SortOrder
@@ -316,6 +330,7 @@ export type OvertimeScalarWhereWithAggregatesInput = {
   OR?: Prisma.OvertimeScalarWhereWithAggregatesInput[]
   NOT?: Prisma.OvertimeScalarWhereWithAggregatesInput | Prisma.OvertimeScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Overtime"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"Overtime"> | string
   employeeId?: Prisma.StringWithAggregatesFilter<"Overtime"> | string
   date?: Prisma.DateTimeWithAggregatesFilter<"Overtime"> | Date | string
   hours?: Prisma.DecimalWithAggregatesFilter<"Overtime"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -336,12 +351,14 @@ export type OvertimeCreateInput = {
   approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutOvertimeInput
   employee: Prisma.EmployeeCreateNestedOneWithoutOvertimeInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedOvertimeInput
 }
 
 export type OvertimeUncheckedCreateInput = {
   id?: string
+  tenantId: string
   employeeId: string
   date: Date | string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -362,12 +379,14 @@ export type OvertimeUpdateInput = {
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOvertimeNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutOvertimeNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedOvertimeNestedInput
 }
 
 export type OvertimeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -381,6 +400,7 @@ export type OvertimeUncheckedUpdateInput = {
 
 export type OvertimeCreateManyInput = {
   id?: string
+  tenantId: string
   employeeId: string
   date: Date | string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -405,6 +425,7 @@ export type OvertimeUpdateManyMutationInput = {
 
 export type OvertimeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -428,6 +449,7 @@ export type OvertimeOrderByRelationAggregateInput = {
 
 export type OvertimeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   hours?: Prisma.SortOrder
@@ -445,6 +467,7 @@ export type OvertimeAvgOrderByAggregateInput = {
 
 export type OvertimeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   hours?: Prisma.SortOrder
@@ -458,6 +481,7 @@ export type OvertimeMaxOrderByAggregateInput = {
 
 export type OvertimeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   hours?: Prisma.SortOrder
@@ -557,6 +581,48 @@ export type OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput = {
   deleteMany?: Prisma.OvertimeScalarWhereInput | Prisma.OvertimeScalarWhereInput[]
 }
 
+export type OvertimeCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.OvertimeCreateWithoutTenantInput, Prisma.OvertimeUncheckedCreateWithoutTenantInput> | Prisma.OvertimeCreateWithoutTenantInput[] | Prisma.OvertimeUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.OvertimeCreateOrConnectWithoutTenantInput | Prisma.OvertimeCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.OvertimeCreateManyTenantInputEnvelope
+  connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+}
+
+export type OvertimeUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.OvertimeCreateWithoutTenantInput, Prisma.OvertimeUncheckedCreateWithoutTenantInput> | Prisma.OvertimeCreateWithoutTenantInput[] | Prisma.OvertimeUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.OvertimeCreateOrConnectWithoutTenantInput | Prisma.OvertimeCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.OvertimeCreateManyTenantInputEnvelope
+  connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+}
+
+export type OvertimeUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.OvertimeCreateWithoutTenantInput, Prisma.OvertimeUncheckedCreateWithoutTenantInput> | Prisma.OvertimeCreateWithoutTenantInput[] | Prisma.OvertimeUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.OvertimeCreateOrConnectWithoutTenantInput | Prisma.OvertimeCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.OvertimeUpsertWithWhereUniqueWithoutTenantInput | Prisma.OvertimeUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.OvertimeCreateManyTenantInputEnvelope
+  set?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  disconnect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  delete?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  update?: Prisma.OvertimeUpdateWithWhereUniqueWithoutTenantInput | Prisma.OvertimeUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.OvertimeUpdateManyWithWhereWithoutTenantInput | Prisma.OvertimeUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.OvertimeScalarWhereInput | Prisma.OvertimeScalarWhereInput[]
+}
+
+export type OvertimeUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.OvertimeCreateWithoutTenantInput, Prisma.OvertimeUncheckedCreateWithoutTenantInput> | Prisma.OvertimeCreateWithoutTenantInput[] | Prisma.OvertimeUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.OvertimeCreateOrConnectWithoutTenantInput | Prisma.OvertimeCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.OvertimeUpsertWithWhereUniqueWithoutTenantInput | Prisma.OvertimeUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.OvertimeCreateManyTenantInputEnvelope
+  set?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  disconnect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  delete?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  connect?: Prisma.OvertimeWhereUniqueInput | Prisma.OvertimeWhereUniqueInput[]
+  update?: Prisma.OvertimeUpdateWithWhereUniqueWithoutTenantInput | Prisma.OvertimeUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.OvertimeUpdateManyWithWhereWithoutTenantInput | Prisma.OvertimeUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.OvertimeScalarWhereInput | Prisma.OvertimeScalarWhereInput[]
+}
+
 export type OvertimeCreateWithoutApproverInput = {
   id?: string
   date: Date | string
@@ -566,11 +632,13 @@ export type OvertimeCreateWithoutApproverInput = {
   approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutOvertimeInput
   employee: Prisma.EmployeeCreateNestedOneWithoutOvertimeInput
 }
 
 export type OvertimeUncheckedCreateWithoutApproverInput = {
   id?: string
+  tenantId: string
   employeeId: string
   date: Date | string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -612,6 +680,7 @@ export type OvertimeScalarWhereInput = {
   OR?: Prisma.OvertimeScalarWhereInput[]
   NOT?: Prisma.OvertimeScalarWhereInput | Prisma.OvertimeScalarWhereInput[]
   id?: Prisma.StringFilter<"Overtime"> | string
+  tenantId?: Prisma.StringFilter<"Overtime"> | string
   employeeId?: Prisma.StringFilter<"Overtime"> | string
   date?: Prisma.DateTimeFilter<"Overtime"> | Date | string
   hours?: Prisma.DecimalFilter<"Overtime"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -632,11 +701,13 @@ export type OvertimeCreateWithoutEmployeeInput = {
   approvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutOvertimeInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedOvertimeInput
 }
 
 export type OvertimeUncheckedCreateWithoutEmployeeInput = {
   id?: string
+  tenantId: string
   date: Date | string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: string
@@ -673,8 +744,61 @@ export type OvertimeUpdateManyWithWhereWithoutEmployeeInput = {
   data: Prisma.XOR<Prisma.OvertimeUpdateManyMutationInput, Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeInput>
 }
 
+export type OvertimeCreateWithoutTenantInput = {
+  id?: string
+  date: Date | string
+  hours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  approved?: boolean
+  approvedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  employee: Prisma.EmployeeCreateNestedOneWithoutOvertimeInput
+  approver?: Prisma.UserCreateNestedOneWithoutApprovedOvertimeInput
+}
+
+export type OvertimeUncheckedCreateWithoutTenantInput = {
+  id?: string
+  employeeId: string
+  date: Date | string
+  hours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  approved?: boolean
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OvertimeCreateOrConnectWithoutTenantInput = {
+  where: Prisma.OvertimeWhereUniqueInput
+  create: Prisma.XOR<Prisma.OvertimeCreateWithoutTenantInput, Prisma.OvertimeUncheckedCreateWithoutTenantInput>
+}
+
+export type OvertimeCreateManyTenantInputEnvelope = {
+  data: Prisma.OvertimeCreateManyTenantInput | Prisma.OvertimeCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type OvertimeUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.OvertimeWhereUniqueInput
+  update: Prisma.XOR<Prisma.OvertimeUpdateWithoutTenantInput, Prisma.OvertimeUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.OvertimeCreateWithoutTenantInput, Prisma.OvertimeUncheckedCreateWithoutTenantInput>
+}
+
+export type OvertimeUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.OvertimeWhereUniqueInput
+  data: Prisma.XOR<Prisma.OvertimeUpdateWithoutTenantInput, Prisma.OvertimeUncheckedUpdateWithoutTenantInput>
+}
+
+export type OvertimeUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.OvertimeScalarWhereInput
+  data: Prisma.XOR<Prisma.OvertimeUpdateManyMutationInput, Prisma.OvertimeUncheckedUpdateManyWithoutTenantInput>
+}
+
 export type OvertimeCreateManyApproverInput = {
   id?: string
+  tenantId: string
   employeeId: string
   date: Date | string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -694,11 +818,13 @@ export type OvertimeUpdateWithoutApproverInput = {
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOvertimeNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutOvertimeNestedInput
 }
 
 export type OvertimeUncheckedUpdateWithoutApproverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -711,6 +837,7 @@ export type OvertimeUncheckedUpdateWithoutApproverInput = {
 
 export type OvertimeUncheckedUpdateManyWithoutApproverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -723,6 +850,7 @@ export type OvertimeUncheckedUpdateManyWithoutApproverInput = {
 
 export type OvertimeCreateManyEmployeeInput = {
   id?: string
+  tenantId: string
   date: Date | string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: string
@@ -742,11 +870,13 @@ export type OvertimeUpdateWithoutEmployeeInput = {
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOvertimeNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedOvertimeNestedInput
 }
 
 export type OvertimeUncheckedUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
@@ -759,6 +889,59 @@ export type OvertimeUncheckedUpdateWithoutEmployeeInput = {
 
 export type OvertimeUncheckedUpdateManyWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OvertimeCreateManyTenantInput = {
+  id?: string
+  employeeId: string
+  date: Date | string
+  hours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason: string
+  approved?: boolean
+  approvedBy?: string | null
+  approvedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OvertimeUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUpdateOneRequiredWithoutOvertimeNestedInput
+  approver?: Prisma.UserUpdateOneWithoutApprovedOvertimeNestedInput
+}
+
+export type OvertimeUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OvertimeUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
@@ -773,6 +956,7 @@ export type OvertimeUncheckedUpdateManyWithoutEmployeeInput = {
 
 export type OvertimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   date?: boolean
   hours?: boolean
@@ -782,12 +966,14 @@ export type OvertimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   approvedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
 }, ExtArgs["result"]["overtime"]>
 
 export type OvertimeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   date?: boolean
   hours?: boolean
@@ -797,12 +983,14 @@ export type OvertimeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   approvedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
 }, ExtArgs["result"]["overtime"]>
 
 export type OvertimeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   date?: boolean
   hours?: boolean
@@ -812,12 +1000,14 @@ export type OvertimeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   approvedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
 }, ExtArgs["result"]["overtime"]>
 
 export type OvertimeSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   date?: boolean
   hours?: boolean
@@ -829,16 +1019,19 @@ export type OvertimeSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OvertimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeId" | "date" | "hours" | "reason" | "approved" | "approvedBy" | "approvedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["overtime"]>
+export type OvertimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "date" | "hours" | "reason" | "approved" | "approvedBy" | "approvedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["overtime"]>
 export type OvertimeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
 }
 export type OvertimeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
 }
 export type OvertimeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.Overtime$approverArgs<ExtArgs>
 }
@@ -846,11 +1039,13 @@ export type OvertimeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type $OvertimePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Overtime"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     employee: Prisma.$EmployeePayload<ExtArgs>
     approver: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    tenantId: string
     employeeId: string
     date: Date
     hours: runtime.Decimal
@@ -1254,6 +1449,7 @@ readonly fields: OvertimeFieldRefs;
  */
 export interface Prisma__OvertimeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   employee<T extends Prisma.EmployeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   approver<T extends Prisma.Overtime$approverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Overtime$approverArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1286,6 +1482,7 @@ export interface Prisma__OvertimeClient<T, Null = never, ExtArgs extends runtime
  */
 export interface OvertimeFieldRefs {
   readonly id: Prisma.FieldRef<"Overtime", 'String'>
+  readonly tenantId: Prisma.FieldRef<"Overtime", 'String'>
   readonly employeeId: Prisma.FieldRef<"Overtime", 'String'>
   readonly date: Prisma.FieldRef<"Overtime", 'DateTime'>
   readonly hours: Prisma.FieldRef<"Overtime", 'Decimal'>

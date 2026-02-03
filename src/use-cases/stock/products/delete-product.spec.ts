@@ -19,6 +19,8 @@ let createProduct: CreateProductUseCase;
 let getProduct: GetProductByIdUseCase;
 let createTemplate: CreateTemplateUseCase;
 
+const TENANT_ID = 'tenant-1';
+
 describe('DeleteProductUseCase', () => {
   beforeEach(() => {
     productsRepository = new InMemoryProductsRepository();
@@ -39,25 +41,33 @@ describe('DeleteProductUseCase', () => {
 
   it('should delete a product', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
       templateId: template.template.id.toString(),
     });
 
-    await sut.execute({ id: created.product.id.toString() });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: created.product.id.toString(),
+    });
 
     await expect(
-      getProduct.execute({ id: created.product.id.toString() }),
+      getProduct.execute({
+        tenantId: TENANT_ID,
+        id: created.product.id.toString(),
+      }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
 
   it('should throw error if product not found', async () => {
-    await expect(sut.execute({ id: 'non-existent-id' })).rejects.toThrow(
-      ResourceNotFoundError,
-    );
+    await expect(
+      sut.execute({ tenantId: TENANT_ID, id: 'non-existent-id' }),
+    ).rejects.toThrow(ResourceNotFoundError);
   });
 });

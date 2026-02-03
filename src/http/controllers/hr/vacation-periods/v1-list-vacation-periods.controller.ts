@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listVacationPeriodsQuerySchema,
   paginationMetaSchema,
@@ -15,7 +16,7 @@ export async function listVacationPeriodsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/vacation-periods',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Vacation Periods'],
       summary: 'List vacation periods',
@@ -31,10 +32,12 @@ export async function listVacationPeriodsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { employeeId, status, year, page, perPage } = request.query;
 
       const listVacationPeriodsUseCase = makeListVacationPeriodsUseCase();
       const { vacationPeriods } = await listVacationPeriodsUseCase.execute({
+        tenantId,
         employeeId,
         status,
         year,

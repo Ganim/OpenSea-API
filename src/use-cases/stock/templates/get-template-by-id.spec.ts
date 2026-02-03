@@ -18,6 +18,7 @@ describe('GetTemplateByIdUseCase', () => {
 
   it('should get a template by id', async () => {
     const created = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: {
         brand: templateAttr.string(),
@@ -25,7 +26,10 @@ describe('GetTemplateByIdUseCase', () => {
       },
     });
 
-    const result = await sut.execute({ id: created.template.id });
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      id: created.template.id,
+    });
 
     expect(result.template.id).toBe(created.template.id);
     expect(result.template.name).toBe('Electronics Template');
@@ -34,8 +38,8 @@ describe('GetTemplateByIdUseCase', () => {
   });
 
   it('should throw error if template not found', async () => {
-    await expect(sut.execute({ id: 'non-existent-id' })).rejects.toThrow(
-      ResourceNotFoundError,
-    );
+    await expect(
+      sut.execute({ tenantId: 'tenant-1', id: 'non-existent-id' }),
+    ).rejects.toThrow(ResourceNotFoundError);
   });
 });

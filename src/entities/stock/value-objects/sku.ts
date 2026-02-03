@@ -21,9 +21,14 @@ export class SKU {
   static async generateFromName(
     name: string,
     variantsRepository: VariantsRepository,
+    tenantId?: string,
   ): Promise<SKU> {
     const baseSKU = SKU.generateSKUFromName(name);
-    const uniqueSKU = await SKU.generateUniqueSKU(baseSKU, variantsRepository);
+    const uniqueSKU = await SKU.generateUniqueSKU(
+      baseSKU,
+      variantsRepository,
+      tenantId,
+    );
     return new SKU(uniqueSKU);
   }
 
@@ -42,11 +47,12 @@ export class SKU {
   private static async generateUniqueSKU(
     baseSKU: string,
     variantsRepository: VariantsRepository,
+    tenantId?: string,
   ): Promise<string> {
     let sku = baseSKU;
     let counter = 1;
 
-    while (await variantsRepository.findBySKU(sku)) {
+    while (await variantsRepository.findBySKU(sku, tenantId ?? '')) {
       sku = `${baseSKU}-${counter}`;
       counter++;
 

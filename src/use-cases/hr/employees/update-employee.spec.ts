@@ -1,4 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   ContractType,
   CPF,
@@ -11,6 +12,7 @@ import { UpdateEmployeeUseCase } from './update-employee';
 
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: UpdateEmployeeUseCase;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Update Employee Use Case', () => {
   beforeEach(() => {
@@ -20,6 +22,7 @@ describe('Update Employee Use Case', () => {
 
   it('should update employee successfully', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -33,6 +36,7 @@ describe('Update Employee Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
       fullName: 'João Silva Santos',
       baseSalary: 3500,
@@ -48,6 +52,7 @@ describe('Update Employee Use Case', () => {
   it('should throw error when employee not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         employeeId: 'non-existent-id',
         fullName: 'João Silva Santos',
       }),
@@ -56,6 +61,7 @@ describe('Update Employee Use Case', () => {
 
   it('should not update to CPF that already exists', async () => {
     await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -69,6 +75,7 @@ describe('Update Employee Use Case', () => {
     });
 
     const secondEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Maria Santos',
       cpf: CPF.create('12345678909'),
@@ -83,6 +90,7 @@ describe('Update Employee Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: secondEmployee.id.toString(),
         cpf: '529.982.247-25', // Same CPF as first employee
       }),
@@ -91,6 +99,7 @@ describe('Update Employee Use Case', () => {
 
   it('should not update to registration number that already exists', async () => {
     await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -104,6 +113,7 @@ describe('Update Employee Use Case', () => {
     });
 
     const secondEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Maria Santos',
       cpf: CPF.create('12345678909'),
@@ -118,6 +128,7 @@ describe('Update Employee Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: secondEmployee.id.toString(),
         registrationNumber: 'EMP001', // Same registration number as first employee
       }),
@@ -126,6 +137,7 @@ describe('Update Employee Use Case', () => {
 
   it('should update contract type', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -139,6 +151,7 @@ describe('Update Employee Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
       contractType: 'PJ',
     });
@@ -148,6 +161,7 @@ describe('Update Employee Use Case', () => {
 
   it('should update work regime', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -161,6 +175,7 @@ describe('Update Employee Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
       workRegime: 'PART_TIME',
       weeklyHours: 22,

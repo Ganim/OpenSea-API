@@ -3,6 +3,7 @@ import { Department } from '@/entities/hr/department';
 import { DepartmentsRepository } from '@/repositories/hr/departments-repository';
 
 export interface ListDepartmentsRequest {
+  tenantId: string;
   page?: number;
   perPage?: number;
   search?: string;
@@ -28,6 +29,7 @@ export class ListDepartmentsUseCase {
     request: ListDepartmentsRequest,
   ): Promise<ListDepartmentsResponse> {
     const {
+      tenantId,
       page = 1,
       perPage = 20,
       search,
@@ -37,6 +39,7 @@ export class ListDepartmentsUseCase {
     } = request;
 
     const result = await this.departmentsRepository.findMany({
+      tenantId,
       page,
       perPage,
       search,

@@ -1,5 +1,6 @@
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Volume } from '@/entities/stock/volume';
+import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { VolumeItem } from '@/entities/stock/volume-item';
 import type {
   Prisma,
@@ -40,6 +41,7 @@ export class VolumeMapper {
   static toPersistence(volume: Volume): Prisma.VolumeUncheckedCreateInput {
     return {
       id: volume.id.toString(),
+      tenantId: volume.tenantId.toString(),
       code: volume.code,
       name: volume.name ?? null,
       status: volume.status,
@@ -62,22 +64,23 @@ export class VolumeMapper {
   static toDomain(raw: PrismaVolume): Volume {
     return Volume.create(
       {
+        tenantId: new EntityID(raw.tenantId),
         code: raw.code,
-        name: raw.name,
-        status: raw.status,
-        notes: raw.notes,
-        destinationRef: raw.destinationRef,
-        salesOrderId: raw.salesOrderId,
-        customerId: raw.customerId,
+        name: raw.name ?? undefined,
+        status: raw.status as unknown as VolumeStatus,
+        notes: raw.notes ?? undefined,
+        destinationRef: raw.destinationRef ?? undefined,
+        salesOrderId: raw.salesOrderId ?? undefined,
+        customerId: raw.customerId ?? undefined,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
         createdBy: raw.createdBy,
-        closedAt: raw.closedAt,
-        deliveredAt: raw.deliveredAt,
-        returnedAt: raw.returnedAt,
-        closedBy: raw.closedBy,
-        deliveredBy: raw.deliveredBy,
-        deletedAt: raw.deletedAt,
+        closedAt: raw.closedAt ?? undefined,
+        deliveredAt: raw.deliveredAt ?? undefined,
+        returnedAt: raw.returnedAt ?? undefined,
+        closedBy: raw.closedBy ?? undefined,
+        deliveredBy: raw.deliveredBy ?? undefined,
+        deletedAt: raw.deletedAt ?? undefined,
       },
       new EntityID(raw.id),
     );

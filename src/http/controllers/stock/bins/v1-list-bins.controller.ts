@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listBinsQuerySchema,
   binListResponseSchema,
@@ -16,6 +17,7 @@ export async function listBinsController(app: FastifyInstance) {
     url: '/v1/bins',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.BINS.LIST,
         resource: 'bins',
@@ -34,10 +36,11 @@ export async function listBinsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const filters = request.query;
 
       const listBinsUseCase = makeListBinsUseCase();
-      const { bins } = await listBinsUseCase.execute(filters);
+      const { bins } = await listBinsUseCase.execute({ tenantId, ...filters });
 
       return reply.status(200).send({
         bins: bins.map((b) => binToDTO(b)),

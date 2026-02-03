@@ -15,6 +15,7 @@ export class InMemoryWorkSchedulesRepository
     const id = new UniqueEntityID();
     const workSchedule = WorkSchedule.create(
       {
+        tenantId: new UniqueEntityID(data.tenantId),
         name: data.name,
         description: data.description,
         mondayStart: data.mondayStart,
@@ -41,22 +42,34 @@ export class InMemoryWorkSchedulesRepository
     return workSchedule;
   }
 
-  async findById(id: UniqueEntityID): Promise<WorkSchedule | null> {
-    const workSchedule = this.items.find((item) => item.id.equals(id));
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<WorkSchedule | null> {
+    const workSchedule = this.items.find(
+      (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+    );
     return workSchedule || null;
   }
 
-  async findByName(name: string): Promise<WorkSchedule | null> {
-    const workSchedule = this.items.find((item) => item.name === name);
+  async findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<WorkSchedule | null> {
+    const workSchedule = this.items.find(
+      (item) => item.name === name && item.tenantId.toString() === tenantId,
+    );
     return workSchedule || null;
   }
 
-  async findMany(): Promise<WorkSchedule[]> {
-    return [...this.items];
+  async findMany(tenantId: string): Promise<WorkSchedule[]> {
+    return this.items.filter((item) => item.tenantId.toString() === tenantId);
   }
 
-  async findManyActive(): Promise<WorkSchedule[]> {
-    return this.items.filter((item) => item.isActive);
+  async findManyActive(tenantId: string): Promise<WorkSchedule[]> {
+    return this.items.filter(
+      (item) => item.isActive && item.tenantId.toString() === tenantId,
+    );
   }
 
   async update(data: UpdateWorkScheduleSchema): Promise<WorkSchedule | null> {
@@ -68,6 +81,7 @@ export class InMemoryWorkSchedulesRepository
 
     const updated = WorkSchedule.create(
       {
+        tenantId: existing.tenantId,
         name: data.name ?? existing.name,
         description:
           data.description !== undefined

@@ -24,6 +24,7 @@ export function mapSalesOrderPrismaToDomain(
 
   return {
     id: new UniqueEntityID(orderDb.id),
+    tenantId: new UniqueEntityID(orderDb.tenantId),
     orderNumber: orderDb.orderNumber,
     customerId: new UniqueEntityID(orderDb.customerId),
     createdBy: orderDb.createdBy

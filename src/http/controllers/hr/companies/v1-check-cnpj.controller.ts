@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
 import { makeGetCompanyByCnpjUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import type { FastifyInstance } from 'fastify';
@@ -14,7 +15,7 @@ export async function v1CheckCnpjController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/companies/check-cnpj',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Companies'],
       summary: 'Check if CNPJ exists',
@@ -34,11 +35,13 @@ export async function v1CheckCnpjController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { cnpj } = request.body;
 
       try {
         const getCompanyByCnpjUseCase = makeGetCompanyByCnpjUseCase();
         const result = await getCompanyByCnpjUseCase.execute({
+          tenantId,
           cnpj,
         });
 

@@ -17,11 +17,13 @@ describe('GetManufacturerByIdUseCase', () => {
 
   it('should get a manufacturer by id', async () => {
     const created = await createManufacturer.execute({
+      tenantId: 'tenant-1',
       name: 'TechCorp',
       country: 'United States',
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: created.manufacturer.manufacturerId.toString(),
     });
 
@@ -35,8 +37,8 @@ describe('GetManufacturerByIdUseCase', () => {
   });
 
   it('should throw error if manufacturer not found', async () => {
-    await expect(sut.execute({ id: 'non-existent-id' })).rejects.toThrow(
-      ResourceNotFoundError,
-    );
+    await expect(
+      sut.execute({ tenantId: 'tenant-1', id: 'non-existent-id' }),
+    ).rejects.toThrow(ResourceNotFoundError);
   });
 });

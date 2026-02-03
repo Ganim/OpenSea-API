@@ -15,6 +15,7 @@ interface CreateSalesOrderItem {
 }
 
 interface CreateSalesOrderUseCaseRequest {
+  tenantId: string;
   orderNumber: string;
   customerId: string;
   createdBy?: string;
@@ -71,6 +72,7 @@ export class CreateSalesOrderUseCase {
     // Check if orderNumber already exists
     const existingOrder = await this.salesOrdersRepository.findByOrderNumber(
       input.orderNumber,
+      input.tenantId,
     );
     if (existingOrder) {
       throw new BadRequestError('Order number already exists.');
@@ -79,6 +81,7 @@ export class CreateSalesOrderUseCase {
     // Validate customer exists
     const customer = await this.customersRepository.findById(
       new UniqueEntityID(input.customerId),
+      input.tenantId,
     );
     if (!customer) {
       throw new ResourceNotFoundError('Customer not found.');
@@ -101,6 +104,7 @@ export class CreateSalesOrderUseCase {
 
       const variant = await this.variantsRepository.findById(
         new UniqueEntityID(item.variantId),
+        input.tenantId,
       );
       if (!variant) {
         throw new ResourceNotFoundError(
@@ -141,6 +145,7 @@ export class CreateSalesOrderUseCase {
 
     // Create order
     const order = await this.salesOrdersRepository.create({
+      tenantId: input.tenantId,
       orderNumber: input.orderNumber.trim(),
       customerId: new UniqueEntityID(input.customerId),
       createdBy: input.createdBy

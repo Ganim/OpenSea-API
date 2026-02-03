@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { CustomersRepository } from '@/repositories/sales/customers-repository';
 
 interface DeleteCustomerUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -18,6 +19,7 @@ export class DeleteCustomerUseCase {
   ): Promise<DeleteCustomerUseCaseResponse> {
     const customer = await this.customersRepository.findById(
       new UniqueEntityID(input.id),
+      input.tenantId,
     );
 
     if (!customer) {

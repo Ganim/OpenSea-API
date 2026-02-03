@@ -4,6 +4,7 @@ import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { Slug } from '@/entities/stock/value-objects/slug';
 
 export interface CreateProductSchema {
+  tenantId: string;
   name: string;
   slug: Slug; // Slug gerado automaticamente - IMUTÁVEL
   fullCode: string; // Código hierárquico: TEMPLATE.FABRICANTE.PRODUTO (ex: 001.001.0001)
@@ -35,13 +36,22 @@ export interface UpdateProductSchema {
 
 export interface ProductsRepository {
   create(data: CreateProductSchema): Promise<Product>;
-  findById(id: UniqueEntityID): Promise<Product | null>;
-  findByName(name: string): Promise<Product | null>;
-  findMany(): Promise<Product[]>;
-  findManyByStatus(status: ProductStatus): Promise<Product[]>;
-  findManyByTemplate(templateId: UniqueEntityID): Promise<Product[]>;
-  findManyByManufacturer(manufacturerId: UniqueEntityID): Promise<Product[]>;
-  findManyByCategory(categoryId: UniqueEntityID): Promise<Product[]>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Product | null>;
+  findByName(name: string, tenantId: string): Promise<Product | null>;
+  findMany(tenantId: string): Promise<Product[]>;
+  findManyByStatus(status: ProductStatus, tenantId: string): Promise<Product[]>;
+  findManyByTemplate(
+    templateId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Product[]>;
+  findManyByManufacturer(
+    manufacturerId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Product[]>;
+  findManyByCategory(
+    categoryId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Product[]>;
   update(data: UpdateProductSchema): Promise<Product | null>;
   updateCareInstructions(
     productId: UniqueEntityID,

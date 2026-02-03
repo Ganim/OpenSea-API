@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listZonesQuerySchema,
   zoneListResponseSchema,
@@ -16,6 +17,7 @@ export async function listZonesController(app: FastifyInstance) {
     url: '/v1/zones',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.ZONES.LIST,
         resource: 'zones',
@@ -34,10 +36,12 @@ export async function listZonesController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { warehouseId, activeOnly } = request.query;
 
       const listZonesUseCase = makeListZonesUseCase();
       const { zones } = await listZonesUseCase.execute({
+        tenantId,
         warehouseId,
         activeOnly,
       });

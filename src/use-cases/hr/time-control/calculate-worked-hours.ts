@@ -3,6 +3,7 @@ import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { TimeEntriesRepository } from '@/repositories/hr/time-entries-repository';
 
 export interface CalculateWorkedHoursRequest {
+  tenantId: string;
   employeeId: string;
   startDate: Date;
   endDate: Date;
@@ -36,11 +37,12 @@ export class CalculateWorkedHoursUseCase {
   async execute(
     request: CalculateWorkedHoursRequest,
   ): Promise<CalculateWorkedHoursResponse> {
-    const { employeeId, startDate, endDate } = request;
+    const { tenantId, employeeId, startDate, endDate } = request;
 
     // Verify employee exists
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
     if (!employee) {
       throw new Error('Employee not found');
@@ -52,6 +54,7 @@ export class CalculateWorkedHoursUseCase {
         new UniqueEntityID(employeeId),
         startDate,
         endDate,
+        tenantId,
       );
 
     // Group entries by date

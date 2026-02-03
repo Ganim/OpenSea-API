@@ -58,16 +58,19 @@ describe('CreatePurchaseOrderUseCase', () => {
 
   it('should be able to create a purchase order', async () => {
     const { supplier } = await createSupplier.execute({
+      tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
 
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
       variantAttributes: { color: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       templateId: template.id.toString(),
@@ -75,6 +78,7 @@ describe('CreatePurchaseOrderUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'TEST-001',
       name: 'Test Variant',
@@ -83,6 +87,7 @@ describe('CreatePurchaseOrderUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       orderNumber: 'PO-001',
       supplierId: supplier.id.toString(),
       expectedDate: new Date('2025-12-31'),
@@ -107,6 +112,7 @@ describe('CreatePurchaseOrderUseCase', () => {
   it('should not be able to create a purchase order with empty order number', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: '',
         supplierId: 'supplier-1',
         items: [
@@ -122,16 +128,19 @@ describe('CreatePurchaseOrderUseCase', () => {
 
   it('should not be able to create a purchase order with duplicate order number', async () => {
     const { supplier } = await createSupplier.execute({
+      tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
 
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
       variantAttributes: { color: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       templateId: template.id.toString(),
@@ -139,6 +148,7 @@ describe('CreatePurchaseOrderUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'TEST-001',
       name: 'Test Variant',
@@ -147,6 +157,7 @@ describe('CreatePurchaseOrderUseCase', () => {
     });
 
     await sut.execute({
+      tenantId: 'tenant-1',
       orderNumber: 'PO-001',
       supplierId: supplier.id.toString(),
       items: [
@@ -160,6 +171,7 @@ describe('CreatePurchaseOrderUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'PO-001',
         supplierId: supplier.id.toString(),
         items: [
@@ -176,6 +188,7 @@ describe('CreatePurchaseOrderUseCase', () => {
   it('should not be able to create a purchase order with nonexistent supplier', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'PO-001',
         supplierId: 'nonexistent-supplier',
         items: [
@@ -191,11 +204,13 @@ describe('CreatePurchaseOrderUseCase', () => {
 
   it('should not be able to create a purchase order without items', async () => {
     const { supplier } = await createSupplier.execute({
+      tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'PO-001',
         supplierId: supplier.id.toString(),
         items: [],
@@ -205,11 +220,13 @@ describe('CreatePurchaseOrderUseCase', () => {
 
   it('should not be able to create a purchase order with nonexistent variant', async () => {
     const { supplier } = await createSupplier.execute({
+      tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'PO-001',
         supplierId: supplier.id.toString(),
         items: [
@@ -225,16 +242,19 @@ describe('CreatePurchaseOrderUseCase', () => {
 
   it('should not be able to create a purchase order with invalid quantity', async () => {
     const { supplier } = await createSupplier.execute({
+      tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
 
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
       variantAttributes: { color: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       templateId: template.id.toString(),
@@ -242,6 +262,7 @@ describe('CreatePurchaseOrderUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'TEST-001',
       name: 'Test Variant',
@@ -251,6 +272,7 @@ describe('CreatePurchaseOrderUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'PO-001',
         supplierId: supplier.id.toString(),
         items: [
@@ -266,16 +288,19 @@ describe('CreatePurchaseOrderUseCase', () => {
 
   it('should not be able to create a purchase order with negative unit cost', async () => {
     const { supplier } = await createSupplier.execute({
+      tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
 
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
       variantAttributes: { color: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       templateId: template.id.toString(),
@@ -283,6 +308,7 @@ describe('CreatePurchaseOrderUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'TEST-001',
       name: 'Test Variant',
@@ -292,6 +318,7 @@ describe('CreatePurchaseOrderUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         orderNumber: 'PO-001',
         supplierId: supplier.id.toString(),
         items: [

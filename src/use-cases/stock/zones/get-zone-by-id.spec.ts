@@ -18,11 +18,13 @@ describe('GetZoneByIdUseCase', () => {
 
   async function createTestZone() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
@@ -36,6 +38,7 @@ describe('GetZoneByIdUseCase', () => {
     const { warehouse, zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
     });
 
@@ -50,6 +53,7 @@ describe('GetZoneByIdUseCase', () => {
     const { warehouse, zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
     });
 
@@ -62,6 +66,7 @@ describe('GetZoneByIdUseCase', () => {
     const { zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
     });
 
@@ -74,6 +79,7 @@ describe('GetZoneByIdUseCase', () => {
     vi.spyOn(zonesRepository, 'countBins').mockResolvedValue(15);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
     });
 
@@ -83,6 +89,7 @@ describe('GetZoneByIdUseCase', () => {
   it('should fail when zone is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -90,6 +97,7 @@ describe('GetZoneByIdUseCase', () => {
 
   it('should fail when warehouse is not found (orphan zone)', async () => {
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: new UniqueEntityID(),
       code: 'ORPHAN',
       name: 'Zona Órfã',
@@ -97,6 +105,7 @@ describe('GetZoneByIdUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: zone.zoneId.toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -109,6 +118,7 @@ describe('GetZoneByIdUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: zone.zoneId.toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);

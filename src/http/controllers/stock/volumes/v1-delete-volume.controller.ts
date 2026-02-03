@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeDeleteVolumeUseCase } from '@/use-cases/stock/volumes/factories/make-delete-volume-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -12,6 +13,7 @@ export async function deleteVolumeController(app: FastifyInstance) {
     url: '/v1/volumes/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.VOLUMES.DELETE,
         resource: 'volumes',
@@ -32,10 +34,11 @@ export async function deleteVolumeController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const { id } = request.params;
+      const tenantId = request.user.tenantId!;
 
       const deleteVolumeUseCase = makeDeleteVolumeUseCase();
 
-      await deleteVolumeUseCase.execute({ volumeId: id });
+      await deleteVolumeUseCase.execute({ tenantId, volumeId: id });
 
       return reply.status(204).send();
     },

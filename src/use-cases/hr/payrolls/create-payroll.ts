@@ -2,6 +2,7 @@ import type { Payroll } from '@/entities/hr/payroll';
 import { PayrollsRepository } from '@/repositories/hr/payrolls-repository';
 
 export interface CreatePayrollRequest {
+  tenantId: string;
   referenceMonth: number;
   referenceYear: number;
 }
@@ -14,7 +15,7 @@ export class CreatePayrollUseCase {
   constructor(private payrollsRepository: PayrollsRepository) {}
 
   async execute(request: CreatePayrollRequest): Promise<CreatePayrollResponse> {
-    const { referenceMonth, referenceYear } = request;
+    const { tenantId, referenceMonth, referenceYear } = request;
 
     // Validate month
     if (referenceMonth < 1 || referenceMonth > 12) {
@@ -31,6 +32,7 @@ export class CreatePayrollUseCase {
     const existingPayroll = await this.payrollsRepository.findByPeriod(
       referenceMonth,
       referenceYear,
+      tenantId,
     );
 
     if (existingPayroll) {
@@ -41,6 +43,7 @@ export class CreatePayrollUseCase {
 
     // Create the payroll
     const payroll = await this.payrollsRepository.create({
+      tenantId,
       referenceMonth,
       referenceYear,
     });

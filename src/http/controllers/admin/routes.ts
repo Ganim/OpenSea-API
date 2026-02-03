@@ -5,15 +5,20 @@ import { adminDashboardController } from './v1-admin-dashboard.controller';
 import { changeTenantPlanAdminController } from './v1-change-tenant-plan.controller';
 import { changeTenantStatusAdminController } from './v1-change-tenant-status.controller';
 import { createPlanAdminController } from './v1-create-plan.controller';
+import { createTenantAdminController } from './v1-create-tenant.controller';
+import { createTenantUserAdminController } from './v1-create-tenant-user.controller';
 import { deletePlanAdminController } from './v1-delete-plan.controller';
+import { deleteTenantAdminController } from './v1-delete-tenant.controller';
 import { getPlanByIdAdminController } from './v1-get-plan-by-id.controller';
 import { getTenantDetailsAdminController } from './v1-get-tenant-details.controller';
 import { listPlansAdminController } from './v1-list-plans.controller';
 import { listTenantUsersAdminController } from './v1-list-tenant-users.controller';
 import { listTenantsAdminController } from './v1-list-tenants.controller';
 import { manageFeatureFlagsAdminController } from './v1-manage-feature-flags.controller';
+import { removeTenantUserAdminController } from './v1-remove-tenant-user.controller';
 import { setPlanModulesAdminController } from './v1-set-plan-modules.controller';
 import { updatePlanAdminController } from './v1-update-plan.controller';
+import { updateTenantAdminController } from './v1-update-tenant.controller';
 
 export async function adminRoutes() {
   // All admin routes use elevated rate limits
@@ -23,10 +28,15 @@ export async function adminRoutes() {
       adminApp.register(changeTenantStatusAdminController);
       adminApp.register(changeTenantPlanAdminController);
       adminApp.register(manageFeatureFlagsAdminController);
+      adminApp.register(createTenantAdminController);
+      adminApp.register(updateTenantAdminController);
+      adminApp.register(deleteTenantAdminController);
       adminApp.register(createPlanAdminController);
       adminApp.register(updatePlanAdminController);
       adminApp.register(deletePlanAdminController);
       adminApp.register(setPlanModulesAdminController);
+      adminApp.register(createTenantUserAdminController);
+      adminApp.register(removeTenantUserAdminController);
     },
     { prefix: '' },
   );

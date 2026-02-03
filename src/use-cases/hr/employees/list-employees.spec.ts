@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   ContractType,
   CPF,
@@ -10,6 +11,7 @@ import { ListEmployeesUseCase } from './list-employees';
 
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: ListEmployeesUseCase;
+const tenantId = new UniqueEntityID().toString();
 
 describe('List Employees Use Case', () => {
   beforeEach(async () => {
@@ -18,6 +20,7 @@ describe('List Employees Use Case', () => {
 
     // Create test employees
     await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -31,6 +34,7 @@ describe('List Employees Use Case', () => {
     });
 
     await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Maria Santos',
       cpf: CPF.create('12345678909'),
@@ -44,6 +48,7 @@ describe('List Employees Use Case', () => {
     });
 
     await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP003',
       fullName: 'Carlos Oliveira',
       cpf: CPF.create('98765432100'),
@@ -58,17 +63,14 @@ describe('List Employees Use Case', () => {
   });
 
   it('should list all employees', async () => {
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId });
 
     expect(result.employees).toHaveLength(3);
     expect(result.meta.total).toBe(3);
   });
 
   it('should list employees with pagination', async () => {
-    const result = await sut.execute({
-      page: 1,
-      perPage: 2,
-    });
+    const result = await sut.execute({ tenantId, page: 1, perPage: 2 });
 
     expect(result.employees).toHaveLength(2);
     expect(result.meta.total).toBe(3);
@@ -76,9 +78,7 @@ describe('List Employees Use Case', () => {
   });
 
   it('should filter employees by status', async () => {
-    const result = await sut.execute({
-      status: 'ACTIVE',
-    });
+    const result = await sut.execute({ tenantId, status: 'ACTIVE' });
 
     expect(result.employees).toHaveLength(2);
     expect(result.employees.every((e) => e.status.value === 'ACTIVE')).toBe(
@@ -87,27 +87,21 @@ describe('List Employees Use Case', () => {
   });
 
   it('should filter employees by search term', async () => {
-    const result = await sut.execute({
-      search: 'João',
-    });
+    const result = await sut.execute({ tenantId, search: 'João' });
 
     expect(result.employees).toHaveLength(1);
     expect(result.employees[0].fullName).toBe('João Silva');
   });
 
   it('should filter employees by registration number', async () => {
-    const result = await sut.execute({
-      search: 'EMP002',
-    });
+    const result = await sut.execute({ tenantId, search: 'EMP002' });
 
     expect(result.employees).toHaveLength(1);
     expect(result.employees[0].registrationNumber).toBe('EMP002');
   });
 
   it('should return empty list when no match', async () => {
-    const result = await sut.execute({
-      search: 'NonExistent',
-    });
+    const result = await sut.execute({ tenantId, search: 'NonExistent' });
 
     expect(result.employees).toHaveLength(0);
     expect(result.meta.total).toBe(0);
@@ -115,9 +109,7 @@ describe('List Employees Use Case', () => {
 
   it('should throw error for invalid status', async () => {
     await expect(
-      sut.execute({
-        status: 'INVALID_STATUS',
-      }),
+      sut.execute({ tenantId, status: 'INVALID_STATUS' }),
     ).rejects.toThrow('Invalid status: INVALID_STATUS');
   });
 });

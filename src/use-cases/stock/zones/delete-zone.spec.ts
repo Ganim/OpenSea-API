@@ -22,11 +22,13 @@ describe('DeleteZoneUseCase', () => {
 
   async function createTestZone() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
@@ -39,19 +41,21 @@ describe('DeleteZoneUseCase', () => {
     const { zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
     });
 
     expect(result.success).toBe(true);
     expect(result.deletedBinsCount).toBe(0);
 
-    const deletedZone = await zonesRepository.findById(zone.zoneId);
+    const deletedZone = await zonesRepository.findById(zone.zoneId, 'tenant-1');
     expect(deletedZone).toBeNull();
   });
 
   it('should fail when zone is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -64,6 +68,7 @@ describe('DeleteZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: zone.zoneId.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
@@ -76,6 +81,7 @@ describe('DeleteZoneUseCase', () => {
 
     try {
       await sut.execute({
+        tenantId: 'tenant-1',
         id: zone.zoneId.toString(),
       });
       expect.fail('Should have thrown');
@@ -90,6 +96,7 @@ describe('DeleteZoneUseCase', () => {
 
     // Create some bins
     await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-101-A',
       aisle: 1,
@@ -98,6 +105,7 @@ describe('DeleteZoneUseCase', () => {
     });
 
     await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-102-B',
       aisle: 1,
@@ -108,6 +116,7 @@ describe('DeleteZoneUseCase', () => {
     vi.spyOn(zonesRepository, 'countBins').mockResolvedValue(2);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
       forceDeleteBins: true,
     });
@@ -120,6 +129,7 @@ describe('DeleteZoneUseCase', () => {
     const { zone } = await createTestZone();
 
     await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
     });
 

@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeDeleteZoneUseCase } from '@/use-cases/stock/zones/factories/make-delete-zone-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -14,6 +15,7 @@ export async function deleteZoneController(app: FastifyInstance) {
     url: '/v1/zones/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.ZONES.DELETE,
         resource: 'zones',
@@ -46,12 +48,14 @@ export async function deleteZoneController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const { forceDeleteBins } = request.query;
 
       try {
         const deleteZoneUseCase = makeDeleteZoneUseCase();
         const { success, deletedBinsCount } = await deleteZoneUseCase.execute({
+          tenantId,
           id,
           forceDeleteBins,
         });

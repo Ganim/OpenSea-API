@@ -19,23 +19,27 @@ describe('ListBinsUseCase', () => {
 
   async function createTestData() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica',
     });
 
     const zone1 = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
     });
 
     const zone2 = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'PRD',
       name: 'Produção',
     });
 
     await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone1.zoneId,
       address: 'FAB-EST-101-A',
       aisle: 1,
@@ -46,6 +50,7 @@ describe('ListBinsUseCase', () => {
     });
 
     await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone1.zoneId,
       address: 'FAB-EST-102-B',
       aisle: 1,
@@ -56,6 +61,7 @@ describe('ListBinsUseCase', () => {
     });
 
     await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone1.zoneId,
       address: 'FAB-EST-201-A',
       aisle: 2,
@@ -66,6 +72,7 @@ describe('ListBinsUseCase', () => {
     });
 
     await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone2.zoneId,
       address: 'FAB-PRD-101-A',
       aisle: 1,
@@ -81,7 +88,7 @@ describe('ListBinsUseCase', () => {
   it('should list all bins', async () => {
     await createTestData();
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.bins).toHaveLength(4);
   });
@@ -90,6 +97,7 @@ describe('ListBinsUseCase', () => {
     const { zone1 } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone1.zoneId.toString(),
     });
 
@@ -103,6 +111,7 @@ describe('ListBinsUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       aisle: 1,
     });
 
@@ -116,6 +125,7 @@ describe('ListBinsUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       shelf: 1,
     });
 
@@ -129,6 +139,7 @@ describe('ListBinsUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       isActive: true,
     });
 
@@ -142,6 +153,7 @@ describe('ListBinsUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       isActive: false,
     });
 
@@ -155,6 +167,7 @@ describe('ListBinsUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       isBlocked: true,
     });
 
@@ -168,6 +181,7 @@ describe('ListBinsUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       addressPattern: 'FAB-EST',
     });
 
@@ -181,6 +195,7 @@ describe('ListBinsUseCase', () => {
     const { zone1 } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone1.zoneId.toString(),
       aisle: 1,
       isActive: true,
@@ -190,7 +205,7 @@ describe('ListBinsUseCase', () => {
   });
 
   it('should return empty array when no bins exist', async () => {
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.bins).toHaveLength(0);
   });
@@ -201,7 +216,7 @@ describe('ListBinsUseCase', () => {
     const bin = binsRepository.bins[0];
     await binsRepository.delete(bin.binId);
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.bins).toHaveLength(3);
   });

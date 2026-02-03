@@ -8,6 +8,7 @@ import { VolumeMapper } from '@/mappers/stock/volume.mapper';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface CloseVolumeUseCaseRequest {
+  tenantId: string;
   volumeId: string;
   closedBy: string;
 }
@@ -22,7 +23,10 @@ export class CloseVolumeUseCase {
   async execute(
     request: CloseVolumeUseCaseRequest,
   ): Promise<CloseVolumeUseCaseResponse> {
-    const volume = await this.volumesRepository.findById(request.volumeId);
+    const volume = await this.volumesRepository.findById(
+      request.volumeId,
+      request.tenantId,
+    );
     if (!volume) {
       throw new VolumeNotFoundError(request.volumeId);
     }

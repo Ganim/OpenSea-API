@@ -4,6 +4,7 @@ import { type TagDTO, tagToDTO } from '@/mappers/stock/tag/tag-to-dto';
 import type { TagsRepository } from '@/repositories/stock/tags-repository';
 
 interface CreateTagUseCaseRequest {
+  tenantId: string;
   name: string;
   slug?: string;
   color?: string;
@@ -18,6 +19,7 @@ export class CreateTagUseCase {
   constructor(private tagsRepository: TagsRepository) {}
 
   async execute({
+    tenantId,
     name,
     slug,
     color,
@@ -33,7 +35,10 @@ export class CreateTagUseCase {
     }
 
     // Check if tag name already exists
-    const tagWithSameName = await this.tagsRepository.findByName(name);
+    const tagWithSameName = await this.tagsRepository.findByName(
+      name,
+      tenantId,
+    );
     if (tagWithSameName) {
       throw new BadRequestError('A tag with this name already exists');
     }
@@ -47,7 +52,10 @@ export class CreateTagUseCase {
     }
 
     // Check if slug already exists
-    const tagWithSameSlug = await this.tagsRepository.findBySlug(tagSlug);
+    const tagWithSameSlug = await this.tagsRepository.findBySlug(
+      tagSlug,
+      tenantId,
+    );
     if (tagWithSameSlug) {
       throw new BadRequestError('A tag with this slug already exists');
     }
@@ -64,6 +72,7 @@ export class CreateTagUseCase {
 
     // Create tag
     const tag = await this.tagsRepository.create({
+      tenantId,
       name: name.trim(),
       slug: tagSlug,
       color: color && color.trim().length > 0 ? color : undefined,

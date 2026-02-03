@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeDeleteCustomerUseCase } from '@/use-cases/sales/customers/factories/make-delete-customer-use-case';
 import { makeGetCustomerByIdUseCase } from '@/use-cases/sales/customers/factories/make-get-customer-by-id-use-case';
@@ -17,6 +18,7 @@ export async function deleteCustomerController(app: FastifyInstance) {
     url: '/v1/customers/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.SALES.CUSTOMERS.DELETE,
         resource: 'customers',
@@ -42,6 +44,7 @@ export async function deleteCustomerController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -49,14 +52,14 @@ export async function deleteCustomerController(app: FastifyInstance) {
 
         const [{ user }, { customer }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getCustomerByIdUseCase.execute({ id }),
+          getCustomerByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const useCase = makeDeleteCustomerUseCase();
-        const result = await useCase.execute({ id });
+        const result = await useCase.execute({ tenantId, id });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.CUSTOMER_DELETE,

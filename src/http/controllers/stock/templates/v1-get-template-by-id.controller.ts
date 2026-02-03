@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { templateResponseSchema } from '@/http/schemas/stock.schema';
 import { makeGetTemplateByIdUseCase } from '@/use-cases/stock/templates/factories/make-get-template-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,6 +15,7 @@ export async function getTemplateByIdController(app: FastifyInstance) {
     url: '/v1/templates/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.TEMPLATES.READ,
         resource: 'templates',
@@ -35,11 +37,12 @@ export async function getTemplateByIdController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const getTemplateById = makeGetTemplateByIdUseCase();
       const { id } = request.params as { id: string };
 
       try {
-        const { template } = await getTemplateById.execute({ id });
+        const { template } = await getTemplateById.execute({ tenantId, id });
 
         return reply.status(200).send({ template });
       } catch (error) {

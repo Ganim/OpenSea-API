@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { companyFiscalSettingsResponseSchema, idSchema } from '@/http/schemas';
 import { companyFiscalSettingsToDTO } from '@/mappers/hr/company-fiscal-settings';
 import { makeGetCompanyFiscalSettingsUseCase } from '@/use-cases/hr/company-fiscal-settings/factories/make-company-fiscal-settings';
@@ -11,7 +12,7 @@ export async function getCompanyFiscalSettingsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/companies/:companyId/fiscal-settings',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Company Fiscal Settings'],
       summary: 'Get company fiscal settings',

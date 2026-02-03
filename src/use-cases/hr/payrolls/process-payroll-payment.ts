@@ -7,6 +7,7 @@ import { PayrollItemsRepository } from '@/repositories/hr/payroll-items-reposito
 import { PayrollsRepository } from '@/repositories/hr/payrolls-repository';
 
 export interface ProcessPayrollPaymentRequest {
+  tenantId: string;
   payrollId: string;
   paidBy: string;
 }
@@ -26,10 +27,11 @@ export class ProcessPayrollPaymentUseCase {
   async execute(
     request: ProcessPayrollPaymentRequest,
   ): Promise<ProcessPayrollPaymentResponse> {
-    const { payrollId, paidBy } = request;
+    const { tenantId, payrollId, paidBy } = request;
 
     const payroll = await this.payrollsRepository.findById(
       new UniqueEntityID(payrollId),
+      tenantId,
     );
 
     if (!payroll) {
@@ -45,7 +47,7 @@ export class ProcessPayrollPaymentUseCase {
     payroll.markAsPaid(new UniqueEntityID(paidBy));
 
     // Update related records
-    await this.markRelatedItemsAsPaid(payroll.id);
+    await this.markRelatedItemsAsPaid(payroll.id, tenantId);
 
     // Save
     await this.payrollsRepository.save(payroll);
@@ -57,6 +59,7 @@ export class ProcessPayrollPaymentUseCase {
 
   private async markRelatedItemsAsPaid(
     payrollId: UniqueEntityID,
+    tenantId: string,
   ): Promise<void> {
     // Get all payroll items
     const items =
@@ -67,6 +70,7 @@ export class ProcessPayrollPaymentUseCase {
       if (item.referenceType === 'bonus' && item.referenceId) {
         const bonus = await this.bonusesRepository.findById(
           new UniqueEntityID(item.referenceId),
+          tenantId,
         );
         if (bonus) {
           bonus.markAsPaid();
@@ -78,6 +82,7 @@ export class ProcessPayrollPaymentUseCase {
       if (item.referenceType === 'deduction' && item.referenceId) {
         const deduction = await this.deductionsRepository.findById(
           new UniqueEntityID(item.referenceId),
+          tenantId,
         );
         if (deduction && deduction.isRecurring) {
           deduction.markAsApplied(payrollId);

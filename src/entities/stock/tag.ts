@@ -4,6 +4,7 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface TagProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   name: string;
   slug: string;
   color: string | null;
@@ -17,6 +18,10 @@ export class Tag extends Entity<TagProps> {
   // Getters
   get tagId(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get name(): string {

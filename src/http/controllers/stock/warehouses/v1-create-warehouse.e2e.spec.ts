@@ -49,12 +49,10 @@ describe('Create Warehouse (E2E)', () => {
   });
 
   it('should not create warehouse without auth token', async () => {
-    const response = await request(app.server)
-      .post('/v1/warehouses')
-      .send({
-        code: 'WTEST',
-        name: 'Test Warehouse',
-      });
+    const response = await request(app.server).post('/v1/warehouses').send({
+      code: 'WTEST',
+      name: 'Test Warehouse',
+    });
 
     expect(response.status).toBe(401);
   });

@@ -16,16 +16,19 @@ describe('ListZonesUseCase', () => {
 
   async function createTestData() {
     const warehouse1 = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica',
     });
 
     const warehouse2 = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'WH2',
       name: 'Warehouse 2',
     });
 
     await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse1.warehouseId,
       code: 'EST',
       name: 'Estoque FAB',
@@ -33,6 +36,7 @@ describe('ListZonesUseCase', () => {
     });
 
     await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse1.warehouseId,
       code: 'PRD',
       name: 'Produção FAB',
@@ -40,6 +44,7 @@ describe('ListZonesUseCase', () => {
     });
 
     await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse1.warehouseId,
       code: 'OLD',
       name: 'Zona Antiga FAB',
@@ -47,6 +52,7 @@ describe('ListZonesUseCase', () => {
     });
 
     await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse2.warehouseId,
       code: 'EST',
       name: 'Estoque WH2',
@@ -59,7 +65,7 @@ describe('ListZonesUseCase', () => {
   it('should list all zones', async () => {
     await createTestData();
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.zones).toHaveLength(4);
   });
@@ -68,6 +74,7 @@ describe('ListZonesUseCase', () => {
     const { warehouse1 } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse1.warehouseId.toString(),
     });
 
@@ -80,7 +87,10 @@ describe('ListZonesUseCase', () => {
   it('should list only active zones', async () => {
     await createTestData();
 
-    const result = await sut.execute({ activeOnly: true });
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      activeOnly: true,
+    });
 
     expect(result.zones).toHaveLength(3);
     result.zones.forEach((z) => {
@@ -92,6 +102,7 @@ describe('ListZonesUseCase', () => {
     const { warehouse1 } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse1.warehouseId.toString(),
       activeOnly: true,
     });
@@ -104,7 +115,7 @@ describe('ListZonesUseCase', () => {
   });
 
   it('should return empty array when no zones exist', async () => {
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.zones).toHaveLength(0);
   });
@@ -115,7 +126,7 @@ describe('ListZonesUseCase', () => {
     const zone = zonesRepository.zones[0];
     await zonesRepository.delete(zone.zoneId);
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.zones).toHaveLength(3);
   });
@@ -123,7 +134,7 @@ describe('ListZonesUseCase', () => {
   it('should default to activeOnly false', async () => {
     await createTestData();
 
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.zones).toHaveLength(4);
   });

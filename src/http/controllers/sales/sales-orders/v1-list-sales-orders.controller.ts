@@ -1,4 +1,5 @@
 ﻿import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   salesOrderResponseSchema,
   salesOrderStatusEnum,
@@ -12,7 +13,7 @@ export async function v1ListSalesOrdersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/sales-orders',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['Sales - Orders'],
       summary: 'List sales orders',
@@ -34,8 +35,10 @@ export async function v1ListSalesOrdersController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const { page, perPage, customerId, status } = request.query;
+      const tenantId = request.user.tenantId!;
       const useCase = makeListSalesOrdersUseCase();
       const result = await useCase.execute({
+        tenantId,
         page,
         perPage,
         customerId,

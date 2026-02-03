@@ -11,6 +11,8 @@ import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/i
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateVacationPeriodUseCase } from './create-vacation-period';
 
+const TENANT_ID = 'tenant-1';
+
 let employeesRepository: InMemoryEmployeesRepository;
 let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let sut: CreateVacationPeriodUseCase;
@@ -26,6 +28,7 @@ describe('Create Vacation Period Use Case', () => {
     );
 
     testEmployee = await employeesRepository.create({
+      tenantId: TENANT_ID,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -46,6 +49,7 @@ describe('Create Vacation Period Use Case', () => {
     const concessionEnd = new Date('2024-12-31');
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       employeeId: testEmployee.id.toString(),
       acquisitionStart,
       acquisitionEnd,
@@ -63,6 +67,7 @@ describe('Create Vacation Period Use Case', () => {
 
   it('should create vacation period with custom total days', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       employeeId: testEmployee.id.toString(),
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -78,6 +83,7 @@ describe('Create Vacation Period Use Case', () => {
   it('should throw error if employee not found', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         employeeId: new UniqueEntityID().toString(),
         acquisitionStart: new Date('2022-01-01'),
         acquisitionEnd: new Date('2023-01-01'),

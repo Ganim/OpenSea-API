@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   companyFiscalSettingsResponseSchema,
   idSchema,
@@ -22,6 +23,7 @@ export async function updateCompanyFiscalSettingsController(
     url: '/v1/hr/companies/:companyId/fiscal-settings',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.COMPANY_FISCAL_SETTINGS.UPDATE,
         resource: 'company-fiscal-settings',

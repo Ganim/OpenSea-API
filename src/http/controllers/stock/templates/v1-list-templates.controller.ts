@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { templateResponseSchema } from '@/http/schemas/stock.schema';
 import { makeListTemplatesUseCase } from '@/use-cases/stock/templates/factories/make-list-templates-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -13,6 +14,7 @@ export async function listTemplatesController(app: FastifyInstance) {
     url: '/v1/templates',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.TEMPLATES.LIST,
         resource: 'templates',
@@ -28,9 +30,10 @@ export async function listTemplatesController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const listTemplates = makeListTemplatesUseCase();
 
-      const { templates } = await listTemplates.execute();
+      const { templates } = await listTemplates.execute({ tenantId });
 
       return reply.status(200).send({ templates });
     },

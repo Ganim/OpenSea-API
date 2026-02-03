@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { warehouseResponseSchema } from '@/http/schemas/stock/warehouses/warehouse.schema';
 import { warehouseToDTO } from '@/mappers/stock/warehouse/warehouse-to-dto';
 import { makeGetWarehouseByIdUseCase } from '@/use-cases/stock/warehouses/factories/make-get-warehouse-by-id-use-case';
@@ -15,6 +16,7 @@ export async function getWarehouseByIdController(app: FastifyInstance) {
     url: '/v1/warehouses/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.WAREHOUSES.READ,
         resource: 'warehouses',
@@ -38,11 +40,13 @@ export async function getWarehouseByIdController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
       try {
         const getWarehouseByIdUseCase = makeGetWarehouseByIdUseCase();
         const { warehouse, zoneCount } = await getWarehouseByIdUseCase.execute({
+          tenantId,
           id,
         });
 

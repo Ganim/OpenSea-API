@@ -23,6 +23,7 @@ describe('Update Customer', () => {
     customersRepository.items.push(customer);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: customer.id.toString(),
       name: 'Jane Doe',
       email: 'jane@example.com',
@@ -46,6 +47,7 @@ describe('Update Customer', () => {
     customersRepository.items.push(customer);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: customer.id.toString(),
       type: 'BUSINESS',
     });
@@ -60,6 +62,7 @@ describe('Update Customer', () => {
     customersRepository.items.push(customer);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: customer.id.toString(),
       document: '11222333000181', // valid CNPJ
     });
@@ -81,6 +84,7 @@ describe('Update Customer', () => {
     customersRepository.items.push(customer);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: customer.id.toString(),
       email: '',
       phone: '',
@@ -109,6 +113,7 @@ describe('Update Customer', () => {
     customersRepository.items.push(customer);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: customer.id.toString(),
       isActive: false,
     });
@@ -121,6 +126,7 @@ describe('Update Customer', () => {
     customersRepository.items.push(customer);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: customer.id.toString(),
       state: 'sp',
     });
@@ -133,6 +139,7 @@ describe('Update Customer', () => {
     customersRepository.items.push(customer);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: customer.id.toString(),
       name: '  John Doe  ',
     });
@@ -143,6 +150,7 @@ describe('Update Customer', () => {
   it('should not be able to update a non-existing customer', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
         name: 'John Doe',
       }),
@@ -155,6 +163,7 @@ describe('Update Customer', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: customer.id.toString(),
         name: '   ',
       }),
@@ -167,6 +176,7 @@ describe('Update Customer', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: customer.id.toString(),
         name: 'a'.repeat(129),
       }),
@@ -179,6 +189,7 @@ describe('Update Customer', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: customer.id.toString(),
         email: 'invalid-email',
       }),
@@ -197,6 +208,7 @@ describe('Update Customer', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: customer2.id.toString(),
         email: 'john@example.com',
       }),
@@ -215,6 +227,7 @@ describe('Update Customer', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: customer2.id.toString(),
         document: '52998224725',
       }),
@@ -227,6 +240,7 @@ describe('Update Customer', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: customer.id.toString(),
         document: '12345678900', // invalid CPF
       }),
@@ -239,6 +253,7 @@ describe('Update Customer', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: customer.id.toString(),
         state: 'ABC',
       }),

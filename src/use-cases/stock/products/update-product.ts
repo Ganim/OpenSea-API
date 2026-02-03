@@ -9,6 +9,7 @@ import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface UpdateProductUseCaseRequest {
+  tenantId: string;
   id: string;
   name?: string;
   // code e fullCode são imutáveis após criação
@@ -38,6 +39,7 @@ export class UpdateProductUseCase {
     request: UpdateProductUseCaseRequest,
   ): Promise<UpdateProductUseCaseResponse> {
     const {
+      tenantId,
       id,
       name,
       // code e fullCode são imutáveis após criação
@@ -53,6 +55,7 @@ export class UpdateProductUseCase {
     // Validate ID
     const product = await this.productsRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!product) {
@@ -71,7 +74,10 @@ export class UpdateProductUseCase {
 
       // Check if name is already used by another product
       if (name !== product.name) {
-        const existingProduct = await this.productsRepository.findByName(name);
+        const existingProduct = await this.productsRepository.findByName(
+          name,
+          tenantId,
+        );
         if (existingProduct && !existingProduct.id.equals(product.id)) {
           throw new BadRequestError('Product with this name already exists');
         }
@@ -109,6 +115,7 @@ export class UpdateProductUseCase {
     if (supplierId !== undefined) {
       const supplier = await this.suppliersRepository.findById(
         new UniqueEntityID(supplierId),
+        tenantId,
       );
       if (!supplier) {
         throw new ResourceNotFoundError('Supplier not found');
@@ -119,6 +126,7 @@ export class UpdateProductUseCase {
     if (manufacturerId !== undefined) {
       const manufacturer = await this.manufacturersRepository.findById(
         new UniqueEntityID(manufacturerId),
+        tenantId,
       );
       if (!manufacturer) {
         throw new ResourceNotFoundError('Manufacturer not found');
@@ -129,6 +137,7 @@ export class UpdateProductUseCase {
     if (attributes !== undefined) {
       const template = await this.templatesRepository.findById(
         product.templateId,
+        tenantId,
       );
       if (!template) {
         throw new ResourceNotFoundError('Template not found');
@@ -154,6 +163,7 @@ export class UpdateProductUseCase {
       for (const categoryId of categoryIds) {
         const category = await this.categoriesRepository.findById(
           new UniqueEntityID(categoryId),
+          tenantId,
         );
         if (!category) {
           throw new ResourceNotFoundError(`Category not found: ${categoryId}`);

@@ -46,11 +46,13 @@ describe('GetVariantByIdUseCase', () => {
 
   it('should be able to get a variant by id', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -59,13 +61,17 @@ describe('GetVariantByIdUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
       price: 100,
     });
 
-    const result = await getVariantById.execute({ id: variant.id.toString() });
+    const result = await getVariantById.execute({
+      tenantId: 'tenant-1',
+      id: variant.id.toString(),
+    });
 
     expect(result).toBeDefined();
     expect(result.id.toString()).toBe(variant.id.toString());
@@ -74,7 +80,10 @@ describe('GetVariantByIdUseCase', () => {
 
   it('should throw error if variant not found', async () => {
     await expect(() =>
-      getVariantById.execute({ id: new UniqueEntityID().toString() }),
+      getVariantById.execute({
+        tenantId: 'tenant-1',
+        id: new UniqueEntityID().toString(),
+      }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
 });

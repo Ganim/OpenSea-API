@@ -17,6 +17,7 @@ describe('GetTagByIdUseCase', () => {
 
   it('should get a tag by id', async () => {
     const { tag: createdTag } = await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
       color: '#FF5733',
@@ -24,6 +25,7 @@ describe('GetTagByIdUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdTag.id,
     });
 
@@ -33,6 +35,7 @@ describe('GetTagByIdUseCase', () => {
   it('should throw error when tag does not exist', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'non-existent-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);

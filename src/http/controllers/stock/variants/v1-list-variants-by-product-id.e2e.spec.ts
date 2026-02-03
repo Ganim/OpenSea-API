@@ -20,8 +20,18 @@ describe('List Variants by Product ID (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const template = await prisma.template.create({
       data: {
+        tenantId,
         name: `List Variants By Product Template ${timestamp}`,
         productAttributes: {},
         variantAttributes: {},
@@ -30,11 +40,13 @@ describe('List Variants by Product ID (E2E)', () => {
     });
 
     const { product } = await createProduct({
+      tenantId,
       name: `Product For List By ID ${timestamp}`,
       templateId: template.id,
     });
 
     await createVariant({
+      tenantId,
       productId: product.id,
       sku: `SKU-LIST-BY-ID-${timestamp}`,
       name: `Variant List By ID ${timestamp}`,

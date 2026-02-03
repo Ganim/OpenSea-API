@@ -17,8 +17,9 @@ describe('Complete Vacation (E2E)', () => {
 
   it('should complete an in-progress vacation with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
     const { vacationPeriodId } = await createInProgressVacationPeriodE2E({
+      tenantId: employee.tenantId,
       employeeId,
       totalDays: 30,
       remainingDays: 30,

@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema, payrollResponseSchema } from '@/http/schemas';
 import { payrollToDTO } from '@/mappers/hr/payroll';
 import { makeGetPayrollUseCase } from '@/use-cases/hr/payrolls/factories/make-get-payroll-use-case';
@@ -12,7 +13,7 @@ export async function getPayrollController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/payrolls/:payrollId',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Payroll'],
       summary: 'Get payroll',
@@ -32,11 +33,15 @@ export async function getPayrollController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { payrollId } = request.params;
 
       try {
         const getPayrollUseCase = makeGetPayrollUseCase();
-        const { payroll } = await getPayrollUseCase.execute({ payrollId });
+        const { payroll } = await getPayrollUseCase.execute({
+          tenantId,
+          payrollId,
+        });
 
         return reply.status(200).send({ payroll: payrollToDTO(payroll) });
       } catch (error) {

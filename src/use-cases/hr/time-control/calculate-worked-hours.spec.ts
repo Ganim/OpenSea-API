@@ -16,6 +16,7 @@ let timeEntriesRepository: InMemoryTimeEntriesRepository;
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: CalculateWorkedHoursUseCase;
 let testEmployee: Employee;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Calculate Worked Hours Use Case', () => {
   beforeEach(async () => {
@@ -28,6 +29,7 @@ describe('Calculate Worked Hours Use Case', () => {
 
     // Create test employee
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -44,18 +46,21 @@ describe('Calculate Worked Hours Use Case', () => {
   it('should calculate worked hours for a simple day', async () => {
     // Clock in at 8:00, clock out at 17:00 = 9 hours
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-15T08:00:00Z'),
     });
 
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_OUT(),
       timestamp: new Date('2024-01-15T17:00:00Z'),
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       startDate: new Date('2024-01-15T00:00:00Z'),
       endDate: new Date('2024-01-15T23:59:59Z'),
@@ -72,30 +77,35 @@ describe('Calculate Worked Hours Use Case', () => {
     // 13:00 - 17:00 = 4 hours (after break)
     // Total worked: 8 hours, break: 1 hour, net: 7 hours
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-15T08:00:00Z'),
     });
 
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.BREAK_START(),
       timestamp: new Date('2024-01-15T12:00:00Z'),
     });
 
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.BREAK_END(),
       timestamp: new Date('2024-01-15T13:00:00Z'),
     });
 
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_OUT(),
       timestamp: new Date('2024-01-15T17:00:00Z'),
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       startDate: new Date('2024-01-15T00:00:00Z'),
       endDate: new Date('2024-01-15T23:59:59Z'),
@@ -109,18 +119,21 @@ describe('Calculate Worked Hours Use Case', () => {
 
   it('should calculate overtime hours', async () => {
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.OVERTIME_START(),
       timestamp: new Date('2024-01-15T18:00:00Z'),
     });
 
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.OVERTIME_END(),
       timestamp: new Date('2024-01-15T20:00:00Z'),
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       startDate: new Date('2024-01-15T00:00:00Z'),
       endDate: new Date('2024-01-15T23:59:59Z'),
@@ -132,11 +145,13 @@ describe('Calculate Worked Hours Use Case', () => {
   it('should calculate worked hours for multiple days', async () => {
     // Day 1: 8:00 - 17:00 = 9 hours
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-15T08:00:00Z'),
     });
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_OUT(),
       timestamp: new Date('2024-01-15T17:00:00Z'),
@@ -144,17 +159,20 @@ describe('Calculate Worked Hours Use Case', () => {
 
     // Day 2: 9:00 - 18:00 = 9 hours
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_IN(),
       timestamp: new Date('2024-01-16T09:00:00Z'),
     });
     await timeEntriesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       entryType: TimeEntryType.CLOCK_OUT(),
       timestamp: new Date('2024-01-16T18:00:00Z'),
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       startDate: new Date('2024-01-15T00:00:00Z'),
       endDate: new Date('2024-01-16T23:59:59Z'),
@@ -168,6 +186,7 @@ describe('Calculate Worked Hours Use Case', () => {
   it('should throw error if employee not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         employeeId: new UniqueEntityID().toString(),
         startDate: new Date('2024-01-15T00:00:00Z'),
         endDate: new Date('2024-01-15T23:59:59Z'),
@@ -177,6 +196,7 @@ describe('Calculate Worked Hours Use Case', () => {
 
   it('should return empty breakdown when no entries exist', async () => {
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       startDate: new Date('2024-01-15T00:00:00Z'),
       endDate: new Date('2024-01-15T23:59:59Z'),

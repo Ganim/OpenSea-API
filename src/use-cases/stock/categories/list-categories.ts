@@ -1,5 +1,9 @@
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 
+interface ListCategoriesUseCaseRequest {
+  tenantId: string;
+}
+
 interface ListCategoriesUseCaseResponse {
   categories: import('@/entities/stock/category').Category[];
 }
@@ -7,8 +11,10 @@ interface ListCategoriesUseCaseResponse {
 export class ListCategoriesUseCase {
   constructor(private categoriesRepository: CategoriesRepository) {}
 
-  async execute(): Promise<ListCategoriesUseCaseResponse> {
-    const categories = await this.categoriesRepository.findMany();
+  async execute({
+    tenantId,
+  }: ListCategoriesUseCaseRequest): Promise<ListCategoriesUseCaseResponse> {
+    const categories = await this.categoriesRepository.findMany(tenantId);
 
     return {
       categories,

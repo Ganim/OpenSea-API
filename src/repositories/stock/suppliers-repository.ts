@@ -3,6 +3,7 @@ import { Supplier } from '@/entities/stock/supplier';
 import { CNPJ } from '@/entities/stock/value-objects/cnpj';
 
 export interface CreateSupplierSchema {
+  tenantId: string;
   name: string;
   cnpj?: CNPJ;
   taxId?: string;
@@ -43,12 +44,12 @@ export interface UpdateSupplierSchema {
 
 export interface SuppliersRepository {
   create(data: CreateSupplierSchema): Promise<Supplier>;
-  findById(id: UniqueEntityID): Promise<Supplier | null>;
-  findByCNPJ(cnpj: CNPJ): Promise<Supplier | null>;
-  findByName(name: string): Promise<Supplier[]>;
-  findMany(): Promise<Supplier[]>;
-  findManyActive(): Promise<Supplier[]>;
-  findManyByRating(minRating: number): Promise<Supplier[]>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Supplier | null>;
+  findByCNPJ(cnpj: CNPJ, tenantId: string): Promise<Supplier | null>;
+  findByName(name: string, tenantId: string): Promise<Supplier[]>;
+  findMany(tenantId: string): Promise<Supplier[]>;
+  findManyActive(tenantId: string): Promise<Supplier[]>;
+  findManyByRating(minRating: number, tenantId: string): Promise<Supplier[]>;
   update(data: UpdateSupplierSchema): Promise<Supplier | null>;
   save(supplier: Supplier): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

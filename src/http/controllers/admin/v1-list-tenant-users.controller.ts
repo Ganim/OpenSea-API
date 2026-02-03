@@ -15,13 +15,13 @@ export async function listTenantUsersAdminController(app: FastifyInstance) {
       tags: ['Admin - Tenants'],
       summary: 'List tenant users (super admin)',
       description:
-        'Lists all users associated with a specific tenant. Requires super admin privileges.',
+        'Lists all users associated with a specific tenant, including user details. Requires super admin privileges.',
       params: z.object({
         id: z.string().uuid(),
       }),
       response: {
         200: z.object({
-          tenantUsers: z.array(
+          users: z.array(
             z.object({
               id: z.string(),
               tenantId: z.string(),
@@ -30,6 +30,13 @@ export async function listTenantUsersAdminController(app: FastifyInstance) {
               joinedAt: z.coerce.date(),
               createdAt: z.coerce.date(),
               updatedAt: z.coerce.date(),
+              user: z
+                .object({
+                  id: z.string(),
+                  email: z.string(),
+                  username: z.string(),
+                })
+                .nullable(),
             }),
           ),
         }),
@@ -45,11 +52,11 @@ export async function listTenantUsersAdminController(app: FastifyInstance) {
 
       try {
         const listTenantUsersUseCase = makeListTenantUsersUseCase();
-        const { tenantUsers } = await listTenantUsersUseCase.execute({
+        const { users } = await listTenantUsersUseCase.execute({
           tenantId: id,
         });
 
-        return reply.status(200).send({ tenantUsers });
+        return reply.status(200).send({ users });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

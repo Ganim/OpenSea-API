@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
 interface CreateManufacturerProps {
+  tenantId: string;
   name?: string;
   country?: string;
   isActive?: boolean;
@@ -12,9 +13,7 @@ function generateManufacturerCode(count: number) {
   return String(next).padStart(3, '0');
 }
 
-export async function createManufacturer(
-  override: CreateManufacturerProps = {},
-) {
+export async function createManufacturer(override: CreateManufacturerProps) {
   const timestamp = Date.now();
   const count = await prisma.manufacturer.count();
 
@@ -23,6 +22,7 @@ export async function createManufacturer(
 
   const manufacturer = await prisma.manufacturer.create({
     data: {
+      tenantId: override.tenantId,
       name,
       code,
       country: override.country ?? 'United States',

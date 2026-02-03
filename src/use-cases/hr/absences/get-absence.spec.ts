@@ -8,6 +8,7 @@ import { GetAbsenceUseCase } from './get-absence';
 let absencesRepository: InMemoryAbsencesRepository;
 let sut: GetAbsenceUseCase;
 let testAbsence: Absence;
+const tenantId = new UniqueEntityID().toString();
 const employeeId = new UniqueEntityID();
 
 describe('Get Absence Use Case', () => {
@@ -16,6 +17,7 @@ describe('Get Absence Use Case', () => {
     sut = new GetAbsenceUseCase(absencesRepository);
 
     testAbsence = Absence.create({
+      tenantId: new UniqueEntityID(tenantId),
       employeeId,
       type: AbsenceType.create('VACATION'),
       status: AbsenceStatus.pending(),
@@ -31,6 +33,7 @@ describe('Get Absence Use Case', () => {
 
   it('should get absence by id', async () => {
     const result = await sut.execute({
+      tenantId,
       absenceId: testAbsence.id.toString(),
     });
 
@@ -43,6 +46,7 @@ describe('Get Absence Use Case', () => {
   it('should throw error if absence not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         absenceId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Absence');

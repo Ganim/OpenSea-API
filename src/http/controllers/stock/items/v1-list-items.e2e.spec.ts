@@ -21,8 +21,18 @@ describe('List Items (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const template = await prisma.template.create({
       data: {
+        tenantId,
         name: `Template List Items ${timestamp}`,
         productAttributes: {},
         variantAttributes: {},
@@ -31,11 +41,13 @@ describe('List Items (E2E)', () => {
     });
 
     const { product } = await createProduct({
+      tenantId,
       name: `Product List Items ${timestamp}`,
       templateId: template.id,
     });
 
     const { variant } = await createVariant({
+      tenantId,
       productId: product.id,
       sku: `SKU-LIST-ITEMS-${timestamp}`,
       name: `Variant List Items ${timestamp}`,
@@ -44,6 +56,7 @@ describe('List Items (E2E)', () => {
 
     const warehouse = await prisma.warehouse.create({
       data: {
+        tenantId,
         code: `W${timestamp.toString().slice(-3)}`,
         name: 'Warehouse for list items',
       },
@@ -51,6 +64,7 @@ describe('List Items (E2E)', () => {
 
     const zone = await prisma.zone.create({
       data: {
+        tenantId,
         code: `Z${timestamp.toString().slice(-3)}`,
         name: 'Zone for list items',
         warehouseId: warehouse.id,
@@ -60,6 +74,7 @@ describe('List Items (E2E)', () => {
 
     const bin = await prisma.bin.create({
       data: {
+        tenantId,
         address: `${warehouse.code}-${zone.code}-01-A`,
         aisle: 1,
         shelf: 1,
@@ -69,6 +84,7 @@ describe('List Items (E2E)', () => {
     });
 
     await createItemE2E({
+      tenantId,
       variantId: variant.id,
       uniqueCode: `ITEM-LIST-${timestamp}`,
       binId: bin.id,

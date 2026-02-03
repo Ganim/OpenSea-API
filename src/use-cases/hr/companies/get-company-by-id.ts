@@ -5,6 +5,7 @@ import type { CompaniesRepository } from '@/repositories/hr/companies-repository
 import type { DepartmentsRepository } from '@/repositories/hr/departments-repository';
 
 export interface GetCompanyByIdRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -25,6 +26,7 @@ export class GetCompanyByIdUseCase {
   ): Promise<GetCompanyByIdResponse> {
     const company = await this.companiesRepository.findById(
       new UniqueEntityID(request.id),
+      request.tenantId,
     );
 
     if (!company) {
@@ -34,6 +36,7 @@ export class GetCompanyByIdUseCase {
     // Get departments for this company
     const departments = await this.departmentsRepository.findManyByCompany(
       company.id,
+      request.tenantId,
     );
 
     return {

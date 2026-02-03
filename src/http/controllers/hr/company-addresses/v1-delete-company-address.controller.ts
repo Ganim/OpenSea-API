@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas';
 import { makeDeleteCompanyAddressUseCase } from '@/use-cases/hr/company-addresses/factories/make-company-addresses';
 import type { FastifyInstance } from 'fastify';
@@ -13,6 +14,7 @@ export async function deleteCompanyAddressController(app: FastifyInstance) {
     url: '/v1/hr/companies/:companyId/addresses/:addressId',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.COMPANY_ADDRESSES.DELETE,
         resource: 'company-addresses',

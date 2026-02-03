@@ -16,6 +16,8 @@ let employeesRepository: InMemoryEmployeesRepository;
 let sut: CreateBonusUseCase;
 let testEmployee: Employee;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('Create Bonus Use Case', () => {
   beforeEach(async () => {
     bonusesRepository = new InMemoryBonusesRepository();
@@ -23,6 +25,7 @@ describe('Create Bonus Use Case', () => {
     sut = new CreateBonusUseCase(bonusesRepository, employeesRepository);
 
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -38,6 +41,7 @@ describe('Create Bonus Use Case', () => {
 
   it('should create a bonus successfully', async () => {
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       name: 'Performance Bonus',
       amount: 1000,
@@ -55,6 +59,7 @@ describe('Create Bonus Use Case', () => {
   it('should throw error if employee not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         employeeId: new UniqueEntityID().toString(),
         name: 'Performance Bonus',
         amount: 1000,
@@ -66,6 +71,7 @@ describe('Create Bonus Use Case', () => {
 
   it('should create bonus for inactive employee', async () => {
     const inactiveEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Inactive Employee',
       cpf: CPF.create('123.456.789-09'),
@@ -80,6 +86,7 @@ describe('Create Bonus Use Case', () => {
 
     // Bonus can be created for inactive employees (e.g., severance bonus)
     const result = await sut.execute({
+      tenantId,
       employeeId: inactiveEmployee.id.toString(),
       name: 'Performance Bonus',
       amount: 1000,
@@ -92,6 +99,7 @@ describe('Create Bonus Use Case', () => {
 
   it('should create multiple bonuses for the same employee', async () => {
     await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       name: 'Bonus 1',
       amount: 500,
@@ -100,6 +108,7 @@ describe('Create Bonus Use Case', () => {
     });
 
     await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       name: 'Bonus 2',
       amount: 1000,
@@ -107,7 +116,10 @@ describe('Create Bonus Use Case', () => {
       date: new Date(),
     });
 
-    const bonuses = await bonusesRepository.findManyByEmployee(testEmployee.id);
+    const bonuses = await bonusesRepository.findManyByEmployee(
+      testEmployee.id,
+      tenantId,
+    );
     expect(bonuses).toHaveLength(2);
   });
 });

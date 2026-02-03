@@ -12,6 +12,7 @@ export class PrismaTagsRepository implements TagsRepository {
   async create(data: CreateTagSchema): Promise<Tag> {
     const tagData = await prisma.tag.create({
       data: {
+        tenantId: data.tenantId,
         name: data.name,
         slug: data.slug,
         color: data.color,
@@ -21,6 +22,7 @@ export class PrismaTagsRepository implements TagsRepository {
 
     return Tag.create(
       {
+        tenantId: new EntityID(tagData.tenantId),
         name: tagData.name,
         slug: tagData.slug,
         color: tagData.color,
@@ -32,10 +34,11 @@ export class PrismaTagsRepository implements TagsRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<Tag | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Tag | null> {
     const tagData = await prisma.tag.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -46,6 +49,7 @@ export class PrismaTagsRepository implements TagsRepository {
 
     return Tag.create(
       {
+        tenantId: new EntityID(tagData.tenantId),
         name: tagData.name,
         slug: tagData.slug,
         color: tagData.color,
@@ -57,10 +61,11 @@ export class PrismaTagsRepository implements TagsRepository {
     );
   }
 
-  async findBySlug(slug: string): Promise<Tag | null> {
-    const tagData = await prisma.tag.findUnique({
+  async findBySlug(slug: string, tenantId: string): Promise<Tag | null> {
+    const tagData = await prisma.tag.findFirst({
       where: {
         slug,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -71,6 +76,7 @@ export class PrismaTagsRepository implements TagsRepository {
 
     return Tag.create(
       {
+        tenantId: new EntityID(tagData.tenantId),
         name: tagData.name,
         slug: tagData.slug,
         color: tagData.color,
@@ -82,10 +88,11 @@ export class PrismaTagsRepository implements TagsRepository {
     );
   }
 
-  async findByName(name: string): Promise<Tag | null> {
-    const tagData = await prisma.tag.findUnique({
+  async findByName(name: string, tenantId: string): Promise<Tag | null> {
+    const tagData = await prisma.tag.findFirst({
       where: {
         name,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -96,6 +103,7 @@ export class PrismaTagsRepository implements TagsRepository {
 
     return Tag.create(
       {
+        tenantId: new EntityID(tagData.tenantId),
         name: tagData.name,
         slug: tagData.slug,
         color: tagData.color,
@@ -107,9 +115,10 @@ export class PrismaTagsRepository implements TagsRepository {
     );
   }
 
-  async findMany(): Promise<Tag[]> {
+  async findMany(tenantId: string): Promise<Tag[]> {
     const tags = await prisma.tag.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
     });
@@ -117,6 +126,7 @@ export class PrismaTagsRepository implements TagsRepository {
     return tags.map((tagData) =>
       Tag.create(
         {
+          tenantId: new EntityID(tagData.tenantId),
           name: tagData.name,
           slug: tagData.slug,
           color: tagData.color,
@@ -129,12 +139,13 @@ export class PrismaTagsRepository implements TagsRepository {
     );
   }
 
-  async findManyByNames(names: string[]): Promise<Tag[]> {
+  async findManyByNames(names: string[], tenantId: string): Promise<Tag[]> {
     const tags = await prisma.tag.findMany({
       where: {
         name: {
           in: names,
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -142,6 +153,7 @@ export class PrismaTagsRepository implements TagsRepository {
     return tags.map((tagData) =>
       Tag.create(
         {
+          tenantId: new EntityID(tagData.tenantId),
           name: tagData.name,
           slug: tagData.slug,
           color: tagData.color,
@@ -169,6 +181,7 @@ export class PrismaTagsRepository implements TagsRepository {
 
     return Tag.create(
       {
+        tenantId: new EntityID(tagData.tenantId),
         name: tagData.name,
         slug: tagData.slug,
         color: tagData.color,

@@ -19,7 +19,7 @@ describe('Delete Label Template (E2E)', () => {
   });
 
   it('should delete label template with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app, { organizationId });
+    const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
     const createResponse = await request(app.server)

@@ -2,6 +2,7 @@ import { Entity } from '../domain/entities';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface DepartmentProps {
+  tenantId: UniqueEntityID;
   name: string;
   code: string;
   description?: string;
@@ -15,6 +16,10 @@ export interface DepartmentProps {
 }
 
 export class Department extends Entity<DepartmentProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get name(): string {
     return this.props.name;
   }

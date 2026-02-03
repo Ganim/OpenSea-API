@@ -14,6 +14,7 @@ describe('CreateSupplierUseCase', () => {
 
   it('should create a supplier', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Tech Supplies Co.',
       cnpj: '11.222.333/0001-81',
       email: 'contact@techsupplies.com',
@@ -37,6 +38,7 @@ describe('CreateSupplierUseCase', () => {
 
   it('should create a supplier without optional fields', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Simple Supplier',
     });
 
@@ -48,6 +50,7 @@ describe('CreateSupplierUseCase', () => {
   it('should not create a supplier with empty name', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: '',
       }),
     ).rejects.toThrow(BadRequestError);
@@ -56,6 +59,7 @@ describe('CreateSupplierUseCase', () => {
   it('should not create a supplier with name longer than 200 characters', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'a'.repeat(201),
       }),
     ).rejects.toThrow(BadRequestError);
@@ -64,6 +68,7 @@ describe('CreateSupplierUseCase', () => {
   it('should not create a supplier with invalid CNPJ', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Tech Supplies Co.',
         cnpj: '12.345.678/0001-00', // Invalid CNPJ
       }),
@@ -72,12 +77,14 @@ describe('CreateSupplierUseCase', () => {
 
   it('should not create a supplier with duplicate CNPJ', async () => {
     await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Tech Supplies Co.',
       cnpj: '11.222.333/0001-81',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Another Supplier',
         cnpj: '11.222.333/0001-81',
       }),
@@ -87,6 +94,7 @@ describe('CreateSupplierUseCase', () => {
   it('should not create a supplier with invalid email', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Tech Supplies Co.',
         email: 'invalid-email',
       }),
@@ -96,6 +104,7 @@ describe('CreateSupplierUseCase', () => {
   it('should not create a supplier with invalid rating', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Tech Supplies Co.',
         rating: 6,
       }),
@@ -104,6 +113,7 @@ describe('CreateSupplierUseCase', () => {
 
   it('should create an inactive supplier', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Inactive Supplier',
       isActive: false,
     });

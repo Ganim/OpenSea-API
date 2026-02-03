@@ -5,6 +5,7 @@ import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
 
 export interface CalculateVacationBalanceRequest {
+  tenantId: string;
   employeeId: string;
 }
 
@@ -38,10 +39,11 @@ export class CalculateVacationBalanceUseCase {
   async execute(
     request: CalculateVacationBalanceRequest,
   ): Promise<CalculateVacationBalanceResponse> {
-    const { employeeId } = request;
+    const { tenantId, employeeId } = request;
 
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!employee) {
@@ -51,6 +53,7 @@ export class CalculateVacationBalanceUseCase {
     const vacationPeriods =
       await this.vacationPeriodsRepository.findManyByEmployee(
         new UniqueEntityID(employeeId),
+        tenantId,
       );
 
     const now = new Date();

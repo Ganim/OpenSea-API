@@ -14,6 +14,7 @@ import type { Variant } from './variant';
 
 export interface ProductProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   name: string;
   slug: Slug; // Slug gerado automaticamente - IMUTÁVEL
   fullCode: string; // Código completo gerado automaticamente (ex: 001.001.0001) - IMUTÁVEL
@@ -46,6 +47,10 @@ export interface ProductProps {
 export class Product extends Entity<ProductProps> {
   get id(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get name(): string {

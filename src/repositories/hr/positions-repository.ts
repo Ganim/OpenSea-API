@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Position } from '@/entities/hr/position';
 
 export interface CreatePositionSchema {
+  tenantId: string;
   name: string;
   code: string;
   description?: string;
@@ -27,6 +28,7 @@ export interface UpdatePositionSchema {
 }
 
 export interface FindManyPositionsParams {
+  tenantId: string;
   page?: number;
   perPage?: number;
   search?: string;
@@ -43,13 +45,19 @@ export interface FindManyPositionsResult {
 
 export interface PositionsRepository {
   create(data: CreatePositionSchema): Promise<Position>;
-  findById(id: UniqueEntityID): Promise<Position | null>;
-  findByCode(code: string): Promise<Position | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Position | null>;
+  findByCode(code: string, tenantId: string): Promise<Position | null>;
   findMany(params: FindManyPositionsParams): Promise<FindManyPositionsResult>;
-  findManyByDepartment(departmentId: UniqueEntityID): Promise<Position[]>;
-  findManyByCompany(companyId: UniqueEntityID): Promise<Position[]>;
-  findManyByLevel(level: number): Promise<Position[]>;
-  findManyActive(): Promise<Position[]>;
+  findManyByDepartment(
+    departmentId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Position[]>;
+  findManyByCompany(
+    companyId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Position[]>;
+  findManyByLevel(level: number, tenantId: string): Promise<Position[]>;
+  findManyActive(tenantId: string): Promise<Position[]>;
   hasEmployees(id: UniqueEntityID): Promise<boolean>;
   countEmployeesByPosition(positionId: UniqueEntityID): Promise<number>;
   update(data: UpdatePositionSchema): Promise<Position | null>;

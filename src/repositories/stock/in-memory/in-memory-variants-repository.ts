@@ -1,4 +1,4 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
 import type {
   CreateVariantSchema,
@@ -11,6 +11,7 @@ export class InMemoryVariantsRepository implements VariantsRepository {
 
   async create(data: CreateVariantSchema): Promise<Variant> {
     const variant = Variant.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       productId: data.productId,
       slug: data.slug,
       sku: data.sku,
@@ -42,56 +43,97 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     return variant;
   }
 
-  async findById(id: UniqueEntityID): Promise<Variant | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Variant | null> {
     const variant = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return variant ?? null;
   }
 
-  async findBySKU(sku: string): Promise<Variant | null> {
+  async findBySKU(sku: string, tenantId: string): Promise<Variant | null> {
     const variant = this.items.find(
-      (item) => !item.deletedAt && item.sku === sku,
+      (item) =>
+        !item.deletedAt &&
+        item.sku === sku &&
+        item.tenantId.toString() === tenantId,
     );
     return variant ?? null;
   }
 
-  async findByBarcode(barcode: string): Promise<Variant | null> {
+  async findByBarcode(
+    barcode: string,
+    tenantId: string,
+  ): Promise<Variant | null> {
     const variant = this.items.find(
-      (item) => !item.deletedAt && item.barcode === barcode,
+      (item) =>
+        !item.deletedAt &&
+        item.barcode === barcode &&
+        item.tenantId.toString() === tenantId,
     );
     return variant ?? null;
   }
 
-  async findByEANCode(eanCode: string): Promise<Variant | null> {
+  async findByEANCode(
+    eanCode: string,
+    tenantId: string,
+  ): Promise<Variant | null> {
     const variant = this.items.find(
-      (item) => !item.deletedAt && item.eanCode === eanCode,
+      (item) =>
+        !item.deletedAt &&
+        item.eanCode === eanCode &&
+        item.tenantId.toString() === tenantId,
     );
     return variant ?? null;
   }
 
-  async findByUPCCode(upcCode: string): Promise<Variant | null> {
+  async findByUPCCode(
+    upcCode: string,
+    tenantId: string,
+  ): Promise<Variant | null> {
     const variant = this.items.find(
-      (item) => !item.deletedAt && item.upcCode === upcCode,
+      (item) =>
+        !item.deletedAt &&
+        item.upcCode === upcCode &&
+        item.tenantId.toString() === tenantId,
     );
     return variant ?? null;
   }
 
-  async findMany(): Promise<Variant[]> {
-    return this.items.filter((item) => !item.deletedAt);
-  }
-
-  async findManyByProduct(productId: UniqueEntityID): Promise<Variant[]> {
+  async findMany(tenantId: string): Promise<Variant[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.productId.equals(productId),
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
+  }
+
+  async findManyByProduct(
+    productId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Variant[]> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.productId.equals(productId) &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
   async findLastByProductId(
     productId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Variant | null> {
     const variants = this.items
-      .filter((item) => !item.deletedAt && item.productId.equals(productId))
+      .filter(
+        (item) =>
+          !item.deletedAt &&
+          item.productId.equals(productId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => (b.sequentialCode ?? 0) - (a.sequentialCode ?? 0));
     return variants[0] ?? null;
   }
@@ -99,23 +141,31 @@ export class InMemoryVariantsRepository implements VariantsRepository {
   async findManyByPriceRange(
     minPrice: number,
     maxPrice: number,
+    tenantId: string,
   ): Promise<Variant[]> {
     return this.items.filter(
       (item) =>
-        !item.deletedAt && item.price >= minPrice && item.price <= maxPrice,
+        !item.deletedAt &&
+        item.price >= minPrice &&
+        item.price <= maxPrice &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyBelowReorderPoint(): Promise<Variant[]> {
+  async findManyBelowReorderPoint(tenantId: string): Promise<Variant[]> {
     return this.items.filter(
       (item) =>
         !item.deletedAt &&
         item.reorderPoint !== null &&
-        item.reorderPoint !== undefined,
+        item.reorderPoint !== undefined &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyByProductWithAggregations(productId: UniqueEntityID): Promise<
+  async findManyByProductWithAggregations(
+    productId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<
     Array<{
       variant: Variant;
       productCode: string;
@@ -125,7 +175,10 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     }>
   > {
     const variants = this.items.filter(
-      (item) => !item.deletedAt && item.productId.equals(productId),
+      (item) =>
+        !item.deletedAt &&
+        item.productId.equals(productId) &&
+        item.tenantId.toString() === tenantId,
     );
 
     // Mock data for testing - in real implementation, this would aggregate from items
@@ -139,7 +192,9 @@ export class InMemoryVariantsRepository implements VariantsRepository {
   }
 
   async update(data: UpdateVariantSchema): Promise<Variant | null> {
-    const variant = await this.findById(data.id);
+    const variant =
+      this.items.find((item) => !item.deletedAt && item.id.equals(data.id)) ??
+      null;
     if (!variant) return null;
 
     if (data.sku !== undefined) variant.sku = data.sku;
@@ -172,7 +227,8 @@ export class InMemoryVariantsRepository implements VariantsRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const variant = await this.findById(id);
+    const variant =
+      this.items.find((item) => !item.deletedAt && item.id.equals(id)) ?? null;
     if (variant) {
       variant.delete();
     }

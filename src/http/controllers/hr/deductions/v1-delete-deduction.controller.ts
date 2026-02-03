@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas';
 import { makeDeleteDeductionUseCase } from '@/use-cases/hr/deductions/factories/make-delete-deduction-use-case';
 
@@ -15,6 +16,7 @@ export async function deleteDeductionController(app: FastifyInstance) {
     url: '/v1/hr/deductions/:deductionId',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.DEDUCTIONS.DELETE,
         resource: 'deductions',
@@ -37,11 +39,12 @@ export async function deleteDeductionController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { deductionId } = request.params;
 
       try {
         const deleteDeductionUseCase = makeDeleteDeductionUseCase();
-        await deleteDeductionUseCase.execute({ deductionId });
+        await deleteDeductionUseCase.execute({ tenantId, deductionId });
 
         return reply.status(204).send();
       } catch (error) {

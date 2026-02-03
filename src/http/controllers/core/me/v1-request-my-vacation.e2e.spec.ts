@@ -24,6 +24,7 @@ describe('Request My Vacation (E2E)', () => {
     });
 
     const { vacationPeriodId } = await createVacationPeriodE2E({
+      tenantId: employee.tenantId,
       employeeId: employee.id,
       status: 'AVAILABLE',
     });

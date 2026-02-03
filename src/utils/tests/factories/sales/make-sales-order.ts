@@ -15,6 +15,7 @@ interface MakeSalesOrderItemProps {
 }
 
 interface MakeSalesOrderProps {
+  tenantId?: UniqueEntityID;
   orderNumber?: string;
   status?:
     | 'DRAFT'
@@ -71,6 +72,7 @@ export function makeSalesOrder(override: MakeSalesOrderProps = {}): SalesOrder {
 
   const order = SalesOrder.create(
     {
+      tenantId: override.tenantId ?? new UniqueEntityID('tenant-1'),
       orderNumber:
         override.orderNumber ??
         `SO-${faker.string.alphanumeric(10).toUpperCase()}`,

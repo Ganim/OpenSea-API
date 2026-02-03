@@ -28,7 +28,7 @@ describe('GetBinDetailUseCase', () => {
 
   it('should throw ResourceNotFoundError for non-existent bin', async () => {
     await expect(() =>
-      sut.execute({ id: 'non-existent' }),
+      sut.execute({ tenantId: 'tenant-1', id: 'non-existent' }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

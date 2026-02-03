@@ -7,6 +7,7 @@ import {
 import type { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 
 interface CreateSupplierUseCaseRequest {
+  tenantId: string;
   name: string;
   cnpj?: string;
   taxId?: string;
@@ -33,6 +34,7 @@ export class CreateSupplierUseCase {
   constructor(private suppliersRepository: SuppliersRepository) {}
 
   async execute({
+    tenantId,
     name,
     cnpj,
     taxId,
@@ -69,8 +71,10 @@ export class CreateSupplierUseCase {
       supplierCNPJ = parsedCNPJ;
 
       // Check if CNPJ already exists
-      const existingSupplier =
-        await this.suppliersRepository.findByCNPJ(supplierCNPJ);
+      const existingSupplier = await this.suppliersRepository.findByCNPJ(
+        supplierCNPJ,
+        tenantId,
+      );
       if (existingSupplier) {
         throw new BadRequestError('A supplier with this CNPJ already exists');
       }
@@ -91,6 +95,7 @@ export class CreateSupplierUseCase {
 
     // Create supplier
     const createdSupplier = await this.suppliersRepository.create({
+      tenantId,
       name: name.trim(),
       cnpj: supplierCNPJ,
       taxId,

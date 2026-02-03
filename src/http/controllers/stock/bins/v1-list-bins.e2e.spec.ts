@@ -18,8 +18,18 @@ describe('List Bins (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now().toString();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const warehouse = await prisma.warehouse.create({
       data: {
+        tenantId,
         code: `LB${timestamp.slice(-3)}`,
         name: `Warehouse ListBins ${timestamp}`,
       },
@@ -27,6 +37,7 @@ describe('List Bins (E2E)', () => {
 
     const zone = await prisma.zone.create({
       data: {
+        tenantId,
         code: `ZL${timestamp.slice(-2)}`,
         name: `Zone ListBins ${timestamp}`,
         warehouseId: warehouse.id,
@@ -37,6 +48,7 @@ describe('List Bins (E2E)', () => {
     await prisma.bin.createMany({
       data: [
         {
+          tenantId,
           address: `${warehouse.code}-${zone.code}-01-A`,
           aisle: 1,
           shelf: 1,
@@ -44,6 +56,7 @@ describe('List Bins (E2E)', () => {
           zoneId: zone.id,
         },
         {
+          tenantId,
           address: `${warehouse.code}-${zone.code}-01-B`,
           aisle: 1,
           shelf: 1,

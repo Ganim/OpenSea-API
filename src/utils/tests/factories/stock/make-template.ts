@@ -8,6 +8,7 @@ import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import { faker } from '@faker-js/faker';
 
 interface MakeTemplateProps {
+  tenantId?: UniqueEntityID;
   name?: string;
   iconUrl?: string;
   productAttributes?: TemplateAttributesMap;
@@ -61,6 +62,7 @@ export const templateAttr = {
 export function makeTemplate(override: MakeTemplateProps = {}): Template {
   const template = Template.create(
     {
+      tenantId: override.tenantId ?? new UniqueEntityID('tenant-1'),
       name: override.name ?? faker.commerce.department(),
       iconUrl: override.iconUrl,
       unitOfMeasure: UnitOfMeasure.create('UNITS'),

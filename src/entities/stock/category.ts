@@ -4,6 +4,7 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface CategoryProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   name: string;
   slug: string;
   description: string | null;
@@ -22,6 +23,10 @@ export class Category extends Entity<CategoryProps> {
   // Getters
   get categoryId(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get name(): string {

@@ -14,6 +14,7 @@ describe('CreateCustomerUseCase', () => {
 
   it('should be able to create an individual customer', async () => {
     const result = await createCustomer.execute({
+      tenantId: 'tenant-1',
       name: 'João Silva',
       type: 'INDIVIDUAL',
       document: '52998224725', // CPF válido
@@ -31,6 +32,7 @@ describe('CreateCustomerUseCase', () => {
 
   it('should be able to create a company customer', async () => {
     const result = await createCustomer.execute({
+      tenantId: 'tenant-1',
       name: 'Empresa LTDA',
       type: 'BUSINESS',
       document: '11222333000181', // CNPJ válido
@@ -44,6 +46,7 @@ describe('CreateCustomerUseCase', () => {
 
   it('should be able to create customer with full address', async () => {
     const result = await createCustomer.execute({
+      tenantId: 'tenant-1',
       name: 'Cliente Completo',
       type: 'INDIVIDUAL',
       address: 'Rua Exemplo, 123',
@@ -62,6 +65,7 @@ describe('CreateCustomerUseCase', () => {
 
   it('should be able to create customer without document', async () => {
     const result = await createCustomer.execute({
+      tenantId: 'tenant-1',
       name: 'Cliente Sem Documento',
       type: 'INDIVIDUAL',
       email: 'sem.documento@example.com',
@@ -73,6 +77,7 @@ describe('CreateCustomerUseCase', () => {
 
   it('should be able to create customer with notes', async () => {
     const result = await createCustomer.execute({
+      tenantId: 'tenant-1',
       name: 'Cliente Com Notas',
       type: 'INDIVIDUAL',
       notes: 'Cliente VIP - desconto especial',
@@ -84,6 +89,7 @@ describe('CreateCustomerUseCase', () => {
   it('should not allow empty name', async () => {
     await expect(() =>
       createCustomer.execute({
+        tenantId: 'tenant-1',
         name: '',
         type: 'INDIVIDUAL',
       }),
@@ -91,6 +97,7 @@ describe('CreateCustomerUseCase', () => {
 
     await expect(() =>
       createCustomer.execute({
+        tenantId: 'tenant-1',
         name: '   ',
         type: 'INDIVIDUAL',
       }),
@@ -100,6 +107,7 @@ describe('CreateCustomerUseCase', () => {
   it('should not allow name exceeding 128 characters', async () => {
     await expect(() =>
       createCustomer.execute({
+        tenantId: 'tenant-1',
         name: 'A'.repeat(129),
         type: 'INDIVIDUAL',
       }),
@@ -109,6 +117,7 @@ describe('CreateCustomerUseCase', () => {
   it('should not allow invalid email format', async () => {
     await expect(() =>
       createCustomer.execute({
+        tenantId: 'tenant-1',
         name: 'Cliente',
         type: 'INDIVIDUAL',
         email: 'invalid-email',
@@ -117,6 +126,7 @@ describe('CreateCustomerUseCase', () => {
 
     await expect(() =>
       createCustomer.execute({
+        tenantId: 'tenant-1',
         name: 'Cliente',
         type: 'INDIVIDUAL',
         email: 'no-at-sign.com',
@@ -126,6 +136,7 @@ describe('CreateCustomerUseCase', () => {
 
   it('should not allow duplicate email', async () => {
     await createCustomer.execute({
+      tenantId: 'tenant-1',
       name: 'Cliente 1',
       type: 'INDIVIDUAL',
       email: 'duplicate@example.com',
@@ -133,6 +144,7 @@ describe('CreateCustomerUseCase', () => {
 
     await expect(() =>
       createCustomer.execute({
+        tenantId: 'tenant-1',
         name: 'Cliente 2',
         type: 'INDIVIDUAL',
         email: 'duplicate@example.com',
@@ -142,6 +154,7 @@ describe('CreateCustomerUseCase', () => {
 
   it('should not allow duplicate document', async () => {
     await createCustomer.execute({
+      tenantId: 'tenant-1',
       name: 'Cliente 1',
       type: 'INDIVIDUAL',
       document: '52998224725', // CPF válido
@@ -149,6 +162,7 @@ describe('CreateCustomerUseCase', () => {
 
     await expect(() =>
       createCustomer.execute({
+        tenantId: 'tenant-1',
         name: 'Cliente 2',
         type: 'INDIVIDUAL',
         document: '52998224725',
@@ -159,6 +173,7 @@ describe('CreateCustomerUseCase', () => {
   it('should not allow invalid document format', async () => {
     await expect(() =>
       createCustomer.execute({
+        tenantId: 'tenant-1',
         name: 'Cliente',
         type: 'INDIVIDUAL',
         document: 'INVALID',
@@ -169,6 +184,7 @@ describe('CreateCustomerUseCase', () => {
   it('should not allow state with invalid length', async () => {
     await expect(() =>
       createCustomer.execute({
+        tenantId: 'tenant-1',
         name: 'Cliente',
         type: 'INDIVIDUAL',
         state: 'SAO',
@@ -177,6 +193,7 @@ describe('CreateCustomerUseCase', () => {
 
     await expect(() =>
       createCustomer.execute({
+        tenantId: 'tenant-1',
         name: 'Cliente',
         type: 'INDIVIDUAL',
         state: 'S',
@@ -186,6 +203,7 @@ describe('CreateCustomerUseCase', () => {
 
   it('should convert state to uppercase', async () => {
     const result = await createCustomer.execute({
+      tenantId: 'tenant-1',
       name: 'Cliente',
       type: 'INDIVIDUAL',
       state: 'sp',
@@ -196,6 +214,7 @@ describe('CreateCustomerUseCase', () => {
 
   it('should trim customer name', async () => {
     const result = await createCustomer.execute({
+      tenantId: 'tenant-1',
       name: '  Cliente Com Espaços  ',
       type: 'INDIVIDUAL',
     });

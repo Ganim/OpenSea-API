@@ -1,4 +1,5 @@
 ﻿import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { customerResponseSchema } from '@/http/schemas/sales.schema';
 import { makeListCustomersUseCase } from '@/use-cases/sales/customers/factories/make-list-customers-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -9,7 +10,7 @@ export async function listCustomersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/customers',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['Sales - Customers'],
       summary: 'List customers',
@@ -33,9 +34,10 @@ export async function listCustomersController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const query = request.query;
+      const tenantId = request.user.tenantId!;
 
       const useCase = makeListCustomersUseCase();
-      const result = await useCase.execute(query);
+      const result = await useCase.execute({ tenantId, ...query });
 
       return reply.status(200).send(result);
     },

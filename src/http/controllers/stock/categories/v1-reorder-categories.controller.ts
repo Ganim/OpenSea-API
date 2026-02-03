@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeReorderCategoriesUseCase } from '@/use-cases/stock/categories/factories/make-reorder-categories-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -13,6 +14,7 @@ export async function reorderCategoriesController(app: FastifyInstance) {
     url: '/v1/categories/reorder',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.CATEGORIES.UPDATE,
         resource: 'categories',
@@ -39,11 +41,12 @@ export async function reorderCategoriesController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { items } = request.body;
 
       try {
         const reorderCategoriesUseCase = makeReorderCategoriesUseCase();
-        await reorderCategoriesUseCase.execute({ items });
+        await reorderCategoriesUseCase.execute({ tenantId, items });
 
         return reply.status(204).send();
       } catch (error) {

@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { faker } from '@faker-js/faker';
 
 interface CreatePositionE2EProps {
+  tenantId: string;
   name?: string;
   code?: string;
   description?: string;
@@ -30,7 +31,7 @@ export function generatePositionCode(): string {
 /**
  * Cria um cargo no banco de dados para testes E2E
  */
-export async function createPositionE2E(override: CreatePositionE2EProps = {}) {
+export async function createPositionE2E(override: CreatePositionE2EProps) {
   const code = override.code ?? generatePositionCode();
   const minSalary =
     override.minSalary ??
@@ -45,6 +46,7 @@ export async function createPositionE2E(override: CreatePositionE2EProps = {}) {
 
   const position = await prisma.position.create({
     data: {
+      tenantId: override.tenantId,
       name: override.name ?? faker.person.jobTitle(),
       code,
       description: override.description ?? faker.lorem.sentence(),

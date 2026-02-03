@@ -23,11 +23,13 @@ describe('SuggestAddressUseCase', () => {
 
   async function createTestData() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
@@ -35,6 +37,7 @@ describe('SuggestAddressUseCase', () => {
 
     const bins = await Promise.all([
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-101-A',
         aisle: 1,
@@ -44,6 +47,7 @@ describe('SuggestAddressUseCase', () => {
         currentOccupancy: 50,
       }),
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-102-A',
         aisle: 1,
@@ -51,6 +55,7 @@ describe('SuggestAddressUseCase', () => {
         position: 'A',
       }),
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-103-B',
         aisle: 1,
@@ -58,6 +63,7 @@ describe('SuggestAddressUseCase', () => {
         position: 'B',
       }),
       binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: 'FAB-EST-201-A',
         aisle: 2,
@@ -73,6 +79,7 @@ describe('SuggestAddressUseCase', () => {
     const { warehouse, zone } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'FAB-EST',
     });
 
@@ -90,6 +97,7 @@ describe('SuggestAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'fab-est',
     });
 
@@ -103,6 +111,7 @@ describe('SuggestAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'FAB',
       limit: 2,
     });
@@ -114,6 +123,7 @@ describe('SuggestAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'XYZ-NOPE',
     });
 
@@ -126,6 +136,7 @@ describe('SuggestAddressUseCase', () => {
     const { warehouse, zone, bins } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'FAB-EST-101',
     });
 
@@ -147,6 +158,7 @@ describe('SuggestAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'FAB-EST-101',
     });
 
@@ -161,6 +173,7 @@ describe('SuggestAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'FAB-EST',
     });
 
@@ -173,6 +186,7 @@ describe('SuggestAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'FAB-EST-102',
     });
 
@@ -189,6 +203,7 @@ describe('SuggestAddressUseCase', () => {
     );
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'FAB-EST',
     });
 
@@ -199,6 +214,7 @@ describe('SuggestAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'FAB-EST',
     });
 
@@ -216,11 +232,13 @@ describe('SuggestAddressUseCase', () => {
 
   it('should use default limit of 10', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'BIG',
       name: 'Big Warehouse',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'ZN1',
       name: 'Zone 1',
@@ -229,6 +247,7 @@ describe('SuggestAddressUseCase', () => {
     // Create 15 bins
     for (let i = 1; i <= 15; i++) {
       await binsRepository.create({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId,
         address: `BIG-ZN1-${i.toString().padStart(3, '0')}-A`,
         aisle: 1,
@@ -238,6 +257,7 @@ describe('SuggestAddressUseCase', () => {
     }
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'BIG-ZN1',
     });
 
@@ -248,6 +268,7 @@ describe('SuggestAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       partial: 'FAB-EST',
     });
 

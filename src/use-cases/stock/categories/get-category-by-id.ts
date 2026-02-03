@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 
 interface GetCategoryByIdUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -14,10 +15,12 @@ export class GetCategoryByIdUseCase {
   constructor(private categoriesRepository: CategoriesRepository) {}
 
   async execute({
+    tenantId,
     id,
   }: GetCategoryByIdUseCaseRequest): Promise<GetCategoryByIdUseCaseResponse> {
     const category = await this.categoriesRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!category) {

@@ -13,6 +13,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
   async create(data: CreateSupplierSchema): Promise<Supplier> {
     const supplierData = await prisma.supplier.create({
       data: {
+        tenantId: data.tenantId,
         name: data.name,
         cnpj: data.cnpj?.unformatted,
         taxId: data.taxId,
@@ -34,6 +35,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
 
     return Supplier.create(
       {
+        tenantId: new EntityID(supplierData.tenantId),
         name: supplierData.name,
         cnpj: supplierData.cnpj
           ? (CNPJ.create(supplierData.cnpj) ?? undefined)
@@ -61,10 +63,14 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<Supplier | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Supplier | null> {
     const supplierData = await prisma.supplier.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -75,6 +81,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
 
     return Supplier.create(
       {
+        tenantId: new EntityID(supplierData.tenantId),
         name: supplierData.name,
         cnpj: supplierData.cnpj
           ? (CNPJ.create(supplierData.cnpj) ?? undefined)
@@ -102,10 +109,11 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     );
   }
 
-  async findByCNPJ(cnpj: CNPJ): Promise<Supplier | null> {
+  async findByCNPJ(cnpj: CNPJ, tenantId: string): Promise<Supplier | null> {
     const supplierData = await prisma.supplier.findFirst({
       where: {
         cnpj: cnpj.unformatted,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -116,6 +124,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
 
     return Supplier.create(
       {
+        tenantId: new EntityID(supplierData.tenantId),
         name: supplierData.name,
         cnpj: supplierData.cnpj
           ? (CNPJ.create(supplierData.cnpj) ?? undefined)
@@ -143,13 +152,14 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     );
   }
 
-  async findByName(name: string): Promise<Supplier[]> {
+  async findByName(name: string, tenantId: string): Promise<Supplier[]> {
     const suppliers = await prisma.supplier.findMany({
       where: {
         name: {
           contains: name,
           mode: 'insensitive',
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -157,6 +167,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     return suppliers.map((supplierData) =>
       Supplier.create(
         {
+          tenantId: new EntityID(supplierData.tenantId),
           name: supplierData.name,
           cnpj: supplierData.cnpj
             ? (CNPJ.create(supplierData.cnpj) ?? undefined)
@@ -185,12 +196,16 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     );
   }
 
-  async findManyByRating(minRating: number): Promise<Supplier[]> {
+  async findManyByRating(
+    minRating: number,
+    tenantId: string,
+  ): Promise<Supplier[]> {
     const suppliers = await prisma.supplier.findMany({
       where: {
         rating: {
           gte: minRating,
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -198,6 +213,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     return suppliers.map((supplierData) =>
       Supplier.create(
         {
+          tenantId: new EntityID(supplierData.tenantId),
           name: supplierData.name,
           cnpj: supplierData.cnpj
             ? (CNPJ.create(supplierData.cnpj) ?? undefined)
@@ -226,9 +242,10 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     );
   }
 
-  async findMany(): Promise<Supplier[]> {
+  async findMany(tenantId: string): Promise<Supplier[]> {
     const suppliers = await prisma.supplier.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
     });
@@ -236,6 +253,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     return suppliers.map((supplierData) =>
       Supplier.create(
         {
+          tenantId: new EntityID(supplierData.tenantId),
           name: supplierData.name,
           cnpj: supplierData.cnpj
             ? (CNPJ.create(supplierData.cnpj) ?? undefined)
@@ -264,10 +282,11 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     );
   }
 
-  async findManyActive(): Promise<Supplier[]> {
+  async findManyActive(tenantId: string): Promise<Supplier[]> {
     const suppliers = await prisma.supplier.findMany({
       where: {
         isActive: true,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -275,6 +294,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     return suppliers.map((supplierData) =>
       Supplier.create(
         {
+          tenantId: new EntityID(supplierData.tenantId),
           name: supplierData.name,
           cnpj: supplierData.cnpj
             ? (CNPJ.create(supplierData.cnpj) ?? undefined)
@@ -330,6 +350,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
 
     return Supplier.create(
       {
+        tenantId: new EntityID(supplierData.tenantId),
         name: supplierData.name,
         cnpj: supplierData.cnpj
           ? (CNPJ.create(supplierData.cnpj) ?? undefined)

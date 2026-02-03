@@ -1,5 +1,6 @@
 import { createScopeIdentifierMiddleware } from '@/http/middlewares/rbac/verify-scope';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   employeeResponseSchema,
   listEmployeesQuerySchema,
@@ -22,7 +23,7 @@ export async function listEmployeesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/employees',
-    preHandler: [verifyJwt, checkEmployeesListScope],
+    preHandler: [verifyJwt, verifyTenant, checkEmployeesListScope],
     schema: {
       tags: ['HR - Employees'],
       summary: 'List employees (scope-based)',
@@ -58,8 +59,10 @@ export async function listEmployeesController(app: FastifyInstance) {
           ? scopeCheck.userDepartmentId
           : departmentId;
 
+      const tenantId = request.user.tenantId!;
       const listEmployeesUseCase = makeListEmployeesUseCase();
       const { employees, meta } = await listEmployeesUseCase.execute({
+        tenantId,
         page,
         perPage,
         status,

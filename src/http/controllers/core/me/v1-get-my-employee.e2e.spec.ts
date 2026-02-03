@@ -3,11 +3,16 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
 
 describe('Get My Employee (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const tenant = await createAndSetupTenant();
+    tenantId = tenant.tenantId;
   });
 
   afterAll(async () => {
@@ -15,9 +20,10 @@ describe('Get My Employee (E2E)', () => {
   });
 
   it('should get my employee with correct schema', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 
     await createEmployeeE2E({
+      tenantId,
       userId: user.user.id,
       fullName: 'Test Employee',
     });

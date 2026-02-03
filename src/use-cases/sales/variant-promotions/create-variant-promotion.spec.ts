@@ -22,6 +22,7 @@ describe('CreateVariantPromotionUseCase', () => {
 
     // Create a test variant using repository
     variant = await variantsRepository.create({
+      tenantId: 'tenant-1',
       productId: new UniqueEntityID(),
       slug: Slug.createFromText('test-variant'),
       fullCode: '001.001.0001.001',
@@ -38,6 +39,7 @@ describe('CreateVariantPromotionUseCase', () => {
     const endDate = new Date('2025-12-31');
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       variantId: variant.id.toString(),
       name: 'Summer Sale',
       discountType: 'PERCENTAGE',
@@ -61,6 +63,7 @@ describe('CreateVariantPromotionUseCase', () => {
     const endDate = new Date('2025-12-31');
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       variantId: variant.id.toString(),
       name: 'Fixed Discount',
       discountType: 'FIXED_AMOUNT',
@@ -78,6 +81,7 @@ describe('CreateVariantPromotionUseCase', () => {
   it('should not create promotion with empty name', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         variantId: variant.id.toString(),
         name: '   ',
         discountType: 'PERCENTAGE',
@@ -93,6 +97,7 @@ describe('CreateVariantPromotionUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         variantId: variant.id.toString(),
         name: longName,
         discountType: 'PERCENTAGE',
@@ -106,6 +111,7 @@ describe('CreateVariantPromotionUseCase', () => {
   it('should not create promotion with invalid discount type', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         variantId: variant.id.toString(),
         name: 'Invalid Discount',
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -122,6 +128,7 @@ describe('CreateVariantPromotionUseCase', () => {
   it('should not create promotion with negative discount value', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         variantId: variant.id.toString(),
         name: 'Negative Discount',
         discountType: 'PERCENTAGE',
@@ -135,6 +142,7 @@ describe('CreateVariantPromotionUseCase', () => {
   it('should not create promotion with percentage exceeding 100', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         variantId: variant.id.toString(),
         name: 'Over 100%',
         discountType: 'PERCENTAGE',
@@ -148,6 +156,7 @@ describe('CreateVariantPromotionUseCase', () => {
   it('should not create promotion with start date after end date', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         variantId: variant.id.toString(),
         name: 'Invalid Dates',
         discountType: 'PERCENTAGE',
@@ -161,6 +170,7 @@ describe('CreateVariantPromotionUseCase', () => {
   it('should not create promotion for nonexistent variant', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         variantId: 'nonexistent-id',
         name: 'Nonexistent Variant',
         discountType: 'PERCENTAGE',
@@ -173,6 +183,7 @@ describe('CreateVariantPromotionUseCase', () => {
 
   it('should trim name and notes when creating promotion', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       variantId: variant.id.toString(),
       name: '  Trimmed Name  ',
       discountType: 'PERCENTAGE',

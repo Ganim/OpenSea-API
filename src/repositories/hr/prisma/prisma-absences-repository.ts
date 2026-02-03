@@ -14,6 +14,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
   async create(data: CreateAbsenceSchema): Promise<Absence> {
     const absenceData = await prisma.absence.create({
       data: {
+        tenantId: data.tenantId,
         employeeId: data.employeeId.toString(),
         type: data.type as AbsenceType,
         status: 'PENDING',
@@ -38,9 +39,12 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     return absence;
   }
 
-  async findById(id: UniqueEntityID): Promise<Absence | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Absence | null> {
     const absenceData = await prisma.absence.findUnique({
-      where: { id: id.toString(), deletedAt: null },
+      where: { id: id.toString(), tenantId, deletedAt: null },
     });
 
     if (!absenceData) return null;
@@ -52,9 +56,13 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     return absence;
   }
 
-  async findMany(filters?: FindAbsenceFilters): Promise<Absence[]> {
+  async findMany(
+    tenantId: string,
+    filters?: FindAbsenceFilters,
+  ): Promise<Absence[]> {
     const absences = await prisma.absence.findMany({
       where: {
+        tenantId,
         deletedAt: null,
         employeeId: filters?.employeeId?.toString(),
         type: filters?.type as AbsenceType | undefined,
@@ -73,10 +81,14 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     );
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<Absence[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Absence[]> {
     const absences = await prisma.absence.findMany({
       where: {
         employeeId: employeeId.toString(),
+        tenantId,
         deletedAt: null,
       },
       orderBy: { startDate: 'desc' },
@@ -94,10 +106,12 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     employeeId: UniqueEntityID,
     startDate: Date,
     endDate: Date,
+    tenantId: string,
   ): Promise<Absence[]> {
     const absences = await prisma.absence.findMany({
       where: {
         employeeId: employeeId.toString(),
+        tenantId,
         deletedAt: null,
         OR: [
           {
@@ -125,10 +139,11 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     );
   }
 
-  async findManyByStatus(status: string): Promise<Absence[]> {
+  async findManyByStatus(status: string, tenantId: string): Promise<Absence[]> {
     const absences = await prisma.absence.findMany({
       where: {
         status: status as AbsenceStatus,
+        tenantId,
         deletedAt: null,
       },
       orderBy: { startDate: 'desc' },
@@ -142,19 +157,21 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     );
   }
 
-  async findManyPending(): Promise<Absence[]> {
-    return this.findManyByStatus('PENDING');
+  async findManyPending(tenantId: string): Promise<Absence[]> {
+    return this.findManyByStatus('PENDING', tenantId);
   }
 
   async findOverlapping(
     employeeId: UniqueEntityID,
     startDate: Date,
     endDate: Date,
+    tenantId: string,
     excludeId?: UniqueEntityID,
   ): Promise<Absence[]> {
     const absences = await prisma.absence.findMany({
       where: {
         employeeId: employeeId.toString(),
+        tenantId,
         deletedAt: null,
         status: { notIn: ['REJECTED', 'CANCELLED'] },
         id: excludeId ? { not: excludeId.toString() } : undefined,
@@ -187,6 +204,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     employeeId: UniqueEntityID,
     type: string,
     year: number,
+    tenantId: string,
   ): Promise<number> {
     const startOfYear = new Date(year, 0, 1);
     const endOfYear = new Date(year, 11, 31);
@@ -194,6 +212,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     return prisma.absence.count({
       where: {
         employeeId: employeeId.toString(),
+        tenantId,
         type: type as AbsenceType,
         deletedAt: null,
         status: { notIn: ['REJECTED', 'CANCELLED'] },
@@ -206,6 +225,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     employeeId: UniqueEntityID,
     type: string,
     year: number,
+    tenantId: string,
   ): Promise<number> {
     const startOfYear = new Date(year, 0, 1);
     const endOfYear = new Date(year, 11, 31);
@@ -214,6 +234,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
       _sum: { totalDays: true },
       where: {
         employeeId: employeeId.toString(),
+        tenantId,
         type: type as AbsenceType,
         deletedAt: null,
         status: { notIn: ['REJECTED', 'CANCELLED'] },

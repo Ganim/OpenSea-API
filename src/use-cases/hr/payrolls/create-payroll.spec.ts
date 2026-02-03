@@ -1,9 +1,12 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryPayrollsRepository } from '@/repositories/hr/in-memory/in-memory-payrolls-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreatePayrollUseCase } from './create-payroll';
 
 let payrollsRepository: InMemoryPayrollsRepository;
 let sut: CreatePayrollUseCase;
+
+const tenantId = new UniqueEntityID().toString();
 
 describe('Create Payroll Use Case', () => {
   beforeEach(async () => {
@@ -13,6 +16,7 @@ describe('Create Payroll Use Case', () => {
 
   it('should create a new payroll successfully', async () => {
     const result = await sut.execute({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
@@ -28,12 +32,14 @@ describe('Create Payroll Use Case', () => {
 
   it('should throw error if payroll already exists for the period', async () => {
     await sut.execute({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
 
     await expect(
       sut.execute({
+        tenantId,
         referenceMonth: 6,
         referenceYear: 2024,
       }),
@@ -42,11 +48,13 @@ describe('Create Payroll Use Case', () => {
 
   it('should create payrolls for different periods', async () => {
     const result1 = await sut.execute({
+      tenantId,
       referenceMonth: 5,
       referenceYear: 2024,
     });
 
     const result2 = await sut.execute({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
@@ -58,11 +66,13 @@ describe('Create Payroll Use Case', () => {
 
   it('should create payrolls for different years', async () => {
     const result1 = await sut.execute({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2023,
     });
 
     const result2 = await sut.execute({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });

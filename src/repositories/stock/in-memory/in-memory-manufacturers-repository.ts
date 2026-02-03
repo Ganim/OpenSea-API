@@ -1,4 +1,4 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
 import type {
   CreateManufacturerSchema,
@@ -14,6 +14,7 @@ export class InMemoryManufacturersRepository
 
   async create(data: CreateManufacturerSchema): Promise<Manufacturer> {
     const manufacturer = Manufacturer.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       code: data.code,
       sequentialCode: this.sequentialCounter,
       name: data.name,
@@ -35,47 +36,77 @@ export class InMemoryManufacturersRepository
     return manufacturer;
   }
 
-  async findById(id: UniqueEntityID): Promise<Manufacturer | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Manufacturer | null> {
     const manufacturer = this.items.find(
-      (item) => !item.deletedAt && item.manufacturerId.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.manufacturerId.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return manufacturer ?? null;
   }
 
-  async findByName(name: string): Promise<Manufacturer | null> {
+  async findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<Manufacturer | null> {
     const manufacturer = this.items.find(
-      (item) => !item.deletedAt && item.name === name,
+      (item) =>
+        !item.deletedAt &&
+        item.name === name &&
+        item.tenantId.toString() === tenantId,
     );
     return manufacturer ?? null;
   }
 
-  async findMany(): Promise<Manufacturer[]> {
-    return this.items.filter((item) => !item.deletedAt);
+  async findMany(tenantId: string): Promise<Manufacturer[]> {
+    return this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
   }
 
-  async findManyByCountry(country: string): Promise<Manufacturer[]> {
+  async findManyByCountry(
+    country: string,
+    tenantId: string,
+  ): Promise<Manufacturer[]> {
     return this.items.filter(
       (item) =>
-        !item.deletedAt && item.country.toLowerCase() === country.toLowerCase(),
+        !item.deletedAt &&
+        item.country.toLowerCase() === country.toLowerCase() &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyByRating(minRating: number): Promise<Manufacturer[]> {
+  async findManyByRating(
+    minRating: number,
+    tenantId: string,
+  ): Promise<Manufacturer[]> {
     return this.items.filter(
       (item) =>
         !item.deletedAt &&
         item.rating !== null &&
         item.rating !== undefined &&
-        item.rating >= minRating,
+        item.rating >= minRating &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyActive(): Promise<Manufacturer[]> {
-    return this.items.filter((item) => !item.deletedAt && item.isActive);
+  async findManyActive(tenantId: string): Promise<Manufacturer[]> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.isActive &&
+        item.tenantId.toString() === tenantId,
+    );
   }
 
   async update(data: UpdateManufacturerSchema): Promise<Manufacturer | null> {
-    const manufacturer = await this.findById(data.id);
+    const manufacturer = this.items.find(
+      (item) => !item.deletedAt && item.manufacturerId.equals(data.id),
+    );
     if (!manufacturer) return null;
 
     if (data.name !== undefined) manufacturer.name = data.name;
@@ -110,13 +141,15 @@ export class InMemoryManufacturersRepository
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const manufacturer = await this.findById(id);
+    const manufacturer = this.items.find(
+      (item) => !item.deletedAt && item.manufacturerId.equals(id),
+    );
     if (manufacturer) {
       manufacturer.delete();
     }
   }
 
-  async getNextSequentialCode(): Promise<number> {
+  async getNextSequentialCode(_tenantId: string): Promise<number> {
     this.sequentialCounter += 1;
     return this.sequentialCounter;
   }

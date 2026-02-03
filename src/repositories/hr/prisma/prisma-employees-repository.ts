@@ -11,6 +11,7 @@ import type {
 export class PrismaEmployeesRepository implements EmployeesRepository {
   async create(data: CreateEmployeeSchema): Promise<Employee> {
     const prismaData = {
+      tenantId: data.tenantId,
       registrationNumber: data.registrationNumber,
       userId: data.userId?.toString(),
       fullName: data.fullName,
@@ -94,11 +95,13 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findById(
     id: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee | null> {
     const employeeData = await prisma.employee.findFirst({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       include: {
@@ -120,11 +123,13 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findByRegistrationNumber(
     registrationNumber: string,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee | null> {
     const employeeData = await prisma.employee.findFirst({
       where: {
         registrationNumber,
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       include: {
@@ -146,11 +151,13 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findByCpf(
     cpf: import('@/entities/hr/value-objects').CPF,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee | null> {
     const employeeData = await prisma.employee.findFirst({
       where: {
         cpf: cpf.value,
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       include: {
@@ -172,11 +179,13 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findByUserId(
     userId: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee | null> {
     const employeeData = await prisma.employee.findFirst({
       where: {
         userId: userId.toString(),
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       include: {
@@ -198,11 +207,13 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findByPis(
     pis: import('@/entities/hr/value-objects').PIS,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee | null> {
     const employeeData = await prisma.employee.findFirst({
       where: {
         pis: pis.value,
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       include: {
@@ -222,9 +233,12 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     return employee;
   }
 
-  async findMany(includeDeleted = false): Promise<Employee[]> {
+  async findMany(
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
-      where: { deletedAt: includeDeleted ? undefined : null },
+      where: { tenantId, deletedAt: includeDeleted ? undefined : null },
       orderBy: { fullName: 'asc' },
       include: {
         user: true,
@@ -244,11 +258,13 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findManyByStatus(
     status: import('@/entities/hr/value-objects').EmployeeStatus,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         status: status.value,
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
@@ -270,11 +286,13 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findManyByDepartment(
     departmentId: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         departmentId: departmentId.toString(),
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
@@ -296,11 +314,13 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findManyByPosition(
     positionId: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         positionId: positionId.toString(),
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
@@ -322,11 +342,13 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findManyBySupervisor(
     supervisorId: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         supervisorId: supervisorId.toString(),
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
@@ -346,10 +368,14 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     );
   }
 
-  async findManyActive(includeDeleted = false): Promise<Employee[]> {
+  async findManyActive(
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         status: 'ACTIVE',
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
@@ -369,10 +395,14 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     );
   }
 
-  async findManyTerminated(includeDeleted = false): Promise<Employee[]> {
+  async findManyTerminated(
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         status: 'TERMINATED',
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },
@@ -394,11 +424,13 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
   async findManyByCompany(
     companyId: UniqueEntityID,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Employee[]> {
     const employeesData = await prisma.employee.findMany({
       where: {
         companyId: companyId.toString(),
+        tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
       orderBy: { fullName: 'asc' },

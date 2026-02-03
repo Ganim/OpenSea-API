@@ -2,6 +2,7 @@ import type { BinsRepository } from '@/repositories/stock/bins-repository';
 import { ParseAddressUseCase } from './parse-address';
 
 interface ValidateAddressUseCaseRequest {
+  tenantId: string;
   address: string;
 }
 
@@ -19,7 +20,7 @@ export class ValidateAddressUseCase {
   async execute(
     input: ValidateAddressUseCaseRequest,
   ): Promise<ValidateAddressUseCaseResponse> {
-    const { address } = input;
+    const { tenantId, address } = input;
 
     // First, parse the address to check if it's syntactically valid
     const parseUseCase = new ParseAddressUseCase();
@@ -38,6 +39,7 @@ export class ValidateAddressUseCase {
     // Search for the bin with this address
     const bin = await this.binsRepository.findByAddress(
       address.trim().toUpperCase(),
+      tenantId,
     );
 
     if (!bin) {

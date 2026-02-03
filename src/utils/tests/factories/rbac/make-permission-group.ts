@@ -9,6 +9,7 @@ interface MakePermissionGroupOptions {
   isSystem?: boolean;
   isActive?: boolean;
   parentId?: string;
+  tenantId?: string | null;
 }
 
 export async function makePermissionGroup(
@@ -33,6 +34,7 @@ export async function makePermissionGroup(
     isSystem: options.isSystem ?? false,
     isActive: options.isActive ?? true,
     parentId: options.parentId ?? null,
+    tenantId: options.tenantId ?? null,
   });
 
   return group;

@@ -40,17 +40,20 @@ async function createTestBin(
   binsRepo: InMemoryBinsRepository,
   code: string,
 ) {
-  let warehouse = await warehousesRepo.findByCode('FAB');
+  const tenantId = 'tenant-1';
+  let warehouse = await warehousesRepo.findByCode('FAB', tenantId);
   if (!warehouse) {
     warehouse = await warehousesRepo.create({
+      tenantId,
       code: 'FAB',
       name: 'Fábrica Principal',
     });
   }
 
-  let zone = await zonesRepo.findByCode(warehouse.warehouseId, 'EST');
+  let zone = await zonesRepo.findByCode(warehouse.warehouseId, 'EST', tenantId);
   if (!zone) {
     zone = await zonesRepo.create({
+      tenantId,
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
@@ -58,6 +61,7 @@ async function createTestBin(
   }
 
   const bin = await binsRepo.create({
+    tenantId,
     zoneId: zone.zoneId,
     address: `FAB-EST-${code}`,
     aisle: 1,
@@ -110,11 +114,13 @@ describe('GetItemByIdUseCase', () => {
 
   it('should be able to get an item by id', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
       status: 'ACTIVE',
       attributes: { brand: 'Samsung' },
@@ -122,6 +128,7 @@ describe('GetItemByIdUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -138,6 +145,7 @@ describe('GetItemByIdUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-001',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -146,6 +154,7 @@ describe('GetItemByIdUseCase', () => {
     });
 
     const result = await getItemById.execute({
+      tenantId: 'tenant-1',
       id: entryItem.id,
     });
 
@@ -158,6 +167,7 @@ describe('GetItemByIdUseCase', () => {
   it('should throw error if item not found', async () => {
     await expect(() =>
       getItemById.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);

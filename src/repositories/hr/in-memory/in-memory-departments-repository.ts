@@ -15,6 +15,7 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
     const id = new UniqueEntityID();
     const department = Department.create(
       {
+        tenantId: new UniqueEntityID(data.tenantId),
         name: data.name,
         code: data.code,
         description: data.description,
@@ -30,9 +31,15 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
     return department;
   }
 
-  async findById(id: UniqueEntityID): Promise<Department | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department | null> {
     const department = this.items.find(
-      (item) => item.id.equals(id) && !item.deletedAt,
+      (item) =>
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
     );
     return department || null;
   }
@@ -40,11 +47,13 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
   async findByCode(
     code: string,
     companyId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Department | null> {
     const department = this.items.find(
       (item) =>
         item.code === code &&
         item.companyId.equals(companyId) &&
+        item.tenantId.toString() === tenantId &&
         !item.deletedAt,
     );
     return department || null;
@@ -54,6 +63,7 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
     params: FindManyDepartmentsParams,
   ): Promise<FindManyDepartmentsResult> {
     const {
+      tenantId,
       page = 1,
       perPage = 20,
       search,
@@ -62,7 +72,9 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
       companyId,
     } = params;
 
-    let filteredItems = this.items.filter((item) => !item.deletedAt);
+    let filteredItems = this.items.filter(
+      (item) => item.tenantId.toString() === tenantId && !item.deletedAt,
+    );
 
     if (search) {
       const searchLower = search.toLowerCase();
@@ -98,26 +110,49 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
     return { departments, total };
   }
 
-  async findManyByParent(parentId: UniqueEntityID): Promise<Department[]> {
+  async findManyByParent(
+    parentId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department[]> {
     return this.items.filter(
-      (item) => item.parentId?.equals(parentId) && !item.deletedAt,
+      (item) =>
+        item.parentId?.equals(parentId) &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
     );
   }
 
-  async findManyByManager(managerId: UniqueEntityID): Promise<Department[]> {
+  async findManyByManager(
+    managerId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department[]> {
     return this.items.filter(
-      (item) => item.managerId?.equals(managerId) && !item.deletedAt,
+      (item) =>
+        item.managerId?.equals(managerId) &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
     );
   }
 
-  async findManyByCompany(companyId: UniqueEntityID): Promise<Department[]> {
+  async findManyByCompany(
+    companyId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department[]> {
     return this.items.filter(
-      (item) => item.companyId.equals(companyId) && !item.deletedAt,
+      (item) =>
+        item.companyId.equals(companyId) &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
     );
   }
 
-  async findManyActive(): Promise<Department[]> {
-    return this.items.filter((item) => item.isActive && !item.deletedAt);
+  async findManyActive(tenantId: string): Promise<Department[]> {
+    return this.items.filter(
+      (item) =>
+        item.isActive &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
+    );
   }
 
   async hasChildren(id: UniqueEntityID): Promise<boolean> {
@@ -144,6 +179,7 @@ export class InMemoryDepartmentsRepository implements DepartmentsRepository {
 
     const updatedDepartment = Department.create(
       {
+        tenantId: department.tenantId,
         name: data.name ?? department.name,
         code: data.code ?? department.code,
         description:

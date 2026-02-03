@@ -13,6 +13,7 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
   async create(data: CreateTimeEntrySchema): Promise<TimeEntry> {
     const timeEntryData = await prisma.timeEntry.create({
       data: {
+        tenantId: data.tenantId,
         employeeId: data.employeeId.toString(),
         entryType: data.entryType.value as PrismaTimeEntryType,
         timestamp: data.timestamp,
@@ -30,9 +31,12 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     return timeEntry;
   }
 
-  async findById(id: UniqueEntityID): Promise<TimeEntry | null> {
-    const timeEntryData = await prisma.timeEntry.findUnique({
-      where: { id: id.toString() },
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<TimeEntry | null> {
+    const timeEntryData = await prisma.timeEntry.findFirst({
+      where: { id: id.toString(), tenantId },
     });
 
     if (!timeEntryData) return null;
@@ -44,9 +48,10 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     return timeEntry;
   }
 
-  async findMany(filters?: FindTimeEntriesFilters): Promise<TimeEntry[]> {
+  async findMany(filters: FindTimeEntriesFilters): Promise<TimeEntry[]> {
     const timeEntries = await prisma.timeEntry.findMany({
       where: {
+        tenantId: filters.tenantId,
         employeeId: filters?.employeeId?.toString(),
         timestamp: {
           gte: filters?.startDate,
@@ -65,9 +70,12 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     );
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<TimeEntry[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<TimeEntry[]> {
     const timeEntries = await prisma.timeEntry.findMany({
-      where: { employeeId: employeeId.toString() },
+      where: { employeeId: employeeId.toString(), tenantId },
       orderBy: { timestamp: 'desc' },
     });
 
@@ -83,10 +91,12 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     employeeId: UniqueEntityID,
     startDate: Date,
     endDate: Date,
+    tenantId: string,
   ): Promise<TimeEntry[]> {
     const timeEntries = await prisma.timeEntry.findMany({
       where: {
         employeeId: employeeId.toString(),
+        tenantId,
         timestamp: {
           gte: startDate,
           lte: endDate,
@@ -105,9 +115,10 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
 
   async findLastEntryByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<TimeEntry | null> {
     const timeEntryData = await prisma.timeEntry.findFirst({
-      where: { employeeId: employeeId.toString() },
+      where: { employeeId: employeeId.toString(), tenantId },
       orderBy: { timestamp: 'desc' },
     });
 

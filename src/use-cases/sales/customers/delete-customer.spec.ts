@@ -21,6 +21,7 @@ describe('Delete Customer', () => {
     customersRepository.items.push(customer);
 
     await sut.execute({
+      tenantId: 'tenant-1',
       id: customer.id.toString(),
     });
 
@@ -33,6 +34,7 @@ describe('Delete Customer', () => {
   it('should not be able to delete a non-existing customer', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);

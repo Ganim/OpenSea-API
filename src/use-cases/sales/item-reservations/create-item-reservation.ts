@@ -9,6 +9,7 @@ import { ItemReservationsRepository } from '@/repositories/sales/item-reservatio
 import { ItemsRepository } from '@/repositories/stock/items-repository';
 
 interface CreateItemReservationRequest {
+  tenantId: string;
   itemId: string;
   userId: string;
   quantity: number;
@@ -30,7 +31,8 @@ export class CreateItemReservationUseCase {
   async execute(
     request: CreateItemReservationRequest,
   ): Promise<CreateItemReservationResponse> {
-    const { itemId, userId, quantity, reason, reference, expiresAt } = request;
+    const { tenantId, itemId, userId, quantity, reason, reference, expiresAt } =
+      request;
 
     // Validate quantity
     if (quantity <= 0) {
@@ -45,6 +47,7 @@ export class CreateItemReservationUseCase {
     // Validate item exists
     const item = await this.itemsRepository.findById(
       new UniqueEntityID(itemId),
+      tenantId,
     );
     if (!item) {
       throw new ResourceNotFoundError('Item not found');

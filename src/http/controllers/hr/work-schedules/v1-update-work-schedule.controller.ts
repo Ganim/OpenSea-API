@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   updateWorkScheduleSchema,
   workScheduleResponseSchema,
@@ -20,6 +21,7 @@ export async function updateWorkScheduleController(app: FastifyInstance) {
     url: '/v1/hr/work-schedules/:workScheduleId',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.WORK_SCHEDULES.UPDATE,
         resource: 'work-schedules',
@@ -48,12 +50,14 @@ export async function updateWorkScheduleController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { workScheduleId } = request.params;
       const data = request.body;
 
       try {
         const updateWorkScheduleUseCase = makeUpdateWorkScheduleUseCase();
         const { workSchedule } = await updateWorkScheduleUseCase.execute({
+          tenantId,
           id: workScheduleId,
           ...data,
         });

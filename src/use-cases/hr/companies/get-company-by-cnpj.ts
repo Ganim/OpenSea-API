@@ -2,6 +2,7 @@ import type { Company } from '@/entities/hr/company';
 import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
 
 export interface GetCompanyByCnpjRequest {
+  tenantId: string;
   cnpj: string;
   includeDeleted?: boolean;
 }
@@ -20,6 +21,7 @@ export class GetCompanyByCnpjUseCase {
   ): Promise<GetCompanyByCnpjResponse> {
     const company = await this.companiesRepository.findByCnpj(
       request.cnpj,
+      request.tenantId,
       request.includeDeleted,
     );
 

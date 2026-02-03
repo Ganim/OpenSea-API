@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listWarehousesQuerySchema,
   warehouseListResponseSchema,
@@ -16,6 +17,7 @@ export async function listWarehousesController(app: FastifyInstance) {
     url: '/v1/warehouses',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.WAREHOUSES.LIST,
         resource: 'warehouses',
@@ -32,10 +34,12 @@ export async function listWarehousesController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { activeOnly } = request.query;
 
       const listWarehousesUseCase = makeListWarehousesUseCase();
       const { warehouses } = await listWarehousesUseCase.execute({
+        tenantId,
         activeOnly,
       });
 

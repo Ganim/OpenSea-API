@@ -18,11 +18,21 @@ describe('Update Customer (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `Tenant Update Customer ${timestamp}`,
+        slug: `tenant-update-customer-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const customer = await prisma.customer.create({
       data: {
         name: `Customer Update ${timestamp}`,
         type: 'INDIVIDUAL',
         isActive: true,
+        tenantId,
       },
     });
 

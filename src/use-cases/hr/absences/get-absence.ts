@@ -4,6 +4,7 @@ import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 
 export interface GetAbsenceRequest {
+  tenantId: string;
   absenceId: string;
 }
 
@@ -15,10 +16,11 @@ export class GetAbsenceUseCase {
   constructor(private absencesRepository: AbsencesRepository) {}
 
   async execute(request: GetAbsenceRequest): Promise<GetAbsenceResponse> {
-    const { absenceId } = request;
+    const { tenantId, absenceId } = request;
 
     const absence = await this.absencesRepository.findById(
       new UniqueEntityID(absenceId),
+      tenantId,
     );
 
     if (!absence) {

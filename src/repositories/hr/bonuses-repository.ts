@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Bonus } from '@/entities/hr/bonus';
 
 export interface CreateBonusSchema {
+  tenantId: string;
   employeeId: UniqueEntityID;
   name: string;
   amount: number;
@@ -29,14 +30,30 @@ export interface FindBonusFilters {
 
 export interface BonusesRepository {
   create(data: CreateBonusSchema): Promise<Bonus>;
-  findById(id: UniqueEntityID): Promise<Bonus | null>;
-  findMany(filters?: FindBonusFilters): Promise<Bonus[]>;
-  findManyByEmployee(employeeId: UniqueEntityID): Promise<Bonus[]>;
-  findManyPending(): Promise<Bonus[]>;
-  findManyPendingByEmployee(employeeId: UniqueEntityID): Promise<Bonus[]>;
-  findPendingByEmployee(employeeId: UniqueEntityID): Promise<Bonus[]>;
-  findManyByPeriod(startDate: Date, endDate: Date): Promise<Bonus[]>;
-  sumPendingByEmployee(employeeId: UniqueEntityID): Promise<number>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Bonus | null>;
+  findMany(tenantId: string, filters?: FindBonusFilters): Promise<Bonus[]>;
+  findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Bonus[]>;
+  findManyPending(tenantId: string): Promise<Bonus[]>;
+  findManyPendingByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Bonus[]>;
+  findPendingByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Bonus[]>;
+  findManyByPeriod(
+    startDate: Date,
+    endDate: Date,
+    tenantId: string,
+  ): Promise<Bonus[]>;
+  sumPendingByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<number>;
   update(data: UpdateBonusSchema): Promise<Bonus | null>;
   save(bonus: Bonus): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

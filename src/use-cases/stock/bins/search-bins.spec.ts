@@ -12,12 +12,12 @@ describe('SearchBinsUseCase', () => {
   });
 
   it('should return empty array for empty query', async () => {
-    const { bins } = await sut.execute({ query: '' });
+    const { bins } = await sut.execute({ tenantId: 'tenant-1', query: '' });
     expect(bins).toHaveLength(0);
   });
 
   it('should return empty array for whitespace-only query', async () => {
-    const { bins } = await sut.execute({ query: '   ' });
+    const { bins } = await sut.execute({ tenantId: 'tenant-1', query: '   ' });
     expect(bins).toHaveLength(0);
   });
 });

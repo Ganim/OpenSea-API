@@ -15,6 +15,7 @@ describe('CreateVolumeUseCase', () => {
 
   it('should create a new volume with auto-generated code', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Volume 1',
       createdBy: 'user-1',
     });
@@ -27,6 +28,7 @@ describe('CreateVolumeUseCase', () => {
 
   it('should create volume with default OPEN status', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Volume Default Status',
       createdBy: 'user-1',
     });
@@ -36,6 +38,7 @@ describe('CreateVolumeUseCase', () => {
 
   it('should create volume with custom status', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Volume 2',
       createdBy: 'user-1',
       status: VolumeStatus.CLOSED,
@@ -47,6 +50,7 @@ describe('CreateVolumeUseCase', () => {
   it('should throw error if status is invalid', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Volume 3',
         createdBy: 'user-1',
         status: 'INVALID' as unknown as VolumeStatus,
@@ -56,6 +60,7 @@ describe('CreateVolumeUseCase', () => {
 
   it('should include all optional fields when provided', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Volume with Details',
       notes: 'Test notes',
       destinationRef: 'REF-001',
@@ -72,6 +77,7 @@ describe('CreateVolumeUseCase', () => {
 
   it('should create volume without optional name', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       createdBy: 'user-1',
     });
 
@@ -82,11 +88,13 @@ describe('CreateVolumeUseCase', () => {
 
   it('should generate unique codes for multiple volumes', async () => {
     const result1 = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Volume A',
       createdBy: 'user-1',
     });
 
     const result2 = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Volume B',
       createdBy: 'user-1',
     });
@@ -98,6 +106,7 @@ describe('CreateVolumeUseCase', () => {
     const beforeCreate = new Date();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Volume with Timestamps',
       createdBy: 'user-1',
     });

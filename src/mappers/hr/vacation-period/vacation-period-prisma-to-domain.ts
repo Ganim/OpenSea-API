@@ -6,6 +6,7 @@ export function mapVacationPeriodPrismaToDomain(
   vacationPeriod: PrismaVacationPeriod,
 ) {
   return {
+    tenantId: new UniqueEntityID(vacationPeriod.tenantId),
     employeeId: new UniqueEntityID(vacationPeriod.employeeId),
     acquisitionStart: vacationPeriod.acquisitionStart,
     acquisitionEnd: vacationPeriod.acquisitionEnd,

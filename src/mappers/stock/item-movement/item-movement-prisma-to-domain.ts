@@ -6,6 +6,7 @@ import type { ItemMovement as PrismaItemMovement } from '@prisma/generated/clien
 export function mapItemMovementPrismaToDomain(movementDb: PrismaItemMovement) {
   return {
     id: new UniqueEntityID(movementDb.id),
+    tenantId: new UniqueEntityID(movementDb.tenantId),
     itemId: new UniqueEntityID(movementDb.itemId),
     quantity: Number(movementDb.quantity.toString()),
     quantityBefore: movementDb.quantityBefore

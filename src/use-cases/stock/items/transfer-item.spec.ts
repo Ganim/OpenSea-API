@@ -41,19 +41,22 @@ async function createTestBin(
   binsRepo: InMemoryBinsRepository,
   code: string,
 ) {
+  const tenantId = 'tenant-1';
   // Create warehouse if needed
-  let warehouse = await warehousesRepo.findByCode('FAB');
+  let warehouse = await warehousesRepo.findByCode('FAB', tenantId);
   if (!warehouse) {
     warehouse = await warehousesRepo.create({
+      tenantId,
       code: 'FAB',
       name: 'Fábrica Principal',
     });
   }
 
   // Create zone if needed
-  let zone = await zonesRepo.findByCode(warehouse.warehouseId, 'EST');
+  let zone = await zonesRepo.findByCode(warehouse.warehouseId, 'EST', tenantId);
   if (!zone) {
     zone = await zonesRepo.create({
+      tenantId,
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
@@ -62,6 +65,7 @@ async function createTestBin(
 
   // Create bin
   const bin = await binsRepo.create({
+    tenantId,
     zoneId: zone.zoneId,
     address: `FAB-EST-${code}`,
     aisle: 1,
@@ -118,11 +122,13 @@ describe('TransferItemUseCase', () => {
 
   it('should be able to transfer an item to a different bin', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -131,6 +137,7 @@ describe('TransferItemUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -154,6 +161,7 @@ describe('TransferItemUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-001',
       variantId: variant.id.toString(),
       binId: binA.binId.toString(),
@@ -162,6 +170,7 @@ describe('TransferItemUseCase', () => {
     });
 
     const result = await transferItem.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       destinationBinId: binB.binId.toString(),
       userId,
@@ -178,11 +187,13 @@ describe('TransferItemUseCase', () => {
 
   it('should not allow transfer to same bin', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -191,6 +202,7 @@ describe('TransferItemUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -207,6 +219,7 @@ describe('TransferItemUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-002',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -216,6 +229,7 @@ describe('TransferItemUseCase', () => {
 
     await expect(() =>
       transferItem.execute({
+        tenantId: 'tenant-1',
         itemId: entryItem.id,
         destinationBinId: bin.binId.toString(),
         userId,
@@ -233,6 +247,7 @@ describe('TransferItemUseCase', () => {
 
     await expect(() =>
       transferItem.execute({
+        tenantId: 'tenant-1',
         itemId: new UniqueEntityID().toString(),
         destinationBinId: bin.binId.toString(),
         userId: new UniqueEntityID().toString(),
@@ -242,11 +257,13 @@ describe('TransferItemUseCase', () => {
 
   it('should not allow transfer to non-existent bin', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -255,6 +272,7 @@ describe('TransferItemUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -271,6 +289,7 @@ describe('TransferItemUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-003',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -280,6 +299,7 @@ describe('TransferItemUseCase', () => {
 
     await expect(() =>
       transferItem.execute({
+        tenantId: 'tenant-1',
         itemId: entryItem.id,
         destinationBinId: new UniqueEntityID().toString(),
         userId,
@@ -289,11 +309,13 @@ describe('TransferItemUseCase', () => {
 
   it('should create movement record with destination reference', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -302,6 +324,7 @@ describe('TransferItemUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -325,6 +348,7 @@ describe('TransferItemUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-004',
       variantId: variant.id.toString(),
       binId: binA.binId.toString(),
@@ -333,6 +357,7 @@ describe('TransferItemUseCase', () => {
     });
 
     const result = await transferItem.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       destinationBinId: binB.binId.toString(),
       userId,
@@ -347,11 +372,13 @@ describe('TransferItemUseCase', () => {
 
   it('should handle multiple transfers for same item', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -360,6 +387,7 @@ describe('TransferItemUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -390,6 +418,7 @@ describe('TransferItemUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-005',
       variantId: variant.id.toString(),
       binId: binA.binId.toString(),
@@ -399,6 +428,7 @@ describe('TransferItemUseCase', () => {
 
     // First transfer: A -> B
     await transferItem.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       destinationBinId: binB.binId.toString(),
       userId,
@@ -406,6 +436,7 @@ describe('TransferItemUseCase', () => {
 
     // Second transfer: B -> C
     const finalResult = await transferItem.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       destinationBinId: binC.binId.toString(),
       userId,

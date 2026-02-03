@@ -4,6 +4,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { SalesOrdersRepository } from '@/repositories/sales/sales-orders-repository';
 
 interface CancelSalesOrderUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -19,6 +20,7 @@ export class CancelSalesOrderUseCase {
   ): Promise<CancelSalesOrderUseCaseResponse> {
     const order = await this.salesOrdersRepository.findById(
       new UniqueEntityID(input.id),
+      input.tenantId,
     );
 
     if (!order) {

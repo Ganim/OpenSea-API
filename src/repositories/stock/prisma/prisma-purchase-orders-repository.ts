@@ -22,6 +22,7 @@ export class PrismaPurchaseOrdersRepository
 
     const purchaseOrder = await prisma.purchaseOrder.create({
       data: {
+        tenantId: data.tenantId,
         orderNumber: data.orderNumber,
         status: data.status.value as PrismaOrderStatus,
         supplierId: data.supplierId.toString(),
@@ -47,10 +48,14 @@ export class PrismaPurchaseOrdersRepository
     return purchaseOrderPrismaToDomain(purchaseOrder);
   }
 
-  async findById(id: UniqueEntityID): Promise<PurchaseOrder | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<PurchaseOrder | null> {
     const purchaseOrder = await prisma.purchaseOrder.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
       },
       include: {
         items: true,
@@ -62,10 +67,14 @@ export class PrismaPurchaseOrdersRepository
     return purchaseOrderPrismaToDomain(purchaseOrder);
   }
 
-  async findByOrderNumber(orderNumber: string): Promise<PurchaseOrder | null> {
-    const purchaseOrder = await prisma.purchaseOrder.findUnique({
+  async findByOrderNumber(
+    orderNumber: string,
+    tenantId: string,
+  ): Promise<PurchaseOrder | null> {
+    const purchaseOrder = await prisma.purchaseOrder.findFirst({
       where: {
         orderNumber,
+        tenantId,
       },
       include: {
         items: true,
@@ -81,10 +90,12 @@ export class PrismaPurchaseOrdersRepository
     supplierId: UniqueEntityID,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<PurchaseOrder[]> {
     const purchaseOrders = await prisma.purchaseOrder.findMany({
       where: {
         supplierId: supplierId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -104,10 +115,12 @@ export class PrismaPurchaseOrdersRepository
     status: OrderStatus,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<PurchaseOrder[]> {
     const purchaseOrders = await prisma.purchaseOrder.findMany({
       where: {
         status: status.value as PrismaOrderStatus,
+        tenantId,
         deletedAt: null,
       },
       include: {

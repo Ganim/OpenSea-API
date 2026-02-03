@@ -5,6 +5,7 @@ import { Document } from '@/entities/sales/value-objects/document';
 import { faker } from '@faker-js/faker';
 
 interface MakeCustomerProps {
+  tenantId?: UniqueEntityID;
   name?: string;
   type?: 'INDIVIDUAL' | 'BUSINESS';
   document?: string;
@@ -25,6 +26,7 @@ interface MakeCustomerProps {
 export function makeCustomer(override: MakeCustomerProps = {}): Customer {
   const customer = Customer.create(
     {
+      tenantId: override.tenantId ?? new UniqueEntityID('tenant-1'),
       name: override.name ?? faker.person.fullName(),
       type: CustomerType.create(override.type ?? 'INDIVIDUAL'),
       document: override.document

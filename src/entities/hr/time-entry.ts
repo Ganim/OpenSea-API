@@ -3,6 +3,7 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 import { TimeEntryType } from './value-objects';
 
 export interface TimeEntryProps {
+  tenantId: UniqueEntityID;
   employeeId: UniqueEntityID;
   entryType: TimeEntryType;
   timestamp: Date;
@@ -14,6 +15,10 @@ export interface TimeEntryProps {
 }
 
 export class TimeEntry extends Entity<TimeEntryProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get employeeId(): UniqueEntityID {
     return this.props.employeeId;
   }

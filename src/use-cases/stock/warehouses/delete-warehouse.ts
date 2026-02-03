@@ -4,6 +4,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { WarehousesRepository } from '@/repositories/stock/warehouses-repository';
 
 interface DeleteWarehouseUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -15,12 +16,16 @@ export class DeleteWarehouseUseCase {
   constructor(private warehousesRepository: WarehousesRepository) {}
 
   async execute({
+    tenantId,
     id,
   }: DeleteWarehouseUseCaseRequest): Promise<DeleteWarehouseUseCaseResponse> {
     const warehouseId = new UniqueEntityID(id);
 
     // Check if warehouse exists
-    const warehouse = await this.warehousesRepository.findById(warehouseId);
+    const warehouse = await this.warehousesRepository.findById(
+      warehouseId,
+      tenantId,
+    );
 
     if (!warehouse) {
       throw new ResourceNotFoundError('Warehouse');

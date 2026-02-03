@@ -10,6 +10,7 @@ import {
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface UpdateEmployeeRequest {
+  tenantId: string;
   employeeId: string;
   registrationNumber?: string;
   userId?: string | null;
@@ -83,11 +84,12 @@ export class UpdateEmployeeUseCase {
   async execute(
     request: UpdateEmployeeRequest,
   ): Promise<UpdateEmployeeResponse> {
-    const { employeeId, ...updateData } = request;
+    const { tenantId, employeeId, ...updateData } = request;
 
     // Find existing employee
     const existingEmployee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!existingEmployee) {
@@ -97,7 +99,10 @@ export class UpdateEmployeeUseCase {
     // Validate CPF uniqueness if being updated
     if (updateData.cpf) {
       const cpfVO = CPF.create(updateData.cpf);
-      const employeeWithCpf = await this.employeesRepository.findByCpf(cpfVO);
+      const employeeWithCpf = await this.employeesRepository.findByCpf(
+        cpfVO,
+        tenantId,
+      );
       if (employeeWithCpf && !employeeWithCpf.id.equals(existingEmployee.id)) {
         throw new Error('Employee with this CPF already exists');
       }
@@ -108,6 +113,7 @@ export class UpdateEmployeeUseCase {
       const employeeWithRegistration =
         await this.employeesRepository.findByRegistrationNumber(
           updateData.registrationNumber,
+          tenantId,
         );
       if (
         employeeWithRegistration &&
@@ -123,6 +129,7 @@ export class UpdateEmployeeUseCase {
     if (updateData.userId) {
       const employeeWithUser = await this.employeesRepository.findByUserId(
         new UniqueEntityID(updateData.userId),
+        tenantId,
       );
       if (
         employeeWithUser &&
@@ -135,7 +142,10 @@ export class UpdateEmployeeUseCase {
     // Validate PIS uniqueness if being updated
     if (updateData.pis) {
       const pisVO = PIS.create(updateData.pis);
-      const employeeWithPis = await this.employeesRepository.findByPis(pisVO);
+      const employeeWithPis = await this.employeesRepository.findByPis(
+        pisVO,
+        tenantId,
+      );
       if (employeeWithPis && !employeeWithPis.id.equals(existingEmployee.id)) {
         throw new Error('Employee with this PIS already exists');
       }

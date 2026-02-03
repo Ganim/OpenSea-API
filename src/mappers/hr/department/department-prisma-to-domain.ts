@@ -11,6 +11,7 @@ export function mapDepartmentPrismaToDomain(
   }>,
 ) {
   return {
+    tenantId: new UniqueEntityID(departmentDb.tenantId),
     name: departmentDb.name,
     code: departmentDb.code,
     description: departmentDb.description ?? undefined,

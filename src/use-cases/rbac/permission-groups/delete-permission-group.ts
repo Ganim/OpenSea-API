@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PermissionGroupsRepository } from '@/repositories/rbac/permission-groups-repository';
@@ -6,6 +7,7 @@ import { UserPermissionGroupsRepository } from '@/repositories/rbac/user-permiss
 
 interface DeletePermissionGroupRequest {
   groupId: string;
+  tenantId?: string;
   force?: boolean; // Força exclusão mesmo se em uso
 }
 
@@ -21,6 +23,7 @@ export class DeletePermissionGroupUseCase {
 
   async execute({
     groupId,
+    tenantId,
     force = false,
   }: DeletePermissionGroupRequest): Promise<DeletePermissionGroupResponse> {
     const id = new UniqueEntityID(groupId);
@@ -30,6 +33,24 @@ export class DeletePermissionGroupUseCase {
 
     if (!group) {
       throw new ResourceNotFoundError('Permission group not found');
+    }
+
+    // If tenantId is provided, verify the group belongs to the tenant
+    // System/global groups (tenantId = null) cannot be deleted by tenants
+    if (tenantId) {
+      const tenantIdEntity = new UniqueEntityID(tenantId);
+      const isOwnedByTenant = group.tenantId?.equals(tenantIdEntity);
+
+      if (!isOwnedByTenant) {
+        if (group.tenantId === null) {
+          throw new ForbiddenError(
+            'System groups cannot be deleted by tenants',
+          );
+        }
+        throw new ForbiddenError(
+          'Permission group does not belong to your tenant',
+        );
+      }
     }
 
     // Não permitir deletar grupos de sistema

@@ -12,6 +12,7 @@ export class InMemoryDeductionsRepository implements DeductionsRepository {
 
   async create(data: CreateDeductionSchema): Promise<Deduction> {
     const deduction = Deduction.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       employeeId: data.employeeId,
       name: data.name,
       amount: data.amount,
@@ -25,12 +26,24 @@ export class InMemoryDeductionsRepository implements DeductionsRepository {
     return deduction;
   }
 
-  async findById(id: UniqueEntityID): Promise<Deduction | null> {
-    return this.items.find((item) => item.id.equals(id)) ?? null;
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Deduction | null> {
+    return (
+      this.items.find(
+        (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+      ) ?? null
+    );
   }
 
-  async findMany(filters?: FindDeductionFilters): Promise<Deduction[]> {
-    let filtered = [...this.items];
+  async findMany(
+    tenantId: string,
+    filters?: FindDeductionFilters,
+  ): Promise<Deduction[]> {
+    let filtered = this.items.filter(
+      (item) => item.tenantId.toString() === tenantId,
+    );
 
     if (filters?.employeeId) {
       filtered = filtered.filter((item) =>
@@ -57,55 +70,96 @@ export class InMemoryDeductionsRepository implements DeductionsRepository {
     return filtered.sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<Deduction[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Deduction[]> {
     return this.items
-      .filter((item) => item.employeeId.equals(employeeId))
+      .filter(
+        (item) =>
+          item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
-  async findManyPending(): Promise<Deduction[]> {
+  async findManyPending(tenantId: string): Promise<Deduction[]> {
     return this.items
-      .filter((item) => item.isPending())
+      .filter(
+        (item) => item.isPending() && item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 
   async findManyPendingByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Deduction[]> {
     return this.items
-      .filter((item) => item.employeeId.equals(employeeId) && item.isPending())
+      .filter(
+        (item) =>
+          item.employeeId.equals(employeeId) &&
+          item.isPending() &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 
   async findPendingByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Deduction[]> {
-    return this.findManyPendingByEmployee(employeeId);
+    return this.findManyPendingByEmployee(employeeId, tenantId);
   }
 
-  async findManyRecurring(): Promise<Deduction[]> {
+  async findManyRecurring(tenantId: string): Promise<Deduction[]> {
     return this.items
-      .filter((item) => item.isRecurring)
+      .filter(
+        (item) => item.isRecurring && item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
   async findManyRecurringByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Deduction[]> {
     return this.items
-      .filter((item) => item.employeeId.equals(employeeId) && item.isRecurring)
+      .filter(
+        (item) =>
+          item.employeeId.equals(employeeId) &&
+          item.isRecurring &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
-  async findManyByPeriod(startDate: Date, endDate: Date): Promise<Deduction[]> {
+  async findManyByPeriod(
+    startDate: Date,
+    endDate: Date,
+    tenantId: string,
+  ): Promise<Deduction[]> {
     return this.items
-      .filter((item) => item.date >= startDate && item.date <= endDate)
+      .filter(
+        (item) =>
+          item.date >= startDate &&
+          item.date <= endDate &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 
-  async sumPendingByEmployee(employeeId: UniqueEntityID): Promise<number> {
+  async sumPendingByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<number> {
     return this.items
-      .filter((item) => item.employeeId.equals(employeeId) && item.isPending())
+      .filter(
+        (item) =>
+          item.employeeId.equals(employeeId) &&
+          item.isPending() &&
+          item.tenantId.toString() === tenantId,
+      )
       .reduce((sum, item) => sum + item.amount, 0);
   }
 

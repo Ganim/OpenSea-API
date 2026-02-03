@@ -448,11 +448,19 @@ function generatePermissionName(
  */
 export interface CreateUserOptions {
   /**
-   * OrganizationId para vincular o usuário.
-   * Se fornecido, cria um Employee vinculado a esta organização.
-   * Se não fornecido, usa a organização retornada pelo fallback.
+   * TenantId para vincular o usuário e obter um token com escopo de tenant.
+   * Se fornecido:
+   * - Cria uma associação TenantUser entre o usuário e o tenant
+   * - Após o login, chama POST /v1/auth/select-tenant para obter um JWT com tenantId
+   * - O token retornado será tenant-scoped
+   *
+   * Se não fornecido, o token retornado NÃO terá tenantId (comportamento padrão).
+   *
+   * @example
+   * const { tenantId } = await createAndSetupTenant();
+   * const { token } = await createAndAuthenticateUser(app, { tenantId });
    */
-  organizationId?: string;
+  tenantId?: string;
 
   /**
    * Permissões específicas para dar ao usuário.
@@ -680,23 +688,29 @@ export async function createAndAuthenticateUser(
 
   const userId = userResponse.user.id;
 
-  // Se organizationId foi fornecido, criar um Employee vinculado
-  if (options?.organizationId) {
-    await prisma.employee.create({
-      data: {
+  // organizationId is deprecated - Employee now uses tenantId
+  // The tenantId option handles associating users with tenants
+
+  // Se tenantId foi fornecido, associar o user ao tenant
+  if (options?.tenantId) {
+    // Verify if association already exists (active, not deleted)
+    const existingTenantUser = await prisma.tenantUser.findFirst({
+      where: {
+        tenantId: options.tenantId,
         userId,
-        organizationId: options.organizationId,
-        registrationNumber: `EMP-${uniqueId.toUpperCase()}`,
-        fullName: `Test Employee ${uniqueId}`,
-        cpf: generateCPF(),
-        hireDate: new Date(),
-        baseSalary: 3000,
-        contractType: 'CLT',
-        workRegime: 'FULL_TIME',
-        weeklyHours: 40,
-        status: 'ACTIVE',
+        deletedAt: null,
       },
     });
+
+    if (!existingTenantUser) {
+      await prisma.tenantUser.create({
+        data: {
+          tenantId: options.tenantId,
+          userId,
+          role: 'ADMIN',
+        },
+      });
+    }
   }
 
   // Setup permissions based on options
@@ -715,7 +729,20 @@ export async function createAndAuthenticateUser(
       password: 'Pass@123',
     });
 
-  const { token, refreshToken, sessionId } = authResponse.body;
+  let { token } = authResponse.body;
+  const { refreshToken, sessionId } = authResponse.body;
+
+  // Se tenantId foi fornecido, selecionar o tenant para obter um token com escopo de tenant
+  if (options?.tenantId) {
+    const selectTenantResponse = await request(app.server)
+      .post('/v1/auth/select-tenant')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        tenantId: options.tenantId,
+      });
+
+    token = selectTenantResponse.body.token;
+  }
 
   return {
     user: userResponse,

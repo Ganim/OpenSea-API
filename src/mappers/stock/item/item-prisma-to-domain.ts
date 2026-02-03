@@ -13,6 +13,7 @@ export function mapItemPrismaToDomain(itemDb: PrismaItem) {
 
   return {
     id: new UniqueEntityID(itemDb.id),
+    tenantId: new UniqueEntityID(itemDb.tenantId),
     variantId: new UniqueEntityID(itemDb.variantId),
     binId: itemDb.binId ? new UniqueEntityID(itemDb.binId) : undefined,
     uniqueCode: itemDb.uniqueCode ?? undefined,

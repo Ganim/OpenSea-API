@@ -14,6 +14,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
   async create(data: CreateItemMovementSchema): Promise<ItemMovement> {
     const movementData = await prisma.itemMovement.create({
       data: {
+        tenantId: data.tenantId,
         itemId: data.itemId.toString(),
         userId: data.userId.toString(),
         quantity: data.quantity,
@@ -30,6 +31,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
 
     return ItemMovement.create(
       {
+        tenantId: new EntityID(movementData.tenantId),
         itemId: new EntityID(movementData.itemId),
         userId: new EntityID(movementData.userId),
         quantity: movementData.quantity.toNumber(),
@@ -52,10 +54,14 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<ItemMovement | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<ItemMovement | null> {
     const movementData = await prisma.itemMovement.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
       },
     });
 
@@ -63,6 +69,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
 
     return ItemMovement.create(
       {
+        tenantId: new EntityID(movementData.tenantId),
         itemId: new EntityID(movementData.itemId),
         userId: new EntityID(movementData.userId),
         quantity: movementData.quantity.toNumber(),
@@ -85,8 +92,11 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     );
   }
 
-  async findAll(): Promise<ItemMovement[]> {
+  async findAll(tenantId: string): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
+      where: {
+        tenantId,
+      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -95,6 +105,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     return movements.map((movementData) =>
       ItemMovement.create(
         {
+          tenantId: new EntityID(movementData.tenantId),
           itemId: new EntityID(movementData.itemId),
           userId: new EntityID(movementData.userId),
           quantity: movementData.quantity.toNumber(),
@@ -118,10 +129,14 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     );
   }
 
-  async findManyByItem(itemId: UniqueEntityID): Promise<ItemMovement[]> {
+  async findManyByItem(
+    itemId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
       where: {
         itemId: itemId.toString(),
+        tenantId,
       },
       orderBy: {
         createdAt: 'desc',
@@ -131,6 +146,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     return movements.map((movementData) =>
       ItemMovement.create(
         {
+          tenantId: new EntityID(movementData.tenantId),
           itemId: new EntityID(movementData.itemId),
           userId: new EntityID(movementData.userId),
           quantity: movementData.quantity.toNumber(),
@@ -154,10 +170,14 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     );
   }
 
-  async findManyByUser(userId: UniqueEntityID): Promise<ItemMovement[]> {
+  async findManyByUser(
+    userId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
       where: {
         userId: userId.toString(),
+        tenantId,
       },
       orderBy: {
         createdAt: 'desc',
@@ -167,6 +187,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     return movements.map((movementData) =>
       ItemMovement.create(
         {
+          tenantId: new EntityID(movementData.tenantId),
           itemId: new EntityID(movementData.itemId),
           userId: new EntityID(movementData.userId),
           quantity: movementData.quantity.toNumber(),
@@ -190,10 +211,14 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     );
   }
 
-  async findManyByType(movementType: MovementType): Promise<ItemMovement[]> {
+  async findManyByType(
+    movementType: MovementType,
+    tenantId: string,
+  ): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
       where: {
         movementType: movementType.value as PrismaMovementType,
+        tenantId,
       },
       orderBy: {
         createdAt: 'desc',
@@ -203,6 +228,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     return movements.map((movementData) =>
       ItemMovement.create(
         {
+          tenantId: new EntityID(movementData.tenantId),
           itemId: new EntityID(movementData.itemId),
           userId: new EntityID(movementData.userId),
           quantity: movementData.quantity.toNumber(),
@@ -226,10 +252,14 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     );
   }
 
-  async findManyByBatch(batchNumber: string): Promise<ItemMovement[]> {
+  async findManyByBatch(
+    batchNumber: string,
+    tenantId: string,
+  ): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
       where: {
         batchNumber,
+        tenantId,
       },
       orderBy: {
         createdAt: 'desc',
@@ -239,6 +269,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     return movements.map((movementData) =>
       ItemMovement.create(
         {
+          tenantId: new EntityID(movementData.tenantId),
           itemId: new EntityID(movementData.itemId),
           userId: new EntityID(movementData.userId),
           quantity: movementData.quantity.toNumber(),
@@ -264,10 +295,12 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
 
   async findManyBySalesOrder(
     salesOrderId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
       where: {
         salesOrderId: salesOrderId.toString(),
+        tenantId,
       },
       orderBy: {
         createdAt: 'desc',
@@ -277,6 +310,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     return movements.map((movementData) =>
       ItemMovement.create(
         {
+          tenantId: new EntityID(movementData.tenantId),
           itemId: new EntityID(movementData.itemId),
           userId: new EntityID(movementData.userId),
           quantity: movementData.quantity.toNumber(),
@@ -300,10 +334,11 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     );
   }
 
-  async findManyPendingApproval(): Promise<ItemMovement[]> {
+  async findManyPendingApproval(tenantId: string): Promise<ItemMovement[]> {
     const movements = await prisma.itemMovement.findMany({
       where: {
         approvedBy: null,
+        tenantId,
       },
       orderBy: {
         createdAt: 'desc',
@@ -313,6 +348,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
     return movements.map((movementData) =>
       ItemMovement.create(
         {
+          tenantId: new EntityID(movementData.tenantId),
           itemId: new EntityID(movementData.itemId),
           userId: new EntityID(movementData.userId),
           quantity: movementData.quantity.toNumber(),
@@ -351,6 +387,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
 
     return ItemMovement.create(
       {
+        tenantId: new EntityID(movementData.tenantId),
         itemId: new EntityID(movementData.itemId),
         userId: new EntityID(movementData.userId),
         quantity: movementData.quantity.toNumber(),

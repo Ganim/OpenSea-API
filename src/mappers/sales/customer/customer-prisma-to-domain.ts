@@ -7,6 +7,7 @@ import type { Customer as PrismaCustomer } from '@prisma/generated/client.js';
 export function mapCustomerPrismaToDomain(customerDb: PrismaCustomer) {
   return {
     id: new UniqueEntityID(customerDb.id),
+    tenantId: new UniqueEntityID(customerDb.tenantId),
     name: customerDb.name,
     type: CustomerType.create(customerDb.type),
     document: customerDb.document

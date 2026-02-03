@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createCustomerSchema,
   customerResponseSchema,
@@ -20,6 +21,7 @@ export async function createCustomerController(app: FastifyInstance) {
     url: '/v1/customers',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.SALES.CUSTOMERS.CREATE,
         resource: 'customers',
@@ -42,6 +44,7 @@ export async function createCustomerController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
@@ -52,7 +55,7 @@ export async function createCustomerController(app: FastifyInstance) {
           : user.username || user.email;
 
         const useCase = makeCreateCustomerUseCase();
-        const { customer } = await useCase.execute(data);
+        const { customer } = await useCase.execute({ tenantId, ...data });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.CUSTOMER_CREATE,

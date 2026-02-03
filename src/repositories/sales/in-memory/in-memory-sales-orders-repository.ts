@@ -1,4 +1,4 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { SalesOrder, SalesOrderItem } from '@/entities/sales/sales-order';
 import { OrderStatus } from '@/entities/sales/value-objects/order-status';
 import type {
@@ -12,6 +12,7 @@ export class InMemorySalesOrdersRepository implements SalesOrdersRepository {
 
   async create(data: CreateSalesOrderSchema): Promise<SalesOrder> {
     const order = SalesOrder.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       orderNumber: data.orderNumber,
       customerId: data.customerId,
       createdBy: data.createdBy,
@@ -40,16 +41,28 @@ export class InMemorySalesOrdersRepository implements SalesOrdersRepository {
     return order;
   }
 
-  async findById(id: UniqueEntityID): Promise<SalesOrder | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<SalesOrder | null> {
     const order = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return order ?? null;
   }
 
-  async findByOrderNumber(orderNumber: string): Promise<SalesOrder | null> {
+  async findByOrderNumber(
+    orderNumber: string,
+    tenantId: string,
+  ): Promise<SalesOrder | null> {
     const order = this.items.find(
-      (item) => !item.deletedAt && item.orderNumber === orderNumber,
+      (item) =>
+        !item.deletedAt &&
+        item.orderNumber === orderNumber &&
+        item.tenantId.toString() === tenantId,
     );
     return order ?? null;
   }
@@ -58,17 +71,29 @@ export class InMemorySalesOrdersRepository implements SalesOrdersRepository {
     status: OrderStatus,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<SalesOrder[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt && item.status.value === status.value)
+      .filter(
+        (item) =>
+          !item.deletedAt &&
+          item.status.value === status.value &&
+          item.tenantId.toString() === tenantId,
+      )
       .slice(start, start + perPage);
   }
 
-  async findMany(page: number, perPage: number): Promise<SalesOrder[]> {
+  async findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<SalesOrder[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt)
+      .filter(
+        (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+      )
       .slice(start, start + perPage);
   }
 
@@ -76,10 +101,16 @@ export class InMemorySalesOrdersRepository implements SalesOrdersRepository {
     customerId: UniqueEntityID,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<SalesOrder[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt && item.customerId.equals(customerId))
+      .filter(
+        (item) =>
+          !item.deletedAt &&
+          item.customerId.equals(customerId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .slice(start, start + perPage);
   }
 
@@ -110,7 +141,9 @@ export class InMemorySalesOrdersRepository implements SalesOrdersRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const order = await this.findById(id);
+    const order = this.items.find(
+      (item) => !item.deletedAt && item.id.equals(id),
+    );
 
     if (order) {
       order.delete();

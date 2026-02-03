@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   careOptionResponseSchema,
   setProductCareInstructionsSchema,
@@ -23,6 +24,7 @@ export async function setProductCareController(app: FastifyInstance) {
     url: '/v1/products/:productId/care',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.PRODUCTS.UPDATE,
         resource: 'products',
@@ -52,6 +54,7 @@ export async function setProductCareController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { productId } = request.params;
       const { careInstructionIds } = request.body;
       const userId = request.user.sub;
@@ -62,7 +65,7 @@ export async function setProductCareController(app: FastifyInstance) {
 
         const [{ user }, { product: existingProduct }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getProductByIdUseCase.execute({ id: productId }),
+          getProductByIdUseCase.execute({ tenantId, id: productId }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -72,6 +75,7 @@ export async function setProductCareController(app: FastifyInstance) {
           makeSetProductCareInstructionsUseCase();
 
         const { product } = await setProductCareInstructions.execute({
+          tenantId,
           productId,
           careInstructionIds,
         });

@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { CompaniesRepository } from '@/repositories/hr/companies-repository';
 
 export interface DeleteCompanyRequest {
+  tenantId: string;
   id: string;
 }
 

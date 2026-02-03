@@ -6,6 +6,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateDepartmentUseCase } from './create-department';
 import { GetDepartmentByIdUseCase } from './get-department-by-id';
 
+const TENANT_ID = 'tenant-1';
+
 let departmentsRepository: InMemoryDepartmentsRepository;
 let companiesRepository: InMemoryCompaniesRepository;
 let positionsRepository: InMemoryPositionsRepository;
@@ -31,6 +33,7 @@ describe('Get Department By Id Use Case', () => {
 
   it('should get department by id', async () => {
     const createResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       description: 'Software Engineering Department',
@@ -38,6 +41,7 @@ describe('Get Department By Id Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.department.id.toString(),
     });
 
@@ -53,6 +57,7 @@ describe('Get Department By Id Use Case', () => {
   it('should not get non-existent department', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: 'non-existent-id',
       }),
     ).rejects.toThrow('Department not found');
@@ -60,6 +65,7 @@ describe('Get Department By Id Use Case', () => {
 
   it('should not get deleted department', async () => {
     const createResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
@@ -69,6 +75,7 @@ describe('Get Department By Id Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: createResult.department.id.toString(),
       }),
     ).rejects.toThrow('Department not found');

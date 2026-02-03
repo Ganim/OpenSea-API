@@ -22,6 +22,7 @@ export interface LabelPreviewData {
 }
 
 interface GetLabelPreviewUseCaseRequest {
+  tenantId: string;
   binId: string;
 }
 
@@ -39,17 +40,20 @@ export class GetLabelPreviewUseCase {
   async execute(
     input: GetLabelPreviewUseCaseRequest,
   ): Promise<GetLabelPreviewUseCaseResponse> {
-    const { binId } = input;
+    const { tenantId, binId } = input;
 
     // Fetch the bin
-    const bin = await this.binsRepository.findById(new UniqueEntityID(binId));
+    const bin = await this.binsRepository.findById(
+      new UniqueEntityID(binId),
+      tenantId,
+    );
 
     if (!bin) {
       throw new ResourceNotFoundError('Bin não encontrado');
     }
 
     // Fetch the zone
-    const zone = await this.zonesRepository.findById(bin.zoneId);
+    const zone = await this.zonesRepository.findById(bin.zoneId, tenantId);
 
     if (!zone) {
       throw new ResourceNotFoundError('Zona não encontrada');
@@ -58,6 +62,7 @@ export class GetLabelPreviewUseCase {
     // Fetch the warehouse
     const warehouse = await this.warehousesRepository.findById(
       zone.warehouseId,
+      tenantId,
     );
 
     if (!warehouse) {

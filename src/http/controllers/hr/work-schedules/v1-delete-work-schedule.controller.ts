@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas/common.schema';
 import { makeDeleteWorkScheduleUseCase } from '@/use-cases/hr/work-schedules/factories/make-delete-work-schedule-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,6 +15,7 @@ export async function deleteWorkScheduleController(app: FastifyInstance) {
     url: '/v1/hr/work-schedules/:workScheduleId',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.WORK_SCHEDULES.DELETE,
         resource: 'work-schedules',
@@ -36,11 +38,15 @@ export async function deleteWorkScheduleController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { workScheduleId } = request.params;
 
       try {
         const deleteWorkScheduleUseCase = makeDeleteWorkScheduleUseCase();
-        await deleteWorkScheduleUseCase.execute({ id: workScheduleId });
+        await deleteWorkScheduleUseCase.execute({
+          tenantId,
+          id: workScheduleId,
+        });
 
         return reply.status(204).send();
       } catch (error) {

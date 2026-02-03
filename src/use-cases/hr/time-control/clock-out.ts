@@ -5,6 +5,7 @@ import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { TimeEntriesRepository } from '@/repositories/hr/time-entries-repository';
 
 export interface ClockOutRequest {
+  tenantId: string;
   employeeId: string;
   timestamp?: Date;
   latitude?: number;
@@ -25,6 +26,7 @@ export class ClockOutUseCase {
 
   async execute(request: ClockOutRequest): Promise<ClockOutResponse> {
     const {
+      tenantId,
       employeeId,
       timestamp = new Date(),
       latitude,
@@ -36,6 +38,7 @@ export class ClockOutUseCase {
     // Verify employee exists
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
     if (!employee) {
       throw new Error('Employee not found');
@@ -49,6 +52,7 @@ export class ClockOutUseCase {
     // Check last entry to ensure employee has clocked in
     const lastEntry = await this.timeEntriesRepository.findLastEntryByEmployee(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!lastEntry || lastEntry.entryType.isExitType()) {
@@ -57,6 +61,7 @@ export class ClockOutUseCase {
 
     // Create clock out entry
     const timeEntry = await this.timeEntriesRepository.create({
+      tenantId,
       employeeId: new UniqueEntityID(employeeId),
       entryType: TimeEntryType.CLOCK_OUT(),
       timestamp,

@@ -18,11 +18,13 @@ describe('UpdateManufacturerUseCase', () => {
 
   it('should update a manufacturer', async () => {
     const created = await createManufacturer.execute({
+      tenantId: 'tenant-1',
       name: 'TechCorp',
       country: 'United States',
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: created.manufacturer.manufacturerId.toString(),
       name: 'TechCorp Industries',
       country: 'Canada',
@@ -41,12 +43,14 @@ describe('UpdateManufacturerUseCase', () => {
 
   it('should update only provided fields', async () => {
     const created = await createManufacturer.execute({
+      tenantId: 'tenant-1',
       name: 'TechCorp',
       country: 'United States',
       email: 'contact@techcorp.com',
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: created.manufacturer.manufacturerId.toString(),
       rating: 4.5,
     });
@@ -60,6 +64,7 @@ describe('UpdateManufacturerUseCase', () => {
   it('should throw error if manufacturer not found', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'non-existent-id',
         name: 'Updated Name',
       }),
@@ -68,12 +73,14 @@ describe('UpdateManufacturerUseCase', () => {
 
   it('should not update with empty name', async () => {
     const created = await createManufacturer.execute({
+      tenantId: 'tenant-1',
       name: 'TechCorp',
       country: 'United States',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: created.manufacturer.manufacturerId.toString(),
         name: '',
       }),
@@ -82,17 +89,20 @@ describe('UpdateManufacturerUseCase', () => {
 
   it('should not update with duplicate name', async () => {
     await createManufacturer.execute({
+      tenantId: 'tenant-1',
       name: 'TechCorp',
       country: 'United States',
     });
 
     const second = await createManufacturer.execute({
+      tenantId: 'tenant-1',
       name: 'Manufacturing Ltd',
       country: 'Brazil',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: second.manufacturer.manufacturerId.toString(),
         name: 'TechCorp',
       }),
@@ -101,12 +111,14 @@ describe('UpdateManufacturerUseCase', () => {
 
   it('should not update with invalid rating', async () => {
     const created = await createManufacturer.execute({
+      tenantId: 'tenant-1',
       name: 'TechCorp',
       country: 'United States',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: created.manufacturer.manufacturerId.toString(),
         rating: 6,
       }),

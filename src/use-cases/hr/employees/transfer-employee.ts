@@ -4,6 +4,7 @@ import { Employee } from '@/entities/hr/employee';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface TransferEmployeeRequest {
+  tenantId: string;
   employeeId: string;
   newDepartmentId?: string | null;
   newPositionId?: string | null;
@@ -24,6 +25,7 @@ export class TransferEmployeeUseCase {
     request: TransferEmployeeRequest,
   ): Promise<TransferEmployeeResponse> {
     const {
+      tenantId,
       employeeId,
       newDepartmentId,
       newPositionId,
@@ -36,6 +38,7 @@ export class TransferEmployeeUseCase {
     // Find the employee
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!employee) {

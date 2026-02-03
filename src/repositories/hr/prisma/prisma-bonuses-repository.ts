@@ -13,6 +13,7 @@ export class PrismaBonusesRepository implements BonusesRepository {
   async create(data: CreateBonusSchema): Promise<Bonus> {
     const bonusData = await prisma.bonus.create({
       data: {
+        tenantId: data.tenantId,
         employeeId: data.employeeId.toString(),
         name: data.name,
         amount: data.amount,
@@ -28,9 +29,9 @@ export class PrismaBonusesRepository implements BonusesRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<Bonus | null> {
-    const bonusData = await prisma.bonus.findUnique({
-      where: { id: id.toString() },
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Bonus | null> {
+    const bonusData = await prisma.bonus.findFirst({
+      where: { id: id.toString(), tenantId },
     });
 
     if (!bonusData) return null;
@@ -41,9 +42,13 @@ export class PrismaBonusesRepository implements BonusesRepository {
     );
   }
 
-  async findMany(filters?: FindBonusFilters): Promise<Bonus[]> {
+  async findMany(
+    tenantId: string,
+    filters?: FindBonusFilters,
+  ): Promise<Bonus[]> {
     const bonuses = await prisma.bonus.findMany({
       where: {
+        tenantId,
         employeeId: filters?.employeeId?.toString(),
         isPaid: filters?.isPaid,
         date: {
@@ -59,9 +64,13 @@ export class PrismaBonusesRepository implements BonusesRepository {
     );
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<Bonus[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Bonus[]> {
     const bonuses = await prisma.bonus.findMany({
       where: {
+        tenantId,
         employeeId: employeeId.toString(),
       },
       orderBy: { date: 'desc' },
@@ -72,9 +81,10 @@ export class PrismaBonusesRepository implements BonusesRepository {
     );
   }
 
-  async findManyPending(): Promise<Bonus[]> {
+  async findManyPending(tenantId: string): Promise<Bonus[]> {
     const bonuses = await prisma.bonus.findMany({
       where: {
+        tenantId,
         isPaid: false,
       },
       orderBy: { date: 'asc' },
@@ -87,9 +97,11 @@ export class PrismaBonusesRepository implements BonusesRepository {
 
   async findManyPendingByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Bonus[]> {
     const bonuses = await prisma.bonus.findMany({
       where: {
+        tenantId,
         employeeId: employeeId.toString(),
         isPaid: false,
       },
@@ -101,13 +113,21 @@ export class PrismaBonusesRepository implements BonusesRepository {
     );
   }
 
-  async findPendingByEmployee(employeeId: UniqueEntityID): Promise<Bonus[]> {
-    return this.findManyPendingByEmployee(employeeId);
+  async findPendingByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Bonus[]> {
+    return this.findManyPendingByEmployee(employeeId, tenantId);
   }
 
-  async findManyByPeriod(startDate: Date, endDate: Date): Promise<Bonus[]> {
+  async findManyByPeriod(
+    startDate: Date,
+    endDate: Date,
+    tenantId: string,
+  ): Promise<Bonus[]> {
     const bonuses = await prisma.bonus.findMany({
       where: {
+        tenantId,
         date: {
           gte: startDate,
           lte: endDate,
@@ -121,10 +141,14 @@ export class PrismaBonusesRepository implements BonusesRepository {
     );
   }
 
-  async sumPendingByEmployee(employeeId: UniqueEntityID): Promise<number> {
+  async sumPendingByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<number> {
     const result = await prisma.bonus.aggregate({
       _sum: { amount: true },
       where: {
+        tenantId,
         employeeId: employeeId.toString(),
         isPaid: false,
       },

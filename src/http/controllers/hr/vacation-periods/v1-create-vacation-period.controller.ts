@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createVacationPeriodSchema,
   vacationPeriodResponseSchema,
@@ -20,6 +21,7 @@ export async function createVacationPeriodController(app: FastifyInstance) {
     url: '/v1/hr/vacation-periods',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.VACATION_PERIODS.CREATE,
         resource: 'vacation-periods',
@@ -45,12 +47,15 @@ export async function createVacationPeriodController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const createVacationPeriodUseCase = makeCreateVacationPeriodUseCase();
-        const { vacationPeriod } =
-          await createVacationPeriodUseCase.execute(data);
+        const { vacationPeriod } = await createVacationPeriodUseCase.execute({
+          ...data,
+          tenantId,
+        });
 
         return reply
           .status(201)

@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   companyCnaeResponseSchema,
   idSchema,
@@ -18,6 +19,7 @@ export async function listCompanyCnaesController(app: FastifyInstance) {
     url: '/v1/hr/companies/:companyId/cnaes',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.COMPANY_CNAES.LIST,
         resource: 'company-cnaes',

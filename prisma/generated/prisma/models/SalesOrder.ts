@@ -51,6 +51,7 @@ export type SalesOrderMinAggregateOutputType = {
   deletedAt: Date | null
   customerId: string | null
   createdBy: string | null
+  tenantId: string | null
 }
 
 export type SalesOrderMaxAggregateOutputType = {
@@ -66,6 +67,7 @@ export type SalesOrderMaxAggregateOutputType = {
   deletedAt: Date | null
   customerId: string | null
   createdBy: string | null
+  tenantId: string | null
 }
 
 export type SalesOrderCountAggregateOutputType = {
@@ -81,6 +83,7 @@ export type SalesOrderCountAggregateOutputType = {
   deletedAt: number
   customerId: number
   createdBy: number
+  tenantId: number
   _all: number
 }
 
@@ -110,6 +113,7 @@ export type SalesOrderMinAggregateInputType = {
   deletedAt?: true
   customerId?: true
   createdBy?: true
+  tenantId?: true
 }
 
 export type SalesOrderMaxAggregateInputType = {
@@ -125,6 +129,7 @@ export type SalesOrderMaxAggregateInputType = {
   deletedAt?: true
   customerId?: true
   createdBy?: true
+  tenantId?: true
 }
 
 export type SalesOrderCountAggregateInputType = {
@@ -140,6 +145,7 @@ export type SalesOrderCountAggregateInputType = {
   deletedAt?: true
   customerId?: true
   createdBy?: true
+  tenantId?: true
   _all?: true
 }
 
@@ -242,6 +248,7 @@ export type SalesOrderGroupByOutputType = {
   deletedAt: Date | null
   customerId: string
   createdBy: string | null
+  tenantId: string
   _count: SalesOrderCountAggregateOutputType | null
   _avg: SalesOrderAvgAggregateOutputType | null
   _sum: SalesOrderSumAggregateOutputType | null
@@ -280,6 +287,8 @@ export type SalesOrderWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"SalesOrder"> | Date | string | null
   customerId?: Prisma.StringFilter<"SalesOrder"> | string
   createdBy?: Prisma.StringNullableFilter<"SalesOrder"> | string | null
+  tenantId?: Prisma.StringFilter<"SalesOrder"> | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   creator?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.SalesOrderItemListRelationFilter
@@ -299,6 +308,8 @@ export type SalesOrderOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   customerId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   customer?: Prisma.CustomerOrderByWithRelationInput
   creator?: Prisma.UserOrderByWithRelationInput
   items?: Prisma.SalesOrderItemOrderByRelationAggregateInput
@@ -322,6 +333,8 @@ export type SalesOrderWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"SalesOrder"> | Date | string | null
   customerId?: Prisma.StringFilter<"SalesOrder"> | string
   createdBy?: Prisma.StringNullableFilter<"SalesOrder"> | string | null
+  tenantId?: Prisma.StringFilter<"SalesOrder"> | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   creator?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.SalesOrderItemListRelationFilter
@@ -341,6 +354,7 @@ export type SalesOrderOrderByWithAggregationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   customerId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   _count?: Prisma.SalesOrderCountOrderByAggregateInput
   _avg?: Prisma.SalesOrderAvgOrderByAggregateInput
   _max?: Prisma.SalesOrderMaxOrderByAggregateInput
@@ -364,6 +378,7 @@ export type SalesOrderScalarWhereWithAggregatesInput = {
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SalesOrder"> | Date | string | null
   customerId?: Prisma.StringWithAggregatesFilter<"SalesOrder"> | string
   createdBy?: Prisma.StringNullableWithAggregatesFilter<"SalesOrder"> | string | null
+  tenantId?: Prisma.StringWithAggregatesFilter<"SalesOrder"> | string
 }
 
 export type SalesOrderCreateInput = {
@@ -377,6 +392,7 @@ export type SalesOrderCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutSalesOrdersInput
   customer: Prisma.CustomerCreateNestedOneWithoutSalesOrdersInput
   creator?: Prisma.UserCreateNestedOneWithoutCreatedSalesOrdersInput
   items?: Prisma.SalesOrderItemCreateNestedManyWithoutOrderInput
@@ -396,6 +412,7 @@ export type SalesOrderUncheckedCreateInput = {
   deletedAt?: Date | string | null
   customerId: string
   createdBy?: string | null
+  tenantId: string
   items?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutOrderInput
   itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutSalesOrderInput
 }
@@ -411,6 +428,7 @@ export type SalesOrderUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutSalesOrdersNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesOrdersNestedInput
   creator?: Prisma.UserUpdateOneWithoutCreatedSalesOrdersNestedInput
   items?: Prisma.SalesOrderItemUpdateManyWithoutOrderNestedInput
@@ -430,6 +448,7 @@ export type SalesOrderUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutOrderNestedInput
   itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutSalesOrderNestedInput
 }
@@ -447,6 +466,7 @@ export type SalesOrderCreateManyInput = {
   deletedAt?: Date | string | null
   customerId: string
   createdBy?: string | null
+  tenantId: string
 }
 
 export type SalesOrderUpdateManyMutationInput = {
@@ -475,6 +495,7 @@ export type SalesOrderUncheckedUpdateManyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SalesOrderListRelationFilter = {
@@ -494,6 +515,7 @@ export type SalesOrderNullableScalarRelationFilter = {
 
 export type SalesOrderSales_orders_order_number_unique_activeCompoundUniqueInput = {
   orderNumber: string
+  tenantId: string
   deletedAt: Date | string
 }
 
@@ -510,6 +532,7 @@ export type SalesOrderCountOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type SalesOrderAvgOrderByAggregateInput = {
@@ -531,6 +554,7 @@ export type SalesOrderMaxOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type SalesOrderMinOrderByAggregateInput = {
@@ -546,6 +570,7 @@ export type SalesOrderMinOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type SalesOrderSumOrderByAggregateInput = {
@@ -673,6 +698,48 @@ export type SalesOrderUpdateOneRequiredWithoutItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SalesOrderUpdateToOneWithWhereWithoutItemsInput, Prisma.SalesOrderUpdateWithoutItemsInput>, Prisma.SalesOrderUncheckedUpdateWithoutItemsInput>
 }
 
+export type SalesOrderCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.SalesOrderCreateWithoutTenantInput, Prisma.SalesOrderUncheckedCreateWithoutTenantInput> | Prisma.SalesOrderCreateWithoutTenantInput[] | Prisma.SalesOrderUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.SalesOrderCreateOrConnectWithoutTenantInput | Prisma.SalesOrderCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.SalesOrderCreateManyTenantInputEnvelope
+  connect?: Prisma.SalesOrderWhereUniqueInput | Prisma.SalesOrderWhereUniqueInput[]
+}
+
+export type SalesOrderUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.SalesOrderCreateWithoutTenantInput, Prisma.SalesOrderUncheckedCreateWithoutTenantInput> | Prisma.SalesOrderCreateWithoutTenantInput[] | Prisma.SalesOrderUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.SalesOrderCreateOrConnectWithoutTenantInput | Prisma.SalesOrderCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.SalesOrderCreateManyTenantInputEnvelope
+  connect?: Prisma.SalesOrderWhereUniqueInput | Prisma.SalesOrderWhereUniqueInput[]
+}
+
+export type SalesOrderUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.SalesOrderCreateWithoutTenantInput, Prisma.SalesOrderUncheckedCreateWithoutTenantInput> | Prisma.SalesOrderCreateWithoutTenantInput[] | Prisma.SalesOrderUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.SalesOrderCreateOrConnectWithoutTenantInput | Prisma.SalesOrderCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.SalesOrderUpsertWithWhereUniqueWithoutTenantInput | Prisma.SalesOrderUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.SalesOrderCreateManyTenantInputEnvelope
+  set?: Prisma.SalesOrderWhereUniqueInput | Prisma.SalesOrderWhereUniqueInput[]
+  disconnect?: Prisma.SalesOrderWhereUniqueInput | Prisma.SalesOrderWhereUniqueInput[]
+  delete?: Prisma.SalesOrderWhereUniqueInput | Prisma.SalesOrderWhereUniqueInput[]
+  connect?: Prisma.SalesOrderWhereUniqueInput | Prisma.SalesOrderWhereUniqueInput[]
+  update?: Prisma.SalesOrderUpdateWithWhereUniqueWithoutTenantInput | Prisma.SalesOrderUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.SalesOrderUpdateManyWithWhereWithoutTenantInput | Prisma.SalesOrderUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.SalesOrderScalarWhereInput | Prisma.SalesOrderScalarWhereInput[]
+}
+
+export type SalesOrderUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.SalesOrderCreateWithoutTenantInput, Prisma.SalesOrderUncheckedCreateWithoutTenantInput> | Prisma.SalesOrderCreateWithoutTenantInput[] | Prisma.SalesOrderUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.SalesOrderCreateOrConnectWithoutTenantInput | Prisma.SalesOrderCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.SalesOrderUpsertWithWhereUniqueWithoutTenantInput | Prisma.SalesOrderUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.SalesOrderCreateManyTenantInputEnvelope
+  set?: Prisma.SalesOrderWhereUniqueInput | Prisma.SalesOrderWhereUniqueInput[]
+  disconnect?: Prisma.SalesOrderWhereUniqueInput | Prisma.SalesOrderWhereUniqueInput[]
+  delete?: Prisma.SalesOrderWhereUniqueInput | Prisma.SalesOrderWhereUniqueInput[]
+  connect?: Prisma.SalesOrderWhereUniqueInput | Prisma.SalesOrderWhereUniqueInput[]
+  update?: Prisma.SalesOrderUpdateWithWhereUniqueWithoutTenantInput | Prisma.SalesOrderUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.SalesOrderUpdateManyWithWhereWithoutTenantInput | Prisma.SalesOrderUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.SalesOrderScalarWhereInput | Prisma.SalesOrderScalarWhereInput[]
+}
+
 export type SalesOrderCreateWithoutCreatorInput = {
   id?: string
   orderNumber: string
@@ -684,6 +751,7 @@ export type SalesOrderCreateWithoutCreatorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutSalesOrdersInput
   customer: Prisma.CustomerCreateNestedOneWithoutSalesOrdersInput
   items?: Prisma.SalesOrderItemCreateNestedManyWithoutOrderInput
   itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutSalesOrderInput
@@ -701,6 +769,7 @@ export type SalesOrderUncheckedCreateWithoutCreatorInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   customerId: string
+  tenantId: string
   items?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutOrderInput
   itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutSalesOrderInput
 }
@@ -747,6 +816,7 @@ export type SalesOrderScalarWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"SalesOrder"> | Date | string | null
   customerId?: Prisma.StringFilter<"SalesOrder"> | string
   createdBy?: Prisma.StringNullableFilter<"SalesOrder"> | string | null
+  tenantId?: Prisma.StringFilter<"SalesOrder"> | string
 }
 
 export type SalesOrderCreateWithoutItemMovementsInput = {
@@ -760,6 +830,7 @@ export type SalesOrderCreateWithoutItemMovementsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutSalesOrdersInput
   customer: Prisma.CustomerCreateNestedOneWithoutSalesOrdersInput
   creator?: Prisma.UserCreateNestedOneWithoutCreatedSalesOrdersInput
   items?: Prisma.SalesOrderItemCreateNestedManyWithoutOrderInput
@@ -778,6 +849,7 @@ export type SalesOrderUncheckedCreateWithoutItemMovementsInput = {
   deletedAt?: Date | string | null
   customerId: string
   createdBy?: string | null
+  tenantId: string
   items?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutOrderInput
 }
 
@@ -808,6 +880,7 @@ export type SalesOrderUpdateWithoutItemMovementsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutSalesOrdersNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesOrdersNestedInput
   creator?: Prisma.UserUpdateOneWithoutCreatedSalesOrdersNestedInput
   items?: Prisma.SalesOrderItemUpdateManyWithoutOrderNestedInput
@@ -826,6 +899,7 @@ export type SalesOrderUncheckedUpdateWithoutItemMovementsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutOrderNestedInput
 }
 
@@ -840,6 +914,7 @@ export type SalesOrderCreateWithoutCustomerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutSalesOrdersInput
   creator?: Prisma.UserCreateNestedOneWithoutCreatedSalesOrdersInput
   items?: Prisma.SalesOrderItemCreateNestedManyWithoutOrderInput
   itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutSalesOrderInput
@@ -857,6 +932,7 @@ export type SalesOrderUncheckedCreateWithoutCustomerInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   createdBy?: string | null
+  tenantId: string
   items?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutOrderInput
   itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutSalesOrderInput
 }
@@ -898,6 +974,7 @@ export type SalesOrderCreateWithoutItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutSalesOrdersInput
   customer: Prisma.CustomerCreateNestedOneWithoutSalesOrdersInput
   creator?: Prisma.UserCreateNestedOneWithoutCreatedSalesOrdersInput
   itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutSalesOrderInput
@@ -916,6 +993,7 @@ export type SalesOrderUncheckedCreateWithoutItemsInput = {
   deletedAt?: Date | string | null
   customerId: string
   createdBy?: string | null
+  tenantId: string
   itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutSalesOrderInput
 }
 
@@ -946,6 +1024,7 @@ export type SalesOrderUpdateWithoutItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutSalesOrdersNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesOrdersNestedInput
   creator?: Prisma.UserUpdateOneWithoutCreatedSalesOrdersNestedInput
   itemMovements?: Prisma.ItemMovementUpdateManyWithoutSalesOrderNestedInput
@@ -964,7 +1043,68 @@ export type SalesOrderUncheckedUpdateWithoutItemsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutSalesOrderNestedInput
+}
+
+export type SalesOrderCreateWithoutTenantInput = {
+  id?: string
+  orderNumber: string
+  status?: $Enums.OrderStatus
+  totalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  customer: Prisma.CustomerCreateNestedOneWithoutSalesOrdersInput
+  creator?: Prisma.UserCreateNestedOneWithoutCreatedSalesOrdersInput
+  items?: Prisma.SalesOrderItemCreateNestedManyWithoutOrderInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutSalesOrderInput
+}
+
+export type SalesOrderUncheckedCreateWithoutTenantInput = {
+  id?: string
+  orderNumber: string
+  status?: $Enums.OrderStatus
+  totalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  customerId: string
+  createdBy?: string | null
+  items?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutOrderInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutSalesOrderInput
+}
+
+export type SalesOrderCreateOrConnectWithoutTenantInput = {
+  where: Prisma.SalesOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalesOrderCreateWithoutTenantInput, Prisma.SalesOrderUncheckedCreateWithoutTenantInput>
+}
+
+export type SalesOrderCreateManyTenantInputEnvelope = {
+  data: Prisma.SalesOrderCreateManyTenantInput | Prisma.SalesOrderCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type SalesOrderUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.SalesOrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.SalesOrderUpdateWithoutTenantInput, Prisma.SalesOrderUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.SalesOrderCreateWithoutTenantInput, Prisma.SalesOrderUncheckedCreateWithoutTenantInput>
+}
+
+export type SalesOrderUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.SalesOrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.SalesOrderUpdateWithoutTenantInput, Prisma.SalesOrderUncheckedUpdateWithoutTenantInput>
+}
+
+export type SalesOrderUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.SalesOrderScalarWhereInput
+  data: Prisma.XOR<Prisma.SalesOrderUpdateManyMutationInput, Prisma.SalesOrderUncheckedUpdateManyWithoutTenantInput>
 }
 
 export type SalesOrderCreateManyCreatorInput = {
@@ -979,6 +1119,7 @@ export type SalesOrderCreateManyCreatorInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   customerId: string
+  tenantId: string
 }
 
 export type SalesOrderUpdateWithoutCreatorInput = {
@@ -992,6 +1133,7 @@ export type SalesOrderUpdateWithoutCreatorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutSalesOrdersNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesOrdersNestedInput
   items?: Prisma.SalesOrderItemUpdateManyWithoutOrderNestedInput
   itemMovements?: Prisma.ItemMovementUpdateManyWithoutSalesOrderNestedInput
@@ -1009,6 +1151,7 @@ export type SalesOrderUncheckedUpdateWithoutCreatorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutOrderNestedInput
   itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutSalesOrderNestedInput
 }
@@ -1025,6 +1168,7 @@ export type SalesOrderUncheckedUpdateManyWithoutCreatorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SalesOrderCreateManyCustomerInput = {
@@ -1039,6 +1183,7 @@ export type SalesOrderCreateManyCustomerInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   createdBy?: string | null
+  tenantId: string
 }
 
 export type SalesOrderUpdateWithoutCustomerInput = {
@@ -1052,6 +1197,7 @@ export type SalesOrderUpdateWithoutCustomerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutSalesOrdersNestedInput
   creator?: Prisma.UserUpdateOneWithoutCreatedSalesOrdersNestedInput
   items?: Prisma.SalesOrderItemUpdateManyWithoutOrderNestedInput
   itemMovements?: Prisma.ItemMovementUpdateManyWithoutSalesOrderNestedInput
@@ -1069,6 +1215,7 @@ export type SalesOrderUncheckedUpdateWithoutCustomerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutOrderNestedInput
   itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutSalesOrderNestedInput
 }
@@ -1084,6 +1231,71 @@ export type SalesOrderUncheckedUpdateManyWithoutCustomerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type SalesOrderCreateManyTenantInput = {
+  id?: string
+  orderNumber: string
+  status?: $Enums.OrderStatus
+  totalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  customerId: string
+  createdBy?: string | null
+}
+
+export type SalesOrderUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  totalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesOrdersNestedInput
+  creator?: Prisma.UserUpdateOneWithoutCreatedSalesOrdersNestedInput
+  items?: Prisma.SalesOrderItemUpdateManyWithoutOrderNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutSalesOrderNestedInput
+}
+
+export type SalesOrderUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  totalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  items?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutOrderNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutSalesOrderNestedInput
+}
+
+export type SalesOrderUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  totalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -1140,6 +1352,8 @@ export type SalesOrderSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   deletedAt?: boolean
   customerId?: boolean
   createdBy?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.SalesOrder$creatorArgs<ExtArgs>
   items?: boolean | Prisma.SalesOrder$itemsArgs<ExtArgs>
@@ -1160,6 +1374,8 @@ export type SalesOrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   deletedAt?: boolean
   customerId?: boolean
   createdBy?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.SalesOrder$creatorArgs<ExtArgs>
 }, ExtArgs["result"]["salesOrder"]>
@@ -1177,6 +1393,8 @@ export type SalesOrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   deletedAt?: boolean
   customerId?: boolean
   createdBy?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.SalesOrder$creatorArgs<ExtArgs>
 }, ExtArgs["result"]["salesOrder"]>
@@ -1194,10 +1412,12 @@ export type SalesOrderSelectScalar = {
   deletedAt?: boolean
   customerId?: boolean
   createdBy?: boolean
+  tenantId?: boolean
 }
 
-export type SalesOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalPrice" | "discount" | "finalPrice" | "notes" | "createdAt" | "updatedAt" | "deletedAt" | "customerId" | "createdBy", ExtArgs["result"]["salesOrder"]>
+export type SalesOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalPrice" | "discount" | "finalPrice" | "notes" | "createdAt" | "updatedAt" | "deletedAt" | "customerId" | "createdBy" | "tenantId", ExtArgs["result"]["salesOrder"]>
 export type SalesOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.SalesOrder$creatorArgs<ExtArgs>
   items?: boolean | Prisma.SalesOrder$itemsArgs<ExtArgs>
@@ -1205,10 +1425,12 @@ export type SalesOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   _count?: boolean | Prisma.SalesOrderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SalesOrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.SalesOrder$creatorArgs<ExtArgs>
 }
 export type SalesOrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.SalesOrder$creatorArgs<ExtArgs>
 }
@@ -1216,6 +1438,7 @@ export type SalesOrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type $SalesOrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SalesOrder"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     customer: Prisma.$CustomerPayload<ExtArgs>
     creator: Prisma.$UserPayload<ExtArgs> | null
     items: Prisma.$SalesOrderItemPayload<ExtArgs>[]
@@ -1234,6 +1457,7 @@ export type $SalesOrderPayload<ExtArgs extends runtime.Types.Extensions.Internal
     deletedAt: Date | null
     customerId: string
     createdBy: string | null
+    tenantId: string
   }, ExtArgs["result"]["salesOrder"]>
   composites: {}
 }
@@ -1628,6 +1852,7 @@ readonly fields: SalesOrderFieldRefs;
  */
 export interface Prisma__SalesOrderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   customer<T extends Prisma.CustomerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   creator<T extends Prisma.SalesOrder$creatorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SalesOrder$creatorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.SalesOrder$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SalesOrder$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalesOrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1673,6 +1898,7 @@ export interface SalesOrderFieldRefs {
   readonly deletedAt: Prisma.FieldRef<"SalesOrder", 'DateTime'>
   readonly customerId: Prisma.FieldRef<"SalesOrder", 'String'>
   readonly createdBy: Prisma.FieldRef<"SalesOrder", 'String'>
+  readonly tenantId: Prisma.FieldRef<"SalesOrder", 'String'>
 }
     
 

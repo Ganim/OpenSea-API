@@ -51,11 +51,13 @@ describe('UpdateVariantUseCase', () => {
 
   it('should be able to update a variant', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -64,6 +66,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Original Name',
@@ -71,6 +74,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     const result = await updateVariant.execute({
+      tenantId: 'tenant-1',
       id: variant.id.toString(),
       name: 'Updated Name',
       price: 150,
@@ -82,11 +86,13 @@ describe('UpdateVariantUseCase', () => {
 
   it('should be able to update variant partially', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -95,6 +101,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Original Name',
@@ -102,6 +109,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     const result = await updateVariant.execute({
+      tenantId: 'tenant-1',
       id: variant.id.toString(),
       price: 200,
     });
@@ -113,6 +121,7 @@ describe('UpdateVariantUseCase', () => {
   it('should throw error if variant not found', async () => {
     await expect(() =>
       updateVariant.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
         name: 'Updated Name',
       }),
@@ -121,11 +130,13 @@ describe('UpdateVariantUseCase', () => {
 
   it('should not allow updating to empty name', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -134,6 +145,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Original Name',
@@ -142,6 +154,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
+        tenantId: 'tenant-1',
         id: variant.id.toString(),
         name: '',
       }),
@@ -150,11 +163,13 @@ describe('UpdateVariantUseCase', () => {
 
   it('should not allow duplicate SKU', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -163,6 +178,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Variant 1',
@@ -170,6 +186,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     const variant2 = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-002',
       name: 'Variant 2',
@@ -178,6 +195,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
+        tenantId: 'tenant-1',
         id: variant2.id.toString(),
         sku: 'SKU-001',
       }),
@@ -186,11 +204,13 @@ describe('UpdateVariantUseCase', () => {
 
   it('should not allow negative price', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -199,6 +219,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -207,6 +228,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
+        tenantId: 'tenant-1',
         id: variant.id.toString(),
         price: -10,
       }),
@@ -215,11 +237,13 @@ describe('UpdateVariantUseCase', () => {
 
   it('should not allow invalid profit margin', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -228,6 +252,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -236,6 +261,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
+        tenantId: 'tenant-1',
         id: variant.id.toString(),
         profitMargin: 150,
       }),
@@ -244,11 +270,13 @@ describe('UpdateVariantUseCase', () => {
 
   it('should not allow minStock > maxStock', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -257,6 +285,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -265,6 +294,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
+        tenantId: 'tenant-1',
         id: variant.id.toString(),
         minStock: 100,
         maxStock: 50,
@@ -274,12 +304,14 @@ describe('UpdateVariantUseCase', () => {
 
   it('should not allow invalid variant attributes not in template', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
       variantAttributes: { color: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Smartphone',
 
       status: 'ACTIVE',
@@ -288,6 +320,7 @@ describe('UpdateVariantUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'PHONE-001-BLK',
       name: 'Smartphone Black',
@@ -297,6 +330,7 @@ describe('UpdateVariantUseCase', () => {
 
     await expect(() =>
       updateVariant.execute({
+        tenantId: 'tenant-1',
         id: variant.id.toString(),
         attributes: { color: 'White', invalidKey: 'InvalidValue' },
       }),

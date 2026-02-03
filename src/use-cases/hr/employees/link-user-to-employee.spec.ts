@@ -12,6 +12,7 @@ import { LinkUserToEmployeeUseCase } from './link-user-to-employee';
 
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: LinkUserToEmployeeUseCase;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Link User To Employee Use Case', () => {
   beforeEach(() => {
@@ -21,6 +22,7 @@ describe('Link User To Employee Use Case', () => {
 
   it('should link user to employee successfully', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -35,6 +37,7 @@ describe('Link User To Employee Use Case', () => {
 
     const userId = 'user-123';
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
       userId,
     });
@@ -46,6 +49,7 @@ describe('Link User To Employee Use Case', () => {
   it('should throw error when employee not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         employeeId: 'non-existent-id',
         userId: 'user-123',
       }),
@@ -54,6 +58,7 @@ describe('Link User To Employee Use Case', () => {
 
   it('should throw error when employee already has a user linked', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -69,6 +74,7 @@ describe('Link User To Employee Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: createdEmployee.id.toString(),
         userId: 'new-user-id',
       }),
@@ -80,6 +86,7 @@ describe('Link User To Employee Use Case', () => {
 
     // First employee with user linked
     await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -95,6 +102,7 @@ describe('Link User To Employee Use Case', () => {
 
     // Second employee without user
     const secondEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Maria Santos',
       cpf: CPF.create('12345678909'),
@@ -109,6 +117,7 @@ describe('Link User To Employee Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: secondEmployee.id.toString(),
         userId, // Same user as first employee
       }),

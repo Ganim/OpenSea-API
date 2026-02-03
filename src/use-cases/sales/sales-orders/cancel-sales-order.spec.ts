@@ -23,6 +23,7 @@ describe('Cancel Sales Order', () => {
     salesOrdersRepository.items.push(order);
 
     await sut.execute({
+      tenantId: 'tenant-1',
       id: order.id.toString(),
     });
 
@@ -40,6 +41,7 @@ describe('Cancel Sales Order', () => {
     salesOrdersRepository.items.push(order);
 
     await sut.execute({
+      tenantId: 'tenant-1',
       id: order.id.toString(),
     });
 
@@ -52,6 +54,7 @@ describe('Cancel Sales Order', () => {
   it('should not be able to cancel a non-existing sales order', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
@@ -66,6 +69,7 @@ describe('Cancel Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: order.id.toString(),
       }),
     ).rejects.toBeInstanceOf(BadRequestError);
@@ -80,6 +84,7 @@ describe('Cancel Sales Order', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: order.id.toString(),
       }),
     ).rejects.toBeInstanceOf(BadRequestError);

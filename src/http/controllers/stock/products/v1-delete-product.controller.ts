@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeDeleteProductUseCase } from '@/use-cases/stock/products/factories/make-delete-product-use-case';
 import { makeGetProductByIdUseCase } from '@/use-cases/stock/products/factories/make-get-product-by-id-use-case';
@@ -17,6 +18,7 @@ export async function deleteProductController(app: FastifyInstance) {
     url: '/v1/products/:productId',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.PRODUCTS.DELETE,
         resource: 'products',
@@ -38,6 +40,7 @@ export async function deleteProductController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { productId } = request.params;
       const userId = request.user.sub;
 
@@ -47,14 +50,14 @@ export async function deleteProductController(app: FastifyInstance) {
 
         const [{ user }, { product }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getProductByIdUseCase.execute({ id: productId }),
+          getProductByIdUseCase.execute({ tenantId, id: productId }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const deleteProductUseCase = makeDeleteProductUseCase();
-        await deleteProductUseCase.execute({ id: productId });
+        await deleteProductUseCase.execute({ tenantId, id: productId });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STOCK.PRODUCT_DELETE,

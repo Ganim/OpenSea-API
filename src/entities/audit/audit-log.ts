@@ -26,6 +26,9 @@ export interface AuditLogProps {
   endpoint: string | null;
   method: string | null;
 
+  // Multi-Tenant (nullable for system actions)
+  tenantId: UniqueEntityID | null;
+
   // User info
   userId: UniqueEntityID | null;
   affectedUser: string | null;
@@ -86,6 +89,10 @@ export class AuditLog extends Entity<AuditLogProps> {
 
   get method(): string | null {
     return this.props.method;
+  }
+
+  get tenantId(): UniqueEntityID | null {
+    return this.props.tenantId;
   }
 
   get userId(): UniqueEntityID | null {
@@ -178,6 +185,7 @@ export class AuditLog extends Entity<AuditLogProps> {
       | 'userAgent'
       | 'endpoint'
       | 'method'
+      | 'tenantId'
       | 'userId'
       | 'affectedUser'
       | 'userName'
@@ -196,6 +204,7 @@ export class AuditLog extends Entity<AuditLogProps> {
         userAgent: props.userAgent ?? null,
         endpoint: props.endpoint ?? null,
         method: props.method ?? null,
+        tenantId: props.tenantId ?? null,
         userId: props.userId ?? null,
         affectedUser: props.affectedUser ?? null,
         userName: props.userName ?? null,

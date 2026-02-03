@@ -26,6 +26,8 @@ let deductionsRepository: InMemoryDeductionsRepository;
 let sut: CalculatePayrollUseCase;
 let testEmployee: Employee;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('Calculate Payroll Use Case', () => {
   beforeEach(async () => {
     payrollsRepository = new InMemoryPayrollsRepository();
@@ -48,6 +50,7 @@ describe('Calculate Payroll Use Case', () => {
 
     // Create test employee with base salary
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -63,6 +66,7 @@ describe('Calculate Payroll Use Case', () => {
 
   it('should calculate payroll for employee with only base salary', async () => {
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
@@ -70,6 +74,7 @@ describe('Calculate Payroll Use Case', () => {
     const processedBy = new UniqueEntityID();
 
     const result = await sut.execute({
+      tenantId,
       payrollId: payroll.id.toString(),
       processedBy: processedBy.toString(),
     });
@@ -89,6 +94,7 @@ describe('Calculate Payroll Use Case', () => {
   it('should throw error if payroll not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         payrollId: new UniqueEntityID().toString(),
         processedBy: new UniqueEntityID().toString(),
       }),
@@ -97,12 +103,14 @@ describe('Calculate Payroll Use Case', () => {
 
   it('should throw error if payroll is not in draft status', async () => {
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
 
     // Calculate first time
     await sut.execute({
+      tenantId,
       payrollId: payroll.id.toString(),
       processedBy: new UniqueEntityID().toString(),
     });
@@ -110,6 +118,7 @@ describe('Calculate Payroll Use Case', () => {
     // Try to calculate again
     await expect(
       sut.execute({
+        tenantId,
         payrollId: payroll.id.toString(),
         processedBy: new UniqueEntityID().toString(),
       }),
@@ -119,6 +128,7 @@ describe('Calculate Payroll Use Case', () => {
   it('should calculate INSS correctly for salary in first bracket', async () => {
     // Create employee with low salary (first INSS bracket - 7.5%)
     await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Low Salary Employee',
       cpf: CPF.create('123.456.789-09'),
@@ -132,11 +142,13 @@ describe('Calculate Payroll Use Case', () => {
     });
 
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
 
     const result = await sut.execute({
+      tenantId,
       payrollId: payroll.id.toString(),
       processedBy: new UniqueEntityID().toString(),
     });
@@ -149,6 +161,7 @@ describe('Calculate Payroll Use Case', () => {
   it('should include bonuses in payroll calculation', async () => {
     // Create a bonus for the employee
     await bonusesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       name: 'Performance Bonus',
       amount: 1000,
@@ -157,11 +170,13 @@ describe('Calculate Payroll Use Case', () => {
     });
 
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
 
     const result = await sut.execute({
+      tenantId,
       payrollId: payroll.id.toString(),
       processedBy: new UniqueEntityID().toString(),
     });
@@ -174,6 +189,7 @@ describe('Calculate Payroll Use Case', () => {
   it('should include deductions in payroll calculation', async () => {
     // Create a deduction for the employee
     await deductionsRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       name: 'Advance Repayment',
       amount: 500,
@@ -182,11 +198,13 @@ describe('Calculate Payroll Use Case', () => {
     });
 
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
 
     const result = await sut.execute({
+      tenantId,
       payrollId: payroll.id.toString(),
       processedBy: new UniqueEntityID().toString(),
     });
@@ -201,11 +219,13 @@ describe('Calculate Payroll Use Case', () => {
 
   it('should calculate total gross and net correctly', async () => {
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
 
     const result = await sut.execute({
+      tenantId,
       payrollId: payroll.id.toString(),
       processedBy: new UniqueEntityID().toString(),
     });

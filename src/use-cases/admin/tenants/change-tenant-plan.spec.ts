@@ -70,17 +70,20 @@ describe('ChangeTenantPlanUseCase', () => {
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 
-  it('should throw ResourceNotFoundError when tenant has no plan assignment', async () => {
+  it('should assign a plan when tenant has no plan yet', async () => {
     const tenant = await tenantsRepository.create({
       name: 'Test',
       slug: 'test',
     });
     const plan = await plansRepository.create({ name: 'Free' });
-    await expect(() =>
-      sut.execute({
-        tenantId: tenant.tenantId.toString(),
-        planId: plan.planId.toString(),
-      }),
-    ).rejects.toBeInstanceOf(ResourceNotFoundError);
+
+    const { tenantPlan } = await sut.execute({
+      tenantId: tenant.tenantId.toString(),
+      planId: plan.planId.toString(),
+    });
+
+    expect(tenantPlan).toBeDefined();
+    expect(tenantPlan.tenantId).toBe(tenant.tenantId.toString());
+    expect(tenantPlan.planId).toBe(plan.planId.toString());
   });
 });

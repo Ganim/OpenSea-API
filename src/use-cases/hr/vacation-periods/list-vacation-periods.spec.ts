@@ -5,6 +5,8 @@ import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/i
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ListVacationPeriodsUseCase } from './list-vacation-periods';
 
+const TENANT_ID = 'tenant-1';
+
 let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let sut: ListVacationPeriodsUseCase;
 const employeeId1 = new UniqueEntityID();
@@ -17,6 +19,7 @@ describe('List Vacation Periods Use Case', () => {
 
     // Create test vacation periods
     const period1 = VacationPeriod.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       employeeId: employeeId1,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -30,6 +33,7 @@ describe('List Vacation Periods Use Case', () => {
     });
 
     const period2 = VacationPeriod.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       employeeId: employeeId1,
       acquisitionStart: new Date('2023-01-01'),
       acquisitionEnd: new Date('2024-01-01'),
@@ -43,6 +47,7 @@ describe('List Vacation Periods Use Case', () => {
     });
 
     const period3 = VacationPeriod.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       employeeId: employeeId2,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -59,13 +64,14 @@ describe('List Vacation Periods Use Case', () => {
   });
 
   it('should list all vacation periods', async () => {
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId: TENANT_ID });
 
     expect(result.vacationPeriods).toHaveLength(3);
   });
 
   it('should filter vacation periods by employee id', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       employeeId: employeeId1.toString(),
     });
 
@@ -77,6 +83,7 @@ describe('List Vacation Periods Use Case', () => {
 
   it('should filter vacation periods by status', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       status: 'AVAILABLE',
     });
 
@@ -86,6 +93,7 @@ describe('List Vacation Periods Use Case', () => {
 
   it('should filter vacation periods by year', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       year: 2024,
     });
 
@@ -94,6 +102,7 @@ describe('List Vacation Periods Use Case', () => {
 
   it('should combine multiple filters', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       employeeId: employeeId1.toString(),
       status: 'SCHEDULED',
     });

@@ -8,6 +8,7 @@ import { customerToDTO } from '@/mappers/sales/customer/customer-to-dto';
 import { CustomersRepository } from '@/repositories/sales/customers-repository';
 
 interface UpdateCustomerUseCaseRequest {
+  tenantId: string;
   id: string;
   name?: string;
   type?: 'INDIVIDUAL' | 'BUSINESS';
@@ -35,6 +36,7 @@ export class UpdateCustomerUseCase {
   ): Promise<UpdateCustomerUseCaseResponse> {
     const customer = await this.customersRepository.findById(
       new UniqueEntityID(input.id),
+      input.tenantId,
     );
 
     if (!customer) {
@@ -67,7 +69,10 @@ export class UpdateCustomerUseCase {
 
           // Check if document already exists for another customer
           const existingCustomer =
-            await this.customersRepository.findByDocument(document);
+            await this.customersRepository.findByDocument(
+              document,
+              input.tenantId,
+            );
           if (existingCustomer && !existingCustomer.id.equals(customer.id)) {
             throw new BadRequestError(
               'Document already in use by another customer.',
@@ -99,6 +104,7 @@ export class UpdateCustomerUseCase {
         // Check if email already exists for another customer
         const existingCustomer = await this.customersRepository.findByEmail(
           input.email,
+          input.tenantId,
         );
         if (existingCustomer && !existingCustomer.id.equals(customer.id)) {
           throw new BadRequestError(

@@ -9,6 +9,7 @@ import {
 import type { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 
 interface UpdateSupplierUseCaseRequest {
+  tenantId: string;
   id: string;
   name?: string;
   cnpj?: string;
@@ -36,6 +37,7 @@ export class UpdateSupplierUseCase {
   constructor(private suppliersRepository: SuppliersRepository) {}
 
   async execute({
+    tenantId,
     id,
     name,
     cnpj,
@@ -57,6 +59,7 @@ export class UpdateSupplierUseCase {
     // Check if supplier exists
     const supplier = await this.suppliersRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
     if (!supplier) {
       throw new ResourceNotFoundError('Supplier not found');
@@ -86,8 +89,10 @@ export class UpdateSupplierUseCase {
         supplierCNPJ = parsedCNPJ;
 
         // Check if CNPJ is already in use by another supplier
-        const existingSupplier =
-          await this.suppliersRepository.findByCNPJ(parsedCNPJ);
+        const existingSupplier = await this.suppliersRepository.findByCNPJ(
+          parsedCNPJ,
+          tenantId,
+        );
         if (existingSupplier && !existingSupplier.id.equals(supplier.id)) {
           throw new BadRequestError('A supplier with this CNPJ already exists');
         }

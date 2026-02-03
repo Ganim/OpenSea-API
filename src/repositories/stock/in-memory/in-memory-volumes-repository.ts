@@ -11,16 +11,22 @@ export class InMemoryVolumesRepository implements VolumeRepository {
     this.items.push(volume);
   }
 
-  async findById(id: string): Promise<Volume | null> {
+  async findById(id: string, tenantId: string): Promise<Volume | null> {
     const volume = this.items.find(
-      (item) => item.id.toString() === id && !item.deletedAt,
+      (item) =>
+        item.id.toString() === id &&
+        !item.deletedAt &&
+        item.tenantId.toString() === tenantId,
     );
     return volume ?? null;
   }
 
-  async findByCode(code: string): Promise<Volume | null> {
+  async findByCode(code: string, tenantId: string): Promise<Volume | null> {
     const volume = this.items.find(
-      (item) => item.code === code && !item.deletedAt,
+      (item) =>
+        item.code === code &&
+        !item.deletedAt &&
+        item.tenantId.toString() === tenantId,
     );
     return volume ?? null;
   }
@@ -44,8 +50,11 @@ export class InMemoryVolumesRepository implements VolumeRepository {
 
   async list(
     params: PaginationParams,
+    tenantId: string,
   ): Promise<{ volumes: Volume[]; total: number }> {
-    const filtered = this.items.filter((item) => !item.deletedAt);
+    const filtered = this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
     const total = filtered.length;
     const skip = ((params.page ?? 1) - 1) * (params.limit ?? 10);
     const take = params.limit ?? 10;

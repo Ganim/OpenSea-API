@@ -18,8 +18,18 @@ describe('Update Category (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const category = await prisma.category.create({
       data: {
+        tenantId,
         name: `Old Name ${timestamp}`,
         slug: `old-slug-${timestamp}`,
         displayOrder: 1,

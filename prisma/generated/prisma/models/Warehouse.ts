@@ -34,6 +34,7 @@ export type WarehouseMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  tenantId: string | null
 }
 
 export type WarehouseMaxAggregateOutputType = {
@@ -46,6 +47,7 @@ export type WarehouseMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  tenantId: string | null
 }
 
 export type WarehouseCountAggregateOutputType = {
@@ -58,6 +60,7 @@ export type WarehouseCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   deletedAt: number
+  tenantId: number
   _all: number
 }
 
@@ -72,6 +75,7 @@ export type WarehouseMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  tenantId?: true
 }
 
 export type WarehouseMaxAggregateInputType = {
@@ -84,6 +88,7 @@ export type WarehouseMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  tenantId?: true
 }
 
 export type WarehouseCountAggregateInputType = {
@@ -96,6 +101,7 @@ export type WarehouseCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  tenantId?: true
   _all?: true
 }
 
@@ -181,6 +187,7 @@ export type WarehouseGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
+  tenantId: string
   _count: WarehouseCountAggregateOutputType | null
   _min: WarehouseMinAggregateOutputType | null
   _max: WarehouseMaxAggregateOutputType | null
@@ -214,6 +221,8 @@ export type WarehouseWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Warehouse"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Warehouse"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Warehouse"> | Date | string | null
+  tenantId?: Prisma.StringFilter<"Warehouse"> | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   zones?: Prisma.ZoneListRelationFilter
 }
 
@@ -227,6 +236,8 @@ export type WarehouseOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   zones?: Prisma.ZoneOrderByRelationAggregateInput
 }
 
@@ -244,6 +255,8 @@ export type WarehouseWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Warehouse"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Warehouse"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Warehouse"> | Date | string | null
+  tenantId?: Prisma.StringFilter<"Warehouse"> | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   zones?: Prisma.ZoneListRelationFilter
 }, "id" | "warehouses_code_unique_active">
 
@@ -257,6 +270,7 @@ export type WarehouseOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   _count?: Prisma.WarehouseCountOrderByAggregateInput
   _max?: Prisma.WarehouseMaxOrderByAggregateInput
   _min?: Prisma.WarehouseMinOrderByAggregateInput
@@ -275,6 +289,7 @@ export type WarehouseScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Warehouse"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Warehouse"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Warehouse"> | Date | string | null
+  tenantId?: Prisma.StringWithAggregatesFilter<"Warehouse"> | string
 }
 
 export type WarehouseCreateInput = {
@@ -287,6 +302,7 @@ export type WarehouseCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutWarehousesInput
   zones?: Prisma.ZoneCreateNestedManyWithoutWarehouseInput
 }
 
@@ -300,6 +316,7 @@ export type WarehouseUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenantId: string
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutWarehouseInput
 }
 
@@ -313,6 +330,7 @@ export type WarehouseUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutWarehousesNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutWarehouseNestedInput
 }
 
@@ -326,6 +344,7 @@ export type WarehouseUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutWarehouseNestedInput
 }
 
@@ -339,6 +358,7 @@ export type WarehouseCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenantId: string
 }
 
 export type WarehouseUpdateManyMutationInput = {
@@ -363,10 +383,12 @@ export type WarehouseUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type WarehouseWarehouses_code_unique_activeCompoundUniqueInput = {
   code: string
+  tenantId: string
   deletedAt: Date | string
 }
 
@@ -380,6 +402,7 @@ export type WarehouseCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type WarehouseMaxOrderByAggregateInput = {
@@ -392,6 +415,7 @@ export type WarehouseMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type WarehouseMinOrderByAggregateInput = {
@@ -404,11 +428,22 @@ export type WarehouseMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type WarehouseScalarRelationFilter = {
   is?: Prisma.WarehouseWhereInput
   isNot?: Prisma.WarehouseWhereInput
+}
+
+export type WarehouseListRelationFilter = {
+  every?: Prisma.WarehouseWhereInput
+  some?: Prisma.WarehouseWhereInput
+  none?: Prisma.WarehouseWhereInput
+}
+
+export type WarehouseOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type WarehouseCreateNestedOneWithoutZonesInput = {
@@ -425,6 +460,48 @@ export type WarehouseUpdateOneRequiredWithoutZonesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WarehouseUpdateToOneWithWhereWithoutZonesInput, Prisma.WarehouseUpdateWithoutZonesInput>, Prisma.WarehouseUncheckedUpdateWithoutZonesInput>
 }
 
+export type WarehouseCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.WarehouseCreateWithoutTenantInput, Prisma.WarehouseUncheckedCreateWithoutTenantInput> | Prisma.WarehouseCreateWithoutTenantInput[] | Prisma.WarehouseUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.WarehouseCreateOrConnectWithoutTenantInput | Prisma.WarehouseCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.WarehouseCreateManyTenantInputEnvelope
+  connect?: Prisma.WarehouseWhereUniqueInput | Prisma.WarehouseWhereUniqueInput[]
+}
+
+export type WarehouseUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.WarehouseCreateWithoutTenantInput, Prisma.WarehouseUncheckedCreateWithoutTenantInput> | Prisma.WarehouseCreateWithoutTenantInput[] | Prisma.WarehouseUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.WarehouseCreateOrConnectWithoutTenantInput | Prisma.WarehouseCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.WarehouseCreateManyTenantInputEnvelope
+  connect?: Prisma.WarehouseWhereUniqueInput | Prisma.WarehouseWhereUniqueInput[]
+}
+
+export type WarehouseUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.WarehouseCreateWithoutTenantInput, Prisma.WarehouseUncheckedCreateWithoutTenantInput> | Prisma.WarehouseCreateWithoutTenantInput[] | Prisma.WarehouseUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.WarehouseCreateOrConnectWithoutTenantInput | Prisma.WarehouseCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.WarehouseUpsertWithWhereUniqueWithoutTenantInput | Prisma.WarehouseUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.WarehouseCreateManyTenantInputEnvelope
+  set?: Prisma.WarehouseWhereUniqueInput | Prisma.WarehouseWhereUniqueInput[]
+  disconnect?: Prisma.WarehouseWhereUniqueInput | Prisma.WarehouseWhereUniqueInput[]
+  delete?: Prisma.WarehouseWhereUniqueInput | Prisma.WarehouseWhereUniqueInput[]
+  connect?: Prisma.WarehouseWhereUniqueInput | Prisma.WarehouseWhereUniqueInput[]
+  update?: Prisma.WarehouseUpdateWithWhereUniqueWithoutTenantInput | Prisma.WarehouseUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.WarehouseUpdateManyWithWhereWithoutTenantInput | Prisma.WarehouseUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.WarehouseScalarWhereInput | Prisma.WarehouseScalarWhereInput[]
+}
+
+export type WarehouseUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.WarehouseCreateWithoutTenantInput, Prisma.WarehouseUncheckedCreateWithoutTenantInput> | Prisma.WarehouseCreateWithoutTenantInput[] | Prisma.WarehouseUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.WarehouseCreateOrConnectWithoutTenantInput | Prisma.WarehouseCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.WarehouseUpsertWithWhereUniqueWithoutTenantInput | Prisma.WarehouseUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.WarehouseCreateManyTenantInputEnvelope
+  set?: Prisma.WarehouseWhereUniqueInput | Prisma.WarehouseWhereUniqueInput[]
+  disconnect?: Prisma.WarehouseWhereUniqueInput | Prisma.WarehouseWhereUniqueInput[]
+  delete?: Prisma.WarehouseWhereUniqueInput | Prisma.WarehouseWhereUniqueInput[]
+  connect?: Prisma.WarehouseWhereUniqueInput | Prisma.WarehouseWhereUniqueInput[]
+  update?: Prisma.WarehouseUpdateWithWhereUniqueWithoutTenantInput | Prisma.WarehouseUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.WarehouseUpdateManyWithWhereWithoutTenantInput | Prisma.WarehouseUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.WarehouseScalarWhereInput | Prisma.WarehouseScalarWhereInput[]
+}
+
 export type WarehouseCreateWithoutZonesInput = {
   id?: string
   code: string
@@ -435,6 +512,7 @@ export type WarehouseCreateWithoutZonesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutWarehousesInput
 }
 
 export type WarehouseUncheckedCreateWithoutZonesInput = {
@@ -447,6 +525,7 @@ export type WarehouseUncheckedCreateWithoutZonesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenantId: string
 }
 
 export type WarehouseCreateOrConnectWithoutZonesInput = {
@@ -475,9 +554,129 @@ export type WarehouseUpdateWithoutZonesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutWarehousesNestedInput
 }
 
 export type WarehouseUncheckedUpdateWithoutZonesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type WarehouseCreateWithoutTenantInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  zones?: Prisma.ZoneCreateNestedManyWithoutWarehouseInput
+}
+
+export type WarehouseUncheckedCreateWithoutTenantInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutWarehouseInput
+}
+
+export type WarehouseCreateOrConnectWithoutTenantInput = {
+  where: Prisma.WarehouseWhereUniqueInput
+  create: Prisma.XOR<Prisma.WarehouseCreateWithoutTenantInput, Prisma.WarehouseUncheckedCreateWithoutTenantInput>
+}
+
+export type WarehouseCreateManyTenantInputEnvelope = {
+  data: Prisma.WarehouseCreateManyTenantInput | Prisma.WarehouseCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type WarehouseUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.WarehouseWhereUniqueInput
+  update: Prisma.XOR<Prisma.WarehouseUpdateWithoutTenantInput, Prisma.WarehouseUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.WarehouseCreateWithoutTenantInput, Prisma.WarehouseUncheckedCreateWithoutTenantInput>
+}
+
+export type WarehouseUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.WarehouseWhereUniqueInput
+  data: Prisma.XOR<Prisma.WarehouseUpdateWithoutTenantInput, Prisma.WarehouseUncheckedUpdateWithoutTenantInput>
+}
+
+export type WarehouseUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.WarehouseScalarWhereInput
+  data: Prisma.XOR<Prisma.WarehouseUpdateManyMutationInput, Prisma.WarehouseUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type WarehouseScalarWhereInput = {
+  AND?: Prisma.WarehouseScalarWhereInput | Prisma.WarehouseScalarWhereInput[]
+  OR?: Prisma.WarehouseScalarWhereInput[]
+  NOT?: Prisma.WarehouseScalarWhereInput | Prisma.WarehouseScalarWhereInput[]
+  id?: Prisma.StringFilter<"Warehouse"> | string
+  code?: Prisma.StringFilter<"Warehouse"> | string
+  name?: Prisma.StringFilter<"Warehouse"> | string
+  description?: Prisma.StringNullableFilter<"Warehouse"> | string | null
+  address?: Prisma.StringNullableFilter<"Warehouse"> | string | null
+  isActive?: Prisma.BoolFilter<"Warehouse"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Warehouse"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Warehouse"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Warehouse"> | Date | string | null
+  tenantId?: Prisma.StringFilter<"Warehouse"> | string
+}
+
+export type WarehouseCreateManyTenantInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type WarehouseUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  zones?: Prisma.ZoneUpdateManyWithoutWarehouseNestedInput
+}
+
+export type WarehouseUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutWarehouseNestedInput
+}
+
+export type WarehouseUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -530,6 +729,8 @@ export type WarehouseSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   zones?: boolean | Prisma.Warehouse$zonesArgs<ExtArgs>
   _count?: boolean | Prisma.WarehouseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["warehouse"]>
@@ -544,6 +745,8 @@ export type WarehouseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["warehouse"]>
 
 export type WarehouseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -556,6 +759,8 @@ export type WarehouseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["warehouse"]>
 
 export type WarehouseSelectScalar = {
@@ -568,19 +773,26 @@ export type WarehouseSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
 }
 
-export type WarehouseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "address" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["warehouse"]>
+export type WarehouseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "address" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["warehouse"]>
 export type WarehouseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   zones?: boolean | Prisma.Warehouse$zonesArgs<ExtArgs>
   _count?: boolean | Prisma.WarehouseCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type WarehouseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type WarehouseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type WarehouseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+}
+export type WarehouseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+}
 
 export type $WarehousePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Warehouse"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     zones: Prisma.$ZonePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -593,6 +805,7 @@ export type $WarehousePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    tenantId: string
   }, ExtArgs["result"]["warehouse"]>
   composites: {}
 }
@@ -987,6 +1200,7 @@ readonly fields: WarehouseFieldRefs;
  */
 export interface Prisma__WarehouseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   zones<T extends Prisma.Warehouse$zonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Warehouse$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1026,6 +1240,7 @@ export interface WarehouseFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Warehouse", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Warehouse", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Warehouse", 'DateTime'>
+  readonly tenantId: Prisma.FieldRef<"Warehouse", 'String'>
 }
     
 
@@ -1275,6 +1490,10 @@ export type WarehouseCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    */
   data: Prisma.WarehouseCreateManyInput | Prisma.WarehouseCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WarehouseIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1345,6 +1564,10 @@ export type WarehouseUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many Warehouses to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WarehouseIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

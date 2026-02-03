@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listOvertimeQuerySchema,
   overtimeResponseSchema,
@@ -13,7 +14,7 @@ export async function listOvertimeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/overtime',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Overtime'],
       summary: 'List overtime requests',
@@ -32,10 +33,11 @@ export async function listOvertimeController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const query = request.query;
 
       const listOvertimeUseCase = makeListOvertimeUseCase();
-      const result = await listOvertimeUseCase.execute(query);
+      const result = await listOvertimeUseCase.execute({ ...query, tenantId });
 
       return reply.status(200).send({
         overtime: result.overtimes.map(overtimeToDTO),

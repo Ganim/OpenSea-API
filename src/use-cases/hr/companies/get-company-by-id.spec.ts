@@ -4,6 +4,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyUseCase } from './create-company';
 import { GetCompanyByIdUseCase } from './get-company-by-id';
 
+const TENANT_ID = 'tenant-1';
+
 let companiesRepository: InMemoryCompaniesRepository;
 let departmentsRepository: InMemoryDepartmentsRepository;
 let getCompanyUseCase: GetCompanyByIdUseCase;
@@ -22,11 +24,13 @@ describe('Get Company By ID Use Case', () => {
 
   it('should get company by ID', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await getCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 
@@ -38,6 +42,7 @@ describe('Get Company By ID Use Case', () => {
   it('should return all fields for retrieved company', async () => {
     const activityStartDate = new Date('2020-01-15');
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       tradeName: 'Tech Solutions',
@@ -55,6 +60,7 @@ describe('Get Company By ID Use Case', () => {
     });
 
     const result = await getCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 
@@ -77,6 +83,7 @@ describe('Get Company By ID Use Case', () => {
   it('should throw error when company not found', async () => {
     await expect(
       getCompanyUseCase.execute({
+        tenantId: TENANT_ID,
         id: 'non-existent-id',
       }),
     ).rejects.toThrow('Company not found');
@@ -84,6 +91,7 @@ describe('Get Company By ID Use Case', () => {
 
   it('should not return deleted company', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -94,6 +102,7 @@ describe('Get Company By ID Use Case', () => {
 
     await expect(
       getCompanyUseCase.execute({
+        tenantId: TENANT_ID,
         id: company.id.toString(),
       }),
     ).rejects.toThrow('Company not found');
@@ -101,11 +110,13 @@ describe('Get Company By ID Use Case', () => {
 
   it('should return pending issues for company', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await getCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 
@@ -116,6 +127,7 @@ describe('Get Company By ID Use Case', () => {
 
   it('should return empty pending issues for complete company', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       tradeName: 'Tech Solutions',
@@ -131,6 +143,7 @@ describe('Get Company By ID Use Case', () => {
     });
 
     const result = await getCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 
@@ -140,11 +153,13 @@ describe('Get Company By ID Use Case', () => {
 
   it('should return audit fields', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await getCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 
@@ -155,6 +170,7 @@ describe('Get Company By ID Use Case', () => {
 
   it('should throw error for deleted company', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -166,6 +182,7 @@ describe('Get Company By ID Use Case', () => {
     // Regular get should throw error for deleted company
     await expect(
       getCompanyUseCase.execute({
+        tenantId: TENANT_ID,
         id: company.id.toString(),
       }),
     ).rejects.toThrow('Company not found');
@@ -173,22 +190,26 @@ describe('Get Company By ID Use Case', () => {
 
   it('should return different statuses', async () => {
     const resultActive = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Active Company',
       cnpj: '11111111111111',
       status: 'ACTIVE',
     });
 
     const resultInactive = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Inactive Company',
       cnpj: '22222222222222',
       status: 'INACTIVE',
     });
 
     const getActive = await getCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: resultActive.company.id.toString(),
     });
 
     const getInactive = await getCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: resultInactive.company.id.toString(),
     });
 
@@ -203,12 +224,14 @@ describe('Get Company By ID Use Case', () => {
     };
 
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       metadata,
     });
 
     const result = await getCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 

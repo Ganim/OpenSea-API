@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createSalesOrderSchema,
   salesOrderResponseSchema,
@@ -20,6 +21,7 @@ export async function v1CreateSalesOrderController(app: FastifyInstance) {
     url: '/v1/sales-orders',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.SALES.ORDERS.CREATE,
         resource: 'sales-orders',
@@ -36,6 +38,7 @@ export async function v1CreateSalesOrderController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
@@ -46,7 +49,7 @@ export async function v1CreateSalesOrderController(app: FastifyInstance) {
           : user.username || user.email;
 
         const useCase = makeCreateSalesOrderUseCase();
-        const { salesOrder } = await useCase.execute(data);
+        const { salesOrder } = await useCase.execute({ tenantId, ...data });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.ORDER_CREATE,

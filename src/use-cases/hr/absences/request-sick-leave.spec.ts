@@ -15,6 +15,7 @@ let absencesRepository: InMemoryAbsencesRepository;
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: RequestSickLeaveUseCase;
 let testEmployee: Employee;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Request Sick Leave Use Case', () => {
   beforeEach(async () => {
@@ -23,6 +24,7 @@ describe('Request Sick Leave Use Case', () => {
     sut = new RequestSickLeaveUseCase(absencesRepository, employeesRepository);
 
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -42,6 +44,7 @@ describe('Request Sick Leave Use Case', () => {
     endDate.setDate(endDate.getDate() + 2); // 3 days sick leave
 
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       startDate,
       endDate,
@@ -63,6 +66,7 @@ describe('Request Sick Leave Use Case', () => {
     endDate.setDate(endDate.getDate() + 19); // 20 days
 
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       startDate,
       endDate,
@@ -82,6 +86,7 @@ describe('Request Sick Leave Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: new UniqueEntityID().toString(),
         startDate,
         endDate,
@@ -93,6 +98,7 @@ describe('Request Sick Leave Use Case', () => {
 
   it('should throw error if employee is not active', async () => {
     const inactiveEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Inactive Employee',
       cpf: CPF.create('123.456.789-09'),
@@ -111,6 +117,7 @@ describe('Request Sick Leave Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: inactiveEmployee.id.toString(),
         startDate,
         endDate,
@@ -127,6 +134,7 @@ describe('Request Sick Leave Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: testEmployee.id.toString(),
         startDate,
         endDate,
@@ -140,6 +148,7 @@ describe('Request Sick Leave Use Case', () => {
     const endDate = new Date('2024-03-05'); // 5 days
 
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       startDate,
       endDate,

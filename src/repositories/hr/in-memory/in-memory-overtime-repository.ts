@@ -14,6 +14,7 @@ export class InMemoryOvertimeRepository implements OvertimeRepository {
     const id = new UniqueEntityID();
     const overtime = Overtime.create(
       {
+        tenantId: new UniqueEntityID(data.tenantId),
         employeeId: data.employeeId,
         date: data.date,
         hours: data.hours,
@@ -27,13 +28,23 @@ export class InMemoryOvertimeRepository implements OvertimeRepository {
     return overtime;
   }
 
-  async findById(id: UniqueEntityID): Promise<Overtime | null> {
-    const overtime = this.items.find((item) => item.id.equals(id));
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Overtime | null> {
+    const overtime = this.items.find(
+      (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+    );
     return overtime || null;
   }
 
-  async findMany(filters?: FindOvertimeFilters): Promise<Overtime[]> {
-    let result = [...this.items];
+  async findMany(
+    tenantId: string,
+    filters?: FindOvertimeFilters,
+  ): Promise<Overtime[]> {
+    let result = this.items.filter(
+      (item) => item.tenantId.toString() === tenantId,
+    );
 
     if (filters?.employeeId) {
       result = result.filter((item) =>
@@ -56,9 +67,16 @@ export class InMemoryOvertimeRepository implements OvertimeRepository {
     return result.sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<Overtime[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Overtime[]> {
     return this.items
-      .filter((item) => item.employeeId.equals(employeeId))
+      .filter(
+        (item) =>
+          item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
@@ -66,26 +84,28 @@ export class InMemoryOvertimeRepository implements OvertimeRepository {
     employeeId: UniqueEntityID,
     startDate: Date,
     endDate: Date,
+    tenantId: string,
   ): Promise<Overtime[]> {
     return this.items
       .filter(
         (item) =>
           item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId &&
           item.date >= startDate &&
           item.date <= endDate,
       )
       .sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 
-  async findManyPending(): Promise<Overtime[]> {
+  async findManyPending(tenantId: string): Promise<Overtime[]> {
     return this.items
-      .filter((item) => !item.approved)
+      .filter((item) => !item.approved && item.tenantId.toString() === tenantId)
       .sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
-  async findManyApproved(): Promise<Overtime[]> {
+  async findManyApproved(tenantId: string): Promise<Overtime[]> {
     return this.items
-      .filter((item) => item.approved)
+      .filter((item) => item.approved && item.tenantId.toString() === tenantId)
       .sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
@@ -98,6 +118,7 @@ export class InMemoryOvertimeRepository implements OvertimeRepository {
 
     const updated = Overtime.create(
       {
+        tenantId: existing.tenantId,
         employeeId: existing.employeeId,
         date: data.date ?? existing.date,
         hours: data.hours ?? existing.hours,

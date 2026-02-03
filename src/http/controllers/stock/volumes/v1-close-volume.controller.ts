@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { VolumeHttpPresenter } from '@/http/presenters/stock/volume-presenter';
 import { volumeResponseSchema } from '@/http/schemas/stock/volumes/volume.schema';
 import { makeCloseVolumeUseCase } from '@/use-cases/stock/volumes/factories/make-close-volume-use-case';
@@ -14,6 +15,7 @@ export async function closeVolumeController(app: FastifyInstance) {
     url: '/v1/volumes/:id/close',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.VOLUMES.CLOSE,
         resource: 'volumes',
@@ -40,10 +42,12 @@ export async function closeVolumeController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { id } = request.params;
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       const closeVolumeUseCase = makeCloseVolumeUseCase();
 
       const result = await closeVolumeUseCase.execute({
+        tenantId,
         volumeId: id,
         closedBy: userId,
       });

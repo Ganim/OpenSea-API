@@ -4,6 +4,7 @@ import { Variant } from '@/entities/stock/variant';
 import { faker } from '@faker-js/faker';
 
 interface MakeVariantProps {
+  tenantId?: UniqueEntityID;
   productId?: string;
   sku?: string;
   slug?: Slug;
@@ -34,6 +35,7 @@ export function makeVariant(override: MakeVariantProps = {}): Variant {
 
   const variant = Variant.create(
     {
+      tenantId: override.tenantId ?? new UniqueEntityID('tenant-1'),
       productId: override.productId
         ? new UniqueEntityID(override.productId)
         : new UniqueEntityID(),

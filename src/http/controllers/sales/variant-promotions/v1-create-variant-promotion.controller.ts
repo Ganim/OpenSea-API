@@ -36,6 +36,7 @@ export async function createVariantPromotionController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
@@ -46,7 +47,7 @@ export async function createVariantPromotionController(app: FastifyInstance) {
           : user.username || user.email;
 
         const useCase = makeCreateVariantPromotionUseCase();
-        const { promotion } = await useCase.execute(data);
+        const { promotion } = await useCase.execute({ ...data, tenantId });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.VARIANT_PROMOTION_CREATE,

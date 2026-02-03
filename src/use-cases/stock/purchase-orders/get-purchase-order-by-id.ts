@@ -5,6 +5,7 @@ import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-orde
 import type { PurchaseOrdersRepository } from '@/repositories/stock/purchase-orders-repository';
 
 interface GetPurchaseOrderByIdUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -18,10 +19,11 @@ export class GetPurchaseOrderByIdUseCase {
   async execute(
     request: GetPurchaseOrderByIdUseCaseRequest,
   ): Promise<GetPurchaseOrderByIdUseCaseResponse> {
-    const { id } = request;
+    const { tenantId, id } = request;
 
     const purchaseOrder = await this.purchaseOrdersRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!purchaseOrder) {

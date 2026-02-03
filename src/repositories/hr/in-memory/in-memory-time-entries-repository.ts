@@ -13,6 +13,7 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
     const id = new UniqueEntityID();
     const timeEntry = TimeEntry.create(
       {
+        tenantId: new UniqueEntityID(data.tenantId),
         employeeId: data.employeeId,
         entryType: data.entryType,
         timestamp: data.timestamp,
@@ -28,13 +29,20 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
     return timeEntry;
   }
 
-  async findById(id: UniqueEntityID): Promise<TimeEntry | null> {
-    const timeEntry = this.items.find((item) => item.id.equals(id));
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<TimeEntry | null> {
+    const timeEntry = this.items.find(
+      (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+    );
     return timeEntry || null;
   }
 
-  async findMany(filters?: FindTimeEntriesFilters): Promise<TimeEntry[]> {
-    let result = [...this.items];
+  async findMany(filters: FindTimeEntriesFilters): Promise<TimeEntry[]> {
+    let result = this.items.filter(
+      (item) => item.tenantId.toString() === filters.tenantId,
+    );
 
     if (filters?.employeeId) {
       result = result.filter((item) =>
@@ -59,9 +67,16 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
     return result.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<TimeEntry[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<TimeEntry[]> {
     return this.items
-      .filter((item) => item.employeeId.equals(employeeId))
+      .filter(
+        (item) =>
+          item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
   }
 
@@ -69,11 +84,13 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
     employeeId: UniqueEntityID,
     startDate: Date,
     endDate: Date,
+    tenantId: string,
   ): Promise<TimeEntry[]> {
     return this.items
       .filter(
         (item) =>
           item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId &&
           item.timestamp >= startDate &&
           item.timestamp <= endDate,
       )
@@ -82,9 +99,14 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
 
   async findLastEntryByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<TimeEntry | null> {
     const entries = this.items
-      .filter((item) => item.employeeId.equals(employeeId))
+      .filter(
+        (item) =>
+          item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
 
     return entries[0] || null;

@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Department } from '@/entities/hr/department';
 
 export interface CreateDepartmentSchema {
+  tenantId: string;
   name: string;
   code: string;
   description?: string;
@@ -22,6 +23,7 @@ export interface UpdateDepartmentSchema {
 }
 
 export interface FindManyDepartmentsParams {
+  tenantId: string;
   page?: number;
   perPage?: number;
   search?: string;
@@ -37,18 +39,28 @@ export interface FindManyDepartmentsResult {
 
 export interface DepartmentsRepository {
   create(data: CreateDepartmentSchema): Promise<Department>;
-  findById(id: UniqueEntityID): Promise<Department | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Department | null>;
   findByCode(
     code: string,
     companyId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Department | null>;
   findMany(
     params: FindManyDepartmentsParams,
   ): Promise<FindManyDepartmentsResult>;
-  findManyByParent(parentId: UniqueEntityID): Promise<Department[]>;
-  findManyByManager(managerId: UniqueEntityID): Promise<Department[]>;
-  findManyByCompany(companyId: UniqueEntityID): Promise<Department[]>;
-  findManyActive(): Promise<Department[]>;
+  findManyByParent(
+    parentId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department[]>;
+  findManyByManager(
+    managerId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department[]>;
+  findManyByCompany(
+    companyId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Department[]>;
+  findManyActive(tenantId: string): Promise<Department[]>;
   hasChildren(id: UniqueEntityID): Promise<boolean>;
   hasEmployees(id: UniqueEntityID): Promise<boolean>;
   update(data: UpdateDepartmentSchema): Promise<Department | null>;

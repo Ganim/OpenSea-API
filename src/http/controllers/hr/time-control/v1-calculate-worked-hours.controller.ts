@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   calculateWorkedHoursSchema,
   workedHoursResponseSchema,
@@ -13,7 +14,7 @@ export async function calculateWorkedHoursController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/time-control/calculate-hours',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Time Control'],
       summary: 'Calculate worked hours',
@@ -30,10 +31,14 @@ export async function calculateWorkedHoursController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const data = request.body;
+      const tenantId = request.user.tenantId!;
 
       try {
         const calculateWorkedHoursUseCase = makeCalculateWorkedHoursUseCase();
-        const result = await calculateWorkedHoursUseCase.execute(data);
+        const result = await calculateWorkedHoursUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         return reply.status(200).send(result);
       } catch (error) {

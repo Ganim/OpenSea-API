@@ -10,6 +10,7 @@ import { VariantPromotionsRepository } from '@/repositories/sales/variant-promot
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
 
 interface CreateVariantPromotionRequest {
+  tenantId: string;
   variantId: string;
   name: string;
   discountType: 'PERCENTAGE' | 'FIXED_AMOUNT';
@@ -76,6 +77,7 @@ export class CreateVariantPromotionUseCase {
     // Validate variant exists
     const variant = await this.variantsRepository.findById(
       new UniqueEntityID(variantId),
+      request.tenantId,
     );
     if (!variant) {
       throw new ResourceNotFoundError('Variant not found');

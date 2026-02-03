@@ -22,6 +22,7 @@ export interface ItemWithRelationsDTO {
 }
 
 export interface CreateItemSchema {
+  tenantId: string;
   uniqueCode?: string; // Código único manual ou UUID (opcional)
   slug: Slug; // Slug gerado automaticamente - IMUTÁVEL
   fullCode: string; // Código hierárquico gerado: TEMPLATE.FABRICANTE.PRODUTO.VARIANTE-ITEM
@@ -55,33 +56,46 @@ export interface UpdateItemSchema {
 
 export interface ItemsRepository {
   create(data: CreateItemSchema): Promise<Item>;
-  findById(id: UniqueEntityID): Promise<Item | null>;
-  findByUniqueCode(uniqueCode: string): Promise<Item | null>;
-  findAll(): Promise<Item[]>;
-  findManyByVariant(variantId: UniqueEntityID): Promise<Item[]>;
-  findManyByProduct(productId: UniqueEntityID): Promise<Item[]>;
-  findManyByBin(binId: UniqueEntityID): Promise<Item[]>;
-  findManyByStatus(status: ItemStatus): Promise<Item[]>;
-  findManyByBatch(batchNumber: string): Promise<Item[]>;
-  findManyExpiring(daysUntilExpiry: number): Promise<Item[]>;
-  findManyExpired(): Promise<Item[]>;
-  findLastByVariantId(variantId: UniqueEntityID): Promise<Item | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Item | null>;
+  findByUniqueCode(uniqueCode: string, tenantId: string): Promise<Item | null>;
+  findAll(tenantId: string): Promise<Item[]>;
+  findManyByVariant(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Item[]>;
+  findManyByProduct(
+    productId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Item[]>;
+  findManyByBin(binId: UniqueEntityID, tenantId: string): Promise<Item[]>;
+  findManyByStatus(status: ItemStatus, tenantId: string): Promise<Item[]>;
+  findManyByBatch(batchNumber: string, tenantId: string): Promise<Item[]>;
+  findManyExpiring(daysUntilExpiry: number, tenantId: string): Promise<Item[]>;
+  findManyExpired(tenantId: string): Promise<Item[]>;
+  findLastByVariantId(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Item | null>;
   update(data: UpdateItemSchema): Promise<Item | null>;
   save(item: Item): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
 
   // Methods with relations (for list/get with related data)
-  findAllWithRelations(): Promise<ItemWithRelationsDTO[]>;
+  findAllWithRelations(tenantId: string): Promise<ItemWithRelationsDTO[]>;
   findByIdWithRelations(
     id: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO | null>;
   findManyByVariantWithRelations(
     variantId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO[]>;
   findManyByProductWithRelations(
     productId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO[]>;
   findManyByBinWithRelations(
     binId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO[]>;
 }

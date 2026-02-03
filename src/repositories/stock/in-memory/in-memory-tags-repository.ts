@@ -1,4 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Tag } from '@/entities/stock/tag';
 import type {
   CreateTagSchema,
@@ -11,6 +12,7 @@ export class InMemoryTagsRepository implements TagsRepository {
 
   async create(data: CreateTagSchema): Promise<Tag> {
     const tag = Tag.create({
+      tenantId: new EntityID(data.tenantId),
       name: data.name,
       slug: data.slug,
       color: data.color ?? null,
@@ -21,39 +23,55 @@ export class InMemoryTagsRepository implements TagsRepository {
     return tag;
   }
 
-  async findById(id: UniqueEntityID): Promise<Tag | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Tag | null> {
     const tag = this.items.find(
-      (item) => !item.deletedAt && item.tagId.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.tagId.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return tag ?? null;
   }
 
-  async findBySlug(slug: string): Promise<Tag | null> {
+  async findBySlug(slug: string, tenantId: string): Promise<Tag | null> {
     const tag = this.items.find(
-      (item) => !item.deletedAt && item.slug === slug,
+      (item) =>
+        !item.deletedAt &&
+        item.slug === slug &&
+        item.tenantId.toString() === tenantId,
     );
     return tag ?? null;
   }
 
-  async findByName(name: string): Promise<Tag | null> {
+  async findByName(name: string, tenantId: string): Promise<Tag | null> {
     const tag = this.items.find(
-      (item) => !item.deletedAt && item.name === name,
+      (item) =>
+        !item.deletedAt &&
+        item.name === name &&
+        item.tenantId.toString() === tenantId,
     );
     return tag ?? null;
   }
 
-  async findMany(): Promise<Tag[]> {
-    return this.items.filter((item) => !item.deletedAt);
-  }
-
-  async findManyByNames(names: string[]): Promise<Tag[]> {
+  async findMany(tenantId: string): Promise<Tag[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && names.includes(item.name),
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
+  }
+
+  async findManyByNames(names: string[], tenantId: string): Promise<Tag[]> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        names.includes(item.name) &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
   async update(data: UpdateTagSchema): Promise<Tag | null> {
-    const tag = await this.findById(data.id);
+    const tag = this.items.find(
+      (item) => !item.deletedAt && item.tagId.equals(data.id),
+    );
     if (!tag) return null;
 
     if (data.name !== undefined) tag.name = data.name;
@@ -74,7 +92,9 @@ export class InMemoryTagsRepository implements TagsRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const tag = await this.findById(id);
+    const tag = this.items.find(
+      (item) => !item.deletedAt && item.tagId.equals(id),
+    );
     if (tag) {
       tag.delete();
     }

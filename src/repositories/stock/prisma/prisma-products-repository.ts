@@ -21,7 +21,6 @@ const productInclude = {
   template: true,
   supplier: true,
   manufacturer: true,
-  organization: true,
   variants: {
     where: { deletedAt: null },
   },
@@ -39,6 +38,7 @@ export class PrismaProductsRepository implements ProductsRepository {
   async create(data: CreateProductSchema): Promise<Product> {
     const productData = await prisma.product.create({
       data: {
+        tenantId: data.tenantId,
         name: data.name,
         slug: data.slug.value,
         fullCode: data.fullCode,
@@ -59,6 +59,7 @@ export class PrismaProductsRepository implements ProductsRepository {
 
     const createdProduct = Product.create(
       {
+        tenantId: new EntityID(productData.tenantId),
         name: productData.name,
         slug: data.slug, // Usar o slug original que foi passado
         fullCode: productData.fullCode ?? undefined,
@@ -91,17 +92,20 @@ export class PrismaProductsRepository implements ProductsRepository {
     return createdProduct;
   }
 
-  async findById(id: UniqueEntityID): Promise<Product | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Product | null> {
     const productData = await prisma.product.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
         template: true,
         supplier: true,
         manufacturer: true,
-        organization: true,
         variants: {
           where: { deletedAt: null },
         },
@@ -123,13 +127,14 @@ export class PrismaProductsRepository implements ProductsRepository {
     return productPrismaToDomain(productData);
   }
 
-  async findByName(name: string): Promise<Product | null> {
+  async findByName(name: string, tenantId: string): Promise<Product | null> {
     const productData = await prisma.product.findFirst({
       where: {
         name: {
           contains: name,
           mode: 'insensitive',
         },
+        tenantId,
         deletedAt: null,
       },
       include: productInclude,
@@ -142,16 +147,16 @@ export class PrismaProductsRepository implements ProductsRepository {
     return productPrismaToDomain(productData);
   }
 
-  async findMany(): Promise<Product[]> {
+  async findMany(tenantId: string): Promise<Product[]> {
     const products = await prisma.product.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
       include: {
         template: true,
         supplier: true,
         manufacturer: true,
-        organization: true,
         variants: {
           where: { deletedAt: null },
         },
@@ -169,10 +174,14 @@ export class PrismaProductsRepository implements ProductsRepository {
     return products.map(productPrismaToDomain);
   }
 
-  async findManyByStatus(status: ProductStatus): Promise<Product[]> {
+  async findManyByStatus(
+    status: ProductStatus,
+    tenantId: string,
+  ): Promise<Product[]> {
     const products = await prisma.product.findMany({
       where: {
         status: status.value as PrismaProductStatus,
+        tenantId,
         deletedAt: null,
       },
       include: productInclude,
@@ -181,10 +190,14 @@ export class PrismaProductsRepository implements ProductsRepository {
     return products.map(productPrismaToDomain);
   }
 
-  async findManyByTemplate(templateId: UniqueEntityID): Promise<Product[]> {
+  async findManyByTemplate(
+    templateId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Product[]> {
     const products = await prisma.product.findMany({
       where: {
         templateId: templateId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: productInclude,
@@ -195,10 +208,12 @@ export class PrismaProductsRepository implements ProductsRepository {
 
   async findManyByManufacturer(
     manufacturerId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Product[]> {
     const products = await prisma.product.findMany({
       where: {
         manufacturerId: manufacturerId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: productInclude,
@@ -207,7 +222,10 @@ export class PrismaProductsRepository implements ProductsRepository {
     return products.map(productPrismaToDomain);
   }
 
-  async findManyByCategory(categoryId: UniqueEntityID): Promise<Product[]> {
+  async findManyByCategory(
+    categoryId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Product[]> {
     const products = await prisma.product.findMany({
       where: {
         productCategories: {
@@ -215,6 +233,7 @@ export class PrismaProductsRepository implements ProductsRepository {
             categoryId: categoryId.toString(),
           },
         },
+        tenantId,
         deletedAt: null,
       },
       include: productInclude,
@@ -316,6 +335,7 @@ export class PrismaProductsRepository implements ProductsRepository {
 
     return Product.create(
       {
+        tenantId: new EntityID(productData.tenantId),
         name: productData.name,
         slug: Slug.create(productData.slug),
         fullCode: productData.fullCode ?? undefined,

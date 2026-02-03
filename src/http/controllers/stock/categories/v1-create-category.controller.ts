@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { categoryResponseSchema, categorySchema } from '@/http/schemas';
 import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -18,6 +19,7 @@ export async function createCategoryController(app: FastifyInstance) {
     url: '/v1/categories',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.CATEGORIES.CREATE,
         resource: 'categories',
@@ -39,6 +41,7 @@ export async function createCategoryController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const {
         name,
         slug,
@@ -59,6 +62,7 @@ export async function createCategoryController(app: FastifyInstance) {
 
         const createCategoryUseCase = makeCreateCategoryUseCase();
         const { category } = await createCategoryUseCase.execute({
+          tenantId,
           name,
           slug,
           description,

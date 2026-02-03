@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createTemplateSchema,
   templateResponseSchema,
@@ -20,6 +21,7 @@ export async function createTemplateController(app: FastifyInstance) {
     url: '/v1/templates',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.TEMPLATES.CREATE,
         resource: 'templates',
@@ -39,6 +41,7 @@ export async function createTemplateController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
 
       try {
@@ -49,7 +52,10 @@ export async function createTemplateController(app: FastifyInstance) {
           : user.username || user.email;
 
         const createTemplate = makeCreateTemplateUseCase();
-        const { template } = await createTemplate.execute(request.body);
+        const { template } = await createTemplate.execute({
+          tenantId,
+          ...request.body,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STOCK.TEMPLATE_CREATE,

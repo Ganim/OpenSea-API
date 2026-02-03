@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PermissionGroup } from '@/entities/rbac/permission-group';
@@ -6,6 +7,7 @@ import type { PermissionGroupsRepository } from '@/repositories/rbac/permission-
 
 interface UpdatePermissionGroupRequest {
   groupId: string;
+  tenantId?: string;
   name?: string;
   description?: string | null;
   color?: string | null;
@@ -24,14 +26,38 @@ export class UpdatePermissionGroupUseCase {
   async execute(
     request: UpdatePermissionGroupRequest,
   ): Promise<UpdatePermissionGroupResponse> {
-    const { groupId, name, description, color, priority, parentId, isActive } =
-      request;
+    const {
+      groupId,
+      tenantId,
+      name,
+      description,
+      color,
+      priority,
+      parentId,
+      isActive,
+    } = request;
 
     const id = new UniqueEntityID(groupId);
     const group = await this.permissionGroupsRepository.findById(id);
 
     if (!group) {
       throw new ResourceNotFoundError('Permission group not found');
+    }
+
+    // If tenantId is provided, verify the group belongs to the tenant
+    // System/global groups (tenantId = null) cannot be edited by tenants
+    if (tenantId) {
+      const tenantIdEntity = new UniqueEntityID(tenantId);
+      const isOwnedByTenant = group.tenantId?.equals(tenantIdEntity);
+
+      if (!isOwnedByTenant) {
+        if (group.tenantId === null) {
+          throw new ForbiddenError('System groups cannot be edited by tenants');
+        }
+        throw new ForbiddenError(
+          'Permission group does not belong to your tenant',
+        );
+      }
     }
 
     // Validar slug se o nome mudou

@@ -17,8 +17,8 @@ describe('Get Bonus (E2E)', () => {
 
   it('should get bonus with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
-    const bonus = await createBonus(employeeId, { name: 'Test Bonus' });
+    const { employeeId, employee } = await createEmployeeE2E();
+    const bonus = await createBonus(employee.tenantId, employeeId, { name: 'Test Bonus' });
 
     const response = await request(app.server)
       .get(`/v1/hr/bonuses/${bonus.id}`)

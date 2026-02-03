@@ -5,6 +5,7 @@ import type { BinsRepository } from '@/repositories/stock/bins-repository';
 import type { ZonesRepository } from '@/repositories/stock/zones-repository';
 
 interface ListAvailableBinsUseCaseRequest {
+  tenantId: string;
   zoneId: string;
 }
 
@@ -19,18 +20,22 @@ export class ListAvailableBinsUseCase {
   ) {}
 
   async execute({
+    tenantId,
     zoneId,
   }: ListAvailableBinsUseCaseRequest): Promise<ListAvailableBinsUseCaseResponse> {
     const zoneEntityId = new UniqueEntityID(zoneId);
 
     // Check if zone exists
-    const zone = await this.zonesRepository.findById(zoneEntityId);
+    const zone = await this.zonesRepository.findById(zoneEntityId, tenantId);
 
     if (!zone) {
       throw new ResourceNotFoundError('Zone');
     }
 
-    const bins = await this.binsRepository.findManyAvailable(zoneEntityId);
+    const bins = await this.binsRepository.findManyAvailable(
+      zoneEntityId,
+      tenantId,
+    );
 
     return { bins };
   }

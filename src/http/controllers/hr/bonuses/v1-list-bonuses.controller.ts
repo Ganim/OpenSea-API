@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { bonusResponseSchema, listBonusesQuerySchema } from '@/http/schemas';
 import { bonusToDTO } from '@/mappers/hr/bonus';
 import { makeListBonusesUseCase } from '@/use-cases/hr/bonuses/factories/make-list-bonuses-use-case';
@@ -11,7 +12,7 @@ export async function listBonusesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/bonuses',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Bonus'],
       summary: 'List bonuses',
@@ -26,10 +27,14 @@ export async function listBonusesController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const filters = request.query;
 
       const listBonusesUseCase = makeListBonusesUseCase();
-      const { bonuses } = await listBonusesUseCase.execute(filters);
+      const { bonuses } = await listBonusesUseCase.execute({
+        tenantId,
+        ...filters,
+      });
 
       return reply.status(200).send({
         bonuses: bonuses.map(bonusToDTO),

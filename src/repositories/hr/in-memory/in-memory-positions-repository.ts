@@ -15,6 +15,7 @@ export class InMemoryPositionsRepository implements PositionsRepository {
     const id = new UniqueEntityID();
     const position = Position.create(
       {
+        tenantId: new UniqueEntityID(data.tenantId),
         name: data.name,
         code: data.code,
         description: data.description,
@@ -32,16 +33,25 @@ export class InMemoryPositionsRepository implements PositionsRepository {
     return position;
   }
 
-  async findById(id: UniqueEntityID): Promise<Position | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Position | null> {
     const position = this.items.find(
-      (item) => item.id.equals(id) && !item.deletedAt,
+      (item) =>
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
     );
     return position || null;
   }
 
-  async findByCode(code: string): Promise<Position | null> {
+  async findByCode(code: string, tenantId: string): Promise<Position | null> {
     const position = this.items.find(
-      (item) => item.code === code && !item.deletedAt,
+      (item) =>
+        item.code === code &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
     );
     return position || null;
   }
@@ -50,6 +60,7 @@ export class InMemoryPositionsRepository implements PositionsRepository {
     params: FindManyPositionsParams,
   ): Promise<FindManyPositionsResult> {
     const {
+      tenantId,
       page = 1,
       perPage = 20,
       search,
@@ -58,7 +69,9 @@ export class InMemoryPositionsRepository implements PositionsRepository {
       level,
     } = params;
 
-    let filteredItems = this.items.filter((item) => !item.deletedAt);
+    let filteredItems = this.items.filter(
+      (item) => item.tenantId.toString() === tenantId && !item.deletedAt,
+    );
 
     if (search) {
       const searchLower = search.toLowerCase();
@@ -94,25 +107,43 @@ export class InMemoryPositionsRepository implements PositionsRepository {
 
   async findManyByDepartment(
     departmentId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Position[]> {
     return this.items.filter(
-      (item) => item.departmentId?.equals(departmentId) && !item.deletedAt,
+      (item) =>
+        item.departmentId?.equals(departmentId) &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
     );
   }
 
-  async findManyByCompany(companyId: UniqueEntityID): Promise<Position[]> {
+  async findManyByCompany(
+    companyId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Position[]> {
     // In real implementation, this would filter by department.companyId
     // For in-memory testing, return empty array - tests should mock this
     void companyId;
+    void tenantId;
     return [];
   }
 
-  async findManyByLevel(level: number): Promise<Position[]> {
-    return this.items.filter((item) => item.level === level && !item.deletedAt);
+  async findManyByLevel(level: number, tenantId: string): Promise<Position[]> {
+    return this.items.filter(
+      (item) =>
+        item.level === level &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
+    );
   }
 
-  async findManyActive(): Promise<Position[]> {
-    return this.items.filter((item) => item.isActive && !item.deletedAt);
+  async findManyActive(tenantId: string): Promise<Position[]> {
+    return this.items.filter(
+      (item) =>
+        item.isActive &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
+    );
   }
 
   async hasEmployees(id: UniqueEntityID): Promise<boolean> {
@@ -140,6 +171,7 @@ export class InMemoryPositionsRepository implements PositionsRepository {
 
     const updatedPosition = Position.create(
       {
+        tenantId: position.tenantId,
         name: data.name ?? position.name,
         code: data.code ?? position.code,
         description:

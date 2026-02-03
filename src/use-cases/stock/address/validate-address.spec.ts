@@ -19,17 +19,20 @@ describe('ValidateAddressUseCase', () => {
 
   async function createTestData() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
     });
 
     const bin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-102-B',
       aisle: 1,
@@ -44,6 +47,7 @@ describe('ValidateAddressUseCase', () => {
     const { bin } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'FAB-EST-102-B',
     });
 
@@ -57,6 +61,7 @@ describe('ValidateAddressUseCase', () => {
     const { bin } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'fab-est-102-b',
     });
 
@@ -69,6 +74,7 @@ describe('ValidateAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'FAB-EST-999-Z',
     });
 
@@ -81,6 +87,7 @@ describe('ValidateAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'INVALID',
     });
 
@@ -94,6 +101,7 @@ describe('ValidateAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'FAB-EST-102',
     });
 
@@ -106,6 +114,7 @@ describe('ValidateAddressUseCase', () => {
     await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'F-EST-102-B',
     });
 
@@ -117,6 +126,7 @@ describe('ValidateAddressUseCase', () => {
     const { bin } = await createTestData();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: '  FAB-EST-102-B  ',
     });
 
@@ -127,17 +137,20 @@ describe('ValidateAddressUseCase', () => {
 
   it('should validate address with different separators', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'WH2',
       name: 'Warehouse 2',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'ZN1',
       name: 'Zone 1',
     });
 
     await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'WH2.ZN1.101.A',
       aisle: 1,
@@ -146,6 +159,7 @@ describe('ValidateAddressUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'WH2.ZN1.101.A',
     });
 

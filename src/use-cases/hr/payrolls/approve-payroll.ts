@@ -4,6 +4,7 @@ import type { Payroll } from '@/entities/hr/payroll';
 import { PayrollsRepository } from '@/repositories/hr/payrolls-repository';
 
 export interface ApprovePayrollRequest {
+  tenantId: string;
   payrollId: string;
   approvedBy: string;
 }
@@ -18,10 +19,11 @@ export class ApprovePayrollUseCase {
   async execute(
     request: ApprovePayrollRequest,
   ): Promise<ApprovePayrollResponse> {
-    const { payrollId, approvedBy } = request;
+    const { tenantId, payrollId, approvedBy } = request;
 
     const payroll = await this.payrollsRepository.findById(
       new UniqueEntityID(payrollId),
+      tenantId,
     );
 
     if (!payroll) {

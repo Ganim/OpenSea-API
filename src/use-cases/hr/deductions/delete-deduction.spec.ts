@@ -16,6 +16,8 @@ let employeesRepository: InMemoryEmployeesRepository;
 let sut: DeleteDeductionUseCase;
 let testEmployee: Employee;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('Delete Deduction Use Case', () => {
   beforeEach(async () => {
     deductionsRepository = new InMemoryDeductionsRepository();
@@ -23,6 +25,7 @@ describe('Delete Deduction Use Case', () => {
     sut = new DeleteDeductionUseCase(deductionsRepository);
 
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -38,6 +41,7 @@ describe('Delete Deduction Use Case', () => {
 
   it('should delete a deduction successfully', async () => {
     const deduction = await deductionsRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       name: 'Loan Payment',
       amount: 500,
@@ -46,16 +50,21 @@ describe('Delete Deduction Use Case', () => {
     });
 
     await sut.execute({
+      tenantId,
       deductionId: deduction.id.toString(),
     });
 
-    const foundDeduction = await deductionsRepository.findById(deduction.id);
+    const foundDeduction = await deductionsRepository.findById(
+      deduction.id,
+      tenantId,
+    );
     expect(foundDeduction).toBeNull();
   });
 
   it('should throw error if deduction not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         deductionId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Dedução não encontrada');
@@ -63,6 +72,7 @@ describe('Delete Deduction Use Case', () => {
 
   it('should throw error if deduction has already been applied', async () => {
     const deduction = await deductionsRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       name: 'Loan Payment',
       amount: 500,
@@ -76,6 +86,7 @@ describe('Delete Deduction Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         deductionId: deduction.id.toString(),
       }),
     ).rejects.toThrow('Não é possível excluir uma dedução já aplicada');

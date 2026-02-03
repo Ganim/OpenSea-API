@@ -25,6 +25,7 @@ describe('Get Sales Order By Id', () => {
     salesOrdersRepository.items.push(order);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: order.id.toString(),
     });
 
@@ -41,6 +42,7 @@ describe('Get Sales Order By Id', () => {
   it('should not be able to get a non-existing sales order', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);

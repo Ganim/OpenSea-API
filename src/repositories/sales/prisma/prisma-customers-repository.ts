@@ -15,6 +15,7 @@ export class PrismaCustomersRepository implements CustomersRepository {
   async create(data: CreateCustomerSchema): Promise<Customer> {
     const customerData = await prisma.customer.create({
       data: {
+        tenantId: data.tenantId,
         name: data.name,
         type: data.type.value as PrismaCustomerType,
         document: data.document?.value,
@@ -32,6 +33,7 @@ export class PrismaCustomersRepository implements CustomersRepository {
 
     return Customer.create(
       {
+        tenantId: new EntityID(customerData.tenantId),
         name: customerData.name,
         type: CustomerType.create(customerData.type),
         document: customerData.document
@@ -54,10 +56,14 @@ export class PrismaCustomersRepository implements CustomersRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<Customer | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Customer | null> {
     const customerData = await prisma.customer.findFirst({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -66,6 +72,7 @@ export class PrismaCustomersRepository implements CustomersRepository {
 
     return Customer.create(
       {
+        tenantId: new EntityID(customerData.tenantId),
         name: customerData.name,
         type: CustomerType.create(customerData.type),
         document: customerData.document
@@ -88,10 +95,14 @@ export class PrismaCustomersRepository implements CustomersRepository {
     );
   }
 
-  async findByDocument(document: Document): Promise<Customer | null> {
+  async findByDocument(
+    document: Document,
+    tenantId: string,
+  ): Promise<Customer | null> {
     const customerData = await prisma.customer.findFirst({
       where: {
         document: document.value,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -100,6 +111,7 @@ export class PrismaCustomersRepository implements CustomersRepository {
 
     return Customer.create(
       {
+        tenantId: new EntityID(customerData.tenantId),
         name: customerData.name,
         type: CustomerType.create(customerData.type),
         document: Document.create(customerData.document!),
@@ -120,10 +132,11 @@ export class PrismaCustomersRepository implements CustomersRepository {
     );
   }
 
-  async findByEmail(email: string): Promise<Customer | null> {
+  async findByEmail(email: string, tenantId: string): Promise<Customer | null> {
     const customerData = await prisma.customer.findFirst({
       where: {
         email,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -132,6 +145,7 @@ export class PrismaCustomersRepository implements CustomersRepository {
 
     return Customer.create(
       {
+        tenantId: new EntityID(customerData.tenantId),
         name: customerData.name,
         type: CustomerType.create(customerData.type),
         document: customerData.document
@@ -154,9 +168,13 @@ export class PrismaCustomersRepository implements CustomersRepository {
     );
   }
 
-  async findMany(page: number, perPage: number): Promise<Customer[]> {
+  async findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<Customer[]> {
     const customersData = await prisma.customer.findMany({
-      where: { deletedAt: null },
+      where: { tenantId, deletedAt: null },
       skip: (page - 1) * perPage,
       take: perPage,
       orderBy: { createdAt: 'desc' },
@@ -165,6 +183,7 @@ export class PrismaCustomersRepository implements CustomersRepository {
     return customersData.map((customerData) =>
       Customer.create(
         {
+          tenantId: new EntityID(customerData.tenantId),
           name: customerData.name,
           type: CustomerType.create(customerData.type),
           document: customerData.document
@@ -188,9 +207,14 @@ export class PrismaCustomersRepository implements CustomersRepository {
     );
   }
 
-  async findManyActive(page: number, perPage: number): Promise<Customer[]> {
+  async findManyActive(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<Customer[]> {
     const customersData = await prisma.customer.findMany({
       where: {
+        tenantId,
         deletedAt: null,
         isActive: true,
       },
@@ -202,6 +226,7 @@ export class PrismaCustomersRepository implements CustomersRepository {
     return customersData.map((customerData) =>
       Customer.create(
         {
+          tenantId: new EntityID(customerData.tenantId),
           name: customerData.name,
           type: CustomerType.create(customerData.type),
           document: customerData.document
@@ -229,9 +254,11 @@ export class PrismaCustomersRepository implements CustomersRepository {
     type: CustomerType,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<Customer[]> {
     const customersData = await prisma.customer.findMany({
       where: {
+        tenantId,
         deletedAt: null,
         type: type.value as PrismaCustomerType,
       },
@@ -243,6 +270,7 @@ export class PrismaCustomersRepository implements CustomersRepository {
     return customersData.map((customerData) =>
       Customer.create(
         {
+          tenantId: new EntityID(customerData.tenantId),
           name: customerData.name,
           type: CustomerType.create(customerData.type),
           document: customerData.document
@@ -288,6 +316,7 @@ export class PrismaCustomersRepository implements CustomersRepository {
 
       return Customer.create(
         {
+          tenantId: new EntityID(customerData.tenantId),
           name: customerData.name,
           type: CustomerType.create(customerData.type),
           document: customerData.document
@@ -318,6 +347,7 @@ export class PrismaCustomersRepository implements CustomersRepository {
       where: { id: customer.id.toString() },
       create: {
         id: customer.id.toString(),
+        tenantId: customer.tenantId.toString(),
         name: customer.name,
         type: customer.type.value as PrismaCustomerType,
         document: customer.document?.value,

@@ -5,6 +5,8 @@ import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/i
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CompleteVacationUseCase } from './complete-vacation';
 
+const TENANT_ID = 'tenant-1';
+
 let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let sut: CompleteVacationUseCase;
 let testVacationPeriod: VacationPeriod;
@@ -16,6 +18,7 @@ describe('Complete Vacation Use Case', () => {
     sut = new CompleteVacationUseCase(vacationPeriodsRepository);
 
     testVacationPeriod = VacationPeriod.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       employeeId,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -35,6 +38,7 @@ describe('Complete Vacation Use Case', () => {
 
   it('should complete vacation successfully', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       vacationPeriodId: testVacationPeriod.id.toString(),
       daysUsed: 10,
     });
@@ -47,6 +51,7 @@ describe('Complete Vacation Use Case', () => {
 
   it('should mark as completed if all days used', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       vacationPeriodId: testVacationPeriod.id.toString(),
       daysUsed: 30,
     });
@@ -59,6 +64,7 @@ describe('Complete Vacation Use Case', () => {
   it('should throw error if vacation period not found', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: new UniqueEntityID().toString(),
         daysUsed: 10,
       }),
@@ -67,6 +73,7 @@ describe('Complete Vacation Use Case', () => {
 
   it('should throw error if vacation is not in progress or scheduled', async () => {
     const availablePeriod = VacationPeriod.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       employeeId,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -83,6 +90,7 @@ describe('Complete Vacation Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: availablePeriod.id.toString(),
         daysUsed: 10,
       }),
@@ -92,6 +100,7 @@ describe('Complete Vacation Use Case', () => {
   it('should throw error if days used exceeds remaining days', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: testVacationPeriod.id.toString(),
         daysUsed: 35, // More than remaining
       }),

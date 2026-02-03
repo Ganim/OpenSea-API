@@ -6,6 +6,7 @@ import { tagToDTO } from '@/mappers/stock/tag/tag-to-dto';
 import type { TagsRepository } from '@/repositories/stock/tags-repository';
 
 interface UpdateTagUseCaseRequest {
+  tenantId: string;
   id: string;
   name?: string;
   slug?: string;
@@ -21,6 +22,7 @@ export class UpdateTagUseCase {
   constructor(private tagsRepository: TagsRepository) {}
 
   async execute({
+    tenantId,
     id,
     name,
     slug,
@@ -28,7 +30,10 @@ export class UpdateTagUseCase {
     description,
   }: UpdateTagUseCaseRequest): Promise<UpdateTagUseCaseResponse> {
     // Check if tag exists
-    const tag = await this.tagsRepository.findById(new UniqueEntityID(id));
+    const tag = await this.tagsRepository.findById(
+      new UniqueEntityID(id),
+      tenantId,
+    );
     if (!tag) {
       throw new ResourceNotFoundError('Tag not found');
     }
@@ -45,7 +50,10 @@ export class UpdateTagUseCase {
 
       // Check if name is already in use by another tag
       if (name !== tag.name) {
-        const tagWithSameName = await this.tagsRepository.findByName(name);
+        const tagWithSameName = await this.tagsRepository.findByName(
+          name,
+          tenantId,
+        );
         if (tagWithSameName) {
           throw new BadRequestError('A tag with this name already exists');
         }
@@ -60,7 +68,10 @@ export class UpdateTagUseCase {
 
       // Check if slug is already in use by another tag
       if (slug !== tag.slug) {
-        const tagWithSameSlug = await this.tagsRepository.findBySlug(slug);
+        const tagWithSameSlug = await this.tagsRepository.findBySlug(
+          slug,
+          tenantId,
+        );
         if (tagWithSameSlug) {
           throw new BadRequestError('A tag with this slug already exists');
         }

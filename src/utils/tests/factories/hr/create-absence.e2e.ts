@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker';
 import type { AbsenceStatus, AbsenceType } from '@prisma/generated/client.js';
 
 interface CreateAbsenceE2EProps {
+  tenantId: string;
   employeeId: string;
   type?: AbsenceType;
   status?: AbsenceStatus;
@@ -54,6 +55,7 @@ export async function createAbsenceE2E(override: CreateAbsenceE2EProps) {
 
   const absence = await prisma.absence.create({
     data: {
+      tenantId: override.tenantId,
       employeeId: override.employeeId,
       type: override.type ?? 'VACATION',
       status: override.status ?? 'PENDING',

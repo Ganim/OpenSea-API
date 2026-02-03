@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { randomUUID } from 'node:crypto';
 
 interface CreateVariantProps {
+  tenantId: string;
   productId: string;
   sku?: string;
   name?: string;
@@ -70,6 +71,7 @@ export async function createVariant(props: CreateVariantProps) {
   const variant = await prisma.variant.create({
     data: {
       id: variantId,
+      tenantId: props.tenantId,
       productId: props.productId,
       sku: props.sku ?? `SKU-${timestamp}`,
       name,

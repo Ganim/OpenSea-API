@@ -44,6 +44,7 @@ export type PayrollSumAggregateOutputType = {
 
 export type PayrollMinAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   referenceMonth: number | null
   referenceYear: number | null
   status: $Enums.PayrollStatus | null
@@ -62,6 +63,7 @@ export type PayrollMinAggregateOutputType = {
 
 export type PayrollMaxAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   referenceMonth: number | null
   referenceYear: number | null
   status: $Enums.PayrollStatus | null
@@ -80,6 +82,7 @@ export type PayrollMaxAggregateOutputType = {
 
 export type PayrollCountAggregateOutputType = {
   id: number
+  tenantId: number
   referenceMonth: number
   referenceYear: number
   status: number
@@ -116,6 +119,7 @@ export type PayrollSumAggregateInputType = {
 
 export type PayrollMinAggregateInputType = {
   id?: true
+  tenantId?: true
   referenceMonth?: true
   referenceYear?: true
   status?: true
@@ -134,6 +138,7 @@ export type PayrollMinAggregateInputType = {
 
 export type PayrollMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   referenceMonth?: true
   referenceYear?: true
   status?: true
@@ -152,6 +157,7 @@ export type PayrollMaxAggregateInputType = {
 
 export type PayrollCountAggregateInputType = {
   id?: true
+  tenantId?: true
   referenceMonth?: true
   referenceYear?: true
   status?: true
@@ -257,6 +263,7 @@ export type PayrollGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type PayrollGroupByOutputType = {
   id: string
+  tenantId: string
   referenceMonth: number
   referenceYear: number
   status: $Enums.PayrollStatus
@@ -298,6 +305,7 @@ export type PayrollWhereInput = {
   OR?: Prisma.PayrollWhereInput[]
   NOT?: Prisma.PayrollWhereInput | Prisma.PayrollWhereInput[]
   id?: Prisma.StringFilter<"Payroll"> | string
+  tenantId?: Prisma.StringFilter<"Payroll"> | string
   referenceMonth?: Prisma.IntFilter<"Payroll"> | number
   referenceYear?: Prisma.IntFilter<"Payroll"> | number
   status?: Prisma.EnumPayrollStatusFilter<"Payroll"> | $Enums.PayrollStatus
@@ -312,6 +320,7 @@ export type PayrollWhereInput = {
   paidBy?: Prisma.StringNullableFilter<"Payroll"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Payroll"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payroll"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   processor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   payer?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -320,6 +329,7 @@ export type PayrollWhereInput = {
 
 export type PayrollOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   referenceMonth?: Prisma.SortOrder
   referenceYear?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -334,6 +344,7 @@ export type PayrollOrderByWithRelationInput = {
   paidBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   processor?: Prisma.UserOrderByWithRelationInput
   approver?: Prisma.UserOrderByWithRelationInput
   payer?: Prisma.UserOrderByWithRelationInput
@@ -342,10 +353,11 @@ export type PayrollOrderByWithRelationInput = {
 
 export type PayrollWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  referenceMonth_referenceYear?: Prisma.PayrollReferenceMonthReferenceYearCompoundUniqueInput
+  payrolls_month_year_tenant_unique?: Prisma.PayrollPayrolls_month_year_tenant_uniqueCompoundUniqueInput
   AND?: Prisma.PayrollWhereInput | Prisma.PayrollWhereInput[]
   OR?: Prisma.PayrollWhereInput[]
   NOT?: Prisma.PayrollWhereInput | Prisma.PayrollWhereInput[]
+  tenantId?: Prisma.StringFilter<"Payroll"> | string
   referenceMonth?: Prisma.IntFilter<"Payroll"> | number
   referenceYear?: Prisma.IntFilter<"Payroll"> | number
   status?: Prisma.EnumPayrollStatusFilter<"Payroll"> | $Enums.PayrollStatus
@@ -360,14 +372,16 @@ export type PayrollWhereUniqueInput = Prisma.AtLeast<{
   paidBy?: Prisma.StringNullableFilter<"Payroll"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Payroll"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payroll"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   processor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   payer?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.PayrollItemListRelationFilter
-}, "id" | "referenceMonth_referenceYear">
+}, "id" | "payrolls_month_year_tenant_unique">
 
 export type PayrollOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   referenceMonth?: Prisma.SortOrder
   referenceYear?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -394,6 +408,7 @@ export type PayrollScalarWhereWithAggregatesInput = {
   OR?: Prisma.PayrollScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PayrollScalarWhereWithAggregatesInput | Prisma.PayrollScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Payroll"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"Payroll"> | string
   referenceMonth?: Prisma.IntWithAggregatesFilter<"Payroll"> | number
   referenceYear?: Prisma.IntWithAggregatesFilter<"Payroll"> | number
   status?: Prisma.EnumPayrollStatusWithAggregatesFilter<"Payroll"> | $Enums.PayrollStatus
@@ -423,6 +438,7 @@ export type PayrollCreateInput = {
   paidAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPayrollsInput
   processor?: Prisma.UserCreateNestedOneWithoutProcessedPayrollsInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedPayrollsInput
   payer?: Prisma.UserCreateNestedOneWithoutPaidPayrollsInput
@@ -431,6 +447,7 @@ export type PayrollCreateInput = {
 
 export type PayrollUncheckedCreateInput = {
   id?: string
+  tenantId: string
   referenceMonth: number
   referenceYear: number
   status?: $Enums.PayrollStatus
@@ -461,6 +478,7 @@ export type PayrollUpdateInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPayrollsNestedInput
   processor?: Prisma.UserUpdateOneWithoutProcessedPayrollsNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedPayrollsNestedInput
   payer?: Prisma.UserUpdateOneWithoutPaidPayrollsNestedInput
@@ -469,6 +487,7 @@ export type PayrollUpdateInput = {
 
 export type PayrollUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
   referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
@@ -488,6 +507,7 @@ export type PayrollUncheckedUpdateInput = {
 
 export type PayrollCreateManyInput = {
   id?: string
+  tenantId: string
   referenceMonth: number
   referenceYear: number
   status?: $Enums.PayrollStatus
@@ -521,6 +541,7 @@ export type PayrollUpdateManyMutationInput = {
 
 export type PayrollUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
   referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
@@ -547,13 +568,15 @@ export type PayrollOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type PayrollReferenceMonthReferenceYearCompoundUniqueInput = {
+export type PayrollPayrolls_month_year_tenant_uniqueCompoundUniqueInput = {
   referenceMonth: number
   referenceYear: number
+  tenantId: string
 }
 
 export type PayrollCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   referenceMonth?: Prisma.SortOrder
   referenceYear?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -580,6 +603,7 @@ export type PayrollAvgOrderByAggregateInput = {
 
 export type PayrollMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   referenceMonth?: Prisma.SortOrder
   referenceYear?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -598,6 +622,7 @@ export type PayrollMaxOrderByAggregateInput = {
 
 export type PayrollMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   referenceMonth?: Prisma.SortOrder
   referenceYear?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -771,6 +796,48 @@ export type PayrollUpdateOneRequiredWithoutItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PayrollUpdateToOneWithWhereWithoutItemsInput, Prisma.PayrollUpdateWithoutItemsInput>, Prisma.PayrollUncheckedUpdateWithoutItemsInput>
 }
 
+export type PayrollCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.PayrollCreateWithoutTenantInput, Prisma.PayrollUncheckedCreateWithoutTenantInput> | Prisma.PayrollCreateWithoutTenantInput[] | Prisma.PayrollUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PayrollCreateOrConnectWithoutTenantInput | Prisma.PayrollCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.PayrollCreateManyTenantInputEnvelope
+  connect?: Prisma.PayrollWhereUniqueInput | Prisma.PayrollWhereUniqueInput[]
+}
+
+export type PayrollUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.PayrollCreateWithoutTenantInput, Prisma.PayrollUncheckedCreateWithoutTenantInput> | Prisma.PayrollCreateWithoutTenantInput[] | Prisma.PayrollUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PayrollCreateOrConnectWithoutTenantInput | Prisma.PayrollCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.PayrollCreateManyTenantInputEnvelope
+  connect?: Prisma.PayrollWhereUniqueInput | Prisma.PayrollWhereUniqueInput[]
+}
+
+export type PayrollUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.PayrollCreateWithoutTenantInput, Prisma.PayrollUncheckedCreateWithoutTenantInput> | Prisma.PayrollCreateWithoutTenantInput[] | Prisma.PayrollUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PayrollCreateOrConnectWithoutTenantInput | Prisma.PayrollCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.PayrollUpsertWithWhereUniqueWithoutTenantInput | Prisma.PayrollUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.PayrollCreateManyTenantInputEnvelope
+  set?: Prisma.PayrollWhereUniqueInput | Prisma.PayrollWhereUniqueInput[]
+  disconnect?: Prisma.PayrollWhereUniqueInput | Prisma.PayrollWhereUniqueInput[]
+  delete?: Prisma.PayrollWhereUniqueInput | Prisma.PayrollWhereUniqueInput[]
+  connect?: Prisma.PayrollWhereUniqueInput | Prisma.PayrollWhereUniqueInput[]
+  update?: Prisma.PayrollUpdateWithWhereUniqueWithoutTenantInput | Prisma.PayrollUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.PayrollUpdateManyWithWhereWithoutTenantInput | Prisma.PayrollUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.PayrollScalarWhereInput | Prisma.PayrollScalarWhereInput[]
+}
+
+export type PayrollUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.PayrollCreateWithoutTenantInput, Prisma.PayrollUncheckedCreateWithoutTenantInput> | Prisma.PayrollCreateWithoutTenantInput[] | Prisma.PayrollUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PayrollCreateOrConnectWithoutTenantInput | Prisma.PayrollCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.PayrollUpsertWithWhereUniqueWithoutTenantInput | Prisma.PayrollUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.PayrollCreateManyTenantInputEnvelope
+  set?: Prisma.PayrollWhereUniqueInput | Prisma.PayrollWhereUniqueInput[]
+  disconnect?: Prisma.PayrollWhereUniqueInput | Prisma.PayrollWhereUniqueInput[]
+  delete?: Prisma.PayrollWhereUniqueInput | Prisma.PayrollWhereUniqueInput[]
+  connect?: Prisma.PayrollWhereUniqueInput | Prisma.PayrollWhereUniqueInput[]
+  update?: Prisma.PayrollUpdateWithWhereUniqueWithoutTenantInput | Prisma.PayrollUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.PayrollUpdateManyWithWhereWithoutTenantInput | Prisma.PayrollUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.PayrollScalarWhereInput | Prisma.PayrollScalarWhereInput[]
+}
+
 export type PayrollCreateWithoutProcessorInput = {
   id?: string
   referenceMonth: number
@@ -784,6 +851,7 @@ export type PayrollCreateWithoutProcessorInput = {
   paidAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPayrollsInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedPayrollsInput
   payer?: Prisma.UserCreateNestedOneWithoutPaidPayrollsInput
   items?: Prisma.PayrollItemCreateNestedManyWithoutPayrollInput
@@ -791,6 +859,7 @@ export type PayrollCreateWithoutProcessorInput = {
 
 export type PayrollUncheckedCreateWithoutProcessorInput = {
   id?: string
+  tenantId: string
   referenceMonth: number
   referenceYear: number
   status?: $Enums.PayrollStatus
@@ -830,6 +899,7 @@ export type PayrollCreateWithoutApproverInput = {
   paidAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPayrollsInput
   processor?: Prisma.UserCreateNestedOneWithoutProcessedPayrollsInput
   payer?: Prisma.UserCreateNestedOneWithoutPaidPayrollsInput
   items?: Prisma.PayrollItemCreateNestedManyWithoutPayrollInput
@@ -837,6 +907,7 @@ export type PayrollCreateWithoutApproverInput = {
 
 export type PayrollUncheckedCreateWithoutApproverInput = {
   id?: string
+  tenantId: string
   referenceMonth: number
   referenceYear: number
   status?: $Enums.PayrollStatus
@@ -876,6 +947,7 @@ export type PayrollCreateWithoutPayerInput = {
   paidAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPayrollsInput
   processor?: Prisma.UserCreateNestedOneWithoutProcessedPayrollsInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedPayrollsInput
   items?: Prisma.PayrollItemCreateNestedManyWithoutPayrollInput
@@ -883,6 +955,7 @@ export type PayrollCreateWithoutPayerInput = {
 
 export type PayrollUncheckedCreateWithoutPayerInput = {
   id?: string
+  tenantId: string
   referenceMonth: number
   referenceYear: number
   status?: $Enums.PayrollStatus
@@ -930,6 +1003,7 @@ export type PayrollScalarWhereInput = {
   OR?: Prisma.PayrollScalarWhereInput[]
   NOT?: Prisma.PayrollScalarWhereInput | Prisma.PayrollScalarWhereInput[]
   id?: Prisma.StringFilter<"Payroll"> | string
+  tenantId?: Prisma.StringFilter<"Payroll"> | string
   referenceMonth?: Prisma.IntFilter<"Payroll"> | number
   referenceYear?: Prisma.IntFilter<"Payroll"> | number
   status?: Prisma.EnumPayrollStatusFilter<"Payroll"> | $Enums.PayrollStatus
@@ -991,6 +1065,7 @@ export type PayrollCreateWithoutItemsInput = {
   paidAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPayrollsInput
   processor?: Prisma.UserCreateNestedOneWithoutProcessedPayrollsInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedPayrollsInput
   payer?: Prisma.UserCreateNestedOneWithoutPaidPayrollsInput
@@ -998,6 +1073,7 @@ export type PayrollCreateWithoutItemsInput = {
 
 export type PayrollUncheckedCreateWithoutItemsInput = {
   id?: string
+  tenantId: string
   referenceMonth: number
   referenceYear: number
   status?: $Enums.PayrollStatus
@@ -1043,6 +1119,7 @@ export type PayrollUpdateWithoutItemsInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPayrollsNestedInput
   processor?: Prisma.UserUpdateOneWithoutProcessedPayrollsNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedPayrollsNestedInput
   payer?: Prisma.UserUpdateOneWithoutPaidPayrollsNestedInput
@@ -1050,6 +1127,7 @@ export type PayrollUpdateWithoutItemsInput = {
 
 export type PayrollUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
   referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
@@ -1066,8 +1144,73 @@ export type PayrollUncheckedUpdateWithoutItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type PayrollCreateWithoutTenantInput = {
+  id?: string
+  referenceMonth: number
+  referenceYear: number
+  status?: $Enums.PayrollStatus
+  totalGross: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalDeductions: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalNet: runtime.Decimal | runtime.DecimalJsLike | number | string
+  processedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  paidAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  processor?: Prisma.UserCreateNestedOneWithoutProcessedPayrollsInput
+  approver?: Prisma.UserCreateNestedOneWithoutApprovedPayrollsInput
+  payer?: Prisma.UserCreateNestedOneWithoutPaidPayrollsInput
+  items?: Prisma.PayrollItemCreateNestedManyWithoutPayrollInput
+}
+
+export type PayrollUncheckedCreateWithoutTenantInput = {
+  id?: string
+  referenceMonth: number
+  referenceYear: number
+  status?: $Enums.PayrollStatus
+  totalGross: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalDeductions: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalNet: runtime.Decimal | runtime.DecimalJsLike | number | string
+  processedAt?: Date | string | null
+  processedBy?: string | null
+  approvedAt?: Date | string | null
+  approvedBy?: string | null
+  paidAt?: Date | string | null
+  paidBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutPayrollInput
+}
+
+export type PayrollCreateOrConnectWithoutTenantInput = {
+  where: Prisma.PayrollWhereUniqueInput
+  create: Prisma.XOR<Prisma.PayrollCreateWithoutTenantInput, Prisma.PayrollUncheckedCreateWithoutTenantInput>
+}
+
+export type PayrollCreateManyTenantInputEnvelope = {
+  data: Prisma.PayrollCreateManyTenantInput | Prisma.PayrollCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type PayrollUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.PayrollWhereUniqueInput
+  update: Prisma.XOR<Prisma.PayrollUpdateWithoutTenantInput, Prisma.PayrollUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.PayrollCreateWithoutTenantInput, Prisma.PayrollUncheckedCreateWithoutTenantInput>
+}
+
+export type PayrollUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.PayrollWhereUniqueInput
+  data: Prisma.XOR<Prisma.PayrollUpdateWithoutTenantInput, Prisma.PayrollUncheckedUpdateWithoutTenantInput>
+}
+
+export type PayrollUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.PayrollScalarWhereInput
+  data: Prisma.XOR<Prisma.PayrollUpdateManyMutationInput, Prisma.PayrollUncheckedUpdateManyWithoutTenantInput>
+}
+
 export type PayrollCreateManyProcessorInput = {
   id?: string
+  tenantId: string
   referenceMonth: number
   referenceYear: number
   status?: $Enums.PayrollStatus
@@ -1085,6 +1228,7 @@ export type PayrollCreateManyProcessorInput = {
 
 export type PayrollCreateManyApproverInput = {
   id?: string
+  tenantId: string
   referenceMonth: number
   referenceYear: number
   status?: $Enums.PayrollStatus
@@ -1102,6 +1246,7 @@ export type PayrollCreateManyApproverInput = {
 
 export type PayrollCreateManyPayerInput = {
   id?: string
+  tenantId: string
   referenceMonth: number
   referenceYear: number
   status?: $Enums.PayrollStatus
@@ -1130,6 +1275,7 @@ export type PayrollUpdateWithoutProcessorInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPayrollsNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedPayrollsNestedInput
   payer?: Prisma.UserUpdateOneWithoutPaidPayrollsNestedInput
   items?: Prisma.PayrollItemUpdateManyWithoutPayrollNestedInput
@@ -1137,6 +1283,7 @@ export type PayrollUpdateWithoutProcessorInput = {
 
 export type PayrollUncheckedUpdateWithoutProcessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
   referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
@@ -1155,6 +1302,7 @@ export type PayrollUncheckedUpdateWithoutProcessorInput = {
 
 export type PayrollUncheckedUpdateManyWithoutProcessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
   referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
@@ -1183,6 +1331,7 @@ export type PayrollUpdateWithoutApproverInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPayrollsNestedInput
   processor?: Prisma.UserUpdateOneWithoutProcessedPayrollsNestedInput
   payer?: Prisma.UserUpdateOneWithoutPaidPayrollsNestedInput
   items?: Prisma.PayrollItemUpdateManyWithoutPayrollNestedInput
@@ -1190,6 +1339,7 @@ export type PayrollUpdateWithoutApproverInput = {
 
 export type PayrollUncheckedUpdateWithoutApproverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
   referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
@@ -1208,6 +1358,7 @@ export type PayrollUncheckedUpdateWithoutApproverInput = {
 
 export type PayrollUncheckedUpdateManyWithoutApproverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
   referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
@@ -1236,6 +1387,7 @@ export type PayrollUpdateWithoutPayerInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPayrollsNestedInput
   processor?: Prisma.UserUpdateOneWithoutProcessedPayrollsNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedPayrollsNestedInput
   items?: Prisma.PayrollItemUpdateManyWithoutPayrollNestedInput
@@ -1243,6 +1395,7 @@ export type PayrollUpdateWithoutPayerInput = {
 
 export type PayrollUncheckedUpdateWithoutPayerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
   referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
@@ -1261,6 +1414,7 @@ export type PayrollUncheckedUpdateWithoutPayerInput = {
 
 export type PayrollUncheckedUpdateManyWithoutPayerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
   referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
@@ -1272,6 +1426,80 @@ export type PayrollUncheckedUpdateManyWithoutPayerInput = {
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PayrollCreateManyTenantInput = {
+  id?: string
+  referenceMonth: number
+  referenceYear: number
+  status?: $Enums.PayrollStatus
+  totalGross: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalDeductions: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalNet: runtime.Decimal | runtime.DecimalJsLike | number | string
+  processedAt?: Date | string | null
+  processedBy?: string | null
+  approvedAt?: Date | string | null
+  approvedBy?: string | null
+  paidAt?: Date | string | null
+  paidBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PayrollUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
+  totalGross?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalDeductions?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalNet?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  processor?: Prisma.UserUpdateOneWithoutProcessedPayrollsNestedInput
+  approver?: Prisma.UserUpdateOneWithoutApprovedPayrollsNestedInput
+  payer?: Prisma.UserUpdateOneWithoutPaidPayrollsNestedInput
+  items?: Prisma.PayrollItemUpdateManyWithoutPayrollNestedInput
+}
+
+export type PayrollUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
+  totalGross?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalDeductions?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalNet?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.PayrollItemUncheckedUpdateManyWithoutPayrollNestedInput
+}
+
+export type PayrollUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceYear?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPayrollStatusFieldUpdateOperationsInput | $Enums.PayrollStatus
+  totalGross?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalDeductions?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalNet?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1309,6 +1537,7 @@ export type PayrollCountOutputTypeCountItemsArgs<ExtArgs extends runtime.Types.E
 
 export type PayrollSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   referenceMonth?: boolean
   referenceYear?: boolean
   status?: boolean
@@ -1323,6 +1552,7 @@ export type PayrollSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   paidBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   processor?: boolean | Prisma.Payroll$processorArgs<ExtArgs>
   approver?: boolean | Prisma.Payroll$approverArgs<ExtArgs>
   payer?: boolean | Prisma.Payroll$payerArgs<ExtArgs>
@@ -1332,6 +1562,7 @@ export type PayrollSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 
 export type PayrollSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   referenceMonth?: boolean
   referenceYear?: boolean
   status?: boolean
@@ -1346,6 +1577,7 @@ export type PayrollSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   paidBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   processor?: boolean | Prisma.Payroll$processorArgs<ExtArgs>
   approver?: boolean | Prisma.Payroll$approverArgs<ExtArgs>
   payer?: boolean | Prisma.Payroll$payerArgs<ExtArgs>
@@ -1353,6 +1585,7 @@ export type PayrollSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 
 export type PayrollSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   referenceMonth?: boolean
   referenceYear?: boolean
   status?: boolean
@@ -1367,6 +1600,7 @@ export type PayrollSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   paidBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   processor?: boolean | Prisma.Payroll$processorArgs<ExtArgs>
   approver?: boolean | Prisma.Payroll$approverArgs<ExtArgs>
   payer?: boolean | Prisma.Payroll$payerArgs<ExtArgs>
@@ -1374,6 +1608,7 @@ export type PayrollSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 
 export type PayrollSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   referenceMonth?: boolean
   referenceYear?: boolean
   status?: boolean
@@ -1390,8 +1625,9 @@ export type PayrollSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PayrollOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "referenceMonth" | "referenceYear" | "status" | "totalGross" | "totalDeductions" | "totalNet" | "processedAt" | "processedBy" | "approvedAt" | "approvedBy" | "paidAt" | "paidBy" | "createdAt" | "updatedAt", ExtArgs["result"]["payroll"]>
+export type PayrollOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "referenceMonth" | "referenceYear" | "status" | "totalGross" | "totalDeductions" | "totalNet" | "processedAt" | "processedBy" | "approvedAt" | "approvedBy" | "paidAt" | "paidBy" | "createdAt" | "updatedAt", ExtArgs["result"]["payroll"]>
 export type PayrollInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   processor?: boolean | Prisma.Payroll$processorArgs<ExtArgs>
   approver?: boolean | Prisma.Payroll$approverArgs<ExtArgs>
   payer?: boolean | Prisma.Payroll$payerArgs<ExtArgs>
@@ -1399,11 +1635,13 @@ export type PayrollInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   _count?: boolean | Prisma.PayrollCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PayrollIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   processor?: boolean | Prisma.Payroll$processorArgs<ExtArgs>
   approver?: boolean | Prisma.Payroll$approverArgs<ExtArgs>
   payer?: boolean | Prisma.Payroll$payerArgs<ExtArgs>
 }
 export type PayrollIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   processor?: boolean | Prisma.Payroll$processorArgs<ExtArgs>
   approver?: boolean | Prisma.Payroll$approverArgs<ExtArgs>
   payer?: boolean | Prisma.Payroll$payerArgs<ExtArgs>
@@ -1412,6 +1650,7 @@ export type PayrollIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $PayrollPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Payroll"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     processor: Prisma.$UserPayload<ExtArgs> | null
     approver: Prisma.$UserPayload<ExtArgs> | null
     payer: Prisma.$UserPayload<ExtArgs> | null
@@ -1419,6 +1658,7 @@ export type $PayrollPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    tenantId: string
     referenceMonth: number
     referenceYear: number
     status: $Enums.PayrollStatus
@@ -1827,6 +2067,7 @@ readonly fields: PayrollFieldRefs;
  */
 export interface Prisma__PayrollClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   processor<T extends Prisma.Payroll$processorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Payroll$processorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   approver<T extends Prisma.Payroll$approverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Payroll$approverArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   payer<T extends Prisma.Payroll$payerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Payroll$payerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1861,6 +2102,7 @@ export interface Prisma__PayrollClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface PayrollFieldRefs {
   readonly id: Prisma.FieldRef<"Payroll", 'String'>
+  readonly tenantId: Prisma.FieldRef<"Payroll", 'String'>
   readonly referenceMonth: Prisma.FieldRef<"Payroll", 'Int'>
   readonly referenceYear: Prisma.FieldRef<"Payroll", 'Int'>
   readonly status: Prisma.FieldRef<"Payroll", 'PayrollStatus'>

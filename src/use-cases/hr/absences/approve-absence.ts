@@ -4,6 +4,7 @@ import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
 
 export interface ApproveAbsenceRequest {
+  tenantId: string;
   absenceId: string;
   approvedBy: string;
 }
@@ -21,11 +22,12 @@ export class ApproveAbsenceUseCase {
   async execute(
     request: ApproveAbsenceRequest,
   ): Promise<ApproveAbsenceResponse> {
-    const { absenceId, approvedBy } = request;
+    const { tenantId, absenceId, approvedBy } = request;
 
     // Find absence
     const absence = await this.absencesRepository.findById(
       new UniqueEntityID(absenceId),
+      tenantId,
     );
     if (!absence) {
       throw new Error('Absence not found');
@@ -47,7 +49,7 @@ export class ApproveAbsenceUseCase {
 
     // If it's a vacation, update the vacation period
     if (absence.isVacation()) {
-      await this.updateVacationPeriod(absence);
+      await this.updateVacationPeriod(absence, tenantId);
     }
 
     return {
@@ -55,11 +57,15 @@ export class ApproveAbsenceUseCase {
     };
   }
 
-  private async updateVacationPeriod(absence: Absence): Promise<void> {
+  private async updateVacationPeriod(
+    absence: Absence,
+    tenantId: string,
+  ): Promise<void> {
     // Find available vacation periods
     const availablePeriods =
       await this.vacationPeriodsRepository.findAvailableByEmployee(
         absence.employeeId,
+        tenantId,
       );
 
     if (availablePeriods.length === 0) {

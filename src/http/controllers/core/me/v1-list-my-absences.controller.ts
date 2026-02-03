@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   absenceResponseSchema,
   absenceStatusSchema,
@@ -16,7 +17,7 @@ export async function listMyAbsencesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/me/absences',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['Me'],
       summary: 'List my absences (vacations, sick leaves, etc.)',
@@ -38,16 +39,21 @@ export async function listMyAbsencesController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const { type, status, startDate, endDate } = request.query;
 
       try {
         // First get my employee record
         const getMyEmployeeUseCase = makeGetMyEmployeeUseCase();
-        const { employee } = await getMyEmployeeUseCase.execute({ userId });
+        const { employee } = await getMyEmployeeUseCase.execute({
+          tenantId,
+          userId,
+        });
 
         // Then list my absences
         const listAbsencesUseCase = makeListAbsencesUseCase();
         const { absences } = await listAbsencesUseCase.execute({
+          tenantId,
           employeeId: employee.id.toString(),
           type,
           status,

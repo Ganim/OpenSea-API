@@ -23,6 +23,7 @@ export class InMemoryPermissionGroupsRepository
       color: data.color,
       priority: data.priority,
       parentId: data.parentId,
+      tenantId: data.tenantId,
       deletedAt: null,
       createdAt: new Date(),
     });
@@ -50,6 +51,7 @@ export class InMemoryPermissionGroupsRepository
         color: data.color ?? group.color,
         priority: data.priority ?? group.priority,
         parentId: data.parentId !== undefined ? data.parentId : group.parentId,
+        tenantId: group.tenantId,
         deletedAt:
           data.deletedAt !== undefined ? data.deletedAt : group.deletedAt,
         createdAt: group.createdAt,
@@ -77,6 +79,7 @@ export class InMemoryPermissionGroupsRepository
           color: group.color,
           priority: group.priority,
           parentId: group.parentId,
+          tenantId: group.tenantId,
           deletedAt: new Date(),
           createdAt: group.createdAt,
         },
@@ -104,6 +107,7 @@ export class InMemoryPermissionGroupsRepository
         color: group.color,
         priority: group.priority,
         parentId: group.parentId,
+        tenantId: group.tenantId,
         deletedAt: null,
         createdAt: group.createdAt,
       },
@@ -263,6 +267,32 @@ export class InMemoryPermissionGroupsRepository
     }
 
     return ancestors;
+  }
+
+  async findBySlugAndTenantId(
+    slug: string,
+    tenantId: UniqueEntityID,
+    includeDeleted = false,
+  ): Promise<PermissionGroup | null> {
+    const group = this.items.find(
+      (item) =>
+        item.slug === slug &&
+        item.tenantId?.equals(tenantId) &&
+        (includeDeleted || !item.deletedAt),
+    );
+
+    return group ?? null;
+  }
+
+  async listByTenantId(tenantId: UniqueEntityID): Promise<PermissionGroup[]> {
+    return this.items
+      .filter((item) => item.tenantId?.equals(tenantId) && !item.deletedAt)
+      .sort((a, b) => {
+        if (a.priority !== b.priority) {
+          return b.priority - a.priority;
+        }
+        return a.name.localeCompare(b.name);
+      });
   }
 
   async exists(slug: string): Promise<boolean> {

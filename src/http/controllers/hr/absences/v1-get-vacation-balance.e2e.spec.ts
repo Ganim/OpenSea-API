@@ -18,9 +18,10 @@ describe('Get Vacation Balance (E2E)', () => {
   it('should get vacation balance with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
 
-    const { employeeId } = await createEmployeeE2E({ fullName: 'João Silva' });
+    const { employeeId, employee } = await createEmployeeE2E({ fullName: 'João Silva' });
 
     await createAvailableVacationPeriodE2E({
+      tenantId: employee.tenantId,
       employeeId,
       totalDays: 30,
       usedDays: 10,

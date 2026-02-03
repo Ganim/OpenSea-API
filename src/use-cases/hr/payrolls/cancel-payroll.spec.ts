@@ -8,6 +8,8 @@ let payrollsRepository: InMemoryPayrollsRepository;
 let payrollItemsRepository: InMemoryPayrollItemsRepository;
 let sut: CancelPayrollUseCase;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('Cancel Payroll Use Case', () => {
   beforeEach(async () => {
     payrollsRepository = new InMemoryPayrollsRepository();
@@ -17,11 +19,13 @@ describe('Cancel Payroll Use Case', () => {
 
   it('should cancel a draft payroll', async () => {
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
 
     const result = await sut.execute({
+      tenantId,
       payrollId: payroll.id.toString(),
     });
 
@@ -30,6 +34,7 @@ describe('Cancel Payroll Use Case', () => {
 
   it('should cancel a calculated payroll', async () => {
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
@@ -40,6 +45,7 @@ describe('Cancel Payroll Use Case', () => {
     await payrollsRepository.save(payroll);
 
     const result = await sut.execute({
+      tenantId,
       payrollId: payroll.id.toString(),
     });
 
@@ -49,6 +55,7 @@ describe('Cancel Payroll Use Case', () => {
   it('should throw error if payroll not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         payrollId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Folha de pagamento não encontrada');
@@ -56,6 +63,7 @@ describe('Cancel Payroll Use Case', () => {
 
   it('should throw error if payroll is already approved', async () => {
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
@@ -68,6 +76,7 @@ describe('Cancel Payroll Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         payrollId: payroll.id.toString(),
       }),
     ).rejects.toThrow();
@@ -75,6 +84,7 @@ describe('Cancel Payroll Use Case', () => {
 
   it('should throw error if payroll is already paid', async () => {
     const payroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
@@ -88,6 +98,7 @@ describe('Cancel Payroll Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         payrollId: payroll.id.toString(),
       }),
     ).rejects.toThrow('Folhas já pagas não podem ser canceladas');

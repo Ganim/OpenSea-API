@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   updateWarehouseSchema,
   warehouseResponseSchema,
@@ -19,6 +20,7 @@ export async function updateWarehouseController(app: FastifyInstance) {
     url: '/v1/warehouses/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.WAREHOUSES.UPDATE,
         resource: 'warehouses',
@@ -46,12 +48,14 @@ export async function updateWarehouseController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const { code, name, description, address, isActive } = request.body;
 
       try {
         const updateWarehouseUseCase = makeUpdateWarehouseUseCase();
         const { warehouse } = await updateWarehouseUseCase.execute({
+          tenantId,
           id,
           code,
           name,

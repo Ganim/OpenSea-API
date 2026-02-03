@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { RomaneioHttpPresenter } from '@/http/presenters/stock/volume-presenter';
 import { romaneioResponseSchema } from '@/http/schemas/stock/volumes/volume.schema';
 import { makeGetRomaneioUseCase } from '@/use-cases/stock/volumes/factories/make-get-romaneio-use-case';
@@ -14,6 +15,7 @@ export async function getRomaneioController(app: FastifyInstance) {
     url: '/v1/volumes/:id/romaneio',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.VOLUMES.ROMANEIO,
         resource: 'volumes',
@@ -36,10 +38,12 @@ export async function getRomaneioController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const { id } = request.params;
+      const tenantId = request.user.tenantId!;
 
       const getRomaneioUseCase = makeGetRomaneioUseCase();
 
       const result = await getRomaneioUseCase.execute({
+        tenantId,
         volumeId: id,
       });
 

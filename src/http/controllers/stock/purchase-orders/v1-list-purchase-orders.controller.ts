@@ -5,12 +5,13 @@ import { z } from 'zod';
 import { makeListPurchaseOrdersUseCase } from '@/use-cases/stock/purchase-orders/factories/make-list-purchase-orders-use-case';
 
 import { verifyJwt } from '../../../middlewares/rbac/verify-jwt';
+import { verifyTenant } from '../../../middlewares/rbac/verify-tenant';
 
 export async function listPurchaseOrdersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/v1/purchase-orders',
     {
-      onRequest: [verifyJwt],
+      onRequest: [verifyJwt, verifyTenant],
       schema: {
         summary: 'List purchase orders',
         description: 'Returns a list of purchase orders with optional filters',
@@ -59,10 +60,12 @@ export async function listPurchaseOrdersController(app: FastifyInstance) {
     },
     async (request, reply) => {
       const { supplierId, status } = request.query;
+      const tenantId = request.user.tenantId!;
 
       const listPurchaseOrdersUseCase = makeListPurchaseOrdersUseCase();
 
       const { purchaseOrders } = await listPurchaseOrdersUseCase.execute({
+        tenantId,
         supplierId,
         status,
       });

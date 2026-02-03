@@ -26,6 +26,7 @@ describe('CreateItemReservationUseCase', () => {
 
     // Create test item with 100 units
     item = await itemsRepository.create({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-001',
       slug: Slug.createFromText('item-001'),
       fullCode: '001.001.0001.001-00001',
@@ -47,6 +48,7 @@ describe('CreateItemReservationUseCase', () => {
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       itemId: item.id.toString(),
       userId: userId.toString(),
       quantity: 10,
@@ -67,6 +69,7 @@ describe('CreateItemReservationUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         itemId: item.id.toString(),
         userId: userId.toString(),
         quantity: 0,
@@ -80,6 +83,7 @@ describe('CreateItemReservationUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         itemId: item.id.toString(),
         userId: userId.toString(),
         quantity: -5,
@@ -93,6 +97,7 @@ describe('CreateItemReservationUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         itemId: item.id.toString(),
         userId: userId.toString(),
         quantity: 10,
@@ -106,6 +111,7 @@ describe('CreateItemReservationUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         itemId: 'nonexistent-id',
         userId: userId.toString(),
         quantity: 10,
@@ -119,6 +125,7 @@ describe('CreateItemReservationUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         itemId: item.id.toString(),
         userId: userId.toString(),
         quantity: 150, // More than available (100)
@@ -132,6 +139,7 @@ describe('CreateItemReservationUseCase', () => {
 
     // Create first reservation for 80 units
     await sut.execute({
+      tenantId: 'tenant-1',
       itemId: item.id.toString(),
       userId: userId.toString(),
       quantity: 80,
@@ -141,6 +149,7 @@ describe('CreateItemReservationUseCase', () => {
     // Try to reserve 30 more (should fail, only 20 available)
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         itemId: item.id.toString(),
         userId: new UniqueEntityID().toString(),
         quantity: 30,
@@ -154,6 +163,7 @@ describe('CreateItemReservationUseCase', () => {
 
     // Reserve 80 units
     await sut.execute({
+      tenantId: 'tenant-1',
       itemId: item.id.toString(),
       userId: userId.toString(),
       quantity: 80,
@@ -162,6 +172,7 @@ describe('CreateItemReservationUseCase', () => {
 
     // Reserve remaining 20 units (should succeed)
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       itemId: item.id.toString(),
       userId: new UniqueEntityID().toString(),
       quantity: 20,

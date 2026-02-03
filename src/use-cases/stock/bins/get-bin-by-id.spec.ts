@@ -21,17 +21,20 @@ describe('GetBinByIdUseCase', () => {
 
   async function createTestBin() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
     });
 
     const bin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-101-A',
       aisle: 1,
@@ -47,6 +50,7 @@ describe('GetBinByIdUseCase', () => {
     const { bin } = await createTestBin();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
     });
 
@@ -62,6 +66,7 @@ describe('GetBinByIdUseCase', () => {
     const { bin } = await createTestBin();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
     });
 
@@ -74,6 +79,7 @@ describe('GetBinByIdUseCase', () => {
     vi.spyOn(binsRepository, 'countItemsInBin').mockResolvedValue(15);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
     });
 
@@ -83,6 +89,7 @@ describe('GetBinByIdUseCase', () => {
   it('should fail when bin is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -95,6 +102,7 @@ describe('GetBinByIdUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: bin.binId.toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);

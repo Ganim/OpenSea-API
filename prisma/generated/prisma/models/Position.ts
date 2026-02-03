@@ -42,6 +42,7 @@ export type PositionSumAggregateOutputType = {
 
 export type PositionMinAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   name: string | null
   code: string | null
   description: string | null
@@ -58,6 +59,7 @@ export type PositionMinAggregateOutputType = {
 
 export type PositionMaxAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   name: string | null
   code: string | null
   description: string | null
@@ -74,6 +76,7 @@ export type PositionMaxAggregateOutputType = {
 
 export type PositionCountAggregateOutputType = {
   id: number
+  tenantId: number
   name: number
   code: number
   description: number
@@ -106,6 +109,7 @@ export type PositionSumAggregateInputType = {
 
 export type PositionMinAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   code?: true
   description?: true
@@ -122,6 +126,7 @@ export type PositionMinAggregateInputType = {
 
 export type PositionMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   code?: true
   description?: true
@@ -138,6 +143,7 @@ export type PositionMaxAggregateInputType = {
 
 export type PositionCountAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   code?: true
   description?: true
@@ -241,6 +247,7 @@ export type PositionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type PositionGroupByOutputType = {
   id: string
+  tenantId: string
   name: string
   code: string
   description: string | null
@@ -280,6 +287,7 @@ export type PositionWhereInput = {
   OR?: Prisma.PositionWhereInput[]
   NOT?: Prisma.PositionWhereInput | Prisma.PositionWhereInput[]
   id?: Prisma.StringFilter<"Position"> | string
+  tenantId?: Prisma.StringFilter<"Position"> | string
   name?: Prisma.StringFilter<"Position"> | string
   code?: Prisma.StringFilter<"Position"> | string
   description?: Prisma.StringNullableFilter<"Position"> | string | null
@@ -292,12 +300,14 @@ export type PositionWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"Position"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Position"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Position"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   department?: Prisma.XOR<Prisma.DepartmentNullableScalarRelationFilter, Prisma.DepartmentWhereInput> | null
   employees?: Prisma.EmployeeListRelationFilter
 }
 
 export type PositionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -310,17 +320,20 @@ export type PositionOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   department?: Prisma.DepartmentOrderByWithRelationInput
   employees?: Prisma.EmployeeOrderByRelationAggregateInput
 }
 
 export type PositionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  code?: string
+  positions_code_tenant_unique?: Prisma.PositionPositions_code_tenant_uniqueCompoundUniqueInput
   AND?: Prisma.PositionWhereInput | Prisma.PositionWhereInput[]
   OR?: Prisma.PositionWhereInput[]
   NOT?: Prisma.PositionWhereInput | Prisma.PositionWhereInput[]
+  tenantId?: Prisma.StringFilter<"Position"> | string
   name?: Prisma.StringFilter<"Position"> | string
+  code?: Prisma.StringFilter<"Position"> | string
   description?: Prisma.StringNullableFilter<"Position"> | string | null
   departmentId?: Prisma.StringNullableFilter<"Position"> | string | null
   level?: Prisma.IntFilter<"Position"> | number
@@ -331,12 +344,14 @@ export type PositionWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"Position"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Position"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Position"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   department?: Prisma.XOR<Prisma.DepartmentNullableScalarRelationFilter, Prisma.DepartmentWhereInput> | null
   employees?: Prisma.EmployeeListRelationFilter
-}, "id" | "code">
+}, "id" | "positions_code_tenant_unique">
 
 export type PositionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -361,6 +376,7 @@ export type PositionScalarWhereWithAggregatesInput = {
   OR?: Prisma.PositionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PositionScalarWhereWithAggregatesInput | Prisma.PositionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Position"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"Position"> | string
   name?: Prisma.StringWithAggregatesFilter<"Position"> | string
   code?: Prisma.StringWithAggregatesFilter<"Position"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Position"> | string | null
@@ -388,12 +404,14 @@ export type PositionCreateInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPositionsInput
   department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateInput = {
   id?: string
+  tenantId: string
   name: string
   code: string
   description?: string | null
@@ -422,12 +440,14 @@ export type PositionUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPositionsNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -445,6 +465,7 @@ export type PositionUncheckedUpdateInput = {
 
 export type PositionCreateManyInput = {
   id?: string
+  tenantId: string
   name: string
   code: string
   description?: string | null
@@ -476,6 +497,7 @@ export type PositionUpdateManyMutationInput = {
 
 export type PositionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -505,8 +527,14 @@ export type PositionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type PositionPositions_code_tenant_uniqueCompoundUniqueInput = {
+  code: string
+  tenantId: string
+}
+
 export type PositionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -530,6 +558,7 @@ export type PositionAvgOrderByAggregateInput = {
 
 export type PositionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -546,6 +575,7 @@ export type PositionMaxOrderByAggregateInput = {
 
 export type PositionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -625,6 +655,48 @@ export type PositionUncheckedUpdateManyWithoutDepartmentNestedInput = {
   deleteMany?: Prisma.PositionScalarWhereInput | Prisma.PositionScalarWhereInput[]
 }
 
+export type PositionCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.PositionCreateWithoutTenantInput, Prisma.PositionUncheckedCreateWithoutTenantInput> | Prisma.PositionCreateWithoutTenantInput[] | Prisma.PositionUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PositionCreateOrConnectWithoutTenantInput | Prisma.PositionCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.PositionCreateManyTenantInputEnvelope
+  connect?: Prisma.PositionWhereUniqueInput | Prisma.PositionWhereUniqueInput[]
+}
+
+export type PositionUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.PositionCreateWithoutTenantInput, Prisma.PositionUncheckedCreateWithoutTenantInput> | Prisma.PositionCreateWithoutTenantInput[] | Prisma.PositionUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PositionCreateOrConnectWithoutTenantInput | Prisma.PositionCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.PositionCreateManyTenantInputEnvelope
+  connect?: Prisma.PositionWhereUniqueInput | Prisma.PositionWhereUniqueInput[]
+}
+
+export type PositionUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.PositionCreateWithoutTenantInput, Prisma.PositionUncheckedCreateWithoutTenantInput> | Prisma.PositionCreateWithoutTenantInput[] | Prisma.PositionUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PositionCreateOrConnectWithoutTenantInput | Prisma.PositionCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.PositionUpsertWithWhereUniqueWithoutTenantInput | Prisma.PositionUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.PositionCreateManyTenantInputEnvelope
+  set?: Prisma.PositionWhereUniqueInput | Prisma.PositionWhereUniqueInput[]
+  disconnect?: Prisma.PositionWhereUniqueInput | Prisma.PositionWhereUniqueInput[]
+  delete?: Prisma.PositionWhereUniqueInput | Prisma.PositionWhereUniqueInput[]
+  connect?: Prisma.PositionWhereUniqueInput | Prisma.PositionWhereUniqueInput[]
+  update?: Prisma.PositionUpdateWithWhereUniqueWithoutTenantInput | Prisma.PositionUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.PositionUpdateManyWithWhereWithoutTenantInput | Prisma.PositionUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.PositionScalarWhereInput | Prisma.PositionScalarWhereInput[]
+}
+
+export type PositionUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.PositionCreateWithoutTenantInput, Prisma.PositionUncheckedCreateWithoutTenantInput> | Prisma.PositionCreateWithoutTenantInput[] | Prisma.PositionUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.PositionCreateOrConnectWithoutTenantInput | Prisma.PositionCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.PositionUpsertWithWhereUniqueWithoutTenantInput | Prisma.PositionUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.PositionCreateManyTenantInputEnvelope
+  set?: Prisma.PositionWhereUniqueInput | Prisma.PositionWhereUniqueInput[]
+  disconnect?: Prisma.PositionWhereUniqueInput | Prisma.PositionWhereUniqueInput[]
+  delete?: Prisma.PositionWhereUniqueInput | Prisma.PositionWhereUniqueInput[]
+  connect?: Prisma.PositionWhereUniqueInput | Prisma.PositionWhereUniqueInput[]
+  update?: Prisma.PositionUpdateWithWhereUniqueWithoutTenantInput | Prisma.PositionUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.PositionUpdateManyWithWhereWithoutTenantInput | Prisma.PositionUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.PositionScalarWhereInput | Prisma.PositionScalarWhereInput[]
+}
+
 export type PositionCreateWithoutEmployeesInput = {
   id?: string
   name: string
@@ -638,11 +710,13 @@ export type PositionCreateWithoutEmployeesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPositionsInput
   department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
 }
 
 export type PositionUncheckedCreateWithoutEmployeesInput = {
   id?: string
+  tenantId: string
   name: string
   code: string
   description?: string | null
@@ -686,11 +760,13 @@ export type PositionUpdateWithoutEmployeesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPositionsNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
 }
 
 export type PositionUncheckedUpdateWithoutEmployeesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -718,11 +794,13 @@ export type PositionCreateWithoutDepartmentInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPositionsInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateWithoutDepartmentInput = {
   id?: string
+  tenantId: string
   name: string
   code: string
   description?: string | null
@@ -768,6 +846,7 @@ export type PositionScalarWhereInput = {
   OR?: Prisma.PositionScalarWhereInput[]
   NOT?: Prisma.PositionScalarWhereInput | Prisma.PositionScalarWhereInput[]
   id?: Prisma.StringFilter<"Position"> | string
+  tenantId?: Prisma.StringFilter<"Position"> | string
   name?: Prisma.StringFilter<"Position"> | string
   code?: Prisma.StringFilter<"Position"> | string
   description?: Prisma.StringNullableFilter<"Position"> | string | null
@@ -782,8 +861,69 @@ export type PositionScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Position"> | Date | string
 }
 
+export type PositionCreateWithoutTenantInput = {
+  id?: string
+  name: string
+  code: string
+  description?: string | null
+  level?: number
+  minSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
+}
+
+export type PositionUncheckedCreateWithoutTenantInput = {
+  id?: string
+  name: string
+  code: string
+  description?: string | null
+  departmentId?: string | null
+  level?: number
+  minSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
+}
+
+export type PositionCreateOrConnectWithoutTenantInput = {
+  where: Prisma.PositionWhereUniqueInput
+  create: Prisma.XOR<Prisma.PositionCreateWithoutTenantInput, Prisma.PositionUncheckedCreateWithoutTenantInput>
+}
+
+export type PositionCreateManyTenantInputEnvelope = {
+  data: Prisma.PositionCreateManyTenantInput | Prisma.PositionCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type PositionUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.PositionWhereUniqueInput
+  update: Prisma.XOR<Prisma.PositionUpdateWithoutTenantInput, Prisma.PositionUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.PositionCreateWithoutTenantInput, Prisma.PositionUncheckedCreateWithoutTenantInput>
+}
+
+export type PositionUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.PositionWhereUniqueInput
+  data: Prisma.XOR<Prisma.PositionUpdateWithoutTenantInput, Prisma.PositionUncheckedUpdateWithoutTenantInput>
+}
+
+export type PositionUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.PositionScalarWhereInput
+  data: Prisma.XOR<Prisma.PositionUpdateManyMutationInput, Prisma.PositionUncheckedUpdateManyWithoutTenantInput>
+}
+
 export type PositionCreateManyDepartmentInput = {
   id?: string
+  tenantId: string
   name: string
   code: string
   description?: string | null
@@ -810,11 +950,13 @@ export type PositionUpdateWithoutDepartmentInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPositionsNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -831,9 +973,76 @@ export type PositionUncheckedUpdateWithoutDepartmentInput = {
 
 export type PositionUncheckedUpdateManyWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  minSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PositionCreateManyTenantInput = {
+  id?: string
+  name: string
+  code: string
+  description?: string | null
+  departmentId?: string | null
+  level?: number
+  minSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PositionUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  minSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
+}
+
+export type PositionUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  minSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
+}
+
+export type PositionUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.IntFieldUpdateOperationsInput | number
   minSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -877,6 +1086,7 @@ export type PositionCountOutputTypeCountEmployeesArgs<ExtArgs extends runtime.Ty
 
 export type PositionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   code?: boolean
   description?: boolean
@@ -889,6 +1099,7 @@ export type PositionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   department?: boolean | Prisma.Position$departmentArgs<ExtArgs>
   employees?: boolean | Prisma.Position$employeesArgs<ExtArgs>
   _count?: boolean | Prisma.PositionCountOutputTypeDefaultArgs<ExtArgs>
@@ -896,6 +1107,7 @@ export type PositionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 
 export type PositionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   code?: boolean
   description?: boolean
@@ -908,11 +1120,13 @@ export type PositionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   department?: boolean | Prisma.Position$departmentArgs<ExtArgs>
 }, ExtArgs["result"]["position"]>
 
 export type PositionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   code?: boolean
   description?: boolean
@@ -925,11 +1139,13 @@ export type PositionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   department?: boolean | Prisma.Position$departmentArgs<ExtArgs>
 }, ExtArgs["result"]["position"]>
 
 export type PositionSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   code?: boolean
   description?: boolean
@@ -944,27 +1160,32 @@ export type PositionSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PositionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "description" | "departmentId" | "level" | "minSalary" | "maxSalary" | "baseSalary" | "isActive" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["position"]>
+export type PositionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "code" | "description" | "departmentId" | "level" | "minSalary" | "maxSalary" | "baseSalary" | "isActive" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["position"]>
 export type PositionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   department?: boolean | Prisma.Position$departmentArgs<ExtArgs>
   employees?: boolean | Prisma.Position$employeesArgs<ExtArgs>
   _count?: boolean | Prisma.PositionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PositionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   department?: boolean | Prisma.Position$departmentArgs<ExtArgs>
 }
 export type PositionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   department?: boolean | Prisma.Position$departmentArgs<ExtArgs>
 }
 
 export type $PositionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Position"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     department: Prisma.$DepartmentPayload<ExtArgs> | null
     employees: Prisma.$EmployeePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    tenantId: string
     name: string
     code: string
     description: string | null
@@ -1371,6 +1592,7 @@ readonly fields: PositionFieldRefs;
  */
 export interface Prisma__PositionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   department<T extends Prisma.Position$departmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Position$departmentArgs<ExtArgs>>): Prisma.Prisma__DepartmentClient<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   employees<T extends Prisma.Position$employeesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Position$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1403,6 +1625,7 @@ export interface Prisma__PositionClient<T, Null = never, ExtArgs extends runtime
  */
 export interface PositionFieldRefs {
   readonly id: Prisma.FieldRef<"Position", 'String'>
+  readonly tenantId: Prisma.FieldRef<"Position", 'String'>
   readonly name: Prisma.FieldRef<"Position", 'String'>
   readonly code: Prisma.FieldRef<"Position", 'String'>
   readonly description: Prisma.FieldRef<"Position", 'String'>

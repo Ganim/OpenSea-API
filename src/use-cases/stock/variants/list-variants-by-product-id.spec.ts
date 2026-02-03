@@ -17,6 +17,7 @@ describe('ListVariantsByProductIdUseCase', () => {
     // Create a variant for testing
     const productId = new UniqueEntityID();
     await variantsRepository.create({
+      tenantId: 'tenant-1',
       productId,
       slug: Slug.createFromText('test-variant'),
       fullCode: '001.001.0001.001',
@@ -28,6 +29,7 @@ describe('ListVariantsByProductIdUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       productId: productId.toString(),
     });
 
@@ -52,6 +54,7 @@ describe('ListVariantsByProductIdUseCase', () => {
 
   it('should return empty array when product has no variants', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       productId: 'non-existent-product',
     });
 

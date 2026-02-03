@@ -36,6 +36,7 @@ export function purchaseOrderPrismaToDomain(
   return PurchaseOrder.create(
     {
       id: new UniqueEntityID(orderDb.id),
+      tenantId: new UniqueEntityID(orderDb.tenantId),
       orderNumber: orderDb.orderNumber,
       status: OrderStatus.create(orderDb.status),
       supplierId: new UniqueEntityID(orderDb.supplierId),

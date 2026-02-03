@@ -7,6 +7,7 @@ import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
 
 export interface UpdateVariantUseCaseInput {
+  tenantId: string;
   id: string;
   sku?: string;
   name?: string;
@@ -40,7 +41,10 @@ export class UpdateVariantUseCase {
 
   async execute(input: UpdateVariantUseCaseInput): Promise<Variant> {
     const variantId = new UniqueEntityID(input.id);
-    const variant = await this.variantsRepository.findById(variantId);
+    const variant = await this.variantsRepository.findById(
+      variantId,
+      input.tenantId,
+    );
 
     if (!variant) {
       throw new ResourceNotFoundError('Variant not found');
@@ -70,6 +74,7 @@ export class UpdateVariantUseCase {
       // Check if SKU is unique (excluding current variant)
       const existingVariant = await this.variantsRepository.findBySKU(
         input.sku,
+        input.tenantId,
       );
       if (existingVariant && !existingVariant.id.equals(variantId)) {
         throw new BadRequestError('SKU already exists');
@@ -136,6 +141,7 @@ export class UpdateVariantUseCase {
       if (input.barcode) {
         const existingVariant = await this.variantsRepository.findByBarcode(
           input.barcode,
+          input.tenantId,
         );
         if (existingVariant && !existingVariant.id.equals(variantId)) {
           throw new BadRequestError('Barcode already exists');
@@ -152,6 +158,7 @@ export class UpdateVariantUseCase {
       if (input.eanCode) {
         const existingVariant = await this.variantsRepository.findByEANCode(
           input.eanCode,
+          input.tenantId,
         );
         if (existingVariant && !existingVariant.id.equals(variantId)) {
           throw new BadRequestError('EAN code already exists');
@@ -168,6 +175,7 @@ export class UpdateVariantUseCase {
       if (input.upcCode) {
         const existingVariant = await this.variantsRepository.findByUPCCode(
           input.upcCode,
+          input.tenantId,
         );
         if (existingVariant && !existingVariant.id.equals(variantId)) {
           throw new BadRequestError('UPC code already exists');
@@ -182,11 +190,15 @@ export class UpdateVariantUseCase {
 
     // Validate attributes if provided
     if (input.attributes) {
-      const product = await this.productsRepository.findById(variant.productId);
+      const product = await this.productsRepository.findById(
+        variant.productId,
+        input.tenantId,
+      );
 
       if (product) {
         const template = await this.templatesRepository.findById(
           product.templateId,
+          input.tenantId,
         );
 
         if (template && template.variantAttributes) {

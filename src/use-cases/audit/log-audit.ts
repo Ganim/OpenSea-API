@@ -11,6 +11,7 @@ interface LogAuditUseCaseRequest {
   entityId: string;
   oldData?: Record<string, unknown> | null;
   newData?: Record<string, unknown> | null;
+  tenantId?: string | null;
   userId?: string | null;
   affectedUser?: string | null;
   ip?: string | null;
@@ -198,6 +199,7 @@ export class LogAuditUseCase {
       entityId,
       oldData,
       newData,
+      tenantId,
       userId,
       affectedUser,
       ip,
@@ -219,6 +221,7 @@ export class LogAuditUseCase {
         entityId,
         oldData: sanitizedOldData,
         newData: sanitizedNewData,
+        tenantId: tenantId ? new UniqueEntityID(tenantId) : null,
         userId: userId ? new UniqueEntityID(userId) : null,
         affectedUser,
         ip,

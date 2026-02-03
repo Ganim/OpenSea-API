@@ -16,6 +16,7 @@ describe('UpdateWarehouseUseCase', () => {
 
   async function createTestWarehouse() {
     return warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
       description: 'Descrição original',
@@ -28,6 +29,7 @@ describe('UpdateWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
       name: 'Novo Nome',
     });
@@ -40,6 +42,7 @@ describe('UpdateWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
       code: 'WH1',
     });
@@ -51,6 +54,7 @@ describe('UpdateWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
       description: 'Nova descrição',
     });
@@ -62,6 +66,7 @@ describe('UpdateWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
       description: null,
     });
@@ -73,6 +78,7 @@ describe('UpdateWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
       address: 'Novo endereço',
     });
@@ -84,6 +90,7 @@ describe('UpdateWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
       address: null,
     });
@@ -95,6 +102,7 @@ describe('UpdateWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
       isActive: false,
     });
@@ -106,6 +114,7 @@ describe('UpdateWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
       name: 'Novo Nome',
       description: 'Nova descrição',
@@ -120,6 +129,7 @@ describe('UpdateWarehouseUseCase', () => {
   it('should fail when warehouse is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
         name: 'Novo Nome',
       }),
@@ -131,6 +141,7 @@ describe('UpdateWarehouseUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: warehouse.warehouseId.toString(),
         code: 'F',
       }),
@@ -142,6 +153,7 @@ describe('UpdateWarehouseUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: warehouse.warehouseId.toString(),
         code: 'FABRIC',
       }),
@@ -152,12 +164,14 @@ describe('UpdateWarehouseUseCase', () => {
     const warehouse1 = await createTestWarehouse();
 
     await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'WH2',
       name: 'Warehouse 2',
     });
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: warehouse1.warehouseId.toString(),
         code: 'WH2',
       }),
@@ -168,6 +182,7 @@ describe('UpdateWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
       code: 'FAB',
       name: 'Novo Nome',

@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
 import type { CreateUserUseCase } from '@/use-cases/core/users/create-user';
@@ -9,6 +10,7 @@ import { CreateEmployeeWithUserUseCase } from './create-employee-with-user';
 let employeesRepository: InMemoryEmployeesRepository;
 let usersRepository: InMemoryUsersRepository;
 let sut: CreateEmployeeWithUserUseCase;
+const tenantId = new UniqueEntityID().toString();
 
 const mockCreateUserUseCase = {
   execute: async (data: { email: string }) => ({
@@ -34,6 +36,7 @@ describe('CreateEmployeeWithUserUseCase', () => {
   it('should throw BadRequestError for invalid contract type', async () => {
     await expect(() =>
       sut.execute({
+        tenantId,
         userEmail: 't@t.com',
         userPassword: 'P@123',
         registrationNumber: 'R1',
@@ -51,6 +54,7 @@ describe('CreateEmployeeWithUserUseCase', () => {
   it('should throw BadRequestError for invalid work regime', async () => {
     await expect(() =>
       sut.execute({
+        tenantId,
         userEmail: 't@t.com',
         userPassword: 'P@123',
         registrationNumber: 'R1',

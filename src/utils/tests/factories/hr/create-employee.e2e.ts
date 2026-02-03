@@ -7,6 +7,7 @@ import type {
 } from '@prisma/generated/client.js';
 
 interface CreateEmployeeE2EProps {
+  tenantId?: string;
   registrationNumber?: string;
   userId?: string;
   fullName?: string;
@@ -104,8 +105,24 @@ export async function createEmployeeE2E(override: CreateEmployeeE2EProps = {}) {
   const registrationNumber =
     override.registrationNumber ?? generateRegistrationNumber();
 
+  let tenantId = override.tenantId;
+  if (!tenantId) {
+    const timestamp = Date.now();
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `Auto Tenant ${timestamp}`,
+        slug: `auto-tenant-${timestamp}-${Math.random().toString(36).substring(2, 6)}`,
+        status: 'ACTIVE',
+        settings: {},
+        metadata: {},
+      },
+    });
+    tenantId = tenant.id;
+  }
+
   const employee = await prisma.employee.create({
     data: {
+      tenantId,
       registrationNumber,
       userId: override.userId,
       fullName: override.fullName ?? faker.person.fullName(),

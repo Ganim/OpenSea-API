@@ -7,6 +7,7 @@ import type { DepartmentsRepository } from '@/repositories/hr/departments-reposi
 import type { PositionsRepository } from '@/repositories/hr/positions-repository';
 
 export interface GetDepartmentByIdRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -29,8 +30,11 @@ export class GetDepartmentByIdUseCase {
   ): Promise<GetDepartmentByIdResponse> {
     const { id } = request;
 
+    const { tenantId } = request;
+
     const department = await this.departmentsRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!department) {
@@ -40,11 +44,13 @@ export class GetDepartmentByIdUseCase {
     // Get company
     const company = await this.companiesRepository.findById(
       department.companyId,
+      tenantId,
     );
 
     // Get positions in this department
     const positions = await this.positionsRepository.findManyByDepartment(
       department.id,
+      tenantId,
     );
 
     return {

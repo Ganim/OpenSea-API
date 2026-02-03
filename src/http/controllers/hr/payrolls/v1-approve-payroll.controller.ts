@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema, payrollResponseSchema } from '@/http/schemas';
 import { payrollToDTO } from '@/mappers/hr/payroll';
 import { makeApprovePayrollUseCase } from '@/use-cases/hr/payrolls/factories/make-approve-payroll-use-case';
@@ -16,6 +17,7 @@ export async function approvePayrollController(app: FastifyInstance) {
     url: '/v1/hr/payrolls/:payrollId/approve',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.PAYROLLS.MANAGE,
         resource: 'payrolls',
@@ -43,12 +45,14 @@ export async function approvePayrollController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { payrollId } = request.params;
       const userId = request.user.sub;
 
       try {
         const approvePayrollUseCase = makeApprovePayrollUseCase();
         const { payroll } = await approvePayrollUseCase.execute({
+          tenantId,
           payrollId,
           approvedBy: userId,
         });

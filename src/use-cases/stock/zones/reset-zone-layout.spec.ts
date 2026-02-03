@@ -20,6 +20,7 @@ describe('ResetZoneLayoutUseCase', () => {
 
   it('should reset zone layout to null', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Main Warehouse',
     });
@@ -35,6 +36,7 @@ describe('ResetZoneLayoutUseCase', () => {
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'Z1',
       name: 'Zone 1',
@@ -49,6 +51,7 @@ describe('ResetZoneLayoutUseCase', () => {
     expect(zone.layout).toBeDefined();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
     });
 
@@ -57,11 +60,13 @@ describe('ResetZoneLayoutUseCase', () => {
 
   it('should handle reset when layout is already null', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Main Warehouse',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'Z2',
       name: 'Zone 2',
@@ -75,6 +80,7 @@ describe('ResetZoneLayoutUseCase', () => {
     expect(zone.layout).toBeNull();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
     });
 
@@ -82,10 +88,15 @@ describe('ResetZoneLayoutUseCase', () => {
   });
 
   it('should throw when zone does not exist', async () => {
-    await warehousesRepository.create({ code: 'FAB', name: 'Main Warehouse' });
+    await warehousesRepository.create({
+      tenantId: 'tenant-1',
+      code: 'FAB',
+      name: 'Main Warehouse',
+    });
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         zoneId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);

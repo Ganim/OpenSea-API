@@ -3,6 +3,7 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 import { AbsenceStatus, AbsenceType } from './value-objects';
 
 export interface AbsenceProps {
+  tenantId: UniqueEntityID;
   employeeId: UniqueEntityID;
   type: AbsenceType;
   status: AbsenceStatus;
@@ -25,6 +26,10 @@ export interface AbsenceProps {
 }
 
 export class Absence extends Entity<AbsenceProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get employeeId(): UniqueEntityID {
     return this.props.employeeId;
   }

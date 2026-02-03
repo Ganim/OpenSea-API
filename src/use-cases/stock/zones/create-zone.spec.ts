@@ -19,6 +19,7 @@ describe('CreateZoneUseCase', () => {
 
   async function createTestWarehouse() {
     return warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
@@ -28,6 +29,7 @@ describe('CreateZoneUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId.toString(),
       code: 'EST',
       name: 'Estoque',
@@ -44,6 +46,7 @@ describe('CreateZoneUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId.toString(),
       code: 'EST',
       name: 'Estoque',
@@ -57,6 +60,7 @@ describe('CreateZoneUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId.toString(),
       code: 'OLD',
       name: 'Zona Antiga',
@@ -70,6 +74,7 @@ describe('CreateZoneUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId.toString(),
       code: 'EST',
       name: 'Estoque',
@@ -89,6 +94,7 @@ describe('CreateZoneUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId.toString(),
       code: 'EST',
       name: 'Estoque',
@@ -114,6 +120,7 @@ describe('CreateZoneUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId.toString(),
       code: 'est',
       name: 'Estoque',
@@ -126,6 +133,7 @@ describe('CreateZoneUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId.toString(),
       code: 'AB',
       name: 'Zone AB',
@@ -138,6 +146,7 @@ describe('CreateZoneUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId.toString(),
       code: 'ESTQE',
       name: 'Estoque',
@@ -151,6 +160,7 @@ describe('CreateZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         warehouseId: warehouse.warehouseId.toString(),
         code: 'E',
         name: 'Estoque',
@@ -163,6 +173,7 @@ describe('CreateZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         warehouseId: warehouse.warehouseId.toString(),
         code: 'ESTOQU',
         name: 'Estoque',
@@ -173,6 +184,7 @@ describe('CreateZoneUseCase', () => {
   it('should fail when warehouse does not exist', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         warehouseId: new UniqueEntityID().toString(),
         code: 'EST',
         name: 'Estoque',
@@ -184,6 +196,7 @@ describe('CreateZoneUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId.toString(),
       code: 'EST',
       name: 'Estoque 1',
@@ -191,6 +204,7 @@ describe('CreateZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         warehouseId: warehouse.warehouseId.toString(),
         code: 'EST',
         name: 'Estoque 2',
@@ -201,17 +215,20 @@ describe('CreateZoneUseCase', () => {
   it('should allow same code in different warehouses', async () => {
     const warehouse1 = await createTestWarehouse();
     const warehouse2 = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'WH2',
       name: 'Warehouse 2',
     });
 
     await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse1.warehouseId.toString(),
       code: 'EST',
       name: 'Estoque FAB',
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       warehouseId: warehouse2.warehouseId.toString(),
       code: 'EST',
       name: 'Estoque WH2',
@@ -225,6 +242,7 @@ describe('CreateZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         warehouseId: warehouse.warehouseId.toString(),
         code: 'EST',
         name: 'Estoque',
@@ -238,6 +256,7 @@ describe('CreateZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         warehouseId: warehouse.warehouseId.toString(),
         code: 'EST',
         name: 'Estoque',
@@ -251,6 +270,7 @@ describe('CreateZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         warehouseId: warehouse.warehouseId.toString(),
         code: 'EST',
         name: 'Estoque',
@@ -264,6 +284,7 @@ describe('CreateZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         warehouseId: warehouse.warehouseId.toString(),
         code: 'EST',
         name: 'Estoque',

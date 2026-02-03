@@ -39,17 +39,20 @@ async function createTestBin(
   binsRepo: InMemoryBinsRepository,
   code: string,
 ) {
-  let warehouse = await warehousesRepo.findByCode('FAB');
+  const tenantId = 'tenant-1';
+  let warehouse = await warehousesRepo.findByCode('FAB', tenantId);
   if (!warehouse) {
     warehouse = await warehousesRepo.create({
+      tenantId,
       code: 'FAB',
       name: 'Fábrica Principal',
     });
   }
 
-  let zone = await zonesRepo.findByCode(warehouse.warehouseId, 'EST');
+  let zone = await zonesRepo.findByCode(warehouse.warehouseId, 'EST', tenantId);
   if (!zone) {
     zone = await zonesRepo.create({
+      tenantId,
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
@@ -57,6 +60,7 @@ async function createTestBin(
   }
 
   const bin = await binsRepo.create({
+    tenantId,
     zoneId: zone.zoneId,
     address: `FAB-EST-${code}`,
     aisle: 1,
@@ -107,11 +111,13 @@ describe('RegisterItemEntryUseCase', () => {
 
   it('should be able to register an item entry', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -120,6 +126,7 @@ describe('RegisterItemEntryUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -136,6 +143,7 @@ describe('RegisterItemEntryUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const result = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-001',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -155,11 +163,13 @@ describe('RegisterItemEntryUseCase', () => {
 
   it('should be able to register item entry with batch and dates', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -168,6 +178,7 @@ describe('RegisterItemEntryUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -186,6 +197,7 @@ describe('RegisterItemEntryUseCase', () => {
     const expiryDate = new Date('2027-12-31');
 
     const result = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-002',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -204,11 +216,13 @@ describe('RegisterItemEntryUseCase', () => {
 
   it('should auto-generate unique code when not provided', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product Auto Code',
 
       status: 'ACTIVE',
@@ -217,6 +231,7 @@ describe('RegisterItemEntryUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-A',
       name: 'Test Variant Auto',
@@ -233,6 +248,7 @@ describe('RegisterItemEntryUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const result = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
       quantity: 100,
@@ -247,6 +263,7 @@ describe('RegisterItemEntryUseCase', () => {
   it('should not allow unique code exceeding 128 characters', async () => {
     await expect(() =>
       registerItemEntry.execute({
+        tenantId: 'tenant-1',
         uniqueCode: 'A'.repeat(129),
         variantId: new UniqueEntityID().toString(),
         binId: new UniqueEntityID().toString(),
@@ -258,11 +275,13 @@ describe('RegisterItemEntryUseCase', () => {
 
   it('should not allow duplicate unique code', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -271,6 +290,7 @@ describe('RegisterItemEntryUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -287,6 +307,7 @@ describe('RegisterItemEntryUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-DUPLICATE',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -296,6 +317,7 @@ describe('RegisterItemEntryUseCase', () => {
 
     await expect(() =>
       registerItemEntry.execute({
+        tenantId: 'tenant-1',
         uniqueCode: 'ITEM-DUPLICATE',
         variantId: variant.id.toString(),
         binId: bin.binId.toString(),
@@ -308,6 +330,7 @@ describe('RegisterItemEntryUseCase', () => {
   it('should not allow negative or zero quantity', async () => {
     await expect(() =>
       registerItemEntry.execute({
+        tenantId: 'tenant-1',
         uniqueCode: 'ITEM-003',
         variantId: new UniqueEntityID().toString(),
         binId: new UniqueEntityID().toString(),
@@ -318,6 +341,7 @@ describe('RegisterItemEntryUseCase', () => {
 
     await expect(() =>
       registerItemEntry.execute({
+        tenantId: 'tenant-1',
         uniqueCode: 'ITEM-004',
         variantId: new UniqueEntityID().toString(),
         binId: new UniqueEntityID().toString(),
@@ -337,6 +361,7 @@ describe('RegisterItemEntryUseCase', () => {
 
     await expect(() =>
       registerItemEntry.execute({
+        tenantId: 'tenant-1',
         uniqueCode: 'ITEM-005',
         variantId: new UniqueEntityID().toString(),
         binId: bin.binId.toString(),
@@ -348,11 +373,13 @@ describe('RegisterItemEntryUseCase', () => {
 
   it('should not allow non-existent bin', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -361,6 +388,7 @@ describe('RegisterItemEntryUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -369,6 +397,7 @@ describe('RegisterItemEntryUseCase', () => {
 
     await expect(() =>
       registerItemEntry.execute({
+        tenantId: 'tenant-1',
         uniqueCode: 'ITEM-006',
         variantId: variant.id.toString(),
         binId: new UniqueEntityID().toString(),
@@ -380,11 +409,13 @@ describe('RegisterItemEntryUseCase', () => {
 
   it('should not allow manufacturing date after expiry date', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -393,6 +424,7 @@ describe('RegisterItemEntryUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -408,6 +440,7 @@ describe('RegisterItemEntryUseCase', () => {
 
     await expect(() =>
       registerItemEntry.execute({
+        tenantId: 'tenant-1',
         uniqueCode: 'ITEM-007',
         variantId: variant.id.toString(),
         binId: bin.binId.toString(),
@@ -421,11 +454,13 @@ describe('RegisterItemEntryUseCase', () => {
 
   it('should not allow expiry date in the past', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -434,6 +469,7 @@ describe('RegisterItemEntryUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -449,6 +485,7 @@ describe('RegisterItemEntryUseCase', () => {
 
     await expect(() =>
       registerItemEntry.execute({
+        tenantId: 'tenant-1',
         uniqueCode: 'ITEM-008',
         variantId: variant.id.toString(),
         binId: bin.binId.toString(),
@@ -461,11 +498,13 @@ describe('RegisterItemEntryUseCase', () => {
 
   it('should persist unitCost when provided', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -474,6 +513,7 @@ describe('RegisterItemEntryUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -490,6 +530,7 @@ describe('RegisterItemEntryUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const result = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-COST-001',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -508,11 +549,13 @@ describe('RegisterItemEntryUseCase', () => {
 
   it('should work without unitCost (optional field)', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -521,6 +564,7 @@ describe('RegisterItemEntryUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -537,6 +581,7 @@ describe('RegisterItemEntryUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const result = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-NO-COST',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -550,12 +595,14 @@ describe('RegisterItemEntryUseCase', () => {
 
   it('should not allow invalid item attributes not in template', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
       itemAttributes: { serialNumber: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Smartphone',
 
       status: 'ACTIVE',
@@ -564,6 +611,7 @@ describe('RegisterItemEntryUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'PHONE-001-BLK',
       name: 'Smartphone Black',
@@ -579,6 +627,7 @@ describe('RegisterItemEntryUseCase', () => {
 
     await expect(() =>
       registerItemEntry.execute({
+        tenantId: 'tenant-1',
         uniqueCode: 'ITEM-009',
         variantId: variant.id.toString(),
         binId: bin.binId.toString(),

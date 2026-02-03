@@ -17,8 +17,8 @@ describe('Delete Bonus (E2E)', () => {
 
   it('should delete bonus with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
-    const bonus = await createBonus(employeeId);
+    const { employeeId, employee } = await createEmployeeE2E();
+    const bonus = await createBonus(employee.tenantId, employeeId);
 
     const response = await request(app.server)
       .delete(`/v1/hr/bonuses/${bonus.id}`)

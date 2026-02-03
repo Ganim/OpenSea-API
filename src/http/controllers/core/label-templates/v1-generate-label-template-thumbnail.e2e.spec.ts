@@ -19,7 +19,7 @@ describe('Generate Label Template Thumbnail (E2E)', () => {
   });
 
   it('should generate label template thumbnail with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app, { organizationId });
+    const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
     const createResponse = await request(app.server)

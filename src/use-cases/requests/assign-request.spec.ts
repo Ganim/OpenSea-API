@@ -33,7 +33,7 @@ describe('AssignRequestUseCase', () => {
     const req = Request.create({
       title: 'Test',
       description: 'Desc',
-      type: 'GENERAL',
+      type: 'CUSTOM',
       status: 'SUBMITTED',
       priority: 'MEDIUM',
       requesterId: reqId,

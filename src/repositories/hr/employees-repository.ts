@@ -13,6 +13,7 @@ import {
 } from '@/entities/hr/value-objects';
 
 export interface CreateEmployeeSchema {
+  tenantId: string;
   registrationNumber: string;
   userId?: UniqueEntityID;
   fullName: string;
@@ -135,39 +136,61 @@ export interface EmployeesRepository {
   create(data: CreateEmployeeSchema): Promise<Employee>;
   findById(
     id: UniqueEntityID,
+    tenantId: string,
     includeDeleted?: boolean,
   ): Promise<Employee | null>;
   findByRegistrationNumber(
     registrationNumber: string,
+    tenantId: string,
     includeDeleted?: boolean,
   ): Promise<Employee | null>;
-  findByCpf(cpf: CPF, includeDeleted?: boolean): Promise<Employee | null>;
+  findByCpf(
+    cpf: CPF,
+    tenantId: string,
+    includeDeleted?: boolean,
+  ): Promise<Employee | null>;
   findByUserId(
     userId: UniqueEntityID,
+    tenantId: string,
     includeDeleted?: boolean,
   ): Promise<Employee | null>;
-  findByPis(pis: PIS, includeDeleted?: boolean): Promise<Employee | null>;
-  findMany(includeDeleted?: boolean): Promise<Employee[]>;
+  findByPis(
+    pis: PIS,
+    tenantId: string,
+    includeDeleted?: boolean,
+  ): Promise<Employee | null>;
+  findMany(tenantId: string, includeDeleted?: boolean): Promise<Employee[]>;
   findManyByStatus(
     status: EmployeeStatus,
+    tenantId: string,
     includeDeleted?: boolean,
   ): Promise<Employee[]>;
   findManyByDepartment(
     departmentId: UniqueEntityID,
+    tenantId: string,
     includeDeleted?: boolean,
   ): Promise<Employee[]>;
   findManyByPosition(
     positionId: UniqueEntityID,
+    tenantId: string,
     includeDeleted?: boolean,
   ): Promise<Employee[]>;
   findManyBySupervisor(
     supervisorId: UniqueEntityID,
+    tenantId: string,
     includeDeleted?: boolean,
   ): Promise<Employee[]>;
-  findManyActive(includeDeleted?: boolean): Promise<Employee[]>;
-  findManyTerminated(includeDeleted?: boolean): Promise<Employee[]>;
+  findManyActive(
+    tenantId: string,
+    includeDeleted?: boolean,
+  ): Promise<Employee[]>;
+  findManyTerminated(
+    tenantId: string,
+    includeDeleted?: boolean,
+  ): Promise<Employee[]>;
   findManyByCompany(
     companyId: UniqueEntityID,
+    tenantId: string,
     includeDeleted?: boolean,
   ): Promise<Employee[]>;
   update(data: UpdateEmployeeSchema): Promise<Employee | null>;

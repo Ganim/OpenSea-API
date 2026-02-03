@@ -31,6 +31,7 @@ export class InMemoryTenantsRepository implements TenantsRepository {
     if (!tenant) return null;
 
     if (data.name !== undefined) tenant.name = data.name;
+    if (data.slug !== undefined) tenant.slug = data.slug;
     if (data.logoUrl !== undefined) tenant.logoUrl = data.logoUrl;
     if (data.status !== undefined) tenant.status = data.status;
     if (data.settings !== undefined) tenant.settings = data.settings;

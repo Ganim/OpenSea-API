@@ -9,6 +9,7 @@ import { PermissionsRepository } from '@/repositories/rbac/permissions-repositor
 import { UserPermissionGroupsRepository } from '@/repositories/rbac/user-permission-groups-repository';
 
 interface ListPermissionGroupsRequest {
+  tenantId?: string;
   isActive?: boolean;
   isSystem?: boolean;
   parentId?: string | null;
@@ -38,11 +39,14 @@ export class ListPermissionGroupsUseCase {
   ) {}
 
   async execute({
+    tenantId,
     isActive,
     isSystem,
     parentId,
   }: ListPermissionGroupsRequest): Promise<ListPermissionGroupsResponse> {
     let groups: PermissionGroup[];
+
+    const tenantIdEntity = tenantId ? new UniqueEntityID(tenantId) : undefined;
 
     // Listar grupos de sistema
     if (isSystem === true) {
@@ -54,7 +58,24 @@ export class ListPermissionGroupsUseCase {
       groups =
         await this.permissionGroupsRepository.listByParentId(parentIdEntity);
     }
-    // Listar todos
+    // Listar com escopo de tenant (tenant groups + system/global groups)
+    else if (tenantIdEntity) {
+      const tenantGroups =
+        await this.permissionGroupsRepository.listByTenantId(tenantIdEntity);
+      const systemGroups =
+        await this.permissionGroupsRepository.listSystemGroups();
+
+      // Merge tenant-specific groups with system (global) groups, avoiding duplicates
+      const groupIds = new Set(tenantGroups.map((g) => g.id.toString()));
+      const mergedGroups = [...tenantGroups];
+      for (const sysGroup of systemGroups) {
+        if (!groupIds.has(sysGroup.id.toString())) {
+          mergedGroups.push(sysGroup);
+        }
+      }
+      groups = mergedGroups;
+    }
+    // Listar todos (sem escopo de tenant - para super admin ou contexto sem tenant)
     else {
       groups = await this.permissionGroupsRepository.listAll();
     }

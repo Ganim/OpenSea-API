@@ -19,6 +19,7 @@ export class InMemoryCompaniesRepository implements CompaniesRepository {
     const id = new UniqueEntityID();
     const company = Company.create(
       {
+        tenantId: new UniqueEntityID(data.tenantId),
         legalName: data.legalName,
         cnpj: data.cnpj,
         tradeName: data.tradeName,
@@ -60,23 +61,31 @@ export class InMemoryCompaniesRepository implements CompaniesRepository {
     return company;
   }
 
-  async findById(id: UniqueEntityID): Promise<Company | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Company | null> {
     const company = this.items.find(
-      (item) => item.id.equals(id) && !item.deletedAt,
+      (item) =>
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
     );
     return company || null;
   }
 
   async findByCnpj(
     cnpj: string,
+    tenantId: string,
     includeDeleted = false,
   ): Promise<Company | null> {
     const company = this.items.find((item) => {
       const cnpjMatch = item.cnpj === cnpj;
+      const tenantMatch = item.tenantId.toString() === tenantId;
       if (includeDeleted) {
-        return cnpjMatch;
+        return cnpjMatch && tenantMatch;
       }
-      return cnpjMatch && !item.deletedAt;
+      return cnpjMatch && tenantMatch && !item.deletedAt;
     });
     return company || null;
   }
@@ -84,11 +93,19 @@ export class InMemoryCompaniesRepository implements CompaniesRepository {
   async findMany(
     params: FindManyCompaniesParams,
   ): Promise<FindManyCompaniesResult> {
-    const { page = 1, perPage = 20, search, includeDeleted = false } = params;
+    const {
+      tenantId,
+      page = 1,
+      perPage = 20,
+      search,
+      includeDeleted = false,
+    } = params;
 
-    let filteredItems = this.items.filter((item) =>
-      includeDeleted ? true : !item.deletedAt,
-    );
+    let filteredItems = this.items.filter((item) => {
+      const tenantMatch = item.tenantId.toString() === tenantId;
+      const deletedMatch = includeDeleted ? true : !item.deletedAt;
+      return tenantMatch && deletedMatch;
+    });
 
     if (search) {
       const searchLower = search.toLowerCase();
@@ -106,16 +123,22 @@ export class InMemoryCompaniesRepository implements CompaniesRepository {
     return { companies, total };
   }
 
-  async findManyActive(): Promise<Company[]> {
-    return this.items.filter((item) => !item.deletedAt);
+  async findManyActive(tenantId: string): Promise<Company[]> {
+    return this.items.filter(
+      (item) => item.tenantId.toString() === tenantId && !item.deletedAt,
+    );
   }
 
-  async findManyInactive(): Promise<Company[]> {
-    return this.items.filter((item) => item.deletedAt);
+  async findManyInactive(tenantId: string): Promise<Company[]> {
+    return this.items.filter(
+      (item) => item.tenantId.toString() === tenantId && item.deletedAt,
+    );
   }
 
   async update(data: UpdateCompanySchema): Promise<Company | null> {
-    const company = await this.findById(data.id);
+    const company = this.items.find(
+      (item) => item.id.equals(data.id) && !item.deletedAt,
+    );
     if (!company) {
       return null;
     }
@@ -200,7 +223,9 @@ export class InMemoryCompaniesRepository implements CompaniesRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const company = await this.findById(id);
+    const company = this.items.find(
+      (item) => item.id.equals(id) && !item.deletedAt,
+    );
     if (company) {
       company.delete();
       await this.save(company);

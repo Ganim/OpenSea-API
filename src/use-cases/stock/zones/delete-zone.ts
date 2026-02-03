@@ -5,6 +5,7 @@ import type { ZonesRepository } from '@/repositories/stock/zones-repository';
 import type { BinsRepository } from '@/repositories/stock/bins-repository';
 
 interface DeleteZoneUseCaseRequest {
+  tenantId: string;
   id: string;
   forceDeleteBins?: boolean;
 }
@@ -21,13 +22,14 @@ export class DeleteZoneUseCase {
   ) {}
 
   async execute({
+    tenantId,
     id,
     forceDeleteBins = false,
   }: DeleteZoneUseCaseRequest): Promise<DeleteZoneUseCaseResponse> {
     const zoneId = new UniqueEntityID(id);
 
     // Check if zone exists
-    const zone = await this.zonesRepository.findById(zoneId);
+    const zone = await this.zonesRepository.findById(zoneId, tenantId);
 
     if (!zone) {
       throw new ResourceNotFoundError('Zone');

@@ -530,6 +530,38 @@ async function seedDemoTenant(adminUserId: string, freePlanId: string) {
     });
   }
 
+  // Create tenant-scoped permission groups for the demo tenant
+  const adminGroupForTenant = await prisma.permissionGroup.findFirst({
+    where: { slug: PermissionGroupSlugs.ADMIN, deletedAt: null, tenantId: null },
+  });
+
+  if (adminGroupForTenant) {
+    // Ensure the system admin group is linked to the demo tenant via UserPermissionGroup
+    // (system groups remain global, tenantId = null)
+    console.log(`   ✅ System permission groups available for tenant`);
+  }
+
+  // Create a tenant-specific "Gerente" group for the demo tenant
+  let tenantManagerGroup = await prisma.permissionGroup.findFirst({
+    where: { slug: 'gerente-demo', tenantId: tenant.id, deletedAt: null },
+  });
+
+  if (!tenantManagerGroup) {
+    tenantManagerGroup = await prisma.permissionGroup.create({
+      data: {
+        name: 'Gerente Demo',
+        slug: 'gerente-demo',
+        description: 'Grupo de gerentes do tenant demo.',
+        isSystem: false,
+        isActive: true,
+        color: '#10B981',
+        priority: 80,
+        tenantId: tenant.id,
+      },
+    });
+    console.log(`   ✅ Grupo "Gerente Demo" criado para tenant (tenantId: ${tenant.id})`);
+  }
+
   console.log(`   ✅ Tenant "Empresa Demo" (slug: empresa-demo)`);
   console.log(`   ✅ admin@teste.com como owner`);
   console.log(`   ✅ Plano Free atribuído`);

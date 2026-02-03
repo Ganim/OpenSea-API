@@ -12,6 +12,7 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
   async create(data: CreateWarehouseSchema): Promise<Warehouse> {
     const warehouseData = await prisma.warehouse.create({
       data: {
+        tenantId: data.tenantId,
         code: data.code.toUpperCase(),
         name: data.name,
         description: data.description ?? null,
@@ -22,6 +23,7 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
 
     return Warehouse.create(
       {
+        tenantId: new EntityID(warehouseData.tenantId),
         code: warehouseData.code,
         name: warehouseData.name,
         description: warehouseData.description,
@@ -34,10 +36,14 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<Warehouse | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Warehouse | null> {
     const warehouseData = await prisma.warehouse.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -48,6 +54,7 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
 
     return Warehouse.create(
       {
+        tenantId: new EntityID(warehouseData.tenantId),
         code: warehouseData.code,
         name: warehouseData.name,
         description: warehouseData.description,
@@ -60,13 +67,14 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
     );
   }
 
-  async findByCode(code: string): Promise<Warehouse | null> {
+  async findByCode(code: string, tenantId: string): Promise<Warehouse | null> {
     const warehouseData = await prisma.warehouse.findFirst({
       where: {
         code: {
           equals: code.toUpperCase(),
           mode: 'insensitive',
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -77,6 +85,7 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
 
     return Warehouse.create(
       {
+        tenantId: new EntityID(warehouseData.tenantId),
         code: warehouseData.code,
         name: warehouseData.name,
         description: warehouseData.description,
@@ -89,9 +98,10 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
     );
   }
 
-  async findMany(): Promise<Warehouse[]> {
+  async findMany(tenantId: string): Promise<Warehouse[]> {
     const warehouses = await prisma.warehouse.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
       orderBy: {
@@ -102,6 +112,7 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
     return warehouses.map((warehouseData) =>
       Warehouse.create(
         {
+          tenantId: new EntityID(warehouseData.tenantId),
           code: warehouseData.code,
           name: warehouseData.name,
           description: warehouseData.description,
@@ -115,9 +126,10 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
     );
   }
 
-  async findManyActive(): Promise<Warehouse[]> {
+  async findManyActive(tenantId: string): Promise<Warehouse[]> {
     const warehouses = await prisma.warehouse.findMany({
       where: {
+        tenantId,
         isActive: true,
         deletedAt: null,
       },
@@ -129,6 +141,7 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
     return warehouses.map((warehouseData) =>
       Warehouse.create(
         {
+          tenantId: new EntityID(warehouseData.tenantId),
           code: warehouseData.code,
           name: warehouseData.name,
           description: warehouseData.description,
@@ -167,6 +180,7 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
 
     return Warehouse.create(
       {
+        tenantId: new EntityID(warehouseData.tenantId),
         code: warehouseData.code,
         name: warehouseData.name,
         description: warehouseData.description,

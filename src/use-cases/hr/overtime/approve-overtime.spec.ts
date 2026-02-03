@@ -4,6 +4,8 @@ import { InMemoryTimeBankRepository } from '@/repositories/hr/in-memory/in-memor
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ApproveOvertimeUseCase } from './approve-overtime';
 
+const TENANT_ID = 'tenant-1';
+
 let overtimeRepository: InMemoryOvertimeRepository;
 let timeBankRepository: InMemoryTimeBankRepository;
 let sut: ApproveOvertimeUseCase;
@@ -20,6 +22,7 @@ describe('Approve Overtime Use Case', () => {
     const approverId = new UniqueEntityID();
 
     const overtime = await overtimeRepository.create({
+      tenantId: TENANT_ID,
       employeeId,
       date: new Date('2024-01-15'),
       hours: 2,
@@ -27,6 +30,7 @@ describe('Approve Overtime Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       overtimeId: overtime.id.toString(),
       approvedBy: approverId.toString(),
     });
@@ -41,6 +45,7 @@ describe('Approve Overtime Use Case', () => {
     const approverId = new UniqueEntityID();
 
     const overtime = await overtimeRepository.create({
+      tenantId: TENANT_ID,
       employeeId,
       date: new Date('2024-01-15'),
       hours: 3,
@@ -48,6 +53,7 @@ describe('Approve Overtime Use Case', () => {
     });
 
     await sut.execute({
+      tenantId: TENANT_ID,
       overtimeId: overtime.id.toString(),
       approvedBy: approverId.toString(),
       addToTimeBank: true,
@@ -56,6 +62,7 @@ describe('Approve Overtime Use Case', () => {
     const timeBank = await timeBankRepository.findByEmployeeAndYear(
       employeeId,
       2024,
+      TENANT_ID,
     );
 
     expect(timeBank).toBeDefined();
@@ -68,12 +75,14 @@ describe('Approve Overtime Use Case', () => {
 
     // Create existing time bank with 5 hours
     await timeBankRepository.create({
+      tenantId: TENANT_ID,
       employeeId,
       balance: 5,
       year: 2024,
     });
 
     const overtime = await overtimeRepository.create({
+      tenantId: TENANT_ID,
       employeeId,
       date: new Date('2024-01-15'),
       hours: 2,
@@ -81,6 +90,7 @@ describe('Approve Overtime Use Case', () => {
     });
 
     await sut.execute({
+      tenantId: TENANT_ID,
       overtimeId: overtime.id.toString(),
       approvedBy: approverId.toString(),
       addToTimeBank: true,
@@ -89,6 +99,7 @@ describe('Approve Overtime Use Case', () => {
     const timeBank = await timeBankRepository.findByEmployeeAndYear(
       employeeId,
       2024,
+      TENANT_ID,
     );
 
     expect(timeBank?.balance).toBe(7); // 5 + 2
@@ -97,6 +108,7 @@ describe('Approve Overtime Use Case', () => {
   it('should throw error if overtime not found', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         overtimeId: new UniqueEntityID().toString(),
         approvedBy: new UniqueEntityID().toString(),
       }),
@@ -108,6 +120,7 @@ describe('Approve Overtime Use Case', () => {
     const approverId = new UniqueEntityID();
 
     const overtime = await overtimeRepository.create({
+      tenantId: TENANT_ID,
       employeeId,
       date: new Date('2024-01-15'),
       hours: 2,
@@ -116,6 +129,7 @@ describe('Approve Overtime Use Case', () => {
 
     // Approve once
     await sut.execute({
+      tenantId: TENANT_ID,
       overtimeId: overtime.id.toString(),
       approvedBy: approverId.toString(),
     });
@@ -123,6 +137,7 @@ describe('Approve Overtime Use Case', () => {
     // Try to approve again
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         overtimeId: overtime.id.toString(),
         approvedBy: approverId.toString(),
       }),

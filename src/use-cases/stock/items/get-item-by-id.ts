@@ -5,6 +5,7 @@ import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
 import type { ItemsRepository } from '@/repositories/stock/items-repository';
 
 interface GetItemByIdUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -20,6 +21,7 @@ export class GetItemByIdUseCase {
   ): Promise<GetItemByIdUseCaseResponse> {
     const itemWithRelations = await this.itemsRepository.findByIdWithRelations(
       new UniqueEntityID(input.id),
+      input.tenantId,
     );
 
     if (!itemWithRelations) {

@@ -1,4 +1,4 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import type {
@@ -27,6 +27,7 @@ export class InMemoryItemsRepository implements ItemsRepository {
 
   async create(data: CreateItemSchema): Promise<Item> {
     const item = Item.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       uniqueCode: data.uniqueCode,
       slug: data.slug,
       fullCode: data.fullCode,
@@ -51,78 +52,134 @@ export class InMemoryItemsRepository implements ItemsRepository {
     return item;
   }
 
-  async findById(id: UniqueEntityID): Promise<Item | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Item | null> {
     const item = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
 
-  async findByUniqueCode(uniqueCode: string): Promise<Item | null> {
+  async findByUniqueCode(
+    uniqueCode: string,
+    tenantId: string,
+  ): Promise<Item | null> {
     const item = this.items.find(
-      (item) => !item.deletedAt && item.uniqueCode === uniqueCode,
+      (item) =>
+        !item.deletedAt &&
+        item.uniqueCode === uniqueCode &&
+        item.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
 
-  async findAll(): Promise<Item[]> {
-    return this.items.filter((item) => !item.deletedAt);
-  }
-
-  async findManyByVariant(variantId: UniqueEntityID): Promise<Item[]> {
+  async findAll(tenantId: string): Promise<Item[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.variantId.equals(variantId),
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
     );
   }
 
-  async findLastByVariantId(variantId: UniqueEntityID): Promise<Item | null> {
+  async findManyByVariant(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Item[]> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.variantId.equals(variantId) &&
+        item.tenantId.toString() === tenantId,
+    );
+  }
+
+  async findLastByVariantId(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Item | null> {
     const items = this.items
-      .filter((item) => !item.deletedAt && item.variantId.equals(variantId))
+      .filter(
+        (item) =>
+          !item.deletedAt &&
+          item.variantId.equals(variantId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => (b.sequentialCode ?? 0) - (a.sequentialCode ?? 0));
     return items[0] ?? null;
   }
 
-  async findManyByBin(binId: UniqueEntityID): Promise<Item[]> {
+  async findManyByBin(
+    binId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Item[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.binId?.equals(binId),
+      (item) =>
+        !item.deletedAt &&
+        item.binId?.equals(binId) &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyByStatus(status: ItemStatus): Promise<Item[]> {
+  async findManyByStatus(
+    status: ItemStatus,
+    tenantId: string,
+  ): Promise<Item[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.status.value === status.value,
+      (item) =>
+        !item.deletedAt &&
+        item.status.value === status.value &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyByBatch(batchNumber: string): Promise<Item[]> {
+  async findManyByBatch(
+    batchNumber: string,
+    tenantId: string,
+  ): Promise<Item[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.batchNumber === batchNumber,
+      (item) =>
+        !item.deletedAt &&
+        item.batchNumber === batchNumber &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyExpiring(daysUntilExpiry: number): Promise<Item[]> {
+  async findManyExpiring(
+    daysUntilExpiry: number,
+    tenantId: string,
+  ): Promise<Item[]> {
     return this.items.filter(
       (item) =>
         !item.deletedAt &&
         item.expiryDate !== null &&
         item.daysUntilExpiry !== null &&
         item.daysUntilExpiry <= daysUntilExpiry &&
-        item.daysUntilExpiry > 0,
+        item.daysUntilExpiry > 0 &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyExpired(): Promise<Item[]> {
-    return this.items.filter((item) => !item.deletedAt && item.isExpired);
+  async findManyExpired(tenantId: string): Promise<Item[]> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.isExpired &&
+        item.tenantId.toString() === tenantId,
+    );
   }
 
-  async findManyByProduct(_productId: UniqueEntityID): Promise<Item[]> {
+  async findManyByProduct(
+    _productId: UniqueEntityID,
+    _tenantId: string,
+  ): Promise<Item[]> {
     // In memory repository doesn't have product-variant relationship
     // For testing purposes, we'll return empty array
     return [];
   }
 
   async update(data: UpdateItemSchema): Promise<Item | null> {
-    const item = await this.findById(data.id);
+    const item =
+      this.items.find((i) => !i.deletedAt && i.id.equals(data.id)) ?? null;
     if (!item) return null;
 
     if (data.binId !== undefined) item.binId = data.binId;
@@ -148,7 +205,8 @@ export class InMemoryItemsRepository implements ItemsRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const item = await this.findById(id);
+    const item =
+      this.items.find((i) => !i.deletedAt && i.id.equals(id)) ?? null;
     if (item) {
       item.delete();
     }
@@ -182,8 +240,13 @@ export class InMemoryItemsRepository implements ItemsRepository {
     };
   }
 
-  async findAllWithRelations(): Promise<ItemWithRelationsDTO[]> {
-    const items = this.items.filter((item) => !item.deletedAt);
+  async findAllWithRelations(
+    tenantId: string,
+  ): Promise<ItemWithRelationsDTO[]> {
+    const items = this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
+
     return items.map((item) => ({
       item,
       relatedData: this.buildRelatedData(item),
@@ -192,9 +255,13 @@ export class InMemoryItemsRepository implements ItemsRepository {
 
   async findByIdWithRelations(
     id: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO | null> {
     const item = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     if (!item) return null;
     return {
@@ -205,10 +272,15 @@ export class InMemoryItemsRepository implements ItemsRepository {
 
   async findManyByVariantWithRelations(
     variantId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO[]> {
     const items = this.items.filter(
-      (item) => !item.deletedAt && item.variantId.equals(variantId),
+      (item) =>
+        !item.deletedAt &&
+        item.variantId.equals(variantId) &&
+        item.tenantId.toString() === tenantId,
     );
+
     return items.map((item) => ({
       item,
       relatedData: this.buildRelatedData(item),
@@ -217,6 +289,7 @@ export class InMemoryItemsRepository implements ItemsRepository {
 
   async findManyByProductWithRelations(
     productId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO[]> {
     // Filter items whose variant belongs to the product
     const variantIds = Array.from(this.relatedData.variants.entries())
@@ -225,8 +298,11 @@ export class InMemoryItemsRepository implements ItemsRepository {
 
     const items = this.items.filter(
       (item) =>
-        !item.deletedAt && variantIds.includes(item.variantId.toString()),
+        !item.deletedAt &&
+        variantIds.includes(item.variantId.toString()) &&
+        item.tenantId.toString() === tenantId,
     );
+
     return items.map((item) => ({
       item,
       relatedData: this.buildRelatedData(item),
@@ -235,10 +311,15 @@ export class InMemoryItemsRepository implements ItemsRepository {
 
   async findManyByBinWithRelations(
     binId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemWithRelationsDTO[]> {
     const items = this.items.filter(
-      (item) => !item.deletedAt && item.binId?.equals(binId),
+      (item) =>
+        !item.deletedAt &&
+        item.binId?.equals(binId) &&
+        item.tenantId.toString() === tenantId,
     );
+
     return items.map((item) => ({
       item,
       relatedData: this.buildRelatedData(item),

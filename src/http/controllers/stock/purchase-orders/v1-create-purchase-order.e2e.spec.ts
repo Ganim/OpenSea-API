@@ -20,8 +20,18 @@ describe('Create Purchase Order (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const supplier = await prisma.supplier.create({
       data: {
+        tenantId,
         name: `Supplier PO ${timestamp}`,
         isActive: true,
       },
@@ -29,6 +39,7 @@ describe('Create Purchase Order (E2E)', () => {
 
     const template = await prisma.template.create({
       data: {
+        tenantId,
         name: `Template PO ${timestamp}`,
         productAttributes: {},
         variantAttributes: {},
@@ -37,11 +48,13 @@ describe('Create Purchase Order (E2E)', () => {
     });
 
     const { product } = await createProduct({
+      tenantId,
       name: `Product PO ${timestamp}`,
       templateId: template.id,
     });
 
     const { variant } = await createVariant({
+      tenantId,
       productId: product.id,
       sku: `SKU-PO-${timestamp}`,
       name: `Variant PO ${timestamp}`,

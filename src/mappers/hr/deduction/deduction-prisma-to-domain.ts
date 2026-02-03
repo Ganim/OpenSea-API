@@ -3,6 +3,7 @@ import type { Deduction as PrismaDeduction } from '@prisma/generated/client.js';
 
 export function mapDeductionPrismaToDomain(deduction: PrismaDeduction) {
   return {
+    tenantId: new UniqueEntityID(deduction.tenantId),
     employeeId: new UniqueEntityID(deduction.employeeId),
     name: deduction.name,
     amount: Number(deduction.amount),

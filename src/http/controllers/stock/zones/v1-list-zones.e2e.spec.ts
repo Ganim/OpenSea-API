@@ -20,8 +20,18 @@ describe('List Zones (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now().toString();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const warehouse = await prisma.warehouse.create({
       data: {
+        tenantId,
         code: `W${timestamp.slice(-4)}`,
         name: `Warehouse ${timestamp}`,
       },
@@ -29,6 +39,7 @@ describe('List Zones (E2E)', () => {
 
     await prisma.zone.create({
       data: {
+        tenantId,
         warehouseId: warehouse.id,
         code: `Z1${timestamp.slice(-2)}`,
         name: `Zone 1 ${timestamp}`,
@@ -39,6 +50,7 @@ describe('List Zones (E2E)', () => {
 
     await prisma.zone.create({
       data: {
+        tenantId,
         warehouseId: warehouse.id,
         code: `Z2${timestamp.slice(-2)}`,
         name: `Zone 2 ${timestamp}`,

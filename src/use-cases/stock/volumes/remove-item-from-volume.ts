@@ -5,6 +5,7 @@ import {
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface RemoveItemFromVolumeUseCaseRequest {
+  tenantId: string;
   volumeId: string;
   itemId: string;
 }
@@ -20,7 +21,10 @@ export class RemoveItemFromVolumeUseCase {
     request: RemoveItemFromVolumeUseCaseRequest,
   ): Promise<RemoveItemFromVolumeUseCaseResponse> {
     // Verificar se volume existe
-    const volume = await this.volumesRepository.findById(request.volumeId);
+    const volume = await this.volumesRepository.findById(
+      request.volumeId,
+      request.tenantId,
+    );
     if (!volume) {
       throw new VolumeNotFoundError(request.volumeId);
     }

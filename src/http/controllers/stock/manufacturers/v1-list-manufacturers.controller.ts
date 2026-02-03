@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { manufacturerResponseSchema } from '@/http/schemas/stock/manufacturers';
 import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { makeListManufacturersUseCase } from '@/use-cases/stock/manufacturers/factories/make-list-manufacturers-use-case';
@@ -14,6 +15,7 @@ export async function listManufacturersController(app: FastifyInstance) {
     url: '/v1/manufacturers',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.MANUFACTURERS.LIST,
         resource: 'manufacturers',
@@ -30,10 +32,12 @@ export async function listManufacturersController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
 
-    handler: async (_request, reply) => {
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+
       const useCase = makeListManufacturersUseCase();
 
-      const result = await useCase.execute();
+      const result = await useCase.execute({ tenantId });
 
       return reply.send({
         manufacturers: result.manufacturers.map(manufacturerToDTO),

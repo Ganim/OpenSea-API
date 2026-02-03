@@ -3,6 +3,7 @@ import { WorkSchedule } from '@/entities/hr/work-schedule';
 import { WorkSchedulesRepository } from '@/repositories/hr/work-schedules-repository';
 
 export interface GetWorkScheduleRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -16,10 +17,11 @@ export class GetWorkScheduleUseCase {
   async execute(
     request: GetWorkScheduleRequest,
   ): Promise<GetWorkScheduleResponse> {
-    const { id } = request;
+    const { tenantId, id } = request;
 
     const workSchedule = await this.workSchedulesRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!workSchedule) {

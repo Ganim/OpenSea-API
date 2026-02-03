@@ -1,13 +1,18 @@
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { makePermissionGroup } from '@/utils/tests/factories/rbac/make-permission-group';
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('Update Permission Group (e2e)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const tenantSetup = await createAndSetupTenant();
+    tenantId = tenantSetup.tenantId;
   });
 
   afterAll(async () => {
@@ -15,8 +20,8 @@ describe('Update Permission Group (e2e)', () => {
   });
 
   it('should update permission group with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const group = await makePermissionGroup();
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+    const group = await makePermissionGroup({ tenantId });
 
     const updatedName = `Updated Group ${faker.string.uuid().slice(0, 8)}`;
     const response = await request(app.server)

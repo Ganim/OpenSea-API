@@ -4,6 +4,7 @@ import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface RequestSickLeaveRequest {
+  tenantId: string;
   employeeId: string;
   startDate: Date;
   endDate: Date;
@@ -27,6 +28,7 @@ export class RequestSickLeaveUseCase {
     request: RequestSickLeaveRequest,
   ): Promise<RequestSickLeaveResponse> {
     const {
+      tenantId,
       employeeId,
       startDate,
       endDate,
@@ -39,6 +41,7 @@ export class RequestSickLeaveUseCase {
     // Verify employee exists
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
     if (!employee) {
       throw new Error('Employee not found');
@@ -67,6 +70,7 @@ export class RequestSickLeaveUseCase {
       new UniqueEntityID(employeeId),
       startDate,
       endDate,
+      tenantId,
     );
 
     if (overlapping.length > 0) {
@@ -81,6 +85,7 @@ export class RequestSickLeaveUseCase {
 
     // Create sick leave absence (auto-approved since it has medical certificate)
     const absence = await this.absencesRepository.create({
+      tenantId,
       employeeId: new UniqueEntityID(employeeId),
       type: 'SICK_LEAVE',
       startDate,

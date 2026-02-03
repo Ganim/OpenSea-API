@@ -13,6 +13,7 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
   async create(data: CreateDeductionSchema): Promise<Deduction> {
     const deductionData = await prisma.deduction.create({
       data: {
+        tenantId: data.tenantId,
         employeeId: data.employeeId.toString(),
         name: data.name,
         amount: data.amount,
@@ -31,9 +32,12 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<Deduction | null> {
-    const deductionData = await prisma.deduction.findUnique({
-      where: { id: id.toString() },
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Deduction | null> {
+    const deductionData = await prisma.deduction.findFirst({
+      where: { id: id.toString(), tenantId },
     });
 
     if (!deductionData) return null;
@@ -44,9 +48,13 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
     );
   }
 
-  async findMany(filters?: FindDeductionFilters): Promise<Deduction[]> {
+  async findMany(
+    tenantId: string,
+    filters?: FindDeductionFilters,
+  ): Promise<Deduction[]> {
     const deductions = await prisma.deduction.findMany({
       where: {
+        tenantId,
         employeeId: filters?.employeeId?.toString(),
         isApplied: filters?.isApplied,
         isRecurring: filters?.isRecurring,
@@ -66,9 +74,13 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
     );
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<Deduction[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Deduction[]> {
     const deductions = await prisma.deduction.findMany({
       where: {
+        tenantId,
         employeeId: employeeId.toString(),
       },
       orderBy: { date: 'desc' },
@@ -82,9 +94,10 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
     );
   }
 
-  async findManyPending(): Promise<Deduction[]> {
+  async findManyPending(tenantId: string): Promise<Deduction[]> {
     const deductions = await prisma.deduction.findMany({
       where: {
+        tenantId,
         isApplied: false,
       },
       orderBy: { date: 'asc' },
@@ -100,9 +113,11 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
 
   async findManyPendingByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Deduction[]> {
     const deductions = await prisma.deduction.findMany({
       where: {
+        tenantId,
         employeeId: employeeId.toString(),
         isApplied: false,
       },
@@ -119,13 +134,15 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
 
   async findPendingByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Deduction[]> {
-    return this.findManyPendingByEmployee(employeeId);
+    return this.findManyPendingByEmployee(employeeId, tenantId);
   }
 
-  async findManyRecurring(): Promise<Deduction[]> {
+  async findManyRecurring(tenantId: string): Promise<Deduction[]> {
     const deductions = await prisma.deduction.findMany({
       where: {
+        tenantId,
         isRecurring: true,
       },
       orderBy: { date: 'asc' },
@@ -141,9 +158,11 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
 
   async findManyRecurringByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Deduction[]> {
     const deductions = await prisma.deduction.findMany({
       where: {
+        tenantId,
         employeeId: employeeId.toString(),
         isRecurring: true,
       },
@@ -158,9 +177,14 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
     );
   }
 
-  async findManyByPeriod(startDate: Date, endDate: Date): Promise<Deduction[]> {
+  async findManyByPeriod(
+    startDate: Date,
+    endDate: Date,
+    tenantId: string,
+  ): Promise<Deduction[]> {
     const deductions = await prisma.deduction.findMany({
       where: {
+        tenantId,
         date: {
           gte: startDate,
           lte: endDate,
@@ -177,10 +201,14 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
     );
   }
 
-  async sumPendingByEmployee(employeeId: UniqueEntityID): Promise<number> {
+  async sumPendingByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<number> {
     const result = await prisma.deduction.aggregate({
       _sum: { amount: true },
       where: {
+        tenantId,
         employeeId: employeeId.toString(),
         isApplied: false,
       },

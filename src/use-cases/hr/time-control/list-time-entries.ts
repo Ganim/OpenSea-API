@@ -4,6 +4,7 @@ import { TimeEntryType } from '@/entities/hr/value-objects';
 import { TimeEntriesRepository } from '@/repositories/hr/time-entries-repository';
 
 export interface ListTimeEntriesRequest {
+  tenantId: string;
   employeeId?: string;
   startDate?: Date;
   endDate?: Date;
@@ -21,9 +22,10 @@ export class ListTimeEntriesUseCase {
   async execute(
     request: ListTimeEntriesRequest,
   ): Promise<ListTimeEntriesResponse> {
-    const { employeeId, startDate, endDate, entryType } = request;
+    const { tenantId, employeeId, startDate, endDate, entryType } = request;
 
     const timeEntries = await this.timeEntriesRepository.findMany({
+      tenantId,
       employeeId: employeeId ? new UniqueEntityID(employeeId) : undefined,
       startDate,
       endDate,

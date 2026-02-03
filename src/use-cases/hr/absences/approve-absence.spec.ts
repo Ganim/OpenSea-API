@@ -12,6 +12,7 @@ let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let sut: ApproveAbsenceUseCase;
 let testAbsence: Absence;
 let testVacationPeriod: VacationPeriod;
+const tenantId = new UniqueEntityID().toString();
 const employeeId = new UniqueEntityID();
 
 describe('Approve Absence Use Case', () => {
@@ -25,6 +26,7 @@ describe('Approve Absence Use Case', () => {
 
     // Create vacation period
     testVacationPeriod = await vacationPeriodsRepository.create({
+      tenantId,
       employeeId,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -39,6 +41,7 @@ describe('Approve Absence Use Case', () => {
 
     // Create pending vacation absence
     testAbsence = Absence.create({
+      tenantId: new UniqueEntityID(tenantId),
       employeeId,
       type: AbsenceType.create('VACATION'),
       status: AbsenceStatus.pending(),
@@ -57,6 +60,7 @@ describe('Approve Absence Use Case', () => {
     const approverId = new UniqueEntityID();
 
     const result = await sut.execute({
+      tenantId,
       absenceId: testAbsence.id.toString(),
       approvedBy: approverId.toString(),
     });
@@ -71,12 +75,14 @@ describe('Approve Absence Use Case', () => {
     const approverId = new UniqueEntityID();
 
     await sut.execute({
+      tenantId,
       absenceId: testAbsence.id.toString(),
       approvedBy: approverId.toString(),
     });
 
     const updatedPeriod = await vacationPeriodsRepository.findById(
       testVacationPeriod.id,
+      tenantId,
     );
 
     expect(updatedPeriod).toBeDefined();
@@ -86,6 +92,7 @@ describe('Approve Absence Use Case', () => {
   it('should throw error if absence not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         absenceId: new UniqueEntityID().toString(),
         approvedBy: new UniqueEntityID().toString(),
       }),
@@ -99,6 +106,7 @@ describe('Approve Absence Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         absenceId: testAbsence.id.toString(),
         approvedBy: new UniqueEntityID().toString(),
       }),
@@ -107,6 +115,7 @@ describe('Approve Absence Use Case', () => {
 
   it('should approve sick leave without vacation period update', async () => {
     const sickLeave = Absence.create({
+      tenantId: new UniqueEntityID(tenantId),
       employeeId,
       type: AbsenceType.create('SICK_LEAVE'),
       status: AbsenceStatus.pending(),
@@ -121,6 +130,7 @@ describe('Approve Absence Use Case', () => {
     absencesRepository.items.push(sickLeave);
 
     const result = await sut.execute({
+      tenantId,
       absenceId: sickLeave.id.toString(),
       approvedBy: new UniqueEntityID().toString(),
     });

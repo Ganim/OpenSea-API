@@ -23,6 +23,7 @@ function padCode(seq: number, digits: number): string {
 }
 
 interface CreateProductUseCaseRequest {
+  tenantId: string;
   name: string;
   description?: string;
   status?: string;
@@ -49,6 +50,7 @@ export class CreateProductUseCase {
     request: CreateProductUseCaseRequest,
   ): Promise<CreateProductUseCaseResponse> {
     const {
+      tenantId,
       name,
       description,
       status,
@@ -69,7 +71,10 @@ export class CreateProductUseCase {
     }
 
     // Check if product with same name already exists
-    const existingProduct = await this.productsRepository.findByName(name);
+    const existingProduct = await this.productsRepository.findByName(
+      name,
+      tenantId,
+    );
     if (existingProduct) {
       throw new BadRequestError('Product with this name already exists');
     }
@@ -100,6 +105,7 @@ export class CreateProductUseCase {
     // Validate template exists
     const template = await this.templatesRepository.findById(
       new UniqueEntityID(templateId),
+      tenantId,
     );
     if (!template) {
       throw new ResourceNotFoundError('Template not found');
@@ -109,6 +115,7 @@ export class CreateProductUseCase {
     if (supplierId) {
       const supplier = await this.suppliersRepository.findById(
         new UniqueEntityID(supplierId),
+        tenantId,
       );
       if (!supplier) {
         throw new ResourceNotFoundError('Supplier not found');
@@ -119,6 +126,7 @@ export class CreateProductUseCase {
     if (manufacturerId) {
       const manufacturer = await this.manufacturersRepository.findById(
         new UniqueEntityID(manufacturerId),
+        tenantId,
       );
       if (!manufacturer) {
         throw new ResourceNotFoundError('Manufacturer not found');
@@ -137,6 +145,7 @@ export class CreateProductUseCase {
     if (manufacturerId) {
       const manufacturer = await this.manufacturersRepository.findById(
         new UniqueEntityID(manufacturerId),
+        tenantId,
       );
       if (manufacturer) {
         manufacturerCode = manufacturer.code;
@@ -159,6 +168,7 @@ export class CreateProductUseCase {
 
     // Save to repository
     const createdProduct = await this.productsRepository.create({
+      tenantId,
       name,
       slug,
       fullCode,

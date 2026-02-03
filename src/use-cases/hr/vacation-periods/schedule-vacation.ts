@@ -5,6 +5,7 @@ import type { VacationPeriod } from '@/entities/hr/vacation-period';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
 
 export interface ScheduleVacationRequest {
+  tenantId: string;
   vacationPeriodId: string;
   startDate: Date;
   endDate: Date;
@@ -21,10 +22,11 @@ export class ScheduleVacationUseCase {
   async execute(
     request: ScheduleVacationRequest,
   ): Promise<ScheduleVacationResponse> {
-    const { vacationPeriodId, startDate, endDate, days } = request;
+    const { tenantId, vacationPeriodId, startDate, endDate, days } = request;
 
     const vacationPeriod = await this.vacationPeriodsRepository.findById(
       new UniqueEntityID(vacationPeriodId),
+      tenantId,
     );
 
     if (!vacationPeriod) {

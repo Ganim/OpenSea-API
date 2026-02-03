@@ -9,6 +9,7 @@ export function mapPositionPrismaToDomain(
   }>,
 ) {
   return {
+    tenantId: new UniqueEntityID(positionDb.tenantId),
     name: positionDb.name,
     code: positionDb.code,
     description: positionDb.description ?? undefined,

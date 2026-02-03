@@ -5,10 +5,15 @@ import { app } from '@/app';
 import { makeCreateCompanyUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import { makeCreateCompanyStakeholderUseCase } from '@/use-cases/hr/company-stakeholder/factories';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Delete Company Stakeholder (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -16,11 +21,12 @@ describe('Delete Company Stakeholder (E2E)', () => {
   });
 
   it('should delete company stakeholder with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();
 
     const createCompanyUseCase = makeCreateCompanyUseCase();
     const { company } = await createCompanyUseCase.execute({
+      tenantId,
       legalName: `Test Company Delete Stakeholder ${timestamp}`,
       cnpj: `${timestamp}`.slice(-14).padStart(14, '0'),
     });

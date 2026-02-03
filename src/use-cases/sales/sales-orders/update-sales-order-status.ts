@@ -5,6 +5,7 @@ import { OrderStatus } from '@/entities/sales/value-objects/order-status';
 import { SalesOrdersRepository } from '@/repositories/sales/sales-orders-repository';
 
 interface UpdateSalesOrderStatusUseCaseRequest {
+  tenantId: string;
   id: string;
   status:
     | 'DRAFT'
@@ -50,6 +51,7 @@ export class UpdateSalesOrderStatusUseCase {
   ): Promise<UpdateSalesOrderStatusUseCaseResponse> {
     const order = await this.salesOrdersRepository.findById(
       new UniqueEntityID(input.id),
+      input.tenantId,
     );
 
     if (!order) {

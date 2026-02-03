@@ -5,6 +5,8 @@ import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/i
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SellVacationDaysUseCase } from './sell-vacation-days';
 
+const TENANT_ID = 'tenant-1';
+
 let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let sut: SellVacationDaysUseCase;
 let testVacationPeriod: VacationPeriod;
@@ -16,6 +18,7 @@ describe('Sell Vacation Days Use Case', () => {
     sut = new SellVacationDaysUseCase(vacationPeriodsRepository);
 
     testVacationPeriod = VacationPeriod.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       employeeId,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -33,6 +36,7 @@ describe('Sell Vacation Days Use Case', () => {
 
   it('should sell vacation days successfully', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       vacationPeriodId: testVacationPeriod.id.toString(),
       daysToSell: 10, // 1/3 of 30
     });
@@ -45,6 +49,7 @@ describe('Sell Vacation Days Use Case', () => {
   it('should throw error if vacation period not found', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: new UniqueEntityID().toString(),
         daysToSell: 10,
       }),
@@ -54,6 +59,7 @@ describe('Sell Vacation Days Use Case', () => {
   it('should throw error if trying to sell more than 1/3 of days', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: testVacationPeriod.id.toString(),
         daysToSell: 15, // More than 1/3 (10 days)
       }),
@@ -67,6 +73,7 @@ describe('Sell Vacation Days Use Case', () => {
 
     // Update remaining days manually for test
     const periodWithLessDays = VacationPeriod.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       employeeId,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -83,6 +90,7 @@ describe('Sell Vacation Days Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: periodWithLessDays.id.toString(),
         daysToSell: 10,
       }),

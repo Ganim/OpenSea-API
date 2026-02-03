@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { departmentWithDetailsResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { departmentToDetailsDTO } from '@/mappers/hr/department/department-to-dto';
@@ -12,7 +13,7 @@ export async function getDepartmentByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/departments/:id',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Departments'],
       summary: 'Get department by ID',
@@ -33,11 +34,12 @@ export async function getDepartmentByIdController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
       try {
         const getDepartmentByIdUseCase = makeGetDepartmentByIdUseCase();
-        const result = await getDepartmentByIdUseCase.execute({ id });
+        const result = await getDepartmentByIdUseCase.execute({ tenantId, id });
 
         return reply.status(200).send({
           department: departmentToDetailsDTO(result),

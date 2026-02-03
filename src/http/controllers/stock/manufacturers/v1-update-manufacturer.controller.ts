@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   manufacturerResponseSchema,
   updateManufacturerSchema,
@@ -23,6 +24,7 @@ export async function updateManufacturerController(app: FastifyInstance) {
     url: '/v1/manufacturers/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.MANUFACTURERS.UPDATE,
         resource: 'manufacturers',
@@ -55,6 +57,7 @@ export async function updateManufacturerController(app: FastifyInstance) {
       const { id } = request.params as { id: string };
       const body = request.body;
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -63,7 +66,7 @@ export async function updateManufacturerController(app: FastifyInstance) {
         const [{ user }, { manufacturer: oldManufacturer }] = await Promise.all(
           [
             getUserByIdUseCase.execute({ userId }),
-            getManufacturerByIdUseCase.execute({ id }),
+            getManufacturerByIdUseCase.execute({ tenantId, id }),
           ],
         );
         const userName = user.profile?.name
@@ -72,6 +75,7 @@ export async function updateManufacturerController(app: FastifyInstance) {
 
         const useCase = makeUpdateManufacturerUseCase();
         const result = await useCase.execute({
+          tenantId,
           id,
           ...body,
         });

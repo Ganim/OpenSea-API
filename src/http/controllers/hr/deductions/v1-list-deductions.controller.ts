@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   deductionResponseSchema,
   listDeductionsQuerySchema,
@@ -14,7 +15,7 @@ export async function listDeductionsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/deductions',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Deduction'],
       summary: 'List deductions',
@@ -29,10 +30,14 @@ export async function listDeductionsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const filters = request.query;
 
       const listDeductionsUseCase = makeListDeductionsUseCase();
-      const { deductions } = await listDeductionsUseCase.execute(filters);
+      const { deductions } = await listDeductionsUseCase.execute({
+        tenantId,
+        ...filters,
+      });
 
       return reply.status(200).send({
         deductions: deductions.map(deductionToDTO),

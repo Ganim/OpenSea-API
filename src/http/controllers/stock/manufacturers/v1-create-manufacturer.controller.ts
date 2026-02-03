@@ -3,6 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createManufacturerSchema,
   manufacturerResponseSchema,
@@ -21,6 +22,7 @@ export async function createManufacturerController(app: FastifyInstance) {
     url: '/v1/manufacturers',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.MANUFACTURERS.CREATE,
         resource: 'manufacturers',
@@ -44,6 +46,7 @@ export async function createManufacturerController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       const getUserByIdUseCase = makeGetUserByIdUseCase();
       const { user } = await getUserByIdUseCase.execute({ userId });
@@ -56,7 +59,10 @@ export async function createManufacturerController(app: FastifyInstance) {
         manufacturersRepository,
       );
 
-      const result = await createManufacturerUseCase.execute(request.body);
+      const result = await createManufacturerUseCase.execute({
+        tenantId,
+        ...request.body,
+      });
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.STOCK.MANUFACTURER_CREATE,

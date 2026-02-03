@@ -138,8 +138,15 @@ export function createScopeMiddleware(options: ScopePermissionCheckOptions) {
     }
 
     // Tem permissão .team - precisa verificar se o recurso pertence ao departamento do usuário
+    const tenantId = (request.user as { tenantId?: string }).tenantId;
+    if (!tenantId) {
+      throw new ForbiddenError('Tenant not selected');
+    }
     const employeesRepository = new PrismaEmployeesRepository();
-    const userEmployee = await employeesRepository.findByUserId(userId);
+    const userEmployee = await employeesRepository.findByUserId(
+      userId,
+      tenantId,
+    );
 
     if (!userEmployee || !userEmployee.departmentId) {
       throw new ForbiddenError(
@@ -245,8 +252,15 @@ export function createScopeIdentifierMiddleware(basePermissionCode: string) {
     }
 
     // Obtém departmentId do usuário
+    const tenantId = (request.user as { tenantId?: string }).tenantId;
+    if (!tenantId) {
+      throw new ForbiddenError('Tenant not selected');
+    }
     const employeesRepository = new PrismaEmployeesRepository();
-    const userEmployee = await employeesRepository.findByUserId(userId);
+    const userEmployee = await employeesRepository.findByUserId(
+      userId,
+      tenantId,
+    );
 
     if (!userEmployee || !userEmployee.departmentId) {
       throw new ForbiddenError(

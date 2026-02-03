@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { itemExitResponseSchema, registerItemExitSchema } from '@/http/schemas';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeRegisterItemExitUseCase } from '@/use-cases/stock/items/factories/make-register-item-exit-use-case';
@@ -18,6 +19,7 @@ export async function registerItemExitController(app: FastifyInstance) {
     url: '/v1/items/exit',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.ITEMS.CREATE,
         resource: 'items',
@@ -40,6 +42,7 @@ export async function registerItemExitController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
       const data = request.body;
 
@@ -52,6 +55,7 @@ export async function registerItemExitController(app: FastifyInstance) {
 
         const registerItemExitUseCase = makeRegisterItemExitUseCase();
         const result = await registerItemExitUseCase.execute({
+          tenantId,
           ...data,
           userId,
         });

@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { WorkSchedule } from '@/entities/hr/work-schedule';
 
 export interface CreateWorkScheduleSchema {
+  tenantId: string;
   name: string;
   description?: string;
   mondayStart?: string;
@@ -46,10 +47,10 @@ export interface UpdateWorkScheduleSchema {
 
 export interface WorkSchedulesRepository {
   create(data: CreateWorkScheduleSchema): Promise<WorkSchedule>;
-  findById(id: UniqueEntityID): Promise<WorkSchedule | null>;
-  findByName(name: string): Promise<WorkSchedule | null>;
-  findMany(): Promise<WorkSchedule[]>;
-  findManyActive(): Promise<WorkSchedule[]>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<WorkSchedule | null>;
+  findByName(name: string, tenantId: string): Promise<WorkSchedule | null>;
+  findMany(tenantId: string): Promise<WorkSchedule[]>;
+  findManyActive(tenantId: string): Promise<WorkSchedule[]>;
   update(data: UpdateWorkScheduleSchema): Promise<WorkSchedule | null>;
   save(workSchedule: WorkSchedule): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

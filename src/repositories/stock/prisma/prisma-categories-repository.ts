@@ -21,6 +21,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
   async create(data: CreateCategorySchema): Promise<Category> {
     const categoryData = await prisma.category.create({
       data: {
+        tenantId: data.tenantId,
         name: data.name,
         slug: data.slug,
         description: data.description ?? null,
@@ -33,6 +34,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
 
     return Category.create(
       {
+        tenantId: new EntityID(categoryData.tenantId),
         name: categoryData.name,
         slug: categoryData.slug,
         description: categoryData.description ?? null,
@@ -49,10 +51,14 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     );
   }
 
-  async findById(id: UniqueEntityID): Promise<Category | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Category | null> {
     const categoryData = await prisma.category.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -63,6 +69,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
 
     return Category.create(
       {
+        tenantId: new EntityID(categoryData.tenantId),
         name: categoryData.name,
         slug: categoryData.slug,
         description: categoryData.description ?? null,
@@ -79,13 +86,14 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     );
   }
 
-  async findBySlug(slug: string): Promise<Category | null> {
+  async findBySlug(slug: string, tenantId: string): Promise<Category | null> {
     const categoryData = await prisma.category.findFirst({
       where: {
         slug: {
           equals: slug,
           mode: 'insensitive',
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -96,6 +104,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
 
     return Category.create(
       {
+        tenantId: new EntityID(categoryData.tenantId),
         name: categoryData.name,
         slug: categoryData.slug,
         description: categoryData.description ?? null,
@@ -112,13 +121,14 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     );
   }
 
-  async findByName(name: string): Promise<Category | null> {
+  async findByName(name: string, tenantId: string): Promise<Category | null> {
     const categoryData = await prisma.category.findFirst({
       where: {
         name: {
           equals: name,
           mode: 'insensitive',
         },
+        tenantId,
         deletedAt: null,
       },
     });
@@ -129,6 +139,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
 
     return Category.create(
       {
+        tenantId: new EntityID(categoryData.tenantId),
         name: categoryData.name,
         slug: categoryData.slug,
         description: categoryData.description ?? null,
@@ -145,9 +156,10 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     );
   }
 
-  async findMany(): Promise<Category[]> {
+  async findMany(tenantId: string): Promise<Category[]> {
     const categories = await prisma.category.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
       include: CATEGORY_COUNT_INCLUDE,
@@ -156,6 +168,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     return categories.map((categoryData) =>
       Category.create(
         {
+          tenantId: new EntityID(categoryData.tenantId),
           name: categoryData.name,
           slug: categoryData.slug,
           description: categoryData.description ?? null,
@@ -175,10 +188,14 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     );
   }
 
-  async findManyByParent(parentId: UniqueEntityID): Promise<Category[]> {
+  async findManyByParent(
+    parentId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Category[]> {
     const categories = await prisma.category.findMany({
       where: {
         parentId: parentId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: CATEGORY_COUNT_INCLUDE,
@@ -187,6 +204,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     return categories.map((categoryData) =>
       Category.create(
         {
+          tenantId: new EntityID(categoryData.tenantId),
           name: categoryData.name,
           slug: categoryData.slug,
           description: categoryData.description ?? null,
@@ -206,10 +224,11 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     );
   }
 
-  async findManyRootCategories(): Promise<Category[]> {
+  async findManyRootCategories(tenantId: string): Promise<Category[]> {
     const categories = await prisma.category.findMany({
       where: {
         parentId: null,
+        tenantId,
         deletedAt: null,
       },
       include: CATEGORY_COUNT_INCLUDE,
@@ -218,6 +237,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     return categories.map((categoryData) =>
       Category.create(
         {
+          tenantId: new EntityID(categoryData.tenantId),
           name: categoryData.name,
           slug: categoryData.slug,
           description: categoryData.description ?? null,
@@ -235,9 +255,10 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     );
   }
 
-  async findManyActive(): Promise<Category[]> {
+  async findManyActive(tenantId: string): Promise<Category[]> {
     const categories = await prisma.category.findMany({
       where: {
+        tenantId,
         isActive: true,
         deletedAt: null,
       },
@@ -247,6 +268,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     return categories.map((categoryData) =>
       Category.create(
         {
+          tenantId: new EntityID(categoryData.tenantId),
           name: categoryData.name,
           slug: categoryData.slug,
           description: categoryData.description ?? null,
@@ -297,6 +319,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
 
     return Category.create(
       {
+        tenantId: new EntityID(categoryData.tenantId),
         name: categoryData.name,
         slug: categoryData.slug,
         description: categoryData.description ?? null,

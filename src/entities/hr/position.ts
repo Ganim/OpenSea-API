@@ -2,6 +2,7 @@ import { Entity } from '../domain/entities';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface PositionProps {
+  tenantId: UniqueEntityID;
   name: string;
   code: string;
   description?: string;
@@ -17,6 +18,10 @@ export interface PositionProps {
 }
 
 export class Position extends Entity<PositionProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get name(): string {
     return this.props.name;
   }

@@ -10,6 +10,7 @@ export interface CreatePermissionGroupSchema {
   color: string | null;
   priority: number;
   parentId: UniqueEntityID | null;
+  tenantId?: UniqueEntityID | null;
 }
 
 export interface UpdatePermissionGroupSchema {
@@ -66,6 +67,14 @@ export interface PermissionGroupsRepository {
   findParent(id: UniqueEntityID): Promise<PermissionGroup | null>;
   findChildren(id: UniqueEntityID): Promise<PermissionGroup[]>;
   findAncestors(id: UniqueEntityID): Promise<PermissionGroup[]>; // Para herança
+
+  // TENANT-SCOPED
+  findBySlugAndTenantId(
+    slug: string,
+    tenantId: UniqueEntityID,
+    includeDeleted?: boolean,
+  ): Promise<PermissionGroup | null>;
+  listByTenantId(tenantId: UniqueEntityID): Promise<PermissionGroup[]>;
 
   // UTILITY
   exists(slug: string): Promise<boolean>;

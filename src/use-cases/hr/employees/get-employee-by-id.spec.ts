@@ -1,4 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   ContractType,
   CPF,
@@ -11,6 +12,7 @@ import { GetEmployeeByIdUseCase } from './get-employee-by-id';
 
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: GetEmployeeByIdUseCase;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Get Employee By Id Use Case', () => {
   beforeEach(() => {
@@ -20,6 +22,7 @@ describe('Get Employee By Id Use Case', () => {
 
   it('should get an employee by id', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -33,6 +36,7 @@ describe('Get Employee By Id Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
     });
 
@@ -43,9 +47,7 @@ describe('Get Employee By Id Use Case', () => {
 
   it('should throw error when employee not found', async () => {
     await expect(
-      sut.execute({
-        employeeId: 'non-existent-id',
-      }),
+      sut.execute({ tenantId, employeeId: 'non-existent-id' }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

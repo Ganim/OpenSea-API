@@ -19,11 +19,13 @@ describe('UpdateTemplateUseCase', () => {
 
   it('should update a template', async () => {
     const created = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: created.template.id,
       name: 'Updated Electronics Template',
       productAttributes: {
@@ -40,12 +42,14 @@ describe('UpdateTemplateUseCase', () => {
 
   it('should update only provided fields', async () => {
     const created = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
       variantAttributes: { color: templateAttr.string() },
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: created.template.id,
       productAttributes: {
         brand: templateAttr.string(),
@@ -62,6 +66,7 @@ describe('UpdateTemplateUseCase', () => {
   it('should throw error if template not found', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'non-existent-id',
         name: 'Updated Name',
       }),
@@ -70,12 +75,14 @@ describe('UpdateTemplateUseCase', () => {
 
   it('should not update with empty name', async () => {
     const created = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: created.template.id,
         name: '',
       }),
@@ -84,17 +91,20 @@ describe('UpdateTemplateUseCase', () => {
 
   it('should not update with duplicate name', async () => {
     await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const second = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Clothing Template',
       productAttributes: { size: templateAttr.string() },
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: second.template.id,
         name: 'Electronics Template',
       }),
@@ -103,11 +113,13 @@ describe('UpdateTemplateUseCase', () => {
 
   it('should update to have no attributes', async () => {
     const created = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: created.template.id,
       productAttributes: {},
       variantAttributes: {},
@@ -123,11 +135,13 @@ describe('UpdateTemplateUseCase', () => {
 
   it('should update unit of measure', async () => {
     const created = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Fabric Template',
       unitOfMeasure: 'METERS',
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: created.template.id,
       unitOfMeasure: 'KILOGRAMS',
     });
@@ -138,12 +152,14 @@ describe('UpdateTemplateUseCase', () => {
 
   it('should throw error with invalid unit of measure', async () => {
     const created = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: created.template.id,
         unitOfMeasure: 'INVALID_UNIT',
       }),
@@ -152,11 +168,13 @@ describe('UpdateTemplateUseCase', () => {
 
   it('should update iconUrl', async () => {
     const created = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: created.template.id,
       iconUrl: 'https://example.com/new-icon.svg',
     });

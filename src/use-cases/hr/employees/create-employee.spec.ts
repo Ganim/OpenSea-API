@@ -1,9 +1,11 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateEmployeeUseCase } from './create-employee';
 
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: CreateEmployeeUseCase;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Create Employee Use Case', () => {
   beforeEach(() => {
@@ -13,6 +15,7 @@ describe('Create Employee Use Case', () => {
 
   it('should create an employee successfully', async () => {
     const result = await sut.execute({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: '529.982.247-25',
@@ -38,6 +41,7 @@ describe('Create Employee Use Case', () => {
   it('should not create employee with existing CPF', async () => {
     // Create first employee
     await sut.execute({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: '529.982.247-25',
@@ -52,6 +56,7 @@ describe('Create Employee Use Case', () => {
     // Try to create second employee with same CPF
     await expect(
       sut.execute({
+        tenantId,
         registrationNumber: 'EMP002',
         fullName: 'Maria Santos',
         cpf: '529.982.247-25', // Same CPF
@@ -68,6 +73,7 @@ describe('Create Employee Use Case', () => {
   it('should not create employee with existing registration number', async () => {
     // Create first employee
     await sut.execute({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: '529.982.247-25',
@@ -82,6 +88,7 @@ describe('Create Employee Use Case', () => {
     // Try to create second employee with same registration number
     await expect(
       sut.execute({
+        tenantId,
         registrationNumber: 'EMP001', // Same registration number
         fullName: 'Maria Santos',
         cpf: '123.456.789-09',
@@ -98,6 +105,7 @@ describe('Create Employee Use Case', () => {
   it('should not create employee with existing PIS', async () => {
     // Create first employee
     await sut.execute({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: '529.982.247-25',
@@ -113,6 +121,7 @@ describe('Create Employee Use Case', () => {
     // Try to create second employee with same PIS
     await expect(
       sut.execute({
+        tenantId,
         registrationNumber: 'EMP002',
         fullName: 'Maria Santos',
         cpf: '123.456.789-09',
@@ -132,6 +141,7 @@ describe('Create Employee Use Case', () => {
 
     // Create first employee
     await sut.execute({
+      tenantId,
       registrationNumber: 'EMP001',
       userId,
       fullName: 'João Silva',
@@ -147,6 +157,7 @@ describe('Create Employee Use Case', () => {
     // Try to create second employee with same user
     await expect(
       sut.execute({
+        tenantId,
         registrationNumber: 'EMP002',
         userId, // Same user ID
         fullName: 'Maria Santos',
@@ -163,6 +174,7 @@ describe('Create Employee Use Case', () => {
 
   it('should create employee with all optional fields', async () => {
     const result = await sut.execute({
+      tenantId,
       registrationNumber: 'EMP001',
       userId: 'user-123',
       fullName: 'João Silva',
@@ -227,6 +239,7 @@ describe('Create Employee Use Case', () => {
   it('should throw error for invalid contract type', async () => {
     await expect(
       sut.execute({
+        tenantId,
         registrationNumber: 'EMP001',
         fullName: 'João Silva',
         cpf: '529.982.247-25',
@@ -243,6 +256,7 @@ describe('Create Employee Use Case', () => {
   it('should throw error for invalid work regime', async () => {
     await expect(
       sut.execute({
+        tenantId,
         registrationNumber: 'EMP001',
         fullName: 'João Silva',
         cpf: '529.982.247-25',
@@ -258,6 +272,7 @@ describe('Create Employee Use Case', () => {
 
   it('should create employee with default country when not provided', async () => {
     const result = await sut.execute({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: '529.982.247-25',

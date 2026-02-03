@@ -7,6 +7,8 @@ let categoriesRepository: InMemoryCategoriesRepository;
 let sut: CreateCategoryUseCase;
 
 describe('Create Category Use Case', () => {
+  const TENANT_ID = 'tenant-1';
+
   beforeEach(() => {
     categoriesRepository = new InMemoryCategoriesRepository();
     sut = new CreateCategoryUseCase(categoriesRepository);
@@ -16,6 +18,7 @@ describe('Create Category Use Case', () => {
 
   it('should create a category', async () => {
     const { category } = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics',
       description: 'Electronic products',
     });
@@ -29,6 +32,7 @@ describe('Create Category Use Case', () => {
 
   it('should create a category with custom slug', async () => {
     const { category } = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Eletrônicos',
       slug: 'eletronicos-custom',
     });
@@ -38,10 +42,12 @@ describe('Create Category Use Case', () => {
 
   it('should create a subcategory', async () => {
     const { category: parentCategory } = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     const { category: subCategory } = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Smartphones',
       parentId: parentCategory.id.toString(),
     });
@@ -53,6 +59,7 @@ describe('Create Category Use Case', () => {
 
   it('should generate slug from name automatically', async () => {
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Eletrônicos & Tecnologia',
     });
 
@@ -64,21 +71,23 @@ describe('Create Category Use Case', () => {
   it('should not allow creating a category with an existing name', async () => {
     const name = 'Electronics';
 
-    await sut.execute({ name });
+    await sut.execute({ tenantId: 'tenant-1', name });
 
-    await expect(() => sut.execute({ name })).rejects.toBeInstanceOf(
-      BadRequestError,
-    );
+    await expect(() =>
+      sut.execute({ tenantId: 'tenant-1', name }),
+    ).rejects.toBeInstanceOf(BadRequestError);
   });
 
   it('should not allow creating a category with an existing slug', async () => {
     await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
     });
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Eletrônicos',
         slug: 'electronics',
       }),
@@ -88,6 +97,7 @@ describe('Create Category Use Case', () => {
   it('should not allow creating a category with non-existent parent', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         name: 'Smartphones',
         parentId: 'non-existent-id',
       }),
@@ -98,6 +108,7 @@ describe('Create Category Use Case', () => {
 
   it('should create a category with iconUrl', async () => {
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Category With Icon',
       iconUrl: 'https://example.com/icons/category.svg',
     });
@@ -107,6 +118,7 @@ describe('Create Category Use Case', () => {
 
   it('should create a category without iconUrl (defaults to null)', async () => {
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Category Without Icon',
     });
 
@@ -115,6 +127,7 @@ describe('Create Category Use Case', () => {
 
   it('should create inactive category when specified', async () => {
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Inactive Category',
       isActive: false,
     });
@@ -124,6 +137,7 @@ describe('Create Category Use Case', () => {
 
   it('should set display order when specified', async () => {
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Featured Category',
       displayOrder: 1,
     });
@@ -133,6 +147,7 @@ describe('Create Category Use Case', () => {
 
   it('should normalize slug with special characters', async () => {
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       name: 'Áudio & Vídeo - Ñoño',
     });
 

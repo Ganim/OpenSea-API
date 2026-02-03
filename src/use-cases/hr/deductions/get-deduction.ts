@@ -4,6 +4,7 @@ import type { Deduction } from '@/entities/hr/deduction';
 import { DeductionsRepository } from '@/repositories/hr/deductions-repository';
 
 export interface GetDeductionRequest {
+  tenantId: string;
   deductionId: string;
 }
 
@@ -15,10 +16,11 @@ export class GetDeductionUseCase {
   constructor(private deductionsRepository: DeductionsRepository) {}
 
   async execute(request: GetDeductionRequest): Promise<GetDeductionResponse> {
-    const { deductionId } = request;
+    const { tenantId, deductionId } = request;
 
     const deduction = await this.deductionsRepository.findById(
       new UniqueEntityID(deductionId),
+      tenantId,
     );
 
     if (!deduction) {

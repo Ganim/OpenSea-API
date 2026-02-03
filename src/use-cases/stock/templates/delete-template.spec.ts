@@ -21,20 +21,21 @@ describe('DeleteTemplateUseCase', () => {
 
   it('should delete a template', async () => {
     const created = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
-    await sut.execute({ id: created.template.id });
+    await sut.execute({ tenantId: 'tenant-1', id: created.template.id });
 
     await expect(
-      getTemplate.execute({ id: created.template.id }),
+      getTemplate.execute({ tenantId: 'tenant-1', id: created.template.id }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
 
   it('should throw error if template not found', async () => {
-    await expect(sut.execute({ id: 'non-existent-id' })).rejects.toThrow(
-      ResourceNotFoundError,
-    );
+    await expect(
+      sut.execute({ tenantId: 'tenant-1', id: 'non-existent-id' }),
+    ).rejects.toThrow(ResourceNotFoundError);
   });
 });

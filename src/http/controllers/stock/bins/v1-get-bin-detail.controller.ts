@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { binDetailResponseSchema } from '@/http/schemas/stock/bins/bin.schema';
 import { binToDTO } from '@/mappers/stock/bin/bin-to-dto';
 import { makeGetBinDetailUseCase } from '@/use-cases/stock/bins/factories/make-get-bin-detail-use-case';
@@ -15,6 +16,7 @@ export async function getBinDetailController(app: FastifyInstance) {
     url: '/v1/bins/:id/detail',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.BINS.READ,
         resource: 'bins',
@@ -39,12 +41,13 @@ export async function getBinDetailController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
       try {
         const getBinDetailUseCase = makeGetBinDetailUseCase();
         const { bin, itemCount, items, zone, warehouse } =
-          await getBinDetailUseCase.execute({ id });
+          await getBinDetailUseCase.execute({ tenantId, id });
 
         return reply.status(200).send({
           bin: binToDTO(bin, { itemCount }),

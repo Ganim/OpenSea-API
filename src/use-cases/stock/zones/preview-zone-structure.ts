@@ -10,6 +10,7 @@ import type { ZonesRepository } from '@/repositories/stock/zones-repository';
 import { validateZoneStructureInput } from './helpers/validate-zone-structure';
 
 interface PreviewZoneStructureUseCaseRequest {
+  tenantId: string;
   zoneId: string;
   structure: ZoneStructureProps;
 }
@@ -35,13 +36,14 @@ export class PreviewZoneStructureUseCase {
   ) {}
 
   async execute({
+    tenantId,
     zoneId,
     structure,
   }: PreviewZoneStructureUseCaseRequest): Promise<PreviewZoneStructureUseCaseResponse> {
     const zoneEntityId = new UniqueEntityID(zoneId);
 
     // Check if zone exists
-    const zone = await this.zonesRepository.findById(zoneEntityId);
+    const zone = await this.zonesRepository.findById(zoneEntityId, tenantId);
 
     if (!zone) {
       throw new ResourceNotFoundError('Zone');
@@ -50,6 +52,7 @@ export class PreviewZoneStructureUseCase {
     // Get warehouse for code generation
     const warehouse = await this.warehousesRepository.findById(
       zone.warehouseId,
+      tenantId,
     );
 
     if (!warehouse) {

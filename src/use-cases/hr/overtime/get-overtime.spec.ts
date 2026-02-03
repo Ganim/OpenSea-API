@@ -12,7 +12,7 @@ describe('GetOvertimeUseCase', () => {
   });
 
   it('should throw Error for non-existent overtime', async () => {
-    await expect(() => sut.execute({ id: 'non-existent' })).rejects.toThrow(
+    await expect(() => sut.execute({ tenantId: 'tenant-1', id: 'non-existent' })).rejects.toThrow(
       'Overtime request not found',
     );
   });

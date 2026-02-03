@@ -17,12 +17,12 @@ describe('Calculate Payroll (E2E)', () => {
 
   it('should calculate payroll with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-    await createEmployeeE2E();
+    const { employee } = await createEmployeeE2E();
 
     const timestamp = Date.now();
     const month = (timestamp % 12) + 1;
     const year = 2020 + (timestamp % 10);
-    const payroll = await createPayroll({
+    const payroll = await createPayroll(employee.tenantId, {
       referenceMonth: month,
       referenceYear: year,
     });

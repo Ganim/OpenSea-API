@@ -16,16 +16,18 @@ describe('ListManufacturersUseCase', () => {
 
   it('should list all manufacturers', async () => {
     await createManufacturer.execute({
+      tenantId: 'tenant-1',
       name: 'TechCorp',
       country: 'United States',
     });
 
     await createManufacturer.execute({
+      tenantId: 'tenant-1',
       name: 'Manufacturing Ltd',
       country: 'Brazil',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.manufacturers).toHaveLength(2);
     expect(result.manufacturers[0].name).toBe('TechCorp');
@@ -33,7 +35,7 @@ describe('ListManufacturersUseCase', () => {
   });
 
   it('should return empty array when no manufacturers exist', async () => {
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.manufacturers).toHaveLength(0);
   });

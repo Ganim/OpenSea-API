@@ -21,8 +21,18 @@ describe('Get Item Reservation By ID (E2E)', () => {
     const { randomUUID } = await import('node:crypto');
     const unique = randomUUID();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${unique}`,
+        slug: `tenant-${unique}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const template = await prisma.template.create({
       data: {
+        tenantId,
         name: `Test Template ${unique}`,
         productAttributes: {},
         variantAttributes: {},
@@ -34,6 +44,7 @@ describe('Get Item Reservation By ID (E2E)', () => {
 
     const product = await prisma.product.create({
       data: {
+        tenantId,
         name: `Test Product ${unique}`,
         slug: `test-product-${unique}`,
         fullCode: `001.000.${suffix}`,
@@ -48,6 +59,7 @@ describe('Get Item Reservation By ID (E2E)', () => {
 
     const variant = await prisma.variant.create({
       data: {
+        tenantId,
         sku: `SKU-${unique}`,
         name: 'Test Variant',
         slug: `test-variant-${unique}`,
@@ -64,6 +76,7 @@ describe('Get Item Reservation By ID (E2E)', () => {
 
     const warehouse = await prisma.warehouse.create({
       data: {
+        tenantId,
         code: `W${unique.slice(-3)}`,
         name: `Test Warehouse ${unique}`,
       },
@@ -71,6 +84,7 @@ describe('Get Item Reservation By ID (E2E)', () => {
 
     const zone = await prisma.zone.create({
       data: {
+        tenantId,
         code: `Z${unique.slice(-3)}`,
         name: `Test Zone ${unique}`,
         warehouseId: warehouse.id,
@@ -80,6 +94,7 @@ describe('Get Item Reservation By ID (E2E)', () => {
 
     const bin = await prisma.bin.create({
       data: {
+        tenantId,
         address: `${warehouse.code}-${zone.code}-01-A`,
         aisle: 1,
         shelf: 1,
@@ -90,6 +105,7 @@ describe('Get Item Reservation By ID (E2E)', () => {
 
     const item = await prisma.item.create({
       data: {
+        tenantId,
         uniqueCode: `ITEM-${unique}`,
         slug: `item-${unique}`,
         fullCode: `001.000.${suffix}.001-00001`,

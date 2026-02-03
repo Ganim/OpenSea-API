@@ -4,6 +4,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 
 interface UpdateManufacturerUseCaseRequest {
+  tenantId: string;
   id: string;
   name?: string;
   country?: string;
@@ -31,6 +32,7 @@ export class UpdateManufacturerUseCase {
     request: UpdateManufacturerUseCaseRequest,
   ): Promise<UpdateManufacturerUseCaseResponse> {
     const {
+      tenantId,
       id,
       name,
       country,
@@ -50,6 +52,7 @@ export class UpdateManufacturerUseCase {
     // Validate ID
     const manufacturer = await this.manufacturersRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!manufacturer) {
@@ -69,7 +72,7 @@ export class UpdateManufacturerUseCase {
       // Check if name is already used by another manufacturer
       if (name !== manufacturer.name) {
         const existingManufacturer =
-          await this.manufacturersRepository.findByName(name);
+          await this.manufacturersRepository.findByName(name, tenantId);
         if (
           existingManufacturer &&
           !existingManufacturer.id.equals(manufacturer.id)

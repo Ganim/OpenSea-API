@@ -19,6 +19,7 @@ describe('ListItemsUseCase', () => {
     const binId = new UniqueEntityID();
 
     await itemsRepository.create({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-001',
       slug: Slug.createFromText('item-001'),
       fullCode: '001.001.0001.001-00001',
@@ -34,6 +35,7 @@ describe('ListItemsUseCase', () => {
     });
 
     await itemsRepository.create({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-002',
       slug: Slug.createFromText('item-002'),
       fullCode: '001.001.0001.001-00002',
@@ -49,6 +51,7 @@ describe('ListItemsUseCase', () => {
     });
 
     const result = await listItems.execute({
+      tenantId: 'tenant-1',
       variantId: variantId.toString(),
     });
 
@@ -63,6 +66,7 @@ describe('ListItemsUseCase', () => {
     const binIdB = new UniqueEntityID();
 
     await itemsRepository.create({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-003',
       slug: Slug.createFromText('item-003'),
       fullCode: '001.001.0001.001-00003',
@@ -78,6 +82,7 @@ describe('ListItemsUseCase', () => {
     });
 
     await itemsRepository.create({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-004',
       slug: Slug.createFromText('item-004'),
       fullCode: '001.001.0001.001-00004',
@@ -93,6 +98,7 @@ describe('ListItemsUseCase', () => {
     });
 
     const result = await listItems.execute({
+      tenantId: 'tenant-1',
       binId: binIdA.toString(),
     });
 
@@ -105,6 +111,7 @@ describe('ListItemsUseCase', () => {
     const binId = new UniqueEntityID();
 
     await itemsRepository.create({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-001',
       slug: Slug.createFromText('item-001'),
       fullCode: '001.001.0001.001-00001',
@@ -120,6 +127,7 @@ describe('ListItemsUseCase', () => {
     });
 
     await itemsRepository.create({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-002',
       slug: Slug.createFromText('item-002'),
       fullCode: '001.001.0001.001-00002',
@@ -134,7 +142,7 @@ describe('ListItemsUseCase', () => {
       status: ItemStatus.create('AVAILABLE'),
     });
 
-    const result = await listItems.execute({});
+    const result = await listItems.execute({ tenantId: 'tenant-1' });
 
     expect(result.items).toHaveLength(2);
   });

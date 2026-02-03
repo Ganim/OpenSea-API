@@ -20,8 +20,18 @@ describe('Delete Variant (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const template = await prisma.template.create({
       data: {
+        tenantId,
         name: `Delete Variant Template ${timestamp}`,
         productAttributes: {},
         variantAttributes: {},
@@ -30,11 +40,13 @@ describe('Delete Variant (E2E)', () => {
     });
 
     const { product } = await createProduct({
+      tenantId,
       name: `Product For Delete ${timestamp}`,
       templateId: template.id,
     });
 
     const { variant } = await createVariant({
+      tenantId,
       productId: product.id,
       sku: `SKU-DELETE-${timestamp}`,
       name: `Variant To Delete ${timestamp}`,

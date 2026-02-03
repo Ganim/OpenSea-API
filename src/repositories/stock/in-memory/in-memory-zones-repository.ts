@@ -1,4 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Zone } from '@/entities/stock/zone';
 import { ZoneStructure } from '@/entities/stock/value-objects/zone-structure';
 import { ZoneLayout } from '@/entities/stock/value-objects/zone-layout';
@@ -15,6 +16,7 @@ export class InMemoryZonesRepository implements ZonesRepository {
 
   async create(data: CreateZoneSchema): Promise<Zone> {
     const zone = Zone.create({
+      tenantId: new EntityID(data.tenantId),
       warehouseId: data.warehouseId,
       code: data.code,
       name: data.name,
@@ -30,48 +32,72 @@ export class InMemoryZonesRepository implements ZonesRepository {
     return zone;
   }
 
-  async findById(id: UniqueEntityID): Promise<Zone | null> {
-    const zone = this.zones.find((z) => !z.deletedAt && z.zoneId.equals(id));
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Zone | null> {
+    const zone = this.zones.find(
+      (z) =>
+        !z.deletedAt &&
+        z.zoneId.equals(id) &&
+        z.tenantId.toString() === tenantId,
+    );
     return zone ?? null;
   }
 
   async findByCode(
     warehouseId: UniqueEntityID,
     code: string,
+    tenantId: string,
   ): Promise<Zone | null> {
     const zone = this.zones.find(
       (z) =>
         !z.deletedAt &&
         z.warehouseId.equals(warehouseId) &&
-        z.code.toLowerCase() === code.toLowerCase(),
+        z.code.toLowerCase() === code.toLowerCase() &&
+        z.tenantId.toString() === tenantId,
     );
     return zone ?? null;
   }
 
-  async findMany(): Promise<Zone[]> {
-    return this.zones.filter((z) => !z.deletedAt);
-  }
-
-  async findManyByWarehouse(warehouseId: UniqueEntityID): Promise<Zone[]> {
+  async findMany(tenantId: string): Promise<Zone[]> {
     return this.zones.filter(
-      (z) => !z.deletedAt && z.warehouseId.equals(warehouseId),
+      (z) => !z.deletedAt && z.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyActive(): Promise<Zone[]> {
-    return this.zones.filter((z) => !z.deletedAt && z.isActive);
+  async findManyByWarehouse(
+    warehouseId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Zone[]> {
+    return this.zones.filter(
+      (z) =>
+        !z.deletedAt &&
+        z.warehouseId.equals(warehouseId) &&
+        z.tenantId.toString() === tenantId,
+    );
+  }
+
+  async findManyActive(tenantId: string): Promise<Zone[]> {
+    return this.zones.filter(
+      (z) => !z.deletedAt && z.isActive && z.tenantId.toString() === tenantId,
+    );
   }
 
   async findManyActiveByWarehouse(
     warehouseId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Zone[]> {
     return this.zones.filter(
-      (z) => !z.deletedAt && z.isActive && z.warehouseId.equals(warehouseId),
+      (z) =>
+        !z.deletedAt &&
+        z.isActive &&
+        z.warehouseId.equals(warehouseId) &&
+        z.tenantId.toString() === tenantId,
     );
   }
 
   async update(data: UpdateZoneSchema): Promise<Zone | null> {
-    const zone = await this.findById(data.id);
+    const zone = this.zones.find(
+      (z) => !z.deletedAt && z.zoneId.equals(data.id),
+    );
     if (!zone) return null;
 
     if (data.code !== undefined) zone.code = data.code;
@@ -83,7 +109,9 @@ export class InMemoryZonesRepository implements ZonesRepository {
   }
 
   async updateStructure(data: UpdateZoneStructureSchema): Promise<Zone | null> {
-    const zone = await this.findById(data.id);
+    const zone = this.zones.find(
+      (z) => !z.deletedAt && z.zoneId.equals(data.id),
+    );
     if (!zone) return null;
 
     zone.structure = ZoneStructure.create(data.structure);
@@ -91,7 +119,9 @@ export class InMemoryZonesRepository implements ZonesRepository {
   }
 
   async updateLayout(data: UpdateZoneLayoutSchema): Promise<Zone | null> {
-    const zone = await this.findById(data.id);
+    const zone = this.zones.find(
+      (z) => !z.deletedAt && z.zoneId.equals(data.id),
+    );
     if (!zone) return null;
 
     zone.layout = data.layout ? ZoneLayout.create(data.layout) : null;
@@ -108,7 +138,7 @@ export class InMemoryZonesRepository implements ZonesRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const zone = await this.findById(id);
+    const zone = this.zones.find((z) => !z.deletedAt && z.zoneId.equals(id));
     if (zone) {
       zone.delete();
     }

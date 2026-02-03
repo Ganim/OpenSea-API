@@ -1,4 +1,4 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ItemMovement } from '@/entities/stock/item-movement';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
 import type {
@@ -14,6 +14,7 @@ export class InMemoryItemMovementsRepository
 
   async create(data: CreateItemMovementSchema): Promise<ItemMovement> {
     const movement = ItemMovement.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       itemId: data.itemId,
       userId: data.userId,
       quantity: data.quantity,
@@ -31,49 +32,86 @@ export class InMemoryItemMovementsRepository
     return movement;
   }
 
-  async findById(id: UniqueEntityID): Promise<ItemMovement | null> {
-    const movement = this.items.find((item) => item.id.equals(id));
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<ItemMovement | null> {
+    const movement = this.items.find(
+      (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+    );
     return movement ?? null;
   }
 
-  async findManyByItem(itemId: UniqueEntityID): Promise<ItemMovement[]> {
-    return this.items.filter((movement) => movement.itemId.equals(itemId));
-  }
-
-  async findManyByUser(userId: UniqueEntityID): Promise<ItemMovement[]> {
-    return this.items.filter((movement) => movement.userId.equals(userId));
-  }
-
-  async findManyByType(movementType: MovementType): Promise<ItemMovement[]> {
+  async findManyByItem(
+    itemId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<ItemMovement[]> {
     return this.items.filter(
-      (movement) => movement.movementType.value === movementType.value,
+      (movement) =>
+        movement.itemId.equals(itemId) &&
+        movement.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyByBatch(batchNumber: string): Promise<ItemMovement[]> {
+  async findManyByUser(
+    userId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<ItemMovement[]> {
     return this.items.filter(
-      (movement) => movement.batchNumber === batchNumber,
+      (movement) =>
+        movement.userId.equals(userId) &&
+        movement.tenantId.toString() === tenantId,
+    );
+  }
+
+  async findManyByType(
+    movementType: MovementType,
+    tenantId: string,
+  ): Promise<ItemMovement[]> {
+    return this.items.filter(
+      (movement) =>
+        movement.movementType.value === movementType.value &&
+        movement.tenantId.toString() === tenantId,
+    );
+  }
+
+  async findManyByBatch(
+    batchNumber: string,
+    tenantId: string,
+  ): Promise<ItemMovement[]> {
+    return this.items.filter(
+      (movement) =>
+        movement.batchNumber === batchNumber &&
+        movement.tenantId.toString() === tenantId,
     );
   }
 
   async findManyBySalesOrder(
     salesOrderId: UniqueEntityID,
+    tenantId: string,
   ): Promise<ItemMovement[]> {
-    return this.items.filter((movement) =>
-      movement.salesOrderId?.equals(salesOrderId),
+    return this.items.filter(
+      (movement) =>
+        movement.salesOrderId?.equals(salesOrderId) &&
+        movement.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyPendingApproval(): Promise<ItemMovement[]> {
-    return this.items.filter((movement) => !movement.approvedBy);
+  async findManyPendingApproval(tenantId: string): Promise<ItemMovement[]> {
+    return this.items.filter(
+      (movement) =>
+        !movement.approvedBy && movement.tenantId.toString() === tenantId,
+    );
   }
 
-  async findAll(): Promise<ItemMovement[]> {
-    return this.items;
+  async findAll(tenantId: string): Promise<ItemMovement[]> {
+    return this.items.filter(
+      (movement) => movement.tenantId.toString() === tenantId,
+    );
   }
 
   async update(data: UpdateItemMovementSchema): Promise<ItemMovement | null> {
-    const movement = await this.findById(data.id);
+    const movement = this.items.find((item) => item.id.equals(data.id)) ?? null;
     if (!movement) return null;
 
     if (data.reasonCode !== undefined) movement.reasonCode = data.reasonCode;

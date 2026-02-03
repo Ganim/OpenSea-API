@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { labelPreviewResponseSchema } from '@/http/schemas';
 import { makeGetLabelPreviewUseCase } from '@/use-cases/stock/labels/factories/make-get-label-preview-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,6 +15,7 @@ export async function getLabelPreviewController(app: FastifyInstance) {
     url: '/v1/labels/preview/:binId',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.BINS.READ,
         resource: 'labels',
@@ -36,11 +38,15 @@ export async function getLabelPreviewController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { binId } = request.params;
 
       try {
         const getLabelPreviewUseCase = makeGetLabelPreviewUseCase();
-        const result = await getLabelPreviewUseCase.execute({ binId });
+        const result = await getLabelPreviewUseCase.execute({
+          tenantId,
+          binId,
+        });
 
         return reply.status(200).send(result.preview);
       } catch (error) {

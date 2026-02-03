@@ -21,11 +21,13 @@ describe('PreviewZoneStructureUseCase', () => {
 
   it('should preview uniform structure', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Main Warehouse',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'Z1',
       name: 'Zone 1',
@@ -33,6 +35,7 @@ describe('PreviewZoneStructureUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       structure: {
         aisles: 2,
@@ -51,11 +54,13 @@ describe('PreviewZoneStructureUseCase', () => {
 
   it('should preview independent aisle configurations', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Main Warehouse',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'Z2',
       name: 'Zone 2',
@@ -63,6 +68,7 @@ describe('PreviewZoneStructureUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId.toString(),
       structure: {
         aisles: 2,
@@ -84,11 +90,13 @@ describe('PreviewZoneStructureUseCase', () => {
 
   it('should fail with invalid aisles count', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Main Warehouse',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'Z3',
       name: 'Zone 3',
@@ -97,6 +105,7 @@ describe('PreviewZoneStructureUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId.toString(),
         structure: {
           aisles: 100,
@@ -110,11 +119,13 @@ describe('PreviewZoneStructureUseCase', () => {
 
   it('should fail with empty structure', async () => {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Main Warehouse',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'Z4',
       name: 'Zone 4',
@@ -123,6 +134,7 @@ describe('PreviewZoneStructureUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         zoneId: zone.zoneId.toString(),
         structure: {
           aisles: 0,

@@ -6,6 +6,7 @@ import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
 
 export interface CreateVacationPeriodRequest {
+  tenantId: string;
   employeeId: string;
   acquisitionStart: Date;
   acquisitionEnd: Date;
@@ -29,6 +30,7 @@ export class CreateVacationPeriodUseCase {
     request: CreateVacationPeriodRequest,
   ): Promise<CreateVacationPeriodResponse> {
     const {
+      tenantId,
       employeeId,
       acquisitionStart,
       acquisitionEnd,
@@ -40,6 +42,7 @@ export class CreateVacationPeriodUseCase {
 
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!employee) {
@@ -47,6 +50,7 @@ export class CreateVacationPeriodUseCase {
     }
 
     const vacationPeriod = VacationPeriod.create({
+      tenantId: new UniqueEntityID(tenantId),
       employeeId: new UniqueEntityID(employeeId),
       acquisitionStart,
       acquisitionEnd,
@@ -61,6 +65,7 @@ export class CreateVacationPeriodUseCase {
     });
 
     await this.vacationPeriodsRepository.create({
+      tenantId,
       employeeId: new UniqueEntityID(employeeId),
       acquisitionStart,
       acquisitionEnd,

@@ -5,6 +5,7 @@ import type { Warehouse } from '@/entities/stock/warehouse';
 import type { WarehousesRepository } from '@/repositories/stock/warehouses-repository';
 
 interface UpdateWarehouseUseCaseRequest {
+  tenantId: string;
   id: string;
   code?: string;
   name?: string;
@@ -21,6 +22,7 @@ export class UpdateWarehouseUseCase {
   constructor(private warehousesRepository: WarehousesRepository) {}
 
   async execute({
+    tenantId,
     id,
     code,
     name,
@@ -31,8 +33,10 @@ export class UpdateWarehouseUseCase {
     const warehouseId = new UniqueEntityID(id);
 
     // Check if warehouse exists
-    const existingWarehouse =
-      await this.warehousesRepository.findById(warehouseId);
+    const existingWarehouse = await this.warehousesRepository.findById(
+      warehouseId,
+      tenantId,
+    );
 
     if (!existingWarehouse) {
       throw new ResourceNotFoundError('Warehouse');
@@ -47,8 +51,10 @@ export class UpdateWarehouseUseCase {
       }
 
       // Check for duplicate code (excluding current warehouse)
-      const warehouseWithSameCode =
-        await this.warehousesRepository.findByCode(code);
+      const warehouseWithSameCode = await this.warehousesRepository.findByCode(
+        code,
+        tenantId,
+      );
       if (
         warehouseWithSameCode &&
         !warehouseWithSameCode.warehouseId.equals(warehouseId)

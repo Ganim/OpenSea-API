@@ -4,6 +4,7 @@ import { PayrollItem } from './payroll-item';
 import { PayrollStatus } from './value-objects';
 
 export interface PayrollProps {
+  tenantId: UniqueEntityID;
   referenceMonth: number; // 1-12
   referenceYear: number;
   status: PayrollStatus;
@@ -22,6 +23,10 @@ export interface PayrollProps {
 }
 
 export class Payroll extends Entity<PayrollProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get referenceMonth(): number {
     return this.props.referenceMonth;
   }

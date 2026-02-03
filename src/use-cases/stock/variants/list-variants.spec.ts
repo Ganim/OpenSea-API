@@ -44,11 +44,13 @@ describe('ListVariantsUseCase', () => {
 
   it('should be able to list all variants', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -57,6 +59,7 @@ describe('ListVariantsUseCase', () => {
     });
 
     await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Variant 1',
@@ -64,13 +67,14 @@ describe('ListVariantsUseCase', () => {
     });
 
     await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-002',
       name: 'Variant 2',
       price: 200,
     });
 
-    const result = await listVariants.execute();
+    const result = await listVariants.execute({ tenantId: 'tenant-1' });
 
     expect(result).toHaveLength(2);
     expect(result[0].name).toBe('Variant 1');
@@ -78,7 +82,7 @@ describe('ListVariantsUseCase', () => {
   });
 
   it('should return empty array when there are no variants', async () => {
-    const result = await listVariants.execute();
+    const result = await listVariants.execute({ tenantId: 'tenant-1' });
 
     expect(result).toHaveLength(0);
   });

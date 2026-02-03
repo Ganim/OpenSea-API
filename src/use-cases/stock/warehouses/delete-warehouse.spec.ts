@@ -9,6 +9,8 @@ let warehousesRepository: InMemoryWarehousesRepository;
 let sut: DeleteWarehouseUseCase;
 
 describe('DeleteWarehouseUseCase', () => {
+  const TENANT_ID = 'tenant-1';
+
   beforeEach(() => {
     warehousesRepository = new InMemoryWarehousesRepository();
     sut = new DeleteWarehouseUseCase(warehousesRepository);
@@ -16,6 +18,7 @@ describe('DeleteWarehouseUseCase', () => {
 
   async function createTestWarehouse() {
     return warehousesRepository.create({
+      tenantId: TENANT_ID,
       code: 'FAB',
       name: 'Fábrica Principal',
     });
@@ -25,6 +28,7 @@ describe('DeleteWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: warehouse.warehouseId.toString(),
     });
 
@@ -32,6 +36,7 @@ describe('DeleteWarehouseUseCase', () => {
 
     const deletedWarehouse = await warehousesRepository.findById(
       warehouse.warehouseId,
+      'tenant-1',
     );
     expect(deletedWarehouse).toBeNull();
   });
@@ -39,6 +44,7 @@ describe('DeleteWarehouseUseCase', () => {
   it('should fail when warehouse is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -52,6 +58,7 @@ describe('DeleteWarehouseUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: warehouse.warehouseId.toString(),
       }),
     ).rejects.toThrow(BadRequestError);
@@ -64,6 +71,7 @@ describe('DeleteWarehouseUseCase', () => {
 
     try {
       await sut.execute({
+        tenantId: 'tenant-1',
         id: warehouse.warehouseId.toString(),
       });
       expect.fail('Should have thrown');
@@ -77,6 +85,7 @@ describe('DeleteWarehouseUseCase', () => {
     const warehouse = await createTestWarehouse();
 
     await sut.execute({
+      tenantId: 'tenant-1',
       id: warehouse.warehouseId.toString(),
     });
 

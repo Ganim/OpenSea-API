@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { absenceResponseSchema, approveAbsenceSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { absenceToDTO } from '@/mappers/hr/absence/absence-to-dto';
@@ -18,6 +19,7 @@ export async function approveAbsenceController(app: FastifyInstance) {
     url: '/v1/hr/absences/:absenceId/approve',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.ABSENCES.MANAGE,
         resource: 'absences',
@@ -46,12 +48,14 @@ export async function approveAbsenceController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { absenceId } = request.params;
       const userId = request.user.sub;
 
       try {
         const approveAbsenceUseCase = makeApproveAbsenceUseCase();
         const { absence } = await approveAbsenceUseCase.execute({
+          tenantId,
           absenceId,
           approvedBy: userId,
         });

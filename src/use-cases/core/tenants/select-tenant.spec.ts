@@ -38,6 +38,7 @@ describe('SelectTenantUseCase', () => {
       userId: userId.toString(),
       tenantId: tenant.tenantId.toString(),
       sessionId: 's1',
+      isSuperAdmin: false,
       reply: mockReply,
     });
     expect(token).toBe('mock-token');
@@ -50,6 +51,7 @@ describe('SelectTenantUseCase', () => {
         userId: 'u',
         tenantId: 'no',
         sessionId: 's',
+        isSuperAdmin: false,
         reply: mockReply,
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
@@ -66,6 +68,7 @@ describe('SelectTenantUseCase', () => {
         userId: 'u',
         tenantId: t.tenantId.toString(),
         sessionId: 's',
+        isSuperAdmin: false,
         reply: mockReply,
       }),
     ).rejects.toBeInstanceOf(ForbiddenError);
@@ -78,6 +81,7 @@ describe('SelectTenantUseCase', () => {
         userId: 'no-member',
         tenantId: t.tenantId.toString(),
         sessionId: 's',
+        isSuperAdmin: false,
         reply: mockReply,
       }),
     ).rejects.toBeInstanceOf(ForbiddenError);

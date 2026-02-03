@@ -1,5 +1,6 @@
 ﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { customerResponseSchema } from '@/http/schemas/sales.schema';
 import { makeGetCustomerByIdUseCase } from '@/use-cases/sales/customers/factories/make-get-customer-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -10,7 +11,7 @@ export async function getCustomerByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/customers/:id',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['Sales - Customers'],
       summary: 'Get customer by ID',
@@ -30,10 +31,11 @@ export async function getCustomerByIdController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
+      const tenantId = request.user.tenantId!;
 
       try {
         const useCase = makeGetCustomerByIdUseCase();
-        const { customer } = await useCase.execute({ id });
+        const { customer } = await useCase.execute({ tenantId, id });
 
         return reply.status(200).send({ customer });
       } catch (error) {

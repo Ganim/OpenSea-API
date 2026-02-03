@@ -89,6 +89,7 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
         userAgent: raw.userAgent,
         endpoint: raw.endpoint,
         method: raw.method,
+        tenantId: raw.tenantId ? new UniqueEntityID(raw.tenantId) : null,
         userId: raw.userId ? new UniqueEntityID(raw.userId) : null,
         affectedUser: raw.affectedUser,
         userName,
@@ -104,6 +105,10 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
     params?: ListAuditLogsParams,
   ): Prisma.AuditLogWhereInput {
     const where: Prisma.AuditLogWhereInput = {};
+
+    if (params?.tenantId) {
+      where.tenantId = params.tenantId.toString();
+    }
 
     if (params?.userId) {
       where.userId = params.userId.toString();
@@ -156,6 +161,7 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
         userAgent: data.userAgent ?? null,
         endpoint: data.endpoint ?? null,
         method: data.method ?? null,
+        tenantId: data.tenantId?.toString() ?? null,
         userId: data.userId?.toString() ?? null,
         affectedUser: data.affectedUser ?? null,
         expiresAt: data.expiresAt ?? null,
@@ -179,6 +185,7 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
         userAgent: item.userAgent ?? null,
         endpoint: item.endpoint ?? null,
         method: item.method ?? null,
+        tenantId: item.tenantId?.toString() ?? null,
         userId: item.userId?.toString() ?? null,
         affectedUser: item.affectedUser ?? null,
         expiresAt: item.expiresAt ?? null,

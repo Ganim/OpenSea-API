@@ -15,6 +15,7 @@ export class PrismaVacationPeriodsRepository
   async create(data: CreateVacationPeriodSchema): Promise<VacationPeriod> {
     const vacationPeriodData = await prisma.vacationPeriod.create({
       data: {
+        tenantId: data.tenantId,
         employeeId: data.employeeId.toString(),
         acquisitionStart: data.acquisitionStart,
         acquisitionEnd: data.acquisitionEnd,
@@ -36,9 +37,12 @@ export class PrismaVacationPeriodsRepository
     return vacationPeriod;
   }
 
-  async findById(id: UniqueEntityID): Promise<VacationPeriod | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<VacationPeriod | null> {
     const vacationPeriodData = await prisma.vacationPeriod.findUnique({
-      where: { id: id.toString(), deletedAt: null },
+      where: { id: id.toString(), tenantId, deletedAt: null },
     });
 
     if (!vacationPeriodData) return null;
@@ -51,9 +55,10 @@ export class PrismaVacationPeriodsRepository
   }
 
   async findMany(
+    tenantId: string,
     filters?: FindVacationPeriodFilters,
   ): Promise<VacationPeriod[]> {
-    const whereClause: Record<string, unknown> = { deletedAt: null };
+    const whereClause: Record<string, unknown> = { tenantId, deletedAt: null };
 
     if (filters?.employeeId) {
       whereClause.employeeId = filters.employeeId.toString();
@@ -83,10 +88,12 @@ export class PrismaVacationPeriodsRepository
 
   async findManyByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<VacationPeriod[]> {
     const vacationPeriods = await prisma.vacationPeriod.findMany({
       where: {
         employeeId: employeeId.toString(),
+        tenantId,
         deletedAt: null,
       },
       orderBy: { acquisitionStart: 'desc' },
@@ -103,11 +110,13 @@ export class PrismaVacationPeriodsRepository
   async findManyByEmployeeAndStatus(
     employeeId: UniqueEntityID,
     status: string,
+    tenantId: string,
   ): Promise<VacationPeriod[]> {
     const vacationPeriods = await prisma.vacationPeriod.findMany({
       where: {
         employeeId: employeeId.toString(),
         status,
+        tenantId,
         deletedAt: null,
       },
       orderBy: { acquisitionStart: 'desc' },
@@ -121,10 +130,14 @@ export class PrismaVacationPeriodsRepository
     );
   }
 
-  async findManyByStatus(status: string): Promise<VacationPeriod[]> {
+  async findManyByStatus(
+    status: string,
+    tenantId: string,
+  ): Promise<VacationPeriod[]> {
     const vacationPeriods = await prisma.vacationPeriod.findMany({
       where: {
         status,
+        tenantId,
         deletedAt: null,
       },
       orderBy: { acquisitionStart: 'desc' },
@@ -140,10 +153,12 @@ export class PrismaVacationPeriodsRepository
 
   async findAvailableByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<VacationPeriod[]> {
     const vacationPeriods = await prisma.vacationPeriod.findMany({
       where: {
         employeeId: employeeId.toString(),
+        tenantId,
         status: { in: ['AVAILABLE', 'SCHEDULED'] },
         remainingDays: { gt: 0 },
         deletedAt: null,
@@ -161,6 +176,7 @@ export class PrismaVacationPeriodsRepository
 
   async findCurrentByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<VacationPeriod | null> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -168,6 +184,7 @@ export class PrismaVacationPeriodsRepository
     const vacationPeriod = await prisma.vacationPeriod.findFirst({
       where: {
         employeeId: employeeId.toString(),
+        tenantId,
         status: 'PENDING',
         acquisitionEnd: { gte: today },
         deletedAt: null,
@@ -183,9 +200,13 @@ export class PrismaVacationPeriodsRepository
     );
   }
 
-  async findExpiring(beforeDate: Date): Promise<VacationPeriod[]> {
+  async findExpiring(
+    beforeDate: Date,
+    tenantId: string,
+  ): Promise<VacationPeriod[]> {
     const vacationPeriods = await prisma.vacationPeriod.findMany({
       where: {
+        tenantId,
         status: { in: ['AVAILABLE', 'SCHEDULED'] },
         concessionEnd: { lte: beforeDate },
         remainingDays: { gt: 0 },

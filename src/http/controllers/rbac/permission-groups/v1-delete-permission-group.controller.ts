@@ -1,10 +1,12 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas/common.schema';
 import { deletePermissionGroupQuerySchema } from '@/http/schemas/rbac.schema';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -22,6 +24,7 @@ export async function deletePermissionGroupController(app: FastifyInstance) {
     url: '/v1/rbac/permission-groups/:groupId',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.RBAC.GROUPS.DELETE,
         resource: 'permission-groups',
@@ -49,6 +52,7 @@ export async function deletePermissionGroupController(app: FastifyInstance) {
       const { groupId } = request.params;
       const { force } = request.query;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         // Busca dados antes da exclusão para auditoria
@@ -58,7 +62,7 @@ export async function deletePermissionGroupController(app: FastifyInstance) {
 
         const [{ user: admin }, { group }] = await Promise.all([
           getUserByIdUseCase.execute({ userId: adminId }),
-          getPermissionGroupByIdUseCase.execute({ id: groupId }),
+          getPermissionGroupByIdUseCase.execute({ id: groupId, tenantId }),
         ]);
         const adminName = admin.profile?.name
           ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
@@ -67,6 +71,7 @@ export async function deletePermissionGroupController(app: FastifyInstance) {
         const deletePermissionGroupUseCase = makeDeletePermissionGroupUseCase();
         await deletePermissionGroupUseCase.execute({
           groupId,
+          tenantId,
           force,
         });
 
@@ -82,6 +87,9 @@ export async function deletePermissionGroupController(app: FastifyInstance) {
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
         }
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

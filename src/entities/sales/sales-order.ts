@@ -123,6 +123,7 @@ export class SalesOrderItem extends Entity<SalesOrderItemProps> {
 
 export interface SalesOrderProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   orderNumber: string;
   status: OrderStatus;
   customerId: UniqueEntityID;
@@ -140,6 +141,10 @@ export interface SalesOrderProps {
 export class SalesOrder extends Entity<SalesOrderProps> {
   get id(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get orderNumber(): string {

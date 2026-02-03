@@ -6,6 +6,8 @@ import { GetPayrollUseCase } from './get-payroll';
 let payrollsRepository: InMemoryPayrollsRepository;
 let sut: GetPayrollUseCase;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('Get Payroll Use Case', () => {
   beforeEach(async () => {
     payrollsRepository = new InMemoryPayrollsRepository();
@@ -14,11 +16,13 @@ describe('Get Payroll Use Case', () => {
 
   it('should get a payroll by id', async () => {
     const createdPayroll = await payrollsRepository.create({
+      tenantId,
       referenceMonth: 6,
       referenceYear: 2024,
     });
 
     const result = await sut.execute({
+      tenantId,
       payrollId: createdPayroll.id.toString(),
     });
 
@@ -31,6 +35,7 @@ describe('Get Payroll Use Case', () => {
   it('should throw error if payroll not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         payrollId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Folha de pagamento não encontrada');

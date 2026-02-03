@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreatePositionUseCase } from './create-position';
 import { UpdatePositionUseCase } from './update-position';
 
+const TENANT_ID = 'tenant-1';
+
 let positionsRepository: InMemoryPositionsRepository;
 let createPositionUseCase: CreatePositionUseCase;
 let sut: UpdatePositionUseCase;
@@ -16,11 +18,13 @@ describe('Update Position Use Case', () => {
 
   it('should update position successfully', async () => {
     const createResult = await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.position.id.toString(),
       name: 'Senior Software Engineer',
       description: 'Updated description',
@@ -33,6 +37,7 @@ describe('Update Position Use Case', () => {
   it('should not update non-existent position', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: 'non-existent-id',
         name: 'New Name',
       }),
@@ -41,17 +46,20 @@ describe('Update Position Use Case', () => {
 
   it('should not update code to existing code', async () => {
     await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
     });
 
     const result2 = await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Manager',
       code: 'MGR',
     });
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: result2.position.id.toString(),
         code: 'SE',
       }),
@@ -60,11 +68,13 @@ describe('Update Position Use Case', () => {
 
   it('should update code if same position', async () => {
     const createResult = await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.position.id.toString(),
       code: 'SE',
       name: 'Updated Name',
@@ -76,6 +86,7 @@ describe('Update Position Use Case', () => {
 
   it('should not update with invalid salary range', async () => {
     const createResult = await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
       minSalary: 3000,
@@ -84,6 +95,7 @@ describe('Update Position Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: createResult.position.id.toString(),
         minSalary: 10000,
         maxSalary: 5000,
@@ -93,12 +105,14 @@ describe('Update Position Use Case', () => {
 
   it('should update level', async () => {
     const createResult = await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
       level: 1,
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.position.id.toString(),
       level: 3,
     });
@@ -108,12 +122,14 @@ describe('Update Position Use Case', () => {
 
   it('should not update with invalid level', async () => {
     const createResult = await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
     });
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: createResult.position.id.toString(),
         level: 0,
       }),
@@ -122,12 +138,14 @@ describe('Update Position Use Case', () => {
 
   it('should remove department by setting null', async () => {
     const createResult = await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
       departmentId: 'dept-123',
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.position.id.toString(),
       departmentId: null,
     });
@@ -137,12 +155,14 @@ describe('Update Position Use Case', () => {
 
   it('should update isActive status', async () => {
     const createResult = await createPositionUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Software Engineer',
       code: 'SE',
       isActive: true,
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.position.id.toString(),
       isActive: false,
     });

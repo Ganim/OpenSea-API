@@ -3,6 +3,7 @@ import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 
 export interface RejectAbsenceRequest {
+  tenantId: string;
   absenceId: string;
   rejectedBy: string;
   reason: string;
@@ -16,7 +17,7 @@ export class RejectAbsenceUseCase {
   constructor(private absencesRepository: AbsencesRepository) {}
 
   async execute(request: RejectAbsenceRequest): Promise<RejectAbsenceResponse> {
-    const { absenceId, rejectedBy, reason } = request;
+    const { tenantId, absenceId, rejectedBy, reason } = request;
 
     // Validate reason
     if (!reason || reason.trim().length < 10) {
@@ -26,6 +27,7 @@ export class RejectAbsenceUseCase {
     // Find absence
     const absence = await this.absencesRepository.findById(
       new UniqueEntityID(absenceId),
+      tenantId,
     );
     if (!absence) {
       throw new Error('Absence not found');

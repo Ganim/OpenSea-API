@@ -5,6 +5,7 @@ import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface GetTemplateByIdUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -18,10 +19,11 @@ export class GetTemplateByIdUseCase {
   async execute(
     request: GetTemplateByIdUseCaseRequest,
   ): Promise<GetTemplateByIdUseCaseResponse> {
-    const { id } = request;
+    const { tenantId, id } = request;
 
     const template = await this.templatesRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!template) {

@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   tagResponseSchema,
   updateTagSchema,
@@ -22,6 +23,7 @@ export async function updateTagController(app: FastifyInstance) {
     url: '/v1/tags/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.TAGS.UPDATE,
         resource: 'tags',
@@ -47,6 +49,7 @@ export async function updateTagController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params as { id: string };
       const userId = request.user.sub;
 
@@ -56,7 +59,7 @@ export async function updateTagController(app: FastifyInstance) {
 
         const [{ user }, { tag: oldTag }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getTagByIdUseCase.execute({ id }),
+          getTagByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -64,6 +67,7 @@ export async function updateTagController(app: FastifyInstance) {
 
         const updateTag = makeUpdateTagUseCase();
         const { tag } = await updateTag.execute({
+          tenantId,
           id,
           ...request.body,
         });

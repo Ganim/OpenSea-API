@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeDeleteVariantUseCase } from '@/use-cases/stock/variants/factories/make-delete-variant-use-case';
 import { makeGetVariantByIdUseCase } from '@/use-cases/stock/variants/factories/make-get-variant-by-id-use-case';
@@ -17,6 +18,7 @@ export async function deleteVariantController(app: FastifyInstance) {
     url: '/v1/variants/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.VARIANTS.DELETE,
         resource: 'variants',
@@ -38,6 +40,7 @@ export async function deleteVariantController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const userId = request.user.sub;
 
@@ -47,14 +50,14 @@ export async function deleteVariantController(app: FastifyInstance) {
 
         const [{ user }, variant] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getVariantByIdUseCase.execute({ id }),
+          getVariantByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const deleteVariantUseCase = makeDeleteVariantUseCase();
-        await deleteVariantUseCase.execute({ id });
+        await deleteVariantUseCase.execute({ tenantId, id });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STOCK.VARIANT_DELETE,

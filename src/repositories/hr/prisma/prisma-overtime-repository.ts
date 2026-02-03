@@ -13,6 +13,7 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
   async create(data: CreateOvertimeSchema): Promise<Overtime> {
     const overtimeData = await prisma.overtime.create({
       data: {
+        tenantId: data.tenantId,
         employeeId: data.employeeId.toString(),
         date: data.date,
         hours: data.hours,
@@ -28,9 +29,12 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
     return overtime;
   }
 
-  async findById(id: UniqueEntityID): Promise<Overtime | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Overtime | null> {
     const overtimeData = await prisma.overtime.findUnique({
-      where: { id: id.toString() },
+      where: { id: id.toString(), tenantId },
     });
 
     if (!overtimeData) return null;
@@ -42,9 +46,13 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
     return overtime;
   }
 
-  async findMany(filters?: FindOvertimeFilters): Promise<Overtime[]> {
+  async findMany(
+    tenantId: string,
+    filters?: FindOvertimeFilters,
+  ): Promise<Overtime[]> {
     const overtimes = await prisma.overtime.findMany({
       where: {
+        tenantId,
         employeeId: filters?.employeeId?.toString(),
         date: {
           gte: filters?.startDate,
@@ -55,24 +63,27 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
       orderBy: { date: 'desc' },
     });
 
-    return overtimes.map((item) =>
+    return overtimes.map((overtimeRecord) =>
       Overtime.create(
-        mapOvertimePrismaToDomain(item),
-        new UniqueEntityID(item.id),
+        mapOvertimePrismaToDomain(overtimeRecord),
+        new UniqueEntityID(overtimeRecord.id),
       ),
     );
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<Overtime[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Overtime[]> {
     const overtimes = await prisma.overtime.findMany({
-      where: { employeeId: employeeId.toString() },
+      where: { employeeId: employeeId.toString(), tenantId },
       orderBy: { date: 'desc' },
     });
 
-    return overtimes.map((item) =>
+    return overtimes.map((overtimeRecord) =>
       Overtime.create(
-        mapOvertimePrismaToDomain(item),
-        new UniqueEntityID(item.id),
+        mapOvertimePrismaToDomain(overtimeRecord),
+        new UniqueEntityID(overtimeRecord.id),
       ),
     );
   }
@@ -81,10 +92,12 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
     employeeId: UniqueEntityID,
     startDate: Date,
     endDate: Date,
+    tenantId: string,
   ): Promise<Overtime[]> {
     const overtimes = await prisma.overtime.findMany({
       where: {
         employeeId: employeeId.toString(),
+        tenantId,
         date: {
           gte: startDate,
           lte: endDate,
@@ -93,38 +106,38 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
       orderBy: { date: 'asc' },
     });
 
-    return overtimes.map((item) =>
+    return overtimes.map((overtimeRecord) =>
       Overtime.create(
-        mapOvertimePrismaToDomain(item),
-        new UniqueEntityID(item.id),
+        mapOvertimePrismaToDomain(overtimeRecord),
+        new UniqueEntityID(overtimeRecord.id),
       ),
     );
   }
 
-  async findManyPending(): Promise<Overtime[]> {
+  async findManyPending(tenantId: string): Promise<Overtime[]> {
     const overtimes = await prisma.overtime.findMany({
-      where: { approved: false },
+      where: { approved: false, tenantId },
       orderBy: { date: 'desc' },
     });
 
-    return overtimes.map((item) =>
+    return overtimes.map((overtimeRecord) =>
       Overtime.create(
-        mapOvertimePrismaToDomain(item),
-        new UniqueEntityID(item.id),
+        mapOvertimePrismaToDomain(overtimeRecord),
+        new UniqueEntityID(overtimeRecord.id),
       ),
     );
   }
 
-  async findManyApproved(): Promise<Overtime[]> {
+  async findManyApproved(tenantId: string): Promise<Overtime[]> {
     const overtimes = await prisma.overtime.findMany({
-      where: { approved: true },
+      where: { approved: true, tenantId },
       orderBy: { date: 'desc' },
     });
 
-    return overtimes.map((item) =>
+    return overtimes.map((overtimeRecord) =>
       Overtime.create(
-        mapOvertimePrismaToDomain(item),
-        new UniqueEntityID(item.id),
+        mapOvertimePrismaToDomain(overtimeRecord),
+        new UniqueEntityID(overtimeRecord.id),
       ),
     );
   }

@@ -18,8 +18,18 @@ describe('List Suppliers (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     await prisma.supplier.create({
       data: {
+        tenantId,
         name: `Supplier ${timestamp}`,
         city: 'São Paulo',
         state: 'SP',

@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { VolumeItemHttpPresenter } from '@/http/presenters/stock/volume-presenter';
 import {
   addItemToVolumeSchema,
@@ -17,6 +18,7 @@ export async function addItemToVolumeController(app: FastifyInstance) {
     url: '/v1/volumes/:id/items',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.VOLUMES.ADD_ITEM,
         resource: 'volumes',
@@ -45,10 +47,12 @@ export async function addItemToVolumeController(app: FastifyInstance) {
       const { id } = request.params;
       const { itemId } = request.body;
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       const addItemToVolumeUseCase = makeAddItemToVolumeUseCase();
 
       const result = await addItemToVolumeUseCase.execute({
+        tenantId,
         volumeId: id,
         itemId,
         addedBy: userId,

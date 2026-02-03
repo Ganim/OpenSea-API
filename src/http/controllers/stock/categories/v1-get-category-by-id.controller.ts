@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { categoryResponseSchema } from '@/http/schemas';
 import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
 import { makeGetCategoryByIdUseCase } from '@/use-cases/stock/categories/factories/make-get-category-by-id-use-case';
@@ -15,6 +16,7 @@ export async function getCategoryByIdController(app: FastifyInstance) {
     url: '/v1/categories/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.CATEGORIES.READ,
         resource: 'categories',
@@ -38,11 +40,13 @@ export async function getCategoryByIdController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
       try {
         const getCategoryByIdUseCase = makeGetCategoryByIdUseCase();
         const { category } = await getCategoryByIdUseCase.execute({
+          tenantId,
           id,
         });
 

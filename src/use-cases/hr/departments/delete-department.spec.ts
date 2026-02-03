@@ -4,6 +4,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateDepartmentUseCase } from './create-department';
 import { DeleteDepartmentUseCase } from './delete-department';
 
+const TENANT_ID = 'tenant-1';
+
 let departmentsRepository: InMemoryDepartmentsRepository;
 let createDepartmentUseCase: CreateDepartmentUseCase;
 let sut: DeleteDepartmentUseCase;
@@ -21,12 +23,14 @@ describe('Delete Department Use Case', () => {
 
   it('should delete department successfully', async () => {
     const createResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.department.id.toString(),
     });
 
@@ -34,6 +38,7 @@ describe('Delete Department Use Case', () => {
 
     const deletedDepartment = await departmentsRepository.findById(
       createResult.department.id,
+      TENANT_ID,
     );
     expect(deletedDepartment).toBeNull();
   });
@@ -41,6 +46,7 @@ describe('Delete Department Use Case', () => {
   it('should not delete non-existent department', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: 'non-existent-id',
       }),
     ).rejects.toThrow('Department not found');
@@ -48,12 +54,14 @@ describe('Delete Department Use Case', () => {
 
   it('should not delete department with children', async () => {
     const parentResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Technology',
       code: 'TECH',
       companyId,
     });
 
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       parentId: parentResult.department.id.toString(),
@@ -62,6 +70,7 @@ describe('Delete Department Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: parentResult.department.id.toString(),
       }),
     ).rejects.toThrow('Cannot delete department with child departments');

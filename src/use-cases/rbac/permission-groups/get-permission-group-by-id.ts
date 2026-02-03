@@ -1,3 +1,4 @@
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { User } from '@/entities/core/user';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -10,6 +11,7 @@ import { UserPermissionGroupsRepository } from '@/repositories/rbac/user-permiss
 
 interface GetPermissionGroupByIdRequest {
   id: string;
+  tenantId?: string;
 }
 
 interface GetPermissionGroupByIdResponse {
@@ -32,6 +34,7 @@ export class GetPermissionGroupByIdUseCase {
 
   async execute({
     id,
+    tenantId,
   }: GetPermissionGroupByIdRequest): Promise<GetPermissionGroupByIdResponse> {
     const group = await this.permissionGroupsRepository.findById(
       new UniqueEntityID(id),
@@ -39,6 +42,19 @@ export class GetPermissionGroupByIdUseCase {
 
     if (!group) {
       throw new ResourceNotFoundError('Permission group not found');
+    }
+
+    // If tenantId is provided, verify the group belongs to the tenant or is a system/global group
+    if (tenantId) {
+      const tenantIdEntity = new UniqueEntityID(tenantId);
+      const isOwnedByTenant = group.tenantId?.equals(tenantIdEntity);
+      const isGlobalGroup = group.tenantId === null;
+
+      if (!isOwnedByTenant && !isGlobalGroup) {
+        throw new ForbiddenError(
+          'Permission group does not belong to your tenant',
+        );
+      }
     }
 
     // Buscar usuários do grupo

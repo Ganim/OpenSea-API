@@ -12,6 +12,7 @@ interface CreatePermissionGroupRequest {
   color?: string | null;
   priority?: number;
   parentId?: string | null;
+  tenantId?: string | null;
 }
 
 interface CreatePermissionGroupResponse {
@@ -33,13 +34,28 @@ export class CreatePermissionGroupUseCase {
       color,
       priority = 0,
       parentId,
+      tenantId,
     } = request;
 
-    // Verificar se slug já existe
-    const groupExists = await this.permissionGroupsRepository.exists(slug);
+    const tenantIdEntity = tenantId ? new UniqueEntityID(tenantId) : null;
 
-    if (groupExists) {
-      throw new BadRequestError(`Group with slug '${slug}' already exists`);
+    // Verificar se slug já existe dentro do mesmo tenant (ou global)
+    if (tenantIdEntity) {
+      const existingBySlugInTenant =
+        await this.permissionGroupsRepository.findBySlugAndTenantId(
+          slug,
+          tenantIdEntity,
+        );
+
+      if (existingBySlugInTenant) {
+        throw new BadRequestError(`Group with slug '${slug}' already exists`);
+      }
+    } else {
+      const groupExists = await this.permissionGroupsRepository.exists(slug);
+
+      if (groupExists) {
+        throw new BadRequestError(`Group with slug '${slug}' already exists`);
+      }
     }
 
     // Verificar se nome já existe
@@ -82,6 +98,7 @@ export class CreatePermissionGroupUseCase {
       color: color ?? null,
       priority,
       parentId: parentIdEntity,
+      tenantId: tenantIdEntity,
     });
 
     return {

@@ -18,10 +18,12 @@ describe('Update Category Use Case', () => {
 
   it('should update a category', async () => {
     const { category: createdCategory } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdCategory.id.toString(),
       name: 'Consumer Electronics',
       description: 'Updated description',
@@ -33,10 +35,12 @@ describe('Update Category Use Case', () => {
 
   it('should update category slug', async () => {
     const { category: createdCategory } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdCategory.id.toString(),
       slug: 'consumer-electronics',
     });
@@ -46,14 +50,17 @@ describe('Update Category Use Case', () => {
 
   it('should update category parent', async () => {
     const { category: parent } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     const { category: child } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Smartphones',
     });
 
     const { category: updated } = await sut.execute({
+      tenantId: 'tenant-1',
       id: child.id.toString(),
       parentId: parent.id.toString(),
     });
@@ -63,15 +70,18 @@ describe('Update Category Use Case', () => {
 
   it('should remove parent (make root category)', async () => {
     const { category: parent } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     const { category: child } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Smartphones',
       parentId: parent.id.toString(),
     });
 
     const { category: updated } = await sut.execute({
+      tenantId: 'tenant-1',
       id: child.id.toString(),
       parentId: null,
     });
@@ -81,10 +91,12 @@ describe('Update Category Use Case', () => {
 
   it('should update display order', async () => {
     const { category: createdCategory } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdCategory.id.toString(),
       displayOrder: 5,
     });
@@ -94,10 +106,12 @@ describe('Update Category Use Case', () => {
 
   it('should update isActive status', async () => {
     const { category: createdCategory } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdCategory.id.toString(),
       isActive: false,
     });
@@ -107,10 +121,12 @@ describe('Update Category Use Case', () => {
 
   it('should update category iconUrl', async () => {
     const { category: createdCategory } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdCategory.id.toString(),
       iconUrl: 'https://example.com/icons/electronics.svg',
     });
@@ -120,11 +136,13 @@ describe('Update Category Use Case', () => {
 
   it('should remove category iconUrl by setting it to null', async () => {
     const { category: createdCategory } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       iconUrl: 'https://example.com/icons/electronics.svg',
     });
 
     const { category } = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdCategory.id.toString(),
       iconUrl: null,
     });
@@ -137,6 +155,7 @@ describe('Update Category Use Case', () => {
   it('should throw error if category does not exist', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'non-existent-id',
         name: 'Updated Name',
       }),
@@ -144,13 +163,18 @@ describe('Update Category Use Case', () => {
   });
 
   it('should not allow updating to an existing name', async () => {
-    await createCategoryUseCase.execute({ name: 'Electronics' });
+    await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
+      name: 'Electronics',
+    });
     const { category } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Clothing',
     });
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: category.id.toString(),
         name: 'Electronics',
       }),
@@ -159,16 +183,19 @@ describe('Update Category Use Case', () => {
 
   it('should not allow updating to an existing slug', async () => {
     await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
     });
     const { category } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Clothing',
       slug: 'clothing',
     });
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: category.id.toString(),
         slug: 'electronics',
       }),
@@ -177,11 +204,13 @@ describe('Update Category Use Case', () => {
 
   it('should not allow a category to be its own parent', async () => {
     const { category } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: category.id.toString(),
         parentId: category.id.toString(),
       }),
@@ -190,15 +219,18 @@ describe('Update Category Use Case', () => {
 
   it('should not allow circular reference (subcategory as parent)', async () => {
     const { category: grandParent } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     const { category: parent } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Mobile Devices',
       parentId: grandParent.id.toString(),
     });
 
     const { category: child } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Smartphones',
       parentId: parent.id.toString(),
     });
@@ -206,6 +238,7 @@ describe('Update Category Use Case', () => {
     // Tentando fazer o avô ser filho do neto (circular reference)
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: grandParent.id.toString(),
         parentId: child.id.toString(),
       }),
@@ -214,11 +247,13 @@ describe('Update Category Use Case', () => {
 
   it('should not allow updating to non-existent parent', async () => {
     const { category } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: category.id.toString(),
         parentId: 'non-existent-id',
       }),

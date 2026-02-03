@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyUseCase } from './create-company';
 import { RestoreCompanyUseCase } from './restore-company';
 
+const TENANT_ID = 'tenant-1';
+
 let companiesRepository: InMemoryCompaniesRepository;
 let restoreCompanyUseCase: RestoreCompanyUseCase;
 let createCompanyUseCase: CreateCompanyUseCase;
@@ -16,6 +18,7 @@ describe('Restore Company Use Case', () => {
 
   it('should restore a deleted company', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -26,24 +29,29 @@ describe('Restore Company Use Case', () => {
     await companiesRepository.save(company);
 
     // Verify it's deleted
-    let found = await companiesRepository.findById(created.company.id);
+    let found = await companiesRepository.findById(
+      created.company.id,
+      TENANT_ID,
+    );
     expect(found).toBeNull();
 
     // Restore it
     const result = await restoreCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: companyId,
     });
 
     expect(result.success).toBe(true);
 
     // Verify it's restored
-    found = await companiesRepository.findById(created.company.id);
+    found = await companiesRepository.findById(created.company.id, TENANT_ID);
     expect(found).toBeDefined();
     expect(found?.isDeleted()).toBe(false);
   });
 
   it('should handle restoring non-existent company', async () => {
     const result = await restoreCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: 'non-existent-id',
     });
 
@@ -52,11 +60,13 @@ describe('Restore Company Use Case', () => {
 
   it('should not allow restoring an active company', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await restoreCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 
@@ -66,6 +76,7 @@ describe('Restore Company Use Case', () => {
 
   it('should restore company and preserve all fields', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       tradeName: 'Tech Solutions',
@@ -87,10 +98,11 @@ describe('Restore Company Use Case', () => {
     await companiesRepository.save(company);
 
     await restoreCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: company.id.toString(),
     });
 
-    const restored = await companiesRepository.findById(company.id);
+    const restored = await companiesRepository.findById(company.id, TENANT_ID);
 
     expect(restored?.legalName).toBe('Tech Solutions LTDA');
     expect(restored?.tradeName).toBe('Tech Solutions');
@@ -104,12 +116,14 @@ describe('Restore Company Use Case', () => {
 
   it('should be idempotent', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     // Try to restore an active company
     const result1 = await restoreCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 
@@ -117,6 +131,7 @@ describe('Restore Company Use Case', () => {
 
     // Try again - should also succeed
     const result2 = await restoreCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 
@@ -125,12 +140,14 @@ describe('Restore Company Use Case', () => {
 
   it('should restore company with different statuses', async () => {
     const activeCompany = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Active Company',
       cnpj: '11111111111111',
       status: 'ACTIVE',
     });
 
     const inactiveCompany = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Inactive Company',
       cnpj: '22222222222222',
       status: 'INACTIVE',
@@ -146,10 +163,12 @@ describe('Restore Company Use Case', () => {
     await companiesRepository.save(inactiveToDelete);
 
     const resultActive = await restoreCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: activeCompany.company.id.toString(),
     });
 
     const resultInactive = await restoreCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: inactiveCompany.company.id.toString(),
     });
 
@@ -158,9 +177,11 @@ describe('Restore Company Use Case', () => {
 
     const restoredActive = await companiesRepository.findById(
       activeCompany.company.id,
+      TENANT_ID,
     );
     const restoredInactive = await companiesRepository.findById(
       inactiveCompany.company.id,
+      TENANT_ID,
     );
 
     expect(restoredActive?.status).toBe('ACTIVE');
@@ -169,6 +190,7 @@ describe('Restore Company Use Case', () => {
 
   it('should clear deletedAt field on restore', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -182,16 +204,18 @@ describe('Restore Company Use Case', () => {
 
     // Restore
     await restoreCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: company.id.toString(),
     });
 
-    const restored = await companiesRepository.findById(company.id);
+    const restored = await companiesRepository.findById(company.id, TENANT_ID);
     expect(restored?.deletedAt).toBeUndefined();
     expect(restored?.isDeleted()).toBe(false);
   });
 
   it('should handle restore and delete cycle', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -200,12 +224,16 @@ describe('Restore Company Use Case', () => {
 
     // Delete
     const deleteResult1 = await restoreCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: companyId,
     });
     expect(deleteResult1.success).toBe(true);
 
     // Try to find - should still exist (no delete was performed, just restore of active)
-    const found = await companiesRepository.findById(created.company.id);
+    const found = await companiesRepository.findById(
+      created.company.id,
+      TENANT_ID,
+    );
     expect(found).toBeDefined();
   });
 });

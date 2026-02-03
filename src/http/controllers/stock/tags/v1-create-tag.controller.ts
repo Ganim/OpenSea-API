@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createTagSchema,
   tagResponseSchema,
@@ -20,6 +21,7 @@ export async function createTagController(app: FastifyInstance) {
     url: '/v1/tags',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.TAGS.CREATE,
         resource: 'tags',
@@ -39,6 +41,7 @@ export async function createTagController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
 
       try {
@@ -49,7 +52,7 @@ export async function createTagController(app: FastifyInstance) {
           : user.username || user.email;
 
         const createTag = makeCreateTagUseCase();
-        const { tag } = await createTag.execute(request.body);
+        const { tag } = await createTag.execute({ tenantId, ...request.body });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STOCK.TAG_CREATE,

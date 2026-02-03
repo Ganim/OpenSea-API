@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { VacationPeriod } from '@/entities/hr/vacation-period';
 
 export interface CreateVacationPeriodSchema {
+  tenantId: string;
   employeeId: UniqueEntityID;
   acquisitionStart: Date;
   acquisitionEnd: Date;
@@ -34,21 +35,33 @@ export interface FindVacationPeriodFilters {
 
 export interface VacationPeriodsRepository {
   create(data: CreateVacationPeriodSchema): Promise<VacationPeriod>;
-  findById(id: UniqueEntityID): Promise<VacationPeriod | null>;
-  findMany(filters?: FindVacationPeriodFilters): Promise<VacationPeriod[]>;
-  findManyByEmployee(employeeId: UniqueEntityID): Promise<VacationPeriod[]>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<VacationPeriod | null>;
+  findMany(
+    tenantId: string,
+    filters?: FindVacationPeriodFilters,
+  ): Promise<VacationPeriod[]>;
+  findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<VacationPeriod[]>;
   findManyByEmployeeAndStatus(
     employeeId: UniqueEntityID,
     status: string,
+    tenantId: string,
   ): Promise<VacationPeriod[]>;
-  findManyByStatus(status: string): Promise<VacationPeriod[]>;
+  findManyByStatus(status: string, tenantId: string): Promise<VacationPeriod[]>;
   findAvailableByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<VacationPeriod[]>;
   findCurrentByEmployee(
     employeeId: UniqueEntityID,
+    tenantId: string,
   ): Promise<VacationPeriod | null>;
-  findExpiring(beforeDate: Date): Promise<VacationPeriod[]>;
+  findExpiring(beforeDate: Date, tenantId: string): Promise<VacationPeriod[]>;
   update(data: UpdateVacationPeriodSchema): Promise<VacationPeriod | null>;
   save(vacationPeriod: VacationPeriod): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

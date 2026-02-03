@@ -46,6 +46,7 @@ export function mapProductPrismaToDomain(productDb: ProductWithRelations) {
 
   return {
     id: new UniqueEntityID(productDb.id),
+    tenantId: new UniqueEntityID(productDb.tenantId),
     name: productDb.name,
     slug: slug,
     fullCode: productDb.fullCode ?? undefined,
@@ -80,7 +81,9 @@ export function mapProductPrismaToDomain(productDb: ProductWithRelations) {
     organizationId: productDb.organizationId
       ? new UniqueEntityID(productDb.organizationId)
       : undefined,
-    organization: productDb.organization ?? undefined,
+    organization:
+      (productDb.organization as unknown as import('@/entities/hr/organization/organization').Organization) ??
+      undefined,
     variants: productDb.variants
       ? productDb.variants.map(variantPrismaToDomain)
       : undefined,

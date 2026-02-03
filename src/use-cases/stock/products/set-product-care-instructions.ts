@@ -13,6 +13,7 @@ import type { CareCatalogProvider } from '@/services/care';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 
 interface SetProductCareInstructionsUseCaseRequest {
+  tenantId: string;
   productId: string;
   careInstructionIds: string[];
 }
@@ -30,7 +31,7 @@ export class SetProductCareInstructionsUseCase {
   async execute(
     request: SetProductCareInstructionsUseCaseRequest,
   ): Promise<SetProductCareInstructionsUseCaseResponse> {
-    const { productId, careInstructionIds } = request;
+    const { tenantId, productId, careInstructionIds } = request;
 
     // Check for duplicates
     const uniqueIds = [...new Set(careInstructionIds)];
@@ -51,6 +52,7 @@ export class SetProductCareInstructionsUseCase {
     // Check if product exists
     const existingProduct = await this.productsRepository.findById(
       new UniqueEntityID(productId),
+      tenantId,
     );
 
     if (!existingProduct) {

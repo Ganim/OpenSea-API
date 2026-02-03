@@ -23,6 +23,7 @@ export function mapEmployeePrismaToDomain(
   }>,
 ) {
   return {
+    tenantId: new UniqueEntityID(employeeDb.tenantId),
     registrationNumber: employeeDb.registrationNumber,
     userId: employeeDb.userId
       ? new UniqueEntityID(employeeDb.userId)

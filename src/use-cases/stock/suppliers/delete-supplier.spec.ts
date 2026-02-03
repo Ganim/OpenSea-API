@@ -18,15 +18,18 @@ describe('DeleteSupplierUseCase', () => {
 
   it('should delete a supplier', async () => {
     const { supplier: createdSupplier } = await createSupplierUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Tech Supplies Co.',
     });
 
     await sut.execute({
+      tenantId: 'tenant-1',
       id: createdSupplier.id,
     });
 
     const deletedSupplier = await suppliersRepository.findById(
       new UniqueEntityID(createdSupplier.id),
+      'tenant-1',
     );
     expect(deletedSupplier).toBeNull();
   });
@@ -34,6 +37,7 @@ describe('DeleteSupplierUseCase', () => {
   it('should throw error when supplier does not exist', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'non-existent-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);

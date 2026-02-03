@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { careOptionsByCategorySchema } from '@/http/schemas/stock.schema';
 import { makeListCareOptionsUseCase } from '@/use-cases/stock/care/factories/make-list-care-options-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -13,6 +14,7 @@ export async function listCareOptionsController(app: FastifyInstance) {
     url: '/v1/care/options',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.CARE.READ,
         resource: 'care',
@@ -30,7 +32,7 @@ export async function listCareOptionsController(app: FastifyInstance) {
       },
       security: [{ bearerAuth: [] }],
     },
-    handler: async (request, reply) => {
+    handler: async (_request, reply) => {
       const listCareOptions = makeListCareOptionsUseCase();
       const { options } = await listCareOptions.execute();
 

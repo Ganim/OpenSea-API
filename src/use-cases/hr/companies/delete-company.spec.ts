@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyUseCase } from './create-company';
 import { DeleteCompanyUseCase } from './delete-company';
 
+const TENANT_ID = 'tenant-1';
+
 let companiesRepository: InMemoryCompaniesRepository;
 let deleteCompanyUseCase: DeleteCompanyUseCase;
 let createCompanyUseCase: CreateCompanyUseCase;
@@ -16,11 +18,13 @@ describe('Delete Company Use Case', () => {
 
   it('should delete company', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await deleteCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 
@@ -29,6 +33,7 @@ describe('Delete Company Use Case', () => {
 
   it('should soft delete company', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -36,16 +41,21 @@ describe('Delete Company Use Case', () => {
     const companyId = created.company.id.toString();
 
     await deleteCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: companyId,
     });
 
     // Company should not be found after deletion (soft delete)
-    const foundCompany = await companiesRepository.findById(created.company.id);
+    const foundCompany = await companiesRepository.findById(
+      created.company.id,
+      TENANT_ID,
+    );
     expect(foundCompany).toBeNull();
   });
 
   it('should mark company as deleted', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -54,16 +64,18 @@ describe('Delete Company Use Case', () => {
     expect(company.isDeleted()).toBe(false);
 
     await deleteCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: company.id.toString(),
     });
 
     // Retrieve with includeDeleted to verify deletedAt is set
-    const deleted = await companiesRepository.findById(company.id);
+    const deleted = await companiesRepository.findById(company.id, TENANT_ID);
     expect(deleted).toBeNull(); // Not found in normal query
   });
 
   it('should handle deleting non-existent company', async () => {
     const result = await deleteCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: 'non-existent-id',
     });
 
@@ -73,6 +85,7 @@ describe('Delete Company Use Case', () => {
 
   it('should be idempotent', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -81,6 +94,7 @@ describe('Delete Company Use Case', () => {
 
     // First delete
     const result1 = await deleteCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: companyId,
     });
 
@@ -88,6 +102,7 @@ describe('Delete Company Use Case', () => {
 
     // Second delete should also succeed (idempotent)
     const result2 = await deleteCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: companyId,
     });
 
@@ -96,32 +111,38 @@ describe('Delete Company Use Case', () => {
 
   it('should delete company with various statuses', async () => {
     const active = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Active Company',
       cnpj: '11111111111111',
       status: 'ACTIVE',
     });
 
     const inactive = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Inactive Company',
       cnpj: '22222222222222',
       status: 'INACTIVE',
     });
 
     const suspended = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Suspended Company',
       cnpj: '33333333333333',
       status: 'SUSPENDED',
     });
 
     const resultActive = await deleteCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: active.company.id.toString(),
     });
 
     const resultInactive = await deleteCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: inactive.company.id.toString(),
     });
 
     const resultSuspended = await deleteCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: suspended.company.id.toString(),
     });
 
@@ -132,6 +153,7 @@ describe('Delete Company Use Case', () => {
 
   it('should delete company with all fields populated', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       tradeName: 'Tech Solutions',
@@ -146,6 +168,7 @@ describe('Delete Company Use Case', () => {
     });
 
     const result = await deleteCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
     });
 

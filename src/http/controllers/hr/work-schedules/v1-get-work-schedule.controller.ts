@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { workScheduleResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { workScheduleToDTO } from '@/mappers/hr/work-schedule/work-schedule-to-dto';
@@ -12,7 +13,7 @@ export async function getWorkScheduleController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/work-schedules/:workScheduleId',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Work Schedules'],
       summary: 'Get a work schedule',
@@ -32,11 +33,13 @@ export async function getWorkScheduleController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { workScheduleId } = request.params;
 
       try {
         const getWorkScheduleUseCase = makeGetWorkScheduleUseCase();
         const { workSchedule } = await getWorkScheduleUseCase.execute({
+          tenantId,
           id: workScheduleId,
         });
 

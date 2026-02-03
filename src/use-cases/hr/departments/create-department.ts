@@ -3,6 +3,7 @@ import { Department } from '@/entities/hr/department';
 import { DepartmentsRepository } from '@/repositories/hr/departments-repository';
 
 export interface CreateDepartmentRequest {
+  tenantId: string;
   name: string;
   code: string;
   description?: string;
@@ -23,6 +24,7 @@ export class CreateDepartmentUseCase {
     request: CreateDepartmentRequest,
   ): Promise<CreateDepartmentResponse> {
     const {
+      tenantId,
       name,
       code,
       description,
@@ -38,6 +40,7 @@ export class CreateDepartmentUseCase {
     const existingDepartment = await this.departmentsRepository.findByCode(
       code,
       companyUniqueId,
+      tenantId,
     );
     if (existingDepartment) {
       throw new Error('Department with this code already exists');
@@ -47,6 +50,7 @@ export class CreateDepartmentUseCase {
     if (parentId) {
       const parentDepartment = await this.departmentsRepository.findById(
         new UniqueEntityID(parentId),
+        tenantId,
       );
       if (!parentDepartment) {
         throw new Error('Parent department not found');
@@ -62,6 +66,7 @@ export class CreateDepartmentUseCase {
 
     // Create department
     const department = await this.departmentsRepository.create({
+      tenantId,
       name,
       code,
       description,

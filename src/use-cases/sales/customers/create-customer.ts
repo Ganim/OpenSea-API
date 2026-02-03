@@ -6,6 +6,7 @@ import { customerToDTO } from '@/mappers/sales/customer/customer-to-dto';
 import { CustomersRepository } from '@/repositories/sales/customers-repository';
 
 interface CreateCustomerUseCaseRequest {
+  tenantId: string;
   name: string;
   type: 'INDIVIDUAL' | 'BUSINESS';
   document?: string;
@@ -51,7 +52,7 @@ export class CreateCustomerUseCase {
 
       // Check if email already exists
       const existingCustomerWithEmail =
-        await this.customersRepository.findByEmail(input.email);
+        await this.customersRepository.findByEmail(input.email, input.tenantId);
       if (existingCustomerWithEmail) {
         throw new BadRequestError('Email already in use by another customer.');
       }
@@ -102,7 +103,7 @@ export class CreateCustomerUseCase {
 
       // Check if document already exists
       const existingCustomerWithDocument =
-        await this.customersRepository.findByDocument(document);
+        await this.customersRepository.findByDocument(document, input.tenantId);
       if (existingCustomerWithDocument) {
         throw new BadRequestError(
           'Document already in use by another customer.',
@@ -112,6 +113,7 @@ export class CreateCustomerUseCase {
 
     // Create customer
     const customer = await this.customersRepository.create({
+      tenantId: input.tenantId,
       name: input.name.trim(),
       type: CustomerType.create(input.type),
       document,

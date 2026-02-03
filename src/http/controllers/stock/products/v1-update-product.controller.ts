@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { productResponseSchema, updateProductSchema } from '@/http/schemas';
 import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -20,6 +21,7 @@ export async function updateProductController(app: FastifyInstance) {
     url: '/v1/products/:productId',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.PRODUCTS.UPDATE,
         resource: 'products',
@@ -47,6 +49,7 @@ export async function updateProductController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { productId } = request.params;
       const {
         name,
@@ -65,7 +68,7 @@ export async function updateProductController(app: FastifyInstance) {
 
         const [{ user }, { product: oldProduct }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getProductByIdUseCase.execute({ id: productId }),
+          getProductByIdUseCase.execute({ tenantId, id: productId }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -73,6 +76,7 @@ export async function updateProductController(app: FastifyInstance) {
 
         const updateProductUseCase = makeUpdateProductUseCase();
         const { product } = await updateProductUseCase.execute({
+          tenantId,
           id: productId,
           name,
           description,

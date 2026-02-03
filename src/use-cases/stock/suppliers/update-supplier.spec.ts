@@ -18,11 +18,13 @@ describe('UpdateSupplierUseCase', () => {
 
   it('should update a supplier', async () => {
     const { supplier: createdSupplier } = await createSupplierUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Tech Supplies Co.',
       email: 'contact@techsupplies.com',
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdSupplier.id,
       name: 'Updated Tech Supplies Co.',
       email: 'newemail@techsupplies.com',
@@ -40,11 +42,13 @@ describe('UpdateSupplierUseCase', () => {
 
   it('should update only name', async () => {
     const { supplier: createdSupplier } = await createSupplierUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Tech Supplies Co.',
       email: 'contact@techsupplies.com',
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdSupplier.id,
       name: 'Updated Name',
     });
@@ -55,11 +59,13 @@ describe('UpdateSupplierUseCase', () => {
 
   it('should throw error when updating with empty name', async () => {
     const { supplier: createdSupplier } = await createSupplierUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Tech Supplies Co.',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: createdSupplier.id,
         name: '',
       }),
@@ -68,11 +74,13 @@ describe('UpdateSupplierUseCase', () => {
 
   it('should throw error when updating with invalid email', async () => {
     const { supplier: createdSupplier } = await createSupplierUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Tech Supplies Co.',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: createdSupplier.id,
         email: 'invalid-email',
       }),
@@ -81,11 +89,13 @@ describe('UpdateSupplierUseCase', () => {
 
   it('should throw error when updating with invalid rating', async () => {
     const { supplier: createdSupplier } = await createSupplierUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Tech Supplies Co.',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: createdSupplier.id,
         rating: 6,
       }),
@@ -95,6 +105,7 @@ describe('UpdateSupplierUseCase', () => {
   it('should throw error when supplier does not exist', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'non-existent-id',
         name: 'New Name',
       }),

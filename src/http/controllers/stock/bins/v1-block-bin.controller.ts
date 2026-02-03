@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   blockBinSchema,
   binResponseSchema,
@@ -19,6 +20,7 @@ export async function blockBinController(app: FastifyInstance) {
     url: '/v1/bins/:id/block',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.BINS.UPDATE,
         resource: 'bins',
@@ -48,12 +50,13 @@ export async function blockBinController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const { reason } = request.body;
 
       try {
         const blockBinUseCase = makeBlockBinUseCase();
-        const { bin } = await blockBinUseCase.execute({ id, reason });
+        const { bin } = await blockBinUseCase.execute({ tenantId, id, reason });
 
         return reply.status(200).send({ bin: binToDTO(bin) });
       } catch (error) {

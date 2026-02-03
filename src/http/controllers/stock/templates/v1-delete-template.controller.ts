@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeDeleteTemplateUseCase } from '@/use-cases/stock/templates/factories/make-delete-template-use-case';
 import { makeGetTemplateByIdUseCase } from '@/use-cases/stock/templates/factories/make-get-template-by-id-use-case';
@@ -17,6 +18,7 @@ export async function deleteTemplateController(app: FastifyInstance) {
     url: '/v1/templates/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.TEMPLATES.DELETE,
         resource: 'templates',
@@ -36,6 +38,7 @@ export async function deleteTemplateController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params as { id: string };
       const userId = request.user.sub;
 
@@ -45,14 +48,14 @@ export async function deleteTemplateController(app: FastifyInstance) {
 
         const [{ user }, { template }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getTemplateByIdUseCase.execute({ id }),
+          getTemplateByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const deleteTemplate = makeDeleteTemplateUseCase();
-        await deleteTemplate.execute({ id });
+        await deleteTemplate.execute({ tenantId, id });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STOCK.TEMPLATE_DELETE,

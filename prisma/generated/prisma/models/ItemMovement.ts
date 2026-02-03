@@ -53,6 +53,7 @@ export type ItemMovementMinAggregateOutputType = {
   userId: string | null
   approvedBy: string | null
   salesOrderId: string | null
+  tenantId: string | null
 }
 
 export type ItemMovementMaxAggregateOutputType = {
@@ -70,6 +71,7 @@ export type ItemMovementMaxAggregateOutputType = {
   userId: string | null
   approvedBy: string | null
   salesOrderId: string | null
+  tenantId: string | null
 }
 
 export type ItemMovementCountAggregateOutputType = {
@@ -87,6 +89,7 @@ export type ItemMovementCountAggregateOutputType = {
   userId: number
   approvedBy: number
   salesOrderId: number
+  tenantId: number
   _all: number
 }
 
@@ -118,6 +121,7 @@ export type ItemMovementMinAggregateInputType = {
   userId?: true
   approvedBy?: true
   salesOrderId?: true
+  tenantId?: true
 }
 
 export type ItemMovementMaxAggregateInputType = {
@@ -135,6 +139,7 @@ export type ItemMovementMaxAggregateInputType = {
   userId?: true
   approvedBy?: true
   salesOrderId?: true
+  tenantId?: true
 }
 
 export type ItemMovementCountAggregateInputType = {
@@ -152,6 +157,7 @@ export type ItemMovementCountAggregateInputType = {
   userId?: true
   approvedBy?: true
   salesOrderId?: true
+  tenantId?: true
   _all?: true
 }
 
@@ -256,6 +262,7 @@ export type ItemMovementGroupByOutputType = {
   userId: string
   approvedBy: string | null
   salesOrderId: string | null
+  tenantId: string
   _count: ItemMovementCountAggregateOutputType | null
   _avg: ItemMovementAvgAggregateOutputType | null
   _sum: ItemMovementSumAggregateOutputType | null
@@ -296,6 +303,8 @@ export type ItemMovementWhereInput = {
   userId?: Prisma.StringFilter<"ItemMovement"> | string
   approvedBy?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   salesOrderId?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
+  tenantId?: Prisma.StringFilter<"ItemMovement"> | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   item?: Prisma.XOR<Prisma.ItemScalarRelationFilter, Prisma.ItemWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   approver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -317,6 +326,8 @@ export type ItemMovementOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   salesOrderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   item?: Prisma.ItemOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
   approver?: Prisma.UserOrderByWithRelationInput
@@ -341,6 +352,8 @@ export type ItemMovementWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"ItemMovement"> | string
   approvedBy?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   salesOrderId?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
+  tenantId?: Prisma.StringFilter<"ItemMovement"> | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   item?: Prisma.XOR<Prisma.ItemScalarRelationFilter, Prisma.ItemWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   approver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -362,6 +375,7 @@ export type ItemMovementOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   salesOrderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   _count?: Prisma.ItemMovementCountOrderByAggregateInput
   _avg?: Prisma.ItemMovementAvgOrderByAggregateInput
   _max?: Prisma.ItemMovementMaxOrderByAggregateInput
@@ -387,6 +401,7 @@ export type ItemMovementScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"ItemMovement"> | string
   approvedBy?: Prisma.StringNullableWithAggregatesFilter<"ItemMovement"> | string | null
   salesOrderId?: Prisma.StringNullableWithAggregatesFilter<"ItemMovement"> | string | null
+  tenantId?: Prisma.StringWithAggregatesFilter<"ItemMovement"> | string
 }
 
 export type ItemMovementCreateInput = {
@@ -400,6 +415,7 @@ export type ItemMovementCreateInput = {
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutItemMovementsInput
   item: Prisma.ItemCreateNestedOneWithoutMovementsInput
   user: Prisma.UserCreateNestedOneWithoutItemMovementInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedMovementsInput
@@ -421,6 +437,7 @@ export type ItemMovementUncheckedCreateInput = {
   userId: string
   approvedBy?: string | null
   salesOrderId?: string | null
+  tenantId: string
 }
 
 export type ItemMovementUpdateInput = {
@@ -434,6 +451,7 @@ export type ItemMovementUpdateInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutItemMovementsNestedInput
   item?: Prisma.ItemUpdateOneRequiredWithoutMovementsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutItemMovementNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedMovementsNestedInput
@@ -455,6 +473,7 @@ export type ItemMovementUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemMovementCreateManyInput = {
@@ -472,6 +491,7 @@ export type ItemMovementCreateManyInput = {
   userId: string
   approvedBy?: string | null
   salesOrderId?: string | null
+  tenantId: string
 }
 
 export type ItemMovementUpdateManyMutationInput = {
@@ -502,6 +522,7 @@ export type ItemMovementUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemMovementListRelationFilter = {
@@ -529,6 +550,7 @@ export type ItemMovementCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   salesOrderId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type ItemMovementAvgOrderByAggregateInput = {
@@ -552,6 +574,7 @@ export type ItemMovementMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   salesOrderId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type ItemMovementMinOrderByAggregateInput = {
@@ -569,6 +592,7 @@ export type ItemMovementMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   salesOrderId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type ItemMovementSumOrderByAggregateInput = {
@@ -749,6 +773,48 @@ export type ItemMovementUncheckedUpdateManyWithoutSalesOrderNestedInput = {
   deleteMany?: Prisma.ItemMovementScalarWhereInput | Prisma.ItemMovementScalarWhereInput[]
 }
 
+export type ItemMovementCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.ItemMovementCreateWithoutTenantInput, Prisma.ItemMovementUncheckedCreateWithoutTenantInput> | Prisma.ItemMovementCreateWithoutTenantInput[] | Prisma.ItemMovementUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ItemMovementCreateOrConnectWithoutTenantInput | Prisma.ItemMovementCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.ItemMovementCreateManyTenantInputEnvelope
+  connect?: Prisma.ItemMovementWhereUniqueInput | Prisma.ItemMovementWhereUniqueInput[]
+}
+
+export type ItemMovementUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.ItemMovementCreateWithoutTenantInput, Prisma.ItemMovementUncheckedCreateWithoutTenantInput> | Prisma.ItemMovementCreateWithoutTenantInput[] | Prisma.ItemMovementUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ItemMovementCreateOrConnectWithoutTenantInput | Prisma.ItemMovementCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.ItemMovementCreateManyTenantInputEnvelope
+  connect?: Prisma.ItemMovementWhereUniqueInput | Prisma.ItemMovementWhereUniqueInput[]
+}
+
+export type ItemMovementUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.ItemMovementCreateWithoutTenantInput, Prisma.ItemMovementUncheckedCreateWithoutTenantInput> | Prisma.ItemMovementCreateWithoutTenantInput[] | Prisma.ItemMovementUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ItemMovementCreateOrConnectWithoutTenantInput | Prisma.ItemMovementCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.ItemMovementUpsertWithWhereUniqueWithoutTenantInput | Prisma.ItemMovementUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.ItemMovementCreateManyTenantInputEnvelope
+  set?: Prisma.ItemMovementWhereUniqueInput | Prisma.ItemMovementWhereUniqueInput[]
+  disconnect?: Prisma.ItemMovementWhereUniqueInput | Prisma.ItemMovementWhereUniqueInput[]
+  delete?: Prisma.ItemMovementWhereUniqueInput | Prisma.ItemMovementWhereUniqueInput[]
+  connect?: Prisma.ItemMovementWhereUniqueInput | Prisma.ItemMovementWhereUniqueInput[]
+  update?: Prisma.ItemMovementUpdateWithWhereUniqueWithoutTenantInput | Prisma.ItemMovementUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.ItemMovementUpdateManyWithWhereWithoutTenantInput | Prisma.ItemMovementUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.ItemMovementScalarWhereInput | Prisma.ItemMovementScalarWhereInput[]
+}
+
+export type ItemMovementUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.ItemMovementCreateWithoutTenantInput, Prisma.ItemMovementUncheckedCreateWithoutTenantInput> | Prisma.ItemMovementCreateWithoutTenantInput[] | Prisma.ItemMovementUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ItemMovementCreateOrConnectWithoutTenantInput | Prisma.ItemMovementCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.ItemMovementUpsertWithWhereUniqueWithoutTenantInput | Prisma.ItemMovementUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.ItemMovementCreateManyTenantInputEnvelope
+  set?: Prisma.ItemMovementWhereUniqueInput | Prisma.ItemMovementWhereUniqueInput[]
+  disconnect?: Prisma.ItemMovementWhereUniqueInput | Prisma.ItemMovementWhereUniqueInput[]
+  delete?: Prisma.ItemMovementWhereUniqueInput | Prisma.ItemMovementWhereUniqueInput[]
+  connect?: Prisma.ItemMovementWhereUniqueInput | Prisma.ItemMovementWhereUniqueInput[]
+  update?: Prisma.ItemMovementUpdateWithWhereUniqueWithoutTenantInput | Prisma.ItemMovementUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.ItemMovementUpdateManyWithWhereWithoutTenantInput | Prisma.ItemMovementUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.ItemMovementScalarWhereInput | Prisma.ItemMovementScalarWhereInput[]
+}
+
 export type ItemMovementCreateWithoutUserInput = {
   id?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -760,6 +826,7 @@ export type ItemMovementCreateWithoutUserInput = {
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutItemMovementsInput
   item: Prisma.ItemCreateNestedOneWithoutMovementsInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedMovementsInput
   salesOrder?: Prisma.SalesOrderCreateNestedOneWithoutItemMovementsInput
@@ -779,6 +846,7 @@ export type ItemMovementUncheckedCreateWithoutUserInput = {
   itemId: string
   approvedBy?: string | null
   salesOrderId?: string | null
+  tenantId: string
 }
 
 export type ItemMovementCreateOrConnectWithoutUserInput = {
@@ -802,6 +870,7 @@ export type ItemMovementCreateWithoutApproverInput = {
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutItemMovementsInput
   item: Prisma.ItemCreateNestedOneWithoutMovementsInput
   user: Prisma.UserCreateNestedOneWithoutItemMovementInput
   salesOrder?: Prisma.SalesOrderCreateNestedOneWithoutItemMovementsInput
@@ -821,6 +890,7 @@ export type ItemMovementUncheckedCreateWithoutApproverInput = {
   itemId: string
   userId: string
   salesOrderId?: string | null
+  tenantId: string
 }
 
 export type ItemMovementCreateOrConnectWithoutApproverInput = {
@@ -867,6 +937,7 @@ export type ItemMovementScalarWhereInput = {
   userId?: Prisma.StringFilter<"ItemMovement"> | string
   approvedBy?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   salesOrderId?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
+  tenantId?: Prisma.StringFilter<"ItemMovement"> | string
 }
 
 export type ItemMovementUpsertWithWhereUniqueWithoutApproverInput = {
@@ -896,6 +967,7 @@ export type ItemMovementCreateWithoutItemInput = {
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutItemMovementsInput
   user: Prisma.UserCreateNestedOneWithoutItemMovementInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedMovementsInput
   salesOrder?: Prisma.SalesOrderCreateNestedOneWithoutItemMovementsInput
@@ -915,6 +987,7 @@ export type ItemMovementUncheckedCreateWithoutItemInput = {
   userId: string
   approvedBy?: string | null
   salesOrderId?: string | null
+  tenantId: string
 }
 
 export type ItemMovementCreateOrConnectWithoutItemInput = {
@@ -954,6 +1027,7 @@ export type ItemMovementCreateWithoutSalesOrderInput = {
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutItemMovementsInput
   item: Prisma.ItemCreateNestedOneWithoutMovementsInput
   user: Prisma.UserCreateNestedOneWithoutItemMovementInput
   approver?: Prisma.UserCreateNestedOneWithoutApprovedMovementsInput
@@ -973,6 +1047,7 @@ export type ItemMovementUncheckedCreateWithoutSalesOrderInput = {
   itemId: string
   userId: string
   approvedBy?: string | null
+  tenantId: string
 }
 
 export type ItemMovementCreateOrConnectWithoutSalesOrderInput = {
@@ -1001,6 +1076,66 @@ export type ItemMovementUpdateManyWithWhereWithoutSalesOrderInput = {
   data: Prisma.XOR<Prisma.ItemMovementUpdateManyMutationInput, Prisma.ItemMovementUncheckedUpdateManyWithoutSalesOrderInput>
 }
 
+export type ItemMovementCreateWithoutTenantInput = {
+  id?: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityBefore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantityAfter?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  movementType: $Enums.MovementType
+  reasonCode?: string | null
+  destinationRef?: string | null
+  batchNumber?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  item: Prisma.ItemCreateNestedOneWithoutMovementsInput
+  user: Prisma.UserCreateNestedOneWithoutItemMovementInput
+  approver?: Prisma.UserCreateNestedOneWithoutApprovedMovementsInput
+  salesOrder?: Prisma.SalesOrderCreateNestedOneWithoutItemMovementsInput
+}
+
+export type ItemMovementUncheckedCreateWithoutTenantInput = {
+  id?: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityBefore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantityAfter?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  movementType: $Enums.MovementType
+  reasonCode?: string | null
+  destinationRef?: string | null
+  batchNumber?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  itemId: string
+  userId: string
+  approvedBy?: string | null
+  salesOrderId?: string | null
+}
+
+export type ItemMovementCreateOrConnectWithoutTenantInput = {
+  where: Prisma.ItemMovementWhereUniqueInput
+  create: Prisma.XOR<Prisma.ItemMovementCreateWithoutTenantInput, Prisma.ItemMovementUncheckedCreateWithoutTenantInput>
+}
+
+export type ItemMovementCreateManyTenantInputEnvelope = {
+  data: Prisma.ItemMovementCreateManyTenantInput | Prisma.ItemMovementCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type ItemMovementUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.ItemMovementWhereUniqueInput
+  update: Prisma.XOR<Prisma.ItemMovementUpdateWithoutTenantInput, Prisma.ItemMovementUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.ItemMovementCreateWithoutTenantInput, Prisma.ItemMovementUncheckedCreateWithoutTenantInput>
+}
+
+export type ItemMovementUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.ItemMovementWhereUniqueInput
+  data: Prisma.XOR<Prisma.ItemMovementUpdateWithoutTenantInput, Prisma.ItemMovementUncheckedUpdateWithoutTenantInput>
+}
+
+export type ItemMovementUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.ItemMovementScalarWhereInput
+  data: Prisma.XOR<Prisma.ItemMovementUpdateManyMutationInput, Prisma.ItemMovementUncheckedUpdateManyWithoutTenantInput>
+}
+
 export type ItemMovementCreateManyUserInput = {
   id?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1015,6 +1150,7 @@ export type ItemMovementCreateManyUserInput = {
   itemId: string
   approvedBy?: string | null
   salesOrderId?: string | null
+  tenantId: string
 }
 
 export type ItemMovementCreateManyApproverInput = {
@@ -1031,6 +1167,7 @@ export type ItemMovementCreateManyApproverInput = {
   itemId: string
   userId: string
   salesOrderId?: string | null
+  tenantId: string
 }
 
 export type ItemMovementUpdateWithoutUserInput = {
@@ -1044,6 +1181,7 @@ export type ItemMovementUpdateWithoutUserInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutItemMovementsNestedInput
   item?: Prisma.ItemUpdateOneRequiredWithoutMovementsNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedMovementsNestedInput
   salesOrder?: Prisma.SalesOrderUpdateOneWithoutItemMovementsNestedInput
@@ -1063,6 +1201,7 @@ export type ItemMovementUncheckedUpdateWithoutUserInput = {
   itemId?: Prisma.StringFieldUpdateOperationsInput | string
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemMovementUncheckedUpdateManyWithoutUserInput = {
@@ -1079,6 +1218,7 @@ export type ItemMovementUncheckedUpdateManyWithoutUserInput = {
   itemId?: Prisma.StringFieldUpdateOperationsInput | string
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemMovementUpdateWithoutApproverInput = {
@@ -1092,6 +1232,7 @@ export type ItemMovementUpdateWithoutApproverInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutItemMovementsNestedInput
   item?: Prisma.ItemUpdateOneRequiredWithoutMovementsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutItemMovementNestedInput
   salesOrder?: Prisma.SalesOrderUpdateOneWithoutItemMovementsNestedInput
@@ -1111,6 +1252,7 @@ export type ItemMovementUncheckedUpdateWithoutApproverInput = {
   itemId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemMovementUncheckedUpdateManyWithoutApproverInput = {
@@ -1127,6 +1269,7 @@ export type ItemMovementUncheckedUpdateManyWithoutApproverInput = {
   itemId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemMovementCreateManyItemInput = {
@@ -1143,6 +1286,7 @@ export type ItemMovementCreateManyItemInput = {
   userId: string
   approvedBy?: string | null
   salesOrderId?: string | null
+  tenantId: string
 }
 
 export type ItemMovementUpdateWithoutItemInput = {
@@ -1156,6 +1300,7 @@ export type ItemMovementUpdateWithoutItemInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutItemMovementsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutItemMovementNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedMovementsNestedInput
   salesOrder?: Prisma.SalesOrderUpdateOneWithoutItemMovementsNestedInput
@@ -1175,6 +1320,7 @@ export type ItemMovementUncheckedUpdateWithoutItemInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemMovementUncheckedUpdateManyWithoutItemInput = {
@@ -1191,6 +1337,7 @@ export type ItemMovementUncheckedUpdateManyWithoutItemInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemMovementCreateManySalesOrderInput = {
@@ -1207,6 +1354,7 @@ export type ItemMovementCreateManySalesOrderInput = {
   itemId: string
   userId: string
   approvedBy?: string | null
+  tenantId: string
 }
 
 export type ItemMovementUpdateWithoutSalesOrderInput = {
@@ -1220,6 +1368,7 @@ export type ItemMovementUpdateWithoutSalesOrderInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutItemMovementsNestedInput
   item?: Prisma.ItemUpdateOneRequiredWithoutMovementsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutItemMovementNestedInput
   approver?: Prisma.UserUpdateOneWithoutApprovedMovementsNestedInput
@@ -1239,6 +1388,7 @@ export type ItemMovementUncheckedUpdateWithoutSalesOrderInput = {
   itemId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemMovementUncheckedUpdateManyWithoutSalesOrderInput = {
@@ -1255,6 +1405,75 @@ export type ItemMovementUncheckedUpdateManyWithoutSalesOrderInput = {
   itemId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type ItemMovementCreateManyTenantInput = {
+  id?: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityBefore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantityAfter?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  movementType: $Enums.MovementType
+  reasonCode?: string | null
+  destinationRef?: string | null
+  batchNumber?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  itemId: string
+  userId: string
+  approvedBy?: string | null
+  salesOrderId?: string | null
+}
+
+export type ItemMovementUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityBefore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantityAfter?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
+  reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  item?: Prisma.ItemUpdateOneRequiredWithoutMovementsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutItemMovementNestedInput
+  approver?: Prisma.UserUpdateOneWithoutApprovedMovementsNestedInput
+  salesOrder?: Prisma.SalesOrderUpdateOneWithoutItemMovementsNestedInput
+}
+
+export type ItemMovementUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityBefore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantityAfter?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
+  reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ItemMovementUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityBefore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantityAfter?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
+  reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  itemId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1274,6 +1493,8 @@ export type ItemMovementSelect<ExtArgs extends runtime.Types.Extensions.Internal
   userId?: boolean
   approvedBy?: boolean
   salesOrderId?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.ItemMovement$approverArgs<ExtArgs>
@@ -1295,6 +1516,8 @@ export type ItemMovementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   userId?: boolean
   approvedBy?: boolean
   salesOrderId?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.ItemMovement$approverArgs<ExtArgs>
@@ -1316,6 +1539,8 @@ export type ItemMovementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   userId?: boolean
   approvedBy?: boolean
   salesOrderId?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.ItemMovement$approverArgs<ExtArgs>
@@ -1337,22 +1562,26 @@ export type ItemMovementSelectScalar = {
   userId?: boolean
   approvedBy?: boolean
   salesOrderId?: boolean
+  tenantId?: boolean
 }
 
-export type ItemMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quantity" | "quantityBefore" | "quantityAfter" | "movementType" | "reasonCode" | "destinationRef" | "batchNumber" | "notes" | "createdAt" | "itemId" | "userId" | "approvedBy" | "salesOrderId", ExtArgs["result"]["itemMovement"]>
+export type ItemMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quantity" | "quantityBefore" | "quantityAfter" | "movementType" | "reasonCode" | "destinationRef" | "batchNumber" | "notes" | "createdAt" | "itemId" | "userId" | "approvedBy" | "salesOrderId" | "tenantId", ExtArgs["result"]["itemMovement"]>
 export type ItemMovementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.ItemMovement$approverArgs<ExtArgs>
   salesOrder?: boolean | Prisma.ItemMovement$salesOrderArgs<ExtArgs>
 }
 export type ItemMovementIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.ItemMovement$approverArgs<ExtArgs>
   salesOrder?: boolean | Prisma.ItemMovement$salesOrderArgs<ExtArgs>
 }
 export type ItemMovementIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   approver?: boolean | Prisma.ItemMovement$approverArgs<ExtArgs>
@@ -1362,6 +1591,7 @@ export type ItemMovementIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type $ItemMovementPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ItemMovement"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     item: Prisma.$ItemPayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs>
     approver: Prisma.$UserPayload<ExtArgs> | null
@@ -1382,6 +1612,7 @@ export type $ItemMovementPayload<ExtArgs extends runtime.Types.Extensions.Intern
     userId: string
     approvedBy: string | null
     salesOrderId: string | null
+    tenantId: string
   }, ExtArgs["result"]["itemMovement"]>
   composites: {}
 }
@@ -1776,6 +2007,7 @@ readonly fields: ItemMovementFieldRefs;
  */
 export interface Prisma__ItemMovementClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   item<T extends Prisma.ItemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ItemDefaultArgs<ExtArgs>>): Prisma.Prisma__ItemClient<runtime.Types.Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   approver<T extends Prisma.ItemMovement$approverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ItemMovement$approverArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1823,6 +2055,7 @@ export interface ItemMovementFieldRefs {
   readonly userId: Prisma.FieldRef<"ItemMovement", 'String'>
   readonly approvedBy: Prisma.FieldRef<"ItemMovement", 'String'>
   readonly salesOrderId: Prisma.FieldRef<"ItemMovement", 'String'>
+  readonly tenantId: Prisma.FieldRef<"ItemMovement", 'String'>
 }
     
 

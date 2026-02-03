@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { prisma } from '@/lib/prisma';
 
 interface CompanyData {
+  tenantId?: string;
   legalName?: string;
   cnpj?: string;
   tradeName?: string;
@@ -82,8 +83,24 @@ export function generateCNPJForTest(): string {
 export async function createCompanyE2E(overrides?: CompanyData) {
   const data = generateCompanyData(overrides);
 
+  let tenantId = overrides?.tenantId;
+  if (!tenantId) {
+    const timestamp = Date.now();
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `Auto Tenant ${timestamp}`,
+        slug: `auto-tenant-${timestamp}-${Math.random().toString(36).substring(2, 6)}`,
+        status: 'ACTIVE',
+        settings: {},
+        metadata: {},
+      },
+    });
+    tenantId = tenant.id;
+  }
+
   const company = await prisma.company.create({
     data: {
+      tenantId,
       legalName: data.legalName!,
       cnpj: data.cnpj!,
       tradeName: data.tradeName,

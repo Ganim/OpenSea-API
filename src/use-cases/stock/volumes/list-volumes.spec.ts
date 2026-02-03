@@ -1,4 +1,5 @@
 import { Volume } from '@/entities/stock/volume';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { InMemoryVolumesRepository } from '@/repositories/stock/in-memory/in-memory-volumes-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -14,7 +15,7 @@ describe('ListVolumesUseCase', () => {
   });
 
   it('should list volumes with default pagination', async () => {
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result).toBeDefined();
     expect(result.volumes).toBeDefined();
@@ -25,6 +26,7 @@ describe('ListVolumesUseCase', () => {
 
   it('should list volumes with custom pagination', async () => {
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       page: 2,
       limit: 20,
     });
@@ -37,6 +39,7 @@ describe('ListVolumesUseCase', () => {
     // Create 15 volumes
     for (let i = 0; i < 15; i++) {
       const volume = Volume.create({
+        tenantId: new UniqueEntityID('tenant-1'),
         code: `VOL-${i.toString().padStart(3, '0')}`,
         name: `Volume ${i}`,
         status: VolumeStatus.OPEN,
@@ -46,6 +49,7 @@ describe('ListVolumesUseCase', () => {
     }
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       page: 1,
       limit: 10,
     });
@@ -57,6 +61,7 @@ describe('ListVolumesUseCase', () => {
 
   it('should return created volumes', async () => {
     const volume1 = Volume.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       code: 'VOL-001',
       name: 'Volume 1',
       status: VolumeStatus.OPEN,
@@ -64,6 +69,7 @@ describe('ListVolumesUseCase', () => {
     });
 
     const volume2 = Volume.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       code: 'VOL-002',
       name: 'Volume 2',
       status: VolumeStatus.CLOSED,
@@ -73,7 +79,7 @@ describe('ListVolumesUseCase', () => {
     await volumesRepository.create(volume1);
     await volumesRepository.create(volume2);
 
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.volumes.length).toBe(2);
     expect(result.total).toBe(2);

@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { itemResponseSchema } from '@/http/schemas';
 import { makeListItemsUseCase } from '@/use-cases/stock/items/factories/make-list-items-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -13,6 +14,7 @@ export async function listItemsController(app: FastifyInstance) {
     url: '/v1/items',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.ITEMS.LIST,
         resource: 'items',
@@ -36,10 +38,12 @@ export async function listItemsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { variantId, binId, productId, status } = request.query;
 
       const listItemsUseCase = makeListItemsUseCase();
       const { items } = await listItemsUseCase.execute({
+        tenantId,
         variantId,
         binId,
         productId,

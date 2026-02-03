@@ -16,6 +16,8 @@ let employeesRepository: InMemoryEmployeesRepository;
 let sut: DeleteBonusUseCase;
 let testEmployee: Employee;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('Delete Bonus Use Case', () => {
   beforeEach(async () => {
     bonusesRepository = new InMemoryBonusesRepository();
@@ -23,6 +25,7 @@ describe('Delete Bonus Use Case', () => {
     sut = new DeleteBonusUseCase(bonusesRepository);
 
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -38,6 +41,7 @@ describe('Delete Bonus Use Case', () => {
 
   it('should delete a bonus successfully', async () => {
     const bonus = await bonusesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       name: 'Performance Bonus',
       amount: 1000,
@@ -46,16 +50,18 @@ describe('Delete Bonus Use Case', () => {
     });
 
     await sut.execute({
+      tenantId,
       bonusId: bonus.id.toString(),
     });
 
-    const foundBonus = await bonusesRepository.findById(bonus.id);
+    const foundBonus = await bonusesRepository.findById(bonus.id, tenantId);
     expect(foundBonus).toBeNull();
   });
 
   it('should throw error if bonus not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         bonusId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Bônus não encontrado');
@@ -63,6 +69,7 @@ describe('Delete Bonus Use Case', () => {
 
   it('should throw error if bonus is already paid', async () => {
     const bonus = await bonusesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       name: 'Performance Bonus',
       amount: 1000,
@@ -76,6 +83,7 @@ describe('Delete Bonus Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         bonusId: bonus.id.toString(),
       }),
     ).rejects.toThrow('Não é possível excluir um bônus já pago');

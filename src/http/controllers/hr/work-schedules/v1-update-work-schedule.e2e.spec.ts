@@ -4,10 +4,15 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Update Work Schedule (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -15,11 +20,12 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should allow MANAGER to update a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
+        tenantId,
         name: `Original Schedule ${timestamp}`,
         breakDuration: 60,
         mondayStart: '08:00',
@@ -48,11 +54,12 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should allow ADMIN to update a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
+        tenantId,
         name: `Admin Schedule ${timestamp}`,
         breakDuration: 60,
         isActive: true,
@@ -73,10 +80,14 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should NOT allow user without permission to update a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, { permissions: [] });
+    const { token } = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: [],
+    });
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
+        tenantId,
         name: 'User Test Schedule',
         breakDuration: 60,
         isActive: true,
@@ -94,7 +105,7 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should return 404 for non-existent schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)
@@ -108,10 +119,11 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should validate time format on update', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
+        tenantId,
         name: 'Time Format Test',
         breakDuration: 60,
         isActive: true,
@@ -129,10 +141,11 @@ describe('Update Work Schedule (E2E)', () => {
   });
 
   it('should allow deactivating a schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const workSchedule = await prisma.workSchedule.create({
       data: {
+        tenantId,
         name: 'Deactivate Test',
         breakDuration: 60,
         isActive: true,

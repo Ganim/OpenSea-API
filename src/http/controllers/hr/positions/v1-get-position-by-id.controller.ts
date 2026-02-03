@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { positionWithDetailsResponseSchema } from '@/http/schemas/hr.schema';
 import { positionToDetailsDTO } from '@/mappers/hr/position';
 import { makeGetPositionByIdUseCase } from '@/use-cases/hr/positions/factories';
@@ -18,7 +19,7 @@ export async function getPositionByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/positions/:id',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Positions'],
       summary: 'Get a position by ID',
@@ -37,12 +38,14 @@ export async function getPositionByIdController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const { includeEmployees } = request.query;
 
       try {
         const getPositionByIdUseCase = makeGetPositionByIdUseCase();
         const result = await getPositionByIdUseCase.execute({
+          tenantId,
           id,
           includeEmployees,
         });

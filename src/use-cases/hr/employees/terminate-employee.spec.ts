@@ -1,4 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   ContractType,
   CPF,
@@ -11,6 +12,7 @@ import { TerminateEmployeeUseCase } from './terminate-employee';
 
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: TerminateEmployeeUseCase;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Terminate Employee Use Case', () => {
   beforeEach(() => {
@@ -20,6 +22,7 @@ describe('Terminate Employee Use Case', () => {
 
   it('should terminate an employee successfully', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -34,6 +37,7 @@ describe('Terminate Employee Use Case', () => {
 
     const terminationDate = new Date('2024-12-01');
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
       terminationDate,
       reason: 'Pedido de demissão',
@@ -51,6 +55,7 @@ describe('Terminate Employee Use Case', () => {
   it('should throw error when employee not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         employeeId: 'non-existent-id',
         terminationDate: new Date(),
       }),
@@ -59,6 +64,7 @@ describe('Terminate Employee Use Case', () => {
 
   it('should throw error when employee is already terminated', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -74,6 +80,7 @@ describe('Terminate Employee Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: createdEmployee.id.toString(),
         terminationDate: new Date(),
       }),
@@ -82,6 +89,7 @@ describe('Terminate Employee Use Case', () => {
 
   it('should terminate employee without reason', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -95,6 +103,7 @@ describe('Terminate Employee Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
       terminationDate: new Date('2024-12-01'),
     });

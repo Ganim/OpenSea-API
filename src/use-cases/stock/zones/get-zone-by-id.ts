@@ -6,6 +6,7 @@ import type { ZonesRepository } from '@/repositories/stock/zones-repository';
 import type { WarehousesRepository } from '@/repositories/stock/warehouses-repository';
 
 interface GetZoneByIdUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -22,18 +23,19 @@ export class GetZoneByIdUseCase {
   ) {}
 
   async execute({
+    tenantId,
     id,
   }: GetZoneByIdUseCaseRequest): Promise<GetZoneByIdUseCaseResponse> {
     const zoneId = new UniqueEntityID(id);
 
-    const zone = await this.zonesRepository.findById(zoneId);
+    const zone = await this.zonesRepository.findById(zoneId, tenantId);
 
     if (!zone) {
       throw new ResourceNotFoundError('Zone');
     }
 
     const [warehouse, binCount] = await Promise.all([
-      this.warehousesRepository.findById(zone.warehouseId),
+      this.warehousesRepository.findById(zone.warehouseId, tenantId),
       this.zonesRepository.countBins(zoneId),
     ]);
 

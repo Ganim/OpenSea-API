@@ -30,6 +30,7 @@ function padCode(seq: number, digits: number): string {
 }
 
 export interface RegisterItemEntryUseCaseInput {
+  tenantId: string;
   uniqueCode?: string; // Agora opcional - será gerado automaticamente se não fornecido
   variantId: string;
   binId?: string; // Referência ao bin onde o item está armazenado
@@ -70,8 +71,10 @@ export class RegisterItemEntryUseCase {
       }
 
       // Check if uniqueCode is unique
-      const existingItem =
-        await this.itemsRepository.findByUniqueCode(uniqueCode);
+      const existingItem = await this.itemsRepository.findByUniqueCode(
+        uniqueCode,
+        input.tenantId,
+      );
 
       if (existingItem) {
         throw new BadRequestError('Unique code already exists');
@@ -88,7 +91,10 @@ export class RegisterItemEntryUseCase {
 
     // Validate variant exists
     const variantId = new UniqueEntityID(input.variantId);
-    const variant = await this.variantsRepository.findById(variantId);
+    const variant = await this.variantsRepository.findById(
+      variantId,
+      input.tenantId,
+    );
 
     if (!variant) {
       throw new ResourceNotFoundError('Variant not found');
@@ -98,7 +104,7 @@ export class RegisterItemEntryUseCase {
     let binId: UniqueEntityID | undefined;
     if (input.binId) {
       binId = new UniqueEntityID(input.binId);
-      const bin = await this.binsRepository.findById(binId);
+      const bin = await this.binsRepository.findById(binId, input.tenantId);
 
       if (!bin) {
         throw new ResourceNotFoundError('Bin not found');
@@ -124,10 +130,14 @@ export class RegisterItemEntryUseCase {
     }
 
     // Validate attributes against template
-    const product = await this.productsRepository.findById(variant.productId);
+    const product = await this.productsRepository.findById(
+      variant.productId,
+      input.tenantId,
+    );
     if (product) {
       const template = await this.templatesRepository.findById(
         product.templateId,
+        input.tenantId,
       );
       if (template) {
         assertValidAttributes(
@@ -139,7 +149,10 @@ export class RegisterItemEntryUseCase {
     }
 
     // Get next sequential code LOCAL to this variant
-    const lastItem = await this.itemsRepository.findLastByVariantId(variantId);
+    const lastItem = await this.itemsRepository.findLastByVariantId(
+      variantId,
+      input.tenantId,
+    );
     const nextSeq = (lastItem?.sequentialCode ?? 0) + 1;
 
     // Generate fullCode: VARIANT_FULLCODE-ITEM_SEQ (ex: 001.001.0001.001-00001)
@@ -159,6 +172,7 @@ export class RegisterItemEntryUseCase {
 
     // Create item
     const item = await this.itemsRepository.create({
+      tenantId: input.tenantId,
       uniqueCode,
       slug,
       fullCode,
@@ -182,6 +196,7 @@ export class RegisterItemEntryUseCase {
     // Create movement record (this is an implicit ENTRY movement - not in MovementType enum)
     // We'll use INVENTORY_ADJUSTMENT for entries
     const movement = await this.itemMovementsRepository.create({
+      tenantId: input.tenantId,
       itemId: item.id,
       userId: new UniqueEntityID(input.userId),
       quantity: input.quantity,

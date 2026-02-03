@@ -5,6 +5,7 @@ import type { Bin } from '@/entities/stock/bin';
 import type { BinsRepository } from '@/repositories/stock/bins-repository';
 
 interface BlockBinUseCaseRequest {
+  tenantId: string;
   id: string;
   reason: string;
 }
@@ -17,6 +18,7 @@ export class BlockBinUseCase {
   constructor(private binsRepository: BinsRepository) {}
 
   async execute({
+    tenantId,
     id,
     reason,
   }: BlockBinUseCaseRequest): Promise<BlockBinUseCaseResponse> {
@@ -26,7 +28,7 @@ export class BlockBinUseCase {
 
     const binId = new UniqueEntityID(id);
 
-    const bin = await this.binsRepository.findById(binId);
+    const bin = await this.binsRepository.findById(binId, tenantId);
 
     if (!bin) {
       throw new ResourceNotFoundError('Bin');

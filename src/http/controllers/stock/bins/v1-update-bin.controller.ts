@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   updateBinSchema,
   binResponseSchema,
@@ -19,6 +20,7 @@ export async function updateBinController(app: FastifyInstance) {
     url: '/v1/bins/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.BINS.UPDATE,
         resource: 'bins',
@@ -48,12 +50,14 @@ export async function updateBinController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const { capacity, isActive } = request.body;
 
       try {
         const updateBinUseCase = makeUpdateBinUseCase();
         const { bin } = await updateBinUseCase.execute({
+          tenantId,
           id,
           capacity,
           isActive,

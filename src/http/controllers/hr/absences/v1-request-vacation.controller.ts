@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { absenceResponseSchema, requestVacationSchema } from '@/http/schemas';
 import { absenceToDTO } from '@/mappers/hr/absence/absence-to-dto';
 import { makeRequestVacationUseCase } from '@/use-cases/hr/absences/factories/make-request-vacation-use-case';
@@ -13,7 +14,7 @@ export async function requestVacationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/absences/vacation',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Absences'],
       summary: 'Request vacation',
@@ -34,11 +35,15 @@ export async function requestVacationController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const requestVacationUseCase = makeRequestVacationUseCase();
-        const { absence } = await requestVacationUseCase.execute(data);
+        const { absence } = await requestVacationUseCase.execute({
+          ...data,
+          tenantId,
+        });
 
         return reply.status(201).send({ absence: absenceToDTO(absence) });
       } catch (error) {

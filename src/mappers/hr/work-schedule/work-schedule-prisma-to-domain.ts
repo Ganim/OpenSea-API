@@ -1,9 +1,11 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { WorkSchedule as PrismaWorkSchedule } from '@prisma/generated/client.js';
 
 export function mapWorkSchedulePrismaToDomain(
   workSchedule: PrismaWorkSchedule,
 ) {
   return {
+    tenantId: new UniqueEntityID(workSchedule.tenantId),
     name: workSchedule.name,
     description: workSchedule.description ?? undefined,
     mondayStart: workSchedule.mondayStart ?? undefined,

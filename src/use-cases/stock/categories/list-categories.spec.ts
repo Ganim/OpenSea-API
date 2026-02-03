@@ -15,11 +15,20 @@ describe('List Categories Use Case', () => {
   });
 
   it('should list all categories', async () => {
-    await createCategoryUseCase.execute({ name: 'Electronics' });
-    await createCategoryUseCase.execute({ name: 'Clothing' });
-    await createCategoryUseCase.execute({ name: 'Books' });
+    await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
+      name: 'Electronics',
+    });
+    await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
+      name: 'Clothing',
+    });
+    await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
+      name: 'Books',
+    });
 
-    const { categories } = await sut.execute();
+    const { categories } = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(categories).toHaveLength(3);
     expect(categories[0].name).toBe('Electronics');
@@ -28,7 +37,7 @@ describe('List Categories Use Case', () => {
   });
 
   it('should return empty array when no categories exist', async () => {
-    const { categories } = await sut.execute();
+    const { categories } = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(categories).toEqual([]);
   });

@@ -4,6 +4,7 @@ import { AbsenceStatus, AbsenceType } from '@/entities/hr/value-objects';
 import { faker } from '@faker-js/faker';
 
 interface MakeAbsenceProps {
+  tenantId?: UniqueEntityID;
   employeeId?: UniqueEntityID;
   type?: AbsenceType;
   status?: AbsenceStatus;
@@ -38,6 +39,7 @@ export function makeAbsence(
 
   return Absence.create(
     {
+      tenantId: override.tenantId ?? new UniqueEntityID(),
       employeeId: override.employeeId ?? new UniqueEntityID(),
       type: override.type ?? AbsenceType.vacation(),
       status: override.status ?? AbsenceStatus.pending(),

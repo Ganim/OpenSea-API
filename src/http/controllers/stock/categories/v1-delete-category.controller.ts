@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeDeleteCategoryUseCase } from '@/use-cases/stock/categories/factories/make-delete-category-use-case';
 import { makeGetCategoryByIdUseCase } from '@/use-cases/stock/categories/factories/make-get-category-by-id-use-case';
@@ -17,6 +18,7 @@ export async function deleteCategoryController(app: FastifyInstance) {
     url: '/v1/categories/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.CATEGORIES.DELETE,
         resource: 'categories',
@@ -37,6 +39,7 @@ export async function deleteCategoryController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const userId = request.user.sub;
 
@@ -46,14 +49,14 @@ export async function deleteCategoryController(app: FastifyInstance) {
 
         const [{ user }, { category }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getCategoryByIdUseCase.execute({ id }),
+          getCategoryByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const deleteCategoryUseCase = makeDeleteCategoryUseCase();
-        await deleteCategoryUseCase.execute({ id });
+        await deleteCategoryUseCase.execute({ tenantId, id });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STOCK.CATEGORY_DELETE,

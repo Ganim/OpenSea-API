@@ -18,6 +18,7 @@ describe('ListItemMovementsUseCase', () => {
     const userId = new UniqueEntityID();
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 10,
@@ -27,6 +28,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 5,
@@ -37,6 +39,7 @@ describe('ListItemMovementsUseCase', () => {
 
     // Create movement for different item
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId: new UniqueEntityID(),
       userId,
       quantity: 3,
@@ -46,6 +49,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     const result = await listItemMovements.execute({
+      tenantId: 'tenant-1',
       itemId: itemId.toString(),
     });
 
@@ -60,6 +64,7 @@ describe('ListItemMovementsUseCase', () => {
     const itemId2 = new UniqueEntityID();
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId: itemId1,
       userId,
       quantity: 10,
@@ -67,6 +72,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId: itemId2,
       userId,
       quantity: 5,
@@ -75,6 +81,7 @@ describe('ListItemMovementsUseCase', () => {
 
     // Create movement by different user
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId: itemId1,
       userId: new UniqueEntityID(),
       quantity: 3,
@@ -82,6 +89,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     const result = await listItemMovements.execute({
+      tenantId: 'tenant-1',
       userId: userId.toString(),
     });
 
@@ -95,6 +103,7 @@ describe('ListItemMovementsUseCase', () => {
     const userId = new UniqueEntityID();
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 10,
@@ -102,6 +111,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 5,
@@ -109,6 +119,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 3,
@@ -116,6 +127,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     const result = await listItemMovements.execute({
+      tenantId: 'tenant-1',
       movementType: 'SALE',
     });
 
@@ -130,6 +142,7 @@ describe('ListItemMovementsUseCase', () => {
     const salesOrderId = new UniqueEntityID();
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 10,
@@ -138,6 +151,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 5,
@@ -147,6 +161,7 @@ describe('ListItemMovementsUseCase', () => {
 
     // Create movement without sales order
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 3,
@@ -154,6 +169,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     const result = await listItemMovements.execute({
+      tenantId: 'tenant-1',
       salesOrderId: salesOrderId.toString(),
     });
 
@@ -167,6 +183,7 @@ describe('ListItemMovementsUseCase', () => {
     const userId = new UniqueEntityID();
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 10,
@@ -175,6 +192,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 5,
@@ -183,6 +201,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 3,
@@ -191,6 +210,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     const result = await listItemMovements.execute({
+      tenantId: 'tenant-1',
       batchNumber: 'BATCH-001',
     });
 
@@ -205,6 +225,7 @@ describe('ListItemMovementsUseCase', () => {
 
     // Create movement without approval (pending)
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 10,
@@ -213,6 +234,7 @@ describe('ListItemMovementsUseCase', () => {
 
     // Create approved movement
     const approvedMovement = await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 5,
@@ -225,6 +247,7 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     const result = await listItemMovements.execute({
+      tenantId: 'tenant-1',
       pendingApproval: true,
     });
 
@@ -237,6 +260,7 @@ describe('ListItemMovementsUseCase', () => {
     const userId = new UniqueEntityID();
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 10,
@@ -244,13 +268,14 @@ describe('ListItemMovementsUseCase', () => {
     });
 
     await itemMovementsRepository.create({
+      tenantId: 'tenant-1',
       itemId,
       userId,
       quantity: 5,
       movementType: MovementType.create('SALE'),
     });
 
-    const result = await listItemMovements.execute({});
+    const result = await listItemMovements.execute({ tenantId: 'tenant-1' });
 
     expect(result.movements).toHaveLength(2);
   });

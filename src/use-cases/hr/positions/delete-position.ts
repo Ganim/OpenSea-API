@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PositionsRepository } from '@/repositories/hr/positions-repository';
 
 export interface DeletePositionRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -18,7 +19,10 @@ export class DeletePositionUseCase {
     const { id } = request;
     const positionId = new UniqueEntityID(id);
 
-    const position = await this.positionsRepository.findById(positionId);
+    const position = await this.positionsRepository.findById(
+      positionId,
+      request.tenantId,
+    );
     if (!position) {
       throw new Error('Position not found');
     }

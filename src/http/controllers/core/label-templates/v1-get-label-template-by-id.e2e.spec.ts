@@ -19,7 +19,7 @@ describe('Get Label Template By ID (E2E)', () => {
   });
 
   it('should get label template by id with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app, { organizationId });
+    const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
     const createResponse = await request(app.server)

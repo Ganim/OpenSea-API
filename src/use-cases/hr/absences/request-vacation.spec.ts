@@ -19,6 +19,7 @@ let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let sut: RequestVacationUseCase;
 let testEmployee: Employee;
 let testVacationPeriod: VacationPeriod;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Request Vacation Use Case', () => {
   beforeEach(async () => {
@@ -32,6 +33,7 @@ describe('Request Vacation Use Case', () => {
     );
 
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -55,6 +57,7 @@ describe('Request Vacation Use Case', () => {
     concessionEnd.setFullYear(concessionStart.getFullYear() + 1);
 
     testVacationPeriod = await vacationPeriodsRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       acquisitionStart,
       acquisitionEnd,
@@ -75,6 +78,7 @@ describe('Request Vacation Use Case', () => {
     endDate.setDate(endDate.getDate() + 9); // 10 days vacation
 
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       vacationPeriodId: testVacationPeriod.id.toString(),
       startDate,
@@ -97,6 +101,7 @@ describe('Request Vacation Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: new UniqueEntityID().toString(),
         vacationPeriodId: testVacationPeriod.id.toString(),
         startDate,
@@ -114,6 +119,7 @@ describe('Request Vacation Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: testEmployee.id.toString(),
         vacationPeriodId: new UniqueEntityID().toString(),
         startDate,
@@ -126,6 +132,7 @@ describe('Request Vacation Use Case', () => {
   it('should throw error if not enough days available', async () => {
     // Create vacation period with only 5 remaining days
     const lowDaysPeriod = await vacationPeriodsRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       acquisitionStart: new Date('2021-01-01'),
       acquisitionEnd: new Date('2022-01-01'),
@@ -145,6 +152,7 @@ describe('Request Vacation Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: testEmployee.id.toString(),
         vacationPeriodId: lowDaysPeriod.id.toString(),
         startDate,
@@ -162,6 +170,7 @@ describe('Request Vacation Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: testEmployee.id.toString(),
         vacationPeriodId: testVacationPeriod.id.toString(),
         startDate,
@@ -179,6 +188,7 @@ describe('Request Vacation Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: testEmployee.id.toString(),
         vacationPeriodId: testVacationPeriod.id.toString(),
         startDate,
@@ -192,6 +202,7 @@ describe('Request Vacation Use Case', () => {
 
   it('should throw error if employee is not active', async () => {
     const inactiveEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Inactive Employee',
       cpf: CPF.create('123.456.789-09'),
@@ -211,6 +222,7 @@ describe('Request Vacation Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: inactiveEmployee.id.toString(),
         vacationPeriodId: testVacationPeriod.id.toString(),
         startDate,

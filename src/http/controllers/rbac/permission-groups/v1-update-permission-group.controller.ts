@@ -1,10 +1,12 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { PermissionGroupPresenter } from '@/http/presenters/rbac/permission-group-presenter';
 import { idSchema } from '@/http/schemas/common.schema';
 import {
@@ -26,6 +28,7 @@ export async function updatePermissionGroupController(app: FastifyInstance) {
     url: '/v1/rbac/permission-groups/:groupId',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.RBAC.GROUPS.UPDATE,
         resource: 'permission-groups',
@@ -56,6 +59,7 @@ export async function updatePermissionGroupController(app: FastifyInstance) {
       const { name, description, color, priority, parentId, isActive } =
         request.body;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         // Busca dados anteriores e nome do admin para auditoria
@@ -65,7 +69,7 @@ export async function updatePermissionGroupController(app: FastifyInstance) {
 
         const [{ user: admin }, { group: oldGroup }] = await Promise.all([
           getUserByIdUseCase.execute({ userId: adminId }),
-          getPermissionGroupByIdUseCase.execute({ id: groupId }),
+          getPermissionGroupByIdUseCase.execute({ id: groupId, tenantId }),
         ]);
         const adminName = admin.profile?.name
           ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
@@ -74,6 +78,7 @@ export async function updatePermissionGroupController(app: FastifyInstance) {
         const updatePermissionGroupUseCase = makeUpdatePermissionGroupUseCase();
         const { group } = await updatePermissionGroupUseCase.execute({
           groupId,
+          tenantId,
           name,
           description,
           color,
@@ -97,6 +102,9 @@ export async function updatePermissionGroupController(app: FastifyInstance) {
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
         }
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

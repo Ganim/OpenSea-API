@@ -8,16 +8,21 @@ interface ReorderItem {
 }
 
 interface ReorderCategoriesUseCaseRequest {
+  tenantId: string;
   items: ReorderItem[];
 }
 
 export class ReorderCategoriesUseCase {
   constructor(private categoriesRepository: CategoriesRepository) {}
 
-  async execute({ items }: ReorderCategoriesUseCaseRequest): Promise<void> {
+  async execute({
+    tenantId,
+    items,
+  }: ReorderCategoriesUseCaseRequest): Promise<void> {
     for (const item of items) {
       const category = await this.categoriesRepository.findById(
         new UniqueEntityID(item.id),
+        tenantId,
       );
 
       if (!category) {

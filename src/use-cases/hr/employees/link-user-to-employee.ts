@@ -4,6 +4,7 @@ import { Employee } from '@/entities/hr/employee';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface LinkUserToEmployeeRequest {
+  tenantId: string;
   employeeId: string;
   userId: string;
 }
@@ -18,11 +19,12 @@ export class LinkUserToEmployeeUseCase {
   async execute(
     request: LinkUserToEmployeeRequest,
   ): Promise<LinkUserToEmployeeResponse> {
-    const { employeeId, userId } = request;
+    const { tenantId, employeeId, userId } = request;
 
     // Find the employee
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!employee) {
@@ -36,7 +38,10 @@ export class LinkUserToEmployeeUseCase {
 
     // Check if user is already linked to another employee
     const existingEmployeeWithUser =
-      await this.employeesRepository.findByUserId(new UniqueEntityID(userId));
+      await this.employeesRepository.findByUserId(
+        new UniqueEntityID(userId),
+        tenantId,
+      );
 
     if (existingEmployeeWithUser) {
       throw new Error('User is already linked to another employee');

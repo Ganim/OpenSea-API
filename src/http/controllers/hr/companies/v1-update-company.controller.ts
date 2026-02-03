@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas/common.schema';
 import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -26,6 +27,7 @@ export async function v1UpdateCompanyController(app: FastifyInstance) {
     url: '/v1/hr/companies/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.COMPANIES.UPDATE,
         resource: 'companies',
@@ -52,6 +54,7 @@ export async function v1UpdateCompanyController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params as { id: string };
       const data = request.body;
       const userId = request.user.sub;
@@ -62,7 +65,7 @@ export async function v1UpdateCompanyController(app: FastifyInstance) {
 
         const [{ user }, { company: oldCompany }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getCompanyByIdUseCase.execute({ id }),
+          getCompanyByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -70,6 +73,7 @@ export async function v1UpdateCompanyController(app: FastifyInstance) {
 
         const updateCompanyUseCase = makeUpdateCompanyUseCase();
         const { company } = await updateCompanyUseCase.execute({
+          tenantId,
           id,
           ...data,
         });

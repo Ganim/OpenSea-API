@@ -5,6 +5,7 @@ import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
 
 export interface RequestVacationRequest {
+  tenantId: string;
   employeeId: string;
   vacationPeriodId: string;
   startDate: Date;
@@ -28,6 +29,7 @@ export class RequestVacationUseCase {
     request: RequestVacationRequest,
   ): Promise<RequestVacationResponse> {
     const {
+      tenantId,
       employeeId,
       vacationPeriodId,
       startDate,
@@ -39,6 +41,7 @@ export class RequestVacationUseCase {
     // Verify employee exists
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
     if (!employee) {
       throw new Error('Employee not found');
@@ -52,6 +55,7 @@ export class RequestVacationUseCase {
     // Verify vacation period exists
     const vacationPeriod = await this.vacationPeriodsRepository.findById(
       new UniqueEntityID(vacationPeriodId),
+      tenantId,
     );
     if (!vacationPeriod) {
       throw new Error('VacationPeriod not found');
@@ -80,6 +84,7 @@ export class RequestVacationUseCase {
       new UniqueEntityID(employeeId),
       startDate,
       endDate,
+      tenantId,
     );
 
     if (overlapping.length > 0) {
@@ -100,6 +105,7 @@ export class RequestVacationUseCase {
 
     // Create vacation absence
     const absence = await this.absencesRepository.create({
+      tenantId,
       employeeId: new UniqueEntityID(employeeId),
       type: 'VACATION',
       startDate,

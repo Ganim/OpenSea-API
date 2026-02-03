@@ -5,6 +5,7 @@ import { createProduct } from '@/utils/tests/factories/stock/create-product.e2e'
 import { createVariant } from '@/utils/tests/factories/stock/create-variant.e2e';
 
 interface CreateItemOptions {
+  tenantId: string;
   variantId?: string;
   uniqueCode?: string;
   status?: ItemStatusValue;
@@ -51,13 +52,14 @@ function generateTestSlug(base: string, suffix: string) {
 /**
  * Creates a complete item with template, product and variant for E2E tests
  */
-export async function createItemE2E(options?: CreateItemOptions) {
+export async function createItemE2E(options: CreateItemOptions) {
   const timestamp = Date.now();
 
   // Create template
   const templateCode = String(timestamp).slice(-3).padStart(3, '0');
   const template = await prisma.template.create({
     data: {
+      tenantId: options.tenantId,
       name: `Template ${timestamp}`,
       code: templateCode,
       productAttributes: {},
@@ -68,12 +70,14 @@ export async function createItemE2E(options?: CreateItemOptions) {
 
   // Create product
   const { product } = await createProduct({
+    tenantId: options.tenantId,
     name: `Product ${timestamp}`,
     templateId: template.id,
   });
 
   // Create variant
   const { variant } = await createVariant({
+    tenantId: options.tenantId,
     productId: product.id,
     name: `Variant ${timestamp}`,
     sku: `VAR-${timestamp}`,
@@ -97,6 +101,7 @@ export async function createItemE2E(options?: CreateItemOptions) {
 
   const item = await prisma.item.create({
     data: {
+      tenantId: options.tenantId,
       variantId,
       uniqueCode,
       slug,

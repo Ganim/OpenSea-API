@@ -3,6 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import {
   makeDeletePositionUseCase,
@@ -26,6 +27,7 @@ export async function deletePositionController(app: FastifyInstance) {
     url: '/v1/hr/positions/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.POSITIONS.DELETE,
         resource: 'positions',
@@ -48,6 +50,7 @@ export async function deletePositionController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const userId = request.user.sub;
 
@@ -57,14 +60,14 @@ export async function deletePositionController(app: FastifyInstance) {
 
         const [{ user }, { position }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getPositionByIdUseCase.execute({ id }),
+          getPositionByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const deletePositionUseCase = makeDeletePositionUseCase();
-        await deletePositionUseCase.execute({ id });
+        await deletePositionUseCase.execute({ tenantId, id });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.HR.POSITION_DELETE,

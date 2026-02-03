@@ -12,6 +12,7 @@ import { TransferEmployeeUseCase } from './transfer-employee';
 
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: TransferEmployeeUseCase;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Transfer Employee Use Case', () => {
   beforeEach(() => {
@@ -21,6 +22,7 @@ describe('Transfer Employee Use Case', () => {
 
   it('should transfer employee to new department', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -35,6 +37,7 @@ describe('Transfer Employee Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
       newDepartmentId: 'new-dept-id',
       reason: 'Promoção',
@@ -47,6 +50,7 @@ describe('Transfer Employee Use Case', () => {
 
   it('should transfer employee to new position with salary change', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -61,6 +65,7 @@ describe('Transfer Employee Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
       newPositionId: 'new-pos-id',
       newBaseSalary: 4000,
@@ -74,6 +79,7 @@ describe('Transfer Employee Use Case', () => {
   it('should throw error when employee not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         employeeId: 'non-existent-id',
         newDepartmentId: 'new-dept-id',
       }),
@@ -82,6 +88,7 @@ describe('Transfer Employee Use Case', () => {
 
   it('should throw error when employee is terminated', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -96,6 +103,7 @@ describe('Transfer Employee Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId,
         employeeId: createdEmployee.id.toString(),
         newDepartmentId: 'new-dept-id',
       }),
@@ -104,6 +112,7 @@ describe('Transfer Employee Use Case', () => {
 
   it('should transfer employee to new supervisor', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -118,6 +127,7 @@ describe('Transfer Employee Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
       newSupervisorId: 'new-supervisor-id',
       reason: 'Reestruturação de equipe',
@@ -128,6 +138,7 @@ describe('Transfer Employee Use Case', () => {
 
   it('should remove department from employee', async () => {
     const createdEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: CPF.create('52998224725'),
@@ -142,6 +153,7 @@ describe('Transfer Employee Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: createdEmployee.id.toString(),
       newDepartmentId: null,
       reason: 'Funcionário sem departamento temporariamente',

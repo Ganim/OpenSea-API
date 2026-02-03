@@ -4,6 +4,7 @@ import { VacationStatus } from '@/entities/hr/value-objects';
 import { faker } from '@faker-js/faker';
 
 interface MakeVacationPeriodProps {
+  tenantId?: UniqueEntityID;
   employeeId?: UniqueEntityID;
   acquisitionStart?: Date;
   acquisitionEnd?: Date;
@@ -59,6 +60,7 @@ export function makeVacationPeriod(
 
   return VacationPeriod.create(
     {
+      tenantId: override.tenantId ?? new UniqueEntityID(),
       employeeId: override.employeeId ?? new UniqueEntityID(),
       acquisitionStart,
       acquisitionEnd,
@@ -195,10 +197,17 @@ export function makeExpiredVacationPeriod(
  * Cria um período de férias a partir de uma data de contratação
  */
 export function makeVacationPeriodFromHireDate(
+  tenantId: UniqueEntityID,
   employeeId: UniqueEntityID,
   hireDate: Date,
   totalDays: number = 30,
   id?: UniqueEntityID,
 ): VacationPeriod {
-  return VacationPeriod.createFromHireDate(employeeId, hireDate, totalDays, id);
+  return VacationPeriod.createFromHireDate(
+    tenantId,
+    employeeId,
+    hireDate,
+    totalDays,
+    id,
+  );
 }

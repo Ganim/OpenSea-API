@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   scheduleVacationSchema,
   vacationPeriodResponseSchema,
@@ -17,7 +18,7 @@ export async function scheduleVacationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/hr/vacation-periods/:vacationPeriodId/schedule',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Vacation Periods'],
       summary: 'Schedule vacation',
@@ -41,12 +42,14 @@ export async function scheduleVacationController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { vacationPeriodId } = request.params;
       const { startDate, endDate, days } = request.body;
 
       try {
         const scheduleVacationUseCase = makeScheduleVacationUseCase();
         const { vacationPeriod } = await scheduleVacationUseCase.execute({
+          tenantId,
           vacationPeriodId,
           startDate,
           endDate,

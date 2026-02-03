@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   previewZoneStructureSchema,
   structurePreviewResponseSchema,
@@ -18,6 +19,7 @@ export async function previewZoneStructureController(app: FastifyInstance) {
     url: '/v1/zones/:id/structure/preview',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.ZONES.READ,
         resource: 'zones',
@@ -45,12 +47,14 @@ export async function previewZoneStructureController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const { structure } = request.body;
 
       try {
         const previewZoneStructureUseCase = makePreviewZoneStructureUseCase();
         const result = await previewZoneStructureUseCase.execute({
+          tenantId,
           zoneId: id,
           structure,
         });

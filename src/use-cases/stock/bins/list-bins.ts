@@ -6,6 +6,7 @@ import type {
 } from '@/repositories/stock/bins-repository';
 
 interface ListBinsUseCaseRequest {
+  tenantId: string;
   zoneId?: string;
   aisle?: number;
   shelf?: number;
@@ -24,7 +25,7 @@ export class ListBinsUseCase {
   constructor(private binsRepository: BinsRepository) {}
 
   async execute(
-    request: ListBinsUseCaseRequest = {},
+    request: ListBinsUseCaseRequest,
   ): Promise<ListBinsUseCaseResponse> {
     const filters: BinSearchFilters = {};
 
@@ -37,7 +38,7 @@ export class ListBinsUseCase {
     if (request.isFull !== undefined) filters.isFull = request.isFull;
     if (request.addressPattern) filters.addressPattern = request.addressPattern;
 
-    const bins = await this.binsRepository.findMany(filters);
+    const bins = await this.binsRepository.findMany(request.tenantId, filters);
 
     return { bins };
   }

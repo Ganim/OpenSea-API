@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { adjustTimeBankSchema, timeBankResponseSchema } from '@/http/schemas';
 import { timeBankToDTO } from '@/mappers/hr/time-bank/time-bank-to-dto';
 import { makeAdjustTimeBankUseCase } from '@/use-cases/hr/time-bank/factories/make-adjust-time-bank-use-case';
@@ -17,6 +18,7 @@ export async function adjustTimeBankController(app: FastifyInstance) {
     url: '/v1/hr/time-bank/adjust',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.TIME_BANK.MANAGE,
         resource: 'time-bank',
@@ -42,11 +44,15 @@ export async function adjustTimeBankController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const adjustTimeBankUseCase = makeAdjustTimeBankUseCase();
-        const { timeBank } = await adjustTimeBankUseCase.execute(data);
+        const { timeBank } = await adjustTimeBankUseCase.execute({
+          ...data,
+          tenantId,
+        });
 
         return reply.status(200).send({ timeBank: timeBankToDTO(timeBank) });
       } catch (error) {

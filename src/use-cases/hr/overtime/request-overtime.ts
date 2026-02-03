@@ -4,6 +4,7 @@ import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { OvertimeRepository } from '@/repositories/hr/overtime-repository';
 
 export interface RequestOvertimeRequest {
+  tenantId: string;
   employeeId: string;
   date: Date;
   hours: number;
@@ -23,11 +24,12 @@ export class RequestOvertimeUseCase {
   async execute(
     request: RequestOvertimeRequest,
   ): Promise<RequestOvertimeResponse> {
-    const { employeeId, date, hours, reason } = request;
+    const { tenantId, employeeId, date, hours, reason } = request;
 
     // Verify employee exists
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
     if (!employee) {
       throw new Error('Employee not found');
@@ -54,6 +56,7 @@ export class RequestOvertimeUseCase {
 
     // Create overtime request
     const overtime = await this.overtimeRepository.create({
+      tenantId,
       employeeId: new UniqueEntityID(employeeId),
       date,
       hours,

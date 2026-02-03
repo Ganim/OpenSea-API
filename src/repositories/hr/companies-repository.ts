@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Company } from '@/entities/hr/company';
 
 export interface CreateCompanySchema {
+  tenantId: string;
   legalName: string;
   cnpj: string;
   tradeName?: string;
@@ -38,6 +39,7 @@ export interface UpdateCompanySchema {
 }
 
 export interface FindManyCompaniesParams {
+  tenantId: string;
   page?: number;
   perPage?: number;
   search?: string;
@@ -51,11 +53,15 @@ export interface FindManyCompaniesResult {
 
 export interface CompaniesRepository {
   create(data: CreateCompanySchema): Promise<Company>;
-  findById(id: UniqueEntityID): Promise<Company | null>;
-  findByCnpj(cnpj: string, includeDeleted?: boolean): Promise<Company | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Company | null>;
+  findByCnpj(
+    cnpj: string,
+    tenantId: string,
+    includeDeleted?: boolean,
+  ): Promise<Company | null>;
   findMany(params: FindManyCompaniesParams): Promise<FindManyCompaniesResult>;
-  findManyActive(): Promise<Company[]>;
-  findManyInactive(): Promise<Company[]>;
+  findManyActive(tenantId: string): Promise<Company[]>;
+  findManyInactive(tenantId: string): Promise<Company[]>;
   update(data: UpdateCompanySchema): Promise<Company | null>;
   save(company: Company): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

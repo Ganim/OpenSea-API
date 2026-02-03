@@ -3,6 +3,7 @@ import { Department } from '@/entities/hr/department';
 import { DepartmentsRepository } from '@/repositories/hr/departments-repository';
 
 export interface UpdateDepartmentRequest {
+  tenantId: string;
   id: string;
   name?: string;
   code?: string;
@@ -22,14 +23,24 @@ export class UpdateDepartmentUseCase {
   async execute(
     request: UpdateDepartmentRequest,
   ): Promise<UpdateDepartmentResponse> {
-    const { id, name, code, description, parentId, managerId, isActive } =
-      request;
+    const {
+      tenantId,
+      id,
+      name,
+      code,
+      description,
+      parentId,
+      managerId,
+      isActive,
+    } = request;
 
     const departmentId = new UniqueEntityID(id);
 
     // Find existing department
-    const existingDepartment =
-      await this.departmentsRepository.findById(departmentId);
+    const existingDepartment = await this.departmentsRepository.findById(
+      departmentId,
+      tenantId,
+    );
     if (!existingDepartment) {
       throw new Error('Department not found');
     }
@@ -39,6 +50,7 @@ export class UpdateDepartmentUseCase {
       const departmentWithCode = await this.departmentsRepository.findByCode(
         code,
         existingDepartment.companyId,
+        tenantId,
       );
       if (departmentWithCode) {
         throw new Error('Department with this code already exists');
@@ -54,8 +66,10 @@ export class UpdateDepartmentUseCase {
         throw new Error('Department cannot be its own parent');
       }
 
-      const parentDepartment =
-        await this.departmentsRepository.findById(parentUniqueId);
+      const parentDepartment = await this.departmentsRepository.findById(
+        parentUniqueId,
+        tenantId,
+      );
       if (!parentDepartment) {
         throw new Error('Parent department not found');
       }
@@ -66,8 +80,10 @@ export class UpdateDepartmentUseCase {
       }
 
       // Check for circular reference (parent cannot be a child of this department)
-      const children =
-        await this.departmentsRepository.findManyByParent(departmentId);
+      const children = await this.departmentsRepository.findManyByParent(
+        departmentId,
+        tenantId,
+      );
       const isCircular = this.checkCircularReference(parentUniqueId, children);
       if (isCircular) {
         throw new Error('Cannot set a child department as parent');

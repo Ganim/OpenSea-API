@@ -19,6 +19,7 @@ describe('ListItemsByVariantIdUseCase', () => {
     const binId = new UniqueEntityID();
 
     await itemsRepository.create({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-001',
       slug: Slug.createFromText('item-001'),
       fullCode: '001.001.0001.001-00001',
@@ -34,6 +35,7 @@ describe('ListItemsByVariantIdUseCase', () => {
     });
 
     await itemsRepository.create({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-002',
       slug: Slug.createFromText('item-002'),
       fullCode: '001.001.0001.001-00002',
@@ -49,6 +51,7 @@ describe('ListItemsByVariantIdUseCase', () => {
     });
 
     const result = await listItemsByVariantId.execute({
+      tenantId: 'tenant-1',
       variantId: variantId.toString(),
     });
 
@@ -61,6 +64,7 @@ describe('ListItemsByVariantIdUseCase', () => {
     const variantId = new UniqueEntityID().toString();
 
     const result = await listItemsByVariantId.execute({
+      tenantId: 'tenant-1',
       variantId,
     });
 

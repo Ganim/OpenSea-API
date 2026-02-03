@@ -11,6 +11,7 @@ export interface VariantWithAggregations {
 }
 
 export interface ListVariantsByProductIdUseCaseInput {
+  tenantId: string;
   productId: string;
 }
 
@@ -28,6 +29,7 @@ export class ListVariantsByProductIdUseCase {
     const variantsWithAggregations =
       await this.variantsRepository.findManyByProductWithAggregations(
         productId,
+        input.tenantId,
       );
 
     return {

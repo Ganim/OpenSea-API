@@ -3,6 +3,7 @@ import { VolumeMapper } from '@/mappers/stock/volume.mapper';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface ListVolumesUseCaseRequest {
+  tenantId: string;
   page?: number;
   limit?: number;
   status?: string;
@@ -25,10 +26,13 @@ export class ListVolumesUseCase {
     const page = request.page ?? 1;
     const limit = request.limit ?? 10;
 
-    const { volumes, total } = await this.volumesRepository.list({
-      page,
-      limit,
-    });
+    const { volumes, total } = await this.volumesRepository.list(
+      {
+        page,
+        limit,
+      },
+      request.tenantId,
+    );
 
     // Filtrar por status se fornecido
     let filteredVolumes = volumes;

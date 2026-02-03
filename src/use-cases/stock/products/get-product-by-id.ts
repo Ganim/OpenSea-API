@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 
 interface GetProductByIdUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -16,10 +17,11 @@ export class GetProductByIdUseCase {
   async execute(
     request: GetProductByIdUseCaseRequest,
   ): Promise<GetProductByIdUseCaseResponse> {
-    const { id } = request;
+    const { tenantId, id } = request;
 
     const product = await this.productsRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!product) {

@@ -18,6 +18,9 @@ export function mapPermissionGroupPrismaToDomain(
       parentId: prismaGroup.parentId
         ? new UniqueEntityID(prismaGroup.parentId)
         : null,
+      tenantId: prismaGroup.tenantId
+        ? new UniqueEntityID(prismaGroup.tenantId)
+        : null,
       createdAt: prismaGroup.createdAt,
       updatedAt: prismaGroup.updatedAt,
       deletedAt: prismaGroup.deletedAt,

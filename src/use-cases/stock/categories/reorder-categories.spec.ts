@@ -17,16 +17,20 @@ describe('Reorder Categories Use Case', () => {
 
   it('should reorder categories', async () => {
     const { category: cat1 } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Category A',
     });
     const { category: cat2 } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Category B',
     });
     const { category: cat3 } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Category C',
     });
 
     await sut.execute({
+      tenantId: 'tenant-1',
       items: [
         { id: cat1.id.toString(), displayOrder: 2 },
         { id: cat2.id.toString(), displayOrder: 0 },
@@ -34,9 +38,18 @@ describe('Reorder Categories Use Case', () => {
       ],
     });
 
-    const updatedCat1 = await categoriesRepository.findById(cat1.id);
-    const updatedCat2 = await categoriesRepository.findById(cat2.id);
-    const updatedCat3 = await categoriesRepository.findById(cat3.id);
+    const updatedCat1 = await categoriesRepository.findById(
+      cat1.id,
+      'tenant-1',
+    );
+    const updatedCat2 = await categoriesRepository.findById(
+      cat2.id,
+      'tenant-1',
+    );
+    const updatedCat3 = await categoriesRepository.findById(
+      cat3.id,
+      'tenant-1',
+    );
 
     expect(updatedCat1?.displayOrder).toBe(2);
     expect(updatedCat2?.displayOrder).toBe(0);
@@ -46,6 +59,7 @@ describe('Reorder Categories Use Case', () => {
   it('should throw error if category does not exist', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         items: [{ id: 'non-existent-id', displayOrder: 0 }],
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
@@ -53,19 +67,24 @@ describe('Reorder Categories Use Case', () => {
 
   it('should reorder a single category', async () => {
     const { category } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Solo Category',
     });
 
     await sut.execute({
+      tenantId: 'tenant-1',
       items: [{ id: category.id.toString(), displayOrder: 5 }],
     });
 
-    const updated = await categoriesRepository.findById(category.id);
+    const updated = await categoriesRepository.findById(
+      category.id,
+      'tenant-1',
+    );
     expect(updated?.displayOrder).toBe(5);
   });
 
   it('should handle empty items array', async () => {
-    await sut.execute({ items: [] });
+    await sut.execute({ tenantId: 'tenant-1', items: [] });
     // Should not throw
   });
 });

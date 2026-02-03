@@ -22,6 +22,7 @@ describe('Get Customer By Id', () => {
     customersRepository.items.push(customer);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: customer.id.toString(),
     });
 
@@ -37,6 +38,7 @@ describe('Get Customer By Id', () => {
   it('should not be able to get a non-existing customer', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);

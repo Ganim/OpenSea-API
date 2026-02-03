@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { bonusResponseSchema, createBonusSchema } from '@/http/schemas';
 import { bonusToDTO } from '@/mappers/hr/bonus';
 import { makeCreateBonusUseCase } from '@/use-cases/hr/bonuses/factories/make-create-bonus-use-case';
@@ -16,6 +17,7 @@ export async function createBonusController(app: FastifyInstance) {
     url: '/v1/hr/bonuses',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.BONUSES.CREATE,
         resource: 'bonuses',
@@ -38,11 +40,15 @@ export async function createBonusController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const createBonusUseCase = makeCreateBonusUseCase();
-        const { bonus } = await createBonusUseCase.execute(data);
+        const { bonus } = await createBonusUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         return reply.status(201).send({ bonus: bonusToDTO(bonus) });
       } catch (error) {

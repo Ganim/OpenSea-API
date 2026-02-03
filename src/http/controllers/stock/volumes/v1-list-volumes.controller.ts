@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { VolumeHttpPresenter } from '@/http/presenters/stock/volume-presenter';
 import {
   listVolumesQuerySchema,
@@ -17,6 +18,7 @@ export async function listVolumesController(app: FastifyInstance) {
     url: '/v1/volumes',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.VOLUMES.LIST,
         resource: 'volumes',
@@ -38,10 +40,12 @@ export async function listVolumesController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const { page = 1, limit = 20, status } = request.query;
+      const tenantId = request.user.tenantId!;
 
       const listVolumesUseCase = makeListVolumesUseCase();
 
       const result = await listVolumesUseCase.execute({
+        tenantId,
         page,
         limit,
         status,

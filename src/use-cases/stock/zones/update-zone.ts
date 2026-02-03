@@ -5,6 +5,7 @@ import type { Zone } from '@/entities/stock/zone';
 import type { ZonesRepository } from '@/repositories/stock/zones-repository';
 
 interface UpdateZoneUseCaseRequest {
+  tenantId: string;
   id: string;
   code?: string;
   name?: string;
@@ -20,6 +21,7 @@ export class UpdateZoneUseCase {
   constructor(private zonesRepository: ZonesRepository) {}
 
   async execute({
+    tenantId,
     id,
     code,
     name,
@@ -29,7 +31,7 @@ export class UpdateZoneUseCase {
     const zoneId = new UniqueEntityID(id);
 
     // Check if zone exists
-    const existingZone = await this.zonesRepository.findById(zoneId);
+    const existingZone = await this.zonesRepository.findById(zoneId, tenantId);
 
     if (!existingZone) {
       throw new ResourceNotFoundError('Zone');
@@ -47,6 +49,7 @@ export class UpdateZoneUseCase {
       const zoneWithSameCode = await this.zonesRepository.findByCode(
         existingZone.warehouseId,
         code,
+        tenantId,
       );
       if (zoneWithSameCode && !zoneWithSameCode.zoneId.equals(zoneId)) {
         throw new BadRequestError(

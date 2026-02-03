@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { VolumeHttpPresenter } from '@/http/presenters/stock/volume-presenter';
 import { volumeResponseSchema } from '@/http/schemas/stock/volumes/volume.schema';
 import { makeReopenVolumeUseCase } from '@/use-cases/stock/volumes/factories/make-reopen-volume-use-case';
@@ -14,6 +15,7 @@ export async function reopenVolumeController(app: FastifyInstance) {
     url: '/v1/volumes/:id/reopen',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.VOLUMES.REOPEN,
         resource: 'volumes',
@@ -36,10 +38,12 @@ export async function reopenVolumeController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const { id } = request.params;
+      const tenantId = request.user.tenantId!;
 
       const reopenVolumeUseCase = makeReopenVolumeUseCase();
 
       const result = await reopenVolumeUseCase.execute({
+        tenantId,
         volumeId: id,
       });
 

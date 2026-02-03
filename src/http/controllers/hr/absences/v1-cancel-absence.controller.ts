@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { absenceResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { absenceToDTO } from '@/mappers/hr/absence/absence-to-dto';
@@ -14,7 +15,7 @@ export async function cancelAbsenceController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/hr/absences/:absenceId/cancel',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Absences'],
       summary: 'Cancel absence',
@@ -37,11 +38,13 @@ export async function cancelAbsenceController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { absenceId } = request.params;
 
       try {
         const cancelAbsenceUseCase = makeCancelAbsenceUseCase();
         const { absence } = await cancelAbsenceUseCase.execute({
+          tenantId,
           absenceId,
         });
 

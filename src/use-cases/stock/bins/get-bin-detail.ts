@@ -17,6 +17,7 @@ interface BinItemDTO {
 }
 
 interface GetBinDetailUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -45,17 +46,18 @@ export class GetBinDetailUseCase {
   ) {}
 
   async execute({
+    tenantId,
     id,
   }: GetBinDetailUseCaseRequest): Promise<GetBinDetailUseCaseResponse> {
     const binId = new UniqueEntityID(id);
 
-    const bin = await this.binsRepository.findById(binId);
+    const bin = await this.binsRepository.findById(binId, tenantId);
 
     if (!bin) {
       throw new ResourceNotFoundError('Bin');
     }
 
-    const zone = await this.zonesRepository.findById(bin.zoneId);
+    const zone = await this.zonesRepository.findById(bin.zoneId, tenantId);
 
     if (!zone) {
       throw new ResourceNotFoundError('Zone');
@@ -63,6 +65,7 @@ export class GetBinDetailUseCase {
 
     const warehouse = await this.warehousesRepository.findById(
       zone.warehouseId,
+      tenantId,
     );
 
     if (!warehouse) {
@@ -73,7 +76,7 @@ export class GetBinDetailUseCase {
 
     // Get items in the bin with their variant and product info
     const itemsWithRelations =
-      await this.itemsRepository.findManyByBinWithRelations(binId);
+      await this.itemsRepository.findManyByBinWithRelations(binId, tenantId);
 
     const items: BinItemDTO[] = itemsWithRelations
       .filter(

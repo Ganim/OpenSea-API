@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { absenceResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { absenceToDTO } from '@/mappers/hr/absence/absence-to-dto';
@@ -13,7 +14,7 @@ export async function getAbsenceController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/absences/:absenceId',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Absences'],
       summary: 'Get absence',
@@ -33,11 +34,13 @@ export async function getAbsenceController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { absenceId } = request.params;
 
       try {
         const getAbsenceUseCase = makeGetAbsenceUseCase();
         const { absence } = await getAbsenceUseCase.execute({
+          tenantId,
           absenceId,
         });
 

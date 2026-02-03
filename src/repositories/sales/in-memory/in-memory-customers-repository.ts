@@ -1,4 +1,4 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Customer } from '@/entities/sales/customer';
 import { CustomerType } from '@/entities/sales/value-objects/customer-type';
 import { Document } from '@/entities/sales/value-objects/document';
@@ -13,6 +13,7 @@ export class InMemoryCustomersRepository implements CustomersRepository {
 
   async create(data: CreateCustomerSchema): Promise<Customer> {
     const customer = Customer.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       name: data.name,
       type: data.type,
       document: data.document,
@@ -31,38 +32,68 @@ export class InMemoryCustomersRepository implements CustomersRepository {
     return customer;
   }
 
-  async findById(id: UniqueEntityID): Promise<Customer | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Customer | null> {
     const customer = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return customer ?? null;
   }
 
-  async findByDocument(document: Document): Promise<Customer | null> {
+  async findByDocument(
+    document: Document,
+    tenantId: string,
+  ): Promise<Customer | null> {
     const customer = this.items.find(
-      (item) => !item.deletedAt && item.document?.value === document.value,
+      (item) =>
+        !item.deletedAt &&
+        item.document?.value === document.value &&
+        item.tenantId.toString() === tenantId,
     );
     return customer ?? null;
   }
 
-  async findByEmail(email: string): Promise<Customer | null> {
+  async findByEmail(email: string, tenantId: string): Promise<Customer | null> {
     const customer = this.items.find(
-      (item) => !item.deletedAt && item.email === email,
+      (item) =>
+        !item.deletedAt &&
+        item.email === email &&
+        item.tenantId.toString() === tenantId,
     );
     return customer ?? null;
   }
 
-  async findMany(page: number, perPage: number): Promise<Customer[]> {
+  async findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<Customer[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt)
+      .filter(
+        (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+      )
       .slice(start, start + perPage);
   }
 
-  async findManyActive(page: number, perPage: number): Promise<Customer[]> {
+  async findManyActive(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<Customer[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt && item.isActive)
+      .filter(
+        (item) =>
+          !item.deletedAt &&
+          item.isActive &&
+          item.tenantId.toString() === tenantId,
+      )
       .slice(start, start + perPage);
   }
 
@@ -70,10 +101,16 @@ export class InMemoryCustomersRepository implements CustomersRepository {
     type: CustomerType,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<Customer[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt && item.type.value === type.value)
+      .filter(
+        (item) =>
+          !item.deletedAt &&
+          item.type.value === type.value &&
+          item.tenantId.toString() === tenantId,
+      )
       .slice(start, start + perPage);
   }
 
@@ -113,7 +150,9 @@ export class InMemoryCustomersRepository implements CustomersRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const customer = await this.findById(id);
+    const customer = this.items.find(
+      (item) => !item.deletedAt && item.id.equals(id),
+    );
 
     if (customer) {
       customer.delete();

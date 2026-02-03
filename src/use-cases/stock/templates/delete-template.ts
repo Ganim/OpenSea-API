@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface DeleteTemplateUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -10,10 +11,11 @@ export class DeleteTemplateUseCase {
   constructor(private templatesRepository: TemplatesRepository) {}
 
   async execute(request: DeleteTemplateUseCaseRequest): Promise<void> {
-    const { id } = request;
+    const { tenantId, id } = request;
 
     const template = await this.templatesRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!template) {

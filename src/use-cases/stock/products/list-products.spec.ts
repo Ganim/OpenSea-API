@@ -16,6 +16,8 @@ let sut: ListProductsUseCase;
 let createProduct: CreateProductUseCase;
 let createTemplate: CreateTemplateUseCase;
 
+const TENANT_ID = 'tenant-1';
+
 describe('ListProductsUseCase', () => {
   beforeEach(() => {
     productsRepository = new InMemoryProductsRepository();
@@ -35,21 +37,24 @@ describe('ListProductsUseCase', () => {
 
   it('should list all products', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
       templateId: template.template.id.toString(),
     });
 
     await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Mouse Logitech',
       templateId: template.template.id.toString(),
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: TENANT_ID });
 
     expect(result.products).toHaveLength(2);
     expect(result.products[0].name).toBe('Laptop Dell');
@@ -57,7 +62,7 @@ describe('ListProductsUseCase', () => {
   });
 
   it('should return empty array when no products exist', async () => {
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: TENANT_ID });
 
     expect(result.products).toHaveLength(0);
   });

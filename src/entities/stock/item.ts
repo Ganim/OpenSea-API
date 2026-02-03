@@ -6,6 +6,7 @@ import { Slug } from './value-objects/slug';
 
 export interface ItemProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   uniqueCode?: string; // Código único manual opcional
   slug: Slug; // Slug gerado automaticamente - IMUTÁVEL
   fullCode: string; // Código completo gerado automaticamente (ex: 001.001.0001.001-00001) - IMUTÁVEL
@@ -33,6 +34,10 @@ export interface ItemProps {
 export class Item extends Entity<ItemProps> {
   get id(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get uniqueCode(): string | undefined {

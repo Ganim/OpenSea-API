@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { bonusResponseSchema, idSchema } from '@/http/schemas';
 import { bonusToDTO } from '@/mappers/hr/bonus';
 import { makeGetBonusUseCase } from '@/use-cases/hr/bonuses/factories/make-get-bonus-use-case';
@@ -12,7 +13,7 @@ export async function getBonusController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/bonuses/:bonusId',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Bonus'],
       summary: 'Get bonus',
@@ -32,11 +33,12 @@ export async function getBonusController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { bonusId } = request.params;
 
       try {
         const getBonusUseCase = makeGetBonusUseCase();
-        const { bonus } = await getBonusUseCase.execute({ bonusId });
+        const { bonus } = await getBonusUseCase.execute({ tenantId, bonusId });
 
         return reply.status(200).send({ bonus: bonusToDTO(bonus) });
       } catch (error) {

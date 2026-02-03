@@ -16,7 +16,7 @@ describe('GetTimeBankUseCase', () => {
 
   it('should throw Error for non-existent employee', async () => {
     await expect(() =>
-      sut.execute({ employeeId: 'non-existent' }),
+      sut.execute({ tenantId: 'tenant-1', employeeId: 'non-existent' }),
     ).rejects.toThrow('Employee not found');
   });
 });

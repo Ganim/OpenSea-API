@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { tagResponseSchema } from '@/http/schemas/stock.schema';
 import { makeListTagsUseCase } from '@/use-cases/stock/tags/factories/make-list-tags-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -13,6 +14,7 @@ export async function listTagsController(app: FastifyInstance) {
     url: '/v1/tags',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.TAGS.LIST,
         resource: 'tags',
@@ -28,9 +30,10 @@ export async function listTagsController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const listTags = makeListTagsUseCase();
 
-      const { tags } = await listTags.execute();
+      const { tags } = await listTags.execute({ tenantId });
 
       return reply.status(200).send({ tags });
     },

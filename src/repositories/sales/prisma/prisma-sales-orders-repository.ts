@@ -17,6 +17,7 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
   async create(data: CreateSalesOrderSchema): Promise<SalesOrder> {
     const orderData = await prisma.salesOrder.create({
       data: {
+        tenantId: data.tenantId,
         orderNumber: data.orderNumber,
         customerId: data.customerId.toString(),
         createdBy: data.createdBy?.toString(),
@@ -63,10 +64,14 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
     return this.mapToDomain(updatedOrder);
   }
 
-  async findById(id: UniqueEntityID): Promise<SalesOrder | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<SalesOrder | null> {
     const orderData = await prisma.salesOrder.findFirst({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -79,10 +84,14 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
     return this.mapToDomain(orderData);
   }
 
-  async findByOrderNumber(orderNumber: string): Promise<SalesOrder | null> {
+  async findByOrderNumber(
+    orderNumber: string,
+    tenantId: string,
+  ): Promise<SalesOrder | null> {
     const orderData = await prisma.salesOrder.findFirst({
       where: {
         orderNumber,
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -95,9 +104,14 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
     return this.mapToDomain(orderData);
   }
 
-  async findMany(page: number, perPage: number): Promise<SalesOrder[]> {
+  async findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<SalesOrder[]> {
     const ordersData = await prisma.salesOrder.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -115,10 +129,12 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
     customerId: UniqueEntityID,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<SalesOrder[]> {
     const ordersData = await prisma.salesOrder.findMany({
       where: {
         customerId: customerId.toString(),
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -136,10 +152,12 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
     status: OrderStatus,
     page: number,
     perPage: number,
+    tenantId: string,
   ): Promise<SalesOrder[]> {
     const ordersData = await prisma.salesOrder.findMany({
       where: {
         status: status.value as PrismaOrderStatus,
+        tenantId,
         deletedAt: null,
       },
       include: {
@@ -196,6 +214,7 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
       where: { id: order.id.toString() },
       create: {
         id: order.id.toString(),
+        tenantId: order.tenantId.toString(),
         orderNumber: order.orderNumber,
         customerId: order.customerId.toString(),
         createdBy: order.createdBy?.toString(),
@@ -281,6 +300,7 @@ export class PrismaSalesOrdersRepository implements SalesOrdersRepository {
 
     return SalesOrder.create(
       {
+        tenantId: new EntityID(orderData.tenantId),
         orderNumber: orderData.orderNumber,
         customerId: new EntityID(orderData.customerId),
         createdBy: orderData.createdBy

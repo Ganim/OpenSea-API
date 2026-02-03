@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/in-memory-vacation-periods-repository';
@@ -7,6 +8,8 @@ import { CalculateVacationBalanceUseCase } from './calculate-vacation-balance';
 let employeesRepository: InMemoryEmployeesRepository;
 let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let sut: CalculateVacationBalanceUseCase;
+
+const tenantId = new UniqueEntityID().toString();
 
 describe('CalculateVacationBalanceUseCase', () => {
   beforeEach(() => {
@@ -20,7 +23,7 @@ describe('CalculateVacationBalanceUseCase', () => {
 
   it('should throw ResourceNotFoundError for non-existent employee', async () => {
     await expect(() =>
-      sut.execute({ employeeId: 'non-existent' }),
+      sut.execute({ tenantId, employeeId: 'non-existent' }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

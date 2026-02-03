@@ -1,7 +1,9 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
 import { makeCustomer } from './make-customer';
 
 interface CreateCustomerProps {
+  tenantId: string;
   name?: string;
   type?: 'INDIVIDUAL' | 'BUSINESS';
   document?: string;
@@ -16,12 +18,16 @@ interface CreateCustomerProps {
   isActive?: boolean;
 }
 
-export async function createCustomer(override: CreateCustomerProps = {}) {
-  const customer = makeCustomer(override);
+export async function createCustomer(override: CreateCustomerProps) {
+  const customer = makeCustomer({
+    ...override,
+    tenantId: new UniqueEntityID(override.tenantId),
+  });
 
   await prisma.customer.create({
     data: {
       id: customer.id.toString(),
+      tenantId: override.tenantId,
       name: customer.name,
       type: customer.type.value,
       document: customer.document?.value ?? null,

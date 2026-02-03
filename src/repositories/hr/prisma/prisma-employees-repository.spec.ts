@@ -8,10 +8,25 @@ import {
 } from '@/entities/hr/value-objects';
 import { prisma } from '@/lib/prisma';
 import { PrismaEmployeesRepository } from '@/repositories/hr/prisma/prisma-employees-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 describe('PrismaEmployeesRepository', () => {
   let repository: PrismaEmployeesRepository;
+  let tenantId: string;
+
+  beforeAll(async () => {
+    // Create a tenant for tests
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `Test Tenant ${Date.now()}`,
+        slug: `test-tenant-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+        status: 'ACTIVE',
+        settings: {},
+        metadata: {},
+      },
+    });
+    tenantId = tenant.id;
+  });
 
   beforeEach(async () => {
     repository = new PrismaEmployeesRepository();
@@ -33,6 +48,7 @@ describe('PrismaEmployeesRepository', () => {
   it('should create an employee', async () => {
     const cpf = CPF.create('11144477735');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf,
@@ -57,6 +73,7 @@ describe('PrismaEmployeesRepository', () => {
   it('should find employee by id', async () => {
     const cpf = CPF.create('52998224725');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'João Silva',
       cpf,
@@ -70,7 +87,10 @@ describe('PrismaEmployeesRepository', () => {
     };
 
     const createdEmployee = await repository.create(employeeData);
-    const foundEmployee = await repository.findById(createdEmployee.id);
+    const foundEmployee = await repository.findById(
+      createdEmployee.id,
+      tenantId,
+    );
 
     expect(foundEmployee).toBeDefined();
     expect(foundEmployee?.id.equals(createdEmployee.id)).toBe(true);
@@ -79,6 +99,7 @@ describe('PrismaEmployeesRepository', () => {
   it('should find employee by registration number', async () => {
     const cpf = CPF.create('12345678909');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP003',
       fullName: 'João Silva',
       cpf,
@@ -92,7 +113,10 @@ describe('PrismaEmployeesRepository', () => {
     };
 
     await repository.create(employeeData);
-    const foundEmployee = await repository.findByRegistrationNumber('EMP003');
+    const foundEmployee = await repository.findByRegistrationNumber(
+      'EMP003',
+      tenantId,
+    );
 
     expect(foundEmployee).toBeDefined();
     expect(foundEmployee?.registrationNumber).toBe('EMP003');
@@ -101,6 +125,7 @@ describe('PrismaEmployeesRepository', () => {
   it('should find employee by CPF', async () => {
     const cpf = CPF.create('11144477735');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP004',
       fullName: 'João Silva',
       cpf,
@@ -114,7 +139,7 @@ describe('PrismaEmployeesRepository', () => {
     };
 
     await repository.create(employeeData);
-    const foundEmployee = await repository.findByCpf(cpf);
+    const foundEmployee = await repository.findByCpf(cpf, tenantId);
 
     expect(foundEmployee).toBeDefined();
     expect(foundEmployee?.cpf.equals(cpf)).toBe(true);
@@ -122,7 +147,7 @@ describe('PrismaEmployeesRepository', () => {
 
   it('should return null when employee not found', async () => {
     const nonExistentId = new UniqueEntityID();
-    const result = await repository.findById(nonExistentId);
+    const result = await repository.findById(nonExistentId, tenantId);
 
     expect(result).toBeNull();
   });
@@ -132,6 +157,7 @@ describe('PrismaEmployeesRepository', () => {
     const cpf2 = CPF.create('52998224725');
 
     await repository.create({
+      tenantId,
       registrationNumber: 'EMP005',
       fullName: 'João Silva',
       cpf: cpf1,
@@ -145,6 +171,7 @@ describe('PrismaEmployeesRepository', () => {
     });
 
     await repository.create({
+      tenantId,
       registrationNumber: 'EMP006',
       fullName: 'Maria Santos',
       cpf: cpf2,
@@ -157,7 +184,7 @@ describe('PrismaEmployeesRepository', () => {
       country: 'Brasil',
     });
 
-    const employees = await repository.findMany();
+    const employees = await repository.findMany(tenantId);
 
     expect(employees).toHaveLength(2);
     expect(employees[0].fullName).toBe('João Silva');
@@ -169,6 +196,7 @@ describe('PrismaEmployeesRepository', () => {
     const cpf2 = CPF.create('11144477735');
 
     await repository.create({
+      tenantId,
       registrationNumber: 'EMP007',
       fullName: 'João Silva',
       cpf: cpf1,
@@ -182,6 +210,7 @@ describe('PrismaEmployeesRepository', () => {
     });
 
     await repository.create({
+      tenantId,
       registrationNumber: 'EMP008',
       fullName: 'Maria Santos',
       cpf: cpf2,
@@ -194,7 +223,7 @@ describe('PrismaEmployeesRepository', () => {
       country: 'Brasil',
     });
 
-    const activeEmployees = await repository.findManyActive();
+    const activeEmployees = await repository.findManyActive(tenantId);
 
     expect(activeEmployees).toHaveLength(1);
     expect(activeEmployees[0].fullName).toBe('João Silva');
@@ -203,6 +232,7 @@ describe('PrismaEmployeesRepository', () => {
   it('should update employee', async () => {
     const cpf = CPF.create('52998224725');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP009',
       fullName: 'João Silva',
       cpf,
@@ -231,6 +261,7 @@ describe('PrismaEmployeesRepository', () => {
   it('should delete employee (soft delete)', async () => {
     const cpf = CPF.create('12345678909');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP010',
       fullName: 'João Silva',
       cpf,
@@ -247,11 +278,14 @@ describe('PrismaEmployeesRepository', () => {
 
     await repository.delete(createdEmployee.id);
 
-    const foundEmployee = await repository.findById(createdEmployee.id);
+    const foundEmployee = await repository.findById(
+      createdEmployee.id,
+      tenantId,
+    );
     expect(foundEmployee).toBeNull();
 
     // Employee should not appear in findMany
-    const employees = await repository.findMany();
+    const employees = await repository.findMany(tenantId);
     expect(employees).toHaveLength(0);
   });
 });

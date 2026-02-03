@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createPositionSchema,
   positionResponseSchema,
@@ -22,6 +23,7 @@ export async function createPositionController(app: FastifyInstance) {
     url: '/v1/hr/positions',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.POSITIONS.CREATE,
         resource: 'positions',
@@ -43,6 +45,7 @@ export async function createPositionController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const {
         name,
         code,
@@ -64,6 +67,7 @@ export async function createPositionController(app: FastifyInstance) {
 
         const createPositionUseCase = makeCreatePositionUseCase();
         const { position } = await createPositionUseCase.execute({
+          tenantId,
           name,
           code,
           description,

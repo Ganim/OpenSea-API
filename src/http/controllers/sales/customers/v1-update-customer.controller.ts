@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   customerResponseSchema,
   updateCustomerSchema,
@@ -22,6 +23,7 @@ export async function updateCustomerController(app: FastifyInstance) {
     url: '/v1/customers/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.SALES.CUSTOMERS.UPDATE,
         resource: 'customers',
@@ -55,6 +57,7 @@ export async function updateCustomerController(app: FastifyInstance) {
       const { id } = request.params as { id: string };
       const body = request.body;
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -62,14 +65,14 @@ export async function updateCustomerController(app: FastifyInstance) {
 
         const [{ user }, { customer: oldCustomer }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getCustomerByIdUseCase.execute({ id }),
+          getCustomerByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const useCase = makeUpdateCustomerUseCase();
-        const { customer } = await useCase.execute({ id, ...body });
+        const { customer } = await useCase.execute({ tenantId, id, ...body });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.CUSTOMER_UPDATE,

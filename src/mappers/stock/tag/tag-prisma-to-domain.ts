@@ -5,6 +5,7 @@ import type { Tag as PrismaTag } from '@prisma/generated/client.js';
 export function mapTagPrismaToDomain(tagDb: PrismaTag) {
   return {
     id: new UniqueEntityID(tagDb.id),
+    tenantId: new UniqueEntityID(tagDb.tenantId),
     name: tagDb.name,
     slug: tagDb.slug,
     color: tagDb.color,

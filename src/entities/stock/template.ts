@@ -59,6 +59,7 @@ export interface CareLabelInfo {
 
 export interface TemplateProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   code?: string; // Código hierárquico manual ou auto-gerado (3 dígitos: 001)
   sequentialCode?: number; // Para fallback na geração do code
   name: string;
@@ -77,6 +78,10 @@ export interface TemplateProps {
 export class Template extends Entity<TemplateProps> {
   get id(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get code(): string | undefined {

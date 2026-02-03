@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
 export async function createBonus(
+  tenantId: string,
   employeeId: string,
   data?: {
     name?: string;
@@ -11,6 +12,7 @@ export async function createBonus(
 ) {
   return prisma.bonus.create({
     data: {
+      tenantId,
       employeeId,
       name: data?.name ?? 'Test Bonus',
       amount: data?.amount ?? 1000,

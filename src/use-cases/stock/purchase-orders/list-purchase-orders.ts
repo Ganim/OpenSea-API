@@ -6,6 +6,7 @@ import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-orde
 import type { PurchaseOrdersRepository } from '@/repositories/stock/purchase-orders-repository';
 
 interface ListPurchaseOrdersUseCaseRequest {
+  tenantId: string;
   page?: number;
   perPage?: number;
   supplierId?: string;
@@ -22,7 +23,7 @@ export class ListPurchaseOrdersUseCase {
   async execute(
     request: ListPurchaseOrdersUseCaseRequest,
   ): Promise<ListPurchaseOrdersUseCaseResponse> {
-    const { page = 1, perPage = 20, supplierId, status } = request;
+    const { tenantId, page = 1, perPage = 20, supplierId, status } = request;
 
     let purchaseOrders: PurchaseOrder[];
 
@@ -31,18 +32,21 @@ export class ListPurchaseOrdersUseCase {
         new UniqueEntityID(supplierId),
         page,
         perPage,
+        tenantId,
       );
     } else if (status) {
       purchaseOrders = await this.purchaseOrdersRepository.findManyByStatus(
         OrderStatus.create(status),
         page,
         perPage,
+        tenantId,
       );
     } else {
       purchaseOrders = await this.purchaseOrdersRepository.findManyByStatus(
         OrderStatus.create('PENDING'),
         page,
         perPage,
+        tenantId,
       );
     }
 

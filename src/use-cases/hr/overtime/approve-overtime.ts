@@ -4,6 +4,7 @@ import { OvertimeRepository } from '@/repositories/hr/overtime-repository';
 import { TimeBankRepository } from '@/repositories/hr/time-bank-repository';
 
 export interface ApproveOvertimeRequest {
+  tenantId: string;
   overtimeId: string;
   approvedBy: string;
   addToTimeBank?: boolean;
@@ -22,11 +23,12 @@ export class ApproveOvertimeUseCase {
   async execute(
     request: ApproveOvertimeRequest,
   ): Promise<ApproveOvertimeResponse> {
-    const { overtimeId, approvedBy, addToTimeBank = false } = request;
+    const { tenantId, overtimeId, approvedBy, addToTimeBank = false } = request;
 
     // Find overtime request
     const overtime = await this.overtimeRepository.findById(
       new UniqueEntityID(overtimeId),
+      tenantId,
     );
     if (!overtime) {
       throw new Error('Overtime request not found');
@@ -47,6 +49,7 @@ export class ApproveOvertimeUseCase {
       const timeBank = await this.timeBankRepository.findByEmployeeAndYear(
         overtime.employeeId,
         year,
+        tenantId,
       );
 
       if (timeBank) {
@@ -54,6 +57,7 @@ export class ApproveOvertimeUseCase {
         await this.timeBankRepository.save(timeBank);
       } else {
         await this.timeBankRepository.create({
+          tenantId,
           employeeId: overtime.employeeId,
           balance: overtime.hours,
           year,

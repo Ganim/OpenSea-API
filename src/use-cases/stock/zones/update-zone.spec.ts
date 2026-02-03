@@ -19,11 +19,13 @@ describe('UpdateZoneUseCase', () => {
 
   async function createTestZone() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
@@ -38,6 +40,7 @@ describe('UpdateZoneUseCase', () => {
     const { zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
       name: 'Novo Nome',
     });
@@ -50,6 +53,7 @@ describe('UpdateZoneUseCase', () => {
     const { zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
       code: 'NEW',
     });
@@ -61,6 +65,7 @@ describe('UpdateZoneUseCase', () => {
     const { zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
       description: 'Nova descrição',
     });
@@ -72,6 +77,7 @@ describe('UpdateZoneUseCase', () => {
     const { zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
       description: null,
     });
@@ -83,6 +89,7 @@ describe('UpdateZoneUseCase', () => {
     const { zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
       isActive: false,
     });
@@ -94,6 +101,7 @@ describe('UpdateZoneUseCase', () => {
     const { zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
       name: 'Novo Nome',
       description: 'Nova descrição',
@@ -108,6 +116,7 @@ describe('UpdateZoneUseCase', () => {
   it('should fail when zone is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
         name: 'Novo Nome',
       }),
@@ -119,6 +128,7 @@ describe('UpdateZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: zone.zoneId.toString(),
         code: 'E',
       }),
@@ -130,6 +140,7 @@ describe('UpdateZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: zone.zoneId.toString(),
         code: 'ESTOQU',
       }),
@@ -140,6 +151,7 @@ describe('UpdateZoneUseCase', () => {
     const { warehouse, zone } = await createTestZone();
 
     await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'ZN2',
       name: 'Zona 2',
@@ -147,6 +159,7 @@ describe('UpdateZoneUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: zone.zoneId.toString(),
         code: 'ZN2',
       }),
@@ -157,6 +170,7 @@ describe('UpdateZoneUseCase', () => {
     const { zone } = await createTestZone();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
       code: 'EST',
       name: 'Novo Nome',

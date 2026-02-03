@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { binResponseSchema } from '@/http/schemas/stock/bins/bin.schema';
 import { binToDTO } from '@/mappers/stock/bin/bin-to-dto';
 import { makeGetBinByAddressUseCase } from '@/use-cases/stock/bins/factories/make-get-bin-by-address-use-case';
@@ -15,6 +16,7 @@ export async function getBinByAddressController(app: FastifyInstance) {
     url: '/v1/bins/address/:address',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.BINS.READ,
         resource: 'bins',
@@ -40,11 +42,13 @@ export async function getBinByAddressController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { address } = request.params;
 
       try {
         const getBinByAddressUseCase = makeGetBinByAddressUseCase();
         const { bin, itemCount } = await getBinByAddressUseCase.execute({
+          tenantId,
           address,
         });
 

@@ -18,8 +18,18 @@ describe('Delete Supplier (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const supplier = await prisma.supplier.create({
       data: {
+        tenantId,
         name: `Supplier to Delete ${timestamp}`,
         city: 'São Paulo',
         state: 'SP',

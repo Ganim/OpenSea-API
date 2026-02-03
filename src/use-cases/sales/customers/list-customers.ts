@@ -4,6 +4,7 @@ import { customerToDTO } from '@/mappers/sales/customer/customer-to-dto';
 import { CustomersRepository } from '@/repositories/sales/customers-repository';
 
 interface ListCustomersUseCaseRequest {
+  tenantId: string;
   page?: number;
   perPage?: number;
   type?: 'INDIVIDUAL' | 'BUSINESS';
@@ -31,15 +32,24 @@ export class ListCustomersUseCase {
     let allCustomers;
 
     if (input.isActive !== undefined) {
-      allCustomers = await this.customersRepository.findManyActive(1, 999999);
+      allCustomers = await this.customersRepository.findManyActive(
+        1,
+        999999,
+        input.tenantId,
+      );
     } else if (input.type) {
       allCustomers = await this.customersRepository.findManyByType(
         CustomerType.create(input.type),
         1,
         999999,
+        input.tenantId,
       );
     } else {
-      allCustomers = await this.customersRepository.findMany(1, 999999);
+      allCustomers = await this.customersRepository.findMany(
+        1,
+        999999,
+        input.tenantId,
+      );
     }
 
     const total = allCustomers.length;

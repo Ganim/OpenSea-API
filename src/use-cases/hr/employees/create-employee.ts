@@ -10,6 +10,7 @@ import {
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface CreateEmployeeRequest {
+  tenantId: string;
   registrationNumber: string;
   userId?: string;
   fullName: string;
@@ -80,6 +81,7 @@ export class CreateEmployeeUseCase {
     request: CreateEmployeeRequest,
   ): Promise<CreateEmployeeResponse> {
     const {
+      tenantId,
       registrationNumber,
       userId,
       fullName,
@@ -138,6 +140,7 @@ export class CreateEmployeeUseCase {
     // Validate if CPF already exists
     const existingEmployeeByCpf = await this.employeesRepository.findByCpf(
       CPF.create(cpf),
+      tenantId,
     );
     if (existingEmployeeByCpf) {
       throw new Error('Employee with this CPF already exists');
@@ -147,6 +150,7 @@ export class CreateEmployeeUseCase {
     const existingEmployeeByRegistration =
       await this.employeesRepository.findByRegistrationNumber(
         registrationNumber,
+        tenantId,
       );
     if (existingEmployeeByRegistration) {
       throw new Error('Employee with this registration number already exists');
@@ -155,7 +159,10 @@ export class CreateEmployeeUseCase {
     // Validate if user is already linked to another employee
     if (userId) {
       const existingEmployeeByUser =
-        await this.employeesRepository.findByUserId(new UniqueEntityID(userId));
+        await this.employeesRepository.findByUserId(
+          new UniqueEntityID(userId),
+          tenantId,
+        );
       if (existingEmployeeByUser) {
         throw new Error('User is already linked to another employee');
       }
@@ -165,6 +172,7 @@ export class CreateEmployeeUseCase {
     if (pis) {
       const existingEmployeeByPis = await this.employeesRepository.findByPis(
         PIS.create(pis),
+        tenantId,
       );
       if (existingEmployeeByPis) {
         throw new Error('Employee with this PIS already exists');
@@ -195,6 +203,7 @@ export class CreateEmployeeUseCase {
 
     // Create employee via repository
     const employee = await this.employeesRepository.create({
+      tenantId,
       registrationNumber,
       userId: userId ? new UniqueEntityID(userId) : undefined,
       fullName,

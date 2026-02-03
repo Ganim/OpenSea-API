@@ -63,6 +63,10 @@ export class Tenant extends Entity<TenantProps> {
     this.props.name = name;
     this.touch();
   }
+  set slug(slug: string) {
+    this.props.slug = slug;
+    this.touch();
+  }
   set logoUrl(logoUrl: string | null) {
     this.props.logoUrl = logoUrl;
     this.touch();

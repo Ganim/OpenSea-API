@@ -20,17 +20,20 @@ describe('GetBinByAddressUseCase', () => {
 
   async function createTestBin() {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
     });
 
     const bin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-101-A',
       aisle: 1,
@@ -46,6 +49,7 @@ describe('GetBinByAddressUseCase', () => {
     const { bin } = await createTestBin();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'FAB-EST-101-A',
     });
 
@@ -58,6 +62,7 @@ describe('GetBinByAddressUseCase', () => {
     const { bin } = await createTestBin();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'fab-est-101-a',
     });
 
@@ -68,6 +73,7 @@ describe('GetBinByAddressUseCase', () => {
     await createTestBin();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'FAB-EST-101-A',
     });
 
@@ -80,6 +86,7 @@ describe('GetBinByAddressUseCase', () => {
     vi.spyOn(binsRepository, 'countItemsInBin').mockResolvedValue(10);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       address: 'FAB-EST-101-A',
     });
 
@@ -89,6 +96,7 @@ describe('GetBinByAddressUseCase', () => {
   it('should fail when bin is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         address: 'NON-EXISTENT-ADDRESS',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
@@ -101,6 +109,7 @@ describe('GetBinByAddressUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         address: 'FAB-EST-101-A',
       }),
     ).rejects.toThrow(ResourceNotFoundError);

@@ -4,6 +4,7 @@ import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { TimeBankRepository } from '@/repositories/hr/time-bank-repository';
 
 export interface GetTimeBankRequest {
+  tenantId: string;
   employeeId: string;
   year?: number;
 }
@@ -19,11 +20,12 @@ export class GetTimeBankUseCase {
   ) {}
 
   async execute(request: GetTimeBankRequest): Promise<GetTimeBankResponse> {
-    const { employeeId, year = new Date().getFullYear() } = request;
+    const { tenantId, employeeId, year = new Date().getFullYear() } = request;
 
     // Verify employee exists
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
     if (!employee) {
       throw new Error('Employee not found');
@@ -32,11 +34,13 @@ export class GetTimeBankUseCase {
     let timeBank = await this.timeBankRepository.findByEmployeeAndYear(
       new UniqueEntityID(employeeId),
       year,
+      tenantId,
     );
 
     // Create time bank if it doesn't exist
     if (!timeBank) {
       timeBank = await this.timeBankRepository.create({
+        tenantId,
         employeeId: new UniqueEntityID(employeeId),
         balance: 0,
         year,

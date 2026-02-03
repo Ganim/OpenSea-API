@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { checkCpfSchema } from '@/http/schemas';
 import { makeCheckEmployeeCpfUseCase } from '@/use-cases/hr/employees/factories/make-check-employee-cpf-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -9,7 +10,7 @@ export async function checkCpfController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/employees/check-cpf',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Employees'],
       summary: 'Check if CPF exists',
@@ -27,9 +28,11 @@ export async function checkCpfController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { cpf, includeDeleted } = request.body;
+      const tenantId = request.user.tenantId!;
       const checkCpfUseCase = makeCheckEmployeeCpfUseCase();
 
       const result = await checkCpfUseCase.execute({
+        tenantId,
         cpf,
         includeDeleted,
       });

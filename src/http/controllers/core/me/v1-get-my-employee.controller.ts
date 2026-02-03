@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { employeeResponseSchema } from '@/http/schemas/hr/employees/employee.schema';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
 import { makeGetMyEmployeeUseCase } from '@/use-cases/hr/employees/factories/make-get-my-employee-use-case';
@@ -11,7 +12,7 @@ export async function getMyEmployeeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/me/employee',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['Me'],
       summary: 'Get my employee data',
@@ -25,10 +26,11 @@ export async function getMyEmployeeController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         const useCase = makeGetMyEmployeeUseCase();
-        const { employee } = await useCase.execute({ userId });
+        const { employee } = await useCase.execute({ tenantId, userId });
 
         return reply.status(200).send({ employee: employeeToDTO(employee) });
       } catch (err) {

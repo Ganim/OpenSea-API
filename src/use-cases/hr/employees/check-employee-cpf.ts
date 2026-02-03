@@ -2,6 +2,7 @@ import { CPF } from '@/entities/hr/value-objects';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface CheckEmployeeCpfRequest {
+  tenantId: string;
   cpf: string;
   includeDeleted?: boolean;
 }
@@ -18,10 +19,11 @@ export class CheckEmployeeCpfUseCase {
   async execute(
     request: CheckEmployeeCpfRequest,
   ): Promise<CheckEmployeeCpfResponse> {
-    const { cpf, includeDeleted = false } = request;
+    const { tenantId, cpf, includeDeleted = false } = request;
 
     const employee = await this.employeesRepository.findByCpf(
       CPF.create(cpf),
+      tenantId,
       includeDeleted,
     );
 

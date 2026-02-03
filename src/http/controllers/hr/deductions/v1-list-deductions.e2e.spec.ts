@@ -17,9 +17,9 @@ describe('List Deductions (E2E)', () => {
 
   it('should list deductions with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
-    await createDeduction(employeeId, { name: 'Deduction 1' });
+    await createDeduction(employee.tenantId, employeeId, { name: 'Deduction 1' });
 
     const response = await request(app.server)
       .get('/v1/hr/deductions')

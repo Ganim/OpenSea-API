@@ -5,6 +5,7 @@ import { DeductionsRepository } from '@/repositories/hr/deductions-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface CreateDeductionRequest {
+  tenantId: string;
   employeeId: string;
   name: string;
   amount: number;
@@ -28,6 +29,7 @@ export class CreateDeductionUseCase {
     request: CreateDeductionRequest,
   ): Promise<CreateDeductionResponse> {
     const {
+      tenantId,
       employeeId,
       name,
       amount,
@@ -60,6 +62,7 @@ export class CreateDeductionUseCase {
     // Verify employee exists
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!employee) {
@@ -68,6 +71,7 @@ export class CreateDeductionUseCase {
 
     // Create deduction
     const deduction = await this.deductionsRepository.create({
+      tenantId,
       employeeId: new UniqueEntityID(employeeId),
       name: name.trim(),
       amount,

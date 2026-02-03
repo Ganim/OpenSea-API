@@ -20,22 +20,27 @@ describe('DeleteManufacturerUseCase', () => {
 
   it('should delete a manufacturer', async () => {
     const created = await createManufacturer.execute({
+      tenantId: 'tenant-1',
       name: 'TechCorp',
       country: 'United States',
     });
 
-    await sut.execute({ id: created.manufacturer.manufacturerId.toString() });
+    await sut.execute({
+      tenantId: 'tenant-1',
+      id: created.manufacturer.manufacturerId.toString(),
+    });
 
     await expect(
       getManufacturer.execute({
+        tenantId: 'tenant-1',
         id: created.manufacturer.manufacturerId.toString(),
       }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
 
   it('should throw error if manufacturer not found', async () => {
-    await expect(sut.execute({ id: 'non-existent-id' })).rejects.toThrow(
-      ResourceNotFoundError,
-    );
+    await expect(
+      sut.execute({ tenantId: 'tenant-1', id: 'non-existent-id' }),
+    ).rejects.toThrow(ResourceNotFoundError);
   });
 });

@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   departmentResponseSchema,
   updateDepartmentSchema,
@@ -24,6 +25,7 @@ export async function updateDepartmentController(app: FastifyInstance) {
     url: '/v1/hr/departments/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.DEPARTMENTS.UPDATE,
         resource: 'departments',
@@ -52,6 +54,7 @@ export async function updateDepartmentController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const data = request.body;
       const userId = request.user.sub;
@@ -62,7 +65,7 @@ export async function updateDepartmentController(app: FastifyInstance) {
 
         const [{ user }, { department: oldDepartment }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getDepartmentByIdUseCase.execute({ id }),
+          getDepartmentByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -70,6 +73,7 @@ export async function updateDepartmentController(app: FastifyInstance) {
 
         const updateDepartmentUseCase = makeUpdateDepartmentUseCase();
         const { department } = await updateDepartmentUseCase.execute({
+          tenantId,
           id,
           name: data.name,
           code: data.code,

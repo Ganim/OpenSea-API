@@ -2,6 +2,7 @@ import type { Bin } from '@/entities/stock/bin';
 import type { BinsRepository } from '@/repositories/stock/bins-repository';
 
 interface SearchBinsUseCaseRequest {
+  tenantId: string;
   query: string;
   limit?: number;
 }
@@ -14,6 +15,7 @@ export class SearchBinsUseCase {
   constructor(private binsRepository: BinsRepository) {}
 
   async execute({
+    tenantId,
     query,
     limit = 20,
   }: SearchBinsUseCaseRequest): Promise<SearchBinsUseCaseResponse> {
@@ -21,7 +23,11 @@ export class SearchBinsUseCase {
       return { bins: [] };
     }
 
-    const bins = await this.binsRepository.search(query.trim(), limit);
+    const bins = await this.binsRepository.search(
+      query.trim(),
+      tenantId,
+      limit,
+    );
 
     return { bins };
   }

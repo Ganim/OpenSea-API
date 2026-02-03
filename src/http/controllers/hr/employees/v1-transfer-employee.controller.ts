@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { employeeResponseSchema, transferEmployeeSchema } from '@/http/schemas';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
 import { makeTransferEmployeeUseCase } from '@/use-cases/hr/employees/factories/make-transfer-employee-use-case';
@@ -16,6 +17,7 @@ export async function transferEmployeeController(app: FastifyInstance) {
     url: '/v1/hr/employees/:employeeId/transfer',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.EMPLOYEES.MANAGE,
         resource: 'employees',
@@ -55,9 +57,12 @@ export async function transferEmployeeController(app: FastifyInstance) {
         reason,
       } = request.body;
 
+      const tenantId = request.user.tenantId!;
+
       try {
         const transferEmployeeUseCase = makeTransferEmployeeUseCase();
         const { employee } = await transferEmployeeUseCase.execute({
+          tenantId,
           employeeId,
           newDepartmentId,
           newPositionId,

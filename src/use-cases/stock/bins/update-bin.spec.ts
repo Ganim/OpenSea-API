@@ -25,17 +25,20 @@ describe('UpdateBinUseCase', () => {
     currentOccupancy?: number;
   }) {
     const warehouse = await warehousesRepository.create({
+      tenantId: 'tenant-1',
       code: 'FAB',
       name: 'Fábrica Principal',
     });
 
     const zone = await zonesRepository.create({
+      tenantId: 'tenant-1',
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
     });
 
     const bin = await binsRepository.create({
+      tenantId: 'tenant-1',
       zoneId: zone.zoneId,
       address: 'FAB-EST-101-A',
       aisle: 1,
@@ -53,6 +56,7 @@ describe('UpdateBinUseCase', () => {
     const { bin } = await createTestBin();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
       capacity: 200,
     });
@@ -64,6 +68,7 @@ describe('UpdateBinUseCase', () => {
     const { bin } = await createTestBin({ capacity: 100 });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
       capacity: null,
     });
@@ -75,6 +80,7 @@ describe('UpdateBinUseCase', () => {
     const { bin } = await createTestBin();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
       isActive: false,
     });
@@ -86,6 +92,7 @@ describe('UpdateBinUseCase', () => {
     const { bin } = await createTestBin();
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
       capacity: 200,
       isActive: false,
@@ -98,6 +105,7 @@ describe('UpdateBinUseCase', () => {
   it('should fail when bin is not found', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
         capacity: 100,
       }),
@@ -109,6 +117,7 @@ describe('UpdateBinUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: bin.binId.toString(),
         capacity: -1,
       }),
@@ -123,6 +132,7 @@ describe('UpdateBinUseCase', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: bin.binId.toString(),
         capacity: 30,
       }),
@@ -136,6 +146,7 @@ describe('UpdateBinUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
       capacity: 50,
     });
@@ -150,6 +161,7 @@ describe('UpdateBinUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: bin.binId.toString(),
       capacity: 75,
     });

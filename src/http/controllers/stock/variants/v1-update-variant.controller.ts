@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { updateVariantSchema, variantResponseSchema } from '@/http/schemas';
 import { variantToDTO } from '@/mappers/stock/variant/variant-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -20,6 +21,7 @@ export async function updateVariantController(app: FastifyInstance) {
     url: '/v1/variants/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.VARIANTS.UPDATE,
         resource: 'variants',
@@ -47,6 +49,7 @@ export async function updateVariantController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const {
         sku,
@@ -79,7 +82,7 @@ export async function updateVariantController(app: FastifyInstance) {
 
         const [{ user }, oldVariant] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getVariantByIdUseCase.execute({ id }),
+          getVariantByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -87,6 +90,7 @@ export async function updateVariantController(app: FastifyInstance) {
 
         const updateVariantUseCase = makeUpdateVariantUseCase();
         const variant = await updateVariantUseCase.execute({
+          tenantId,
           id,
           sku,
           name,

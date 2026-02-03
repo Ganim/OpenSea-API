@@ -42,6 +42,7 @@ export type VacationPeriodSumAggregateOutputType = {
 
 export type VacationPeriodMinAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   acquisitionStart: Date | null
   acquisitionEnd: Date | null
@@ -62,6 +63,7 @@ export type VacationPeriodMinAggregateOutputType = {
 
 export type VacationPeriodMaxAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   acquisitionStart: Date | null
   acquisitionEnd: Date | null
@@ -82,6 +84,7 @@ export type VacationPeriodMaxAggregateOutputType = {
 
 export type VacationPeriodCountAggregateOutputType = {
   id: number
+  tenantId: number
   employeeId: number
   acquisitionStart: number
   acquisitionEnd: number
@@ -118,6 +121,7 @@ export type VacationPeriodSumAggregateInputType = {
 
 export type VacationPeriodMinAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   acquisitionStart?: true
   acquisitionEnd?: true
@@ -138,6 +142,7 @@ export type VacationPeriodMinAggregateInputType = {
 
 export type VacationPeriodMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   acquisitionStart?: true
   acquisitionEnd?: true
@@ -158,6 +163,7 @@ export type VacationPeriodMaxAggregateInputType = {
 
 export type VacationPeriodCountAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   acquisitionStart?: true
   acquisitionEnd?: true
@@ -265,6 +271,7 @@ export type VacationPeriodGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 
 export type VacationPeriodGroupByOutputType = {
   id: string
+  tenantId: string
   employeeId: string
   acquisitionStart: Date
   acquisitionEnd: Date
@@ -308,6 +315,7 @@ export type VacationPeriodWhereInput = {
   OR?: Prisma.VacationPeriodWhereInput[]
   NOT?: Prisma.VacationPeriodWhereInput | Prisma.VacationPeriodWhereInput[]
   id?: Prisma.StringFilter<"VacationPeriod"> | string
+  tenantId?: Prisma.StringFilter<"VacationPeriod"> | string
   employeeId?: Prisma.StringFilter<"VacationPeriod"> | string
   acquisitionStart?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
   acquisitionEnd?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
@@ -324,11 +332,13 @@ export type VacationPeriodWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"VacationPeriod"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
 }
 
 export type VacationPeriodOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   acquisitionStart?: Prisma.SortOrder
   acquisitionEnd?: Prisma.SortOrder
@@ -345,6 +355,7 @@ export type VacationPeriodOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
 }
 
@@ -353,6 +364,7 @@ export type VacationPeriodWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.VacationPeriodWhereInput | Prisma.VacationPeriodWhereInput[]
   OR?: Prisma.VacationPeriodWhereInput[]
   NOT?: Prisma.VacationPeriodWhereInput | Prisma.VacationPeriodWhereInput[]
+  tenantId?: Prisma.StringFilter<"VacationPeriod"> | string
   employeeId?: Prisma.StringFilter<"VacationPeriod"> | string
   acquisitionStart?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
   acquisitionEnd?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
@@ -369,11 +381,13 @@ export type VacationPeriodWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"VacationPeriod"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
 }, "id">
 
 export type VacationPeriodOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   acquisitionStart?: Prisma.SortOrder
   acquisitionEnd?: Prisma.SortOrder
@@ -402,6 +416,7 @@ export type VacationPeriodScalarWhereWithAggregatesInput = {
   OR?: Prisma.VacationPeriodScalarWhereWithAggregatesInput[]
   NOT?: Prisma.VacationPeriodScalarWhereWithAggregatesInput | Prisma.VacationPeriodScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"VacationPeriod"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"VacationPeriod"> | string
   employeeId?: Prisma.StringWithAggregatesFilter<"VacationPeriod"> | string
   acquisitionStart?: Prisma.DateTimeWithAggregatesFilter<"VacationPeriod"> | Date | string
   acquisitionEnd?: Prisma.DateTimeWithAggregatesFilter<"VacationPeriod"> | Date | string
@@ -437,11 +452,13 @@ export type VacationPeriodCreateInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutVacationPeriodsInput
   employee: Prisma.EmployeeCreateNestedOneWithoutVacationPeriodsInput
 }
 
 export type VacationPeriodUncheckedCreateInput = {
   id?: string
+  tenantId: string
   employeeId: string
   acquisitionStart: Date | string
   acquisitionEnd: Date | string
@@ -477,11 +494,13 @@ export type VacationPeriodUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutVacationPeriodsNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutVacationPeriodsNestedInput
 }
 
 export type VacationPeriodUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   acquisitionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   acquisitionEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -502,6 +521,7 @@ export type VacationPeriodUncheckedUpdateInput = {
 
 export type VacationPeriodCreateManyInput = {
   id?: string
+  tenantId: string
   employeeId: string
   acquisitionStart: Date | string
   acquisitionEnd: Date | string
@@ -541,6 +561,7 @@ export type VacationPeriodUpdateManyMutationInput = {
 
 export type VacationPeriodUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   acquisitionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   acquisitionEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -571,6 +592,7 @@ export type VacationPeriodOrderByRelationAggregateInput = {
 
 export type VacationPeriodCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   acquisitionStart?: Prisma.SortOrder
   acquisitionEnd?: Prisma.SortOrder
@@ -598,6 +620,7 @@ export type VacationPeriodAvgOrderByAggregateInput = {
 
 export type VacationPeriodMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   acquisitionStart?: Prisma.SortOrder
   acquisitionEnd?: Prisma.SortOrder
@@ -618,6 +641,7 @@ export type VacationPeriodMaxOrderByAggregateInput = {
 
 export type VacationPeriodMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   acquisitionStart?: Prisma.SortOrder
   acquisitionEnd?: Prisma.SortOrder
@@ -685,6 +709,48 @@ export type VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput = {
   deleteMany?: Prisma.VacationPeriodScalarWhereInput | Prisma.VacationPeriodScalarWhereInput[]
 }
 
+export type VacationPeriodCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.VacationPeriodCreateWithoutTenantInput, Prisma.VacationPeriodUncheckedCreateWithoutTenantInput> | Prisma.VacationPeriodCreateWithoutTenantInput[] | Prisma.VacationPeriodUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.VacationPeriodCreateOrConnectWithoutTenantInput | Prisma.VacationPeriodCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.VacationPeriodCreateManyTenantInputEnvelope
+  connect?: Prisma.VacationPeriodWhereUniqueInput | Prisma.VacationPeriodWhereUniqueInput[]
+}
+
+export type VacationPeriodUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.VacationPeriodCreateWithoutTenantInput, Prisma.VacationPeriodUncheckedCreateWithoutTenantInput> | Prisma.VacationPeriodCreateWithoutTenantInput[] | Prisma.VacationPeriodUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.VacationPeriodCreateOrConnectWithoutTenantInput | Prisma.VacationPeriodCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.VacationPeriodCreateManyTenantInputEnvelope
+  connect?: Prisma.VacationPeriodWhereUniqueInput | Prisma.VacationPeriodWhereUniqueInput[]
+}
+
+export type VacationPeriodUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.VacationPeriodCreateWithoutTenantInput, Prisma.VacationPeriodUncheckedCreateWithoutTenantInput> | Prisma.VacationPeriodCreateWithoutTenantInput[] | Prisma.VacationPeriodUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.VacationPeriodCreateOrConnectWithoutTenantInput | Prisma.VacationPeriodCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.VacationPeriodUpsertWithWhereUniqueWithoutTenantInput | Prisma.VacationPeriodUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.VacationPeriodCreateManyTenantInputEnvelope
+  set?: Prisma.VacationPeriodWhereUniqueInput | Prisma.VacationPeriodWhereUniqueInput[]
+  disconnect?: Prisma.VacationPeriodWhereUniqueInput | Prisma.VacationPeriodWhereUniqueInput[]
+  delete?: Prisma.VacationPeriodWhereUniqueInput | Prisma.VacationPeriodWhereUniqueInput[]
+  connect?: Prisma.VacationPeriodWhereUniqueInput | Prisma.VacationPeriodWhereUniqueInput[]
+  update?: Prisma.VacationPeriodUpdateWithWhereUniqueWithoutTenantInput | Prisma.VacationPeriodUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.VacationPeriodUpdateManyWithWhereWithoutTenantInput | Prisma.VacationPeriodUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.VacationPeriodScalarWhereInput | Prisma.VacationPeriodScalarWhereInput[]
+}
+
+export type VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.VacationPeriodCreateWithoutTenantInput, Prisma.VacationPeriodUncheckedCreateWithoutTenantInput> | Prisma.VacationPeriodCreateWithoutTenantInput[] | Prisma.VacationPeriodUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.VacationPeriodCreateOrConnectWithoutTenantInput | Prisma.VacationPeriodCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.VacationPeriodUpsertWithWhereUniqueWithoutTenantInput | Prisma.VacationPeriodUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.VacationPeriodCreateManyTenantInputEnvelope
+  set?: Prisma.VacationPeriodWhereUniqueInput | Prisma.VacationPeriodWhereUniqueInput[]
+  disconnect?: Prisma.VacationPeriodWhereUniqueInput | Prisma.VacationPeriodWhereUniqueInput[]
+  delete?: Prisma.VacationPeriodWhereUniqueInput | Prisma.VacationPeriodWhereUniqueInput[]
+  connect?: Prisma.VacationPeriodWhereUniqueInput | Prisma.VacationPeriodWhereUniqueInput[]
+  update?: Prisma.VacationPeriodUpdateWithWhereUniqueWithoutTenantInput | Prisma.VacationPeriodUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.VacationPeriodUpdateManyWithWhereWithoutTenantInput | Prisma.VacationPeriodUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.VacationPeriodScalarWhereInput | Prisma.VacationPeriodScalarWhereInput[]
+}
+
 export type VacationPeriodCreateWithoutEmployeeInput = {
   id?: string
   acquisitionStart: Date | string
@@ -702,10 +768,12 @@ export type VacationPeriodCreateWithoutEmployeeInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutVacationPeriodsInput
 }
 
 export type VacationPeriodUncheckedCreateWithoutEmployeeInput = {
   id?: string
+  tenantId: string
   acquisitionStart: Date | string
   acquisitionEnd: Date | string
   concessionStart: Date | string
@@ -754,6 +822,7 @@ export type VacationPeriodScalarWhereInput = {
   OR?: Prisma.VacationPeriodScalarWhereInput[]
   NOT?: Prisma.VacationPeriodScalarWhereInput | Prisma.VacationPeriodScalarWhereInput[]
   id?: Prisma.StringFilter<"VacationPeriod"> | string
+  tenantId?: Prisma.StringFilter<"VacationPeriod"> | string
   employeeId?: Prisma.StringFilter<"VacationPeriod"> | string
   acquisitionStart?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
   acquisitionEnd?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
@@ -772,8 +841,75 @@ export type VacationPeriodScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"VacationPeriod"> | Date | string
 }
 
+export type VacationPeriodCreateWithoutTenantInput = {
+  id?: string
+  acquisitionStart: Date | string
+  acquisitionEnd: Date | string
+  concessionStart: Date | string
+  concessionEnd: Date | string
+  totalDays?: number
+  usedDays?: number
+  soldDays?: number
+  remainingDays?: number
+  status?: string
+  scheduledStart?: Date | string | null
+  scheduledEnd?: Date | string | null
+  notes?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  employee: Prisma.EmployeeCreateNestedOneWithoutVacationPeriodsInput
+}
+
+export type VacationPeriodUncheckedCreateWithoutTenantInput = {
+  id?: string
+  employeeId: string
+  acquisitionStart: Date | string
+  acquisitionEnd: Date | string
+  concessionStart: Date | string
+  concessionEnd: Date | string
+  totalDays?: number
+  usedDays?: number
+  soldDays?: number
+  remainingDays?: number
+  status?: string
+  scheduledStart?: Date | string | null
+  scheduledEnd?: Date | string | null
+  notes?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type VacationPeriodCreateOrConnectWithoutTenantInput = {
+  where: Prisma.VacationPeriodWhereUniqueInput
+  create: Prisma.XOR<Prisma.VacationPeriodCreateWithoutTenantInput, Prisma.VacationPeriodUncheckedCreateWithoutTenantInput>
+}
+
+export type VacationPeriodCreateManyTenantInputEnvelope = {
+  data: Prisma.VacationPeriodCreateManyTenantInput | Prisma.VacationPeriodCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type VacationPeriodUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.VacationPeriodWhereUniqueInput
+  update: Prisma.XOR<Prisma.VacationPeriodUpdateWithoutTenantInput, Prisma.VacationPeriodUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.VacationPeriodCreateWithoutTenantInput, Prisma.VacationPeriodUncheckedCreateWithoutTenantInput>
+}
+
+export type VacationPeriodUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.VacationPeriodWhereUniqueInput
+  data: Prisma.XOR<Prisma.VacationPeriodUpdateWithoutTenantInput, Prisma.VacationPeriodUncheckedUpdateWithoutTenantInput>
+}
+
+export type VacationPeriodUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.VacationPeriodScalarWhereInput
+  data: Prisma.XOR<Prisma.VacationPeriodUpdateManyMutationInput, Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantInput>
+}
+
 export type VacationPeriodCreateManyEmployeeInput = {
   id?: string
+  tenantId: string
   acquisitionStart: Date | string
   acquisitionEnd: Date | string
   concessionStart: Date | string
@@ -808,10 +944,12 @@ export type VacationPeriodUpdateWithoutEmployeeInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutVacationPeriodsNestedInput
 }
 
 export type VacationPeriodUncheckedUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   acquisitionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   acquisitionEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   concessionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -831,6 +969,87 @@ export type VacationPeriodUncheckedUpdateWithoutEmployeeInput = {
 
 export type VacationPeriodUncheckedUpdateManyWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  acquisitionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  acquisitionEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  concessionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  concessionEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  usedDays?: Prisma.IntFieldUpdateOperationsInput | number
+  soldDays?: Prisma.IntFieldUpdateOperationsInput | number
+  remainingDays?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  scheduledStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type VacationPeriodCreateManyTenantInput = {
+  id?: string
+  employeeId: string
+  acquisitionStart: Date | string
+  acquisitionEnd: Date | string
+  concessionStart: Date | string
+  concessionEnd: Date | string
+  totalDays?: number
+  usedDays?: number
+  soldDays?: number
+  remainingDays?: number
+  status?: string
+  scheduledStart?: Date | string | null
+  scheduledEnd?: Date | string | null
+  notes?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type VacationPeriodUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  acquisitionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  acquisitionEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  concessionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  concessionEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  usedDays?: Prisma.IntFieldUpdateOperationsInput | number
+  soldDays?: Prisma.IntFieldUpdateOperationsInput | number
+  remainingDays?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  scheduledStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUpdateOneRequiredWithoutVacationPeriodsNestedInput
+}
+
+export type VacationPeriodUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  acquisitionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  acquisitionEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  concessionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  concessionEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  usedDays?: Prisma.IntFieldUpdateOperationsInput | number
+  soldDays?: Prisma.IntFieldUpdateOperationsInput | number
+  remainingDays?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  scheduledStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type VacationPeriodUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   acquisitionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   acquisitionEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   concessionStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -852,6 +1071,7 @@ export type VacationPeriodUncheckedUpdateManyWithoutEmployeeInput = {
 
 export type VacationPeriodSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   acquisitionStart?: boolean
   acquisitionEnd?: boolean
@@ -868,11 +1088,13 @@ export type VacationPeriodSelect<ExtArgs extends runtime.Types.Extensions.Intern
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vacationPeriod"]>
 
 export type VacationPeriodSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   acquisitionStart?: boolean
   acquisitionEnd?: boolean
@@ -889,11 +1111,13 @@ export type VacationPeriodSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vacationPeriod"]>
 
 export type VacationPeriodSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   acquisitionStart?: boolean
   acquisitionEnd?: boolean
@@ -910,11 +1134,13 @@ export type VacationPeriodSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vacationPeriod"]>
 
 export type VacationPeriodSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   acquisitionStart?: boolean
   acquisitionEnd?: boolean
@@ -933,24 +1159,29 @@ export type VacationPeriodSelectScalar = {
   updatedAt?: boolean
 }
 
-export type VacationPeriodOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeId" | "acquisitionStart" | "acquisitionEnd" | "concessionStart" | "concessionEnd" | "totalDays" | "usedDays" | "soldDays" | "remainingDays" | "status" | "scheduledStart" | "scheduledEnd" | "notes" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["vacationPeriod"]>
+export type VacationPeriodOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "acquisitionStart" | "acquisitionEnd" | "concessionStart" | "concessionEnd" | "totalDays" | "usedDays" | "soldDays" | "remainingDays" | "status" | "scheduledStart" | "scheduledEnd" | "notes" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["vacationPeriod"]>
 export type VacationPeriodInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 export type VacationPeriodIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 export type VacationPeriodIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 
 export type $VacationPeriodPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "VacationPeriod"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     employee: Prisma.$EmployeePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    tenantId: string
     employeeId: string
     acquisitionStart: Date
     acquisitionEnd: Date
@@ -1361,6 +1592,7 @@ readonly fields: VacationPeriodFieldRefs;
  */
 export interface Prisma__VacationPeriodClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   employee<T extends Prisma.EmployeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1392,6 +1624,7 @@ export interface Prisma__VacationPeriodClient<T, Null = never, ExtArgs extends r
  */
 export interface VacationPeriodFieldRefs {
   readonly id: Prisma.FieldRef<"VacationPeriod", 'String'>
+  readonly tenantId: Prisma.FieldRef<"VacationPeriod", 'String'>
   readonly employeeId: Prisma.FieldRef<"VacationPeriod", 'String'>
   readonly acquisitionStart: Prisma.FieldRef<"VacationPeriod", 'DateTime'>
   readonly acquisitionEnd: Prisma.FieldRef<"VacationPeriod", 'DateTime'>

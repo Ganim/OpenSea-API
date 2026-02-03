@@ -16,6 +16,8 @@ let employeesRepository: InMemoryEmployeesRepository;
 let sut: GetDeductionUseCase;
 let testEmployee: Employee;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('Get Deduction Use Case', () => {
   beforeEach(async () => {
     deductionsRepository = new InMemoryDeductionsRepository();
@@ -23,6 +25,7 @@ describe('Get Deduction Use Case', () => {
     sut = new GetDeductionUseCase(deductionsRepository);
 
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -38,6 +41,7 @@ describe('Get Deduction Use Case', () => {
 
   it('should get a deduction by id', async () => {
     const createdDeduction = await deductionsRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       name: 'Loan Payment',
       amount: 500,
@@ -46,6 +50,7 @@ describe('Get Deduction Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       deductionId: createdDeduction.id.toString(),
     });
 
@@ -58,6 +63,7 @@ describe('Get Deduction Use Case', () => {
   it('should throw error if deduction not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         deductionId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Dedução não encontrada');

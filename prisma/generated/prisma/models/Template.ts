@@ -45,6 +45,7 @@ export type TemplateMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  tenantId: string | null
 }
 
 export type TemplateMaxAggregateOutputType = {
@@ -58,6 +59,7 @@ export type TemplateMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  tenantId: string | null
 }
 
 export type TemplateCountAggregateOutputType = {
@@ -75,6 +77,7 @@ export type TemplateCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   deletedAt: number
+  tenantId: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type TemplateMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  tenantId?: true
 }
 
 export type TemplateMaxAggregateInputType = {
@@ -111,6 +115,7 @@ export type TemplateMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  tenantId?: true
 }
 
 export type TemplateCountAggregateInputType = {
@@ -128,6 +133,7 @@ export type TemplateCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  tenantId?: true
   _all?: true
 }
 
@@ -232,6 +238,7 @@ export type TemplateGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
+  tenantId: string
   _count: TemplateCountAggregateOutputType | null
   _avg: TemplateAvgAggregateOutputType | null
   _sum: TemplateSumAggregateOutputType | null
@@ -272,6 +279,8 @@ export type TemplateWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Template"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Template"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Template"> | Date | string | null
+  tenantId?: Prisma.StringFilter<"Template"> | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   products?: Prisma.ProductListRelationFilter
 }
 
@@ -290,6 +299,8 @@ export type TemplateOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   products?: Prisma.ProductOrderByRelationAggregateInput
 }
 
@@ -312,6 +323,8 @@ export type TemplateWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Template"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Template"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Template"> | Date | string | null
+  tenantId?: Prisma.StringFilter<"Template"> | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   products?: Prisma.ProductListRelationFilter
 }, "id" | "code" | "templates_name_unique_active">
 
@@ -330,6 +343,7 @@ export type TemplateOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   _count?: Prisma.TemplateCountOrderByAggregateInput
   _avg?: Prisma.TemplateAvgOrderByAggregateInput
   _max?: Prisma.TemplateMaxOrderByAggregateInput
@@ -355,6 +369,7 @@ export type TemplateScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Template"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Template"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Template"> | Date | string | null
+  tenantId?: Prisma.StringWithAggregatesFilter<"Template"> | string
 }
 
 export type TemplateCreateInput = {
@@ -372,6 +387,7 @@ export type TemplateCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutTemplatesInput
   products?: Prisma.ProductCreateNestedManyWithoutTemplateInput
 }
 
@@ -390,6 +406,7 @@ export type TemplateUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenantId: string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTemplateInput
 }
 
@@ -408,6 +425,7 @@ export type TemplateUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutTemplatesNestedInput
   products?: Prisma.ProductUpdateManyWithoutTemplateNestedInput
 }
 
@@ -426,6 +444,7 @@ export type TemplateUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutTemplateNestedInput
 }
 
@@ -444,6 +463,7 @@ export type TemplateCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenantId: string
 }
 
 export type TemplateUpdateManyMutationInput = {
@@ -478,10 +498,12 @@ export type TemplateUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TemplateTemplates_name_unique_activeCompoundUniqueInput = {
   name: string
+  tenantId: string
   deletedAt: Date | string
 }
 
@@ -500,6 +522,7 @@ export type TemplateCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type TemplateAvgOrderByAggregateInput = {
@@ -517,6 +540,7 @@ export type TemplateMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type TemplateMinOrderByAggregateInput = {
@@ -530,6 +554,7 @@ export type TemplateMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type TemplateSumOrderByAggregateInput = {
@@ -539,6 +564,16 @@ export type TemplateSumOrderByAggregateInput = {
 export type TemplateScalarRelationFilter = {
   is?: Prisma.TemplateWhereInput
   isNot?: Prisma.TemplateWhereInput
+}
+
+export type TemplateListRelationFilter = {
+  every?: Prisma.TemplateWhereInput
+  some?: Prisma.TemplateWhereInput
+  none?: Prisma.TemplateWhereInput
+}
+
+export type TemplateOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type EnumUnitOfMeasureFieldUpdateOperationsInput = {
@@ -559,6 +594,48 @@ export type TemplateUpdateOneRequiredWithoutProductsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TemplateUpdateToOneWithWhereWithoutProductsInput, Prisma.TemplateUpdateWithoutProductsInput>, Prisma.TemplateUncheckedUpdateWithoutProductsInput>
 }
 
+export type TemplateCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.TemplateCreateWithoutTenantInput, Prisma.TemplateUncheckedCreateWithoutTenantInput> | Prisma.TemplateCreateWithoutTenantInput[] | Prisma.TemplateUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.TemplateCreateOrConnectWithoutTenantInput | Prisma.TemplateCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.TemplateCreateManyTenantInputEnvelope
+  connect?: Prisma.TemplateWhereUniqueInput | Prisma.TemplateWhereUniqueInput[]
+}
+
+export type TemplateUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.TemplateCreateWithoutTenantInput, Prisma.TemplateUncheckedCreateWithoutTenantInput> | Prisma.TemplateCreateWithoutTenantInput[] | Prisma.TemplateUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.TemplateCreateOrConnectWithoutTenantInput | Prisma.TemplateCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.TemplateCreateManyTenantInputEnvelope
+  connect?: Prisma.TemplateWhereUniqueInput | Prisma.TemplateWhereUniqueInput[]
+}
+
+export type TemplateUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.TemplateCreateWithoutTenantInput, Prisma.TemplateUncheckedCreateWithoutTenantInput> | Prisma.TemplateCreateWithoutTenantInput[] | Prisma.TemplateUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.TemplateCreateOrConnectWithoutTenantInput | Prisma.TemplateCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.TemplateUpsertWithWhereUniqueWithoutTenantInput | Prisma.TemplateUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.TemplateCreateManyTenantInputEnvelope
+  set?: Prisma.TemplateWhereUniqueInput | Prisma.TemplateWhereUniqueInput[]
+  disconnect?: Prisma.TemplateWhereUniqueInput | Prisma.TemplateWhereUniqueInput[]
+  delete?: Prisma.TemplateWhereUniqueInput | Prisma.TemplateWhereUniqueInput[]
+  connect?: Prisma.TemplateWhereUniqueInput | Prisma.TemplateWhereUniqueInput[]
+  update?: Prisma.TemplateUpdateWithWhereUniqueWithoutTenantInput | Prisma.TemplateUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.TemplateUpdateManyWithWhereWithoutTenantInput | Prisma.TemplateUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.TemplateScalarWhereInput | Prisma.TemplateScalarWhereInput[]
+}
+
+export type TemplateUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.TemplateCreateWithoutTenantInput, Prisma.TemplateUncheckedCreateWithoutTenantInput> | Prisma.TemplateCreateWithoutTenantInput[] | Prisma.TemplateUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.TemplateCreateOrConnectWithoutTenantInput | Prisma.TemplateCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.TemplateUpsertWithWhereUniqueWithoutTenantInput | Prisma.TemplateUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.TemplateCreateManyTenantInputEnvelope
+  set?: Prisma.TemplateWhereUniqueInput | Prisma.TemplateWhereUniqueInput[]
+  disconnect?: Prisma.TemplateWhereUniqueInput | Prisma.TemplateWhereUniqueInput[]
+  delete?: Prisma.TemplateWhereUniqueInput | Prisma.TemplateWhereUniqueInput[]
+  connect?: Prisma.TemplateWhereUniqueInput | Prisma.TemplateWhereUniqueInput[]
+  update?: Prisma.TemplateUpdateWithWhereUniqueWithoutTenantInput | Prisma.TemplateUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.TemplateUpdateManyWithWhereWithoutTenantInput | Prisma.TemplateUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.TemplateScalarWhereInput | Prisma.TemplateScalarWhereInput[]
+}
+
 export type TemplateCreateWithoutProductsInput = {
   id?: string
   code?: string | null
@@ -574,6 +651,7 @@ export type TemplateCreateWithoutProductsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutTemplatesInput
 }
 
 export type TemplateUncheckedCreateWithoutProductsInput = {
@@ -591,6 +669,7 @@ export type TemplateUncheckedCreateWithoutProductsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  tenantId: string
 }
 
 export type TemplateCreateOrConnectWithoutProductsInput = {
@@ -624,9 +703,164 @@ export type TemplateUpdateWithoutProductsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutTemplatesNestedInput
 }
 
 export type TemplateUncheckedUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFieldUpdateOperationsInput | $Enums.UnitOfMeasure
+  productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type TemplateCreateWithoutTenantInput = {
+  id?: string
+  code?: string | null
+  sequentialCode?: number
+  name: string
+  iconUrl?: string | null
+  unitOfMeasure?: $Enums.UnitOfMeasure
+  productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  products?: Prisma.ProductCreateNestedManyWithoutTemplateInput
+}
+
+export type TemplateUncheckedCreateWithoutTenantInput = {
+  id?: string
+  code?: string | null
+  sequentialCode?: number
+  name: string
+  iconUrl?: string | null
+  unitOfMeasure?: $Enums.UnitOfMeasure
+  productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTemplateInput
+}
+
+export type TemplateCreateOrConnectWithoutTenantInput = {
+  where: Prisma.TemplateWhereUniqueInput
+  create: Prisma.XOR<Prisma.TemplateCreateWithoutTenantInput, Prisma.TemplateUncheckedCreateWithoutTenantInput>
+}
+
+export type TemplateCreateManyTenantInputEnvelope = {
+  data: Prisma.TemplateCreateManyTenantInput | Prisma.TemplateCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type TemplateUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.TemplateWhereUniqueInput
+  update: Prisma.XOR<Prisma.TemplateUpdateWithoutTenantInput, Prisma.TemplateUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.TemplateCreateWithoutTenantInput, Prisma.TemplateUncheckedCreateWithoutTenantInput>
+}
+
+export type TemplateUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.TemplateWhereUniqueInput
+  data: Prisma.XOR<Prisma.TemplateUpdateWithoutTenantInput, Prisma.TemplateUncheckedUpdateWithoutTenantInput>
+}
+
+export type TemplateUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.TemplateScalarWhereInput
+  data: Prisma.XOR<Prisma.TemplateUpdateManyMutationInput, Prisma.TemplateUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type TemplateScalarWhereInput = {
+  AND?: Prisma.TemplateScalarWhereInput | Prisma.TemplateScalarWhereInput[]
+  OR?: Prisma.TemplateScalarWhereInput[]
+  NOT?: Prisma.TemplateScalarWhereInput | Prisma.TemplateScalarWhereInput[]
+  id?: Prisma.StringFilter<"Template"> | string
+  code?: Prisma.StringNullableFilter<"Template"> | string | null
+  sequentialCode?: Prisma.IntFilter<"Template"> | number
+  name?: Prisma.StringFilter<"Template"> | string
+  iconUrl?: Prisma.StringNullableFilter<"Template"> | string | null
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFilter<"Template"> | $Enums.UnitOfMeasure
+  productAttributes?: Prisma.JsonFilter<"Template">
+  variantAttributes?: Prisma.JsonFilter<"Template">
+  itemAttributes?: Prisma.JsonFilter<"Template">
+  careLabel?: Prisma.JsonNullableFilter<"Template">
+  isActive?: Prisma.BoolFilter<"Template"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Template"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Template"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Template"> | Date | string | null
+  tenantId?: Prisma.StringFilter<"Template"> | string
+}
+
+export type TemplateCreateManyTenantInput = {
+  id?: string
+  code?: string | null
+  sequentialCode?: number
+  name: string
+  iconUrl?: string | null
+  unitOfMeasure?: $Enums.UnitOfMeasure
+  productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type TemplateUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFieldUpdateOperationsInput | $Enums.UnitOfMeasure
+  productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  products?: Prisma.ProductUpdateManyWithoutTemplateNestedInput
+}
+
+export type TemplateUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitOfMeasure?: Prisma.EnumUnitOfMeasureFieldUpdateOperationsInput | $Enums.UnitOfMeasure
+  productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTemplateNestedInput
+}
+
+export type TemplateUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
@@ -689,6 +923,8 @@ export type TemplateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Template$productsArgs<ExtArgs>
   _count?: boolean | Prisma.TemplateCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["template"]>
@@ -708,6 +944,8 @@ export type TemplateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["template"]>
 
 export type TemplateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -725,6 +963,8 @@ export type TemplateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["template"]>
 
 export type TemplateSelectScalar = {
@@ -742,19 +982,26 @@ export type TemplateSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  tenantId?: boolean
 }
 
-export type TemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "sequentialCode" | "name" | "iconUrl" | "unitOfMeasure" | "productAttributes" | "variantAttributes" | "itemAttributes" | "careLabel" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["template"]>
+export type TemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "sequentialCode" | "name" | "iconUrl" | "unitOfMeasure" | "productAttributes" | "variantAttributes" | "itemAttributes" | "careLabel" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["template"]>
 export type TemplateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Template$productsArgs<ExtArgs>
   _count?: boolean | Prisma.TemplateCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type TemplateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type TemplateIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TemplateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+}
+export type TemplateIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+}
 
 export type $TemplatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Template"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     products: Prisma.$ProductPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -772,6 +1019,7 @@ export type $TemplatePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    tenantId: string
   }, ExtArgs["result"]["template"]>
   composites: {}
 }
@@ -1166,6 +1414,7 @@ readonly fields: TemplateFieldRefs;
  */
 export interface Prisma__TemplateClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   products<T extends Prisma.Template$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Template$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1210,6 +1459,7 @@ export interface TemplateFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Template", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Template", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Template", 'DateTime'>
+  readonly tenantId: Prisma.FieldRef<"Template", 'String'>
 }
     
 
@@ -1459,6 +1709,10 @@ export type TemplateCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    */
   data: Prisma.TemplateCreateManyInput | Prisma.TemplateCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TemplateIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1529,6 +1783,10 @@ export type TemplateUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many Templates to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TemplateIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

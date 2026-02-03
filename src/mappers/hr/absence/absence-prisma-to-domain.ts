@@ -4,6 +4,7 @@ import type { Absence as PrismaAbsence } from '@prisma/generated/client.js';
 
 export function mapAbsencePrismaToDomain(absence: PrismaAbsence) {
   return {
+    tenantId: new UniqueEntityID(absence.tenantId),
     employeeId: new UniqueEntityID(absence.employeeId),
     type: AbsenceType.create(absence.type),
     status: AbsenceStatus.create(absence.status),

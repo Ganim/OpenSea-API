@@ -11,6 +11,7 @@ import { ItemMovementsRepository } from '@/repositories/stock/item-movements-rep
 import { ItemsRepository } from '@/repositories/stock/items-repository';
 
 interface TransferItemUseCaseRequest {
+  tenantId: string;
   itemId: string;
   destinationBinId: string;
   userId: string;
@@ -46,6 +47,7 @@ export class TransferItemUseCase {
     // Validation: item must exist
     const item = await this.itemsRepository.findById(
       new UniqueEntityID(input.itemId),
+      input.tenantId,
     );
     if (!item) {
       throw new ResourceNotFoundError('Item not found.');
@@ -54,6 +56,7 @@ export class TransferItemUseCase {
     // Validation: destination bin must exist
     const destinationBin = await this.binsRepository.findById(
       new UniqueEntityID(input.destinationBinId),
+      input.tenantId,
     );
     if (!destinationBin) {
       throw new ResourceNotFoundError('Destination bin not found.');
@@ -72,6 +75,7 @@ export class TransferItemUseCase {
 
     // Create transfer movement record
     const movement = await this.itemMovementsRepository.create({
+      tenantId: input.tenantId,
       itemId: item.id,
       userId: new UniqueEntityID(input.userId),
       quantity: item.currentQuantity, // Transfer quantity is current quantity

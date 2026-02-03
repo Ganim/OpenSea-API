@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 
 interface CreateManufacturerUseCaseRequest {
+  tenantId: string;
   name: string;
   country: string;
   email?: string;
@@ -35,6 +36,7 @@ export class CreateManufacturerUseCase {
     request: CreateManufacturerUseCaseRequest,
   ): Promise<CreateManufacturerUseCaseResponse> {
     const {
+      tenantId,
       name,
       country,
       email,
@@ -83,19 +85,22 @@ export class CreateManufacturerUseCase {
     }
 
     // Check if manufacturer with same name already exists
-    const existingManufacturer =
-      await this.manufacturersRepository.findByName(name);
+    const existingManufacturer = await this.manufacturersRepository.findByName(
+      name,
+      tenantId,
+    );
     if (existingManufacturer) {
       throw new BadRequestError('Manufacturer with this name already exists');
     }
 
     // Get next sequential code to generate the hierarchical code
     const sequentialCode =
-      await this.manufacturersRepository.getNextSequentialCode();
+      await this.manufacturersRepository.getNextSequentialCode(tenantId);
     const code = padCode(sequentialCode);
 
     // Save to repository with generated code
     const createdManufacturer = await this.manufacturersRepository.create({
+      tenantId,
       code,
       name,
       country,

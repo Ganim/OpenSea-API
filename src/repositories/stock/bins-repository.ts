@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Bin } from '@/entities/stock/bin';
 
 export interface CreateBinSchema {
+  tenantId: string;
   zoneId: UniqueEntityID;
   address: string;
   aisle: number;
@@ -15,6 +16,7 @@ export interface CreateBinSchema {
 }
 
 export interface CreateManyBinsSchema {
+  tenantId: string;
   zoneId: UniqueEntityID;
   bins: Array<{
     address: string;
@@ -59,20 +61,27 @@ export interface BinOccupancyData {
 export interface BinsRepository {
   create(data: CreateBinSchema): Promise<Bin>;
   createMany(data: CreateManyBinsSchema): Promise<number>;
-  findById(id: UniqueEntityID): Promise<Bin | null>;
-  findManyByIds(ids: UniqueEntityID[]): Promise<Bin[]>;
-  findByAddress(address: string): Promise<Bin | null>;
-  findMany(filters?: BinSearchFilters): Promise<Bin[]>;
-  findManyByZone(zoneId: UniqueEntityID): Promise<Bin[]>;
-  findManyByAisle(zoneId: UniqueEntityID, aisle: number): Promise<Bin[]>;
-  findManyAvailable(zoneId: UniqueEntityID): Promise<Bin[]>;
-  findManyBlocked(zoneId: UniqueEntityID): Promise<Bin[]>;
-  search(query: string, limit?: number): Promise<Bin[]>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Bin | null>;
+  findManyByIds(ids: UniqueEntityID[], tenantId: string): Promise<Bin[]>;
+  findByAddress(address: string, tenantId: string): Promise<Bin | null>;
+  findMany(tenantId: string, filters?: BinSearchFilters): Promise<Bin[]>;
+  findManyByZone(zoneId: UniqueEntityID, tenantId: string): Promise<Bin[]>;
+  findManyByAisle(
+    zoneId: UniqueEntityID,
+    aisle: number,
+    tenantId: string,
+  ): Promise<Bin[]>;
+  findManyAvailable(zoneId: UniqueEntityID, tenantId: string): Promise<Bin[]>;
+  findManyBlocked(zoneId: UniqueEntityID, tenantId: string): Promise<Bin[]>;
+  search(query: string, tenantId: string, limit?: number): Promise<Bin[]>;
   update(data: UpdateBinSchema): Promise<Bin | null>;
   save(bin: Bin): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
   deleteByZone(zoneId: UniqueEntityID): Promise<number>;
-  getOccupancyMap(zoneId: UniqueEntityID): Promise<BinOccupancyData[]>;
-  countByZone(zoneId: UniqueEntityID): Promise<number>;
+  getOccupancyMap(
+    zoneId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BinOccupancyData[]>;
+  countByZone(zoneId: UniqueEntityID, tenantId: string): Promise<number>;
   countItemsInBin(binId: UniqueEntityID): Promise<number>;
 }

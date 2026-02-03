@@ -5,6 +5,7 @@ import { customerToDTO } from '@/mappers/sales/customer/customer-to-dto';
 import { CustomersRepository } from '@/repositories/sales/customers-repository';
 
 interface GetCustomerByIdUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -20,6 +21,7 @@ export class GetCustomerByIdUseCase {
   ): Promise<GetCustomerByIdUseCaseResponse> {
     const customer = await this.customersRepository.findById(
       new UniqueEntityID(input.id),
+      input.tenantId,
     );
 
     if (!customer) {

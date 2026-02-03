@@ -18,6 +18,7 @@ describe('UpdateTagUseCase', () => {
 
   it('should update a tag', async () => {
     const { tag: createdTag } = await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
       color: '#FF5733',
@@ -25,6 +26,7 @@ describe('UpdateTagUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdTag.id,
       name: 'Electronics & Gadgets',
       slug: 'electronics-gadgets',
@@ -44,6 +46,7 @@ describe('UpdateTagUseCase', () => {
 
   it('should update only name', async () => {
     const { tag: createdTag } = await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
       color: '#FF5733',
@@ -51,6 +54,7 @@ describe('UpdateTagUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdTag.id,
       name: 'Electronics & Gadgets',
     });
@@ -62,12 +66,14 @@ describe('UpdateTagUseCase', () => {
 
   it('should throw error when updating with empty name', async () => {
     const { tag: createdTag } = await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: createdTag.id,
         name: '',
       }),
@@ -76,17 +82,20 @@ describe('UpdateTagUseCase', () => {
 
   it('should throw error when updating with duplicate name', async () => {
     await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
     });
 
     const { tag: tag2 } = await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Clothing',
       slug: 'clothing',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: tag2.id,
         name: 'Electronics',
       }),
@@ -95,17 +104,20 @@ describe('UpdateTagUseCase', () => {
 
   it('should throw error when updating with duplicate slug', async () => {
     await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
     });
 
     const { tag: tag2 } = await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Clothing',
       slug: 'clothing',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: tag2.id,
         slug: 'electronics',
       }),
@@ -114,12 +126,14 @@ describe('UpdateTagUseCase', () => {
 
   it('should throw error when updating with invalid color', async () => {
     const { tag: createdTag } = await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: createdTag.id,
         color: 'red',
       }),
@@ -129,6 +143,7 @@ describe('UpdateTagUseCase', () => {
   it('should throw error when tag does not exist', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'non-existent-id',
         name: 'New Name',
       }),
@@ -137,12 +152,14 @@ describe('UpdateTagUseCase', () => {
 
   it('should throw error when updating with name longer than 100 characters', async () => {
     const { tag: createdTag } = await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: createdTag.id,
         name: 'a'.repeat(101),
       }),
@@ -151,12 +168,14 @@ describe('UpdateTagUseCase', () => {
 
   it('should throw error when updating with slug longer than 100 characters', async () => {
     const { tag: createdTag } = await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
     });
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: createdTag.id,
         slug: 'a'.repeat(101),
       }),

@@ -7,6 +7,7 @@ import type { FastifyRequest } from 'fastify';
  */
 interface AuditContext {
   userId?: string;
+  tenantId?: string;
   ip?: string;
   userAgent?: string;
   endpoint?: string;
@@ -47,6 +48,7 @@ export function getAuditContextFromRequest(
 ): AuditContext {
   return {
     userId: request.user?.sub,
+    tenantId: request.user?.tenantId,
     ip: request.ip,
     userAgent: request.headers['user-agent'],
     endpoint: request.url.split('?')[0], // Remove query params
@@ -168,6 +170,7 @@ export async function logAudit(
       description,
       oldData: sanitizedOldData,
       newData: sanitizedNewData,
+      tenantId: context.tenantId,
       userId: context.userId,
       affectedUser: params.affectedUserId,
       ip: context.ip,

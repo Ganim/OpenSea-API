@@ -4,6 +4,7 @@ import { DepartmentsRepository } from '@/repositories/hr/departments-repository'
 import { PositionsRepository } from '@/repositories/hr/positions-repository';
 
 export interface UpdatePositionRequest {
+  tenantId: string;
   id: string;
   name?: string;
   code?: string;
@@ -43,15 +44,20 @@ export class UpdatePositionUseCase {
     const positionId = new UniqueEntityID(id);
 
     // Find existing position
-    const existingPosition =
-      await this.positionsRepository.findById(positionId);
+    const existingPosition = await this.positionsRepository.findById(
+      positionId,
+      request.tenantId,
+    );
     if (!existingPosition) {
       throw new Error('Position not found');
     }
 
     // Validate code uniqueness if changing
     if (code && code !== existingPosition.code) {
-      const positionWithCode = await this.positionsRepository.findByCode(code);
+      const positionWithCode = await this.positionsRepository.findByCode(
+        code,
+        request.tenantId,
+      );
       if (positionWithCode) {
         throw new Error('Position with this code already exists');
       }
@@ -82,6 +88,7 @@ export class UpdatePositionUseCase {
       if (this.departmentsRepository) {
         const department = await this.departmentsRepository.findById(
           new UniqueEntityID(departmentId),
+          request.tenantId,
         );
         if (!department) {
           throw new Error('Department not found');

@@ -1,4 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Warehouse } from '@/entities/stock/warehouse';
 import type {
   CreateWarehouseSchema,
@@ -11,6 +12,7 @@ export class InMemoryWarehousesRepository implements WarehousesRepository {
 
   async create(data: CreateWarehouseSchema): Promise<Warehouse> {
     const warehouse = Warehouse.create({
+      tenantId: new EntityID(data.tenantId),
       code: data.code,
       name: data.name,
       description: data.description ?? null,
@@ -22,30 +24,45 @@ export class InMemoryWarehousesRepository implements WarehousesRepository {
     return warehouse;
   }
 
-  async findById(id: UniqueEntityID): Promise<Warehouse | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Warehouse | null> {
     const warehouse = this.warehouses.find(
-      (w) => !w.deletedAt && w.warehouseId.equals(id),
+      (w) =>
+        !w.deletedAt &&
+        w.warehouseId.equals(id) &&
+        w.tenantId.toString() === tenantId,
     );
     return warehouse ?? null;
   }
 
-  async findByCode(code: string): Promise<Warehouse | null> {
+  async findByCode(code: string, tenantId: string): Promise<Warehouse | null> {
     const warehouse = this.warehouses.find(
-      (w) => !w.deletedAt && w.code.toLowerCase() === code.toLowerCase(),
+      (w) =>
+        !w.deletedAt &&
+        w.code.toLowerCase() === code.toLowerCase() &&
+        w.tenantId.toString() === tenantId,
     );
     return warehouse ?? null;
   }
 
-  async findMany(): Promise<Warehouse[]> {
-    return this.warehouses.filter((w) => !w.deletedAt);
+  async findMany(tenantId: string): Promise<Warehouse[]> {
+    return this.warehouses.filter(
+      (w) => !w.deletedAt && w.tenantId.toString() === tenantId,
+    );
   }
 
-  async findManyActive(): Promise<Warehouse[]> {
-    return this.warehouses.filter((w) => !w.deletedAt && w.isActive);
+  async findManyActive(tenantId: string): Promise<Warehouse[]> {
+    return this.warehouses.filter(
+      (w) => !w.deletedAt && w.isActive && w.tenantId.toString() === tenantId,
+    );
   }
 
   async update(data: UpdateWarehouseSchema): Promise<Warehouse | null> {
-    const warehouse = await this.findById(data.id);
+    const warehouse = this.warehouses.find(
+      (w) => !w.deletedAt && w.warehouseId.equals(data.id),
+    );
     if (!warehouse) return null;
 
     if (data.code !== undefined) warehouse.code = data.code;
@@ -70,7 +87,9 @@ export class InMemoryWarehousesRepository implements WarehousesRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const warehouse = await this.findById(id);
+    const warehouse = this.warehouses.find(
+      (w) => !w.deletedAt && w.warehouseId.equals(id),
+    );
     if (warehouse) {
       warehouse.delete();
     }

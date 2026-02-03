@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { createPayrollSchema, payrollResponseSchema } from '@/http/schemas';
 import { payrollToDTO } from '@/mappers/hr/payroll';
 import { makeCreatePayrollUseCase } from '@/use-cases/hr/payrolls/factories/make-create-payroll-use-case';
@@ -16,6 +17,7 @@ export async function createPayrollController(app: FastifyInstance) {
     url: '/v1/hr/payrolls',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.PAYROLLS.CREATE,
         resource: 'payrolls',
@@ -38,11 +40,15 @@ export async function createPayrollController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const createPayrollUseCase = makeCreatePayrollUseCase();
-        const { payroll } = await createPayrollUseCase.execute(data);
+        const { payroll } = await createPayrollUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         return reply.status(201).send({ payroll: payrollToDTO(payroll) });
       } catch (error) {

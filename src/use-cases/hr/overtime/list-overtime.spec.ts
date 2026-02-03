@@ -12,7 +12,7 @@ describe('ListOvertimeUseCase', () => {
   });
 
   it('should return empty list when no overtimes exist', async () => {
-    const { overtimes, total } = await sut.execute({});
+    const { overtimes, total } = await sut.execute({ tenantId: 'tenant-1' });
     expect(overtimes).toHaveLength(0);
     expect(total).toBe(0);
   });

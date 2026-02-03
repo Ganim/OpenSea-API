@@ -1,4 +1,4 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Supplier } from '@/entities/stock/supplier';
 import { CNPJ } from '@/entities/stock/value-objects/cnpj';
 import type {
@@ -12,6 +12,7 @@ export class InMemorySuppliersRepository implements SuppliersRepository {
 
   async create(data: CreateSupplierSchema): Promise<Supplier> {
     const supplier = Supplier.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       name: data.name,
       cnpj: data.cnpj,
       taxId: data.taxId,
@@ -34,47 +35,71 @@ export class InMemorySuppliersRepository implements SuppliersRepository {
     return supplier;
   }
 
-  async findById(id: UniqueEntityID): Promise<Supplier | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Supplier | null> {
     const supplier = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return supplier ?? null;
   }
 
-  async findByCNPJ(cnpj: CNPJ): Promise<Supplier | null> {
+  async findByCNPJ(cnpj: CNPJ, tenantId: string): Promise<Supplier | null> {
     const supplier = this.items.find(
-      (item) => !item.deletedAt && item.cnpj?.equals(cnpj),
+      (item) =>
+        !item.deletedAt &&
+        item.cnpj?.equals(cnpj) &&
+        item.tenantId.toString() === tenantId,
     );
     return supplier ?? null;
   }
 
-  async findByName(name: string): Promise<Supplier[]> {
+  async findByName(name: string, tenantId: string): Promise<Supplier[]> {
     return this.items.filter(
       (item) =>
-        !item.deletedAt && item.name.toLowerCase().includes(name.toLowerCase()),
+        !item.deletedAt &&
+        item.name.toLowerCase().includes(name.toLowerCase()) &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findMany(): Promise<Supplier[]> {
-    return this.items.filter((item) => !item.deletedAt);
+  async findMany(tenantId: string): Promise<Supplier[]> {
+    return this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
   }
 
-  async findManyByRating(minRating: number): Promise<Supplier[]> {
+  async findManyByRating(
+    minRating: number,
+    tenantId: string,
+  ): Promise<Supplier[]> {
     return this.items.filter(
       (item) =>
         !item.deletedAt &&
         item.rating !== null &&
         item.rating !== undefined &&
-        item.rating >= minRating,
+        item.rating >= minRating &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyActive(): Promise<Supplier[]> {
-    return this.items.filter((item) => !item.deletedAt && item.isActive);
+  async findManyActive(tenantId: string): Promise<Supplier[]> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.isActive &&
+        item.tenantId.toString() === tenantId,
+    );
   }
 
   async update(data: UpdateSupplierSchema): Promise<Supplier | null> {
-    const supplier = await this.findById(data.id);
+    const supplier = this.items.find(
+      (item) => !item.deletedAt && item.id.equals(data.id),
+    );
     if (!supplier) return null;
 
     if (data.name !== undefined) supplier.name = data.name;
@@ -108,7 +133,9 @@ export class InMemorySuppliersRepository implements SuppliersRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const supplier = await this.findById(id);
+    const supplier = this.items.find(
+      (item) => !item.deletedAt && item.id.equals(id),
+    );
     if (supplier) {
       supplier.delete();
     }

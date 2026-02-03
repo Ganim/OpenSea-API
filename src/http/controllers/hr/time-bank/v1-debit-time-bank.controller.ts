@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   creditDebitTimeBankSchema,
   timeBankResponseSchema,
@@ -20,6 +21,7 @@ export async function debitTimeBankController(app: FastifyInstance) {
     url: '/v1/hr/time-bank/debit',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.TIME_BANK.MANAGE,
         resource: 'time-bank',
@@ -45,11 +47,15 @@ export async function debitTimeBankController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const debitTimeBankUseCase = makeDebitTimeBankUseCase();
-        const { timeBank } = await debitTimeBankUseCase.execute(data);
+        const { timeBank } = await debitTimeBankUseCase.execute({
+          ...data,
+          tenantId,
+        });
 
         return reply.status(200).send({ timeBank: timeBankToDTO(timeBank) });
       } catch (error) {

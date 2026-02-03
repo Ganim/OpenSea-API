@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { faker } from '@faker-js/faker';
 
 interface CreateVacationPeriodE2EProps {
+  tenantId: string;
   employeeId: string;
   acquisitionStart?: Date;
   acquisitionEnd?: Date;
@@ -56,6 +57,7 @@ export async function createVacationPeriodE2E(
 
   const vacationPeriod = await prisma.vacationPeriod.create({
     data: {
+      tenantId: override.tenantId,
       employeeId: override.employeeId,
       acquisitionStart,
       acquisitionEnd,
@@ -145,6 +147,7 @@ export async function createCompletedVacationPeriodE2E(
  * Cria um período de férias a partir de uma data de contratação
  */
 export async function createVacationPeriodFromHireDateE2E(
+  tenantId: string,
   employeeId: string,
   hireDate: Date,
   totalDays: number = 30,
@@ -161,6 +164,7 @@ export async function createVacationPeriodFromHireDateE2E(
   concessionEnd.setDate(concessionEnd.getDate() - 1);
 
   return createVacationPeriodE2E({
+    tenantId,
     employeeId,
     acquisitionStart,
     acquisitionEnd,

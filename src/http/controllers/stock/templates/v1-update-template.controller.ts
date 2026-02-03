@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   templateResponseSchema,
   updateTemplateSchema,
@@ -22,6 +23,7 @@ export async function updateTemplateController(app: FastifyInstance) {
     url: '/v1/templates/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.TEMPLATES.UPDATE,
         resource: 'templates',
@@ -47,6 +49,7 @@ export async function updateTemplateController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { id } = request.params as { id: string };
       const userId = request.user.sub;
 
@@ -56,7 +59,7 @@ export async function updateTemplateController(app: FastifyInstance) {
 
         const [{ user }, { template: oldTemplate }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getTemplateByIdUseCase.execute({ id }),
+          getTemplateByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -64,6 +67,7 @@ export async function updateTemplateController(app: FastifyInstance) {
 
         const updateTemplate = makeUpdateTemplateUseCase();
         const { template } = await updateTemplate.execute({
+          tenantId,
           id,
           ...request.body,
         });

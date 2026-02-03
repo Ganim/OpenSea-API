@@ -4,10 +4,15 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('List Work Schedules (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -15,17 +20,19 @@ describe('List Work Schedules (E2E)', () => {
   });
 
   it('should list work schedules', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     // Create test work schedules
     await prisma.workSchedule.createMany({
       data: [
         {
+          tenantId,
           name: 'Schedule 1',
           breakDuration: 60,
           isActive: true,
         },
         {
+          tenantId,
           name: 'Schedule 2',
           breakDuration: 45,
           isActive: true,
@@ -43,17 +50,19 @@ describe('List Work Schedules (E2E)', () => {
   });
 
   it('should filter only active schedules', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     // Create schedules with different statuses
     await prisma.workSchedule.createMany({
       data: [
         {
+          tenantId,
           name: 'Active Schedule',
           breakDuration: 60,
           isActive: true,
         },
         {
+          tenantId,
           name: 'Inactive Schedule',
           breakDuration: 60,
           isActive: false,

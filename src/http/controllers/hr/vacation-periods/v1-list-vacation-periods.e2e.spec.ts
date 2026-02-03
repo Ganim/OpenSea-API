@@ -17,10 +17,10 @@ describe('List Vacation Periods (E2E)', () => {
 
   it('should list vacation periods with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
 
-    await createVacationPeriodE2E({ employeeId, status: 'PENDING' });
-    await createVacationPeriodE2E({ employeeId, status: 'AVAILABLE' });
+    await createVacationPeriodE2E({ tenantId: employee.tenantId, employeeId, status: 'PENDING' });
+    await createVacationPeriodE2E({ tenantId: employee.tenantId, employeeId, status: 'AVAILABLE' });
 
     const response = await request(app.server)
       .get('/v1/hr/vacation-periods')

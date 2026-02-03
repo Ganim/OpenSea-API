@@ -42,6 +42,7 @@ export type VolumeMinAggregateOutputType = {
   createdBy: string | null
   closedBy: string | null
   deliveredBy: string | null
+  tenantId: string | null
 }
 
 export type VolumeMaxAggregateOutputType = {
@@ -62,6 +63,7 @@ export type VolumeMaxAggregateOutputType = {
   createdBy: string | null
   closedBy: string | null
   deliveredBy: string | null
+  tenantId: string | null
 }
 
 export type VolumeCountAggregateOutputType = {
@@ -82,6 +84,7 @@ export type VolumeCountAggregateOutputType = {
   createdBy: number
   closedBy: number
   deliveredBy: number
+  tenantId: number
   _all: number
 }
 
@@ -104,6 +107,7 @@ export type VolumeMinAggregateInputType = {
   createdBy?: true
   closedBy?: true
   deliveredBy?: true
+  tenantId?: true
 }
 
 export type VolumeMaxAggregateInputType = {
@@ -124,6 +128,7 @@ export type VolumeMaxAggregateInputType = {
   createdBy?: true
   closedBy?: true
   deliveredBy?: true
+  tenantId?: true
 }
 
 export type VolumeCountAggregateInputType = {
@@ -144,6 +149,7 @@ export type VolumeCountAggregateInputType = {
   createdBy?: true
   closedBy?: true
   deliveredBy?: true
+  tenantId?: true
   _all?: true
 }
 
@@ -237,6 +243,7 @@ export type VolumeGroupByOutputType = {
   createdBy: string
   closedBy: string | null
   deliveredBy: string | null
+  tenantId: string
   _count: VolumeCountAggregateOutputType | null
   _min: VolumeMinAggregateOutputType | null
   _max: VolumeMaxAggregateOutputType | null
@@ -278,7 +285,9 @@ export type VolumeWhereInput = {
   createdBy?: Prisma.StringFilter<"Volume"> | string
   closedBy?: Prisma.StringNullableFilter<"Volume"> | string | null
   deliveredBy?: Prisma.StringNullableFilter<"Volume"> | string | null
+  tenantId?: Prisma.StringFilter<"Volume"> | string
   items?: Prisma.VolumeItemListRelationFilter
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdByUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   closedByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   deliveredByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -302,7 +311,9 @@ export type VolumeOrderByWithRelationInput = {
   createdBy?: Prisma.SortOrder
   closedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveredBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   items?: Prisma.VolumeItemOrderByRelationAggregateInput
+  tenant?: Prisma.TenantOrderByWithRelationInput
   createdByUser?: Prisma.UserOrderByWithRelationInput
   closedByUser?: Prisma.UserOrderByWithRelationInput
   deliveredByUser?: Prisma.UserOrderByWithRelationInput
@@ -310,10 +321,11 @@ export type VolumeOrderByWithRelationInput = {
 
 export type VolumeWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  code?: string
+  volumes_code_tenant_unique?: Prisma.VolumeVolumes_code_tenant_uniqueCompoundUniqueInput
   AND?: Prisma.VolumeWhereInput | Prisma.VolumeWhereInput[]
   OR?: Prisma.VolumeWhereInput[]
   NOT?: Prisma.VolumeWhereInput | Prisma.VolumeWhereInput[]
+  code?: Prisma.StringFilter<"Volume"> | string
   name?: Prisma.StringNullableFilter<"Volume"> | string | null
   status?: Prisma.EnumVolumeStatusFilter<"Volume"> | $Enums.VolumeStatus
   notes?: Prisma.StringNullableFilter<"Volume"> | string | null
@@ -329,11 +341,13 @@ export type VolumeWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.StringFilter<"Volume"> | string
   closedBy?: Prisma.StringNullableFilter<"Volume"> | string | null
   deliveredBy?: Prisma.StringNullableFilter<"Volume"> | string | null
+  tenantId?: Prisma.StringFilter<"Volume"> | string
   items?: Prisma.VolumeItemListRelationFilter
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdByUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   closedByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   deliveredByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-}, "id" | "code">
+}, "id" | "volumes_code_tenant_unique">
 
 export type VolumeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -353,6 +367,7 @@ export type VolumeOrderByWithAggregationInput = {
   createdBy?: Prisma.SortOrder
   closedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveredBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   _count?: Prisma.VolumeCountOrderByAggregateInput
   _max?: Prisma.VolumeMaxOrderByAggregateInput
   _min?: Prisma.VolumeMinOrderByAggregateInput
@@ -379,6 +394,7 @@ export type VolumeScalarWhereWithAggregatesInput = {
   createdBy?: Prisma.StringWithAggregatesFilter<"Volume"> | string
   closedBy?: Prisma.StringNullableWithAggregatesFilter<"Volume"> | string | null
   deliveredBy?: Prisma.StringNullableWithAggregatesFilter<"Volume"> | string | null
+  tenantId?: Prisma.StringWithAggregatesFilter<"Volume"> | string
 }
 
 export type VolumeCreateInput = {
@@ -397,6 +413,7 @@ export type VolumeCreateInput = {
   returnedAt?: Date | string | null
   deletedAt?: Date | string | null
   items?: Prisma.VolumeItemCreateNestedManyWithoutVolumeInput
+  tenant: Prisma.TenantCreateNestedOneWithoutVolumesInput
   createdByUser: Prisma.UserCreateNestedOneWithoutVolumesCreatedInput
   closedByUser?: Prisma.UserCreateNestedOneWithoutVolumesClosedInput
   deliveredByUser?: Prisma.UserCreateNestedOneWithoutVolumesDeliveredInput
@@ -420,6 +437,7 @@ export type VolumeUncheckedCreateInput = {
   createdBy: string
   closedBy?: string | null
   deliveredBy?: string | null
+  tenantId: string
   items?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutVolumeInput
 }
 
@@ -439,6 +457,7 @@ export type VolumeUpdateInput = {
   returnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.VolumeItemUpdateManyWithoutVolumeNestedInput
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutVolumesNestedInput
   createdByUser?: Prisma.UserUpdateOneRequiredWithoutVolumesCreatedNestedInput
   closedByUser?: Prisma.UserUpdateOneWithoutVolumesClosedNestedInput
   deliveredByUser?: Prisma.UserUpdateOneWithoutVolumesDeliveredNestedInput
@@ -462,6 +481,7 @@ export type VolumeUncheckedUpdateInput = {
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   closedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.VolumeItemUncheckedUpdateManyWithoutVolumeNestedInput
 }
 
@@ -483,6 +503,7 @@ export type VolumeCreateManyInput = {
   createdBy: string
   closedBy?: string | null
   deliveredBy?: string | null
+  tenantId: string
 }
 
 export type VolumeUpdateManyMutationInput = {
@@ -520,6 +541,7 @@ export type VolumeUncheckedUpdateManyInput = {
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   closedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type VolumeListRelationFilter = {
@@ -530,6 +552,11 @@ export type VolumeListRelationFilter = {
 
 export type VolumeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type VolumeVolumes_code_tenant_uniqueCompoundUniqueInput = {
+  code: string
+  tenantId: string
 }
 
 export type VolumeCountOrderByAggregateInput = {
@@ -550,6 +577,7 @@ export type VolumeCountOrderByAggregateInput = {
   createdBy?: Prisma.SortOrder
   closedBy?: Prisma.SortOrder
   deliveredBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type VolumeMaxOrderByAggregateInput = {
@@ -570,6 +598,7 @@ export type VolumeMaxOrderByAggregateInput = {
   createdBy?: Prisma.SortOrder
   closedBy?: Prisma.SortOrder
   deliveredBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type VolumeMinOrderByAggregateInput = {
@@ -590,6 +619,7 @@ export type VolumeMinOrderByAggregateInput = {
   createdBy?: Prisma.SortOrder
   closedBy?: Prisma.SortOrder
   deliveredBy?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
 }
 
 export type VolumeScalarRelationFilter = {
@@ -741,6 +771,48 @@ export type VolumeUpdateOneRequiredWithoutItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.VolumeUpdateToOneWithWhereWithoutItemsInput, Prisma.VolumeUpdateWithoutItemsInput>, Prisma.VolumeUncheckedUpdateWithoutItemsInput>
 }
 
+export type VolumeCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.VolumeCreateWithoutTenantInput, Prisma.VolumeUncheckedCreateWithoutTenantInput> | Prisma.VolumeCreateWithoutTenantInput[] | Prisma.VolumeUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.VolumeCreateOrConnectWithoutTenantInput | Prisma.VolumeCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.VolumeCreateManyTenantInputEnvelope
+  connect?: Prisma.VolumeWhereUniqueInput | Prisma.VolumeWhereUniqueInput[]
+}
+
+export type VolumeUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.VolumeCreateWithoutTenantInput, Prisma.VolumeUncheckedCreateWithoutTenantInput> | Prisma.VolumeCreateWithoutTenantInput[] | Prisma.VolumeUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.VolumeCreateOrConnectWithoutTenantInput | Prisma.VolumeCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.VolumeCreateManyTenantInputEnvelope
+  connect?: Prisma.VolumeWhereUniqueInput | Prisma.VolumeWhereUniqueInput[]
+}
+
+export type VolumeUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.VolumeCreateWithoutTenantInput, Prisma.VolumeUncheckedCreateWithoutTenantInput> | Prisma.VolumeCreateWithoutTenantInput[] | Prisma.VolumeUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.VolumeCreateOrConnectWithoutTenantInput | Prisma.VolumeCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.VolumeUpsertWithWhereUniqueWithoutTenantInput | Prisma.VolumeUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.VolumeCreateManyTenantInputEnvelope
+  set?: Prisma.VolumeWhereUniqueInput | Prisma.VolumeWhereUniqueInput[]
+  disconnect?: Prisma.VolumeWhereUniqueInput | Prisma.VolumeWhereUniqueInput[]
+  delete?: Prisma.VolumeWhereUniqueInput | Prisma.VolumeWhereUniqueInput[]
+  connect?: Prisma.VolumeWhereUniqueInput | Prisma.VolumeWhereUniqueInput[]
+  update?: Prisma.VolumeUpdateWithWhereUniqueWithoutTenantInput | Prisma.VolumeUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.VolumeUpdateManyWithWhereWithoutTenantInput | Prisma.VolumeUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.VolumeScalarWhereInput | Prisma.VolumeScalarWhereInput[]
+}
+
+export type VolumeUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.VolumeCreateWithoutTenantInput, Prisma.VolumeUncheckedCreateWithoutTenantInput> | Prisma.VolumeCreateWithoutTenantInput[] | Prisma.VolumeUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.VolumeCreateOrConnectWithoutTenantInput | Prisma.VolumeCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.VolumeUpsertWithWhereUniqueWithoutTenantInput | Prisma.VolumeUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.VolumeCreateManyTenantInputEnvelope
+  set?: Prisma.VolumeWhereUniqueInput | Prisma.VolumeWhereUniqueInput[]
+  disconnect?: Prisma.VolumeWhereUniqueInput | Prisma.VolumeWhereUniqueInput[]
+  delete?: Prisma.VolumeWhereUniqueInput | Prisma.VolumeWhereUniqueInput[]
+  connect?: Prisma.VolumeWhereUniqueInput | Prisma.VolumeWhereUniqueInput[]
+  update?: Prisma.VolumeUpdateWithWhereUniqueWithoutTenantInput | Prisma.VolumeUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.VolumeUpdateManyWithWhereWithoutTenantInput | Prisma.VolumeUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.VolumeScalarWhereInput | Prisma.VolumeScalarWhereInput[]
+}
+
 export type VolumeCreateWithoutCreatedByUserInput = {
   id?: string
   code: string
@@ -757,6 +829,7 @@ export type VolumeCreateWithoutCreatedByUserInput = {
   returnedAt?: Date | string | null
   deletedAt?: Date | string | null
   items?: Prisma.VolumeItemCreateNestedManyWithoutVolumeInput
+  tenant: Prisma.TenantCreateNestedOneWithoutVolumesInput
   closedByUser?: Prisma.UserCreateNestedOneWithoutVolumesClosedInput
   deliveredByUser?: Prisma.UserCreateNestedOneWithoutVolumesDeliveredInput
 }
@@ -778,6 +851,7 @@ export type VolumeUncheckedCreateWithoutCreatedByUserInput = {
   deletedAt?: Date | string | null
   closedBy?: string | null
   deliveredBy?: string | null
+  tenantId: string
   items?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutVolumeInput
 }
 
@@ -807,6 +881,7 @@ export type VolumeCreateWithoutClosedByUserInput = {
   returnedAt?: Date | string | null
   deletedAt?: Date | string | null
   items?: Prisma.VolumeItemCreateNestedManyWithoutVolumeInput
+  tenant: Prisma.TenantCreateNestedOneWithoutVolumesInput
   createdByUser: Prisma.UserCreateNestedOneWithoutVolumesCreatedInput
   deliveredByUser?: Prisma.UserCreateNestedOneWithoutVolumesDeliveredInput
 }
@@ -828,6 +903,7 @@ export type VolumeUncheckedCreateWithoutClosedByUserInput = {
   deletedAt?: Date | string | null
   createdBy: string
   deliveredBy?: string | null
+  tenantId: string
   items?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutVolumeInput
 }
 
@@ -857,6 +933,7 @@ export type VolumeCreateWithoutDeliveredByUserInput = {
   returnedAt?: Date | string | null
   deletedAt?: Date | string | null
   items?: Prisma.VolumeItemCreateNestedManyWithoutVolumeInput
+  tenant: Prisma.TenantCreateNestedOneWithoutVolumesInput
   createdByUser: Prisma.UserCreateNestedOneWithoutVolumesCreatedInput
   closedByUser?: Prisma.UserCreateNestedOneWithoutVolumesClosedInput
 }
@@ -878,6 +955,7 @@ export type VolumeUncheckedCreateWithoutDeliveredByUserInput = {
   deletedAt?: Date | string | null
   createdBy: string
   closedBy?: string | null
+  tenantId: string
   items?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutVolumeInput
 }
 
@@ -928,6 +1006,7 @@ export type VolumeScalarWhereInput = {
   createdBy?: Prisma.StringFilter<"Volume"> | string
   closedBy?: Prisma.StringNullableFilter<"Volume"> | string | null
   deliveredBy?: Prisma.StringNullableFilter<"Volume"> | string | null
+  tenantId?: Prisma.StringFilter<"Volume"> | string
 }
 
 export type VolumeUpsertWithWhereUniqueWithoutClosedByUserInput = {
@@ -977,6 +1056,7 @@ export type VolumeCreateWithoutItemsInput = {
   deliveredAt?: Date | string | null
   returnedAt?: Date | string | null
   deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutVolumesInput
   createdByUser: Prisma.UserCreateNestedOneWithoutVolumesCreatedInput
   closedByUser?: Prisma.UserCreateNestedOneWithoutVolumesClosedInput
   deliveredByUser?: Prisma.UserCreateNestedOneWithoutVolumesDeliveredInput
@@ -1000,6 +1080,7 @@ export type VolumeUncheckedCreateWithoutItemsInput = {
   createdBy: string
   closedBy?: string | null
   deliveredBy?: string | null
+  tenantId: string
 }
 
 export type VolumeCreateOrConnectWithoutItemsInput = {
@@ -1033,6 +1114,7 @@ export type VolumeUpdateWithoutItemsInput = {
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   returnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutVolumesNestedInput
   createdByUser?: Prisma.UserUpdateOneRequiredWithoutVolumesCreatedNestedInput
   closedByUser?: Prisma.UserUpdateOneWithoutVolumesClosedNestedInput
   deliveredByUser?: Prisma.UserUpdateOneWithoutVolumesDeliveredNestedInput
@@ -1056,6 +1138,75 @@ export type VolumeUncheckedUpdateWithoutItemsInput = {
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   closedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type VolumeCreateWithoutTenantInput = {
+  id?: string
+  code: string
+  name?: string | null
+  status?: $Enums.VolumeStatus
+  notes?: string | null
+  destinationRef?: string | null
+  salesOrderId?: string | null
+  customerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  closedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  returnedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  items?: Prisma.VolumeItemCreateNestedManyWithoutVolumeInput
+  createdByUser: Prisma.UserCreateNestedOneWithoutVolumesCreatedInput
+  closedByUser?: Prisma.UserCreateNestedOneWithoutVolumesClosedInput
+  deliveredByUser?: Prisma.UserCreateNestedOneWithoutVolumesDeliveredInput
+}
+
+export type VolumeUncheckedCreateWithoutTenantInput = {
+  id?: string
+  code: string
+  name?: string | null
+  status?: $Enums.VolumeStatus
+  notes?: string | null
+  destinationRef?: string | null
+  salesOrderId?: string | null
+  customerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  closedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  returnedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdBy: string
+  closedBy?: string | null
+  deliveredBy?: string | null
+  items?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutVolumeInput
+}
+
+export type VolumeCreateOrConnectWithoutTenantInput = {
+  where: Prisma.VolumeWhereUniqueInput
+  create: Prisma.XOR<Prisma.VolumeCreateWithoutTenantInput, Prisma.VolumeUncheckedCreateWithoutTenantInput>
+}
+
+export type VolumeCreateManyTenantInputEnvelope = {
+  data: Prisma.VolumeCreateManyTenantInput | Prisma.VolumeCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type VolumeUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.VolumeWhereUniqueInput
+  update: Prisma.XOR<Prisma.VolumeUpdateWithoutTenantInput, Prisma.VolumeUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.VolumeCreateWithoutTenantInput, Prisma.VolumeUncheckedCreateWithoutTenantInput>
+}
+
+export type VolumeUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.VolumeWhereUniqueInput
+  data: Prisma.XOR<Prisma.VolumeUpdateWithoutTenantInput, Prisma.VolumeUncheckedUpdateWithoutTenantInput>
+}
+
+export type VolumeUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.VolumeScalarWhereInput
+  data: Prisma.XOR<Prisma.VolumeUpdateManyMutationInput, Prisma.VolumeUncheckedUpdateManyWithoutTenantInput>
 }
 
 export type VolumeCreateManyCreatedByUserInput = {
@@ -1075,6 +1226,7 @@ export type VolumeCreateManyCreatedByUserInput = {
   deletedAt?: Date | string | null
   closedBy?: string | null
   deliveredBy?: string | null
+  tenantId: string
 }
 
 export type VolumeCreateManyClosedByUserInput = {
@@ -1094,6 +1246,7 @@ export type VolumeCreateManyClosedByUserInput = {
   deletedAt?: Date | string | null
   createdBy: string
   deliveredBy?: string | null
+  tenantId: string
 }
 
 export type VolumeCreateManyDeliveredByUserInput = {
@@ -1113,6 +1266,7 @@ export type VolumeCreateManyDeliveredByUserInput = {
   deletedAt?: Date | string | null
   createdBy: string
   closedBy?: string | null
+  tenantId: string
 }
 
 export type VolumeUpdateWithoutCreatedByUserInput = {
@@ -1131,6 +1285,7 @@ export type VolumeUpdateWithoutCreatedByUserInput = {
   returnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.VolumeItemUpdateManyWithoutVolumeNestedInput
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutVolumesNestedInput
   closedByUser?: Prisma.UserUpdateOneWithoutVolumesClosedNestedInput
   deliveredByUser?: Prisma.UserUpdateOneWithoutVolumesDeliveredNestedInput
 }
@@ -1152,6 +1307,7 @@ export type VolumeUncheckedUpdateWithoutCreatedByUserInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.VolumeItemUncheckedUpdateManyWithoutVolumeNestedInput
 }
 
@@ -1172,6 +1328,7 @@ export type VolumeUncheckedUpdateManyWithoutCreatedByUserInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type VolumeUpdateWithoutClosedByUserInput = {
@@ -1190,6 +1347,7 @@ export type VolumeUpdateWithoutClosedByUserInput = {
   returnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.VolumeItemUpdateManyWithoutVolumeNestedInput
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutVolumesNestedInput
   createdByUser?: Prisma.UserUpdateOneRequiredWithoutVolumesCreatedNestedInput
   deliveredByUser?: Prisma.UserUpdateOneWithoutVolumesDeliveredNestedInput
 }
@@ -1211,6 +1369,7 @@ export type VolumeUncheckedUpdateWithoutClosedByUserInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   deliveredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.VolumeItemUncheckedUpdateManyWithoutVolumeNestedInput
 }
 
@@ -1231,6 +1390,7 @@ export type VolumeUncheckedUpdateManyWithoutClosedByUserInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   deliveredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type VolumeUpdateWithoutDeliveredByUserInput = {
@@ -1249,6 +1409,7 @@ export type VolumeUpdateWithoutDeliveredByUserInput = {
   returnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.VolumeItemUpdateManyWithoutVolumeNestedInput
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutVolumesNestedInput
   createdByUser?: Prisma.UserUpdateOneRequiredWithoutVolumesCreatedNestedInput
   closedByUser?: Prisma.UserUpdateOneWithoutVolumesClosedNestedInput
 }
@@ -1270,6 +1431,7 @@ export type VolumeUncheckedUpdateWithoutDeliveredByUserInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   closedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.VolumeItemUncheckedUpdateManyWithoutVolumeNestedInput
 }
 
@@ -1290,6 +1452,89 @@ export type VolumeUncheckedUpdateManyWithoutDeliveredByUserInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   closedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type VolumeCreateManyTenantInput = {
+  id?: string
+  code: string
+  name?: string | null
+  status?: $Enums.VolumeStatus
+  notes?: string | null
+  destinationRef?: string | null
+  salesOrderId?: string | null
+  customerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  closedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  returnedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdBy: string
+  closedBy?: string | null
+  deliveredBy?: string | null
+}
+
+export type VolumeUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumVolumeStatusFieldUpdateOperationsInput | $Enums.VolumeStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  returnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  items?: Prisma.VolumeItemUpdateManyWithoutVolumeNestedInput
+  createdByUser?: Prisma.UserUpdateOneRequiredWithoutVolumesCreatedNestedInput
+  closedByUser?: Prisma.UserUpdateOneWithoutVolumesClosedNestedInput
+  deliveredByUser?: Prisma.UserUpdateOneWithoutVolumesDeliveredNestedInput
+}
+
+export type VolumeUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumVolumeStatusFieldUpdateOperationsInput | $Enums.VolumeStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  returnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  closedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  items?: Prisma.VolumeItemUncheckedUpdateManyWithoutVolumeNestedInput
+}
+
+export type VolumeUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumVolumeStatusFieldUpdateOperationsInput | $Enums.VolumeStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  returnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  closedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveredBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1341,7 +1586,9 @@ export type VolumeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   createdBy?: boolean
   closedBy?: boolean
   deliveredBy?: boolean
+  tenantId?: boolean
   items?: boolean | Prisma.Volume$itemsArgs<ExtArgs>
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdByUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   closedByUser?: boolean | Prisma.Volume$closedByUserArgs<ExtArgs>
   deliveredByUser?: boolean | Prisma.Volume$deliveredByUserArgs<ExtArgs>
@@ -1366,6 +1613,8 @@ export type VolumeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   createdBy?: boolean
   closedBy?: boolean
   deliveredBy?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdByUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   closedByUser?: boolean | Prisma.Volume$closedByUserArgs<ExtArgs>
   deliveredByUser?: boolean | Prisma.Volume$deliveredByUserArgs<ExtArgs>
@@ -1389,6 +1638,8 @@ export type VolumeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   createdBy?: boolean
   closedBy?: boolean
   deliveredBy?: boolean
+  tenantId?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdByUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   closedByUser?: boolean | Prisma.Volume$closedByUserArgs<ExtArgs>
   deliveredByUser?: boolean | Prisma.Volume$deliveredByUserArgs<ExtArgs>
@@ -1412,22 +1663,26 @@ export type VolumeSelectScalar = {
   createdBy?: boolean
   closedBy?: boolean
   deliveredBy?: boolean
+  tenantId?: boolean
 }
 
-export type VolumeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "status" | "notes" | "destinationRef" | "salesOrderId" | "customerId" | "createdAt" | "updatedAt" | "closedAt" | "deliveredAt" | "returnedAt" | "deletedAt" | "createdBy" | "closedBy" | "deliveredBy", ExtArgs["result"]["volume"]>
+export type VolumeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "status" | "notes" | "destinationRef" | "salesOrderId" | "customerId" | "createdAt" | "updatedAt" | "closedAt" | "deliveredAt" | "returnedAt" | "deletedAt" | "createdBy" | "closedBy" | "deliveredBy" | "tenantId", ExtArgs["result"]["volume"]>
 export type VolumeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | Prisma.Volume$itemsArgs<ExtArgs>
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdByUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   closedByUser?: boolean | Prisma.Volume$closedByUserArgs<ExtArgs>
   deliveredByUser?: boolean | Prisma.Volume$deliveredByUserArgs<ExtArgs>
   _count?: boolean | Prisma.VolumeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VolumeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdByUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   closedByUser?: boolean | Prisma.Volume$closedByUserArgs<ExtArgs>
   deliveredByUser?: boolean | Prisma.Volume$deliveredByUserArgs<ExtArgs>
 }
 export type VolumeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdByUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   closedByUser?: boolean | Prisma.Volume$closedByUserArgs<ExtArgs>
   deliveredByUser?: boolean | Prisma.Volume$deliveredByUserArgs<ExtArgs>
@@ -1437,6 +1692,7 @@ export type $VolumePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Volume"
   objects: {
     items: Prisma.$VolumeItemPayload<ExtArgs>[]
+    tenant: Prisma.$TenantPayload<ExtArgs>
     createdByUser: Prisma.$UserPayload<ExtArgs>
     closedByUser: Prisma.$UserPayload<ExtArgs> | null
     deliveredByUser: Prisma.$UserPayload<ExtArgs> | null
@@ -1459,6 +1715,7 @@ export type $VolumePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     createdBy: string
     closedBy: string | null
     deliveredBy: string | null
+    tenantId: string
   }, ExtArgs["result"]["volume"]>
   composites: {}
 }
@@ -1854,6 +2111,7 @@ readonly fields: VolumeFieldRefs;
 export interface Prisma__VolumeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   items<T extends Prisma.Volume$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Volume$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VolumeItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   createdByUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   closedByUser<T extends Prisma.Volume$closedByUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Volume$closedByUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   deliveredByUser<T extends Prisma.Volume$deliveredByUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Volume$deliveredByUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1903,6 +2161,7 @@ export interface VolumeFieldRefs {
   readonly createdBy: Prisma.FieldRef<"Volume", 'String'>
   readonly closedBy: Prisma.FieldRef<"Volume", 'String'>
   readonly deliveredBy: Prisma.FieldRef<"Volume", 'String'>
+  readonly tenantId: Prisma.FieldRef<"Volume", 'String'>
 }
     
 

@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createWarehouseSchema,
   warehouseResponseSchema,
@@ -18,6 +19,7 @@ export async function createWarehouseController(app: FastifyInstance) {
     url: '/v1/warehouses',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.WAREHOUSES.CREATE,
         resource: 'warehouses',
@@ -39,11 +41,13 @@ export async function createWarehouseController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { code, name, description, address, isActive } = request.body;
 
       try {
         const createWarehouseUseCase = makeCreateWarehouseUseCase();
         const { warehouse } = await createWarehouseUseCase.execute({
+          tenantId,
           code,
           name,
           description,

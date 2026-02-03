@@ -28,6 +28,7 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
       userAgent: data.userAgent ?? null,
       endpoint: data.endpoint ?? null,
       method: data.method ?? null,
+      tenantId: data.tenantId ?? null,
       userId: data.userId ?? null,
       affectedUser: data.affectedUser ?? null,
       expiresAt: data.expiresAt ?? null,
@@ -53,6 +54,12 @@ export class InMemoryAuditLogsRepository implements AuditLogsRepository {
     let filtered = [...this.items];
 
     // Apply filters
+    if (params?.tenantId) {
+      filtered = filtered.filter((log) =>
+        log.tenantId?.equals(params.tenantId!),
+      );
+    }
+
     if (params?.userId) {
       filtered = filtered.filter((log) => log.userId?.equals(params.userId!));
     }

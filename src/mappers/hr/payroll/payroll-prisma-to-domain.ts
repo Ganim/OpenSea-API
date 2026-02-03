@@ -11,6 +11,7 @@ type PayrollWithItems = PrismaPayroll & {
 
 export function mapPayrollPrismaToDomain(payroll: PayrollWithItems) {
   return {
+    tenantId: new UniqueEntityID(payroll.tenantId),
     referenceMonth: payroll.referenceMonth,
     referenceYear: payroll.referenceYear,
     status: PayrollStatus.create(payroll.status),

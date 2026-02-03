@@ -3,6 +3,7 @@ import { Department } from '@/entities/hr/department';
 import { faker } from '@faker-js/faker';
 
 interface MakeDepartmentProps {
+  tenantId?: UniqueEntityID;
   name?: string;
   code?: string;
   description?: string;
@@ -34,6 +35,7 @@ export function generateDepartmentCode(): string {
 export function makeDepartment(override: MakeDepartmentProps = {}): Department {
   const department = Department.create(
     {
+      tenantId: override.tenantId ?? new UniqueEntityID(),
       name: override.name ?? faker.commerce.department(),
       code: override.code ?? generateDepartmentCode(),
       description: override.description ?? faker.lorem.sentence(),

@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { listPayrollsQuerySchema, payrollResponseSchema } from '@/http/schemas';
 import { payrollToDTO } from '@/mappers/hr/payroll';
 import { makeListPayrollsUseCase } from '@/use-cases/hr/payrolls/factories/make-list-payrolls-use-case';
@@ -11,7 +12,7 @@ export async function listPayrollsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/payrolls',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Payroll'],
       summary: 'List payrolls',
@@ -26,10 +27,14 @@ export async function listPayrollsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const filters = request.query;
 
       const listPayrollsUseCase = makeListPayrollsUseCase();
-      const { payrolls } = await listPayrollsUseCase.execute(filters);
+      const { payrolls } = await listPayrollsUseCase.execute({
+        tenantId,
+        ...filters,
+      });
 
       return reply.status(200).send({
         payrolls: payrolls.map(payrollToDTO),

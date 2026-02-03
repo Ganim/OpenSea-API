@@ -13,6 +13,7 @@ export class InMemoryTimeBankRepository implements TimeBankRepository {
     const id = new UniqueEntityID();
     const timeBank = TimeBank.create(
       {
+        tenantId: new UniqueEntityID(data.tenantId),
         employeeId: data.employeeId,
         balance: data.balance,
         year: data.year,
@@ -24,29 +25,47 @@ export class InMemoryTimeBankRepository implements TimeBankRepository {
     return timeBank;
   }
 
-  async findById(id: UniqueEntityID): Promise<TimeBank | null> {
-    const timeBank = this.items.find((item) => item.id.equals(id));
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<TimeBank | null> {
+    const timeBank = this.items.find(
+      (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+    );
     return timeBank || null;
   }
 
   async findByEmployeeAndYear(
     employeeId: UniqueEntityID,
     year: number,
+    tenantId: string,
   ): Promise<TimeBank | null> {
     const timeBank = this.items.find(
-      (item) => item.employeeId.equals(employeeId) && item.year === year,
+      (item) =>
+        item.employeeId.equals(employeeId) &&
+        item.year === year &&
+        item.tenantId.toString() === tenantId,
     );
     return timeBank || null;
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<TimeBank[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<TimeBank[]> {
     return this.items
-      .filter((item) => item.employeeId.equals(employeeId))
+      .filter(
+        (item) =>
+          item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.year - a.year);
   }
 
-  async findManyByYear(year: number): Promise<TimeBank[]> {
-    return this.items.filter((item) => item.year === year);
+  async findManyByYear(year: number, tenantId: string): Promise<TimeBank[]> {
+    return this.items.filter(
+      (item) => item.year === year && item.tenantId.toString() === tenantId,
+    );
   }
 
   async update(data: UpdateTimeBankSchema): Promise<TimeBank | null> {
@@ -58,6 +77,7 @@ export class InMemoryTimeBankRepository implements TimeBankRepository {
 
     const updated = TimeBank.create(
       {
+        tenantId: existing.tenantId,
         employeeId: existing.employeeId,
         balance: data.balance ?? existing.balance,
         year: existing.year,

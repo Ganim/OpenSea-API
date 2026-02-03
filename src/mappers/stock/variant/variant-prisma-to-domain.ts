@@ -12,6 +12,7 @@ export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {
 
   return {
     id: new UniqueEntityID(variantDb.id),
+    tenantId: new UniqueEntityID(variantDb.tenantId),
     productId: new UniqueEntityID(variantDb.productId),
     sku: variantDb.sku ?? undefined,
     slug: slug,

@@ -4,6 +4,7 @@ import { DepartmentsRepository } from '@/repositories/hr/departments-repository'
 import { PositionsRepository } from '@/repositories/hr/positions-repository';
 
 export interface CreatePositionRequest {
+  tenantId: string;
   name: string;
   code: string;
   description?: string;
@@ -28,6 +29,7 @@ export class CreatePositionUseCase {
     request: CreatePositionRequest,
   ): Promise<CreatePositionResponse> {
     const {
+      tenantId,
       name,
       code,
       description,
@@ -39,7 +41,10 @@ export class CreatePositionUseCase {
     } = request;
 
     // Validate if code already exists
-    const existingPosition = await this.positionsRepository.findByCode(code);
+    const existingPosition = await this.positionsRepository.findByCode(
+      code,
+      tenantId,
+    );
     if (existingPosition) {
       throw new Error('Position with this code already exists');
     }
@@ -55,6 +60,7 @@ export class CreatePositionUseCase {
     if (departmentId && this.departmentsRepository) {
       const department = await this.departmentsRepository.findById(
         new UniqueEntityID(departmentId),
+        tenantId,
       );
       if (!department) {
         throw new Error('Department not found');
@@ -66,6 +72,7 @@ export class CreatePositionUseCase {
 
     // Create position
     const position = await this.positionsRepository.create({
+      tenantId,
       name,
       code,
       description,

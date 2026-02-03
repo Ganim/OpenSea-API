@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { overtimeResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { overtimeToDTO } from '@/mappers/hr/overtime/overtime-to-dto';
@@ -13,7 +14,7 @@ export async function getOvertimeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/overtime/:overtimeId',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Overtime'],
       summary: 'Get overtime by ID',
@@ -33,11 +34,13 @@ export async function getOvertimeController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { overtimeId } = request.params;
 
       try {
         const getOvertimeUseCase = makeGetOvertimeUseCase();
         const { overtime } = await getOvertimeUseCase.execute({
+          tenantId,
           id: overtimeId,
         });
 

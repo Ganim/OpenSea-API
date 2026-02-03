@@ -16,6 +16,8 @@ let employeesRepository: InMemoryEmployeesRepository;
 let sut: CreateDeductionUseCase;
 let testEmployee: Employee;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('Create Deduction Use Case', () => {
   beforeEach(async () => {
     deductionsRepository = new InMemoryDeductionsRepository();
@@ -23,6 +25,7 @@ describe('Create Deduction Use Case', () => {
     sut = new CreateDeductionUseCase(deductionsRepository, employeesRepository);
 
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -38,6 +41,7 @@ describe('Create Deduction Use Case', () => {
 
   it('should create a one-time deduction successfully', async () => {
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       name: 'Advance Repayment',
       amount: 500,
@@ -55,6 +59,7 @@ describe('Create Deduction Use Case', () => {
 
   it('should create a recurring deduction with installments', async () => {
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       name: 'Loan Payment',
       amount: 300,
@@ -73,6 +78,7 @@ describe('Create Deduction Use Case', () => {
   it('should throw error if employee not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         employeeId: new UniqueEntityID().toString(),
         name: 'Deduction',
         amount: 500,
@@ -84,6 +90,7 @@ describe('Create Deduction Use Case', () => {
 
   it('should create deduction for inactive employee', async () => {
     const inactiveEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Inactive Employee',
       cpf: CPF.create('123.456.789-09'),
@@ -98,6 +105,7 @@ describe('Create Deduction Use Case', () => {
 
     // Deduction can be created for inactive employees (e.g., final settlements)
     const result = await sut.execute({
+      tenantId,
       employeeId: inactiveEmployee.id.toString(),
       name: 'Deduction',
       amount: 500,
@@ -110,6 +118,7 @@ describe('Create Deduction Use Case', () => {
 
   it('should create multiple deductions for the same employee', async () => {
     await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       name: 'Deduction 1',
       amount: 200,
@@ -118,6 +127,7 @@ describe('Create Deduction Use Case', () => {
     });
 
     await sut.execute({
+      tenantId,
       employeeId: testEmployee.id.toString(),
       name: 'Deduction 2',
       amount: 300,
@@ -127,6 +137,7 @@ describe('Create Deduction Use Case', () => {
 
     const deductions = await deductionsRepository.findManyByEmployee(
       testEmployee.id,
+      tenantId,
     );
     expect(deductions).toHaveLength(2);
   });

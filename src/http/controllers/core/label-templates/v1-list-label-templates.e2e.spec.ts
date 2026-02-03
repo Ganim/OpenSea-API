@@ -19,7 +19,7 @@ describe('List Label Templates (E2E)', () => {
   });
 
   it('should list label templates with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app, { organizationId });
+    const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
     await request(app.server)

@@ -5,6 +5,7 @@ import { VolumeMapper } from '@/mappers/stock/volume.mapper';
 import type { VolumeRepository } from '@/repositories/stock/volumes-repository';
 
 export interface ReopenVolumeUseCaseRequest {
+  tenantId: string;
   volumeId: string;
 }
 
@@ -18,7 +19,10 @@ export class ReopenVolumeUseCase {
   async execute(
     request: ReopenVolumeUseCaseRequest,
   ): Promise<ReopenVolumeUseCaseResponse> {
-    const volume = await this.volumesRepository.findById(request.volumeId);
+    const volume = await this.volumesRepository.findById(
+      request.volumeId,
+      request.tenantId,
+    );
     if (!volume) {
       throw new VolumeNotFoundError(request.volumeId);
     }

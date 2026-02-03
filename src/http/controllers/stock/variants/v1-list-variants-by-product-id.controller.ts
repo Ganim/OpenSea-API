@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { variantWithAggregationsResponseSchema } from '@/http/schemas/stock.schema';
 import { variantWithAggregationsToDTO } from '@/mappers/stock/variant/variant-to-dto';
 import { makeListVariantsByProductIdUseCase } from '@/use-cases/stock/variants/factories/make-list-variants-by-product-id-use-case';
@@ -14,6 +15,7 @@ export async function listVariantsByProductIdController(app: FastifyInstance) {
     url: '/v1/products/:productId/variants',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.VARIANTS.LIST,
         resource: 'variants',
@@ -34,10 +36,12 @@ export async function listVariantsByProductIdController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { productId } = request.params;
       const listVariantsByProductIdUseCase =
         makeListVariantsByProductIdUseCase();
       const { variants } = await listVariantsByProductIdUseCase.execute({
+        tenantId,
         productId,
       });
 

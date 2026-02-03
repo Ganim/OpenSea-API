@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { categoryResponseSchema } from '@/http/schemas';
 import { categoryToDTO } from '@/mappers/stock/category/category-to-dto';
 import { makeListCategoriesUseCase } from '@/use-cases/stock/categories/factories/make-list-categories-use-case';
@@ -14,6 +15,7 @@ export async function listCategoriesController(app: FastifyInstance) {
     url: '/v1/categories',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.CATEGORIES.LIST,
         resource: 'categories',
@@ -31,8 +33,9 @@ export async function listCategoriesController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const listCategoriesUseCase = makeListCategoriesUseCase();
-      const { categories } = await listCategoriesUseCase.execute();
+      const { categories } = await listCategoriesUseCase.execute({ tenantId });
 
       return reply
         .status(200)

@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { overtimeResponseSchema, requestOvertimeSchema } from '@/http/schemas';
 import { overtimeToDTO } from '@/mappers/hr/overtime/overtime-to-dto';
 import { makeRequestOvertimeUseCase } from '@/use-cases/hr/overtime/factories/make-request-overtime-use-case';
@@ -13,7 +14,7 @@ export async function requestOvertimeController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/overtime',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Overtime'],
       summary: 'Request overtime',
@@ -34,11 +35,15 @@ export async function requestOvertimeController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const requestOvertimeUseCase = makeRequestOvertimeUseCase();
-        const { overtime } = await requestOvertimeUseCase.execute(data);
+        const { overtime } = await requestOvertimeUseCase.execute({
+          ...data,
+          tenantId,
+        });
 
         return reply.status(201).send({ overtime: overtimeToDTO(overtime) });
       } catch (error) {

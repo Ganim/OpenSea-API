@@ -9,6 +9,7 @@ interface SelectTenantUseCaseRequest {
   userId: string;
   tenantId: string;
   sessionId: string;
+  isSuperAdmin: boolean;
   reply: FastifyReply;
 }
 
@@ -31,6 +32,7 @@ export class SelectTenantUseCase {
     userId,
     tenantId,
     sessionId,
+    isSuperAdmin,
     reply,
   }: SelectTenantUseCaseRequest): Promise<SelectTenantUseCaseResponse> {
     // Verify tenant exists and is active
@@ -58,7 +60,7 @@ export class SelectTenantUseCase {
 
     // Sign a new JWT with tenantId included
     const token = await reply.jwtSign(
-      { sessionId, tenantId },
+      { sessionId, tenantId, isSuperAdmin },
       { sign: { sub: userId } },
     );
 

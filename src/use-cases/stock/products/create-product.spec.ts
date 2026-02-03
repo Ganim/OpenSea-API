@@ -20,6 +20,8 @@ let createTemplate: CreateTemplateUseCase;
 let createSupplier: CreateSupplierUseCase;
 let createManufacturer: CreateManufacturerUseCase;
 
+const TENANT_ID = 'tenant-1';
+
 describe('CreateProductUseCase', () => {
   beforeEach(() => {
     productsRepository = new InMemoryProductsRepository();
@@ -41,6 +43,7 @@ describe('CreateProductUseCase', () => {
 
   it('should create a product', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: {
         brand: templateAttr.string(),
@@ -50,6 +53,7 @@ describe('CreateProductUseCase', () => {
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell Inspiron',
       description: 'High performance laptop',
       status: 'ACTIVE',
@@ -76,16 +80,19 @@ describe('CreateProductUseCase', () => {
 
   it('should create a product with supplier', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const supplier = await createSupplier.execute({
+      tenantId: TENANT_ID,
       name: 'Tech Supplies Co.',
       country: 'United States',
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
       templateId: template.template.id.toString(),
       supplierId: supplier.supplier.id.toString(),
@@ -98,16 +105,19 @@ describe('CreateProductUseCase', () => {
 
   it('should create a product with manufacturer', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const manufacturer = await createManufacturer.execute({
+      tenantId: TENANT_ID,
       name: 'Dell Inc.',
       country: 'United States',
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
       templateId: template.template.id.toString(),
       manufacturerId: manufacturer.manufacturer.manufacturerId.toString(),
@@ -120,11 +130,13 @@ describe('CreateProductUseCase', () => {
 
   it('should create a product with default ACTIVE status', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Template',
       productAttributes: { category: templateAttr.string() },
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Test Product',
       templateId: template.template.id.toString(),
     });
@@ -134,11 +146,13 @@ describe('CreateProductUseCase', () => {
 
   it('should create a product with outOfLine false by default', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Template',
       productAttributes: { category: templateAttr.string() },
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Test Product OutOfLine',
       templateId: template.template.id.toString(),
     });
@@ -148,11 +162,13 @@ describe('CreateProductUseCase', () => {
 
   it('should create a product with outOfLine true', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Template',
       productAttributes: { category: templateAttr.string() },
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Test Product OutOfLine True',
       templateId: template.template.id.toString(),
       outOfLine: true,
@@ -163,11 +179,13 @@ describe('CreateProductUseCase', () => {
 
   it('should create a product without optional fields', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Template',
       productAttributes: { category: templateAttr.string() },
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Product',
       templateId: template.template.id.toString(),
     });
@@ -180,12 +198,14 @@ describe('CreateProductUseCase', () => {
 
   it('should not create a product with empty name', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Template',
       productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: '',
         templateId: template.template.id.toString(),
       }),
@@ -194,12 +214,14 @@ describe('CreateProductUseCase', () => {
 
   it('should not create a product with name longer than 200 characters', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Template',
       productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'a'.repeat(201),
         templateId: template.template.id.toString(),
       }),
@@ -208,17 +230,20 @@ describe('CreateProductUseCase', () => {
 
   it('should not create a product with duplicate name', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Template',
       productAttributes: { category: templateAttr.string() },
     });
 
     await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
       templateId: template.template.id.toString(),
     });
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Laptop Dell',
         templateId: template.template.id.toString(),
       }),
@@ -227,12 +252,14 @@ describe('CreateProductUseCase', () => {
 
   it('should not create a product with invalid status', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Template',
       productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Test Product',
         status: 'INVALID_STATUS',
         templateId: template.template.id.toString(),
@@ -245,6 +272,7 @@ describe('CreateProductUseCase', () => {
   it('should not create a product with non-existent template', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Test Product',
         templateId: 'non-existent-template-id',
       }),
@@ -253,12 +281,14 @@ describe('CreateProductUseCase', () => {
 
   it('should not create a product with non-existent supplier', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Template',
       productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Test Product',
         templateId: template.template.id.toString(),
         supplierId: 'non-existent-supplier-id',
@@ -268,12 +298,14 @@ describe('CreateProductUseCase', () => {
 
   it('should not create a product with non-existent manufacturer', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Simple Template',
       productAttributes: { category: templateAttr.string() },
     });
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Test Product',
         templateId: template.template.id.toString(),
         manufacturerId: 'non-existent-manufacturer-id',
@@ -283,6 +315,7 @@ describe('CreateProductUseCase', () => {
 
   it('should not create a product with invalid attributes', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: {
         brand: templateAttr.string(),
@@ -292,6 +325,7 @@ describe('CreateProductUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Test Product',
         templateId: template.template.id.toString(),
         attributes: {
@@ -304,6 +338,7 @@ describe('CreateProductUseCase', () => {
 
   it('should validate required attributes', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: {
         brand: templateAttr.string({ required: true }),
@@ -313,6 +348,7 @@ describe('CreateProductUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Test Product',
         templateId: template.template.id.toString(),
         attributes: {
@@ -324,6 +360,7 @@ describe('CreateProductUseCase', () => {
 
   it('should validate attribute types', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: {
         warranty: templateAttr.number({ unitOfMeasure: 'months' }),
@@ -332,6 +369,7 @@ describe('CreateProductUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Test Product',
         templateId: template.template.id.toString(),
         attributes: {

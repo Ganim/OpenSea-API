@@ -16,6 +16,7 @@ describe('ListItemsByProductIdUseCase', () => {
     const productId = new UniqueEntityID().toString();
 
     const result = await listItemsByProductId.execute({
+      tenantId: 'tenant-1',
       productId,
     });
 

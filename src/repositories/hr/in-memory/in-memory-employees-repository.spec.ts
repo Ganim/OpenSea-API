@@ -11,6 +11,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 
 describe('InMemoryEmployeesRepository', () => {
   let repository: InMemoryEmployeesRepository;
+  const tenantId = new UniqueEntityID().toString();
 
   beforeEach(() => {
     repository = new InMemoryEmployeesRepository();
@@ -19,6 +20,7 @@ describe('InMemoryEmployeesRepository', () => {
   it('should create an employee', async () => {
     const cpf = CPF.create('52998224725');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf,
@@ -43,6 +45,7 @@ describe('InMemoryEmployeesRepository', () => {
   it('should find employee by id', async () => {
     const cpf = CPF.create('52998224725');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf,
@@ -56,7 +59,10 @@ describe('InMemoryEmployeesRepository', () => {
     };
 
     const createdEmployee = await repository.create(employeeData);
-    const foundEmployee = await repository.findById(createdEmployee.id);
+    const foundEmployee = await repository.findById(
+      createdEmployee.id,
+      tenantId,
+    );
 
     expect(foundEmployee).toBeDefined();
     expect(foundEmployee?.id.equals(createdEmployee.id)).toBe(true);
@@ -65,6 +71,7 @@ describe('InMemoryEmployeesRepository', () => {
   it('should find employee by registration number', async () => {
     const cpf = CPF.create('52998224725');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf,
@@ -78,7 +85,10 @@ describe('InMemoryEmployeesRepository', () => {
     };
 
     await repository.create(employeeData);
-    const foundEmployee = await repository.findByRegistrationNumber('EMP001');
+    const foundEmployee = await repository.findByRegistrationNumber(
+      'EMP001',
+      tenantId,
+    );
 
     expect(foundEmployee).toBeDefined();
     expect(foundEmployee?.registrationNumber).toBe('EMP001');
@@ -87,6 +97,7 @@ describe('InMemoryEmployeesRepository', () => {
   it('should find employee by CPF', async () => {
     const cpf = CPF.create('52998224725');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf,
@@ -100,7 +111,7 @@ describe('InMemoryEmployeesRepository', () => {
     };
 
     await repository.create(employeeData);
-    const foundEmployee = await repository.findByCpf(cpf);
+    const foundEmployee = await repository.findByCpf(cpf, tenantId);
 
     expect(foundEmployee).toBeDefined();
     expect(foundEmployee?.cpf.equals(cpf)).toBe(true);
@@ -108,7 +119,7 @@ describe('InMemoryEmployeesRepository', () => {
 
   it('should return null when employee not found', async () => {
     const nonExistentId = new UniqueEntityID();
-    const result = await repository.findById(nonExistentId);
+    const result = await repository.findById(nonExistentId, tenantId);
 
     expect(result).toBeNull();
   });
@@ -118,6 +129,7 @@ describe('InMemoryEmployeesRepository', () => {
     const cpf2 = CPF.create('12345678909');
 
     await repository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: cpf1,
@@ -131,6 +143,7 @@ describe('InMemoryEmployeesRepository', () => {
     });
 
     await repository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Maria Santos',
       cpf: cpf2,
@@ -143,7 +156,7 @@ describe('InMemoryEmployeesRepository', () => {
       country: 'Brasil',
     });
 
-    const employees = await repository.findMany();
+    const employees = await repository.findMany(tenantId);
 
     expect(employees).toHaveLength(2);
     expect(employees[0].fullName).toBe('João Silva');
@@ -155,6 +168,7 @@ describe('InMemoryEmployeesRepository', () => {
     const cpf2 = CPF.create('12345678909');
 
     await repository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf: cpf1,
@@ -168,6 +182,7 @@ describe('InMemoryEmployeesRepository', () => {
     });
 
     await repository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Maria Santos',
       cpf: cpf2,
@@ -180,7 +195,7 @@ describe('InMemoryEmployeesRepository', () => {
       country: 'Brasil',
     });
 
-    const activeEmployees = await repository.findManyActive();
+    const activeEmployees = await repository.findManyActive(tenantId);
 
     expect(activeEmployees).toHaveLength(1);
     expect(activeEmployees[0].fullName).toBe('João Silva');
@@ -189,6 +204,7 @@ describe('InMemoryEmployeesRepository', () => {
   it('should update employee', async () => {
     const cpf = CPF.create('52998224725');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf,
@@ -217,6 +233,7 @@ describe('InMemoryEmployeesRepository', () => {
   it('should delete employee (soft delete)', async () => {
     const cpf = CPF.create('52998224725');
     const employeeData = {
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'João Silva',
       cpf,
@@ -233,11 +250,14 @@ describe('InMemoryEmployeesRepository', () => {
 
     await repository.delete(createdEmployee.id);
 
-    const foundEmployee = await repository.findById(createdEmployee.id);
+    const foundEmployee = await repository.findById(
+      createdEmployee.id,
+      tenantId,
+    );
     expect(foundEmployee).toBeNull();
 
     // Employee should not appear in findMany
-    const employees = await repository.findMany();
+    const employees = await repository.findMany(tenantId);
     expect(employees).toHaveLength(0);
   });
 });

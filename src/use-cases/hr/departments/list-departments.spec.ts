@@ -4,6 +4,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateDepartmentUseCase } from './create-department';
 import { ListDepartmentsUseCase } from './list-departments';
 
+const TENANT_ID = 'tenant-1';
+
 let departmentsRepository: InMemoryDepartmentsRepository;
 let createDepartmentUseCase: CreateDepartmentUseCase;
 let sut: ListDepartmentsUseCase;
@@ -22,22 +24,29 @@ describe('List Departments Use Case', () => {
 
   it('should list departments with pagination', async () => {
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
     });
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Sales',
       code: 'SALES',
       companyId,
     });
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Marketing',
       code: 'MKT',
       companyId,
     });
 
-    const result = await sut.execute({ page: 1, perPage: 2 });
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      page: 1,
+      perPage: 2,
+    });
 
     expect(result.departments).toHaveLength(2);
     expect(result.meta.total).toBe(3);
@@ -48,17 +57,19 @@ describe('List Departments Use Case', () => {
 
   it('should filter by search term', async () => {
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
     });
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Sales',
       code: 'SALES',
       companyId,
     });
 
-    const result = await sut.execute({ search: 'eng' });
+    const result = await sut.execute({ tenantId: TENANT_ID, search: 'eng' });
 
     expect(result.departments).toHaveLength(1);
     expect(result.departments[0].name).toBe('Engineering');
@@ -66,19 +77,21 @@ describe('List Departments Use Case', () => {
 
   it('should filter by isActive', async () => {
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       isActive: true,
       companyId,
     });
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Old Dept',
       code: 'OLD',
       isActive: false,
       companyId,
     });
 
-    const result = await sut.execute({ isActive: true });
+    const result = await sut.execute({ tenantId: TENANT_ID, isActive: true });
 
     expect(result.departments).toHaveLength(1);
     expect(result.departments[0].name).toBe('Engineering');
@@ -86,12 +99,14 @@ describe('List Departments Use Case', () => {
 
   it('should filter by parentId', async () => {
     const parent = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Technology',
       code: 'TECH',
       companyId,
     });
 
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       parentId: parent.department.id.toString(),
@@ -99,12 +114,14 @@ describe('List Departments Use Case', () => {
     });
 
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Sales',
       code: 'SALES',
       companyId,
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       parentId: parent.department.id.toString(),
     });
 
@@ -114,17 +131,19 @@ describe('List Departments Use Case', () => {
 
   it('should filter by companyId', async () => {
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
     });
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Sales',
       code: 'SALES',
       companyId: anotherCompanyId,
     });
 
-    const result = await sut.execute({ companyId });
+    const result = await sut.execute({ tenantId: TENANT_ID, companyId });
 
     expect(result.departments).toHaveLength(1);
     expect(result.departments[0].name).toBe('Engineering');
@@ -132,7 +151,7 @@ describe('List Departments Use Case', () => {
   });
 
   it('should return empty list when no departments exist', async () => {
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId: TENANT_ID });
 
     expect(result.departments).toHaveLength(0);
     expect(result.meta.total).toBe(0);
@@ -141,12 +160,13 @@ describe('List Departments Use Case', () => {
 
   it('should use default pagination values', async () => {
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
     });
 
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId: TENANT_ID });
 
     expect(result.meta.page).toBe(1);
     expect(result.meta.perPage).toBe(20);

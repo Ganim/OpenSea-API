@@ -5,6 +5,7 @@ import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface GetEmployeeByIdRequest {
   employeeId: string;
+  tenantId: string;
 }
 
 export interface GetEmployeeByIdResponse {
@@ -17,10 +18,11 @@ export class GetEmployeeByIdUseCase {
   async execute(
     request: GetEmployeeByIdRequest,
   ): Promise<GetEmployeeByIdResponse> {
-    const { employeeId } = request;
+    const { employeeId, tenantId } = request;
 
     const employee = await this.employeesRepository.findById(
       new UniqueEntityID(employeeId),
+      tenantId,
     );
 
     if (!employee) {

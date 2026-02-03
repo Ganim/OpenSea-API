@@ -2,6 +2,7 @@ import { WorkSchedule } from '@/entities/hr/work-schedule';
 import { WorkSchedulesRepository } from '@/repositories/hr/work-schedules-repository';
 
 export interface CreateWorkScheduleRequest {
+  tenantId: string;
   name: string;
   description?: string;
   mondayStart?: string;
@@ -32,6 +33,7 @@ export class CreateWorkScheduleUseCase {
     request: CreateWorkScheduleRequest,
   ): Promise<CreateWorkScheduleResponse> {
     const {
+      tenantId,
       name,
       description,
       mondayStart,
@@ -52,8 +54,10 @@ export class CreateWorkScheduleUseCase {
     } = request;
 
     // Check if schedule with same name already exists
-    const existingSchedule =
-      await this.workSchedulesRepository.findByName(name);
+    const existingSchedule = await this.workSchedulesRepository.findByName(
+      name,
+      tenantId,
+    );
     if (existingSchedule) {
       throw new Error('Work schedule with this name already exists');
     }
@@ -89,6 +93,7 @@ export class CreateWorkScheduleUseCase {
 
     // Create work schedule
     const workSchedule = await this.workSchedulesRepository.create({
+      tenantId,
       name,
       description,
       mondayStart,

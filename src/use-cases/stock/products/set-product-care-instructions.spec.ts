@@ -8,6 +8,8 @@ import { SetProductCareInstructionsUseCase } from './set-product-care-instructio
 let productsRepository: InMemoryProductsRepository;
 let sut: SetProductCareInstructionsUseCase;
 
+const TENANT_ID = 'tenant-1';
+
 const mockCareCatalog = {
   validateIds: (ids: string[]) => ids.filter((id) => !id.startsWith('valid-')),
   exists: (id: string) => id.startsWith('valid-'),
@@ -27,6 +29,7 @@ describe('SetProductCareInstructionsUseCase', () => {
   it('should throw BadRequestError for duplicate care instruction IDs', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: TENANT_ID,
         productId: 'any',
         careInstructionIds: ['valid-1', 'valid-1'],
       }),
@@ -35,13 +38,18 @@ describe('SetProductCareInstructionsUseCase', () => {
 
   it('should throw BadRequestError for invalid care instruction IDs', async () => {
     await expect(() =>
-      sut.execute({ productId: 'any', careInstructionIds: ['invalid-1'] }),
+      sut.execute({
+        tenantId: TENANT_ID,
+        productId: 'any',
+        careInstructionIds: ['invalid-1'],
+      }),
     ).rejects.toBeInstanceOf(BadRequestError);
   });
 
   it('should throw ResourceNotFoundError for non-existent product', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: TENANT_ID,
         productId: 'non-existent',
         careInstructionIds: ['valid-1'],
       }),

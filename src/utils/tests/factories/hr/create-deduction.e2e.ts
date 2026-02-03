@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
 export async function createDeduction(
+  tenantId: string,
   employeeId: string,
   data?: {
     name?: string;
@@ -13,6 +14,7 @@ export async function createDeduction(
 ) {
   return prisma.deduction.create({
     data: {
+      tenantId,
       employeeId,
       name: data?.name ?? 'Test Deduction',
       amount: data?.amount ?? 500,

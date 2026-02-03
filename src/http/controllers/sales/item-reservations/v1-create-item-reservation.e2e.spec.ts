@@ -21,12 +21,22 @@ describe('Create Item Reservation (E2E)', () => {
     const { randomUUID } = await import('node:crypto');
     const unique = randomUUID();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `Tenant Create Reservation ${unique}`,
+        slug: `tenant-create-reservation-${unique}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const template = await prisma.template.create({
       data: {
         name: `Test Template ${unique}`,
         productAttributes: {},
         variantAttributes: {},
         itemAttributes: {},
+        tenantId,
       },
     });
 
@@ -43,6 +53,7 @@ describe('Create Item Reservation (E2E)', () => {
         status: 'ACTIVE',
         attributes: {},
         templateId: template.id,
+        tenantId,
       },
     });
 
@@ -59,6 +70,7 @@ describe('Create Item Reservation (E2E)', () => {
         price: 100,
         attributes: {},
         productId: product.id,
+        tenantId,
       },
     });
 
@@ -66,6 +78,7 @@ describe('Create Item Reservation (E2E)', () => {
       data: {
         code: `W${unique.slice(-3)}`,
         name: `Test Warehouse ${unique}`,
+        tenantId,
       },
     });
 
@@ -75,6 +88,7 @@ describe('Create Item Reservation (E2E)', () => {
         name: `Test Zone ${unique}`,
         warehouseId: warehouse.id,
         structure: {},
+        tenantId,
       },
     });
 
@@ -85,6 +99,7 @@ describe('Create Item Reservation (E2E)', () => {
         shelf: 1,
         position: 'A',
         zoneId: zone.id,
+        tenantId,
       },
     });
 
@@ -102,6 +117,7 @@ describe('Create Item Reservation (E2E)', () => {
         attributes: {},
         variantId: variant.id,
         binId: bin.id,
+        tenantId,
       },
     });
 

@@ -1,4 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Bin } from '@/entities/stock/bin';
 import type {
   BinOccupancyData,
@@ -14,6 +15,7 @@ export class InMemoryBinsRepository implements BinsRepository {
 
   async create(data: CreateBinSchema): Promise<Bin> {
     const bin = Bin.create({
+      tenantId: new EntityID(data.tenantId),
       zoneId: data.zoneId,
       address: data.address,
       aisle: data.aisle,
@@ -34,6 +36,7 @@ export class InMemoryBinsRepository implements BinsRepository {
     let count = 0;
     for (const binData of data.bins) {
       const bin = Bin.create({
+        tenantId: new EntityID(data.tenantId),
         zoneId: data.zoneId,
         address: binData.address,
         aisle: binData.aisle,
@@ -51,26 +54,39 @@ export class InMemoryBinsRepository implements BinsRepository {
     return count;
   }
 
-  async findById(id: UniqueEntityID): Promise<Bin | null> {
-    const bin = this.bins.find((b) => !b.deletedAt && b.binId.equals(id));
-    return bin ?? null;
-  }
-
-  async findManyByIds(ids: UniqueEntityID[]): Promise<Bin[]> {
-    return this.bins.filter(
-      (b) => !b.deletedAt && ids.some((id) => b.binId.equals(id)),
-    );
-  }
-
-  async findByAddress(address: string): Promise<Bin | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Bin | null> {
     const bin = this.bins.find(
-      (b) => !b.deletedAt && b.address.toLowerCase() === address.toLowerCase(),
+      (b) =>
+        !b.deletedAt &&
+        b.binId.equals(id) &&
+        b.tenantId.toString() === tenantId,
     );
     return bin ?? null;
   }
 
-  async findMany(filters?: BinSearchFilters): Promise<Bin[]> {
-    let result = this.bins.filter((b) => !b.deletedAt);
+  async findManyByIds(ids: UniqueEntityID[], tenantId: string): Promise<Bin[]> {
+    return this.bins.filter(
+      (b) =>
+        !b.deletedAt &&
+        ids.some((id) => b.binId.equals(id)) &&
+        b.tenantId.toString() === tenantId,
+    );
+  }
+
+  async findByAddress(address: string, tenantId: string): Promise<Bin | null> {
+    const bin = this.bins.find(
+      (b) =>
+        !b.deletedAt &&
+        b.address.toLowerCase() === address.toLowerCase() &&
+        b.tenantId.toString() === tenantId,
+    );
+    return bin ?? null;
+  }
+
+  async findMany(tenantId: string, filters?: BinSearchFilters): Promise<Bin[]> {
+    let result = this.bins.filter(
+      (b) => !b.deletedAt && b.tenantId.toString() === tenantId,
+    );
 
     if (filters?.zoneId) {
       result = result.filter((b) => b.zoneId.equals(filters.zoneId!));
@@ -102,39 +118,71 @@ export class InMemoryBinsRepository implements BinsRepository {
     return result;
   }
 
-  async findManyByZone(zoneId: UniqueEntityID): Promise<Bin[]> {
-    return this.bins.filter((b) => !b.deletedAt && b.zoneId.equals(zoneId));
-  }
-
-  async findManyByAisle(zoneId: UniqueEntityID, aisle: number): Promise<Bin[]> {
+  async findManyByZone(
+    zoneId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Bin[]> {
     return this.bins.filter(
-      (b) => !b.deletedAt && b.zoneId.equals(zoneId) && b.aisle === aisle,
+      (b) =>
+        !b.deletedAt &&
+        b.zoneId.equals(zoneId) &&
+        b.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyAvailable(zoneId: UniqueEntityID): Promise<Bin[]> {
+  async findManyByAisle(
+    zoneId: UniqueEntityID,
+    aisle: number,
+    tenantId: string,
+  ): Promise<Bin[]> {
     return this.bins.filter(
-      (b) => !b.deletedAt && b.zoneId.equals(zoneId) && b.isAvailable,
+      (b) =>
+        !b.deletedAt &&
+        b.zoneId.equals(zoneId) &&
+        b.aisle === aisle &&
+        b.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyBlocked(zoneId: UniqueEntityID): Promise<Bin[]> {
+  async findManyAvailable(
+    zoneId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Bin[]> {
     return this.bins.filter(
-      (b) => !b.deletedAt && b.zoneId.equals(zoneId) && b.isBlocked,
+      (b) =>
+        !b.deletedAt &&
+        b.zoneId.equals(zoneId) &&
+        b.isAvailable &&
+        b.tenantId.toString() === tenantId,
     );
   }
 
-  async search(query: string, limit = 20): Promise<Bin[]> {
+  async findManyBlocked(
+    zoneId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Bin[]> {
+    return this.bins.filter(
+      (b) =>
+        !b.deletedAt &&
+        b.zoneId.equals(zoneId) &&
+        b.isBlocked &&
+        b.tenantId.toString() === tenantId,
+    );
+  }
+
+  async search(query: string, tenantId: string, limit = 20): Promise<Bin[]> {
     return this.bins
       .filter(
         (b) =>
-          !b.deletedAt && b.address.toLowerCase().includes(query.toLowerCase()),
+          !b.deletedAt &&
+          b.address.toLowerCase().includes(query.toLowerCase()) &&
+          b.tenantId.toString() === tenantId,
       )
       .slice(0, limit);
   }
 
   async update(data: UpdateBinSchema): Promise<Bin | null> {
-    const bin = await this.findById(data.id);
+    const bin = this.bins.find((b) => !b.deletedAt && b.binId.equals(data.id));
     if (!bin) return null;
 
     if (data.capacity !== undefined) bin.capacity = data.capacity;
@@ -155,7 +203,7 @@ export class InMemoryBinsRepository implements BinsRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const bin = await this.findById(id);
+    const bin = this.bins.find((b) => !b.deletedAt && b.binId.equals(id));
     if (bin) {
       bin.delete();
     }
@@ -171,7 +219,10 @@ export class InMemoryBinsRepository implements BinsRepository {
     return binsToDelete.length;
   }
 
-  async getOccupancyMap(zoneId: UniqueEntityID): Promise<BinOccupancyData[]> {
+  async getOccupancyMap(
+    zoneId: UniqueEntityID,
+    _tenantId: string,
+  ): Promise<BinOccupancyData[]> {
     return this.bins
       .filter((b) => !b.deletedAt && b.zoneId.equals(zoneId))
       .map((b) => ({
@@ -187,7 +238,10 @@ export class InMemoryBinsRepository implements BinsRepository {
       }));
   }
 
-  async countByZone(zoneId: UniqueEntityID): Promise<number> {
+  async countByZone(
+    zoneId: UniqueEntityID,
+    _tenantId: string,
+  ): Promise<number> {
     return this.bins.filter((b) => !b.deletedAt && b.zoneId.equals(zoneId))
       .length;
   }

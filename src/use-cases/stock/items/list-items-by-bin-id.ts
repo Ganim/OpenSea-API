@@ -4,6 +4,7 @@ import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
 import type { ItemsRepository } from '@/repositories/stock/items-repository';
 
 interface ListItemsByBinIdUseCaseRequest {
+  tenantId: string;
   binId: string;
 }
 
@@ -20,6 +21,7 @@ export class ListItemsByBinIdUseCase {
     const itemsWithRelations =
       await this.itemsRepository.findManyByBinWithRelations(
         new UniqueEntityID(input.binId),
+        input.tenantId,
       );
 
     return {

@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createEmployeeWithUserResponseSchema,
   createEmployeeWithUserSchema,
@@ -21,6 +22,7 @@ export async function createEmployeeWithUserController(app: FastifyInstance) {
     url: '/v1/hr/employees-with-user',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.EMPLOYEES.CREATE,
         resource: 'employees',
@@ -44,6 +46,7 @@ export async function createEmployeeWithUserController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const data = request.body;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -56,8 +59,10 @@ export async function createEmployeeWithUserController(app: FastifyInstance) {
 
         const createEmployeeWithUserUseCase =
           makeCreateEmployeeWithUserUseCase();
-        const { employee, user } =
-          await createEmployeeWithUserUseCase.execute(data);
+        const { employee, user } = await createEmployeeWithUserUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.HR.EMPLOYEE_CREATE,

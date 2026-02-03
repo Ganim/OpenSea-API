@@ -1,12 +1,17 @@
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('Create Permission Group (e2e)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const tenantSetup = await createAndSetupTenant();
+    tenantId = tenantSetup.tenantId;
   });
 
   afterAll(async () => {
@@ -14,7 +19,7 @@ describe('Create Permission Group (e2e)', () => {
   });
 
   it('should create permission group with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const groupName = `Sales Team ${faker.string.uuid().slice(0, 8)}`;
 
@@ -32,5 +37,6 @@ describe('Create Permission Group (e2e)', () => {
     expect(response.body).toHaveProperty('group');
     expect(response.body.group).toHaveProperty('id');
     expect(response.body.group).toHaveProperty('name', groupName);
+    expect(response.body.group).toHaveProperty('tenantId', tenantId);
   });
 });

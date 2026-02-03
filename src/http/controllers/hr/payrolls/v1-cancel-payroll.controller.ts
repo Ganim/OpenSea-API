@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema, payrollResponseSchema } from '@/http/schemas';
 import { payrollToDTO } from '@/mappers/hr/payroll';
 import { makeCancelPayrollUseCase } from '@/use-cases/hr/payrolls/factories/make-cancel-payroll-use-case';
@@ -16,6 +17,7 @@ export async function cancelPayrollController(app: FastifyInstance) {
     url: '/v1/hr/payrolls/:payrollId/cancel',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.PAYROLLS.MANAGE,
         resource: 'payrolls',
@@ -43,11 +45,15 @@ export async function cancelPayrollController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { payrollId } = request.params;
 
       try {
         const cancelPayrollUseCase = makeCancelPayrollUseCase();
-        const { payroll } = await cancelPayrollUseCase.execute({ payrollId });
+        const { payroll } = await cancelPayrollUseCase.execute({
+          tenantId,
+          payrollId,
+        });
 
         return reply.status(200).send({ payroll: payrollToDTO(payroll) });
       } catch (error) {

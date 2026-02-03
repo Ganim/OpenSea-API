@@ -13,6 +13,7 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
 
   async create(data: CreateAbsenceSchema): Promise<Absence> {
     const absence = Absence.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       employeeId: data.employeeId,
       type: AbsenceType.create(data.type),
       status: AbsenceStatus.pending(),
@@ -33,12 +34,24 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
     return absence;
   }
 
-  async findById(id: UniqueEntityID): Promise<Absence | null> {
-    return this.items.find((item) => item.id.equals(id)) ?? null;
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Absence | null> {
+    return (
+      this.items.find(
+        (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+      ) ?? null
+    );
   }
 
-  async findMany(filters?: FindAbsenceFilters): Promise<Absence[]> {
-    let filtered = [...this.items];
+  async findMany(
+    tenantId: string,
+    filters?: FindAbsenceFilters,
+  ): Promise<Absence[]> {
+    let filtered = this.items.filter(
+      (item) => item.tenantId.toString() === tenantId,
+    );
 
     if (filters?.employeeId) {
       filtered = filtered.filter((item) =>
@@ -67,9 +80,16 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
     );
   }
 
-  async findManyByEmployee(employeeId: UniqueEntityID): Promise<Absence[]> {
+  async findManyByEmployee(
+    employeeId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Absence[]> {
     return this.items
-      .filter((item) => item.employeeId.equals(employeeId))
+      .filter(
+        (item) =>
+          item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.startDate.getTime() - a.startDate.getTime());
   }
 
@@ -77,35 +97,42 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
     employeeId: UniqueEntityID,
     startDate: Date,
     endDate: Date,
+    tenantId: string,
   ): Promise<Absence[]> {
     return this.items
       .filter(
         (item) =>
           item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId &&
           item.overlapsWithDateRange(startDate, endDate),
       )
       .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
   }
 
-  async findManyByStatus(status: string): Promise<Absence[]> {
+  async findManyByStatus(status: string, tenantId: string): Promise<Absence[]> {
     return this.items
-      .filter((item) => item.status.value === status)
+      .filter(
+        (item) =>
+          item.status.value === status && item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.startDate.getTime() - a.startDate.getTime());
   }
 
-  async findManyPending(): Promise<Absence[]> {
-    return this.findManyByStatus('PENDING');
+  async findManyPending(tenantId: string): Promise<Absence[]> {
+    return this.findManyByStatus('PENDING', tenantId);
   }
 
   async findOverlapping(
     employeeId: UniqueEntityID,
     startDate: Date,
     endDate: Date,
+    tenantId: string,
     excludeId?: UniqueEntityID,
   ): Promise<Absence[]> {
     return this.items.filter(
       (item) =>
         item.employeeId.equals(employeeId) &&
+        item.tenantId.toString() === tenantId &&
         !item.status.isRejected() &&
         !item.status.isCancelled() &&
         item.overlapsWithDateRange(startDate, endDate) &&
@@ -117,6 +144,7 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
     employeeId: UniqueEntityID,
     type: string,
     year: number,
+    tenantId: string,
   ): Promise<number> {
     const startOfYear = new Date(year, 0, 1);
     const endOfYear = new Date(year, 11, 31);
@@ -124,6 +152,7 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
     return this.items.filter(
       (item) =>
         item.employeeId.equals(employeeId) &&
+        item.tenantId.toString() === tenantId &&
         item.type.value === type &&
         !item.status.isRejected() &&
         !item.status.isCancelled() &&
@@ -136,6 +165,7 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
     employeeId: UniqueEntityID,
     type: string,
     year: number,
+    tenantId: string,
   ): Promise<number> {
     const startOfYear = new Date(year, 0, 1);
     const endOfYear = new Date(year, 11, 31);
@@ -144,6 +174,7 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
       .filter(
         (item) =>
           item.employeeId.equals(employeeId) &&
+          item.tenantId.toString() === tenantId &&
           item.type.value === type &&
           !item.status.isRejected() &&
           !item.status.isCancelled() &&

@@ -4,6 +4,7 @@ import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
 
 export interface CancelAbsenceRequest {
+  tenantId: string;
   absenceId: string;
 }
 
@@ -18,11 +19,12 @@ export class CancelAbsenceUseCase {
   ) {}
 
   async execute(request: CancelAbsenceRequest): Promise<CancelAbsenceResponse> {
-    const { absenceId } = request;
+    const { tenantId, absenceId } = request;
 
     // Find absence
     const absence = await this.absencesRepository.findById(
       new UniqueEntityID(absenceId),
+      tenantId,
     );
     if (!absence) {
       throw new Error('Absence not found');
@@ -42,7 +44,7 @@ export class CancelAbsenceUseCase {
 
     // If it's a vacation and was approved, restore vacation days
     if (absence.isVacation() && absence.isApproved()) {
-      await this.restoreVacationDays(absence);
+      await this.restoreVacationDays(absence, tenantId);
     }
 
     // Cancel the absence
@@ -54,12 +56,16 @@ export class CancelAbsenceUseCase {
     };
   }
 
-  private async restoreVacationDays(absence: Absence): Promise<void> {
+  private async restoreVacationDays(
+    absence: Absence,
+    tenantId: string,
+  ): Promise<void> {
     // Find the vacation periods that were used
     const periods =
       await this.vacationPeriodsRepository.findManyByEmployeeAndStatus(
         absence.employeeId,
         'SCHEDULED',
+        tenantId,
       );
 
     // This is a simplified implementation - in a real scenario,

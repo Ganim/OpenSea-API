@@ -41,17 +41,20 @@ async function createTestBin(
   binsRepo: InMemoryBinsRepository,
   code: string,
 ) {
-  let warehouse = await warehousesRepo.findByCode('FAB');
+  const tenantId = 'tenant-1';
+  let warehouse = await warehousesRepo.findByCode('FAB', tenantId);
   if (!warehouse) {
     warehouse = await warehousesRepo.create({
+      tenantId,
       code: 'FAB',
       name: 'Fábrica Principal',
     });
   }
 
-  let zone = await zonesRepo.findByCode(warehouse.warehouseId, 'EST');
+  let zone = await zonesRepo.findByCode(warehouse.warehouseId, 'EST', tenantId);
   if (!zone) {
     zone = await zonesRepo.create({
+      tenantId,
       warehouseId: warehouse.warehouseId,
       code: 'EST',
       name: 'Estoque',
@@ -59,6 +62,7 @@ async function createTestBin(
   }
 
   const bin = await binsRepo.create({
+    tenantId,
     zoneId: zone.zoneId,
     address: `FAB-EST-${code}`,
     aisle: 1,
@@ -114,11 +118,13 @@ describe('RegisterItemExitUseCase', () => {
 
   it('should be able to register an item exit for sale', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -127,6 +133,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -144,6 +151,7 @@ describe('RegisterItemExitUseCase', () => {
 
     // First register an entry
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-001',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -153,6 +161,7 @@ describe('RegisterItemExitUseCase', () => {
 
     // Then register an exit
     const result = await registerItemExit.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       quantity: 30,
       userId,
@@ -173,11 +182,13 @@ describe('RegisterItemExitUseCase', () => {
 
   it('should be able to register item exit for loss', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -186,6 +197,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -202,6 +214,7 @@ describe('RegisterItemExitUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-002',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -210,6 +223,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const result = await registerItemExit.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       quantity: 5,
       userId,
@@ -224,6 +238,7 @@ describe('RegisterItemExitUseCase', () => {
   it('should not allow negative or zero quantity', async () => {
     await expect(() =>
       registerItemExit.execute({
+        tenantId: 'tenant-1',
         itemId: new UniqueEntityID().toString(),
         quantity: 0,
         userId: new UniqueEntityID().toString(),
@@ -233,6 +248,7 @@ describe('RegisterItemExitUseCase', () => {
 
     await expect(() =>
       registerItemExit.execute({
+        tenantId: 'tenant-1',
         itemId: new UniqueEntityID().toString(),
         quantity: -10,
         userId: new UniqueEntityID().toString(),
@@ -244,6 +260,7 @@ describe('RegisterItemExitUseCase', () => {
   it('should not allow exit for non-existent item', async () => {
     await expect(() =>
       registerItemExit.execute({
+        tenantId: 'tenant-1',
         itemId: new UniqueEntityID().toString(),
         quantity: 10,
         userId: new UniqueEntityID().toString(),
@@ -254,11 +271,13 @@ describe('RegisterItemExitUseCase', () => {
 
   it('should not allow exit with insufficient quantity', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -267,6 +286,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -283,6 +303,7 @@ describe('RegisterItemExitUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-003',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -292,6 +313,7 @@ describe('RegisterItemExitUseCase', () => {
 
     await expect(() =>
       registerItemExit.execute({
+        tenantId: 'tenant-1',
         itemId: entryItem.id,
         quantity: 15,
         userId,
@@ -302,11 +324,13 @@ describe('RegisterItemExitUseCase', () => {
 
   it('should allow exit with exact available quantity', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -315,6 +339,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -331,6 +356,7 @@ describe('RegisterItemExitUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-004',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -339,6 +365,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const result = await registerItemExit.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       quantity: 20,
       userId,
@@ -350,11 +377,13 @@ describe('RegisterItemExitUseCase', () => {
 
   it('should be able to register exit for production', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -363,6 +392,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -379,6 +409,7 @@ describe('RegisterItemExitUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-005',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -387,6 +418,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const result = await registerItemExit.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       quantity: 25,
       userId,
@@ -400,11 +432,13 @@ describe('RegisterItemExitUseCase', () => {
 
   it('should be able to register exit for sample', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -413,6 +447,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -429,6 +464,7 @@ describe('RegisterItemExitUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-006',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -437,6 +473,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const result = await registerItemExit.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       quantity: 2,
       userId,
@@ -450,11 +487,13 @@ describe('RegisterItemExitUseCase', () => {
 
   it('should handle multiple exits from same item', async () => {
     const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
       name: 'Test Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
       name: 'Test Product',
 
       status: 'ACTIVE',
@@ -463,6 +502,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
       productId: product.id.toString(),
       sku: 'SKU-001',
       name: 'Test Variant',
@@ -479,6 +519,7 @@ describe('RegisterItemExitUseCase', () => {
     const userId = new UniqueEntityID().toString();
 
     const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
       uniqueCode: 'ITEM-007',
       variantId: variant.id.toString(),
       binId: bin.binId.toString(),
@@ -487,6 +528,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     await registerItemExit.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       quantity: 20,
       userId,
@@ -494,6 +536,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     await registerItemExit.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       quantity: 15,
       userId,
@@ -501,6 +544,7 @@ describe('RegisterItemExitUseCase', () => {
     });
 
     const result = await registerItemExit.execute({
+      tenantId: 'tenant-1',
       itemId: entryItem.id,
       quantity: 10,
       userId,

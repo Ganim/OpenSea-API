@@ -1,5 +1,9 @@
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 
+interface ListProductsUseCaseRequest {
+  tenantId: string;
+}
+
 interface ListProductsUseCaseResponse {
   products: import('@/entities/stock/product').Product[];
 }
@@ -7,8 +11,12 @@ interface ListProductsUseCaseResponse {
 export class ListProductsUseCase {
   constructor(private productsRepository: ProductsRepository) {}
 
-  async execute(): Promise<ListProductsUseCaseResponse> {
-    const products = await this.productsRepository.findMany();
+  async execute(
+    request: ListProductsUseCaseRequest,
+  ): Promise<ListProductsUseCaseResponse> {
+    const { tenantId } = request;
+
+    const products = await this.productsRepository.findMany(tenantId);
 
     return {
       products,

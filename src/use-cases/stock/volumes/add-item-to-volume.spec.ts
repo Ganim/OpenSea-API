@@ -3,6 +3,7 @@ import {
   VolumeNotFoundError,
 } from '@/@errors/volumes-errors';
 import { Volume } from '@/entities/stock/volume';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { VolumeItem } from '@/entities/stock/volume-item';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { InMemoryVolumesRepository } from '@/repositories/stock/in-memory/in-memory-volumes-repository';
@@ -21,6 +22,7 @@ describe('AddItemToVolumeUseCase', () => {
   it('should throw error if volume not found', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         volumeId: 'non-existent-id',
         itemId: 'item-1',
         addedBy: 'user-1',
@@ -30,6 +32,7 @@ describe('AddItemToVolumeUseCase', () => {
 
   it('should throw error if item already exists in volume', async () => {
     const volume = Volume.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       code: 'VOL-001',
       name: 'Volume Test',
       status: VolumeStatus.OPEN,
@@ -49,6 +52,7 @@ describe('AddItemToVolumeUseCase', () => {
     // Try to add same item again
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         volumeId: volume.id.toString(),
         itemId: 'item-1',
         addedBy: 'user-1',
@@ -58,6 +62,7 @@ describe('AddItemToVolumeUseCase', () => {
 
   it('should add item to volume successfully', async () => {
     const volume = Volume.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       code: 'VOL-001',
       name: 'Volume Test',
       status: VolumeStatus.OPEN,
@@ -67,6 +72,7 @@ describe('AddItemToVolumeUseCase', () => {
     await volumesRepository.create(volume);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       volumeId: volume.id.toString(),
       itemId: 'item-1',
       addedBy: 'user-2',

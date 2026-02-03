@@ -16,6 +16,8 @@ let employeesRepository: InMemoryEmployeesRepository;
 let sut: GetBonusUseCase;
 let testEmployee: Employee;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('Get Bonus Use Case', () => {
   beforeEach(async () => {
     bonusesRepository = new InMemoryBonusesRepository();
@@ -23,6 +25,7 @@ describe('Get Bonus Use Case', () => {
     sut = new GetBonusUseCase(bonusesRepository);
 
     testEmployee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee',
       cpf: CPF.create('529.982.247-25'),
@@ -38,6 +41,7 @@ describe('Get Bonus Use Case', () => {
 
   it('should get a bonus by id', async () => {
     const createdBonus = await bonusesRepository.create({
+      tenantId,
       employeeId: testEmployee.id,
       name: 'Performance Bonus',
       amount: 1000,
@@ -46,6 +50,7 @@ describe('Get Bonus Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       bonusId: createdBonus.id.toString(),
     });
 
@@ -58,6 +63,7 @@ describe('Get Bonus Use Case', () => {
   it('should throw error if bonus not found', async () => {
     await expect(
       sut.execute({
+        tenantId,
         bonusId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Bônus não encontrado');

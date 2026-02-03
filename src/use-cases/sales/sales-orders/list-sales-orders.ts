@@ -4,6 +4,7 @@ import { OrderStatus } from '@/entities/sales/value-objects/order-status';
 import { SalesOrdersRepository } from '@/repositories/sales/sales-orders-repository';
 
 interface ListSalesOrdersUseCaseRequest {
+  tenantId: string;
   page?: number;
   perPage?: number;
   customerId?: string;
@@ -63,16 +64,22 @@ export class ListSalesOrdersUseCase {
         new UniqueEntityID(input.customerId),
         1,
         999999,
+        input.tenantId,
       );
     } else if (input.status) {
       allOrders = await this.salesOrdersRepository.findManyByStatus(
         OrderStatus.create(input.status),
         1,
         999999,
+        input.tenantId,
       );
     } else {
       // Return all orders without filters
-      allOrders = await this.salesOrdersRepository.findMany(1, 999999);
+      allOrders = await this.salesOrdersRepository.findMany(
+        1,
+        999999,
+        input.tenantId,
+      );
     }
 
     const total = allOrders.length;

@@ -17,7 +17,7 @@ describe('ListAvailableBinsUseCase', () => {
 
   it('should throw ResourceNotFoundError for non-existent zone', async () => {
     await expect(() =>
-      sut.execute({ zoneId: 'non-existent' }),
+      sut.execute({ tenantId: 'tenant-1', zoneId: 'non-existent' }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

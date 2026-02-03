@@ -18,8 +18,9 @@ describe('Reject Absence (E2E)', () => {
   it('should reject absence with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
 
-    const { employeeId } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
     const { absenceId } = await createAbsenceE2E({
+      tenantId: employee.tenantId,
       employeeId,
       status: 'PENDING',
     });

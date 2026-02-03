@@ -4,6 +4,7 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 import { VolumeStatus } from './value-objects/volume-status';
 
 export interface VolumeProps {
+  tenantId: UniqueEntityID;
   code: string;
   name?: string;
   status: VolumeStatus;
@@ -23,6 +24,10 @@ export interface VolumeProps {
 }
 
 export class Volume extends Entity<VolumeProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get code(): string {
     return this.props.code;
   }

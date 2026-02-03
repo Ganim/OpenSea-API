@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 
 interface GetManufacturerByIdUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -16,10 +17,11 @@ export class GetManufacturerByIdUseCase {
   async execute(
     request: GetManufacturerByIdUseCaseRequest,
   ): Promise<GetManufacturerByIdUseCaseResponse> {
-    const { id } = request;
+    const { tenantId, id } = request;
 
     const manufacturer = await this.manufacturersRepository.findById(
       new UniqueEntityID(id),
+      tenantId,
     );
 
     if (!manufacturer) {

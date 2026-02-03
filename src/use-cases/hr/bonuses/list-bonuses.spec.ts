@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import {
   ContractType,
@@ -16,6 +17,8 @@ let sut: ListBonusesUseCase;
 let testEmployee1: Employee;
 let testEmployee2: Employee;
 
+const tenantId = new UniqueEntityID().toString();
+
 describe('List Bonuses Use Case', () => {
   beforeEach(async () => {
     bonusesRepository = new InMemoryBonusesRepository();
@@ -23,6 +26,7 @@ describe('List Bonuses Use Case', () => {
     sut = new ListBonusesUseCase(bonusesRepository);
 
     testEmployee1 = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP001',
       fullName: 'Test Employee 1',
       cpf: CPF.create('529.982.247-25'),
@@ -36,6 +40,7 @@ describe('List Bonuses Use Case', () => {
     });
 
     testEmployee2 = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP002',
       fullName: 'Test Employee 2',
       cpf: CPF.create('123.456.789-09'),
@@ -51,6 +56,7 @@ describe('List Bonuses Use Case', () => {
 
   it('should list all bonuses', async () => {
     await bonusesRepository.create({
+      tenantId,
       employeeId: testEmployee1.id,
       name: 'Bonus 1',
       amount: 500,
@@ -59,6 +65,7 @@ describe('List Bonuses Use Case', () => {
     });
 
     await bonusesRepository.create({
+      tenantId,
       employeeId: testEmployee2.id,
       name: 'Bonus 2',
       amount: 1000,
@@ -66,13 +73,14 @@ describe('List Bonuses Use Case', () => {
       date: new Date(),
     });
 
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId });
 
     expect(result.bonuses).toHaveLength(2);
   });
 
   it('should filter bonuses by employee', async () => {
     await bonusesRepository.create({
+      tenantId,
       employeeId: testEmployee1.id,
       name: 'Bonus 1',
       amount: 500,
@@ -81,6 +89,7 @@ describe('List Bonuses Use Case', () => {
     });
 
     await bonusesRepository.create({
+      tenantId,
       employeeId: testEmployee2.id,
       name: 'Bonus 2',
       amount: 1000,
@@ -89,6 +98,7 @@ describe('List Bonuses Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId,
       employeeId: testEmployee1.id.toString(),
     });
 
@@ -98,6 +108,7 @@ describe('List Bonuses Use Case', () => {
 
   it('should filter bonuses by paid status', async () => {
     const bonus = await bonusesRepository.create({
+      tenantId,
       employeeId: testEmployee1.id,
       name: 'Paid Bonus',
       amount: 500,
@@ -109,6 +120,7 @@ describe('List Bonuses Use Case', () => {
     await bonusesRepository.save(bonus);
 
     await bonusesRepository.create({
+      tenantId,
       employeeId: testEmployee1.id,
       name: 'Unpaid Bonus',
       amount: 1000,
@@ -116,17 +128,17 @@ describe('List Bonuses Use Case', () => {
       date: new Date(),
     });
 
-    const paidResult = await sut.execute({ isPaid: true });
+    const paidResult = await sut.execute({ tenantId, isPaid: true });
     expect(paidResult.bonuses).toHaveLength(1);
     expect(paidResult.bonuses[0].isPaid).toBe(true);
 
-    const unpaidResult = await sut.execute({ isPaid: false });
+    const unpaidResult = await sut.execute({ tenantId, isPaid: false });
     expect(unpaidResult.bonuses).toHaveLength(1);
     expect(unpaidResult.bonuses[0].isPaid).toBe(false);
   });
 
   it('should return empty array when no bonuses exist', async () => {
-    const result = await sut.execute({});
+    const result = await sut.execute({ tenantId });
 
     expect(result.bonuses).toHaveLength(0);
   });

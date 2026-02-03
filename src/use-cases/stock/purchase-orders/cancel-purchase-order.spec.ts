@@ -19,6 +19,7 @@ describe('CancelPurchaseOrderUseCase', () => {
     purchaseOrdersRepository.items.push(order);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: order.id.toString(),
     });
 
@@ -28,6 +29,7 @@ describe('CancelPurchaseOrderUseCase', () => {
   it('should not be able to cancel a nonexistent purchase order', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'nonexistent-id',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
@@ -39,6 +41,7 @@ describe('CancelPurchaseOrderUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: order.id.toString(),
       }),
     ).rejects.toBeInstanceOf(BadRequestError);

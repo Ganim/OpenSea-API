@@ -5,6 +5,7 @@ import type { Bin } from '@/entities/stock/bin';
 import type { BinsRepository } from '@/repositories/stock/bins-repository';
 
 interface UnblockBinUseCaseRequest {
+  tenantId: string;
   id: string;
 }
 
@@ -16,11 +17,12 @@ export class UnblockBinUseCase {
   constructor(private binsRepository: BinsRepository) {}
 
   async execute({
+    tenantId,
     id,
   }: UnblockBinUseCaseRequest): Promise<UnblockBinUseCaseResponse> {
     const binId = new UniqueEntityID(id);
 
-    const bin = await this.binsRepository.findById(binId);
+    const bin = await this.binsRepository.findById(binId, tenantId);
 
     if (!bin) {
       throw new ResourceNotFoundError('Bin');

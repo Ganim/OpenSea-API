@@ -20,41 +20,54 @@ describe('Delete Category Use Case', () => {
 
   it('should delete a category (soft delete)', async () => {
     const { category } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
-    const result = await sut.execute({ id: category.id.toString() });
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      id: category.id.toString(),
+    });
 
     expect(result.message).toBe('Category deleted successfully.');
 
     // Soft delete: a categoria ainda existe mas está marcada como deletada
     await expect(() =>
-      getCategoryByIdUseCase.execute({ id: category.id.toString() }),
+      getCategoryByIdUseCase.execute({
+        tenantId: 'tenant-1',
+        id: category.id.toString(),
+      }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 
   it('should throw error if category does not exist', async () => {
     await expect(() =>
-      sut.execute({ id: 'non-existent-id' }),
+      sut.execute({ tenantId: 'tenant-1', id: 'non-existent-id' }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 
   it('should delete a category with subcategories', async () => {
     const { category: parent } = await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
     });
 
     await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Smartphones',
       parentId: parent.id.toString(),
     });
 
     await createCategoryUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Laptops',
       parentId: parent.id.toString(),
     });
 
-    const result = await sut.execute({ id: parent.id.toString() });
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      id: parent.id.toString(),
+    });
 
     expect(result.message).toBe('Category deleted successfully.');
   });

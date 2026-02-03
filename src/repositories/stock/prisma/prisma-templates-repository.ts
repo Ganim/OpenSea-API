@@ -12,6 +12,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
   async create(data: CreateTemplateSchema): Promise<Template> {
     const templateData = await prisma.template.create({
       data: {
+        tenantId: data.tenantId,
         code: data.code, // Código hierárquico manual (auto-gerado no use case se não fornecido)
         name: data.name,
         iconUrl: data.iconUrl,
@@ -26,10 +27,14 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
     return templatePrismaToDomain(templateData);
   }
 
-  async findById(id: UniqueEntityID): Promise<Template | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Template | null> {
     const templateData = await prisma.template.findUnique({
       where: {
         id: id.toString(),
+        tenantId,
         deletedAt: null,
       },
     });
@@ -41,10 +46,11 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
     return templatePrismaToDomain(templateData);
   }
 
-  async findByName(name: string): Promise<Template | null> {
+  async findByName(name: string, tenantId: string): Promise<Template | null> {
     const templateData = await prisma.template.findFirst({
       where: {
         name,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -56,9 +62,10 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
     return templatePrismaToDomain(templateData);
   }
 
-  async findMany(): Promise<Template[]> {
+  async findMany(tenantId: string): Promise<Template[]> {
     const templates = await prisma.template.findMany({
       where: {
+        tenantId,
         deletedAt: null,
       },
     });

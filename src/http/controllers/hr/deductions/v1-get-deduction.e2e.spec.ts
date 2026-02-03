@@ -17,8 +17,8 @@ describe('Get Deduction (E2E)', () => {
 
   it('should get deduction with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
-    const deduction = await createDeduction(employeeId, {
+    const { employeeId, employee } = await createEmployeeE2E();
+    const deduction = await createDeduction(employee.tenantId, employeeId, {
       name: 'Test Deduction',
     });
 

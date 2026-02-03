@@ -257,6 +257,7 @@ export const PermissionGroupScalarFieldEnum = {
   color: 'color',
   priority: 'priority',
   parentId: 'parentId',
+  tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -458,7 +459,8 @@ export const SupplierScalarFieldEnum = {
   notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
 } as const
 
 export type SupplierScalarFieldEnum = (typeof SupplierScalarFieldEnum)[keyof typeof SupplierScalarFieldEnum]
@@ -482,7 +484,8 @@ export const ManufacturerScalarFieldEnum = {
   rating: 'rating',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
 } as const
 
 export type ManufacturerScalarFieldEnum = (typeof ManufacturerScalarFieldEnum)[keyof typeof ManufacturerScalarFieldEnum]
@@ -499,7 +502,8 @@ export const CategoryScalarFieldEnum = {
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
@@ -514,7 +518,8 @@ export const WarehouseScalarFieldEnum = {
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
 } as const
 
 export type WarehouseScalarFieldEnum = (typeof WarehouseScalarFieldEnum)[keyof typeof WarehouseScalarFieldEnum]
@@ -531,7 +536,8 @@ export const ZoneScalarFieldEnum = {
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
 } as const
 
 export type ZoneScalarFieldEnum = (typeof ZoneScalarFieldEnum)[keyof typeof ZoneScalarFieldEnum]
@@ -551,7 +557,8 @@ export const BinScalarFieldEnum = {
   blockReason: 'blockReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
 } as const
 
 export type BinScalarFieldEnum = (typeof BinScalarFieldEnum)[keyof typeof BinScalarFieldEnum]
@@ -574,7 +581,8 @@ export const VolumeScalarFieldEnum = {
   deletedAt: 'deletedAt',
   createdBy: 'createdBy',
   closedBy: 'closedBy',
-  deliveredBy: 'deliveredBy'
+  deliveredBy: 'deliveredBy',
+  tenantId: 'tenantId'
 } as const
 
 export type VolumeScalarFieldEnum = (typeof VolumeScalarFieldEnum)[keyof typeof VolumeScalarFieldEnum]
@@ -605,7 +613,8 @@ export const TemplateScalarFieldEnum = {
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
 } as const
 
 export type TemplateScalarFieldEnum = (typeof TemplateScalarFieldEnum)[keyof typeof TemplateScalarFieldEnum]
@@ -632,7 +641,8 @@ export const ProductScalarFieldEnum = {
   templateId: 'templateId',
   supplierId: 'supplierId',
   manufacturerId: 'manufacturerId',
-  organizationId: 'organizationId'
+  organizationId: 'organizationId',
+  tenantId: 'tenantId'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -667,7 +677,8 @@ export const VariantScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
-  productId: 'productId'
+  productId: 'productId',
+  tenantId: 'tenantId'
 } as const
 
 export type VariantScalarFieldEnum = (typeof VariantScalarFieldEnum)[keyof typeof VariantScalarFieldEnum]
@@ -696,7 +707,8 @@ export const ItemScalarFieldEnum = {
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
   variantId: 'variantId',
-  binId: 'binId'
+  binId: 'binId',
+  tenantId: 'tenantId'
 } as const
 
 export type ItemScalarFieldEnum = (typeof ItemScalarFieldEnum)[keyof typeof ItemScalarFieldEnum]
@@ -716,7 +728,8 @@ export const ItemMovementScalarFieldEnum = {
   itemId: 'itemId',
   userId: 'userId',
   approvedBy: 'approvedBy',
-  salesOrderId: 'salesOrderId'
+  salesOrderId: 'salesOrderId',
+  tenantId: 'tenantId'
 } as const
 
 export type ItemMovementScalarFieldEnum = (typeof ItemMovementScalarFieldEnum)[keyof typeof ItemMovementScalarFieldEnum]
@@ -750,6 +763,7 @@ export type VariantPriceHistoryScalarFieldEnum = (typeof VariantPriceHistoryScal
 
 export const AuditLogScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   action: 'action',
   entity: 'entity',
   module: 'module',
@@ -778,7 +792,8 @@ export const TagScalarFieldEnum = {
   description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
 } as const
 
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
@@ -835,7 +850,8 @@ export const PurchaseOrderScalarFieldEnum = {
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
   supplierId: 'supplierId',
-  createdBy: 'createdBy'
+  createdBy: 'createdBy',
+  tenantId: 'tenantId'
 } as const
 
 export type PurchaseOrderScalarFieldEnum = (typeof PurchaseOrderScalarFieldEnum)[keyof typeof PurchaseOrderScalarFieldEnum]
@@ -899,7 +915,8 @@ export const CustomerScalarFieldEnum = {
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
 } as const
 
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
@@ -917,7 +934,8 @@ export const SalesOrderScalarFieldEnum = {
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
   customerId: 'customerId',
-  createdBy: 'createdBy'
+  createdBy: 'createdBy',
+  tenantId: 'tenantId'
 } as const
 
 export type SalesOrderScalarFieldEnum = (typeof SalesOrderScalarFieldEnum)[keyof typeof SalesOrderScalarFieldEnum]
@@ -1128,6 +1146,7 @@ export type RequestHistoryScalarFieldEnum = (typeof RequestHistoryScalarFieldEnu
 
 export const EmployeeScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   registrationNumber: 'registrationNumber',
   userId: 'userId',
   fullName: 'fullName',
@@ -1195,6 +1214,7 @@ export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typ
 
 export const DepartmentScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   name: 'name',
   code: 'code',
   description: 'description',
@@ -1212,6 +1232,7 @@ export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof
 
 export const PositionScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   name: 'name',
   code: 'code',
   description: 'description',
@@ -1231,6 +1252,7 @@ export type PositionScalarFieldEnum = (typeof PositionScalarFieldEnum)[keyof typ
 
 export const TimeEntryScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   employeeId: 'employeeId',
   entryType: 'entryType',
   timestamp: 'timestamp',
@@ -1246,6 +1268,7 @@ export type TimeEntryScalarFieldEnum = (typeof TimeEntryScalarFieldEnum)[keyof t
 
 export const WorkScheduleScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   name: 'name',
   description: 'description',
   mondayStart: 'mondayStart',
@@ -1273,6 +1296,7 @@ export type WorkScheduleScalarFieldEnum = (typeof WorkScheduleScalarFieldEnum)[k
 
 export const OvertimeScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   employeeId: 'employeeId',
   date: 'date',
   hours: 'hours',
@@ -1289,6 +1313,7 @@ export type OvertimeScalarFieldEnum = (typeof OvertimeScalarFieldEnum)[keyof typ
 
 export const TimeBankScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   employeeId: 'employeeId',
   balance: 'balance',
   year: 'year',
@@ -1301,6 +1326,7 @@ export type TimeBankScalarFieldEnum = (typeof TimeBankScalarFieldEnum)[keyof typ
 
 export const AbsenceScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   employeeId: 'employeeId',
   type: 'type',
   status: 'status',
@@ -1329,6 +1355,7 @@ export type AbsenceScalarFieldEnum = (typeof AbsenceScalarFieldEnum)[keyof typeo
 
 export const VacationPeriodScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   employeeId: 'employeeId',
   acquisitionStart: 'acquisitionStart',
   acquisitionEnd: 'acquisitionEnd',
@@ -1352,6 +1379,7 @@ export type VacationPeriodScalarFieldEnum = (typeof VacationPeriodScalarFieldEnu
 
 export const PayrollScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   referenceMonth: 'referenceMonth',
   referenceYear: 'referenceYear',
   status: 'status',
@@ -1390,6 +1418,7 @@ export type PayrollItemScalarFieldEnum = (typeof PayrollItemScalarFieldEnum)[key
 
 export const BonusScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   employeeId: 'employeeId',
   name: 'name',
   amount: 'amount',
@@ -1405,6 +1434,7 @@ export type BonusScalarFieldEnum = (typeof BonusScalarFieldEnum)[keyof typeof Bo
 
 export const DeductionScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   employeeId: 'employeeId',
   name: 'name',
   amount: 'amount',
@@ -1424,6 +1454,7 @@ export type DeductionScalarFieldEnum = (typeof DeductionScalarFieldEnum)[keyof t
 
 export const CompanyScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   legalName: 'legalName',
   cnpj: 'cnpj',
   tradeName: 'tradeName',

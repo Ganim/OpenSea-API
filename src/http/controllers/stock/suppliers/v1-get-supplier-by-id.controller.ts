@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { supplierResponseSchema } from '@/http/schemas/stock/suppliers';
 import { makeGetSupplierByIdUseCase } from '@/use-cases/stock/suppliers/factories/make-get-supplier-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -14,6 +15,7 @@ export async function getSupplierByIdController(app: FastifyInstance) {
     url: '/v1/suppliers/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.SUPPLIERS.READ,
         resource: 'suppliers',
@@ -36,9 +38,14 @@ export async function getSupplierByIdController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+
       try {
         const useCase = makeGetSupplierByIdUseCase();
-        const result = await useCase.execute({ id: request.params.id });
+        const result = await useCase.execute({
+          tenantId,
+          id: request.params.id,
+        });
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {

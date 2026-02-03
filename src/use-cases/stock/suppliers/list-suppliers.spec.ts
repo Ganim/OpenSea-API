@@ -16,16 +16,18 @@ describe('ListSuppliersUseCase', () => {
 
   it('should list all suppliers', async () => {
     await createSupplierUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Tech Supplies Co.',
       city: 'São Paulo',
     });
 
     await createSupplierUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Office Supplies Ltd.',
       city: 'Rio de Janeiro',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.suppliers).toHaveLength(2);
     expect(result.suppliers[0].name).toBe('Tech Supplies Co.');
@@ -33,7 +35,7 @@ describe('ListSuppliersUseCase', () => {
   });
 
   it('should return empty array when there are no suppliers', async () => {
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.suppliers).toHaveLength(0);
   });

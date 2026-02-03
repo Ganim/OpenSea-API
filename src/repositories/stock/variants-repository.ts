@@ -3,6 +3,7 @@ import { Variant } from '@/entities/stock/variant';
 import type { Slug } from '@/entities/stock/value-objects/slug';
 
 export interface CreateVariantSchema {
+  tenantId: string;
   productId: UniqueEntityID;
   slug: Slug; // Slug gerado automaticamente do nome - IMUTAVEL
   fullCode: string; // Código hierárquico gerado: TEMPLATE.FABRICANTE.PRODUTO.VARIANTE
@@ -57,16 +58,26 @@ export interface UpdateVariantSchema {
 
 export interface VariantsRepository {
   create(data: CreateVariantSchema): Promise<Variant>;
-  findById(id: UniqueEntityID): Promise<Variant | null>;
-  findBySKU(sku: string): Promise<Variant | null>;
-  findByBarcode(barcode: string): Promise<Variant | null>;
-  findByEANCode(eanCode: string): Promise<Variant | null>;
-  findByUPCCode(upcCode: string): Promise<Variant | null>;
-  findMany(): Promise<Variant[]>;
-  findManyByProduct(productId: UniqueEntityID): Promise<Variant[]>;
-  findManyByPriceRange(minPrice: number, maxPrice: number): Promise<Variant[]>;
-  findManyBelowReorderPoint(): Promise<Variant[]>;
-  findManyByProductWithAggregations(productId: UniqueEntityID): Promise<
+  findById(id: UniqueEntityID, tenantId: string): Promise<Variant | null>;
+  findBySKU(sku: string, tenantId: string): Promise<Variant | null>;
+  findByBarcode(barcode: string, tenantId: string): Promise<Variant | null>;
+  findByEANCode(eanCode: string, tenantId: string): Promise<Variant | null>;
+  findByUPCCode(upcCode: string, tenantId: string): Promise<Variant | null>;
+  findMany(tenantId: string): Promise<Variant[]>;
+  findManyByProduct(
+    productId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Variant[]>;
+  findManyByPriceRange(
+    minPrice: number,
+    maxPrice: number,
+    tenantId: string,
+  ): Promise<Variant[]>;
+  findManyBelowReorderPoint(tenantId: string): Promise<Variant[]>;
+  findManyByProductWithAggregations(
+    productId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<
     Array<{
       variant: Variant;
       productCode: string | null;
@@ -75,7 +86,10 @@ export interface VariantsRepository {
       totalCurrentQuantity: number;
     }>
   >;
-  findLastByProductId(productId: UniqueEntityID): Promise<Variant | null>;
+  findLastByProductId(
+    productId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Variant | null>;
   update(data: UpdateVariantSchema): Promise<Variant | null>;
   save(variant: Variant): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

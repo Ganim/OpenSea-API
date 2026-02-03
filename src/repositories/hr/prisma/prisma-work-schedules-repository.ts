@@ -12,6 +12,7 @@ export class PrismaWorkSchedulesRepository implements WorkSchedulesRepository {
   async create(data: CreateWorkScheduleSchema): Promise<WorkSchedule> {
     const workScheduleData = await prisma.workSchedule.create({
       data: {
+        tenantId: data.tenantId,
         name: data.name,
         description: data.description,
         mondayStart: data.mondayStart,
@@ -40,9 +41,12 @@ export class PrismaWorkSchedulesRepository implements WorkSchedulesRepository {
     return workSchedule;
   }
 
-  async findById(id: UniqueEntityID): Promise<WorkSchedule | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<WorkSchedule | null> {
     const workScheduleData = await prisma.workSchedule.findUnique({
-      where: { id: id.toString() },
+      where: { id: id.toString(), tenantId },
     });
 
     if (!workScheduleData) return null;
@@ -54,9 +58,12 @@ export class PrismaWorkSchedulesRepository implements WorkSchedulesRepository {
     return workSchedule;
   }
 
-  async findByName(name: string): Promise<WorkSchedule | null> {
+  async findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<WorkSchedule | null> {
     const workScheduleData = await prisma.workSchedule.findFirst({
-      where: { name },
+      where: { name, tenantId },
     });
 
     if (!workScheduleData) return null;
@@ -68,8 +75,9 @@ export class PrismaWorkSchedulesRepository implements WorkSchedulesRepository {
     return workSchedule;
   }
 
-  async findMany(): Promise<WorkSchedule[]> {
+  async findMany(tenantId: string): Promise<WorkSchedule[]> {
     const workSchedules = await prisma.workSchedule.findMany({
+      where: { tenantId },
       orderBy: { name: 'asc' },
     });
 
@@ -81,9 +89,9 @@ export class PrismaWorkSchedulesRepository implements WorkSchedulesRepository {
     );
   }
 
-  async findManyActive(): Promise<WorkSchedule[]> {
+  async findManyActive(tenantId: string): Promise<WorkSchedule[]> {
     const workSchedules = await prisma.workSchedule.findMany({
-      where: { isActive: true },
+      where: { isActive: true, tenantId },
       orderBy: { name: 'asc' },
     });
 

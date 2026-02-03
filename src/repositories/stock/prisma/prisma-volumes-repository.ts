@@ -15,10 +15,11 @@ export class PrismaVolumesRepository implements VolumeRepository {
     await prisma.volume.create({ data });
   }
 
-  async findById(id: string): Promise<Volume | null> {
+  async findById(id: string, tenantId: string): Promise<Volume | null> {
     const volume = await prisma.volume.findFirst({
       where: {
         id,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -30,10 +31,11 @@ export class PrismaVolumesRepository implements VolumeRepository {
     return VolumeMapper.toDomain(volume);
   }
 
-  async findByCode(code: string): Promise<Volume | null> {
+  async findByCode(code: string, tenantId: string): Promise<Volume | null> {
     const volume = await prisma.volume.findFirst({
       where: {
         code,
+        tenantId,
         deletedAt: null,
       },
     });
@@ -68,10 +70,12 @@ export class PrismaVolumesRepository implements VolumeRepository {
 
   async list(
     params: PaginationParams,
+    tenantId: string,
   ): Promise<{ volumes: Volume[]; total: number }> {
     const [volumes, total] = await Promise.all([
       prisma.volume.findMany({
         where: {
+          tenantId,
           deletedAt: null,
         },
         skip: ((params.page ?? 1) - 1) * (params.limit ?? 10),
@@ -82,6 +86,7 @@ export class PrismaVolumesRepository implements VolumeRepository {
       }),
       prisma.volume.count({
         where: {
+          tenantId,
           deletedAt: null,
         },
       }),

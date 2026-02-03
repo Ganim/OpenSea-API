@@ -18,6 +18,7 @@ export interface LabelData {
 }
 
 interface GenerateLabelsUseCaseRequest {
+  tenantId: string;
   binIds: string[];
   format: 'qr' | 'barcode';
   size: 'small' | 'medium' | 'large';
@@ -43,6 +44,7 @@ export class GenerateLabelsUseCase {
     input: GenerateLabelsUseCaseRequest,
   ): Promise<GenerateLabelsUseCaseResponse> {
     const {
+      tenantId,
       binIds,
       format,
       size,
@@ -52,7 +54,7 @@ export class GenerateLabelsUseCase {
 
     // Fetch all bins by IDs
     const uniqueIds = binIds.map((id) => new UniqueEntityID(id));
-    const bins = await this.binsRepository.findManyByIds(uniqueIds);
+    const bins = await this.binsRepository.findManyByIds(uniqueIds, tenantId);
 
     if (bins.length === 0) {
       throw new ResourceNotFoundError(
@@ -74,7 +76,7 @@ export class GenerateLabelsUseCase {
 
       // Get zone info from cache or fetch
       if (!zoneCache.has(zoneId)) {
-        const zone = await this.zonesRepository.findById(bin.zoneId);
+        const zone = await this.zonesRepository.findById(bin.zoneId, tenantId);
         if (!zone) {
           continue; // Skip bins with missing zones
         }
@@ -92,6 +94,7 @@ export class GenerateLabelsUseCase {
       if (!warehouseCache.has(warehouseId)) {
         const warehouse = await this.warehousesRepository.findById(
           new UniqueEntityID(warehouseId),
+          tenantId,
         );
         if (!warehouse) {
           continue; // Skip bins with missing warehouses

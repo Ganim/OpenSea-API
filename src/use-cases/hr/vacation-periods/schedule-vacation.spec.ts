@@ -5,6 +5,8 @@ import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/i
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ScheduleVacationUseCase } from './schedule-vacation';
 
+const TENANT_ID = 'tenant-1';
+
 let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let sut: ScheduleVacationUseCase;
 let testVacationPeriod: VacationPeriod;
@@ -16,6 +18,7 @@ describe('Schedule Vacation Use Case', () => {
     sut = new ScheduleVacationUseCase(vacationPeriodsRepository);
 
     testVacationPeriod = VacationPeriod.create({
+      tenantId: new UniqueEntityID(TENANT_ID),
       employeeId,
       acquisitionStart: new Date('2022-01-01'),
       acquisitionEnd: new Date('2023-01-01'),
@@ -36,6 +39,7 @@ describe('Schedule Vacation Use Case', () => {
     const endDate = new Date('2024-06-10'); // 10 days
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       vacationPeriodId: testVacationPeriod.id.toString(),
       startDate,
       endDate,
@@ -51,6 +55,7 @@ describe('Schedule Vacation Use Case', () => {
   it('should throw error if vacation period not found', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: new UniqueEntityID().toString(),
         startDate: new Date('2024-06-01'),
         endDate: new Date('2024-06-10'),
@@ -62,6 +67,7 @@ describe('Schedule Vacation Use Case', () => {
   it('should throw error if not enough days available', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: testVacationPeriod.id.toString(),
         startDate: new Date('2024-06-01'),
         endDate: new Date('2024-07-05'),
@@ -73,6 +79,7 @@ describe('Schedule Vacation Use Case', () => {
   it('should throw error if period is less than 5 days', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: testVacationPeriod.id.toString(),
         startDate: new Date('2024-06-01'),
         endDate: new Date('2024-06-03'),
@@ -84,6 +91,7 @@ describe('Schedule Vacation Use Case', () => {
   it('should throw error if start date is after end date', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         vacationPeriodId: testVacationPeriod.id.toString(),
         startDate: new Date('2024-06-10'),
         endDate: new Date('2024-06-01'),

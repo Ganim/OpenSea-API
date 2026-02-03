@@ -17,12 +17,14 @@ describe('GetSupplierByIdUseCase', () => {
 
   it('should get a supplier by id', async () => {
     const { supplier: createdSupplier } = await createSupplierUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Tech Supplies Co.',
       email: 'contact@techsupplies.com',
       city: 'São Paulo',
     });
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: createdSupplier.id,
     });
 
@@ -32,6 +34,7 @@ describe('GetSupplierByIdUseCase', () => {
   it('should throw error when supplier does not exist', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'non-existent-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);

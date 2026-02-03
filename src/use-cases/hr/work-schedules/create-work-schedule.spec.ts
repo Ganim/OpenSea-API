@@ -2,6 +2,8 @@ import { InMemoryWorkSchedulesRepository } from '@/repositories/hr/in-memory/in-
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateWorkScheduleUseCase } from './create-work-schedule';
 
+const TENANT_ID = 'tenant-1';
+
 let workSchedulesRepository: InMemoryWorkSchedulesRepository;
 let sut: CreateWorkScheduleUseCase;
 
@@ -13,6 +15,7 @@ describe('Create Work Schedule Use Case', () => {
 
   it('should create a standard work schedule', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Standard 44h',
       description: 'Standard 44 hours per week',
       mondayStart: '08:00',
@@ -37,6 +40,7 @@ describe('Create Work Schedule Use Case', () => {
 
   it('should create a weekend work schedule', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Weekend Shift',
       saturdayStart: '08:00',
       saturdayEnd: '14:00',
@@ -53,6 +57,7 @@ describe('Create Work Schedule Use Case', () => {
 
   it('should not create schedule with duplicate name', async () => {
     await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Standard 44h',
       mondayStart: '08:00',
       mondayEnd: '17:00',
@@ -61,6 +66,7 @@ describe('Create Work Schedule Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Standard 44h',
         mondayStart: '09:00',
         mondayEnd: '18:00',
@@ -72,6 +78,7 @@ describe('Create Work Schedule Use Case', () => {
   it('should reject invalid time format', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Invalid Schedule',
         mondayStart: '25:00', // Invalid - hour out of range
         mondayEnd: '17:00',
@@ -83,6 +90,7 @@ describe('Create Work Schedule Use Case', () => {
   it('should reject invalid break duration', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Invalid Schedule',
         mondayStart: '08:00',
         mondayEnd: '17:00',
@@ -94,6 +102,7 @@ describe('Create Work Schedule Use Case', () => {
   it('should reject break duration over 480 minutes', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Invalid Schedule',
         mondayStart: '08:00',
         mondayEnd: '17:00',

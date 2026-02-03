@@ -36,6 +36,7 @@ export type WorkScheduleSumAggregateOutputType = {
 
 export type WorkScheduleMinAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   name: string | null
   description: string | null
   mondayStart: string | null
@@ -60,6 +61,7 @@ export type WorkScheduleMinAggregateOutputType = {
 
 export type WorkScheduleMaxAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   name: string | null
   description: string | null
   mondayStart: string | null
@@ -84,6 +86,7 @@ export type WorkScheduleMaxAggregateOutputType = {
 
 export type WorkScheduleCountAggregateOutputType = {
   id: number
+  tenantId: number
   name: number
   description: number
   mondayStart: number
@@ -118,6 +121,7 @@ export type WorkScheduleSumAggregateInputType = {
 
 export type WorkScheduleMinAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   description?: true
   mondayStart?: true
@@ -142,6 +146,7 @@ export type WorkScheduleMinAggregateInputType = {
 
 export type WorkScheduleMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   description?: true
   mondayStart?: true
@@ -166,6 +171,7 @@ export type WorkScheduleMaxAggregateInputType = {
 
 export type WorkScheduleCountAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   description?: true
   mondayStart?: true
@@ -277,6 +283,7 @@ export type WorkScheduleGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 
 export type WorkScheduleGroupByOutputType = {
   id: string
+  tenantId: string
   name: string
   description: string | null
   mondayStart: string | null
@@ -324,6 +331,7 @@ export type WorkScheduleWhereInput = {
   OR?: Prisma.WorkScheduleWhereInput[]
   NOT?: Prisma.WorkScheduleWhereInput | Prisma.WorkScheduleWhereInput[]
   id?: Prisma.StringFilter<"WorkSchedule"> | string
+  tenantId?: Prisma.StringFilter<"WorkSchedule"> | string
   name?: Prisma.StringFilter<"WorkSchedule"> | string
   description?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
   mondayStart?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
@@ -344,10 +352,12 @@ export type WorkScheduleWhereInput = {
   isActive?: Prisma.BoolFilter<"WorkSchedule"> | boolean
   createdAt?: Prisma.DateTimeFilter<"WorkSchedule"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkSchedule"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
 }
 
 export type WorkScheduleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   mondayStart?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -368,6 +378,7 @@ export type WorkScheduleOrderByWithRelationInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
 }
 
 export type WorkScheduleWhereUniqueInput = Prisma.AtLeast<{
@@ -375,6 +386,7 @@ export type WorkScheduleWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.WorkScheduleWhereInput | Prisma.WorkScheduleWhereInput[]
   OR?: Prisma.WorkScheduleWhereInput[]
   NOT?: Prisma.WorkScheduleWhereInput | Prisma.WorkScheduleWhereInput[]
+  tenantId?: Prisma.StringFilter<"WorkSchedule"> | string
   name?: Prisma.StringFilter<"WorkSchedule"> | string
   description?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
   mondayStart?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
@@ -395,10 +407,12 @@ export type WorkScheduleWhereUniqueInput = Prisma.AtLeast<{
   isActive?: Prisma.BoolFilter<"WorkSchedule"> | boolean
   createdAt?: Prisma.DateTimeFilter<"WorkSchedule"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkSchedule"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
 }, "id">
 
 export type WorkScheduleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   mondayStart?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -431,6 +445,7 @@ export type WorkScheduleScalarWhereWithAggregatesInput = {
   OR?: Prisma.WorkScheduleScalarWhereWithAggregatesInput[]
   NOT?: Prisma.WorkScheduleScalarWhereWithAggregatesInput | Prisma.WorkScheduleScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"WorkSchedule"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"WorkSchedule"> | string
   name?: Prisma.StringWithAggregatesFilter<"WorkSchedule"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"WorkSchedule"> | string | null
   mondayStart?: Prisma.StringNullableWithAggregatesFilter<"WorkSchedule"> | string | null
@@ -475,10 +490,12 @@ export type WorkScheduleCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutWorkSchedulesInput
 }
 
 export type WorkScheduleUncheckedCreateInput = {
   id?: string
+  tenantId: string
   name: string
   description?: string | null
   mondayStart?: string | null
@@ -523,10 +540,12 @@ export type WorkScheduleUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutWorkSchedulesNestedInput
 }
 
 export type WorkScheduleUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mondayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -551,6 +570,7 @@ export type WorkScheduleUncheckedUpdateInput = {
 
 export type WorkScheduleCreateManyInput = {
   id?: string
+  tenantId: string
   name: string
   description?: string | null
   mondayStart?: string | null
@@ -599,6 +619,7 @@ export type WorkScheduleUpdateManyMutationInput = {
 
 export type WorkScheduleUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mondayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -623,6 +644,7 @@ export type WorkScheduleUncheckedUpdateManyInput = {
 
 export type WorkScheduleCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   mondayStart?: Prisma.SortOrder
@@ -651,6 +673,7 @@ export type WorkScheduleAvgOrderByAggregateInput = {
 
 export type WorkScheduleMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   mondayStart?: Prisma.SortOrder
@@ -675,6 +698,7 @@ export type WorkScheduleMaxOrderByAggregateInput = {
 
 export type WorkScheduleMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   mondayStart?: Prisma.SortOrder
@@ -701,10 +725,261 @@ export type WorkScheduleSumOrderByAggregateInput = {
   breakDuration?: Prisma.SortOrder
 }
 
+export type WorkScheduleListRelationFilter = {
+  every?: Prisma.WorkScheduleWhereInput
+  some?: Prisma.WorkScheduleWhereInput
+  none?: Prisma.WorkScheduleWhereInput
+}
+
+export type WorkScheduleOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type WorkScheduleCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.WorkScheduleCreateWithoutTenantInput, Prisma.WorkScheduleUncheckedCreateWithoutTenantInput> | Prisma.WorkScheduleCreateWithoutTenantInput[] | Prisma.WorkScheduleUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.WorkScheduleCreateOrConnectWithoutTenantInput | Prisma.WorkScheduleCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.WorkScheduleCreateManyTenantInputEnvelope
+  connect?: Prisma.WorkScheduleWhereUniqueInput | Prisma.WorkScheduleWhereUniqueInput[]
+}
+
+export type WorkScheduleUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.WorkScheduleCreateWithoutTenantInput, Prisma.WorkScheduleUncheckedCreateWithoutTenantInput> | Prisma.WorkScheduleCreateWithoutTenantInput[] | Prisma.WorkScheduleUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.WorkScheduleCreateOrConnectWithoutTenantInput | Prisma.WorkScheduleCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.WorkScheduleCreateManyTenantInputEnvelope
+  connect?: Prisma.WorkScheduleWhereUniqueInput | Prisma.WorkScheduleWhereUniqueInput[]
+}
+
+export type WorkScheduleUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkScheduleCreateWithoutTenantInput, Prisma.WorkScheduleUncheckedCreateWithoutTenantInput> | Prisma.WorkScheduleCreateWithoutTenantInput[] | Prisma.WorkScheduleUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.WorkScheduleCreateOrConnectWithoutTenantInput | Prisma.WorkScheduleCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.WorkScheduleUpsertWithWhereUniqueWithoutTenantInput | Prisma.WorkScheduleUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.WorkScheduleCreateManyTenantInputEnvelope
+  set?: Prisma.WorkScheduleWhereUniqueInput | Prisma.WorkScheduleWhereUniqueInput[]
+  disconnect?: Prisma.WorkScheduleWhereUniqueInput | Prisma.WorkScheduleWhereUniqueInput[]
+  delete?: Prisma.WorkScheduleWhereUniqueInput | Prisma.WorkScheduleWhereUniqueInput[]
+  connect?: Prisma.WorkScheduleWhereUniqueInput | Prisma.WorkScheduleWhereUniqueInput[]
+  update?: Prisma.WorkScheduleUpdateWithWhereUniqueWithoutTenantInput | Prisma.WorkScheduleUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.WorkScheduleUpdateManyWithWhereWithoutTenantInput | Prisma.WorkScheduleUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.WorkScheduleScalarWhereInput | Prisma.WorkScheduleScalarWhereInput[]
+}
+
+export type WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkScheduleCreateWithoutTenantInput, Prisma.WorkScheduleUncheckedCreateWithoutTenantInput> | Prisma.WorkScheduleCreateWithoutTenantInput[] | Prisma.WorkScheduleUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.WorkScheduleCreateOrConnectWithoutTenantInput | Prisma.WorkScheduleCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.WorkScheduleUpsertWithWhereUniqueWithoutTenantInput | Prisma.WorkScheduleUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.WorkScheduleCreateManyTenantInputEnvelope
+  set?: Prisma.WorkScheduleWhereUniqueInput | Prisma.WorkScheduleWhereUniqueInput[]
+  disconnect?: Prisma.WorkScheduleWhereUniqueInput | Prisma.WorkScheduleWhereUniqueInput[]
+  delete?: Prisma.WorkScheduleWhereUniqueInput | Prisma.WorkScheduleWhereUniqueInput[]
+  connect?: Prisma.WorkScheduleWhereUniqueInput | Prisma.WorkScheduleWhereUniqueInput[]
+  update?: Prisma.WorkScheduleUpdateWithWhereUniqueWithoutTenantInput | Prisma.WorkScheduleUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.WorkScheduleUpdateManyWithWhereWithoutTenantInput | Prisma.WorkScheduleUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.WorkScheduleScalarWhereInput | Prisma.WorkScheduleScalarWhereInput[]
+}
+
+export type WorkScheduleCreateWithoutTenantInput = {
+  id?: string
+  name: string
+  description?: string | null
+  mondayStart?: string | null
+  mondayEnd?: string | null
+  tuesdayStart?: string | null
+  tuesdayEnd?: string | null
+  wednesdayStart?: string | null
+  wednesdayEnd?: string | null
+  thursdayStart?: string | null
+  thursdayEnd?: string | null
+  fridayStart?: string | null
+  fridayEnd?: string | null
+  saturdayStart?: string | null
+  saturdayEnd?: string | null
+  sundayStart?: string | null
+  sundayEnd?: string | null
+  breakDuration?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type WorkScheduleUncheckedCreateWithoutTenantInput = {
+  id?: string
+  name: string
+  description?: string | null
+  mondayStart?: string | null
+  mondayEnd?: string | null
+  tuesdayStart?: string | null
+  tuesdayEnd?: string | null
+  wednesdayStart?: string | null
+  wednesdayEnd?: string | null
+  thursdayStart?: string | null
+  thursdayEnd?: string | null
+  fridayStart?: string | null
+  fridayEnd?: string | null
+  saturdayStart?: string | null
+  saturdayEnd?: string | null
+  sundayStart?: string | null
+  sundayEnd?: string | null
+  breakDuration?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type WorkScheduleCreateOrConnectWithoutTenantInput = {
+  where: Prisma.WorkScheduleWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkScheduleCreateWithoutTenantInput, Prisma.WorkScheduleUncheckedCreateWithoutTenantInput>
+}
+
+export type WorkScheduleCreateManyTenantInputEnvelope = {
+  data: Prisma.WorkScheduleCreateManyTenantInput | Prisma.WorkScheduleCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type WorkScheduleUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.WorkScheduleWhereUniqueInput
+  update: Prisma.XOR<Prisma.WorkScheduleUpdateWithoutTenantInput, Prisma.WorkScheduleUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.WorkScheduleCreateWithoutTenantInput, Prisma.WorkScheduleUncheckedCreateWithoutTenantInput>
+}
+
+export type WorkScheduleUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.WorkScheduleWhereUniqueInput
+  data: Prisma.XOR<Prisma.WorkScheduleUpdateWithoutTenantInput, Prisma.WorkScheduleUncheckedUpdateWithoutTenantInput>
+}
+
+export type WorkScheduleUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.WorkScheduleScalarWhereInput
+  data: Prisma.XOR<Prisma.WorkScheduleUpdateManyMutationInput, Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type WorkScheduleScalarWhereInput = {
+  AND?: Prisma.WorkScheduleScalarWhereInput | Prisma.WorkScheduleScalarWhereInput[]
+  OR?: Prisma.WorkScheduleScalarWhereInput[]
+  NOT?: Prisma.WorkScheduleScalarWhereInput | Prisma.WorkScheduleScalarWhereInput[]
+  id?: Prisma.StringFilter<"WorkSchedule"> | string
+  tenantId?: Prisma.StringFilter<"WorkSchedule"> | string
+  name?: Prisma.StringFilter<"WorkSchedule"> | string
+  description?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  mondayStart?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  mondayEnd?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  tuesdayStart?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  tuesdayEnd?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  wednesdayStart?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  wednesdayEnd?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  thursdayStart?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  thursdayEnd?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  fridayStart?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  fridayEnd?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  saturdayStart?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  saturdayEnd?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  sundayStart?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  sundayEnd?: Prisma.StringNullableFilter<"WorkSchedule"> | string | null
+  breakDuration?: Prisma.IntFilter<"WorkSchedule"> | number
+  isActive?: Prisma.BoolFilter<"WorkSchedule"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"WorkSchedule"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"WorkSchedule"> | Date | string
+}
+
+export type WorkScheduleCreateManyTenantInput = {
+  id?: string
+  name: string
+  description?: string | null
+  mondayStart?: string | null
+  mondayEnd?: string | null
+  tuesdayStart?: string | null
+  tuesdayEnd?: string | null
+  wednesdayStart?: string | null
+  wednesdayEnd?: string | null
+  thursdayStart?: string | null
+  thursdayEnd?: string | null
+  fridayStart?: string | null
+  fridayEnd?: string | null
+  saturdayStart?: string | null
+  saturdayEnd?: string | null
+  sundayStart?: string | null
+  sundayEnd?: string | null
+  breakDuration?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type WorkScheduleUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mondayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mondayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tuesdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tuesdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wednesdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wednesdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thursdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thursdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fridayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fridayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saturdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saturdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sundayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sundayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  breakDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type WorkScheduleUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mondayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mondayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tuesdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tuesdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wednesdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wednesdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thursdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thursdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fridayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fridayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saturdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saturdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sundayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sundayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  breakDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type WorkScheduleUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mondayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mondayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tuesdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tuesdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wednesdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wednesdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thursdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thursdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fridayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fridayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saturdayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saturdayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sundayStart?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sundayEnd?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  breakDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type WorkScheduleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   description?: boolean
   mondayStart?: boolean
@@ -725,10 +1000,12 @@ export type WorkScheduleSelect<ExtArgs extends runtime.Types.Extensions.Internal
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workSchedule"]>
 
 export type WorkScheduleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   description?: boolean
   mondayStart?: boolean
@@ -749,10 +1026,12 @@ export type WorkScheduleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workSchedule"]>
 
 export type WorkScheduleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   description?: boolean
   mondayStart?: boolean
@@ -773,10 +1052,12 @@ export type WorkScheduleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workSchedule"]>
 
 export type WorkScheduleSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   description?: boolean
   mondayStart?: boolean
@@ -799,13 +1080,25 @@ export type WorkScheduleSelectScalar = {
   updatedAt?: boolean
 }
 
-export type WorkScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "mondayStart" | "mondayEnd" | "tuesdayStart" | "tuesdayEnd" | "wednesdayStart" | "wednesdayEnd" | "thursdayStart" | "thursdayEnd" | "fridayStart" | "fridayEnd" | "saturdayStart" | "saturdayEnd" | "sundayStart" | "sundayEnd" | "breakDuration" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["workSchedule"]>
+export type WorkScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "description" | "mondayStart" | "mondayEnd" | "tuesdayStart" | "tuesdayEnd" | "wednesdayStart" | "wednesdayEnd" | "thursdayStart" | "thursdayEnd" | "fridayStart" | "fridayEnd" | "saturdayStart" | "saturdayEnd" | "sundayStart" | "sundayEnd" | "breakDuration" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["workSchedule"]>
+export type WorkScheduleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+}
+export type WorkScheduleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+}
+export type WorkScheduleIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+}
 
 export type $WorkSchedulePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "WorkSchedule"
-  objects: {}
+  objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    tenantId: string
     name: string
     description: string | null
     mondayStart: string | null
@@ -1220,6 +1513,7 @@ readonly fields: WorkScheduleFieldRefs;
  */
 export interface Prisma__WorkScheduleClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1250,6 +1544,7 @@ export interface Prisma__WorkScheduleClient<T, Null = never, ExtArgs extends run
  */
 export interface WorkScheduleFieldRefs {
   readonly id: Prisma.FieldRef<"WorkSchedule", 'String'>
+  readonly tenantId: Prisma.FieldRef<"WorkSchedule", 'String'>
   readonly name: Prisma.FieldRef<"WorkSchedule", 'String'>
   readonly description: Prisma.FieldRef<"WorkSchedule", 'String'>
   readonly mondayStart: Prisma.FieldRef<"WorkSchedule", 'String'>
@@ -1287,6 +1582,10 @@ export type WorkScheduleFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.WorkScheduleOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleInclude<ExtArgs> | null
+  /**
    * Filter, which WorkSchedule to fetch.
    */
   where: Prisma.WorkScheduleWhereUniqueInput
@@ -1305,6 +1604,10 @@ export type WorkScheduleFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Exte
    */
   omit?: Prisma.WorkScheduleOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleInclude<ExtArgs> | null
+  /**
    * Filter, which WorkSchedule to fetch.
    */
   where: Prisma.WorkScheduleWhereUniqueInput
@@ -1322,6 +1625,10 @@ export type WorkScheduleFindFirstArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the WorkSchedule
    */
   omit?: Prisma.WorkScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleInclude<ExtArgs> | null
   /**
    * Filter, which WorkSchedule to fetch.
    */
@@ -1371,6 +1678,10 @@ export type WorkScheduleFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Exten
    */
   omit?: Prisma.WorkScheduleOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleInclude<ExtArgs> | null
+  /**
    * Filter, which WorkSchedule to fetch.
    */
   where?: Prisma.WorkScheduleWhereInput
@@ -1419,6 +1730,10 @@ export type WorkScheduleFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.WorkScheduleOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleInclude<ExtArgs> | null
+  /**
    * Filter, which WorkSchedules to fetch.
    */
   where?: Prisma.WorkScheduleWhereInput
@@ -1462,6 +1777,10 @@ export type WorkScheduleCreateArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.WorkScheduleOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleInclude<ExtArgs> | null
+  /**
    * The data needed to create a WorkSchedule.
    */
   data: Prisma.XOR<Prisma.WorkScheduleCreateInput, Prisma.WorkScheduleUncheckedCreateInput>
@@ -1495,6 +1814,10 @@ export type WorkScheduleCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    */
   data: Prisma.WorkScheduleCreateManyInput | Prisma.WorkScheduleCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1509,6 +1832,10 @@ export type WorkScheduleUpdateArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the WorkSchedule
    */
   omit?: Prisma.WorkScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleInclude<ExtArgs> | null
   /**
    * The data needed to update a WorkSchedule.
    */
@@ -1561,6 +1888,10 @@ export type WorkScheduleUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    * Limit how many WorkSchedules to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1575,6 +1906,10 @@ export type WorkScheduleUpsertArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the WorkSchedule
    */
   omit?: Prisma.WorkScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleInclude<ExtArgs> | null
   /**
    * The filter to search for the WorkSchedule to update in case it exists.
    */
@@ -1601,6 +1936,10 @@ export type WorkScheduleDeleteArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the WorkSchedule
    */
   omit?: Prisma.WorkScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleInclude<ExtArgs> | null
   /**
    * Filter which WorkSchedule to delete.
    */
@@ -1633,4 +1972,8 @@ export type WorkScheduleDefaultArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the WorkSchedule
    */
   omit?: Prisma.WorkScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkScheduleInclude<ExtArgs> | null
 }

@@ -3,6 +3,8 @@ import { InMemoryWorkSchedulesRepository } from '@/repositories/hr/in-memory/in-
 import { beforeEach, describe, expect, it } from 'vitest';
 import { UpdateWorkScheduleUseCase } from './update-work-schedule';
 
+const TENANT_ID = 'tenant-1';
+
 let workSchedulesRepository: InMemoryWorkSchedulesRepository;
 let sut: UpdateWorkScheduleUseCase;
 
@@ -14,6 +16,7 @@ describe('Update Work Schedule Use Case', () => {
 
   it('should update work schedule name', async () => {
     const schedule = await workSchedulesRepository.create({
+      tenantId: TENANT_ID,
       name: 'Original Name',
       mondayStart: '08:00',
       mondayEnd: '17:00',
@@ -21,6 +24,7 @@ describe('Update Work Schedule Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: schedule.id.toString(),
       name: 'Updated Name',
     });
@@ -30,6 +34,7 @@ describe('Update Work Schedule Use Case', () => {
 
   it('should update work schedule times', async () => {
     const schedule = await workSchedulesRepository.create({
+      tenantId: TENANT_ID,
       name: 'Schedule',
       mondayStart: '08:00',
       mondayEnd: '17:00',
@@ -37,6 +42,7 @@ describe('Update Work Schedule Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: schedule.id.toString(),
       mondayStart: '09:00',
       mondayEnd: '18:00',
@@ -48,6 +54,7 @@ describe('Update Work Schedule Use Case', () => {
 
   it('should deactivate work schedule', async () => {
     const schedule = await workSchedulesRepository.create({
+      tenantId: TENANT_ID,
       name: 'Schedule',
       mondayStart: '08:00',
       mondayEnd: '17:00',
@@ -55,6 +62,7 @@ describe('Update Work Schedule Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: schedule.id.toString(),
       isActive: false,
     });
@@ -65,6 +73,7 @@ describe('Update Work Schedule Use Case', () => {
   it('should throw error if schedule not found', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: new UniqueEntityID().toString(),
         name: 'Updated Name',
       }),
@@ -73,6 +82,7 @@ describe('Update Work Schedule Use Case', () => {
 
   it('should not allow duplicate name', async () => {
     await workSchedulesRepository.create({
+      tenantId: TENANT_ID,
       name: 'Schedule A',
       mondayStart: '08:00',
       mondayEnd: '17:00',
@@ -80,6 +90,7 @@ describe('Update Work Schedule Use Case', () => {
     });
 
     const scheduleB = await workSchedulesRepository.create({
+      tenantId: TENANT_ID,
       name: 'Schedule B',
       mondayStart: '09:00',
       mondayEnd: '18:00',
@@ -88,6 +99,7 @@ describe('Update Work Schedule Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: scheduleB.id.toString(),
         name: 'Schedule A',
       }),

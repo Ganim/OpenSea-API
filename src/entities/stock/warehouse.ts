@@ -4,6 +4,7 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface WarehouseProps {
   id: UniqueEntityID;
+  tenantId: UniqueEntityID;
   code: string;
   name: string;
   description: string | null;
@@ -18,6 +19,10 @@ export class Warehouse extends Entity<WarehouseProps> {
   // Getters
   get warehouseId(): UniqueEntityID {
     return this.props.id;
+  }
+
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get code(): string {

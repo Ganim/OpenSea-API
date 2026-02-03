@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { CheckEmployeeCpfUseCase } from './check-employee-cpf';
 import {
@@ -10,6 +11,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 
 let employeesRepository: InMemoryEmployeesRepository;
 let sut: CheckEmployeeCpfUseCase;
+const tenantId = new UniqueEntityID().toString();
 
 describe('Check Employee CPF Use Case', () => {
   beforeEach(() => {
@@ -21,6 +23,7 @@ describe('Check Employee CPF Use Case', () => {
     const cpf = '529.982.247-25';
 
     await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP-001',
       fullName: 'João Silva',
       cpf: CPF.create(cpf),
@@ -35,7 +38,7 @@ describe('Check Employee CPF Use Case', () => {
       pendingIssues: [],
     });
 
-    const response = await sut.execute({ cpf });
+    const response = await sut.execute({ tenantId, cpf });
 
     expect(response.exists).toBe(true);
     expect(response.employeeId).toBeTruthy();
@@ -43,7 +46,7 @@ describe('Check Employee CPF Use Case', () => {
   });
 
   it('should return false when CPF does not exist', async () => {
-    const response = await sut.execute({ cpf: '123.456.789-09' });
+    const response = await sut.execute({ tenantId, cpf: '123.456.789-09' });
 
     expect(response.exists).toBe(false);
     expect(response.employeeId).toBeNull();
@@ -54,6 +57,7 @@ describe('Check Employee CPF Use Case', () => {
     const cpf = '390.533.447-05';
 
     const employee = await employeesRepository.create({
+      tenantId,
       registrationNumber: 'EMP-002',
       fullName: 'Maria Oliveira',
       cpf: CPF.create(cpf),
@@ -71,8 +75,12 @@ describe('Check Employee CPF Use Case', () => {
     employee.softDelete();
     await employeesRepository.save(employee);
 
-    const withoutDeleted = await sut.execute({ cpf });
-    const withDeleted = await sut.execute({ cpf, includeDeleted: true });
+    const withoutDeleted = await sut.execute({ tenantId, cpf });
+    const withDeleted = await sut.execute({
+      tenantId,
+      cpf,
+      includeDeleted: true,
+    });
 
     expect(withoutDeleted.exists).toBe(false);
     expect(withDeleted.exists).toBe(true);

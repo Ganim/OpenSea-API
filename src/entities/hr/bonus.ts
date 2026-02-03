@@ -2,6 +2,7 @@ import { Entity } from '../domain/entities';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export interface BonusProps {
+  tenantId: UniqueEntityID;
   employeeId: UniqueEntityID;
   name: string;
   amount: number;
@@ -15,6 +16,10 @@ export interface BonusProps {
 }
 
 export class Bonus extends Entity<BonusProps> {
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
+  }
+
   get employeeId(): UniqueEntityID {
     return this.props.employeeId;
   }

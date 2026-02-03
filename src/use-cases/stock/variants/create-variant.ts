@@ -23,6 +23,7 @@ function padCode(seq: number, digits: number): string {
 }
 
 export interface CreateVariantUseCaseInput {
+  tenantId: string;
   productId: string;
   sku?: string;
   name: string;
@@ -146,7 +147,10 @@ export class CreateVariantUseCase {
 
     // Check if product exists
     const productId = new UniqueEntityID(input.productId);
-    const product = await this.productsRepository.findById(productId);
+    const product = await this.productsRepository.findById(
+      productId,
+      input.tenantId,
+    );
 
     if (!product) {
       throw new ResourceNotFoundError('Product not found');
@@ -154,7 +158,10 @@ export class CreateVariantUseCase {
 
     // Check if SKU is unique (only if it was provided by user)
     if (input.sku) {
-      const existingVariantBySKU = await this.variantsRepository.findBySKU(sku);
+      const existingVariantBySKU = await this.variantsRepository.findBySKU(
+        sku,
+        input.tenantId,
+      );
 
       if (existingVariantBySKU) {
         throw new BadRequestError('SKU already exists');
@@ -164,6 +171,7 @@ export class CreateVariantUseCase {
     // Validate attributes against product template
     const template = await this.templatesRepository.findById(
       product.templateId,
+      input.tenantId,
     );
     if (template) {
       assertValidAttributes(
@@ -174,8 +182,10 @@ export class CreateVariantUseCase {
     }
 
     // Get next sequential code LOCAL to this product
-    const lastVariant =
-      await this.variantsRepository.findLastByProductId(productId);
+    const lastVariant = await this.variantsRepository.findLastByProductId(
+      productId,
+      input.tenantId,
+    );
     const nextSeq = (lastVariant?.sequentialCode ?? 0) + 1;
 
     // Generate fullCode: PRODUCT_FULLCODE.VARIANT_SEQ (ex: 001.001.0001.001)
@@ -194,6 +204,7 @@ export class CreateVariantUseCase {
 
     // Create variant
     const variant = await this.variantsRepository.create({
+      tenantId: input.tenantId,
       productId,
       slug,
       fullCode,

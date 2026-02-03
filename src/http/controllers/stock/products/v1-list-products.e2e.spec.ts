@@ -19,8 +19,18 @@ describe('List Products (E2E)', () => {
     const timestamp = Date.now();
     const suffix = String(timestamp).slice(-4);
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const template = await prisma.template.create({
       data: {
+        tenantId,
         name: `Template List Test ${timestamp}`,
         productAttributes: {},
         variantAttributes: {},
@@ -30,6 +40,7 @@ describe('List Products (E2E)', () => {
 
     await prisma.product.create({
       data: {
+        tenantId,
         fullCode: `001.000.${suffix}`,
         slug: `product-to-list-${timestamp}`,
         barcode: `BCLST${suffix}`,

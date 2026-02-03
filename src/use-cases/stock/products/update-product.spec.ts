@@ -24,6 +24,8 @@ let createTemplate: CreateTemplateUseCase;
 let createSupplier: CreateSupplierUseCase;
 let createManufacturer: CreateManufacturerUseCase;
 
+const TENANT_ID = 'tenant-1';
+
 describe('UpdateProductUseCase', () => {
   beforeEach(() => {
     productsRepository = new InMemoryProductsRepository();
@@ -52,17 +54,20 @@ describe('UpdateProductUseCase', () => {
 
   it('should update a product', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
 
       templateId: template.template.id.toString(),
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: created.product.id.toString(),
       name: 'Laptop Dell Inspiron',
       description: 'Updated description',
@@ -77,17 +82,20 @@ describe('UpdateProductUseCase', () => {
 
   it('should update only provided fields', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
       description: 'Original',
       templateId: template.template.id.toString(),
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: created.product.id.toString(),
       description: 'Updated',
     });
@@ -99,22 +107,26 @@ describe('UpdateProductUseCase', () => {
 
   it('should update product with supplier', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
 
       templateId: template.template.id.toString(),
     });
 
     const supplier = await createSupplier.execute({
+      tenantId: TENANT_ID,
       name: 'Tech Supplies Co.',
       country: 'United States',
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: created.product.id.toString(),
       supplierId: supplier.supplier.id.toString(),
     });
@@ -126,22 +138,26 @@ describe('UpdateProductUseCase', () => {
 
   it('should update product with manufacturer', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
 
       templateId: template.template.id.toString(),
     });
 
     const manufacturer = await createManufacturer.execute({
+      tenantId: TENANT_ID,
       name: 'Dell Inc.',
       country: 'United States',
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: created.product.id.toString(),
       manufacturerId: manufacturer.manufacturer.manufacturerId.toString(),
     });
@@ -153,11 +169,13 @@ describe('UpdateProductUseCase', () => {
 
   it('should update product outOfLine field', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Product OutOfLine Test',
 
       templateId: template.template.id.toString(),
@@ -166,6 +184,7 @@ describe('UpdateProductUseCase', () => {
     expect(created.product.outOfLine).toBe(false);
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: created.product.id.toString(),
       outOfLine: true,
     });
@@ -176,6 +195,7 @@ describe('UpdateProductUseCase', () => {
   it('should throw error if product not found', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: 'non-existent-id',
         name: 'Updated Name',
       }),
@@ -184,11 +204,13 @@ describe('UpdateProductUseCase', () => {
 
   it('should not update with empty name', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
 
       templateId: template.template.id.toString(),
@@ -196,6 +218,7 @@ describe('UpdateProductUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: created.product.id.toString(),
         name: '',
       }),
@@ -204,17 +227,20 @@ describe('UpdateProductUseCase', () => {
 
   it('should not update with duplicate name', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
 
       templateId: template.template.id.toString(),
     });
 
     const second = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Mouse Logitech',
 
       templateId: template.template.id.toString(),
@@ -222,6 +248,7 @@ describe('UpdateProductUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: second.product.id.toString(),
         name: 'Laptop Dell',
       }),
@@ -230,11 +257,13 @@ describe('UpdateProductUseCase', () => {
 
   it('should not update with non-existent supplier', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
 
       templateId: template.template.id.toString(),
@@ -242,6 +271,7 @@ describe('UpdateProductUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: created.product.id.toString(),
         supplierId: 'non-existent-supplier-id',
       }),
@@ -250,11 +280,13 @@ describe('UpdateProductUseCase', () => {
 
   it('should not update with non-existent manufacturer', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
     const created = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
 
       templateId: template.template.id.toString(),
@@ -262,6 +294,7 @@ describe('UpdateProductUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: created.product.id.toString(),
         manufacturerId: 'non-existent-manufacturer-id',
       }),
@@ -270,6 +303,7 @@ describe('UpdateProductUseCase', () => {
 
   it('should not update with invalid attributes', async () => {
     const template = await createTemplate.execute({
+      tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: {
         brand: templateAttr.string(),
@@ -278,6 +312,7 @@ describe('UpdateProductUseCase', () => {
     });
 
     const created = await createProduct.execute({
+      tenantId: TENANT_ID,
       name: 'Laptop Dell',
 
       templateId: template.template.id.toString(),
@@ -286,6 +321,7 @@ describe('UpdateProductUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: created.product.id.toString(),
         attributes: {
           brand: 'HP',

@@ -18,8 +18,18 @@ describe('Reorder Categories (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
     const timestamp = Date.now();
 
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: `tenant-${timestamp}`,
+        slug: `tenant-${timestamp}`,
+        status: 'ACTIVE',
+      },
+    });
+    const tenantId = tenant.id;
+
     const cat1 = await prisma.category.create({
       data: {
+        tenantId,
         name: `Category A ${timestamp}`,
         slug: `category-a-${timestamp}`,
         displayOrder: 0,
@@ -29,6 +39,7 @@ describe('Reorder Categories (E2E)', () => {
 
     const cat2 = await prisma.category.create({
       data: {
+        tenantId,
         name: `Category B ${timestamp}`,
         slug: `category-b-${timestamp}`,
         displayOrder: 1,

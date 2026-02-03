@@ -23,6 +23,7 @@ describe('Update Sales Order Status', () => {
     salesOrdersRepository.items.push(order);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: order.id.toString(),
       status: 'CONFIRMED',
     });
@@ -38,6 +39,7 @@ describe('Update Sales Order Status', () => {
     salesOrdersRepository.items.push(order);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: order.id.toString(),
       status: 'IN_TRANSIT',
     });
@@ -53,6 +55,7 @@ describe('Update Sales Order Status', () => {
     salesOrdersRepository.items.push(order);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: order.id.toString(),
       status: 'DELIVERED',
     });
@@ -68,6 +71,7 @@ describe('Update Sales Order Status', () => {
     salesOrdersRepository.items.push(order);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       id: order.id.toString(),
       status: 'PENDING',
     });
@@ -78,6 +82,7 @@ describe('Update Sales Order Status', () => {
   it('should not be able to update status of non-existing order', async () => {
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
         status: 'CONFIRMED',
       }),
@@ -93,6 +98,7 @@ describe('Update Sales Order Status', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: order.id.toString(),
         status: 'IN_TRANSIT',
       }),
@@ -108,6 +114,7 @@ describe('Update Sales Order Status', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: order.id.toString(),
         status: 'IN_TRANSIT',
       }),
@@ -123,6 +130,7 @@ describe('Update Sales Order Status', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: order.id.toString(),
         status: 'PENDING',
       }),
@@ -138,6 +146,7 @@ describe('Update Sales Order Status', () => {
 
     await expect(() =>
       sut.execute({
+        tenantId: 'tenant-1',
         id: order.id.toString(),
         status: 'PENDING',
       }),

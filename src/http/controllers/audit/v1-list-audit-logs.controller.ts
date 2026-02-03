@@ -49,8 +49,12 @@ export async function listAuditLogsController(app: FastifyInstance) {
         limit,
       } = request.query;
 
+      // Tenant users see only their tenant's logs; super admins see all
+      const tenantId = request.user.tenantId;
+
       const listAuditLogsUseCase = makeListAuditLogsUseCase();
       const result = await listAuditLogsUseCase.execute({
+        tenantId,
         userId,
         affectedUser,
         action,

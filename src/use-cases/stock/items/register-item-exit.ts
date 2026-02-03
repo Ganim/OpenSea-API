@@ -10,6 +10,7 @@ import { ItemMovementsRepository } from '@/repositories/stock/item-movements-rep
 import { ItemsRepository } from '@/repositories/stock/items-repository';
 
 interface RegisterItemExitUseCaseRequest {
+  tenantId: string;
   itemId: string;
   quantity: number;
   userId: string;
@@ -58,6 +59,7 @@ export class RegisterItemExitUseCase {
     // Validation: item must exist
     const item = await this.itemsRepository.findById(
       new UniqueEntityID(input.itemId),
+      input.tenantId,
     );
     if (!item) {
       throw new ResourceNotFoundError('Item not found.');
@@ -85,6 +87,7 @@ export class RegisterItemExitUseCase {
 
     // Create movement record
     const movement = await this.itemMovementsRepository.create({
+      tenantId: input.tenantId,
       itemId: item.id,
       userId: new UniqueEntityID(input.userId),
       quantity: input.quantity,

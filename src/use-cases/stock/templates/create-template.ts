@@ -9,6 +9,7 @@ import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 
 interface CreateTemplateUseCaseRequest {
+  tenantId: string;
   code?: string; // Código hierárquico manual (3 dígitos: 001) - auto-gerado se não fornecido
   name: string;
   iconUrl?: string;
@@ -30,6 +31,7 @@ export class CreateTemplateUseCase {
     request: CreateTemplateUseCaseRequest,
   ): Promise<CreateTemplateUseCaseResponse> {
     const {
+      tenantId,
       code,
       name,
       iconUrl,
@@ -72,7 +74,10 @@ export class CreateTemplateUseCase {
     );
 
     // Check if template with same name already exists
-    const existingTemplate = await this.templatesRepository.findByName(name);
+    const existingTemplate = await this.templatesRepository.findByName(
+      name,
+      tenantId,
+    );
     if (existingTemplate) {
       throw new BadRequestError('Template with this name already exists');
     }
@@ -80,6 +85,7 @@ export class CreateTemplateUseCase {
     // Save to repository - code will be auto-generated from sequentialCode if not provided
     // The code generation happens after create to get the sequentialCode
     const createdTemplate = await this.templatesRepository.create({
+      tenantId,
       code, // Will be set in repository or left undefined for auto-generation
       name,
       iconUrl,

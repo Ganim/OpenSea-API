@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { approveOvertimeSchema, overtimeResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas/common.schema';
 import { overtimeToDTO } from '@/mappers/hr/overtime/overtime-to-dto';
@@ -18,6 +19,7 @@ export async function approveOvertimeController(app: FastifyInstance) {
     url: '/v1/hr/overtime/:overtimeId/approve',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.OVERTIME.MANAGE,
         resource: 'overtime',
@@ -46,6 +48,7 @@ export async function approveOvertimeController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { overtimeId } = request.params;
       const { addToTimeBank } = request.body;
       const approvedById = request.user.sub;
@@ -53,6 +56,7 @@ export async function approveOvertimeController(app: FastifyInstance) {
       try {
         const approveOvertimeUseCase = makeApproveOvertimeUseCase();
         const { overtime } = await approveOvertimeUseCase.execute({
+          tenantId,
           overtimeId,
           approvedBy: approvedById,
           addToTimeBank,

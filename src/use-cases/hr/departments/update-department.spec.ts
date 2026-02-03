@@ -4,6 +4,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateDepartmentUseCase } from './create-department';
 import { UpdateDepartmentUseCase } from './update-department';
 
+const TENANT_ID = 'tenant-1';
+
 let departmentsRepository: InMemoryDepartmentsRepository;
 let createDepartmentUseCase: CreateDepartmentUseCase;
 let sut: UpdateDepartmentUseCase;
@@ -22,12 +24,14 @@ describe('Update Department Use Case', () => {
 
   it('should update department successfully', async () => {
     const createResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.department.id.toString(),
       name: 'Software Engineering',
       description: 'Updated description',
@@ -40,6 +44,7 @@ describe('Update Department Use Case', () => {
   it('should not update non-existent department', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: 'non-existent-id',
         name: 'New Name',
       }),
@@ -48,12 +53,14 @@ describe('Update Department Use Case', () => {
 
   it('should not update code to existing code in the same company', async () => {
     await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
     });
 
     const result2 = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Sales',
       code: 'SALES',
       companyId,
@@ -61,6 +68,7 @@ describe('Update Department Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: result2.department.id.toString(),
         code: 'ENG',
       }),
@@ -69,12 +77,14 @@ describe('Update Department Use Case', () => {
 
   it('should update code if same department', async () => {
     const createResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.department.id.toString(),
       code: 'ENG', // Same code
       name: 'Updated Name',
@@ -86,6 +96,7 @@ describe('Update Department Use Case', () => {
 
   it('should not set department as its own parent', async () => {
     const createResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
@@ -93,6 +104,7 @@ describe('Update Department Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: createResult.department.id.toString(),
         parentId: createResult.department.id.toString(),
       }),
@@ -101,6 +113,7 @@ describe('Update Department Use Case', () => {
 
   it('should not set non-existent parent', async () => {
     const createResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
@@ -108,6 +121,7 @@ describe('Update Department Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: createResult.department.id.toString(),
         parentId: 'non-existent-id',
       }),
@@ -116,12 +130,14 @@ describe('Update Department Use Case', () => {
 
   it('should not set parent from different company', async () => {
     const parentResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Technology',
       code: 'TECH',
       companyId: anotherCompanyId,
     });
 
     const childResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
@@ -129,6 +145,7 @@ describe('Update Department Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: childResult.department.id.toString(),
         parentId: parentResult.department.id.toString(),
       }),
@@ -137,12 +154,14 @@ describe('Update Department Use Case', () => {
 
   it('should remove parent by setting null', async () => {
     const parentResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Technology',
       code: 'TECH',
       companyId,
     });
 
     const childResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       parentId: parentResult.department.id.toString(),
@@ -150,6 +169,7 @@ describe('Update Department Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: childResult.department.id.toString(),
       parentId: null,
     });
@@ -159,6 +179,7 @@ describe('Update Department Use Case', () => {
 
   it('should update isActive status', async () => {
     const createResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       isActive: true,
@@ -166,6 +187,7 @@ describe('Update Department Use Case', () => {
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       id: createResult.department.id.toString(),
       isActive: false,
     });
@@ -175,12 +197,14 @@ describe('Update Department Use Case', () => {
 
   it('should not set child as parent (circular reference)', async () => {
     const parentResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Technology',
       code: 'TECH',
       companyId,
     });
 
     const childResult = await createDepartmentUseCase.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       parentId: parentResult.department.id.toString(),
@@ -189,6 +213,7 @@ describe('Update Department Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         id: parentResult.department.id.toString(),
         parentId: childResult.department.id.toString(),
       }),

@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { clockInOutSchema, timeEntryResponseSchema } from '@/http/schemas';
 import { timeEntryToDTO } from '@/mappers/hr/time-entry/time-entry-to-dto';
 import { makeClockInUseCase } from '@/use-cases/hr/time-control/factories/make-clock-in-use-case';
@@ -12,7 +13,7 @@ export async function clockInController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/time-control/clock-in',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Time Control'],
       summary: 'Register clock in',
@@ -34,10 +35,14 @@ export async function clockInController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const data = request.body;
+      const tenantId = request.user.tenantId!;
 
       try {
         const clockInUseCase = makeClockInUseCase();
-        const { timeEntry } = await clockInUseCase.execute(data);
+        const { timeEntry } = await clockInUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         return reply.status(201).send({ timeEntry: timeEntryToDTO(timeEntry) });
       } catch (error) {

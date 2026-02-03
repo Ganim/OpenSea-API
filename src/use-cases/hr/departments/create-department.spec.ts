@@ -3,6 +3,8 @@ import { InMemoryDepartmentsRepository } from '@/repositories/hr/in-memory/in-me
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateDepartmentUseCase } from './create-department';
 
+const TENANT_ID = 'tenant-1';
+
 let departmentsRepository: InMemoryDepartmentsRepository;
 let sut: CreateDepartmentUseCase;
 
@@ -17,6 +19,7 @@ describe('Create Department Use Case', () => {
 
   it('should create a department successfully', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       description: 'Software Engineering Department',
@@ -35,6 +38,7 @@ describe('Create Department Use Case', () => {
 
   it('should not create department with existing code in the same company', async () => {
     await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
@@ -42,6 +46,7 @@ describe('Create Department Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Different Name',
         code: 'ENG',
         companyId,
@@ -51,12 +56,14 @@ describe('Create Department Use Case', () => {
 
   it('should allow same code in different companies', async () => {
     await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId,
     });
 
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       companyId: anotherCompanyId,
@@ -68,12 +75,14 @@ describe('Create Department Use Case', () => {
 
   it('should create department with parent', async () => {
     const parentResult = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Technology',
       code: 'TECH',
       companyId,
     });
 
     const childResult = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       parentId: parentResult.department.id.toString(),
@@ -88,6 +97,7 @@ describe('Create Department Use Case', () => {
   it('should not create department with non-existent parent', async () => {
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Engineering',
         code: 'ENG',
         parentId: 'non-existent-id',
@@ -98,6 +108,7 @@ describe('Create Department Use Case', () => {
 
   it('should not create department under inactive parent', async () => {
     const parentResult = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Technology',
       code: 'TECH',
       isActive: false,
@@ -106,6 +117,7 @@ describe('Create Department Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Engineering',
         code: 'ENG',
         parentId: parentResult.department.id.toString(),
@@ -116,6 +128,7 @@ describe('Create Department Use Case', () => {
 
   it('should not create department with parent from different company', async () => {
     const parentResult = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Technology',
       code: 'TECH',
       companyId: anotherCompanyId,
@@ -123,6 +136,7 @@ describe('Create Department Use Case', () => {
 
     await expect(
       sut.execute({
+        tenantId: TENANT_ID,
         name: 'Engineering',
         code: 'ENG',
         parentId: parentResult.department.id.toString(),
@@ -133,6 +147,7 @@ describe('Create Department Use Case', () => {
 
   it('should create department with manager', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Engineering',
       code: 'ENG',
       managerId: 'manager-123',
@@ -144,6 +159,7 @@ describe('Create Department Use Case', () => {
 
   it('should create inactive department', async () => {
     const result = await sut.execute({
+      tenantId: TENANT_ID,
       name: 'Old Department',
       code: 'OLD',
       isActive: false,

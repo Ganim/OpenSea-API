@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateCompanyUseCase } from './create-company';
 import { UpdateCompanyUseCase } from './update-company';
 
+const TENANT_ID = 'tenant-1';
+
 let companiesRepository: InMemoryCompaniesRepository;
 let updateCompanyUseCase: UpdateCompanyUseCase;
 let createCompanyUseCase: CreateCompanyUseCase;
@@ -16,11 +18,13 @@ describe('Update Company Use Case', () => {
 
   it('should update company legal name', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       legalName: 'Tech Solutions Updated LTDA',
     });
@@ -31,11 +35,13 @@ describe('Update Company Use Case', () => {
 
   it('should update company trade name', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       tradeName: 'Tech Solutions',
     });
@@ -45,11 +51,13 @@ describe('Update Company Use Case', () => {
 
   it('should update company registrations', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       stateRegistration: '123.456.789.012',
       municipalRegistration: '987654',
@@ -61,11 +69,13 @@ describe('Update Company Use Case', () => {
 
   it('should update company legal nature', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       legalNature: '2062100',
     });
@@ -75,11 +85,13 @@ describe('Update Company Use Case', () => {
 
   it('should update company tax regime', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       taxRegime: 'LUCRO_REAL',
       taxRegimeDetail: 'Lucro Real Anual',
@@ -91,12 +103,14 @@ describe('Update Company Use Case', () => {
 
   it('should update company activity start date', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const activityStartDate = new Date('2020-01-15');
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       activityStartDate,
     });
@@ -106,12 +120,14 @@ describe('Update Company Use Case', () => {
 
   it('should update company status', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       status: 'ACTIVE',
     });
 
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       status: 'INACTIVE',
     });
@@ -121,11 +137,13 @@ describe('Update Company Use Case', () => {
 
   it('should update company email', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       email: 'new-email@techsolutions.com.br',
     });
@@ -135,11 +153,13 @@ describe('Update Company Use Case', () => {
 
   it('should update company phones', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       phoneMain: '1133334444',
       phoneAlt: '1144445555',
@@ -151,12 +171,14 @@ describe('Update Company Use Case', () => {
 
   it('should update company logo URL', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     const logoUrl = 'https://example.com/new-logo.png';
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       logoUrl,
     });
@@ -166,6 +188,7 @@ describe('Update Company Use Case', () => {
 
   it('should return null when company not found', async () => {
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: 'non-existent-id',
       legalName: 'New Name',
     });
@@ -175,12 +198,14 @@ describe('Update Company Use Case', () => {
 
   it('should update multiple fields at once', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       phoneMain: '1133334444',
     });
 
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       legalName: 'Tech Solutions Updated LTDA',
       tradeName: 'Tech Solutions',
@@ -198,6 +223,7 @@ describe('Update Company Use Case', () => {
 
   it('should recalculate pending issues after update', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
@@ -208,6 +234,7 @@ describe('Update Company Use Case', () => {
 
     // Update with all required fields
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       tradeName: 'Tech Solutions',
       stateRegistration: '123.456.789.012',
@@ -230,12 +257,14 @@ describe('Update Company Use Case', () => {
 
   it('should validate email on update', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     await expect(
       updateCompanyUseCase.execute({
+        tenantId: TENANT_ID,
         id: created.company.id.toString(),
         email: 'invalid-email',
       }),
@@ -244,12 +273,14 @@ describe('Update Company Use Case', () => {
 
   it('should validate phone on update', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
     });
 
     await expect(
       updateCompanyUseCase.execute({
+        tenantId: TENANT_ID,
         id: created.company.id.toString(),
         phoneMain: '123',
       }),
@@ -258,6 +289,7 @@ describe('Update Company Use Case', () => {
 
   it('should preserve other fields when updating specific fields', async () => {
     const result1 = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       email: 'original@example.com',
@@ -267,6 +299,7 @@ describe('Update Company Use Case', () => {
 
     // Update only legal name
     const result2 = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: result1.company.id.toString(),
       legalName: 'Tech Solutions Updated LTDA',
     });
@@ -278,6 +311,7 @@ describe('Update Company Use Case', () => {
 
   it('should update metadata', async () => {
     const created = await createCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       legalName: 'Tech Solutions LTDA',
       cnpj: '12345678000100',
       metadata: { originalField: 'value' },
@@ -289,6 +323,7 @@ describe('Update Company Use Case', () => {
     };
 
     const result = await updateCompanyUseCase.execute({
+      tenantId: TENANT_ID,
       id: created.company.id.toString(),
       metadata: newMetadata,
     });

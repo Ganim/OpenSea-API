@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { deductionResponseSchema, idSchema } from '@/http/schemas';
 import { deductionToDTO } from '@/mappers/hr/deduction';
 import { makeGetDeductionUseCase } from '@/use-cases/hr/deductions/factories/make-get-deduction-use-case';
@@ -12,7 +13,7 @@ export async function getDeductionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/deductions/:deductionId',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Deduction'],
       summary: 'Get deduction',
@@ -32,11 +33,13 @@ export async function getDeductionController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { deductionId } = request.params;
 
       try {
         const getDeductionUseCase = makeGetDeductionUseCase();
         const { deduction } = await getDeductionUseCase.execute({
+          tenantId,
           deductionId,
         });
 

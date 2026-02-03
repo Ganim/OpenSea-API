@@ -12,6 +12,7 @@ import type { ZonesRepository } from '@/repositories/stock/zones-repository';
 import { validateZoneStructureInput } from './helpers/validate-zone-structure';
 
 interface ConfigureZoneStructureUseCaseRequest {
+  tenantId: string;
   zoneId: string;
   structure: ZoneStructureProps;
   regenerateBins?: boolean;
@@ -31,6 +32,7 @@ export class ConfigureZoneStructureUseCase {
   ) {}
 
   async execute({
+    tenantId,
     zoneId,
     structure,
     regenerateBins = true,
@@ -38,7 +40,7 @@ export class ConfigureZoneStructureUseCase {
     const zoneEntityId = new UniqueEntityID(zoneId);
 
     // Check if zone exists
-    const zone = await this.zonesRepository.findById(zoneEntityId);
+    const zone = await this.zonesRepository.findById(zoneEntityId, tenantId);
 
     if (!zone) {
       throw new ResourceNotFoundError('Zone');
@@ -47,6 +49,7 @@ export class ConfigureZoneStructureUseCase {
     // Get warehouse for code generation
     const warehouse = await this.warehousesRepository.findById(
       zone.warehouseId,
+      tenantId,
     );
 
     if (!warehouse) {
@@ -83,6 +86,7 @@ export class ConfigureZoneStructureUseCase {
       const binData = zoneStructure.generateBinData(warehouse.code, zone.code);
 
       binsCreated = await this.binsRepository.createMany({
+        tenantId,
         zoneId: zoneEntityId,
         bins: binData,
       });

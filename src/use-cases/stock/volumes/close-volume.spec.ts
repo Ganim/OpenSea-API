@@ -4,6 +4,7 @@ import {
 } from '@/@errors/volumes-errors';
 import { VolumeStatus } from '@/entities/stock/value-objects/volume-status';
 import { Volume } from '@/entities/stock/volume';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryVolumesRepository } from '@/repositories/stock/in-memory/in-memory-volumes-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CloseVolumeUseCase } from './close-volume';
@@ -20,6 +21,7 @@ describe('CloseVolumeUseCase', () => {
   it('should throw error if volume not found', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         volumeId: 'non-existent-id',
         closedBy: 'user-1',
       }),
@@ -28,6 +30,7 @@ describe('CloseVolumeUseCase', () => {
 
   it('should throw error if volume cannot be closed', async () => {
     const volume = Volume.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       code: 'VOL-001',
       name: 'Volume Test',
       status: VolumeStatus.CLOSED,
@@ -40,6 +43,7 @@ describe('CloseVolumeUseCase', () => {
 
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         volumeId: volume.id.toString(),
         closedBy: 'user-1',
       }),
@@ -48,6 +52,7 @@ describe('CloseVolumeUseCase', () => {
 
   it('should close volume successfully', async () => {
     const volume = Volume.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       code: 'VOL-001',
       name: 'Volume Test',
       status: VolumeStatus.OPEN,
@@ -57,6 +62,7 @@ describe('CloseVolumeUseCase', () => {
     await volumesRepository.create(volume);
 
     const result = await sut.execute({
+      tenantId: 'tenant-1',
       volumeId: volume.id.toString(),
       closedBy: 'user-2',
     });

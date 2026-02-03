@@ -2,6 +2,7 @@ import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { createScopeMiddleware } from '@/http/middlewares/rbac/verify-scope';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { employeeResponseSchema } from '@/http/schemas';
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
 import { makeGetEmployeeByIdUseCase } from '@/use-cases/hr/employees/factories/make-get-employee-by-id-use-case';
@@ -18,9 +19,11 @@ const checkEmployeeReadScope = createScopeMiddleware({
   resource: 'employees',
   getResourceDepartmentId: async (request) => {
     const params = request.params as { employeeId: string };
+    const tenantId = request.user.tenantId!;
     const getEmployeeByIdUseCase = makeGetEmployeeByIdUseCase();
     try {
       const { employee } = await getEmployeeByIdUseCase.execute({
+        tenantId,
         employeeId: params.employeeId,
       });
       return employee.departmentId?.toString() ?? null;
@@ -34,7 +37,7 @@ export async function getEmployeeByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/employees/:employeeId',
-    preHandler: [verifyJwt, checkEmployeeReadScope],
+    preHandler: [verifyJwt, verifyTenant, checkEmployeeReadScope],
     schema: {
       tags: ['HR - Employees'],
       summary: 'Get an employee by ID (scope-based)',
@@ -59,10 +62,12 @@ export async function getEmployeeByIdController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { employeeId } = request.params;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getEmployeeByIdUseCase = makeGetEmployeeByIdUseCase();
         const { employee } = await getEmployeeByIdUseCase.execute({
+          tenantId,
           employeeId,
         });
 

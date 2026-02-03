@@ -10,6 +10,7 @@ import {
 import { faker } from '@faker-js/faker';
 
 interface MakeEmployeeProps {
+  tenantId?: UniqueEntityID;
   registrationNumber?: string;
   userId?: UniqueEntityID;
   fullName?: string;
@@ -159,6 +160,7 @@ export function makeEmployee(override: MakeEmployeeProps = {}): Employee {
 
   const employee = Employee.create(
     {
+      tenantId: override.tenantId ?? new UniqueEntityID(),
       registrationNumber:
         override.registrationNumber ?? generateRegistrationNumber(),
       userId: override.userId,

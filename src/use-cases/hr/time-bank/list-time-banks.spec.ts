@@ -12,7 +12,7 @@ describe('ListTimeBanksUseCase', () => {
   });
 
   it('should return empty list when no time banks exist', async () => {
-    const { timeBanks, total } = await sut.execute({});
+    const { timeBanks, total } = await sut.execute({ tenantId: 'tenant-1' });
     expect(timeBanks).toHaveLength(0);
     expect(total).toBe(0);
   });

@@ -4,6 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createDepartmentSchema,
   departmentResponseSchema,
@@ -21,6 +22,7 @@ export async function createDepartmentController(app: FastifyInstance) {
     url: '/v1/hr/departments',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.DEPARTMENTS.CREATE,
         resource: 'departments',
@@ -43,6 +45,7 @@ export async function createDepartmentController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
       const userId = request.user.sub;
 
@@ -55,6 +58,7 @@ export async function createDepartmentController(app: FastifyInstance) {
 
         const createDepartmentUseCase = makeCreateDepartmentUseCase();
         const { department } = await createDepartmentUseCase.execute({
+          tenantId,
           name: data.name,
           code: data.code,
           description: data.description,

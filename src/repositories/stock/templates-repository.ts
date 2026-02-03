@@ -7,6 +7,7 @@ import { Template } from '@/entities/stock/template';
 import type { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 
 export interface CreateTemplateSchema {
+  tenantId: string;
   code?: string; // Código hierárquico manual (3 dígitos: 001) - auto-gerado se não fornecido
   name: string;
   iconUrl?: string;
@@ -31,9 +32,9 @@ export interface UpdateTemplateSchema {
 
 export interface TemplatesRepository {
   create(data: CreateTemplateSchema): Promise<Template>;
-  findById(id: UniqueEntityID): Promise<Template | null>;
-  findByName(name: string): Promise<Template | null>;
-  findMany(): Promise<Template[]>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Template | null>;
+  findByName(name: string, tenantId: string): Promise<Template | null>;
+  findMany(tenantId: string): Promise<Template[]>;
   update(data: UpdateTemplateSchema): Promise<Template | null>;
   save(template: Template): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

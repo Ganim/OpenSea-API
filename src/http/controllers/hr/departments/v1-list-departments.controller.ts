@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   departmentResponseSchema,
   listDepartmentsQuerySchema,
@@ -14,7 +15,7 @@ export async function listDepartmentsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/departments',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Departments'],
       summary: 'List all departments',
@@ -31,11 +32,13 @@ export async function listDepartmentsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { page, perPage, search, isActive, parentId, companyId } =
         request.query;
 
       const listDepartmentsUseCase = makeListDepartmentsUseCase();
       const { departments, meta } = await listDepartmentsUseCase.execute({
+        tenantId,
         page,
         perPage,
         search,

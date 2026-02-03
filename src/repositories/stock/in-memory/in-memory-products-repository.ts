@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { CareInstructions } from '@/entities/stock/value-objects/care-instructions';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
@@ -15,6 +15,7 @@ export class InMemoryProductsRepository implements ProductsRepository {
 
   async create(data: CreateProductSchema): Promise<Product> {
     const product = Product.create({
+      tenantId: new UniqueEntityID(data.tenantId),
       name: data.name,
       slug: data.slug,
       fullCode: data.fullCode,
@@ -34,52 +35,85 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async findById(id: UniqueEntityID): Promise<Product | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Product | null> {
     const product = this.items.find(
-      (item) => !item.deletedAt && item.id.equals(id),
+      (item) =>
+        !item.deletedAt &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
     );
     return product ?? null;
   }
 
-  async findByName(name: string): Promise<Product | null> {
+  async findByName(name: string, tenantId: string): Promise<Product | null> {
     const product = this.items.find(
-      (item) => !item.deletedAt && item.name === name,
+      (item) =>
+        !item.deletedAt &&
+        item.name === name &&
+        item.tenantId.toString() === tenantId,
     );
     return product ?? null;
   }
 
-  async findMany(): Promise<Product[]> {
-    return this.items.filter((item) => !item.deletedAt);
-  }
-
-  async findManyByStatus(status: ProductStatus): Promise<Product[]> {
+  async findMany(tenantId: string): Promise<Product[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.status.value === status.value,
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
     );
   }
 
-  async findManyByTemplate(templateId: UniqueEntityID): Promise<Product[]> {
+  async findManyByStatus(
+    status: ProductStatus,
+    tenantId: string,
+  ): Promise<Product[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.templateId?.equals(templateId),
+      (item) =>
+        !item.deletedAt &&
+        item.status.value === status.value &&
+        item.tenantId.toString() === tenantId,
+    );
+  }
+
+  async findManyByTemplate(
+    templateId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Product[]> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.templateId?.equals(templateId) &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
   async findManyByManufacturer(
     manufacturerId: UniqueEntityID,
+    tenantId: string,
   ): Promise<Product[]> {
     return this.items.filter(
-      (item) => !item.deletedAt && item.manufacturerId?.equals(manufacturerId),
+      (item) =>
+        !item.deletedAt &&
+        item.manufacturerId?.equals(manufacturerId) &&
+        item.tenantId.toString() === tenantId,
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async findManyByCategory(categoryId: UniqueEntityID): Promise<Product[]> {
+  async findManyByCategory(
+    categoryId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Product[]> {
     // TODO: Implementar relacionamento Product-Category quando disponível
-    return this.items.filter((item) => !item.deletedAt);
+    return this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+    );
   }
 
   async update(data: UpdateProductSchema): Promise<Product | null> {
-    const product = await this.findById(data.id);
+    const product =
+      this.items.find((item) => !item.deletedAt && item.id.equals(data.id)) ??
+      null;
     if (!product) return null;
 
     if (data.name !== undefined) product.name = data.name;
@@ -99,7 +133,9 @@ export class InMemoryProductsRepository implements ProductsRepository {
     productId: UniqueEntityID,
     careInstructionIds: string[],
   ): Promise<Product> {
-    const product = await this.findById(productId);
+    const product =
+      this.items.find((item) => !item.deletedAt && item.id.equals(productId)) ??
+      null;
     if (!product) {
       throw new ResourceNotFoundError('Product not found');
     }
@@ -118,7 +154,8 @@ export class InMemoryProductsRepository implements ProductsRepository {
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
-    const product = await this.findById(id);
+    const product =
+      this.items.find((item) => !item.deletedAt && item.id.equals(id)) ?? null;
     if (product) {
       product.delete();
     }

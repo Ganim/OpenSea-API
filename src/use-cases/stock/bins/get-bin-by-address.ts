@@ -3,6 +3,7 @@ import type { Bin } from '@/entities/stock/bin';
 import type { BinsRepository } from '@/repositories/stock/bins-repository';
 
 interface GetBinByAddressUseCaseRequest {
+  tenantId: string;
   address: string;
 }
 
@@ -15,9 +16,10 @@ export class GetBinByAddressUseCase {
   constructor(private binsRepository: BinsRepository) {}
 
   async execute({
+    tenantId,
     address,
   }: GetBinByAddressUseCaseRequest): Promise<GetBinByAddressUseCaseResponse> {
-    const bin = await this.binsRepository.findByAddress(address);
+    const bin = await this.binsRepository.findByAddress(address, tenantId);
 
     if (!bin) {
       throw new ResourceNotFoundError('Bin');

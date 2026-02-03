@@ -38,6 +38,7 @@ export type TimeBankSumAggregateOutputType = {
 
 export type TimeBankMinAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   balance: runtime.Decimal | null
   year: number | null
@@ -47,6 +48,7 @@ export type TimeBankMinAggregateOutputType = {
 
 export type TimeBankMaxAggregateOutputType = {
   id: string | null
+  tenantId: string | null
   employeeId: string | null
   balance: runtime.Decimal | null
   year: number | null
@@ -56,6 +58,7 @@ export type TimeBankMaxAggregateOutputType = {
 
 export type TimeBankCountAggregateOutputType = {
   id: number
+  tenantId: number
   employeeId: number
   balance: number
   year: number
@@ -77,6 +80,7 @@ export type TimeBankSumAggregateInputType = {
 
 export type TimeBankMinAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   balance?: true
   year?: true
@@ -86,6 +90,7 @@ export type TimeBankMinAggregateInputType = {
 
 export type TimeBankMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   balance?: true
   year?: true
@@ -95,6 +100,7 @@ export type TimeBankMaxAggregateInputType = {
 
 export type TimeBankCountAggregateInputType = {
   id?: true
+  tenantId?: true
   employeeId?: true
   balance?: true
   year?: true
@@ -191,6 +197,7 @@ export type TimeBankGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type TimeBankGroupByOutputType = {
   id: string
+  tenantId: string
   employeeId: string
   balance: runtime.Decimal
   year: number
@@ -223,21 +230,25 @@ export type TimeBankWhereInput = {
   OR?: Prisma.TimeBankWhereInput[]
   NOT?: Prisma.TimeBankWhereInput | Prisma.TimeBankWhereInput[]
   id?: Prisma.StringFilter<"TimeBank"> | string
+  tenantId?: Prisma.StringFilter<"TimeBank"> | string
   employeeId?: Prisma.StringFilter<"TimeBank"> | string
   balance?: Prisma.DecimalFilter<"TimeBank"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFilter<"TimeBank"> | number
   createdAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
 }
 
 export type TimeBankOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
   year?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
 }
 
@@ -247,16 +258,19 @@ export type TimeBankWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.TimeBankWhereInput | Prisma.TimeBankWhereInput[]
   OR?: Prisma.TimeBankWhereInput[]
   NOT?: Prisma.TimeBankWhereInput | Prisma.TimeBankWhereInput[]
+  tenantId?: Prisma.StringFilter<"TimeBank"> | string
   employeeId?: Prisma.StringFilter<"TimeBank"> | string
   balance?: Prisma.DecimalFilter<"TimeBank"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFilter<"TimeBank"> | number
   createdAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
 }, "id" | "employeeId_year">
 
 export type TimeBankOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
   year?: Prisma.SortOrder
@@ -274,6 +288,7 @@ export type TimeBankScalarWhereWithAggregatesInput = {
   OR?: Prisma.TimeBankScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TimeBankScalarWhereWithAggregatesInput | Prisma.TimeBankScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"TimeBank"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"TimeBank"> | string
   employeeId?: Prisma.StringWithAggregatesFilter<"TimeBank"> | string
   balance?: Prisma.DecimalWithAggregatesFilter<"TimeBank"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntWithAggregatesFilter<"TimeBank"> | number
@@ -287,11 +302,13 @@ export type TimeBankCreateInput = {
   year: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutTimeBanksInput
   employee: Prisma.EmployeeCreateNestedOneWithoutTimeBanksInput
 }
 
 export type TimeBankUncheckedCreateInput = {
   id?: string
+  tenantId: string
   employeeId: string
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
@@ -305,11 +322,13 @@ export type TimeBankUpdateInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeBanksNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeBanksNestedInput
 }
 
 export type TimeBankUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
@@ -319,6 +338,7 @@ export type TimeBankUncheckedUpdateInput = {
 
 export type TimeBankCreateManyInput = {
   id?: string
+  tenantId: string
   employeeId: string
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
@@ -336,6 +356,7 @@ export type TimeBankUpdateManyMutationInput = {
 
 export type TimeBankUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
@@ -360,6 +381,7 @@ export type TimeBankEmployeeIdYearCompoundUniqueInput = {
 
 export type TimeBankCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
   year?: Prisma.SortOrder
@@ -374,6 +396,7 @@ export type TimeBankAvgOrderByAggregateInput = {
 
 export type TimeBankMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
   year?: Prisma.SortOrder
@@ -383,6 +406,7 @@ export type TimeBankMaxOrderByAggregateInput = {
 
 export type TimeBankMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
   year?: Prisma.SortOrder
@@ -437,16 +461,60 @@ export type TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput = {
   deleteMany?: Prisma.TimeBankScalarWhereInput | Prisma.TimeBankScalarWhereInput[]
 }
 
+export type TimeBankCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.TimeBankCreateWithoutTenantInput, Prisma.TimeBankUncheckedCreateWithoutTenantInput> | Prisma.TimeBankCreateWithoutTenantInput[] | Prisma.TimeBankUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.TimeBankCreateOrConnectWithoutTenantInput | Prisma.TimeBankCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.TimeBankCreateManyTenantInputEnvelope
+  connect?: Prisma.TimeBankWhereUniqueInput | Prisma.TimeBankWhereUniqueInput[]
+}
+
+export type TimeBankUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.TimeBankCreateWithoutTenantInput, Prisma.TimeBankUncheckedCreateWithoutTenantInput> | Prisma.TimeBankCreateWithoutTenantInput[] | Prisma.TimeBankUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.TimeBankCreateOrConnectWithoutTenantInput | Prisma.TimeBankCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.TimeBankCreateManyTenantInputEnvelope
+  connect?: Prisma.TimeBankWhereUniqueInput | Prisma.TimeBankWhereUniqueInput[]
+}
+
+export type TimeBankUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.TimeBankCreateWithoutTenantInput, Prisma.TimeBankUncheckedCreateWithoutTenantInput> | Prisma.TimeBankCreateWithoutTenantInput[] | Prisma.TimeBankUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.TimeBankCreateOrConnectWithoutTenantInput | Prisma.TimeBankCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.TimeBankUpsertWithWhereUniqueWithoutTenantInput | Prisma.TimeBankUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.TimeBankCreateManyTenantInputEnvelope
+  set?: Prisma.TimeBankWhereUniqueInput | Prisma.TimeBankWhereUniqueInput[]
+  disconnect?: Prisma.TimeBankWhereUniqueInput | Prisma.TimeBankWhereUniqueInput[]
+  delete?: Prisma.TimeBankWhereUniqueInput | Prisma.TimeBankWhereUniqueInput[]
+  connect?: Prisma.TimeBankWhereUniqueInput | Prisma.TimeBankWhereUniqueInput[]
+  update?: Prisma.TimeBankUpdateWithWhereUniqueWithoutTenantInput | Prisma.TimeBankUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.TimeBankUpdateManyWithWhereWithoutTenantInput | Prisma.TimeBankUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.TimeBankScalarWhereInput | Prisma.TimeBankScalarWhereInput[]
+}
+
+export type TimeBankUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.TimeBankCreateWithoutTenantInput, Prisma.TimeBankUncheckedCreateWithoutTenantInput> | Prisma.TimeBankCreateWithoutTenantInput[] | Prisma.TimeBankUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.TimeBankCreateOrConnectWithoutTenantInput | Prisma.TimeBankCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.TimeBankUpsertWithWhereUniqueWithoutTenantInput | Prisma.TimeBankUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.TimeBankCreateManyTenantInputEnvelope
+  set?: Prisma.TimeBankWhereUniqueInput | Prisma.TimeBankWhereUniqueInput[]
+  disconnect?: Prisma.TimeBankWhereUniqueInput | Prisma.TimeBankWhereUniqueInput[]
+  delete?: Prisma.TimeBankWhereUniqueInput | Prisma.TimeBankWhereUniqueInput[]
+  connect?: Prisma.TimeBankWhereUniqueInput | Prisma.TimeBankWhereUniqueInput[]
+  update?: Prisma.TimeBankUpdateWithWhereUniqueWithoutTenantInput | Prisma.TimeBankUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.TimeBankUpdateManyWithWhereWithoutTenantInput | Prisma.TimeBankUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.TimeBankScalarWhereInput | Prisma.TimeBankScalarWhereInput[]
+}
+
 export type TimeBankCreateWithoutEmployeeInput = {
   id?: string
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutTimeBanksInput
 }
 
 export type TimeBankUncheckedCreateWithoutEmployeeInput = {
   id?: string
+  tenantId: string
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   createdAt?: Date | string
@@ -484,6 +552,7 @@ export type TimeBankScalarWhereInput = {
   OR?: Prisma.TimeBankScalarWhereInput[]
   NOT?: Prisma.TimeBankScalarWhereInput | Prisma.TimeBankScalarWhereInput[]
   id?: Prisma.StringFilter<"TimeBank"> | string
+  tenantId?: Prisma.StringFilter<"TimeBank"> | string
   employeeId?: Prisma.StringFilter<"TimeBank"> | string
   balance?: Prisma.DecimalFilter<"TimeBank"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFilter<"TimeBank"> | number
@@ -491,8 +560,53 @@ export type TimeBankScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"TimeBank"> | Date | string
 }
 
+export type TimeBankCreateWithoutTenantInput = {
+  id?: string
+  balance: runtime.Decimal | runtime.DecimalJsLike | number | string
+  year: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  employee: Prisma.EmployeeCreateNestedOneWithoutTimeBanksInput
+}
+
+export type TimeBankUncheckedCreateWithoutTenantInput = {
+  id?: string
+  employeeId: string
+  balance: runtime.Decimal | runtime.DecimalJsLike | number | string
+  year: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TimeBankCreateOrConnectWithoutTenantInput = {
+  where: Prisma.TimeBankWhereUniqueInput
+  create: Prisma.XOR<Prisma.TimeBankCreateWithoutTenantInput, Prisma.TimeBankUncheckedCreateWithoutTenantInput>
+}
+
+export type TimeBankCreateManyTenantInputEnvelope = {
+  data: Prisma.TimeBankCreateManyTenantInput | Prisma.TimeBankCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type TimeBankUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.TimeBankWhereUniqueInput
+  update: Prisma.XOR<Prisma.TimeBankUpdateWithoutTenantInput, Prisma.TimeBankUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.TimeBankCreateWithoutTenantInput, Prisma.TimeBankUncheckedCreateWithoutTenantInput>
+}
+
+export type TimeBankUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.TimeBankWhereUniqueInput
+  data: Prisma.XOR<Prisma.TimeBankUpdateWithoutTenantInput, Prisma.TimeBankUncheckedUpdateWithoutTenantInput>
+}
+
+export type TimeBankUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.TimeBankScalarWhereInput
+  data: Prisma.XOR<Prisma.TimeBankUpdateManyMutationInput, Prisma.TimeBankUncheckedUpdateManyWithoutTenantInput>
+}
+
 export type TimeBankCreateManyEmployeeInput = {
   id?: string
+  tenantId: string
   balance: runtime.Decimal | runtime.DecimalJsLike | number | string
   year: number
   createdAt?: Date | string
@@ -505,10 +619,12 @@ export type TimeBankUpdateWithoutEmployeeInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeBanksNestedInput
 }
 
 export type TimeBankUncheckedUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -517,6 +633,43 @@ export type TimeBankUncheckedUpdateWithoutEmployeeInput = {
 
 export type TimeBankUncheckedUpdateManyWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TimeBankCreateManyTenantInput = {
+  id?: string
+  employeeId: string
+  balance: runtime.Decimal | runtime.DecimalJsLike | number | string
+  year: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TimeBankUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeBanksNestedInput
+}
+
+export type TimeBankUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TimeBankUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -527,36 +680,43 @@ export type TimeBankUncheckedUpdateManyWithoutEmployeeInput = {
 
 export type TimeBankSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   balance?: boolean
   year?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["timeBank"]>
 
 export type TimeBankSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   balance?: boolean
   year?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["timeBank"]>
 
 export type TimeBankSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   balance?: boolean
   year?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["timeBank"]>
 
 export type TimeBankSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   employeeId?: boolean
   balance?: boolean
   year?: boolean
@@ -564,24 +724,29 @@ export type TimeBankSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TimeBankOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeId" | "balance" | "year" | "createdAt" | "updatedAt", ExtArgs["result"]["timeBank"]>
+export type TimeBankOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "balance" | "year" | "createdAt" | "updatedAt", ExtArgs["result"]["timeBank"]>
 export type TimeBankInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 export type TimeBankIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 export type TimeBankIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 
 export type $TimeBankPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TimeBank"
   objects: {
+    tenant: Prisma.$TenantPayload<ExtArgs>
     employee: Prisma.$EmployeePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    tenantId: string
     employeeId: string
     balance: runtime.Decimal
     year: number
@@ -981,6 +1146,7 @@ readonly fields: TimeBankFieldRefs;
  */
 export interface Prisma__TimeBankClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   employee<T extends Prisma.EmployeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1012,6 +1178,7 @@ export interface Prisma__TimeBankClient<T, Null = never, ExtArgs extends runtime
  */
 export interface TimeBankFieldRefs {
   readonly id: Prisma.FieldRef<"TimeBank", 'String'>
+  readonly tenantId: Prisma.FieldRef<"TimeBank", 'String'>
   readonly employeeId: Prisma.FieldRef<"TimeBank", 'String'>
   readonly balance: Prisma.FieldRef<"TimeBank", 'Decimal'>
   readonly year: Prisma.FieldRef<"TimeBank", 'Int'>

@@ -18,16 +18,19 @@ describe('DeleteTagUseCase', () => {
 
   it('should delete a tag', async () => {
     const { tag: createdTag } = await createTagUseCase.execute({
+      tenantId: 'tenant-1',
       name: 'Electronics',
       slug: 'electronics',
     });
 
     await sut.execute({
+      tenantId: 'tenant-1',
       id: createdTag.id,
     });
 
     const deletedTag = await tagsRepository.findById(
       new UniqueEntityID(createdTag.id),
+      'tenant-1',
     );
     expect(deletedTag).toBeNull();
   });
@@ -35,6 +38,7 @@ describe('DeleteTagUseCase', () => {
   it('should throw error when tag does not exist', async () => {
     await expect(
       sut.execute({
+        tenantId: 'tenant-1',
         id: 'non-existent-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);

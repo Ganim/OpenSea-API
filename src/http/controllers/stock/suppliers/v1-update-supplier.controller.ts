@@ -5,6 +5,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   supplierResponseSchema,
   updateSupplierSchema,
@@ -22,6 +23,7 @@ export async function updateSupplierController(app: FastifyInstance) {
     url: '/v1/suppliers/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.SUPPLIERS.UPDATE,
         resource: 'suppliers',
@@ -50,6 +52,7 @@ export async function updateSupplierController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { id } = request.params;
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -57,7 +60,7 @@ export async function updateSupplierController(app: FastifyInstance) {
 
         const [{ user }, { supplier: oldSupplier }] = await Promise.all([
           getUserByIdUseCase.execute({ userId }),
-          getSupplierByIdUseCase.execute({ id }),
+          getSupplierByIdUseCase.execute({ tenantId, id }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
@@ -65,6 +68,7 @@ export async function updateSupplierController(app: FastifyInstance) {
 
         const useCase = makeUpdateSupplierUseCase();
         const result = await useCase.execute({
+          tenantId,
           id,
           ...request.body,
         });

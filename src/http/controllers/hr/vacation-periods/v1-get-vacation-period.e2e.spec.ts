@@ -17,8 +17,9 @@ describe('Get Vacation Period (E2E)', () => {
 
   it('should get vacation period by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app);
-    const { employeeId } = await createEmployeeE2E();
+    const { employeeId, employee } = await createEmployeeE2E();
     const { vacationPeriodId } = await createVacationPeriodE2E({
+      tenantId: employee.tenantId,
       employeeId,
       totalDays: 30,
       status: 'AVAILABLE',

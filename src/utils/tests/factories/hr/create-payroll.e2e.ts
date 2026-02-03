@@ -4,14 +4,17 @@ import type { PayrollStatus } from '@prisma/generated/client.js';
 // Global counter to ensure unique months/years across all tests
 let uniqueIdCounter = 0;
 
-export async function createPayroll(data?: {
-  referenceMonth?: number;
-  referenceYear?: number;
-  status?: PayrollStatus;
-  totalGross?: number;
-  totalDeductions?: number;
-  totalNet?: number;
-}) {
+export async function createPayroll(
+  tenantId: string,
+  data?: {
+    referenceMonth?: number;
+    referenceYear?: number;
+    status?: PayrollStatus;
+    totalGross?: number;
+    totalDeductions?: number;
+    totalNet?: number;
+  },
+) {
   let month: number;
   let year: number;
 
@@ -29,6 +32,7 @@ export async function createPayroll(data?: {
 
   return prisma.payroll.create({
     data: {
+      tenantId,
       referenceMonth: month,
       referenceYear: year,
       status: data?.status ?? 'DRAFT',
@@ -39,7 +43,9 @@ export async function createPayroll(data?: {
   });
 }
 
-export async function createCalculatedPayroll(data?: {
+export async function createCalculatedPayroll(
+  tenantId: string,
+  data?: {
   referenceMonth?: number;
   referenceYear?: number;
 }) {
@@ -60,6 +66,7 @@ export async function createCalculatedPayroll(data?: {
 
   return prisma.payroll.create({
     data: {
+      tenantId,
       referenceMonth: month,
       referenceYear: year,
       status: 'CALCULATED',
@@ -71,7 +78,9 @@ export async function createCalculatedPayroll(data?: {
   });
 }
 
-export async function createApprovedPayroll(data?: {
+export async function createApprovedPayroll(
+  tenantId: string,
+  data?: {
   referenceMonth?: number;
   referenceYear?: number;
 }) {
@@ -92,6 +101,7 @@ export async function createApprovedPayroll(data?: {
 
   return prisma.payroll.create({
     data: {
+      tenantId,
       referenceMonth: month,
       referenceYear: year,
       status: 'APPROVED',

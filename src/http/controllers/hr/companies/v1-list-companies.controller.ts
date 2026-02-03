@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
 import { makeListCompaniesUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import type { FastifyInstance, FastifyReply } from 'fastify';
@@ -12,10 +13,12 @@ export async function v1ListCompaniesController(app: FastifyInstance) {
   async function handleList(
     request: {
       query: unknown;
+      user: { tenantId?: string };
     },
     reply: FastifyReply,
     forceIncludeDeleted = false,
   ) {
+    const tenantId = request.user.tenantId!;
     const { page, perPage, search, includeDeleted } = request.query as z.infer<
       typeof listCompaniesQuerySchema
     >;
@@ -23,6 +26,7 @@ export async function v1ListCompaniesController(app: FastifyInstance) {
     const shouldIncludeDeleted = forceIncludeDeleted ? true : includeDeleted;
 
     const { companies } = await listUseCase.execute({
+      tenantId,
       page: page ?? 1,
       perPage: perPage ?? 20,
       search,
@@ -36,7 +40,7 @@ export async function v1ListCompaniesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/companies',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Companies'],
       summary: 'List companies',
@@ -71,7 +75,7 @@ export async function v1ListCompaniesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/companies/all',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Companies'],
       summary: 'List companies including deleted',

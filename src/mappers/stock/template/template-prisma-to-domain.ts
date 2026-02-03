@@ -10,6 +10,7 @@ import type { Template as PrismaTemplate } from '@prisma/generated/client.js';
 export function mapTemplatePrismaToDomain(templateDb: PrismaTemplate) {
   return {
     id: new UniqueEntityID(templateDb.id),
+    tenantId: new UniqueEntityID(templateDb.tenantId),
     code: templateDb.code ?? undefined,
     sequentialCode: templateDb.sequentialCode,
     name: templateDb.name,

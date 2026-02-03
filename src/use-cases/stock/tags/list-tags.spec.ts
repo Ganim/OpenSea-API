@@ -1,5 +1,6 @@
 import { Tag } from '@/entities/stock/tag';
 import { InMemoryTagsRepository } from '@/repositories/stock/in-memory/in-memory-tags-repository';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ListTagsUseCase } from './list-tags';
 
@@ -14,6 +15,7 @@ describe('ListTagsUseCase', () => {
 
   it('should list all tags', async () => {
     const tag1 = Tag.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       name: 'Electronics',
       slug: 'electronics',
       color: '#FF5733',
@@ -21,6 +23,7 @@ describe('ListTagsUseCase', () => {
     });
 
     const tag2 = Tag.create({
+      tenantId: new UniqueEntityID('tenant-1'),
       name: 'Clothing',
       slug: 'clothing',
       color: '#33FF57',
@@ -28,6 +31,7 @@ describe('ListTagsUseCase', () => {
     });
 
     await tagsRepository.create({
+      tenantId: 'tenant-1',
       name: tag1.name,
       slug: tag1.slug,
       color: tag1.color ?? undefined,
@@ -35,13 +39,14 @@ describe('ListTagsUseCase', () => {
     });
 
     await tagsRepository.create({
+      tenantId: 'tenant-1',
       name: tag2.name,
       slug: tag2.slug,
       color: tag2.color ?? undefined,
       description: tag2.description ?? undefined,
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.tags).toHaveLength(2);
     expect(result.tags[0]).toEqual(
@@ -59,7 +64,7 @@ describe('ListTagsUseCase', () => {
   });
 
   it('should return empty array when there are no tags', async () => {
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.tags).toHaveLength(0);
   });
