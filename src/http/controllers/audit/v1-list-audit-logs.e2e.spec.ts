@@ -1,12 +1,17 @@
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('List Audit Logs (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -14,7 +19,7 @@ describe('List Audit Logs (E2E)', () => {
   });
 
   it('should list audit logs with correct schema', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 
     const timestamp = Date.now();
 
@@ -22,6 +27,7 @@ describe('List Audit Logs (E2E)', () => {
     await prisma.auditLog.createMany({
       data: [
         {
+          tenantId,
           action: 'CREATE',
           entity: 'PRODUCT',
           module: 'STOCK',
@@ -30,6 +36,7 @@ describe('List Audit Logs (E2E)', () => {
           userId: user.user.id,
         },
         {
+          tenantId,
           action: 'UPDATE',
           entity: 'PRODUCT',
           module: 'STOCK',

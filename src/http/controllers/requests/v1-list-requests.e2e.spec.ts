@@ -1,12 +1,17 @@
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { createRequestE2E } from '@/utils/tests/factories/core/create-request.e2e';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('List Requests (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -14,7 +19,7 @@ describe('List Requests (E2E)', () => {
   });
 
   it('should list requests with correct schema', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 
     // Create a test request
     await createRequestE2E({

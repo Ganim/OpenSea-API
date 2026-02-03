@@ -44,7 +44,7 @@ describe('Get Work Schedule (E2E)', () => {
   });
 
   it('should return 404 for non-existent schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const nonExistentUUID = '00000000-0000-0000-0000-000000000000';
 
     const response = await request(app.server)

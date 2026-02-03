@@ -2,12 +2,16 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
-import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Update Customer (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -15,29 +19,22 @@ describe('Update Customer (E2E)', () => {
   });
 
   it('should update customer with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();
 
-    const tenant = await prisma.tenant.create({
-      data: {
-        name: `Tenant Update Customer ${timestamp}`,
-        slug: `tenant-update-customer-${timestamp}`,
-        status: 'ACTIVE',
-      },
-    });
-    const tenantId = tenant.id;
-
-    const customer = await prisma.customer.create({
-      data: {
+    // Create a customer first
+    const createResponse = await request(app.server)
+      .post('/v1/customers')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
         name: `Customer Update ${timestamp}`,
         type: 'INDIVIDUAL',
-        isActive: true,
-        tenantId,
-      },
-    });
+      });
+
+    const customerId = createResponse.body.customer.id;
 
     const response = await request(app.server)
-      .put(`/v1/customers/${customer.id}`)
+      .put(`/v1/customers/${customerId}`)
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Updated Customer ${timestamp}`,

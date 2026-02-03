@@ -5,11 +5,16 @@ import { app } from '@/app';
 import { ZoneStructure } from '@/entities/stock/value-objects/zone-structure';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import type { Prisma } from '@prisma/generated/client.js';
 
 describe('Get Zone by ID (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -17,17 +22,8 @@ describe('Get Zone by ID (E2E)', () => {
   });
 
   it('should retrieve a zone by ID with warehouse info', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();
-
-    const tenant = await prisma.tenant.create({
-      data: {
-        name: `tenant-${timestamp}`,
-        slug: `tenant-${timestamp}`,
-        status: 'ACTIVE',
-      },
-    });
-    const tenantId = tenant.id;
 
     const warehouse = await prisma.warehouse.create({
       data: {

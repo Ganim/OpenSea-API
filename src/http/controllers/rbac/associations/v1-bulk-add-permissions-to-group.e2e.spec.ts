@@ -1,13 +1,18 @@
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { makePermission } from '@/utils/tests/factories/rbac/make-permission';
 import { makePermissionGroup } from '@/utils/tests/factories/rbac/make-permission-group';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('Bulk Add Permissions To Group (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -15,7 +20,7 @@ describe('Bulk Add Permissions To Group (E2E)', () => {
   });
 
   it('should bulk add permissions to group with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const group = await makePermissionGroup();
     const permissionOne = await makePermission();
     const permissionTwo = await makePermission();

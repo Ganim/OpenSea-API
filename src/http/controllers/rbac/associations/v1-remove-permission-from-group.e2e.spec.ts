@@ -1,14 +1,19 @@
 import { app } from '@/app';
 import { makeAddPermissionToGroupUseCase } from '@/use-cases/rbac/associations/factories/make-add-permission-to-group-use-case';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { makePermission } from '@/utils/tests/factories/rbac/make-permission';
 import { makePermissionGroup } from '@/utils/tests/factories/rbac/make-permission-group';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('Remove Permission From Group (e2e)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -16,7 +21,7 @@ describe('Remove Permission From Group (e2e)', () => {
   });
 
   it('should remove permission from group with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const group = await makePermissionGroup();
     const permission = await makePermission();
 

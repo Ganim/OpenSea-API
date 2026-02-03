@@ -1,13 +1,18 @@
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { createRequestE2E } from '@/utils/tests/factories/core/create-request.e2e';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('Cancel Request (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -15,7 +20,7 @@ describe('Cancel Request (E2E)', () => {
   });
 
   it('should cancel request with correct schema', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 
     const testRequest = await createRequestE2E({
       requesterId: user.user.id,

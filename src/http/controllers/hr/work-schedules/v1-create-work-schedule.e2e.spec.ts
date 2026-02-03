@@ -3,10 +3,15 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Create Work Schedule (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -14,7 +19,7 @@ describe('Create Work Schedule (E2E)', () => {
   });
 
   it('should allow MANAGER to create a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();
 
     const response = await request(app.server)
@@ -45,7 +50,7 @@ describe('Create Work Schedule (E2E)', () => {
   });
 
   it('should NOT allow user without permission to create a work schedule', async () => {
-    const { token } = await createAndAuthenticateUser(app, { permissions: [] });
+    const { token } = await createAndAuthenticateUser(app, { tenantId, permissions: [] });
 
     const response = await request(app.server)
       .post('/v1/hr/work-schedules')
@@ -70,7 +75,7 @@ describe('Create Work Schedule (E2E)', () => {
   });
 
   it('should validate time format', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/hr/work-schedules')

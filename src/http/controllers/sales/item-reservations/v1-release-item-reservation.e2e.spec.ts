@@ -4,10 +4,15 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Release Item Reservation (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -15,20 +20,11 @@ describe('Release Item Reservation (E2E)', () => {
   });
 
   it('should release item reservation with correct schema', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;
 
     const { randomUUID } = await import('node:crypto');
     const unique = randomUUID();
-
-    const tenant = await prisma.tenant.create({
-      data: {
-        name: `tenant-${unique}`,
-        slug: `tenant-${unique}`,
-        status: 'ACTIVE',
-      },
-    });
-    const tenantId = tenant.id;
 
     const template = await prisma.template.create({
       data: {

@@ -2,14 +2,19 @@ import { app } from '@/app';
 import { makeCreateUserUseCase } from '@/use-cases/core/users/factories/make-create-user-use-case';
 import { makeAssignGroupToUserUseCase } from '@/use-cases/rbac/associations/factories/make-assign-group-to-user-use-case';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { makePermissionGroup } from '@/utils/tests/factories/rbac/make-permission-group';
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('Remove Group From User (e2e)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -17,7 +22,7 @@ describe('Remove Group From User (e2e)', () => {
   });
 
   it('should remove group from user with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const group = await makePermissionGroup();
 
     const createUserUseCase = makeCreateUserUseCase();

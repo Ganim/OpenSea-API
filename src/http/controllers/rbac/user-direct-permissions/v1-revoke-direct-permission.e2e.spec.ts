@@ -1,6 +1,7 @@
 import { app } from '@/app';
 import { makeCreateUserUseCase } from '@/use-cases/core/users/factories/make-create-user-use-case';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { makePermission } from '@/utils/tests/factories/rbac/make-permission';
 import { makeUserDirectPermission } from '@/utils/tests/factories/rbac/make-user-direct-permission';
 import { faker } from '@faker-js/faker';
@@ -8,8 +9,12 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('Revoke Direct Permission (e2e)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -17,7 +22,7 @@ describe('Revoke Direct Permission (e2e)', () => {
   });
 
   it('should revoke direct permission with correct schema', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const permission = await makePermission();
 
     const createUserUseCase = makeCreateUserUseCase();

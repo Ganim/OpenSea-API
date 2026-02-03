@@ -1,12 +1,17 @@
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('Compare Versions (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -14,7 +19,7 @@ describe('Compare Versions (E2E)', () => {
   });
 
   it('should compare two versions and return differences with correct schema', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 
     const entityId = `compare-versions-${Date.now()}`;
 
@@ -22,6 +27,7 @@ describe('Compare Versions (E2E)', () => {
     await prisma.auditLog.createMany({
       data: [
         {
+          tenantId,
           action: 'CREATE',
           entity: 'PRODUCT',
           module: 'STOCK',
@@ -31,6 +37,7 @@ describe('Compare Versions (E2E)', () => {
           createdAt: new Date('2025-01-01T10:00:00Z'),
         },
         {
+          tenantId,
           action: 'UPDATE',
           entity: 'PRODUCT',
           module: 'STOCK',
@@ -41,6 +48,7 @@ describe('Compare Versions (E2E)', () => {
           createdAt: new Date('2025-01-02T10:00:00Z'),
         },
         {
+          tenantId,
           action: 'UPDATE',
           entity: 'PRODUCT',
           module: 'STOCK',

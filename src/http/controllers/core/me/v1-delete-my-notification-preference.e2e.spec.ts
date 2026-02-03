@@ -4,10 +4,15 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Delete My Notification Preference (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -15,7 +20,7 @@ describe('Delete My Notification Preference (E2E)', () => {
   });
 
   it('should delete my notification preference', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 
     // Create a notification preference directly in the database
     const preference = await prisma.notificationPreference.create({
@@ -35,7 +40,7 @@ describe('Delete My Notification Preference (E2E)', () => {
   });
 
   it('should return 404 for non-existent preference', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .delete(

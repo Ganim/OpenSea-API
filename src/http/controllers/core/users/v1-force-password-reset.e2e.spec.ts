@@ -3,10 +3,15 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Force Password Reset (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -14,8 +19,9 @@ describe('Force Password Reset (E2E)', () => {
   });
 
   it('should force password reset with correct schema', async () => {
-    const { token: adminToken } = await createAndAuthenticateUser(app);
+    const { token: adminToken } = await createAndAuthenticateUser(app, { tenantId });
     const { user: targetUserResponse } = await createAndAuthenticateUser(app, {
+      tenantId,
       permissions: [],
     });
 

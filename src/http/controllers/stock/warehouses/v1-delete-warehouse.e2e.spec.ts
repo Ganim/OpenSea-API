@@ -4,10 +4,15 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
 describe('Delete Warehouse (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -15,17 +20,8 @@ describe('Delete Warehouse (E2E)', () => {
   });
 
   it('should delete a warehouse successfully', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();
-
-    const tenant = await prisma.tenant.create({
-      data: {
-        name: `tenant-${timestamp}`,
-        slug: `tenant-${timestamp}`,
-        status: 'ACTIVE',
-      },
-    });
-    const tenantId = tenant.id;
 
     const warehouse = await prisma.warehouse.create({
       data: {
@@ -44,7 +40,7 @@ describe('Delete Warehouse (E2E)', () => {
   });
 
   it('should return 404 for non-existent warehouse', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .delete('/v1/warehouses/00000000-0000-0000-0000-000000000000')

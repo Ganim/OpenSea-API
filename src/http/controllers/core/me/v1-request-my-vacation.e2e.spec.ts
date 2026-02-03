@@ -3,12 +3,17 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
 import { createVacationPeriodE2E } from '@/utils/tests/factories/hr/create-vacation-period.e2e';
 
 describe('Request My Vacation (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -16,15 +21,16 @@ describe('Request My Vacation (E2E)', () => {
   });
 
   it('should request vacation for myself', { timeout: 15000 }, async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 
     const { employee } = await createEmployeeE2E({
+      tenantId,
       userId: user.user.id,
       fullName: 'Vacation Request Employee',
     });
 
     const { vacationPeriodId } = await createVacationPeriodE2E({
-      tenantId: employee.tenantId,
+      tenantId,
       employeeId: employee.id,
       status: 'AVAILABLE',
     });
@@ -53,7 +59,7 @@ describe('Request My Vacation (E2E)', () => {
   });
 
   it('should return 404 when user has no employee record', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/me/vacations')

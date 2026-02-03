@@ -1,12 +1,17 @@
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 describe('Preview Rollback (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -14,13 +19,14 @@ describe('Preview Rollback (E2E)', () => {
   });
 
   it('should preview rollback with correct schema', async () => {
-    const { token, user } = await createAndAuthenticateUser(app);
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 
     const entityId = `preview-rollback-${Date.now()}`;
 
     // Create an UPDATE log (can rollback)
     await prisma.auditLog.create({
       data: {
+        tenantId,
         action: 'UPDATE',
         entity: 'PRODUCT',
         module: 'STOCK',
