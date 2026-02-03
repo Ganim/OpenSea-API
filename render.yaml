@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: opensea-api
+    runtime: docker
+    region: oregon # Região mais próxima do Brasil com free tier
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3333
+      - key: DATABASE_URL
+        sync: false # Definir manualmente no dashboard
+      - key: REDIS_HOST
+        sync: false
+      - key: REDIS_PORT
+        sync: false
+      - key: REDIS_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true # Render gera automaticamente
+      - key: FRONTEND_URL
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SENTRY_DSN
+        sync: false
+    healthCheckPath: /health/live
+    autoDeploy: true
+    buildFilter:
+      paths:
+        - src/**
+        - prisma/**
+        - package.json
+        - Dockerfile

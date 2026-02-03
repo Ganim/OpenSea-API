@@ -54,6 +54,10 @@ COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 # Copia package.json para scripts
 COPY package.json ./
 
+# Copia script de inicialização
+COPY scripts/start-production.sh ./scripts/
+RUN chmod +x ./scripts/start-production.sh
+
 # Define ownership
 RUN chown -R fastify:nodejs /app
 
@@ -67,5 +71,5 @@ EXPOSE 3333
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:3333/health/live || exit 1
 
-# Comando de inicialização
-CMD ["node", "build/server.js"]
+# Comando de inicialização (roda migrations e inicia servidor)
+CMD ["./scripts/start-production.sh"]
