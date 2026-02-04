@@ -25,8 +25,8 @@ RUN npm ci --ignore-scripts
 # Copia código fonte
 COPY . .
 
-# Gera Prisma Client
-RUN npx prisma generate
+# Gera Prisma Client (URL dummy pois generate não precisa de conexão real)
+RUN DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" npx prisma generate
 
 # Build da aplicação
 RUN npm run build
