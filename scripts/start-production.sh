@@ -9,4 +9,4 @@ npx prisma migrate deploy
 
 # Start the server
 echo "✅ Starting server..."
-exec node build/server.cjs
+exec node build/server.js
