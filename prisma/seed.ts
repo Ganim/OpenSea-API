@@ -467,7 +467,7 @@ async function seedPlanModules(planIds: Record<string, string>) {
   }
 }
 
-async function seedDemoTenant(adminUserId: string, freePlanId: string) {
+async function seedDemoTenant(freePlanId: string) {
   console.log('🏢 Criando tenant demo...');
 
   // Find admin user
@@ -477,7 +477,7 @@ async function seedDemoTenant(adminUserId: string, freePlanId: string) {
 
   if (!adminUser) {
     console.log('   ⚠️ admin@teste.com não encontrado, pulando tenant demo');
-    return;
+    return null;
   }
 
   // Upsert tenant
@@ -565,6 +565,8 @@ async function seedDemoTenant(adminUserId: string, freePlanId: string) {
   console.log(`   ✅ Tenant "Empresa Demo" (slug: empresa-demo)`);
   console.log(`   ✅ admin@teste.com como owner`);
   console.log(`   ✅ Plano Free atribuído`);
+
+  return tenant;
 }
 
 // ---------------------------------------------------------------------------
@@ -587,7 +589,7 @@ async function main() {
   await seedSuperAdmin();
   const planIds = await seedPlans();
   await seedPlanModules(planIds);
-  await seedDemoTenant(planIds['Free'], planIds['Free']);
+  const demoTenant = await seedDemoTenant(planIds['Free']);
 
   await assignOrphanUsers(userGroupId);
 
