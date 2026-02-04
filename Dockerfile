@@ -49,6 +49,7 @@ COPY --from=deps /app/node_modules ./node_modules
 # Copia build do stage builder
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 
 # Copia package.json para scripts
 COPY package.json ./
