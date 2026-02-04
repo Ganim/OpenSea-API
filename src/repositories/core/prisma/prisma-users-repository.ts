@@ -262,6 +262,39 @@ export class PrismaUsersRepository implements UsersRepository {
     return userList;
   }
 
+  async listByTenantId(tenantId: UniqueEntityID): Promise<User[] | null> {
+    // First, get all user IDs that belong to this tenant
+    const tenantUsers = await prisma.tenantUser.findMany({
+      where: {
+        tenantId: tenantId.toString(),
+        deletedAt: null,
+      },
+      select: { userId: true },
+    });
+
+    if (!tenantUsers || tenantUsers.length === 0) return null;
+
+    const userIds = tenantUsers.map((tu) => tu.userId);
+
+    // Then, get the full user data for those IDs
+    const usersDb = await prisma.user.findMany({
+      where: {
+        id: { in: userIds },
+        deletedAt: null,
+      },
+      orderBy: { email: 'asc' },
+      include: { profile: true },
+    });
+
+    if (!usersDb || usersDb.length === 0) return null;
+
+    const userList = usersDb.map((userDb) =>
+      User.create(mapUserPrismaToDomain(userDb)),
+    );
+
+    return userList;
+  }
+
   // FORCED PASSWORD RESET
   async setForcePasswordReset(
     id: UniqueEntityID,

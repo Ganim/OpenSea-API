@@ -54,10 +54,13 @@ export async function listAllUsersController(app: FastifyInstance) {
       },
     },
 
-    handler: async (_, reply) => {
+    handler: async (request, reply) => {
       try {
+        // Extract tenantId from JWT - filter users by current tenant
+        const tenantId = request.user.tenantId;
+
         const listAllUsersUseCase = makeListAllUsersUseCase();
-        const { users } = await listAllUsersUseCase.execute();
+        const { users } = await listAllUsersUseCase.execute({ tenantId });
         return reply.status(200).send({ users });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {

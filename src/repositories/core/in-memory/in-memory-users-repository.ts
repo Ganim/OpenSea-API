@@ -182,6 +182,12 @@ export class InMemoryUsersRepository implements UsersRepository {
     return this.items.filter((user) => !user.isDeleted);
   }
 
+  async listByTenantId(_tenantId: UniqueEntityID): Promise<User[] | null> {
+    // In-memory implementation: returns all users (tenant filtering not supported in tests)
+    // For proper tenant isolation in tests, use a mock or extend this implementation
+    return this.items.filter((user) => !user.isDeleted);
+  }
+
   // FORCED PASSWORD RESET
   async setForcePasswordReset(
     id: UniqueEntityID,

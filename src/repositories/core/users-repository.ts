@@ -65,6 +65,7 @@ export interface UsersRepository {
 
   // LIST
   listAll(): Promise<User[] | null>;
+  listByTenantId(tenantId: UniqueEntityID): Promise<User[] | null>;
 
   // FORCED PASSWORD RESET
   setForcePasswordReset(
