@@ -1,3 +1,4 @@
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Permission } from '@/entities/rbac/permission';
@@ -12,6 +13,7 @@ interface PermissionWithEffect {
 
 interface ListGroupPermissionsRequest {
   groupId: string;
+  tenantId?: string;
 }
 
 interface ListGroupPermissionsResponse {
@@ -26,6 +28,7 @@ export class ListGroupPermissionsUseCase {
 
   async execute({
     groupId,
+    tenantId,
   }: ListGroupPermissionsRequest): Promise<ListGroupPermissionsResponse> {
     const id = new UniqueEntityID(groupId);
 
@@ -34,6 +37,19 @@ export class ListGroupPermissionsUseCase {
 
     if (!group) {
       throw new ResourceNotFoundError('Permission group not found');
+    }
+
+    // Verify tenant ownership if tenantId provided
+    if (tenantId) {
+      const tenantIdEntity = new UniqueEntityID(tenantId);
+      const isOwnedByTenant = group.tenantId?.equals(tenantIdEntity);
+      const isGlobalGroup = group.tenantId === null;
+
+      if (!isOwnedByTenant && !isGlobalGroup) {
+        throw new ForbiddenError(
+          'Permission group does not belong to your tenant',
+        );
+      }
     }
 
     // Buscar permissões com efeitos

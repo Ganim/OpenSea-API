@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { AuditEntity } from '@/entities/audit/audit-entity.enum';
 import { AuditLogsRepository } from '@/repositories/audit/audit-logs-repository';
 
@@ -8,6 +9,7 @@ interface CompareVersionsUseCaseRequest {
   entityId: string;
   version1: number;
   version2: number;
+  tenantId?: string;
 }
 
 interface CompareVersionsUseCaseResponse {
@@ -37,7 +39,7 @@ export class CompareVersionsUseCase {
   async execute(
     request: CompareVersionsUseCaseRequest,
   ): Promise<CompareVersionsUseCaseResponse> {
-    const { entity, entityId, version1, version2 } = request;
+    const { entity, entityId, version1, version2, tenantId } = request;
 
     if (version1 <= 0 || version2 <= 0) {
       throw new BadRequestError('Version numbers must be positive integers');
@@ -48,6 +50,7 @@ export class CompareVersionsUseCase {
       limit: 1000,
       sortBy: 'createdAt',
       sortOrder: 'asc',
+      tenantId: tenantId ? new UniqueEntityID(tenantId) : undefined,
     });
 
     if (logs.length === 0) {

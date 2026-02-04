@@ -43,6 +43,7 @@ export async function compareVersionsController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { entity, entityId } = request.params;
       const { v1, v2 } = request.query;
+      const tenantId = request.user.tenantId;
 
       try {
         const compareVersionsUseCase = makeCompareVersionsUseCase();
@@ -51,6 +52,7 @@ export async function compareVersionsController(app: FastifyInstance) {
           entityId,
           version1: v1,
           version2: v2,
+          tenantId,
         });
 
         return reply.status(200).send(result);

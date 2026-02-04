@@ -37,12 +37,14 @@ export async function listUsersByPermissionController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { permissionId } = request.params;
+      const tenantId = request.user.tenantId;
 
       try {
         const listUsersByPermissionUseCase = makeListUsersByPermissionUseCase();
 
         const { userIds } = await listUsersByPermissionUseCase.execute({
           permissionId,
+          tenantId,
         });
 
         return reply.status(200).send({ userIds });

@@ -43,6 +43,7 @@ export async function removeGroupFromUserController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { userId, groupId } = request.params;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId;
 
       try {
         // Busca dados para auditoria
@@ -54,7 +55,7 @@ export async function removeGroupFromUserController(app: FastifyInstance) {
           await Promise.all([
             getUserByIdUseCase.execute({ userId: adminId }),
             getUserByIdUseCase.execute({ userId }),
-            getPermissionGroupByIdUseCase.execute({ id: groupId }),
+            getPermissionGroupByIdUseCase.execute({ id: groupId, tenantId }),
           ]);
         const adminName = admin.profile?.name
           ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
@@ -67,6 +68,7 @@ export async function removeGroupFromUserController(app: FastifyInstance) {
         await removeGroupFromUserUseCase.execute({
           userId,
           groupId,
+          tenantId,
         });
 
         // Log de auditoria

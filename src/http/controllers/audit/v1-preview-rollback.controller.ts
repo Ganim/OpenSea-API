@@ -30,11 +30,13 @@ export async function previewRollbackController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { entity, entityId } = request.params;
+      const tenantId = request.user.tenantId;
 
       const previewRollbackUseCase = makePreviewRollbackUseCase();
       const result = await previewRollbackUseCase.execute({
         entity,
         entityId,
+        tenantId,
       });
 
       return reply.status(200).send(result);

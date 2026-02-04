@@ -30,11 +30,13 @@ export async function getEntityHistoryController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { entity, entityId } = request.params;
+      const tenantId = request.user.tenantId;
 
       const getEntityHistoryUseCase = makeGetEntityHistoryUseCase();
       const result = await getEntityHistoryUseCase.execute({
         entity,
         entityId,
+        tenantId,
       });
 
       return reply.status(200).send(result);

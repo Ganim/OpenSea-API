@@ -58,22 +58,12 @@ export class ListPermissionGroupsUseCase {
       groups =
         await this.permissionGroupsRepository.listByParentId(parentIdEntity);
     }
-    // Listar com escopo de tenant (tenant groups + system/global groups)
+    // Listar com escopo de tenant (apenas grupos do tenant, sem grupos globais)
     else if (tenantIdEntity) {
-      const tenantGroups =
+      // Only return groups that belong to this specific tenant
+      // Global system groups (tenantId = null) are NOT included to ensure tenant isolation
+      groups =
         await this.permissionGroupsRepository.listByTenantId(tenantIdEntity);
-      const systemGroups =
-        await this.permissionGroupsRepository.listSystemGroups();
-
-      // Merge tenant-specific groups with system (global) groups, avoiding duplicates
-      const groupIds = new Set(tenantGroups.map((g) => g.id.toString()));
-      const mergedGroups = [...tenantGroups];
-      for (const sysGroup of systemGroups) {
-        if (!groupIds.has(sysGroup.id.toString())) {
-          mergedGroups.push(sysGroup);
-        }
-      }
-      groups = mergedGroups;
     }
     // Listar todos (sem escopo de tenant - para super admin ou contexto sem tenant)
     else {

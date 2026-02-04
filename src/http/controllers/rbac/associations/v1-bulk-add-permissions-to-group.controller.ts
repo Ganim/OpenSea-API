@@ -63,6 +63,7 @@ export async function bulkAddPermissionsToGroupController(
       const { groupId } = request.params;
       const { permissions } = request.body;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId;
 
       try {
         // Busca dados para auditoria
@@ -72,7 +73,7 @@ export async function bulkAddPermissionsToGroupController(
 
         const [{ user: admin }, { group }] = await Promise.all([
           getUserByIdUseCase.execute({ userId: adminId }),
-          getPermissionGroupByIdUseCase.execute({ id: groupId }),
+          getPermissionGroupByIdUseCase.execute({ id: groupId, tenantId }),
         ]);
         const adminName = admin.profile?.name
           ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
@@ -87,6 +88,7 @@ export async function bulkAddPermissionsToGroupController(
             effect: p.effect ?? 'allow',
             conditions: p.conditions ?? null,
           })),
+          tenantId,
         });
 
         // Log de auditoria

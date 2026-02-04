@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { AuditAction } from '@/entities/audit/audit-action.enum';
 import { AuditEntity } from '@/entities/audit/audit-entity.enum';
 import { AuditLogsRepository } from '@/repositories/audit/audit-logs-repository';
@@ -5,6 +6,7 @@ import { AuditLogsRepository } from '@/repositories/audit/audit-logs-repository'
 interface PreviewRollbackUseCaseRequest {
   entity: AuditEntity;
   entityId: string;
+  tenantId?: string;
 }
 
 interface RollbackPreview {
@@ -29,13 +31,14 @@ export class PreviewRollbackUseCase {
   async execute(
     request: PreviewRollbackUseCaseRequest,
   ): Promise<PreviewRollbackUseCaseResponse> {
-    const { entity, entityId } = request;
+    const { entity, entityId, tenantId } = request;
 
     const logs = await this.auditLogsRepository.listByEntity(entity, entityId, {
       page: 1,
       limit: 100,
       sortBy: 'createdAt',
       sortOrder: 'desc',
+      tenantId: tenantId ? new UniqueEntityID(tenantId) : undefined,
     });
 
     if (logs.length === 0) {

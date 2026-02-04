@@ -51,6 +51,7 @@ export async function addPermissionToGroupController(app: FastifyInstance) {
       const { groupId } = request.params;
       const { permissionCode, effect, conditions } = request.body;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId;
 
       try {
         // Busca dados para auditoria
@@ -60,7 +61,7 @@ export async function addPermissionToGroupController(app: FastifyInstance) {
 
         const [{ user: admin }, { group }] = await Promise.all([
           getUserByIdUseCase.execute({ userId: adminId }),
-          getPermissionGroupByIdUseCase.execute({ id: groupId }),
+          getPermissionGroupByIdUseCase.execute({ id: groupId, tenantId }),
         ]);
         const adminName = admin.profile?.name
           ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
@@ -72,6 +73,7 @@ export async function addPermissionToGroupController(app: FastifyInstance) {
           permissionCode,
           effect: effect ?? 'allow',
           conditions: conditions ?? null,
+          tenantId,
         });
 
         // Log de auditoria

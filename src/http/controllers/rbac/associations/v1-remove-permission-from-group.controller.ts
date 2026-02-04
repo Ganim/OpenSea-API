@@ -45,6 +45,7 @@ export async function removePermissionFromGroupController(
     handler: async (request, reply) => {
       const { groupId, permissionId } = request.params;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId;
 
       try {
         // Busca dados para auditoria
@@ -54,7 +55,7 @@ export async function removePermissionFromGroupController(
 
         const [{ user: admin }, { group }] = await Promise.all([
           getUserByIdUseCase.execute({ userId: adminId }),
-          getPermissionGroupByIdUseCase.execute({ id: groupId }),
+          getPermissionGroupByIdUseCase.execute({ id: groupId, tenantId }),
         ]);
         const adminName = admin.profile?.name
           ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
@@ -66,6 +67,7 @@ export async function removePermissionFromGroupController(
         await removePermissionFromGroupUseCase.execute({
           groupId,
           permissionId,
+          tenantId,
         });
 
         // Log de auditoria

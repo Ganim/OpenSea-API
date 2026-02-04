@@ -1,9 +1,11 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { AuditEntity } from '@/entities/audit/audit-entity.enum';
 import { AuditLogsRepository } from '@/repositories/audit/audit-logs-repository';
 
 interface GetEntityHistoryUseCaseRequest {
   entity: AuditEntity;
   entityId: string;
+  tenantId?: string;
 }
 
 interface HistoryVersion {
@@ -26,13 +28,14 @@ export class GetEntityHistoryUseCase {
   async execute(
     request: GetEntityHistoryUseCaseRequest,
   ): Promise<GetEntityHistoryUseCaseResponse> {
-    const { entity, entityId } = request;
+    const { entity, entityId, tenantId } = request;
 
     const logs = await this.auditLogsRepository.listByEntity(entity, entityId, {
       page: 1,
       limit: 1000,
       sortBy: 'createdAt',
       sortOrder: 'asc',
+      tenantId: tenantId ? new UniqueEntityID(tenantId) : undefined,
     });
 
     // Ordenar do mais antigo para o mais recente

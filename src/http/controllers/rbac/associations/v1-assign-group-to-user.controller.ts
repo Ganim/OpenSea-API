@@ -51,6 +51,7 @@ export async function assignGroupToUserController(app: FastifyInstance) {
       const { userId } = request.params;
       const { groupId, expiresAt, grantedBy } = request.body;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId;
 
       try {
         // Busca dados para auditoria
@@ -62,7 +63,7 @@ export async function assignGroupToUserController(app: FastifyInstance) {
           await Promise.all([
             getUserByIdUseCase.execute({ userId: adminId }),
             getUserByIdUseCase.execute({ userId }),
-            getPermissionGroupByIdUseCase.execute({ id: groupId }),
+            getPermissionGroupByIdUseCase.execute({ id: groupId, tenantId }),
           ]);
         const adminName = admin.profile?.name
           ? `${admin.profile.name} ${admin.profile.surname || ''}`.trim()
@@ -77,6 +78,7 @@ export async function assignGroupToUserController(app: FastifyInstance) {
           groupId,
           expiresAt: expiresAt ?? null,
           grantedBy: grantedBy ?? null,
+          tenantId,
         });
 
         // Log de auditoria

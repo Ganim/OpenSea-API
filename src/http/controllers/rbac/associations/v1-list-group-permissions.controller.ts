@@ -39,12 +39,14 @@ export async function listGroupPermissionsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { groupId } = request.params;
+      const tenantId = request.user.tenantId;
 
       try {
         const listGroupPermissionsUseCase = makeListGroupPermissionsUseCase();
 
         const { permissions } = await listGroupPermissionsUseCase.execute({
           groupId,
+          tenantId,
         });
 
         const permissionsWithEffect = permissions.map((item) => ({

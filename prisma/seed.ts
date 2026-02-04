@@ -530,40 +530,106 @@ async function seedDemoTenant(freePlanId: string) {
     });
   }
 
-  // Create tenant-scoped permission groups for the demo tenant
-  const adminGroupForTenant = await prisma.permissionGroup.findFirst({
-    where: { slug: PermissionGroupSlugs.ADMIN, deletedAt: null, tenantId: null },
+  // Get all permissions for assigning to groups
+  const allPerms = await prisma.permission.findMany({
+    select: { id: true, code: true },
+  });
+  const permCodeToId = new Map(allPerms.map((p) => [p.code, p.id]));
+
+  // Create tenant-specific "Administrador" group
+  let tenantAdminGroup = await prisma.permissionGroup.findFirst({
+    where: {
+      slug: `${PermissionGroupSlugs.ADMIN}-${tenant.id.substring(0, 8)}`,
+      tenantId: tenant.id,
+      deletedAt: null
+    },
   });
 
-  if (adminGroupForTenant) {
-    // Ensure the system admin group is linked to the demo tenant via UserPermissionGroup
-    // (system groups remain global, tenantId = null)
-    console.log(`   ✅ System permission groups available for tenant`);
-  }
-
-  // Create a tenant-specific "Gerente" group for the demo tenant
-  let tenantManagerGroup = await prisma.permissionGroup.findFirst({
-    where: { slug: 'gerente-demo', tenantId: tenant.id, deletedAt: null },
-  });
-
-  if (!tenantManagerGroup) {
-    tenantManagerGroup = await prisma.permissionGroup.create({
+  if (!tenantAdminGroup) {
+    tenantAdminGroup = await prisma.permissionGroup.create({
       data: {
-        name: 'Gerente Demo',
-        slug: 'gerente-demo',
-        description: 'Grupo de gerentes do tenant demo.',
+        name: 'Administrador',
+        slug: `${PermissionGroupSlugs.ADMIN}-${tenant.id.substring(0, 8)}`,
+        description: 'Acesso completo ao sistema com todas as permissões.',
         isSystem: false,
         isActive: true,
-        color: '#10B981',
-        priority: 80,
+        color: PermissionGroupColors[PermissionGroupSlugs.ADMIN],
+        priority: PermissionGroupPriorities[PermissionGroupSlugs.ADMIN],
         tenantId: tenant.id,
       },
     });
-    console.log(`   ✅ Grupo "Gerente Demo" criado para tenant (tenantId: ${tenant.id})`);
+
+    // Assign all permissions to admin group
+    await prisma.permissionGroupPermission.createMany({
+      data: allPerms.map((p) => ({
+        groupId: tenantAdminGroup!.id,
+        permissionId: p.id,
+        effect: 'allow',
+      })),
+      skipDuplicates: true,
+    });
+
+    console.log(`   ✅ Grupo "Administrador" criado para tenant com ${allPerms.length} permissões`);
   }
 
+  // Create tenant-specific "Usuário" group
+  let tenantUserGroup = await prisma.permissionGroup.findFirst({
+    where: {
+      slug: `${PermissionGroupSlugs.USER}-${tenant.id.substring(0, 8)}`,
+      tenantId: tenant.id,
+      deletedAt: null
+    },
+  });
+
+  if (!tenantUserGroup) {
+    tenantUserGroup = await prisma.permissionGroup.create({
+      data: {
+        name: 'Usuário',
+        slug: `${PermissionGroupSlugs.USER}-${tenant.id.substring(0, 8)}`,
+        description: 'Acesso básico aos próprios dados do usuário.',
+        isSystem: false,
+        isActive: true,
+        color: PermissionGroupColors[PermissionGroupSlugs.USER],
+        priority: PermissionGroupPriorities[PermissionGroupSlugs.USER],
+        tenantId: tenant.id,
+      },
+    });
+
+    // Assign default user permissions
+    const userPermIds = DEFAULT_USER_PERMISSIONS.map((code) =>
+      permCodeToId.get(code),
+    ).filter((id): id is string => id !== undefined);
+
+    await prisma.permissionGroupPermission.createMany({
+      data: userPermIds.map((permissionId) => ({
+        groupId: tenantUserGroup!.id,
+        permissionId,
+        effect: 'allow',
+      })),
+      skipDuplicates: true,
+    });
+
+    console.log(`   ✅ Grupo "Usuário" criado para tenant com ${userPermIds.length} permissões`);
+  }
+
+  // Assign admin user to tenant's admin group
+  await prisma.userPermissionGroup.upsert({
+    where: {
+      userId_groupId: {
+        userId: adminUser.id,
+        groupId: tenantAdminGroup.id,
+      },
+    },
+    update: {},
+    create: {
+      userId: adminUser.id,
+      groupId: tenantAdminGroup.id,
+      grantedBy: null,
+    },
+  });
+
   console.log(`   ✅ Tenant "Empresa Demo" (slug: empresa-demo)`);
-  console.log(`   ✅ admin@teste.com como owner`);
+  console.log(`   ✅ admin@teste.com como owner e membro do grupo Administrador`);
   console.log(`   ✅ Plano Free atribuído`);
 
   return tenant;
