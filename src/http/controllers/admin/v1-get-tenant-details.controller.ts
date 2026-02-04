@@ -31,6 +31,7 @@ export async function getTenantDetailsAdminController(app: FastifyInstance) {
             createdAt: z.coerce.date(),
             updatedAt: z.coerce.date(),
           }),
+          currentPlanId: z.string().nullable(),
         }),
         404: z.object({
           message: z.string(),
@@ -44,11 +45,13 @@ export async function getTenantDetailsAdminController(app: FastifyInstance) {
 
       try {
         const getTenantDetailsUseCase = makeGetTenantDetailsUseCase();
-        const { tenant } = await getTenantDetailsUseCase.execute({
-          tenantId: id,
-        });
+        const { tenant, currentPlanId } = await getTenantDetailsUseCase.execute(
+          {
+            tenantId: id,
+          },
+        );
 
-        return reply.status(200).send({ tenant });
+        return reply.status(200).send({ tenant, currentPlanId });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
