@@ -44,6 +44,7 @@ export async function listUserGroupsController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { userId } = request.params;
       const { includeExpired, includeInactive } = request.query;
+      const tenantId = request.user.tenantId;
 
       try {
         const listUserGroupsUseCase = makeListUserGroupsUseCase();
@@ -52,6 +53,7 @@ export async function listUserGroupsController(app: FastifyInstance) {
           userId,
           includeExpired,
           includeInactive,
+          tenantId,
         });
 
         return reply

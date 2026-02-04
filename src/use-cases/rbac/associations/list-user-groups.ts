@@ -8,6 +8,7 @@ interface ListUserGroupsRequest {
   userId: string;
   includeExpired?: boolean;
   includeInactive?: boolean;
+  tenantId?: string;
 }
 
 interface ListUserGroupsResponse {
@@ -24,6 +25,7 @@ export class ListUserGroupsUseCase {
     userId,
     includeExpired = false,
     includeInactive = false,
+    tenantId,
   }: ListUserGroupsRequest): Promise<ListUserGroupsResponse> {
     const userIdEntity = new UniqueEntityID(userId);
 
@@ -35,13 +37,22 @@ export class ListUserGroupsUseCase {
     }
 
     // Buscar grupos do usuário
-    const groups = await this.userPermissionGroupsRepository.listGroupsByUserId(
+    let groups = await this.userPermissionGroupsRepository.listGroupsByUserId(
       userIdEntity,
       {
         includeExpired,
         includeInactive,
       },
     );
+
+    // Filter groups by tenant - only show groups that belong to user's tenant or are global
+    if (tenantId) {
+      const tenantIdEntity = new UniqueEntityID(tenantId);
+      groups = groups.filter(
+        (group) =>
+          !group.tenantId || group.tenantId.equals(tenantIdEntity),
+      );
+    }
 
     return { groups };
   }

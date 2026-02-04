@@ -16,6 +16,7 @@ interface ListUserPermissionsRequest {
   module?: string;
   resource?: string;
   action?: string;
+  tenantId?: string;
 }
 
 interface ListUserPermissionsResponse {
@@ -33,6 +34,7 @@ export class ListUserPermissionsUseCase {
     module,
     resource,
     action,
+    tenantId,
   }: ListUserPermissionsRequest): Promise<ListUserPermissionsResponse> {
     const userIdEntity = new UniqueEntityID(userId);
 
@@ -42,6 +44,11 @@ export class ListUserPermissionsUseCase {
     if (!user) {
       throw new ResourceNotFoundError('User not found');
     }
+
+    // TODO: For full tenant isolation, the repository method should accept tenantId
+    // and filter to only include permissions from tenant-scoped or global groups
+    // Currently accepts tenantId for future implementation
+    void tenantId; // Mark as intentionally unused for now
 
     // Buscar permissões efetivas do usuário (de todos os grupos)
     const permissionsWithEffects =

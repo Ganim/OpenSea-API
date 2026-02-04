@@ -45,6 +45,7 @@ export async function listUserPermissionsController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { userId } = request.params;
       const { module, resource, action } = request.query;
+      const tenantId = request.user.tenantId;
 
       try {
         const listUserPermissionsUseCase = makeListUserPermissionsUseCase();
@@ -54,6 +55,7 @@ export async function listUserPermissionsController(app: FastifyInstance) {
           module,
           resource,
           action,
+          tenantId,
         });
 
         const permissionsFormatted = permissions.map((item) => ({

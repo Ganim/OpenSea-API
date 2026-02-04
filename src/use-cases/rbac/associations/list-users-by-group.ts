@@ -6,6 +6,7 @@ import { UserPermissionGroupsRepository } from '@/repositories/rbac/user-permiss
 interface ListUsersByGroupRequest {
   groupId: string;
   includeExpired?: boolean;
+  tenantId?: string;
 }
 
 interface ListUsersByGroupResponse {
@@ -21,6 +22,7 @@ export class ListUsersByGroupUseCase {
   async execute({
     groupId,
     includeExpired = false,
+    tenantId,
   }: ListUsersByGroupRequest): Promise<ListUsersByGroupResponse> {
     const groupIdEntity = new UniqueEntityID(groupId);
 
@@ -29,6 +31,14 @@ export class ListUsersByGroupUseCase {
 
     if (!group) {
       throw new ResourceNotFoundError('Permission group not found');
+    }
+
+    // Verify tenant access - group must belong to user's tenant or be a global group
+    if (tenantId && group.tenantId) {
+      const tenantIdEntity = new UniqueEntityID(tenantId);
+      if (!group.tenantId.equals(tenantIdEntity)) {
+        throw new ResourceNotFoundError('Permission group not found');
+      }
     }
 
     // Buscar assignments do grupo
