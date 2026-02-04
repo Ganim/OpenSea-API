@@ -457,6 +457,14 @@ export const PermissionCodes = {
       LIST: 'stock.manufacturers.list' as const,
       MANAGE: 'stock.manufacturers.manage' as const,
     },
+    LOCATIONS: {
+      CREATE: 'stock.locations.create' as const,
+      READ: 'stock.locations.read' as const,
+      UPDATE: 'stock.locations.update' as const,
+      DELETE: 'stock.locations.delete' as const,
+      LIST: 'stock.locations.list' as const,
+      MANAGE: 'stock.locations.manage' as const,
+    },
     WAREHOUSES: {
       CREATE: 'stock.warehouses.create' as const,
       READ: 'stock.warehouses.read' as const,
