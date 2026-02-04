@@ -558,19 +558,27 @@ async function seedDemoTenant(freePlanId: string) {
         tenantId: tenant.id,
       },
     });
-
-    // Assign all permissions to admin group
-    await prisma.permissionGroupPermission.createMany({
-      data: allPerms.map((p) => ({
-        groupId: tenantAdminGroup!.id,
-        permissionId: p.id,
-        effect: 'allow',
-      })),
-      skipDuplicates: true,
-    });
-
-    console.log(`   ✅ Grupo "Administrador" criado para tenant com ${allPerms.length} permissões`);
   }
+
+  // Sync all permissions to tenant admin group (add new, remove stale)
+  await prisma.permissionGroupPermission.createMany({
+    data: allPerms.map((p) => ({
+      groupId: tenantAdminGroup!.id,
+      permissionId: p.id,
+      effect: 'allow',
+    })),
+    skipDuplicates: true,
+  });
+
+  const allPermIds = new Set(allPerms.map((p) => p.id));
+  await prisma.permissionGroupPermission.deleteMany({
+    where: {
+      groupId: tenantAdminGroup.id,
+      permissionId: { notIn: [...allPermIds] },
+    },
+  });
+
+  console.log(`   ✅ Grupo "Administrador" do tenant sincronizado com ${allPerms.length} permissões`);
 
   // Create tenant-specific "Usuário" group
   let tenantUserGroup = await prisma.permissionGroup.findFirst({
@@ -594,23 +602,31 @@ async function seedDemoTenant(freePlanId: string) {
         tenantId: tenant.id,
       },
     });
-
-    // Assign default user permissions
-    const userPermIds = DEFAULT_USER_PERMISSIONS.map((code) =>
-      permCodeToId.get(code),
-    ).filter((id): id is string => id !== undefined);
-
-    await prisma.permissionGroupPermission.createMany({
-      data: userPermIds.map((permissionId) => ({
-        groupId: tenantUserGroup!.id,
-        permissionId,
-        effect: 'allow',
-      })),
-      skipDuplicates: true,
-    });
-
-    console.log(`   ✅ Grupo "Usuário" criado para tenant com ${userPermIds.length} permissões`);
   }
+
+  // Sync default user permissions to tenant user group
+  const userPermIds = DEFAULT_USER_PERMISSIONS.map((code) =>
+    permCodeToId.get(code),
+  ).filter((id): id is string => id !== undefined);
+
+  await prisma.permissionGroupPermission.createMany({
+    data: userPermIds.map((permissionId) => ({
+      groupId: tenantUserGroup!.id,
+      permissionId,
+      effect: 'allow',
+    })),
+    skipDuplicates: true,
+  });
+
+  const validUserPermIds = new Set(userPermIds);
+  await prisma.permissionGroupPermission.deleteMany({
+    where: {
+      groupId: tenantUserGroup.id,
+      permissionId: { notIn: [...validUserPermIds] },
+    },
+  });
+
+  console.log(`   ✅ Grupo "Usuário" do tenant sincronizado com ${userPermIds.length} permissões`);
 
   // Assign admin user to tenant's admin group
   await prisma.userPermissionGroup.upsert({
