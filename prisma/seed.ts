@@ -159,21 +159,26 @@ async function seedPermissions(codes: string[]) {
   }
 
   if (toUpdate.length > 0) {
-    await prisma.$transaction(
-      toUpdate.map((code) => {
-        const data = buildPermissionData(code);
-        return prisma.permission.update({
-          where: { code },
-          data: {
-            name: data.name,
-            description: data.description,
-            module: data.module,
-            resource: data.resource,
-            action: data.action,
-          },
-        });
-      }),
-    );
+    // Process in batches to avoid transaction timeout on remote DBs
+    const BATCH_SIZE = 50;
+    for (let i = 0; i < toUpdate.length; i += BATCH_SIZE) {
+      const batch = toUpdate.slice(i, i + BATCH_SIZE);
+      await prisma.$transaction(
+        batch.map((code) => {
+          const data = buildPermissionData(code);
+          return prisma.permission.update({
+            where: { code },
+            data: {
+              name: data.name,
+              description: data.description,
+              module: data.module,
+              resource: data.resource,
+              action: data.action,
+            },
+          });
+        }),
+      );
+    }
   }
 
   console.log(
