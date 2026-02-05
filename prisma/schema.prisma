@@ -1052,6 +1052,8 @@ model Manufacturer {
   code           String  @db.VarChar(3) // Código hierárquico auto-gerado (ex: 001)
   sequentialCode Int     @default(autoincrement()) @map("sequential_code") // Para geração do code
   name           String  @db.VarChar(128)
+  legalName      String? @map("legal_name") @db.VarChar(256)
+  cnpj           String? @db.VarChar(18)
   country        String? @db.VarChar(64)
 
   // Contato

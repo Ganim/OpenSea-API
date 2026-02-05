@@ -7,6 +7,8 @@ interface UpdateManufacturerUseCaseRequest {
   tenantId: string;
   id: string;
   name?: string;
+  legalName?: string;
+  cnpj?: string;
   country?: string;
   email?: string;
   phone?: string;
@@ -35,6 +37,8 @@ export class UpdateManufacturerUseCase {
       tenantId,
       id,
       name,
+      legalName,
+      cnpj,
       country,
       email,
       phone,
@@ -116,6 +120,8 @@ export class UpdateManufacturerUseCase {
     const updatedManufacturer = await this.manufacturersRepository.update({
       id: new UniqueEntityID(id),
       name,
+      legalName,
+      cnpj,
       country,
       email,
       phone,

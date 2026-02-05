@@ -5,6 +5,8 @@ export interface ManufacturerDTO {
   code: string; // Código hierárquico auto-gerado (3 dígitos: 001)
   sequentialCode: number | null;
   name: string;
+  legalName: string | null;
+  cnpj: string | null;
   country: string;
   email: string | null;
   phone: string | null;
@@ -28,6 +30,8 @@ export function manufacturerToDTO(manufacturer: Manufacturer): ManufacturerDTO {
     code: manufacturer.code,
     sequentialCode: manufacturer.sequentialCode ?? null,
     name: manufacturer.name,
+    legalName: manufacturer.legalName,
+    cnpj: manufacturer.cnpj,
     country: manufacturer.country,
     email: manufacturer.email,
     phone: manufacturer.phone,

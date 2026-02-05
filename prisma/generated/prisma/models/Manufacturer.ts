@@ -41,6 +41,8 @@ export type ManufacturerMinAggregateOutputType = {
   code: string | null
   sequentialCode: number | null
   name: string | null
+  legalName: string | null
+  cnpj: string | null
   country: string | null
   email: string | null
   phone: string | null
@@ -63,6 +65,8 @@ export type ManufacturerMaxAggregateOutputType = {
   code: string | null
   sequentialCode: number | null
   name: string | null
+  legalName: string | null
+  cnpj: string | null
   country: string | null
   email: string | null
   phone: string | null
@@ -85,6 +89,8 @@ export type ManufacturerCountAggregateOutputType = {
   code: number
   sequentialCode: number
   name: number
+  legalName: number
+  cnpj: number
   country: number
   email: number
   phone: number
@@ -119,6 +125,8 @@ export type ManufacturerMinAggregateInputType = {
   code?: true
   sequentialCode?: true
   name?: true
+  legalName?: true
+  cnpj?: true
   country?: true
   email?: true
   phone?: true
@@ -141,6 +149,8 @@ export type ManufacturerMaxAggregateInputType = {
   code?: true
   sequentialCode?: true
   name?: true
+  legalName?: true
+  cnpj?: true
   country?: true
   email?: true
   phone?: true
@@ -163,6 +173,8 @@ export type ManufacturerCountAggregateInputType = {
   code?: true
   sequentialCode?: true
   name?: true
+  legalName?: true
+  cnpj?: true
   country?: true
   email?: true
   phone?: true
@@ -272,6 +284,8 @@ export type ManufacturerGroupByOutputType = {
   code: string
   sequentialCode: number
   name: string
+  legalName: string | null
+  cnpj: string | null
   country: string | null
   email: string | null
   phone: string | null
@@ -317,6 +331,8 @@ export type ManufacturerWhereInput = {
   code?: Prisma.StringFilter<"Manufacturer"> | string
   sequentialCode?: Prisma.IntFilter<"Manufacturer"> | number
   name?: Prisma.StringFilter<"Manufacturer"> | string
+  legalName?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  cnpj?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   country?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   email?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   phone?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
@@ -341,6 +357,8 @@ export type ManufacturerOrderByWithRelationInput = {
   code?: Prisma.SortOrder
   sequentialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  legalName?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnpj?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -369,6 +387,8 @@ export type ManufacturerWhereUniqueInput = Prisma.AtLeast<{
   code?: Prisma.StringFilter<"Manufacturer"> | string
   sequentialCode?: Prisma.IntFilter<"Manufacturer"> | number
   name?: Prisma.StringFilter<"Manufacturer"> | string
+  legalName?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  cnpj?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   country?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   email?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   phone?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
@@ -393,6 +413,8 @@ export type ManufacturerOrderByWithAggregationInput = {
   code?: Prisma.SortOrder
   sequentialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  legalName?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnpj?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -423,6 +445,8 @@ export type ManufacturerScalarWhereWithAggregatesInput = {
   code?: Prisma.StringWithAggregatesFilter<"Manufacturer"> | string
   sequentialCode?: Prisma.IntWithAggregatesFilter<"Manufacturer"> | number
   name?: Prisma.StringWithAggregatesFilter<"Manufacturer"> | string
+  legalName?: Prisma.StringNullableWithAggregatesFilter<"Manufacturer"> | string | null
+  cnpj?: Prisma.StringNullableWithAggregatesFilter<"Manufacturer"> | string | null
   country?: Prisma.StringNullableWithAggregatesFilter<"Manufacturer"> | string | null
   email?: Prisma.StringNullableWithAggregatesFilter<"Manufacturer"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"Manufacturer"> | string | null
@@ -445,6 +469,8 @@ export type ManufacturerCreateInput = {
   code: string
   sequentialCode?: number
   name: string
+  legalName?: string | null
+  cnpj?: string | null
   country?: string | null
   email?: string | null
   phone?: string | null
@@ -468,6 +494,8 @@ export type ManufacturerUncheckedCreateInput = {
   code: string
   sequentialCode?: number
   name: string
+  legalName?: string | null
+  cnpj?: string | null
   country?: string | null
   email?: string | null
   phone?: string | null
@@ -491,6 +519,8 @@ export type ManufacturerUpdateInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -514,6 +544,8 @@ export type ManufacturerUncheckedUpdateInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -537,6 +569,8 @@ export type ManufacturerCreateManyInput = {
   code: string
   sequentialCode?: number
   name: string
+  legalName?: string | null
+  cnpj?: string | null
   country?: string | null
   email?: string | null
   phone?: string | null
@@ -559,6 +593,8 @@ export type ManufacturerUpdateManyMutationInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -580,6 +616,8 @@ export type ManufacturerUncheckedUpdateManyInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -607,6 +645,8 @@ export type ManufacturerCountOrderByAggregateInput = {
   code?: Prisma.SortOrder
   sequentialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  legalName?: Prisma.SortOrder
+  cnpj?: Prisma.SortOrder
   country?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
@@ -634,6 +674,8 @@ export type ManufacturerMaxOrderByAggregateInput = {
   code?: Prisma.SortOrder
   sequentialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  legalName?: Prisma.SortOrder
+  cnpj?: Prisma.SortOrder
   country?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
@@ -656,6 +698,8 @@ export type ManufacturerMinOrderByAggregateInput = {
   code?: Prisma.SortOrder
   sequentialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  legalName?: Prisma.SortOrder
+  cnpj?: Prisma.SortOrder
   country?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
@@ -756,6 +800,8 @@ export type ManufacturerCreateWithoutProductsInput = {
   code: string
   sequentialCode?: number
   name: string
+  legalName?: string | null
+  cnpj?: string | null
   country?: string | null
   email?: string | null
   phone?: string | null
@@ -778,6 +824,8 @@ export type ManufacturerUncheckedCreateWithoutProductsInput = {
   code: string
   sequentialCode?: number
   name: string
+  legalName?: string | null
+  cnpj?: string | null
   country?: string | null
   email?: string | null
   phone?: string | null
@@ -816,6 +864,8 @@ export type ManufacturerUpdateWithoutProductsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -838,6 +888,8 @@ export type ManufacturerUncheckedUpdateWithoutProductsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -860,6 +912,8 @@ export type ManufacturerCreateWithoutTenantInput = {
   code: string
   sequentialCode?: number
   name: string
+  legalName?: string | null
+  cnpj?: string | null
   country?: string | null
   email?: string | null
   phone?: string | null
@@ -882,6 +936,8 @@ export type ManufacturerUncheckedCreateWithoutTenantInput = {
   code: string
   sequentialCode?: number
   name: string
+  legalName?: string | null
+  cnpj?: string | null
   country?: string | null
   email?: string | null
   phone?: string | null
@@ -933,6 +989,8 @@ export type ManufacturerScalarWhereInput = {
   code?: Prisma.StringFilter<"Manufacturer"> | string
   sequentialCode?: Prisma.IntFilter<"Manufacturer"> | number
   name?: Prisma.StringFilter<"Manufacturer"> | string
+  legalName?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  cnpj?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   country?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   email?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   phone?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
@@ -955,6 +1013,8 @@ export type ManufacturerCreateManyTenantInput = {
   code: string
   sequentialCode?: number
   name: string
+  legalName?: string | null
+  cnpj?: string | null
   country?: string | null
   email?: string | null
   phone?: string | null
@@ -976,6 +1036,8 @@ export type ManufacturerUpdateWithoutTenantInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -998,6 +1060,8 @@ export type ManufacturerUncheckedUpdateWithoutTenantInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1020,6 +1084,8 @@ export type ManufacturerUncheckedUpdateManyWithoutTenantInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1072,6 +1138,8 @@ export type ManufacturerSelect<ExtArgs extends runtime.Types.Extensions.Internal
   code?: boolean
   sequentialCode?: boolean
   name?: boolean
+  legalName?: boolean
+  cnpj?: boolean
   country?: boolean
   email?: boolean
   phone?: boolean
@@ -1097,6 +1165,8 @@ export type ManufacturerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   code?: boolean
   sequentialCode?: boolean
   name?: boolean
+  legalName?: boolean
+  cnpj?: boolean
   country?: boolean
   email?: boolean
   phone?: boolean
@@ -1120,6 +1190,8 @@ export type ManufacturerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   code?: boolean
   sequentialCode?: boolean
   name?: boolean
+  legalName?: boolean
+  cnpj?: boolean
   country?: boolean
   email?: boolean
   phone?: boolean
@@ -1143,6 +1215,8 @@ export type ManufacturerSelectScalar = {
   code?: boolean
   sequentialCode?: boolean
   name?: boolean
+  legalName?: boolean
+  cnpj?: boolean
   country?: boolean
   email?: boolean
   phone?: boolean
@@ -1160,7 +1234,7 @@ export type ManufacturerSelectScalar = {
   tenantId?: boolean
 }
 
-export type ManufacturerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "sequentialCode" | "name" | "country" | "email" | "phone" | "website" | "address" | "city" | "state" | "zipCode" | "isActive" | "notes" | "rating" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["manufacturer"]>
+export type ManufacturerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "sequentialCode" | "name" | "legalName" | "cnpj" | "country" | "email" | "phone" | "website" | "address" | "city" | "state" | "zipCode" | "isActive" | "notes" | "rating" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["manufacturer"]>
 export type ManufacturerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Manufacturer$productsArgs<ExtArgs>
@@ -1184,6 +1258,8 @@ export type $ManufacturerPayload<ExtArgs extends runtime.Types.Extensions.Intern
     code: string
     sequentialCode: number
     name: string
+    legalName: string | null
+    cnpj: string | null
     country: string | null
     email: string | null
     phone: string | null
@@ -1628,6 +1704,8 @@ export interface ManufacturerFieldRefs {
   readonly code: Prisma.FieldRef<"Manufacturer", 'String'>
   readonly sequentialCode: Prisma.FieldRef<"Manufacturer", 'Int'>
   readonly name: Prisma.FieldRef<"Manufacturer", 'String'>
+  readonly legalName: Prisma.FieldRef<"Manufacturer", 'String'>
+  readonly cnpj: Prisma.FieldRef<"Manufacturer", 'String'>
   readonly country: Prisma.FieldRef<"Manufacturer", 'String'>
   readonly email: Prisma.FieldRef<"Manufacturer", 'String'>
   readonly phone: Prisma.FieldRef<"Manufacturer", 'String'>

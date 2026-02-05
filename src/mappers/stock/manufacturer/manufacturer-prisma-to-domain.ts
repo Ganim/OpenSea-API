@@ -10,6 +10,8 @@ export function mapManufacturerPrismaToDomain(
     tenantId: new UniqueEntityID(manufacturerDb.tenantId),
     code: manufacturerDb.code,
     name: manufacturerDb.name,
+    legalName: manufacturerDb.legalName,
+    cnpj: manufacturerDb.cnpj,
     country: manufacturerDb.country ?? '',
     email: manufacturerDb.email,
     phone: manufacturerDb.phone,

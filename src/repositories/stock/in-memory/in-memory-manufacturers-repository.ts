@@ -18,6 +18,8 @@ export class InMemoryManufacturersRepository
       code: data.code,
       sequentialCode: this.sequentialCounter,
       name: data.name,
+      legalName: data.legalName ?? null,
+      cnpj: data.cnpj ?? null,
       country: data.country,
       email: data.email ?? null,
       phone: data.phone ?? null,
@@ -110,6 +112,8 @@ export class InMemoryManufacturersRepository
     if (!manufacturer) return null;
 
     if (data.name !== undefined) manufacturer.name = data.name;
+    if (data.legalName !== undefined) manufacturer.legalName = data.legalName;
+    if (data.cnpj !== undefined) manufacturer.cnpj = data.cnpj;
     if (data.country !== undefined) manufacturer.country = data.country;
     if (data.email !== undefined) manufacturer.email = data.email;
     if (data.phone !== undefined) manufacturer.phone = data.phone;

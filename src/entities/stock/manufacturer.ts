@@ -8,6 +8,8 @@ export interface ManufacturerProps {
   code: string; // Código hierárquico auto-gerado (3 dígitos: 001)
   sequentialCode?: number; // Para geração do code
   name: string;
+  legalName: string | null;
+  cnpj: string | null;
   country: string;
   email: string | null;
   phone: string | null;
@@ -45,6 +47,14 @@ export class Manufacturer extends Entity<ManufacturerProps> {
 
   get name(): string {
     return this.props.name;
+  }
+
+  get legalName(): string | null {
+    return this.props.legalName;
+  }
+
+  get cnpj(): string | null {
+    return this.props.cnpj;
   }
 
   get country(): string {
@@ -110,6 +120,16 @@ export class Manufacturer extends Entity<ManufacturerProps> {
   // Setters
   set name(name: string) {
     this.props.name = name;
+    this.touch();
+  }
+
+  set legalName(legalName: string | null) {
+    this.props.legalName = legalName;
+    this.touch();
+  }
+
+  set cnpj(cnpj: string | null) {
+    this.props.cnpj = cnpj;
     this.touch();
   }
 

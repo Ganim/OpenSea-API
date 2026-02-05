@@ -6,6 +6,8 @@ import { z } from 'zod';
 
 export const createManufacturerSchema = z.object({
   name: z.string().min(1).max(255),
+  legalName: z.string().max(256).optional(),
+  cnpj: z.string().max(18).optional(),
   country: z.string().min(1).max(100),
   email: z.email().optional(),
   phone: z.string().max(20).optional(),
@@ -25,6 +27,8 @@ export const manufacturerResponseSchema = z.object({
   code: z.string(), // Código hierárquico auto-gerado (3 dígitos: 001)
   sequentialCode: z.number().nullable(),
   name: z.string(),
+  legalName: z.string().nullable(),
+  cnpj: z.string().nullable(),
   country: z.string(),
   email: z.string().nullable(),
   phone: z.string().nullable(),

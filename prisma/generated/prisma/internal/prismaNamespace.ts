@@ -6616,6 +6616,8 @@ export const ManufacturerScalarFieldEnum = {
   code: 'code',
   sequentialCode: 'sequentialCode',
   name: 'name',
+  legalName: 'legalName',
+  cnpj: 'cnpj',
   country: 'country',
   email: 'email',
   phone: 'phone',

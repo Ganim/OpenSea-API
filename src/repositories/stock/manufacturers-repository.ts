@@ -5,6 +5,8 @@ export interface CreateManufacturerSchema {
   tenantId: string;
   code: string; // Código hierárquico auto-gerado (3 dígitos: 001)
   name: string;
+  legalName?: string;
+  cnpj?: string;
   country: string;
   email?: string;
   phone?: string;
@@ -22,6 +24,8 @@ export interface CreateManufacturerSchema {
 export interface UpdateManufacturerSchema {
   id: UniqueEntityID;
   name?: string;
+  legalName?: string;
+  cnpj?: string;
   country?: string;
   email?: string;
   phone?: string;

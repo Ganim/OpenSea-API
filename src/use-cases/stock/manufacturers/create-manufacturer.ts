@@ -4,6 +4,8 @@ import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repo
 interface CreateManufacturerUseCaseRequest {
   tenantId: string;
   name: string;
+  legalName?: string;
+  cnpj?: string;
   country: string;
   email?: string;
   phone?: string;
@@ -38,6 +40,8 @@ export class CreateManufacturerUseCase {
     const {
       tenantId,
       name,
+      legalName,
+      cnpj,
       country,
       email,
       phone,
@@ -103,6 +107,8 @@ export class CreateManufacturerUseCase {
       tenantId,
       code,
       name,
+      legalName,
+      cnpj,
       country,
       email,
       phone,
