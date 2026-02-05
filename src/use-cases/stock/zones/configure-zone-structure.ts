@@ -152,9 +152,8 @@ export class ConfigureZoneStructureUseCase {
           }));
 
         if (addressUpdates.length > 0) {
-          binsUpdated = await this.binsRepository.updateAddressMany(
-            addressUpdates,
-          );
+          binsUpdated =
+            await this.binsRepository.updateAddressMany(addressUpdates);
         }
 
         // 2. Create new bins
@@ -175,9 +174,7 @@ export class ConfigureZoneStructureUseCase {
         // 4. Handle occupied removed bins
         if (diff.toBlock.length > 0) {
           if (forceRemoveOccupiedBins) {
-            const blockBinIds = diff.toBlock.map((b) =>
-              b.bin.binId.toString(),
-            );
+            const blockBinIds = diff.toBlock.map((b) => b.bin.binId.toString());
 
             // Build items data for movement records
             const itemsForMovements: Array<{
@@ -201,11 +198,10 @@ export class ConfigureZoneStructureUseCase {
             }
 
             // Detach items (sets lastKnownAddress, clears binId)
-            itemsDetached =
-              await this.itemsRepository.detachItemsFromBins(
-                blockBinIds,
-                tenantId,
-              );
+            itemsDetached = await this.itemsRepository.detachItemsFromBins(
+              blockBinIds,
+              tenantId,
+            );
 
             // Create ZONE_RECONFIGURE movements
             if (itemsForMovements.length > 0) {
@@ -218,9 +214,8 @@ export class ConfigureZoneStructureUseCase {
             }
 
             // Soft-delete the bins
-            binsDeleted += await this.binsRepository.softDeleteMany(
-              blockBinIds,
-            );
+            binsDeleted +=
+              await this.binsRepository.softDeleteMany(blockBinIds);
           } else {
             // Block bins (mark as blocked, don't delete)
             for (const { bin } of diff.toBlock) {

@@ -54,9 +54,7 @@ export class GetItemLocationHistoryUseCase {
     // Filter for location-related movements and sort by date desc
     const locationMovements = movements
       .filter((m) => LOCATION_MOVEMENT_TYPES.has(m.movementType.value))
-      .sort(
-        (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
-      );
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
     const data: LocationHistoryEntry[] = locationMovements.map((m) => ({
       id: m.id.toString(),

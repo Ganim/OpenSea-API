@@ -101,8 +101,7 @@ export class BatchTransferItemsUseCase {
         movementType: MovementType.create('TRANSFER'),
         originRef: originAddress ? `Bin: ${originAddress}` : undefined,
         destinationRef: `Bin: ${destinationBin.address}`,
-        notes:
-          input.notes || 'Batch transfer',
+        notes: input.notes || 'Batch transfer',
       });
 
       movements.push(itemMovementToDTO(movement));

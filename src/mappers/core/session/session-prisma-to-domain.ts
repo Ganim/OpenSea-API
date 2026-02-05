@@ -1,7 +1,7 @@
 import { LoginMethod, Session } from '@/entities/core/session';
 import {
-  DeviceInfo,
-  DeviceType,
+    DeviceInfo,
+    DeviceType,
 } from '@/entities/core/value-objects/device-info';
 import { GeoLocation } from '@/entities/core/value-objects/geo-location';
 import { IpAddress } from '@/entities/core/value-objects/ip-address';

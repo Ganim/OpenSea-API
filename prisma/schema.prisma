@@ -1481,11 +1481,11 @@ model Item {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  variantId String  @map("variant_id")
-  binId            String?  @map("bin_id") // Referência ao Bin (localização específica)
-  lastKnownAddress String?  @map("last_known_address") @db.VarChar(64) // Último endereço conhecido (preservado quando bin é removido)
-  tenantId         String   @map("tenant_id")
-  tenant    Tenant  @relation(fields: [tenantId], references: [id])
+  variantId        String  @map("variant_id")
+  binId            String? @map("bin_id") // Referência ao Bin (localização específica)
+  lastKnownAddress String? @map("last_known_address") @db.VarChar(64) // Último endereço conhecido (preservado quando bin é removido)
+  tenantId         String  @map("tenant_id")
+  tenant           Tenant  @relation(fields: [tenantId], references: [id])
 
   variant      Variant           @relation(fields: [variantId], references: [id])
   bin          Bin?              @relation(fields: [binId], references: [id])
@@ -1592,10 +1592,10 @@ model VariantPriceHistory {
 }
 
 model AuditLog {
-  id          String      @id @default(uuid())
+  id String @id @default(uuid())
 
   // Multi-Tenant (nullable for system actions)
-  tenantId    String?     @map("tenant_id")
+  tenantId String? @map("tenant_id")
 
   action      AuditAction
   entity      AuditEntity
@@ -2440,10 +2440,10 @@ model Position {
   // Multi-Tenant
   tenantId String @map("tenant_id")
 
-  name         String  @db.VarChar(128)
-  code         String  @db.VarChar(32)
-  description  String? @db.Text
-  departmentId String? @map("department_id")
+  name         String   @db.VarChar(128)
+  code         String   @db.VarChar(32)
+  description  String?  @db.Text
+  departmentId String?  @map("department_id")
   level        Int      @default(1)
   minSalary    Decimal? @map("min_salary") @db.Decimal(10, 2)
   maxSalary    Decimal? @map("max_salary") @db.Decimal(10, 2)
@@ -2984,7 +2984,7 @@ model Company {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  tenant         Tenant @relation(fields: [tenantId], references: [id])
+  tenant         Tenant                 @relation(fields: [tenantId], references: [id])
   employees      Employee[]
   departments    Department[]
   addresses      CompanyAddress[]
@@ -3275,23 +3275,23 @@ model Tenant {
   refreshTokens      RefreshToken[]
 
   // Stock domain
-  warehouses     Warehouse[]
-  zones          Zone[]
-  bins           Bin[]
-  templates      Template[]
-  products       Product[]
-  variants       Variant[]
-  items          Item[]
-  itemMovements  ItemMovement[]
-  categories     Category[]
-  tags           Tag[]
-  suppliers      Supplier[]
-  manufacturers  Manufacturer[]
-  volumes        Volume[]
-  purchaseOrders PurchaseOrder[]
+  warehouses      Warehouse[]
+  zones           Zone[]
+  bins            Bin[]
+  templates       Template[]
+  products        Product[]
+  variants        Variant[]
+  items           Item[]
+  itemMovements   ItemMovement[]
+  categories      Category[]
+  tags            Tag[]
+  suppliers       Supplier[]
+  manufacturers   Manufacturer[]
+  volumes         Volume[]
+  purchaseOrders  PurchaseOrder[]
   // Sales domain
-  customers      Customer[]
-  salesOrders    SalesOrder[]
+  customers       Customer[]
+  salesOrders     SalesOrder[]
   // HR domain
   companies       Company[]
   departments     Department[]

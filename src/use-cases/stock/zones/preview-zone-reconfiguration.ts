@@ -80,10 +80,7 @@ export class PreviewZoneReconfigurationUseCase {
       tenantId,
     );
 
-    const newBinData = zoneStructure.generateBinData(
-      warehouse.code,
-      zone.code,
-    );
+    const newBinData = zoneStructure.generateBinData(warehouse.code, zone.code);
 
     if (existingBins.length === 0) {
       return {

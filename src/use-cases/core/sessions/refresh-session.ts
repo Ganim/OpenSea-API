@@ -5,18 +5,18 @@ import { IpAddress } from '@/entities/core/value-objects/ip-address';
 import { Token } from '@/entities/core/value-objects/token';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
-  refreshTokenToDTO,
-  type RefreshTokenDTO,
+    refreshTokenToDTO,
+    type RefreshTokenDTO,
 } from '@/mappers/core/refresh-token/refresh-token-to-dto';
 import {
-  sessionToDTO,
-  type SessionDTO,
+    sessionToDTO,
+    type SessionDTO,
 } from '@/mappers/core/session/session-to-dto';
 import { RefreshTokensRepository } from '@/repositories/core/refresh-tokens-repository';
 import { SessionsRepository } from '@/repositories/core/sessions-repository';
+import type { TenantsRepository } from '@/repositories/core/tenants-repository';
 import type { UsersRepository } from '@/repositories/core/users-repository';
 import type { PermissionService } from '@/services/rbac/permission-service';
-import type { TenantsRepository } from '@/repositories/core/tenants-repository';
 import type { FastifyReply } from 'fastify';
 
 export interface RefreshSessionUseCaseRequest {
