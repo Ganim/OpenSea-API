@@ -24,6 +24,9 @@ export async function listProductsController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Products'],
       summary: 'List all products',
+      querystring: z.object({
+        manufacturerId: z.string().uuid().optional(),
+      }),
       response: {
         200: z.object({
           products: z.array(productResponseSchema),
@@ -34,9 +37,10 @@ export async function listProductsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const { manufacturerId } = request.query as { manufacturerId?: string };
 
       const listProductsUseCase = makeListProductsUseCase();
-      const { products } = await listProductsUseCase.execute({ tenantId });
+      const { products } = await listProductsUseCase.execute({ tenantId, manufacturerId });
 
       return reply.status(200).send({ products: products.map(productToDTO) });
     },
