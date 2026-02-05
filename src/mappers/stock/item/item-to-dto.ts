@@ -7,6 +7,7 @@ export interface ItemDTO {
   binId?: string;
   locationId?: string;
   resolvedAddress?: string;
+  lastKnownAddress?: string;
   uniqueCode?: string;
   fullCode?: string;
   sequentialCode?: number;
@@ -46,6 +47,7 @@ export function itemToDTO(item: Item, relatedData?: ItemRelatedData): ItemDTO {
     binId: item.binId?.toString() || relatedData?.binId,
     locationId: item.binId?.toString() || relatedData?.binId, // Alias para binId (compatibilidade)
     resolvedAddress: relatedData?.binAddress,
+    lastKnownAddress: item.lastKnownAddress,
     uniqueCode: item.uniqueCode,
     fullCode: item.fullCode,
     sequentialCode: item.sequentialCode,

@@ -5,6 +5,7 @@ import { mapSessionPrismaToDomain } from '@/mappers/core/session/session-prisma-
 import {
   CreateSessionSchema,
   SessionsRepository,
+  SetTenantSessionSchema,
   TrustSessionSchema,
   UpdateSessionSchema,
 } from '../sessions-repository';
@@ -66,6 +67,10 @@ export class PrismaSessionsRepository implements SessionsRepository {
         ip: data.ip.value,
         lastUsedAt: new Date(),
 
+        ...(data.tenantId !== undefined && {
+          tenantId: data.tenantId ? data.tenantId.toString() : null,
+        }),
+
         // Update device info if provided
         ...(deviceInfo && {
           userAgent: deviceInfo.userAgent,
@@ -87,6 +92,24 @@ export class PrismaSessionsRepository implements SessionsRepository {
           latitude: geoLocation.latitude,
           longitude: geoLocation.longitude,
         }),
+      },
+    });
+
+    return mapSessionPrismaToDomain(updatedSessionDb);
+  }
+
+  // SET TENANT
+  // - setTenant(data: SetTenantSessionSchema): Promise<Session | null>;
+  async setTenant(data: SetTenantSessionSchema): Promise<Session | null> {
+    const sessionDb = await prisma.session.findUnique({
+      where: { id: data.sessionId.toString() },
+    });
+    if (!sessionDb) return null;
+
+    const updatedSessionDb = await prisma.session.update({
+      where: { id: data.sessionId.toString() },
+      data: {
+        tenantId: data.tenantId ? data.tenantId.toString() : null,
       },
     });
 

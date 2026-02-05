@@ -36,6 +36,9 @@ export function mapSessionPrismaToDomain(
   return Session.create(
     {
       userId: new UniqueEntityID(sessionDb.userId),
+      tenantId: sessionDb.tenantId
+        ? new UniqueEntityID(sessionDb.tenantId)
+        : null,
       ip: IpAddress.create(sessionDb.ip),
       createdAt: sessionDb.createdAt,
       expiredAt: sessionDb.expiredAt ?? undefined,

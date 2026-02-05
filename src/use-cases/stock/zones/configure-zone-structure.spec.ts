@@ -2,6 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ZoneStructure } from '@/entities/stock/value-objects/zone-structure';
 import { InMemoryBinsRepository } from '@/repositories/stock/in-memory/in-memory-bins-repository';
+import { InMemoryItemMovementsRepository } from '@/repositories/stock/in-memory/in-memory-item-movements-repository';
+import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
 import { InMemoryWarehousesRepository } from '@/repositories/stock/in-memory/in-memory-warehouses-repository';
 import { InMemoryZonesRepository } from '@/repositories/stock/in-memory/in-memory-zones-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -10,6 +12,8 @@ import { ConfigureZoneStructureUseCase } from './configure-zone-structure';
 let zonesRepository: InMemoryZonesRepository;
 let binsRepository: InMemoryBinsRepository;
 let warehousesRepository: InMemoryWarehousesRepository;
+let itemsRepository: InMemoryItemsRepository;
+let itemMovementsRepository: InMemoryItemMovementsRepository;
 let sut: ConfigureZoneStructureUseCase;
 
 describe('ConfigureZoneStructureUseCase', () => {
@@ -17,10 +21,14 @@ describe('ConfigureZoneStructureUseCase', () => {
     zonesRepository = new InMemoryZonesRepository();
     binsRepository = new InMemoryBinsRepository();
     warehousesRepository = new InMemoryWarehousesRepository();
+    itemsRepository = new InMemoryItemsRepository();
+    itemMovementsRepository = new InMemoryItemMovementsRepository();
     sut = new ConfigureZoneStructureUseCase(
       zonesRepository,
       binsRepository,
       warehousesRepository,
+      itemsRepository,
+      itemMovementsRepository,
     );
   });
 
@@ -41,6 +49,7 @@ describe('ConfigureZoneStructureUseCase', () => {
 
     const result = await sut.execute({
       tenantId: 'tenant-1',
+      userId: 'user-1',
       zoneId: zone.zoneId.toString(),
       regenerateBins: true,
       structure: {
@@ -89,6 +98,7 @@ describe('ConfigureZoneStructureUseCase', () => {
     await expect(() =>
       sut.execute({
         tenantId: 'tenant-1',
+        userId: 'user-1',
         zoneId: zone.zoneId.toString(),
         regenerateBins: true,
         structure: {
@@ -115,6 +125,7 @@ describe('ConfigureZoneStructureUseCase', () => {
     await expect(() =>
       sut.execute({
         tenantId: 'tenant-1',
+        userId: 'user-1',
         zoneId: new UniqueEntityID().toString(),
         structure: {
           aisles: 1,

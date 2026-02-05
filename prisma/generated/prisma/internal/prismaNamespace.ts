@@ -6335,6 +6335,7 @@ export type UserProfileScalarFieldEnum = (typeof UserProfileScalarFieldEnum)[key
 export const SessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  tenantId: 'tenantId',
   ip: 'ip',
   createdAt: 'createdAt',
   expiredAt: 'expiredAt',
@@ -6366,6 +6367,7 @@ export const RefreshTokenScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   sessionId: 'sessionId',
+  tenantId: 'tenantId',
   token: 'token',
   expiresAt: 'expiresAt',
   createdAt: 'createdAt',
@@ -6855,6 +6857,7 @@ export const ItemScalarFieldEnum = {
   deletedAt: 'deletedAt',
   variantId: 'variantId',
   binId: 'binId',
+  lastKnownAddress: 'lastKnownAddress',
   tenantId: 'tenantId'
 } as const
 
@@ -6869,6 +6872,7 @@ export const ItemMovementScalarFieldEnum = {
   movementType: 'movementType',
   reasonCode: 'reasonCode',
   destinationRef: 'destinationRef',
+  originRef: 'originRef',
   batchNumber: 'batchNumber',
   notes: 'notes',
   createdAt: 'createdAt',

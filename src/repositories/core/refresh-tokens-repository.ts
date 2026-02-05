@@ -5,6 +5,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 export interface CreateRefreshTokenSchema {
   userId: UniqueEntityID;
   sessionId: UniqueEntityID;
+  tenantId?: UniqueEntityID | null;
   token: Token;
   expiresAt: Date;
 }

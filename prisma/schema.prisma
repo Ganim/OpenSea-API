@@ -170,6 +170,7 @@ model UserProfile {
 model Session {
   id         String    @id @default(uuid())
   userId     String    @map("user_id")
+  tenantId   String?   @map("tenant_id")
   ip         String    @db.VarChar(64)
   createdAt  DateTime  @default(now()) @map("created_at")
   expiredAt  DateTime? @map("expired_at")
@@ -201,9 +202,11 @@ model Session {
 
   // Relations
   user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant        Tenant?        @relation(fields: [tenantId], references: [id])
   refreshTokens RefreshToken[]
 
   @@index([userId])
+  @@index([tenantId])
   @@index([ip])
   @@index([deviceType])
   @@index([country])
@@ -215,6 +218,7 @@ model RefreshToken {
   id        String    @id @default(uuid())
   userId    String    @map("user_id")
   sessionId String    @map("session_id")
+  tenantId  String?   @map("tenant_id")
   token     String    @unique @db.VarChar(2048)
   expiresAt DateTime  @map("expires_at")
   createdAt DateTime  @default(now()) @map("created_at")
@@ -223,9 +227,11 @@ model RefreshToken {
   // Relations
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  tenant  Tenant? @relation(fields: [tenantId], references: [id])
 
   @@index([userId])
   @@index([sessionId])
+  @@index([tenantId])
   @@index([token])
   @@map("refresh_tokens")
 }
@@ -469,6 +475,7 @@ enum MovementType {
   LOSS
   TRANSFER
   INVENTORY_ADJUSTMENT
+  ZONE_RECONFIGURE
 }
 
 enum AuditAction {
@@ -1475,8 +1482,9 @@ model Item {
   deletedAt DateTime? @map("deleted_at")
 
   variantId String  @map("variant_id")
-  binId     String? @map("bin_id") // Referência ao Bin (localização específica)
-  tenantId  String  @map("tenant_id")
+  binId            String?  @map("bin_id") // Referência ao Bin (localização específica)
+  lastKnownAddress String?  @map("last_known_address") @db.VarChar(64) // Último endereço conhecido (preservado quando bin é removido)
+  tenantId         String   @map("tenant_id")
   tenant    Tenant  @relation(fields: [tenantId], references: [id])
 
   variant      Variant           @relation(fields: [variantId], references: [id])
@@ -1513,6 +1521,7 @@ model ItemMovement {
   movementType   MovementType @map("movement_type")
   reasonCode     String?      @map("reason_code") @db.VarChar(64)
   destinationRef String?      @map("destination_ref") @db.VarChar(128) // Ex: Pedido de Venda #123, OP #456
+  originRef      String?      @map("origin_ref") @db.VarChar(128) // Origem da movimentação (ex: Bin: FAB-EST-102-B)
   batchNumber    String?      @map("batch_number") @db.VarChar(64)
   notes          String?      @db.Text
   createdAt      DateTime     @default(now()) @map("created_at")
@@ -3262,6 +3271,8 @@ model Tenant {
   tenantPlans        TenantPlan[]
   tenantFeatureFlags TenantFeatureFlag[]
   permissionGroups   PermissionGroup[]
+  sessions           Session[]
+  refreshTokens      RefreshToken[]
 
   // Stock domain
   warehouses     Warehouse[]

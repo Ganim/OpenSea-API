@@ -36,6 +36,7 @@ export async function deleteZoneController(app: FastifyInstance) {
         200: z.object({
           success: z.boolean(),
           deletedBinsCount: z.number(),
+          itemsDetached: z.number(),
         }),
         400: z.object({
           message: z.string(),
@@ -49,18 +50,23 @@ export async function deleteZoneController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
       const { id } = request.params;
       const { forceDeleteBins } = request.query;
 
       try {
         const deleteZoneUseCase = makeDeleteZoneUseCase();
-        const { success, deletedBinsCount } = await deleteZoneUseCase.execute({
-          tenantId,
-          id,
-          forceDeleteBins,
-        });
+        const { success, deletedBinsCount, itemsDetached } =
+          await deleteZoneUseCase.execute({
+            tenantId,
+            id,
+            userId,
+            forceDeleteBins,
+          });
 
-        return reply.status(200).send({ success, deletedBinsCount });
+        return reply
+          .status(200)
+          .send({ success, deletedBinsCount, itemsDetached });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

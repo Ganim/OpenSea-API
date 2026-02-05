@@ -4,7 +4,8 @@ export type MovementTypeValue =
   | 'SAMPLE'
   | 'LOSS'
   | 'TRANSFER'
-  | 'INVENTORY_ADJUSTMENT';
+  | 'INVENTORY_ADJUSTMENT'
+  | 'ZONE_RECONFIGURE';
 
 export class MovementType {
   private readonly type: MovementTypeValue;
@@ -44,6 +45,10 @@ export class MovementType {
 
   get isInventoryAdjustment(): boolean {
     return this.type === 'INVENTORY_ADJUSTMENT';
+  }
+
+  get isZoneReconfigure(): boolean {
+    return this.type === 'ZONE_RECONFIGURE';
   }
 
   // Business Logic

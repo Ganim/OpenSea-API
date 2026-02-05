@@ -37,6 +37,7 @@ export class InMemoryItemsRepository implements ItemsRepository {
       upcCode: data.upcCode,
       variantId: data.variantId,
       binId: data.binId,
+      lastKnownAddress: data.lastKnownAddress,
       initialQuantity: data.initialQuantity,
       currentQuantity: data.currentQuantity,
       unitCost: data.unitCost,
@@ -183,6 +184,8 @@ export class InMemoryItemsRepository implements ItemsRepository {
     if (!item) return null;
 
     if (data.binId !== undefined) item.binId = data.binId;
+    if (data.lastKnownAddress !== undefined)
+      item.lastKnownAddress = data.lastKnownAddress;
     if (data.currentQuantity !== undefined)
       item.currentQuantity = data.currentQuantity;
     if (data.status !== undefined) item.status = data.status;
@@ -324,5 +327,27 @@ export class InMemoryItemsRepository implements ItemsRepository {
       item,
       relatedData: this.buildRelatedData(item),
     }));
+  }
+
+  async detachItemsFromBins(
+    binIds: string[],
+    tenantId: string,
+  ): Promise<number> {
+    let count = 0;
+    for (const item of this.items) {
+      if (
+        item.binId &&
+        binIds.includes(item.binId.toString()) &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt
+      ) {
+        // Resolve bin address from in-memory bins
+        const binData = this.relatedData.bins.get(item.binId.toString());
+        item.lastKnownAddress = binData?.address ?? item.lastKnownAddress;
+        item.binId = undefined;
+        count++;
+      }
+    }
+    return count;
   }
 }

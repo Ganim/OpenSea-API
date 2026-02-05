@@ -30,7 +30,7 @@ export async function configureZoneStructureController(app: FastifyInstance) {
       tags: ['Stock - Zones'],
       summary: 'Configure zone structure and generate bins',
       description:
-        'Configura a estrutura fisica de uma zona (corredores, prateleiras, posicoes) e gera automaticamente os bins correspondentes.',
+        'Configura a estrutura fisica de uma zona (corredores, prateleiras, posicoes) e gera automaticamente os bins correspondentes. Usa diff inteligente para preservar bins existentes.',
       params: z.object({
         id: z.string().uuid(),
       }),
@@ -49,24 +49,32 @@ export async function configureZoneStructureController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
       const { id } = request.params;
-      const { structure, regenerateBins } = request.body;
+      const { structure, regenerateBins, forceRemoveOccupiedBins } =
+        request.body;
 
       try {
         const configureZoneStructureUseCase =
           makeConfigureZoneStructureUseCase();
-        const { zone, binsCreated, binsDeleted } =
-          await configureZoneStructureUseCase.execute({
-            tenantId,
-            zoneId: id,
-            structure,
-            regenerateBins,
-          });
+        const result = await configureZoneStructureUseCase.execute({
+          tenantId,
+          zoneId: id,
+          userId,
+          structure,
+          regenerateBins,
+          forceRemoveOccupiedBins,
+        });
 
         return reply.status(200).send({
-          zone: zoneToDTO(zone),
-          binsCreated,
-          binsDeleted,
+          zone: zoneToDTO(result.zone),
+          binsCreated: result.binsCreated,
+          binsPreserved: result.binsPreserved,
+          binsUpdated: result.binsUpdated,
+          binsDeleted: result.binsDeleted,
+          binsBlocked: result.binsBlocked,
+          itemsDetached: result.itemsDetached,
+          blockedBins: result.blockedBins,
         });
       } catch (error) {
         if (error instanceof BadRequestError) {

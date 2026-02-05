@@ -8,6 +8,7 @@ export type LoginMethod = 'password' | 'oauth' | 'magic_link' | 'api_key';
 
 export interface SessionProps {
   userId: UniqueEntityID;
+  tenantId?: UniqueEntityID | null;
   ip: IpAddress;
   createdAt: Date;
   expiredAt?: Date | null;
@@ -29,6 +30,10 @@ export interface SessionProps {
 export class Session extends Entity<SessionProps> {
   get userId(): UniqueEntityID {
     return this.props.userId;
+  }
+
+  get tenantId(): UniqueEntityID | null {
+    return this.props.tenantId ?? null;
   }
 
   get ip(): IpAddress {
@@ -107,6 +112,10 @@ export class Session extends Entity<SessionProps> {
     this.props.ip = ip;
   }
 
+  set tenantId(tenantId: UniqueEntityID | null) {
+    this.props.tenantId = tenantId ?? null;
+  }
+
   set createdAt(createdAt: Date) {
     this.props.createdAt = createdAt;
   }
@@ -166,6 +175,7 @@ export class Session extends Entity<SessionProps> {
     return new Session(
       {
         ...props,
+        tenantId: props.tenantId ?? null,
         expiredAt: props.expiredAt ?? null,
         revokedAt: props.revokedAt ?? null,
         lastUsedAt: props.lastUsedAt ?? null,

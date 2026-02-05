@@ -32,6 +32,7 @@ export interface CreateItemSchema {
   upcCode: string; // UPC gerado do fullCode - IMUTÁVEL
   variantId: UniqueEntityID;
   binId?: UniqueEntityID; // Referência ao bin onde o item está armazenado
+  lastKnownAddress?: string; // Último endereço conhecido do bin
   initialQuantity: number;
   currentQuantity: number;
   unitCost?: number; // Custo unitário do item
@@ -46,6 +47,7 @@ export interface CreateItemSchema {
 export interface UpdateItemSchema {
   id: UniqueEntityID;
   binId?: UniqueEntityID;
+  lastKnownAddress?: string;
   currentQuantity?: number;
   status?: ItemStatus;
   attributes?: Record<string, unknown>;
@@ -79,6 +81,7 @@ export interface ItemsRepository {
   update(data: UpdateItemSchema): Promise<Item | null>;
   save(item: Item): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
+  detachItemsFromBins(binIds: string[], tenantId: string): Promise<number>;
 
   // Methods with relations (for list/get with related data)
   findAllWithRelations(tenantId: string): Promise<ItemWithRelationsDTO[]>;

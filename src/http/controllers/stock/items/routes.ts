@@ -8,6 +8,8 @@ import { listItemsController } from './v1-list-items.controller';
 import { registerItemEntryController } from './v1-register-item-entry.controller';
 import { registerItemExitController } from './v1-register-item-exit.controller';
 import { transferItemController } from './v1-transfer-item.controller';
+import { batchTransferItemsController } from './v1-batch-transfer-items.controller';
+import { getItemLocationHistoryController } from './v1-get-item-location-history.controller';
 
 export async function itemsRoutes(app: FastifyInstance) {
   // Rotas de consulta com rate limit de query
@@ -18,6 +20,7 @@ export async function itemsRoutes(app: FastifyInstance) {
       queryApp.register(listItemsController);
       queryApp.register(listItemsByVariantIdController);
       queryApp.register(listItemsByProductIdController);
+      queryApp.register(getItemLocationHistoryController);
     },
     { prefix: '' },
   );
@@ -29,6 +32,7 @@ export async function itemsRoutes(app: FastifyInstance) {
       mutationApp.register(registerItemEntryController);
       mutationApp.register(registerItemExitController);
       mutationApp.register(transferItemController);
+      mutationApp.register(batchTransferItemsController);
     },
     { prefix: '' },
   );

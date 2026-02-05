@@ -17,6 +17,7 @@ export class InMemoryRefreshTokensRepository
     const refreshToken = RefreshToken.create({
       userId: data.userId,
       sessionId: data.sessionId,
+      tenantId: data.tenantId ?? null,
       token: data.token,
       expiresAt: data.expiresAt,
       createdAt: new Date(),

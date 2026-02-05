@@ -17,6 +17,7 @@ export interface ItemProps {
   qrCode?: string; // QR Code editável
   variantId: UniqueEntityID;
   binId?: UniqueEntityID; // Referência ao bin onde o item está armazenado
+  lastKnownAddress?: string; // Último endereço conhecido (preservado quando bin é removido)
   initialQuantity: number;
   currentQuantity: number;
   unitCost?: number; // Custo unitário do item
@@ -102,6 +103,15 @@ export class Item extends Entity<ItemProps> {
 
   set binId(binId: UniqueEntityID | undefined) {
     this.props.binId = binId;
+    this.touch();
+  }
+
+  get lastKnownAddress(): string | undefined {
+    return this.props.lastKnownAddress;
+  }
+
+  set lastKnownAddress(address: string | undefined) {
+    this.props.lastKnownAddress = address;
     this.touch();
   }
 

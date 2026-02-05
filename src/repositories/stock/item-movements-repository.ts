@@ -11,6 +11,7 @@ export interface CreateItemMovementSchema {
   quantityAfter?: number;
   movementType: MovementType;
   reasonCode?: string;
+  originRef?: string;
   destinationRef?: string;
   batchNumber?: string;
   notes?: string;
@@ -52,4 +53,10 @@ export interface ItemMovementsRepository {
   findManyPendingApproval(tenantId: string): Promise<ItemMovement[]>;
   update(data: UpdateItemMovementSchema): Promise<ItemMovement | null>;
   save(movement: ItemMovement): Promise<void>;
+  createBatchForZoneReconfigure(data: {
+    tenantId: string;
+    items: Array<{ itemId: string; binAddress: string; currentQuantity: number }>;
+    userId: string;
+    notes?: string;
+  }): Promise<number>;
 }

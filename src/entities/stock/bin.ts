@@ -38,6 +38,10 @@ export class Bin extends Entity<BinProps> {
     return this.props.address;
   }
 
+  set address(address: string) {
+    this.props.address = address;
+  }
+
   get aisle(): number {
     return this.props.aisle;
   }

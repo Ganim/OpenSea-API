@@ -512,14 +512,14 @@ async function setupAllPermissions(userId: string): Promise<void> {
     }
   }
 
-  // Create all permissions using upsert (batch for performance)
-  for (const perm of permissionsToCreate) {
-    await prisma.permission.upsert({
-      where: { code: perm.code },
-      update: {},
-      create: { ...perm, isSystem: true },
-    });
-  }
+  // Create all permissions in batch (skip duplicates for parallel-safe tests)
+  await prisma.permission.createMany({
+    data: permissionsToCreate.map((perm) => ({
+      ...perm,
+      isSystem: true,
+    })),
+    skipDuplicates: true,
+  });
 
   // Get or create admin group
   let adminGroup = await prisma.permissionGroup.findFirst({
@@ -730,7 +730,28 @@ export async function createAndAuthenticateUser(
     });
 
   let { token } = authResponse.body;
-  const { refreshToken, sessionId } = authResponse.body;
+  let { refreshToken, sessionId } = authResponse.body;
+
+  if (!refreshToken) {
+    const setCookie = authResponse.headers['set-cookie'] ?? [];
+    const cookies = Array.isArray(setCookie) ? setCookie : [setCookie];
+    const refreshCookie = cookies.find((cookie) =>
+      cookie.startsWith('refreshToken='),
+    );
+    if (refreshCookie) {
+      refreshToken = refreshCookie.split(';')[0].replace('refreshToken=', '');
+    }
+  }
+
+  if (!refreshToken || refreshToken.length < 16) {
+    throw new Error(
+      `Refresh token inválido no auth response: ${JSON.stringify({
+        status: authResponse.status,
+        body: authResponse.body,
+        setCookie: authResponse.headers['set-cookie'],
+      })}`,
+    );
+  }
 
   // Se tenantId foi fornecido, selecionar o tenant para obter um token com escopo de tenant
   if (options?.tenantId) {

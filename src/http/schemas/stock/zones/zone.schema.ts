@@ -104,6 +104,7 @@ export const updateZoneSchema = z.object({
 export const configureZoneStructureSchema = z.object({
   structure: zoneStructureSchema.required(),
   regenerateBins: z.boolean().optional().default(true),
+  forceRemoveOccupiedBins: z.boolean().optional().default(false),
 });
 
 export const previewZoneStructureSchema = z.object({
@@ -156,7 +157,44 @@ export const structurePreviewResponseSchema = z.object({
 export const configureStructureResponseSchema = z.object({
   zone: zoneResponseSchema,
   binsCreated: z.number(),
+  binsPreserved: z.number(),
+  binsUpdated: z.number(),
   binsDeleted: z.number(),
+  binsBlocked: z.number(),
+  itemsDetached: z.number(),
+  blockedBins: z.array(
+    z.object({
+      binId: z.string().uuid(),
+      address: z.string(),
+      itemCount: z.number(),
+    }),
+  ),
+});
+
+export const reconfigurationPreviewResponseSchema = z.object({
+  binsToPreserve: z.number(),
+  binsToCreate: z.number(),
+  binsToDeleteEmpty: z.number(),
+  binsWithItems: z.array(
+    z.object({
+      binId: z.string().uuid(),
+      address: z.string(),
+      itemCount: z.number(),
+    }),
+  ),
+  totalAffectedItems: z.number(),
+  addressUpdates: z.number(),
+  isFirstConfiguration: z.boolean(),
+  totalNewBins: z.number(),
+});
+
+export const zoneItemStatsResponseSchema = z.object({
+  totalBins: z.number(),
+  activeBins: z.number(),
+  blockedBins: z.number(),
+  occupiedBins: z.number(),
+  totalItems: z.number(),
+  itemsInBlockedBins: z.number(),
 });
 
 // Types

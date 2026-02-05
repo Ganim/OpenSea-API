@@ -14,6 +14,7 @@ export interface ItemMovementProps {
   movementType: MovementType;
   reasonCode?: string;
   destinationRef?: string;
+  originRef?: string;
   batchNumber?: string;
   notes?: string;
   approvedBy?: UniqueEntityID;
@@ -68,6 +69,14 @@ export class ItemMovement extends Entity<ItemMovementProps> {
 
   set destinationRef(ref: string | undefined) {
     this.props.destinationRef = ref;
+  }
+
+  get originRef(): string | undefined {
+    return this.props.originRef;
+  }
+
+  set originRef(ref: string | undefined) {
+    this.props.originRef = ref;
   }
 
   get batchNumber(): string | undefined {

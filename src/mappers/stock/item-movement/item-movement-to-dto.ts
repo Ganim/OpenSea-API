@@ -9,6 +9,7 @@ export interface ItemMovementDTO {
   quantityAfter?: number;
   movementType: string;
   reasonCode?: string;
+  originRef?: string;
   destinationRef?: string;
   batchNumber?: string;
   notes?: string;
@@ -27,6 +28,7 @@ export function itemMovementToDTO(movement: ItemMovement): ItemMovementDTO {
     quantityAfter: movement.quantityAfter,
     movementType: movement.movementType.value,
     reasonCode: movement.reasonCode,
+    originRef: movement.originRef,
     destinationRef: movement.destinationRef,
     batchNumber: movement.batchNumber,
     notes: movement.notes,

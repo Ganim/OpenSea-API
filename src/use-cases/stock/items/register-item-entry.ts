@@ -102,6 +102,7 @@ export class RegisterItemEntryUseCase {
 
     // Validate bin exists if provided
     let binId: UniqueEntityID | undefined;
+    let binAddress: string | undefined;
     if (input.binId) {
       binId = new UniqueEntityID(input.binId);
       const bin = await this.binsRepository.findById(binId, input.tenantId);
@@ -109,6 +110,7 @@ export class RegisterItemEntryUseCase {
       if (!bin) {
         throw new ResourceNotFoundError('Bin not found');
       }
+      binAddress = bin?.address;
     }
 
     // Validate batchNumber length
@@ -182,6 +184,7 @@ export class RegisterItemEntryUseCase {
       upcCode,
       variantId,
       binId,
+      lastKnownAddress: binAddress,
       initialQuantity: input.quantity,
       currentQuantity: input.quantity,
       unitCost: input.unitCost,
@@ -204,6 +207,7 @@ export class RegisterItemEntryUseCase {
       quantityAfter: input.quantity,
       movementType: MovementType.create('INVENTORY_ADJUSTMENT'),
       reasonCode: 'ENTRY',
+      destinationRef: binAddress ? `Bin: ${binAddress}` : undefined,
       notes: input.notes,
       batchNumber: input.batchNumber,
     });

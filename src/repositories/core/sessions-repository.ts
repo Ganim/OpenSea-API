@@ -23,11 +23,17 @@ export interface UpdateSessionSchema {
   // Optional updates
   deviceInfo?: DeviceInfo;
   geoLocation?: GeoLocation;
+  tenantId?: UniqueEntityID | null;
 }
 
 export interface TrustSessionSchema {
   sessionId: UniqueEntityID;
   trusted: boolean;
+}
+
+export interface SetTenantSessionSchema {
+  sessionId: UniqueEntityID;
+  tenantId: UniqueEntityID | null;
 }
 
 export interface SessionsRepository {
@@ -36,6 +42,7 @@ export interface SessionsRepository {
 
   // UPDATE / PATCH
   update(data: UpdateSessionSchema): Promise<Session | null>;
+  setTenant(data: SetTenantSessionSchema): Promise<Session | null>;
   setTrust(data: TrustSessionSchema): Promise<Session | null>;
 
   // DELETE

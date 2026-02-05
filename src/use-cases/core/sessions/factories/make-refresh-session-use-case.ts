@@ -1,5 +1,6 @@
 import { PrismaRefreshTokensRepository } from '@/repositories/core/prisma/prisma-refresh-tokens-repository';
 import { PrismaSessionsRepository } from '@/repositories/core/prisma/prisma-sessions-repository';
+import { PrismaTenantsRepository } from '@/repositories/core/prisma/prisma-tenants-repository';
 import { PrismaUsersRepository } from '@/repositories/core/prisma/prisma-users-repository';
 import { PrismaPermissionAuditLogsRepository } from '@/repositories/rbac/prisma/prisma-permission-audit-logs-repository';
 import { PrismaPermissionGroupPermissionsRepository } from '@/repositories/rbac/prisma/prisma-permission-group-permissions-repository';
@@ -13,6 +14,7 @@ export function makeRefreshSessionUseCase() {
   const sessionsRepository = new PrismaSessionsRepository();
   const usersRepository = new PrismaUsersRepository();
   const refreshTokensRepository = new PrismaRefreshTokensRepository();
+  const tenantsRepository = new PrismaTenantsRepository();
 
   // Initialize permission service
   const permissionsRepository = new PrismaPermissionsRepository();
@@ -37,5 +39,6 @@ export function makeRefreshSessionUseCase() {
     usersRepository,
     refreshTokensRepository,
     permissionService,
+    tenantsRepository,
   );
 }

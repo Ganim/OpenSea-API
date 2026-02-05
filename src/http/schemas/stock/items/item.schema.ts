@@ -38,6 +38,7 @@ export const itemResponseSchema = z.object({
   binId: z.uuid().optional(),
   locationId: z.uuid().optional(),
   resolvedAddress: z.string().optional(),
+  lastKnownAddress: z.string().nullable().optional(),
   uniqueCode: z.string().optional(),
   fullCode: z.string().optional(),
   sequentialCode: z.number().optional(),
@@ -107,6 +108,31 @@ export const itemEntryResponseSchema = z.object({
     movementType: z.string(),
     createdAt: z.coerce.date(),
   }),
+});
+
+export const batchTransferItemsSchema = z.object({
+  itemIds: z.array(z.uuid()).min(1).max(100),
+  destinationBinId: z.uuid(),
+  notes: z.string().max(1000).optional(),
+});
+
+export const batchTransferResponseSchema = z.object({
+  transferred: z.number(),
+  movements: z.array(itemMovementResponseSchema),
+});
+
+export const locationHistoryEntrySchema = z.object({
+  id: z.uuid(),
+  date: z.coerce.date(),
+  type: z.string(),
+  from: z.string().nullable(),
+  to: z.string().nullable(),
+  userId: z.uuid(),
+  notes: z.string().nullable(),
+});
+
+export const locationHistoryResponseSchema = z.object({
+  data: z.array(locationHistoryEntrySchema),
 });
 
 export const registerItemExitSchema = z.object({

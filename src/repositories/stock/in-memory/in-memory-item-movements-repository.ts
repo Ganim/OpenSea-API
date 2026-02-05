@@ -22,6 +22,7 @@ export class InMemoryItemMovementsRepository
       quantityAfter: data.quantityAfter,
       movementType: data.movementType,
       reasonCode: data.reasonCode,
+      originRef: data.originRef,
       destinationRef: data.destinationRef,
       batchNumber: data.batchNumber,
       notes: data.notes,
@@ -130,5 +131,31 @@ export class InMemoryItemMovementsRepository
     } else {
       this.items.push(movement);
     }
+  }
+
+  async createBatchForZoneReconfigure(data: {
+    tenantId: string;
+    items: Array<{ itemId: string; binAddress: string; currentQuantity: number }>;
+    userId: string;
+    notes?: string;
+  }): Promise<number> {
+    let count = 0;
+    for (const item of data.items) {
+      const movement = ItemMovement.create({
+        tenantId: new UniqueEntityID(data.tenantId),
+        itemId: new UniqueEntityID(item.itemId),
+        userId: new UniqueEntityID(data.userId),
+        quantity: item.currentQuantity,
+        quantityBefore: item.currentQuantity,
+        quantityAfter: item.currentQuantity,
+        movementType: MovementType.create('ZONE_RECONFIGURE'),
+        originRef: `Bin: ${item.binAddress}`,
+        reasonCode: 'ZONE_RECONFIGURE',
+        notes: data.notes,
+      });
+      this.items.push(movement);
+      count++;
+    }
+    return count;
   }
 }

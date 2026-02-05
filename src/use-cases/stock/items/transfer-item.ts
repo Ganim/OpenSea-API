@@ -69,8 +69,16 @@ export class TransferItemUseCase {
       );
     }
 
-    // Update item bin
+    // Capture origin bin address before updating
+    let originAddress: string | undefined;
+    if (item.binId) {
+      const originBin = await this.binsRepository.findById(item.binId, input.tenantId);
+      originAddress = originBin?.address;
+    }
+
+    // Update item bin and last known address
     item.binId = destinationBin.binId;
+    item.lastKnownAddress = destinationBin.address;
     await this.itemsRepository.save(item);
 
     // Create transfer movement record
@@ -83,6 +91,7 @@ export class TransferItemUseCase {
       quantityAfter: item.currentQuantity, // Quantity doesn't change in transfer
       movementType: MovementType.create('TRANSFER'),
       reasonCode: input.reasonCode,
+      originRef: originAddress ? `Bin: ${originAddress}` : undefined,
       destinationRef: `Bin: ${destinationBin.address}`,
       notes: input.notes,
     });

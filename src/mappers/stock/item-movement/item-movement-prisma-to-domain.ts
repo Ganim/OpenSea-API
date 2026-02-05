@@ -17,6 +17,7 @@ export function mapItemMovementPrismaToDomain(movementDb: PrismaItemMovement) {
       : undefined,
     movementType: MovementType.create(movementDb.movementType),
     reasonCode: movementDb.reasonCode ?? undefined,
+    originRef: movementDb.originRef ?? undefined,
     destinationRef: movementDb.destinationRef ?? undefined,
     batchNumber: movementDb.batchNumber ?? undefined,
     notes: movementDb.notes ?? undefined,

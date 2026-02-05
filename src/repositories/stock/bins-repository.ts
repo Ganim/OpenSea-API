@@ -84,4 +84,7 @@ export interface BinsRepository {
   ): Promise<BinOccupancyData[]>;
   countByZone(zoneId: UniqueEntityID, tenantId: string): Promise<number>;
   countItemsInBin(binId: UniqueEntityID): Promise<number>;
+  softDeleteMany(binIds: string[]): Promise<number>;
+  updateAddressMany(updates: Array<{ id: string; address: string }>): Promise<number>;
+  countItemsPerBin(zoneId: UniqueEntityID, tenantId: string): Promise<Map<string, number>>;
 }

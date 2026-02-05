@@ -218,6 +218,8 @@ export type TenantWhereInput = {
   tenantPlans?: Prisma.TenantPlanListRelationFilter
   tenantFeatureFlags?: Prisma.TenantFeatureFlagListRelationFilter
   permissionGroups?: Prisma.PermissionGroupListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
   warehouses?: Prisma.WarehouseListRelationFilter
   zones?: Prisma.ZoneListRelationFilter
   bins?: Prisma.BinListRelationFilter
@@ -265,6 +267,8 @@ export type TenantOrderByWithRelationInput = {
   tenantPlans?: Prisma.TenantPlanOrderByRelationAggregateInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagOrderByRelationAggregateInput
   permissionGroups?: Prisma.PermissionGroupOrderByRelationAggregateInput
+  sessions?: Prisma.SessionOrderByRelationAggregateInput
+  refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
   warehouses?: Prisma.WarehouseOrderByRelationAggregateInput
   zones?: Prisma.ZoneOrderByRelationAggregateInput
   bins?: Prisma.BinOrderByRelationAggregateInput
@@ -315,6 +319,8 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   tenantPlans?: Prisma.TenantPlanListRelationFilter
   tenantFeatureFlags?: Prisma.TenantFeatureFlagListRelationFilter
   permissionGroups?: Prisma.PermissionGroupListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
   warehouses?: Prisma.WarehouseListRelationFilter
   zones?: Prisma.ZoneListRelationFilter
   bins?: Prisma.BinListRelationFilter
@@ -394,6 +400,8 @@ export type TenantCreateInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -441,6 +449,8 @@ export type TenantUncheckedCreateInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -488,6 +498,8 @@ export type TenantUpdateInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -535,6 +547,8 @@ export type TenantUncheckedUpdateInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -649,6 +663,38 @@ export type TenantMinOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type TenantCreateNestedOneWithoutSessionsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutSessionsInput, Prisma.TenantUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutSessionsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneWithoutSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutSessionsInput, Prisma.TenantUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutSessionsInput
+  upsert?: Prisma.TenantUpsertWithoutSessionsInput
+  disconnect?: Prisma.TenantWhereInput | boolean
+  delete?: Prisma.TenantWhereInput | boolean
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutSessionsInput, Prisma.TenantUpdateWithoutSessionsInput>, Prisma.TenantUncheckedUpdateWithoutSessionsInput>
+}
+
+export type TenantCreateNestedOneWithoutRefreshTokensInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutRefreshTokensInput, Prisma.TenantUncheckedCreateWithoutRefreshTokensInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutRefreshTokensInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneWithoutRefreshTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutRefreshTokensInput, Prisma.TenantUncheckedCreateWithoutRefreshTokensInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutRefreshTokensInput
+  upsert?: Prisma.TenantUpsertWithoutRefreshTokensInput
+  disconnect?: Prisma.TenantWhereInput | boolean
+  delete?: Prisma.TenantWhereInput | boolean
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.TenantUpdateWithoutRefreshTokensInput>, Prisma.TenantUncheckedUpdateWithoutRefreshTokensInput>
 }
 
 export type TenantCreateNestedOneWithoutPermissionGroupsInput = {
@@ -1135,6 +1181,422 @@ export type TenantUpdateOneRequiredWithoutTenantFeatureFlagsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutTenantFeatureFlagsInput, Prisma.TenantUpdateWithoutTenantFeatureFlagsInput>, Prisma.TenantUncheckedUpdateWithoutTenantFeatureFlagsInput>
 }
 
+export type TenantCreateWithoutSessionsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutSessionsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutSessionsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutSessionsInput, Prisma.TenantUncheckedCreateWithoutSessionsInput>
+}
+
+export type TenantUpsertWithoutSessionsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutSessionsInput, Prisma.TenantUncheckedUpdateWithoutSessionsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutSessionsInput, Prisma.TenantUncheckedCreateWithoutSessionsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutSessionsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutSessionsInput, Prisma.TenantUncheckedUpdateWithoutSessionsInput>
+}
+
+export type TenantUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutRefreshTokensInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutRefreshTokensInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutRefreshTokensInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutRefreshTokensInput, Prisma.TenantUncheckedCreateWithoutRefreshTokensInput>
+}
+
+export type TenantUpsertWithoutRefreshTokensInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutRefreshTokensInput, Prisma.TenantUncheckedUpdateWithoutRefreshTokensInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutRefreshTokensInput, Prisma.TenantUncheckedCreateWithoutRefreshTokensInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutRefreshTokensInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutRefreshTokensInput, Prisma.TenantUncheckedUpdateWithoutRefreshTokensInput>
+}
+
+export type TenantUpdateWithoutRefreshTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+}
+
 export type TenantCreateWithoutPermissionGroupsInput = {
   id?: string
   name: string
@@ -1149,6 +1611,8 @@ export type TenantCreateWithoutPermissionGroupsInput = {
   tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -1195,6 +1659,8 @@ export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
   tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -1257,6 +1723,8 @@ export type TenantUpdateWithoutPermissionGroupsInput = {
   tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -1303,6 +1771,8 @@ export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
   tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -1350,6 +1820,8 @@ export type TenantCreateWithoutSuppliersInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -1396,6 +1868,8 @@ export type TenantUncheckedCreateWithoutSuppliersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -1458,6 +1932,8 @@ export type TenantUpdateWithoutSuppliersInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -1504,6 +1980,8 @@ export type TenantUncheckedUpdateWithoutSuppliersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -1550,6 +2028,8 @@ export type TenantCreateWithoutManufacturersInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -1596,6 +2076,8 @@ export type TenantUncheckedCreateWithoutManufacturersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -1658,6 +2140,8 @@ export type TenantUpdateWithoutManufacturersInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -1704,6 +2188,8 @@ export type TenantUncheckedUpdateWithoutManufacturersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -1750,6 +2236,8 @@ export type TenantCreateWithoutCategoriesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -1796,6 +2284,8 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -1858,6 +2348,8 @@ export type TenantUpdateWithoutCategoriesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -1904,6 +2396,8 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -1950,6 +2444,8 @@ export type TenantCreateWithoutWarehousesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
   templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
@@ -1996,6 +2492,8 @@ export type TenantUncheckedCreateWithoutWarehousesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
   templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
@@ -2058,6 +2556,8 @@ export type TenantUpdateWithoutWarehousesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
   templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
@@ -2104,6 +2604,8 @@ export type TenantUncheckedUpdateWithoutWarehousesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
   templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
@@ -2150,6 +2652,8 @@ export type TenantCreateWithoutZonesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
   templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
@@ -2196,6 +2700,8 @@ export type TenantUncheckedCreateWithoutZonesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
   templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
@@ -2258,6 +2764,8 @@ export type TenantUpdateWithoutZonesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
   templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
@@ -2304,6 +2812,8 @@ export type TenantUncheckedUpdateWithoutZonesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
   templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
@@ -2350,6 +2860,8 @@ export type TenantCreateWithoutBinsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
@@ -2396,6 +2908,8 @@ export type TenantUncheckedCreateWithoutBinsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
@@ -2458,6 +2972,8 @@ export type TenantUpdateWithoutBinsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
@@ -2504,6 +3020,8 @@ export type TenantUncheckedUpdateWithoutBinsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
@@ -2550,6 +3068,8 @@ export type TenantCreateWithoutVolumesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -2596,6 +3116,8 @@ export type TenantUncheckedCreateWithoutVolumesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -2658,6 +3180,8 @@ export type TenantUpdateWithoutVolumesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -2704,6 +3228,8 @@ export type TenantUncheckedUpdateWithoutVolumesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -2750,6 +3276,8 @@ export type TenantCreateWithoutTemplatesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -2796,6 +3324,8 @@ export type TenantUncheckedCreateWithoutTemplatesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -2858,6 +3388,8 @@ export type TenantUpdateWithoutTemplatesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -2904,6 +3436,8 @@ export type TenantUncheckedUpdateWithoutTemplatesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -2950,6 +3484,8 @@ export type TenantCreateWithoutProductsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -2996,6 +3532,8 @@ export type TenantUncheckedCreateWithoutProductsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -3058,6 +3596,8 @@ export type TenantUpdateWithoutProductsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -3104,6 +3644,8 @@ export type TenantUncheckedUpdateWithoutProductsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -3150,6 +3692,8 @@ export type TenantCreateWithoutVariantsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -3196,6 +3740,8 @@ export type TenantUncheckedCreateWithoutVariantsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -3258,6 +3804,8 @@ export type TenantUpdateWithoutVariantsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -3304,6 +3852,8 @@ export type TenantUncheckedUpdateWithoutVariantsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -3350,6 +3900,8 @@ export type TenantCreateWithoutItemsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -3396,6 +3948,8 @@ export type TenantUncheckedCreateWithoutItemsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -3458,6 +4012,8 @@ export type TenantUpdateWithoutItemsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -3504,6 +4060,8 @@ export type TenantUncheckedUpdateWithoutItemsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -3550,6 +4108,8 @@ export type TenantCreateWithoutItemMovementsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -3596,6 +4156,8 @@ export type TenantUncheckedCreateWithoutItemMovementsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -3658,6 +4220,8 @@ export type TenantUpdateWithoutItemMovementsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -3704,6 +4268,8 @@ export type TenantUncheckedUpdateWithoutItemMovementsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -3750,6 +4316,8 @@ export type TenantCreateWithoutAuditLogsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -3796,6 +4364,8 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -3858,6 +4428,8 @@ export type TenantUpdateWithoutAuditLogsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -3904,6 +4476,8 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -3950,6 +4524,8 @@ export type TenantCreateWithoutTagsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -3996,6 +4572,8 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -4058,6 +4636,8 @@ export type TenantUpdateWithoutTagsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -4104,6 +4684,8 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -4150,6 +4732,8 @@ export type TenantCreateWithoutPurchaseOrdersInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -4196,6 +4780,8 @@ export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -4258,6 +4844,8 @@ export type TenantUpdateWithoutPurchaseOrdersInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -4304,6 +4892,8 @@ export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -4350,6 +4940,8 @@ export type TenantCreateWithoutCustomersInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -4396,6 +4988,8 @@ export type TenantUncheckedCreateWithoutCustomersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -4458,6 +5052,8 @@ export type TenantUpdateWithoutCustomersInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -4504,6 +5100,8 @@ export type TenantUncheckedUpdateWithoutCustomersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -4550,6 +5148,8 @@ export type TenantCreateWithoutSalesOrdersInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -4596,6 +5196,8 @@ export type TenantUncheckedCreateWithoutSalesOrdersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -4658,6 +5260,8 @@ export type TenantUpdateWithoutSalesOrdersInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -4704,6 +5308,8 @@ export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -4750,6 +5356,8 @@ export type TenantCreateWithoutEmployeesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -4796,6 +5404,8 @@ export type TenantUncheckedCreateWithoutEmployeesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -4858,6 +5468,8 @@ export type TenantUpdateWithoutEmployeesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -4904,6 +5516,8 @@ export type TenantUncheckedUpdateWithoutEmployeesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -4950,6 +5564,8 @@ export type TenantCreateWithoutDepartmentsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -4996,6 +5612,8 @@ export type TenantUncheckedCreateWithoutDepartmentsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -5058,6 +5676,8 @@ export type TenantUpdateWithoutDepartmentsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -5104,6 +5724,8 @@ export type TenantUncheckedUpdateWithoutDepartmentsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -5150,6 +5772,8 @@ export type TenantCreateWithoutPositionsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -5196,6 +5820,8 @@ export type TenantUncheckedCreateWithoutPositionsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -5258,6 +5884,8 @@ export type TenantUpdateWithoutPositionsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -5304,6 +5932,8 @@ export type TenantUncheckedUpdateWithoutPositionsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -5350,6 +5980,8 @@ export type TenantCreateWithoutTimeEntriesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -5396,6 +6028,8 @@ export type TenantUncheckedCreateWithoutTimeEntriesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -5458,6 +6092,8 @@ export type TenantUpdateWithoutTimeEntriesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -5504,6 +6140,8 @@ export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -5550,6 +6188,8 @@ export type TenantCreateWithoutWorkSchedulesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -5596,6 +6236,8 @@ export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -5658,6 +6300,8 @@ export type TenantUpdateWithoutWorkSchedulesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -5704,6 +6348,8 @@ export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -5750,6 +6396,8 @@ export type TenantCreateWithoutOvertimeInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -5796,6 +6444,8 @@ export type TenantUncheckedCreateWithoutOvertimeInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -5858,6 +6508,8 @@ export type TenantUpdateWithoutOvertimeInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -5904,6 +6556,8 @@ export type TenantUncheckedUpdateWithoutOvertimeInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -5950,6 +6604,8 @@ export type TenantCreateWithoutTimeBanksInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -5996,6 +6652,8 @@ export type TenantUncheckedCreateWithoutTimeBanksInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -6058,6 +6716,8 @@ export type TenantUpdateWithoutTimeBanksInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -6104,6 +6764,8 @@ export type TenantUncheckedUpdateWithoutTimeBanksInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -6150,6 +6812,8 @@ export type TenantCreateWithoutAbsencesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -6196,6 +6860,8 @@ export type TenantUncheckedCreateWithoutAbsencesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -6258,6 +6924,8 @@ export type TenantUpdateWithoutAbsencesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -6304,6 +6972,8 @@ export type TenantUncheckedUpdateWithoutAbsencesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -6350,6 +7020,8 @@ export type TenantCreateWithoutVacationPeriodsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -6396,6 +7068,8 @@ export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -6458,6 +7132,8 @@ export type TenantUpdateWithoutVacationPeriodsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -6504,6 +7180,8 @@ export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -6550,6 +7228,8 @@ export type TenantCreateWithoutPayrollsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -6596,6 +7276,8 @@ export type TenantUncheckedCreateWithoutPayrollsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -6658,6 +7340,8 @@ export type TenantUpdateWithoutPayrollsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -6704,6 +7388,8 @@ export type TenantUncheckedUpdateWithoutPayrollsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -6750,6 +7436,8 @@ export type TenantCreateWithoutBonusesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -6796,6 +7484,8 @@ export type TenantUncheckedCreateWithoutBonusesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -6858,6 +7548,8 @@ export type TenantUpdateWithoutBonusesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -6904,6 +7596,8 @@ export type TenantUncheckedUpdateWithoutBonusesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -6950,6 +7644,8 @@ export type TenantCreateWithoutDeductionsInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -6996,6 +7692,8 @@ export type TenantUncheckedCreateWithoutDeductionsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -7058,6 +7756,8 @@ export type TenantUpdateWithoutDeductionsInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -7104,6 +7804,8 @@ export type TenantUncheckedUpdateWithoutDeductionsInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -7150,6 +7852,8 @@ export type TenantCreateWithoutCompaniesInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -7196,6 +7900,8 @@ export type TenantUncheckedCreateWithoutCompaniesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -7258,6 +7964,8 @@ export type TenantUpdateWithoutCompaniesInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -7304,6 +8012,8 @@ export type TenantUncheckedUpdateWithoutCompaniesInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -7349,6 +8059,8 @@ export type TenantCreateWithoutTenantPlansInput = {
   tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -7395,6 +8107,8 @@ export type TenantUncheckedCreateWithoutTenantPlansInput = {
   tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -7457,6 +8171,8 @@ export type TenantUpdateWithoutTenantPlansInput = {
   tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -7503,6 +8219,8 @@ export type TenantUncheckedUpdateWithoutTenantPlansInput = {
   tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -7549,6 +8267,8 @@ export type TenantCreateWithoutTenantUsersInput = {
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -7595,6 +8315,8 @@ export type TenantUncheckedCreateWithoutTenantUsersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -7657,6 +8379,8 @@ export type TenantUpdateWithoutTenantUsersInput = {
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -7703,6 +8427,8 @@ export type TenantUncheckedUpdateWithoutTenantUsersInput = {
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -7749,6 +8475,8 @@ export type TenantCreateWithoutTenantFeatureFlagsInput = {
   tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
   tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinCreateNestedManyWithoutTenantInput
@@ -7795,6 +8523,8 @@ export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
   tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
   tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
   permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
@@ -7857,6 +8587,8 @@ export type TenantUpdateWithoutTenantFeatureFlagsInput = {
   tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
   tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
@@ -7903,6 +8635,8 @@ export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
   tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
   tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
   permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
   bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
@@ -7945,6 +8679,8 @@ export type TenantCountOutputType = {
   tenantPlans: number
   tenantFeatureFlags: number
   permissionGroups: number
+  sessions: number
+  refreshTokens: number
   warehouses: number
   zones: number
   bins: number
@@ -7982,6 +8718,8 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   tenantPlans?: boolean | TenantCountOutputTypeCountTenantPlansArgs
   tenantFeatureFlags?: boolean | TenantCountOutputTypeCountTenantFeatureFlagsArgs
   permissionGroups?: boolean | TenantCountOutputTypeCountPermissionGroupsArgs
+  sessions?: boolean | TenantCountOutputTypeCountSessionsArgs
+  refreshTokens?: boolean | TenantCountOutputTypeCountRefreshTokensArgs
   warehouses?: boolean | TenantCountOutputTypeCountWarehousesArgs
   zones?: boolean | TenantCountOutputTypeCountZonesArgs
   bins?: boolean | TenantCountOutputTypeCountBinsArgs
@@ -8050,6 +8788,20 @@ export type TenantCountOutputTypeCountTenantFeatureFlagsArgs<ExtArgs extends run
  */
 export type TenantCountOutputTypeCountPermissionGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PermissionGroupWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RefreshTokenWhereInput
 }
 
 /**
@@ -8278,6 +9030,8 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   tenantPlans?: boolean | Prisma.Tenant$tenantPlansArgs<ExtArgs>
   tenantFeatureFlags?: boolean | Prisma.Tenant$tenantFeatureFlagsArgs<ExtArgs>
   permissionGroups?: boolean | Prisma.Tenant$permissionGroupsArgs<ExtArgs>
+  sessions?: boolean | Prisma.Tenant$sessionsArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.Tenant$refreshTokensArgs<ExtArgs>
   warehouses?: boolean | Prisma.Tenant$warehousesArgs<ExtArgs>
   zones?: boolean | Prisma.Tenant$zonesArgs<ExtArgs>
   bins?: boolean | Prisma.Tenant$binsArgs<ExtArgs>
@@ -8356,6 +9110,8 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   tenantPlans?: boolean | Prisma.Tenant$tenantPlansArgs<ExtArgs>
   tenantFeatureFlags?: boolean | Prisma.Tenant$tenantFeatureFlagsArgs<ExtArgs>
   permissionGroups?: boolean | Prisma.Tenant$permissionGroupsArgs<ExtArgs>
+  sessions?: boolean | Prisma.Tenant$sessionsArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.Tenant$refreshTokensArgs<ExtArgs>
   warehouses?: boolean | Prisma.Tenant$warehousesArgs<ExtArgs>
   zones?: boolean | Prisma.Tenant$zonesArgs<ExtArgs>
   bins?: boolean | Prisma.Tenant$binsArgs<ExtArgs>
@@ -8398,6 +9154,8 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     tenantPlans: Prisma.$TenantPlanPayload<ExtArgs>[]
     tenantFeatureFlags: Prisma.$TenantFeatureFlagPayload<ExtArgs>[]
     permissionGroups: Prisma.$PermissionGroupPayload<ExtArgs>[]
+    sessions: Prisma.$SessionPayload<ExtArgs>[]
+    refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     warehouses: Prisma.$WarehousePayload<ExtArgs>[]
     zones: Prisma.$ZonePayload<ExtArgs>[]
     bins: Prisma.$BinPayload<ExtArgs>[]
@@ -8838,6 +9596,8 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   tenantPlans<T extends Prisma.Tenant$tenantPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$tenantPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tenantFeatureFlags<T extends Prisma.Tenant$tenantFeatureFlagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$tenantFeatureFlagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantFeatureFlagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   permissionGroups<T extends Prisma.Tenant$permissionGroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$permissionGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PermissionGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sessions<T extends Prisma.Tenant$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  refreshTokens<T extends Prisma.Tenant$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   warehouses<T extends Prisma.Tenant$warehousesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$warehousesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WarehousePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   zones<T extends Prisma.Tenant$zonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bins<T extends Prisma.Tenant$binsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$binsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9388,6 +10148,54 @@ export type Tenant$permissionGroupsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.PermissionGroupScalarFieldEnum | Prisma.PermissionGroupScalarFieldEnum[]
+}
+
+/**
+ * Tenant.sessions
+ */
+export type Tenant$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * Tenant.refreshTokens
+ */
+export type Tenant$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RefreshToken
+   */
+  select?: Prisma.RefreshTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RefreshToken
+   */
+  omit?: Prisma.RefreshTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RefreshTokenInclude<ExtArgs> | null
+  where?: Prisma.RefreshTokenWhereInput
+  orderBy?: Prisma.RefreshTokenOrderByWithRelationInput | Prisma.RefreshTokenOrderByWithRelationInput[]
+  cursor?: Prisma.RefreshTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
 }
 
 /**

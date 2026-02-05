@@ -4,6 +4,7 @@ export interface RefreshTokenDTO {
   id: string;
   userId: string;
   sessionId: string;
+  tenantId?: string | null;
   token: string;
   expiresAt: Date;
   createdAt: Date;
@@ -15,6 +16,7 @@ export function refreshTokenToDTO(refreshToken: RefreshToken): RefreshTokenDTO {
     id: refreshToken.id.toString(),
     userId: refreshToken.userId.toString(),
     sessionId: refreshToken.sessionId.toString(),
+    tenantId: refreshToken.tenantId ? refreshToken.tenantId.toString() : null,
     token: refreshToken.token.toString(),
     expiresAt: refreshToken.expiresAt,
     createdAt: refreshToken.createdAt,

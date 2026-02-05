@@ -28,6 +28,13 @@ export async function refreshSessionController(app: FastifyInstance) {
         200: z.object({
           token: z.string(),
           refreshToken: z.string(),
+          tenant: z
+            .object({
+              id: z.string(),
+              name: z.string(),
+              slug: z.string(),
+            })
+            .optional(),
         }),
         400: z.object({ message: z.string() }),
         401: z.object({ message: z.string() }),
@@ -59,7 +66,8 @@ export async function refreshSessionController(app: FastifyInstance) {
 
         // Não usamos mais 'permissions' do use case - elas são verificadas via middleware
         // Isso reduz significativamente o tamanho do JWT (de ~4KB para ~500 bytes)
-        const { session, refreshToken } = await refreshSessionUseCase.execute({
+        const { session, refreshToken, tenant, isSuperAdmin } =
+          await refreshSessionUseCase.execute({
           refreshToken: refreshTokenValue,
           ip,
           reply,
@@ -69,6 +77,8 @@ export async function refreshSessionController(app: FastifyInstance) {
         const newAccessToken = await reply.jwtSign(
           {
             sessionId: session.id,
+            tenantId: tenant?.id ?? session.tenantId ?? undefined,
+            isSuperAdmin,
           },
           {
             sign: {
@@ -90,6 +100,7 @@ export async function refreshSessionController(app: FastifyInstance) {
           .send({
             token: newAccessToken,
             refreshToken: refreshToken.token,
+            ...(tenant ? { tenant } : {}),
           });
       } catch (error) {
         if (error instanceof UnauthorizedError) {

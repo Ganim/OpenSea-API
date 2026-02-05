@@ -5,6 +5,7 @@ import { Token } from './value-objects/token';
 export interface RefreshTokenProps {
   userId: UniqueEntityID;
   sessionId: UniqueEntityID;
+  tenantId?: UniqueEntityID | null;
   token: Token;
   expiresAt: Date;
   createdAt: Date;
@@ -17,6 +18,9 @@ export class RefreshToken extends Entity<RefreshTokenProps> {
   }
   get sessionId(): UniqueEntityID {
     return this.props.sessionId;
+  }
+  get tenantId(): UniqueEntityID | null {
+    return this.props.tenantId ?? null;
   }
   get token(): Token {
     return this.props.token;
@@ -45,7 +49,7 @@ export class RefreshToken extends Entity<RefreshTokenProps> {
 
   static create(props: RefreshTokenProps, id?: UniqueEntityID) {
     return new RefreshToken(
-      { ...props, revokedAt: props.revokedAt ?? null },
+      { ...props, tenantId: props.tenantId ?? null, revokedAt: props.revokedAt ?? null },
       id,
     );
   }

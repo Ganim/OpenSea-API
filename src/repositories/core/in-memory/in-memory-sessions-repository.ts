@@ -2,6 +2,7 @@ import { Session } from '@/entities/core/session';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   type CreateSessionSchema,
+  type SetTenantSessionSchema,
   type TrustSessionSchema,
   type UpdateSessionSchema,
   SessionsRepository,
@@ -39,6 +40,21 @@ export class InMemorySessionsRepository implements SessionsRepository {
     if (session.ip.value !== data.ip.value) {
       session.ip = data.ip;
     }
+
+    if (data.tenantId !== undefined) {
+      session.tenantId = data.tenantId ?? null;
+    }
+
+    return session;
+  }
+
+  // SET TENANT
+  async setTenant(data: SetTenantSessionSchema): Promise<Session | null> {
+    const session = this.items.find((item) => item.id.equals(data.sessionId));
+
+    if (!session) return null;
+
+    session.tenantId = data.tenantId ?? null;
 
     return session;
   }

@@ -16,6 +16,7 @@ export class PrismaRefreshTokensRepository implements RefreshTokensRepository {
     const refreshTokenEntity = RefreshToken.create({
       userId: data.userId,
       sessionId: data.sessionId,
+      tenantId: data.tenantId ?? null,
       token: data.token,
       expiresAt: data.expiresAt,
       createdAt: new Date(),
@@ -26,6 +27,7 @@ export class PrismaRefreshTokensRepository implements RefreshTokensRepository {
         id: refreshTokenEntity.id.toString(),
         userId: data.userId.toString(),
         sessionId: data.sessionId.toString(),
+        tenantId: data.tenantId ? data.tenantId.toString() : null,
         token: data.token.value,
         expiresAt: data.expiresAt,
       },

@@ -46,6 +46,7 @@ export type ItemMovementMinAggregateOutputType = {
   movementType: $Enums.MovementType | null
   reasonCode: string | null
   destinationRef: string | null
+  originRef: string | null
   batchNumber: string | null
   notes: string | null
   createdAt: Date | null
@@ -64,6 +65,7 @@ export type ItemMovementMaxAggregateOutputType = {
   movementType: $Enums.MovementType | null
   reasonCode: string | null
   destinationRef: string | null
+  originRef: string | null
   batchNumber: string | null
   notes: string | null
   createdAt: Date | null
@@ -82,6 +84,7 @@ export type ItemMovementCountAggregateOutputType = {
   movementType: number
   reasonCode: number
   destinationRef: number
+  originRef: number
   batchNumber: number
   notes: number
   createdAt: number
@@ -114,6 +117,7 @@ export type ItemMovementMinAggregateInputType = {
   movementType?: true
   reasonCode?: true
   destinationRef?: true
+  originRef?: true
   batchNumber?: true
   notes?: true
   createdAt?: true
@@ -132,6 +136,7 @@ export type ItemMovementMaxAggregateInputType = {
   movementType?: true
   reasonCode?: true
   destinationRef?: true
+  originRef?: true
   batchNumber?: true
   notes?: true
   createdAt?: true
@@ -150,6 +155,7 @@ export type ItemMovementCountAggregateInputType = {
   movementType?: true
   reasonCode?: true
   destinationRef?: true
+  originRef?: true
   batchNumber?: true
   notes?: true
   createdAt?: true
@@ -255,6 +261,7 @@ export type ItemMovementGroupByOutputType = {
   movementType: $Enums.MovementType
   reasonCode: string | null
   destinationRef: string | null
+  originRef: string | null
   batchNumber: string | null
   notes: string | null
   createdAt: Date
@@ -296,6 +303,7 @@ export type ItemMovementWhereInput = {
   movementType?: Prisma.EnumMovementTypeFilter<"ItemMovement"> | $Enums.MovementType
   reasonCode?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   destinationRef?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
+  originRef?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   batchNumber?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   notes?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ItemMovement"> | Date | string
@@ -319,6 +327,7 @@ export type ItemMovementOrderByWithRelationInput = {
   movementType?: Prisma.SortOrder
   reasonCode?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationRef?: Prisma.SortOrderInput | Prisma.SortOrder
+  originRef?: Prisma.SortOrderInput | Prisma.SortOrder
   batchNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -345,6 +354,7 @@ export type ItemMovementWhereUniqueInput = Prisma.AtLeast<{
   movementType?: Prisma.EnumMovementTypeFilter<"ItemMovement"> | $Enums.MovementType
   reasonCode?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   destinationRef?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
+  originRef?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   batchNumber?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   notes?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ItemMovement"> | Date | string
@@ -368,6 +378,7 @@ export type ItemMovementOrderByWithAggregationInput = {
   movementType?: Prisma.SortOrder
   reasonCode?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationRef?: Prisma.SortOrderInput | Prisma.SortOrder
+  originRef?: Prisma.SortOrderInput | Prisma.SortOrder
   batchNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -394,6 +405,7 @@ export type ItemMovementScalarWhereWithAggregatesInput = {
   movementType?: Prisma.EnumMovementTypeWithAggregatesFilter<"ItemMovement"> | $Enums.MovementType
   reasonCode?: Prisma.StringNullableWithAggregatesFilter<"ItemMovement"> | string | null
   destinationRef?: Prisma.StringNullableWithAggregatesFilter<"ItemMovement"> | string | null
+  originRef?: Prisma.StringNullableWithAggregatesFilter<"ItemMovement"> | string | null
   batchNumber?: Prisma.StringNullableWithAggregatesFilter<"ItemMovement"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"ItemMovement"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ItemMovement"> | Date | string
@@ -412,6 +424,7 @@ export type ItemMovementCreateInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -430,6 +443,7 @@ export type ItemMovementUncheckedCreateInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -448,6 +462,7 @@ export type ItemMovementUpdateInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -466,6 +481,7 @@ export type ItemMovementUncheckedUpdateInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -484,6 +500,7 @@ export type ItemMovementCreateManyInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -502,6 +519,7 @@ export type ItemMovementUpdateManyMutationInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -515,6 +533,7 @@ export type ItemMovementUncheckedUpdateManyInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -543,6 +562,7 @@ export type ItemMovementCountOrderByAggregateInput = {
   movementType?: Prisma.SortOrder
   reasonCode?: Prisma.SortOrder
   destinationRef?: Prisma.SortOrder
+  originRef?: Prisma.SortOrder
   batchNumber?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -567,6 +587,7 @@ export type ItemMovementMaxOrderByAggregateInput = {
   movementType?: Prisma.SortOrder
   reasonCode?: Prisma.SortOrder
   destinationRef?: Prisma.SortOrder
+  originRef?: Prisma.SortOrder
   batchNumber?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -585,6 +606,7 @@ export type ItemMovementMinOrderByAggregateInput = {
   movementType?: Prisma.SortOrder
   reasonCode?: Prisma.SortOrder
   destinationRef?: Prisma.SortOrder
+  originRef?: Prisma.SortOrder
   batchNumber?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -823,6 +845,7 @@ export type ItemMovementCreateWithoutUserInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -840,6 +863,7 @@ export type ItemMovementUncheckedCreateWithoutUserInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -867,6 +891,7 @@ export type ItemMovementCreateWithoutApproverInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -884,6 +909,7 @@ export type ItemMovementUncheckedCreateWithoutApproverInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -930,6 +956,7 @@ export type ItemMovementScalarWhereInput = {
   movementType?: Prisma.EnumMovementTypeFilter<"ItemMovement"> | $Enums.MovementType
   reasonCode?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   destinationRef?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
+  originRef?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   batchNumber?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   notes?: Prisma.StringNullableFilter<"ItemMovement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ItemMovement"> | Date | string
@@ -964,6 +991,7 @@ export type ItemMovementCreateWithoutItemInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -981,6 +1009,7 @@ export type ItemMovementUncheckedCreateWithoutItemInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -1024,6 +1053,7 @@ export type ItemMovementCreateWithoutSalesOrderInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -1041,6 +1071,7 @@ export type ItemMovementUncheckedCreateWithoutSalesOrderInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -1084,6 +1115,7 @@ export type ItemMovementCreateWithoutTenantInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -1101,6 +1133,7 @@ export type ItemMovementUncheckedCreateWithoutTenantInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -1144,6 +1177,7 @@ export type ItemMovementCreateManyUserInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -1161,6 +1195,7 @@ export type ItemMovementCreateManyApproverInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -1178,6 +1213,7 @@ export type ItemMovementUpdateWithoutUserInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1195,6 +1231,7 @@ export type ItemMovementUncheckedUpdateWithoutUserInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1212,6 +1249,7 @@ export type ItemMovementUncheckedUpdateManyWithoutUserInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1229,6 +1267,7 @@ export type ItemMovementUpdateWithoutApproverInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1246,6 +1285,7 @@ export type ItemMovementUncheckedUpdateWithoutApproverInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1263,6 +1303,7 @@ export type ItemMovementUncheckedUpdateManyWithoutApproverInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1280,6 +1321,7 @@ export type ItemMovementCreateManyItemInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -1297,6 +1339,7 @@ export type ItemMovementUpdateWithoutItemInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1314,6 +1357,7 @@ export type ItemMovementUncheckedUpdateWithoutItemInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1331,6 +1375,7 @@ export type ItemMovementUncheckedUpdateManyWithoutItemInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1348,6 +1393,7 @@ export type ItemMovementCreateManySalesOrderInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -1365,6 +1411,7 @@ export type ItemMovementUpdateWithoutSalesOrderInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1382,6 +1429,7 @@ export type ItemMovementUncheckedUpdateWithoutSalesOrderInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1399,6 +1447,7 @@ export type ItemMovementUncheckedUpdateManyWithoutSalesOrderInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1416,6 +1465,7 @@ export type ItemMovementCreateManyTenantInput = {
   movementType: $Enums.MovementType
   reasonCode?: string | null
   destinationRef?: string | null
+  originRef?: string | null
   batchNumber?: string | null
   notes?: string | null
   createdAt?: Date | string
@@ -1433,6 +1483,7 @@ export type ItemMovementUpdateWithoutTenantInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1450,6 +1501,7 @@ export type ItemMovementUncheckedUpdateWithoutTenantInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1467,6 +1519,7 @@ export type ItemMovementUncheckedUpdateManyWithoutTenantInput = {
   movementType?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
   reasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1486,6 +1539,7 @@ export type ItemMovementSelect<ExtArgs extends runtime.Types.Extensions.Internal
   movementType?: boolean
   reasonCode?: boolean
   destinationRef?: boolean
+  originRef?: boolean
   batchNumber?: boolean
   notes?: boolean
   createdAt?: boolean
@@ -1509,6 +1563,7 @@ export type ItemMovementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   movementType?: boolean
   reasonCode?: boolean
   destinationRef?: boolean
+  originRef?: boolean
   batchNumber?: boolean
   notes?: boolean
   createdAt?: boolean
@@ -1532,6 +1587,7 @@ export type ItemMovementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   movementType?: boolean
   reasonCode?: boolean
   destinationRef?: boolean
+  originRef?: boolean
   batchNumber?: boolean
   notes?: boolean
   createdAt?: boolean
@@ -1555,6 +1611,7 @@ export type ItemMovementSelectScalar = {
   movementType?: boolean
   reasonCode?: boolean
   destinationRef?: boolean
+  originRef?: boolean
   batchNumber?: boolean
   notes?: boolean
   createdAt?: boolean
@@ -1565,7 +1622,7 @@ export type ItemMovementSelectScalar = {
   tenantId?: boolean
 }
 
-export type ItemMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quantity" | "quantityBefore" | "quantityAfter" | "movementType" | "reasonCode" | "destinationRef" | "batchNumber" | "notes" | "createdAt" | "itemId" | "userId" | "approvedBy" | "salesOrderId" | "tenantId", ExtArgs["result"]["itemMovement"]>
+export type ItemMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quantity" | "quantityBefore" | "quantityAfter" | "movementType" | "reasonCode" | "destinationRef" | "originRef" | "batchNumber" | "notes" | "createdAt" | "itemId" | "userId" | "approvedBy" | "salesOrderId" | "tenantId", ExtArgs["result"]["itemMovement"]>
 export type ItemMovementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
@@ -1605,6 +1662,7 @@ export type $ItemMovementPayload<ExtArgs extends runtime.Types.Extensions.Intern
     movementType: $Enums.MovementType
     reasonCode: string | null
     destinationRef: string | null
+    originRef: string | null
     batchNumber: string | null
     notes: string | null
     createdAt: Date
@@ -2048,6 +2106,7 @@ export interface ItemMovementFieldRefs {
   readonly movementType: Prisma.FieldRef<"ItemMovement", 'MovementType'>
   readonly reasonCode: Prisma.FieldRef<"ItemMovement", 'String'>
   readonly destinationRef: Prisma.FieldRef<"ItemMovement", 'String'>
+  readonly originRef: Prisma.FieldRef<"ItemMovement", 'String'>
   readonly batchNumber: Prisma.FieldRef<"ItemMovement", 'String'>
   readonly notes: Prisma.FieldRef<"ItemMovement", 'String'>
   readonly createdAt: Prisma.FieldRef<"ItemMovement", 'DateTime'>

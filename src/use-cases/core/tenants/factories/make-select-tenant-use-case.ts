@@ -1,9 +1,15 @@
 import { PrismaTenantsRepository } from '@/repositories/core/prisma/prisma-tenants-repository';
 import { PrismaTenantUsersRepository } from '@/repositories/core/prisma/prisma-tenant-users-repository';
+import { PrismaSessionsRepository } from '@/repositories/core/prisma/prisma-sessions-repository';
 import { SelectTenantUseCase } from '../select-tenant';
 
 export function makeSelectTenantUseCase() {
   const tenantsRepository = new PrismaTenantsRepository();
   const tenantUsersRepository = new PrismaTenantUsersRepository();
-  return new SelectTenantUseCase(tenantsRepository, tenantUsersRepository);
+  const sessionsRepository = new PrismaSessionsRepository();
+  return new SelectTenantUseCase(
+    tenantsRepository,
+    tenantUsersRepository,
+    sessionsRepository,
+  );
 }

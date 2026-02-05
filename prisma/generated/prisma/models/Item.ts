@@ -63,6 +63,7 @@ export type ItemMinAggregateOutputType = {
   deletedAt: Date | null
   variantId: string | null
   binId: string | null
+  lastKnownAddress: string | null
   tenantId: string | null
 }
 
@@ -89,6 +90,7 @@ export type ItemMaxAggregateOutputType = {
   deletedAt: Date | null
   variantId: string | null
   binId: string | null
+  lastKnownAddress: string | null
   tenantId: string | null
 }
 
@@ -116,6 +118,7 @@ export type ItemCountAggregateOutputType = {
   deletedAt: number
   variantId: number
   binId: number
+  lastKnownAddress: number
   tenantId: number
   _all: number
 }
@@ -158,6 +161,7 @@ export type ItemMinAggregateInputType = {
   deletedAt?: true
   variantId?: true
   binId?: true
+  lastKnownAddress?: true
   tenantId?: true
 }
 
@@ -184,6 +188,7 @@ export type ItemMaxAggregateInputType = {
   deletedAt?: true
   variantId?: true
   binId?: true
+  lastKnownAddress?: true
   tenantId?: true
 }
 
@@ -211,6 +216,7 @@ export type ItemCountAggregateInputType = {
   deletedAt?: true
   variantId?: true
   binId?: true
+  lastKnownAddress?: true
   tenantId?: true
   _all?: true
 }
@@ -325,6 +331,7 @@ export type ItemGroupByOutputType = {
   deletedAt: Date | null
   variantId: string
   binId: string | null
+  lastKnownAddress: string | null
   tenantId: string
   _count: ItemCountAggregateOutputType | null
   _avg: ItemAvgAggregateOutputType | null
@@ -375,6 +382,7 @@ export type ItemWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
   variantId?: Prisma.StringFilter<"Item"> | string
   binId?: Prisma.StringNullableFilter<"Item"> | string | null
+  lastKnownAddress?: Prisma.StringNullableFilter<"Item"> | string | null
   tenantId?: Prisma.StringFilter<"Item"> | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   variant?: Prisma.XOR<Prisma.VariantScalarRelationFilter, Prisma.VariantWhereInput>
@@ -408,6 +416,7 @@ export type ItemOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   variantId?: Prisma.SortOrder
   binId?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastKnownAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   variant?: Prisma.VariantOrderByWithRelationInput
@@ -446,6 +455,7 @@ export type ItemWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
   variantId?: Prisma.StringFilter<"Item"> | string
   binId?: Prisma.StringNullableFilter<"Item"> | string | null
+  lastKnownAddress?: Prisma.StringNullableFilter<"Item"> | string | null
   tenantId?: Prisma.StringFilter<"Item"> | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   variant?: Prisma.XOR<Prisma.VariantScalarRelationFilter, Prisma.VariantWhereInput>
@@ -479,6 +489,7 @@ export type ItemOrderByWithAggregationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   variantId?: Prisma.SortOrder
   binId?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastKnownAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   _count?: Prisma.ItemCountOrderByAggregateInput
   _avg?: Prisma.ItemAvgOrderByAggregateInput
@@ -514,6 +525,7 @@ export type ItemScalarWhereWithAggregatesInput = {
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
   variantId?: Prisma.StringWithAggregatesFilter<"Item"> | string
   binId?: Prisma.StringNullableWithAggregatesFilter<"Item"> | string | null
+  lastKnownAddress?: Prisma.StringNullableWithAggregatesFilter<"Item"> | string | null
   tenantId?: Prisma.StringWithAggregatesFilter<"Item"> | string
 }
 
@@ -539,6 +551,7 @@ export type ItemCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  lastKnownAddress?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutItemsInput
   variant: Prisma.VariantCreateNestedOneWithoutItemsInput
   bin?: Prisma.BinCreateNestedOneWithoutItemsInput
@@ -571,6 +584,7 @@ export type ItemUncheckedCreateInput = {
   deletedAt?: Date | string | null
   variantId: string
   binId?: string | null
+  lastKnownAddress?: string | null
   tenantId: string
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
@@ -599,6 +613,7 @@ export type ItemUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutItemsNestedInput
   variant?: Prisma.VariantUpdateOneRequiredWithoutItemsNestedInput
   bin?: Prisma.BinUpdateOneWithoutItemsNestedInput
@@ -631,6 +646,7 @@ export type ItemUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   variantId?: Prisma.StringFieldUpdateOperationsInput | string
   binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
@@ -661,6 +677,7 @@ export type ItemCreateManyInput = {
   deletedAt?: Date | string | null
   variantId: string
   binId?: string | null
+  lastKnownAddress?: string | null
   tenantId: string
 }
 
@@ -686,6 +703,7 @@ export type ItemUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ItemUncheckedUpdateManyInput = {
@@ -712,6 +730,7 @@ export type ItemUncheckedUpdateManyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   variantId?: Prisma.StringFieldUpdateOperationsInput | string
   binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -766,6 +785,7 @@ export type ItemCountOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   variantId?: Prisma.SortOrder
   binId?: Prisma.SortOrder
+  lastKnownAddress?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
 }
 
@@ -799,6 +819,7 @@ export type ItemMaxOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   variantId?: Prisma.SortOrder
   binId?: Prisma.SortOrder
+  lastKnownAddress?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
 }
 
@@ -825,6 +846,7 @@ export type ItemMinOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   variantId?: Prisma.SortOrder
   binId?: Prisma.SortOrder
+  lastKnownAddress?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
 }
 
@@ -1029,6 +1051,7 @@ export type ItemCreateWithoutBinInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  lastKnownAddress?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutItemsInput
   variant: Prisma.VariantCreateNestedOneWithoutItemsInput
   movements?: Prisma.ItemMovementCreateNestedManyWithoutItemInput
@@ -1059,6 +1082,7 @@ export type ItemUncheckedCreateWithoutBinInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   variantId: string
+  lastKnownAddress?: string | null
   tenantId: string
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
@@ -1118,6 +1142,7 @@ export type ItemScalarWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
   variantId?: Prisma.StringFilter<"Item"> | string
   binId?: Prisma.StringNullableFilter<"Item"> | string | null
+  lastKnownAddress?: Prisma.StringNullableFilter<"Item"> | string | null
   tenantId?: Prisma.StringFilter<"Item"> | string
 }
 
@@ -1143,6 +1168,7 @@ export type ItemCreateWithoutVolumeItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  lastKnownAddress?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutItemsInput
   variant: Prisma.VariantCreateNestedOneWithoutItemsInput
   bin?: Prisma.BinCreateNestedOneWithoutItemsInput
@@ -1174,6 +1200,7 @@ export type ItemUncheckedCreateWithoutVolumeItemsInput = {
   deletedAt?: Date | string | null
   variantId: string
   binId?: string | null
+  lastKnownAddress?: string | null
   tenantId: string
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
@@ -1217,6 +1244,7 @@ export type ItemUpdateWithoutVolumeItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutItemsNestedInput
   variant?: Prisma.VariantUpdateOneRequiredWithoutItemsNestedInput
   bin?: Prisma.BinUpdateOneWithoutItemsNestedInput
@@ -1248,6 +1276,7 @@ export type ItemUncheckedUpdateWithoutVolumeItemsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   variantId?: Prisma.StringFieldUpdateOperationsInput | string
   binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
@@ -1275,6 +1304,7 @@ export type ItemCreateWithoutVariantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  lastKnownAddress?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutItemsInput
   bin?: Prisma.BinCreateNestedOneWithoutItemsInput
   movements?: Prisma.ItemMovementCreateNestedManyWithoutItemInput
@@ -1305,6 +1335,7 @@ export type ItemUncheckedCreateWithoutVariantInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   binId?: string | null
+  lastKnownAddress?: string | null
   tenantId: string
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
@@ -1359,6 +1390,7 @@ export type ItemCreateWithoutMovementsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  lastKnownAddress?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutItemsInput
   variant: Prisma.VariantCreateNestedOneWithoutItemsInput
   bin?: Prisma.BinCreateNestedOneWithoutItemsInput
@@ -1390,6 +1422,7 @@ export type ItemUncheckedCreateWithoutMovementsInput = {
   deletedAt?: Date | string | null
   variantId: string
   binId?: string | null
+  lastKnownAddress?: string | null
   tenantId: string
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutItemInput
@@ -1433,6 +1466,7 @@ export type ItemUpdateWithoutMovementsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutItemsNestedInput
   variant?: Prisma.VariantUpdateOneRequiredWithoutItemsNestedInput
   bin?: Prisma.BinUpdateOneWithoutItemsNestedInput
@@ -1464,6 +1498,7 @@ export type ItemUncheckedUpdateWithoutMovementsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   variantId?: Prisma.StringFieldUpdateOperationsInput | string
   binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUncheckedUpdateManyWithoutItemNestedInput
@@ -1491,6 +1526,7 @@ export type ItemCreateWithoutReservationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  lastKnownAddress?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutItemsInput
   variant: Prisma.VariantCreateNestedOneWithoutItemsInput
   bin?: Prisma.BinCreateNestedOneWithoutItemsInput
@@ -1522,6 +1558,7 @@ export type ItemUncheckedCreateWithoutReservationsInput = {
   deletedAt?: Date | string | null
   variantId: string
   binId?: string | null
+  lastKnownAddress?: string | null
   tenantId: string
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutItemInput
@@ -1565,6 +1602,7 @@ export type ItemUpdateWithoutReservationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutItemsNestedInput
   variant?: Prisma.VariantUpdateOneRequiredWithoutItemsNestedInput
   bin?: Prisma.BinUpdateOneWithoutItemsNestedInput
@@ -1596,6 +1634,7 @@ export type ItemUncheckedUpdateWithoutReservationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   variantId?: Prisma.StringFieldUpdateOperationsInput | string
   binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUncheckedUpdateManyWithoutItemNestedInput
@@ -1623,6 +1662,7 @@ export type ItemCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  lastKnownAddress?: string | null
   variant: Prisma.VariantCreateNestedOneWithoutItemsInput
   bin?: Prisma.BinCreateNestedOneWithoutItemsInput
   movements?: Prisma.ItemMovementCreateNestedManyWithoutItemInput
@@ -1654,6 +1694,7 @@ export type ItemUncheckedCreateWithoutTenantInput = {
   deletedAt?: Date | string | null
   variantId: string
   binId?: string | null
+  lastKnownAddress?: string | null
   movements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutItemInput
   reservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutItemInput
   volumeItems?: Prisma.VolumeItemUncheckedCreateNestedManyWithoutItemInput
@@ -1708,6 +1749,7 @@ export type ItemCreateManyBinInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   variantId: string
+  lastKnownAddress?: string | null
   tenantId: string
 }
 
@@ -1733,6 +1775,7 @@ export type ItemUpdateWithoutBinInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutItemsNestedInput
   variant?: Prisma.VariantUpdateOneRequiredWithoutItemsNestedInput
   movements?: Prisma.ItemMovementUpdateManyWithoutItemNestedInput
@@ -1763,6 +1806,7 @@ export type ItemUncheckedUpdateWithoutBinInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   variantId?: Prisma.StringFieldUpdateOperationsInput | string
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
@@ -1792,6 +1836,7 @@ export type ItemUncheckedUpdateManyWithoutBinInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   variantId?: Prisma.StringFieldUpdateOperationsInput | string
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -1818,6 +1863,7 @@ export type ItemCreateManyVariantInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   binId?: string | null
+  lastKnownAddress?: string | null
   tenantId: string
 }
 
@@ -1843,6 +1889,7 @@ export type ItemUpdateWithoutVariantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutItemsNestedInput
   bin?: Prisma.BinUpdateOneWithoutItemsNestedInput
   movements?: Prisma.ItemMovementUpdateManyWithoutItemNestedInput
@@ -1873,6 +1920,7 @@ export type ItemUncheckedUpdateWithoutVariantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
@@ -1902,6 +1950,7 @@ export type ItemUncheckedUpdateManyWithoutVariantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -1929,6 +1978,7 @@ export type ItemCreateManyTenantInput = {
   deletedAt?: Date | string | null
   variantId: string
   binId?: string | null
+  lastKnownAddress?: string | null
 }
 
 export type ItemUpdateWithoutTenantInput = {
@@ -1953,6 +2003,7 @@ export type ItemUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   variant?: Prisma.VariantUpdateOneRequiredWithoutItemsNestedInput
   bin?: Prisma.BinUpdateOneWithoutItemsNestedInput
   movements?: Prisma.ItemMovementUpdateManyWithoutItemNestedInput
@@ -1984,6 +2035,7 @@ export type ItemUncheckedUpdateWithoutTenantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   variantId?: Prisma.StringFieldUpdateOperationsInput | string
   binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   movements?: Prisma.ItemMovementUncheckedUpdateManyWithoutItemNestedInput
   reservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutItemNestedInput
   volumeItems?: Prisma.VolumeItemUncheckedUpdateManyWithoutItemNestedInput
@@ -2013,6 +2065,7 @@ export type ItemUncheckedUpdateManyWithoutTenantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   variantId?: Prisma.StringFieldUpdateOperationsInput | string
   binId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastKnownAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -2088,6 +2141,7 @@ export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   deletedAt?: boolean
   variantId?: boolean
   binId?: boolean
+  lastKnownAddress?: boolean
   tenantId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
@@ -2122,6 +2176,7 @@ export type ItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   deletedAt?: boolean
   variantId?: boolean
   binId?: boolean
+  lastKnownAddress?: boolean
   tenantId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
@@ -2152,6 +2207,7 @@ export type ItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   deletedAt?: boolean
   variantId?: boolean
   binId?: boolean
+  lastKnownAddress?: boolean
   tenantId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
@@ -2182,10 +2238,11 @@ export type ItemSelectScalar = {
   deletedAt?: boolean
   variantId?: boolean
   binId?: boolean
+  lastKnownAddress?: boolean
   tenantId?: boolean
 }
 
-export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "uniqueCode" | "slug" | "fullCode" | "sequentialCode" | "initialQuantity" | "currentQuantity" | "unitCost" | "status" | "entryDate" | "attributes" | "barcode" | "eanCode" | "upcCode" | "qrCode" | "batchNumber" | "manufacturingDate" | "expiryDate" | "createdAt" | "updatedAt" | "deletedAt" | "variantId" | "binId" | "tenantId", ExtArgs["result"]["item"]>
+export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "uniqueCode" | "slug" | "fullCode" | "sequentialCode" | "initialQuantity" | "currentQuantity" | "unitCost" | "status" | "entryDate" | "attributes" | "barcode" | "eanCode" | "upcCode" | "qrCode" | "batchNumber" | "manufacturingDate" | "expiryDate" | "createdAt" | "updatedAt" | "deletedAt" | "variantId" | "binId" | "lastKnownAddress" | "tenantId", ExtArgs["result"]["item"]>
 export type ItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
@@ -2240,6 +2297,7 @@ export type $ItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     deletedAt: Date | null
     variantId: string
     binId: string | null
+    lastKnownAddress: string | null
     tenantId: string
   }, ExtArgs["result"]["item"]>
   composites: {}
@@ -2693,6 +2751,7 @@ export interface ItemFieldRefs {
   readonly deletedAt: Prisma.FieldRef<"Item", 'DateTime'>
   readonly variantId: Prisma.FieldRef<"Item", 'String'>
   readonly binId: Prisma.FieldRef<"Item", 'String'>
+  readonly lastKnownAddress: Prisma.FieldRef<"Item", 'String'>
   readonly tenantId: Prisma.FieldRef<"Item", 'String'>
 }
     

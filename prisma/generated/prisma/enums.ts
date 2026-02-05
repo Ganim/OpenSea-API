@@ -64,7 +64,8 @@ export const MovementType = {
   SAMPLE: 'SAMPLE',
   LOSS: 'LOSS',
   TRANSFER: 'TRANSFER',
-  INVENTORY_ADJUSTMENT: 'INVENTORY_ADJUSTMENT'
+  INVENTORY_ADJUSTMENT: 'INVENTORY_ADJUSTMENT',
+  ZONE_RECONFIGURE: 'ZONE_RECONFIGURE'
 } as const
 
 export type MovementType = (typeof MovementType)[keyof typeof MovementType]

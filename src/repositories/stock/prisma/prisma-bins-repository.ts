@@ -406,4 +406,44 @@ export class PrismaBinsRepository implements BinsRepository {
 
     return result._count;
   }
+
+  async softDeleteMany(binIds: string[]): Promise<number> {
+    const result = await prisma.bin.updateMany({
+      where: { id: { in: binIds }, deletedAt: null },
+      data: { deletedAt: new Date() },
+    });
+    return result.count;
+  }
+
+  async updateAddressMany(updates: Array<{ id: string; address: string }>): Promise<number> {
+    let count = 0;
+    for (const { id, address } of updates) {
+      await prisma.bin.update({
+        where: { id },
+        data: { address },
+      });
+      count++;
+    }
+    return count;
+  }
+
+  async countItemsPerBin(zoneId: UniqueEntityID, tenantId: string): Promise<Map<string, number>> {
+    const counts = await prisma.item.groupBy({
+      by: ['binId'],
+      where: {
+        tenantId,
+        deletedAt: null,
+        bin: { zoneId: zoneId.toString(), deletedAt: null },
+      },
+      _count: { id: true },
+    });
+
+    const map = new Map<string, number>();
+    for (const row of counts) {
+      if (row.binId) {
+        map.set(row.binId, row._count.id);
+      }
+    }
+    return map;
+  }
 }

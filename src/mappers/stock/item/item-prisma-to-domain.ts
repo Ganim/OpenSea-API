@@ -33,6 +33,7 @@ export function mapItemPrismaToDomain(itemDb: PrismaItem) {
     batchNumber: itemDb.batchNumber ?? undefined,
     manufacturingDate: itemDb.manufacturingDate ?? undefined,
     expiryDate: itemDb.expiryDate ?? undefined,
+    lastKnownAddress: itemDb.lastKnownAddress ?? undefined,
     createdAt: itemDb.createdAt,
     updatedAt: itemDb.updatedAt,
     deletedAt: itemDb.deletedAt ?? undefined,

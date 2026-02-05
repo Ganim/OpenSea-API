@@ -2,6 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryBinsRepository } from '@/repositories/stock/in-memory/in-memory-bins-repository';
+import { InMemoryItemMovementsRepository } from '@/repositories/stock/in-memory/in-memory-item-movements-repository';
+import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
 import { InMemoryWarehousesRepository } from '@/repositories/stock/in-memory/in-memory-warehouses-repository';
 import { InMemoryZonesRepository } from '@/repositories/stock/in-memory/in-memory-zones-repository';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -9,6 +11,8 @@ import { DeleteZoneUseCase } from './delete-zone';
 
 let zonesRepository: InMemoryZonesRepository;
 let binsRepository: InMemoryBinsRepository;
+let itemsRepository: InMemoryItemsRepository;
+let itemMovementsRepository: InMemoryItemMovementsRepository;
 let warehousesRepository: InMemoryWarehousesRepository;
 let sut: DeleteZoneUseCase;
 
@@ -16,8 +20,10 @@ describe('DeleteZoneUseCase', () => {
   beforeEach(() => {
     zonesRepository = new InMemoryZonesRepository();
     binsRepository = new InMemoryBinsRepository();
+    itemsRepository = new InMemoryItemsRepository();
+    itemMovementsRepository = new InMemoryItemMovementsRepository();
     warehousesRepository = new InMemoryWarehousesRepository();
-    sut = new DeleteZoneUseCase(zonesRepository, binsRepository);
+    sut = new DeleteZoneUseCase(zonesRepository, binsRepository, itemsRepository, itemMovementsRepository);
   });
 
   async function createTestZone() {
@@ -43,6 +49,7 @@ describe('DeleteZoneUseCase', () => {
     const result = await sut.execute({
       tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
+      userId: 'user-1',
     });
 
     expect(result.success).toBe(true);
@@ -57,6 +64,7 @@ describe('DeleteZoneUseCase', () => {
       sut.execute({
         tenantId: 'tenant-1',
         id: new UniqueEntityID().toString(),
+        userId: 'user-1',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
@@ -70,6 +78,7 @@ describe('DeleteZoneUseCase', () => {
       sut.execute({
         tenantId: 'tenant-1',
         id: zone.zoneId.toString(),
+        userId: 'user-1',
       }),
     ).rejects.toThrow(BadRequestError);
   });
@@ -83,6 +92,7 @@ describe('DeleteZoneUseCase', () => {
       await sut.execute({
         tenantId: 'tenant-1',
         id: zone.zoneId.toString(),
+        userId: 'user-1',
       });
       expect.fail('Should have thrown');
     } catch (error) {
@@ -119,6 +129,7 @@ describe('DeleteZoneUseCase', () => {
       tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
       forceDeleteBins: true,
+      userId: 'user-1',
     });
 
     expect(result.success).toBe(true);
@@ -131,6 +142,7 @@ describe('DeleteZoneUseCase', () => {
     await sut.execute({
       tenantId: 'tenant-1',
       id: zone.zoneId.toString(),
+      userId: 'user-1',
     });
 
     const zoneInArray = zonesRepository.zones.find((z) =>

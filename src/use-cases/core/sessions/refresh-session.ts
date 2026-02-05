@@ -16,6 +16,7 @@ import { RefreshTokensRepository } from '@/repositories/core/refresh-tokens-repo
 import { SessionsRepository } from '@/repositories/core/sessions-repository';
 import type { UsersRepository } from '@/repositories/core/users-repository';
 import type { PermissionService } from '@/services/rbac/permission-service';
+import type { TenantsRepository } from '@/repositories/core/tenants-repository';
 import type { FastifyReply } from 'fastify';
 
 export interface RefreshSessionUseCaseRequest {
@@ -28,6 +29,12 @@ export interface RefreshSessionUseCaseResponse {
   session: SessionDTO;
   refreshToken: RefreshTokenDTO;
   permissions: string[];
+  tenant?: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+  isSuperAdmin: boolean;
 }
 
 export class RefreshSessionUseCase {
@@ -36,6 +43,7 @@ export class RefreshSessionUseCase {
     private usersRepository: UsersRepository,
     private refreshTokensRepository: RefreshTokensRepository,
     private permissionService: PermissionService,
+    private tenantsRepository: TenantsRepository,
   ) {}
 
   async execute({
@@ -80,6 +88,15 @@ export class RefreshSessionUseCase {
       throw new UnauthorizedError('Session has been revoked.');
     }
 
+    // Validate tenant consistency if present on refresh token
+    if (storedRefreshToken.tenantId && storedSession.tenantId) {
+      const refreshTenantId = storedRefreshToken.tenantId.toString();
+      const sessionTenantId = storedSession.tenantId.toString();
+      if (refreshTenantId !== sessionTenantId) {
+        throw new UnauthorizedError('Refresh token tenant mismatch.');
+      }
+    }
+
     // Get user
     const storedUser = await this.usersRepository.findById(
       storedRefreshToken.userId,
@@ -112,6 +129,7 @@ export class RefreshSessionUseCase {
     const newDBRefreshToken = await this.refreshTokensRepository.create({
       userId: storedRefreshToken.userId,
       sessionId: storedRefreshToken.sessionId,
+      tenantId: storedSession.tenantId ?? null,
       token: validJWTRefreshToken,
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
     });
@@ -135,6 +153,28 @@ export class RefreshSessionUseCase {
       storedRefreshToken.userId,
     );
 
+    let tenant:
+      | {
+          id: string;
+          name: string;
+          slug: string;
+        }
+      | undefined;
+
+    if (storedSession.tenantId) {
+      const foundTenant = await this.tenantsRepository.findById(
+        storedSession.tenantId,
+      );
+
+      if (foundTenant && foundTenant.isActive) {
+        tenant = {
+          id: foundTenant.tenantId.toString(),
+          name: foundTenant.name,
+          slug: foundTenant.slug,
+        };
+      }
+    }
+
     const session = sessionToDTO(newSession);
     const newRefreshToken = refreshTokenToDTO(newDBRefreshToken);
 
@@ -142,6 +182,8 @@ export class RefreshSessionUseCase {
       session,
       refreshToken: newRefreshToken,
       permissions: permissionCodes,
+      tenant,
+      isSuperAdmin: storedUser.isSuperAdmin ?? false,
     };
   }
 }

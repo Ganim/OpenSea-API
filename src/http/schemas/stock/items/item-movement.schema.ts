@@ -13,6 +13,7 @@ export const itemMovementResponseSchema = z.object({
   quantityAfter: z.number().nullable().optional(),
   movementType: z.string(),
   reasonCode: z.string().nullable().optional(),
+  originRef: z.string().nullable().optional(),
   destinationRef: z.string().nullable().optional(),
   batchNumber: z.string().nullable().optional(),
   notes: z.string().nullable().optional(),

@@ -1,6 +1,7 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { SessionsRepository } from '@/repositories/core/sessions-repository';
 import type { TenantUsersRepository } from '@/repositories/core/tenant-users-repository';
 import type { TenantsRepository } from '@/repositories/core/tenants-repository';
 import type { FastifyReply } from 'fastify';
@@ -26,6 +27,7 @@ export class SelectTenantUseCase {
   constructor(
     private tenantsRepository: TenantsRepository,
     private tenantUsersRepository: TenantUsersRepository,
+    private sessionsRepository: SessionsRepository,
   ) {}
 
   async execute({
@@ -56,6 +58,15 @@ export class SelectTenantUseCase {
 
     if (!membership) {
       throw new ForbiddenError('You are not a member of this tenant');
+    }
+
+    const updatedSession = await this.sessionsRepository.setTenant({
+      sessionId: new UniqueEntityID(sessionId),
+      tenantId: new UniqueEntityID(tenantId),
+    });
+
+    if (!updatedSession) {
+      throw new ResourceNotFoundError('Session not found');
     }
 
     // Sign a new JWT with tenantId included

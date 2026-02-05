@@ -32,6 +32,7 @@ export interface GeoLocationDTO {
 export interface SessionDTO {
   id: string;
   userId: string;
+  tenantId?: string | null;
   ip: string;
   createdAt: Date;
   expiredAt?: Date | null;
@@ -61,6 +62,7 @@ export function sessionToDTO(session: Session): SessionDTO {
   return {
     id: session.id.toString(),
     userId: session.userId.toString(),
+    tenantId: session.tenantId ? session.tenantId.toString() : null,
     ip: session.ip.toString(),
     createdAt: session.createdAt,
     expiredAt: session.expiredAt ?? null,

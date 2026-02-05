@@ -29,6 +29,7 @@ export interface ItemWithRelations {
   qrCode: string | null;
   variantId: string;
   binId: string | null;
+  lastKnownAddress: string | null;
   initialQuantity: Prisma.Decimal;
   currentQuantity: Prisma.Decimal;
   unitCost: Prisma.Decimal | null;
@@ -96,6 +97,7 @@ export class PrismaItemsRepository implements ItemsRepository {
     qrCode?: string | null;
     variantId: string;
     binId: string | null;
+    lastKnownAddress?: string | null;
     initialQuantity: Prisma.Decimal;
     currentQuantity: Prisma.Decimal;
     unitCost?: Prisma.Decimal | null;
@@ -122,6 +124,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         qrCode: itemData.qrCode ?? undefined,
         variantId: new EntityID(itemData.variantId),
         binId: itemData.binId ? new EntityID(itemData.binId) : undefined,
+        lastKnownAddress: itemData.lastKnownAddress ?? undefined,
         initialQuantity: itemData.initialQuantity.toNumber(),
         currentQuantity: itemData.currentQuantity.toNumber(),
         unitCost: itemData.unitCost?.toNumber(),
@@ -271,6 +274,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         upcCode: data.upcCode,
         variantId: data.variantId.toString(),
         binId: data.binId?.toString() ?? null,
+        lastKnownAddress: data.lastKnownAddress ?? null,
         initialQuantity: data.initialQuantity,
         currentQuantity: data.currentQuantity,
         unitCost: data.unitCost,
@@ -549,6 +553,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
       data: {
         binId: data.binId?.toString() ?? undefined,
+        lastKnownAddress: data.lastKnownAddress ?? undefined,
         currentQuantity: data.currentQuantity
           ? data.currentQuantity
           : undefined,
@@ -570,6 +575,7 @@ export class PrismaItemsRepository implements ItemsRepository {
       },
       data: {
         binId: item.binId?.toString() ?? null,
+        lastKnownAddress: item.lastKnownAddress ?? null,
         currentQuantity: item.currentQuantity,
         status: item.status.value as PrismaItemStatus,
         attributes: item.attributes as Prisma.InputJsonValue,
@@ -591,5 +597,33 @@ export class PrismaItemsRepository implements ItemsRepository {
         deletedAt: new Date(),
       },
     });
+  }
+
+  async detachItemsFromBins(
+    binIds: string[],
+    tenantId: string,
+  ): Promise<number> {
+    const items = await prisma.item.findMany({
+      where: {
+        binId: { in: binIds },
+        tenantId,
+        deletedAt: null,
+      },
+      include: { bin: { select: { address: true } } },
+    });
+
+    if (items.length === 0) return 0;
+
+    for (const item of items) {
+      await prisma.item.update({
+        where: { id: item.id },
+        data: {
+          lastKnownAddress: item.bin?.address ?? item.lastKnownAddress,
+          binId: null,
+        },
+      });
+    }
+
+    return items.length;
   }
 }

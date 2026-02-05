@@ -3,6 +3,7 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { ItemMovement } from '@/entities/stock/item-movement';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/generated/client.js';
 import type { MovementType as PrismaMovementType } from '@prisma/generated/client.js';
 import type {
   CreateItemMovementSchema,
@@ -22,6 +23,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
         quantityAfter: data.quantityAfter,
         movementType: data.movementType.value as PrismaMovementType,
         reasonCode: data.reasonCode,
+        originRef: data.originRef,
         destinationRef: data.destinationRef,
         batchNumber: data.batchNumber,
         notes: data.notes,
@@ -39,6 +41,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
         quantityAfter: movementData.quantityAfter?.toNumber(),
         movementType: MovementType.create(movementData.movementType),
         reasonCode: movementData.reasonCode ?? undefined,
+        originRef: movementData.originRef ?? undefined,
         destinationRef: movementData.destinationRef ?? undefined,
         batchNumber: movementData.batchNumber ?? undefined,
         notes: movementData.notes ?? undefined,
@@ -77,6 +80,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
         quantityAfter: movementData.quantityAfter?.toNumber(),
         movementType: MovementType.create(movementData.movementType),
         reasonCode: movementData.reasonCode ?? undefined,
+        originRef: movementData.originRef ?? undefined,
         destinationRef: movementData.destinationRef ?? undefined,
         batchNumber: movementData.batchNumber ?? undefined,
         notes: movementData.notes ?? undefined,
@@ -113,6 +117,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
           quantityAfter: movementData.quantityAfter?.toNumber(),
           movementType: MovementType.create(movementData.movementType),
           reasonCode: movementData.reasonCode ?? undefined,
+          originRef: movementData.originRef ?? undefined,
           destinationRef: movementData.destinationRef ?? undefined,
           batchNumber: movementData.batchNumber ?? undefined,
           notes: movementData.notes ?? undefined,
@@ -154,6 +159,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
           quantityAfter: movementData.quantityAfter?.toNumber(),
           movementType: MovementType.create(movementData.movementType),
           reasonCode: movementData.reasonCode ?? undefined,
+          originRef: movementData.originRef ?? undefined,
           destinationRef: movementData.destinationRef ?? undefined,
           batchNumber: movementData.batchNumber ?? undefined,
           notes: movementData.notes ?? undefined,
@@ -195,6 +201,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
           quantityAfter: movementData.quantityAfter?.toNumber(),
           movementType: MovementType.create(movementData.movementType),
           reasonCode: movementData.reasonCode ?? undefined,
+          originRef: movementData.originRef ?? undefined,
           destinationRef: movementData.destinationRef ?? undefined,
           batchNumber: movementData.batchNumber ?? undefined,
           notes: movementData.notes ?? undefined,
@@ -236,6 +243,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
           quantityAfter: movementData.quantityAfter?.toNumber(),
           movementType: MovementType.create(movementData.movementType),
           reasonCode: movementData.reasonCode ?? undefined,
+          originRef: movementData.originRef ?? undefined,
           destinationRef: movementData.destinationRef ?? undefined,
           batchNumber: movementData.batchNumber ?? undefined,
           notes: movementData.notes ?? undefined,
@@ -277,6 +285,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
           quantityAfter: movementData.quantityAfter?.toNumber(),
           movementType: MovementType.create(movementData.movementType),
           reasonCode: movementData.reasonCode ?? undefined,
+          originRef: movementData.originRef ?? undefined,
           destinationRef: movementData.destinationRef ?? undefined,
           batchNumber: movementData.batchNumber ?? undefined,
           notes: movementData.notes ?? undefined,
@@ -318,6 +327,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
           quantityAfter: movementData.quantityAfter?.toNumber(),
           movementType: MovementType.create(movementData.movementType),
           reasonCode: movementData.reasonCode ?? undefined,
+          originRef: movementData.originRef ?? undefined,
           destinationRef: movementData.destinationRef ?? undefined,
           batchNumber: movementData.batchNumber ?? undefined,
           notes: movementData.notes ?? undefined,
@@ -356,6 +366,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
           quantityAfter: movementData.quantityAfter?.toNumber(),
           movementType: MovementType.create(movementData.movementType),
           reasonCode: movementData.reasonCode ?? undefined,
+          originRef: movementData.originRef ?? undefined,
           destinationRef: movementData.destinationRef ?? undefined,
           batchNumber: movementData.batchNumber ?? undefined,
           notes: movementData.notes ?? undefined,
@@ -395,6 +406,7 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
         quantityAfter: movementData.quantityAfter?.toNumber(),
         movementType: MovementType.create(movementData.movementType),
         reasonCode: movementData.reasonCode ?? undefined,
+        originRef: movementData.originRef ?? undefined,
         destinationRef: movementData.destinationRef ?? undefined,
         batchNumber: movementData.batchNumber ?? undefined,
         notes: movementData.notes ?? undefined,
@@ -422,5 +434,28 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
         approvedBy: movement.approvedBy?.toString(),
       },
     });
+  }
+
+  async createBatchForZoneReconfigure(data: {
+    tenantId: string;
+    items: Array<{ itemId: string; binAddress: string; currentQuantity: number }>;
+    userId: string;
+    notes?: string;
+  }): Promise<number> {
+    const movements = data.items.map((item) => ({
+      tenantId: data.tenantId,
+      itemId: item.itemId,
+      userId: data.userId,
+      quantity: new Prisma.Decimal(item.currentQuantity),
+      quantityBefore: new Prisma.Decimal(item.currentQuantity),
+      quantityAfter: new Prisma.Decimal(item.currentQuantity),
+      movementType: 'ZONE_RECONFIGURE' as const,
+      originRef: `Bin: ${item.binAddress}`,
+      reasonCode: 'ZONE_RECONFIGURE',
+      notes: data.notes ?? null,
+    }));
+
+    const result = await prisma.itemMovement.createMany({ data: movements });
+    return result.count;
   }
 }

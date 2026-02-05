@@ -3,6 +3,7 @@ import { Token } from '@/entities/core/value-objects/token';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryRefreshTokensRepository } from '@/repositories/core/in-memory/in-memory-refresh-tokens-repository';
 import { InMemorySessionsRepository } from '@/repositories/core/in-memory/in-memory-sessions-repository';
+import { InMemoryTenantsRepository } from '@/repositories/core/in-memory/in-memory-tenants-repository';
 import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
 import type { PermissionService } from '@/services/rbac/permission-service';
 import { makeSession } from '@/utils/tests/factories/core/make-session';
@@ -15,6 +16,7 @@ import { RefreshSessionUseCase } from './refresh-session';
 let sessionsRepository: InMemorySessionsRepository;
 let usersRepository: InMemoryUsersRepository;
 let refreshTokensRepository: InMemoryRefreshTokensRepository;
+let tenantsRepository: InMemoryTenantsRepository;
 let permissionService: PermissionService;
 let sut: RefreshSessionUseCase;
 let reply: FastifyReply;
@@ -24,6 +26,7 @@ describe('RefreshSessionUseCase', () => {
     sessionsRepository = new InMemorySessionsRepository();
     usersRepository = new InMemoryUsersRepository();
     refreshTokensRepository = new InMemoryRefreshTokensRepository();
+    tenantsRepository = new InMemoryTenantsRepository();
     permissionService = {
       getUserPermissionCodes: vi.fn().mockResolvedValue(['permission:read']),
     } as unknown as PermissionService;
@@ -32,6 +35,7 @@ describe('RefreshSessionUseCase', () => {
       usersRepository,
       refreshTokensRepository,
       permissionService,
+      tenantsRepository,
     );
     const jwtSignMock = vi.fn().mockResolvedValue(faker.internet.jwt());
     reply = { jwtSign: jwtSignMock } as unknown as FastifyReply;
