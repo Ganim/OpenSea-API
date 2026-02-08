@@ -6,7 +6,7 @@ import type { LabelTemplatesRepository } from '@/repositories/core/label-templat
 
 interface GetLabelTemplateByIdUseCaseRequest {
   id: string;
-  organizationId: string;
+  tenantId: string;
 }
 
 interface GetLabelTemplateByIdUseCaseResponse {
@@ -19,10 +19,10 @@ export class GetLabelTemplateByIdUseCase {
   async execute(
     request: GetLabelTemplateByIdUseCaseRequest,
   ): Promise<GetLabelTemplateByIdUseCaseResponse> {
-    const { id, organizationId } = request;
+    const { id, tenantId } = request;
 
     const labelTemplate = await this.labelTemplatesRepository.findById(
-      new UniqueEntityID(organizationId),
+      new UniqueEntityID(tenantId),
       new UniqueEntityID(id),
     );
 

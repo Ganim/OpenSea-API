@@ -3,9 +3,9 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
-import { getUserOrganizationId } from '@/http/helpers/organization.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   duplicateLabelTemplateSchema,
   labelTemplateResponseSchema,
@@ -23,6 +23,7 @@ export async function duplicateLabelTemplateController(app: FastifyInstance) {
     url: '/v1/label-templates/:id/duplicate',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.CORE.LABEL_TEMPLATES.DUPLICATE,
         resource: 'label-templates',
@@ -50,15 +51,9 @@ export async function duplicateLabelTemplateController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
-      const organizationId = await getUserOrganizationId(userId);
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
       const { name } = request.body;
-
-      if (!organizationId) {
-        return reply
-          .status(400)
-          .send({ message: 'User must belong to an organization' });
-      }
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -71,7 +66,7 @@ export async function duplicateLabelTemplateController(app: FastifyInstance) {
         const { template: sourceTemplate } =
           await getLabelTemplateByIdUseCase.execute({
             id,
-            organizationId,
+            tenantId,
           });
 
         const duplicateLabelTemplateUseCase =
@@ -79,7 +74,7 @@ export async function duplicateLabelTemplateController(app: FastifyInstance) {
         const { template } = await duplicateLabelTemplateUseCase.execute({
           id,
           name,
-          organizationId,
+          tenantId,
           createdById: userId,
         });
 

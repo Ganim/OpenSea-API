@@ -17,18 +17,18 @@ describe('DuplicateLabelTemplateUseCase', () => {
   });
 
   it('should duplicate a label template with default name', async () => {
-    const organizationId = new UniqueEntityID();
+    const tenantId = new UniqueEntityID();
     const createdById = new UniqueEntityID();
 
     const sourceTemplate = makeLabelTemplate({
       name: 'Etiqueta Original',
-      organizationId,
+      tenantId,
     });
     labelTemplatesRepository.items.push(sourceTemplate);
 
     const result = await sut.execute({
       id: sourceTemplate.id.toString(),
-      organizationId: organizationId.toString(),
+      tenantId: tenantId.toString(),
       createdById: createdById.toString(),
     });
 
@@ -41,19 +41,19 @@ describe('DuplicateLabelTemplateUseCase', () => {
   });
 
   it('should duplicate a label template with custom name', async () => {
-    const organizationId = new UniqueEntityID();
+    const tenantId = new UniqueEntityID();
     const createdById = new UniqueEntityID();
 
     const sourceTemplate = makeLabelTemplate({
       name: 'Etiqueta Original',
-      organizationId,
+      tenantId,
     });
     labelTemplatesRepository.items.push(sourceTemplate);
 
     const result = await sut.execute({
       id: sourceTemplate.id.toString(),
       name: 'Minha Etiqueta Customizada',
-      organizationId: organizationId.toString(),
+      tenantId: tenantId.toString(),
       createdById: createdById.toString(),
     });
 
@@ -61,7 +61,7 @@ describe('DuplicateLabelTemplateUseCase', () => {
   });
 
   it('should duplicate a system template', async () => {
-    const organizationId = new UniqueEntityID();
+    const tenantId = new UniqueEntityID();
     const createdById = new UniqueEntityID();
 
     const systemTemplate = makeSystemLabelTemplate({
@@ -71,7 +71,7 @@ describe('DuplicateLabelTemplateUseCase', () => {
 
     const result = await sut.execute({
       id: systemTemplate.id.toString(),
-      organizationId: organizationId.toString(),
+      tenantId: tenantId.toString(),
       createdById: createdById.toString(),
     });
 
@@ -83,29 +83,29 @@ describe('DuplicateLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: new UniqueEntityID().toString(),
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Source label template not found');
   });
 
   it('should throw error when name already exists in organization', async () => {
-    const organizationId = new UniqueEntityID();
+    const tenantId = new UniqueEntityID();
 
     const sourceTemplate = makeLabelTemplate({
       name: 'Etiqueta Original',
-      organizationId,
+      tenantId,
     });
     const existingTemplate = makeLabelTemplate({
       name: 'Etiqueta Original (Cópia)',
-      organizationId,
+      tenantId,
     });
     labelTemplatesRepository.items.push(sourceTemplate, existingTemplate);
 
     await expect(
       sut.execute({
         id: sourceTemplate.id.toString(),
-        organizationId: organizationId.toString(),
+        tenantId: tenantId.toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow(
@@ -121,7 +121,7 @@ describe('DuplicateLabelTemplateUseCase', () => {
       sut.execute({
         id: sourceTemplate.id.toString(),
         name: 'a'.repeat(256),
-        organizationId: sourceTemplate.organizationId.toString(),
+        tenantId: sourceTemplate.tenantId.toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Name must be at most 255 characters long');

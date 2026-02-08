@@ -46,6 +46,7 @@ const MODULE_LABELS: Record<string, string> = {
   sales: 'Vendas',
   requests: 'Requisições',
   hr: 'Recursos Humanos',
+  studio: 'Studio',
 };
 
 const ACTION_LABELS: Record<string, string> = {
@@ -88,6 +89,7 @@ const ACTION_LABELS: Record<string, string> = {
   'remove-item': 'Remover Item',
   romaneio: 'Romaneio',
   restore: 'Restaurar',
+  use: 'Usar',
 };
 
 const SCOPE_LABELS: Record<string, string> = {

@@ -22,11 +22,11 @@ describe('DeleteLabelTemplateUseCase', () => {
 
     await sut.execute({
       id: labelTemplate.id.toString(),
-      organizationId: labelTemplate.organizationId.toString(),
+      tenantId: labelTemplate.tenantId.toString(),
     });
 
     const foundTemplate = await labelTemplatesRepository.findById(
-      labelTemplate.organizationId,
+      labelTemplate.tenantId,
       labelTemplate.id,
     );
     expect(foundTemplate).toBeNull();
@@ -44,7 +44,7 @@ describe('DeleteLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: systemTemplate.id.toString(),
-        organizationId: systemTemplate.organizationId.toString(),
+        tenantId: systemTemplate.tenantId.toString(),
       }),
     ).rejects.toThrow('Cannot delete system templates');
   });
@@ -53,7 +53,7 @@ describe('DeleteLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: new UniqueEntityID().toString(),
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Label template not found');
   });
@@ -65,7 +65,7 @@ describe('DeleteLabelTemplateUseCase', () => {
     await expect(
       sut.execute({
         id: labelTemplate.id.toString(),
-        organizationId: labelTemplate.organizationId.toString(),
+        tenantId: labelTemplate.tenantId.toString(),
       }),
     ).rejects.toThrow('Label template not found');
   });

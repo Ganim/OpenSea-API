@@ -11,13 +11,13 @@ export interface CreateLabelTemplateSchema {
   compiledHtml?: string;
   compiledCss?: string;
   thumbnailUrl?: string;
-  organizationId: UniqueEntityID;
+  tenantId: UniqueEntityID;
   createdById: UniqueEntityID;
 }
 
 export interface UpdateLabelTemplateSchema {
   id: UniqueEntityID;
-  organizationId: UniqueEntityID;
+  tenantId: UniqueEntityID;
   name?: string;
   description?: string;
   width?: number;
@@ -29,7 +29,7 @@ export interface UpdateLabelTemplateSchema {
 }
 
 export interface ListLabelTemplatesFilters {
-  organizationId: UniqueEntityID;
+  tenantId: UniqueEntityID;
   includeSystem?: boolean;
   search?: string;
   page?: number;
@@ -44,12 +44,12 @@ export interface ListLabelTemplatesResult {
 export interface LabelTemplatesRepository {
   create(data: CreateLabelTemplateSchema): Promise<LabelTemplate>;
   findById(
-    organizationId: UniqueEntityID,
+    tenantId: UniqueEntityID,
     id: UniqueEntityID,
   ): Promise<LabelTemplate | null>;
-  findByNameAndOrganization(
+  findByNameAndTenant(
     name: string,
-    organizationId: UniqueEntityID,
+    tenantId: UniqueEntityID,
   ): Promise<LabelTemplate | null>;
   findMany(
     filters: ListLabelTemplatesFilters,
@@ -57,5 +57,5 @@ export interface LabelTemplatesRepository {
   findSystemTemplates(): Promise<LabelTemplate[]>;
   update(data: UpdateLabelTemplateSchema): Promise<LabelTemplate | null>;
   save(labelTemplate: LabelTemplate): Promise<void>;
-  delete(organizationId: UniqueEntityID, id: UniqueEntityID): Promise<void>;
+  delete(tenantId: UniqueEntityID, id: UniqueEntityID): Promise<void>;
 }

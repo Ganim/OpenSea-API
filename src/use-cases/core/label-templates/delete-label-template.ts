@@ -5,18 +5,18 @@ import type { LabelTemplatesRepository } from '@/repositories/core/label-templat
 
 interface DeleteLabelTemplateUseCaseRequest {
   id: string;
-  organizationId: string;
+  tenantId: string;
 }
 
 export class DeleteLabelTemplateUseCase {
   constructor(private labelTemplatesRepository: LabelTemplatesRepository) {}
 
   async execute(request: DeleteLabelTemplateUseCaseRequest): Promise<void> {
-    const { id, organizationId } = request;
+    const { id, tenantId } = request;
 
     const templateId = new UniqueEntityID(id);
     const existingTemplate = await this.labelTemplatesRepository.findById(
-      new UniqueEntityID(organizationId),
+      new UniqueEntityID(tenantId),
       templateId,
     );
 
@@ -29,7 +29,7 @@ export class DeleteLabelTemplateUseCase {
     }
 
     await this.labelTemplatesRepository.delete(
-      new UniqueEntityID(organizationId),
+      new UniqueEntityID(tenantId),
       templateId,
     );
   }

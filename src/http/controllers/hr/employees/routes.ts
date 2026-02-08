@@ -11,6 +11,7 @@ import { deleteEmployeeController } from './v1-delete-employee.controller';
 import { terminateEmployeeController } from './v1-terminate-employee.controller';
 import { transferEmployeeController } from './v1-transfer-employee.controller';
 import { updateEmployeeController } from './v1-update-employee.controller';
+import { getEmployeesLabelDataController } from './v1-get-employees-label-data.controller';
 
 export async function employeesRoutes() {
   // Manager routes com rate limit de mutação
@@ -35,6 +36,7 @@ export async function employeesRoutes() {
       queryApp.register(getEmployeeByIdController);
       queryApp.register(listEmployeesController);
       queryApp.register(checkCpfController);
+      queryApp.register(getEmployeesLabelDataController);
     },
     { prefix: '' },
   );

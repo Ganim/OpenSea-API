@@ -8,7 +8,7 @@ import type { LabelTemplatesRepository } from '@/repositories/core/label-templat
 interface DuplicateLabelTemplateUseCaseRequest {
   id: string;
   name?: string;
-  organizationId: string;
+  tenantId: string;
   createdById: string;
 }
 
@@ -22,10 +22,10 @@ export class DuplicateLabelTemplateUseCase {
   async execute(
     request: DuplicateLabelTemplateUseCaseRequest,
   ): Promise<DuplicateLabelTemplateUseCaseResponse> {
-    const { id, name, organizationId, createdById } = request;
+    const { id, name, tenantId, createdById } = request;
 
     const sourceTemplate = await this.labelTemplatesRepository.findById(
-      new UniqueEntityID(organizationId),
+      new UniqueEntityID(tenantId),
       new UniqueEntityID(id),
     );
 
@@ -39,11 +39,11 @@ export class DuplicateLabelTemplateUseCase {
       throw new BadRequestError('Name must be at most 255 characters long');
     }
 
-    const orgId = new UniqueEntityID(organizationId);
+    const tenantEntityId = new UniqueEntityID(tenantId);
     const existingTemplate =
-      await this.labelTemplatesRepository.findByNameAndOrganization(
+      await this.labelTemplatesRepository.findByNameAndTenant(
         newName,
-        orgId,
+        tenantEntityId,
       );
 
     if (existingTemplate) {
@@ -61,7 +61,7 @@ export class DuplicateLabelTemplateUseCase {
       grapesJsData: sourceTemplate.grapesJsData,
       compiledHtml: sourceTemplate.compiledHtml,
       compiledCss: sourceTemplate.compiledCss,
-      organizationId: orgId,
+      tenantId: tenantEntityId,
       createdById: new UniqueEntityID(createdById),
     });
 

@@ -12,7 +12,7 @@ interface CreateLabelTemplateUseCaseRequest {
   grapesJsData: string;
   compiledHtml?: string;
   compiledCss?: string;
-  organizationId: string;
+  tenantId: string;
   createdById: string;
 }
 
@@ -34,7 +34,7 @@ export class CreateLabelTemplateUseCase {
       grapesJsData,
       compiledHtml,
       compiledCss,
-      organizationId,
+      tenantId,
       createdById,
     } = request;
 
@@ -64,11 +64,11 @@ export class CreateLabelTemplateUseCase {
       throw new BadRequestError('GrapesJS data must be valid JSON');
     }
 
-    const orgId = new UniqueEntityID(organizationId);
+    const tenantEntityId = new UniqueEntityID(tenantId);
     const existingTemplate =
-      await this.labelTemplatesRepository.findByNameAndOrganization(
+      await this.labelTemplatesRepository.findByNameAndTenant(
         name,
-        orgId,
+        tenantEntityId,
       );
 
     if (existingTemplate) {
@@ -85,7 +85,7 @@ export class CreateLabelTemplateUseCase {
       grapesJsData,
       compiledHtml,
       compiledCss,
-      organizationId: orgId,
+      tenantId: tenantEntityId,
       createdById: new UniqueEntityID(createdById),
     });
 

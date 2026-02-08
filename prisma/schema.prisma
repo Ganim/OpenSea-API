@@ -865,9 +865,6 @@ model Organization {
   employees      Employee[]
   products       Product[]
 
-  // Label Templates
-  labelTemplates LabelTemplate[]
-
   @@unique([cnpj, type, deletedAt], name: "organizations_cnpj_type_unique_active")
   @@unique([cpf, type, deletedAt], name: "organizations_cpf_type_unique_active")
   @@index([type])
@@ -3188,8 +3185,8 @@ model LabelTemplate {
   // Thumbnail gerada
   thumbnailUrl String? @map("thumbnail_url") @db.VarChar(500)
 
-  // Organização (multi-tenant)
-  organizationId String @map("organization_id")
+  // Tenant (multi-tenant)
+  tenantId String @map("tenant_id")
 
   // Criado por
   createdById String @map("created_by_id")
@@ -3202,11 +3199,11 @@ model LabelTemplate {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  organization Organization @relation(fields: [organizationId], references: [id])
-  createdBy    User         @relation(fields: [createdById], references: [id])
+  tenant    Tenant @relation(fields: [tenantId], references: [id])
+  createdBy User   @relation(fields: [createdById], references: [id])
 
-  @@unique([organizationId, name, deletedAt], name: "label_templates_name_org_unique_active")
-  @@index([organizationId])
+  @@unique([tenantId, name, deletedAt], name: "label_templates_name_tenant_unique_active")
+  @@index([tenantId])
   @@index([isSystem])
   @@index([createdById])
   @@index([deletedAt])
@@ -3308,6 +3305,8 @@ model Tenant {
   deductions      Deduction[]
   // Audit domain
   auditLogs       AuditLog[]
+  // Core domain
+  labelTemplates  LabelTemplate[]
 
   @@index([status])
   @@index([deletedAt])

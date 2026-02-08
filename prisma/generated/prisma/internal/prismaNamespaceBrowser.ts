@@ -1586,7 +1586,7 @@ export const LabelTemplateScalarFieldEnum = {
   compiledHtml: 'compiledHtml',
   compiledCss: 'compiledCss',
   thumbnailUrl: 'thumbnailUrl',
-  organizationId: 'organizationId',
+  tenantId: 'tenantId',
   createdById: 'createdById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',

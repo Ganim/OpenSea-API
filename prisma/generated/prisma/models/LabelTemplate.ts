@@ -47,7 +47,7 @@ export type LabelTemplateMinAggregateOutputType = {
   compiledHtml: string | null
   compiledCss: string | null
   thumbnailUrl: string | null
-  organizationId: string | null
+  tenantId: string | null
   createdById: string | null
   deletedAt: Date | null
   createdAt: Date | null
@@ -65,7 +65,7 @@ export type LabelTemplateMaxAggregateOutputType = {
   compiledHtml: string | null
   compiledCss: string | null
   thumbnailUrl: string | null
-  organizationId: string | null
+  tenantId: string | null
   createdById: string | null
   deletedAt: Date | null
   createdAt: Date | null
@@ -83,7 +83,7 @@ export type LabelTemplateCountAggregateOutputType = {
   compiledHtml: number
   compiledCss: number
   thumbnailUrl: number
-  organizationId: number
+  tenantId: number
   createdById: number
   deletedAt: number
   createdAt: number
@@ -113,7 +113,7 @@ export type LabelTemplateMinAggregateInputType = {
   compiledHtml?: true
   compiledCss?: true
   thumbnailUrl?: true
-  organizationId?: true
+  tenantId?: true
   createdById?: true
   deletedAt?: true
   createdAt?: true
@@ -131,7 +131,7 @@ export type LabelTemplateMaxAggregateInputType = {
   compiledHtml?: true
   compiledCss?: true
   thumbnailUrl?: true
-  organizationId?: true
+  tenantId?: true
   createdById?: true
   deletedAt?: true
   createdAt?: true
@@ -149,7 +149,7 @@ export type LabelTemplateCountAggregateInputType = {
   compiledHtml?: true
   compiledCss?: true
   thumbnailUrl?: true
-  organizationId?: true
+  tenantId?: true
   createdById?: true
   deletedAt?: true
   createdAt?: true
@@ -254,7 +254,7 @@ export type LabelTemplateGroupByOutputType = {
   compiledHtml: string | null
   compiledCss: string | null
   thumbnailUrl: string | null
-  organizationId: string
+  tenantId: string
   createdById: string
   deletedAt: Date | null
   createdAt: Date
@@ -295,12 +295,12 @@ export type LabelTemplateWhereInput = {
   compiledHtml?: Prisma.StringNullableFilter<"LabelTemplate"> | string | null
   compiledCss?: Prisma.StringNullableFilter<"LabelTemplate"> | string | null
   thumbnailUrl?: Prisma.StringNullableFilter<"LabelTemplate"> | string | null
-  organizationId?: Prisma.StringFilter<"LabelTemplate"> | string
+  tenantId?: Prisma.StringFilter<"LabelTemplate"> | string
   createdById?: Prisma.StringFilter<"LabelTemplate"> | string
   deletedAt?: Prisma.DateTimeNullableFilter<"LabelTemplate"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LabelTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LabelTemplate"> | Date | string
-  organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -315,18 +315,18 @@ export type LabelTemplateOrderByWithRelationInput = {
   compiledHtml?: Prisma.SortOrderInput | Prisma.SortOrder
   compiledCss?: Prisma.SortOrderInput | Prisma.SortOrder
   thumbnailUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  organization?: Prisma.OrganizationOrderByWithRelationInput
+  tenant?: Prisma.TenantOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type LabelTemplateWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  label_templates_name_org_unique_active?: Prisma.LabelTemplateLabel_templates_name_org_unique_activeCompoundUniqueInput
+  label_templates_name_tenant_unique_active?: Prisma.LabelTemplateLabel_templates_name_tenant_unique_activeCompoundUniqueInput
   AND?: Prisma.LabelTemplateWhereInput | Prisma.LabelTemplateWhereInput[]
   OR?: Prisma.LabelTemplateWhereInput[]
   NOT?: Prisma.LabelTemplateWhereInput | Prisma.LabelTemplateWhereInput[]
@@ -339,14 +339,14 @@ export type LabelTemplateWhereUniqueInput = Prisma.AtLeast<{
   compiledHtml?: Prisma.StringNullableFilter<"LabelTemplate"> | string | null
   compiledCss?: Prisma.StringNullableFilter<"LabelTemplate"> | string | null
   thumbnailUrl?: Prisma.StringNullableFilter<"LabelTemplate"> | string | null
-  organizationId?: Prisma.StringFilter<"LabelTemplate"> | string
+  tenantId?: Prisma.StringFilter<"LabelTemplate"> | string
   createdById?: Prisma.StringFilter<"LabelTemplate"> | string
   deletedAt?: Prisma.DateTimeNullableFilter<"LabelTemplate"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LabelTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LabelTemplate"> | Date | string
-  organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "label_templates_name_org_unique_active">
+}, "id" | "label_templates_name_tenant_unique_active">
 
 export type LabelTemplateOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -359,7 +359,7 @@ export type LabelTemplateOrderByWithAggregationInput = {
   compiledHtml?: Prisma.SortOrderInput | Prisma.SortOrder
   compiledCss?: Prisma.SortOrderInput | Prisma.SortOrder
   thumbnailUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -385,7 +385,7 @@ export type LabelTemplateScalarWhereWithAggregatesInput = {
   compiledHtml?: Prisma.StringNullableWithAggregatesFilter<"LabelTemplate"> | string | null
   compiledCss?: Prisma.StringNullableWithAggregatesFilter<"LabelTemplate"> | string | null
   thumbnailUrl?: Prisma.StringNullableWithAggregatesFilter<"LabelTemplate"> | string | null
-  organizationId?: Prisma.StringWithAggregatesFilter<"LabelTemplate"> | string
+  tenantId?: Prisma.StringWithAggregatesFilter<"LabelTemplate"> | string
   createdById?: Prisma.StringWithAggregatesFilter<"LabelTemplate"> | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"LabelTemplate"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"LabelTemplate"> | Date | string
@@ -406,7 +406,7 @@ export type LabelTemplateCreateInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  organization: Prisma.OrganizationCreateNestedOneWithoutLabelTemplatesInput
+  tenant: Prisma.TenantCreateNestedOneWithoutLabelTemplatesInput
   createdBy: Prisma.UserCreateNestedOneWithoutLabelTemplatesCreatedInput
 }
 
@@ -421,7 +421,7 @@ export type LabelTemplateUncheckedCreateInput = {
   compiledHtml?: string | null
   compiledCss?: string | null
   thumbnailUrl?: string | null
-  organizationId: string
+  tenantId: string
   createdById: string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -442,7 +442,7 @@ export type LabelTemplateUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  organization?: Prisma.OrganizationUpdateOneRequiredWithoutLabelTemplatesNestedInput
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutLabelTemplatesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutLabelTemplatesCreatedNestedInput
 }
 
@@ -457,7 +457,7 @@ export type LabelTemplateUncheckedUpdateInput = {
   compiledHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   compiledCss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -475,7 +475,7 @@ export type LabelTemplateCreateManyInput = {
   compiledHtml?: string | null
   compiledCss?: string | null
   thumbnailUrl?: string | null
-  organizationId: string
+  tenantId: string
   createdById: string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -509,7 +509,7 @@ export type LabelTemplateUncheckedUpdateManyInput = {
   compiledHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   compiledCss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -526,8 +526,8 @@ export type LabelTemplateOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type LabelTemplateLabel_templates_name_org_unique_activeCompoundUniqueInput = {
-  organizationId: string
+export type LabelTemplateLabel_templates_name_tenant_unique_activeCompoundUniqueInput = {
+  tenantId: string
   name: string
   deletedAt: Date | string
 }
@@ -543,7 +543,7 @@ export type LabelTemplateCountOrderByAggregateInput = {
   compiledHtml?: Prisma.SortOrder
   compiledCss?: Prisma.SortOrder
   thumbnailUrl?: Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -566,7 +566,7 @@ export type LabelTemplateMaxOrderByAggregateInput = {
   compiledHtml?: Prisma.SortOrder
   compiledCss?: Prisma.SortOrder
   thumbnailUrl?: Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -584,7 +584,7 @@ export type LabelTemplateMinOrderByAggregateInput = {
   compiledHtml?: Prisma.SortOrder
   compiledCss?: Prisma.SortOrder
   thumbnailUrl?: Prisma.SortOrder
-  organizationId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -638,45 +638,45 @@ export type LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput = {
   deleteMany?: Prisma.LabelTemplateScalarWhereInput | Prisma.LabelTemplateScalarWhereInput[]
 }
 
-export type LabelTemplateCreateNestedManyWithoutOrganizationInput = {
-  create?: Prisma.XOR<Prisma.LabelTemplateCreateWithoutOrganizationInput, Prisma.LabelTemplateUncheckedCreateWithoutOrganizationInput> | Prisma.LabelTemplateCreateWithoutOrganizationInput[] | Prisma.LabelTemplateUncheckedCreateWithoutOrganizationInput[]
-  connectOrCreate?: Prisma.LabelTemplateCreateOrConnectWithoutOrganizationInput | Prisma.LabelTemplateCreateOrConnectWithoutOrganizationInput[]
-  createMany?: Prisma.LabelTemplateCreateManyOrganizationInputEnvelope
+export type LabelTemplateCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.LabelTemplateCreateWithoutTenantInput, Prisma.LabelTemplateUncheckedCreateWithoutTenantInput> | Prisma.LabelTemplateCreateWithoutTenantInput[] | Prisma.LabelTemplateUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.LabelTemplateCreateOrConnectWithoutTenantInput | Prisma.LabelTemplateCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.LabelTemplateCreateManyTenantInputEnvelope
   connect?: Prisma.LabelTemplateWhereUniqueInput | Prisma.LabelTemplateWhereUniqueInput[]
 }
 
-export type LabelTemplateUncheckedCreateNestedManyWithoutOrganizationInput = {
-  create?: Prisma.XOR<Prisma.LabelTemplateCreateWithoutOrganizationInput, Prisma.LabelTemplateUncheckedCreateWithoutOrganizationInput> | Prisma.LabelTemplateCreateWithoutOrganizationInput[] | Prisma.LabelTemplateUncheckedCreateWithoutOrganizationInput[]
-  connectOrCreate?: Prisma.LabelTemplateCreateOrConnectWithoutOrganizationInput | Prisma.LabelTemplateCreateOrConnectWithoutOrganizationInput[]
-  createMany?: Prisma.LabelTemplateCreateManyOrganizationInputEnvelope
+export type LabelTemplateUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.LabelTemplateCreateWithoutTenantInput, Prisma.LabelTemplateUncheckedCreateWithoutTenantInput> | Prisma.LabelTemplateCreateWithoutTenantInput[] | Prisma.LabelTemplateUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.LabelTemplateCreateOrConnectWithoutTenantInput | Prisma.LabelTemplateCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.LabelTemplateCreateManyTenantInputEnvelope
   connect?: Prisma.LabelTemplateWhereUniqueInput | Prisma.LabelTemplateWhereUniqueInput[]
 }
 
-export type LabelTemplateUpdateManyWithoutOrganizationNestedInput = {
-  create?: Prisma.XOR<Prisma.LabelTemplateCreateWithoutOrganizationInput, Prisma.LabelTemplateUncheckedCreateWithoutOrganizationInput> | Prisma.LabelTemplateCreateWithoutOrganizationInput[] | Prisma.LabelTemplateUncheckedCreateWithoutOrganizationInput[]
-  connectOrCreate?: Prisma.LabelTemplateCreateOrConnectWithoutOrganizationInput | Prisma.LabelTemplateCreateOrConnectWithoutOrganizationInput[]
-  upsert?: Prisma.LabelTemplateUpsertWithWhereUniqueWithoutOrganizationInput | Prisma.LabelTemplateUpsertWithWhereUniqueWithoutOrganizationInput[]
-  createMany?: Prisma.LabelTemplateCreateManyOrganizationInputEnvelope
+export type LabelTemplateUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.LabelTemplateCreateWithoutTenantInput, Prisma.LabelTemplateUncheckedCreateWithoutTenantInput> | Prisma.LabelTemplateCreateWithoutTenantInput[] | Prisma.LabelTemplateUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.LabelTemplateCreateOrConnectWithoutTenantInput | Prisma.LabelTemplateCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.LabelTemplateUpsertWithWhereUniqueWithoutTenantInput | Prisma.LabelTemplateUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.LabelTemplateCreateManyTenantInputEnvelope
   set?: Prisma.LabelTemplateWhereUniqueInput | Prisma.LabelTemplateWhereUniqueInput[]
   disconnect?: Prisma.LabelTemplateWhereUniqueInput | Prisma.LabelTemplateWhereUniqueInput[]
   delete?: Prisma.LabelTemplateWhereUniqueInput | Prisma.LabelTemplateWhereUniqueInput[]
   connect?: Prisma.LabelTemplateWhereUniqueInput | Prisma.LabelTemplateWhereUniqueInput[]
-  update?: Prisma.LabelTemplateUpdateWithWhereUniqueWithoutOrganizationInput | Prisma.LabelTemplateUpdateWithWhereUniqueWithoutOrganizationInput[]
-  updateMany?: Prisma.LabelTemplateUpdateManyWithWhereWithoutOrganizationInput | Prisma.LabelTemplateUpdateManyWithWhereWithoutOrganizationInput[]
+  update?: Prisma.LabelTemplateUpdateWithWhereUniqueWithoutTenantInput | Prisma.LabelTemplateUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.LabelTemplateUpdateManyWithWhereWithoutTenantInput | Prisma.LabelTemplateUpdateManyWithWhereWithoutTenantInput[]
   deleteMany?: Prisma.LabelTemplateScalarWhereInput | Prisma.LabelTemplateScalarWhereInput[]
 }
 
-export type LabelTemplateUncheckedUpdateManyWithoutOrganizationNestedInput = {
-  create?: Prisma.XOR<Prisma.LabelTemplateCreateWithoutOrganizationInput, Prisma.LabelTemplateUncheckedCreateWithoutOrganizationInput> | Prisma.LabelTemplateCreateWithoutOrganizationInput[] | Prisma.LabelTemplateUncheckedCreateWithoutOrganizationInput[]
-  connectOrCreate?: Prisma.LabelTemplateCreateOrConnectWithoutOrganizationInput | Prisma.LabelTemplateCreateOrConnectWithoutOrganizationInput[]
-  upsert?: Prisma.LabelTemplateUpsertWithWhereUniqueWithoutOrganizationInput | Prisma.LabelTemplateUpsertWithWhereUniqueWithoutOrganizationInput[]
-  createMany?: Prisma.LabelTemplateCreateManyOrganizationInputEnvelope
+export type LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.LabelTemplateCreateWithoutTenantInput, Prisma.LabelTemplateUncheckedCreateWithoutTenantInput> | Prisma.LabelTemplateCreateWithoutTenantInput[] | Prisma.LabelTemplateUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.LabelTemplateCreateOrConnectWithoutTenantInput | Prisma.LabelTemplateCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.LabelTemplateUpsertWithWhereUniqueWithoutTenantInput | Prisma.LabelTemplateUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.LabelTemplateCreateManyTenantInputEnvelope
   set?: Prisma.LabelTemplateWhereUniqueInput | Prisma.LabelTemplateWhereUniqueInput[]
   disconnect?: Prisma.LabelTemplateWhereUniqueInput | Prisma.LabelTemplateWhereUniqueInput[]
   delete?: Prisma.LabelTemplateWhereUniqueInput | Prisma.LabelTemplateWhereUniqueInput[]
   connect?: Prisma.LabelTemplateWhereUniqueInput | Prisma.LabelTemplateWhereUniqueInput[]
-  update?: Prisma.LabelTemplateUpdateWithWhereUniqueWithoutOrganizationInput | Prisma.LabelTemplateUpdateWithWhereUniqueWithoutOrganizationInput[]
-  updateMany?: Prisma.LabelTemplateUpdateManyWithWhereWithoutOrganizationInput | Prisma.LabelTemplateUpdateManyWithWhereWithoutOrganizationInput[]
+  update?: Prisma.LabelTemplateUpdateWithWhereUniqueWithoutTenantInput | Prisma.LabelTemplateUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.LabelTemplateUpdateManyWithWhereWithoutTenantInput | Prisma.LabelTemplateUpdateManyWithWhereWithoutTenantInput[]
   deleteMany?: Prisma.LabelTemplateScalarWhereInput | Prisma.LabelTemplateScalarWhereInput[]
 }
 
@@ -694,7 +694,7 @@ export type LabelTemplateCreateWithoutCreatedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  organization: Prisma.OrganizationCreateNestedOneWithoutLabelTemplatesInput
+  tenant: Prisma.TenantCreateNestedOneWithoutLabelTemplatesInput
 }
 
 export type LabelTemplateUncheckedCreateWithoutCreatedByInput = {
@@ -708,7 +708,7 @@ export type LabelTemplateUncheckedCreateWithoutCreatedByInput = {
   compiledHtml?: string | null
   compiledCss?: string | null
   thumbnailUrl?: string | null
-  organizationId: string
+  tenantId: string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -754,14 +754,14 @@ export type LabelTemplateScalarWhereInput = {
   compiledHtml?: Prisma.StringNullableFilter<"LabelTemplate"> | string | null
   compiledCss?: Prisma.StringNullableFilter<"LabelTemplate"> | string | null
   thumbnailUrl?: Prisma.StringNullableFilter<"LabelTemplate"> | string | null
-  organizationId?: Prisma.StringFilter<"LabelTemplate"> | string
+  tenantId?: Prisma.StringFilter<"LabelTemplate"> | string
   createdById?: Prisma.StringFilter<"LabelTemplate"> | string
   deletedAt?: Prisma.DateTimeNullableFilter<"LabelTemplate"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LabelTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LabelTemplate"> | Date | string
 }
 
-export type LabelTemplateCreateWithoutOrganizationInput = {
+export type LabelTemplateCreateWithoutTenantInput = {
   id?: string
   name: string
   description?: string | null
@@ -778,7 +778,7 @@ export type LabelTemplateCreateWithoutOrganizationInput = {
   createdBy: Prisma.UserCreateNestedOneWithoutLabelTemplatesCreatedInput
 }
 
-export type LabelTemplateUncheckedCreateWithoutOrganizationInput = {
+export type LabelTemplateUncheckedCreateWithoutTenantInput = {
   id?: string
   name: string
   description?: string | null
@@ -795,30 +795,30 @@ export type LabelTemplateUncheckedCreateWithoutOrganizationInput = {
   updatedAt?: Date | string
 }
 
-export type LabelTemplateCreateOrConnectWithoutOrganizationInput = {
+export type LabelTemplateCreateOrConnectWithoutTenantInput = {
   where: Prisma.LabelTemplateWhereUniqueInput
-  create: Prisma.XOR<Prisma.LabelTemplateCreateWithoutOrganizationInput, Prisma.LabelTemplateUncheckedCreateWithoutOrganizationInput>
+  create: Prisma.XOR<Prisma.LabelTemplateCreateWithoutTenantInput, Prisma.LabelTemplateUncheckedCreateWithoutTenantInput>
 }
 
-export type LabelTemplateCreateManyOrganizationInputEnvelope = {
-  data: Prisma.LabelTemplateCreateManyOrganizationInput | Prisma.LabelTemplateCreateManyOrganizationInput[]
+export type LabelTemplateCreateManyTenantInputEnvelope = {
+  data: Prisma.LabelTemplateCreateManyTenantInput | Prisma.LabelTemplateCreateManyTenantInput[]
   skipDuplicates?: boolean
 }
 
-export type LabelTemplateUpsertWithWhereUniqueWithoutOrganizationInput = {
+export type LabelTemplateUpsertWithWhereUniqueWithoutTenantInput = {
   where: Prisma.LabelTemplateWhereUniqueInput
-  update: Prisma.XOR<Prisma.LabelTemplateUpdateWithoutOrganizationInput, Prisma.LabelTemplateUncheckedUpdateWithoutOrganizationInput>
-  create: Prisma.XOR<Prisma.LabelTemplateCreateWithoutOrganizationInput, Prisma.LabelTemplateUncheckedCreateWithoutOrganizationInput>
+  update: Prisma.XOR<Prisma.LabelTemplateUpdateWithoutTenantInput, Prisma.LabelTemplateUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.LabelTemplateCreateWithoutTenantInput, Prisma.LabelTemplateUncheckedCreateWithoutTenantInput>
 }
 
-export type LabelTemplateUpdateWithWhereUniqueWithoutOrganizationInput = {
+export type LabelTemplateUpdateWithWhereUniqueWithoutTenantInput = {
   where: Prisma.LabelTemplateWhereUniqueInput
-  data: Prisma.XOR<Prisma.LabelTemplateUpdateWithoutOrganizationInput, Prisma.LabelTemplateUncheckedUpdateWithoutOrganizationInput>
+  data: Prisma.XOR<Prisma.LabelTemplateUpdateWithoutTenantInput, Prisma.LabelTemplateUncheckedUpdateWithoutTenantInput>
 }
 
-export type LabelTemplateUpdateManyWithWhereWithoutOrganizationInput = {
+export type LabelTemplateUpdateManyWithWhereWithoutTenantInput = {
   where: Prisma.LabelTemplateScalarWhereInput
-  data: Prisma.XOR<Prisma.LabelTemplateUpdateManyMutationInput, Prisma.LabelTemplateUncheckedUpdateManyWithoutOrganizationInput>
+  data: Prisma.XOR<Prisma.LabelTemplateUpdateManyMutationInput, Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantInput>
 }
 
 export type LabelTemplateCreateManyCreatedByInput = {
@@ -832,7 +832,7 @@ export type LabelTemplateCreateManyCreatedByInput = {
   compiledHtml?: string | null
   compiledCss?: string | null
   thumbnailUrl?: string | null
-  organizationId: string
+  tenantId: string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -852,7 +852,7 @@ export type LabelTemplateUpdateWithoutCreatedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  organization?: Prisma.OrganizationUpdateOneRequiredWithoutLabelTemplatesNestedInput
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutLabelTemplatesNestedInput
 }
 
 export type LabelTemplateUncheckedUpdateWithoutCreatedByInput = {
@@ -866,7 +866,7 @@ export type LabelTemplateUncheckedUpdateWithoutCreatedByInput = {
   compiledHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   compiledCss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -883,13 +883,13 @@ export type LabelTemplateUncheckedUpdateManyWithoutCreatedByInput = {
   compiledHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   compiledCss?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type LabelTemplateCreateManyOrganizationInput = {
+export type LabelTemplateCreateManyTenantInput = {
   id?: string
   name: string
   description?: string | null
@@ -906,7 +906,7 @@ export type LabelTemplateCreateManyOrganizationInput = {
   updatedAt?: Date | string
 }
 
-export type LabelTemplateUpdateWithoutOrganizationInput = {
+export type LabelTemplateUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -923,7 +923,7 @@ export type LabelTemplateUpdateWithoutOrganizationInput = {
   createdBy?: Prisma.UserUpdateOneRequiredWithoutLabelTemplatesCreatedNestedInput
 }
 
-export type LabelTemplateUncheckedUpdateWithoutOrganizationInput = {
+export type LabelTemplateUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -940,7 +940,7 @@ export type LabelTemplateUncheckedUpdateWithoutOrganizationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type LabelTemplateUncheckedUpdateManyWithoutOrganizationInput = {
+export type LabelTemplateUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -970,12 +970,12 @@ export type LabelTemplateSelect<ExtArgs extends runtime.Types.Extensions.Interna
   compiledHtml?: boolean
   compiledCss?: boolean
   thumbnailUrl?: boolean
-  organizationId?: boolean
+  tenantId?: boolean
   createdById?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["labelTemplate"]>
 
@@ -990,12 +990,12 @@ export type LabelTemplateSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   compiledHtml?: boolean
   compiledCss?: boolean
   thumbnailUrl?: boolean
-  organizationId?: boolean
+  tenantId?: boolean
   createdById?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["labelTemplate"]>
 
@@ -1010,12 +1010,12 @@ export type LabelTemplateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   compiledHtml?: boolean
   compiledCss?: boolean
   thumbnailUrl?: boolean
-  organizationId?: boolean
+  tenantId?: boolean
   createdById?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["labelTemplate"]>
 
@@ -1030,31 +1030,31 @@ export type LabelTemplateSelectScalar = {
   compiledHtml?: boolean
   compiledCss?: boolean
   thumbnailUrl?: boolean
-  organizationId?: boolean
+  tenantId?: boolean
   createdById?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type LabelTemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "isSystem" | "width" | "height" | "grapesJsData" | "compiledHtml" | "compiledCss" | "thumbnailUrl" | "organizationId" | "createdById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["labelTemplate"]>
+export type LabelTemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "isSystem" | "width" | "height" | "grapesJsData" | "compiledHtml" | "compiledCss" | "thumbnailUrl" | "tenantId" | "createdById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["labelTemplate"]>
 export type LabelTemplateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type LabelTemplateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type LabelTemplateIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $LabelTemplatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "LabelTemplate"
   objects: {
-    organization: Prisma.$OrganizationPayload<ExtArgs>
+    tenant: Prisma.$TenantPayload<ExtArgs>
     createdBy: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1068,7 +1068,7 @@ export type $LabelTemplatePayload<ExtArgs extends runtime.Types.Extensions.Inter
     compiledHtml: string | null
     compiledCss: string | null
     thumbnailUrl: string | null
-    organizationId: string
+    tenantId: string
     createdById: string
     deletedAt: Date | null
     createdAt: Date
@@ -1467,7 +1467,7 @@ readonly fields: LabelTemplateFieldRefs;
  */
 export interface Prisma__LabelTemplateClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1508,7 +1508,7 @@ export interface LabelTemplateFieldRefs {
   readonly compiledHtml: Prisma.FieldRef<"LabelTemplate", 'String'>
   readonly compiledCss: Prisma.FieldRef<"LabelTemplate", 'String'>
   readonly thumbnailUrl: Prisma.FieldRef<"LabelTemplate", 'String'>
-  readonly organizationId: Prisma.FieldRef<"LabelTemplate", 'String'>
+  readonly tenantId: Prisma.FieldRef<"LabelTemplate", 'String'>
   readonly createdById: Prisma.FieldRef<"LabelTemplate", 'String'>
   readonly deletedAt: Prisma.FieldRef<"LabelTemplate", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"LabelTemplate", 'DateTime'>

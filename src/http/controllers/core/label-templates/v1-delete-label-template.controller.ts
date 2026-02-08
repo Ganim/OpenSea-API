@@ -3,9 +3,9 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
-import { getUserOrganizationId } from '@/http/helpers/organization.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeGetLabelTemplateByIdUseCase } from '@/use-cases/core/label-templates/factories/make-get-label-template-by-id-use-case';
 import { makeDeleteLabelTemplateUseCase } from '@/use-cases/core/label-templates/factories/make-delete-label-template-use-case';
@@ -19,6 +19,7 @@ export async function deleteLabelTemplateController(app: FastifyInstance) {
     url: '/v1/label-templates/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.CORE.LABEL_TEMPLATES.DELETE,
         resource: 'label-templates',
@@ -43,14 +44,8 @@ export async function deleteLabelTemplateController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
-      const organizationId = await getUserOrganizationId(userId);
-
-      if (!organizationId) {
-        return reply
-          .status(400)
-          .send({ message: 'User must belong to an organization' });
-      }
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -62,13 +57,13 @@ export async function deleteLabelTemplateController(app: FastifyInstance) {
         const getLabelTemplateByIdUseCase = makeGetLabelTemplateByIdUseCase();
         const { template } = await getLabelTemplateByIdUseCase.execute({
           id,
-          organizationId,
+          tenantId,
         });
 
         const deleteLabelTemplateUseCase = makeDeleteLabelTemplateUseCase();
         await deleteLabelTemplateUseCase.execute({
           id,
-          organizationId,
+          tenantId,
         });
 
         await logAudit(request, {

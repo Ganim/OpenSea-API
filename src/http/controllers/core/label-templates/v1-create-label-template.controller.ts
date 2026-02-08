@@ -2,9 +2,9 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
-import { getUserOrganizationId } from '@/http/helpers/organization.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createLabelTemplateSchema,
   labelTemplateResponseSchema,
@@ -21,6 +21,7 @@ export async function createLabelTemplateController(app: FastifyInstance) {
     url: '/v1/label-templates',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.CORE.LABEL_TEMPLATES.CREATE,
         resource: 'label-templates',
@@ -42,13 +43,7 @@ export async function createLabelTemplateController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
-      const organizationId = await getUserOrganizationId(userId);
-
-      if (!organizationId) {
-        return reply
-          .status(400)
-          .send({ message: 'User must belong to an organization' });
-      }
+      const tenantId = request.user.tenantId!;
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -60,7 +55,7 @@ export async function createLabelTemplateController(app: FastifyInstance) {
         const createLabelTemplateUseCase = makeCreateLabelTemplateUseCase();
         const { template } = await createLabelTemplateUseCase.execute({
           ...request.body,
-          organizationId,
+          tenantId,
           createdById: userId,
         });
 

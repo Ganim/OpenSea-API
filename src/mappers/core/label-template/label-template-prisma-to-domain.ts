@@ -16,7 +16,7 @@ export function mapLabelTemplatePrismaToDomain(
     compiledHtml: labelTemplateDb.compiledHtml ?? undefined,
     compiledCss: labelTemplateDb.compiledCss ?? undefined,
     thumbnailUrl: labelTemplateDb.thumbnailUrl ?? undefined,
-    organizationId: new UniqueEntityID(labelTemplateDb.organizationId),
+    tenantId: new UniqueEntityID(labelTemplateDb.tenantId),
     createdById: new UniqueEntityID(labelTemplateDb.createdById),
     createdAt: labelTemplateDb.createdAt,
     updatedAt: labelTemplateDb.updatedAt,

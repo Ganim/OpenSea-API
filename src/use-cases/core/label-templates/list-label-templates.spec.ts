@@ -17,15 +17,15 @@ describe('ListLabelTemplatesUseCase', () => {
   });
 
   it('should list all label templates from organization', async () => {
-    const organizationId = new UniqueEntityID();
+    const tenantId = new UniqueEntityID();
 
     labelTemplatesRepository.items.push(
-      makeLabelTemplate({ name: 'Etiqueta 1', organizationId }),
-      makeLabelTemplate({ name: 'Etiqueta 2', organizationId }),
+      makeLabelTemplate({ name: 'Etiqueta 1', tenantId }),
+      makeLabelTemplate({ name: 'Etiqueta 2', tenantId }),
     );
 
     const result = await sut.execute({
-      organizationId: organizationId.toString(),
+      tenantId: tenantId.toString(),
     });
 
     expect(result.templates).toHaveLength(2);
@@ -33,30 +33,30 @@ describe('ListLabelTemplatesUseCase', () => {
   });
 
   it('should include system templates by default', async () => {
-    const organizationId = new UniqueEntityID();
+    const tenantId = new UniqueEntityID();
 
     labelTemplatesRepository.items.push(
-      makeLabelTemplate({ name: 'Etiqueta Própria', organizationId }),
+      makeLabelTemplate({ name: 'Etiqueta Própria', tenantId }),
       makeSystemLabelTemplate({ name: 'Etiqueta Sistema' }),
     );
 
     const result = await sut.execute({
-      organizationId: organizationId.toString(),
+      tenantId: tenantId.toString(),
     });
 
     expect(result.templates).toHaveLength(2);
   });
 
   it('should exclude system templates when includeSystem is false', async () => {
-    const organizationId = new UniqueEntityID();
+    const tenantId = new UniqueEntityID();
 
     labelTemplatesRepository.items.push(
-      makeLabelTemplate({ name: 'Etiqueta Própria', organizationId }),
+      makeLabelTemplate({ name: 'Etiqueta Própria', tenantId }),
       makeSystemLabelTemplate({ name: 'Etiqueta Sistema' }),
     );
 
     const result = await sut.execute({
-      organizationId: organizationId.toString(),
+      tenantId: tenantId.toString(),
       includeSystem: false,
     });
 
@@ -65,15 +65,15 @@ describe('ListLabelTemplatesUseCase', () => {
   });
 
   it('should filter by search term', async () => {
-    const organizationId = new UniqueEntityID();
+    const tenantId = new UniqueEntityID();
 
     labelTemplatesRepository.items.push(
-      makeLabelTemplate({ name: 'Etiqueta Vestuário', organizationId }),
-      makeLabelTemplate({ name: 'Etiqueta Jóias', organizationId }),
+      makeLabelTemplate({ name: 'Etiqueta Vestuário', tenantId }),
+      makeLabelTemplate({ name: 'Etiqueta Jóias', tenantId }),
     );
 
     const result = await sut.execute({
-      organizationId: organizationId.toString(),
+      tenantId: tenantId.toString(),
       search: 'Vestuário',
     });
 
@@ -82,22 +82,22 @@ describe('ListLabelTemplatesUseCase', () => {
   });
 
   it('should paginate results', async () => {
-    const organizationId = new UniqueEntityID();
+    const tenantId = new UniqueEntityID();
 
     for (let i = 1; i <= 10; i++) {
       labelTemplatesRepository.items.push(
-        makeLabelTemplate({ name: `Etiqueta ${i}`, organizationId }),
+        makeLabelTemplate({ name: `Etiqueta ${i}`, tenantId }),
       );
     }
 
     const page1 = await sut.execute({
-      organizationId: organizationId.toString(),
+      tenantId: tenantId.toString(),
       page: 1,
       limit: 5,
     });
 
     const page2 = await sut.execute({
-      organizationId: organizationId.toString(),
+      tenantId: tenantId.toString(),
       page: 2,
       limit: 5,
     });
@@ -110,7 +110,7 @@ describe('ListLabelTemplatesUseCase', () => {
 
   it('should return empty array when no templates exist', async () => {
     const result = await sut.execute({
-      organizationId: new UniqueEntityID().toString(),
+      tenantId: new UniqueEntityID().toString(),
     });
 
     expect(result.templates).toHaveLength(0);
@@ -118,19 +118,19 @@ describe('ListLabelTemplatesUseCase', () => {
   });
 
   it('should not return deleted templates', async () => {
-    const organizationId = new UniqueEntityID();
+    const tenantId = new UniqueEntityID();
 
     labelTemplatesRepository.items.push(
-      makeLabelTemplate({ name: 'Etiqueta Ativa', organizationId }),
+      makeLabelTemplate({ name: 'Etiqueta Ativa', tenantId }),
       makeLabelTemplate({
         name: 'Etiqueta Deletada',
-        organizationId,
+        tenantId,
         deletedAt: new Date(),
       }),
     );
 
     const result = await sut.execute({
-      organizationId: organizationId.toString(),
+      tenantId: tenantId.toString(),
     });
 
     expect(result.templates).toHaveLength(1);

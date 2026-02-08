@@ -24,7 +24,7 @@ export class InMemoryLabelTemplatesRepository
       compiledHtml: data.compiledHtml,
       compiledCss: data.compiledCss,
       thumbnailUrl: data.thumbnailUrl,
-      organizationId: data.organizationId,
+      tenantId: data.tenantId,
       createdById: data.createdById,
     });
 
@@ -33,27 +33,27 @@ export class InMemoryLabelTemplatesRepository
   }
 
   async findById(
-    organizationId: UniqueEntityID,
+    tenantId: UniqueEntityID,
     id: UniqueEntityID,
   ): Promise<LabelTemplate | null> {
     const labelTemplate = this.items.find(
       (item) =>
         !item.deletedAt &&
         item.id.equals(id) &&
-        (item.organizationId.equals(organizationId) || item.isSystem),
+        (item.tenantId.equals(tenantId) || item.isSystem),
     );
     return labelTemplate ?? null;
   }
 
-  async findByNameAndOrganization(
+  async findByNameAndTenant(
     name: string,
-    organizationId: UniqueEntityID,
+    tenantId: UniqueEntityID,
   ): Promise<LabelTemplate | null> {
     const labelTemplate = this.items.find(
       (item) =>
         !item.deletedAt &&
         item.name === name &&
-        item.organizationId.equals(organizationId),
+        item.tenantId.equals(tenantId),
     );
     return labelTemplate ?? null;
   }
@@ -64,8 +64,8 @@ export class InMemoryLabelTemplatesRepository
     let filteredItems = this.items.filter((item) => {
       if (item.deletedAt) return false;
 
-      const matchesOrganization = item.organizationId.equals(
-        filters.organizationId,
+      const matchesTenant = item.tenantId.equals(
+        filters.tenantId,
       );
       const matchesSystem = filters.includeSystem ? true : !item.isSystem;
 
@@ -74,10 +74,10 @@ export class InMemoryLabelTemplatesRepository
         const matchesSearch =
           item.name.toLowerCase().includes(searchLower) ||
           (item.description?.toLowerCase().includes(searchLower) ?? false);
-        return matchesOrganization && matchesSystem && matchesSearch;
+        return matchesTenant && matchesSystem && matchesSearch;
       }
 
-      return matchesOrganization && matchesSystem;
+      return matchesTenant && matchesSystem;
     });
 
     if (filters.includeSystem) {
@@ -111,7 +111,7 @@ export class InMemoryLabelTemplatesRepository
   }
 
   async update(data: UpdateLabelTemplateSchema): Promise<LabelTemplate | null> {
-    const labelTemplate = await this.findById(data.organizationId, data.id);
+    const labelTemplate = await this.findById(data.tenantId, data.id);
     if (!labelTemplate) return null;
 
     if (labelTemplate.isSystem) {
@@ -145,10 +145,10 @@ export class InMemoryLabelTemplatesRepository
   }
 
   async delete(
-    organizationId: UniqueEntityID,
+    tenantId: UniqueEntityID,
     id: UniqueEntityID,
   ): Promise<void> {
-    const labelTemplate = await this.findById(organizationId, id);
+    const labelTemplate = await this.findById(tenantId, id);
     if (labelTemplate && !labelTemplate.isSystem) {
       labelTemplate.delete();
     }

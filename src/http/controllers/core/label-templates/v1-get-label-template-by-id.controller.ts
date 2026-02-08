@@ -1,8 +1,8 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
-import { getUserOrganizationId } from '@/http/helpers/organization.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { labelTemplateResponseSchema } from '@/http/schemas/core/label-templates/label-template.schema';
 import { makeGetLabelTemplateByIdUseCase } from '@/use-cases/core/label-templates/factories/make-get-label-template-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -15,6 +15,7 @@ export async function getLabelTemplateByIdController(app: FastifyInstance) {
     url: '/v1/label-templates/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.CORE.LABEL_TEMPLATES.READ,
         resource: 'label-templates',
@@ -37,21 +38,14 @@ export async function getLabelTemplateByIdController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
-      const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const { id } = request.params;
-      const organizationId = await getUserOrganizationId(userId);
-
-      if (!organizationId) {
-        return reply
-          .status(400)
-          .send({ message: 'User must belong to an organization' });
-      }
 
       try {
         const getLabelTemplateByIdUseCase = makeGetLabelTemplateByIdUseCase();
         const { template } = await getLabelTemplateByIdUseCase.execute({
           id,
-          organizationId,
+          tenantId,
         });
 
         return reply.status(200).send({ template });

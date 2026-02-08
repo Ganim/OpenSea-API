@@ -19,7 +19,7 @@ describe('GenerateLabelTemplateThumbnailUseCase', () => {
 
     const result = await sut.execute({
       id: labelTemplate.id.toString(),
-      organizationId: labelTemplate.organizationId.toString(),
+      tenantId: labelTemplate.tenantId.toString(),
     });
 
     expect(result.thumbnailUrl).toBeDefined();
@@ -32,11 +32,11 @@ describe('GenerateLabelTemplateThumbnailUseCase', () => {
 
     await sut.execute({
       id: labelTemplate.id.toString(),
-      organizationId: labelTemplate.organizationId.toString(),
+      tenantId: labelTemplate.tenantId.toString(),
     });
 
     const updatedTemplate = await labelTemplatesRepository.findById(
-      labelTemplate.organizationId,
+      labelTemplate.tenantId,
       labelTemplate.id,
     );
     expect(updatedTemplate?.thumbnailUrl).toBeDefined();
@@ -46,7 +46,7 @@ describe('GenerateLabelTemplateThumbnailUseCase', () => {
     await expect(
       sut.execute({
         id: new UniqueEntityID().toString(),
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Label template not found');
   });

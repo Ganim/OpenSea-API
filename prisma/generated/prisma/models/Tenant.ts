@@ -250,6 +250,7 @@ export type TenantWhereInput = {
   bonuses?: Prisma.BonusListRelationFilter
   deductions?: Prisma.DeductionListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  labelTemplates?: Prisma.LabelTemplateListRelationFilter
 }
 
 export type TenantOrderByWithRelationInput = {
@@ -299,6 +300,7 @@ export type TenantOrderByWithRelationInput = {
   bonuses?: Prisma.BonusOrderByRelationAggregateInput
   deductions?: Prisma.DeductionOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  labelTemplates?: Prisma.LabelTemplateOrderByRelationAggregateInput
 }
 
 export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -351,6 +353,7 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   bonuses?: Prisma.BonusListRelationFilter
   deductions?: Prisma.DeductionListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  labelTemplates?: Prisma.LabelTemplateListRelationFilter
 }, "id" | "slug">
 
 export type TenantOrderByWithAggregationInput = {
@@ -432,6 +435,7 @@ export type TenantCreateInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateInput = {
@@ -481,6 +485,7 @@ export type TenantUncheckedCreateInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUpdateInput = {
@@ -530,6 +535,7 @@ export type TenantUpdateInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateInput = {
@@ -579,6 +585,7 @@ export type TenantUncheckedUpdateInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateManyInput = {
@@ -1135,6 +1142,20 @@ export type TenantUpdateOneRequiredWithoutCompaniesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutCompaniesInput, Prisma.TenantUpdateWithoutCompaniesInput>, Prisma.TenantUncheckedUpdateWithoutCompaniesInput>
 }
 
+export type TenantCreateNestedOneWithoutLabelTemplatesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutLabelTemplatesInput, Prisma.TenantUncheckedCreateWithoutLabelTemplatesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutLabelTemplatesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutLabelTemplatesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutLabelTemplatesInput, Prisma.TenantUncheckedCreateWithoutLabelTemplatesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutLabelTemplatesInput
+  upsert?: Prisma.TenantUpsertWithoutLabelTemplatesInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutLabelTemplatesInput, Prisma.TenantUpdateWithoutLabelTemplatesInput>, Prisma.TenantUncheckedUpdateWithoutLabelTemplatesInput>
+}
+
 export type EnumTenantStatusEnumFieldUpdateOperationsInput = {
   set?: $Enums.TenantStatusEnum
 }
@@ -1227,6 +1248,7 @@ export type TenantCreateWithoutSessionsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSessionsInput = {
@@ -1275,6 +1297,7 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSessionsInput = {
@@ -1339,6 +1362,7 @@ export type TenantUpdateWithoutSessionsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSessionsInput = {
@@ -1387,6 +1411,7 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutRefreshTokensInput = {
@@ -1435,6 +1460,7 @@ export type TenantCreateWithoutRefreshTokensInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutRefreshTokensInput = {
@@ -1483,6 +1509,7 @@ export type TenantUncheckedCreateWithoutRefreshTokensInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutRefreshTokensInput = {
@@ -1547,6 +1574,7 @@ export type TenantUpdateWithoutRefreshTokensInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
@@ -1595,6 +1623,7 @@ export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPermissionGroupsInput = {
@@ -1643,6 +1672,7 @@ export type TenantCreateWithoutPermissionGroupsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
@@ -1691,6 +1721,7 @@ export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPermissionGroupsInput = {
@@ -1755,6 +1786,7 @@ export type TenantUpdateWithoutPermissionGroupsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
@@ -1803,6 +1835,7 @@ export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSuppliersInput = {
@@ -1851,6 +1884,7 @@ export type TenantCreateWithoutSuppliersInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSuppliersInput = {
@@ -1899,6 +1933,7 @@ export type TenantUncheckedCreateWithoutSuppliersInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSuppliersInput = {
@@ -1963,6 +1998,7 @@ export type TenantUpdateWithoutSuppliersInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSuppliersInput = {
@@ -2011,6 +2047,7 @@ export type TenantUncheckedUpdateWithoutSuppliersInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutManufacturersInput = {
@@ -2059,6 +2096,7 @@ export type TenantCreateWithoutManufacturersInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutManufacturersInput = {
@@ -2107,6 +2145,7 @@ export type TenantUncheckedCreateWithoutManufacturersInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutManufacturersInput = {
@@ -2171,6 +2210,7 @@ export type TenantUpdateWithoutManufacturersInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutManufacturersInput = {
@@ -2219,6 +2259,7 @@ export type TenantUncheckedUpdateWithoutManufacturersInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCategoriesInput = {
@@ -2267,6 +2308,7 @@ export type TenantCreateWithoutCategoriesInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCategoriesInput = {
@@ -2315,6 +2357,7 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCategoriesInput = {
@@ -2379,6 +2422,7 @@ export type TenantUpdateWithoutCategoriesInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCategoriesInput = {
@@ -2427,6 +2471,7 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutWarehousesInput = {
@@ -2475,6 +2520,7 @@ export type TenantCreateWithoutWarehousesInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutWarehousesInput = {
@@ -2523,6 +2569,7 @@ export type TenantUncheckedCreateWithoutWarehousesInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutWarehousesInput = {
@@ -2587,6 +2634,7 @@ export type TenantUpdateWithoutWarehousesInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutWarehousesInput = {
@@ -2635,6 +2683,7 @@ export type TenantUncheckedUpdateWithoutWarehousesInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutZonesInput = {
@@ -2683,6 +2732,7 @@ export type TenantCreateWithoutZonesInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutZonesInput = {
@@ -2731,6 +2781,7 @@ export type TenantUncheckedCreateWithoutZonesInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutZonesInput = {
@@ -2795,6 +2846,7 @@ export type TenantUpdateWithoutZonesInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutZonesInput = {
@@ -2843,6 +2895,7 @@ export type TenantUncheckedUpdateWithoutZonesInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBinsInput = {
@@ -2891,6 +2944,7 @@ export type TenantCreateWithoutBinsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBinsInput = {
@@ -2939,6 +2993,7 @@ export type TenantUncheckedCreateWithoutBinsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBinsInput = {
@@ -3003,6 +3058,7 @@ export type TenantUpdateWithoutBinsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBinsInput = {
@@ -3051,6 +3107,7 @@ export type TenantUncheckedUpdateWithoutBinsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVolumesInput = {
@@ -3099,6 +3156,7 @@ export type TenantCreateWithoutVolumesInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVolumesInput = {
@@ -3147,6 +3205,7 @@ export type TenantUncheckedCreateWithoutVolumesInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVolumesInput = {
@@ -3211,6 +3270,7 @@ export type TenantUpdateWithoutVolumesInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVolumesInput = {
@@ -3259,6 +3319,7 @@ export type TenantUncheckedUpdateWithoutVolumesInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTemplatesInput = {
@@ -3307,6 +3368,7 @@ export type TenantCreateWithoutTemplatesInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTemplatesInput = {
@@ -3355,6 +3417,7 @@ export type TenantUncheckedCreateWithoutTemplatesInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTemplatesInput = {
@@ -3419,6 +3482,7 @@ export type TenantUpdateWithoutTemplatesInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTemplatesInput = {
@@ -3467,6 +3531,7 @@ export type TenantUncheckedUpdateWithoutTemplatesInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProductsInput = {
@@ -3515,6 +3580,7 @@ export type TenantCreateWithoutProductsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProductsInput = {
@@ -3563,6 +3629,7 @@ export type TenantUncheckedCreateWithoutProductsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProductsInput = {
@@ -3627,6 +3694,7 @@ export type TenantUpdateWithoutProductsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProductsInput = {
@@ -3675,6 +3743,7 @@ export type TenantUncheckedUpdateWithoutProductsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVariantsInput = {
@@ -3723,6 +3792,7 @@ export type TenantCreateWithoutVariantsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVariantsInput = {
@@ -3771,6 +3841,7 @@ export type TenantUncheckedCreateWithoutVariantsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVariantsInput = {
@@ -3835,6 +3906,7 @@ export type TenantUpdateWithoutVariantsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVariantsInput = {
@@ -3883,6 +3955,7 @@ export type TenantUncheckedUpdateWithoutVariantsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutItemsInput = {
@@ -3931,6 +4004,7 @@ export type TenantCreateWithoutItemsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutItemsInput = {
@@ -3979,6 +4053,7 @@ export type TenantUncheckedCreateWithoutItemsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutItemsInput = {
@@ -4043,6 +4118,7 @@ export type TenantUpdateWithoutItemsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutItemsInput = {
@@ -4091,6 +4167,7 @@ export type TenantUncheckedUpdateWithoutItemsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutItemMovementsInput = {
@@ -4139,6 +4216,7 @@ export type TenantCreateWithoutItemMovementsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutItemMovementsInput = {
@@ -4187,6 +4265,7 @@ export type TenantUncheckedCreateWithoutItemMovementsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutItemMovementsInput = {
@@ -4251,6 +4330,7 @@ export type TenantUpdateWithoutItemMovementsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutItemMovementsInput = {
@@ -4299,6 +4379,7 @@ export type TenantUncheckedUpdateWithoutItemMovementsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAuditLogsInput = {
@@ -4347,6 +4428,7 @@ export type TenantCreateWithoutAuditLogsInput = {
   payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -4395,6 +4477,7 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -4459,6 +4542,7 @@ export type TenantUpdateWithoutAuditLogsInput = {
   payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -4507,6 +4591,7 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTagsInput = {
@@ -4555,6 +4640,7 @@ export type TenantCreateWithoutTagsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTagsInput = {
@@ -4603,6 +4689,7 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTagsInput = {
@@ -4667,6 +4754,7 @@ export type TenantUpdateWithoutTagsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTagsInput = {
@@ -4715,6 +4803,7 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPurchaseOrdersInput = {
@@ -4763,6 +4852,7 @@ export type TenantCreateWithoutPurchaseOrdersInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -4811,6 +4901,7 @@ export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -4875,6 +4966,7 @@ export type TenantUpdateWithoutPurchaseOrdersInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -4923,6 +5015,7 @@ export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCustomersInput = {
@@ -4971,6 +5064,7 @@ export type TenantCreateWithoutCustomersInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCustomersInput = {
@@ -5019,6 +5113,7 @@ export type TenantUncheckedCreateWithoutCustomersInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCustomersInput = {
@@ -5083,6 +5178,7 @@ export type TenantUpdateWithoutCustomersInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCustomersInput = {
@@ -5131,6 +5227,7 @@ export type TenantUncheckedUpdateWithoutCustomersInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSalesOrdersInput = {
@@ -5179,6 +5276,7 @@ export type TenantCreateWithoutSalesOrdersInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSalesOrdersInput = {
@@ -5227,6 +5325,7 @@ export type TenantUncheckedCreateWithoutSalesOrdersInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSalesOrdersInput = {
@@ -5291,6 +5390,7 @@ export type TenantUpdateWithoutSalesOrdersInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
@@ -5339,6 +5439,7 @@ export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmployeesInput = {
@@ -5387,6 +5488,7 @@ export type TenantCreateWithoutEmployeesInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmployeesInput = {
@@ -5435,6 +5537,7 @@ export type TenantUncheckedCreateWithoutEmployeesInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmployeesInput = {
@@ -5499,6 +5602,7 @@ export type TenantUpdateWithoutEmployeesInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmployeesInput = {
@@ -5547,6 +5651,7 @@ export type TenantUncheckedUpdateWithoutEmployeesInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutDepartmentsInput = {
@@ -5595,6 +5700,7 @@ export type TenantCreateWithoutDepartmentsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutDepartmentsInput = {
@@ -5643,6 +5749,7 @@ export type TenantUncheckedCreateWithoutDepartmentsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutDepartmentsInput = {
@@ -5707,6 +5814,7 @@ export type TenantUpdateWithoutDepartmentsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutDepartmentsInput = {
@@ -5755,6 +5863,7 @@ export type TenantUncheckedUpdateWithoutDepartmentsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPositionsInput = {
@@ -5803,6 +5912,7 @@ export type TenantCreateWithoutPositionsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPositionsInput = {
@@ -5851,6 +5961,7 @@ export type TenantUncheckedCreateWithoutPositionsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPositionsInput = {
@@ -5915,6 +6026,7 @@ export type TenantUpdateWithoutPositionsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPositionsInput = {
@@ -5963,6 +6075,7 @@ export type TenantUncheckedUpdateWithoutPositionsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTimeEntriesInput = {
@@ -6011,6 +6124,7 @@ export type TenantCreateWithoutTimeEntriesInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTimeEntriesInput = {
@@ -6059,6 +6173,7 @@ export type TenantUncheckedCreateWithoutTimeEntriesInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTimeEntriesInput = {
@@ -6123,6 +6238,7 @@ export type TenantUpdateWithoutTimeEntriesInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
@@ -6171,6 +6287,7 @@ export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutWorkSchedulesInput = {
@@ -6219,6 +6336,7 @@ export type TenantCreateWithoutWorkSchedulesInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
@@ -6267,6 +6385,7 @@ export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutWorkSchedulesInput = {
@@ -6331,6 +6450,7 @@ export type TenantUpdateWithoutWorkSchedulesInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
@@ -6379,6 +6499,7 @@ export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutOvertimeInput = {
@@ -6427,6 +6548,7 @@ export type TenantCreateWithoutOvertimeInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutOvertimeInput = {
@@ -6475,6 +6597,7 @@ export type TenantUncheckedCreateWithoutOvertimeInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutOvertimeInput = {
@@ -6539,6 +6662,7 @@ export type TenantUpdateWithoutOvertimeInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutOvertimeInput = {
@@ -6587,6 +6711,7 @@ export type TenantUncheckedUpdateWithoutOvertimeInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTimeBanksInput = {
@@ -6635,6 +6760,7 @@ export type TenantCreateWithoutTimeBanksInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTimeBanksInput = {
@@ -6683,6 +6809,7 @@ export type TenantUncheckedCreateWithoutTimeBanksInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTimeBanksInput = {
@@ -6747,6 +6874,7 @@ export type TenantUpdateWithoutTimeBanksInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTimeBanksInput = {
@@ -6795,6 +6923,7 @@ export type TenantUncheckedUpdateWithoutTimeBanksInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAbsencesInput = {
@@ -6843,6 +6972,7 @@ export type TenantCreateWithoutAbsencesInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAbsencesInput = {
@@ -6891,6 +7021,7 @@ export type TenantUncheckedCreateWithoutAbsencesInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAbsencesInput = {
@@ -6955,6 +7086,7 @@ export type TenantUpdateWithoutAbsencesInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAbsencesInput = {
@@ -7003,6 +7135,7 @@ export type TenantUncheckedUpdateWithoutAbsencesInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVacationPeriodsInput = {
@@ -7051,6 +7184,7 @@ export type TenantCreateWithoutVacationPeriodsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
@@ -7099,6 +7233,7 @@ export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVacationPeriodsInput = {
@@ -7163,6 +7298,7 @@ export type TenantUpdateWithoutVacationPeriodsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
@@ -7211,6 +7347,7 @@ export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPayrollsInput = {
@@ -7259,6 +7396,7 @@ export type TenantCreateWithoutPayrollsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPayrollsInput = {
@@ -7307,6 +7445,7 @@ export type TenantUncheckedCreateWithoutPayrollsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPayrollsInput = {
@@ -7371,6 +7510,7 @@ export type TenantUpdateWithoutPayrollsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPayrollsInput = {
@@ -7419,6 +7559,7 @@ export type TenantUncheckedUpdateWithoutPayrollsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBonusesInput = {
@@ -7467,6 +7608,7 @@ export type TenantCreateWithoutBonusesInput = {
   payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBonusesInput = {
@@ -7515,6 +7657,7 @@ export type TenantUncheckedCreateWithoutBonusesInput = {
   payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBonusesInput = {
@@ -7579,6 +7722,7 @@ export type TenantUpdateWithoutBonusesInput = {
   payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBonusesInput = {
@@ -7627,6 +7771,7 @@ export type TenantUncheckedUpdateWithoutBonusesInput = {
   payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutDeductionsInput = {
@@ -7675,6 +7820,7 @@ export type TenantCreateWithoutDeductionsInput = {
   payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutDeductionsInput = {
@@ -7723,6 +7869,7 @@ export type TenantUncheckedCreateWithoutDeductionsInput = {
   payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutDeductionsInput = {
@@ -7787,6 +7934,7 @@ export type TenantUpdateWithoutDeductionsInput = {
   payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutDeductionsInput = {
@@ -7835,6 +7983,7 @@ export type TenantUncheckedUpdateWithoutDeductionsInput = {
   payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCompaniesInput = {
@@ -7883,6 +8032,7 @@ export type TenantCreateWithoutCompaniesInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCompaniesInput = {
@@ -7931,6 +8081,7 @@ export type TenantUncheckedCreateWithoutCompaniesInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCompaniesInput = {
@@ -7995,6 +8146,7 @@ export type TenantUpdateWithoutCompaniesInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCompaniesInput = {
@@ -8030,6 +8182,219 @@ export type TenantUncheckedUpdateWithoutCompaniesInput = {
   purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutLabelTemplatesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutLabelTemplatesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutLabelTemplatesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutLabelTemplatesInput, Prisma.TenantUncheckedCreateWithoutLabelTemplatesInput>
+}
+
+export type TenantUpsertWithoutLabelTemplatesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutLabelTemplatesInput, Prisma.TenantUncheckedUpdateWithoutLabelTemplatesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutLabelTemplatesInput, Prisma.TenantUncheckedCreateWithoutLabelTemplatesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutLabelTemplatesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutLabelTemplatesInput, Prisma.TenantUncheckedUpdateWithoutLabelTemplatesInput>
+}
+
+export type TenantUpdateWithoutLabelTemplatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutLabelTemplatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
   departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
   positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
@@ -8091,6 +8456,7 @@ export type TenantCreateWithoutTenantPlansInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantPlansInput = {
@@ -8139,6 +8505,7 @@ export type TenantUncheckedCreateWithoutTenantPlansInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantPlansInput = {
@@ -8203,6 +8570,7 @@ export type TenantUpdateWithoutTenantPlansInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantPlansInput = {
@@ -8251,6 +8619,7 @@ export type TenantUncheckedUpdateWithoutTenantPlansInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantUsersInput = {
@@ -8299,6 +8668,7 @@ export type TenantCreateWithoutTenantUsersInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantUsersInput = {
@@ -8347,6 +8717,7 @@ export type TenantUncheckedCreateWithoutTenantUsersInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantUsersInput = {
@@ -8411,6 +8782,7 @@ export type TenantUpdateWithoutTenantUsersInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantUsersInput = {
@@ -8459,6 +8831,7 @@ export type TenantUncheckedUpdateWithoutTenantUsersInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantFeatureFlagsInput = {
@@ -8507,6 +8880,7 @@ export type TenantCreateWithoutTenantFeatureFlagsInput = {
   bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
@@ -8555,6 +8929,7 @@ export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
   bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
   deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantFeatureFlagsInput = {
@@ -8619,6 +8994,7 @@ export type TenantUpdateWithoutTenantFeatureFlagsInput = {
   bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
@@ -8667,6 +9043,7 @@ export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
   bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
   deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 
@@ -8711,6 +9088,7 @@ export type TenantCountOutputType = {
   bonuses: number
   deductions: number
   auditLogs: number
+  labelTemplates: number
 }
 
 export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8750,6 +9128,7 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   bonuses?: boolean | TenantCountOutputTypeCountBonusesArgs
   deductions?: boolean | TenantCountOutputTypeCountDeductionsArgs
   auditLogs?: boolean | TenantCountOutputTypeCountAuditLogsArgs
+  labelTemplates?: boolean | TenantCountOutputTypeCountLabelTemplatesArgs
 }
 
 /**
@@ -9014,6 +9393,13 @@ export type TenantCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Type
   where?: Prisma.AuditLogWhereInput
 }
 
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountLabelTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LabelTemplateWhereInput
+}
+
 
 export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -9062,6 +9448,7 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   bonuses?: boolean | Prisma.Tenant$bonusesArgs<ExtArgs>
   deductions?: boolean | Prisma.Tenant$deductionsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Tenant$auditLogsArgs<ExtArgs>
+  labelTemplates?: boolean | Prisma.Tenant$labelTemplatesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenant"]>
 
@@ -9142,6 +9529,7 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   bonuses?: boolean | Prisma.Tenant$bonusesArgs<ExtArgs>
   deductions?: boolean | Prisma.Tenant$deductionsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Tenant$auditLogsArgs<ExtArgs>
+  labelTemplates?: boolean | Prisma.Tenant$labelTemplatesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -9186,6 +9574,7 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     bonuses: Prisma.$BonusPayload<ExtArgs>[]
     deductions: Prisma.$DeductionPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    labelTemplates: Prisma.$LabelTemplatePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -9628,6 +10017,7 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   bonuses<T extends Prisma.Tenant$bonusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$bonusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BonusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deductions<T extends Prisma.Tenant$deductionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$deductionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeductionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.Tenant$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  labelTemplates<T extends Prisma.Tenant$labelTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$labelTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LabelTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10916,6 +11306,30 @@ export type Tenant$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
+ * Tenant.labelTemplates
+ */
+export type Tenant$labelTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LabelTemplate
+   */
+  select?: Prisma.LabelTemplateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LabelTemplate
+   */
+  omit?: Prisma.LabelTemplateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LabelTemplateInclude<ExtArgs> | null
+  where?: Prisma.LabelTemplateWhereInput
+  orderBy?: Prisma.LabelTemplateOrderByWithRelationInput | Prisma.LabelTemplateOrderByWithRelationInput[]
+  cursor?: Prisma.LabelTemplateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LabelTemplateScalarFieldEnum | Prisma.LabelTemplateScalarFieldEnum[]
 }
 
 /**

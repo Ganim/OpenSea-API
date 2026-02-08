@@ -332,7 +332,6 @@ export type OrganizationWhereInput = {
   stakeholders?: Prisma.OrganizationStakeholderListRelationFilter
   employees?: Prisma.EmployeeListRelationFilter
   products?: Prisma.ProductListRelationFilter
-  labelTemplates?: Prisma.LabelTemplateListRelationFilter
 }
 
 export type OrganizationOrderByWithRelationInput = {
@@ -366,7 +365,6 @@ export type OrganizationOrderByWithRelationInput = {
   stakeholders?: Prisma.OrganizationStakeholderOrderByRelationAggregateInput
   employees?: Prisma.EmployeeOrderByRelationAggregateInput
   products?: Prisma.ProductOrderByRelationAggregateInput
-  labelTemplates?: Prisma.LabelTemplateOrderByRelationAggregateInput
 }
 
 export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -405,7 +403,6 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
   stakeholders?: Prisma.OrganizationStakeholderListRelationFilter
   employees?: Prisma.EmployeeListRelationFilter
   products?: Prisma.ProductListRelationFilter
-  labelTemplates?: Prisma.LabelTemplateListRelationFilter
 }, "id" | "organizations_cnpj_type_unique_active" | "organizations_cpf_type_unique_active">
 
 export type OrganizationOrderByWithAggregationInput = {
@@ -499,7 +496,6 @@ export type OrganizationCreateInput = {
   stakeholders?: Prisma.OrganizationStakeholderCreateNestedManyWithoutOrganizationInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateInput = {
@@ -533,7 +529,6 @@ export type OrganizationUncheckedCreateInput = {
   stakeholders?: Prisma.OrganizationStakeholderUncheckedCreateNestedManyWithoutOrganizationInput
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUpdateInput = {
@@ -567,7 +562,6 @@ export type OrganizationUpdateInput = {
   stakeholders?: Prisma.OrganizationStakeholderUpdateManyWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateInput = {
@@ -601,7 +595,6 @@ export type OrganizationUncheckedUpdateInput = {
   stakeholders?: Prisma.OrganizationStakeholderUncheckedUpdateManyWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateManyInput = {
@@ -884,20 +877,6 @@ export type OrganizationUpdateOneWithoutEmployeesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutEmployeesInput, Prisma.OrganizationUpdateWithoutEmployeesInput>, Prisma.OrganizationUncheckedUpdateWithoutEmployeesInput>
 }
 
-export type OrganizationCreateNestedOneWithoutLabelTemplatesInput = {
-  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutLabelTemplatesInput, Prisma.OrganizationUncheckedCreateWithoutLabelTemplatesInput>
-  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutLabelTemplatesInput
-  connect?: Prisma.OrganizationWhereUniqueInput
-}
-
-export type OrganizationUpdateOneRequiredWithoutLabelTemplatesNestedInput = {
-  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutLabelTemplatesInput, Prisma.OrganizationUncheckedCreateWithoutLabelTemplatesInput>
-  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutLabelTemplatesInput
-  upsert?: Prisma.OrganizationUpsertWithoutLabelTemplatesInput
-  connect?: Prisma.OrganizationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutLabelTemplatesInput, Prisma.OrganizationUpdateWithoutLabelTemplatesInput>, Prisma.OrganizationUncheckedUpdateWithoutLabelTemplatesInput>
-}
-
 export type OrganizationCreateWithoutAddressesInput = {
   id?: string
   type: $Enums.OrganizationType
@@ -928,7 +907,6 @@ export type OrganizationCreateWithoutAddressesInput = {
   stakeholders?: Prisma.OrganizationStakeholderCreateNestedManyWithoutOrganizationInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutAddressesInput = {
@@ -961,7 +939,6 @@ export type OrganizationUncheckedCreateWithoutAddressesInput = {
   stakeholders?: Prisma.OrganizationStakeholderUncheckedCreateNestedManyWithoutOrganizationInput
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutAddressesInput = {
@@ -1010,7 +987,6 @@ export type OrganizationUpdateWithoutAddressesInput = {
   stakeholders?: Prisma.OrganizationStakeholderUpdateManyWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutAddressesInput = {
@@ -1043,7 +1019,6 @@ export type OrganizationUncheckedUpdateWithoutAddressesInput = {
   stakeholders?: Prisma.OrganizationStakeholderUncheckedUpdateManyWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutCnaesInput = {
@@ -1076,7 +1051,6 @@ export type OrganizationCreateWithoutCnaesInput = {
   stakeholders?: Prisma.OrganizationStakeholderCreateNestedManyWithoutOrganizationInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutCnaesInput = {
@@ -1109,7 +1083,6 @@ export type OrganizationUncheckedCreateWithoutCnaesInput = {
   stakeholders?: Prisma.OrganizationStakeholderUncheckedCreateNestedManyWithoutOrganizationInput
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutCnaesInput = {
@@ -1158,7 +1131,6 @@ export type OrganizationUpdateWithoutCnaesInput = {
   stakeholders?: Prisma.OrganizationStakeholderUpdateManyWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutCnaesInput = {
@@ -1191,7 +1163,6 @@ export type OrganizationUncheckedUpdateWithoutCnaesInput = {
   stakeholders?: Prisma.OrganizationStakeholderUncheckedUpdateManyWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutFiscalSettingsInput = {
@@ -1224,7 +1195,6 @@ export type OrganizationCreateWithoutFiscalSettingsInput = {
   stakeholders?: Prisma.OrganizationStakeholderCreateNestedManyWithoutOrganizationInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutFiscalSettingsInput = {
@@ -1257,7 +1227,6 @@ export type OrganizationUncheckedCreateWithoutFiscalSettingsInput = {
   stakeholders?: Prisma.OrganizationStakeholderUncheckedCreateNestedManyWithoutOrganizationInput
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutFiscalSettingsInput = {
@@ -1306,7 +1275,6 @@ export type OrganizationUpdateWithoutFiscalSettingsInput = {
   stakeholders?: Prisma.OrganizationStakeholderUpdateManyWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutFiscalSettingsInput = {
@@ -1339,7 +1307,6 @@ export type OrganizationUncheckedUpdateWithoutFiscalSettingsInput = {
   stakeholders?: Prisma.OrganizationStakeholderUncheckedUpdateManyWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutStakeholdersInput = {
@@ -1372,7 +1339,6 @@ export type OrganizationCreateWithoutStakeholdersInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsCreateNestedOneWithoutOrganizationInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutStakeholdersInput = {
@@ -1405,7 +1371,6 @@ export type OrganizationUncheckedCreateWithoutStakeholdersInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsUncheckedCreateNestedOneWithoutOrganizationInput
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutStakeholdersInput = {
@@ -1454,7 +1419,6 @@ export type OrganizationUpdateWithoutStakeholdersInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsUpdateOneWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutStakeholdersInput = {
@@ -1487,7 +1451,6 @@ export type OrganizationUncheckedUpdateWithoutStakeholdersInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsUncheckedUpdateOneWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutProductsInput = {
@@ -1520,7 +1483,6 @@ export type OrganizationCreateWithoutProductsInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsCreateNestedOneWithoutOrganizationInput
   stakeholders?: Prisma.OrganizationStakeholderCreateNestedManyWithoutOrganizationInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutProductsInput = {
@@ -1553,7 +1515,6 @@ export type OrganizationUncheckedCreateWithoutProductsInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsUncheckedCreateNestedOneWithoutOrganizationInput
   stakeholders?: Prisma.OrganizationStakeholderUncheckedCreateNestedManyWithoutOrganizationInput
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutProductsInput = {
@@ -1602,7 +1563,6 @@ export type OrganizationUpdateWithoutProductsInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsUpdateOneWithoutOrganizationNestedInput
   stakeholders?: Prisma.OrganizationStakeholderUpdateManyWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutProductsInput = {
@@ -1635,7 +1595,6 @@ export type OrganizationUncheckedUpdateWithoutProductsInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsUncheckedUpdateOneWithoutOrganizationNestedInput
   stakeholders?: Prisma.OrganizationStakeholderUncheckedUpdateManyWithoutOrganizationNestedInput
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutEmployeesInput = {
@@ -1668,7 +1627,6 @@ export type OrganizationCreateWithoutEmployeesInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsCreateNestedOneWithoutOrganizationInput
   stakeholders?: Prisma.OrganizationStakeholderCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutEmployeesInput = {
@@ -1701,7 +1659,6 @@ export type OrganizationUncheckedCreateWithoutEmployeesInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsUncheckedCreateNestedOneWithoutOrganizationInput
   stakeholders?: Prisma.OrganizationStakeholderUncheckedCreateNestedManyWithoutOrganizationInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutOrganizationInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutEmployeesInput = {
@@ -1750,7 +1707,6 @@ export type OrganizationUpdateWithoutEmployeesInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsUpdateOneWithoutOrganizationNestedInput
   stakeholders?: Prisma.OrganizationStakeholderUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutEmployeesInput = {
@@ -1783,155 +1739,6 @@ export type OrganizationUncheckedUpdateWithoutEmployeesInput = {
   fiscalSettings?: Prisma.OrganizationFiscalSettingsUncheckedUpdateOneWithoutOrganizationNestedInput
   stakeholders?: Prisma.OrganizationStakeholderUncheckedUpdateManyWithoutOrganizationNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutOrganizationNestedInput
-  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
-}
-
-export type OrganizationCreateWithoutLabelTemplatesInput = {
-  id?: string
-  type: $Enums.OrganizationType
-  legalName: string
-  cnpj?: string | null
-  cpf?: string | null
-  tradeName?: string | null
-  stateRegistration?: string | null
-  municipalRegistration?: string | null
-  legalNature?: string | null
-  taxRegime?: $Enums.TaxRegimeEnum | null
-  taxRegimeDetail?: string | null
-  activityStartDate?: Date | string | null
-  status?: $Enums.OrganizationStatusEnum
-  email?: string | null
-  phoneMain?: string | null
-  phoneAlt?: string | null
-  website?: string | null
-  logoUrl?: string | null
-  typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  notes?: string | null
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  addresses?: Prisma.OrganizationAddressCreateNestedManyWithoutOrganizationInput
-  cnaes?: Prisma.OrganizationCnaeCreateNestedManyWithoutOrganizationInput
-  fiscalSettings?: Prisma.OrganizationFiscalSettingsCreateNestedOneWithoutOrganizationInput
-  stakeholders?: Prisma.OrganizationStakeholderCreateNestedManyWithoutOrganizationInput
-  employees?: Prisma.EmployeeCreateNestedManyWithoutOrganizationInput
-  products?: Prisma.ProductCreateNestedManyWithoutOrganizationInput
-}
-
-export type OrganizationUncheckedCreateWithoutLabelTemplatesInput = {
-  id?: string
-  type: $Enums.OrganizationType
-  legalName: string
-  cnpj?: string | null
-  cpf?: string | null
-  tradeName?: string | null
-  stateRegistration?: string | null
-  municipalRegistration?: string | null
-  legalNature?: string | null
-  taxRegime?: $Enums.TaxRegimeEnum | null
-  taxRegimeDetail?: string | null
-  activityStartDate?: Date | string | null
-  status?: $Enums.OrganizationStatusEnum
-  email?: string | null
-  phoneMain?: string | null
-  phoneAlt?: string | null
-  website?: string | null
-  logoUrl?: string | null
-  typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  notes?: string | null
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  addresses?: Prisma.OrganizationAddressUncheckedCreateNestedManyWithoutOrganizationInput
-  cnaes?: Prisma.OrganizationCnaeUncheckedCreateNestedManyWithoutOrganizationInput
-  fiscalSettings?: Prisma.OrganizationFiscalSettingsUncheckedCreateNestedOneWithoutOrganizationInput
-  stakeholders?: Prisma.OrganizationStakeholderUncheckedCreateNestedManyWithoutOrganizationInput
-  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
-  products?: Prisma.ProductUncheckedCreateNestedManyWithoutOrganizationInput
-}
-
-export type OrganizationCreateOrConnectWithoutLabelTemplatesInput = {
-  where: Prisma.OrganizationWhereUniqueInput
-  create: Prisma.XOR<Prisma.OrganizationCreateWithoutLabelTemplatesInput, Prisma.OrganizationUncheckedCreateWithoutLabelTemplatesInput>
-}
-
-export type OrganizationUpsertWithoutLabelTemplatesInput = {
-  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutLabelTemplatesInput, Prisma.OrganizationUncheckedUpdateWithoutLabelTemplatesInput>
-  create: Prisma.XOR<Prisma.OrganizationCreateWithoutLabelTemplatesInput, Prisma.OrganizationUncheckedCreateWithoutLabelTemplatesInput>
-  where?: Prisma.OrganizationWhereInput
-}
-
-export type OrganizationUpdateToOneWithWhereWithoutLabelTemplatesInput = {
-  where?: Prisma.OrganizationWhereInput
-  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutLabelTemplatesInput, Prisma.OrganizationUncheckedUpdateWithoutLabelTemplatesInput>
-}
-
-export type OrganizationUpdateWithoutLabelTemplatesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumOrganizationTypeFieldUpdateOperationsInput | $Enums.OrganizationType
-  legalName?: Prisma.StringFieldUpdateOperationsInput | string
-  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tradeName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stateRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  municipalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  legalNature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  taxRegime?: Prisma.NullableEnumTaxRegimeEnumFieldUpdateOperationsInput | $Enums.TaxRegimeEnum | null
-  taxRegimeDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activityStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.EnumOrganizationStatusEnumFieldUpdateOperationsInput | $Enums.OrganizationStatusEnum
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  addresses?: Prisma.OrganizationAddressUpdateManyWithoutOrganizationNestedInput
-  cnaes?: Prisma.OrganizationCnaeUpdateManyWithoutOrganizationNestedInput
-  fiscalSettings?: Prisma.OrganizationFiscalSettingsUpdateOneWithoutOrganizationNestedInput
-  stakeholders?: Prisma.OrganizationStakeholderUpdateManyWithoutOrganizationNestedInput
-  employees?: Prisma.EmployeeUpdateManyWithoutOrganizationNestedInput
-  products?: Prisma.ProductUpdateManyWithoutOrganizationNestedInput
-}
-
-export type OrganizationUncheckedUpdateWithoutLabelTemplatesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumOrganizationTypeFieldUpdateOperationsInput | $Enums.OrganizationType
-  legalName?: Prisma.StringFieldUpdateOperationsInput | string
-  cnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tradeName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stateRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  municipalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  legalNature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  taxRegime?: Prisma.NullableEnumTaxRegimeEnumFieldUpdateOperationsInput | $Enums.TaxRegimeEnum | null
-  taxRegimeDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activityStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.EnumOrganizationStatusEnumFieldUpdateOperationsInput | $Enums.OrganizationStatusEnum
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  addresses?: Prisma.OrganizationAddressUncheckedUpdateManyWithoutOrganizationNestedInput
-  cnaes?: Prisma.OrganizationCnaeUncheckedUpdateManyWithoutOrganizationNestedInput
-  fiscalSettings?: Prisma.OrganizationFiscalSettingsUncheckedUpdateOneWithoutOrganizationNestedInput
-  stakeholders?: Prisma.OrganizationStakeholderUncheckedUpdateManyWithoutOrganizationNestedInput
-  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
-  products?: Prisma.ProductUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 
@@ -1945,7 +1752,6 @@ export type OrganizationCountOutputType = {
   stakeholders: number
   employees: number
   products: number
-  labelTemplates: number
 }
 
 export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1954,7 +1760,6 @@ export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   stakeholders?: boolean | OrganizationCountOutputTypeCountStakeholdersArgs
   employees?: boolean | OrganizationCountOutputTypeCountEmployeesArgs
   products?: boolean | OrganizationCountOutputTypeCountProductsArgs
-  labelTemplates?: boolean | OrganizationCountOutputTypeCountLabelTemplatesArgs
 }
 
 /**
@@ -2002,13 +1807,6 @@ export type OrganizationCountOutputTypeCountProductsArgs<ExtArgs extends runtime
   where?: Prisma.ProductWhereInput
 }
 
-/**
- * OrganizationCountOutputType without action
- */
-export type OrganizationCountOutputTypeCountLabelTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.LabelTemplateWhereInput
-}
-
 
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2041,7 +1839,6 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   stakeholders?: boolean | Prisma.Organization$stakeholdersArgs<ExtArgs>
   employees?: boolean | Prisma.Organization$employeesArgs<ExtArgs>
   products?: boolean | Prisma.Organization$productsArgs<ExtArgs>
-  labelTemplates?: boolean | Prisma.Organization$labelTemplatesArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
 
@@ -2134,7 +1931,6 @@ export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.Interna
   stakeholders?: boolean | Prisma.Organization$stakeholdersArgs<ExtArgs>
   employees?: boolean | Prisma.Organization$employeesArgs<ExtArgs>
   products?: boolean | Prisma.Organization$productsArgs<ExtArgs>
-  labelTemplates?: boolean | Prisma.Organization$labelTemplatesArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2149,7 +1945,6 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     stakeholders: Prisma.$OrganizationStakeholderPayload<ExtArgs>[]
     employees: Prisma.$EmployeePayload<ExtArgs>[]
     products: Prisma.$ProductPayload<ExtArgs>[]
-    labelTemplates: Prisma.$LabelTemplatePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2576,7 +2371,6 @@ export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends run
   stakeholders<T extends Prisma.Organization$stakeholdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$stakeholdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrganizationStakeholderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   employees<T extends Prisma.Organization$employeesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   products<T extends Prisma.Organization$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  labelTemplates<T extends Prisma.Organization$labelTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$labelTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LabelTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3154,30 +2948,6 @@ export type Organization$productsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
-}
-
-/**
- * Organization.labelTemplates
- */
-export type Organization$labelTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the LabelTemplate
-   */
-  select?: Prisma.LabelTemplateSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the LabelTemplate
-   */
-  omit?: Prisma.LabelTemplateOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.LabelTemplateInclude<ExtArgs> | null
-  where?: Prisma.LabelTemplateWhereInput
-  orderBy?: Prisma.LabelTemplateOrderByWithRelationInput | Prisma.LabelTemplateOrderByWithRelationInput[]
-  cursor?: Prisma.LabelTemplateWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.LabelTemplateScalarFieldEnum | Prisma.LabelTemplateScalarFieldEnum[]
 }
 
 /**

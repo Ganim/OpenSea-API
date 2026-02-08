@@ -45,7 +45,6 @@ export const labelTemplateResponseSchema = z.object({
   compiledHtml: z.string().nullable(),
   compiledCss: z.string().nullable(),
   thumbnailUrl: z.string().nullable(),
-  organizationId: z.uuid(),
   createdBy: z.uuid(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().nullable(),

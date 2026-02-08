@@ -13,7 +13,7 @@ export interface LabelTemplateProps {
   compiledHtml?: string;
   compiledCss?: string;
   thumbnailUrl?: string;
-  organizationId: UniqueEntityID;
+  tenantId: UniqueEntityID;
   createdById: UniqueEntityID;
   createdAt: Date;
   updatedAt?: Date;
@@ -107,8 +107,8 @@ export class LabelTemplate extends Entity<LabelTemplateProps> {
     this.touch();
   }
 
-  get organizationId(): UniqueEntityID {
-    return this.props.organizationId;
+  get tenantId(): UniqueEntityID {
+    return this.props.tenantId;
   }
 
   get createdById(): UniqueEntityID {

@@ -25,7 +25,7 @@ export class PrismaLabelTemplatesRepository
         compiledHtml: data.compiledHtml,
         compiledCss: data.compiledCss,
         thumbnailUrl: data.thumbnailUrl,
-        organizationId: data.organizationId.toString(),
+        tenantId: data.tenantId.toString(),
         createdById: data.createdById.toString(),
       },
     });
@@ -34,13 +34,13 @@ export class PrismaLabelTemplatesRepository
   }
 
   async findById(
-    organizationId: UniqueEntityID,
+    tenantId: UniqueEntityID,
     id: UniqueEntityID,
   ): Promise<LabelTemplate | null> {
     const labelTemplateData = await prisma.labelTemplate.findFirst({
       where: {
         id: id.toString(),
-        OR: [{ organizationId: organizationId.toString() }, { isSystem: true }],
+        OR: [{ tenantId: tenantId.toString() }, { isSystem: true }],
         deletedAt: null,
       },
     });
@@ -52,14 +52,14 @@ export class PrismaLabelTemplatesRepository
     return labelTemplatePrismaToDomain(labelTemplateData);
   }
 
-  async findByNameAndOrganization(
+  async findByNameAndTenant(
     name: string,
-    organizationId: UniqueEntityID,
+    tenantId: UniqueEntityID,
   ): Promise<LabelTemplate | null> {
     const labelTemplateData = await prisma.labelTemplate.findFirst({
       where: {
         name,
-        organizationId: organizationId.toString(),
+        tenantId: tenantId.toString(),
         deletedAt: null,
       },
     });
@@ -81,7 +81,7 @@ export class PrismaLabelTemplatesRepository
     const whereCondition = {
       deletedAt: null,
       OR: [
-        { organizationId: filters.organizationId.toString() },
+        { tenantId: filters.tenantId.toString() },
         ...(filters.includeSystem !== false ? [{ isSystem: true }] : []),
       ],
       ...(filters.search
@@ -184,13 +184,13 @@ export class PrismaLabelTemplatesRepository
   }
 
   async delete(
-    organizationId: UniqueEntityID,
+    tenantId: UniqueEntityID,
     id: UniqueEntityID,
   ): Promise<void> {
     const existing = await prisma.labelTemplate.findFirst({
       where: {
         id: id.toString(),
-        organizationId: organizationId.toString(),
+        tenantId: tenantId.toString(),
         deletedAt: null,
       },
     });

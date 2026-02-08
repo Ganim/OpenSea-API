@@ -4,7 +4,7 @@ import type { LabelTemplatesRepository } from '@/repositories/core/label-templat
 
 interface GenerateLabelTemplateThumbnailUseCaseRequest {
   id: string;
-  organizationId: string;
+  tenantId: string;
 }
 
 interface GenerateLabelTemplateThumbnailUseCaseResponse {
@@ -17,11 +17,11 @@ export class GenerateLabelTemplateThumbnailUseCase {
   async execute(
     request: GenerateLabelTemplateThumbnailUseCaseRequest,
   ): Promise<GenerateLabelTemplateThumbnailUseCaseResponse> {
-    const { id, organizationId } = request;
+    const { id, tenantId } = request;
 
     const templateId = new UniqueEntityID(id);
     const template = await this.labelTemplatesRepository.findById(
-      new UniqueEntityID(organizationId),
+      new UniqueEntityID(tenantId),
       templateId,
     );
 

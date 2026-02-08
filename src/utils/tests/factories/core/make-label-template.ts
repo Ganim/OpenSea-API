@@ -12,7 +12,7 @@ interface MakeLabelTemplateProps {
   compiledHtml?: string;
   compiledCss?: string;
   thumbnailUrl?: string;
-  organizationId?: UniqueEntityID;
+  tenantId?: UniqueEntityID;
   createdById?: UniqueEntityID;
   createdAt?: Date;
   updatedAt?: Date;
@@ -98,7 +98,7 @@ export function makeLabelTemplate(
       compiledHtml: override.compiledHtml ?? makeCompiledHtml(),
       compiledCss: override.compiledCss ?? makeCompiledCss(),
       thumbnailUrl: override.thumbnailUrl,
-      organizationId: override.organizationId ?? new UniqueEntityID(),
+      tenantId: override.tenantId ?? new UniqueEntityID(),
       createdById: override.createdById ?? new UniqueEntityID(),
       createdAt: override.createdAt ?? new Date(),
       updatedAt: override.updatedAt,

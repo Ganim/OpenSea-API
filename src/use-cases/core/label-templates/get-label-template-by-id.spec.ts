@@ -19,7 +19,7 @@ describe('GetLabelTemplateByIdUseCase', () => {
 
     const result = await sut.execute({
       id: labelTemplate.id.toString(),
-      organizationId: labelTemplate.organizationId.toString(),
+      tenantId: labelTemplate.tenantId.toString(),
     });
 
     expect(result.template).toBeDefined();
@@ -31,7 +31,7 @@ describe('GetLabelTemplateByIdUseCase', () => {
     await expect(
       sut.execute({
         id: new UniqueEntityID().toString(),
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Label template not found');
   });
@@ -43,7 +43,7 @@ describe('GetLabelTemplateByIdUseCase', () => {
     await expect(
       sut.execute({
         id: labelTemplate.id.toString(),
-        organizationId: labelTemplate.organizationId.toString(),
+        tenantId: labelTemplate.tenantId.toString(),
       }),
     ).rejects.toThrow('Label template not found');
   });

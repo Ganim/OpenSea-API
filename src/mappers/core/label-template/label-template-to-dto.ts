@@ -11,7 +11,6 @@ export interface LabelTemplateDTO {
   compiledHtml: string | null;
   compiledCss: string | null;
   thumbnailUrl: string | null;
-  organizationId: string;
   createdBy: string;
   createdAt: Date;
   updatedAt: Date | null;
@@ -31,7 +30,6 @@ export function labelTemplateToDTO(
     compiledHtml: labelTemplate.compiledHtml ?? null,
     compiledCss: labelTemplate.compiledCss ?? null,
     thumbnailUrl: labelTemplate.thumbnailUrl ?? null,
-    organizationId: labelTemplate.organizationId.toString(),
     createdBy: labelTemplate.createdById.toString(),
     createdAt: labelTemplate.createdAt,
     updatedAt: labelTemplate.updatedAt ?? null,

@@ -14,7 +14,7 @@ describe('CreateLabelTemplateUseCase', () => {
   });
 
   it('should create a label template', async () => {
-    const organizationId = new UniqueEntityID().toString();
+    const tenantId = new UniqueEntityID().toString();
     const createdById = new UniqueEntityID().toString();
 
     const result = await sut.execute({
@@ -23,7 +23,7 @@ describe('CreateLabelTemplateUseCase', () => {
       width: 60,
       height: 40,
       grapesJsData: makeGrapesJsData(),
-      organizationId,
+      tenantId,
       createdById,
     });
 
@@ -35,7 +35,6 @@ describe('CreateLabelTemplateUseCase', () => {
     expect(result.template.width).toBe(60);
     expect(result.template.height).toBe(40);
     expect(result.template.isSystem).toBe(false);
-    expect(result.template.organizationId).toBe(organizationId);
     expect(result.template.createdBy).toBe(createdById);
   });
 
@@ -46,7 +45,7 @@ describe('CreateLabelTemplateUseCase', () => {
         width: 60,
         height: 40,
         grapesJsData: makeGrapesJsData(),
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Name is required');
@@ -59,7 +58,7 @@ describe('CreateLabelTemplateUseCase', () => {
         width: 60,
         height: 40,
         grapesJsData: makeGrapesJsData(),
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Name must be at most 255 characters long');
@@ -72,7 +71,7 @@ describe('CreateLabelTemplateUseCase', () => {
         width: 5,
         height: 40,
         grapesJsData: makeGrapesJsData(),
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Width must be between 10 and 300 mm');
@@ -85,7 +84,7 @@ describe('CreateLabelTemplateUseCase', () => {
         width: 350,
         height: 40,
         grapesJsData: makeGrapesJsData(),
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Width must be between 10 and 300 mm');
@@ -98,7 +97,7 @@ describe('CreateLabelTemplateUseCase', () => {
         width: 60,
         height: 5,
         grapesJsData: makeGrapesJsData(),
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Height must be between 10 and 300 mm');
@@ -111,7 +110,7 @@ describe('CreateLabelTemplateUseCase', () => {
         width: 60,
         height: 350,
         grapesJsData: makeGrapesJsData(),
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('Height must be between 10 and 300 mm');
@@ -124,14 +123,14 @@ describe('CreateLabelTemplateUseCase', () => {
         width: 60,
         height: 40,
         grapesJsData: 'invalid json',
-        organizationId: new UniqueEntityID().toString(),
+        tenantId: new UniqueEntityID().toString(),
         createdById: new UniqueEntityID().toString(),
       }),
     ).rejects.toThrow('GrapesJS data must be valid JSON');
   });
 
   it('should not create a template with duplicate name in same organization', async () => {
-    const organizationId = new UniqueEntityID().toString();
+    const tenantId = new UniqueEntityID().toString();
     const createdById = new UniqueEntityID().toString();
 
     await sut.execute({
@@ -139,7 +138,7 @@ describe('CreateLabelTemplateUseCase', () => {
       width: 60,
       height: 40,
       grapesJsData: makeGrapesJsData(),
-      organizationId,
+      tenantId,
       createdById,
     });
 
@@ -149,7 +148,7 @@ describe('CreateLabelTemplateUseCase', () => {
         width: 80,
         height: 50,
         grapesJsData: makeGrapesJsData(),
-        organizationId,
+        tenantId,
         createdById,
       }),
     ).rejects.toThrow(
@@ -165,7 +164,7 @@ describe('CreateLabelTemplateUseCase', () => {
       width: 60,
       height: 40,
       grapesJsData: makeGrapesJsData(),
-      organizationId: new UniqueEntityID().toString(),
+      tenantId: new UniqueEntityID().toString(),
       createdById,
     });
 
@@ -174,7 +173,7 @@ describe('CreateLabelTemplateUseCase', () => {
       width: 60,
       height: 40,
       grapesJsData: makeGrapesJsData(),
-      organizationId: new UniqueEntityID().toString(),
+      tenantId: new UniqueEntityID().toString(),
       createdById,
     });
 

@@ -4,7 +4,7 @@ import { labelTemplateToDTO } from '@/mappers/core/label-template/label-template
 import type { LabelTemplatesRepository } from '@/repositories/core/label-templates-repository';
 
 interface ListLabelTemplatesUseCaseRequest {
-  organizationId: string;
+  tenantId: string;
   includeSystem?: boolean;
   search?: string;
   page?: number;
@@ -23,7 +23,7 @@ export class ListLabelTemplatesUseCase {
     request: ListLabelTemplatesUseCaseRequest,
   ): Promise<ListLabelTemplatesUseCaseResponse> {
     const {
-      organizationId,
+      tenantId,
       includeSystem = true,
       search,
       page = 1,
@@ -31,7 +31,7 @@ export class ListLabelTemplatesUseCase {
     } = request;
 
     const result = await this.labelTemplatesRepository.findMany({
-      organizationId: new UniqueEntityID(organizationId),
+      tenantId: new UniqueEntityID(tenantId),
       includeSystem,
       search,
       page,
