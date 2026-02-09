@@ -422,3 +422,13 @@ export type BankAccount = Prisma.BankAccountModel
  * 
  */
 export type FinanceCategory = Prisma.FinanceCategoryModel
+/**
+ * Model FinanceEntry
+ * 
+ */
+export type FinanceEntry = Prisma.FinanceEntryModel
+/**
+ * Model FinanceEntryPayment
+ * 
+ */
+export type FinanceEntryPayment = Prisma.FinanceEntryPaymentModel

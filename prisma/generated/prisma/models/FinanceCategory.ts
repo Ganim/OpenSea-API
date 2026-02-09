@@ -299,6 +299,7 @@ export type FinanceCategoryWhereInput = {
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   parent?: Prisma.XOR<Prisma.FinanceCategoryNullableScalarRelationFilter, Prisma.FinanceCategoryWhereInput> | null
   children?: Prisma.FinanceCategoryListRelationFilter
+  financeEntries?: Prisma.FinanceEntryListRelationFilter
 }
 
 export type FinanceCategoryOrderByWithRelationInput = {
@@ -320,6 +321,7 @@ export type FinanceCategoryOrderByWithRelationInput = {
   tenant?: Prisma.TenantOrderByWithRelationInput
   parent?: Prisma.FinanceCategoryOrderByWithRelationInput
   children?: Prisma.FinanceCategoryOrderByRelationAggregateInput
+  financeEntries?: Prisma.FinanceEntryOrderByRelationAggregateInput
 }
 
 export type FinanceCategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -345,6 +347,7 @@ export type FinanceCategoryWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   parent?: Prisma.XOR<Prisma.FinanceCategoryNullableScalarRelationFilter, Prisma.FinanceCategoryWhereInput> | null
   children?: Prisma.FinanceCategoryListRelationFilter
+  financeEntries?: Prisma.FinanceEntryListRelationFilter
 }, "id" | "finance_categories_slug_tenant_unique_active">
 
 export type FinanceCategoryOrderByWithAggregationInput = {
@@ -408,6 +411,7 @@ export type FinanceCategoryCreateInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceCategoriesInput
   parent?: Prisma.FinanceCategoryCreateNestedOneWithoutChildrenInput
   children?: Prisma.FinanceCategoryCreateNestedManyWithoutParentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCategoryInput
 }
 
 export type FinanceCategoryUncheckedCreateInput = {
@@ -427,6 +431,7 @@ export type FinanceCategoryUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutParentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type FinanceCategoryUpdateInput = {
@@ -446,6 +451,7 @@ export type FinanceCategoryUpdateInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceCategoriesNestedInput
   parent?: Prisma.FinanceCategoryUpdateOneWithoutChildrenNestedInput
   children?: Prisma.FinanceCategoryUpdateManyWithoutParentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCategoryNestedInput
 }
 
 export type FinanceCategoryUncheckedUpdateInput = {
@@ -465,6 +471,7 @@ export type FinanceCategoryUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutParentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type FinanceCategoryCreateManyInput = {
@@ -602,6 +609,11 @@ export type FinanceCategorySumOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
 }
 
+export type FinanceCategoryScalarRelationFilter = {
+  is?: Prisma.FinanceCategoryWhereInput
+  isNot?: Prisma.FinanceCategoryWhereInput
+}
+
 export type FinanceCategoryCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutTenantInput, Prisma.FinanceCategoryUncheckedCreateWithoutTenantInput> | Prisma.FinanceCategoryCreateWithoutTenantInput[] | Prisma.FinanceCategoryUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.FinanceCategoryCreateOrConnectWithoutTenantInput | Prisma.FinanceCategoryCreateOrConnectWithoutTenantInput[]
@@ -706,6 +718,20 @@ export type FinanceCategoryUncheckedUpdateManyWithoutParentNestedInput = {
   deleteMany?: Prisma.FinanceCategoryScalarWhereInput | Prisma.FinanceCategoryScalarWhereInput[]
 }
 
+export type FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput = {
+  create?: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutFinanceEntriesInput, Prisma.FinanceCategoryUncheckedCreateWithoutFinanceEntriesInput>
+  connectOrCreate?: Prisma.FinanceCategoryCreateOrConnectWithoutFinanceEntriesInput
+  connect?: Prisma.FinanceCategoryWhereUniqueInput
+}
+
+export type FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutFinanceEntriesInput, Prisma.FinanceCategoryUncheckedCreateWithoutFinanceEntriesInput>
+  connectOrCreate?: Prisma.FinanceCategoryCreateOrConnectWithoutFinanceEntriesInput
+  upsert?: Prisma.FinanceCategoryUpsertWithoutFinanceEntriesInput
+  connect?: Prisma.FinanceCategoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FinanceCategoryUpdateToOneWithWhereWithoutFinanceEntriesInput, Prisma.FinanceCategoryUpdateWithoutFinanceEntriesInput>, Prisma.FinanceCategoryUncheckedUpdateWithoutFinanceEntriesInput>
+}
+
 export type FinanceCategoryCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -722,6 +748,7 @@ export type FinanceCategoryCreateWithoutTenantInput = {
   updatedAt?: Date | string
   parent?: Prisma.FinanceCategoryCreateNestedOneWithoutChildrenInput
   children?: Prisma.FinanceCategoryCreateNestedManyWithoutParentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCategoryInput
 }
 
 export type FinanceCategoryUncheckedCreateWithoutTenantInput = {
@@ -740,6 +767,7 @@ export type FinanceCategoryUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutParentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type FinanceCategoryCreateOrConnectWithoutTenantInput = {
@@ -805,6 +833,7 @@ export type FinanceCategoryCreateWithoutChildrenInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceCategoriesInput
   parent?: Prisma.FinanceCategoryCreateNestedOneWithoutChildrenInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCategoryInput
 }
 
 export type FinanceCategoryUncheckedCreateWithoutChildrenInput = {
@@ -823,6 +852,7 @@ export type FinanceCategoryUncheckedCreateWithoutChildrenInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type FinanceCategoryCreateOrConnectWithoutChildrenInput = {
@@ -846,6 +876,7 @@ export type FinanceCategoryCreateWithoutParentInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceCategoriesInput
   children?: Prisma.FinanceCategoryCreateNestedManyWithoutParentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCategoryInput
 }
 
 export type FinanceCategoryUncheckedCreateWithoutParentInput = {
@@ -864,6 +895,7 @@ export type FinanceCategoryUncheckedCreateWithoutParentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutParentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type FinanceCategoryCreateOrConnectWithoutParentInput = {
@@ -903,6 +935,7 @@ export type FinanceCategoryUpdateWithoutChildrenInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceCategoriesNestedInput
   parent?: Prisma.FinanceCategoryUpdateOneWithoutChildrenNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCategoryNestedInput
 }
 
 export type FinanceCategoryUncheckedUpdateWithoutChildrenInput = {
@@ -921,6 +954,7 @@ export type FinanceCategoryUncheckedUpdateWithoutChildrenInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type FinanceCategoryUpsertWithWhereUniqueWithoutParentInput = {
@@ -937,6 +971,98 @@ export type FinanceCategoryUpdateWithWhereUniqueWithoutParentInput = {
 export type FinanceCategoryUpdateManyWithWhereWithoutParentInput = {
   where: Prisma.FinanceCategoryScalarWhereInput
   data: Prisma.XOR<Prisma.FinanceCategoryUpdateManyMutationInput, Prisma.FinanceCategoryUncheckedUpdateManyWithoutParentInput>
+}
+
+export type FinanceCategoryCreateWithoutFinanceEntriesInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  iconUrl?: string | null
+  color?: string | null
+  type: $Enums.FinanceCategoryType
+  displayOrder?: number
+  isActive?: boolean
+  isSystem?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutFinanceCategoriesInput
+  parent?: Prisma.FinanceCategoryCreateNestedOneWithoutChildrenInput
+  children?: Prisma.FinanceCategoryCreateNestedManyWithoutParentInput
+}
+
+export type FinanceCategoryUncheckedCreateWithoutFinanceEntriesInput = {
+  id?: string
+  tenantId: string
+  name: string
+  slug: string
+  description?: string | null
+  iconUrl?: string | null
+  color?: string | null
+  type: $Enums.FinanceCategoryType
+  parentId?: string | null
+  displayOrder?: number
+  isActive?: boolean
+  isSystem?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutParentInput
+}
+
+export type FinanceCategoryCreateOrConnectWithoutFinanceEntriesInput = {
+  where: Prisma.FinanceCategoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutFinanceEntriesInput, Prisma.FinanceCategoryUncheckedCreateWithoutFinanceEntriesInput>
+}
+
+export type FinanceCategoryUpsertWithoutFinanceEntriesInput = {
+  update: Prisma.XOR<Prisma.FinanceCategoryUpdateWithoutFinanceEntriesInput, Prisma.FinanceCategoryUncheckedUpdateWithoutFinanceEntriesInput>
+  create: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutFinanceEntriesInput, Prisma.FinanceCategoryUncheckedCreateWithoutFinanceEntriesInput>
+  where?: Prisma.FinanceCategoryWhereInput
+}
+
+export type FinanceCategoryUpdateToOneWithWhereWithoutFinanceEntriesInput = {
+  where?: Prisma.FinanceCategoryWhereInput
+  data: Prisma.XOR<Prisma.FinanceCategoryUpdateWithoutFinanceEntriesInput, Prisma.FinanceCategoryUncheckedUpdateWithoutFinanceEntriesInput>
+}
+
+export type FinanceCategoryUpdateWithoutFinanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumFinanceCategoryTypeFieldUpdateOperationsInput | $Enums.FinanceCategoryType
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceCategoriesNestedInput
+  parent?: Prisma.FinanceCategoryUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.FinanceCategoryUpdateManyWithoutParentNestedInput
+}
+
+export type FinanceCategoryUncheckedUpdateWithoutFinanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumFinanceCategoryTypeFieldUpdateOperationsInput | $Enums.FinanceCategoryType
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutParentNestedInput
 }
 
 export type FinanceCategoryCreateManyTenantInput = {
@@ -972,6 +1098,7 @@ export type FinanceCategoryUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   parent?: Prisma.FinanceCategoryUpdateOneWithoutChildrenNestedInput
   children?: Prisma.FinanceCategoryUpdateManyWithoutParentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCategoryNestedInput
 }
 
 export type FinanceCategoryUncheckedUpdateWithoutTenantInput = {
@@ -990,6 +1117,7 @@ export type FinanceCategoryUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutParentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type FinanceCategoryUncheckedUpdateManyWithoutTenantInput = {
@@ -1042,6 +1170,7 @@ export type FinanceCategoryUpdateWithoutParentInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceCategoriesNestedInput
   children?: Prisma.FinanceCategoryUpdateManyWithoutParentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCategoryNestedInput
 }
 
 export type FinanceCategoryUncheckedUpdateWithoutParentInput = {
@@ -1060,6 +1189,7 @@ export type FinanceCategoryUncheckedUpdateWithoutParentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutParentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type FinanceCategoryUncheckedUpdateManyWithoutParentInput = {
@@ -1086,10 +1216,12 @@ export type FinanceCategoryUncheckedUpdateManyWithoutParentInput = {
 
 export type FinanceCategoryCountOutputType = {
   children: number
+  financeEntries: number
 }
 
 export type FinanceCategoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   children?: boolean | FinanceCategoryCountOutputTypeCountChildrenArgs
+  financeEntries?: boolean | FinanceCategoryCountOutputTypeCountFinanceEntriesArgs
 }
 
 /**
@@ -1107,6 +1239,13 @@ export type FinanceCategoryCountOutputTypeDefaultArgs<ExtArgs extends runtime.Ty
  */
 export type FinanceCategoryCountOutputTypeCountChildrenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FinanceCategoryWhereInput
+}
+
+/**
+ * FinanceCategoryCountOutputType without action
+ */
+export type FinanceCategoryCountOutputTypeCountFinanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FinanceEntryWhereInput
 }
 
 
@@ -1129,6 +1268,7 @@ export type FinanceCategorySelect<ExtArgs extends runtime.Types.Extensions.Inter
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.FinanceCategory$parentArgs<ExtArgs>
   children?: boolean | Prisma.FinanceCategory$childrenArgs<ExtArgs>
+  financeEntries?: boolean | Prisma.FinanceCategory$financeEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.FinanceCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["financeCategory"]>
 
@@ -1195,6 +1335,7 @@ export type FinanceCategoryInclude<ExtArgs extends runtime.Types.Extensions.Inte
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.FinanceCategory$parentArgs<ExtArgs>
   children?: boolean | Prisma.FinanceCategory$childrenArgs<ExtArgs>
+  financeEntries?: boolean | Prisma.FinanceCategory$financeEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.FinanceCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FinanceCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1212,6 +1353,7 @@ export type $FinanceCategoryPayload<ExtArgs extends runtime.Types.Extensions.Int
     tenant: Prisma.$TenantPayload<ExtArgs>
     parent: Prisma.$FinanceCategoryPayload<ExtArgs> | null
     children: Prisma.$FinanceCategoryPayload<ExtArgs>[]
+    financeEntries: Prisma.$FinanceEntryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1626,6 +1768,7 @@ export interface Prisma__FinanceCategoryClient<T, Null = never, ExtArgs extends 
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   parent<T extends Prisma.FinanceCategory$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceCategory$parentArgs<ExtArgs>>): Prisma.Prisma__FinanceCategoryClient<runtime.Types.Result.GetResult<Prisma.$FinanceCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   children<T extends Prisma.FinanceCategory$childrenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceCategory$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  financeEntries<T extends Prisma.FinanceCategory$financeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceCategory$financeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2106,6 +2249,30 @@ export type FinanceCategory$childrenArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.FinanceCategoryScalarFieldEnum | Prisma.FinanceCategoryScalarFieldEnum[]
+}
+
+/**
+ * FinanceCategory.financeEntries
+ */
+export type FinanceCategory$financeEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FinanceEntry
+   */
+  select?: Prisma.FinanceEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FinanceEntry
+   */
+  omit?: Prisma.FinanceEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FinanceEntryInclude<ExtArgs> | null
+  where?: Prisma.FinanceEntryWhereInput
+  orderBy?: Prisma.FinanceEntryOrderByWithRelationInput | Prisma.FinanceEntryOrderByWithRelationInput[]
+  cursor?: Prisma.FinanceEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FinanceEntryScalarFieldEnum | Prisma.FinanceEntryScalarFieldEnum[]
 }
 
 /**

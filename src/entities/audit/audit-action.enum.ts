@@ -102,6 +102,11 @@ export enum AuditAction {
   CHECK_CPF = 'CHECK_CPF',
   CHECK_CNPJ = 'CHECK_CNPJ',
 
+  // Finance - Pagamentos
+  PAYMENT_REGISTER = 'PAYMENT_REGISTER',
+  PAYMENT_CANCEL = 'PAYMENT_CANCEL',
+  ENTRY_CANCEL = 'ENTRY_CANCEL',
+
   // Sistema
   EXPORT = 'EXPORT',
   IMPORT = 'IMPORT',

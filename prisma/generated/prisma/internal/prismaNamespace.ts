@@ -464,7 +464,9 @@ export const ModelName = {
   TenantFeatureFlag: 'TenantFeatureFlag',
   CostCenter: 'CostCenter',
   BankAccount: 'BankAccount',
-  FinanceCategory: 'FinanceCategory'
+  FinanceCategory: 'FinanceCategory',
+  FinanceEntry: 'FinanceEntry',
+  FinanceEntryPayment: 'FinanceEntryPayment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -480,7 +482,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6478,6 +6480,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FinanceEntry: {
+      payload: Prisma.$FinanceEntryPayload<ExtArgs>
+      fields: Prisma.FinanceEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FinanceEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FinanceEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.FinanceEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FinanceEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload>
+        }
+        findMany: {
+          args: Prisma.FinanceEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload>[]
+        }
+        create: {
+          args: Prisma.FinanceEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload>
+        }
+        createMany: {
+          args: Prisma.FinanceEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FinanceEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.FinanceEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload>
+        }
+        update: {
+          args: Prisma.FinanceEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.FinanceEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FinanceEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FinanceEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.FinanceEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.FinanceEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinanceEntry>
+        }
+        groupBy: {
+          args: Prisma.FinanceEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FinanceEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    FinanceEntryPayment: {
+      payload: Prisma.$FinanceEntryPaymentPayload<ExtArgs>
+      fields: Prisma.FinanceEntryPaymentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FinanceEntryPaymentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FinanceEntryPaymentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload>
+        }
+        findFirst: {
+          args: Prisma.FinanceEntryPaymentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FinanceEntryPaymentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload>
+        }
+        findMany: {
+          args: Prisma.FinanceEntryPaymentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload>[]
+        }
+        create: {
+          args: Prisma.FinanceEntryPaymentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload>
+        }
+        createMany: {
+          args: Prisma.FinanceEntryPaymentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FinanceEntryPaymentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload>[]
+        }
+        delete: {
+          args: Prisma.FinanceEntryPaymentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload>
+        }
+        update: {
+          args: Prisma.FinanceEntryPaymentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload>
+        }
+        deleteMany: {
+          args: Prisma.FinanceEntryPaymentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FinanceEntryPaymentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FinanceEntryPaymentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload>[]
+        }
+        upsert: {
+          args: Prisma.FinanceEntryPaymentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryPaymentPayload>
+        }
+        aggregate: {
+          args: Prisma.FinanceEntryPaymentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinanceEntryPayment>
+        }
+        groupBy: {
+          args: Prisma.FinanceEntryPaymentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceEntryPaymentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FinanceEntryPaymentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceEntryPaymentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -8115,6 +8265,66 @@ export const FinanceCategoryScalarFieldEnum = {
 export type FinanceCategoryScalarFieldEnum = (typeof FinanceCategoryScalarFieldEnum)[keyof typeof FinanceCategoryScalarFieldEnum]
 
 
+export const FinanceEntryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  code: 'code',
+  description: 'description',
+  notes: 'notes',
+  categoryId: 'categoryId',
+  costCenterId: 'costCenterId',
+  bankAccountId: 'bankAccountId',
+  supplierName: 'supplierName',
+  customerName: 'customerName',
+  supplierId: 'supplierId',
+  customerId: 'customerId',
+  salesOrderId: 'salesOrderId',
+  expectedAmount: 'expectedAmount',
+  actualAmount: 'actualAmount',
+  discount: 'discount',
+  interest: 'interest',
+  penalty: 'penalty',
+  issueDate: 'issueDate',
+  dueDate: 'dueDate',
+  competenceDate: 'competenceDate',
+  paymentDate: 'paymentDate',
+  status: 'status',
+  recurrenceType: 'recurrenceType',
+  recurrenceInterval: 'recurrenceInterval',
+  recurrenceUnit: 'recurrenceUnit',
+  totalInstallments: 'totalInstallments',
+  currentInstallment: 'currentInstallment',
+  parentEntryId: 'parentEntryId',
+  boletoBarcode: 'boletoBarcode',
+  boletoDigitLine: 'boletoDigitLine',
+  metadata: 'metadata',
+  tags: 'tags',
+  deletedAt: 'deletedAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FinanceEntryScalarFieldEnum = (typeof FinanceEntryScalarFieldEnum)[keyof typeof FinanceEntryScalarFieldEnum]
+
+
+export const FinanceEntryPaymentScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  bankAccountId: 'bankAccountId',
+  amount: 'amount',
+  paidAt: 'paidAt',
+  method: 'method',
+  reference: 'reference',
+  notes: 'notes',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt'
+} as const
+
+export type FinanceEntryPaymentScalarFieldEnum = (typeof FinanceEntryPaymentScalarFieldEnum)[keyof typeof FinanceEntryPaymentScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -8903,6 +9113,62 @@ export type EnumFinanceCategoryTypeFieldRefInput<$PrismaModel> = FieldRefInputTy
 export type ListEnumFinanceCategoryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceCategoryType[]'>
     
 
+
+/**
+ * Reference to a field of type 'FinanceEntryType'
+ */
+export type EnumFinanceEntryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceEntryType'>
+    
+
+
+/**
+ * Reference to a field of type 'FinanceEntryType[]'
+ */
+export type ListEnumFinanceEntryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceEntryType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FinanceEntryStatus'
+ */
+export type EnumFinanceEntryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceEntryStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'FinanceEntryStatus[]'
+ */
+export type ListEnumFinanceEntryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceEntryStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FinanceEntryRecurrence'
+ */
+export type EnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceEntryRecurrence'>
+    
+
+
+/**
+ * Reference to a field of type 'FinanceEntryRecurrence[]'
+ */
+export type ListEnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceEntryRecurrence[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RecurrenceUnit'
+ */
+export type EnumRecurrenceUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecurrenceUnit'>
+    
+
+
+/**
+ * Reference to a field of type 'RecurrenceUnit[]'
+ */
+export type ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecurrenceUnit[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -9079,6 +9345,8 @@ export type GlobalOmitConfig = {
   costCenter?: Prisma.CostCenterOmit
   bankAccount?: Prisma.BankAccountOmit
   financeCategory?: Prisma.FinanceCategoryOmit
+  financeEntry?: Prisma.FinanceEntryOmit
+  financeEntryPayment?: Prisma.FinanceEntryPaymentOmit
 }
 
 /* Types for Logging */

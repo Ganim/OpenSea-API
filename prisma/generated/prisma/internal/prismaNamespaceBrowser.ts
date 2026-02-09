@@ -131,7 +131,9 @@ export const ModelName = {
   TenantFeatureFlag: 'TenantFeatureFlag',
   CostCenter: 'CostCenter',
   BankAccount: 'BankAccount',
-  FinanceCategory: 'FinanceCategory'
+  FinanceCategory: 'FinanceCategory',
+  FinanceEntry: 'FinanceEntry',
+  FinanceEntryPayment: 'FinanceEntryPayment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1746,6 +1748,66 @@ export const FinanceCategoryScalarFieldEnum = {
 } as const
 
 export type FinanceCategoryScalarFieldEnum = (typeof FinanceCategoryScalarFieldEnum)[keyof typeof FinanceCategoryScalarFieldEnum]
+
+
+export const FinanceEntryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  code: 'code',
+  description: 'description',
+  notes: 'notes',
+  categoryId: 'categoryId',
+  costCenterId: 'costCenterId',
+  bankAccountId: 'bankAccountId',
+  supplierName: 'supplierName',
+  customerName: 'customerName',
+  supplierId: 'supplierId',
+  customerId: 'customerId',
+  salesOrderId: 'salesOrderId',
+  expectedAmount: 'expectedAmount',
+  actualAmount: 'actualAmount',
+  discount: 'discount',
+  interest: 'interest',
+  penalty: 'penalty',
+  issueDate: 'issueDate',
+  dueDate: 'dueDate',
+  competenceDate: 'competenceDate',
+  paymentDate: 'paymentDate',
+  status: 'status',
+  recurrenceType: 'recurrenceType',
+  recurrenceInterval: 'recurrenceInterval',
+  recurrenceUnit: 'recurrenceUnit',
+  totalInstallments: 'totalInstallments',
+  currentInstallment: 'currentInstallment',
+  parentEntryId: 'parentEntryId',
+  boletoBarcode: 'boletoBarcode',
+  boletoDigitLine: 'boletoDigitLine',
+  metadata: 'metadata',
+  tags: 'tags',
+  deletedAt: 'deletedAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FinanceEntryScalarFieldEnum = (typeof FinanceEntryScalarFieldEnum)[keyof typeof FinanceEntryScalarFieldEnum]
+
+
+export const FinanceEntryPaymentScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  bankAccountId: 'bankAccountId',
+  amount: 'amount',
+  paidAt: 'paidAt',
+  method: 'method',
+  reference: 'reference',
+  notes: 'notes',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt'
+} as const
+
+export type FinanceEntryPaymentScalarFieldEnum = (typeof FinanceEntryPaymentScalarFieldEnum)[keyof typeof FinanceEntryPaymentScalarFieldEnum]
 
 
 export const SortOrder = {

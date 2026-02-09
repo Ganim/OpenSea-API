@@ -4,3 +4,7 @@ export { BankAccount } from './bank-account';
 export type { BankAccountProps } from './bank-account';
 export { FinanceCategory } from './finance-category';
 export type { FinanceCategoryProps } from './finance-category';
+export { FinanceEntry } from './finance-entry';
+export type { FinanceEntryProps } from './finance-entry';
+export { FinanceEntryPayment } from './finance-entry-payment';
+export type { FinanceEntryPaymentProps } from './finance-entry-payment';

@@ -78,4 +78,43 @@ export const FINANCE_AUDIT_MESSAGES = {
     module: AuditModule.FINANCE,
     description: '{{userName}} excluiu a categoria financeira {{categoryName}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // FINANCE ENTRIES - Lançamentos Financeiros
+  // ============================================================================
+
+  FINANCE_ENTRY_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} criou o lançamento {{entryCode}}',
+  } satisfies AuditMessage,
+
+  FINANCE_ENTRY_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} atualizou o lançamento {{entryCode}}',
+  } satisfies AuditMessage,
+
+  FINANCE_ENTRY_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} excluiu o lançamento {{entryCode}}',
+  } satisfies AuditMessage,
+
+  FINANCE_ENTRY_CANCEL: {
+    action: AuditAction.ENTRY_CANCEL,
+    entity: AuditEntity.FINANCE_ENTRY,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} cancelou o lançamento {{entryCode}}',
+  } satisfies AuditMessage,
+
+  FINANCE_ENTRY_PAYMENT: {
+    action: AuditAction.PAYMENT_REGISTER,
+    entity: AuditEntity.FINANCE_ENTRY_PAYMENT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} registrou pagamento de R$ {{amount}} no lançamento {{entryCode}}',
+  } satisfies AuditMessage,
 } as const;

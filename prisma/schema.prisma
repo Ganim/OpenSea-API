@@ -69,6 +69,37 @@ enum BankAccountStatus {
   CLOSED
 }
 
+enum FinanceEntryType {
+  PAYABLE
+  RECEIVABLE
+}
+
+enum FinanceEntryRecurrence {
+  SINGLE
+  RECURRING
+  INSTALLMENT
+}
+
+enum FinanceEntryStatus {
+  PENDING
+  OVERDUE
+  PAID
+  RECEIVED
+  PARTIALLY_PAID
+  CANCELLED
+  SCHEDULED
+}
+
+enum RecurrenceUnit {
+  DAILY
+  WEEKLY
+  BIWEEKLY
+  MONTHLY
+  QUARTERLY
+  SEMIANNUAL
+  ANNUAL
+}
+
 // --- Entidades ---
 
 model User {
@@ -3350,6 +3381,7 @@ model Tenant {
   costCenters       CostCenter[]
   bankAccounts      BankAccount[]
   financeCategories FinanceCategory[]
+  financeEntries    FinanceEntry[]
 
   @@index([status])
   @@index([deletedAt])
@@ -3495,6 +3527,8 @@ model CostCenter {
   parent   CostCenter? @relation("CostCenterHierarchy", fields: [parentId], references: [id])
   children CostCenter[] @relation("CostCenterHierarchy")
 
+  financeEntries FinanceEntry[]
+
   @@unique([code, tenantId, deletedAt], name: "cost_centers_code_tenant_unique_active")
   @@index([tenantId])
   @@index([companyId])
@@ -3535,6 +3569,9 @@ model BankAccount {
   tenant  Tenant  @relation(fields: [tenantId], references: [id])
   company Company @relation(fields: [companyId], references: [id])
 
+  financeEntries  FinanceEntry[]
+  financePayments FinanceEntryPayment[]
+
   @@unique([tenantId, bankCode, agency, accountNumber, deletedAt], name: "bank_accounts_unique_active")
   @@index([tenantId])
   @@index([companyId])
@@ -3568,6 +3605,8 @@ model FinanceCategory {
   parent         FinanceCategory?  @relation("FinanceCategoryHierarchy", fields: [parentId], references: [id])
   children       FinanceCategory[] @relation("FinanceCategoryHierarchy")
 
+  financeEntries FinanceEntry[]
+
   @@unique([slug, tenantId, deletedAt], name: "finance_categories_slug_tenant_unique_active")
   @@index([tenantId])
   @@index([type])
@@ -3575,4 +3614,106 @@ model FinanceCategory {
   @@index([isActive])
   @@index([deletedAt])
   @@map("finance_categories")
+}
+
+model FinanceEntry {
+  id String @id @default(uuid())
+
+  tenantId String           @map("tenant_id")
+  type     FinanceEntryType
+
+  code        String  @db.VarChar(32)
+  description String  @db.VarChar(500)
+  notes       String? @db.Text
+
+  categoryId    String  @map("category_id")
+  costCenterId  String  @map("cost_center_id")
+  bankAccountId String? @map("bank_account_id")
+
+  supplierName String? @map("supplier_name") @db.VarChar(256)
+  customerName String? @map("customer_name") @db.VarChar(256)
+  supplierId   String? @map("supplier_id")
+  customerId   String? @map("customer_id")
+  salesOrderId String? @map("sales_order_id")
+
+  expectedAmount Decimal  @map("expected_amount") @db.Decimal(15, 2)
+  actualAmount   Decimal? @map("actual_amount") @db.Decimal(15, 2)
+  discount       Decimal  @default(0) @db.Decimal(15, 2)
+  interest       Decimal  @default(0) @db.Decimal(15, 2)
+  penalty        Decimal  @default(0) @db.Decimal(15, 2)
+
+  issueDate      DateTime  @map("issue_date")
+  dueDate        DateTime  @map("due_date")
+  competenceDate DateTime? @map("competence_date")
+  paymentDate    DateTime? @map("payment_date")
+
+  status FinanceEntryStatus @default(PENDING)
+
+  recurrenceType     FinanceEntryRecurrence @default(SINGLE) @map("recurrence_type")
+  recurrenceInterval Int?                   @map("recurrence_interval")
+  recurrenceUnit     RecurrenceUnit?        @map("recurrence_unit")
+  totalInstallments  Int?                   @map("total_installments")
+  currentInstallment Int?                   @map("current_installment")
+  parentEntryId      String?                @map("parent_entry_id")
+
+  boletoBarcode   String? @map("boleto_barcode") @db.VarChar(64)
+  boletoDigitLine String? @map("boleto_digit_line") @db.VarChar(64)
+
+  metadata Json     @default("{}")
+  tags     String[] @default([])
+
+  deletedAt DateTime? @map("deleted_at")
+  createdBy String?   @map("created_by")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  tenant      Tenant          @relation(fields: [tenantId], references: [id])
+  category    FinanceCategory @relation(fields: [categoryId], references: [id])
+  costCenter  CostCenter      @relation(fields: [costCenterId], references: [id])
+  bankAccount BankAccount?    @relation(fields: [bankAccountId], references: [id])
+  parentEntry FinanceEntry?   @relation("EntryRecurrence", fields: [parentEntryId], references: [id])
+  childEntries FinanceEntry[] @relation("EntryRecurrence")
+
+  payments FinanceEntryPayment[]
+
+  @@unique([code, tenantId, deletedAt], name: "finance_entries_code_tenant_unique_active")
+  @@index([tenantId])
+  @@index([type])
+  @@index([categoryId])
+  @@index([costCenterId])
+  @@index([bankAccountId])
+  @@index([status])
+  @@index([dueDate])
+  @@index([paymentDate])
+  @@index([recurrenceType])
+  @@index([parentEntryId])
+  @@index([createdBy])
+  @@index([deletedAt])
+  @@index([tenantId, type, status])
+  @@index([tenantId, dueDate, status])
+  @@map("finance_entries")
+}
+
+model FinanceEntryPayment {
+  id String @id @default(uuid())
+
+  entryId       String  @map("entry_id")
+  bankAccountId String? @map("bank_account_id")
+
+  amount    Decimal  @db.Decimal(15, 2)
+  paidAt    DateTime @map("paid_at")
+  method    String?  @db.VarChar(32)
+  reference String?  @db.VarChar(128)
+  notes     String?  @db.Text
+
+  createdBy String?  @map("created_by")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  entry       FinanceEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  bankAccount BankAccount? @relation(fields: [bankAccountId], references: [id])
+
+  @@index([entryId])
+  @@index([bankAccountId])
+  @@index([paidAt])
+  @@map("finance_entry_payments")
 }

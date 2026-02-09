@@ -1,0 +1,89 @@
+import type { FinanceEntry } from '@/entities/finance/finance-entry';
+
+export interface FinanceEntryDTO {
+  id: string;
+  tenantId: string;
+  type: string;
+  code: string;
+  description: string;
+  notes?: string;
+  categoryId: string;
+  costCenterId: string;
+  bankAccountId?: string;
+  supplierName?: string;
+  customerName?: string;
+  supplierId?: string;
+  customerId?: string;
+  salesOrderId?: string;
+  expectedAmount: number;
+  actualAmount?: number;
+  discount: number;
+  interest: number;
+  penalty: number;
+  totalDue: number;
+  remainingBalance: number;
+  isOverdue: boolean;
+  issueDate: Date;
+  dueDate: Date;
+  competenceDate?: Date;
+  paymentDate?: Date;
+  status: string;
+  recurrenceType: string;
+  recurrenceInterval?: number;
+  recurrenceUnit?: string;
+  totalInstallments?: number;
+  currentInstallment?: number;
+  parentEntryId?: string;
+  boletoBarcode?: string;
+  boletoDigitLine?: string;
+  tags: string[];
+  createdBy?: string;
+  createdAt: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
+}
+
+export function financeEntryToDTO(entry: FinanceEntry): FinanceEntryDTO {
+  return {
+    id: entry.id.toString(),
+    tenantId: entry.tenantId.toString(),
+    type: entry.type,
+    code: entry.code,
+    description: entry.description,
+    notes: entry.notes,
+    categoryId: entry.categoryId.toString(),
+    costCenterId: entry.costCenterId.toString(),
+    bankAccountId: entry.bankAccountId?.toString(),
+    supplierName: entry.supplierName,
+    customerName: entry.customerName,
+    supplierId: entry.supplierId,
+    customerId: entry.customerId,
+    salesOrderId: entry.salesOrderId,
+    expectedAmount: entry.expectedAmount,
+    actualAmount: entry.actualAmount,
+    discount: entry.discount,
+    interest: entry.interest,
+    penalty: entry.penalty,
+    totalDue: entry.totalDue,
+    remainingBalance: entry.remainingBalance,
+    isOverdue: entry.isOverdue,
+    issueDate: entry.issueDate,
+    dueDate: entry.dueDate,
+    competenceDate: entry.competenceDate,
+    paymentDate: entry.paymentDate,
+    status: entry.status,
+    recurrenceType: entry.recurrenceType,
+    recurrenceInterval: entry.recurrenceInterval,
+    recurrenceUnit: entry.recurrenceUnit,
+    totalInstallments: entry.totalInstallments,
+    currentInstallment: entry.currentInstallment,
+    parentEntryId: entry.parentEntryId?.toString(),
+    boletoBarcode: entry.boletoBarcode,
+    boletoDigitLine: entry.boletoDigitLine,
+    tags: entry.tags,
+    createdBy: entry.createdBy,
+    createdAt: entry.createdAt,
+    updatedAt: entry.updatedAt,
+    deletedAt: entry.deletedAt,
+  };
+}

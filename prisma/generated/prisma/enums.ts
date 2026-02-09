@@ -80,6 +80,49 @@ export const BankAccountStatus = {
 export type BankAccountStatus = (typeof BankAccountStatus)[keyof typeof BankAccountStatus]
 
 
+export const FinanceEntryType = {
+  PAYABLE: 'PAYABLE',
+  RECEIVABLE: 'RECEIVABLE'
+} as const
+
+export type FinanceEntryType = (typeof FinanceEntryType)[keyof typeof FinanceEntryType]
+
+
+export const FinanceEntryRecurrence = {
+  SINGLE: 'SINGLE',
+  RECURRING: 'RECURRING',
+  INSTALLMENT: 'INSTALLMENT'
+} as const
+
+export type FinanceEntryRecurrence = (typeof FinanceEntryRecurrence)[keyof typeof FinanceEntryRecurrence]
+
+
+export const FinanceEntryStatus = {
+  PENDING: 'PENDING',
+  OVERDUE: 'OVERDUE',
+  PAID: 'PAID',
+  RECEIVED: 'RECEIVED',
+  PARTIALLY_PAID: 'PARTIALLY_PAID',
+  CANCELLED: 'CANCELLED',
+  SCHEDULED: 'SCHEDULED'
+} as const
+
+export type FinanceEntryStatus = (typeof FinanceEntryStatus)[keyof typeof FinanceEntryStatus]
+
+
+export const RecurrenceUnit = {
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY',
+  BIWEEKLY: 'BIWEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  SEMIANNUAL: 'SEMIANNUAL',
+  ANNUAL: 'ANNUAL'
+} as const
+
+export type RecurrenceUnit = (typeof RecurrenceUnit)[keyof typeof RecurrenceUnit]
+
+
 export const UnitOfMeasure = {
   METERS: 'METERS',
   KILOGRAMS: 'KILOGRAMS',

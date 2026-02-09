@@ -1241,6 +1241,74 @@ export type EnumFinanceCategoryTypeWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumFinanceCategoryTypeFilter<$PrismaModel>
 }
 
+export type EnumFinanceEntryTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryType | Prisma.EnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryType[] | Prisma.ListEnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryType[] | Prisma.ListEnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryTypeFilter<$PrismaModel> | $Enums.FinanceEntryType
+}
+
+export type EnumFinanceEntryStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryStatus | Prisma.EnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryStatus[] | Prisma.ListEnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryStatus[] | Prisma.ListEnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryStatusFilter<$PrismaModel> | $Enums.FinanceEntryStatus
+}
+
+export type EnumFinanceEntryRecurrenceFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryRecurrence | Prisma.EnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryRecurrence[] | Prisma.ListEnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryRecurrence[] | Prisma.ListEnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryRecurrenceFilter<$PrismaModel> | $Enums.FinanceEntryRecurrence
+}
+
+export type EnumRecurrenceUnitNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.RecurrenceUnit | Prisma.EnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  in?: $Enums.RecurrenceUnit[] | Prisma.ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.RecurrenceUnit[] | Prisma.ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumRecurrenceUnitNullableFilter<$PrismaModel> | $Enums.RecurrenceUnit | null
+}
+
+export type EnumFinanceEntryTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryType | Prisma.EnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryType[] | Prisma.ListEnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryType[] | Prisma.ListEnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryTypeWithAggregatesFilter<$PrismaModel> | $Enums.FinanceEntryType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFinanceEntryTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFinanceEntryTypeFilter<$PrismaModel>
+}
+
+export type EnumFinanceEntryStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryStatus | Prisma.EnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryStatus[] | Prisma.ListEnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryStatus[] | Prisma.ListEnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryStatusWithAggregatesFilter<$PrismaModel> | $Enums.FinanceEntryStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFinanceEntryStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFinanceEntryStatusFilter<$PrismaModel>
+}
+
+export type EnumFinanceEntryRecurrenceWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryRecurrence | Prisma.EnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryRecurrence[] | Prisma.ListEnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryRecurrence[] | Prisma.ListEnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryRecurrenceWithAggregatesFilter<$PrismaModel> | $Enums.FinanceEntryRecurrence
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFinanceEntryRecurrenceFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFinanceEntryRecurrenceFilter<$PrismaModel>
+}
+
+export type EnumRecurrenceUnitNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.RecurrenceUnit | Prisma.EnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  in?: $Enums.RecurrenceUnit[] | Prisma.ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.RecurrenceUnit[] | Prisma.ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumRecurrenceUnitNullableWithAggregatesFilter<$PrismaModel> | $Enums.RecurrenceUnit | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumRecurrenceUnitNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumRecurrenceUnitNullableFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -2403,6 +2471,74 @@ export type NestedEnumFinanceCategoryTypeWithAggregatesFilter<$PrismaModel = nev
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumFinanceCategoryTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumFinanceCategoryTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumFinanceEntryTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryType | Prisma.EnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryType[] | Prisma.ListEnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryType[] | Prisma.ListEnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryTypeFilter<$PrismaModel> | $Enums.FinanceEntryType
+}
+
+export type NestedEnumFinanceEntryStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryStatus | Prisma.EnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryStatus[] | Prisma.ListEnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryStatus[] | Prisma.ListEnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryStatusFilter<$PrismaModel> | $Enums.FinanceEntryStatus
+}
+
+export type NestedEnumFinanceEntryRecurrenceFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryRecurrence | Prisma.EnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryRecurrence[] | Prisma.ListEnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryRecurrence[] | Prisma.ListEnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryRecurrenceFilter<$PrismaModel> | $Enums.FinanceEntryRecurrence
+}
+
+export type NestedEnumRecurrenceUnitNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.RecurrenceUnit | Prisma.EnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  in?: $Enums.RecurrenceUnit[] | Prisma.ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.RecurrenceUnit[] | Prisma.ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumRecurrenceUnitNullableFilter<$PrismaModel> | $Enums.RecurrenceUnit | null
+}
+
+export type NestedEnumFinanceEntryTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryType | Prisma.EnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryType[] | Prisma.ListEnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryType[] | Prisma.ListEnumFinanceEntryTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryTypeWithAggregatesFilter<$PrismaModel> | $Enums.FinanceEntryType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFinanceEntryTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFinanceEntryTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumFinanceEntryStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryStatus | Prisma.EnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryStatus[] | Prisma.ListEnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryStatus[] | Prisma.ListEnumFinanceEntryStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryStatusWithAggregatesFilter<$PrismaModel> | $Enums.FinanceEntryStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFinanceEntryStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFinanceEntryStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumFinanceEntryRecurrenceWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FinanceEntryRecurrence | Prisma.EnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  in?: $Enums.FinanceEntryRecurrence[] | Prisma.ListEnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FinanceEntryRecurrence[] | Prisma.ListEnumFinanceEntryRecurrenceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFinanceEntryRecurrenceWithAggregatesFilter<$PrismaModel> | $Enums.FinanceEntryRecurrence
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFinanceEntryRecurrenceFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFinanceEntryRecurrenceFilter<$PrismaModel>
+}
+
+export type NestedEnumRecurrenceUnitNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.RecurrenceUnit | Prisma.EnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  in?: $Enums.RecurrenceUnit[] | Prisma.ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.RecurrenceUnit[] | Prisma.ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumRecurrenceUnitNullableWithAggregatesFilter<$PrismaModel> | $Enums.RecurrenceUnit | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumRecurrenceUnitNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumRecurrenceUnitNullableFilter<$PrismaModel>
 }
 
 
