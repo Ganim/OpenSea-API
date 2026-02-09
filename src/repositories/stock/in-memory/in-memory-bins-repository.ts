@@ -254,7 +254,9 @@ export class InMemoryBinsRepository implements BinsRepository {
   async softDeleteMany(binIds: string[]): Promise<number> {
     let count = 0;
     for (const binId of binIds) {
-      const bin = this.bins.find((b) => !b.deletedAt && b.binId.toString() === binId);
+      const bin = this.bins.find(
+        (b) => !b.deletedAt && b.binId.toString() === binId,
+      );
       if (bin) {
         bin.delete();
         count++;
@@ -263,10 +265,14 @@ export class InMemoryBinsRepository implements BinsRepository {
     return count;
   }
 
-  async updateAddressMany(updates: Array<{ id: string; address: string }>): Promise<number> {
+  async updateAddressMany(
+    updates: Array<{ id: string; address: string }>,
+  ): Promise<number> {
     let count = 0;
     for (const { id, address } of updates) {
-      const bin = this.bins.find((b) => !b.deletedAt && b.binId.toString() === id);
+      const bin = this.bins.find(
+        (b) => !b.deletedAt && b.binId.toString() === id,
+      );
       if (bin) {
         bin.address = address;
         count++;
@@ -275,11 +281,16 @@ export class InMemoryBinsRepository implements BinsRepository {
     return count;
   }
 
-  async countItemsPerBin(zoneId: UniqueEntityID, _tenantId: string): Promise<Map<string, number>> {
+  async countItemsPerBin(
+    zoneId: UniqueEntityID,
+    _tenantId: string,
+  ): Promise<Map<string, number>> {
     // For testing, return empty map (or could be integrated with items repository)
     // In a real scenario, this would count items in each bin of the zone
     const map = new Map<string, number>();
-    const binsInZone = this.bins.filter((b) => !b.deletedAt && b.zoneId.equals(zoneId));
+    const binsInZone = this.bins.filter(
+      (b) => !b.deletedAt && b.zoneId.equals(zoneId),
+    );
     for (const bin of binsInZone) {
       map.set(bin.binId.toString(), 0);
     }

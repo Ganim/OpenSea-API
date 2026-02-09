@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * Smoke Test - Verificação básica de saúde do sistema
  *

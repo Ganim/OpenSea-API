@@ -51,9 +51,7 @@ export class InMemoryLabelTemplatesRepository
   ): Promise<LabelTemplate | null> {
     const labelTemplate = this.items.find(
       (item) =>
-        !item.deletedAt &&
-        item.name === name &&
-        item.tenantId.equals(tenantId),
+        !item.deletedAt && item.name === name && item.tenantId.equals(tenantId),
     );
     return labelTemplate ?? null;
   }
@@ -64,9 +62,7 @@ export class InMemoryLabelTemplatesRepository
     let filteredItems = this.items.filter((item) => {
       if (item.deletedAt) return false;
 
-      const matchesTenant = item.tenantId.equals(
-        filters.tenantId,
-      );
+      const matchesTenant = item.tenantId.equals(filters.tenantId);
       const matchesSystem = filters.includeSystem ? true : !item.isSystem;
 
       if (filters.search) {
@@ -144,10 +140,7 @@ export class InMemoryLabelTemplatesRepository
     }
   }
 
-  async delete(
-    tenantId: UniqueEntityID,
-    id: UniqueEntityID,
-  ): Promise<void> {
+  async delete(tenantId: UniqueEntityID, id: UniqueEntityID): Promise<void> {
     const labelTemplate = await this.findById(tenantId, id);
     if (labelTemplate && !labelTemplate.isSystem) {
       labelTemplate.delete();

@@ -49,7 +49,11 @@ export class RefreshToken extends Entity<RefreshTokenProps> {
 
   static create(props: RefreshTokenProps, id?: UniqueEntityID) {
     return new RefreshToken(
-      { ...props, tenantId: props.tenantId ?? null, revokedAt: props.revokedAt ?? null },
+      {
+        ...props,
+        tenantId: props.tenantId ?? null,
+        revokedAt: props.revokedAt ?? null,
+      },
       id,
     );
   }

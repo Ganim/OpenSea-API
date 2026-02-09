@@ -46,9 +46,10 @@ export async function createPayroll(
 export async function createCalculatedPayroll(
   tenantId: string,
   data?: {
-  referenceMonth?: number;
-  referenceYear?: number;
-}) {
+    referenceMonth?: number;
+    referenceYear?: number;
+  },
+) {
   let month: number;
   let year: number;
 
@@ -81,9 +82,10 @@ export async function createCalculatedPayroll(
 export async function createApprovedPayroll(
   tenantId: string,
   data?: {
-  referenceMonth?: number;
-  referenceYear?: number;
-}) {
+    referenceMonth?: number;
+    referenceYear?: number;
+  },
+) {
   let month: number;
   let year: number;
 

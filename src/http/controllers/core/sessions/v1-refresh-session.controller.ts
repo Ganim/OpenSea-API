@@ -68,10 +68,10 @@ export async function refreshSessionController(app: FastifyInstance) {
         // Isso reduz significativamente o tamanho do JWT (de ~4KB para ~500 bytes)
         const { session, refreshToken, tenant, isSuperAdmin } =
           await refreshSessionUseCase.execute({
-          refreshToken: refreshTokenValue,
-          ip,
-          reply,
-        });
+            refreshToken: refreshTokenValue,
+            ip,
+            reply,
+          });
 
         // Generate new access token (sem permissões - são verificadas via banco)
         const newAccessToken = await reply.jwtSign(

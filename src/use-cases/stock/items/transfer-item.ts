@@ -72,7 +72,10 @@ export class TransferItemUseCase {
     // Capture origin bin address before updating
     let originAddress: string | undefined;
     if (item.binId) {
-      const originBin = await this.binsRepository.findById(item.binId, input.tenantId);
+      const originBin = await this.binsRepository.findById(
+        item.binId,
+        input.tenantId,
+      );
       originAddress = originBin?.address;
     }
 

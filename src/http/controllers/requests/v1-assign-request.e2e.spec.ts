@@ -21,7 +21,9 @@ describe('Assign Request (E2E)', () => {
 
   it('should assign request with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
-    const { user: assigneeUser } = await createAndAuthenticateUser(app, { tenantId });
+    const { user: assigneeUser } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
 
     const testRequest = await createRequestE2E({
       targetId: user.user.id,

@@ -3,11 +3,11 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
 import { mapSessionPrismaToDomain } from '@/mappers/core/session/session-prisma-to-domain';
 import {
-    CreateSessionSchema,
-    SessionsRepository,
-    SetTenantSessionSchema,
-    TrustSessionSchema,
-    UpdateSessionSchema,
+  CreateSessionSchema,
+  SessionsRepository,
+  SetTenantSessionSchema,
+  TrustSessionSchema,
+  UpdateSessionSchema,
 } from '../sessions-repository';
 
 export class PrismaSessionsRepository implements SessionsRepository {

@@ -415,7 +415,9 @@ export class PrismaBinsRepository implements BinsRepository {
     return result.count;
   }
 
-  async updateAddressMany(updates: Array<{ id: string; address: string }>): Promise<number> {
+  async updateAddressMany(
+    updates: Array<{ id: string; address: string }>,
+  ): Promise<number> {
     let count = 0;
     for (const { id, address } of updates) {
       await prisma.bin.update({
@@ -427,7 +429,10 @@ export class PrismaBinsRepository implements BinsRepository {
     return count;
   }
 
-  async countItemsPerBin(zoneId: UniqueEntityID, tenantId: string): Promise<Map<string, number>> {
+  async countItemsPerBin(
+    zoneId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Map<string, number>> {
     const counts = await prisma.item.groupBy({
       by: ['binId'],
       where: {

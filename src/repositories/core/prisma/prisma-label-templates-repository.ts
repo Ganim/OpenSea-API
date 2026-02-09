@@ -183,10 +183,7 @@ export class PrismaLabelTemplatesRepository
     });
   }
 
-  async delete(
-    tenantId: UniqueEntityID,
-    id: UniqueEntityID,
-  ): Promise<void> {
+  async delete(tenantId: UniqueEntityID, id: UniqueEntityID): Promise<void> {
     const existing = await prisma.labelTemplate.findFirst({
       where: {
         id: id.toString(),

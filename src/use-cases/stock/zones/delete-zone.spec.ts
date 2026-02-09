@@ -23,7 +23,12 @@ describe('DeleteZoneUseCase', () => {
     itemsRepository = new InMemoryItemsRepository();
     itemMovementsRepository = new InMemoryItemMovementsRepository();
     warehousesRepository = new InMemoryWarehousesRepository();
-    sut = new DeleteZoneUseCase(zonesRepository, binsRepository, itemsRepository, itemMovementsRepository);
+    sut = new DeleteZoneUseCase(
+      zonesRepository,
+      binsRepository,
+      itemsRepository,
+      itemMovementsRepository,
+    );
   });
 
   async function createTestZone() {

@@ -4,8 +4,8 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
 import { mapRefreshTokenPrismaToDomain } from '@/mappers/core/refresh-token/refresh-token-prisma-to-domain';
 import {
-    CreateRefreshTokenSchema,
-    RefreshTokensRepository,
+  CreateRefreshTokenSchema,
+  RefreshTokensRepository,
 } from '../refresh-tokens-repository';
 
 export class PrismaRefreshTokensRepository implements RefreshTokensRepository {

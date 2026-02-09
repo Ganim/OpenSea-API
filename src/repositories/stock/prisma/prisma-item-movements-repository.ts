@@ -438,7 +438,11 @@ export class PrismaItemMovementsRepository implements ItemMovementsRepository {
 
   async createBatchForZoneReconfigure(data: {
     tenantId: string;
-    items: Array<{ itemId: string; binAddress: string; currentQuantity: number }>;
+    items: Array<{
+      itemId: string;
+      binAddress: string;
+      currentQuantity: number;
+    }>;
     userId: string;
     notes?: string;
   }): Promise<number> {

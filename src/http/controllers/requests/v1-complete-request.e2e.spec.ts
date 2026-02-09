@@ -22,7 +22,9 @@ describe('Complete Request (E2E)', () => {
   it('should complete request with correct schema', async () => {
     const { token: assignedToken, user: assignedUser } =
       await createAndAuthenticateUser(app, { tenantId });
-    const { user: requesterUser } = await createAndAuthenticateUser(app, { tenantId });
+    const { user: requesterUser } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
 
     const testRequest = await createRequestE2E({
       targetId: requesterUser.user.id,

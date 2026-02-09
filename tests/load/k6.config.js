@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * Configuração base do k6 para testes de carga
  *

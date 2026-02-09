@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Absence } from '@/entities/hr/absence';
 import { VacationPeriod } from '@/entities/hr/vacation-period';
-import { AbsenceStatus, AbsenceType, VacationStatus } from '@/entities/hr/value-objects';
+import { AbsenceStatus, AbsenceType } from '@/entities/hr/value-objects';
 import { InMemoryAbsencesRepository } from '@/repositories/hr/in-memory/in-memory-absences-repository';
 import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/in-memory-vacation-periods-repository';
 import { beforeEach, describe, expect, it } from 'vitest';

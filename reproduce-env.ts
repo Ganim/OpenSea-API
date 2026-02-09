@@ -64,10 +64,11 @@ async function reproduceEnvironment() {
         include: { profile: true },
       });
       console.log('✅ Query funcionou!');
-    } catch (error: any) {
-      console.error('❌ Query falhou:', error.message);
-      if (error.meta) {
-        console.error('Meta:', JSON.stringify(error.meta, null, 2));
+    } catch (error: unknown) {
+      const err = error as Error & { meta?: unknown };
+      console.error('❌ Query falhou:', err.message);
+      if (err.meta) {
+        console.error('Meta:', JSON.stringify(err.meta, null, 2));
       }
     } finally {
       await prisma.$disconnect();

@@ -16,7 +16,11 @@ describe('AdjustTimeBankUseCase', () => {
 
   it('should throw Error for non-existent employee', async () => {
     await expect(() =>
-      sut.execute({ tenantId: 'tenant-1', employeeId: 'non-existent', newBalance: 10 }),
+      sut.execute({
+        tenantId: 'tenant-1',
+        employeeId: 'non-existent',
+        newBalance: 10,
+      }),
     ).rejects.toThrow('Employee not found');
   });
 });

@@ -2,8 +2,8 @@ import { RefreshToken } from '@/entities/core/refresh-token';
 import { Token } from '@/entities/core/value-objects/token';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
-    CreateRefreshTokenSchema,
-    RefreshTokensRepository,
+  CreateRefreshTokenSchema,
+  RefreshTokensRepository,
 } from '../refresh-tokens-repository';
 
 export class InMemoryRefreshTokensRepository

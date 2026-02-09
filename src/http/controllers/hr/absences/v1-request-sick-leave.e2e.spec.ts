@@ -23,7 +23,10 @@ describe('Request Sick Leave (E2E)', () => {
   it('should request sick leave with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
-    const { employeeId } = await createEmployeeE2E({ tenantId, status: 'ACTIVE' });
+    const { employeeId } = await createEmployeeE2E({
+      tenantId,
+      status: 'ACTIVE',
+    });
 
     const startDate = new Date();
     const endDate = new Date(startDate.getTime() + 2 * 24 * 60 * 60 * 1000);

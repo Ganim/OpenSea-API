@@ -25,7 +25,11 @@ describe('List Vacation Periods (E2E)', () => {
     const { employeeId } = await createEmployeeE2E({ tenantId });
 
     await createVacationPeriodE2E({ tenantId, employeeId, status: 'PENDING' });
-    await createVacationPeriodE2E({ tenantId, employeeId, status: 'AVAILABLE' });
+    await createVacationPeriodE2E({
+      tenantId,
+      employeeId,
+      status: 'AVAILABLE',
+    });
 
     const response = await request(app.server)
       .get('/v1/hr/vacation-periods')

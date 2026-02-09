@@ -16,7 +16,11 @@ describe('CreditTimeBankUseCase', () => {
 
   it('should throw Error for non-existent employee', async () => {
     await expect(() =>
-      sut.execute({ tenantId: 'tenant-1', employeeId: 'non-existent', hours: 5 }),
+      sut.execute({
+        tenantId: 'tenant-1',
+        employeeId: 'non-existent',
+        hours: 5,
+      }),
     ).rejects.toThrow('Employee not found');
   });
 

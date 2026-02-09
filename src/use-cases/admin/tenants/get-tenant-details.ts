@@ -1,8 +1,8 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
-    type TenantDTO,
-    tenantToDTO,
+  type TenantDTO,
+  tenantToDTO,
 } from '@/mappers/core/tenant/tenant-to-dto';
 import type { TenantPlansRepository } from '@/repositories/core/tenant-plans-repository';
 import type { TenantsRepository } from '@/repositories/core/tenants-repository';

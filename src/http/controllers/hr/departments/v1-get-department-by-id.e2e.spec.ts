@@ -21,7 +21,9 @@ describe('Get Department By ID (E2E)', () => {
 
   it('should get department by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
-    const { department, departmentId } = await createDepartmentE2E({ tenantId });
+    const { department, departmentId } = await createDepartmentE2E({
+      tenantId,
+    });
 
     const response = await request(app.server)
       .get(`/v1/hr/departments/${departmentId}`)

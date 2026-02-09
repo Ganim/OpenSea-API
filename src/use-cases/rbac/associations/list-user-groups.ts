@@ -49,8 +49,7 @@ export class ListUserGroupsUseCase {
     if (tenantId) {
       const tenantIdEntity = new UniqueEntityID(tenantId);
       groups = groups.filter(
-        (group) =>
-          !group.tenantId || group.tenantId.equals(tenantIdEntity),
+        (group) => !group.tenantId || group.tenantId.equals(tenantIdEntity),
       );
     }
 

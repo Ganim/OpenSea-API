@@ -47,7 +47,7 @@ function getFilesRecursive(dir) {
         files.push(fullPath);
       }
     }
-  } catch (e) {
+  } catch (_e) {
     // Directory might not exist
   }
   return files;

@@ -5,7 +5,6 @@ import { Email } from '@/entities/core/value-objects/email';
 import { Password } from '@/entities/core/value-objects/password';
 import { Url } from '@/entities/core/value-objects/url';
 import { Username } from '@/entities/core/value-objects/username';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Tenant } from '@/entities/core/tenant';
 import { InMemoryTenantUsersRepository } from '@/repositories/core/in-memory/in-memory-tenant-users-repository';
 import { InMemoryTenantsRepository } from '@/repositories/core/in-memory/in-memory-tenants-repository';

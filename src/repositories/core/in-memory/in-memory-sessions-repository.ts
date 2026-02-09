@@ -1,11 +1,11 @@
 import { Session } from '@/entities/core/session';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
-    type CreateSessionSchema,
-    type SetTenantSessionSchema,
-    type TrustSessionSchema,
-    type UpdateSessionSchema,
-    SessionsRepository,
+  type CreateSessionSchema,
+  type SetTenantSessionSchema,
+  type TrustSessionSchema,
+  type UpdateSessionSchema,
+  SessionsRepository,
 } from '../sessions-repository';
 
 export class InMemorySessionsRepository implements SessionsRepository {

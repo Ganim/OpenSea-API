@@ -55,7 +55,11 @@ export interface ItemMovementsRepository {
   save(movement: ItemMovement): Promise<void>;
   createBatchForZoneReconfigure(data: {
     tenantId: string;
-    items: Array<{ itemId: string; binAddress: string; currentQuantity: number }>;
+    items: Array<{
+      itemId: string;
+      binAddress: string;
+      currentQuantity: number;
+    }>;
     userId: string;
     notes?: string;
   }): Promise<number>;
