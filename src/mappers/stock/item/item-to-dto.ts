@@ -28,6 +28,14 @@ export interface ItemDTO {
   productName: string;
   variantSku: string;
   variantName: string;
+  templateId?: string;
+  templateName?: string;
+  templateUnitOfMeasure?: string;
+  productAttributes?: Record<string, unknown>;
+  variantAttributes?: Record<string, unknown>;
+  variantColorHex?: string;
+  manufacturerName?: string;
+  productId?: string;
   bin?: {
     id: string;
     address: string;
@@ -68,6 +76,14 @@ export function itemToDTO(item: Item, relatedData?: ItemRelatedData): ItemDTO {
     productName: relatedData?.productName ?? '',
     variantSku: relatedData?.variantSku ?? '',
     variantName: relatedData?.variantName ?? '',
+    templateId: relatedData?.templateId,
+    templateName: relatedData?.templateName,
+    templateUnitOfMeasure: relatedData?.templateUnitOfMeasure,
+    productAttributes: relatedData?.productAttributes,
+    variantAttributes: relatedData?.variantAttributes,
+    variantColorHex: relatedData?.variantColorHex,
+    manufacturerName: relatedData?.manufacturerName,
+    productId: relatedData?.productId,
     bin:
       relatedData?.binId &&
       relatedData?.binAddress &&

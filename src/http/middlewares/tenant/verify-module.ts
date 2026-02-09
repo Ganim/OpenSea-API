@@ -11,7 +11,8 @@ export type SystemModule =
   | 'REPORTS'
   | 'AUDIT'
   | 'REQUESTS'
-  | 'NOTIFICATIONS';
+  | 'NOTIFICATIONS'
+  | 'FINANCE';
 
 /**
  * Factory that creates a middleware to verify if the tenant's plan

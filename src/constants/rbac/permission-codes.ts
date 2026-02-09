@@ -130,6 +130,18 @@ export const PermissionCodes = {
       PROMOTIONS: 'ui.menu.sales.promotions' as const,
       RESERVATIONS: 'ui.menu.sales.reservations' as const,
     },
+    MENU_FINANCE: {
+      OVERVIEW: 'ui.menu.finance.overview' as const,
+      PAYABLE: 'ui.menu.finance.payable' as const,
+      RECEIVABLE: 'ui.menu.finance.receivable' as const,
+      BANK_ACCOUNTS: 'ui.menu.finance.bank-accounts' as const,
+      COST_CENTERS: 'ui.menu.finance.cost-centers' as const,
+      CATEGORIES: 'ui.menu.finance.categories' as const,
+      LOANS: 'ui.menu.finance.loans' as const,
+      CONSORTIA: 'ui.menu.finance.consortia' as const,
+      CASHFLOW: 'ui.menu.finance.cashflow' as const,
+      EXPORT: 'ui.menu.finance.export' as const,
+    },
     MENU_HR: {
       EMPLOYEES: 'ui.menu.hr.employees' as const,
       DEPARTMENTS: 'ui.menu.hr.departments' as const,
@@ -197,6 +209,12 @@ export const PermissionCodes = {
       EXPENSES: 'reports.financial.expenses' as const,
       REVENUE: 'reports.financial.revenue' as const,
       CASHFLOW: 'reports.financial.cashflow' as const,
+      PAYABLE: 'reports.financial.payable' as const,
+      RECEIVABLE: 'reports.financial.receivable' as const,
+      OVERDUE: 'reports.financial.overdue' as const,
+      FORECAST: 'reports.financial.forecast' as const,
+      BY_COST_CENTER: 'reports.financial.by-cost-center' as const,
+      BY_CATEGORY: 'reports.financial.by-category' as const,
     },
     AUDIT: {
       VIEW: 'reports.audit.view' as const,
@@ -863,6 +881,76 @@ export const PermissionCodes = {
       DELETE: 'hr.vacation-periods.delete' as const,
       LIST: 'hr.vacation-periods.list' as const,
       MANAGE: 'hr.vacation-periods.manage' as const,
+    },
+  },
+
+  // ============================================================================
+  // FINANCE - Gestão Financeira
+  // ============================================================================
+  FINANCE: {
+    COST_CENTERS: {
+      CREATE: 'finance.cost-centers.create' as const,
+      READ: 'finance.cost-centers.read' as const,
+      UPDATE: 'finance.cost-centers.update' as const,
+      DELETE: 'finance.cost-centers.delete' as const,
+      LIST: 'finance.cost-centers.list' as const,
+      MANAGE: 'finance.cost-centers.manage' as const,
+    },
+    BANK_ACCOUNTS: {
+      CREATE: 'finance.bank-accounts.create' as const,
+      READ: 'finance.bank-accounts.read' as const,
+      UPDATE: 'finance.bank-accounts.update' as const,
+      DELETE: 'finance.bank-accounts.delete' as const,
+      LIST: 'finance.bank-accounts.list' as const,
+      MANAGE: 'finance.bank-accounts.manage' as const,
+    },
+    CATEGORIES: {
+      CREATE: 'finance.categories.create' as const,
+      READ: 'finance.categories.read' as const,
+      UPDATE: 'finance.categories.update' as const,
+      DELETE: 'finance.categories.delete' as const,
+      LIST: 'finance.categories.list' as const,
+      MANAGE: 'finance.categories.manage' as const,
+    },
+    ENTRIES: {
+      CREATE: 'finance.entries.create' as const,
+      READ: 'finance.entries.read' as const,
+      UPDATE: 'finance.entries.update' as const,
+      DELETE: 'finance.entries.delete' as const,
+      LIST: 'finance.entries.list' as const,
+      PAY: 'finance.entries.pay' as const,
+      CANCEL: 'finance.entries.cancel' as const,
+      MANAGE: 'finance.entries.manage' as const,
+    },
+    ATTACHMENTS: {
+      CREATE: 'finance.attachments.create' as const,
+      READ: 'finance.attachments.read' as const,
+      DELETE: 'finance.attachments.delete' as const,
+      LIST: 'finance.attachments.list' as const,
+    },
+    LOANS: {
+      CREATE: 'finance.loans.create' as const,
+      READ: 'finance.loans.read' as const,
+      UPDATE: 'finance.loans.update' as const,
+      DELETE: 'finance.loans.delete' as const,
+      LIST: 'finance.loans.list' as const,
+      PAY: 'finance.loans.pay' as const,
+      MANAGE: 'finance.loans.manage' as const,
+    },
+    CONSORTIA: {
+      CREATE: 'finance.consortia.create' as const,
+      READ: 'finance.consortia.read' as const,
+      UPDATE: 'finance.consortia.update' as const,
+      DELETE: 'finance.consortia.delete' as const,
+      LIST: 'finance.consortia.list' as const,
+      PAY: 'finance.consortia.pay' as const,
+      MANAGE: 'finance.consortia.manage' as const,
+    },
+    DASHBOARD: {
+      VIEW: 'finance.dashboard.view' as const,
+    },
+    EXPORT: {
+      GENERATE: 'finance.export.generate' as const,
     },
   },
 

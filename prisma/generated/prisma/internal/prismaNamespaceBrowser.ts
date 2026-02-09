@@ -128,7 +128,10 @@ export const ModelName = {
   PlanModule: 'PlanModule',
   TenantPlan: 'TenantPlan',
   TenantUser: 'TenantUser',
-  TenantFeatureFlag: 'TenantFeatureFlag'
+  TenantFeatureFlag: 'TenantFeatureFlag',
+  CostCenter: 'CostCenter',
+  BankAccount: 'BankAccount',
+  FinanceCategory: 'FinanceCategory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1676,6 +1679,73 @@ export const TenantFeatureFlagScalarFieldEnum = {
 } as const
 
 export type TenantFeatureFlagScalarFieldEnum = (typeof TenantFeatureFlagScalarFieldEnum)[keyof typeof TenantFeatureFlagScalarFieldEnum]
+
+
+export const CostCenterScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  companyId: 'companyId',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  monthlyBudget: 'monthlyBudget',
+  annualBudget: 'annualBudget',
+  parentId: 'parentId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CostCenterScalarFieldEnum = (typeof CostCenterScalarFieldEnum)[keyof typeof CostCenterScalarFieldEnum]
+
+
+export const BankAccountScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  companyId: 'companyId',
+  name: 'name',
+  bankCode: 'bankCode',
+  bankName: 'bankName',
+  agency: 'agency',
+  agencyDigit: 'agencyDigit',
+  accountNumber: 'accountNumber',
+  accountDigit: 'accountDigit',
+  accountType: 'accountType',
+  status: 'status',
+  pixKeyType: 'pixKeyType',
+  pixKey: 'pixKey',
+  currentBalance: 'currentBalance',
+  balanceUpdatedAt: 'balanceUpdatedAt',
+  color: 'color',
+  isDefault: 'isDefault',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BankAccountScalarFieldEnum = (typeof BankAccountScalarFieldEnum)[keyof typeof BankAccountScalarFieldEnum]
+
+
+export const FinanceCategoryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  iconUrl: 'iconUrl',
+  color: 'color',
+  type: 'type',
+  parentId: 'parentId',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  isSystem: 'isSystem',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FinanceCategoryScalarFieldEnum = (typeof FinanceCategoryScalarFieldEnum)[keyof typeof FinanceCategoryScalarFieldEnum]
 
 
 export const SortOrder = {

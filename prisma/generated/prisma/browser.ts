@@ -407,3 +407,18 @@ export type TenantUser = Prisma.TenantUserModel
  * 
  */
 export type TenantFeatureFlag = Prisma.TenantFeatureFlagModel
+/**
+ * Model CostCenter
+ * 
+ */
+export type CostCenter = Prisma.CostCenterModel
+/**
+ * Model BankAccount
+ * 
+ */
+export type BankAccount = Prisma.BankAccountModel
+/**
+ * Model FinanceCategory
+ * 
+ */
+export type FinanceCategory = Prisma.FinanceCategoryModel

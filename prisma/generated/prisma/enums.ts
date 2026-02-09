@@ -49,6 +49,37 @@ export const OrganizationStatusEnum = {
 export type OrganizationStatusEnum = (typeof OrganizationStatusEnum)[keyof typeof OrganizationStatusEnum]
 
 
+export const FinanceCategoryType = {
+  EXPENSE: 'EXPENSE',
+  REVENUE: 'REVENUE',
+  BOTH: 'BOTH'
+} as const
+
+export type FinanceCategoryType = (typeof FinanceCategoryType)[keyof typeof FinanceCategoryType]
+
+
+export const BankAccountType = {
+  CHECKING: 'CHECKING',
+  SAVINGS: 'SAVINGS',
+  SALARY: 'SALARY',
+  PAYMENT: 'PAYMENT',
+  INVESTMENT: 'INVESTMENT',
+  DIGITAL: 'DIGITAL',
+  OTHER: 'OTHER'
+} as const
+
+export type BankAccountType = (typeof BankAccountType)[keyof typeof BankAccountType]
+
+
+export const BankAccountStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  CLOSED: 'CLOSED'
+} as const
+
+export type BankAccountStatus = (typeof BankAccountStatus)[keyof typeof BankAccountStatus]
+
+
 export const UnitOfMeasure = {
   METERS: 'METERS',
   KILOGRAMS: 'KILOGRAMS',
@@ -221,6 +252,16 @@ export const AuditEntity = {
   PAYROLL_ITEM: 'PAYROLL_ITEM',
   BONUS: 'BONUS',
   DEDUCTION: 'DEDUCTION',
+  COST_CENTER: 'COST_CENTER',
+  BANK_ACCOUNT: 'BANK_ACCOUNT',
+  FINANCE_CATEGORY: 'FINANCE_CATEGORY',
+  FINANCE_ENTRY: 'FINANCE_ENTRY',
+  FINANCE_ENTRY_PAYMENT: 'FINANCE_ENTRY_PAYMENT',
+  FINANCE_ATTACHMENT: 'FINANCE_ATTACHMENT',
+  LOAN: 'LOAN',
+  LOAN_INSTALLMENT: 'LOAN_INSTALLMENT',
+  CONSORTIUM: 'CONSORTIUM',
+  CONSORTIUM_PAYMENT: 'CONSORTIUM_PAYMENT',
   OTHER: 'OTHER'
 } as const
 
@@ -237,6 +278,7 @@ export const AuditModule = {
   PAYROLL: 'PAYROLL',
   REQUESTS: 'REQUESTS',
   NOTIFICATIONS: 'NOTIFICATIONS',
+  FINANCE: 'FINANCE',
   SYSTEM: 'SYSTEM',
   OTHER: 'OTHER'
 } as const
@@ -650,7 +692,8 @@ export const SystemModuleEnum = {
   REPORTS: 'REPORTS',
   AUDIT: 'AUDIT',
   REQUESTS: 'REQUESTS',
-  NOTIFICATIONS: 'NOTIFICATIONS'
+  NOTIFICATIONS: 'NOTIFICATIONS',
+  FINANCE: 'FINANCE'
 } as const
 
 export type SystemModuleEnum = (typeof SystemModuleEnum)[keyof typeof SystemModuleEnum]

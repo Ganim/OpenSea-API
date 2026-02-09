@@ -54,6 +54,11 @@ import { volumesRoutes } from './controllers/stock/volumes/routes';
 import { warehousesRoutes } from './controllers/stock/warehouses/routes';
 import { zonesRoutes } from './controllers/stock/zones/routes';
 
+// Finance routes
+import { bankAccountsRoutes } from './controllers/finance/bank-accounts/routes';
+import { financeCategoriesRoutes } from './controllers/finance/categories/routes';
+import { costCentersRoutes } from './controllers/finance/cost-centers/routes';
+
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
 import { bonusesRoutes } from './controllers/hr/bonuses/routes';
@@ -124,6 +129,11 @@ export async function registerRoutes(app: FastifyInstance) {
 
   // Requests routes (Workflow)
   await app.register(requestsRoutes);
+
+  // Finance routes
+  await app.register(costCentersRoutes);
+  await app.register(bankAccountsRoutes);
+  await app.register(financeCategoriesRoutes);
 
   // HR routes
   await app.register(employeesRoutes);

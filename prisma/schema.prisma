@@ -47,6 +47,28 @@ enum OrganizationStatusEnum {
   BLOCKED
 }
 
+enum FinanceCategoryType {
+  EXPENSE
+  REVENUE
+  BOTH
+}
+
+enum BankAccountType {
+  CHECKING
+  SAVINGS
+  SALARY
+  PAYMENT
+  INVESTMENT
+  DIGITAL
+  OTHER
+}
+
+enum BankAccountStatus {
+  ACTIVE
+  INACTIVE
+  CLOSED
+}
+
 // --- Entidades ---
 
 model User {
@@ -684,6 +706,18 @@ enum AuditEntity {
   BONUS
   DEDUCTION
 
+  // Finance - Financeiro
+  COST_CENTER
+  BANK_ACCOUNT
+  FINANCE_CATEGORY
+  FINANCE_ENTRY
+  FINANCE_ENTRY_PAYMENT
+  FINANCE_ATTACHMENT
+  LOAN
+  LOAN_INSTALLMENT
+  CONSORTIUM
+  CONSORTIUM_PAYMENT
+
   // System
   OTHER
 }
@@ -698,6 +732,7 @@ enum AuditModule {
   PAYROLL
   REQUESTS
   NOTIFICATIONS
+  FINANCE
   SYSTEM
   OTHER
 }
@@ -2988,6 +3023,9 @@ model Company {
   cnaes          CompanyCnae[]
   fiscalSettings CompanyFiscalSettings?
   stakeholders   CompanyStakeholder[]
+  // Finance domain
+  costCenters  CostCenter[]
+  bankAccounts BankAccount[]
 
   @@unique([cnpj, tenantId, deletedAt], name: "companies_cnpj_tenant_unique_active")
   @@index([tenantId])
@@ -3240,6 +3278,7 @@ enum SystemModuleEnum {
   AUDIT
   REQUESTS
   NOTIFICATIONS
+  FINANCE
 }
 
 // --- Entidades ---
@@ -3307,6 +3346,10 @@ model Tenant {
   auditLogs       AuditLog[]
   // Core domain
   labelTemplates  LabelTemplate[]
+  // Finance domain
+  costCenters       CostCenter[]
+  bankAccounts      BankAccount[]
+  financeCategories FinanceCategory[]
 
   @@index([status])
   @@index([deletedAt])
@@ -3422,4 +3465,114 @@ model TenantFeatureFlag {
   @@unique([tenantId, flag])
   @@index([tenantId])
   @@map("tenant_feature_flags")
+}
+
+// ===============================================
+// FINANCE MODULE
+// ===============================================
+
+model CostCenter {
+  id String @id @default(uuid())
+
+  tenantId    String  @map("tenant_id")
+  companyId   String? @map("company_id")
+  code        String  @db.VarChar(32)
+  name        String  @db.VarChar(128)
+  description String? @db.VarChar(500)
+  isActive    Boolean @default(true) @map("is_active")
+
+  monthlyBudget Decimal? @map("monthly_budget") @db.Decimal(15, 2)
+  annualBudget  Decimal? @map("annual_budget") @db.Decimal(15, 2)
+
+  parentId String? @map("parent_id")
+
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  tenant   Tenant      @relation(fields: [tenantId], references: [id])
+  company  Company?    @relation(fields: [companyId], references: [id])
+  parent   CostCenter? @relation("CostCenterHierarchy", fields: [parentId], references: [id])
+  children CostCenter[] @relation("CostCenterHierarchy")
+
+  @@unique([code, tenantId, deletedAt], name: "cost_centers_code_tenant_unique_active")
+  @@index([tenantId])
+  @@index([companyId])
+  @@index([parentId])
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("cost_centers")
+}
+
+model BankAccount {
+  id String @id @default(uuid())
+
+  tenantId       String            @map("tenant_id")
+  companyId      String            @map("company_id")
+  name           String            @db.VarChar(128)
+  bankCode       String            @map("bank_code") @db.VarChar(5)
+  bankName       String?           @map("bank_name") @db.VarChar(128)
+  agency         String            @db.VarChar(10)
+  agencyDigit    String?           @map("agency_digit") @db.VarChar(2)
+  accountNumber  String            @map("account_number") @db.VarChar(20)
+  accountDigit   String?           @map("account_digit") @db.VarChar(2)
+  accountType    BankAccountType   @map("account_type")
+  status         BankAccountStatus @default(ACTIVE)
+
+  pixKeyType     String? @map("pix_key_type") @db.VarChar(16)
+  pixKey         String? @map("pix_key") @db.VarChar(128)
+
+  currentBalance   Decimal   @default(0) @map("current_balance") @db.Decimal(15, 2)
+  balanceUpdatedAt DateTime? @map("balance_updated_at")
+
+  color     String?  @db.VarChar(7)
+  isDefault Boolean  @default(false) @map("is_default")
+
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@unique([tenantId, bankCode, agency, accountNumber, deletedAt], name: "bank_accounts_unique_active")
+  @@index([tenantId])
+  @@index([companyId])
+  @@index([bankCode])
+  @@index([accountType])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("bank_accounts")
+}
+
+model FinanceCategory {
+  id String @id @default(uuid())
+
+  tenantId     String               @map("tenant_id")
+  name         String               @db.VarChar(128)
+  slug         String               @db.VarChar(128)
+  description  String?              @db.VarChar(500)
+  iconUrl      String?              @map("icon_url") @db.VarChar(512)
+  color        String?              @db.VarChar(7)
+  type         FinanceCategoryType
+  parentId     String?              @map("parent_id")
+  displayOrder Int                  @default(0) @map("display_order")
+  isActive     Boolean              @default(true) @map("is_active")
+  isSystem     Boolean              @default(false) @map("is_system")
+
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  tenant         Tenant            @relation(fields: [tenantId], references: [id])
+  parent         FinanceCategory?  @relation("FinanceCategoryHierarchy", fields: [parentId], references: [id])
+  children       FinanceCategory[] @relation("FinanceCategoryHierarchy")
+
+  @@unique([slug, tenantId, deletedAt], name: "finance_categories_slug_tenant_unique_active")
+  @@index([tenantId])
+  @@index([type])
+  @@index([parentId])
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("finance_categories")
 }

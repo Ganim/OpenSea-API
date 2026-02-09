@@ -117,6 +117,13 @@ export enum AuditEntity {
   LABEL_TEMPLATE = 'LABEL_TEMPLATE',
 
   // ==========================================
+  // Finance - Financeiro
+  // ==========================================
+  COST_CENTER = 'COST_CENTER',
+  BANK_ACCOUNT = 'BANK_ACCOUNT',
+  FINANCE_CATEGORY = 'FINANCE_CATEGORY',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',

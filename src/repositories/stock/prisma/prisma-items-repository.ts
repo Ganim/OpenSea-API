@@ -45,9 +45,21 @@ export interface ItemWithRelations {
   variant: {
     sku: string;
     name: string;
+    colorHex: string | null;
+    attributes: object;
     product: {
+      id: string;
       fullCode: string | null;
       name: string;
+      templateId: string | null;
+      attributes: object;
+      template: {
+        name: string;
+        unitOfMeasure: string;
+      } | null;
+      manufacturer: {
+        name: string;
+      } | null;
     };
   };
   bin?: {
@@ -77,6 +89,14 @@ export class PrismaItemsRepository implements ItemsRepository {
       zoneWarehouseId: itemData.bin?.zone.warehouseId,
       zoneCode: itemData.bin?.zone.code,
       zoneName: itemData.bin?.zone.name,
+      templateId: itemData.variant.product.templateId ?? undefined,
+      templateName: itemData.variant.product.template?.name,
+      templateUnitOfMeasure: itemData.variant.product.template?.unitOfMeasure,
+      productAttributes: itemData.variant.product.attributes as Record<string, unknown>,
+      variantAttributes: itemData.variant.attributes as Record<string, unknown>,
+      variantColorHex: itemData.variant.colorHex ?? undefined,
+      manufacturerName: itemData.variant.product.manufacturer?.name,
+      productId: itemData.variant.product.id,
     };
   }
 
@@ -153,7 +173,9 @@ export class PrismaItemsRepository implements ItemsRepository {
       include: {
         variant: {
           include: {
-            product: true,
+            product: {
+              include: { template: true, manufacturer: true },
+            },
           },
         },
         bin: {
@@ -183,7 +205,9 @@ export class PrismaItemsRepository implements ItemsRepository {
       include: {
         variant: {
           include: {
-            product: true,
+            product: {
+              include: { template: true, manufacturer: true },
+            },
           },
         },
         bin: {
@@ -215,7 +239,9 @@ export class PrismaItemsRepository implements ItemsRepository {
       include: {
         variant: {
           include: {
-            product: true,
+            product: {
+              include: { template: true, manufacturer: true },
+            },
           },
         },
         bin: {
@@ -245,7 +271,9 @@ export class PrismaItemsRepository implements ItemsRepository {
       include: {
         variant: {
           include: {
-            product: true,
+            product: {
+              include: { template: true, manufacturer: true },
+            },
           },
         },
         bin: {
@@ -317,7 +345,9 @@ export class PrismaItemsRepository implements ItemsRepository {
       include: {
         variant: {
           include: {
-            product: true,
+            product: {
+              include: { template: true, manufacturer: true },
+            },
           },
         },
         bin: {
@@ -362,7 +392,9 @@ export class PrismaItemsRepository implements ItemsRepository {
       include: {
         variant: {
           include: {
-            product: true,
+            product: {
+              include: { template: true, manufacturer: true },
+            },
           },
         },
         bin: {
@@ -389,7 +421,9 @@ export class PrismaItemsRepository implements ItemsRepository {
       include: {
         variant: {
           include: {
-            product: true,
+            product: {
+              include: { template: true, manufacturer: true },
+            },
           },
         },
         bin: {
@@ -418,7 +452,9 @@ export class PrismaItemsRepository implements ItemsRepository {
       include: {
         variant: {
           include: {
-            product: true,
+            product: {
+              include: { template: true, manufacturer: true },
+            },
           },
         },
         bin: {
@@ -445,7 +481,9 @@ export class PrismaItemsRepository implements ItemsRepository {
       include: {
         variant: {
           include: {
-            product: true,
+            product: {
+              include: { template: true, manufacturer: true },
+            },
           },
         },
         bin: {

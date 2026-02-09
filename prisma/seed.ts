@@ -450,8 +450,8 @@ async function seedPlanModules(planIds: Record<string, string>) {
   const modulesByPlan: Record<string, string[]> = {
     Free: ['CORE'],
     Starter: ['CORE', 'STOCK', 'SALES'],
-    Professional: ['CORE', 'STOCK', 'SALES', 'HR', 'REPORTS', 'AUDIT', 'NOTIFICATIONS', 'REQUESTS'],
-    Enterprise: ['CORE', 'STOCK', 'SALES', 'HR', 'PAYROLL', 'REPORTS', 'AUDIT', 'REQUESTS', 'NOTIFICATIONS'],
+    Professional: ['CORE', 'STOCK', 'SALES', 'HR', 'FINANCE', 'REPORTS', 'AUDIT', 'NOTIFICATIONS', 'REQUESTS'],
+    Enterprise: ['CORE', 'STOCK', 'SALES', 'HR', 'PAYROLL', 'FINANCE', 'REPORTS', 'AUDIT', 'REQUESTS', 'NOTIFICATIONS'],
   };
 
   for (const [planName, modules] of Object.entries(modulesByPlan)) {

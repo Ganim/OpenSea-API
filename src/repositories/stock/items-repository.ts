@@ -14,6 +14,14 @@ export interface ItemRelatedData {
   zoneWarehouseId?: string;
   zoneCode?: string;
   zoneName?: string;
+  templateId?: string;
+  templateName?: string;
+  templateUnitOfMeasure?: string;
+  productAttributes?: Record<string, unknown>;
+  variantAttributes?: Record<string, unknown>;
+  variantColorHex?: string;
+  manufacturerName?: string;
+  productId?: string;
 }
 
 export interface ItemWithRelationsDTO {

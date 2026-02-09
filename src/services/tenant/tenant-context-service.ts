@@ -11,6 +11,7 @@ type SystemModule =
   | 'SALES'
   | 'HR'
   | 'PAYROLL'
+  | 'FINANCE'
   | 'REPORTS'
   | 'AUDIT'
   | 'REQUESTS'
