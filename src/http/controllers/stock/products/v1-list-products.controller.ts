@@ -25,6 +25,7 @@ export async function listProductsController(app: FastifyInstance) {
       tags: ['Stock - Products'],
       summary: 'List all products',
       querystring: z.object({
+        templateId: z.string().uuid().optional(),
         manufacturerId: z.string().uuid().optional(),
         categoryId: z.string().uuid().optional(),
       }),
@@ -38,7 +39,8 @@ export async function listProductsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { manufacturerId, categoryId } = request.query as {
+      const { templateId, manufacturerId, categoryId } = request.query as {
+        templateId?: string;
         manufacturerId?: string;
         categoryId?: string;
       };
@@ -46,6 +48,7 @@ export async function listProductsController(app: FastifyInstance) {
       const listProductsUseCase = makeListProductsUseCase();
       const { products } = await listProductsUseCase.execute({
         tenantId,
+        templateId,
         manufacturerId,
         categoryId,
       });

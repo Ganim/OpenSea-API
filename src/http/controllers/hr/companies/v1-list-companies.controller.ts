@@ -1,5 +1,6 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { prisma } from '@/lib/prisma';
 import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
 import { makeListCompaniesUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import type { FastifyInstance, FastifyReply } from 'fastify';
@@ -33,7 +34,25 @@ export async function v1ListCompaniesController(app: FastifyInstance) {
       includeDeleted: shouldIncludeDeleted,
     });
 
-    return reply.status(200).send(companies.map(companyToDTO));
+    // Fetch _count for departments and employees per company
+    const ids = companies.map((c) => c.id.toString());
+    const countsData = ids.length > 0
+      ? await prisma.company.findMany({
+          where: { id: { in: ids } },
+          select: {
+            id: true,
+            _count: { select: { departments: true, employees: true } },
+          },
+        })
+      : [];
+    const countMap = new Map(countsData.map((c) => [c.id, c._count]));
+
+    return reply.status(200).send(
+      companies.map((c) => ({
+        ...companyToDTO(c),
+        _count: countMap.get(c.id.toString()) ?? { departments: 0, employees: 0 },
+      })),
+    );
   }
 
   // List active companies

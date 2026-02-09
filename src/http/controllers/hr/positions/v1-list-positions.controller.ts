@@ -4,6 +4,7 @@ import {
   listPositionsQuerySchema,
   positionResponseSchema,
 } from '@/http/schemas/hr.schema';
+import { prisma } from '@/lib/prisma';
 import { positionToDTO } from '@/mappers/hr/position';
 import { makeListPositionsUseCase } from '@/use-cases/hr/positions/factories';
 import type { FastifyInstance } from 'fastify';
@@ -59,8 +60,24 @@ export async function listPositionsController(app: FastifyInstance) {
         isActive,
       });
 
+      // Fetch _count for employees per position
+      const ids = result.positions.map((p) => p.id.toString());
+      const countsData = ids.length > 0
+        ? await prisma.position.findMany({
+            where: { id: { in: ids } },
+            select: {
+              id: true,
+              _count: { select: { employees: true } },
+            },
+          })
+        : [];
+      const countMap = new Map(countsData.map((p) => [p.id, p._count]));
+
       return reply.status(200).send({
-        positions: result.positions.map(positionToDTO),
+        positions: result.positions.map((p) => ({
+          ...positionToDTO(p),
+          _count: countMap.get(p.id.toString()) ?? { employees: 0 },
+        })),
         meta: result.meta,
       });
     },

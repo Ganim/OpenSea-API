@@ -3,6 +3,7 @@ import { ProductsRepository } from '@/repositories/stock/products-repository';
 
 interface ListProductsUseCaseRequest {
   tenantId: string;
+  templateId?: string;
   manufacturerId?: string;
   categoryId?: string;
 }
@@ -17,11 +18,27 @@ export class ListProductsUseCase {
   async execute(
     request: ListProductsUseCaseRequest,
   ): Promise<ListProductsUseCaseResponse> {
-    const { tenantId, manufacturerId, categoryId } = request;
+    const { tenantId, templateId, manufacturerId, categoryId } = request;
 
     let products;
 
-    if (manufacturerId) {
+    if (templateId) {
+      products = await this.productsRepository.findManyByTemplate(
+        new UniqueEntityID(templateId),
+        tenantId,
+      );
+      // Post-filter by manufacturer and/or category if also active
+      if (manufacturerId) {
+        products = products.filter(
+          (p) => p.manufacturerId?.toString() === manufacturerId,
+        );
+      }
+      if (categoryId) {
+        products = products.filter((p) =>
+          p.categories?.some((c) => c.id.toString() === categoryId),
+        );
+      }
+    } else if (manufacturerId) {
       products = await this.productsRepository.findManyByManufacturer(
         new UniqueEntityID(manufacturerId),
         tenantId,

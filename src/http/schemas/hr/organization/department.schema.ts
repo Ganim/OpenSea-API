@@ -52,6 +52,12 @@ export const departmentResponseSchema = z.object({
   createdAt: dateSchema,
   updatedAt: dateSchema,
   deletedAt: dateSchema.optional().nullable(),
+  _count: z
+    .object({
+      positions: z.number(),
+      employees: z.number(),
+    })
+    .optional(),
 });
 
 /**
