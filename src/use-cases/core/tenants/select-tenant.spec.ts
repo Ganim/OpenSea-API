@@ -1,6 +1,8 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { IpAddress } from '@/entities/core/value-objects/ip-address';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { InMemorySessionsRepository } from '@/repositories/core/in-memory/in-memory-sessions-repository';
 import { InMemoryTenantUsersRepository } from '@/repositories/core/in-memory/in-memory-tenant-users-repository';
 import { InMemoryTenantsRepository } from '@/repositories/core/in-memory/in-memory-tenants-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -8,6 +10,7 @@ import { SelectTenantUseCase } from './select-tenant';
 
 let tenantsRepository: InMemoryTenantsRepository;
 let tenantUsersRepository: InMemoryTenantUsersRepository;
+let sessionsRepository: InMemorySessionsRepository;
 let sut: SelectTenantUseCase;
 
 import type { FastifyReply } from 'fastify';
@@ -20,7 +23,12 @@ describe('SelectTenantUseCase', () => {
   beforeEach(() => {
     tenantsRepository = new InMemoryTenantsRepository();
     tenantUsersRepository = new InMemoryTenantUsersRepository();
-    sut = new SelectTenantUseCase(tenantsRepository, tenantUsersRepository);
+    sessionsRepository = new InMemorySessionsRepository();
+    sut = new SelectTenantUseCase(
+      tenantsRepository,
+      tenantUsersRepository,
+      sessionsRepository,
+    );
   });
 
   it('should select a tenant and return a token', async () => {
@@ -34,10 +42,14 @@ describe('SelectTenantUseCase', () => {
       userId,
       role: 'member',
     });
+    const session = await sessionsRepository.create({
+      userId,
+      ip: IpAddress.create('127.0.0.1'),
+    });
     const { token, tenant: sel } = await sut.execute({
       userId: userId.toString(),
       tenantId: tenant.tenantId.toString(),
-      sessionId: 's1',
+      sessionId: session.id.toString(),
       isSuperAdmin: false,
       reply: mockReply,
     });
