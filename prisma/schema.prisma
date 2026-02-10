@@ -108,6 +108,32 @@ enum FinanceAttachmentType {
   OTHER
 }
 
+enum LoanType {
+  PERSONAL
+  BUSINESS
+  WORKING_CAPITAL
+  EQUIPMENT
+  REAL_ESTATE
+  CREDIT_LINE
+  OTHER
+}
+
+enum LoanStatus {
+  ACTIVE
+  PAID_OFF
+  DEFAULTED
+  RENEGOTIATED
+  CANCELLED
+}
+
+enum ConsortiumStatus {
+  ACTIVE
+  CONTEMPLATED
+  WITHDRAWN
+  COMPLETED
+  CANCELLED
+}
+
 // --- Entidades ---
 
 model User {
@@ -3391,6 +3417,8 @@ model Tenant {
   financeCategories FinanceCategory[]
   financeEntries     FinanceEntry[]
   financeAttachments FinanceAttachment[]
+  loans              Loan[]
+  consortia          Consortium[]
 
   @@index([status])
   @@index([deletedAt])
@@ -3537,6 +3565,8 @@ model CostCenter {
   children CostCenter[] @relation("CostCenterHierarchy")
 
   financeEntries FinanceEntry[]
+  loans          Loan[]
+  consortia      Consortium[]
 
   @@unique([code, tenantId, deletedAt], name: "cost_centers_code_tenant_unique_active")
   @@index([tenantId])
@@ -3578,8 +3608,12 @@ model BankAccount {
   tenant  Tenant  @relation(fields: [tenantId], references: [id])
   company Company @relation(fields: [companyId], references: [id])
 
-  financeEntries  FinanceEntry[]
-  financePayments FinanceEntryPayment[]
+  financeEntries     FinanceEntry[]
+  financePayments    FinanceEntryPayment[]
+  loans              Loan[]
+  loanInstallments   LoanInstallment[]
+  consortia          Consortium[]
+  consortiumPayments ConsortiumPayment[]
 
   @@unique([tenantId, bankCode, agency, accountNumber, deletedAt], name: "bank_accounts_unique_active")
   @@index([tenantId])
@@ -3749,4 +3783,159 @@ model FinanceAttachment {
   @@index([tenantId])
   @@index([entryId])
   @@map("finance_attachments")
+}
+
+// ============================================================================
+// LOANS - Emprestimos e Financiamentos
+// ============================================================================
+
+model Loan {
+  id String @id @default(uuid())
+
+  tenantId      String @map("tenant_id")
+  bankAccountId String @map("bank_account_id")
+  costCenterId  String @map("cost_center_id")
+
+  name           String     @db.VarChar(128)
+  type           LoanType
+  contractNumber String?    @map("contract_number") @db.VarChar(64)
+  status         LoanStatus @default(ACTIVE)
+
+  principalAmount    Decimal @map("principal_amount") @db.Decimal(15, 2)
+  outstandingBalance Decimal @map("outstanding_balance") @db.Decimal(15, 2)
+  interestRate       Decimal @map("interest_rate") @db.Decimal(8, 4)
+  interestType       String? @map("interest_type") @db.VarChar(16)
+
+  startDate         DateTime  @map("start_date")
+  endDate           DateTime? @map("end_date")
+  totalInstallments Int       @map("total_installments")
+  paidInstallments  Int       @default(0) @map("paid_installments")
+  installmentDay    Int?      @map("installment_day")
+
+  notes    String? @db.Text
+  metadata Json    @default("{}")
+
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id])
+  bankAccount BankAccount @relation(fields: [bankAccountId], references: [id])
+  costCenter  CostCenter  @relation(fields: [costCenterId], references: [id])
+
+  installments LoanInstallment[]
+
+  @@index([tenantId])
+  @@index([bankAccountId])
+  @@index([costCenterId])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("loans")
+}
+
+model LoanInstallment {
+  id String @id @default(uuid())
+
+  loanId        String  @map("loan_id")
+  bankAccountId String? @map("bank_account_id")
+
+  installmentNumber Int       @map("installment_number")
+  dueDate           DateTime  @map("due_date")
+  principalAmount   Decimal   @map("principal_amount") @db.Decimal(15, 2)
+  interestAmount    Decimal   @map("interest_amount") @db.Decimal(15, 2)
+  totalAmount       Decimal   @map("total_amount") @db.Decimal(15, 2)
+  paidAmount        Decimal?  @map("paid_amount") @db.Decimal(15, 2)
+  paidAt            DateTime? @map("paid_at")
+  status            String    @default("PENDING") @db.VarChar(32)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  loan        Loan         @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  bankAccount BankAccount? @relation(fields: [bankAccountId], references: [id])
+
+  @@unique([loanId, installmentNumber])
+  @@index([loanId])
+  @@index([dueDate])
+  @@index([status])
+  @@map("loan_installments")
+}
+
+// ============================================================================
+// CONSORTIA - Consorcios
+// ============================================================================
+
+model Consortium {
+  id String @id @default(uuid())
+
+  tenantId      String @map("tenant_id")
+  bankAccountId String @map("bank_account_id")
+  costCenterId  String @map("cost_center_id")
+
+  name             String           @db.VarChar(128)
+  administrator    String           @db.VarChar(128)
+  groupNumber      String?          @map("group_number") @db.VarChar(32)
+  quotaNumber      String?          @map("quota_number") @db.VarChar(32)
+  contractNumber   String?          @map("contract_number") @db.VarChar(64)
+  status           ConsortiumStatus @default(ACTIVE)
+
+  creditValue       Decimal @map("credit_value") @db.Decimal(15, 2)
+  monthlyPayment    Decimal @map("monthly_payment") @db.Decimal(15, 2)
+  totalInstallments Int     @map("total_installments")
+  paidInstallments  Int     @default(0) @map("paid_installments")
+
+  isContemplated    Boolean   @default(false) @map("is_contemplated")
+  contemplatedAt    DateTime? @map("contemplated_at")
+  contemplationType String?   @map("contemplation_type") @db.VarChar(16)
+
+  startDate  DateTime  @map("start_date")
+  endDate    DateTime? @map("end_date")
+  paymentDay Int?      @map("payment_day")
+
+  notes    String? @db.Text
+  metadata Json    @default("{}")
+
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id])
+  bankAccount BankAccount @relation(fields: [bankAccountId], references: [id])
+  costCenter  CostCenter  @relation(fields: [costCenterId], references: [id])
+
+  payments ConsortiumPayment[]
+
+  @@index([tenantId])
+  @@index([bankAccountId])
+  @@index([costCenterId])
+  @@index([status])
+  @@index([isContemplated])
+  @@index([deletedAt])
+  @@map("consortia")
+}
+
+model ConsortiumPayment {
+  id String @id @default(uuid())
+
+  consortiumId  String  @map("consortium_id")
+  bankAccountId String? @map("bank_account_id")
+
+  installmentNumber Int       @map("installment_number")
+  dueDate           DateTime  @map("due_date")
+  expectedAmount    Decimal   @map("expected_amount") @db.Decimal(15, 2)
+  paidAmount        Decimal?  @map("paid_amount") @db.Decimal(15, 2)
+  paidAt            DateTime? @map("paid_at")
+  status            String    @default("PENDING") @db.VarChar(32)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  consortium  Consortium   @relation(fields: [consortiumId], references: [id], onDelete: Cascade)
+  bankAccount BankAccount? @relation(fields: [bankAccountId], references: [id])
+
+  @@unique([consortiumId, installmentNumber])
+  @@index([consortiumId])
+  @@index([dueDate])
+  @@index([status])
+  @@map("consortium_payments")
 }

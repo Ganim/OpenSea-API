@@ -134,7 +134,11 @@ export const ModelName = {
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
   FinanceEntryPayment: 'FinanceEntryPayment',
-  FinanceAttachment: 'FinanceAttachment'
+  FinanceAttachment: 'FinanceAttachment',
+  Loan: 'Loan',
+  LoanInstallment: 'LoanInstallment',
+  Consortium: 'Consortium',
+  ConsortiumPayment: 'ConsortiumPayment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1825,6 +1829,101 @@ export const FinanceAttachmentScalarFieldEnum = {
 } as const
 
 export type FinanceAttachmentScalarFieldEnum = (typeof FinanceAttachmentScalarFieldEnum)[keyof typeof FinanceAttachmentScalarFieldEnum]
+
+
+export const LoanScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bankAccountId: 'bankAccountId',
+  costCenterId: 'costCenterId',
+  name: 'name',
+  type: 'type',
+  contractNumber: 'contractNumber',
+  status: 'status',
+  principalAmount: 'principalAmount',
+  outstandingBalance: 'outstandingBalance',
+  interestRate: 'interestRate',
+  interestType: 'interestType',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  totalInstallments: 'totalInstallments',
+  paidInstallments: 'paidInstallments',
+  installmentDay: 'installmentDay',
+  notes: 'notes',
+  metadata: 'metadata',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoanScalarFieldEnum = (typeof LoanScalarFieldEnum)[keyof typeof LoanScalarFieldEnum]
+
+
+export const LoanInstallmentScalarFieldEnum = {
+  id: 'id',
+  loanId: 'loanId',
+  bankAccountId: 'bankAccountId',
+  installmentNumber: 'installmentNumber',
+  dueDate: 'dueDate',
+  principalAmount: 'principalAmount',
+  interestAmount: 'interestAmount',
+  totalAmount: 'totalAmount',
+  paidAmount: 'paidAmount',
+  paidAt: 'paidAt',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoanInstallmentScalarFieldEnum = (typeof LoanInstallmentScalarFieldEnum)[keyof typeof LoanInstallmentScalarFieldEnum]
+
+
+export const ConsortiumScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bankAccountId: 'bankAccountId',
+  costCenterId: 'costCenterId',
+  name: 'name',
+  administrator: 'administrator',
+  groupNumber: 'groupNumber',
+  quotaNumber: 'quotaNumber',
+  contractNumber: 'contractNumber',
+  status: 'status',
+  creditValue: 'creditValue',
+  monthlyPayment: 'monthlyPayment',
+  totalInstallments: 'totalInstallments',
+  paidInstallments: 'paidInstallments',
+  isContemplated: 'isContemplated',
+  contemplatedAt: 'contemplatedAt',
+  contemplationType: 'contemplationType',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  paymentDay: 'paymentDay',
+  notes: 'notes',
+  metadata: 'metadata',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConsortiumScalarFieldEnum = (typeof ConsortiumScalarFieldEnum)[keyof typeof ConsortiumScalarFieldEnum]
+
+
+export const ConsortiumPaymentScalarFieldEnum = {
+  id: 'id',
+  consortiumId: 'consortiumId',
+  bankAccountId: 'bankAccountId',
+  installmentNumber: 'installmentNumber',
+  dueDate: 'dueDate',
+  expectedAmount: 'expectedAmount',
+  paidAmount: 'paidAmount',
+  paidAt: 'paidAt',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConsortiumPaymentScalarFieldEnum = (typeof ConsortiumPaymentScalarFieldEnum)[keyof typeof ConsortiumPaymentScalarFieldEnum]
 
 
 export const SortOrder = {

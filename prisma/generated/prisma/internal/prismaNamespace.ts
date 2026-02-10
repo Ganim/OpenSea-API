@@ -467,7 +467,11 @@ export const ModelName = {
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
   FinanceEntryPayment: 'FinanceEntryPayment',
-  FinanceAttachment: 'FinanceAttachment'
+  FinanceAttachment: 'FinanceAttachment',
+  Loan: 'Loan',
+  LoanInstallment: 'LoanInstallment',
+  Consortium: 'Consortium',
+  ConsortiumPayment: 'ConsortiumPayment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -483,7 +487,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeAttachment"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6703,6 +6707,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Loan: {
+      payload: Prisma.$LoanPayload<ExtArgs>
+      fields: Prisma.LoanFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LoanFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LoanFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload>
+        }
+        findFirst: {
+          args: Prisma.LoanFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LoanFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload>
+        }
+        findMany: {
+          args: Prisma.LoanFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload>[]
+        }
+        create: {
+          args: Prisma.LoanCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload>
+        }
+        createMany: {
+          args: Prisma.LoanCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LoanCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload>[]
+        }
+        delete: {
+          args: Prisma.LoanDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload>
+        }
+        update: {
+          args: Prisma.LoanUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload>
+        }
+        deleteMany: {
+          args: Prisma.LoanDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LoanUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LoanUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload>[]
+        }
+        upsert: {
+          args: Prisma.LoanUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanPayload>
+        }
+        aggregate: {
+          args: Prisma.LoanAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLoan>
+        }
+        groupBy: {
+          args: Prisma.LoanGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LoanGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LoanCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LoanCountAggregateOutputType> | number
+        }
+      }
+    }
+    LoanInstallment: {
+      payload: Prisma.$LoanInstallmentPayload<ExtArgs>
+      fields: Prisma.LoanInstallmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LoanInstallmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LoanInstallmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload>
+        }
+        findFirst: {
+          args: Prisma.LoanInstallmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LoanInstallmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload>
+        }
+        findMany: {
+          args: Prisma.LoanInstallmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload>[]
+        }
+        create: {
+          args: Prisma.LoanInstallmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload>
+        }
+        createMany: {
+          args: Prisma.LoanInstallmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LoanInstallmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload>[]
+        }
+        delete: {
+          args: Prisma.LoanInstallmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload>
+        }
+        update: {
+          args: Prisma.LoanInstallmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.LoanInstallmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LoanInstallmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LoanInstallmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.LoanInstallmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoanInstallmentPayload>
+        }
+        aggregate: {
+          args: Prisma.LoanInstallmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLoanInstallment>
+        }
+        groupBy: {
+          args: Prisma.LoanInstallmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LoanInstallmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LoanInstallmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LoanInstallmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    Consortium: {
+      payload: Prisma.$ConsortiumPayload<ExtArgs>
+      fields: Prisma.ConsortiumFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ConsortiumFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ConsortiumFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload>
+        }
+        findFirst: {
+          args: Prisma.ConsortiumFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ConsortiumFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload>
+        }
+        findMany: {
+          args: Prisma.ConsortiumFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload>[]
+        }
+        create: {
+          args: Prisma.ConsortiumCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload>
+        }
+        createMany: {
+          args: Prisma.ConsortiumCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ConsortiumCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload>[]
+        }
+        delete: {
+          args: Prisma.ConsortiumDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload>
+        }
+        update: {
+          args: Prisma.ConsortiumUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload>
+        }
+        deleteMany: {
+          args: Prisma.ConsortiumDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ConsortiumUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ConsortiumUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload>[]
+        }
+        upsert: {
+          args: Prisma.ConsortiumUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPayload>
+        }
+        aggregate: {
+          args: Prisma.ConsortiumAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConsortium>
+        }
+        groupBy: {
+          args: Prisma.ConsortiumGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConsortiumGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ConsortiumCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConsortiumCountAggregateOutputType> | number
+        }
+      }
+    }
+    ConsortiumPayment: {
+      payload: Prisma.$ConsortiumPaymentPayload<ExtArgs>
+      fields: Prisma.ConsortiumPaymentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ConsortiumPaymentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ConsortiumPaymentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload>
+        }
+        findFirst: {
+          args: Prisma.ConsortiumPaymentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ConsortiumPaymentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload>
+        }
+        findMany: {
+          args: Prisma.ConsortiumPaymentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload>[]
+        }
+        create: {
+          args: Prisma.ConsortiumPaymentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload>
+        }
+        createMany: {
+          args: Prisma.ConsortiumPaymentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ConsortiumPaymentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload>[]
+        }
+        delete: {
+          args: Prisma.ConsortiumPaymentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload>
+        }
+        update: {
+          args: Prisma.ConsortiumPaymentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload>
+        }
+        deleteMany: {
+          args: Prisma.ConsortiumPaymentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ConsortiumPaymentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ConsortiumPaymentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload>[]
+        }
+        upsert: {
+          args: Prisma.ConsortiumPaymentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsortiumPaymentPayload>
+        }
+        aggregate: {
+          args: Prisma.ConsortiumPaymentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConsortiumPayment>
+        }
+        groupBy: {
+          args: Prisma.ConsortiumPaymentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConsortiumPaymentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ConsortiumPaymentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConsortiumPaymentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -8416,6 +8716,101 @@ export const FinanceAttachmentScalarFieldEnum = {
 export type FinanceAttachmentScalarFieldEnum = (typeof FinanceAttachmentScalarFieldEnum)[keyof typeof FinanceAttachmentScalarFieldEnum]
 
 
+export const LoanScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bankAccountId: 'bankAccountId',
+  costCenterId: 'costCenterId',
+  name: 'name',
+  type: 'type',
+  contractNumber: 'contractNumber',
+  status: 'status',
+  principalAmount: 'principalAmount',
+  outstandingBalance: 'outstandingBalance',
+  interestRate: 'interestRate',
+  interestType: 'interestType',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  totalInstallments: 'totalInstallments',
+  paidInstallments: 'paidInstallments',
+  installmentDay: 'installmentDay',
+  notes: 'notes',
+  metadata: 'metadata',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoanScalarFieldEnum = (typeof LoanScalarFieldEnum)[keyof typeof LoanScalarFieldEnum]
+
+
+export const LoanInstallmentScalarFieldEnum = {
+  id: 'id',
+  loanId: 'loanId',
+  bankAccountId: 'bankAccountId',
+  installmentNumber: 'installmentNumber',
+  dueDate: 'dueDate',
+  principalAmount: 'principalAmount',
+  interestAmount: 'interestAmount',
+  totalAmount: 'totalAmount',
+  paidAmount: 'paidAmount',
+  paidAt: 'paidAt',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoanInstallmentScalarFieldEnum = (typeof LoanInstallmentScalarFieldEnum)[keyof typeof LoanInstallmentScalarFieldEnum]
+
+
+export const ConsortiumScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bankAccountId: 'bankAccountId',
+  costCenterId: 'costCenterId',
+  name: 'name',
+  administrator: 'administrator',
+  groupNumber: 'groupNumber',
+  quotaNumber: 'quotaNumber',
+  contractNumber: 'contractNumber',
+  status: 'status',
+  creditValue: 'creditValue',
+  monthlyPayment: 'monthlyPayment',
+  totalInstallments: 'totalInstallments',
+  paidInstallments: 'paidInstallments',
+  isContemplated: 'isContemplated',
+  contemplatedAt: 'contemplatedAt',
+  contemplationType: 'contemplationType',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  paymentDay: 'paymentDay',
+  notes: 'notes',
+  metadata: 'metadata',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConsortiumScalarFieldEnum = (typeof ConsortiumScalarFieldEnum)[keyof typeof ConsortiumScalarFieldEnum]
+
+
+export const ConsortiumPaymentScalarFieldEnum = {
+  id: 'id',
+  consortiumId: 'consortiumId',
+  bankAccountId: 'bankAccountId',
+  installmentNumber: 'installmentNumber',
+  dueDate: 'dueDate',
+  expectedAmount: 'expectedAmount',
+  paidAmount: 'paidAmount',
+  paidAt: 'paidAt',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConsortiumPaymentScalarFieldEnum = (typeof ConsortiumPaymentScalarFieldEnum)[keyof typeof ConsortiumPaymentScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -9274,6 +9669,48 @@ export type EnumFinanceAttachmentTypeFieldRefInput<$PrismaModel> = FieldRefInput
 export type ListEnumFinanceAttachmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceAttachmentType[]'>
     
 
+
+/**
+ * Reference to a field of type 'LoanType'
+ */
+export type EnumLoanTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LoanType'>
+    
+
+
+/**
+ * Reference to a field of type 'LoanType[]'
+ */
+export type ListEnumLoanTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LoanType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LoanStatus'
+ */
+export type EnumLoanStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LoanStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LoanStatus[]'
+ */
+export type ListEnumLoanStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LoanStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ConsortiumStatus'
+ */
+export type EnumConsortiumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsortiumStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ConsortiumStatus[]'
+ */
+export type ListEnumConsortiumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsortiumStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -9453,6 +9890,10 @@ export type GlobalOmitConfig = {
   financeEntry?: Prisma.FinanceEntryOmit
   financeEntryPayment?: Prisma.FinanceEntryPaymentOmit
   financeAttachment?: Prisma.FinanceAttachmentOmit
+  loan?: Prisma.LoanOmit
+  loanInstallment?: Prisma.LoanInstallmentOmit
+  consortium?: Prisma.ConsortiumOmit
+  consortiumPayment?: Prisma.ConsortiumPaymentOmit
 }
 
 /* Types for Logging */

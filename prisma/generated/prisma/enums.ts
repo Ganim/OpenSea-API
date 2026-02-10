@@ -134,6 +134,41 @@ export const FinanceAttachmentType = {
 export type FinanceAttachmentType = (typeof FinanceAttachmentType)[keyof typeof FinanceAttachmentType]
 
 
+export const LoanType = {
+  PERSONAL: 'PERSONAL',
+  BUSINESS: 'BUSINESS',
+  WORKING_CAPITAL: 'WORKING_CAPITAL',
+  EQUIPMENT: 'EQUIPMENT',
+  REAL_ESTATE: 'REAL_ESTATE',
+  CREDIT_LINE: 'CREDIT_LINE',
+  OTHER: 'OTHER'
+} as const
+
+export type LoanType = (typeof LoanType)[keyof typeof LoanType]
+
+
+export const LoanStatus = {
+  ACTIVE: 'ACTIVE',
+  PAID_OFF: 'PAID_OFF',
+  DEFAULTED: 'DEFAULTED',
+  RENEGOTIATED: 'RENEGOTIATED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type LoanStatus = (typeof LoanStatus)[keyof typeof LoanStatus]
+
+
+export const ConsortiumStatus = {
+  ACTIVE: 'ACTIVE',
+  CONTEMPLATED: 'CONTEMPLATED',
+  WITHDRAWN: 'WITHDRAWN',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ConsortiumStatus = (typeof ConsortiumStatus)[keyof typeof ConsortiumStatus]
+
+
 export const UnitOfMeasure = {
   METERS: 'METERS',
   KILOGRAMS: 'KILOGRAMS',

@@ -437,3 +437,23 @@ export type FinanceEntryPayment = Prisma.FinanceEntryPaymentModel
  * 
  */
 export type FinanceAttachment = Prisma.FinanceAttachmentModel
+/**
+ * Model Loan
+ * 
+ */
+export type Loan = Prisma.LoanModel
+/**
+ * Model LoanInstallment
+ * 
+ */
+export type LoanInstallment = Prisma.LoanInstallmentModel
+/**
+ * Model Consortium
+ * 
+ */
+export type Consortium = Prisma.ConsortiumModel
+/**
+ * Model ConsortiumPayment
+ * 
+ */
+export type ConsortiumPayment = Prisma.ConsortiumPaymentModel

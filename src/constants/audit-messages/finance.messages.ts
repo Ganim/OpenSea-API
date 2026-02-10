@@ -135,4 +135,75 @@ export const FINANCE_AUDIT_MESSAGES = {
     module: AuditModule.FINANCE,
     description: '{{userName}} removeu o anexo {{fileName}} do lançamento {{entryCode}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // LOANS - Emprestimos e Financiamentos
+  // ============================================================================
+
+  LOAN_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.LOAN,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} criou o emprestimo {{loanName}}',
+  } satisfies AuditMessage,
+
+  LOAN_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.LOAN,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} atualizou o emprestimo {{loanName}}',
+  } satisfies AuditMessage,
+
+  LOAN_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.LOAN,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} excluiu o emprestimo {{loanName}}',
+  } satisfies AuditMessage,
+
+  LOAN_PAYMENT: {
+    action: AuditAction.PAYMENT_REGISTER,
+    entity: AuditEntity.LOAN_INSTALLMENT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} registrou pagamento de R$ {{amount}} no emprestimo {{loanName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // CONSORTIA - Consorcios
+  // ============================================================================
+
+  CONSORTIUM_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CONSORTIUM,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} criou o consorcio {{consortiumName}}',
+  } satisfies AuditMessage,
+
+  CONSORTIUM_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CONSORTIUM,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} atualizou o consorcio {{consortiumName}}',
+  } satisfies AuditMessage,
+
+  CONSORTIUM_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CONSORTIUM,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} excluiu o consorcio {{consortiumName}}',
+  } satisfies AuditMessage,
+
+  CONSORTIUM_PAYMENT: {
+    action: AuditAction.PAYMENT_REGISTER,
+    entity: AuditEntity.CONSORTIUM_PAYMENT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} registrou pagamento de R$ {{amount}} no consorcio {{consortiumName}}',
+  } satisfies AuditMessage,
+
+  CONSORTIUM_CONTEMPLATION: {
+    action: AuditAction.CONTEMPLATION,
+    entity: AuditEntity.CONSORTIUM,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} marcou o consorcio {{consortiumName}} como contemplado ({{contemplationType}})',
+  } satisfies AuditMessage,
 } as const;

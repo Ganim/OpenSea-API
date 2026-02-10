@@ -5,3 +5,5 @@ export * from './finance-entry.schema';
 export * from './finance-entry-payment.schema';
 export * from './finance-attachment.schema';
 export * from './finance-dashboard.schema';
+export * from './loan.schema';
+export * from './consortium.schema';
