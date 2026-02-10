@@ -9,6 +9,7 @@ import { registerPaymentController } from './v1-register-payment.controller';
 import { cancelFinanceEntryController } from './v1-cancel-finance-entry.controller';
 import { parseBoletoController } from './v1-parse-boleto.controller';
 import { checkOverdueController } from './v1-check-overdue.controller';
+import { importPayrollController } from './v1-import-payroll.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(getFinanceEntryByIdController);
@@ -20,4 +21,5 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(cancelFinanceEntryController);
   app.register(parseBoletoController);
   app.register(checkOverdueController);
+  app.register(importPayrollController);
 }
