@@ -7,3 +7,4 @@ export * from './finance-attachment.schema';
 export * from './finance-dashboard.schema';
 export * from './loan.schema';
 export * from './consortium.schema';
+export * from './export.schema';
