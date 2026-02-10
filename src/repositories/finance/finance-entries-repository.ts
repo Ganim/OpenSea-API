@@ -76,6 +76,7 @@ export interface FindManyFinanceEntriesOptions {
   customerName?: string;
   supplierName?: string;
   overdueRange?: string; // '1-7' | '8-30' | '31-60' | '60+'
+  parentEntryId?: string;
   search?: string;
 }
 

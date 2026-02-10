@@ -176,6 +176,10 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
       };
     }
 
+    if (options.parentEntryId) {
+      where.parentEntryId = options.parentEntryId;
+    }
+
     if (options.search) {
       where.OR = [
         { code: { contains: options.search, mode: 'insensitive' } },

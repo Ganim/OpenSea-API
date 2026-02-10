@@ -182,4 +182,145 @@ describe('CreateFinanceEntryUseCase', () => {
       }),
     ).rejects.toThrow(BadRequestError);
   });
+
+  // --- INSTALLMENT TESTS ---
+
+  it('should create master + 3 installment entries', async () => {
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      description: 'Financiamento',
+      categoryId: seededCategoryId,
+      costCenterId: seededCostCenterId,
+      expectedAmount: 3000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+      recurrenceType: 'INSTALLMENT',
+      recurrenceInterval: 1,
+      recurrenceUnit: 'MONTHLY',
+      totalInstallments: 3,
+    });
+
+    // Master entry
+    expect(result.entry.recurrenceType).toBe('INSTALLMENT');
+    expect(result.entry.expectedAmount).toBe(3000);
+
+    // 3 child installments
+    expect(result.installments).toHaveLength(3);
+    expect(result.installments![0].expectedAmount).toBe(1000);
+    expect(result.installments![0].currentInstallment).toBe(1);
+    expect(result.installments![0].description).toBe('Financiamento (1/3)');
+    expect(result.installments![0].parentEntryId).toBe(result.entry.id);
+
+    expect(result.installments![2].currentInstallment).toBe(3);
+    expect(result.installments![2].description).toBe('Financiamento (3/3)');
+
+    // Total: 1 master + 3 installments = 4 in the repo
+    expect(entriesRepository.items).toHaveLength(4);
+  });
+
+  it('should calculate installment due dates correctly', async () => {
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      description: 'Parcela',
+      categoryId: seededCategoryId,
+      costCenterId: seededCostCenterId,
+      expectedAmount: 6000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-15'),
+      recurrenceType: 'INSTALLMENT',
+      recurrenceInterval: 1,
+      recurrenceUnit: 'MONTHLY',
+      totalInstallments: 3,
+    });
+
+    expect(result.installments![0].dueDate).toEqual(new Date('2026-02-15'));
+    expect(result.installments![1].dueDate).toEqual(new Date('2026-03-15'));
+    expect(result.installments![2].dueDate).toEqual(new Date('2026-04-15'));
+  });
+
+  it('should reject installment with less than 2 installments', async () => {
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        type: 'PAYABLE',
+        description: 'Parcela invalida',
+        categoryId: seededCategoryId,
+        costCenterId: seededCostCenterId,
+        expectedAmount: 1000,
+        issueDate: new Date('2026-01-01'),
+        dueDate: new Date('2026-02-01'),
+        recurrenceType: 'INSTALLMENT',
+        recurrenceInterval: 1,
+        recurrenceUnit: 'MONTHLY',
+        totalInstallments: 1,
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
+
+  it('should reject installment without recurrence interval', async () => {
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        type: 'PAYABLE',
+        description: 'Parcela invalida',
+        categoryId: seededCategoryId,
+        costCenterId: seededCostCenterId,
+        expectedAmount: 1000,
+        issueDate: new Date('2026-01-01'),
+        dueDate: new Date('2026-02-01'),
+        recurrenceType: 'INSTALLMENT',
+        totalInstallments: 3,
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
+
+  // --- RECURRING TESTS ---
+
+  it('should create master + first occurrence for recurring entry', async () => {
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      description: 'Aluguel mensal',
+      categoryId: seededCategoryId,
+      costCenterId: seededCostCenterId,
+      expectedAmount: 5000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+      recurrenceType: 'RECURRING',
+      recurrenceInterval: 1,
+      recurrenceUnit: 'MONTHLY',
+    });
+
+    // Master entry
+    expect(result.entry.recurrenceType).toBe('RECURRING');
+    expect(result.entry.expectedAmount).toBe(5000);
+
+    // First occurrence
+    expect(result.installments).toHaveLength(1);
+    expect(result.installments![0].description).toBe('Aluguel mensal (1)');
+    expect(result.installments![0].parentEntryId).toBe(result.entry.id);
+    expect(result.installments![0].currentInstallment).toBe(1);
+    expect(result.installments![0].expectedAmount).toBe(5000);
+
+    // Total: 1 master + 1 occurrence = 2 in the repo
+    expect(entriesRepository.items).toHaveLength(2);
+  });
+
+  it('should reject recurring without recurrence interval', async () => {
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        type: 'PAYABLE',
+        description: 'Aluguel',
+        categoryId: seededCategoryId,
+        costCenterId: seededCostCenterId,
+        expectedAmount: 5000,
+        issueDate: new Date('2026-01-01'),
+        dueDate: new Date('2026-02-01'),
+        recurrenceType: 'RECURRING',
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
 });

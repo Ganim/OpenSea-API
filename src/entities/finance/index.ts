@@ -8,3 +8,5 @@ export { FinanceEntry } from './finance-entry';
 export type { FinanceEntryProps } from './finance-entry';
 export { FinanceEntryPayment } from './finance-entry-payment';
 export type { FinanceEntryPaymentProps } from './finance-entry-payment';
+export { BoletoBarcode } from './value-objects/boleto-barcode';
+export type { BoletoParseResult } from './value-objects/boleto-barcode';

@@ -91,6 +91,19 @@ export const financeEntryResponseSchema = z.object({
   deletedAt: z.coerce.date().optional().nullable(),
 });
 
+export const parseBoletoSchema = z.object({
+  barcode: z.string().min(44).max(54),
+});
+
+export const parseBoletoResponseSchema = z.object({
+  bankCode: z.string(),
+  bankName: z.string(),
+  amount: z.number(),
+  dueDate: z.coerce.date(),
+  barcode: z.string(),
+  digitLine: z.string(),
+});
+
 export const listFinanceEntriesQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),

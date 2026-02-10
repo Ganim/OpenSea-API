@@ -121,6 +121,8 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
         }
       }
 
+      if (options.parentEntryId && i.parentEntryId?.toString() !== options.parentEntryId) return false;
+
       if (options.search) {
         const term = options.search.toLowerCase();
         const matchesDescription = i.description.toLowerCase().includes(term);

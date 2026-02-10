@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { FinanceEntry } from '@/entities/finance/finance-entry';
 import {
   type FinanceEntryDTO,
   financeEntryToDTO,
@@ -27,6 +28,7 @@ interface RegisterPaymentUseCaseRequest {
 interface RegisterPaymentUseCaseResponse {
   entry: FinanceEntryDTO;
   payment: FinanceEntryPaymentDTO;
+  nextOccurrence?: FinanceEntryDTO;
 }
 
 export class RegisterPaymentUseCase {
@@ -81,7 +83,9 @@ export class RegisterPaymentUseCase {
       createdBy: request.createdBy,
     });
 
-    if (newTotal === entry.totalDue) {
+    const isFullyPaid = newTotal === entry.totalDue;
+
+    if (isFullyPaid) {
       // Fully paid
       const fullyPaidStatus = entry.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
       await this.financeEntriesRepository.update({
@@ -105,9 +109,123 @@ export class RegisterPaymentUseCase {
       tenantId,
     );
 
+    let nextOccurrence: FinanceEntryDTO | undefined;
+
+    // RECURRING: auto-generate next occurrence when fully paid
+    if (isFullyPaid && entry.recurrenceType === 'RECURRING' && entry.parentEntryId) {
+      nextOccurrence = await this.generateNextRecurringOccurrence(entry, tenantId, paidAt);
+    }
+
+    // INSTALLMENT: check if all siblings are paid, then mark master as PAID
+    if (isFullyPaid && entry.recurrenceType === 'INSTALLMENT' && entry.parentEntryId) {
+      await this.checkAndMarkMasterAsPaid(entry, tenantId);
+    }
+
     return {
       entry: financeEntryToDTO(updatedEntry!),
       payment: financeEntryPaymentToDTO(payment),
+      nextOccurrence,
     };
+  }
+
+  private async generateNextRecurringOccurrence(
+    entry: FinanceEntry,
+    tenantId: string,
+    lastPaidAt: Date,
+  ): Promise<FinanceEntryDTO> {
+    const nextInstallment = (entry.currentInstallment ?? 1) + 1;
+
+    const nextDueDate = this.calculateNextDate(
+      entry.dueDate,
+      entry.recurrenceInterval ?? 1,
+      entry.recurrenceUnit ?? 'MONTHLY',
+      1,
+    );
+
+    const nextCode = await this.financeEntriesRepository.generateNextCode(tenantId, entry.type);
+
+    const nextEntry = await this.financeEntriesRepository.create({
+      tenantId,
+      type: entry.type,
+      code: nextCode,
+      description: `${entry.description.replace(/\s*\(\d+\)$/, '')} (${nextInstallment})`,
+      notes: entry.notes,
+      categoryId: entry.categoryId.toString(),
+      costCenterId: entry.costCenterId.toString(),
+      bankAccountId: entry.bankAccountId?.toString(),
+      supplierName: entry.supplierName,
+      customerName: entry.customerName,
+      supplierId: entry.supplierId,
+      customerId: entry.customerId,
+      salesOrderId: entry.salesOrderId,
+      expectedAmount: entry.expectedAmount,
+      issueDate: lastPaidAt,
+      dueDate: nextDueDate,
+      competenceDate: entry.competenceDate,
+      recurrenceType: 'RECURRING',
+      recurrenceInterval: entry.recurrenceInterval,
+      recurrenceUnit: entry.recurrenceUnit,
+      currentInstallment: nextInstallment,
+      parentEntryId: entry.parentEntryId!.toString(),
+      tags: [...entry.tags],
+      createdBy: entry.createdBy,
+    });
+
+    return financeEntryToDTO(nextEntry);
+  }
+
+  private async checkAndMarkMasterAsPaid(
+    entry: FinanceEntry,
+    tenantId: string,
+  ): Promise<void> {
+    const parentId = entry.parentEntryId!.toString();
+
+    const { entries: siblings } = await this.financeEntriesRepository.findMany({
+      tenantId,
+      parentEntryId: parentId,
+      limit: 1000,
+    });
+
+    const allPaid = siblings.every((s) =>
+      s.status === 'PAID' || s.status === 'RECEIVED',
+    );
+
+    if (allPaid) {
+      const masterStatus = entry.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
+      await this.financeEntriesRepository.update({
+        id: new UniqueEntityID(parentId),
+        status: masterStatus,
+      });
+    }
+  }
+
+  private calculateNextDate(
+    baseDate: Date,
+    interval: number,
+    unit: string,
+    multiplier: number,
+  ): Date {
+    const date = new Date(baseDate);
+    const totalInterval = interval * multiplier;
+
+    switch (unit) {
+      case 'DAILY':
+        date.setUTCDate(date.getUTCDate() + totalInterval);
+        break;
+      case 'WEEKLY':
+        date.setUTCDate(date.getUTCDate() + totalInterval * 7);
+        break;
+      case 'MONTHLY':
+        date.setUTCMonth(date.getUTCMonth() + totalInterval);
+        break;
+      case 'QUARTERLY':
+        date.setUTCMonth(date.getUTCMonth() + totalInterval * 3);
+        break;
+      case 'ANNUAL':
+        date.setUTCFullYear(date.getUTCFullYear() + totalInterval);
+        break;
+    }
+
+    return date;
   }
 }

@@ -7,6 +7,7 @@ import { getFinanceEntryByIdController } from './v1-get-finance-entry-by-id.cont
 import { listFinanceEntriesController } from './v1-list-finance-entries.controller';
 import { registerPaymentController } from './v1-register-payment.controller';
 import { cancelFinanceEntryController } from './v1-cancel-finance-entry.controller';
+import { parseBoletoController } from './v1-parse-boleto.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(getFinanceEntryByIdController);
@@ -16,4 +17,5 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(deleteFinanceEntryController);
   app.register(registerPaymentController);
   app.register(cancelFinanceEntryController);
+  app.register(parseBoletoController);
 }
