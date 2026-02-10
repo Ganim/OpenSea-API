@@ -306,6 +306,18 @@ const ALL_PERMISSIONS = {
     ],
     'time-control': ['create', 'read', 'update', 'delete', 'list', 'manage'],
   },
+  // FINANCE module
+  finance: {
+    'cost-centers': ['create', 'read', 'update', 'delete', 'list', 'manage'],
+    'bank-accounts': ['create', 'read', 'update', 'delete', 'list', 'manage'],
+    categories: ['create', 'read', 'update', 'delete', 'list', 'manage'],
+    entries: ['create', 'read', 'update', 'delete', 'list', 'pay', 'cancel', 'manage'],
+    attachments: ['create', 'read', 'delete', 'list'],
+    loans: ['create', 'read', 'update', 'delete', 'list', 'pay', 'manage'],
+    consortia: ['create', 'read', 'update', 'delete', 'list', 'pay', 'manage'],
+    dashboard: ['view'],
+    export: ['generate'],
+  },
   // AUDIT module
   audit: {
     logs: ['view', 'list'],
@@ -372,6 +384,7 @@ function generatePermissionName(
     'remove-item': 'Remover Item',
     romaneio: 'Romaneio',
     duplicate: 'Duplicar',
+    generate: 'Gerar',
   };
 
   const resourceNames: Record<string, string> = {
@@ -435,6 +448,13 @@ function generatePermissionName(
     notifications: 'Notificações',
     preferences: 'Preferências',
     volumes: 'Volumes',
+    'cost-centers': 'Centros de Custo',
+    'bank-accounts': 'Contas Bancárias',
+    entries: 'Lançamentos Financeiros',
+    loans: 'Empréstimos',
+    consortia: 'Consórcios',
+    dashboard: 'Dashboard Financeiro',
+    export: 'Exportação Contábil',
   };
 
   const actionName = actionNames[action] || action;
