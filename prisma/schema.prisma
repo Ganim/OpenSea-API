@@ -100,6 +100,14 @@ enum RecurrenceUnit {
   ANNUAL
 }
 
+enum FinanceAttachmentType {
+  BOLETO
+  PAYMENT_RECEIPT
+  CONTRACT
+  INVOICE
+  OTHER
+}
+
 // --- Entidades ---
 
 model User {
@@ -3381,7 +3389,8 @@ model Tenant {
   costCenters       CostCenter[]
   bankAccounts      BankAccount[]
   financeCategories FinanceCategory[]
-  financeEntries    FinanceEntry[]
+  financeEntries     FinanceEntry[]
+  financeAttachments FinanceAttachment[]
 
   @@index([status])
   @@index([deletedAt])
@@ -3674,7 +3683,8 @@ model FinanceEntry {
   parentEntry FinanceEntry?   @relation("EntryRecurrence", fields: [parentEntryId], references: [id])
   childEntries FinanceEntry[] @relation("EntryRecurrence")
 
-  payments FinanceEntryPayment[]
+  payments    FinanceEntryPayment[]
+  attachments FinanceAttachment[]
 
   @@unique([code, tenantId, deletedAt], name: "finance_entries_code_tenant_unique_active")
   @@index([tenantId])
@@ -3716,4 +3726,27 @@ model FinanceEntryPayment {
   @@index([bankAccountId])
   @@index([paidAt])
   @@map("finance_entry_payments")
+}
+
+model FinanceAttachment {
+  id String @id @default(uuid())
+
+  tenantId String                @map("tenant_id")
+  entryId  String                @map("entry_id")
+  type     FinanceAttachmentType @default(OTHER)
+
+  fileName String @map("file_name") @db.VarChar(256)
+  fileKey  String @map("file_key") @db.VarChar(512)
+  fileSize Int    @map("file_size")
+  mimeType String @map("mime_type") @db.VarChar(128)
+
+  uploadedBy String?  @map("uploaded_by")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  tenant Tenant       @relation(fields: [tenantId], references: [id])
+  entry  FinanceEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([entryId])
+  @@map("finance_attachments")
 }

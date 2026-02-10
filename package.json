@@ -47,10 +47,13 @@
   "license": "ISC",
   "description": "API completa para gestão de estoque e vendas com Clean Architecture, TypeScript e Fastify",
   "dependencies": {
+    "@aws-sdk/client-s3": "3.986.0",
+    "@aws-sdk/s3-request-presigner": "3.986.0",
     "@fastify/cookie": "11.0.2",
     "@fastify/cors": "11.1.0",
     "@fastify/helmet": "13.0.2",
     "@fastify/jwt": "9.1.0",
+    "@fastify/multipart": "9.4.0",
     "@fastify/rate-limit": "10.3.0",
     "@fastify/swagger": "9.5.1",
     "@fastify/swagger-ui": "5.2.3",

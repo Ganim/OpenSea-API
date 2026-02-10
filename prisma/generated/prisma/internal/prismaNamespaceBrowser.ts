@@ -133,7 +133,8 @@ export const ModelName = {
   BankAccount: 'BankAccount',
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
-  FinanceEntryPayment: 'FinanceEntryPayment'
+  FinanceEntryPayment: 'FinanceEntryPayment',
+  FinanceAttachment: 'FinanceAttachment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1808,6 +1809,22 @@ export const FinanceEntryPaymentScalarFieldEnum = {
 } as const
 
 export type FinanceEntryPaymentScalarFieldEnum = (typeof FinanceEntryPaymentScalarFieldEnum)[keyof typeof FinanceEntryPaymentScalarFieldEnum]
+
+
+export const FinanceAttachmentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  entryId: 'entryId',
+  type: 'type',
+  fileName: 'fileName',
+  fileKey: 'fileKey',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  uploadedBy: 'uploadedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type FinanceAttachmentScalarFieldEnum = (typeof FinanceAttachmentScalarFieldEnum)[keyof typeof FinanceAttachmentScalarFieldEnum]
 
 
 export const SortOrder = {

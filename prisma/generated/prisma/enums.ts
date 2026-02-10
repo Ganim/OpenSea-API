@@ -123,6 +123,17 @@ export const RecurrenceUnit = {
 export type RecurrenceUnit = (typeof RecurrenceUnit)[keyof typeof RecurrenceUnit]
 
 
+export const FinanceAttachmentType = {
+  BOLETO: 'BOLETO',
+  PAYMENT_RECEIPT: 'PAYMENT_RECEIPT',
+  CONTRACT: 'CONTRACT',
+  INVOICE: 'INVOICE',
+  OTHER: 'OTHER'
+} as const
+
+export type FinanceAttachmentType = (typeof FinanceAttachmentType)[keyof typeof FinanceAttachmentType]
+
+
 export const UnitOfMeasure = {
   METERS: 'METERS',
   KILOGRAMS: 'KILOGRAMS',

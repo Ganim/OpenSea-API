@@ -466,7 +466,8 @@ export const ModelName = {
   BankAccount: 'BankAccount',
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
-  FinanceEntryPayment: 'FinanceEntryPayment'
+  FinanceEntryPayment: 'FinanceEntryPayment',
+  FinanceAttachment: 'FinanceAttachment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -482,7 +483,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeAttachment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6628,6 +6629,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FinanceAttachment: {
+      payload: Prisma.$FinanceAttachmentPayload<ExtArgs>
+      fields: Prisma.FinanceAttachmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FinanceAttachmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FinanceAttachmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload>
+        }
+        findFirst: {
+          args: Prisma.FinanceAttachmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FinanceAttachmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload>
+        }
+        findMany: {
+          args: Prisma.FinanceAttachmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload>[]
+        }
+        create: {
+          args: Prisma.FinanceAttachmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload>
+        }
+        createMany: {
+          args: Prisma.FinanceAttachmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FinanceAttachmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload>[]
+        }
+        delete: {
+          args: Prisma.FinanceAttachmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload>
+        }
+        update: {
+          args: Prisma.FinanceAttachmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.FinanceAttachmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FinanceAttachmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FinanceAttachmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.FinanceAttachmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceAttachmentPayload>
+        }
+        aggregate: {
+          args: Prisma.FinanceAttachmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinanceAttachment>
+        }
+        groupBy: {
+          args: Prisma.FinanceAttachmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceAttachmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FinanceAttachmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceAttachmentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -8325,6 +8400,22 @@ export const FinanceEntryPaymentScalarFieldEnum = {
 export type FinanceEntryPaymentScalarFieldEnum = (typeof FinanceEntryPaymentScalarFieldEnum)[keyof typeof FinanceEntryPaymentScalarFieldEnum]
 
 
+export const FinanceAttachmentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  entryId: 'entryId',
+  type: 'type',
+  fileName: 'fileName',
+  fileKey: 'fileKey',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  uploadedBy: 'uploadedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type FinanceAttachmentScalarFieldEnum = (typeof FinanceAttachmentScalarFieldEnum)[keyof typeof FinanceAttachmentScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -9169,6 +9260,20 @@ export type EnumRecurrenceUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 export type ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecurrenceUnit[]'>
     
 
+
+/**
+ * Reference to a field of type 'FinanceAttachmentType'
+ */
+export type EnumFinanceAttachmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceAttachmentType'>
+    
+
+
+/**
+ * Reference to a field of type 'FinanceAttachmentType[]'
+ */
+export type ListEnumFinanceAttachmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceAttachmentType[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -9347,6 +9452,7 @@ export type GlobalOmitConfig = {
   financeCategory?: Prisma.FinanceCategoryOmit
   financeEntry?: Prisma.FinanceEntryOmit
   financeEntryPayment?: Prisma.FinanceEntryPaymentOmit
+  financeAttachment?: Prisma.FinanceAttachmentOmit
 }
 
 /* Types for Logging */

@@ -2,6 +2,7 @@ import fastifyCookie from '@fastify/cookie';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import fastifyJwt from '@fastify/jwt';
+import multipart from '@fastify/multipart';
 import rateLimit from '@fastify/rate-limit';
 import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
@@ -166,6 +167,13 @@ app.register(fastifyJwt, {
 });
 
 app.register(fastifyCookie);
+
+// Multipart (file uploads)
+app.register(multipart, {
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB
+  },
+});
 
 // Routes
 app.after(() => {

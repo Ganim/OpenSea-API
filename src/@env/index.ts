@@ -41,6 +41,13 @@ const envSchema = z.object({
 
   // Audit HMAC (opcional - deriva de JWT_SECRET se não definido)
   AUDIT_HMAC_SECRET: z.string().optional(),
+
+  // S3/R2 Storage (opcional - usa local storage se não configurado)
+  S3_ENDPOINT: z.string().optional(),
+  S3_ACCESS_KEY_ID: z.string().optional(),
+  S3_SECRET_ACCESS_KEY: z.string().optional(),
+  S3_BUCKET: z.string().default('opensea-attachments'),
+  S3_REGION: z.string().default('auto'),
 });
 
 const _env = envSchema.safeParse(process.env);

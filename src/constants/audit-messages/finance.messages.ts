@@ -117,4 +117,22 @@ export const FINANCE_AUDIT_MESSAGES = {
     module: AuditModule.FINANCE,
     description: '{{userName}} registrou pagamento de R$ {{amount}} no lançamento {{entryCode}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // FINANCE ATTACHMENTS - Anexos Financeiros
+  // ============================================================================
+
+  FINANCE_ATTACHMENT_UPLOAD: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.FINANCE_ATTACHMENT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} anexou {{fileName}} ao lançamento {{entryCode}}',
+  } satisfies AuditMessage,
+
+  FINANCE_ATTACHMENT_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.FINANCE_ATTACHMENT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} removeu o anexo {{fileName}} do lançamento {{entryCode}}',
+  } satisfies AuditMessage,
 } as const;

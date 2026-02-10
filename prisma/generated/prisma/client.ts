@@ -454,3 +454,8 @@ export type FinanceEntry = Prisma.FinanceEntryModel
  * 
  */
 export type FinanceEntryPayment = Prisma.FinanceEntryPaymentModel
+/**
+ * Model FinanceAttachment
+ * 
+ */
+export type FinanceAttachment = Prisma.FinanceAttachmentModel

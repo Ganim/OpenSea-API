@@ -124,6 +124,7 @@ export enum AuditEntity {
   FINANCE_CATEGORY = 'FINANCE_CATEGORY',
   FINANCE_ENTRY = 'FINANCE_ENTRY',
   FINANCE_ENTRY_PAYMENT = 'FINANCE_ENTRY_PAYMENT',
+  FINANCE_ATTACHMENT = 'FINANCE_ATTACHMENT',
 
   // ==========================================
   // System
