@@ -15,6 +15,11 @@ import type {
   UpdateFinanceEntrySchema,
   FindManyFinanceEntriesOptions,
   FindManyResult,
+  DateRangeSum,
+  CategorySum,
+  CostCenterSum,
+  OverdueSum,
+  OverdueByParty,
 } from '../finance-entries-repository';
 
 export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository {
@@ -253,5 +258,206 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
     const nextNumber = (count + 1).toString().padStart(3, '0');
 
     return `${prefix}-${nextNumber}`;
+  }
+
+  async sumByDateRange(
+    tenantId: string,
+    type: string | undefined,
+    from: Date,
+    to: Date,
+    groupBy: 'day' | 'week' | 'month',
+  ): Promise<DateRangeSum[]> {
+    const truncFn =
+      groupBy === 'day'
+        ? `date_trunc('day', "due_date")`
+        : groupBy === 'week'
+          ? `date_trunc('week', "due_date")`
+          : `date_trunc('month', "due_date")`;
+
+    const typeFilter = type ? `AND "type" = '${type}'` : '';
+
+    const results = await prisma.$queryRawUnsafe<
+      { date: Date; total: Prisma.Decimal }[]
+    >(
+      `SELECT ${truncFn} as date, SUM("expected_amount") as total
+       FROM "finance_entries"
+       WHERE "tenant_id" = $1
+         AND "deleted_at" IS NULL
+         AND "due_date" >= $2
+         AND "due_date" <= $3
+         ${typeFilter}
+       GROUP BY date
+       ORDER BY date ASC`,
+      tenantId,
+      from,
+      to,
+    );
+
+    return results.map((r) => ({
+      date: r.date.toISOString().split('T')[0],
+      total: Number(r.total),
+    }));
+  }
+
+  async sumByCategory(
+    tenantId: string,
+    type: string | undefined,
+    from: Date,
+    to: Date,
+  ): Promise<CategorySum[]> {
+    const typeFilter = type ? `AND e."type" = '${type}'` : '';
+
+    const results = await prisma.$queryRawUnsafe<
+      { categoryId: string; categoryName: string; total: Prisma.Decimal }[]
+    >(
+      `SELECT e."category_id" as "categoryId", c."name" as "categoryName", SUM(e."expected_amount") as total
+       FROM "finance_entries" e
+       JOIN "finance_categories" c ON c."id" = e."category_id"
+       WHERE e."tenant_id" = $1
+         AND e."deleted_at" IS NULL
+         AND e."due_date" >= $2
+         AND e."due_date" <= $3
+         ${typeFilter}
+       GROUP BY e."category_id", c."name"
+       ORDER BY total DESC`,
+      tenantId,
+      from,
+      to,
+    );
+
+    return results.map((r) => ({
+      categoryId: r.categoryId,
+      categoryName: r.categoryName,
+      total: Number(r.total),
+    }));
+  }
+
+  async sumByCostCenter(
+    tenantId: string,
+    type: string | undefined,
+    from: Date,
+    to: Date,
+  ): Promise<CostCenterSum[]> {
+    const typeFilter = type ? `AND e."type" = '${type}'` : '';
+
+    const results = await prisma.$queryRawUnsafe<
+      { costCenterId: string; costCenterName: string; total: Prisma.Decimal }[]
+    >(
+      `SELECT e."cost_center_id" as "costCenterId", cc."name" as "costCenterName", SUM(e."expected_amount") as total
+       FROM "finance_entries" e
+       JOIN "cost_centers" cc ON cc."id" = e."cost_center_id"
+       WHERE e."tenant_id" = $1
+         AND e."deleted_at" IS NULL
+         AND e."due_date" >= $2
+         AND e."due_date" <= $3
+         ${typeFilter}
+       GROUP BY e."cost_center_id", cc."name"
+       ORDER BY total DESC`,
+      tenantId,
+      from,
+      to,
+    );
+
+    return results.map((r) => ({
+      costCenterId: r.costCenterId,
+      costCenterName: r.costCenterName,
+      total: Number(r.total),
+    }));
+  }
+
+  async countByStatus(tenantId: string, type?: string): Promise<Record<string, number>> {
+    const where: Prisma.FinanceEntryWhereInput = {
+      tenantId,
+      deletedAt: null,
+    };
+
+    if (type) {
+      where.type = type as FinanceEntryType;
+    }
+
+    const results = await prisma.financeEntry.groupBy({
+      by: ['status'],
+      where,
+      _count: { id: true },
+    });
+
+    const counts: Record<string, number> = {};
+    for (const r of results) {
+      counts[r.status] = r._count.id;
+    }
+    return counts;
+  }
+
+  async sumOverdue(tenantId: string, type: string): Promise<OverdueSum> {
+    const result = await prisma.financeEntry.aggregate({
+      where: {
+        tenantId,
+        type: type as FinanceEntryType,
+        deletedAt: null,
+        dueDate: { lt: new Date() },
+        status: { notIn: ['PAID', 'RECEIVED', 'CANCELLED'] as FinanceEntryStatus[] },
+      },
+      _sum: { expectedAmount: true },
+      _count: { id: true },
+    });
+
+    return {
+      total: Number(result._sum.expectedAmount ?? 0),
+      count: result._count.id,
+    };
+  }
+
+  async topOverdueByCustomer(tenantId: string, limit = 10): Promise<OverdueByParty[]> {
+    const results = await prisma.$queryRawUnsafe<
+      { name: string; total: Prisma.Decimal; count: bigint; oldestDueDate: Date }[]
+    >(
+      `SELECT "customer_name" as name, SUM("expected_amount") as total, COUNT(*) as count, MIN("due_date") as "oldestDueDate"
+       FROM "finance_entries"
+       WHERE "tenant_id" = $1
+         AND "deleted_at" IS NULL
+         AND "type" = 'RECEIVABLE'
+         AND "due_date" < NOW()
+         AND "status" NOT IN ('PAID', 'RECEIVED', 'CANCELLED')
+         AND "customer_name" IS NOT NULL
+       GROUP BY "customer_name"
+       ORDER BY total DESC
+       LIMIT $2`,
+      tenantId,
+      limit,
+    );
+
+    return results.map((r) => ({
+      name: r.name,
+      total: Number(r.total),
+      count: Number(r.count),
+      oldestDueDate: r.oldestDueDate,
+    }));
+  }
+
+  async topOverdueBySupplier(tenantId: string, limit = 10): Promise<OverdueByParty[]> {
+    const results = await prisma.$queryRawUnsafe<
+      { name: string; total: Prisma.Decimal; count: bigint; oldestDueDate: Date }[]
+    >(
+      `SELECT "supplier_name" as name, SUM("expected_amount") as total, COUNT(*) as count, MIN("due_date") as "oldestDueDate"
+       FROM "finance_entries"
+       WHERE "tenant_id" = $1
+         AND "deleted_at" IS NULL
+         AND "type" = 'PAYABLE'
+         AND "due_date" < NOW()
+         AND "status" NOT IN ('PAID', 'RECEIVED', 'CANCELLED')
+         AND "supplier_name" IS NOT NULL
+       GROUP BY "supplier_name"
+       ORDER BY total DESC
+       LIMIT $2`,
+      tenantId,
+      limit,
+    );
+
+    return results.map((r) => ({
+      name: r.name,
+      total: Number(r.total),
+      count: Number(r.count),
+      oldestDueDate: r.oldestDueDate,
+    }));
   }
 }

@@ -6,6 +6,11 @@ import type {
   UpdateFinanceEntrySchema,
   FindManyFinanceEntriesOptions,
   FindManyResult,
+  DateRangeSum,
+  CategorySum,
+  CostCenterSum,
+  OverdueSum,
+  OverdueByParty,
 } from '../finance-entries-repository';
 
 export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepository {
@@ -188,5 +193,193 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
     const nextNumber = (count + 1).toString().padStart(3, '0');
 
     return `${prefix}-${nextNumber}`;
+  }
+
+  // Aggregation methods
+
+  private getActiveEntries(tenantId: string): FinanceEntry[] {
+    return this.items.filter(
+      (i) => !i.deletedAt && i.tenantId.toString() === tenantId,
+    );
+  }
+
+  private formatDateKey(date: Date, groupBy: 'day' | 'week' | 'month'): string {
+    const d = new Date(date);
+    if (groupBy === 'day') {
+      return d.toISOString().split('T')[0];
+    }
+    if (groupBy === 'week') {
+      const day = d.getUTCDay();
+      const diff = d.getUTCDate() - day + (day === 0 ? -6 : 1);
+      d.setUTCDate(diff);
+      return d.toISOString().split('T')[0];
+    }
+    // month
+    return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-01`;
+  }
+
+  async sumByDateRange(
+    tenantId: string,
+    type: string | undefined,
+    from: Date,
+    to: Date,
+    groupBy: 'day' | 'week' | 'month',
+  ): Promise<DateRangeSum[]> {
+    const entries = this.getActiveEntries(tenantId).filter((i) => {
+      if (type && i.type !== type) return false;
+      return i.dueDate >= from && i.dueDate <= to;
+    });
+
+    const map = new Map<string, number>();
+    for (const e of entries) {
+      const key = this.formatDateKey(e.dueDate, groupBy);
+      map.set(key, (map.get(key) ?? 0) + e.expectedAmount);
+    }
+
+    return Array.from(map.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([date, total]) => ({ date, total }));
+  }
+
+  // categoryNames map is populated externally in tests via public property
+  public categoryNames: Map<string, string> = new Map();
+  public costCenterNames: Map<string, string> = new Map();
+
+  async sumByCategory(
+    tenantId: string,
+    type: string | undefined,
+    from: Date,
+    to: Date,
+  ): Promise<CategorySum[]> {
+    const entries = this.getActiveEntries(tenantId).filter((i) => {
+      if (type && i.type !== type) return false;
+      return i.dueDate >= from && i.dueDate <= to;
+    });
+
+    const map = new Map<string, number>();
+    for (const e of entries) {
+      const catId = e.categoryId.toString();
+      map.set(catId, (map.get(catId) ?? 0) + e.expectedAmount);
+    }
+
+    return Array.from(map.entries())
+      .sort(([, a], [, b]) => b - a)
+      .map(([categoryId, total]) => ({
+        categoryId,
+        categoryName: this.categoryNames.get(categoryId) ?? categoryId,
+        total,
+      }));
+  }
+
+  async sumByCostCenter(
+    tenantId: string,
+    type: string | undefined,
+    from: Date,
+    to: Date,
+  ): Promise<CostCenterSum[]> {
+    const entries = this.getActiveEntries(tenantId).filter((i) => {
+      if (type && i.type !== type) return false;
+      return i.dueDate >= from && i.dueDate <= to;
+    });
+
+    const map = new Map<string, number>();
+    for (const e of entries) {
+      const ccId = e.costCenterId.toString();
+      map.set(ccId, (map.get(ccId) ?? 0) + e.expectedAmount);
+    }
+
+    return Array.from(map.entries())
+      .sort(([, a], [, b]) => b - a)
+      .map(([costCenterId, total]) => ({
+        costCenterId,
+        costCenterName: this.costCenterNames.get(costCenterId) ?? costCenterId,
+        total,
+      }));
+  }
+
+  async countByStatus(tenantId: string, type?: string): Promise<Record<string, number>> {
+    const entries = this.getActiveEntries(tenantId).filter((i) => {
+      if (type && i.type !== type) return false;
+      return true;
+    });
+
+    const counts: Record<string, number> = {};
+    for (const e of entries) {
+      counts[e.status] = (counts[e.status] ?? 0) + 1;
+    }
+    return counts;
+  }
+
+  async sumOverdue(tenantId: string, type: string): Promise<OverdueSum> {
+    const now = new Date();
+    const overdueStatuses = ['PAID', 'RECEIVED', 'CANCELLED'];
+    const entries = this.getActiveEntries(tenantId).filter(
+      (i) => i.type === type && i.dueDate < now && !overdueStatuses.includes(i.status),
+    );
+
+    return {
+      total: entries.reduce((sum, e) => sum + e.expectedAmount, 0),
+      count: entries.length,
+    };
+  }
+
+  async topOverdueByCustomer(tenantId: string, limit = 10): Promise<OverdueByParty[]> {
+    const now = new Date();
+    const overdueStatuses = ['PAID', 'RECEIVED', 'CANCELLED'];
+    const entries = this.getActiveEntries(tenantId).filter(
+      (i) =>
+        i.type === 'RECEIVABLE' &&
+        i.dueDate < now &&
+        !overdueStatuses.includes(i.status) &&
+        i.customerName,
+    );
+
+    const map = new Map<string, { total: number; count: number; oldestDueDate: Date }>();
+    for (const e of entries) {
+      const name = e.customerName!;
+      const existing = map.get(name);
+      if (existing) {
+        existing.total += e.expectedAmount;
+        existing.count += 1;
+        if (e.dueDate < existing.oldestDueDate) existing.oldestDueDate = e.dueDate;
+      } else {
+        map.set(name, { total: e.expectedAmount, count: 1, oldestDueDate: e.dueDate });
+      }
+    }
+
+    return Array.from(map.entries())
+      .sort(([, a], [, b]) => b.total - a.total)
+      .slice(0, limit)
+      .map(([name, data]) => ({ name, ...data }));
+  }
+
+  async topOverdueBySupplier(tenantId: string, limit = 10): Promise<OverdueByParty[]> {
+    const now = new Date();
+    const overdueStatuses = ['PAID', 'RECEIVED', 'CANCELLED'];
+    const entries = this.getActiveEntries(tenantId).filter(
+      (i) =>
+        i.type === 'PAYABLE' &&
+        i.dueDate < now &&
+        !overdueStatuses.includes(i.status) &&
+        i.supplierName,
+    );
+
+    const map = new Map<string, { total: number; count: number; oldestDueDate: Date }>();
+    for (const e of entries) {
+      const name = e.supplierName!;
+      const existing = map.get(name);
+      if (existing) {
+        existing.total += e.expectedAmount;
+        existing.count += 1;
+        if (e.dueDate < existing.oldestDueDate) existing.oldestDueDate = e.dueDate;
+      } else {
+        map.set(name, { total: e.expectedAmount, count: 1, oldestDueDate: e.dueDate });
+      }
+    }
+
+    return Array.from(map.entries())
+      .sort(([, a], [, b]) => b.total - a.total)
+      .slice(0, limit)
+      .map(([name, data]) => ({ name, ...data }));
   }
 }
