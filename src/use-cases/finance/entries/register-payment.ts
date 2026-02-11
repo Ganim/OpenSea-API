@@ -51,7 +51,9 @@ export class RegisterPaymentUseCase {
     }
 
     if (entry.status === 'CANCELLED') {
-      throw new BadRequestError('Cannot register payment for a cancelled entry');
+      throw new BadRequestError(
+        'Cannot register payment for a cancelled entry',
+      );
     }
 
     if (entry.status === 'PAID' || entry.status === 'RECEIVED') {
@@ -62,9 +64,10 @@ export class RegisterPaymentUseCase {
       throw new BadRequestError('Payment amount must be positive');
     }
 
-    const existingPaymentsSum = await this.financeEntryPaymentsRepository.sumByEntryId(
-      new UniqueEntityID(entryId),
-    );
+    const existingPaymentsSum =
+      await this.financeEntryPaymentsRepository.sumByEntryId(
+        new UniqueEntityID(entryId),
+      );
 
     const newTotal = existingPaymentsSum + amount;
 
@@ -112,12 +115,24 @@ export class RegisterPaymentUseCase {
     let nextOccurrence: FinanceEntryDTO | undefined;
 
     // RECURRING: auto-generate next occurrence when fully paid
-    if (isFullyPaid && entry.recurrenceType === 'RECURRING' && entry.parentEntryId) {
-      nextOccurrence = await this.generateNextRecurringOccurrence(entry, tenantId, paidAt);
+    if (
+      isFullyPaid &&
+      entry.recurrenceType === 'RECURRING' &&
+      entry.parentEntryId
+    ) {
+      nextOccurrence = await this.generateNextRecurringOccurrence(
+        entry,
+        tenantId,
+        paidAt,
+      );
     }
 
     // INSTALLMENT: check if all siblings are paid, then mark master as PAID
-    if (isFullyPaid && entry.recurrenceType === 'INSTALLMENT' && entry.parentEntryId) {
+    if (
+      isFullyPaid &&
+      entry.recurrenceType === 'INSTALLMENT' &&
+      entry.parentEntryId
+    ) {
       await this.checkAndMarkMasterAsPaid(entry, tenantId);
     }
 
@@ -142,7 +157,10 @@ export class RegisterPaymentUseCase {
       1,
     );
 
-    const nextCode = await this.financeEntriesRepository.generateNextCode(tenantId, entry.type);
+    const nextCode = await this.financeEntriesRepository.generateNextCode(
+      tenantId,
+      entry.type,
+    );
 
     const nextEntry = await this.financeEntriesRepository.create({
       tenantId,
@@ -186,8 +204,8 @@ export class RegisterPaymentUseCase {
       limit: 1000,
     });
 
-    const allPaid = siblings.every((s) =>
-      s.status === 'PAID' || s.status === 'RECEIVED',
+    const allPaid = siblings.every(
+      (s) => s.status === 'PAID' || s.status === 'RECEIVED',
     );
 
     if (allPaid) {

@@ -24,9 +24,11 @@ function createMockFileUploadService(): FileUploadService {
       size: 1024,
       mimeType: 'application/pdf',
     }),
-    getPresignedUrl: vi.fn().mockImplementation(
-      (key: string) => Promise.resolve(`https://storage.example.com/presigned/${key}`),
-    ),
+    getPresignedUrl: vi
+      .fn()
+      .mockImplementation((key: string) =>
+        Promise.resolve(`https://storage.example.com/presigned/${key}`),
+      ),
     delete: vi.fn().mockResolvedValue(undefined),
   };
 }

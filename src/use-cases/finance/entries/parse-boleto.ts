@@ -10,7 +10,9 @@ interface ParseBoletoUseCaseResponse {
 }
 
 export class ParseBoletoUseCase {
-  async execute({ barcode }: ParseBoletoUseCaseRequest): Promise<ParseBoletoUseCaseResponse> {
+  async execute({
+    barcode,
+  }: ParseBoletoUseCaseRequest): Promise<ParseBoletoUseCaseResponse> {
     if (!barcode || barcode.trim().length === 0) {
       throw new BadRequestError('Barcode is required');
     }

@@ -8,8 +8,12 @@ import type {
   CreateFinanceEntryPaymentSchema,
 } from '../finance-entry-payments-repository';
 
-export class PrismaFinanceEntryPaymentsRepository implements FinanceEntryPaymentsRepository {
-  async create(data: CreateFinanceEntryPaymentSchema): Promise<FinanceEntryPayment> {
+export class PrismaFinanceEntryPaymentsRepository
+  implements FinanceEntryPaymentsRepository
+{
+  async create(
+    data: CreateFinanceEntryPaymentSchema,
+  ): Promise<FinanceEntryPayment> {
     const payment = await prisma.financeEntryPayment.create({
       data: {
         entryId: data.entryId,

@@ -11,28 +11,34 @@ export const forecastQuerySchema = z.object({
 });
 
 export const forecastResponseSchema = z.object({
-  data: z.array(z.object({
-    date: z.string(),
-    payable: z.number(),
-    receivable: z.number(),
-    net: z.number(),
-    cumulativeNet: z.number(),
-  })),
+  data: z.array(
+    z.object({
+      date: z.string(),
+      payable: z.number(),
+      receivable: z.number(),
+      net: z.number(),
+      cumulativeNet: z.number(),
+    }),
+  ),
   totals: z.object({
     totalPayable: z.number(),
     totalReceivable: z.number(),
     netBalance: z.number(),
   }),
-  byCategory: z.array(z.object({
-    categoryId: z.string(),
-    categoryName: z.string(),
-    total: z.number(),
-  })),
-  byCostCenter: z.array(z.object({
-    costCenterId: z.string(),
-    costCenterName: z.string(),
-    total: z.number(),
-  })),
+  byCategory: z.array(
+    z.object({
+      categoryId: z.string(),
+      categoryName: z.string(),
+      total: z.number(),
+    }),
+  ),
+  byCostCenter: z.array(
+    z.object({
+      costCenterId: z.string(),
+      costCenterName: z.string(),
+      total: z.number(),
+    }),
+  ),
 });
 
 // Dashboard
@@ -49,18 +55,22 @@ export const dashboardResponseSchema = z.object({
   upcomingReceivable7Days: z.number(),
   cashBalance: z.number(),
   statusCounts: z.record(z.string(), z.number()),
-  topOverdueReceivables: z.array(z.object({
-    name: z.string(),
-    total: z.number(),
-    count: z.number(),
-    oldestDueDate: z.coerce.date(),
-  })),
-  topOverduePayables: z.array(z.object({
-    name: z.string(),
-    total: z.number(),
-    count: z.number(),
-    oldestDueDate: z.coerce.date(),
-  })),
+  topOverdueReceivables: z.array(
+    z.object({
+      name: z.string(),
+      total: z.number(),
+      count: z.number(),
+      oldestDueDate: z.coerce.date(),
+    }),
+  ),
+  topOverduePayables: z.array(
+    z.object({
+      name: z.string(),
+      total: z.number(),
+      count: z.number(),
+      oldestDueDate: z.coerce.date(),
+    }),
+  ),
 });
 
 // Cashflow
@@ -72,13 +82,15 @@ export const cashflowQuerySchema = z.object({
 });
 
 export const cashflowResponseSchema = z.object({
-  data: z.array(z.object({
-    date: z.string(),
-    inflow: z.number(),
-    outflow: z.number(),
-    net: z.number(),
-    cumulativeBalance: z.number(),
-  })),
+  data: z.array(
+    z.object({
+      date: z.string(),
+      inflow: z.number(),
+      outflow: z.number(),
+      net: z.number(),
+      cumulativeBalance: z.number(),
+    }),
+  ),
   summary: z.object({
     totalInflow: z.number(),
     totalOutflow: z.number(),

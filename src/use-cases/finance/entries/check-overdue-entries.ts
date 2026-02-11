@@ -33,12 +33,13 @@ export class CheckOverdueEntriesUseCase {
     let dueSoonAlerts = 0;
 
     // Step 1: Find PENDING entries with dueDate < today and mark as OVERDUE
-    const { entries: overdueEntries } = await this.financeEntriesRepository.findMany({
-      tenantId,
-      status: 'PENDING',
-      dueDateTo: new Date(now.getFullYear(), now.getMonth(), now.getDate()), // today start
-      limit: 1000,
-    });
+    const { entries: overdueEntries } =
+      await this.financeEntriesRepository.findMany({
+        tenantId,
+        status: 'PENDING',
+        dueDateTo: new Date(now.getFullYear(), now.getMonth(), now.getDate()), // today start
+        limit: 1000,
+      });
 
     // Filter only actually overdue (dueDate strictly before today)
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -70,7 +71,9 @@ export class CheckOverdueEntriesUseCase {
         receivableOverdue++;
         // Create notification for receivable overdue (include customer name)
         if (createdBy) {
-          const customerInfo = entry.customerName ? ` de ${entry.customerName}` : '';
+          const customerInfo = entry.customerName
+            ? ` de ${entry.customerName}`
+            : '';
           await this.notificationsRepository.create({
             userId: new UniqueEntityID(createdBy),
             title: 'Recebimento atrasado',
@@ -89,13 +92,14 @@ export class CheckOverdueEntriesUseCase {
     const dueSoonDate = new Date(today);
     dueSoonDate.setDate(dueSoonDate.getDate() + dueSoonDays);
 
-    const { entries: dueSoonEntries } = await this.financeEntriesRepository.findMany({
-      tenantId,
-      status: 'PENDING',
-      dueDateFrom: today,
-      dueDateTo: dueSoonDate,
-      limit: 1000,
-    });
+    const { entries: dueSoonEntries } =
+      await this.financeEntriesRepository.findMany({
+        tenantId,
+        status: 'PENDING',
+        dueDateFrom: today,
+        dueDateTo: dueSoonDate,
+        limit: 1000,
+      });
 
     for (const entry of dueSoonEntries) {
       const daysUntilDue = Math.ceil(
@@ -119,7 +123,9 @@ export class CheckOverdueEntriesUseCase {
             entityId: entry.id.toString(),
           });
         } else {
-          const customerInfo = entry.customerName ? ` de ${entry.customerName}` : '';
+          const customerInfo = entry.customerName
+            ? ` de ${entry.customerName}`
+            : '';
           await this.notificationsRepository.create({
             userId: new UniqueEntityID(createdBy),
             title: 'Recebimento próximo do vencimento',

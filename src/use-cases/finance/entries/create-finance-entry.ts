@@ -54,7 +54,14 @@ export class CreateFinanceEntryUseCase {
   async execute(
     request: CreateFinanceEntryUseCaseRequest,
   ): Promise<CreateFinanceEntryUseCaseResponse> {
-    const { tenantId, type, description, categoryId, costCenterId, expectedAmount } = request;
+    const {
+      tenantId,
+      type,
+      description,
+      categoryId,
+      costCenterId,
+      expectedAmount,
+    } = request;
 
     if (!description || description.trim().length === 0) {
       throw new BadRequestError('Description is required');
@@ -87,21 +94,30 @@ export class CreateFinanceEntryUseCase {
     }
 
     // Generate auto code
-    const code = await this.financeEntriesRepository.generateNextCode(tenantId, type);
+    const code = await this.financeEntriesRepository.generateNextCode(
+      tenantId,
+      type,
+    );
 
     // Validate recurrence fields
     if (request.recurrenceType === 'INSTALLMENT') {
       if (!request.totalInstallments || request.totalInstallments < 2) {
-        throw new BadRequestError('Installments require at least 2 installments');
+        throw new BadRequestError(
+          'Installments require at least 2 installments',
+        );
       }
       if (!request.recurrenceInterval || !request.recurrenceUnit) {
-        throw new BadRequestError('Recurrence interval and unit are required for installments');
+        throw new BadRequestError(
+          'Recurrence interval and unit are required for installments',
+        );
       }
     }
 
     if (request.recurrenceType === 'RECURRING') {
       if (!request.recurrenceInterval || !request.recurrenceUnit) {
-        throw new BadRequestError('Recurrence interval and unit are required for recurring entries');
+        throw new BadRequestError(
+          'Recurrence interval and unit are required for recurring entries',
+        );
       }
     }
 
@@ -139,14 +155,23 @@ export class CreateFinanceEntryUseCase {
 
     // Generate installment child entries
     if (request.recurrenceType === 'INSTALLMENT') {
-      const installments = await this.generateInstallments(request, entry.id.toString());
+      const installments = await this.generateInstallments(
+        request,
+        entry.id.toString(),
+      );
       return { entry: financeEntryToDTO(entry), installments };
     }
 
     // Generate first occurrence for recurring entries
     if (request.recurrenceType === 'RECURRING') {
-      const firstOccurrence = await this.generateFirstOccurrence(request, entry.id.toString());
-      return { entry: financeEntryToDTO(entry), installments: [firstOccurrence] };
+      const firstOccurrence = await this.generateFirstOccurrence(
+        request,
+        entry.id.toString(),
+      );
+      return {
+        entry: financeEntryToDTO(entry),
+        installments: [firstOccurrence],
+      };
     }
 
     return { entry: financeEntryToDTO(entry) };
@@ -157,7 +182,8 @@ export class CreateFinanceEntryUseCase {
     parentEntryId: string,
   ): Promise<FinanceEntryDTO[]> {
     const installments: FinanceEntryDTO[] = [];
-    const installmentAmount = request.expectedAmount / request.totalInstallments!;
+    const installmentAmount =
+      request.expectedAmount / request.totalInstallments!;
 
     for (let i = 1; i <= request.totalInstallments!; i++) {
       const installmentDueDate = this.calculateNextDate(
@@ -167,10 +193,11 @@ export class CreateFinanceEntryUseCase {
         i - 1,
       );
 
-      const installmentCode = await this.financeEntriesRepository.generateNextCode(
-        request.tenantId,
-        request.type,
-      );
+      const installmentCode =
+        await this.financeEntriesRepository.generateNextCode(
+          request.tenantId,
+          request.type,
+        );
 
       const installmentEntry = await this.financeEntriesRepository.create({
         tenantId: request.tenantId,

@@ -10,7 +10,10 @@ interface DeleteBankAccountUseCaseRequest {
 export class DeleteBankAccountUseCase {
   constructor(private bankAccountsRepository: BankAccountsRepository) {}
 
-  async execute({ tenantId, id }: DeleteBankAccountUseCaseRequest): Promise<void> {
+  async execute({
+    tenantId,
+    id,
+  }: DeleteBankAccountUseCaseRequest): Promise<void> {
     const bankAccount = await this.bankAccountsRepository.findById(
       new UniqueEntityID(id),
       tenantId,

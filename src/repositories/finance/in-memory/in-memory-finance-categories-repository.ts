@@ -6,7 +6,9 @@ import type {
   UpdateFinanceCategorySchema,
 } from '../finance-categories-repository';
 
-export class InMemoryFinanceCategoriesRepository implements FinanceCategoriesRepository {
+export class InMemoryFinanceCategoriesRepository
+  implements FinanceCategoriesRepository
+{
   public items: FinanceCategory[] = [];
 
   async create(data: CreateFinanceCategorySchema): Promise<FinanceCategory> {
@@ -27,16 +29,24 @@ export class InMemoryFinanceCategoriesRepository implements FinanceCategoriesRep
     return category;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<FinanceCategory | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<FinanceCategory | null> {
     const item = this.items.find(
-      (i) => !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
+      (i) =>
+        !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
 
-  async findBySlug(slug: string, tenantId: string): Promise<FinanceCategory | null> {
+  async findBySlug(
+    slug: string,
+    tenantId: string,
+  ): Promise<FinanceCategory | null> {
     const item = this.items.find(
-      (i) => !i.deletedAt && i.slug === slug && i.tenantId.toString() === tenantId,
+      (i) =>
+        !i.deletedAt && i.slug === slug && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
@@ -47,7 +57,9 @@ export class InMemoryFinanceCategoriesRepository implements FinanceCategoriesRep
     );
   }
 
-  async update(data: UpdateFinanceCategorySchema): Promise<FinanceCategory | null> {
+  async update(
+    data: UpdateFinanceCategorySchema,
+  ): Promise<FinanceCategory | null> {
     const item = this.items.find((i) => !i.deletedAt && i.id.equals(data.id));
     if (!item) return null;
 
@@ -57,7 +69,10 @@ export class InMemoryFinanceCategoriesRepository implements FinanceCategoriesRep
     if (data.iconUrl !== undefined) item.iconUrl = data.iconUrl;
     if (data.color !== undefined) item.color = data.color;
     if (data.type !== undefined) item.type = data.type;
-    if (data.parentId !== undefined) item.parentId = data.parentId ? new UniqueEntityID(data.parentId) : undefined;
+    if (data.parentId !== undefined)
+      item.parentId = data.parentId
+        ? new UniqueEntityID(data.parentId)
+        : undefined;
     if (data.displayOrder !== undefined) item.displayOrder = data.displayOrder;
     if (data.isActive !== undefined) item.isActive = data.isActive;
 

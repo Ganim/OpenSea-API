@@ -34,9 +34,7 @@ describe('List Finance Categories (E2E)', () => {
   });
 
   it('should return 401 without auth', async () => {
-    const response = await request(app.server).get(
-      '/v1/finance/categories',
-    );
+    const response = await request(app.server).get('/v1/finance/categories');
 
     expect(response.status).toBe(401);
   });

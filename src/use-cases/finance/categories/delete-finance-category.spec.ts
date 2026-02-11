@@ -1,5 +1,4 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryFinanceCategoriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-categories-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { DeleteFinanceCategoryUseCase } from './delete-finance-category';
@@ -26,10 +25,7 @@ describe('DeleteFinanceCategoryUseCase', () => {
       id: category.id.toString(),
     });
 
-    const deletedCategory = await repository.findById(
-      category.id,
-      'tenant-1',
-    );
+    const deletedCategory = await repository.findById(category.id, 'tenant-1');
 
     expect(deletedCategory).toBeNull();
   });

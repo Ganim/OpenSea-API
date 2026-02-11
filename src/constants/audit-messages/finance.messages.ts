@@ -69,7 +69,8 @@ export const FINANCE_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.FINANCE_CATEGORY,
     module: AuditModule.FINANCE,
-    description: '{{userName}} atualizou a categoria financeira {{categoryName}}',
+    description:
+      '{{userName}} atualizou a categoria financeira {{categoryName}}',
   } satisfies AuditMessage,
 
   FINANCE_CATEGORY_DELETE: {
@@ -115,7 +116,8 @@ export const FINANCE_AUDIT_MESSAGES = {
     action: AuditAction.PAYMENT_REGISTER,
     entity: AuditEntity.FINANCE_ENTRY_PAYMENT,
     module: AuditModule.FINANCE,
-    description: '{{userName}} registrou pagamento de R$ {{amount}} no lançamento {{entryCode}}',
+    description:
+      '{{userName}} registrou pagamento de R$ {{amount}} no lançamento {{entryCode}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -133,7 +135,8 @@ export const FINANCE_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.FINANCE_ATTACHMENT,
     module: AuditModule.FINANCE,
-    description: '{{userName}} removeu o anexo {{fileName}} do lançamento {{entryCode}}',
+    description:
+      '{{userName}} removeu o anexo {{fileName}} do lançamento {{entryCode}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -165,7 +168,8 @@ export const FINANCE_AUDIT_MESSAGES = {
     action: AuditAction.PAYMENT_REGISTER,
     entity: AuditEntity.LOAN_INSTALLMENT,
     module: AuditModule.FINANCE,
-    description: '{{userName}} registrou pagamento de R$ {{amount}} no emprestimo {{loanName}}',
+    description:
+      '{{userName}} registrou pagamento de R$ {{amount}} no emprestimo {{loanName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -197,13 +201,15 @@ export const FINANCE_AUDIT_MESSAGES = {
     action: AuditAction.PAYMENT_REGISTER,
     entity: AuditEntity.CONSORTIUM_PAYMENT,
     module: AuditModule.FINANCE,
-    description: '{{userName}} registrou pagamento de R$ {{amount}} no consorcio {{consortiumName}}',
+    description:
+      '{{userName}} registrou pagamento de R$ {{amount}} no consorcio {{consortiumName}}',
   } satisfies AuditMessage,
 
   CONSORTIUM_CONTEMPLATION: {
     action: AuditAction.CONTEMPLATION,
     entity: AuditEntity.CONSORTIUM,
     module: AuditModule.FINANCE,
-    description: '{{userName}} marcou o consorcio {{consortiumName}} como contemplado ({{contemplationType}})',
+    description:
+      '{{userName}} marcou o consorcio {{consortiumName}} como contemplado ({{contemplationType}})',
   } satisfies AuditMessage,
 } as const;

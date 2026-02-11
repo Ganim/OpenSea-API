@@ -5,6 +5,7 @@ import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
+import type { CareCatalogProvider } from '@/services/care';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateManufacturerUseCase } from '../manufacturers/create-manufacturer';
@@ -26,6 +27,24 @@ let createManufacturer: CreateManufacturerUseCase;
 
 const TENANT_ID = 'tenant-1';
 
+const mockCareCatalog = {
+  validateIds: (ids: string[]) =>
+    ids.filter(
+      (id) =>
+        !id.startsWith('WASH') &&
+        !id.startsWith('IRON') &&
+        !id.startsWith('DRY') &&
+        !id.startsWith('BLEACH') &&
+        !id.startsWith('DO_NOT'),
+    ),
+  exists: (id: string) =>
+    id.startsWith('WASH') ||
+    id.startsWith('IRON') ||
+    id.startsWith('DRY') ||
+    id.startsWith('BLEACH') ||
+    id.startsWith('DO_NOT'),
+} as unknown as CareCatalogProvider;
+
 describe('UpdateProductUseCase', () => {
   beforeEach(() => {
     productsRepository = new InMemoryProductsRepository();
@@ -46,6 +65,8 @@ describe('UpdateProductUseCase', () => {
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
+      categoriesRepository,
+      mockCareCatalog,
     );
     createTemplate = new CreateTemplateUseCase(templatesRepository);
     createSupplier = new CreateSupplierUseCase(suppliersRepository);

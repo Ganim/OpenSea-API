@@ -39,9 +39,7 @@ describe('Create Finance Category (E2E)', () => {
   });
 
   it('should return 401 without auth', async () => {
-    const response = await request(app.server).post(
-      '/v1/finance/categories',
-    );
+    const response = await request(app.server).post('/v1/finance/categories');
 
     expect(response.status).toBe(401);
   });

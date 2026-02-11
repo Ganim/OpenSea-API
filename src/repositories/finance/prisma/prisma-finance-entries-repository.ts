@@ -22,7 +22,9 @@ import type {
   OverdueByParty,
 } from '../finance-entries-repository';
 
-export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository {
+export class PrismaFinanceEntriesRepository
+  implements FinanceEntriesRepository
+{
   async create(data: CreateFinanceEntrySchema): Promise<FinanceEntry> {
     const entry = await prisma.financeEntry.create({
       data: {
@@ -40,7 +42,10 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
         customerId: data.customerId,
         salesOrderId: data.salesOrderId,
         expectedAmount: new Prisma.Decimal(data.expectedAmount),
-        actualAmount: data.actualAmount !== undefined ? new Prisma.Decimal(data.actualAmount) : undefined,
+        actualAmount:
+          data.actualAmount !== undefined
+            ? new Prisma.Decimal(data.actualAmount)
+            : undefined,
         discount: new Prisma.Decimal(data.discount ?? 0),
         interest: new Prisma.Decimal(data.interest ?? 0),
         penalty: new Prisma.Decimal(data.penalty ?? 0),
@@ -49,7 +54,8 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
         competenceDate: data.competenceDate,
         paymentDate: data.paymentDate,
         status: (data.status as FinanceEntryStatus) ?? 'PENDING',
-        recurrenceType: (data.recurrenceType as FinanceEntryRecurrence) ?? 'SINGLE',
+        recurrenceType:
+          (data.recurrenceType as FinanceEntryRecurrence) ?? 'SINGLE',
         recurrenceInterval: data.recurrenceInterval,
         recurrenceUnit: data.recurrenceUnit as RecurrenceUnit | undefined,
         totalInstallments: data.totalInstallments,
@@ -66,7 +72,10 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
     return financeEntryPrismaToDomain(entry);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<FinanceEntry | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<FinanceEntry | null> {
     const entry = await prisma.financeEntry.findFirst({
       where: {
         id: id.toString(),
@@ -79,7 +88,10 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
     return financeEntryPrismaToDomain(entry);
   }
 
-  async findByCode(code: string, tenantId: string): Promise<FinanceEntry | null> {
+  async findByCode(
+    code: string,
+    tenantId: string,
+  ): Promise<FinanceEntry | null> {
     const entry = await prisma.financeEntry.findFirst({
       where: {
         code,
@@ -92,7 +104,9 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
     return financeEntryPrismaToDomain(entry);
   }
 
-  async findMany(options: FindManyFinanceEntriesOptions): Promise<FindManyResult> {
+  async findMany(
+    options: FindManyFinanceEntriesOptions,
+  ): Promise<FindManyResult> {
     const page = options.page ?? 1;
     const limit = options.limit ?? 20;
 
@@ -136,11 +150,17 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
     }
 
     if (options.customerName) {
-      where.customerName = { contains: options.customerName, mode: 'insensitive' };
+      where.customerName = {
+        contains: options.customerName,
+        mode: 'insensitive',
+      };
     }
 
     if (options.supplierName) {
-      where.supplierName = { contains: options.supplierName, mode: 'insensitive' };
+      where.supplierName = {
+        contains: options.supplierName,
+        mode: 'insensitive',
+      };
     }
 
     if (options.overdueRange) {
@@ -214,24 +234,54 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
     const entry = await prisma.financeEntry.update({
       where: { id: data.id.toString() },
       data: {
-        ...(data.description !== undefined && { description: data.description }),
+        ...(data.description !== undefined && {
+          description: data.description,
+        }),
         ...(data.notes !== undefined && { notes: data.notes }),
         ...(data.categoryId !== undefined && { categoryId: data.categoryId }),
-        ...(data.costCenterId !== undefined && { costCenterId: data.costCenterId }),
-        ...(data.bankAccountId !== undefined && { bankAccountId: data.bankAccountId }),
-        ...(data.supplierName !== undefined && { supplierName: data.supplierName }),
-        ...(data.customerName !== undefined && { customerName: data.customerName }),
-        ...(data.expectedAmount !== undefined && { expectedAmount: new Prisma.Decimal(data.expectedAmount) }),
-        ...(data.discount !== undefined && { discount: new Prisma.Decimal(data.discount) }),
-        ...(data.interest !== undefined && { interest: new Prisma.Decimal(data.interest) }),
-        ...(data.penalty !== undefined && { penalty: new Prisma.Decimal(data.penalty) }),
+        ...(data.costCenterId !== undefined && {
+          costCenterId: data.costCenterId,
+        }),
+        ...(data.bankAccountId !== undefined && {
+          bankAccountId: data.bankAccountId,
+        }),
+        ...(data.supplierName !== undefined && {
+          supplierName: data.supplierName,
+        }),
+        ...(data.customerName !== undefined && {
+          customerName: data.customerName,
+        }),
+        ...(data.expectedAmount !== undefined && {
+          expectedAmount: new Prisma.Decimal(data.expectedAmount),
+        }),
+        ...(data.discount !== undefined && {
+          discount: new Prisma.Decimal(data.discount),
+        }),
+        ...(data.interest !== undefined && {
+          interest: new Prisma.Decimal(data.interest),
+        }),
+        ...(data.penalty !== undefined && {
+          penalty: new Prisma.Decimal(data.penalty),
+        }),
         ...(data.dueDate !== undefined && { dueDate: data.dueDate }),
-        ...(data.competenceDate !== undefined && { competenceDate: data.competenceDate }),
-        ...(data.status !== undefined && { status: data.status as FinanceEntryStatus }),
-        ...(data.actualAmount !== undefined && { actualAmount: new Prisma.Decimal(data.actualAmount) }),
-        ...(data.paymentDate !== undefined && { paymentDate: data.paymentDate }),
-        ...(data.boletoBarcode !== undefined && { boletoBarcode: data.boletoBarcode }),
-        ...(data.boletoDigitLine !== undefined && { boletoDigitLine: data.boletoDigitLine }),
+        ...(data.competenceDate !== undefined && {
+          competenceDate: data.competenceDate,
+        }),
+        ...(data.status !== undefined && {
+          status: data.status as FinanceEntryStatus,
+        }),
+        ...(data.actualAmount !== undefined && {
+          actualAmount: new Prisma.Decimal(data.actualAmount),
+        }),
+        ...(data.paymentDate !== undefined && {
+          paymentDate: data.paymentDate,
+        }),
+        ...(data.boletoBarcode !== undefined && {
+          boletoBarcode: data.boletoBarcode,
+        }),
+        ...(data.boletoDigitLine !== undefined && {
+          boletoDigitLine: data.boletoDigitLine,
+        }),
         ...(data.tags !== undefined && { tags: data.tags }),
       },
     });
@@ -365,7 +415,10 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
     }));
   }
 
-  async countByStatus(tenantId: string, type?: string): Promise<Record<string, number>> {
+  async countByStatus(
+    tenantId: string,
+    type?: string,
+  ): Promise<Record<string, number>> {
     const where: Prisma.FinanceEntryWhereInput = {
       tenantId,
       deletedAt: null,
@@ -395,7 +448,9 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
         type: type as FinanceEntryType,
         deletedAt: null,
         dueDate: { lt: new Date() },
-        status: { notIn: ['PAID', 'RECEIVED', 'CANCELLED'] as FinanceEntryStatus[] },
+        status: {
+          notIn: ['PAID', 'RECEIVED', 'CANCELLED'] as FinanceEntryStatus[],
+        },
       },
       _sum: { expectedAmount: true },
       _count: { id: true },
@@ -407,9 +462,17 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
     };
   }
 
-  async topOverdueByCustomer(tenantId: string, limit = 10): Promise<OverdueByParty[]> {
+  async topOverdueByCustomer(
+    tenantId: string,
+    limit = 10,
+  ): Promise<OverdueByParty[]> {
     const results = await prisma.$queryRawUnsafe<
-      { name: string; total: Prisma.Decimal; count: bigint; oldestDueDate: Date }[]
+      {
+        name: string;
+        total: Prisma.Decimal;
+        count: bigint;
+        oldestDueDate: Date;
+      }[]
     >(
       `SELECT "customer_name" as name, SUM("expected_amount") as total, COUNT(*) as count, MIN("due_date") as "oldestDueDate"
        FROM "finance_entries"
@@ -434,9 +497,17 @@ export class PrismaFinanceEntriesRepository implements FinanceEntriesRepository 
     }));
   }
 
-  async topOverdueBySupplier(tenantId: string, limit = 10): Promise<OverdueByParty[]> {
+  async topOverdueBySupplier(
+    tenantId: string,
+    limit = 10,
+  ): Promise<OverdueByParty[]> {
     const results = await prisma.$queryRawUnsafe<
-      { name: string; total: Prisma.Decimal; count: bigint; oldestDueDate: Date }[]
+      {
+        name: string;
+        total: Prisma.Decimal;
+        count: bigint;
+        oldestDueDate: Date;
+      }[]
     >(
       `SELECT "supplier_name" as name, SUM("expected_amount") as total, COUNT(*) as count, MIN("due_date") as "oldestDueDate"
        FROM "finance_entries"

@@ -101,10 +101,7 @@ export class BoletoBarcode {
     const checkDigit = digits[4];
 
     // Build number without check digit position
-    const withoutCheck = [
-      ...digits.slice(0, 4),
-      ...digits.slice(5),
-    ];
+    const withoutCheck = [...digits.slice(0, 4), ...digits.slice(5)];
 
     const weights = BoletoBarcode.computeMod11(withoutCheck);
     const remainder = weights % 11;
@@ -135,17 +132,25 @@ export class BoletoBarcode {
   // Digit line: AAABK.CCCCD EEEEE.FFFFG HHHHH.IIIJJ K UUUUVVVVVVVVVV
   // Barcode:    AAAB K UUUU VVVVVVVVVV CCCCEEEEEFFFFHHHHHIII JJ
   private static digitLineToBarcode(line: string): string {
-    const bankAndCurrency = line.substring(0, 4);  // AAAB (bank code + currency)
-    const checkDigit = line.substring(32, 33);       // K (general check digit)
-    const dueFactor = line.substring(33, 37);         // UUUU
-    const amount = line.substring(37, 47);            // VVVVVVVVVV
+    const bankAndCurrency = line.substring(0, 4); // AAAB (bank code + currency)
+    const checkDigit = line.substring(32, 33); // K (general check digit)
+    const dueFactor = line.substring(33, 37); // UUUU
+    const amount = line.substring(37, 47); // VVVVVVVVVV
 
     // Free field from the 3 groups (removing per-field check digits at positions 9, 20, 31)
-    const field1 = line.substring(4, 9);              // 5 chars from group 1
-    const field2 = line.substring(10, 20);            // 10 chars from group 2
-    const field3 = line.substring(21, 31);            // 10 chars from group 3
+    const field1 = line.substring(4, 9); // 5 chars from group 1
+    const field2 = line.substring(10, 20); // 10 chars from group 2
+    const field3 = line.substring(21, 31); // 10 chars from group 3
 
-    return bankAndCurrency + checkDigit + dueFactor + amount + field1 + field2 + field3;
+    return (
+      bankAndCurrency +
+      checkDigit +
+      dueFactor +
+      amount +
+      field1 +
+      field2 +
+      field3
+    );
   }
 
   // Convert 44-digit barcode to 47-digit line
@@ -169,7 +174,17 @@ export class BoletoBarcode {
     const dueFactor = barcode.substring(5, 9);
     const amount = barcode.substring(9, 19);
 
-    return group1Data + group1Check + group2Data + group2Check + group3Data + group3Check + checkDigit + dueFactor + amount;
+    return (
+      group1Data +
+      group1Check +
+      group2Data +
+      group2Check +
+      group3Data +
+      group3Check +
+      checkDigit +
+      dueFactor +
+      amount
+    );
   }
 
   private static mod10(data: string): string {

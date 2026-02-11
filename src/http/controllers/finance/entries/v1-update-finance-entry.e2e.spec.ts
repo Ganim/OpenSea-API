@@ -40,9 +40,7 @@ describe('Update Finance Entry (E2E)', () => {
 
     expect(response.status).toBe(200);
     expect(response.body.entry).toBeDefined();
-    expect(response.body.entry.description).toBe(
-      'Updated entry description',
-    );
+    expect(response.body.entry.description).toBe('Updated entry description');
   });
 
   it('should return 401 without auth', async () => {

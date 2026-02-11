@@ -7,14 +7,13 @@ import {
 } from '@/mappers/finance/finance-attachment/finance-attachment-to-dto';
 import type { FinanceAttachmentsRepository } from '@/repositories/finance/finance-attachments-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
-import type { FileUploadService, UploadResult } from '@/services/storage/file-upload-service';
+import type {
+  FileUploadService,
+  UploadResult,
+} from '@/services/storage/file-upload-service';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-const ALLOWED_MIME_TYPES = [
-  'application/pdf',
-  'image/jpeg',
-  'image/png',
-];
+const ALLOWED_MIME_TYPES = ['application/pdf', 'image/jpeg', 'image/png'];
 
 interface UploadAttachmentUseCaseRequest {
   tenantId: string;
@@ -37,8 +36,18 @@ export class UploadAttachmentUseCase {
     private fileUploadService: FileUploadService,
   ) {}
 
-  async execute(request: UploadAttachmentUseCaseRequest): Promise<UploadAttachmentUseCaseResponse> {
-    const { tenantId, entryId, type, fileName, fileBuffer, mimeType, uploadedBy } = request;
+  async execute(
+    request: UploadAttachmentUseCaseRequest,
+  ): Promise<UploadAttachmentUseCaseResponse> {
+    const {
+      tenantId,
+      entryId,
+      type,
+      fileName,
+      fileBuffer,
+      mimeType,
+      uploadedBy,
+    } = request;
 
     // Validate entry exists
     const entry = await this.financeEntriesRepository.findById(
@@ -65,11 +74,16 @@ export class UploadAttachmentUseCase {
     // Upload to storage
     let uploadResult: UploadResult;
     try {
-      uploadResult = await this.fileUploadService.upload(fileBuffer, fileName, mimeType, {
-        prefix: `finance/${tenantId}/${entryId}`,
-        maxSize: MAX_FILE_SIZE,
-        allowedTypes: ALLOWED_MIME_TYPES,
-      });
+      uploadResult = await this.fileUploadService.upload(
+        fileBuffer,
+        fileName,
+        mimeType,
+        {
+          prefix: `finance/${tenantId}/${entryId}`,
+          maxSize: MAX_FILE_SIZE,
+          allowedTypes: ALLOWED_MIME_TYPES,
+        },
+      );
     } catch {
       throw new BadRequestError('Failed to upload file');
     }

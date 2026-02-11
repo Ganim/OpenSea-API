@@ -34,18 +34,32 @@ export class GetCashflowUseCase {
     private bankAccountsRepository: BankAccountsRepository,
   ) {}
 
-  async execute(request: GetCashflowUseCaseRequest): Promise<GetCashflowUseCaseResponse> {
+  async execute(
+    request: GetCashflowUseCaseRequest,
+  ): Promise<GetCashflowUseCaseResponse> {
     const { tenantId, startDate, endDate, groupBy, bankAccountId } = request;
 
     // Get inflows (RECEIVABLE) and outflows (PAYABLE) grouped by date
     const [inflowData, outflowData, bankAccounts] = await Promise.all([
-      this.financeEntriesRepository.sumByDateRange(tenantId, 'RECEIVABLE', startDate, endDate, groupBy),
-      this.financeEntriesRepository.sumByDateRange(tenantId, 'PAYABLE', startDate, endDate, groupBy),
+      this.financeEntriesRepository.sumByDateRange(
+        tenantId,
+        'RECEIVABLE',
+        startDate,
+        endDate,
+        groupBy,
+      ),
+      this.financeEntriesRepository.sumByDateRange(
+        tenantId,
+        'PAYABLE',
+        startDate,
+        endDate,
+        groupBy,
+      ),
       this.bankAccountsRepository.findMany(tenantId),
     ]);
 
     // Calculate opening balance from active bank accounts
-    let openingBalance = bankAccounts
+    const openingBalance = bankAccounts
       .filter((a) => {
         if (!a.isActive) return false;
         if (bankAccountId && a.id.toString() !== bankAccountId) return false;

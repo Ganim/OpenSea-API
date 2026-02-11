@@ -24,7 +24,9 @@ interface CreateCostCenterUseCaseResponse {
 export class CreateCostCenterUseCase {
   constructor(private costCentersRepository: CostCentersRepository) {}
 
-  async execute(request: CreateCostCenterUseCaseRequest): Promise<CreateCostCenterUseCaseResponse> {
+  async execute(
+    request: CreateCostCenterUseCaseRequest,
+  ): Promise<CreateCostCenterUseCaseResponse> {
     const { tenantId, code, name } = request;
 
     if (!name || name.trim().length === 0) {
@@ -32,7 +34,9 @@ export class CreateCostCenterUseCase {
     }
 
     if (name.length > 128) {
-      throw new BadRequestError('Cost center name must be at most 128 characters');
+      throw new BadRequestError(
+        'Cost center name must be at most 128 characters',
+      );
     }
 
     if (!code || code.trim().length === 0) {
@@ -40,10 +44,15 @@ export class CreateCostCenterUseCase {
     }
 
     if (code.length > 32) {
-      throw new BadRequestError('Cost center code must be at most 32 characters');
+      throw new BadRequestError(
+        'Cost center code must be at most 32 characters',
+      );
     }
 
-    const existingCode = await this.costCentersRepository.findByCode(code, tenantId);
+    const existingCode = await this.costCentersRepository.findByCode(
+      code,
+      tenantId,
+    );
     if (existingCode) {
       throw new BadRequestError('A cost center with this code already exists');
     }

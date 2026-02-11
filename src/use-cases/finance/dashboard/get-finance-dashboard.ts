@@ -37,8 +37,12 @@ export class GetFinanceDashboardUseCase {
     const { tenantId } = request;
 
     const now = new Date();
-    const startOfMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
-    const endOfMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0, 23, 59, 59));
+    const startOfMonth = new Date(
+      Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1),
+    );
+    const endOfMonth = new Date(
+      Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0, 23, 59, 59),
+    );
     const in7Days = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 
     const [
@@ -57,22 +61,58 @@ export class GetFinanceDashboardUseCase {
     ] = await Promise.all([
       this.financeEntriesRepository.sumOverdue(tenantId, 'PAYABLE'),
       this.financeEntriesRepository.sumOverdue(tenantId, 'RECEIVABLE'),
-      this.financeEntriesRepository.sumByDateRange(tenantId, 'PAYABLE', startOfMonth, endOfMonth, 'month'),
-      this.financeEntriesRepository.sumByDateRange(tenantId, 'RECEIVABLE', startOfMonth, endOfMonth, 'month'),
+      this.financeEntriesRepository.sumByDateRange(
+        tenantId,
+        'PAYABLE',
+        startOfMonth,
+        endOfMonth,
+        'month',
+      ),
+      this.financeEntriesRepository.sumByDateRange(
+        tenantId,
+        'RECEIVABLE',
+        startOfMonth,
+        endOfMonth,
+        'month',
+      ),
       this.getPaidThisMonth(tenantId, startOfMonth, endOfMonth, 'PAYABLE'),
       this.getPaidThisMonth(tenantId, startOfMonth, endOfMonth, 'RECEIVABLE'),
-      this.financeEntriesRepository.sumByDateRange(tenantId, 'PAYABLE', now, in7Days, 'month'),
-      this.financeEntriesRepository.sumByDateRange(tenantId, 'RECEIVABLE', now, in7Days, 'month'),
+      this.financeEntriesRepository.sumByDateRange(
+        tenantId,
+        'PAYABLE',
+        now,
+        in7Days,
+        'month',
+      ),
+      this.financeEntriesRepository.sumByDateRange(
+        tenantId,
+        'RECEIVABLE',
+        now,
+        in7Days,
+        'month',
+      ),
       this.bankAccountsRepository.findMany(tenantId),
       this.financeEntriesRepository.countByStatus(tenantId),
       this.financeEntriesRepository.topOverdueByCustomer(tenantId, 10),
       this.financeEntriesRepository.topOverdueBySupplier(tenantId, 10),
     ]);
 
-    const totalPayable = totalPayableResult.reduce((sum, r) => sum + r.total, 0);
-    const totalReceivable = totalReceivableResult.reduce((sum, r) => sum + r.total, 0);
-    const upcomingPayable7Days = upcomingPayableResult.reduce((sum, r) => sum + r.total, 0);
-    const upcomingReceivable7Days = upcomingReceivableResult.reduce((sum, r) => sum + r.total, 0);
+    const totalPayable = totalPayableResult.reduce(
+      (sum, r) => sum + r.total,
+      0,
+    );
+    const totalReceivable = totalReceivableResult.reduce(
+      (sum, r) => sum + r.total,
+      0,
+    );
+    const upcomingPayable7Days = upcomingPayableResult.reduce(
+      (sum, r) => sum + r.total,
+      0,
+    );
+    const upcomingReceivable7Days = upcomingReceivableResult.reduce(
+      (sum, r) => sum + r.total,
+      0,
+    );
 
     const cashBalance = bankAccounts
       .filter((a) => a.isActive)

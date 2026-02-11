@@ -17,7 +17,9 @@ export interface FinanceCategoryDTO {
   deletedAt?: Date;
 }
 
-export function financeCategoryToDTO(category: FinanceCategory): FinanceCategoryDTO {
+export function financeCategoryToDTO(
+  category: FinanceCategory,
+): FinanceCategoryDTO {
   return {
     id: category.id.toString(),
     name: category.name,

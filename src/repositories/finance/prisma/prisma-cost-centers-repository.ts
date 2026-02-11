@@ -27,7 +27,10 @@ export class PrismaCostCentersRepository implements CostCentersRepository {
     return costCenterPrismaToDomain(costCenter);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<CostCenter | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<CostCenter | null> {
     const costCenter = await prisma.costCenter.findFirst({
       where: {
         id: id.toString(),
@@ -72,10 +75,16 @@ export class PrismaCostCentersRepository implements CostCentersRepository {
         ...(data.companyId !== undefined && { companyId: data.companyId }),
         ...(data.code !== undefined && { code: data.code }),
         ...(data.name !== undefined && { name: data.name }),
-        ...(data.description !== undefined && { description: data.description }),
+        ...(data.description !== undefined && {
+          description: data.description,
+        }),
         ...(data.isActive !== undefined && { isActive: data.isActive }),
-        ...(data.monthlyBudget !== undefined && { monthlyBudget: data.monthlyBudget }),
-        ...(data.annualBudget !== undefined && { annualBudget: data.annualBudget }),
+        ...(data.monthlyBudget !== undefined && {
+          monthlyBudget: data.monthlyBudget,
+        }),
+        ...(data.annualBudget !== undefined && {
+          annualBudget: data.annualBudget,
+        }),
         ...(data.parentId !== undefined && { parentId: data.parentId }),
       },
     });

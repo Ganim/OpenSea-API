@@ -15,7 +15,9 @@ interface ListCostCentersUseCaseResponse {
 export class ListCostCentersUseCase {
   constructor(private costCentersRepository: CostCentersRepository) {}
 
-  async execute({ tenantId }: ListCostCentersUseCaseRequest): Promise<ListCostCentersUseCaseResponse> {
+  async execute({
+    tenantId,
+  }: ListCostCentersUseCaseRequest): Promise<ListCostCentersUseCaseResponse> {
     const costCenters = await this.costCentersRepository.findMany(tenantId);
     return { costCenters: costCenters.map(costCenterToDTO) };
   }

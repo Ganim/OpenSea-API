@@ -46,7 +46,10 @@ export async function exportAccountingController(app: FastifyInstance) {
       return reply
         .status(200)
         .header('Content-Type', result.mimeType)
-        .header('Content-Disposition', `attachment; filename="${result.fileName}"`)
+        .header(
+          'Content-Disposition',
+          `attachment; filename="${result.fileName}"`,
+        )
         .send(result.data);
     },
   });

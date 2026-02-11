@@ -9,7 +9,9 @@ import type {
 } from '../finance-categories-repository';
 import type { FinanceCategoryType } from '@prisma/generated/client.js';
 
-export class PrismaFinanceCategoriesRepository implements FinanceCategoriesRepository {
+export class PrismaFinanceCategoriesRepository
+  implements FinanceCategoriesRepository
+{
   async create(data: CreateFinanceCategorySchema): Promise<FinanceCategory> {
     const category = await prisma.financeCategory.create({
       data: {
@@ -29,7 +31,10 @@ export class PrismaFinanceCategoriesRepository implements FinanceCategoriesRepos
     return financeCategoryPrismaToDomain(category);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<FinanceCategory | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<FinanceCategory | null> {
     const category = await prisma.financeCategory.findFirst({
       where: {
         id: id.toString(),
@@ -42,7 +47,10 @@ export class PrismaFinanceCategoriesRepository implements FinanceCategoriesRepos
     return financeCategoryPrismaToDomain(category);
   }
 
-  async findBySlug(slug: string, tenantId: string): Promise<FinanceCategory | null> {
+  async findBySlug(
+    slug: string,
+    tenantId: string,
+  ): Promise<FinanceCategory | null> {
     const category = await prisma.financeCategory.findFirst({
       where: {
         slug,
@@ -67,18 +75,26 @@ export class PrismaFinanceCategoriesRepository implements FinanceCategoriesRepos
     return categories.map(financeCategoryPrismaToDomain);
   }
 
-  async update(data: UpdateFinanceCategorySchema): Promise<FinanceCategory | null> {
+  async update(
+    data: UpdateFinanceCategorySchema,
+  ): Promise<FinanceCategory | null> {
     const category = await prisma.financeCategory.update({
       where: { id: data.id.toString() },
       data: {
         ...(data.name !== undefined && { name: data.name }),
         ...(data.slug !== undefined && { slug: data.slug }),
-        ...(data.description !== undefined && { description: data.description }),
+        ...(data.description !== undefined && {
+          description: data.description,
+        }),
         ...(data.iconUrl !== undefined && { iconUrl: data.iconUrl }),
         ...(data.color !== undefined && { color: data.color }),
-        ...(data.type !== undefined && { type: data.type as FinanceCategoryType }),
+        ...(data.type !== undefined && {
+          type: data.type as FinanceCategoryType,
+        }),
         ...(data.parentId !== undefined && { parentId: data.parentId }),
-        ...(data.displayOrder !== undefined && { displayOrder: data.displayOrder }),
+        ...(data.displayOrder !== undefined && {
+          displayOrder: data.displayOrder,
+        }),
         ...(data.isActive !== undefined && { isActive: data.isActive }),
       },
     });

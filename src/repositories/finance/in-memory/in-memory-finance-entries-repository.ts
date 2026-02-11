@@ -13,7 +13,9 @@ import type {
   OverdueByParty,
 } from '../finance-entries-repository';
 
-export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepository {
+export class InMemoryFinanceEntriesRepository
+  implements FinanceEntriesRepository
+{
   public items: FinanceEntry[] = [];
 
   async create(data: CreateFinanceEntrySchema): Promise<FinanceEntry> {
@@ -25,7 +27,9 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
       notes: data.notes,
       categoryId: new UniqueEntityID(data.categoryId),
       costCenterId: new UniqueEntityID(data.costCenterId),
-      bankAccountId: data.bankAccountId ? new UniqueEntityID(data.bankAccountId) : undefined,
+      bankAccountId: data.bankAccountId
+        ? new UniqueEntityID(data.bankAccountId)
+        : undefined,
       supplierName: data.supplierName,
       customerName: data.customerName,
       supplierId: data.supplierId,
@@ -46,7 +50,9 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
       recurrenceUnit: data.recurrenceUnit,
       totalInstallments: data.totalInstallments,
       currentInstallment: data.currentInstallment,
-      parentEntryId: data.parentEntryId ? new UniqueEntityID(data.parentEntryId) : undefined,
+      parentEntryId: data.parentEntryId
+        ? new UniqueEntityID(data.parentEntryId)
+        : undefined,
       boletoBarcode: data.boletoBarcode,
       boletoDigitLine: data.boletoDigitLine,
       metadata: data.metadata ?? {},
@@ -58,33 +64,52 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
     return entry;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<FinanceEntry | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<FinanceEntry | null> {
     const item = this.items.find(
-      (i) => !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
+      (i) =>
+        !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
 
-  async findByCode(code: string, tenantId: string): Promise<FinanceEntry | null> {
+  async findByCode(
+    code: string,
+    tenantId: string,
+  ): Promise<FinanceEntry | null> {
     const item = this.items.find(
-      (i) => !i.deletedAt && i.code === code && i.tenantId.toString() === tenantId,
+      (i) =>
+        !i.deletedAt && i.code === code && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
 
-  async findMany(options: FindManyFinanceEntriesOptions): Promise<FindManyResult> {
+  async findMany(
+    options: FindManyFinanceEntriesOptions,
+  ): Promise<FindManyResult> {
     const page = options.page ?? 1;
     const limit = options.limit ?? 20;
 
-    let filtered = this.items.filter((i) => {
+    const filtered = this.items.filter((i) => {
       if (i.deletedAt) return false;
       if (i.tenantId.toString() !== options.tenantId) return false;
 
       if (options.type && i.type !== options.type) return false;
       if (options.status && i.status !== options.status) return false;
-      if (options.categoryId && i.categoryId.toString() !== options.categoryId) return false;
-      if (options.costCenterId && i.costCenterId.toString() !== options.costCenterId) return false;
-      if (options.bankAccountId && i.bankAccountId?.toString() !== options.bankAccountId) return false;
+      if (options.categoryId && i.categoryId.toString() !== options.categoryId)
+        return false;
+      if (
+        options.costCenterId &&
+        i.costCenterId.toString() !== options.costCenterId
+      )
+        return false;
+      if (
+        options.bankAccountId &&
+        i.bankAccountId?.toString() !== options.bankAccountId
+      )
+        return false;
 
       if (options.dueDateFrom && i.dueDate < options.dueDateFrom) return false;
       if (options.dueDateTo && i.dueDate > options.dueDateTo) return false;
@@ -107,7 +132,9 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
 
       if (options.overdueRange) {
         const now = new Date();
-        const diffDays = Math.floor((now.getTime() - i.dueDate.getTime()) / (1000 * 60 * 60 * 24));
+        const diffDays = Math.floor(
+          (now.getTime() - i.dueDate.getTime()) / (1000 * 60 * 60 * 24),
+        );
         if (!i.isOverdue) return false;
 
         switch (options.overdueRange) {
@@ -126,15 +153,27 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
         }
       }
 
-      if (options.parentEntryId && i.parentEntryId?.toString() !== options.parentEntryId) return false;
+      if (
+        options.parentEntryId &&
+        i.parentEntryId?.toString() !== options.parentEntryId
+      )
+        return false;
 
       if (options.search) {
         const term = options.search.toLowerCase();
         const matchesDescription = i.description.toLowerCase().includes(term);
         const matchesCode = i.code.toLowerCase().includes(term);
-        const matchesSupplier = i.supplierName?.toLowerCase().includes(term) ?? false;
-        const matchesCustomer = i.customerName?.toLowerCase().includes(term) ?? false;
-        if (!matchesDescription && !matchesCode && !matchesSupplier && !matchesCustomer) return false;
+        const matchesSupplier =
+          i.supplierName?.toLowerCase().includes(term) ?? false;
+        const matchesCustomer =
+          i.customerName?.toLowerCase().includes(term) ?? false;
+        if (
+          !matchesDescription &&
+          !matchesCode &&
+          !matchesSupplier &&
+          !matchesCustomer
+        )
+          return false;
       }
 
       return true;
@@ -153,22 +192,33 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
 
     if (data.description !== undefined) item.description = data.description;
     if (data.notes !== undefined) item.notes = data.notes ?? undefined;
-    if (data.categoryId !== undefined) item.categoryId = new UniqueEntityID(data.categoryId);
-    if (data.costCenterId !== undefined) item.costCenterId = new UniqueEntityID(data.costCenterId);
-    if (data.bankAccountId !== undefined) item.bankAccountId = data.bankAccountId ? new UniqueEntityID(data.bankAccountId) : undefined;
-    if (data.supplierName !== undefined) item.supplierName = data.supplierName ?? undefined;
-    if (data.customerName !== undefined) item.customerName = data.customerName ?? undefined;
-    if (data.expectedAmount !== undefined) item.expectedAmount = data.expectedAmount;
+    if (data.categoryId !== undefined)
+      item.categoryId = new UniqueEntityID(data.categoryId);
+    if (data.costCenterId !== undefined)
+      item.costCenterId = new UniqueEntityID(data.costCenterId);
+    if (data.bankAccountId !== undefined)
+      item.bankAccountId = data.bankAccountId
+        ? new UniqueEntityID(data.bankAccountId)
+        : undefined;
+    if (data.supplierName !== undefined)
+      item.supplierName = data.supplierName ?? undefined;
+    if (data.customerName !== undefined)
+      item.customerName = data.customerName ?? undefined;
+    if (data.expectedAmount !== undefined)
+      item.expectedAmount = data.expectedAmount;
     if (data.discount !== undefined) item.discount = data.discount;
     if (data.interest !== undefined) item.interest = data.interest;
     if (data.penalty !== undefined) item.penalty = data.penalty;
     if (data.dueDate !== undefined) item.dueDate = data.dueDate;
-    if (data.competenceDate !== undefined) item.competenceDate = data.competenceDate ?? undefined;
+    if (data.competenceDate !== undefined)
+      item.competenceDate = data.competenceDate ?? undefined;
     if (data.status !== undefined) item.status = data.status;
     if (data.actualAmount !== undefined) item.actualAmount = data.actualAmount;
     if (data.paymentDate !== undefined) item.paymentDate = data.paymentDate;
-    if (data.boletoBarcode !== undefined) item.boletoBarcode = data.boletoBarcode ?? undefined;
-    if (data.boletoDigitLine !== undefined) item.boletoDigitLine = data.boletoDigitLine ?? undefined;
+    if (data.boletoBarcode !== undefined)
+      item.boletoBarcode = data.boletoBarcode ?? undefined;
+    if (data.boletoDigitLine !== undefined)
+      item.boletoDigitLine = data.boletoDigitLine ?? undefined;
     if (data.tags !== undefined) {
       // Tags don't have a setter, but we need to update the underlying props
       // Using Object.assign to update the internal tags array
@@ -297,7 +347,10 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
       }));
   }
 
-  async countByStatus(tenantId: string, type?: string): Promise<Record<string, number>> {
+  async countByStatus(
+    tenantId: string,
+    type?: string,
+  ): Promise<Record<string, number>> {
     const entries = this.getActiveEntries(tenantId).filter((i) => {
       if (type && i.type !== type) return false;
       return true;
@@ -314,7 +367,10 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
     const now = new Date();
     const overdueStatuses = ['PAID', 'RECEIVED', 'CANCELLED'];
     const entries = this.getActiveEntries(tenantId).filter(
-      (i) => i.type === type && i.dueDate < now && !overdueStatuses.includes(i.status),
+      (i) =>
+        i.type === type &&
+        i.dueDate < now &&
+        !overdueStatuses.includes(i.status),
     );
 
     return {
@@ -323,7 +379,10 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
     };
   }
 
-  async topOverdueByCustomer(tenantId: string, limit = 10): Promise<OverdueByParty[]> {
+  async topOverdueByCustomer(
+    tenantId: string,
+    limit = 10,
+  ): Promise<OverdueByParty[]> {
     const now = new Date();
     const overdueStatuses = ['PAID', 'RECEIVED', 'CANCELLED'];
     const entries = this.getActiveEntries(tenantId).filter(
@@ -334,16 +393,24 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
         i.customerName,
     );
 
-    const map = new Map<string, { total: number; count: number; oldestDueDate: Date }>();
+    const map = new Map<
+      string,
+      { total: number; count: number; oldestDueDate: Date }
+    >();
     for (const e of entries) {
       const name = e.customerName!;
       const existing = map.get(name);
       if (existing) {
         existing.total += e.expectedAmount;
         existing.count += 1;
-        if (e.dueDate < existing.oldestDueDate) existing.oldestDueDate = e.dueDate;
+        if (e.dueDate < existing.oldestDueDate)
+          existing.oldestDueDate = e.dueDate;
       } else {
-        map.set(name, { total: e.expectedAmount, count: 1, oldestDueDate: e.dueDate });
+        map.set(name, {
+          total: e.expectedAmount,
+          count: 1,
+          oldestDueDate: e.dueDate,
+        });
       }
     }
 
@@ -353,7 +420,10 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
       .map(([name, data]) => ({ name, ...data }));
   }
 
-  async topOverdueBySupplier(tenantId: string, limit = 10): Promise<OverdueByParty[]> {
+  async topOverdueBySupplier(
+    tenantId: string,
+    limit = 10,
+  ): Promise<OverdueByParty[]> {
     const now = new Date();
     const overdueStatuses = ['PAID', 'RECEIVED', 'CANCELLED'];
     const entries = this.getActiveEntries(tenantId).filter(
@@ -364,16 +434,24 @@ export class InMemoryFinanceEntriesRepository implements FinanceEntriesRepositor
         i.supplierName,
     );
 
-    const map = new Map<string, { total: number; count: number; oldestDueDate: Date }>();
+    const map = new Map<
+      string,
+      { total: number; count: number; oldestDueDate: Date }
+    >();
     for (const e of entries) {
       const name = e.supplierName!;
       const existing = map.get(name);
       if (existing) {
         existing.total += e.expectedAmount;
         existing.count += 1;
-        if (e.dueDate < existing.oldestDueDate) existing.oldestDueDate = e.dueDate;
+        if (e.dueDate < existing.oldestDueDate)
+          existing.oldestDueDate = e.dueDate;
       } else {
-        map.set(name, { total: e.expectedAmount, count: 1, oldestDueDate: e.dueDate });
+        map.set(name, {
+          total: e.expectedAmount,
+          count: 1,
+          oldestDueDate: e.dueDate,
+        });
       }
     }
 

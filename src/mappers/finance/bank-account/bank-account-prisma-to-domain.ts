@@ -28,7 +28,9 @@ export function mapBankAccountPrismaToDomain(data: PrismaBankAccount) {
   };
 }
 
-export function bankAccountPrismaToDomain(data: PrismaBankAccount): BankAccount {
+export function bankAccountPrismaToDomain(
+  data: PrismaBankAccount,
+): BankAccount {
   return BankAccount.create(
     mapBankAccountPrismaToDomain(data),
     new UniqueEntityID(data.id),

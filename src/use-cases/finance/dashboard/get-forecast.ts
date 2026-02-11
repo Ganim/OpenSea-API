@@ -37,23 +37,56 @@ interface GetForecastUseCaseResponse {
 export class GetForecastUseCase {
   constructor(private financeEntriesRepository: FinanceEntriesRepository) {}
 
-  async execute(request: GetForecastUseCaseRequest): Promise<GetForecastUseCaseResponse> {
-    const { tenantId, type, startDate, endDate, groupBy, costCenterId, categoryId } = request;
+  async execute(
+    request: GetForecastUseCaseRequest,
+  ): Promise<GetForecastUseCaseResponse> {
+    const {
+      tenantId,
+      type,
+      startDate,
+      endDate,
+      groupBy,
+      costCenterId: _costCenterId,
+      categoryId: _categoryId,
+    } = request;
 
     // If type is specified, only get that type; otherwise get both
     const fetchPayable = !type || type === 'PAYABLE';
     const fetchReceivable = !type || type === 'RECEIVABLE';
 
-    const [payableData, receivableData, byCategory, byCostCenter] = await Promise.all([
-      fetchPayable
-        ? this.financeEntriesRepository.sumByDateRange(tenantId, 'PAYABLE', startDate, endDate, groupBy)
-        : Promise.resolve([] as DateRangeSum[]),
-      fetchReceivable
-        ? this.financeEntriesRepository.sumByDateRange(tenantId, 'RECEIVABLE', startDate, endDate, groupBy)
-        : Promise.resolve([] as DateRangeSum[]),
-      this.financeEntriesRepository.sumByCategory(tenantId, type, startDate, endDate),
-      this.financeEntriesRepository.sumByCostCenter(tenantId, type, startDate, endDate),
-    ]);
+    const [payableData, receivableData, byCategory, byCostCenter] =
+      await Promise.all([
+        fetchPayable
+          ? this.financeEntriesRepository.sumByDateRange(
+              tenantId,
+              'PAYABLE',
+              startDate,
+              endDate,
+              groupBy,
+            )
+          : Promise.resolve([] as DateRangeSum[]),
+        fetchReceivable
+          ? this.financeEntriesRepository.sumByDateRange(
+              tenantId,
+              'RECEIVABLE',
+              startDate,
+              endDate,
+              groupBy,
+            )
+          : Promise.resolve([] as DateRangeSum[]),
+        this.financeEntriesRepository.sumByCategory(
+          tenantId,
+          type,
+          startDate,
+          endDate,
+        ),
+        this.financeEntriesRepository.sumByCostCenter(
+          tenantId,
+          type,
+          startDate,
+          endDate,
+        ),
+      ]);
 
     // Merge into unified timeline
     const dateSet = new Set<string>();

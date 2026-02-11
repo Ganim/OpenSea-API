@@ -34,9 +34,7 @@ describe('List Cost Centers (E2E)', () => {
   });
 
   it('should return 401 without auth', async () => {
-    const response = await request(app.server).get(
-      '/v1/finance/cost-centers',
-    );
+    const response = await request(app.server).get('/v1/finance/cost-centers');
 
     expect(response.status).toBe(401);
   });

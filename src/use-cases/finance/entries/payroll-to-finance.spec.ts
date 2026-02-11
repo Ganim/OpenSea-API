@@ -1,5 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { ContractType, CPF, EmployeeStatus, WorkRegime } from '@/entities/hr/value-objects';
+import {
+  ContractType,
+  CPF,
+  EmployeeStatus,
+  WorkRegime,
+} from '@/entities/hr/value-objects';
 import { InMemoryFinanceCategoriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-categories-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
@@ -152,7 +157,9 @@ describe('PayrollToFinanceUseCase', () => {
 
     // Verify entries created
     expect(entriesRepository.items).toHaveLength(2);
-    const salaryEntry = entriesRepository.items.find((e) => e.description.includes('Salário líquido'));
+    const salaryEntry = entriesRepository.items.find((e) =>
+      e.description.includes('Salário líquido'),
+    );
     expect(salaryEntry).toBeDefined();
     expect(salaryEntry!.expectedAmount).toBe(4450); // 5000 - 550
     expect(salaryEntry!.type).toBe('PAYABLE');
@@ -289,12 +296,16 @@ describe('PayrollToFinanceUseCase', () => {
     expect(result.entriesCreated).toBe(4);
 
     // INSS aggregate should be 660 (330 * 2)
-    const inssEntry = entriesRepository.items.find((e) => e.description.includes('INSS'));
+    const inssEntry = entriesRepository.items.find((e) =>
+      e.description.includes('INSS'),
+    );
     expect(inssEntry).toBeDefined();
     expect(inssEntry!.expectedAmount).toBe(660);
 
     // IRRF aggregate should be 300 (150 * 2)
-    const irrfEntry = entriesRepository.items.find((e) => e.description.includes('IRRF'));
+    const irrfEntry = entriesRepository.items.find((e) =>
+      e.description.includes('IRRF'),
+    );
     expect(irrfEntry).toBeDefined();
     expect(irrfEntry!.expectedAmount).toBe(300);
   });
@@ -337,11 +348,15 @@ describe('PayrollToFinanceUseCase', () => {
     // 1 net salary + 1 VT + 1 VR = 3
     expect(result.entriesCreated).toBe(3);
 
-    const vtEntry = entriesRepository.items.find((e) => e.description.includes('Vale Transporte'));
+    const vtEntry = entriesRepository.items.find((e) =>
+      e.description.includes('Vale Transporte'),
+    );
     expect(vtEntry).toBeDefined();
     expect(vtEntry!.expectedAmount).toBe(200);
 
-    const vrEntry = entriesRepository.items.find((e) => e.description.includes('Vale Refeição'));
+    const vrEntry = entriesRepository.items.find((e) =>
+      e.description.includes('Vale Refeição'),
+    );
     expect(vrEntry).toBeDefined();
     expect(vrEntry!.expectedAmount).toBe(500);
   });

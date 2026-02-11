@@ -2,7 +2,9 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { FinanceAttachment } from '@/entities/finance/finance-attachment';
 import type { FinanceAttachment as PrismaFinanceAttachment } from '@prisma/generated/client.js';
 
-export function financeAttachmentPrismaToDomain(raw: PrismaFinanceAttachment): FinanceAttachment {
+export function financeAttachmentPrismaToDomain(
+  raw: PrismaFinanceAttachment,
+): FinanceAttachment {
   return FinanceAttachment.create(
     {
       id: new UniqueEntityID(raw.id),

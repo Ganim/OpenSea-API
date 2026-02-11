@@ -31,7 +31,10 @@ describe('CheckOverdueEntriesUseCase', () => {
   beforeEach(() => {
     entriesRepository = new InMemoryFinanceEntriesRepository();
     notificationsRepository = new InMemoryNotificationsRepository();
-    sut = new CheckOverdueEntriesUseCase(entriesRepository, notificationsRepository);
+    sut = new CheckOverdueEntriesUseCase(
+      entriesRepository,
+      notificationsRepository,
+    );
     vi.useFakeTimers();
     vi.setSystemTime(new Date(2026, 1, 10, 12, 0, 0)); // Feb 10, 2026 noon
   });
@@ -162,12 +165,16 @@ describe('CheckOverdueEntriesUseCase', () => {
     expect(result.markedOverdue).toBe(0);
     expect(notificationsRepository.items).toHaveLength(2);
 
-    const payableNotif = notificationsRepository.items.find((n) => n.message.includes('Internet'));
+    const payableNotif = notificationsRepository.items.find((n) =>
+      n.message.includes('Internet'),
+    );
     expect(payableNotif!.title).toBe('Despesa próxima do vencimento');
     expect(payableNotif!.message).toContain('2 dias');
     expect(payableNotif!.type).toBe('REMINDER');
 
-    const receivableNotif = notificationsRepository.items.find((n) => n.message.includes('Mensalidade'));
+    const receivableNotif = notificationsRepository.items.find((n) =>
+      n.message.includes('Mensalidade'),
+    );
     expect(receivableNotif!.title).toBe('Recebimento próximo do vencimento');
     expect(receivableNotif!.message).toContain('Maria');
   });

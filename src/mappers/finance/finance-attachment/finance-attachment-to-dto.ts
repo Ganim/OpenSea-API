@@ -14,7 +14,9 @@ export interface FinanceAttachmentDTO {
   createdAt: Date;
 }
 
-export function financeAttachmentToDTO(attachment: FinanceAttachment): FinanceAttachmentDTO {
+export function financeAttachmentToDTO(
+  attachment: FinanceAttachment,
+): FinanceAttachmentDTO {
   return {
     id: attachment.id.toString(),
     tenantId: attachment.tenantId.toString(),

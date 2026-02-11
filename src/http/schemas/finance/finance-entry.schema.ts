@@ -21,7 +21,17 @@ export const createFinanceEntrySchema = z.object({
   competenceDate: z.coerce.date().optional(),
   recurrenceType: z.enum(['SINGLE', 'RECURRING', 'INSTALLMENT']).optional(),
   recurrenceInterval: z.number().int().positive().optional(),
-  recurrenceUnit: z.enum(['DAILY', 'WEEKLY', 'BIWEEKLY', 'MONTHLY', 'QUARTERLY', 'SEMIANNUAL', 'ANNUAL']).optional(),
+  recurrenceUnit: z
+    .enum([
+      'DAILY',
+      'WEEKLY',
+      'BIWEEKLY',
+      'MONTHLY',
+      'QUARTERLY',
+      'SEMIANNUAL',
+      'ANNUAL',
+    ])
+    .optional(),
   totalInstallments: z.number().int().positive().optional(),
   currentInstallment: z.number().int().positive().optional(),
   boletoBarcode: z.string().max(64).optional(),
@@ -108,13 +118,26 @@ export const listFinanceEntriesQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
   type: z.enum(['PAYABLE', 'RECEIVABLE']).optional(),
-  status: z.enum(['PENDING', 'OVERDUE', 'PAID', 'RECEIVED', 'PARTIALLY_PAID', 'CANCELLED', 'SCHEDULED']).optional(),
+  status: z
+    .enum([
+      'PENDING',
+      'OVERDUE',
+      'PAID',
+      'RECEIVED',
+      'PARTIALLY_PAID',
+      'CANCELLED',
+      'SCHEDULED',
+    ])
+    .optional(),
   categoryId: z.string().uuid().optional(),
   costCenterId: z.string().uuid().optional(),
   bankAccountId: z.string().uuid().optional(),
   dueDateFrom: z.coerce.date().optional(),
   dueDateTo: z.coerce.date().optional(),
-  isOverdue: z.enum(['true', 'false']).transform(v => v === 'true').optional(),
+  isOverdue: z
+    .enum(['true', 'false'])
+    .transform((v) => v === 'true')
+    .optional(),
   customerName: z.string().optional(),
   supplierName: z.string().optional(),
   overdueRange: z.enum(['1-7', '8-30', '31-60', '60+']).optional(),

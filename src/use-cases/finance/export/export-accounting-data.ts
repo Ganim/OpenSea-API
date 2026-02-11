@@ -59,12 +59,29 @@ function escapeCsvField(value: string): string {
 export class ExportAccountingDataUseCase {
   constructor(private financeEntriesRepository: FinanceEntriesRepository) {}
 
-  async execute(request: ExportAccountingRequest): Promise<ExportAccountingResponse> {
-    const { tenantId, reportType, startDate, endDate, type, costCenterId, categoryId } = request;
+  async execute(
+    request: ExportAccountingRequest,
+  ): Promise<ExportAccountingResponse> {
+    const {
+      tenantId,
+      reportType,
+      startDate,
+      endDate,
+      type,
+      costCenterId,
+      categoryId,
+    } = request;
 
     switch (reportType) {
       case 'ENTRIES':
-        return this.exportEntries(tenantId, startDate, endDate, type, costCenterId, categoryId);
+        return this.exportEntries(
+          tenantId,
+          startDate,
+          endDate,
+          type,
+          costCenterId,
+          categoryId,
+        );
       case 'DRE':
         return this.exportDRE(tenantId, startDate, endDate);
       case 'BALANCE':
@@ -132,7 +149,9 @@ export class ExportAccountingDataUseCase {
       e.competenceDate ? formatDate(e.competenceDate) : '',
     ]);
 
-    const csv = UTF8_BOM + [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
+    const csv =
+      UTF8_BOM +
+      [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
     const dateRange = `${formatDate(startDate).replace(/\//g, '-')}_${formatDate(endDate).replace(/\//g, '-')}`;
 
     return {
@@ -148,12 +167,13 @@ export class ExportAccountingDataUseCase {
     endDate: Date,
   ): Promise<ExportAccountingResponse> {
     // Revenue: RECEIVABLE entries that are PAID/RECEIVED in the period
-    const { entries: allEntries } = await this.financeEntriesRepository.findMany({
-      tenantId,
-      dueDateFrom: startDate,
-      dueDateTo: endDate,
-      limit: 10000,
-    });
+    const { entries: allEntries } =
+      await this.financeEntriesRepository.findMany({
+        tenantId,
+        dueDateFrom: startDate,
+        dueDateTo: endDate,
+        limit: 10000,
+      });
 
     const paidStatuses = ['PAID', 'RECEIVED', 'PARTIALLY_PAID'];
 
@@ -178,7 +198,9 @@ export class ExportAccountingDataUseCase {
       ['(=) RESULTADO DO PERÍODO', formatMoney(result)],
     ];
 
-    const csv = UTF8_BOM + [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
+    const csv =
+      UTF8_BOM +
+      [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
     const dateRange = `${formatDate(startDate).replace(/\//g, '-')}_${formatDate(endDate).replace(/\//g, '-')}`;
 
     return {
@@ -244,7 +266,9 @@ export class ExportAccountingDataUseCase {
       formatMoney(totalCredits - totalDebits),
     ]);
 
-    const csv = UTF8_BOM + [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
+    const csv =
+      UTF8_BOM +
+      [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
     const dateRange = `${formatDate(startDate).replace(/\//g, '-')}_${formatDate(endDate).replace(/\//g, '-')}`;
 
     return {
@@ -259,12 +283,13 @@ export class ExportAccountingDataUseCase {
     startDate: Date,
     endDate: Date,
   ): Promise<ExportAccountingResponse> {
-    const { entries: allEntries } = await this.financeEntriesRepository.findMany({
-      tenantId,
-      dueDateFrom: startDate,
-      dueDateTo: endDate,
-      limit: 10000,
-    });
+    const { entries: allEntries } =
+      await this.financeEntriesRepository.findMany({
+        tenantId,
+        dueDateFrom: startDate,
+        dueDateTo: endDate,
+        limit: 10000,
+      });
 
     const paidStatuses = ['PAID', 'RECEIVED', 'PARTIALLY_PAID'];
 
@@ -289,7 +314,9 @@ export class ExportAccountingDataUseCase {
       ['(=) CAIXA LÍQUIDO OPERACIONAL', formatMoney(netCash)],
     ];
 
-    const csv = UTF8_BOM + [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
+    const csv =
+      UTF8_BOM +
+      [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
     const dateRange = `${formatDate(startDate).replace(/\//g, '-')}_${formatDate(endDate).replace(/\//g, '-')}`;
 
     return {

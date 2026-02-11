@@ -25,8 +25,7 @@ describe('Parse Boleto (E2E)', () => {
       .post('/v1/finance/parse-boleto')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        barcode:
-          '23793.38128 60800.000003 00000.000400 1 84340000023000',
+        barcode: '23793.38128 60800.000003 00000.000400 1 84340000023000',
       });
 
     expect([200, 400]).toContain(response.status);
@@ -38,9 +37,7 @@ describe('Parse Boleto (E2E)', () => {
   });
 
   it('should return 401 without auth', async () => {
-    const response = await request(app.server).post(
-      '/v1/finance/parse-boleto',
-    );
+    const response = await request(app.server).post('/v1/finance/parse-boleto');
     expect(response.status).toBe(401);
   });
 });

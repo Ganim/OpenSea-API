@@ -29,7 +29,9 @@ interface CreateBankAccountUseCaseResponse {
 export class CreateBankAccountUseCase {
   constructor(private bankAccountsRepository: BankAccountsRepository) {}
 
-  async execute(request: CreateBankAccountUseCaseRequest): Promise<CreateBankAccountUseCaseResponse> {
+  async execute(
+    request: CreateBankAccountUseCaseRequest,
+  ): Promise<CreateBankAccountUseCaseResponse> {
     const { name, bankCode, agency, accountNumber } = request;
 
     if (!name || name.trim().length === 0) {
@@ -37,7 +39,9 @@ export class CreateBankAccountUseCase {
     }
 
     if (name.length > 128) {
-      throw new BadRequestError('Bank account name must be at most 128 characters');
+      throw new BadRequestError(
+        'Bank account name must be at most 128 characters',
+      );
     }
 
     if (!bankCode || bankCode.trim().length === 0) {

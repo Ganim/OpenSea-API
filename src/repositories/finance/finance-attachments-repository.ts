@@ -14,7 +14,13 @@ export interface CreateFinanceAttachmentSchema {
 
 export interface FinanceAttachmentsRepository {
   create(data: CreateFinanceAttachmentSchema): Promise<FinanceAttachment>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<FinanceAttachment | null>;
-  findManyByEntryId(entryId: string, tenantId: string): Promise<FinanceAttachment[]>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<FinanceAttachment | null>;
+  findManyByEntryId(
+    entryId: string,
+    tenantId: string,
+  ): Promise<FinanceAttachment[]>;
   delete(id: UniqueEntityID): Promise<void>;
 }

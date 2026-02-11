@@ -125,11 +125,36 @@ export interface FinanceEntriesRepository {
   generateNextCode(tenantId: string, type: string): Promise<string>;
 
   // Aggregation queries
-  sumByDateRange(tenantId: string, type: string | undefined, from: Date, to: Date, groupBy: 'day' | 'week' | 'month'): Promise<DateRangeSum[]>;
-  sumByCategory(tenantId: string, type: string | undefined, from: Date, to: Date): Promise<CategorySum[]>;
-  sumByCostCenter(tenantId: string, type: string | undefined, from: Date, to: Date): Promise<CostCenterSum[]>;
-  countByStatus(tenantId: string, type?: string): Promise<Record<string, number>>;
+  sumByDateRange(
+    tenantId: string,
+    type: string | undefined,
+    from: Date,
+    to: Date,
+    groupBy: 'day' | 'week' | 'month',
+  ): Promise<DateRangeSum[]>;
+  sumByCategory(
+    tenantId: string,
+    type: string | undefined,
+    from: Date,
+    to: Date,
+  ): Promise<CategorySum[]>;
+  sumByCostCenter(
+    tenantId: string,
+    type: string | undefined,
+    from: Date,
+    to: Date,
+  ): Promise<CostCenterSum[]>;
+  countByStatus(
+    tenantId: string,
+    type?: string,
+  ): Promise<Record<string, number>>;
   sumOverdue(tenantId: string, type: string): Promise<OverdueSum>;
-  topOverdueByCustomer(tenantId: string, limit?: number): Promise<OverdueByParty[]>;
-  topOverdueBySupplier(tenantId: string, limit?: number): Promise<OverdueByParty[]>;
+  topOverdueByCustomer(
+    tenantId: string,
+    limit?: number,
+  ): Promise<OverdueByParty[]>;
+  topOverdueBySupplier(
+    tenantId: string,
+    limit?: number,
+  ): Promise<OverdueByParty[]>;
 }

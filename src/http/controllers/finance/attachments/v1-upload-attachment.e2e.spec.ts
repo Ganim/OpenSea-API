@@ -25,8 +25,7 @@ describe('Upload Attachment (E2E)', () => {
   it('should reject upload without proper multipart data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
-    const { category, costCenter } =
-      await createFinancePrerequisites(tenantId);
+    const { category, costCenter } = await createFinancePrerequisites(tenantId);
 
     const entry = await createFinanceEntry(tenantId, {
       categoryId: category.id,

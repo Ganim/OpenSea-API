@@ -15,7 +15,9 @@ interface ListBankAccountsUseCaseResponse {
 export class ListBankAccountsUseCase {
   constructor(private bankAccountsRepository: BankAccountsRepository) {}
 
-  async execute({ tenantId }: ListBankAccountsUseCaseRequest): Promise<ListBankAccountsUseCaseResponse> {
+  async execute({
+    tenantId,
+  }: ListBankAccountsUseCaseRequest): Promise<ListBankAccountsUseCaseResponse> {
     const bankAccounts = await this.bankAccountsRepository.findMany(tenantId);
     return { bankAccounts: bankAccounts.map(bankAccountToDTO) };
   }

@@ -344,8 +344,8 @@ describe('RegisterPaymentUseCase', () => {
     });
 
     // Master should still be PENDING
-    const masterAfterFirst = entriesRepository.items.find(
-      (i) => i.id.equals(master.id),
+    const masterAfterFirst = entriesRepository.items.find((i) =>
+      i.id.equals(master.id),
     );
     expect(masterAfterFirst!.status).toBe('PENDING');
 
@@ -371,8 +371,8 @@ describe('RegisterPaymentUseCase', () => {
     });
 
     // Now master should be PAID
-    const masterAfterAll = entriesRepository.items.find(
-      (i) => i.id.equals(master.id),
+    const masterAfterAll = entriesRepository.items.find((i) =>
+      i.id.equals(master.id),
     );
     expect(masterAfterAll!.status).toBe('PAID');
   });

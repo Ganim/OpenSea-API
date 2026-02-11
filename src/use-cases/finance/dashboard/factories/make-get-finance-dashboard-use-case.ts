@@ -6,5 +6,8 @@ export function makeGetFinanceDashboardUseCase() {
   const entriesRepository = new PrismaFinanceEntriesRepository();
   const bankAccountsRepository = new PrismaBankAccountsRepository();
 
-  return new GetFinanceDashboardUseCase(entriesRepository, bankAccountsRepository);
+  return new GetFinanceDashboardUseCase(
+    entriesRepository,
+    bankAccountsRepository,
+  );
 }

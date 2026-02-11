@@ -19,9 +19,10 @@ interface CancelFinanceEntryUseCaseResponse {
 export class CancelFinanceEntryUseCase {
   constructor(private financeEntriesRepository: FinanceEntriesRepository) {}
 
-  async execute(
-    { tenantId, id }: CancelFinanceEntryUseCaseRequest,
-  ): Promise<CancelFinanceEntryUseCaseResponse> {
+  async execute({
+    tenantId,
+    id,
+  }: CancelFinanceEntryUseCaseRequest): Promise<CancelFinanceEntryUseCaseResponse> {
     const entry = await this.financeEntriesRepository.findById(
       new UniqueEntityID(id),
       tenantId,
@@ -32,7 +33,9 @@ export class CancelFinanceEntryUseCase {
     }
 
     if (entry.status === 'PAID' || entry.status === 'RECEIVED') {
-      throw new BadRequestError('Cannot cancel an entry that is already paid or received');
+      throw new BadRequestError(
+        'Cannot cancel an entry that is already paid or received',
+      );
     }
 
     const cancelled = await this.financeEntriesRepository.update({

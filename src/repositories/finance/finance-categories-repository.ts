@@ -29,7 +29,10 @@ export interface UpdateFinanceCategorySchema {
 
 export interface FinanceCategoriesRepository {
   create(data: CreateFinanceCategorySchema): Promise<FinanceCategory>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<FinanceCategory | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<FinanceCategory | null>;
   findBySlug(slug: string, tenantId: string): Promise<FinanceCategory | null>;
   findMany(tenantId: string): Promise<FinanceCategory[]>;
   update(data: UpdateFinanceCategorySchema): Promise<FinanceCategory | null>;

@@ -29,4 +29,5 @@ export const financeCategoryResponseSchema = z.object({
   deletedAt: z.coerce.date().optional().nullable(),
 });
 
-export const updateFinanceCategorySchema = createFinanceCategorySchema.partial();
+export const updateFinanceCategorySchema =
+  createFinanceCategorySchema.partial();

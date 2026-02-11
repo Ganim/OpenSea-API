@@ -11,7 +11,10 @@ interface DeleteFinanceEntryUseCaseRequest {
 export class DeleteFinanceEntryUseCase {
   constructor(private financeEntriesRepository: FinanceEntriesRepository) {}
 
-  async execute({ tenantId, id }: DeleteFinanceEntryUseCaseRequest): Promise<void> {
+  async execute({
+    tenantId,
+    id,
+  }: DeleteFinanceEntryUseCaseRequest): Promise<void> {
     const entry = await this.financeEntriesRepository.findById(
       new UniqueEntityID(id),
       tenantId,
@@ -23,7 +26,9 @@ export class DeleteFinanceEntryUseCase {
 
     const undeletableStatuses = ['PAID', 'RECEIVED'];
     if (undeletableStatuses.includes(entry.status)) {
-      throw new BadRequestError('Cannot delete an entry with status ' + entry.status);
+      throw new BadRequestError(
+        'Cannot delete an entry with status ' + entry.status,
+      );
     }
 
     await this.financeEntriesRepository.delete(new UniqueEntityID(id));

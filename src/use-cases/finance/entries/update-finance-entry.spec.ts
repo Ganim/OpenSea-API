@@ -1,6 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { UpdateFinanceEntryUseCase } from './update-finance-entry';

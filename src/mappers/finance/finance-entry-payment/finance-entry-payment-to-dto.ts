@@ -13,7 +13,9 @@ export interface FinanceEntryPaymentDTO {
   createdAt: Date;
 }
 
-export function financeEntryPaymentToDTO(payment: FinanceEntryPayment): FinanceEntryPaymentDTO {
+export function financeEntryPaymentToDTO(
+  payment: FinanceEntryPayment,
+): FinanceEntryPaymentDTO {
   return {
     id: payment.id.toString(),
     entryId: payment.entryId.toString(),

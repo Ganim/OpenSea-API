@@ -35,9 +35,7 @@ export class CreateFinanceCategoryUseCase {
     }
 
     if (name.length > 128) {
-      throw new BadRequestError(
-        'Category name must be at most 128 characters',
-      );
+      throw new BadRequestError('Category name must be at most 128 characters');
     }
 
     const validTypes = ['EXPENSE', 'REVENUE', 'BOTH'];

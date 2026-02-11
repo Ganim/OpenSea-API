@@ -11,7 +11,10 @@ describe('GetFinanceDashboardUseCase', () => {
   beforeEach(async () => {
     entriesRepository = new InMemoryFinanceEntriesRepository();
     bankAccountsRepository = new InMemoryBankAccountsRepository();
-    sut = new GetFinanceDashboardUseCase(entriesRepository, bankAccountsRepository);
+    sut = new GetFinanceDashboardUseCase(
+      entriesRepository,
+      bankAccountsRepository,
+    );
   });
 
   it('should return dashboard with all zero values when no data', async () => {

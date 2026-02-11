@@ -20,6 +20,13 @@ export const itemMovementResponseSchema = z.object({
   approvedBy: z.string().nullable().optional(),
   salesOrderId: z.uuid().nullable().optional(),
   createdAt: z.coerce.date(),
+  user: z
+    .object({
+      id: z.uuid(),
+      name: z.string(),
+    })
+    .nullable()
+    .optional(),
 });
 
 export const itemMovementQuerySchema = z.object({

@@ -18,7 +18,10 @@ interface GetBankAccountByIdUseCaseResponse {
 export class GetBankAccountByIdUseCase {
   constructor(private bankAccountsRepository: BankAccountsRepository) {}
 
-  async execute({ tenantId, id }: GetBankAccountByIdUseCaseRequest): Promise<GetBankAccountByIdUseCaseResponse> {
+  async execute({
+    tenantId,
+    id,
+  }: GetBankAccountByIdUseCaseRequest): Promise<GetBankAccountByIdUseCaseResponse> {
     const bankAccount = await this.bankAccountsRepository.findById(
       new UniqueEntityID(id),
       tenantId,

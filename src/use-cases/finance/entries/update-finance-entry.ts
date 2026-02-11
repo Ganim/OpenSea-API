@@ -50,10 +50,15 @@ export class UpdateFinanceEntryUseCase {
 
     const immutableStatuses = ['PAID', 'RECEIVED', 'CANCELLED'];
     if (immutableStatuses.includes(existingEntry.status)) {
-      throw new BadRequestError('Cannot update an entry with status ' + existingEntry.status);
+      throw new BadRequestError(
+        'Cannot update an entry with status ' + existingEntry.status,
+      );
     }
 
-    if (request.description !== undefined && request.description.trim().length === 0) {
+    if (
+      request.description !== undefined &&
+      request.description.trim().length === 0
+    ) {
       throw new BadRequestError('Description cannot be empty');
     }
 

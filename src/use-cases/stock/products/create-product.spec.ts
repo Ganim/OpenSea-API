@@ -26,8 +26,21 @@ let createManufacturer: CreateManufacturerUseCase;
 const TENANT_ID = 'tenant-1';
 
 const mockCareCatalog = {
-  validateIds: (ids: string[]) => ids.filter((id) => !id.startsWith('WASH') && !id.startsWith('IRON') && !id.startsWith('DRY') && !id.startsWith('BLEACH') && !id.startsWith('DO_NOT')),
-  exists: (id: string) => id.startsWith('WASH') || id.startsWith('IRON') || id.startsWith('DRY') || id.startsWith('BLEACH') || id.startsWith('DO_NOT'),
+  validateIds: (ids: string[]) =>
+    ids.filter(
+      (id) =>
+        !id.startsWith('WASH') &&
+        !id.startsWith('IRON') &&
+        !id.startsWith('DRY') &&
+        !id.startsWith('BLEACH') &&
+        !id.startsWith('DO_NOT'),
+    ),
+  exists: (id: string) =>
+    id.startsWith('WASH') ||
+    id.startsWith('IRON') ||
+    id.startsWith('DRY') ||
+    id.startsWith('BLEACH') ||
+    id.startsWith('DO_NOT'),
 } as unknown as CareCatalogProvider;
 
 describe('CreateProductUseCase', () => {

@@ -3,6 +3,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { itemMovementResponseSchema } from '@/http/schemas/stock.schema';
+import { prisma } from '@/lib/prisma';
 import { makeListItemMovementsUseCase } from '@/use-cases/stock/item-movements/factories/make-list-item-movements-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -49,7 +50,30 @@ export async function listItemMovementsController(app: FastifyInstance) {
         ...filters,
       });
 
-      return reply.status(200).send({ movements });
+      // Enrich movements with user profile data
+      const userIds = [...new Set(movements.map((m) => m.userId))];
+      const userProfiles =
+        userIds.length > 0
+          ? await prisma.userProfile.findMany({
+              where: { userId: { in: userIds } },
+              select: { userId: true, name: true, surname: true },
+            })
+          : [];
+      const userMap = new Map(
+        userProfiles.map((p) => [
+          p.userId,
+          `${p.name} ${p.surname}`.trim() || null,
+        ]),
+      );
+
+      const enrichedMovements = movements.map((m) => ({
+        ...m,
+        user: userMap.has(m.userId)
+          ? { id: m.userId, name: userMap.get(m.userId)! }
+          : null,
+      }));
+
+      return reply.status(200).send({ movements: enrichedMovements });
     },
   });
 }

@@ -31,7 +31,9 @@ interface UpdateBankAccountUseCaseResponse {
 export class UpdateBankAccountUseCase {
   constructor(private bankAccountsRepository: BankAccountsRepository) {}
 
-  async execute(request: UpdateBankAccountUseCaseRequest): Promise<UpdateBankAccountUseCaseResponse> {
+  async execute(
+    request: UpdateBankAccountUseCaseRequest,
+  ): Promise<UpdateBankAccountUseCaseResponse> {
     const { tenantId, id, name } = request;
 
     const bankAccount = await this.bankAccountsRepository.findById(
@@ -47,7 +49,9 @@ export class UpdateBankAccountUseCase {
         throw new BadRequestError('Bank account name cannot be empty');
       }
       if (name.length > 128) {
-        throw new BadRequestError('Bank account name must be at most 128 characters');
+        throw new BadRequestError(
+          'Bank account name must be at most 128 characters',
+        );
       }
     }
 

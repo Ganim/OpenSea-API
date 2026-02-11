@@ -27,9 +27,10 @@ export class GetFinanceEntryByIdUseCase {
     private financeEntryPaymentsRepository: FinanceEntryPaymentsRepository,
   ) {}
 
-  async execute(
-    { tenantId, id }: GetFinanceEntryByIdUseCaseRequest,
-  ): Promise<GetFinanceEntryByIdUseCaseResponse> {
+  async execute({
+    tenantId,
+    id,
+  }: GetFinanceEntryByIdUseCaseRequest): Promise<GetFinanceEntryByIdUseCaseResponse> {
     const entry = await this.financeEntriesRepository.findById(
       new UniqueEntityID(id),
       tenantId,

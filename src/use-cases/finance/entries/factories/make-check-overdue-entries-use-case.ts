@@ -6,5 +6,8 @@ export function makeCheckOverdueEntriesUseCase() {
   const entriesRepository = new PrismaFinanceEntriesRepository();
   const notificationsRepository = new PrismaNotificationsRepository();
 
-  return new CheckOverdueEntriesUseCase(entriesRepository, notificationsRepository);
+  return new CheckOverdueEntriesUseCase(
+    entriesRepository,
+    notificationsRepository,
+  );
 }

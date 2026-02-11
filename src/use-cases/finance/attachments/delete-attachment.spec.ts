@@ -18,7 +18,9 @@ function createMockFileUploadService(): FileUploadService {
       size: 1024,
       mimeType: 'application/pdf',
     }),
-    getPresignedUrl: vi.fn().mockResolvedValue('https://storage.example.com/presigned/test.pdf'),
+    getPresignedUrl: vi
+      .fn()
+      .mockResolvedValue('https://storage.example.com/presigned/test.pdf'),
     delete: vi.fn().mockResolvedValue(undefined),
   };
 }
@@ -27,7 +29,10 @@ describe('DeleteAttachmentUseCase', () => {
   beforeEach(async () => {
     attachmentsRepository = new InMemoryFinanceAttachmentsRepository();
     mockFileUploadService = createMockFileUploadService();
-    sut = new DeleteAttachmentUseCase(attachmentsRepository, mockFileUploadService);
+    sut = new DeleteAttachmentUseCase(
+      attachmentsRepository,
+      mockFileUploadService,
+    );
 
     // Seed an attachment
     const attachment = await attachmentsRepository.create({

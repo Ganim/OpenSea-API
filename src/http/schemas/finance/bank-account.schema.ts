@@ -9,7 +9,15 @@ export const createBankAccountSchema = z.object({
   agencyDigit: z.string().max(2).optional(),
   accountNumber: z.string().min(1).max(20),
   accountDigit: z.string().max(2).optional(),
-  accountType: z.enum(['CHECKING', 'SAVINGS', 'SALARY', 'PAYMENT', 'INVESTMENT', 'DIGITAL', 'OTHER']),
+  accountType: z.enum([
+    'CHECKING',
+    'SAVINGS',
+    'SALARY',
+    'PAYMENT',
+    'INVESTMENT',
+    'DIGITAL',
+    'OTHER',
+  ]),
   pixKeyType: z.enum(['CPF', 'CNPJ', 'EMAIL', 'PHONE', 'RANDOM']).optional(),
   pixKey: z.string().max(128).optional(),
   color: z.string().max(7).optional(),
@@ -39,4 +47,6 @@ export const bankAccountResponseSchema = z.object({
   deletedAt: z.coerce.date().optional().nullable(),
 });
 
-export const updateBankAccountSchema = createBankAccountSchema.omit({ companyId: true }).partial();
+export const updateBankAccountSchema = createBankAccountSchema
+  .omit({ companyId: true })
+  .partial();

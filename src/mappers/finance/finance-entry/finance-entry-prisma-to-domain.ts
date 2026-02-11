@@ -2,7 +2,9 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { FinanceEntry } from '@/entities/finance/finance-entry';
 import type { FinanceEntry as PrismaFinanceEntry } from '@prisma/generated/client.js';
 
-export function financeEntryPrismaToDomain(raw: PrismaFinanceEntry): FinanceEntry {
+export function financeEntryPrismaToDomain(
+  raw: PrismaFinanceEntry,
+): FinanceEntry {
   return FinanceEntry.create(
     {
       id: new UniqueEntityID(raw.id),
@@ -13,7 +15,9 @@ export function financeEntryPrismaToDomain(raw: PrismaFinanceEntry): FinanceEntr
       notes: raw.notes ?? undefined,
       categoryId: new UniqueEntityID(raw.categoryId),
       costCenterId: new UniqueEntityID(raw.costCenterId),
-      bankAccountId: raw.bankAccountId ? new UniqueEntityID(raw.bankAccountId) : undefined,
+      bankAccountId: raw.bankAccountId
+        ? new UniqueEntityID(raw.bankAccountId)
+        : undefined,
       supplierName: raw.supplierName ?? undefined,
       customerName: raw.customerName ?? undefined,
       supplierId: raw.supplierId ?? undefined,
@@ -34,7 +38,9 @@ export function financeEntryPrismaToDomain(raw: PrismaFinanceEntry): FinanceEntr
       recurrenceUnit: raw.recurrenceUnit ?? undefined,
       totalInstallments: raw.totalInstallments ?? undefined,
       currentInstallment: raw.currentInstallment ?? undefined,
-      parentEntryId: raw.parentEntryId ? new UniqueEntityID(raw.parentEntryId) : undefined,
+      parentEntryId: raw.parentEntryId
+        ? new UniqueEntityID(raw.parentEntryId)
+        : undefined,
       boletoBarcode: raw.boletoBarcode ?? undefined,
       boletoDigitLine: raw.boletoDigitLine ?? undefined,
       metadata: (raw.metadata as Record<string, unknown>) ?? {},

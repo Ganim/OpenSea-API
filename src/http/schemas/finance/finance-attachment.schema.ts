@@ -15,5 +15,8 @@ export const financeAttachmentResponseSchema = z.object({
 });
 
 export const uploadAttachmentQuerySchema = z.object({
-  type: z.enum(['BOLETO', 'PAYMENT_RECEIPT', 'CONTRACT', 'INVOICE', 'OTHER']).optional().default('OTHER'),
+  type: z
+    .enum(['BOLETO', 'PAYMENT_RECEIPT', 'CONTRACT', 'INVOICE', 'OTHER'])
+    .optional()
+    .default('OTHER'),
 });

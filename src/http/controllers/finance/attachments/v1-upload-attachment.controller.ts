@@ -27,7 +27,8 @@ export async function uploadAttachmentController(app: FastifyInstance) {
     schema: {
       tags: ['Finance - Attachments'],
       summary: 'Upload an attachment to a finance entry',
-      description: 'Upload a file (PDF, JPEG, PNG, max 10MB) as a multipart/form-data request. Include a "file" field with the file and optionally a "type" field (BOLETO, PAYMENT_RECEIPT, CONTRACT, INVOICE, OTHER).',
+      description:
+        'Upload a file (PDF, JPEG, PNG, max 10MB) as a multipart/form-data request. Include a "file" field with the file and optionally a "type" field (BOLETO, PAYMENT_RECEIPT, CONTRACT, INVOICE, OTHER).',
       security: [{ bearerAuth: [] }],
       consumes: ['multipart/form-data'],
       params: z.object({ id: z.string().uuid() }),

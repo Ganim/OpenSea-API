@@ -1,4 +1,3 @@
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryFinanceCategoriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-categories-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ListFinanceCategoriesUseCase } from './list-finance-categories';

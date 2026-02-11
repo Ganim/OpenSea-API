@@ -1,4 +1,12 @@
 import { prisma } from '@/lib/prisma';
+import type {
+  BankAccountType,
+  BankAccountStatus,
+  FinanceCategoryType,
+  FinanceEntryType,
+  FinanceEntryStatus,
+  FinanceEntryRecurrence,
+} from '@prisma/generated/client.js';
 import { randomUUID } from 'node:crypto';
 
 /**
@@ -59,8 +67,8 @@ export async function createBankAccount(
     bankName: string;
     agency: string;
     accountNumber: string;
-    accountType: string;
-    status: string;
+    accountType: BankAccountType;
+    status: BankAccountStatus;
     isDefault: boolean;
   }> = {},
 ) {
@@ -99,7 +107,7 @@ export async function createFinanceCategory(
   override: Partial<{
     name: string;
     slug: string;
-    type: string;
+    type: FinanceCategoryType;
     description: string;
     isActive: boolean;
     displayOrder: number;
@@ -129,7 +137,7 @@ export async function createFinanceEntry(
   tenantId: string,
   deps: { categoryId: string; costCenterId: string },
   override: Partial<{
-    type: string;
+    type: FinanceEntryType;
     code: string;
     description: string;
     supplierName: string;
@@ -137,8 +145,8 @@ export async function createFinanceEntry(
     expectedAmount: number;
     issueDate: Date;
     dueDate: Date;
-    status: string;
-    recurrenceType: string;
+    status: FinanceEntryStatus;
+    recurrenceType: FinanceEntryRecurrence;
     tags: string[];
   }> = {},
 ) {
@@ -159,7 +167,8 @@ export async function createFinanceEntry(
       interest: 0,
       penalty: 0,
       issueDate: override.issueDate ?? new Date(),
-      dueDate: override.dueDate ?? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      dueDate:
+        override.dueDate ?? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       status: override.status ?? 'PENDING',
       recurrenceType: override.recurrenceType ?? 'SINGLE',
       tags: override.tags ?? [],

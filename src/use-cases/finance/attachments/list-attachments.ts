@@ -24,7 +24,9 @@ export class ListAttachmentsUseCase {
     private fileUploadService: FileUploadService,
   ) {}
 
-  async execute(request: ListAttachmentsUseCaseRequest): Promise<ListAttachmentsUseCaseResponse> {
+  async execute(
+    request: ListAttachmentsUseCaseRequest,
+  ): Promise<ListAttachmentsUseCaseResponse> {
     const { tenantId, entryId } = request;
 
     // Validate entry exists
@@ -37,16 +39,19 @@ export class ListAttachmentsUseCase {
       throw new ResourceNotFoundError('Finance entry not found');
     }
 
-    const attachments = await this.financeAttachmentsRepository.findManyByEntryId(
-      entryId,
-      tenantId,
-    );
+    const attachments =
+      await this.financeAttachmentsRepository.findManyByEntryId(
+        entryId,
+        tenantId,
+      );
 
     // Generate presigned URLs for all attachments
     const dtos: FinanceAttachmentDTO[] = await Promise.all(
       attachments.map(async (attachment) => {
         const dto = financeAttachmentToDTO(attachment);
-        dto.url = await this.fileUploadService.getPresignedUrl(attachment.fileKey);
+        dto.url = await this.fileUploadService.getPresignedUrl(
+          attachment.fileKey,
+        );
         return dto;
       }),
     );

@@ -11,8 +11,12 @@ export function mapCostCenterPrismaToDomain(data: PrismaCostCenter) {
     name: data.name,
     description: data.description ?? undefined,
     isActive: data.isActive,
-    monthlyBudget: data.monthlyBudget ? Number(data.monthlyBudget.toString()) : undefined,
-    annualBudget: data.annualBudget ? Number(data.annualBudget.toString()) : undefined,
+    monthlyBudget: data.monthlyBudget
+      ? Number(data.monthlyBudget.toString())
+      : undefined,
+    annualBudget: data.annualBudget
+      ? Number(data.annualBudget.toString())
+      : undefined,
     parentId: data.parentId ? new UniqueEntityID(data.parentId) : undefined,
     createdAt: data.createdAt,
     updatedAt: data.updatedAt,

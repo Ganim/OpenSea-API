@@ -18,7 +18,10 @@ interface GetCostCenterByIdUseCaseResponse {
 export class GetCostCenterByIdUseCase {
   constructor(private costCentersRepository: CostCentersRepository) {}
 
-  async execute({ tenantId, id }: GetCostCenterByIdUseCaseRequest): Promise<GetCostCenterByIdUseCaseResponse> {
+  async execute({
+    tenantId,
+    id,
+  }: GetCostCenterByIdUseCaseRequest): Promise<GetCostCenterByIdUseCaseResponse> {
     const costCenter = await this.costCentersRepository.findById(
       new UniqueEntityID(id),
       tenantId,

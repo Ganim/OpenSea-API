@@ -42,13 +42,17 @@ describe('ParseBoletoUseCase', () => {
   });
 
   it('should reject invalid length', async () => {
-    await expect(sut.execute({ barcode: '12345' })).rejects.toThrow(BadRequestError);
+    await expect(sut.execute({ barcode: '12345' })).rejects.toThrow(
+      BadRequestError,
+    );
   });
 
   it('should reject barcode with invalid check digit', async () => {
     // Change check digit to make it invalid
     const invalidBarcode = '00190100000000100000000000000000000000000000';
-    await expect(sut.execute({ barcode: invalidBarcode })).rejects.toThrow(BadRequestError);
+    await expect(sut.execute({ barcode: invalidBarcode })).rejects.toThrow(
+      BadRequestError,
+    );
   });
 
   it('should extract due date from factor', async () => {

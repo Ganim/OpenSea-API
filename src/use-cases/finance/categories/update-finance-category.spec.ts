@@ -1,6 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryFinanceCategoriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-categories-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { UpdateFinanceCategoryUseCase } from './update-finance-category';
@@ -72,6 +71,7 @@ describe('UpdateFinanceCategoryUseCase', () => {
       sut.execute({
         tenantId: 'tenant-1',
         id: category.id.toString(),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         type: 'INVALID_TYPE' as any,
       }),
     ).rejects.toThrow(BadRequestError);

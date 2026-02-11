@@ -15,7 +15,10 @@ export class DeleteAttachmentUseCase {
     private fileUploadService: FileUploadService,
   ) {}
 
-  async execute({ tenantId, attachmentId }: DeleteAttachmentUseCaseRequest): Promise<void> {
+  async execute({
+    tenantId,
+    attachmentId,
+  }: DeleteAttachmentUseCaseRequest): Promise<void> {
     const attachment = await this.financeAttachmentsRepository.findById(
       new UniqueEntityID(attachmentId),
       tenantId,
@@ -29,6 +32,8 @@ export class DeleteAttachmentUseCase {
     await this.fileUploadService.delete(attachment.fileKey);
 
     // Delete from database
-    await this.financeAttachmentsRepository.delete(new UniqueEntityID(attachmentId));
+    await this.financeAttachmentsRepository.delete(
+      new UniqueEntityID(attachmentId),
+    );
   }
 }

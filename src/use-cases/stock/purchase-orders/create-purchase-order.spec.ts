@@ -1,11 +1,13 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { InMemoryCategoriesRepository } from '@/repositories/stock/in-memory/in-memory-categories-repository';
 import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
 import { InMemoryPurchaseOrdersRepository } from '@/repositories/stock/in-memory/in-memory-purchase-orders-repository';
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
+import type { CareCatalogProvider } from '@/services/care';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateProductUseCase } from '../products/create-product';
@@ -20,11 +22,30 @@ let variantsRepository: InMemoryVariantsRepository;
 let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
+let categoriesRepository: InMemoryCategoriesRepository;
 let createSupplier: CreateSupplierUseCase;
 let createVariant: CreateVariantUseCase;
 let createProduct: CreateProductUseCase;
 let createTemplate: CreateTemplateUseCase;
 let sut: CreatePurchaseOrderUseCase;
+
+const mockCareCatalog = {
+  validateIds: (ids: string[]) =>
+    ids.filter(
+      (id) =>
+        !id.startsWith('WASH') &&
+        !id.startsWith('IRON') &&
+        !id.startsWith('DRY') &&
+        !id.startsWith('BLEACH') &&
+        !id.startsWith('DO_NOT'),
+    ),
+  exists: (id: string) =>
+    id.startsWith('WASH') ||
+    id.startsWith('IRON') ||
+    id.startsWith('DRY') ||
+    id.startsWith('BLEACH') ||
+    id.startsWith('DO_NOT'),
+} as unknown as CareCatalogProvider;
 
 describe('CreatePurchaseOrderUseCase', () => {
   beforeEach(() => {
@@ -34,6 +55,7 @@ describe('CreatePurchaseOrderUseCase', () => {
     templatesRepository = new InMemoryTemplatesRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
     variantsRepository = new InMemoryVariantsRepository();
+    categoriesRepository = new InMemoryCategoriesRepository();
 
     createSupplier = new CreateSupplierUseCase(suppliersRepository);
     createTemplate = new CreateTemplateUseCase(templatesRepository);
@@ -42,6 +64,8 @@ describe('CreatePurchaseOrderUseCase', () => {
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
+      categoriesRepository,
+      mockCareCatalog,
     );
     createVariant = new CreateVariantUseCase(
       variantsRepository,

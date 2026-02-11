@@ -10,7 +10,10 @@ interface DeleteCostCenterUseCaseRequest {
 export class DeleteCostCenterUseCase {
   constructor(private costCentersRepository: CostCentersRepository) {}
 
-  async execute({ tenantId, id }: DeleteCostCenterUseCaseRequest): Promise<void> {
+  async execute({
+    tenantId,
+    id,
+  }: DeleteCostCenterUseCaseRequest): Promise<void> {
     const costCenter = await this.costCentersRepository.findById(
       new UniqueEntityID(id),
       tenantId,

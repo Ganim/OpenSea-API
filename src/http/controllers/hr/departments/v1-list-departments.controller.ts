@@ -50,21 +50,25 @@ export async function listDepartmentsController(app: FastifyInstance) {
 
       // Fetch _count for positions and employees per department
       const ids = departments.map((d) => d.id.toString());
-      const countsData = ids.length > 0
-        ? await prisma.department.findMany({
-            where: { id: { in: ids } },
-            select: {
-              id: true,
-              _count: { select: { positions: true, employees: true } },
-            },
-          })
-        : [];
+      const countsData =
+        ids.length > 0
+          ? await prisma.department.findMany({
+              where: { id: { in: ids } },
+              select: {
+                id: true,
+                _count: { select: { positions: true, employees: true } },
+              },
+            })
+          : [];
       const countMap = new Map(countsData.map((d) => [d.id, d._count]));
 
       return reply.status(200).send({
         departments: departments.map((d) => ({
           ...departmentToDTO(d),
-          _count: countMap.get(d.id.toString()) ?? { positions: 0, employees: 0 },
+          _count: countMap.get(d.id.toString()) ?? {
+            positions: 0,
+            employees: 0,
+          },
         })),
         meta,
       });

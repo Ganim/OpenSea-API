@@ -8,8 +8,12 @@ import type {
   CreateFinanceAttachmentSchema,
 } from '../finance-attachments-repository';
 
-export class PrismaFinanceAttachmentsRepository implements FinanceAttachmentsRepository {
-  async create(data: CreateFinanceAttachmentSchema): Promise<FinanceAttachment> {
+export class PrismaFinanceAttachmentsRepository
+  implements FinanceAttachmentsRepository
+{
+  async create(
+    data: CreateFinanceAttachmentSchema,
+  ): Promise<FinanceAttachment> {
     const attachment = await prisma.financeAttachment.create({
       data: {
         tenantId: data.tenantId,
@@ -26,7 +30,10 @@ export class PrismaFinanceAttachmentsRepository implements FinanceAttachmentsRep
     return financeAttachmentPrismaToDomain(attachment);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<FinanceAttachment | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<FinanceAttachment | null> {
     const attachment = await prisma.financeAttachment.findFirst({
       where: {
         id: id.toString(),
@@ -38,7 +45,10 @@ export class PrismaFinanceAttachmentsRepository implements FinanceAttachmentsRep
     return financeAttachmentPrismaToDomain(attachment);
   }
 
-  async findManyByEntryId(entryId: string, tenantId: string): Promise<FinanceAttachment[]> {
+  async findManyByEntryId(
+    entryId: string,
+    tenantId: string,
+  ): Promise<FinanceAttachment[]> {
     const attachments = await prisma.financeAttachment.findMany({
       where: {
         entryId,

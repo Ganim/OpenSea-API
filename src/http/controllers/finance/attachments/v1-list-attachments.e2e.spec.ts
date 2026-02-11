@@ -25,8 +25,7 @@ describe('List Attachments (E2E)', () => {
   it('should list attachments for an entry', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
-    const { category, costCenter } =
-      await createFinancePrerequisites(tenantId);
+    const { category, costCenter } = await createFinancePrerequisites(tenantId);
 
     const entry = await createFinanceEntry(tenantId, {
       categoryId: category.id,

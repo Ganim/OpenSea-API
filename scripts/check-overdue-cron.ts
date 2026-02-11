@@ -22,7 +22,10 @@ async function main() {
 
   const entriesRepository = new PrismaFinanceEntriesRepository();
   const notificationsRepository = new PrismaNotificationsRepository();
-  const useCase = new CheckOverdueEntriesUseCase(entriesRepository, notificationsRepository);
+  const useCase = new CheckOverdueEntriesUseCase(
+    entriesRepository,
+    notificationsRepository,
+  );
 
   // Fetch all active tenants
   const tenants = await prisma.tenant.findMany({
@@ -56,12 +59,17 @@ async function main() {
         );
       }
     } catch (error) {
-      console.error(`[check-overdue] Error for tenant "${tenant.name}":`, error);
+      console.error(
+        `[check-overdue] Error for tenant "${tenant.name}":`,
+        error,
+      );
     }
   }
 
   console.log(`[check-overdue] Summary:`);
-  console.log(`  Marked overdue: ${totalMarkedOverdue} (${totalPayableOverdue}P/${totalReceivableOverdue}R)`);
+  console.log(
+    `  Marked overdue: ${totalMarkedOverdue} (${totalPayableOverdue}P/${totalReceivableOverdue}R)`,
+  );
   console.log(`  Due-soon alerts: ${totalDueSoonAlerts}`);
   console.log(`[check-overdue] Done at ${new Date().toISOString()}`);
 

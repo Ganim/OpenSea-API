@@ -27,8 +27,7 @@ describe('Delete Attachment (E2E)', () => {
   it('should return error when attachment does not exist', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
-    const { category, costCenter } =
-      await createFinancePrerequisites(tenantId);
+    const { category, costCenter } = await createFinancePrerequisites(tenantId);
 
     const entry = await createFinanceEntry(tenantId, {
       categoryId: category.id,
@@ -38,9 +37,7 @@ describe('Delete Attachment (E2E)', () => {
     const fakeAttachmentId = randomUUID();
 
     const response = await request(app.server)
-      .delete(
-        `/v1/finance/entries/${entry.id}/attachments/${fakeAttachmentId}`,
-      )
+      .delete(`/v1/finance/entries/${entry.id}/attachments/${fakeAttachmentId}`)
       .set('Authorization', `Bearer ${token}`);
 
     expect([404, 500]).toContain(response.status);

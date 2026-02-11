@@ -58,7 +58,11 @@ describe('CreateCostCenterUseCase', () => {
   });
 
   it('should not create with duplicate code', async () => {
-    await sut.execute({ tenantId: 'tenant-1', code: 'CC-001', name: 'Marketing' });
+    await sut.execute({
+      tenantId: 'tenant-1',
+      code: 'CC-001',
+      name: 'Marketing',
+    });
 
     await expect(
       sut.execute({ tenantId: 'tenant-1', code: 'CC-001', name: 'Sales' }),

@@ -12,7 +12,9 @@ export class InMemoryCostCentersRepository implements CostCentersRepository {
   async create(data: CreateCostCenterSchema): Promise<CostCenter> {
     const costCenter = CostCenter.create({
       tenantId: new UniqueEntityID(data.tenantId),
-      companyId: data.companyId ? new UniqueEntityID(data.companyId) : undefined,
+      companyId: data.companyId
+        ? new UniqueEntityID(data.companyId)
+        : undefined,
       code: data.code,
       name: data.name,
       description: data.description,
@@ -26,16 +28,21 @@ export class InMemoryCostCentersRepository implements CostCentersRepository {
     return costCenter;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<CostCenter | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<CostCenter | null> {
     const item = this.items.find(
-      (i) => !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
+      (i) =>
+        !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
 
   async findByCode(code: string, tenantId: string): Promise<CostCenter | null> {
     const item = this.items.find(
-      (i) => !i.deletedAt && i.code === code && i.tenantId.toString() === tenantId,
+      (i) =>
+        !i.deletedAt && i.code === code && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
@@ -54,10 +61,17 @@ export class InMemoryCostCentersRepository implements CostCentersRepository {
     if (data.name !== undefined) item.name = data.name;
     if (data.description !== undefined) item.description = data.description;
     if (data.isActive !== undefined) item.isActive = data.isActive;
-    if (data.monthlyBudget !== undefined) item.monthlyBudget = data.monthlyBudget;
+    if (data.monthlyBudget !== undefined)
+      item.monthlyBudget = data.monthlyBudget;
     if (data.annualBudget !== undefined) item.annualBudget = data.annualBudget;
-    if (data.parentId !== undefined) item.parentId = data.parentId ? new UniqueEntityID(data.parentId) : undefined;
-    if (data.companyId !== undefined) item.companyId = data.companyId ? new UniqueEntityID(data.companyId) : undefined;
+    if (data.parentId !== undefined)
+      item.parentId = data.parentId
+        ? new UniqueEntityID(data.parentId)
+        : undefined;
+    if (data.companyId !== undefined)
+      item.companyId = data.companyId
+        ? new UniqueEntityID(data.companyId)
+        : undefined;
 
     return item;
   }

@@ -7,7 +7,10 @@ import type {
   CreateBankAccountSchema,
   UpdateBankAccountSchema,
 } from '../bank-accounts-repository';
-import type { BankAccountType } from '@prisma/generated/client.js';
+import type {
+  BankAccountType,
+  BankAccountStatus,
+} from '@prisma/generated/client.js';
 
 export class PrismaBankAccountsRepository implements BankAccountsRepository {
   async create(data: CreateBankAccountSchema): Promise<BankAccount> {
@@ -33,7 +36,10 @@ export class PrismaBankAccountsRepository implements BankAccountsRepository {
     return bankAccountPrismaToDomain(bankAccount);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BankAccount | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BankAccount | null> {
     const bankAccount = await prisma.bankAccount.findFirst({
       where: {
         id: id.toString(),
@@ -65,11 +71,21 @@ export class PrismaBankAccountsRepository implements BankAccountsRepository {
         ...(data.name !== undefined && { name: data.name }),
         ...(data.bankName !== undefined && { bankName: data.bankName }),
         ...(data.agency !== undefined && { agency: data.agency }),
-        ...(data.agencyDigit !== undefined && { agencyDigit: data.agencyDigit }),
-        ...(data.accountNumber !== undefined && { accountNumber: data.accountNumber }),
-        ...(data.accountDigit !== undefined && { accountDigit: data.accountDigit }),
-        ...(data.accountType !== undefined && { accountType: data.accountType as BankAccountType }),
-        ...(data.status !== undefined && { status: data.status as any }),
+        ...(data.agencyDigit !== undefined && {
+          agencyDigit: data.agencyDigit,
+        }),
+        ...(data.accountNumber !== undefined && {
+          accountNumber: data.accountNumber,
+        }),
+        ...(data.accountDigit !== undefined && {
+          accountDigit: data.accountDigit,
+        }),
+        ...(data.accountType !== undefined && {
+          accountType: data.accountType as BankAccountType,
+        }),
+        ...(data.status !== undefined && {
+          status: data.status as BankAccountStatus,
+        }),
         ...(data.pixKeyType !== undefined && { pixKeyType: data.pixKeyType }),
         ...(data.pixKey !== undefined && { pixKey: data.pixKey }),
         ...(data.color !== undefined && { color: data.color }),

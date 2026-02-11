@@ -92,7 +92,10 @@ export class PrismaItemsRepository implements ItemsRepository {
       templateId: itemData.variant.product.templateId ?? undefined,
       templateName: itemData.variant.product.template?.name,
       templateUnitOfMeasure: itemData.variant.product.template?.unitOfMeasure,
-      productAttributes: itemData.variant.product.attributes as Record<string, unknown>,
+      productAttributes: itemData.variant.product.attributes as Record<
+        string,
+        unknown
+      >,
       variantAttributes: itemData.variant.attributes as Record<string, unknown>,
       variantColorHex: itemData.variant.colorHex ?? undefined,
       manufacturerName: itemData.variant.product.manufacturer?.name,

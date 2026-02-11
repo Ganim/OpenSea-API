@@ -22,7 +22,9 @@ export function mapFinanceCategoryPrismaToDomain(data: PrismaFinanceCategory) {
   };
 }
 
-export function financeCategoryPrismaToDomain(data: PrismaFinanceCategory): FinanceCategory {
+export function financeCategoryPrismaToDomain(
+  data: PrismaFinanceCategory,
+): FinanceCategory {
   return FinanceCategory.create(
     mapFinanceCategoryPrismaToDomain(data),
     new UniqueEntityID(data.id),

@@ -31,9 +31,13 @@ export class InMemoryBankAccountsRepository implements BankAccountsRepository {
     return bankAccount;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<BankAccount | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<BankAccount | null> {
     const item = this.items.find(
-      (i) => !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
+      (i) =>
+        !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
@@ -52,7 +56,8 @@ export class InMemoryBankAccountsRepository implements BankAccountsRepository {
     if (data.bankName !== undefined) item.bankName = data.bankName;
     if (data.agency !== undefined) item.agency = data.agency;
     if (data.agencyDigit !== undefined) item.agencyDigit = data.agencyDigit;
-    if (data.accountNumber !== undefined) item.accountNumber = data.accountNumber;
+    if (data.accountNumber !== undefined)
+      item.accountNumber = data.accountNumber;
     if (data.accountDigit !== undefined) item.accountDigit = data.accountDigit;
     if (data.accountType !== undefined) item.accountType = data.accountType;
     if (data.status !== undefined) item.status = data.status;

@@ -1,17 +1,16 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found'
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id'
-import { InMemoryBankAccountsRepository } from '@/repositories/finance/in-memory/in-memory-bank-accounts-repository'
-import { beforeEach, describe, expect, it } from 'vitest'
-import { DeleteBankAccountUseCase } from './delete-bank-account'
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { InMemoryBankAccountsRepository } from '@/repositories/finance/in-memory/in-memory-bank-accounts-repository';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { DeleteBankAccountUseCase } from './delete-bank-account';
 
-let repository: InMemoryBankAccountsRepository
-let sut: DeleteBankAccountUseCase
+let repository: InMemoryBankAccountsRepository;
+let sut: DeleteBankAccountUseCase;
 
 describe('DeleteBankAccountUseCase', () => {
   beforeEach(() => {
-    repository = new InMemoryBankAccountsRepository()
-    sut = new DeleteBankAccountUseCase(repository)
-  })
+    repository = new InMemoryBankAccountsRepository();
+    sut = new DeleteBankAccountUseCase(repository);
+  });
 
   it('should delete a bank account', async () => {
     const bankAccount = await repository.create({
@@ -22,16 +21,19 @@ describe('DeleteBankAccountUseCase', () => {
       agency: '1234',
       accountNumber: '12345-6',
       accountType: 'CHECKING',
-    })
+    });
 
     await sut.execute({
       tenantId: 'tenant-1',
       id: bankAccount.id.toString(),
-    })
+    });
 
-    const deletedAccount = await repository.findById(bankAccount.id, 'tenant-1')
-    expect(deletedAccount).toBeNull()
-  })
+    const deletedAccount = await repository.findById(
+      bankAccount.id,
+      'tenant-1',
+    );
+    expect(deletedAccount).toBeNull();
+  });
 
   it('should throw ResourceNotFoundError if bank account not found', async () => {
     await expect(
@@ -39,6 +41,6 @@ describe('DeleteBankAccountUseCase', () => {
         tenantId: 'tenant-1',
         id: 'non-existent-id',
       }),
-    ).rejects.toBeInstanceOf(ResourceNotFoundError)
-  })
-})
+    ).rejects.toBeInstanceOf(ResourceNotFoundError);
+  });
+});

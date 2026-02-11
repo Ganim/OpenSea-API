@@ -49,7 +49,9 @@ export class PayrollToFinanceUseCase {
     private financeCategoriesRepository: FinanceCategoriesRepository,
   ) {}
 
-  async execute(request: PayrollToFinanceRequest): Promise<PayrollToFinanceResponse> {
+  async execute(
+    request: PayrollToFinanceRequest,
+  ): Promise<PayrollToFinanceResponse> {
     const { tenantId, payrollId } = request;
 
     // 1. Fetch the payroll
@@ -63,18 +65,23 @@ export class PayrollToFinanceUseCase {
     }
 
     if (!payroll.isApproved() && !payroll.isPaid()) {
-      throw new Error('Folha de pagamento precisa estar aprovada ou paga para gerar lançamentos.');
+      throw new Error(
+        'Folha de pagamento precisa estar aprovada ou paga para gerar lançamentos.',
+      );
     }
 
     // 2. Check for duplicate import via tags
-    const { entries: existingEntries } = await this.financeEntriesRepository.findMany({
-      tenantId,
-      search: `FOLHA-${payrollId}`,
-      limit: 1,
-    });
+    const { entries: existingEntries } =
+      await this.financeEntriesRepository.findMany({
+        tenantId,
+        search: `FOLHA-${payrollId}`,
+        limit: 1,
+      });
 
     if (existingEntries.length > 0) {
-      throw new Error('Lançamentos financeiros já foram gerados para esta folha.');
+      throw new Error(
+        'Lançamentos financeiros já foram gerados para esta folha.',
+      );
     }
 
     // 3. Fetch payroll items
@@ -87,8 +94,11 @@ export class PayrollToFinanceUseCase {
     }
 
     // 4. Build category slug -> id map
-    const categories = await this.financeCategoriesRepository.findMany(tenantId);
-    const categoryMap = new Map(categories.map((c) => [c.slug, c.id.toString()]));
+    const categories =
+      await this.financeCategoriesRepository.findMany(tenantId);
+    const categoryMap = new Map(
+      categories.map((c) => [c.slug, c.id.toString()]),
+    );
 
     // Use first available expense category as fallback
     const fallbackCategory = categories.find((c) => c.type === 'EXPENSE');
@@ -105,8 +115,16 @@ export class PayrollToFinanceUseCase {
     }
 
     // 6. Build dates from payroll reference
-    const paymentDate = new Date(payroll.referenceYear, payroll.referenceMonth, 0); // last day of ref month
-    const competenceDate = new Date(payroll.referenceYear, payroll.referenceMonth - 1, 1);
+    const paymentDate = new Date(
+      payroll.referenceYear,
+      payroll.referenceMonth,
+      0,
+    ); // last day of ref month
+    const competenceDate = new Date(
+      payroll.referenceYear,
+      payroll.referenceMonth - 1,
+      1,
+    );
     const issueDate = new Date();
     const referencePeriod = payroll.referencePeriod;
 
@@ -120,7 +138,8 @@ export class PayrollToFinanceUseCase {
         tenantId,
       );
 
-      const employeeName = employee?.fullName ?? `Funcionário ${employeeId.slice(0, 8)}`;
+      const employeeName =
+        employee?.fullName ?? `Funcionário ${employeeId.slice(0, 8)}`;
 
       // Calculate net for this employee
       let gross = 0;
@@ -136,10 +155,14 @@ export class PayrollToFinanceUseCase {
 
       if (netSalary <= 0) continue;
 
-      const salaryCategory = categoryMap.get('salarios-e-ordenados') ?? fallbackCategoryId;
+      const salaryCategory =
+        categoryMap.get('salarios-e-ordenados') ?? fallbackCategoryId;
       if (!salaryCategory) continue;
 
-      const code = await this.financeEntriesRepository.generateNextCode(tenantId, 'PAYABLE');
+      const code = await this.financeEntriesRepository.generateNextCode(
+        tenantId,
+        'PAYABLE',
+      );
 
       await this.financeEntriesRepository.create({
         tenantId,
@@ -178,7 +201,10 @@ export class PayrollToFinanceUseCase {
       const catId = categoryMap.get(slug) ?? fallbackCategoryId;
       if (!catId) continue;
 
-      const code = await this.financeEntriesRepository.generateNextCode(tenantId, 'PAYABLE');
+      const code = await this.financeEntriesRepository.generateNextCode(
+        tenantId,
+        'PAYABLE',
+      );
 
       await this.financeEntriesRepository.create({
         tenantId,
@@ -201,7 +227,12 @@ export class PayrollToFinanceUseCase {
     }
 
     // 9. Create aggregate entries for benefits (VT, VR, Health)
-    const benefitTypes: PayrollItemTypeValue[] = ['TRANSPORT_VOUCHER', 'MEAL_VOUCHER', 'HEALTH_PLAN', 'DENTAL_PLAN'];
+    const benefitTypes: PayrollItemTypeValue[] = [
+      'TRANSPORT_VOUCHER',
+      'MEAL_VOUCHER',
+      'HEALTH_PLAN',
+      'DENTAL_PLAN',
+    ];
     const benefitLabels: Record<string, string> = {
       TRANSPORT_VOUCHER: 'Vale Transporte',
       MEAL_VOUCHER: 'Vale Refeição',
@@ -210,7 +241,9 @@ export class PayrollToFinanceUseCase {
     };
 
     for (const benefitType of benefitTypes) {
-      const benefitItems = items.filter((i) => i.type.toString() === benefitType);
+      const benefitItems = items.filter(
+        (i) => i.type.toString() === benefitType,
+      );
       if (benefitItems.length === 0) continue;
 
       const benefitTotal = benefitItems.reduce((sum, i) => sum + i.amount, 0);
@@ -218,7 +251,10 @@ export class PayrollToFinanceUseCase {
       const catId = categoryMap.get(slug) ?? fallbackCategoryId;
       if (!catId) continue;
 
-      const code = await this.financeEntriesRepository.generateNextCode(tenantId, 'PAYABLE');
+      const code = await this.financeEntriesRepository.generateNextCode(
+        tenantId,
+        'PAYABLE',
+      );
 
       await this.financeEntriesRepository.create({
         tenantId,

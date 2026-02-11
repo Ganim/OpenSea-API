@@ -25,7 +25,9 @@ function createMockFileUploadService(): FileUploadService {
       size: 1024,
       mimeType: 'application/pdf',
     }),
-    getPresignedUrl: vi.fn().mockResolvedValue('https://storage.example.com/presigned/test.pdf'),
+    getPresignedUrl: vi
+      .fn()
+      .mockResolvedValue('https://storage.example.com/presigned/test.pdf'),
     delete: vi.fn().mockResolvedValue(undefined),
   };
 }
@@ -136,13 +138,16 @@ describe('UploadAttachmentUseCase', () => {
         type: 'CONTRACT',
         fileName: 'contract.docx',
         fileBuffer: Buffer.alloc(1024),
-        mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        mimeType:
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       }),
     ).rejects.toBeInstanceOf(BadRequestError);
   });
 
   it('should handle storage upload failure', async () => {
-    vi.mocked(mockFileUploadService.upload).mockRejectedValueOnce(new Error('S3 error'));
+    vi.mocked(mockFileUploadService.upload).mockRejectedValueOnce(
+      new Error('S3 error'),
+    );
 
     await expect(
       sut.execute({

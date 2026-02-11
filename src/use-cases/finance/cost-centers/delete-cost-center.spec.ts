@@ -26,10 +26,7 @@ describe('DeleteCostCenterUseCase', () => {
       id: costCenter.id.toString(),
     });
 
-    const result = await repository.findById(
-      costCenter.id,
-      'tenant-1',
-    );
+    const result = await repository.findById(costCenter.id, 'tenant-1');
 
     expect(result).toBeNull();
   });

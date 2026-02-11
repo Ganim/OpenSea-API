@@ -62,15 +62,16 @@ export async function listPositionsController(app: FastifyInstance) {
 
       // Fetch _count for employees per position
       const ids = result.positions.map((p) => p.id.toString());
-      const countsData = ids.length > 0
-        ? await prisma.position.findMany({
-            where: { id: { in: ids } },
-            select: {
-              id: true,
-              _count: { select: { employees: true } },
-            },
-          })
-        : [];
+      const countsData =
+        ids.length > 0
+          ? await prisma.position.findMany({
+              where: { id: { in: ids } },
+              select: {
+                id: true,
+                _count: { select: { employees: true } },
+              },
+            })
+          : [];
       const countMap = new Map(countsData.map((p) => [p.id, p._count]));
 
       return reply.status(200).send({

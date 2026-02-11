@@ -27,7 +27,9 @@ interface UpdateCostCenterUseCaseResponse {
 export class UpdateCostCenterUseCase {
   constructor(private costCentersRepository: CostCentersRepository) {}
 
-  async execute(request: UpdateCostCenterUseCaseRequest): Promise<UpdateCostCenterUseCaseResponse> {
+  async execute(
+    request: UpdateCostCenterUseCaseRequest,
+  ): Promise<UpdateCostCenterUseCaseResponse> {
     const { tenantId, id, name, code } = request;
 
     const costCenter = await this.costCentersRepository.findById(
@@ -43,7 +45,9 @@ export class UpdateCostCenterUseCase {
         throw new BadRequestError('Cost center name cannot be empty');
       }
       if (name.length > 128) {
-        throw new BadRequestError('Cost center name must be at most 128 characters');
+        throw new BadRequestError(
+          'Cost center name must be at most 128 characters',
+        );
       }
     }
 
@@ -51,9 +55,14 @@ export class UpdateCostCenterUseCase {
       if (code.trim().length === 0) {
         throw new BadRequestError('Cost center code cannot be empty');
       }
-      const existingCode = await this.costCentersRepository.findByCode(code, tenantId);
+      const existingCode = await this.costCentersRepository.findByCode(
+        code,
+        tenantId,
+      );
       if (existingCode && !existingCode.id.equals(costCenter.id)) {
-        throw new BadRequestError('A cost center with this code already exists');
+        throw new BadRequestError(
+          'A cost center with this code already exists',
+        );
       }
     }
 
