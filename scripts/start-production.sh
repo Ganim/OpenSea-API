@@ -9,4 +9,4 @@ npx prisma migrate deploy
 
 # Start the server
 echo "✅ Starting server..."
-exec node build/server.js
+exec node --stack-size=8192 build/server.js

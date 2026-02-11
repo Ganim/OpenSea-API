@@ -69,7 +69,7 @@ USER fastify
 EXPOSE 3333
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:3333/health/live || exit 1
 
 # Comando de inicialização (roda migrations e inicia servidor)
