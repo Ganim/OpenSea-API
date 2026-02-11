@@ -4,7 +4,7 @@ import { httpLogger } from './lib/logger';
 
 app
   .listen({
-    host: '::', // Escuta em todas as interfaces (IPv4 e IPv6 com dual-stack)
+    host: '0.0.0.0',
     port: env.PORT,
   })
   .then(() => {
@@ -18,4 +18,9 @@ app
       'Swagger docs available at http://localhost:%d/docs',
       env.PORT,
     );
+  })
+  .catch((err) => {
+    httpLogger.error(err, 'Failed to start HTTP server');
+    console.error('Failed to start HTTP server:', err);
+    process.exit(1);
   });
