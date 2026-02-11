@@ -22,7 +22,8 @@ import requestIdPlugin from './http/plugins/request-id.plugin';
 import { initSentry } from './lib/sentry';
 
 // Initialize Sentry for error monitoring
-initSentry();
+// TEMP: Disabled to debug production startup issue
+// initSentry();
 
 export const app = fastify({ trustProxy: true });
 
