@@ -46,10 +46,13 @@ export async function createProductController(app: FastifyInstance) {
         name,
         description,
         status,
+        outOfLine,
         attributes,
         templateId,
         supplierId,
         manufacturerId,
+        categoryIds,
+        careInstructionIds,
       } = request.body;
       const userId = request.user.sub;
 
@@ -66,10 +69,13 @@ export async function createProductController(app: FastifyInstance) {
           name,
           description,
           status,
+          outOfLine,
           attributes,
           templateId,
           supplierId,
           manufacturerId,
+          categoryIds,
+          careInstructionIds,
         });
 
         await logAudit(request, {

@@ -10,6 +10,7 @@ import { dateSchema, idSchema, nameSchema } from '../../common.schema';
  * Status de produto
  */
 export const productStatusSchema = z.enum([
+  'DRAFT',
   'ACTIVE',
   'INACTIVE',
   'OUT_OF_STOCK',
@@ -33,6 +34,8 @@ export const createProductSchema = z.object({
   templateId: idSchema,
   supplierId: idSchema.optional(),
   manufacturerId: idSchema.optional(),
+  categoryIds: z.array(z.string().uuid()).optional(),
+  careInstructionIds: z.array(z.string()).optional(),
 });
 
 /**

@@ -18,6 +18,8 @@ export interface CreateProductSchema {
   supplierId?: UniqueEntityID;
   manufacturerId?: UniqueEntityID;
   attributes?: Record<string, unknown>;
+  categoryIds?: string[];
+  careInstructionIds?: string[];
 }
 
 export interface UpdateProductSchema {

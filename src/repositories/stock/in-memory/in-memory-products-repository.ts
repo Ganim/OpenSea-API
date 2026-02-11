@@ -25,10 +25,11 @@ export class InMemoryProductsRepository implements ProductsRepository {
       description: data.description,
       status: data.status,
       outOfLine: data.outOfLine ?? false,
-      templateId: data.templateId, // Obrigatório
+      templateId: data.templateId,
       supplierId: data.supplierId,
       manufacturerId: data.manufacturerId,
       attributes: data.attributes ?? {},
+      careInstructions: CareInstructions.create(data.careInstructionIds ?? []),
     });
 
     this.items.push(product);

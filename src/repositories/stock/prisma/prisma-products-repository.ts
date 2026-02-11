@@ -36,23 +36,52 @@ const productInclude = {
 
 export class PrismaProductsRepository implements ProductsRepository {
   async create(data: CreateProductSchema): Promise<Product> {
-    const productData = await prisma.product.create({
-      data: {
-        tenantId: data.tenantId,
-        name: data.name,
-        slug: data.slug.value,
-        fullCode: data.fullCode,
-        barcode: data.barcode,
-        eanCode: data.eanCode,
-        upcCode: data.upcCode,
-        description: data.description,
-        status: (data.status?.value ?? 'ACTIVE') as PrismaProductStatus,
-        outOfLine: data.outOfLine ?? false,
-        attributes: (data.attributes ?? {}) as Prisma.InputJsonValue,
-        templateId: data.templateId.toString(),
-        supplierId: data.supplierId?.toString(),
-        manufacturerId: data.manufacturerId?.toString(),
-      },
+    const hasCategoryIds =
+      data.categoryIds !== undefined && data.categoryIds.length > 0;
+
+    const productCreateData = {
+      tenantId: data.tenantId,
+      name: data.name,
+      slug: data.slug.value,
+      fullCode: data.fullCode,
+      barcode: data.barcode,
+      eanCode: data.eanCode,
+      upcCode: data.upcCode,
+      description: data.description,
+      status: (data.status?.value ?? 'ACTIVE') as PrismaProductStatus,
+      outOfLine: data.outOfLine ?? false,
+      attributes: (data.attributes ?? {}) as Prisma.InputJsonValue,
+      careInstructionIds: data.careInstructionIds ?? [],
+      templateId: data.templateId.toString(),
+      supplierId: data.supplierId?.toString(),
+      manufacturerId: data.manufacturerId?.toString(),
+    };
+
+    let productData;
+
+    if (hasCategoryIds) {
+      productData = await prisma.$transaction(async (tx) => {
+        const created = await tx.product.create({ data: productCreateData });
+
+        await tx.productCategory.createMany({
+          data: data.categoryIds!.map((categoryId, index) => ({
+            productId: created.id,
+            categoryId,
+            order: index,
+          })),
+        });
+
+        return tx.product.findUniqueOrThrow({
+          where: { id: created.id },
+          include: productInclude,
+        });
+      });
+
+      return productPrismaToDomain(productData);
+    }
+
+    productData = await prisma.product.create({
+      data: productCreateData,
     });
 
     const defaultStatus = ProductStatus.create('ACTIVE');
@@ -61,7 +90,7 @@ export class PrismaProductsRepository implements ProductsRepository {
       {
         tenantId: new EntityID(productData.tenantId),
         name: productData.name,
-        slug: data.slug, // Usar o slug original que foi passado
+        slug: data.slug,
         fullCode: productData.fullCode ?? undefined,
         barcode: productData.barcode,
         eanCode: productData.eanCode,

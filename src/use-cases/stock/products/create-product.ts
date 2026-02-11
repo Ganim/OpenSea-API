@@ -3,10 +3,12 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { Slug } from '@/entities/stock/value-objects/slug';
+import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
+import type { CareCatalogProvider } from '@/services/care';
 import {
   generateBarcode,
   generateEAN13,
@@ -32,6 +34,8 @@ interface CreateProductUseCaseRequest {
   supplierId?: string;
   manufacturerId?: string;
   attributes?: Record<string, unknown>;
+  categoryIds?: string[];
+  careInstructionIds?: string[];
 }
 
 interface CreateProductUseCaseResponse {
@@ -44,6 +48,8 @@ export class CreateProductUseCase {
     private templatesRepository: TemplatesRepository,
     private suppliersRepository: SuppliersRepository,
     private manufacturersRepository: ManufacturersRepository,
+    private categoriesRepository: CategoriesRepository,
+    private careCatalogProvider: CareCatalogProvider,
   ) {}
 
   async execute(
@@ -59,6 +65,8 @@ export class CreateProductUseCase {
       supplierId,
       manufacturerId,
       attributes,
+      categoryIds,
+      careInstructionIds,
     } = request;
 
     // Validate name
@@ -133,6 +141,30 @@ export class CreateProductUseCase {
       }
     }
 
+    // Validate categories exist if provided
+    if (categoryIds !== undefined) {
+      for (const categoryId of categoryIds) {
+        const category = await this.categoriesRepository.findById(
+          new UniqueEntityID(categoryId),
+          tenantId,
+        );
+        if (!category) {
+          throw new ResourceNotFoundError(`Category not found: ${categoryId}`);
+        }
+      }
+    }
+
+    // Validate care instruction IDs if provided
+    if (careInstructionIds !== undefined && careInstructionIds.length > 0) {
+      const invalidIds =
+        this.careCatalogProvider.validateIds(careInstructionIds);
+      if (invalidIds.length > 0) {
+        throw new BadRequestError(
+          `Invalid care instruction IDs: ${invalidIds.join(', ')}`,
+        );
+      }
+    }
+
     // Validate attributes against template
     assertValidAttributes(attributes, template.productAttributes, 'product');
 
@@ -184,6 +216,8 @@ export class CreateProductUseCase {
         ? new UniqueEntityID(manufacturerId)
         : undefined,
       attributes: attributes ?? {},
+      categoryIds,
+      careInstructionIds,
     });
 
     return {
