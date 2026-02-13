@@ -40,13 +40,13 @@ describe('List Tenant Users (E2E)', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('tenantUsers');
-    expect(Array.isArray(response.body.tenantUsers)).toBe(true);
-    expect(response.body.tenantUsers.length).toBeGreaterThanOrEqual(1);
-    expect(response.body.tenantUsers[0]).toHaveProperty('id');
-    expect(response.body.tenantUsers[0]).toHaveProperty('tenantId');
-    expect(response.body.tenantUsers[0]).toHaveProperty('userId');
-    expect(response.body.tenantUsers[0]).toHaveProperty('role');
+    expect(response.body).toHaveProperty('users');
+    expect(Array.isArray(response.body.users)).toBe(true);
+    expect(response.body.users.length).toBeGreaterThanOrEqual(1);
+    expect(response.body.users[0]).toHaveProperty('id');
+    expect(response.body.users[0]).toHaveProperty('tenantId');
+    expect(response.body.users[0]).toHaveProperty('userId');
+    expect(response.body.users[0]).toHaveProperty('role');
   });
 
   it('should return 404 for non-existent tenant', async () => {
