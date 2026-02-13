@@ -198,6 +198,24 @@ export const CORE_AUDIT_MESSAGES = {
       '{{adminName}} solicitou reset de senha obrigatório para {{userName}}: {{reason}}',
   } satisfies AuditMessage,
 
+  /** Admin forçou reset de PIN de acesso de outro usuário */
+  USER_FORCE_ACCESS_PIN_RESET: {
+    action: AuditAction.PIN_FORCE_RESET,
+    entity: AuditEntity.USER_ACCESS_PIN,
+    module: AuditModule.CORE,
+    description:
+      '{{adminName}} solicitou reset de PIN de acesso obrigatório para {{userName}}',
+  } satisfies AuditMessage,
+
+  /** Admin forçou reset de PIN de ação de outro usuário */
+  USER_FORCE_ACTION_PIN_RESET: {
+    action: AuditAction.PIN_FORCE_RESET,
+    entity: AuditEntity.USER_ACTION_PIN,
+    module: AuditModule.CORE,
+    description:
+      '{{adminName}} solicitou reset de PIN de autorização obrigatório para {{userName}}',
+  } satisfies AuditMessage,
+
   /** Admin excluiu usuário */
   USER_DELETE: {
     action: AuditAction.DELETE,

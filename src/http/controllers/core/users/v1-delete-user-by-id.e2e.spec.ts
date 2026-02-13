@@ -34,6 +34,6 @@ describe('Delete User By ID (E2E)', () => {
       .delete(`/v1/users/${user.id}`)
       .set('Authorization', `Bearer ${token}`);
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
   });
 });

@@ -64,7 +64,7 @@ export async function forceActionPinResetController(app: FastifyInstance) {
           : user.username || user.email;
 
         await logAudit(request, {
-          message: AUDIT_MESSAGES.CORE.USER_FORCE_PASSWORD_RESET,
+          message: AUDIT_MESSAGES.CORE.USER_FORCE_ACTION_PIN_RESET,
           entityId: user.id.toString(),
           placeholders: {
             adminName,
