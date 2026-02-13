@@ -204,6 +204,7 @@ export const listEmployeesQuerySchema = z.object({
   supervisorId: idSchema.optional(),
   companyId: idSchema.optional(),
   search: z.string().optional(),
+  unlinked: z.coerce.boolean().optional().default(false),
   includeDeleted: z.coerce.boolean().optional().default(false),
 });
 
@@ -273,6 +274,30 @@ export const employeeResponseSchema = z.object({
   positionId: idSchema.optional().nullable(),
   supervisorId: idSchema.optional().nullable(),
   companyId: idSchema.optional().nullable(),
+  department: z
+    .object({
+      id: idSchema,
+      name: z.string(),
+      code: z.string(),
+    })
+    .nullable()
+    .optional(),
+  position: z
+    .object({
+      id: idSchema,
+      name: z.string(),
+      level: z.number().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+  company: z
+    .object({
+      id: idSchema,
+      legalName: z.string(),
+      tradeName: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
   hireDate: dateSchema,
   terminationDate: dateSchema.optional().nullable(),
   status: z.string(),

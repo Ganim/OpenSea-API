@@ -49,6 +49,7 @@ export const loginMethodSchema = z.enum([
   'oauth',
   'magic_link',
   'api_key',
+  'access_pin',
 ]);
 
 /**

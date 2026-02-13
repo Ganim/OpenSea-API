@@ -7,6 +7,8 @@ import { changeUserProfileController } from './v1-change-user-profile.controller
 import { changeUserUsernameController } from './v1-change-user-username.controller';
 import { createUserController } from './v1-create-user.controller';
 import { DeleteUserByIdController } from './v1-delete-user-by-id.controller';
+import { forceAccessPinResetController } from './v1-force-access-pin-reset.controller';
+import { forceActionPinResetController } from './v1-force-action-pin-reset.controller';
 import { forcePasswordResetController } from './v1-force-password-reset.controller';
 import { getUserByEmailController } from './v1-get-user-by-email.controller';
 import { getUserByIdController } from './v1-get-user-by-id.controller';
@@ -25,6 +27,8 @@ export async function usersRoutes() {
       adminApp.register(changeUserProfileController);
       adminApp.register(DeleteUserByIdController);
       adminApp.register(forcePasswordResetController);
+      adminApp.register(forceAccessPinResetController);
+      adminApp.register(forceActionPinResetController);
     },
     { prefix: '' },
   );

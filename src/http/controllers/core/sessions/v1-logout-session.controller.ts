@@ -3,6 +3,7 @@ import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeLogoutSessionUseCase } from '@/use-cases/core/sessions/factories/make-logout-session-use-case';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -38,13 +39,18 @@ export async function logoutSessionController(app: FastifyInstance) {
           sessionId,
         });
 
+        // Busca nome do usuário para auditoria
+        const getUserByIdUseCase = makeGetUserByIdUseCase();
+        const { user } = await getUserByIdUseCase.execute({ userId: request.user.sub });
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
         // Auditoria de logout
         await logAudit(request, {
           message: AUDIT_MESSAGES.CORE.SESSION_LOGOUT,
           entityId: sessionId,
-          placeholders: {
-            userName: request.user?.sub || 'Usuário',
-          },
+          placeholders: { userName },
         });
 
         // Limpa o cookie de refresh token para evitar acúmulo

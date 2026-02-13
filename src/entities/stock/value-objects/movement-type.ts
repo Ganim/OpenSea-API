@@ -1,8 +1,11 @@
 export type MovementTypeValue =
+  | 'PURCHASE'
+  | 'CUSTOMER_RETURN'
   | 'SALE'
   | 'PRODUCTION'
   | 'SAMPLE'
   | 'LOSS'
+  | 'SUPPLIER_RETURN'
   | 'TRANSFER'
   | 'INVENTORY_ADJUSTMENT'
   | 'ZONE_RECONFIGURE';
@@ -23,6 +26,14 @@ export class MovementType {
   }
 
   // Type Checkers
+  get isPurchase(): boolean {
+    return this.type === 'PURCHASE';
+  }
+
+  get isCustomerReturn(): boolean {
+    return this.type === 'CUSTOMER_RETURN';
+  }
+
   get isSale(): boolean {
     return this.type === 'SALE';
   }
@@ -37,6 +48,10 @@ export class MovementType {
 
   get isLoss(): boolean {
     return this.type === 'LOSS';
+  }
+
+  get isSupplierReturn(): boolean {
+    return this.type === 'SUPPLIER_RETURN';
   }
 
   get isTransfer(): boolean {
@@ -55,14 +70,15 @@ export class MovementType {
   get reducesStock(): boolean {
     return (
       this.type === 'SALE' ||
+      this.type === 'PRODUCTION' ||
       this.type === 'SAMPLE' ||
       this.type === 'LOSS' ||
-      this.type === 'TRANSFER'
+      this.type === 'SUPPLIER_RETURN'
     );
   }
 
   get increasesStock(): boolean {
-    return this.type === 'PRODUCTION';
+    return this.type === 'PURCHASE' || this.type === 'CUSTOMER_RETURN';
   }
 
   get requiresApproval(): boolean {

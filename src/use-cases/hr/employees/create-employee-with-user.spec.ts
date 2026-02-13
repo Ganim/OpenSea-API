@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { InMemoryTenantUsersRepository } from '@/repositories/core/in-memory/in-memory-tenant-users-repository';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
 import type { CreateUserUseCase } from '@/use-cases/core/users/create-user';
@@ -9,6 +10,7 @@ import { CreateEmployeeWithUserUseCase } from './create-employee-with-user';
 
 let employeesRepository: InMemoryEmployeesRepository;
 let usersRepository: InMemoryUsersRepository;
+let tenantUsersRepository: InMemoryTenantUsersRepository;
 let sut: CreateEmployeeWithUserUseCase;
 const tenantId = new UniqueEntityID().toString();
 
@@ -25,10 +27,12 @@ describe('CreateEmployeeWithUserUseCase', () => {
   beforeEach(() => {
     employeesRepository = new InMemoryEmployeesRepository();
     usersRepository = new InMemoryUsersRepository();
+    tenantUsersRepository = new InMemoryTenantUsersRepository();
     sut = new CreateEmployeeWithUserUseCase(
       employeesRepository,
       mockCreateUserUseCase,
       usersRepository,
+      tenantUsersRepository,
       mockAssignGroupUseCase,
     );
   });

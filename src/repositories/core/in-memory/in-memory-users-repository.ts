@@ -81,6 +81,18 @@ export class InMemoryUsersRepository implements UsersRepository {
         data.blockedUntil === null ? undefined : data.blockedUntil;
     if (data.deletedAt)
       user.deletedAt = data.deletedAt === null ? undefined : data.deletedAt;
+    if (data.accessPinHash !== undefined) {
+      user.accessPin =
+        data.accessPinHash === null ? undefined : data.accessPinHash;
+    }
+    if (data.actionPinHash !== undefined) {
+      user.actionPin =
+        data.actionPinHash === null ? undefined : data.actionPinHash;
+    }
+    if (data.forceAccessPinSetup !== undefined)
+      user.forceAccessPinSetup = data.forceAccessPinSetup;
+    if (data.forceActionPinSetup !== undefined)
+      user.forceActionPinSetup = data.forceActionPinSetup;
 
     return user;
   }
@@ -212,6 +224,49 @@ export class InMemoryUsersRepository implements UsersRepository {
     if (!user) return null;
 
     user.clearForcedPasswordReset();
+
+    return user;
+  }
+
+  // FORCED PIN RESET
+  async setForceAccessPinSetup(id: UniqueEntityID): Promise<User | null> {
+    const user = await this.findById(id);
+
+    if (!user) return null;
+
+    user.accessPin = undefined;
+    user.forceAccessPinSetup = true;
+
+    return user;
+  }
+
+  async clearForceAccessPinSetup(id: UniqueEntityID): Promise<User | null> {
+    const user = await this.findById(id);
+
+    if (!user) return null;
+
+    user.forceAccessPinSetup = false;
+
+    return user;
+  }
+
+  async setForceActionPinSetup(id: UniqueEntityID): Promise<User | null> {
+    const user = await this.findById(id);
+
+    if (!user) return null;
+
+    user.actionPin = undefined;
+    user.forceActionPinSetup = true;
+
+    return user;
+  }
+
+  async clearForceActionPinSetup(id: UniqueEntityID): Promise<User | null> {
+    const user = await this.findById(id);
+
+    if (!user) return null;
+
+    user.forceActionPinSetup = false;
 
     return user;
   }

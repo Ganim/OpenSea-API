@@ -63,7 +63,23 @@ export const CORE_AUDIT_MESSAGES = {
     action: AuditAction.PASSWORD_CHANGE,
     entity: AuditEntity.USER_PASSWORD,
     module: AuditModule.CORE,
-    description: '{{userName}} alterou sua própria senha',
+    description: '{{userName}} alterou a própria senha',
+  } satisfies AuditMessage,
+
+  /** Usuário alterou seu PIN de acesso */
+  ME_ACCESS_PIN_CHANGE: {
+    action: AuditAction.PIN_CHANGE,
+    entity: AuditEntity.USER_ACCESS_PIN,
+    module: AuditModule.CORE,
+    description: '{{userName}} alterou o próprio PIN de acesso',
+  } satisfies AuditMessage,
+
+  /** Usuário alterou seu PIN de ação */
+  ME_ACTION_PIN_CHANGE: {
+    action: AuditAction.PIN_CHANGE,
+    entity: AuditEntity.USER_ACTION_PIN,
+    module: AuditModule.CORE,
+    description: '{{userName}} alterou o próprio PIN de autorização',
   } satisfies AuditMessage,
 
   /** Usuário alterou seu próprio username */
@@ -80,7 +96,7 @@ export const CORE_AUDIT_MESSAGES = {
     action: AuditAction.PROFILE_CHANGE,
     entity: AuditEntity.USER_PROFILE,
     module: AuditModule.CORE,
-    description: '{{userName}} atualizou seu perfil',
+    description: '{{userName}} atualizou o próprio perfil',
   } satisfies AuditMessage,
 
   /** Usuário excluiu sua própria conta */

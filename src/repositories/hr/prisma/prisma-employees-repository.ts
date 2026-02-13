@@ -5,6 +5,7 @@ import { mapEmployeePrismaToDomain } from '@/mappers/hr/employee/employee-prisma
 import type {
   CreateEmployeeSchema,
   EmployeesRepository,
+  EmployeeWithRawRelations,
   UpdateEmployeeSchema,
 } from '../employees-repository';
 
@@ -121,6 +122,65 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     return employee;
   }
 
+  async findByIdWithRelations(
+    id: UniqueEntityID,
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<EmployeeWithRawRelations | null> {
+    const employeeData = await prisma.employee.findFirst({
+      where: {
+        id: id.toString(),
+        tenantId,
+        deletedAt: includeDeleted ? undefined : null,
+      },
+      include: {
+        user: true,
+        department: true,
+        position: true,
+        supervisor: true,
+        company: true,
+      },
+    });
+
+    if (!employeeData) return null;
+
+    // mapEmployeePrismaToDomain expects the base includes (user, department, position, supervisor)
+    // The extra company field is structurally compatible
+    const employee = Employee.create(
+      mapEmployeePrismaToDomain(
+        employeeData as Parameters<typeof mapEmployeePrismaToDomain>[0],
+      ),
+      new UniqueEntityID(employeeData.id),
+    );
+
+    return {
+      employee,
+      rawRelations: {
+        department: employeeData.department
+          ? {
+              id: employeeData.department.id,
+              name: employeeData.department.name,
+              code: employeeData.department.code,
+            }
+          : null,
+        position: employeeData.position
+          ? {
+              id: employeeData.position.id,
+              name: employeeData.position.name,
+              level: employeeData.position.level,
+            }
+          : null,
+        company: employeeData.company
+          ? {
+              id: employeeData.company.id,
+              legalName: employeeData.company.legalName,
+              tradeName: employeeData.company.tradeName ?? null,
+            }
+          : null,
+      },
+    };
+  }
+
   async findByRegistrationNumber(
     registrationNumber: string,
     tenantId: string,
@@ -187,6 +247,31 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
         userId: userId.toString(),
         tenantId,
         deletedAt: includeDeleted ? undefined : null,
+      },
+      include: {
+        user: true,
+        department: true,
+        position: true,
+        supervisor: true,
+      },
+    });
+
+    if (!employeeData) return null;
+
+    const employee = Employee.create(
+      mapEmployeePrismaToDomain(employeeData),
+      new UniqueEntityID(employeeData.id),
+    );
+    return employee;
+  }
+
+  async findByUserIdAnyTenant(
+    userId: UniqueEntityID,
+  ): Promise<Employee | null> {
+    const employeeData = await prisma.employee.findFirst({
+      where: {
+        userId: userId.toString(),
+        deletedAt: null,
       },
       include: {
         user: true,

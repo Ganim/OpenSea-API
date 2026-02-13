@@ -76,6 +76,10 @@ export const userResponseSchema = z.object({
   forcePasswordReset: z.boolean().optional(),
   forcePasswordResetReason: z.string().nullable().optional(),
   forcePasswordResetRequestedAt: z.coerce.date().nullable().optional(),
+  hasAccessPin: z.boolean().optional(),
+  hasActionPin: z.boolean().optional(),
+  forceAccessPinSetup: z.boolean().optional(),
+  forceActionPinSetup: z.boolean().optional(),
   isSuperAdmin: z.boolean(),
   profile: z
     .object({

@@ -48,6 +48,10 @@ export type UserMinAggregateOutputType = {
   forcePasswordResetReason: string | null
   forcePasswordResetRequestedBy: string | null
   forcePasswordResetRequestedAt: Date | null
+  accessPinHash: string | null
+  actionPinHash: string | null
+  forceAccessPinSetup: boolean | null
+  forceActionPinSetup: boolean | null
   isSuperAdmin: boolean | null
   deletedAt: Date | null
   lastLoginAt: Date | null
@@ -69,6 +73,10 @@ export type UserMaxAggregateOutputType = {
   forcePasswordResetReason: string | null
   forcePasswordResetRequestedBy: string | null
   forcePasswordResetRequestedAt: Date | null
+  accessPinHash: string | null
+  actionPinHash: string | null
+  forceAccessPinSetup: boolean | null
+  forceActionPinSetup: boolean | null
   isSuperAdmin: boolean | null
   deletedAt: Date | null
   lastLoginAt: Date | null
@@ -90,6 +98,10 @@ export type UserCountAggregateOutputType = {
   forcePasswordResetReason: number
   forcePasswordResetRequestedBy: number
   forcePasswordResetRequestedAt: number
+  accessPinHash: number
+  actionPinHash: number
+  forceAccessPinSetup: number
+  forceActionPinSetup: number
   isSuperAdmin: number
   deletedAt: number
   lastLoginAt: number
@@ -121,6 +133,10 @@ export type UserMinAggregateInputType = {
   forcePasswordResetReason?: true
   forcePasswordResetRequestedBy?: true
   forcePasswordResetRequestedAt?: true
+  accessPinHash?: true
+  actionPinHash?: true
+  forceAccessPinSetup?: true
+  forceActionPinSetup?: true
   isSuperAdmin?: true
   deletedAt?: true
   lastLoginAt?: true
@@ -142,6 +158,10 @@ export type UserMaxAggregateInputType = {
   forcePasswordResetReason?: true
   forcePasswordResetRequestedBy?: true
   forcePasswordResetRequestedAt?: true
+  accessPinHash?: true
+  actionPinHash?: true
+  forceAccessPinSetup?: true
+  forceActionPinSetup?: true
   isSuperAdmin?: true
   deletedAt?: true
   lastLoginAt?: true
@@ -163,6 +183,10 @@ export type UserCountAggregateInputType = {
   forcePasswordResetReason?: true
   forcePasswordResetRequestedBy?: true
   forcePasswordResetRequestedAt?: true
+  accessPinHash?: true
+  actionPinHash?: true
+  forceAccessPinSetup?: true
+  forceActionPinSetup?: true
   isSuperAdmin?: true
   deletedAt?: true
   lastLoginAt?: true
@@ -271,6 +295,10 @@ export type UserGroupByOutputType = {
   forcePasswordResetReason: string | null
   forcePasswordResetRequestedBy: string | null
   forcePasswordResetRequestedAt: Date | null
+  accessPinHash: string | null
+  actionPinHash: string | null
+  forceAccessPinSetup: boolean
+  forceActionPinSetup: boolean
   isSuperAdmin: boolean
   deletedAt: Date | null
   lastLoginAt: Date | null
@@ -315,6 +343,10 @@ export type UserWhereInput = {
   forcePasswordResetReason?: Prisma.StringNullableFilter<"User"> | string | null
   forcePasswordResetRequestedBy?: Prisma.StringNullableFilter<"User"> | string | null
   forcePasswordResetRequestedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  accessPinHash?: Prisma.StringNullableFilter<"User"> | string | null
+  actionPinHash?: Prisma.StringNullableFilter<"User"> | string | null
+  forceAccessPinSetup?: Prisma.BoolFilter<"User"> | boolean
+  forceActionPinSetup?: Prisma.BoolFilter<"User"> | boolean
   isSuperAdmin?: Prisma.BoolFilter<"User"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -371,6 +403,10 @@ export type UserOrderByWithRelationInput = {
   forcePasswordResetReason?: Prisma.SortOrderInput | Prisma.SortOrder
   forcePasswordResetRequestedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   forcePasswordResetRequestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  accessPinHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  actionPinHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  forceAccessPinSetup?: Prisma.SortOrder
+  forceActionPinSetup?: Prisma.SortOrder
   isSuperAdmin?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -432,6 +468,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   forcePasswordResetReason?: Prisma.StringNullableFilter<"User"> | string | null
   forcePasswordResetRequestedBy?: Prisma.StringNullableFilter<"User"> | string | null
   forcePasswordResetRequestedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  accessPinHash?: Prisma.StringNullableFilter<"User"> | string | null
+  actionPinHash?: Prisma.StringNullableFilter<"User"> | string | null
+  forceAccessPinSetup?: Prisma.BoolFilter<"User"> | boolean
+  forceActionPinSetup?: Prisma.BoolFilter<"User"> | boolean
   isSuperAdmin?: Prisma.BoolFilter<"User"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -488,6 +528,10 @@ export type UserOrderByWithAggregationInput = {
   forcePasswordResetReason?: Prisma.SortOrderInput | Prisma.SortOrder
   forcePasswordResetRequestedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   forcePasswordResetRequestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  accessPinHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  actionPinHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  forceAccessPinSetup?: Prisma.SortOrder
+  forceActionPinSetup?: Prisma.SortOrder
   isSuperAdmin?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -517,6 +561,10 @@ export type UserScalarWhereWithAggregatesInput = {
   forcePasswordResetReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   forcePasswordResetRequestedBy?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   forcePasswordResetRequestedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  accessPinHash?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  actionPinHash?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  forceAccessPinSetup?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  forceActionPinSetup?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   isSuperAdmin?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -538,6 +586,10 @@ export type UserCreateInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -594,6 +646,10 @@ export type UserUncheckedCreateInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -650,6 +706,10 @@ export type UserUpdateInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -706,6 +766,10 @@ export type UserUncheckedUpdateInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -762,6 +826,10 @@ export type UserCreateManyInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -783,6 +851,10 @@ export type UserUpdateManyMutationInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -804,6 +876,10 @@ export type UserUncheckedUpdateManyInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -835,6 +911,10 @@ export type UserCountOrderByAggregateInput = {
   forcePasswordResetReason?: Prisma.SortOrder
   forcePasswordResetRequestedBy?: Prisma.SortOrder
   forcePasswordResetRequestedAt?: Prisma.SortOrder
+  accessPinHash?: Prisma.SortOrder
+  actionPinHash?: Prisma.SortOrder
+  forceAccessPinSetup?: Prisma.SortOrder
+  forceActionPinSetup?: Prisma.SortOrder
   isSuperAdmin?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
@@ -860,6 +940,10 @@ export type UserMaxOrderByAggregateInput = {
   forcePasswordResetReason?: Prisma.SortOrder
   forcePasswordResetRequestedBy?: Prisma.SortOrder
   forcePasswordResetRequestedAt?: Prisma.SortOrder
+  accessPinHash?: Prisma.SortOrder
+  actionPinHash?: Prisma.SortOrder
+  forceAccessPinSetup?: Prisma.SortOrder
+  forceActionPinSetup?: Prisma.SortOrder
   isSuperAdmin?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
@@ -881,6 +965,10 @@ export type UserMinOrderByAggregateInput = {
   forcePasswordResetReason?: Prisma.SortOrder
   forcePasswordResetRequestedBy?: Prisma.SortOrder
   forcePasswordResetRequestedAt?: Prisma.SortOrder
+  accessPinHash?: Prisma.SortOrder
+  actionPinHash?: Prisma.SortOrder
+  forceAccessPinSetup?: Prisma.SortOrder
+  forceActionPinSetup?: Prisma.SortOrder
   isSuperAdmin?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
@@ -1464,6 +1552,10 @@ export type UserCreateWithoutProfileInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -1519,6 +1611,10 @@ export type UserUncheckedCreateWithoutProfileInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -1590,6 +1686,10 @@ export type UserUpdateWithoutProfileInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1645,6 +1745,10 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1700,6 +1804,10 @@ export type UserCreateWithoutSessionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -1755,6 +1863,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -1826,6 +1938,10 @@ export type UserUpdateWithoutSessionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1881,6 +1997,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1936,6 +2056,10 @@ export type UserCreateWithoutRefreshTokenInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -1991,6 +2115,10 @@ export type UserUncheckedCreateWithoutRefreshTokenInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -2062,6 +2190,10 @@ export type UserUpdateWithoutRefreshTokenInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2117,6 +2249,10 @@ export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2172,6 +2308,10 @@ export type UserCreateWithoutPermissionGroupsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -2227,6 +2367,10 @@ export type UserUncheckedCreateWithoutPermissionGroupsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -2287,6 +2431,10 @@ export type UserCreateWithoutGrantedPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -2342,6 +2490,10 @@ export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -2413,6 +2565,10 @@ export type UserUpdateWithoutPermissionGroupsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2468,6 +2624,10 @@ export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2534,6 +2694,10 @@ export type UserUpdateWithoutGrantedPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2589,6 +2753,10 @@ export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2644,6 +2812,10 @@ export type UserCreateWithoutDirectPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -2699,6 +2871,10 @@ export type UserUncheckedCreateWithoutDirectPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -2759,6 +2935,10 @@ export type UserCreateWithoutGrantedDirectPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -2814,6 +2994,10 @@ export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -2885,6 +3069,10 @@ export type UserUpdateWithoutDirectPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2940,6 +3128,10 @@ export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3006,6 +3198,10 @@ export type UserUpdateWithoutGrantedDirectPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3061,6 +3257,10 @@ export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3116,6 +3316,10 @@ export type UserCreateWithoutPermissionAuditLogsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -3171,6 +3375,10 @@ export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -3242,6 +3450,10 @@ export type UserUpdateWithoutPermissionAuditLogsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3297,6 +3509,10 @@ export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3352,6 +3568,10 @@ export type UserCreateWithoutVolumesCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -3407,6 +3627,10 @@ export type UserUncheckedCreateWithoutVolumesCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -3467,6 +3691,10 @@ export type UserCreateWithoutVolumesClosedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -3522,6 +3750,10 @@ export type UserUncheckedCreateWithoutVolumesClosedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -3582,6 +3814,10 @@ export type UserCreateWithoutVolumesDeliveredInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -3637,6 +3873,10 @@ export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -3708,6 +3948,10 @@ export type UserUpdateWithoutVolumesCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3763,6 +4007,10 @@ export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3829,6 +4077,10 @@ export type UserUpdateWithoutVolumesClosedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3884,6 +4136,10 @@ export type UserUncheckedUpdateWithoutVolumesClosedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3950,6 +4206,10 @@ export type UserUpdateWithoutVolumesDeliveredInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4005,6 +4265,10 @@ export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4060,6 +4324,10 @@ export type UserCreateWithoutItemMovementInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -4115,6 +4383,10 @@ export type UserUncheckedCreateWithoutItemMovementInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -4175,6 +4447,10 @@ export type UserCreateWithoutApprovedMovementsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -4230,6 +4506,10 @@ export type UserUncheckedCreateWithoutApprovedMovementsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -4301,6 +4581,10 @@ export type UserUpdateWithoutItemMovementInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4356,6 +4640,10 @@ export type UserUncheckedUpdateWithoutItemMovementInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4422,6 +4710,10 @@ export type UserUpdateWithoutApprovedMovementsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4477,6 +4769,10 @@ export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4532,6 +4828,10 @@ export type UserCreateWithoutVariantPriceHistoryInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -4587,6 +4887,10 @@ export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -4658,6 +4962,10 @@ export type UserUpdateWithoutVariantPriceHistoryInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4713,6 +5021,10 @@ export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4768,6 +5080,10 @@ export type UserCreateWithoutAuditLogsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -4823,6 +5139,10 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -4894,6 +5214,10 @@ export type UserUpdateWithoutAuditLogsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4949,6 +5273,10 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5004,6 +5332,10 @@ export type UserCreateWithoutAlertsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -5059,6 +5391,10 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -5130,6 +5466,10 @@ export type UserUpdateWithoutAlertsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5185,6 +5525,10 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5240,6 +5584,10 @@ export type UserCreateWithoutCreatedPurchaseOrdersInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -5295,6 +5643,10 @@ export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -5366,6 +5718,10 @@ export type UserUpdateWithoutCreatedPurchaseOrdersInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5421,6 +5777,10 @@ export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5476,6 +5836,10 @@ export type UserCreateWithoutCreatedSalesOrdersInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -5531,6 +5895,10 @@ export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -5602,6 +5970,10 @@ export type UserUpdateWithoutCreatedSalesOrdersInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5657,6 +6029,10 @@ export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5712,6 +6088,10 @@ export type UserCreateWithoutItemReservationsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -5767,6 +6147,10 @@ export type UserUncheckedCreateWithoutItemReservationsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -5838,6 +6222,10 @@ export type UserUpdateWithoutItemReservationsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5893,6 +6281,10 @@ export type UserUncheckedUpdateWithoutItemReservationsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5948,6 +6340,10 @@ export type UserCreateWithoutCommentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -6003,6 +6399,10 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -6074,6 +6474,10 @@ export type UserUpdateWithoutCommentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6129,6 +6533,10 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6184,6 +6592,10 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -6239,6 +6651,10 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -6310,6 +6726,10 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6365,6 +6785,10 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6420,6 +6844,10 @@ export type UserCreateWithoutNotificationsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -6475,6 +6903,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -6546,6 +6978,10 @@ export type UserUpdateWithoutNotificationsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6601,6 +7037,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6656,6 +7096,10 @@ export type UserCreateWithoutRequestsCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -6711,6 +7155,10 @@ export type UserUncheckedCreateWithoutRequestsCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -6771,6 +7219,10 @@ export type UserCreateWithoutRequestsAssignedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -6826,6 +7278,10 @@ export type UserUncheckedCreateWithoutRequestsAssignedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -6897,6 +7353,10 @@ export type UserUpdateWithoutRequestsCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6952,6 +7412,10 @@ export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7018,6 +7482,10 @@ export type UserUpdateWithoutRequestsAssignedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7073,6 +7541,10 @@ export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7128,6 +7600,10 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -7183,6 +7659,10 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -7254,6 +7734,10 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7309,6 +7793,10 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7364,6 +7852,10 @@ export type UserCreateWithoutRequestCommentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -7419,6 +7911,10 @@ export type UserUncheckedCreateWithoutRequestCommentsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -7490,6 +7986,10 @@ export type UserUpdateWithoutRequestCommentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7545,6 +8045,10 @@ export type UserUncheckedUpdateWithoutRequestCommentsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7600,6 +8104,10 @@ export type UserCreateWithoutRequestHistoryActionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -7655,6 +8163,10 @@ export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -7726,6 +8238,10 @@ export type UserUpdateWithoutRequestHistoryActionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7781,6 +8297,10 @@ export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7836,6 +8356,10 @@ export type UserCreateWithoutEmployeeInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -7891,6 +8415,10 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -7962,6 +8490,10 @@ export type UserUpdateWithoutEmployeeInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8017,6 +8549,10 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8072,6 +8608,10 @@ export type UserCreateWithoutApprovedOvertimeInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -8127,6 +8667,10 @@ export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -8198,6 +8742,10 @@ export type UserUpdateWithoutApprovedOvertimeInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8253,6 +8801,10 @@ export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8308,6 +8860,10 @@ export type UserCreateWithoutApprovedAbsencesInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -8363,6 +8919,10 @@ export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -8434,6 +8994,10 @@ export type UserUpdateWithoutApprovedAbsencesInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8489,6 +9053,10 @@ export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8544,6 +9112,10 @@ export type UserCreateWithoutProcessedPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -8599,6 +9171,10 @@ export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -8659,6 +9235,10 @@ export type UserCreateWithoutApprovedPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -8714,6 +9294,10 @@ export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -8774,6 +9358,10 @@ export type UserCreateWithoutPaidPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -8829,6 +9417,10 @@ export type UserUncheckedCreateWithoutPaidPayrollsInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -8900,6 +9492,10 @@ export type UserUpdateWithoutProcessedPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8955,6 +9551,10 @@ export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9021,6 +9621,10 @@ export type UserUpdateWithoutApprovedPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9076,6 +9680,10 @@ export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9142,6 +9750,10 @@ export type UserUpdateWithoutPaidPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9197,6 +9809,10 @@ export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9252,6 +9868,10 @@ export type UserCreateWithoutLabelTemplatesCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -9307,6 +9927,10 @@ export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -9378,6 +10002,10 @@ export type UserUpdateWithoutLabelTemplatesCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9433,6 +10061,10 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9488,6 +10120,10 @@ export type UserCreateWithoutTenantUsersInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -9543,6 +10179,10 @@ export type UserUncheckedCreateWithoutTenantUsersInput = {
   forcePasswordResetReason?: string | null
   forcePasswordResetRequestedBy?: string | null
   forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: Date | string | null
   lastLoginAt?: Date | string | null
@@ -9614,6 +10254,10 @@ export type UserUpdateWithoutTenantUsersInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9669,6 +10313,10 @@ export type UserUncheckedUpdateWithoutTenantUsersInput = {
   forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10043,6 +10691,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   forcePasswordResetReason?: boolean
   forcePasswordResetRequestedBy?: boolean
   forcePasswordResetRequestedAt?: boolean
+  accessPinHash?: boolean
+  actionPinHash?: boolean
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: boolean
   lastLoginAt?: boolean
@@ -10100,6 +10752,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   forcePasswordResetReason?: boolean
   forcePasswordResetRequestedBy?: boolean
   forcePasswordResetRequestedAt?: boolean
+  accessPinHash?: boolean
+  actionPinHash?: boolean
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: boolean
   lastLoginAt?: boolean
@@ -10121,6 +10777,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   forcePasswordResetReason?: boolean
   forcePasswordResetRequestedBy?: boolean
   forcePasswordResetRequestedAt?: boolean
+  accessPinHash?: boolean
+  actionPinHash?: boolean
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: boolean
   lastLoginAt?: boolean
@@ -10142,6 +10802,10 @@ export type UserSelectScalar = {
   forcePasswordResetReason?: boolean
   forcePasswordResetRequestedBy?: boolean
   forcePasswordResetRequestedAt?: boolean
+  accessPinHash?: boolean
+  actionPinHash?: boolean
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
   isSuperAdmin?: boolean
   deletedAt?: boolean
   lastLoginAt?: boolean
@@ -10149,7 +10813,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "password_hash" | "lastLoginIp" | "failedLoginAttempts" | "blockedUntil" | "passwordResetToken" | "passwordResetExpires" | "forcePasswordReset" | "forcePasswordResetReason" | "forcePasswordResetRequestedBy" | "forcePasswordResetRequestedAt" | "isSuperAdmin" | "deletedAt" | "lastLoginAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "password_hash" | "lastLoginIp" | "failedLoginAttempts" | "blockedUntil" | "passwordResetToken" | "passwordResetExpires" | "forcePasswordReset" | "forcePasswordResetReason" | "forcePasswordResetRequestedBy" | "forcePasswordResetRequestedAt" | "accessPinHash" | "actionPinHash" | "forceAccessPinSetup" | "forceActionPinSetup" | "isSuperAdmin" | "deletedAt" | "lastLoginAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   RefreshToken?: boolean | Prisma.User$RefreshTokenArgs<ExtArgs>
@@ -10244,6 +10908,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     forcePasswordResetReason: string | null
     forcePasswordResetRequestedBy: string | null
     forcePasswordResetRequestedAt: Date | null
+    accessPinHash: string | null
+    actionPinHash: string | null
+    forceAccessPinSetup: boolean
+    forceActionPinSetup: boolean
     isSuperAdmin: boolean
     deletedAt: Date | null
     lastLoginAt: Date | null
@@ -10720,6 +11388,10 @@ export interface UserFieldRefs {
   readonly forcePasswordResetReason: Prisma.FieldRef<"User", 'String'>
   readonly forcePasswordResetRequestedBy: Prisma.FieldRef<"User", 'String'>
   readonly forcePasswordResetRequestedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly accessPinHash: Prisma.FieldRef<"User", 'String'>
+  readonly actionPinHash: Prisma.FieldRef<"User", 'String'>
+  readonly forceAccessPinSetup: Prisma.FieldRef<"User", 'Boolean'>
+  readonly forceActionPinSetup: Prisma.FieldRef<"User", 'Boolean'>
   readonly isSuperAdmin: Prisma.FieldRef<"User", 'Boolean'>
   readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>

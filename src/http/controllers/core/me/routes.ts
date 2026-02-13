@@ -3,6 +3,9 @@ import { changeMyEmailController } from './v1-change-my-email.controller';
 import { changeMyPasswordController } from './v1-change-my-password.controller';
 import { changeMyProfileController } from './v1-change-my-profile.controller';
 import { changeMyUsernameController } from './v1-change-my-username.controller';
+import { setMyAccessPinController } from './v1-set-my-access-pin.controller';
+import { setMyActionPinController } from './v1-set-my-action-pin.controller';
+import { verifyMyActionPinController } from './v1-verify-my-action-pin.controller';
 import { createMyNotificationPreferenceController } from './v1-create-my-notification-preference.controller';
 import { deleteMyNotificationPreferenceController } from './v1-delete-my-notification-preference.controller';
 import { deleteMyUserController } from './v1-delete-my-user.controller';
@@ -29,6 +32,11 @@ export async function meRoutes() {
   app.register(changeMyProfileController);
   app.register(getMyUserController);
   app.register(deleteMyUserController);
+
+  // PIN Routes
+  app.register(setMyAccessPinController);
+  app.register(setMyActionPinController);
+  app.register(verifyMyActionPinController);
 
   // Permissions & Groups Routes
   app.register(listMyPermissionsController);

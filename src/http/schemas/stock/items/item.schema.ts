@@ -98,6 +98,10 @@ export const registerItemEntrySchema = z.object({
   variantId: z.uuid(),
   binId: z.uuid().optional(), // Referência ao bin onde o item está armazenado
   quantity: quantitySchema,
+  movementType: z
+    .enum(['PURCHASE', 'CUSTOMER_RETURN'])
+    .optional()
+    .default('PURCHASE'),
   unitCost: z.number().nonnegative().optional(),
   attributes: z.record(z.string(), z.unknown()).optional(),
   batchNumber: z.string().max(100).optional(),
@@ -146,7 +150,13 @@ export const locationHistoryResponseSchema = z.object({
 export const registerItemExitSchema = z.object({
   itemId: z.uuid(),
   quantity: quantitySchema,
-  movementType: z.enum(['SALE', 'PRODUCTION', 'SAMPLE', 'LOSS']),
+  movementType: z.enum([
+    'SALE',
+    'PRODUCTION',
+    'SAMPLE',
+    'LOSS',
+    'SUPPLIER_RETURN',
+  ]),
   reasonCode: z.string().max(50).optional(),
   destinationRef: z.string().max(255).optional(),
   notes: z.string().max(1000).optional(),

@@ -13,6 +13,7 @@ export interface ListEmployeesRequest {
   supervisorId?: string;
   companyId?: string;
   search?: string;
+  unlinked?: boolean;
   includeDeleted?: boolean;
 }
 
@@ -40,6 +41,7 @@ export class ListEmployeesUseCase {
       supervisorId,
       companyId,
       search,
+      unlinked = false,
       includeDeleted = false,
     } = request;
 
@@ -94,6 +96,11 @@ export class ListEmployeesUseCase {
           employee.email?.toLowerCase().includes(searchLower) ||
           employee.cpf.value.includes(search),
       );
+    }
+
+    // Filter unlinked employees (no userId)
+    if (unlinked) {
+      employees = employees.filter((employee) => !employee.userId);
     }
 
     // Calculate pagination

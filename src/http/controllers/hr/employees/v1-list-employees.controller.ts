@@ -49,6 +49,7 @@ export async function listEmployeesController(app: FastifyInstance) {
         supervisorId,
         companyId,
         search,
+        unlinked,
         includeDeleted,
       } = request.query;
 
@@ -71,6 +72,7 @@ export async function listEmployeesController(app: FastifyInstance) {
         supervisorId,
         companyId,
         search,
+        unlinked,
         includeDeleted,
       });
 

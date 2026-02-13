@@ -132,6 +132,15 @@ export interface UpdateEmployeeSchema {
   pendingIssues?: string[];
 }
 
+export interface EmployeeWithRawRelations {
+  employee: Employee;
+  rawRelations: {
+    department?: { id: string; name: string; code: string } | null;
+    position?: { id: string; name: string; level?: number | null } | null;
+    company?: { id: string; legalName: string; tradeName?: string | null } | null;
+  };
+}
+
 export interface EmployeesRepository {
   create(data: CreateEmployeeSchema): Promise<Employee>;
   findById(
@@ -139,6 +148,11 @@ export interface EmployeesRepository {
     tenantId: string,
     includeDeleted?: boolean,
   ): Promise<Employee | null>;
+  findByIdWithRelations(
+    id: UniqueEntityID,
+    tenantId: string,
+    includeDeleted?: boolean,
+  ): Promise<EmployeeWithRawRelations | null>;
   findByRegistrationNumber(
     registrationNumber: string,
     tenantId: string,
@@ -153,6 +167,10 @@ export interface EmployeesRepository {
     userId: UniqueEntityID,
     tenantId: string,
     includeDeleted?: boolean,
+  ): Promise<Employee | null>;
+  /** Find employee by userId without tenant scope (userId is globally unique) */
+  findByUserIdAnyTenant(
+    userId: UniqueEntityID,
   ): Promise<Employee | null>;
   findByPis(
     pis: PIS,

@@ -4,6 +4,7 @@ import { CPF, EmployeeStatus, PIS } from '@/entities/hr/value-objects';
 import type {
   CreateEmployeeSchema,
   EmployeesRepository,
+  EmployeeWithRawRelations,
   UpdateEmployeeSchema,
 } from '../employees-repository';
 
@@ -93,6 +94,24 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
     return employee || null;
   }
 
+  async findByIdWithRelations(
+    id: UniqueEntityID,
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<EmployeeWithRawRelations | null> {
+    const employee = await this.findById(id, tenantId, includeDeleted);
+    if (!employee) return null;
+    // In-memory doesn't have relation data, return nulls
+    return {
+      employee,
+      rawRelations: {
+        department: null,
+        position: null,
+        company: null,
+      },
+    };
+  }
+
   async findByRegistrationNumber(
     registrationNumber: string,
     tenantId: string,
@@ -131,6 +150,17 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
         item.userId?.equals(userId) &&
         item.tenantId.toString() === tenantId &&
         (includeDeleted || !item.deletedAt),
+    );
+    return employee || null;
+  }
+
+  async findByUserIdAnyTenant(
+    userId: UniqueEntityID,
+  ): Promise<Employee | null> {
+    const employee = this.items.find(
+      (item) =>
+        item.userId?.equals(userId) &&
+        !item.deletedAt,
     );
     return employee || null;
   }

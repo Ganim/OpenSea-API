@@ -5,7 +5,9 @@ import { createEmployeeController } from './v1-create-employee.controller';
 import { createEmployeeWithUserController } from './v1-create-employee-with-user.controller';
 import { checkCpfController } from './v1-check-cpf.controller';
 import { getEmployeeByIdController } from './v1-get-employee-by-id.controller';
+import { getEmployeeByUserIdController } from './v1-get-employee-by-user-id.controller';
 import { linkUserToEmployeeController } from './v1-link-user-to-employee.controller';
+import { unlinkUserFromEmployeeController } from './v1-unlink-user-from-employee.controller';
 import { listEmployeesController } from './v1-list-employees.controller';
 import { deleteEmployeeController } from './v1-delete-employee.controller';
 import { terminateEmployeeController } from './v1-terminate-employee.controller';
@@ -23,6 +25,7 @@ export async function employeesRoutes() {
       managerApp.register(updateEmployeeController);
       managerApp.register(terminateEmployeeController);
       managerApp.register(linkUserToEmployeeController);
+      managerApp.register(unlinkUserFromEmployeeController);
       managerApp.register(transferEmployeeController);
       managerApp.register(deleteEmployeeController);
     },
@@ -34,6 +37,7 @@ export async function employeesRoutes() {
     async (queryApp) => {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(getEmployeeByIdController);
+      queryApp.register(getEmployeeByUserIdController);
       queryApp.register(listEmployeesController);
       queryApp.register(checkCpfController);
       queryApp.register(getEmployeesLabelDataController);

@@ -7,14 +7,22 @@ import { z } from 'zod';
 export const itemStatusEnum = z.enum([
   'AVAILABLE',
   'RESERVED',
-  'SOLD',
+  'IN_TRANSIT',
   'DAMAGED',
+  'EXPIRED',
+  'DISPOSED',
 ]);
 export const movementTypeEnum = z.enum([
-  'ENTRY',
-  'EXIT',
+  'PURCHASE',
+  'CUSTOMER_RETURN',
+  'SALE',
+  'PRODUCTION',
+  'SAMPLE',
+  'LOSS',
+  'SUPPLIER_RETURN',
   'TRANSFER',
-  'ADJUSTMENT',
+  'INVENTORY_ADJUSTMENT',
+  'ZONE_RECONFIGURE',
 ]);
 export const purchaseOrderStatusEnum = z.enum([
   'PENDING',

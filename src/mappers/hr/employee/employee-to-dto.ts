@@ -4,6 +4,11 @@ import type {
   HealthCondition,
 } from '@/entities/hr/employee';
 
+export interface EmployeeDTORelation {
+  id: string;
+  name: string;
+}
+
 export interface EmployeeDTO {
   id: string;
   registrationNumber: string;
@@ -52,6 +57,9 @@ export interface EmployeeDTO {
   positionId?: string | null;
   supervisorId?: string | null;
   companyId?: string | null;
+  department?: { id: string; name: string; code: string } | null;
+  position?: { id: string; name: string; level?: number | null } | null;
+  company?: { id: string; legalName: string; tradeName?: string | null } | null;
   hireDate: Date;
   terminationDate?: Date | null;
   status: string;
@@ -129,5 +137,44 @@ export function employeeToDTO(employee: Employee): EmployeeDTO {
     createdAt: employee.createdAt,
     updatedAt: employee.updatedAt,
     deletedAt: employee.deletedAt ?? null,
+  };
+}
+
+/**
+ * Converts an Employee entity to DTO with populated relations from raw Prisma data.
+ * The prismaData second argument provides the included relations (department, position, company).
+ */
+export function employeeToDTOWithRelations(
+  employee: Employee,
+  prismaData: {
+    department?: { id: string; name: string; code: string } | null;
+    position?: { id: string; name: string; level?: number | null } | null;
+    company?: { id: string; legalName: string; tradeName?: string | null } | null;
+  },
+): EmployeeDTO {
+  const base = employeeToDTO(employee);
+  return {
+    ...base,
+    department: prismaData.department
+      ? {
+          id: prismaData.department.id,
+          name: prismaData.department.name,
+          code: prismaData.department.code,
+        }
+      : null,
+    position: prismaData.position
+      ? {
+          id: prismaData.position.id,
+          name: prismaData.position.name,
+          level: prismaData.position.level ?? null,
+        }
+      : null,
+    company: prismaData.company
+      ? {
+          id: prismaData.company.id,
+          legalName: prismaData.company.legalName,
+          tradeName: prismaData.company.tradeName ?? null,
+        }
+      : null,
   };
 }

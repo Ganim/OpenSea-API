@@ -24,6 +24,8 @@ export class PrismaUsersRepository implements UsersRepository {
         // Campos com valores default explícitos (bug do Prisma 7 com PrismaPg adapter)
         failedLoginAttempts: 0,
         forcePasswordReset: false,
+        forceAccessPinSetup: true,
+        forceActionPinSetup: true,
         profile: {
           create: {
             name: data.profile.name,
@@ -81,6 +83,20 @@ export class PrismaUsersRepository implements UsersRepository {
             : undefined,
           failedLoginAttempts: data.failedLoginAttempts,
           blockedUntil: data.blockedUntil ?? undefined,
+          accessPinHash:
+            data.accessPinHash === null
+              ? null
+              : data.accessPinHash
+                ? data.accessPinHash.toString()
+                : undefined,
+          actionPinHash:
+            data.actionPinHash === null
+              ? null
+              : data.actionPinHash
+                ? data.actionPinHash.toString()
+                : undefined,
+          forceAccessPinSetup: data.forceAccessPinSetup,
+          forceActionPinSetup: data.forceActionPinSetup,
           profile: data.profile
             ? {
                 upsert: {
@@ -329,6 +345,69 @@ export class PrismaUsersRepository implements UsersRepository {
           forcePasswordResetRequestedBy: null,
           forcePasswordResetRequestedAt: null,
         },
+        include: { profile: true },
+      });
+
+      return User.create(mapUserPrismaToDomain(newUserData));
+    } catch {
+      return null;
+    }
+  }
+
+  // FORCED PIN RESET
+  async setForceAccessPinSetup(id: UniqueEntityID): Promise<User | null> {
+    try {
+      const newUserData = await prisma.user.update({
+        where: { id: id.toString() },
+        data: {
+          accessPinHash: null,
+          forceAccessPinSetup: true,
+        },
+        include: { profile: true },
+      });
+
+      return User.create(mapUserPrismaToDomain(newUserData));
+    } catch {
+      return null;
+    }
+  }
+
+  async clearForceAccessPinSetup(id: UniqueEntityID): Promise<User | null> {
+    try {
+      const newUserData = await prisma.user.update({
+        where: { id: id.toString() },
+        data: { forceAccessPinSetup: false },
+        include: { profile: true },
+      });
+
+      return User.create(mapUserPrismaToDomain(newUserData));
+    } catch {
+      return null;
+    }
+  }
+
+  async setForceActionPinSetup(id: UniqueEntityID): Promise<User | null> {
+    try {
+      const newUserData = await prisma.user.update({
+        where: { id: id.toString() },
+        data: {
+          actionPinHash: null,
+          forceActionPinSetup: true,
+        },
+        include: { profile: true },
+      });
+
+      return User.create(mapUserPrismaToDomain(newUserData));
+    } catch {
+      return null;
+    }
+  }
+
+  async clearForceActionPinSetup(id: UniqueEntityID): Promise<User | null> {
+    try {
+      const newUserData = await prisma.user.update({
+        where: { id: id.toString() },
+        data: { forceActionPinSetup: false },
         include: { profile: true },
       });
 

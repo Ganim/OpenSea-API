@@ -14,7 +14,7 @@ interface RegisterItemExitUseCaseRequest {
   itemId: string;
   quantity: number;
   userId: string;
-  movementType: 'SALE' | 'PRODUCTION' | 'SAMPLE' | 'LOSS';
+  movementType: 'SALE' | 'PRODUCTION' | 'SAMPLE' | 'LOSS' | 'SUPPLIER_RETURN';
   reasonCode?: string;
   destinationRef?: string;
   notes?: string;

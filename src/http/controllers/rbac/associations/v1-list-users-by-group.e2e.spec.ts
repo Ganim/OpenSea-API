@@ -47,5 +47,11 @@ describe('List Users By Group (e2e)', () => {
     expect(response.statusCode).toEqual(200);
     expect(response.body).toHaveProperty('userIds');
     expect(Array.isArray(response.body.userIds)).toBe(true);
+    expect(response.body).toHaveProperty('users');
+    expect(Array.isArray(response.body.users)).toBe(true);
+    expect(response.body.users.length).toBeGreaterThanOrEqual(1);
+    expect(response.body.users[0]).toHaveProperty('id');
+    expect(response.body.users[0]).toHaveProperty('email');
+    expect(response.body.users[0]).toHaveProperty('username');
   });
 });

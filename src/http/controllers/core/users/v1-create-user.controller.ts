@@ -1,14 +1,17 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createUserSchema,
   userProfileSchema,
   userResponseSchema,
 } from '@/http/schemas';
+import { PrismaTenantUsersRepository } from '@/repositories/core/prisma/prisma-tenant-users-repository';
 import { makeCreateUserUseCase } from '@/use-cases/core/users/factories/make-create-user-use-case';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -25,6 +28,7 @@ export async function createUserController(app: FastifyInstance) {
     url: '/v1/users',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.CORE.USERS.CREATE,
         resource: 'users',
@@ -50,6 +54,7 @@ export async function createUserController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const { email, password, username, profile } = request.body;
       const adminId = request.user.sub;
+      const tenantId = request.user.tenantId!;
 
       try {
         // Busca nome do admin para auditoria
@@ -67,6 +72,14 @@ export async function createUserController(app: FastifyInstance) {
           password,
           username,
           profile,
+        });
+
+        // Associate user with the current tenant
+        const tenantUsersRepository = new PrismaTenantUsersRepository();
+        await tenantUsersRepository.create({
+          tenantId: new UniqueEntityID(tenantId),
+          userId: new UniqueEntityID(user.id),
+          role: 'member',
         });
 
         // Log de auditoria

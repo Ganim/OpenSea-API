@@ -953,20 +953,6 @@ export const PermissionCodes = {
       GENERATE: 'finance.export.generate' as const,
     },
   },
-
-  // ============================================================================
-  // STUDIO - Editor de etiquetas
-  // ============================================================================
-  STUDIO: {
-    LABELS: {
-      MANAGE: 'studio.labels.manage' as const,
-      USE: 'studio.labels.use' as const,
-      VIEW: 'studio.labels.view' as const,
-      LIST: 'studio.labels.list' as const,
-      EDIT: 'studio.labels.edit' as const,
-      DELETE: 'studio.labels.delete' as const,
-    },
-  },
 } as const;
 
 /**

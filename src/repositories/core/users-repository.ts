@@ -2,6 +2,7 @@ import { User } from '@/entities/core/user';
 import { UserProfile } from '@/entities/core/user-profile';
 import type { Email } from '@/entities/core/value-objects/email';
 import type { Password } from '@/entities/core/value-objects/password';
+import type { Pin } from '@/entities/core/value-objects/pin';
 import type { Token } from '@/entities/core/value-objects/token';
 import type { Url } from '@/entities/core/value-objects/url';
 import type { Username } from '@/entities/core/value-objects/username';
@@ -38,6 +39,10 @@ export interface UpdateUserSchema {
   forcePasswordResetReason?: string | null;
   forcePasswordResetRequestedBy?: string | null;
   forcePasswordResetRequestedAt?: Date | null;
+  accessPinHash?: Pin | null;
+  actionPinHash?: Pin | null;
+  forceAccessPinSetup?: boolean;
+  forceActionPinSetup?: boolean;
 }
 
 export interface UsersRepository {
@@ -74,4 +79,10 @@ export interface UsersRepository {
     reason?: string,
   ): Promise<User | null>;
   clearForcePasswordReset(id: UniqueEntityID): Promise<User | null>;
+
+  // FORCED PIN RESET
+  setForceAccessPinSetup(id: UniqueEntityID): Promise<User | null>;
+  clearForceAccessPinSetup(id: UniqueEntityID): Promise<User | null>;
+  setForceActionPinSetup(id: UniqueEntityID): Promise<User | null>;
+  clearForceActionPinSetup(id: UniqueEntityID): Promise<User | null>;
 }

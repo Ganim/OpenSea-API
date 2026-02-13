@@ -1,10 +1,12 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { createScopeMiddleware } from '@/http/middlewares/rbac/verify-scope';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { employeeResponseSchema } from '@/http/schemas';
-import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
+import { employeeToDTOWithRelations } from '@/mappers/hr/employee/employee-to-dto';
+import { PrismaEmployeesRepository } from '@/repositories/hr/prisma/prisma-employees-repository';
 import { makeGetEmployeeByIdUseCase } from '@/use-cases/hr/employees/factories/make-get-employee-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -65,13 +67,24 @@ export async function getEmployeeByIdController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
 
       try {
-        const getEmployeeByIdUseCase = makeGetEmployeeByIdUseCase();
-        const { employee } = await getEmployeeByIdUseCase.execute({
+        const employeesRepository = new PrismaEmployeesRepository();
+        const result = await employeesRepository.findByIdWithRelations(
+          new UniqueEntityID(employeeId),
           tenantId,
-          employeeId,
-        });
+        );
 
-        return reply.status(200).send({ employee: employeeToDTO(employee) });
+        if (!result) {
+          return reply
+            .status(404)
+            .send({ message: 'Employee not found' });
+        }
+
+        return reply.status(200).send({
+          employee: employeeToDTOWithRelations(
+            result.employee,
+            result.rawRelations,
+          ),
+        });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

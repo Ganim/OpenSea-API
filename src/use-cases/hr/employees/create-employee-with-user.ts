@@ -9,6 +9,7 @@ import {
   WorkRegime,
 } from '@/entities/hr/value-objects';
 import { UserDTO } from '@/mappers/core/user/user-to-dto';
+import type { TenantUsersRepository } from '@/repositories/core/tenant-users-repository';
 import type { UsersRepository } from '@/repositories/core/users-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { CreateUserUseCase } from '@/use-cases/core/users/create-user';
@@ -91,6 +92,7 @@ export class CreateEmployeeWithUserUseCase {
     private employeesRepository: EmployeesRepository,
     private createUserUseCase: CreateUserUseCase,
     private usersRepository: UsersRepository,
+    private tenantUsersRepository: TenantUsersRepository,
     private assignGroupToUserUseCase: AssignGroupToUserUseCase,
   ) {}
 
@@ -211,6 +213,13 @@ export class CreateEmployeeWithUserUseCase {
       null, // System request (no admin user)
       'Conta criada - defina sua senha',
     );
+
+    // Step 1.6: Associate user with tenant
+    await this.tenantUsersRepository.create({
+      tenantId: new UniqueEntityID(tenantId),
+      userId: new UniqueEntityID(user.id),
+      role: 'member',
+    });
 
     // Step 2: Create employee linked to user
     const pendingIssues = this.computePendingIssues({

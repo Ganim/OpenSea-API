@@ -6,6 +6,7 @@ import { UserProfile } from './user-profile';
 import { Email } from './value-objects/email';
 import { IpAddress } from './value-objects/ip-address';
 import { Password } from './value-objects/password';
+import { Pin } from './value-objects/pin';
 import { Token } from './value-objects/token';
 import { Username } from './value-objects/username';
 
@@ -23,6 +24,10 @@ export interface UserProps {
   forcePasswordResetReason?: string;
   forcePasswordResetRequestedBy?: string;
   forcePasswordResetRequestedAt?: Date;
+  accessPin?: Pin;
+  actionPin?: Pin;
+  forceAccessPinSetup: boolean;
+  forceActionPinSetup: boolean;
   isSuperAdmin: boolean;
   deletedAt?: Date;
   lastLoginAt?: Date;
@@ -70,6 +75,18 @@ export class User extends Entity<UserProps> {
   }
   get forcePasswordResetRequestedAt(): Date | undefined {
     return this.props.forcePasswordResetRequestedAt;
+  }
+  get accessPin(): Pin | undefined {
+    return this.props.accessPin;
+  }
+  get actionPin(): Pin | undefined {
+    return this.props.actionPin;
+  }
+  get forceAccessPinSetup(): boolean {
+    return this.props.forceAccessPinSetup;
+  }
+  get forceActionPinSetup(): boolean {
+    return this.props.forceActionPinSetup;
   }
   get isSuperAdmin(): boolean {
     return this.props.isSuperAdmin;
@@ -168,6 +185,26 @@ export class User extends Entity<UserProps> {
     this.props.forcePasswordResetRequestedAt = date;
   }
 
+  set accessPin(pin: Pin | undefined) {
+    this.props.accessPin = pin;
+    this.touch();
+  }
+
+  set actionPin(pin: Pin | undefined) {
+    this.props.actionPin = pin;
+    this.touch();
+  }
+
+  set forceAccessPinSetup(value: boolean) {
+    this.props.forceAccessPinSetup = value;
+    this.touch();
+  }
+
+  set forceActionPinSetup(value: boolean) {
+    this.props.forceActionPinSetup = value;
+    this.touch();
+  }
+
   clearForcedPasswordReset(): void {
     this.props.forcePasswordReset = false;
     this.props.forcePasswordResetReason = undefined;
@@ -183,6 +220,8 @@ export class User extends Entity<UserProps> {
       | 'failedLoginAttempts'
       | 'deletedAt'
       | 'forcePasswordReset'
+      | 'forceAccessPinSetup'
+      | 'forceActionPinSetup'
       | 'isSuperAdmin'
     >,
     id?: UniqueEntityID,
@@ -192,6 +231,8 @@ export class User extends Entity<UserProps> {
         ...props,
         failedLoginAttempts: props.failedLoginAttempts ?? 0,
         forcePasswordReset: props.forcePasswordReset ?? false,
+        forceAccessPinSetup: props.forceAccessPinSetup ?? true,
+        forceActionPinSetup: props.forceActionPinSetup ?? true,
         isSuperAdmin: props.isSuperAdmin ?? false,
         createdAt: props.createdAt ?? new Date(),
         deletedAt: props.deletedAt ?? undefined,

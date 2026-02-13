@@ -35,6 +35,7 @@ export interface RegisterItemEntryUseCaseInput {
   variantId: string;
   binId?: string; // Referência ao bin onde o item está armazenado
   quantity: number;
+  movementType?: 'PURCHASE' | 'CUSTOMER_RETURN'; // Tipo de entrada (padrão: PURCHASE)
   userId: string;
   unitCost?: number; // Custo unitário do item
   attributes?: Record<string, unknown>;
@@ -196,8 +197,8 @@ export class RegisterItemEntryUseCase {
       expiryDate: input.expiryDate,
     });
 
-    // Create movement record (this is an implicit ENTRY movement - not in MovementType enum)
-    // We'll use INVENTORY_ADJUSTMENT for entries
+    const entryType = input.movementType || 'PURCHASE';
+
     const movement = await this.itemMovementsRepository.create({
       tenantId: input.tenantId,
       itemId: item.id,
@@ -205,7 +206,7 @@ export class RegisterItemEntryUseCase {
       quantity: input.quantity,
       quantityBefore: 0,
       quantityAfter: input.quantity,
-      movementType: MovementType.create('INVENTORY_ADJUSTMENT'),
+      movementType: MovementType.create(entryType),
       reasonCode: 'ENTRY',
       destinationRef: binAddress ? `Bin: ${binAddress}` : undefined,
       notes: input.notes,

@@ -13,6 +13,10 @@ export interface UserDTO {
   forcePasswordReset?: boolean;
   forcePasswordResetReason?: string | null;
   forcePasswordResetRequestedAt?: Date | null;
+  hasAccessPin?: boolean;
+  hasActionPin?: boolean;
+  forceAccessPinSetup?: boolean;
+  forceActionPinSetup?: boolean;
   isSuperAdmin: boolean;
 }
 
@@ -29,6 +33,10 @@ export function userToDTO(user: User): UserDTO {
     forcePasswordReset: user.forcePasswordReset,
     forcePasswordResetReason: user.forcePasswordResetReason ?? null,
     forcePasswordResetRequestedAt: user.forcePasswordResetRequestedAt ?? null,
+    hasAccessPin: !!user.accessPin,
+    hasActionPin: !!user.actionPin,
+    forceAccessPinSetup: user.forceAccessPinSetup,
+    forceActionPinSetup: user.forceActionPinSetup,
     isSuperAdmin: user.isSuperAdmin,
   };
 }

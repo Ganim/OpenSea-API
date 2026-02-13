@@ -4,7 +4,12 @@ import { DeviceInfo } from './value-objects/device-info';
 import { GeoLocation } from './value-objects/geo-location';
 import { IpAddress } from './value-objects/ip-address';
 
-export type LoginMethod = 'password' | 'oauth' | 'magic_link' | 'api_key';
+export type LoginMethod =
+  | 'password'
+  | 'oauth'
+  | 'magic_link'
+  | 'api_key'
+  | 'access_pin';
 
 export interface SessionProps {
   userId: UniqueEntityID;

@@ -1,6 +1,7 @@
 import { Email } from '@/entities/core/value-objects/email';
 import { IpAddress } from '@/entities/core/value-objects/ip-address';
 import { Password } from '@/entities/core/value-objects/password';
+import { Pin } from '@/entities/core/value-objects/pin';
 import { Token } from '@/entities/core/value-objects/token';
 import { Username } from '@/entities/core/value-objects/username';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -31,6 +32,14 @@ export function mapUserPrismaToDomain(
       userDb.forcePasswordResetRequestedBy ?? undefined,
     forcePasswordResetRequestedAt:
       userDb.forcePasswordResetRequestedAt ?? undefined,
+    accessPin: userDb.accessPinHash
+      ? Pin.fromHash(userDb.accessPinHash, 'access')
+      : undefined,
+    actionPin: userDb.actionPinHash
+      ? Pin.fromHash(userDb.actionPinHash, 'action')
+      : undefined,
+    forceAccessPinSetup: userDb.forceAccessPinSetup ?? true,
+    forceActionPinSetup: userDb.forceActionPinSetup ?? true,
     isSuperAdmin: userDb.isSuperAdmin ?? false,
     lastLoginAt: userDb.lastLoginAt ?? undefined,
     createdAt: userDb.createdAt,

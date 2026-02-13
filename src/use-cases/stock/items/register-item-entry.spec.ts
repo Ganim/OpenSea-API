@@ -182,7 +182,7 @@ describe('RegisterItemEntryUseCase', () => {
     expect(result.item.status).toBe('AVAILABLE');
     expect(result.movement).toBeDefined();
     expect(result.movement.quantity).toBe(100);
-    expect(result.movement.movementType).toBe('INVENTORY_ADJUSTMENT');
+    expect(result.movement.movementType).toBe('PURCHASE');
   });
 
   it('should be able to register item entry with batch and dates', async () => {

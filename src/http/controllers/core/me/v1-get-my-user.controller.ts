@@ -26,6 +26,10 @@ export async function getMyUserController(app: FastifyInstance) {
             lastLoginAt: z.coerce.date().nullable(),
             deletedAt: z.coerce.date().nullable().optional(),
             isSuperAdmin: z.boolean(),
+            hasAccessPin: z.boolean().optional(),
+            hasActionPin: z.boolean().optional(),
+            forceAccessPinSetup: z.boolean().optional(),
+            forceActionPinSetup: z.boolean().optional(),
             profile: z
               .object({
                 id: z.string(),
