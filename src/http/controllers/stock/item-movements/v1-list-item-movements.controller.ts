@@ -66,12 +66,13 @@ export async function listItemMovementsController(app: FastifyInstance) {
         ]),
       );
 
-      const enrichedMovements = movements.map((m) => ({
-        ...m,
-        user: userMap.has(m.userId)
-          ? { id: m.userId, name: userMap.get(m.userId)! }
-          : null,
-      }));
+      const enrichedMovements = movements.map((m) => {
+        const userName = userMap.get(m.userId);
+        return {
+          ...m,
+          user: userName ? { id: m.userId, name: userName } : null,
+        };
+      });
 
       return reply.status(200).send({ movements: enrichedMovements });
     },

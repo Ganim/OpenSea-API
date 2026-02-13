@@ -5,11 +5,9 @@ import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
-import { createProduct } from '@/utils/tests/factories/stock/create-product.e2e';
-import { createVariant } from '@/utils/tests/factories/stock/create-variant.e2e';
 import { createItemE2E } from '@/utils/tests/factories/stock/create-item.e2e';
 
-describe('List Items By Product ID (E2E)', () => {
+describe('Get Item Location History (E2E)', () => {
   let tenantId: string;
 
   beforeAll(async () => {
@@ -22,47 +20,23 @@ describe('List Items By Product ID (E2E)', () => {
     await app.close();
   });
 
-  it('should list items by product id with correct schema', async () => {
+  it('should return location history for an item', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();
-
-    const template = await prisma.template.create({
-      data: {
-        tenantId,
-        name: `Template ByProd ${timestamp}`,
-        productAttributes: {},
-        variantAttributes: {},
-        itemAttributes: {},
-      },
-    });
-
-    const { product } = await createProduct({
-      tenantId,
-      name: `Product ByProd ${timestamp}`,
-      templateId: template.id,
-    });
-
-    const { variant } = await createVariant({
-      tenantId,
-      productId: product.id,
-      sku: `SKU-BYPROD-${timestamp}`,
-      name: `Variant ByProd ${timestamp}`,
-      price: 100,
-    });
 
     const warehouse = await prisma.warehouse.create({
       data: {
         tenantId,
-        code: `P${timestamp.toString().slice(-3)}`,
-        name: `Warehouse ByProd ${timestamp}`,
+        code: `W${timestamp.toString().slice(-3)}`,
+        name: 'Warehouse',
       },
     });
 
     const zone = await prisma.zone.create({
       data: {
         tenantId,
-        code: `ZP${timestamp.toString().slice(-2)}`,
-        name: `Zone ByProd ${timestamp}`,
+        code: `Z${timestamp.toString().slice(-3)}`,
+        name: 'Zone',
         warehouseId: warehouse.id,
         structure: {},
       },
@@ -79,29 +53,39 @@ describe('List Items By Product ID (E2E)', () => {
       },
     });
 
-    await createItemE2E({
+    const { item } = await createItemE2E({
       tenantId,
-      variantId: variant.id,
-      uniqueCode: `ITEM-BYPROD-${timestamp}`,
+      uniqueCode: `ITEM-LOCHIST-${timestamp}`,
       binId: bin.id,
-      initialQuantity: 50,
+      initialQuantity: 10,
       status: 'AVAILABLE',
       attributes: {},
       entryDate: new Date(),
     });
 
     const response = await request(app.server)
-      .get(`/v1/items/by-product/${product.id}`)
+      .get(`/v1/items/${item.id}/location-history`)
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('items');
-    expect(Array.isArray(response.body.items)).toBe(true);
+    expect(response.body).toHaveProperty('data');
+    expect(Array.isArray(response.body.data)).toBe(true);
   });
 
-  it('should not list items by product id without auth token', async () => {
+  it('should return 404 for non-existent item', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .get('/v1/items/00000000-0000-0000-0000-000000000000/location-history')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message');
+  });
+
+  it('should return 401 without auth', async () => {
     const response = await request(app.server).get(
-      '/v1/items/by-product/00000000-0000-0000-0000-000000000000',
+      '/v1/items/00000000-0000-0000-0000-000000000000/location-history',
     );
 
     expect(response.status).toBe(401);

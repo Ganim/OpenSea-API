@@ -2,14 +2,18 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
-import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { createItemE2E } from '@/utils/tests/factories/stock/create-item.e2e';
 import { createVolumeE2E } from '@/utils/tests/factories/stock/create-volume.e2e';
 
 describe('Remove Item from Volume (E2E)', () => {
+  let tenantId: string;
+
   beforeAll(async () => {
     await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
   });
 
   afterAll(async () => {
@@ -17,17 +21,7 @@ describe('Remove Item from Volume (E2E)', () => {
   });
 
   it('should remove an item from a volume', async () => {
-    const { token } = await createAndAuthenticateUser(app);
-    const timestamp = Date.now().toString();
-
-    const tenant = await prisma.tenant.create({
-      data: {
-        name: `tenant-${timestamp}`,
-        slug: `tenant-${timestamp}`,
-        status: 'ACTIVE',
-      },
-    });
-    const tenantId = tenant.id;
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const { volumeId } = await createVolumeE2E(app, {
       token,
