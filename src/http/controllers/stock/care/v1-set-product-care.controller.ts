@@ -90,8 +90,14 @@ export async function setProductCareController(app: FastifyInstance) {
           message: AUDIT_MESSAGES.STOCK.PRODUCT_CARE_SET,
           entityId: productId,
           placeholders: { userName, productName: existingProduct.name },
-          oldData: { careInstructionIds: existingProduct.careInstructionIds },
-          newData: { careInstructionIds },
+          oldData: {
+            name: existingProduct.name,
+            careInstructionIds: existingProduct.careInstructionIds,
+          },
+          newData: {
+            name: existingProduct.name,
+            careInstructionIds,
+          },
         });
 
         return reply.status(200).send({

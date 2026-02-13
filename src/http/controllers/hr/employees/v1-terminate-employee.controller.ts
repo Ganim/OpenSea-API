@@ -82,8 +82,15 @@ export async function terminateEmployeeController(app: FastifyInstance) {
           message: AUDIT_MESSAGES.HR.EMPLOYEE_TERMINATE,
           entityId: employeeId,
           placeholders: { adminName, employeeName: oldEmployee.fullName },
-          oldData: { status: oldEmployee.status },
-          newData: { terminationDate, reason },
+          oldData: {
+            fullName: oldEmployee.fullName,
+            status: oldEmployee.status,
+          },
+          newData: {
+            fullName: oldEmployee.fullName,
+            terminationDate,
+            reason,
+          },
         });
 
         return reply.status(200).send({ employee: employeeToDTO(employee) });
