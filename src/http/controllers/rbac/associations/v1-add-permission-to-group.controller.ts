@@ -81,7 +81,13 @@ export async function addPermissionToGroupController(app: FastifyInstance) {
           message: AUDIT_MESSAGES.RBAC.PERMISSION_ADD_TO_GROUP,
           entityId: `${groupId}-${permissionCode}`,
           placeholders: { adminName, permissionCode, groupName: group.name },
-          newData: { groupId, groupName: group.name, permissionCode, effect, conditions },
+          newData: {
+            groupId,
+            groupName: group.name,
+            permissionCode,
+            effect,
+            conditions,
+          },
         });
 
         return reply.status(201).send({ success: true });

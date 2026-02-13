@@ -49,12 +49,10 @@ describe('Set My Action PIN (E2E)', () => {
   });
 
   it('should return 401 without auth token', async () => {
-    const response = await request(app.server)
-      .patch('/v1/me/action-pin')
-      .send({
-        currentPassword: 'Pass@123',
-        newActionPin: '1234',
-      });
+    const response = await request(app.server).patch('/v1/me/action-pin').send({
+      currentPassword: 'Pass@123',
+      newActionPin: '1234',
+    });
 
     expect(response.status).toBe(401);
   });

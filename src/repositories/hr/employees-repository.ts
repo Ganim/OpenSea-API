@@ -137,7 +137,11 @@ export interface EmployeeWithRawRelations {
   rawRelations: {
     department?: { id: string; name: string; code: string } | null;
     position?: { id: string; name: string; level?: number | null } | null;
-    company?: { id: string; legalName: string; tradeName?: string | null } | null;
+    company?: {
+      id: string;
+      legalName: string;
+      tradeName?: string | null;
+    } | null;
   };
 }
 
@@ -169,9 +173,7 @@ export interface EmployeesRepository {
     includeDeleted?: boolean,
   ): Promise<Employee | null>;
   /** Find employee by userId without tenant scope (userId is globally unique) */
-  findByUserIdAnyTenant(
-    userId: UniqueEntityID,
-  ): Promise<Employee | null>;
+  findByUserIdAnyTenant(userId: UniqueEntityID): Promise<Employee | null>;
   findByPis(
     pis: PIS,
     tenantId: string,

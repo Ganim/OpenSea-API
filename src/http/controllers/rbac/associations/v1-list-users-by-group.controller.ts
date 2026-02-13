@@ -97,9 +97,7 @@ export async function listUsersByGroupController(app: FastifyInstance) {
           },
         });
 
-        const assignmentMap = new Map(
-          assignments.map((a) => [a.userId, a]),
-        );
+        const assignmentMap = new Map(assignments.map((a) => [a.userId, a]));
 
         const users = userIds
           .map((id) => {

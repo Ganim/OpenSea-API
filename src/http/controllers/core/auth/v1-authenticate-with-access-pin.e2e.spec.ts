@@ -32,12 +32,10 @@ describe('Authenticate with Access PIN (E2E)', () => {
       });
 
     // Then authenticate with the access PIN
-    const response = await request(app.server)
-      .post('/v1/auth/login/pin')
-      .send({
-        userId,
-        accessPin: '654321',
-      });
+    const response = await request(app.server).post('/v1/auth/login/pin').send({
+      userId,
+      accessPin: '654321',
+    });
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('user');
@@ -60,24 +58,20 @@ describe('Authenticate with Access PIN (E2E)', () => {
       });
 
     // Try to authenticate with wrong PIN
-    const response = await request(app.server)
-      .post('/v1/auth/login/pin')
-      .send({
-        userId,
-        accessPin: '000000',
-      });
+    const response = await request(app.server).post('/v1/auth/login/pin').send({
+      userId,
+      accessPin: '000000',
+    });
 
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty('message');
   });
 
   it('should return error for non-existent user', async () => {
-    const response = await request(app.server)
-      .post('/v1/auth/login/pin')
-      .send({
-        userId: '00000000-0000-0000-0000-000000000000',
-        accessPin: '123456',
-      });
+    const response = await request(app.server).post('/v1/auth/login/pin').send({
+      userId: '00000000-0000-0000-0000-000000000000',
+      accessPin: '123456',
+    });
 
     expect([400, 404]).toContain(response.status);
     expect(response.body).toHaveProperty('message');

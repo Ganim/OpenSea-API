@@ -49,12 +49,10 @@ describe('Set My Access PIN (E2E)', () => {
   });
 
   it('should return 401 without auth token', async () => {
-    const response = await request(app.server)
-      .patch('/v1/me/access-pin')
-      .send({
-        currentPassword: 'Pass@123',
-        newAccessPin: '123456',
-      });
+    const response = await request(app.server).patch('/v1/me/access-pin').send({
+      currentPassword: 'Pass@123',
+      newAccessPin: '123456',
+    });
 
     expect(response.status).toBe(401);
   });

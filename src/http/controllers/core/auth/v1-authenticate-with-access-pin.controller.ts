@@ -6,7 +6,10 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UserBlockedError } from '@/@errors/use-cases/user-blocked-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
-import { authResponseSchema, authenticateWithPinBodySchema } from '@/http/schemas';
+import {
+  authResponseSchema,
+  authenticateWithPinBodySchema,
+} from '@/http/schemas';
 import { makeAuthenticateWithAccessPinUseCase } from '@/use-cases/core/auth/factories/make-authenticate-with-access-pin-use-case';
 
 import type { FastifyInstance } from 'fastify';

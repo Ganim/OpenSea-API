@@ -65,11 +65,9 @@ describe('Create Tenant (E2E)', () => {
   });
 
   it('should return 401 without auth', async () => {
-    const response = await request(app.server)
-      .post('/v1/admin/tenants')
-      .send({
-        name: 'No Auth Tenant',
-      });
+    const response = await request(app.server).post('/v1/admin/tenants').send({
+      name: 'No Auth Tenant',
+    });
 
     expect([400, 401]).toContain(response.status);
   });

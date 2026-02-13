@@ -25,7 +25,8 @@ export async function getEmployeeByUserIdController(app: FastifyInstance) {
     schema: {
       tags: ['HR - Employees'],
       summary: 'Get employee linked to a user',
-      description: 'Returns the employee record linked to the given user ID, or 404 if none.',
+      description:
+        'Returns the employee record linked to the given user ID, or 404 if none.',
       params: z.object({
         userId: z.string().uuid(),
       }),
@@ -51,7 +52,9 @@ export async function getEmployeeByUserIdController(app: FastifyInstance) {
       );
 
       if (!employee) {
-        return reply.status(404).send({ message: 'No employee linked to this user' });
+        return reply
+          .status(404)
+          .send({ message: 'No employee linked to this user' });
       }
 
       return reply.status(200).send({ employee: employeeToDTO(employee) });

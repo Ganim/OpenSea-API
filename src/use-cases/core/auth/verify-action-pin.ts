@@ -31,10 +31,7 @@ export class VerifyActionPinUseCase {
       throw new BadRequestError('Action PIN not configured');
     }
 
-    const valid = await Pin.compare(
-      actionPin,
-      existingUser.actionPin.value,
-    );
+    const valid = await Pin.compare(actionPin, existingUser.actionPin.value);
 
     return { valid };
   }

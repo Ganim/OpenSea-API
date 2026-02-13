@@ -74,9 +74,7 @@ export async function getEmployeeByIdController(app: FastifyInstance) {
         );
 
         if (!result) {
-          return reply
-            .status(404)
-            .send({ message: 'Employee not found' });
+          return reply.status(404).send({ message: 'Employee not found' });
         }
 
         return reply.status(200).send({

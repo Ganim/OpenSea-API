@@ -149,7 +149,11 @@ export function employeeToDTOWithRelations(
   prismaData: {
     department?: { id: string; name: string; code: string } | null;
     position?: { id: string; name: string; level?: number | null } | null;
-    company?: { id: string; legalName: string; tradeName?: string | null } | null;
+    company?: {
+      id: string;
+      legalName: string;
+      tradeName?: string | null;
+    } | null;
   },
 ): EmployeeDTO {
   const base = employeeToDTO(employee);

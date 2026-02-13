@@ -10,8 +10,10 @@ const PIN_LENGTHS: Record<PinType, number> = {
 };
 
 const PIN_MESSAGES: Record<PinType, string> = {
-  access: 'O PIN de acesso deve conter exatamente 6 d\u00edgitos num\u00e9ricos.',
-  action: 'O PIN de a\u00e7\u00e3o deve conter exatamente 4 d\u00edgitos num\u00e9ricos.',
+  access:
+    'O PIN de acesso deve conter exatamente 6 d\u00edgitos num\u00e9ricos.',
+  action:
+    'O PIN de a\u00e7\u00e3o deve conter exatamente 4 d\u00edgitos num\u00e9ricos.',
 };
 
 export class Pin {

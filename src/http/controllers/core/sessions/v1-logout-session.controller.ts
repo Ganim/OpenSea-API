@@ -41,7 +41,9 @@ export async function logoutSessionController(app: FastifyInstance) {
 
         // Busca nome do usuário para auditoria
         const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const { user } = await getUserByIdUseCase.execute({ userId: request.user.sub });
+        const { user } = await getUserByIdUseCase.execute({
+          userId: request.user.sub,
+        });
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;

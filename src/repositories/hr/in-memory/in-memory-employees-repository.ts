@@ -158,9 +158,7 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
     userId: UniqueEntityID,
   ): Promise<Employee | null> {
     const employee = this.items.find(
-      (item) =>
-        item.userId?.equals(userId) &&
-        !item.deletedAt,
+      (item) => item.userId?.equals(userId) && !item.deletedAt,
     );
     return employee || null;
   }

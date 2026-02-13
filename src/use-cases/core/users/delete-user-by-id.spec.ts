@@ -2,7 +2,12 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryUsersRepository } from '@/repositories/core/in-memory/in-memory-users-repository';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
-import { CPF, ContractType, EmployeeStatus, WorkRegime } from '@/entities/hr/value-objects';
+import {
+  CPF,
+  ContractType,
+  EmployeeStatus,
+  WorkRegime,
+} from '@/entities/hr/value-objects';
 import { makeUser } from '@/utils/tests/factories/core/make-user';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { DeleteUserByIdUseCase } from './delete-user-by-id';
