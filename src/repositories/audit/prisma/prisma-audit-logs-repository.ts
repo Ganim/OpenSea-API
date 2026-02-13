@@ -33,6 +33,8 @@ type PrismaAuditLogWithUser = PrismaAuditLog & {
         id: string;
         name: string;
         slug: string;
+        color: string | null;
+        priority: number;
       };
     }>;
   } | null;
@@ -55,6 +57,8 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
             id: true,
             name: true,
             slug: true,
+            color: true,
+            priority: true,
           },
         },
       },
@@ -74,6 +78,8 @@ export class PrismaAuditLogsRepository implements AuditLogsRepository {
         id: relation.group.id,
         name: relation.group.name,
         slug: relation.group.slug,
+        color: relation.group.color,
+        priority: relation.group.priority,
       })) ?? [];
 
     return AuditLog.create(

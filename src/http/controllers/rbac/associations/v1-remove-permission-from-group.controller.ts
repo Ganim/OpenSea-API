@@ -79,7 +79,7 @@ export async function removePermissionFromGroupController(
             permissionCode: permissionId,
             groupName: group.name,
           },
-          oldData: { groupId, permissionId },
+          oldData: { groupId, groupName: group.name, permissionId },
         });
 
         return reply.status(204).send();

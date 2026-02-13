@@ -81,6 +81,8 @@ export async function listAuditLogsController(app: FastifyInstance) {
           id: group.id,
           name: group.name,
           slug: group.slug,
+          color: group.color,
+          priority: group.priority,
         })),
         affectedUser: log.affectedUser,
         ip: log.ip,

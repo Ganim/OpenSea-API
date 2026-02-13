@@ -9,6 +9,8 @@ export interface AuditLogUserPermissionGroup {
   id: string;
   name: string;
   slug: string;
+  color: string | null;
+  priority: number;
 }
 
 export interface AuditLogProps {

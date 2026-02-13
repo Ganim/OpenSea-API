@@ -102,6 +102,7 @@ export async function bulkAddPermissionsToGroupController(
           },
           newData: {
             groupId,
+            groupName: group.name,
             permissionsCount: permissions.length,
             added: result.added,
             skipped: result.skipped,
