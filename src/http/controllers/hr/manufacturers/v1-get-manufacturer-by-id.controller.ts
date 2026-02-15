@@ -21,6 +21,9 @@ export async function v1GetManufacturerByIdController(app: FastifyInstance) {
       }),
       response: {
         200: manufacturerResponseSchema,
+        400: z.object({
+          message: z.string(),
+        }),
         404: z.object({
           message: z.string(),
         }),

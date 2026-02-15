@@ -16,7 +16,7 @@ export async function deleteNotificationController(app: FastifyInstance) {
       tags: ['Sales - Notifications'],
       summary: 'Delete a notification (soft delete)',
       params: z.object({ id: z.string().uuid() }),
-      response: { 204: z.void() },
+      response: { 204: z.null() },
       security: [{ bearerAuth: [] }],
     },
 
@@ -39,7 +39,7 @@ export async function deleteNotificationController(app: FastifyInstance) {
         placeholders: { userName },
       });
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   });
 }

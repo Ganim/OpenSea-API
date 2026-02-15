@@ -58,7 +58,7 @@ export async function deleteBankAccountController(app: FastifyInstance) {
           oldData: { ...oldData.bankAccount },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

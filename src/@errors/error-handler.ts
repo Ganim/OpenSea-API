@@ -5,7 +5,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { errorLogger } from '@/lib/logger';
 import { captureException } from '@/lib/sentry';
-import type { FastifyInstance, FastifyRequest } from 'fastify';
+import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
 import { env } from 'process';
 import z, { ZodError } from 'zod';
 import { UserBlockedError } from './use-cases/user-blocked-error';
@@ -18,9 +18,11 @@ import {
   InvalidVolumeStatusError,
 } from './volumes-errors';
 
-type FastifyErrorHandler = FastifyInstance['errorHandler'];
-
-export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
+export const errorHandler = (
+  error: FastifyError,
+  request: FastifyRequest,
+  reply: FastifyReply,
+) => {
   // Silenciar opcionalmente logs de rate limit (429) em teste/CI
   const silenceRateLimitLogs =
     process.env.SILENCE_RATE_LIMIT_LOGS === 'true' ||

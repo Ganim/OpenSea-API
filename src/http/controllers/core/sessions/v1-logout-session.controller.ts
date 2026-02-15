@@ -20,7 +20,8 @@ export async function logoutSessionController(app: FastifyInstance) {
         'Encerra a sessao atual do usuario autenticado e limpa o cookie de refresh token.',
       security: [{ bearerAuth: [] }],
       response: {
-        204: z.void(),
+        204: z.null(),
+        400: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
     },
@@ -59,7 +60,7 @@ export async function logoutSessionController(app: FastifyInstance) {
         return reply
           .clearCookie('refreshToken', { path: '/' })
           .status(204)
-          .send();
+          .send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

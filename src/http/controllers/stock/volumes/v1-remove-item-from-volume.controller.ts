@@ -27,7 +27,7 @@ export async function removeItemFromVolumeController(app: FastifyInstance) {
         itemId: z.string().uuid(),
       }),
       response: {
-        204: z.void(),
+        204: z.null(),
         400: z.object({
           message: z.string(),
         }),
@@ -48,7 +48,7 @@ export async function removeItemFromVolumeController(app: FastifyInstance) {
         itemId,
       });
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   });
 }

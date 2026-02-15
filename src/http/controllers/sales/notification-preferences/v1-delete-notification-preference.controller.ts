@@ -44,7 +44,7 @@ export async function deleteNotificationPreferenceController(
           placeholders: { userName },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (err) {
         if (err instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: err.message });

@@ -61,7 +61,7 @@ export async function deleteEmployeeController(app: FastifyInstance) {
           oldData: { id: employee.id.toString(), fullName: employee.fullName },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

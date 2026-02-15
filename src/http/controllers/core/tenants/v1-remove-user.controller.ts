@@ -22,7 +22,7 @@ export async function removeUserFromTenantController(app: FastifyInstance) {
         userId: z.string().uuid(),
       }),
       response: {
-        204: z.void(),
+        204: z.null(),
         400: z.object({
           message: z.string(),
         }),
@@ -43,7 +43,7 @@ export async function removeUserFromTenantController(app: FastifyInstance) {
           userId,
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

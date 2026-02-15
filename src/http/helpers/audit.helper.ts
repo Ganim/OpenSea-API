@@ -163,13 +163,18 @@ export async function logAudit(
     const sanitizedOldData = sanitizeData(params.oldData);
     const sanitizedNewData = sanitizeData(params.newData);
 
+    // Inclui placeholders resolvidos em newData para o frontend poder estilizar
+    const newDataWithPlaceholders = params.placeholders
+      ? { ...sanitizedNewData, _placeholders: params.placeholders }
+      : sanitizedNewData;
+
     await logAuditUseCase.execute({
       action: params.message.action,
       entity: params.message.entity,
       entityId: params.entityId,
       description,
       oldData: sanitizedOldData,
-      newData: sanitizedNewData,
+      newData: newDataWithPlaceholders,
       tenantId: context.tenantId,
       userId: context.userId,
       affectedUser: params.affectedUserId,

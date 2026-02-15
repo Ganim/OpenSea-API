@@ -26,7 +26,7 @@ export async function deleteVolumeController(app: FastifyInstance) {
         id: z.string().uuid(),
       }),
       response: {
-        204: z.void(),
+        204: z.null(),
         404: z.object({
           message: z.string(),
         }),
@@ -40,7 +40,7 @@ export async function deleteVolumeController(app: FastifyInstance) {
 
       await deleteVolumeUseCase.execute({ tenantId, volumeId: id });
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   });
 }

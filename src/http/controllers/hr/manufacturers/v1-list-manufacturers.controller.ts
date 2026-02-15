@@ -22,6 +22,9 @@ export async function v1ListManufacturersController(app: FastifyInstance) {
       querystring: listManufacturersQuerySchema,
       response: {
         200: z.array(manufacturerResponseSchema),
+        400: z.object({
+          message: z.string(),
+        }),
         404: z.object({
           message: z.string(),
         }),

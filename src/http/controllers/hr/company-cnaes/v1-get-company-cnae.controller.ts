@@ -31,6 +31,7 @@ export async function getCompanyCnaeController(app: FastifyInstance) {
       }),
       response: {
         200: z.object({ cnae: companyCnaeResponseSchema }),
+        400: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
       security: [{ bearerAuth: [] }],

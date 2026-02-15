@@ -28,6 +28,9 @@ export async function v1DeleteManufacturerController(app: FastifyInstance) {
       }),
       response: {
         204: z.null(),
+        400: z.object({
+          message: z.string(),
+        }),
         404: z.object({
           message: z.string(),
         }),
@@ -42,7 +45,7 @@ export async function v1DeleteManufacturerController(app: FastifyInstance) {
         const deleteManufacturerUseCase = makeDeleteManufacturerUseCase();
         await deleteManufacturerUseCase.execute({ id });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -67,7 +67,7 @@ export async function deleteSupplierController(app: FastifyInstance) {
           oldData: { id: supplier.id, name: supplier.name },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

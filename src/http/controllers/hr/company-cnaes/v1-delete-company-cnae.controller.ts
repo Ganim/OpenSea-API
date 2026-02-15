@@ -29,7 +29,8 @@ export async function deleteCompanyCnaeController(app: FastifyInstance) {
         cnaeId: idSchema,
       }),
       response: {
-        204: z.void(),
+        204: z.null(),
+        400: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
       security: [{ bearerAuth: [] }],
@@ -47,7 +48,7 @@ export async function deleteCompanyCnaeController(app: FastifyInstance) {
           companyId,
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

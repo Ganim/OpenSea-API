@@ -42,6 +42,9 @@ export async function deletePermissionGroupController(app: FastifyInstance) {
         400: z.object({
           message: z.string(),
         }),
+        403: z.object({
+          message: z.string(),
+        }),
         404: z.object({
           message: z.string(),
         }),
@@ -83,7 +86,7 @@ export async function deletePermissionGroupController(app: FastifyInstance) {
           oldData: { id: group.id, name: group.name },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

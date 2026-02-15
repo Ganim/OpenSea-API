@@ -41,7 +41,7 @@ export async function deleteCompanyAddressController(app: FastifyInstance) {
       const useCase = makeDeleteCompanyAddressUseCase();
       await useCase.execute({ companyId, addressId });
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   });
 }

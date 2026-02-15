@@ -20,7 +20,7 @@ export async function deleteCommentController(app: FastifyInstance) {
       summary: 'Delete a comment (soft delete)',
       params: z.object({ id: z.string().uuid() }),
       response: {
-        204: z.void(),
+        204: z.null(),
         403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
@@ -57,7 +57,7 @@ export async function deleteCommentController(app: FastifyInstance) {
           oldData: { content: comment.content },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (err) {
         if (err instanceof ForbiddenError) {
           return reply.status(403).send({ message: err.message });

@@ -60,7 +60,7 @@ export async function deleteFinanceEntryController(app: FastifyInstance) {
           oldData: { ...oldData.entry },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

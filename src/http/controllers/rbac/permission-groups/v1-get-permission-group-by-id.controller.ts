@@ -35,6 +35,9 @@ export async function getPermissionGroupByIdController(app: FastifyInstance) {
         200: z.object({
           group: permissionGroupWithDetailsSchema,
         }),
+        403: z.object({
+          message: z.string(),
+        }),
         404: z.object({
           message: z.string(),
         }),

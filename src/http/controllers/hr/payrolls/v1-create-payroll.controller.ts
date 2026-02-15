@@ -35,6 +35,9 @@ export async function createPayrollController(app: FastifyInstance) {
         400: z.object({
           message: z.string(),
         }),
+        404: z.object({
+          message: z.string(),
+        }),
       },
       security: [{ bearerAuth: [] }],
     },

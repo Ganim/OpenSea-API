@@ -72,7 +72,7 @@ export async function deleteLabelTemplateController(app: FastifyInstance) {
           placeholders: { userName, templateName: template.name },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

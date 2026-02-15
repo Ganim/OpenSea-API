@@ -31,7 +31,7 @@ export async function deleteProductController(app: FastifyInstance) {
         productId: z.uuid(),
       }),
       response: {
-        204: z.void(),
+        204: z.null(),
         404: z.object({
           message: z.string(),
         }),
@@ -70,7 +70,7 @@ export async function deleteProductController(app: FastifyInstance) {
           },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
