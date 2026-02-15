@@ -119,6 +119,8 @@ export const permissionGroupWithDetailsSchema = z.object({
       id: idSchema,
       username: z.string(),
       email: z.string().email(),
+      assignedAt: dateSchema,
+      expiresAt: dateSchema.nullable(),
     }),
   ),
   usersCount: z.number(),

@@ -14,9 +14,15 @@ interface GetPermissionGroupByIdRequest {
   tenantId?: string;
 }
 
+export interface UserWithAssignment {
+  user: User;
+  assignedAt: Date;
+  expiresAt: Date | null;
+}
+
 interface GetPermissionGroupByIdResponse {
   group: PermissionGroup;
-  users: User[];
+  users: UserWithAssignment[];
   permissions: Array<{
     permission: Permission;
     effect: string;
@@ -57,10 +63,24 @@ export class GetPermissionGroupByIdUseCase {
       }
     }
 
-    // Buscar usuários do grupo
-    const userIds =
-      await this.userPermissionGroupsRepository.listUsersByGroupId(group.id);
+    // Buscar usuários do grupo com metadados de atribuição
+    const assignments =
+      await this.userPermissionGroupsRepository.listByGroupId(group.id);
+    const userIds = assignments.map((a) => a.userId);
     const users = await this.usersRepository.findManyByIds(userIds);
+
+    const assignmentMap = new Map(
+      assignments.map((a) => [a.userId.toString(), a]),
+    );
+
+    const usersWithAssignment: UserWithAssignment[] = users.map((user) => {
+      const assignment = assignmentMap.get(user.id.toString());
+      return {
+        user,
+        assignedAt: assignment?.createdAt ?? new Date(),
+        expiresAt: assignment?.expiresAt ?? null,
+      };
+    });
 
     // Buscar permissões do grupo com efeitos
     const groupPermissions =
@@ -70,7 +90,7 @@ export class GetPermissionGroupByIdUseCase {
 
     return {
       group,
-      users,
+      users: usersWithAssignment,
       permissions: groupPermissions,
     };
   }

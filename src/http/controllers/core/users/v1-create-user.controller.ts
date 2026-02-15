@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { PermissionGroupSlugs } from '@/constants/rbac/permission-groups';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -11,6 +12,7 @@ import {
   userProfileSchema,
   userResponseSchema,
 } from '@/http/schemas';
+import { prisma } from '@/lib/prisma';
 import { PrismaTenantUsersRepository } from '@/repositories/core/prisma/prisma-tenant-users-repository';
 import { makeCreateUserUseCase } from '@/use-cases/core/users/factories/make-create-user-use-case';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -81,6 +83,35 @@ export async function createUserController(app: FastifyInstance) {
           userId: new UniqueEntityID(user.id),
           role: 'member',
         });
+
+        // Auto-assign to tenant's "Usuário" permission group
+        // Try tenant-specific slug first (new format), then fall back to bare slug (legacy)
+        let tenantUserGroup = await prisma.permissionGroup.findFirst({
+          where: {
+            slug: `${PermissionGroupSlugs.USER}-${tenantId.substring(0, 8)}`,
+            tenantId,
+            deletedAt: null,
+          },
+        });
+        if (!tenantUserGroup) {
+          tenantUserGroup = await prisma.permissionGroup.findFirst({
+            where: {
+              slug: PermissionGroupSlugs.USER,
+              tenantId,
+              deletedAt: null,
+            },
+          });
+        }
+
+        if (tenantUserGroup) {
+          await prisma.userPermissionGroup.create({
+            data: {
+              userId: user.id.toString(),
+              groupId: tenantUserGroup.id,
+              grantedBy: adminId,
+            },
+          });
+        }
 
         // Log de auditoria
         const userName = user.profile?.name

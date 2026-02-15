@@ -77,12 +77,14 @@ export class CreateTenantAdminUseCase {
   private async createDefaultPermissionGroups(
     tenantId: UniqueEntityID,
   ): Promise<void> {
+    const tenantIdPrefix = tenantId.toString().substring(0, 8);
+
     // 1. Create Admin group for this tenant
     const adminGroup = await this.permissionGroupsRepository.create({
       name: 'Administrador',
-      slug: PermissionGroupSlugs.ADMIN,
-      description: 'Acesso completo ao sistema com todas as permissoes.',
-      isSystem: true,
+      slug: `${PermissionGroupSlugs.ADMIN}-${tenantIdPrefix}`,
+      description: 'Acesso completo ao sistema com todas as permissões.',
+      isSystem: false,
       isActive: true,
       color: PermissionGroupColors[PermissionGroupSlugs.ADMIN],
       priority: PermissionGroupPriorities[PermissionGroupSlugs.ADMIN],
@@ -106,10 +108,10 @@ export class CreateTenantAdminUseCase {
 
     // 3. Create User group for this tenant
     const userGroup = await this.permissionGroupsRepository.create({
-      name: 'Usuario',
-      slug: PermissionGroupSlugs.USER,
-      description: 'Acesso basico aos proprios dados do usuario.',
-      isSystem: true,
+      name: 'Usuário',
+      slug: `${PermissionGroupSlugs.USER}-${tenantIdPrefix}`,
+      description: 'Acesso básico aos próprios dados do usuário.',
+      isSystem: false,
       isActive: true,
       color: PermissionGroupColors[PermissionGroupSlugs.USER],
       priority: PermissionGroupPriorities[PermissionGroupSlugs.USER],

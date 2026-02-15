@@ -93,13 +93,22 @@ export class CreateTenantUserAdminUseCase {
     });
 
     // Auto-assign permission group based on role
-    const targetSlug =
+    const baseSlug =
       role === 'owner' ? PermissionGroupSlugs.ADMIN : PermissionGroupSlugs.USER;
+    const tenantIdPrefix = tenantId.substring(0, 8);
+    const tenantIdEntity = new UniqueEntityID(tenantId);
 
-    const group = await this.permissionGroupsRepository.findBySlugAndTenantId(
-      targetSlug,
-      new UniqueEntityID(tenantId),
+    // Try tenant-specific slug first (new format), then fall back to bare slug (legacy)
+    let group = await this.permissionGroupsRepository.findBySlugAndTenantId(
+      `${baseSlug}-${tenantIdPrefix}`,
+      tenantIdEntity,
     );
+    if (!group) {
+      group = await this.permissionGroupsRepository.findBySlugAndTenantId(
+        baseSlug,
+        tenantIdEntity,
+      );
+    }
 
     if (group) {
       await this.userPermissionGroupsRepository.assign({

@@ -354,7 +354,89 @@ async function seedAdminUser(adminGroupId: string) {
   console.log('   ✅ admin@teste.com (senha: Teste@123)');
 }
 
+async function fixLegacyTenantGroups() {
+  // Fix tenant groups that were created with bare slugs ('admin'/'user') instead of tenant-specific ones
+  const legacyGroups = await prisma.permissionGroup.findMany({
+    where: {
+      tenantId: { not: null },
+      slug: { in: [PermissionGroupSlugs.ADMIN, PermissionGroupSlugs.USER] },
+      deletedAt: null,
+    },
+  });
+
+  if (legacyGroups.length === 0) return;
+
+  console.log(`🔧 Corrigindo ${legacyGroups.length} grupos com slugs legados...`);
+
+  for (const group of legacyGroups) {
+    const tenantIdPrefix = group.tenantId!.substring(0, 8);
+    const newSlug = `${group.slug}-${tenantIdPrefix}`;
+    const isUser = group.slug === PermissionGroupSlugs.USER;
+
+    await prisma.permissionGroup.update({
+      where: { id: group.id },
+      data: {
+        slug: newSlug,
+        isSystem: false,
+        name: isUser ? 'Usuário' : 'Administrador',
+        description: isUser
+          ? 'Acesso básico aos próprios dados do usuário.'
+          : 'Acesso completo ao sistema com todas as permissões.',
+      },
+    });
+  }
+
+  console.log(`   ✅ ${legacyGroups.length} grupos corrigidos`);
+}
+
 async function assignOrphanUsers(userGroupId: string) {
+  // Assign orphan users that belong to tenants to their tenant's "Usuário" group
+  const tenants = await prisma.tenant.findMany({
+    select: { id: true, name: true },
+  });
+
+  for (const tenant of tenants) {
+    const tenantUserGroup = await prisma.permissionGroup.findFirst({
+      where: {
+        slug: `${PermissionGroupSlugs.USER}-${tenant.id.substring(0, 8)}`,
+        tenantId: tenant.id,
+        deletedAt: null,
+      },
+    });
+
+    if (!tenantUserGroup) continue;
+
+    // Find tenant users without this tenant's user group
+    const tenantUsers = await prisma.tenantUser.findMany({
+      where: { tenantId: tenant.id, deletedAt: null },
+      select: { userId: true },
+    });
+
+    for (const tu of tenantUsers) {
+      await prisma.userPermissionGroup.upsert({
+        where: {
+          userId_groupId: {
+            userId: tu.userId,
+            groupId: tenantUserGroup.id,
+          },
+        },
+        update: {},
+        create: {
+          userId: tu.userId,
+          groupId: tenantUserGroup.id,
+          grantedBy: null,
+        },
+      });
+    }
+
+    if (tenantUsers.length > 0) {
+      console.log(
+        `   ✅ ${tenantUsers.length} usuários do tenant "${tenant.name}" verificados no grupo "Usuário"`,
+      );
+    }
+  }
+
+  // Also assign truly orphan users (no tenant, no groups) to global user group
   const orphans = await prisma.user.findMany({
     where: {
       deletedAt: null,
@@ -374,7 +456,7 @@ async function assignOrphanUsers(userGroupId: string) {
   });
 
   console.log(
-    `   ✅ ${orphans.length} usuários sem grupo atribuídos ao grupo "Usuário"`,
+    `   ✅ ${orphans.length} usuários sem grupo atribuídos ao grupo global "Usuário"`,
   );
 }
 
@@ -635,7 +717,7 @@ async function seedDemoTenant(freePlanId: string) {
 
   console.log(`   ✅ Grupo "Usuário" do tenant sincronizado com ${userPermIds.length} permissões`);
 
-  // Assign admin user to tenant's admin group
+  // Assign admin user to tenant's admin group AND user group
   await prisma.userPermissionGroup.upsert({
     where: {
       userId_groupId: {
@@ -651,8 +733,47 @@ async function seedDemoTenant(freePlanId: string) {
     },
   });
 
+  await prisma.userPermissionGroup.upsert({
+    where: {
+      userId_groupId: {
+        userId: adminUser.id,
+        groupId: tenantUserGroup.id,
+      },
+    },
+    update: {},
+    create: {
+      userId: adminUser.id,
+      groupId: tenantUserGroup.id,
+      grantedBy: null,
+    },
+  });
+
+  // Assign ALL tenant users to the tenant's "Usuário" group
+  const tenantUsers = await prisma.tenantUser.findMany({
+    where: { tenantId: tenant.id, deletedAt: null },
+    select: { userId: true },
+  });
+
+  for (const tu of tenantUsers) {
+    await prisma.userPermissionGroup.upsert({
+      where: {
+        userId_groupId: {
+          userId: tu.userId,
+          groupId: tenantUserGroup.id,
+        },
+      },
+      update: {},
+      create: {
+        userId: tu.userId,
+        groupId: tenantUserGroup.id,
+        grantedBy: null,
+      },
+    });
+  }
+
+  console.log(`   ✅ ${tenantUsers.length} membros do tenant atribuídos ao grupo "Usuário"`);
   console.log(`   ✅ Tenant "Empresa Demo" (slug: empresa-demo)`);
-  console.log(`   ✅ admin@teste.com como owner e membro do grupo Administrador`);
+  console.log(`   ✅ admin@teste.com como owner e membro dos grupos Administrador + Usuário`);
   console.log(`   ✅ Plano Free atribuído`);
 
   return tenant;
@@ -680,6 +801,7 @@ async function main() {
   await seedPlanModules(planIds);
   const demoTenant = await seedDemoTenant(planIds['Free']);
 
+  await fixLegacyTenantGroups();
   await assignOrphanUsers(userGroupId);
 
   console.log('\n🎉 Seed concluído com sucesso!');

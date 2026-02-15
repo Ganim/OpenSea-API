@@ -138,7 +138,7 @@ export class RefreshSessionUseCase {
       throw new BadRequestError('Unable to create refresh token.');
     }
 
-    // Update session with new IP
+    // Update session with new IP (also updates lastUsedAt)
     const newSession = await this.sessionsRepository.update({
       sessionId: storedRefreshToken.sessionId,
       ip: validIp,
@@ -147,6 +147,12 @@ export class RefreshSessionUseCase {
     if (!newSession) {
       throw new BadRequestError('Unable to update session.');
     }
+
+    // Update user's last activity timestamp
+    await this.usersRepository.updateLastLoginAt(
+      storedRefreshToken.userId,
+      new Date(),
+    );
 
     // Get user permissions for the new access token
     const permissionCodes = await this.permissionService.getUserPermissionCodes(

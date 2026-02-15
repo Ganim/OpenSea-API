@@ -45,11 +45,11 @@ export class ListUserGroupsUseCase {
       },
     );
 
-    // Filter groups by tenant - only show groups that belong to user's tenant or are global
+    // Filter groups by tenant - only show groups that belong to user's tenant
     if (tenantId) {
       const tenantIdEntity = new UniqueEntityID(tenantId);
       groups = groups.filter(
-        (group) => !group.tenantId || group.tenantId.equals(tenantIdEntity),
+        (group) => group.tenantId && group.tenantId.equals(tenantIdEntity),
       );
     }
 

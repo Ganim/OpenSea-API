@@ -1,6 +1,7 @@
 import type { User } from '@/entities/core/user';
 import type { Permission } from '@/entities/rbac/permission';
 import type { PermissionGroup } from '@/entities/rbac/permission-group';
+import type { UserWithAssignment } from '@/use-cases/rbac/permission-groups/get-permission-group-by-id';
 
 export class PermissionGroupPresenter {
   static toHTTP(group: PermissionGroup) {
@@ -27,7 +28,7 @@ export class PermissionGroupPresenter {
 
   static toHTTPWithDetails(data: {
     group: PermissionGroup;
-    users: User[];
+    users: UserWithAssignment[] | User[];
     permissions: Array<{
       permission: Permission;
       effect: string;
@@ -37,24 +38,27 @@ export class PermissionGroupPresenter {
     const groupData = this.toHTTP(data.group);
 
     return {
-      id: groupData.id,
-      name: groupData.name,
-      slug: groupData.slug,
-      description: groupData.description,
-      color: groupData.color,
-      priority: groupData.priority,
-      isActive: groupData.isActive,
-      isSystem: groupData.isSystem,
-      parentId: groupData.parentId,
-      tenantId: groupData.tenantId,
-      createdAt: groupData.createdAt,
-      updatedAt: groupData.updatedAt,
-      deletedAt: groupData.deletedAt,
-      users: data.users.map((user) => ({
-        id: user.id.toString(),
-        username: user.username.value,
-        email: user.email.value,
-      })),
+      ...groupData,
+      users: data.users.map((item) => {
+        if ('user' in item) {
+          // UserWithAssignment (from get-by-id)
+          return {
+            id: item.user.id.toString(),
+            username: item.user.username.value,
+            email: item.user.email.value,
+            assignedAt: item.assignedAt,
+            expiresAt: item.expiresAt,
+          };
+        }
+        // Plain User (from list)
+        return {
+          id: item.id.toString(),
+          username: item.username.value,
+          email: item.email.value,
+          assignedAt: new Date(),
+          expiresAt: null,
+        };
+      }),
       usersCount: data.users.length,
       permissions: data.permissions.map((item) => ({
         id: item.permission.id.toString(),

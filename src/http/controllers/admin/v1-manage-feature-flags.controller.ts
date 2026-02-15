@@ -23,6 +23,7 @@ export async function manageFeatureFlagsAdminController(app: FastifyInstance) {
       body: z.object({
         flag: z.string().min(1).max(100),
         enabled: z.boolean(),
+        metadata: z.record(z.string(), z.unknown()).optional(),
       }),
       response: {
         200: z.object({
@@ -48,7 +49,7 @@ export async function manageFeatureFlagsAdminController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { id } = request.params;
-      const { flag, enabled } = request.body;
+      const { flag, enabled, metadata } = request.body;
 
       try {
         const manageFeatureFlagsUseCase = makeManageTenantFeatureFlagsUseCase();
@@ -56,6 +57,7 @@ export async function manageFeatureFlagsAdminController(app: FastifyInstance) {
           tenantId: id,
           flag,
           enabled,
+          metadata,
         });
 
         return reply.status(200).send({ featureFlag });
