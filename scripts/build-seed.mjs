@@ -17,7 +17,10 @@ await build({
         // Prisma v7 generates .ts files but seed.ts imports with .js extension.
         // Resolve .js → .ts for prisma/generated/ so esbuild can bundle them.
         b.onResolve({ filter: /\.js$/ }, (args) => {
-          if (args.importer.includes('generated') || args.resolveDir.includes('generated')) {
+          if (
+            args.importer.includes('generated') ||
+            args.resolveDir.includes('generated')
+          ) {
             const tsPath = args.path.replace(/\.js$/, '.ts');
             return { path: path.resolve(args.resolveDir, tsPath) };
           }
