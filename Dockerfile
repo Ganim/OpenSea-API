@@ -31,6 +31,9 @@ RUN DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" npx prisma gene
 # Build da aplicação
 RUN npm run build
 
+# Compile seed for production
+RUN node scripts/build-seed.mjs
+
 # Stage 3: Runner (produção)
 FROM node:22-alpine AS runner
 WORKDIR /app
@@ -55,9 +58,10 @@ COPY --from=builder /app/assets ./assets
 # Copia package.json para scripts
 COPY package.json ./
 
-# Copia script de inicialização
+# Copia scripts de inicialização e release
 COPY scripts/start-production.sh ./scripts/
-RUN chmod +x ./scripts/start-production.sh
+COPY scripts/release.sh ./scripts/
+RUN chmod +x ./scripts/start-production.sh ./scripts/release.sh
 
 # Define ownership
 RUN chown -R fastify:nodejs /app
@@ -72,5 +76,5 @@ EXPOSE 3333
 HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:3333/health/live || exit 1
 
-# Comando de inicialização (roda migrations e inicia servidor)
+# Comando de inicialização (migrations + seed rodam via release_command no fly.toml)
 CMD ["./scripts/start-production.sh"]

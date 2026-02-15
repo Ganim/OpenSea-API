@@ -11,6 +11,9 @@ primary_region = 'gru'
   NODE_ENV = 'production'
   PORT = '3333'
 
+[deploy]
+  release_command = "sh scripts/release.sh"
+
 [http_service]
   internal_port = 3333
   force_https = true
