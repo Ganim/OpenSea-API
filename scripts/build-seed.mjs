@@ -1,4 +1,5 @@
 import { build } from 'esbuild';
+import path from 'node:path';
 
 await build({
   entryPoints: ['prisma/seed.ts'],
@@ -7,17 +8,21 @@ await build({
   format: 'esm',
   outfile: 'build/seed.mjs',
   target: 'node22',
-  external: ['@prisma/adapter-pg', 'bcryptjs', 'pg'],
+  // npm packages that exist in production node_modules
+  external: ['@prisma/adapter-pg', '@prisma/client', 'bcryptjs', 'pg'],
   plugins: [
     {
-      name: 'prisma-client-redirect',
+      name: 'resolve-ts-extensions',
       setup(b) {
-        // Redirect the relative PrismaClient import to the correct path
-        // when executed from build/seed.mjs
-        b.onResolve({ filter: /\.\/generated\/prisma\/client/ }, () => ({
-          path: '../prisma/generated/prisma/client.js',
-          external: true,
-        }));
+        // Prisma v7 generates .ts files but seed.ts imports with .js extension.
+        // Resolve .js → .ts for prisma/generated/ so esbuild can bundle them.
+        b.onResolve({ filter: /\.js$/ }, (args) => {
+          if (args.importer.includes('generated') || args.resolveDir.includes('generated')) {
+            const tsPath = args.path.replace(/\.js$/, '.ts');
+            return { path: path.resolve(args.resolveDir, tsPath) };
+          }
+          return null;
+        });
       },
     },
   ],
