@@ -2,6 +2,7 @@ import type { Supplier } from '@/entities/hr/organization/supplier';
 import type { SuppliersRepository } from '@/repositories/hr/suppliers-repository';
 
 interface ListSuppliersRequest {
+  tenantId: string;
   page?: number;
   perPage?: number;
   search?: string;
@@ -19,6 +20,7 @@ export class ListSuppliersUseCase {
 
   async execute(request: ListSuppliersRequest): Promise<ListSuppliersResponse> {
     const { organizations, total } = await this.suppliersRepository.findMany({
+      tenantId: request.tenantId,
       page: request.page,
       perPage: request.perPage,
       search: request.search,

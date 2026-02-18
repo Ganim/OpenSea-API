@@ -1,4 +1,5 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listSuppliersQuerySchema,
   supplierResponseSchema,
@@ -13,7 +14,7 @@ export async function v1ListSuppliersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/suppliers',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Suppliers'],
       summary: 'List suppliers',
@@ -33,11 +34,15 @@ export async function v1ListSuppliersController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const query = request.query;
 
       try {
         const listSuppliersUseCase = makeListSuppliersUseCase();
-        const { suppliers } = await listSuppliersUseCase.execute(query);
+        const { suppliers } = await listSuppliersUseCase.execute({
+          tenantId,
+          ...query,
+        });
 
         return reply.status(200).send(suppliers.map(supplierToDTO));
       } catch (error) {

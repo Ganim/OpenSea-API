@@ -7226,6 +7226,7 @@ export type PermissionAuditLogScalarFieldEnum = (typeof PermissionAuditLogScalar
 export const OrganizationScalarFieldEnum = {
   id: 'id',
   type: 'type',
+  tenantId: 'tenantId',
   legalName: 'legalName',
   cnpj: 'cnpj',
   cpf: 'cpf',

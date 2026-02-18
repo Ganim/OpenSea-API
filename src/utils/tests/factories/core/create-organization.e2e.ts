@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { prisma } from '@/lib/prisma';
 
 interface OrganizationData {
+  tenantId?: string;
   legalName?: string;
   cnpj?: string;
   tradeName?: string;
@@ -33,8 +34,9 @@ function generateCNPJ(): string {
 
 export function generateOrganizationData(
   overrides?: OrganizationData,
-): Required<OrganizationData> {
+): Omit<Required<OrganizationData>, 'tenantId'> & { tenantId?: string } {
   return {
+    tenantId: overrides?.tenantId,
     legalName:
       overrides?.legalName ??
       `Organization ${crypto.randomBytes(4).toString('hex')}`,
@@ -55,8 +57,15 @@ export function generateOrganizationData(
 export async function createOrganizationE2E(overrides?: OrganizationData) {
   const data = generateOrganizationData(overrides);
 
+  if (!overrides?.tenantId) {
+    throw new Error(
+      'tenantId is required for createOrganizationE2E. Pass it via overrides.',
+    );
+  }
+
   const organization = await prisma.organization.create({
     data: {
+      tenantId: overrides.tenantId,
       legalName: data.legalName,
       cnpj: data.cnpj,
       tradeName: data.tradeName,
@@ -77,9 +86,10 @@ export async function createOrganizationE2E(overrides?: OrganizationData) {
 /**
  * Gets or creates a default test organization
  */
-export async function getOrCreateTestOrganization() {
+export async function getOrCreateTestOrganization(tenantId: string) {
   const existingOrg = await prisma.organization.findFirst({
     where: {
+      tenantId,
       tradeName: 'Test Organization',
       deletedAt: null,
     },
@@ -93,6 +103,7 @@ export async function getOrCreateTestOrganization() {
   }
 
   return createOrganizationE2E({
+    tenantId,
     legalName: 'Test Organization LTDA',
     tradeName: 'Test Organization',
     type: 'COMPANY',

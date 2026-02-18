@@ -6,6 +6,7 @@ import type {
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 
 interface CreateManufacturerRequest {
+  tenantId: string;
   legalName: string;
   cnpj?: string;
   cpf?: string;
@@ -88,6 +89,7 @@ export class CreateManufacturerUseCase {
     }
 
     const data: CreateManufacturerSchema = {
+      tenantId: request.tenantId,
       legalName: request.legalName,
       cnpj: request.cnpj,
       cpf: request.cpf,

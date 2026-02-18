@@ -324,7 +324,9 @@ export class PrismaFinanceEntriesRepository
           ? `date_trunc('week', "due_date")`
           : `date_trunc('month', "due_date")`;
 
-    const typeFilter = type ? `AND "type" = '${type}'` : '';
+    const typeFilter = type ? `AND "type" = $4` : '';
+    const params: unknown[] = [tenantId, from, to];
+    if (type) params.push(type);
 
     const results = await prisma.$queryRawUnsafe<
       { date: Date; total: Prisma.Decimal }[]
@@ -338,9 +340,7 @@ export class PrismaFinanceEntriesRepository
          ${typeFilter}
        GROUP BY date
        ORDER BY date ASC`,
-      tenantId,
-      from,
-      to,
+      ...params,
     );
 
     return results.map((r) => ({
@@ -355,7 +355,9 @@ export class PrismaFinanceEntriesRepository
     from: Date,
     to: Date,
   ): Promise<CategorySum[]> {
-    const typeFilter = type ? `AND e."type" = '${type}'` : '';
+    const typeFilterCat = type ? `AND e."type" = $4` : '';
+    const paramsCat: unknown[] = [tenantId, from, to];
+    if (type) paramsCat.push(type);
 
     const results = await prisma.$queryRawUnsafe<
       { categoryId: string; categoryName: string; total: Prisma.Decimal }[]
@@ -367,12 +369,10 @@ export class PrismaFinanceEntriesRepository
          AND e."deleted_at" IS NULL
          AND e."due_date" >= $2
          AND e."due_date" <= $3
-         ${typeFilter}
+         ${typeFilterCat}
        GROUP BY e."category_id", c."name"
        ORDER BY total DESC`,
-      tenantId,
-      from,
-      to,
+      ...paramsCat,
     );
 
     return results.map((r) => ({
@@ -388,7 +388,9 @@ export class PrismaFinanceEntriesRepository
     from: Date,
     to: Date,
   ): Promise<CostCenterSum[]> {
-    const typeFilter = type ? `AND e."type" = '${type}'` : '';
+    const typeFilterCC = type ? `AND e."type" = $4` : '';
+    const paramsCC: unknown[] = [tenantId, from, to];
+    if (type) paramsCC.push(type);
 
     const results = await prisma.$queryRawUnsafe<
       { costCenterId: string; costCenterName: string; total: Prisma.Decimal }[]
@@ -400,12 +402,10 @@ export class PrismaFinanceEntriesRepository
          AND e."deleted_at" IS NULL
          AND e."due_date" >= $2
          AND e."due_date" <= $3
-         ${typeFilter}
+         ${typeFilterCC}
        GROUP BY e."cost_center_id", cc."name"
        ORDER BY total DESC`,
-      tenantId,
-      from,
-      to,
+      ...paramsCC,
     );
 
     return results.map((r) => ({

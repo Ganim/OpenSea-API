@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema, manufacturerResponseSchema } from '@/http/schemas/hr.schema';
 import { manufacturerToDTO } from '@/mappers/hr/organization/manufacturer-to-dto';
 import { makeGetManufacturerByIdUseCase } from '@/use-cases/hr/manufacturers/factories/make-manufacturers';
@@ -11,7 +12,7 @@ export async function v1GetManufacturerByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/manufacturers/:id',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Manufacturers'],
       summary: 'Get manufacturer by ID',

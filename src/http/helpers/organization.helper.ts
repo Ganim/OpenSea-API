@@ -34,9 +34,12 @@ export async function getUserOrganizationId(
  * Gets or creates a default organization for testing purposes.
  * This should only be used in development/testing environments.
  */
-export async function getOrCreateDefaultOrganization(): Promise<string> {
+export async function getOrCreateDefaultOrganization(
+  tenantId: string,
+): Promise<string> {
   const existingOrg = await prisma.organization.findFirst({
     where: {
+      tenantId,
       tradeName: 'Default Organization',
       deletedAt: null,
     },
@@ -49,6 +52,7 @@ export async function getOrCreateDefaultOrganization(): Promise<string> {
 
   const newOrg = await prisma.organization.create({
     data: {
+      tenantId,
       type: 'COMPANY',
       legalName: 'Default Organization LTDA',
       tradeName: 'Default Organization',

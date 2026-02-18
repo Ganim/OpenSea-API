@@ -4,8 +4,19 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
 import { InMemoryNotificationPreferencesRepository } from '@/repositories/sales/in-memory/in-memory-notification-preferences-repository';
 import { EmailService } from '@/services/email-service';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SendEmailNotificationUseCase } from './send-email-notification';
+
+// vi.mock is hoisted before all imports by vitest
+vi.mock('@/@env', () => ({
+  env: {
+    SMTP_HOST: 'localhost',
+    SMTP_PORT: 587,
+    SMTP_USER: 'test',
+    SMTP_PASS: 'test',
+    FRONTEND_URL: 'http://localhost:3000',
+  },
+}));
 
 class StubEmailService extends EmailService {
   async sendNotificationEmail(
@@ -13,7 +24,6 @@ class StubEmailService extends EmailService {
     _title: string,
     _message: string,
   ) {
-    // Usa os parâmetros para evitar warning de não utilização
     const meta = `${_title.length}:${_message.length}`;
     return {
       success: true,
@@ -48,7 +58,6 @@ describe('SendEmailNotificationUseCase', () => {
   });
   it('should not send when preference disabled for matching entityType', async () => {
     const userId = new UniqueEntityID();
-    // Cria preferência desabilitada para alertType LOW_STOCK canal EMAIL
     await preferencesRepository.create({
       userId,
       alertType: 'LOW_STOCK',

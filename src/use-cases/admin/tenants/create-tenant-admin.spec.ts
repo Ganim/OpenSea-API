@@ -119,14 +119,16 @@ describe('CreateTenantAdminUseCase', () => {
 
     expect(groups).toHaveLength(2);
 
-    const adminGroup = groups.find(
-      (g) => g.slug === PermissionGroupSlugs.ADMIN,
+    const adminGroup = groups.find((g) =>
+      g.slug.startsWith(PermissionGroupSlugs.ADMIN),
     );
-    const userGroup = groups.find((g) => g.slug === PermissionGroupSlugs.USER);
+    const userGroup = groups.find((g) =>
+      g.slug.startsWith(PermissionGroupSlugs.USER),
+    );
 
     expect(adminGroup).toBeDefined();
     expect(adminGroup!.name).toBe('Administrador');
-    expect(adminGroup!.isSystem).toBe(true);
+    expect(adminGroup!.isSystem).toBe(false);
     expect(adminGroup!.priority).toBe(
       PermissionGroupPriorities[PermissionGroupSlugs.ADMIN],
     );
@@ -135,8 +137,8 @@ describe('CreateTenantAdminUseCase', () => {
     );
 
     expect(userGroup).toBeDefined();
-    expect(userGroup!.name).toBe('Usuario');
-    expect(userGroup!.isSystem).toBe(true);
+    expect(userGroup!.name).toBe('Usuário');
+    expect(userGroup!.isSystem).toBe(false);
     expect(userGroup!.priority).toBe(
       PermissionGroupPriorities[PermissionGroupSlugs.USER],
     );
@@ -150,7 +152,7 @@ describe('CreateTenantAdminUseCase', () => {
 
     const adminGroup = permissionGroupsRepository.items.find(
       (g) =>
-        g.slug === PermissionGroupSlugs.ADMIN &&
+        g.slug.startsWith(PermissionGroupSlugs.ADMIN) &&
         g.tenantId?.toString() === tenant.id,
     );
 
@@ -166,7 +168,7 @@ describe('CreateTenantAdminUseCase', () => {
 
     const userGroup = permissionGroupsRepository.items.find(
       (g) =>
-        g.slug === PermissionGroupSlugs.USER &&
+        g.slug.startsWith(PermissionGroupSlugs.USER) &&
         g.tenantId?.toString() === tenant.id,
     );
 

@@ -21,7 +21,7 @@ export async function transferItemController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.ITEMS.CREATE,
+        permissionCode: PermissionCodes.STOCK.ITEMS.TRANSFER,
         resource: 'items',
       }),
     ],

@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createManufacturerSchema,
   manufacturerResponseSchema,
@@ -18,6 +19,7 @@ export async function v1CreateManufacturerController(app: FastifyInstance) {
     url: '/v1/hr/manufacturers',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.MANUFACTURERS.CREATE,
         resource: 'manufacturers',
@@ -38,11 +40,15 @@ export async function v1CreateManufacturerController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const createManufacturerUseCase = makeCreateManufacturerUseCase();
-        const { manufacturer } = await createManufacturerUseCase.execute(data);
+        const { manufacturer } = await createManufacturerUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         return reply.status(201).send(manufacturerToDTO(manufacturer));
       } catch (error) {

@@ -2,12 +2,8 @@ import z from 'zod';
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['dev', 'test', 'production']).default('dev'),
-  JWT_SECRET: z.string().default('test-jwt-secret-key'),
-  DATABASE_URL: z
-    .url()
-    .default(
-      'postgresql://docker:docker@localhost:5432/apiopensea?schema=public',
-    ),
+  JWT_SECRET: z.string(),
+  DATABASE_URL: z.url(),
   PORT: z.coerce.number().default(3333),
 
   // Redis configuration

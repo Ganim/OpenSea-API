@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   idSchema,
   manufacturerResponseSchema,
@@ -20,6 +21,7 @@ export async function v1UpdateManufacturerController(app: FastifyInstance) {
     url: '/v1/hr/manufacturers/:id',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.MANUFACTURERS.UPDATE,
         resource: 'manufacturers',

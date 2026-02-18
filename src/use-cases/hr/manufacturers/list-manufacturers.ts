@@ -2,6 +2,7 @@ import type { Manufacturer } from '@/entities/hr/organization/manufacturer';
 import type { ManufacturersRepository } from '@/repositories/hr/manufacturers-repository';
 
 interface ListManufacturersRequest {
+  tenantId: string;
   page?: number;
   perPage?: number;
   search?: string;
@@ -22,6 +23,7 @@ export class ListManufacturersUseCase {
   ): Promise<ListManufacturersResponse> {
     const { organizations, total } =
       await this.manufacturersRepository.findMany({
+        tenantId: request.tenantId,
         page: request.page,
         perPage: request.perPage,
         search: request.search,

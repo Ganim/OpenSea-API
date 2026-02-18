@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema, supplierResponseSchema } from '@/http/schemas/hr.schema';
 import { supplierToDTO } from '@/mappers/hr/organization/supplier-to-dto';
 import { makeGetSupplierByIdUseCase } from '@/use-cases/hr/suppliers/factories/make-suppliers';
@@ -11,7 +12,7 @@ export async function v1GetSupplierByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/suppliers/:id',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['HR - Suppliers'],
       summary: 'Get supplier by ID',

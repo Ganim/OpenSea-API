@@ -24,7 +24,7 @@ export async function registerItemEntryController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.ITEMS.CREATE,
+        permissionCode: PermissionCodes.STOCK.ITEMS.ENTRY,
         resource: 'items',
       }),
     ],

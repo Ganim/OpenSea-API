@@ -1,10 +1,30 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { prisma } from '@/lib/prisma';
 import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
 import { InMemoryNotificationPreferencesRepository } from '@/repositories/sales/in-memory/in-memory-notification-preferences-repository';
 import { EmailService } from '@/services/email-service';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ProcessScheduledNotificationsUseCase } from './process-scheduled-notifications';
+
+// vi.mock is hoisted before all imports by vitest
+vi.mock('@/@env', () => ({
+  env: {
+    NODE_ENV: 'test',
+    SMTP_HOST: 'localhost',
+    SMTP_PORT: 587,
+    SMTP_USER: 'test',
+    SMTP_PASS: 'test',
+    FRONTEND_URL: 'http://localhost:3000',
+  },
+}));
+
+const { mockFindUnique } = vi.hoisted(() => ({
+  mockFindUnique: vi.fn(),
+}));
+vi.mock('@/lib/prisma', () => ({
+  prisma: {
+    user: { findUnique: mockFindUnique },
+  },
+}));
 
 class StubEmailService extends EmailService {
   async sendNotificationEmail(
@@ -47,8 +67,7 @@ describe('ProcessScheduledNotificationsUseCase', () => {
 
     testUserId = new UniqueEntityID();
 
-    // Mock prisma.user.findUnique to return test user with email
-    vi.spyOn(prisma.user, 'findUnique').mockResolvedValue({
+    mockFindUnique.mockResolvedValue({
       id: testUserId.toString(),
       email: 'test@example.com',
       username: 'testuser',

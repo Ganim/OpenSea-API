@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   createSupplierSchema,
   supplierResponseSchema,
@@ -18,6 +19,7 @@ export async function v1CreateSupplierController(app: FastifyInstance) {
     url: '/v1/hr/suppliers',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.HR.SUPPLIERS.CREATE,
         resource: 'suppliers',
@@ -38,11 +40,15 @@ export async function v1CreateSupplierController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const createSupplierUseCase = makeCreateSupplierUseCase();
-        const { supplier } = await createSupplierUseCase.execute(data);
+        const { supplier } = await createSupplierUseCase.execute({
+          tenantId,
+          ...data,
+        });
 
         return reply.status(201).send(supplierToDTO(supplier));
       } catch (error) {

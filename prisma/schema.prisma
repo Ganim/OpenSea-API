@@ -934,6 +934,10 @@ model Organization {
   id   String           @id @default(uuid())
   type OrganizationType // COMPANY | SUPPLIER | MANUFACTURER | CUSTOMER
 
+  // Multi-tenancy
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
   // Dados obrigatórios
   legalName String @map("legal_name") @db.VarChar(256)
 
@@ -981,8 +985,9 @@ model Organization {
   employees      Employee[]
   products       Product[]
 
-  @@unique([cnpj, type, deletedAt], name: "organizations_cnpj_type_unique_active")
-  @@unique([cpf, type, deletedAt], name: "organizations_cpf_type_unique_active")
+  @@unique([cnpj, type, tenantId, deletedAt], name: "organizations_cnpj_type_tenant_unique_active")
+  @@unique([cpf, type, tenantId, deletedAt], name: "organizations_cpf_type_tenant_unique_active")
+  @@index([tenantId])
   @@index([type])
   @@index([cnpj])
   @@index([cpf])
@@ -3427,6 +3432,7 @@ model Tenant {
   auditLogs       AuditLog[]
   // Core domain
   labelTemplates  LabelTemplate[]
+  organizations   Organization[]
   // Finance domain
   costCenters       CostCenter[]
   bankAccounts      BankAccount[]

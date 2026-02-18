@@ -64,8 +64,9 @@ export class GetPermissionGroupByIdUseCase {
     }
 
     // Buscar usuários do grupo com metadados de atribuição
-    const assignments =
-      await this.userPermissionGroupsRepository.listByGroupId(group.id);
+    const assignments = await this.userPermissionGroupsRepository.listByGroupId(
+      group.id,
+    );
     const userIds = assignments.map((a) => a.userId);
     const users = await this.usersRepository.findManyByIds(userIds);
 

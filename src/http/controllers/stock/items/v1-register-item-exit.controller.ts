@@ -21,7 +21,7 @@ export async function registerItemExitController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.STOCK.ITEMS.CREATE,
+        permissionCode: PermissionCodes.STOCK.ITEMS.EXIT,
         resource: 'items',
       }),
     ],

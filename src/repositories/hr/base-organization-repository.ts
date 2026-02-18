@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Organization } from '@/entities/hr/organization';
 
 export interface CreateOrganizationSchema {
+  tenantId: string;
   legalName: string;
   cnpj?: string | null;
   cpf?: string | null;
@@ -33,6 +34,7 @@ export interface UpdateOrganizationSchema {
 }
 
 export interface FindManyOrganizationsParams {
+  tenantId: string;
   page?: number;
   perPage?: number;
   search?: string;

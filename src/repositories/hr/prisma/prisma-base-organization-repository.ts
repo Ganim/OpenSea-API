@@ -27,6 +27,7 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
   async create(data: CreateOrganizationSchema): Promise<T> {
     const organizationData = await prisma.organization.create({
       data: {
+        tenantId: data.tenantId,
         type: this.organizationType,
         legalName: data.legalName,
         cnpj: data.cnpj ?? null,
@@ -111,6 +112,7 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
     params: FindManyOrganizationsParams,
   ): Promise<FindManyOrganizationsResult<T>> {
     const {
+      tenantId,
       page = 1,
       perPage = 20,
       search,
@@ -119,6 +121,7 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
     } = params;
 
     const where: Prisma.OrganizationWhereInput = {
+      tenantId,
       type: this.organizationType,
     };
 
