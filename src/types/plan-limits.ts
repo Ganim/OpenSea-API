@@ -6,4 +6,5 @@ export interface PlanLimits {
   maxUsers: number;
   maxWarehouses: number;
   maxProducts: number;
+  maxStorageMb: number; // 0 = unlimited
 }

@@ -150,6 +150,21 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
     return storageFilePrismaToDomain(fileDb);
   }
 
+  async findSoftDeleted(
+    olderThan: Date,
+    limit?: number,
+  ): Promise<StorageFile[]> {
+    const filesDb = await prisma.storageFile.findMany({
+      where: {
+        deletedAt: { not: null, lt: olderThan },
+      },
+      take: limit ?? 1000,
+      orderBy: { deletedAt: 'asc' },
+    });
+
+    return filesDb.map(storageFilePrismaToDomain);
+  }
+
   async softDelete(id: UniqueEntityID): Promise<void> {
     await prisma.storageFile.update({
       where: { id: id.toString() },
@@ -157,6 +172,12 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
         deletedAt: new Date(),
         status: 'DELETED' as PrismaStorageFileStatus,
       },
+    });
+  }
+
+  async hardDelete(id: UniqueEntityID): Promise<void> {
+    await prisma.storageFile.delete({
+      where: { id: id.toString() },
     });
   }
 

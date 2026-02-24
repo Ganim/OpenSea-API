@@ -19,4 +19,5 @@ export interface StorageFileVersionsRepository {
     version: number,
   ): Promise<StorageFileVersion | null>;
   findLatest(fileId: UniqueEntityID): Promise<StorageFileVersion | null>;
+  deleteByFileId(fileId: UniqueEntityID): Promise<void>;
 }

@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
 
 interface MoveFolderUseCaseRequest {
@@ -14,7 +15,10 @@ interface MoveFolderUseCaseResponse {
 }
 
 export class MoveFolderUseCase {
-  constructor(private storageFoldersRepository: StorageFoldersRepository) {}
+  constructor(
+    private storageFoldersRepository: StorageFoldersRepository,
+    private storageFilesRepository: StorageFilesRepository,
+  ) {}
 
   async execute(
     request: MoveFolderUseCaseRequest,
@@ -112,6 +116,28 @@ export class MoveFolderUseCase {
           path: descendantNewPath,
           depth: descendantNewDepth,
         });
+      }
+
+      // Cascade file path updates in the moved folder and all descendants
+      const allAffectedFolderIds = [
+        new UniqueEntityID(folderId),
+        ...descendants.map((d) => d.id),
+      ];
+
+      for (const affectedFolderId of allAffectedFolderIds) {
+        const filesResult = await this.storageFilesRepository.findMany({
+          tenantId,
+          folderId: affectedFolderId.toString(),
+          limit: 10000,
+        });
+
+        for (const file of filesResult.files) {
+          const newFilePath = file.path.replace(oldPath, newPath);
+          await this.storageFilesRepository.update({
+            id: file.id,
+            path: newFilePath,
+          });
+        }
       }
     }
 

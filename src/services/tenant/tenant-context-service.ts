@@ -77,6 +77,7 @@ export class TenantContextService {
         maxUsers: tenantPlan.plan.maxUsers,
         maxWarehouses: tenantPlan.plan.maxWarehouses,
         maxProducts: tenantPlan.plan.maxProducts,
+        maxStorageMb: tenantPlan.plan.maxStorageMb,
       },
       expiresAt: tenantPlan.expiresAt,
     };
@@ -123,7 +124,7 @@ export class TenantContextService {
   async getPlanLimits(tenantId: string): Promise<PlanLimits> {
     const plan = await this.getTenantPlan(tenantId);
     if (!plan) {
-      return { maxUsers: 5, maxWarehouses: 1, maxProducts: 100 }; // FREE defaults
+      return { maxUsers: 5, maxWarehouses: 1, maxProducts: 100, maxStorageMb: 0 }; // FREE defaults
     }
     return plan.limits;
   }

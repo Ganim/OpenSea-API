@@ -150,12 +150,31 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
     return file;
   }
 
+  async findSoftDeleted(
+    olderThan: Date,
+    limit?: number,
+  ): Promise<StorageFile[]> {
+    const deleted = this.items.filter(
+      (item) =>
+        item.deletedAt !== null && item.deletedAt.getTime() < olderThan.getTime(),
+    );
+
+    return limit ? deleted.slice(0, limit) : deleted;
+  }
+
   async softDelete(id: UniqueEntityID): Promise<void> {
     const file = this.items.find(
       (item) => item.deletedAt === null && item.id.equals(id),
     );
     if (file) {
       file.delete();
+    }
+  }
+
+  async hardDelete(id: UniqueEntityID): Promise<void> {
+    const index = this.items.findIndex((item) => item.id.equals(id));
+    if (index !== -1) {
+      this.items.splice(index, 1);
     }
   }
 

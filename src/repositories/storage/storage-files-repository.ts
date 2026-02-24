@@ -59,8 +59,10 @@ export interface StorageFilesRepository {
     tenantId: string,
   ): Promise<StorageFile[]>;
   findByFileType(fileType: string, tenantId: string): Promise<StorageFile[]>;
+  findSoftDeleted(olderThan: Date, limit?: number): Promise<StorageFile[]>;
   update(data: UpdateStorageFileSchema): Promise<StorageFile | null>;
   softDelete(id: UniqueEntityID): Promise<void>;
+  hardDelete(id: UniqueEntityID): Promise<void>;
   countByFolder(folderId: UniqueEntityID): Promise<number>;
   getTotalSize(tenantId: string): Promise<number>;
   countByTenant(tenantId: string): Promise<number>;

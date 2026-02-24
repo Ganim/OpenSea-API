@@ -1,3 +1,4 @@
+import { PlanLimitExceededError } from '@/@errors/use-cases/plan-limit-exceeded-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { FileType } from '@/entities/storage';
@@ -19,6 +20,7 @@ interface UploadFileUseCaseRequest {
   entityType?: string;
   entityId?: string;
   uploadedBy: string;
+  maxStorageBytes?: number; // 0 or undefined = unlimited
 }
 
 interface UploadFileUseCaseResponse {
@@ -37,8 +39,15 @@ export class UploadFileUseCase {
   async execute(
     request: UploadFileUseCaseRequest,
   ): Promise<UploadFileUseCaseResponse> {
-    const { tenantId, folderId, file, entityType, entityId, uploadedBy } =
-      request;
+    const {
+      tenantId,
+      folderId,
+      file,
+      entityType,
+      entityId,
+      uploadedBy,
+      maxStorageBytes,
+    } = request;
 
     const folder = await this.storageFoldersRepository.findById(
       new UniqueEntityID(folderId),
@@ -47,6 +56,18 @@ export class UploadFileUseCase {
 
     if (!folder) {
       throw new ResourceNotFoundError('Folder not found');
+    }
+
+    // Check storage quota if a limit is set
+    if (maxStorageBytes && maxStorageBytes > 0) {
+      const currentUsage =
+        await this.storageFilesRepository.getTotalSize(tenantId);
+      const newTotal = currentUsage + file.buffer.length;
+
+      if (newTotal > maxStorageBytes) {
+        const limitMb = Math.round(maxStorageBytes / 1024 / 1024);
+        throw new PlanLimitExceededError('MB de armazenamento', limitMb);
+      }
     }
 
     const fileType = FileType.fromMimeType(file.mimetype);

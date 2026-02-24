@@ -1,11 +1,13 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { InMemoryStorageFilesRepository } from '@/repositories/storage/in-memory/in-memory-storage-files-repository';
 import { InMemoryStorageFoldersRepository } from '@/repositories/storage/in-memory/in-memory-storage-folders-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateFolderUseCase } from './create-folder';
 import { MoveFolderUseCase } from './move-folder';
 
 let storageFoldersRepository: InMemoryStorageFoldersRepository;
+let storageFilesRepository: InMemoryStorageFilesRepository;
 let sut: MoveFolderUseCase;
 let createFolder: CreateFolderUseCase;
 
@@ -14,7 +16,11 @@ const TENANT_ID = 'tenant-1';
 describe('MoveFolderUseCase', () => {
   beforeEach(() => {
     storageFoldersRepository = new InMemoryStorageFoldersRepository();
-    sut = new MoveFolderUseCase(storageFoldersRepository);
+    storageFilesRepository = new InMemoryStorageFilesRepository();
+    sut = new MoveFolderUseCase(
+      storageFoldersRepository,
+      storageFilesRepository,
+    );
     createFolder = new CreateFolderUseCase(storageFoldersRepository);
   });
 
@@ -153,6 +159,86 @@ describe('MoveFolderUseCase', () => {
         targetParentId: 'non-existent-target-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
+  });
+
+  it('should cascade file path updates when moving a folder', async () => {
+    const { folder: folderA } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Folder A',
+    });
+
+    const { folder: folderB } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Folder B',
+    });
+
+    const file = await storageFilesRepository.create({
+      tenantId: TENANT_ID,
+      folderId: folderA.id.toString(),
+      name: 'doc.pdf',
+      originalName: 'doc.pdf',
+      fileKey: 'files/doc.pdf',
+      path: '/folder-a/doc.pdf',
+      size: 1024,
+      mimeType: 'application/pdf',
+      fileType: 'DOCUMENT',
+      uploadedBy: 'user-1',
+    });
+
+    await sut.execute({
+      tenantId: TENANT_ID,
+      folderId: folderA.id.toString(),
+      targetParentId: folderB.id.toString(),
+    });
+
+    const updatedFile = storageFilesRepository.items.find((item) =>
+      item.id.equals(file.id),
+    );
+
+    expect(updatedFile?.path).toBe('/folder-b/folder-a/doc.pdf');
+  });
+
+  it('should cascade file paths in nested folders when moving parent', async () => {
+    const { folder: folderA } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Folder A',
+    });
+
+    const { folder: folderB } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Folder B',
+    });
+
+    const { folder: childOfA } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Child',
+      parentId: folderA.id.toString(),
+    });
+
+    const file = await storageFilesRepository.create({
+      tenantId: TENANT_ID,
+      folderId: childOfA.id.toString(),
+      name: 'nested.txt',
+      originalName: 'nested.txt',
+      fileKey: 'files/nested.txt',
+      path: '/folder-a/child/nested.txt',
+      size: 512,
+      mimeType: 'text/plain',
+      fileType: 'DOCUMENT',
+      uploadedBy: 'user-1',
+    });
+
+    await sut.execute({
+      tenantId: TENANT_ID,
+      folderId: folderA.id.toString(),
+      targetParentId: folderB.id.toString(),
+    });
+
+    const updatedFile = storageFilesRepository.items.find((item) =>
+      item.id.equals(file.id),
+    );
+
+    expect(updatedFile?.path).toBe('/folder-b/folder-a/child/nested.txt');
   });
 
   it('should not move when name conflicts in target parent', async () => {

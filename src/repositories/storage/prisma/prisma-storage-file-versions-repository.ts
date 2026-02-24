@@ -61,4 +61,10 @@ export class PrismaStorageFileVersionsRepository
     if (!versionDb) return null;
     return storageFileVersionPrismaToDomain(versionDb);
   }
+
+  async deleteByFileId(fileId: UniqueEntityID): Promise<void> {
+    await prisma.storageFileVersion.deleteMany({
+      where: { fileId: fileId.toString() },
+    });
+  }
 }

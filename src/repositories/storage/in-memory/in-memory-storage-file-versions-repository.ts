@@ -48,4 +48,8 @@ export class InMemoryStorageFileVersionsRepository
 
     return versionsForFile[0] ?? null;
   }
+
+  async deleteByFileId(fileId: UniqueEntityID): Promise<void> {
+    this.items = this.items.filter((item) => !item.fileId.equals(fileId));
+  }
 }

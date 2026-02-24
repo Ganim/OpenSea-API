@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { PlanLimitExceededError } from '@/@errors/use-cases/plan-limit-exceeded-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
@@ -8,6 +9,7 @@ import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { storageFileResponseSchema } from '@/http/schemas/storage';
 import { storageFileToDTO } from '@/mappers/storage';
+import { TenantContextService } from '@/services/tenant/tenant-context-service';
 import { makeUploadFileUseCase } from '@/use-cases/storage/files/factories/make-upload-file-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -45,6 +47,9 @@ export async function uploadFileController(app: FastifyInstance) {
         404: z.object({
           message: z.string(),
         }),
+        413: z.object({
+          message: z.string(),
+        }),
       },
     },
 
@@ -62,6 +67,14 @@ export async function uploadFileController(app: FastifyInstance) {
 
         const fileBuffer = await multipartFile.toBuffer();
 
+        // Resolve tenant storage quota
+        const tenantContext = new TenantContextService();
+        const limits = await tenantContext.getPlanLimits(tenantId);
+        const maxStorageBytes =
+          limits.maxStorageMb > 0
+            ? limits.maxStorageMb * 1024 * 1024
+            : undefined;
+
         const uploadFileUseCase = makeUploadFileUseCase();
         const { file } = await uploadFileUseCase.execute({
           tenantId,
@@ -72,6 +85,7 @@ export async function uploadFileController(app: FastifyInstance) {
             mimetype: multipartFile.mimetype,
           },
           uploadedBy: userId,
+          maxStorageBytes,
         });
 
         await logAudit(request, {
@@ -96,6 +110,9 @@ export async function uploadFileController(app: FastifyInstance) {
         }
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof PlanLimitExceededError) {
+          return reply.status(413).send({ message: error.message });
         }
         throw error;
       }

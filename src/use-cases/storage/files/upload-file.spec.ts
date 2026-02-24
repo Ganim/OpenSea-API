@@ -1,3 +1,4 @@
+import { PlanLimitExceededError } from '@/@errors/use-cases/plan-limit-exceeded-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryStorageFilesRepository } from '@/repositories/storage/in-memory/in-memory-storage-files-repository';
 import { InMemoryStorageFileVersionsRepository } from '@/repositories/storage/in-memory/in-memory-storage-file-versions-repository';
@@ -158,5 +159,72 @@ describe('UploadFileUseCase', () => {
 
     expect(result.file.fileKey).toContain(`storage/${TENANT_ID}/`);
     expect(result.file.fileKey).toContain(folder.id.toString());
+  });
+
+  it('should reject upload when storage quota is exceeded', async () => {
+    const folder = storageFoldersRepository.items[0];
+
+    // Upload a file first to consume some storage
+    await sut.execute({
+      tenantId: TENANT_ID,
+      folderId: folder.id.toString(),
+      file: {
+        buffer: Buffer.alloc(500), // 500 bytes
+        filename: 'existing.pdf',
+        mimetype: 'application/pdf',
+      },
+      uploadedBy: 'user-1',
+    });
+
+    // Try to upload another file that would exceed the 1KB quota
+    await expect(
+      sut.execute({
+        tenantId: TENANT_ID,
+        folderId: folder.id.toString(),
+        file: {
+          buffer: Buffer.alloc(600), // 600 bytes, total would be 1100 > 1024
+          filename: 'too-large.pdf',
+          mimetype: 'application/pdf',
+        },
+        uploadedBy: 'user-1',
+        maxStorageBytes: 1024, // 1KB limit
+      }),
+    ).rejects.toThrow(PlanLimitExceededError);
+  });
+
+  it('should allow upload when within storage quota', async () => {
+    const folder = storageFoldersRepository.items[0];
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      folderId: folder.id.toString(),
+      file: {
+        buffer: Buffer.alloc(500),
+        filename: 'small.pdf',
+        mimetype: 'application/pdf',
+      },
+      uploadedBy: 'user-1',
+      maxStorageBytes: 1024 * 1024, // 1MB limit, file is only 500 bytes
+    });
+
+    expect(result.file.name).toBe('small.pdf');
+  });
+
+  it('should skip quota check when maxStorageBytes is 0 (unlimited)', async () => {
+    const folder = storageFoldersRepository.items[0];
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      folderId: folder.id.toString(),
+      file: {
+        buffer: Buffer.alloc(10000),
+        filename: 'large.pdf',
+        mimetype: 'application/pdf',
+      },
+      uploadedBy: 'user-1',
+      maxStorageBytes: 0,
+    });
+
+    expect(result.file.name).toBe('large.pdf');
   });
 });
