@@ -1,0 +1,80 @@
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
+import { createStorageFolderE2E } from '@/utils/tests/factories/storage/create-storage-folder.e2e';
+
+describe('Update Folder (E2E)', () => {
+  let tenantId: string;
+
+  beforeAll(async () => {
+    await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should update folder color', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+    const { folderId } = await createStorageFolderE2E({ tenantId });
+
+    const response = await request(app.server)
+      .patch(`/v1/storage/folders/${folderId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ color: '#FF0000' });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('folder');
+    expect(response.body.folder.color).toBe('#FF0000');
+  });
+
+  it('should update folder icon', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+    const { folderId } = await createStorageFolderE2E({ tenantId });
+
+    const response = await request(app.server)
+      .patch(`/v1/storage/folders/${folderId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ icon: 'star' });
+
+    expect(response.status).toBe(200);
+    expect(response.body.folder.icon).toBe('star');
+  });
+
+  it('should clear folder color with null', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+    const { folderId } = await createStorageFolderE2E({ tenantId });
+
+    const response = await request(app.server)
+      .patch(`/v1/storage/folders/${folderId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ color: null });
+
+    expect(response.status).toBe(200);
+    expect(response.body.folder.color).toBeNull();
+  });
+
+  it('should return 404 for non-existent folder', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .patch('/v1/storage/folders/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ color: '#00FF00' });
+
+    expect(response.status).toBe(404);
+  });
+
+  it('should return 401 without auth', async () => {
+    const response = await request(app.server)
+      .patch('/v1/storage/folders/00000000-0000-0000-0000-000000000000')
+      .send({ color: '#00FF00' });
+
+    expect(response.status).toBe(401);
+  });
+});

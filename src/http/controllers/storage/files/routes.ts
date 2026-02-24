@@ -1,0 +1,59 @@
+import { app } from '@/app';
+import { rateLimitConfig } from '@/config/rate-limits';
+import rateLimit from '@fastify/rate-limit';
+import { deleteFileController } from './v1-delete-file.controller';
+import { downloadFileController } from './v1-download-file.controller';
+import { getFileController } from './v1-get-file.controller';
+import { getStorageStatsController } from './v1-get-storage-stats.controller';
+import { listFileVersionsController } from './v1-list-file-versions.controller';
+import { listFilesController } from './v1-list-files.controller';
+import { moveFileController } from './v1-move-file.controller';
+import { renameFileController } from './v1-rename-file.controller';
+import { restoreFileVersionController } from './v1-restore-file-version.controller';
+import { uploadFileController } from './v1-upload-file.controller';
+import { uploadFileVersionController } from './v1-upload-file-version.controller';
+
+export async function storageFilesRoutes() {
+  // Admin routes with elevated rate limit
+  app.register(
+    async (adminApp) => {
+      adminApp.register(rateLimit, rateLimitConfig.admin);
+      adminApp.register(deleteFileController);
+    },
+    { prefix: '' },
+  );
+
+  // Heavy routes (uploads)
+  app.register(
+    async (heavyApp) => {
+      heavyApp.register(rateLimit, rateLimitConfig.heavy);
+      heavyApp.register(uploadFileController);
+      heavyApp.register(uploadFileVersionController);
+    },
+    { prefix: '' },
+  );
+
+  // Mutation routes
+  app.register(
+    async (mutationApp) => {
+      mutationApp.register(rateLimit, rateLimitConfig.mutation);
+      mutationApp.register(renameFileController);
+      mutationApp.register(moveFileController);
+      mutationApp.register(restoreFileVersionController);
+    },
+    { prefix: '' },
+  );
+
+  // Query routes
+  app.register(
+    async (queryApp) => {
+      queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(getFileController);
+      queryApp.register(listFilesController);
+      queryApp.register(downloadFileController);
+      queryApp.register(listFileVersionsController);
+      queryApp.register(getStorageStatsController);
+    },
+    { prefix: '' },
+  );
+}

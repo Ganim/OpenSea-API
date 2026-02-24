@@ -1,0 +1,94 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { FileType } from '@/entities/storage';
+import type { StorageFile } from '@/entities/storage/storage-file';
+import type { StorageFileVersion } from '@/entities/storage/storage-file-version';
+import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
+import type { StorageFileVersionsRepository } from '@/repositories/storage/storage-file-versions-repository';
+import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
+import type { FileUploadService } from '@/services/storage/file-upload-service';
+
+interface UploadFileUseCaseRequest {
+  tenantId: string;
+  folderId: string;
+  file: {
+    buffer: Buffer;
+    filename: string;
+    mimetype: string;
+  };
+  entityType?: string;
+  entityId?: string;
+  uploadedBy: string;
+}
+
+interface UploadFileUseCaseResponse {
+  file: StorageFile;
+  version: StorageFileVersion;
+}
+
+export class UploadFileUseCase {
+  constructor(
+    private storageFoldersRepository: StorageFoldersRepository,
+    private storageFilesRepository: StorageFilesRepository,
+    private storageFileVersionsRepository: StorageFileVersionsRepository,
+    private fileUploadService: FileUploadService,
+  ) {}
+
+  async execute(
+    request: UploadFileUseCaseRequest,
+  ): Promise<UploadFileUseCaseResponse> {
+    const { tenantId, folderId, file, entityType, entityId, uploadedBy } =
+      request;
+
+    const folder = await this.storageFoldersRepository.findById(
+      new UniqueEntityID(folderId),
+      tenantId,
+    );
+
+    if (!folder) {
+      throw new ResourceNotFoundError('Folder not found');
+    }
+
+    const fileType = FileType.fromMimeType(file.mimetype);
+
+    const uploadPrefix = `storage/${tenantId}/${folderId}`;
+    const uploadResult = await this.fileUploadService.upload(
+      file.buffer,
+      file.filename,
+      file.mimetype,
+      { prefix: uploadPrefix },
+    );
+
+    const filePath = folder.buildChildPath(file.filename);
+
+    const createdFile = await this.storageFilesRepository.create({
+      tenantId,
+      folderId,
+      name: file.filename,
+      originalName: file.filename,
+      fileKey: uploadResult.key,
+      path: filePath,
+      size: uploadResult.size,
+      mimeType: file.mimetype,
+      fileType: fileType.value,
+      entityType: entityType ?? null,
+      entityId: entityId ?? null,
+      uploadedBy,
+    });
+
+    const initialVersion = await this.storageFileVersionsRepository.create({
+      fileId: createdFile.id.toString(),
+      version: 1,
+      fileKey: uploadResult.key,
+      size: uploadResult.size,
+      mimeType: file.mimetype,
+      changeNote: 'Initial upload',
+      uploadedBy,
+    });
+
+    return {
+      file: createdFile,
+      version: initialVersion,
+    };
+  }
+}
