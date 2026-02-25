@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
+import type { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
 import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
@@ -18,6 +19,7 @@ export class ApproveAbsenceUseCase {
   constructor(
     private absencesRepository: AbsencesRepository,
     private vacationPeriodsRepository: VacationPeriodsRepository,
+    private employeesRepository: EmployeesRepository,
     private calendarSyncService?: CalendarSyncService,
   ) {}
 
@@ -57,11 +59,18 @@ export class ApproveAbsenceUseCase {
     // Sync to calendar (non-blocking)
     if (this.calendarSyncService) {
       try {
+        const employee = await this.employeesRepository.findById(
+          absence.employeeId,
+          tenantId,
+        );
+        const employeeName =
+          employee?.fullName ?? absence.employeeId.toString();
+
         await this.calendarSyncService.syncAbsence({
           tenantId,
           absenceId,
           absenceType: absence.type.value,
-          employeeName: absence.employeeId.toString(),
+          employeeName,
           startDate: absence.startDate,
           endDate: absence.endDate,
           userId: approvedBy,

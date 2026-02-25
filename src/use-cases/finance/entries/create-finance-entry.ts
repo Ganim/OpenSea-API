@@ -155,8 +155,12 @@ export class CreateFinanceEntryUseCase {
       createdBy: request.createdBy,
     });
 
-    // Sync to calendar if due date is in the future (non-blocking)
-    if (this.calendarSyncService && request.dueDate > new Date()) {
+    // Sync to calendar for non-recurring entries (installments/recurring sync their children instead)
+    if (
+      this.calendarSyncService &&
+      request.dueDate > new Date() &&
+      !request.recurrenceType
+    ) {
       try {
         await this.calendarSyncService.syncFinanceEntry({
           tenantId,
@@ -247,6 +251,22 @@ export class CreateFinanceEntryUseCase {
         createdBy: request.createdBy,
       });
 
+      // Sync each installment to calendar (non-blocking)
+      if (this.calendarSyncService && installmentDueDate > new Date()) {
+        try {
+          await this.calendarSyncService.syncFinanceEntry({
+            tenantId: request.tenantId,
+            entryId: installmentEntry.id.toString(),
+            entryType: request.type,
+            description: `${request.description.trim()} (${i}/${request.totalInstallments})`,
+            dueDate: installmentDueDate,
+            userId: request.createdBy ?? installmentEntry.id.toString(),
+          });
+        } catch {
+          // Calendar sync failure should not block the operation
+        }
+      }
+
       installments.push(financeEntryToDTO(installmentEntry));
     }
 
@@ -288,6 +308,22 @@ export class CreateFinanceEntryUseCase {
       tags: request.tags,
       createdBy: request.createdBy,
     });
+
+    // Sync first occurrence to calendar (non-blocking)
+    if (this.calendarSyncService && request.dueDate > new Date()) {
+      try {
+        await this.calendarSyncService.syncFinanceEntry({
+          tenantId: request.tenantId,
+          entryId: occurrence.id.toString(),
+          entryType: request.type,
+          description: `${request.description.trim()} (1)`,
+          dueDate: request.dueDate,
+          userId: request.createdBy ?? occurrence.id.toString(),
+        });
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
+    }
 
     return financeEntryToDTO(occurrence);
   }

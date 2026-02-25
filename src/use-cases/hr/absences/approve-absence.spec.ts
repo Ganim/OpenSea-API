@@ -3,12 +3,14 @@ import { Absence } from '@/entities/hr/absence';
 import { VacationPeriod } from '@/entities/hr/vacation-period';
 import { AbsenceStatus, AbsenceType } from '@/entities/hr/value-objects';
 import { InMemoryAbsencesRepository } from '@/repositories/hr/in-memory/in-memory-absences-repository';
+import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/in-memory-vacation-periods-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ApproveAbsenceUseCase } from './approve-absence';
 
 let absencesRepository: InMemoryAbsencesRepository;
 let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
+let employeesRepository: InMemoryEmployeesRepository;
 let sut: ApproveAbsenceUseCase;
 let testAbsence: Absence;
 let testVacationPeriod: VacationPeriod;
@@ -19,9 +21,11 @@ describe('Approve Absence Use Case', () => {
   beforeEach(async () => {
     absencesRepository = new InMemoryAbsencesRepository();
     vacationPeriodsRepository = new InMemoryVacationPeriodsRepository();
+    employeesRepository = new InMemoryEmployeesRepository();
     sut = new ApproveAbsenceUseCase(
       absencesRepository,
       vacationPeriodsRepository,
+      employeesRepository,
     );
 
     // Create vacation period

@@ -71,6 +71,7 @@
     "decimal.js": "10.6.0",
     "fastify": "5.7.4",
     "fastify-type-provider-zod": "5.0.3",
+    "ical-generator": "10.0.0",
     "imapflow": "1.2.10",
     "ioredis": "5.9.2",
     "mailparser": "3.9.3",

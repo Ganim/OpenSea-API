@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify';
 
 import { createCalendarEventController } from './v1-create-calendar-event.controller';
 import { deleteCalendarEventController } from './v1-delete-calendar-event.controller';
+import { exportCalendarEventsController } from './v1-export-calendar-events.controller';
 import { getCalendarEventController } from './v1-get-calendar-event.controller';
 import { listCalendarEventsController } from './v1-list-calendar-events.controller';
 import { updateCalendarEventController } from './v1-update-calendar-event.controller';
@@ -12,6 +13,8 @@ import { manageRemindersController } from './v1-manage-reminders.controller';
 import { processDueRemindersController } from './v1-process-due-reminders.controller';
 
 export async function calendarEventsRoutes(app: FastifyInstance) {
+  // Register export before :id routes to avoid path collision
+  app.register(exportCalendarEventsController);
   app.register(getCalendarEventController);
   app.register(listCalendarEventsController);
   app.register(createCalendarEventController);
