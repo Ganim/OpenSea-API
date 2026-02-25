@@ -59,9 +59,7 @@ describe('Get Folder Activity (E2E)', () => {
     // Activity endpoint queries audit logs by entityId, so a non-existent folder
     // simply returns empty logs rather than 404
     const response = await request(app.server)
-      .get(
-        '/v1/storage/folders/00000000-0000-0000-0000-000000000000/activity',
-      )
+      .get('/v1/storage/folders/00000000-0000-0000-0000-000000000000/activity')
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);

@@ -1,6 +1,12 @@
-import { execSync } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
+import { promisify } from 'node:util';
 import { afterAll } from 'vitest';
+
+const execFileAsync = promisify(execFile);
+
+// Load .env file for forked processes (required for JWT_SECRET and other env vars)
+process.loadEnvFile();
 
 process.env.NODE_ENV = 'test';
 process.env.SILENCE_RATE_LIMIT_LOGS = '1';
@@ -23,13 +29,20 @@ function generateDatabaseUrl(schemaName: string) {
 const testDatabaseUrl = generateDatabaseUrl(schema);
 process.env.DATABASE_URL = testDatabaseUrl;
 
-// Aplica as migrations no schema de teste isolado
-execSync('npx prisma migrate deploy', {
-  env: {
-    ...process.env,
-    DATABASE_URL: testDatabaseUrl,
+// Aplica o schema no banco de testes usando `migrate deploy`.
+// Com fileParallelism: false os specs rodam sequencialmente, então
+// não há contenção do advisory lock do PostgreSQL.
+await execFileAsync(
+  'npx',
+  ['prisma', 'migrate', 'deploy'],
+  {
+    env: {
+      ...process.env,
+      DATABASE_URL: testDatabaseUrl,
+    },
+    shell: true,
   },
-});
+);
 
 console.log(`🧪 Testes E2E usando schema: ${schema}`);
 

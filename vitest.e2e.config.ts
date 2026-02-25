@@ -14,6 +14,8 @@ export default defineConfig({
         singleFork: true,
       },
     },
+    testTimeout: 30000,
+    hookTimeout: 120000,
     include: [
       'src/**/*.e2e.spec.ts',
       'src/**/*.e2e-spec.ts',
