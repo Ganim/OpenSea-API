@@ -12,6 +12,7 @@ import {
 } from '@/mappers/finance/finance-entry-payment/finance-entry-payment-to-dto';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { FinanceEntryPaymentsRepository } from '@/repositories/finance/finance-entry-payments-repository';
+import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 interface RegisterPaymentUseCaseRequest {
   entryId: string;
@@ -35,6 +36,7 @@ export class RegisterPaymentUseCase {
   constructor(
     private financeEntriesRepository: FinanceEntriesRepository,
     private financeEntryPaymentsRepository: FinanceEntryPaymentsRepository,
+    private calendarSyncService?: CalendarSyncService,
   ) {}
 
   async execute(
@@ -104,6 +106,19 @@ export class RegisterPaymentUseCase {
         status: 'PARTIALLY_PAID',
         actualAmount: newTotal,
       });
+    }
+
+    // Remove calendar event when fully paid (non-blocking)
+    if (isFullyPaid && this.calendarSyncService) {
+      try {
+        await this.calendarSyncService.removeSystemEvent(
+          tenantId,
+          'FINANCE_ENTRY',
+          entryId,
+        );
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
     }
 
     // Re-fetch updated entry

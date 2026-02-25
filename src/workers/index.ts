@@ -1,7 +1,8 @@
+import { closeAllQueues } from '@/lib/queue';
+import { startAuditWorker } from './queues/audit.queue';
+import { startEmailSyncWorker } from './queues/email-sync.queue';
 import { startEmailWorker } from './queues/email.queue';
 import { startNotificationWorker } from './queues/notification.queue';
-import { startAuditWorker } from './queues/audit.queue';
-import { closeAllQueues } from '@/lib/queue';
 
 let workersStarted = false;
 
@@ -17,6 +18,7 @@ export function startAllWorkers(): void {
   console.log('[Workers] Starting all queue workers...');
 
   startEmailWorker();
+  startEmailSyncWorker();
   startNotificationWorker();
   startAuditWorker();
 
@@ -46,3 +48,6 @@ process.on('SIGINT', async () => {
   await stopAllWorkers();
   process.exit(0);
 });
+
+// Start workers when this entrypoint runs
+startAllWorkers();

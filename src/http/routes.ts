@@ -54,16 +54,29 @@ import { volumesRoutes } from './controllers/stock/volumes/routes';
 import { warehousesRoutes } from './controllers/stock/warehouses/routes';
 import { zonesRoutes } from './controllers/stock/zones/routes';
 
+// Storage routes
+import { storageAccessRoutes } from './controllers/storage/access/routes';
+import { storageFilesRoutes } from './controllers/storage/files/routes';
+import { storageFoldersRoutes } from './controllers/storage/folders/routes';
+
 // Finance routes
+import { financeAttachmentsRoutes } from './controllers/finance/attachments/routes';
 import { bankAccountsRoutes } from './controllers/finance/bank-accounts/routes';
 import { financeCategoriesRoutes } from './controllers/finance/categories/routes';
-import { costCentersRoutes } from './controllers/finance/cost-centers/routes';
-import { financeEntriesRoutes } from './controllers/finance/entries/routes';
-import { financeAttachmentsRoutes } from './controllers/finance/attachments/routes';
-import { financeDashboardRoutes } from './controllers/finance/dashboard/routes';
-import { loansRoutes } from './controllers/finance/loans/routes';
 import { consortiaRoutes } from './controllers/finance/consortia/routes';
+import { costCentersRoutes } from './controllers/finance/cost-centers/routes';
+import { financeDashboardRoutes } from './controllers/finance/dashboard/routes';
+import { financeEntriesRoutes } from './controllers/finance/entries/routes';
 import { financeExportRoutes } from './controllers/finance/export/routes';
+import { loansRoutes } from './controllers/finance/loans/routes';
+
+// Calendar routes
+import { calendarEventsRoutes } from './controllers/calendar/events/routes';
+
+// Email routes
+import { emailAccountsRoutes } from './controllers/email/accounts/routes';
+import { emailFoldersRoutes } from './controllers/email/folders/routes';
+import { emailMessagesRoutes } from './controllers/email/messages/routes';
 
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
@@ -146,6 +159,19 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(loansRoutes);
   await app.register(consortiaRoutes);
   await app.register(financeExportRoutes);
+
+  // Calendar routes
+  await app.register(calendarEventsRoutes);
+
+  // Email routes
+  await app.register(emailAccountsRoutes);
+  await app.register(emailFoldersRoutes);
+  await app.register(emailMessagesRoutes);
+
+  // Storage routes
+  await app.register(storageFoldersRoutes);
+  await app.register(storageFilesRoutes);
+  await app.register(storageAccessRoutes);
 
   // HR routes
   await app.register(employeesRoutes);

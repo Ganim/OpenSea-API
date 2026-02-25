@@ -893,10 +893,12 @@ export type CompanyCreateNestedOneWithoutBankAccountsInput = {
   connect?: Prisma.CompanyWhereUniqueInput
 }
 
-export type CompanyUpdateOneRequiredWithoutBankAccountsNestedInput = {
+export type CompanyUpdateOneWithoutBankAccountsNestedInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutBankAccountsInput, Prisma.CompanyUncheckedCreateWithoutBankAccountsInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutBankAccountsInput
   upsert?: Prisma.CompanyUpsertWithoutBankAccountsInput
+  disconnect?: Prisma.CompanyWhereInput | boolean
+  delete?: Prisma.CompanyWhereInput | boolean
   connect?: Prisma.CompanyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutBankAccountsInput, Prisma.CompanyUpdateWithoutBankAccountsInput>, Prisma.CompanyUncheckedUpdateWithoutBankAccountsInput>
 }

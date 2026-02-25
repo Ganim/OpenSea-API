@@ -479,3 +479,63 @@ export type Consortium = Prisma.ConsortiumModel
  * 
  */
 export type ConsortiumPayment = Prisma.ConsortiumPaymentModel
+/**
+ * Model StorageFolder
+ * 
+ */
+export type StorageFolder = Prisma.StorageFolderModel
+/**
+ * Model StorageFile
+ * 
+ */
+export type StorageFile = Prisma.StorageFileModel
+/**
+ * Model StorageFileVersion
+ * 
+ */
+export type StorageFileVersion = Prisma.StorageFileVersionModel
+/**
+ * Model FolderAccessRule
+ * 
+ */
+export type FolderAccessRule = Prisma.FolderAccessRuleModel
+/**
+ * Model CalendarEvent
+ * 
+ */
+export type CalendarEvent = Prisma.CalendarEventModel
+/**
+ * Model EventParticipant
+ * 
+ */
+export type EventParticipant = Prisma.EventParticipantModel
+/**
+ * Model EventReminder
+ * 
+ */
+export type EventReminder = Prisma.EventReminderModel
+/**
+ * Model EmailAccount
+ * 
+ */
+export type EmailAccount = Prisma.EmailAccountModel
+/**
+ * Model EmailAccountAccess
+ * 
+ */
+export type EmailAccountAccess = Prisma.EmailAccountAccessModel
+/**
+ * Model EmailFolder
+ * 
+ */
+export type EmailFolder = Prisma.EmailFolderModel
+/**
+ * Model EmailMessage
+ * 
+ */
+export type EmailMessage = Prisma.EmailMessageModel
+/**
+ * Model EmailAttachment
+ * 
+ */
+export type EmailAttachment = Prisma.EmailAttachmentModel

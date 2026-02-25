@@ -3,6 +3,7 @@ import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
+import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 export interface RequestVacationRequest {
   tenantId: string;
@@ -23,6 +24,7 @@ export class RequestVacationUseCase {
     private absencesRepository: AbsencesRepository,
     private employeesRepository: EmployeesRepository,
     private vacationPeriodsRepository: VacationPeriodsRepository,
+    private calendarSyncService?: CalendarSyncService,
   ) {}
 
   async execute(
@@ -116,6 +118,24 @@ export class RequestVacationUseCase {
       vacationPeriodId: new UniqueEntityID(vacationPeriodId),
       requestedBy: requestedBy ? new UniqueEntityID(requestedBy) : undefined,
     });
+
+    // Sync to calendar (non-blocking)
+    if (this.calendarSyncService) {
+      try {
+        const employeeName = employee.fullName ?? employee.id.toString();
+        await this.calendarSyncService.syncAbsence({
+          tenantId,
+          absenceId: absence.id.toString(),
+          absenceType: 'VACATION',
+          employeeName,
+          startDate,
+          endDate,
+          userId: requestedBy ?? employeeId,
+        });
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
+    }
 
     return {
       absence,

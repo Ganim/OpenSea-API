@@ -8,6 +8,7 @@ import {
   WorkRegime,
 } from '@/entities/hr/value-objects';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
+import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 export interface UpdateEmployeeRequest {
   tenantId: string;
@@ -79,7 +80,10 @@ export interface UpdateEmployeeResponse {
 }
 
 export class UpdateEmployeeUseCase {
-  constructor(private employeesRepository: EmployeesRepository) {}
+  constructor(
+    private employeesRepository: EmployeesRepository,
+    private calendarSyncService?: CalendarSyncService,
+  ) {}
 
   async execute(
     request: UpdateEmployeeRequest,
@@ -403,6 +407,30 @@ export class UpdateEmployeeUseCase {
 
     if (!updatedEmployee) {
       throw new Error('Failed to update employee');
+    }
+
+    // Sync birthday to calendar if birthDate changed (non-blocking)
+    if (this.calendarSyncService && updateData.birthDate !== undefined) {
+      try {
+        if (updateData.birthDate) {
+          await this.calendarSyncService.syncBirthday({
+            tenantId,
+            employeeId,
+            employeeName: updatedEmployee.fullName,
+            birthDate: updateData.birthDate,
+            userId: updatedEmployee.userId?.toString() ?? employeeId,
+          });
+        } else {
+          // birthDate removed, remove calendar event
+          await this.calendarSyncService.removeSystemEvent(
+            tenantId,
+            'HR_BIRTHDAY',
+            employeeId,
+          );
+        }
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
     }
 
     return {

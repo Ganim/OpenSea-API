@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
+import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 export interface RequestSickLeaveRequest {
   tenantId: string;
@@ -22,6 +23,7 @@ export class RequestSickLeaveUseCase {
   constructor(
     private absencesRepository: AbsencesRepository,
     private employeesRepository: EmployeesRepository,
+    private calendarSyncService?: CalendarSyncService,
   ) {}
 
   async execute(
@@ -101,6 +103,24 @@ export class RequestSickLeaveUseCase {
         ? 'INSS responsibility after 15 days'
         : undefined,
     });
+
+    // Sync to calendar (non-blocking)
+    if (this.calendarSyncService) {
+      try {
+        const employeeName = employee.fullName ?? employee.id.toString();
+        await this.calendarSyncService.syncAbsence({
+          tenantId,
+          absenceId: absence.id.toString(),
+          absenceType: 'SICK_LEAVE',
+          employeeName,
+          startDate,
+          endDate,
+          userId: requestedBy ?? employeeId,
+        });
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
+    }
 
     return {
       absence,

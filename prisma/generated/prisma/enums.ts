@@ -169,6 +169,15 @@ export const ConsortiumStatus = {
 export type ConsortiumStatus = (typeof ConsortiumStatus)[keyof typeof ConsortiumStatus]
 
 
+export const StorageFileStatus = {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED',
+  DELETED: 'DELETED'
+} as const
+
+export type StorageFileStatus = (typeof StorageFileStatus)[keyof typeof StorageFileStatus]
+
+
 export const UnitOfMeasure = {
   METERS: 'METERS',
   KILOGRAMS: 'KILOGRAMS',
@@ -789,7 +798,73 @@ export const SystemModuleEnum = {
   AUDIT: 'AUDIT',
   REQUESTS: 'REQUESTS',
   NOTIFICATIONS: 'NOTIFICATIONS',
-  FINANCE: 'FINANCE'
+  FINANCE: 'FINANCE',
+  CALENDAR: 'CALENDAR',
+  STORAGE: 'STORAGE'
 } as const
 
 export type SystemModuleEnum = (typeof SystemModuleEnum)[keyof typeof SystemModuleEnum]
+
+
+export const EventType = {
+  MEETING: 'MEETING',
+  TASK: 'TASK',
+  REMINDER: 'REMINDER',
+  DEADLINE: 'DEADLINE',
+  HOLIDAY: 'HOLIDAY',
+  BIRTHDAY: 'BIRTHDAY',
+  VACATION: 'VACATION',
+  ABSENCE: 'ABSENCE',
+  FINANCE_DUE: 'FINANCE_DUE',
+  PURCHASE_ORDER: 'PURCHASE_ORDER',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type EventType = (typeof EventType)[keyof typeof EventType]
+
+
+export const EventVisibility = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+} as const
+
+export type EventVisibility = (typeof EventVisibility)[keyof typeof EventVisibility]
+
+
+export const ParticipantRole = {
+  OWNER: 'OWNER',
+  ASSIGNEE: 'ASSIGNEE',
+  GUEST: 'GUEST'
+} as const
+
+export type ParticipantRole = (typeof ParticipantRole)[keyof typeof ParticipantRole]
+
+
+export const ParticipantStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED',
+  TENTATIVE: 'TENTATIVE'
+} as const
+
+export type ParticipantStatus = (typeof ParticipantStatus)[keyof typeof ParticipantStatus]
+
+
+export const EmailAccountVisibility = {
+  PRIVATE: 'PRIVATE',
+  SHARED: 'SHARED'
+} as const
+
+export type EmailAccountVisibility = (typeof EmailAccountVisibility)[keyof typeof EmailAccountVisibility]
+
+
+export const EmailFolderType = {
+  INBOX: 'INBOX',
+  SENT: 'SENT',
+  DRAFTS: 'DRAFTS',
+  TRASH: 'TRASH',
+  SPAM: 'SPAM',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type EmailFolderType = (typeof EmailFolderType)[keyof typeof EmailFolderType]

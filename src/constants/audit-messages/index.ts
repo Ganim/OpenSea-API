@@ -28,6 +28,8 @@ export { SALES_AUDIT_MESSAGES } from './sales.messages';
 export { NOTIFICATIONS_AUDIT_MESSAGES } from './notifications.messages';
 export { REQUESTS_AUDIT_MESSAGES } from './requests.messages';
 export { FINANCE_AUDIT_MESSAGES } from './finance.messages';
+export { STORAGE_AUDIT_MESSAGES } from './storage.messages';
+export { CALENDAR_AUDIT_MESSAGES } from './calendar.messages';
 
 import { CORE_AUDIT_MESSAGES } from './core.messages';
 import { HR_AUDIT_MESSAGES } from './hr.messages';
@@ -37,6 +39,8 @@ import { REQUESTS_AUDIT_MESSAGES } from './requests.messages';
 import { SALES_AUDIT_MESSAGES } from './sales.messages';
 import { STOCK_AUDIT_MESSAGES } from './stock.messages';
 import { FINANCE_AUDIT_MESSAGES } from './finance.messages';
+import { STORAGE_AUDIT_MESSAGES } from './storage.messages';
+import { CALENDAR_AUDIT_MESSAGES } from './calendar.messages';
 
 /**
  * Objeto consolidado com todas as mensagens de auditoria organizadas por módulo
@@ -55,4 +59,6 @@ export const AUDIT_MESSAGES = {
   NOTIFICATIONS: NOTIFICATIONS_AUDIT_MESSAGES,
   REQUESTS: REQUESTS_AUDIT_MESSAGES,
   FINANCE: FINANCE_AUDIT_MESSAGES,
+  STORAGE: STORAGE_AUDIT_MESSAGES,
+  CALENDAR: CALENDAR_AUDIT_MESSAGES,
 } as const;

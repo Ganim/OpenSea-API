@@ -7,6 +7,7 @@ import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-orde
 import type { PurchaseOrdersRepository } from '@/repositories/stock/purchase-orders-repository';
 import type { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import type { VariantsRepository } from '@/repositories/stock/variants-repository';
+import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 interface CreatePurchaseOrderUseCaseRequest {
   tenantId: string;
@@ -33,6 +34,7 @@ export class CreatePurchaseOrderUseCase {
     private purchaseOrdersRepository: PurchaseOrdersRepository,
     private suppliersRepository: SuppliersRepository,
     private variantsRepository: VariantsRepository,
+    private calendarSyncService?: CalendarSyncService,
   ) {}
 
   async execute(
@@ -134,6 +136,26 @@ export class CreatePurchaseOrderUseCase {
         notes: item.notes,
       })),
     });
+
+    // Sync to calendar if approved with expected date (non-blocking)
+    if (
+      this.calendarSyncService &&
+      status === 'APPROVED' &&
+      expectedDate
+    ) {
+      try {
+        await this.calendarSyncService.syncPurchaseOrder({
+          tenantId,
+          poId: purchaseOrder.id.toString(),
+          poNumber: orderNumber,
+          supplierName: supplier.name,
+          expectedDate,
+          userId: createdBy ?? purchaseOrder.id.toString(),
+        });
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
+    }
 
     return { purchaseOrder: purchaseOrderToDTO(purchaseOrder) };
   }

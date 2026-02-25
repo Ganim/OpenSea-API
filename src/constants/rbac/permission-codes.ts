@@ -112,6 +112,8 @@ export const PermissionCodes = {
       SETTINGS: 'ui.menu.settings' as const,
       REQUESTS: 'ui.menu.requests' as const,
       NOTIFICATIONS: 'ui.menu.notifications' as const,
+      CALENDAR: 'ui.menu.calendar' as const,
+      EMAIL: 'ui.menu.email' as const,
     },
     MENU_STOCK: {
       PRODUCTS: 'ui.menu.stock.products' as const,
@@ -135,6 +137,7 @@ export const PermissionCodes = {
       PAYABLE: 'ui.menu.finance.payable' as const,
       RECEIVABLE: 'ui.menu.finance.receivable' as const,
       BANK_ACCOUNTS: 'ui.menu.finance.bank-accounts' as const,
+      COMPANIES: 'ui.menu.finance.companies' as const,
       COST_CENTERS: 'ui.menu.finance.cost-centers' as const,
       CATEGORIES: 'ui.menu.finance.categories' as const,
       LOANS: 'ui.menu.finance.loans' as const,
@@ -888,6 +891,14 @@ export const PermissionCodes = {
   // FINANCE - Gestão Financeira
   // ============================================================================
   FINANCE: {
+    COMPANIES: {
+      CREATE: 'finance.companies.create' as const,
+      READ: 'finance.companies.read' as const,
+      UPDATE: 'finance.companies.update' as const,
+      DELETE: 'finance.companies.delete' as const,
+      LIST: 'finance.companies.list' as const,
+      MANAGE: 'finance.companies.manage' as const,
+    },
     COST_CENTERS: {
       CREATE: 'finance.cost-centers.create' as const,
       READ: 'finance.cost-centers.read' as const,
@@ -951,6 +962,108 @@ export const PermissionCodes = {
     },
     EXPORT: {
       GENERATE: 'finance.export.generate' as const,
+    },
+  },
+
+  // ============================================================================
+  // CALENDAR - Agenda Corporativa
+  // ============================================================================
+  CALENDAR: {
+    EVENTS: {
+      CREATE: 'calendar.events.create' as const,
+      READ: 'calendar.events.read' as const,
+      UPDATE: 'calendar.events.update' as const,
+      DELETE: 'calendar.events.delete' as const,
+      LIST: 'calendar.events.list' as const,
+      MANAGE: 'calendar.events.manage' as const,
+    },
+    PARTICIPANTS: {
+      INVITE: 'calendar.participants.invite' as const,
+      RESPOND: 'calendar.participants.respond' as const,
+      MANAGE: 'calendar.participants.manage' as const,
+    },
+    REMINDERS: {
+      CREATE: 'calendar.reminders.create' as const,
+      DELETE: 'calendar.reminders.delete' as const,
+    },
+  },
+
+  // ============================================================================
+  // EMAIL - Gestão de E-mails
+  // ============================================================================
+  EMAIL: {
+    ACCOUNTS: {
+      CREATE: 'email.accounts.create' as const,
+      READ: 'email.accounts.read' as const,
+      UPDATE: 'email.accounts.update' as const,
+      DELETE: 'email.accounts.delete' as const,
+      LIST: 'email.accounts.list' as const,
+      SHARE: 'email.accounts.share' as const,
+    },
+    MESSAGES: {
+      READ: 'email.messages.read' as const,
+      LIST: 'email.messages.list' as const,
+      SEND: 'email.messages.send' as const,
+      UPDATE: 'email.messages.update' as const,
+      DELETE: 'email.messages.delete' as const,
+    },
+    SYNC: {
+      EXECUTE: 'email.sync.execute' as const,
+    },
+  },
+
+  // ============================================================================
+  // STORAGE - Gestão de Arquivos e Pastas
+  // ============================================================================
+  /**
+   * Controla acesso a upload, download, organização e compartilhamento de arquivos.
+   * Permissões granulares por tipo de pasta: sistema, filtragem e usuário.
+   */
+  STORAGE: {
+    INTERFACE: {
+      VIEW: 'storage.interface.view' as const,
+    },
+    USER_FOLDERS: {
+      LIST: 'storage.user-folders.list' as const,
+      CREATE: 'storage.user-folders.create' as const,
+      READ: 'storage.user-folders.read' as const,
+      UPDATE: 'storage.user-folders.update' as const,
+      DELETE: 'storage.user-folders.delete' as const,
+      DOWNLOAD: 'storage.user-folders.download' as const,
+      SHARE_USER: 'storage.user-folders.share-user' as const,
+      SHARE_GROUP: 'storage.user-folders.share-group' as const,
+    },
+    FILTER_FOLDERS: {
+      LIST: 'storage.filter-folders.list' as const,
+      READ: 'storage.filter-folders.read' as const,
+      DOWNLOAD: 'storage.filter-folders.download' as const,
+      SHARE_USER: 'storage.filter-folders.share-user' as const,
+      SHARE_GROUP: 'storage.filter-folders.share-group' as const,
+    },
+    SYSTEM_FOLDERS: {
+      LIST: 'storage.system-folders.list' as const,
+      READ: 'storage.system-folders.read' as const,
+      DOWNLOAD: 'storage.system-folders.download' as const,
+      SHARE_USER: 'storage.system-folders.share-user' as const,
+      SHARE_GROUP: 'storage.system-folders.share-group' as const,
+    },
+    FILES: {
+      LIST: 'storage.files.list' as const,
+      CREATE: 'storage.files.create' as const,
+      READ: 'storage.files.read' as const,
+      UPDATE: 'storage.files.update' as const,
+      DELETE: 'storage.files.delete' as const,
+      DOWNLOAD: 'storage.files.download' as const,
+      SHARE_USER: 'storage.files.share-user' as const,
+      SHARE_GROUP: 'storage.files.share-group' as const,
+    },
+    VERSIONS: {
+      READ: 'storage.versions.read' as const,
+      CREATE: 'storage.versions.create' as const,
+      RESTORE: 'storage.versions.restore' as const,
+    },
+    STATS: {
+      VIEW: 'storage.stats.view' as const,
     },
   },
 } as const;

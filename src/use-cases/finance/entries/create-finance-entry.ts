@@ -7,6 +7,7 @@ import {
 import type { CostCentersRepository } from '@/repositories/finance/cost-centers-repository';
 import type { FinanceCategoriesRepository } from '@/repositories/finance/finance-categories-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
+import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 interface CreateFinanceEntryUseCaseRequest {
   tenantId: string;
@@ -49,6 +50,7 @@ export class CreateFinanceEntryUseCase {
     private financeEntriesRepository: FinanceEntriesRepository,
     private categoriesRepository: FinanceCategoriesRepository,
     private costCentersRepository: CostCentersRepository,
+    private calendarSyncService?: CalendarSyncService,
   ) {}
 
   async execute(
@@ -152,6 +154,22 @@ export class CreateFinanceEntryUseCase {
       tags: request.tags,
       createdBy: request.createdBy,
     });
+
+    // Sync to calendar if due date is in the future (non-blocking)
+    if (this.calendarSyncService && request.dueDate > new Date()) {
+      try {
+        await this.calendarSyncService.syncFinanceEntry({
+          tenantId,
+          entryId: entry.id.toString(),
+          entryType: type,
+          description: description.trim(),
+          dueDate: request.dueDate,
+          userId: request.createdBy ?? entry.id.toString(),
+        });
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
+    }
 
     // Generate installment child entries
     if (request.recurrenceType === 'INSTALLMENT') {

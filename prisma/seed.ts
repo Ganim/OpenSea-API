@@ -1,16 +1,21 @@
-import { PrismaClient } from './generated/prisma/client.js';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { hash } from 'bcryptjs';
+import { PrismaClient } from './generated/prisma/client.js';
 
 import {
-  PermissionCodes,
-  DEFAULT_USER_PERMISSIONS,
+    DEFAULT_USER_PERMISSIONS,
+    PermissionCodes,
 } from '../src/constants/rbac/permission-codes.js';
 import {
-  PermissionGroupSlugs,
-  PermissionGroupColors,
-  PermissionGroupPriorities,
+    PermissionGroupColors,
+    PermissionGroupPriorities,
+    PermissionGroupSlugs,
 } from '../src/constants/rbac/permission-groups.js';
+import {
+    FILTER_FOLDER_CONFIGS,
+    ROOT_SYSTEM_FOLDERS,
+    slugify,
+} from '../src/constants/storage/folder-templates.js';
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });
@@ -46,7 +51,11 @@ const MODULE_LABELS: Record<string, string> = {
   sales: 'Vendas',
   requests: 'Requisições',
   hr: 'Recursos Humanos',
+  calendar: 'Calendário',
+  email: 'E-mail',
   studio: 'Studio',
+  storage: 'Arquivos',
+  finance: 'Financeiro',
 };
 
 const ACTION_LABELS: Record<string, string> = {
@@ -80,6 +89,7 @@ const ACTION_LABELS: Record<string, string> = {
   reject: 'Rejeitar',
   comment: 'Comentar',
   download: 'Baixar',
+  upload: 'Enviar',
   set: 'Definir',
   close: 'Fechar',
   reopen: 'Reabrir',
@@ -90,6 +100,10 @@ const ACTION_LABELS: Record<string, string> = {
   romaneio: 'Romaneio',
   restore: 'Restaurar',
   use: 'Usar',
+  invite: 'Convidar',
+  respond: 'Responder',
+  share: 'Compartilhar',
+  execute: 'Executar',
 };
 
 const SCOPE_LABELS: Record<string, string> = {
@@ -532,8 +546,8 @@ async function seedPlanModules(planIds: Record<string, string>) {
   const modulesByPlan: Record<string, string[]> = {
     Free: ['CORE'],
     Starter: ['CORE', 'STOCK', 'SALES'],
-    Professional: ['CORE', 'STOCK', 'SALES', 'HR', 'FINANCE', 'REPORTS', 'AUDIT', 'NOTIFICATIONS', 'REQUESTS'],
-    Enterprise: ['CORE', 'STOCK', 'SALES', 'HR', 'PAYROLL', 'FINANCE', 'REPORTS', 'AUDIT', 'REQUESTS', 'NOTIFICATIONS'],
+    Professional: ['CORE', 'STOCK', 'SALES', 'HR', 'FINANCE', 'REPORTS', 'AUDIT', 'NOTIFICATIONS', 'REQUESTS', 'CALENDAR', 'STORAGE'],
+    Enterprise: ['CORE', 'STOCK', 'SALES', 'HR', 'PAYROLL', 'FINANCE', 'REPORTS', 'AUDIT', 'REQUESTS', 'NOTIFICATIONS', 'CALENDAR', 'STORAGE'],
   };
 
   for (const [planName, modules] of Object.entries(modulesByPlan)) {
@@ -780,6 +794,193 @@ async function seedDemoTenant(freePlanId: string) {
 }
 
 // ---------------------------------------------------------------------------
+// Notification Templates
+// ---------------------------------------------------------------------------
+
+const CALENDAR_NOTIFICATION_TEMPLATES = [
+  {
+    code: 'calendar.event.invite',
+    name: 'Convite para evento',
+    titleTemplate: 'Convite para evento',
+    messageTemplate: '{{inviterName}} convidou você para "{{eventTitle}}"',
+    defaultChannel: 'IN_APP' as const,
+  },
+  {
+    code: 'calendar.event.rsvp',
+    name: 'Resposta ao convite',
+    titleTemplate: 'Resposta ao convite',
+    messageTemplate: '{{participantName}} {{status}} o convite para "{{eventTitle}}"',
+    defaultChannel: 'IN_APP' as const,
+  },
+  {
+    code: 'calendar.event.reminder',
+    name: 'Lembrete de evento',
+    titleTemplate: 'Lembrete de evento',
+    messageTemplate: 'Lembrete: "{{eventTitle}}" começa em {{minutesBefore}} minutos',
+    defaultChannel: 'IN_APP' as const,
+  },
+  {
+    code: 'calendar.event.removed',
+    name: 'Removido do evento',
+    titleTemplate: 'Removido do evento',
+    messageTemplate: 'Você foi removido do evento "{{eventTitle}}"',
+    defaultChannel: 'IN_APP' as const,
+  },
+  // EMAIL versions of calendar templates
+  {
+    code: 'calendar.event.invite.email',
+    name: 'Convite para evento (e-mail)',
+    titleTemplate: 'Você foi convidado para um evento',
+    messageTemplate: '{{inviterName}} convidou você para o evento "{{eventTitle}}". Acesse a agenda para responder ao convite.',
+    defaultChannel: 'EMAIL' as const,
+  },
+  {
+    code: 'calendar.event.rsvp.email',
+    name: 'Resposta ao convite (e-mail)',
+    titleTemplate: 'Resposta ao convite do evento',
+    messageTemplate: '{{participantName}} {{status}} o convite para o evento "{{eventTitle}}".',
+    defaultChannel: 'EMAIL' as const,
+  },
+  {
+    code: 'calendar.event.reminder.email',
+    name: 'Lembrete de evento (e-mail)',
+    titleTemplate: 'Lembrete: evento em breve',
+    messageTemplate: 'Lembrete: o evento "{{eventTitle}}" começa em {{minutesBefore}} minutos.',
+    defaultChannel: 'EMAIL' as const,
+  },
+  {
+    code: 'calendar.event.removed.email',
+    name: 'Removido do evento (e-mail)',
+    titleTemplate: 'Você foi removido de um evento',
+    messageTemplate: 'Você foi removido do evento "{{eventTitle}}".',
+    defaultChannel: 'EMAIL' as const,
+  },
+];
+
+async function seedNotificationTemplates() {
+  console.log('\n📧 Notification Templates...');
+
+  for (const tpl of CALENDAR_NOTIFICATION_TEMPLATES) {
+    await prisma.notificationTemplate.upsert({
+      where: { code: tpl.code },
+      update: {
+        name: tpl.name,
+        titleTemplate: tpl.titleTemplate,
+        messageTemplate: tpl.messageTemplate,
+        defaultChannel: tpl.defaultChannel,
+      },
+      create: {
+        code: tpl.code,
+        name: tpl.name,
+        titleTemplate: tpl.titleTemplate,
+        messageTemplate: tpl.messageTemplate,
+        defaultChannel: tpl.defaultChannel,
+        defaultPriority: 'NORMAL',
+        isActive: true,
+      },
+    });
+    console.log(`   ✅ Template "${tpl.code}"`);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Storage Folders Seed
+// ---------------------------------------------------------------------------
+
+async function seedStorageFolders(tenantId: string) {
+  console.log('\n📁 Inicializando pastas do Storage Manager...');
+
+  let createdCount = 0;
+
+  // Create root system folder tree
+  for (const rootTemplate of ROOT_SYSTEM_FOLDERS) {
+    const rootSlug = slugify(rootTemplate.name);
+    const rootPath = `/${rootSlug}`;
+
+    let rootFolder = await prisma.storageFolder.findFirst({
+      where: { tenantId, path: rootPath, deletedAt: null },
+    });
+
+    if (!rootFolder) {
+      rootFolder = await prisma.storageFolder.create({
+        data: {
+          tenantId,
+          name: rootTemplate.name,
+          slug: rootSlug,
+          path: rootPath,
+          icon: rootTemplate.icon,
+          isSystem: true,
+          module: rootTemplate.module ?? null,
+          depth: 0,
+        },
+      });
+      createdCount++;
+    }
+
+    // Create children of this root folder
+    if (rootTemplate.children) {
+      for (const childTemplate of rootTemplate.children) {
+        const childSlug = slugify(childTemplate.name);
+        const childPath = `${rootPath}/${childSlug}`;
+
+        const existingChild = await prisma.storageFolder.findFirst({
+          where: { tenantId, path: childPath, deletedAt: null },
+        });
+
+        if (!existingChild) {
+          await prisma.storageFolder.create({
+            data: {
+              tenantId,
+              parentId: rootFolder.id,
+              name: childTemplate.name,
+              slug: childSlug,
+              path: childPath,
+              icon: childTemplate.icon,
+              isSystem: true,
+              module: rootTemplate.module ?? null,
+              depth: 1,
+            },
+          });
+          createdCount++;
+        }
+      }
+    }
+  }
+
+  // Create filter folders
+  for (const filterConfig of FILTER_FOLDER_CONFIGS) {
+    const existingFilter = await prisma.storageFolder.findFirst({
+      where: { tenantId, path: filterConfig.path, deletedAt: null },
+    });
+
+    if (!existingFilter) {
+      const filterSlug = slugify(filterConfig.name);
+
+      await prisma.storageFolder.create({
+        data: {
+          tenantId,
+          name: filterConfig.name,
+          slug: filterSlug,
+          path: filterConfig.path,
+          isSystem: true,
+          isFilter: true,
+          filterFileType: filterConfig.filterFileType,
+          module: filterConfig.module,
+          depth: 1,
+        },
+      });
+      createdCount++;
+    }
+  }
+
+  if (createdCount > 0) {
+    console.log(`   ✅ ${createdCount} pastas de sistema criadas`);
+  } else {
+    console.log('   ✅ Todas as pastas já existiam');
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -801,8 +1002,18 @@ async function main() {
   await seedPlanModules(planIds);
   const demoTenant = await seedDemoTenant(planIds['Free']);
 
+  // Initialize storage folders for demo tenant
+  if (demoTenant) {
+    try {
+      await seedStorageFolders(demoTenant.id);
+    } catch (storageError) {
+      console.log('   ⚠️ Erro ao inicializar pastas de storage (não crítico):', storageError);
+    }
+  }
+
   await fixLegacyTenantGroups();
   await assignOrphanUsers(userGroupId);
+  await seedNotificationTemplates();
 
   console.log('\n🎉 Seed concluído com sucesso!');
 }

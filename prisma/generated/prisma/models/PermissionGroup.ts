@@ -285,6 +285,7 @@ export type PermissionGroupWhereInput = {
   permissions?: Prisma.PermissionGroupPermissionListRelationFilter
   users?: Prisma.UserPermissionGroupListRelationFilter
   tenant?: Prisma.XOR<Prisma.TenantNullableScalarRelationFilter, Prisma.TenantWhereInput> | null
+  folderAccessRules?: Prisma.FolderAccessRuleListRelationFilter
 }
 
 export type PermissionGroupOrderByWithRelationInput = {
@@ -306,6 +307,7 @@ export type PermissionGroupOrderByWithRelationInput = {
   permissions?: Prisma.PermissionGroupPermissionOrderByRelationAggregateInput
   users?: Prisma.UserPermissionGroupOrderByRelationAggregateInput
   tenant?: Prisma.TenantOrderByWithRelationInput
+  folderAccessRules?: Prisma.FolderAccessRuleOrderByRelationAggregateInput
 }
 
 export type PermissionGroupWhereUniqueInput = Prisma.AtLeast<{
@@ -332,6 +334,7 @@ export type PermissionGroupWhereUniqueInput = Prisma.AtLeast<{
   permissions?: Prisma.PermissionGroupPermissionListRelationFilter
   users?: Prisma.UserPermissionGroupListRelationFilter
   tenant?: Prisma.XOR<Prisma.TenantNullableScalarRelationFilter, Prisma.TenantWhereInput> | null
+  folderAccessRules?: Prisma.FolderAccessRuleListRelationFilter
 }, "id" | "permission_groups_name_tenant_unique_active" | "permission_groups_slug_tenant_unique_active">
 
 export type PermissionGroupOrderByWithAggregationInput = {
@@ -391,6 +394,7 @@ export type PermissionGroupCreateInput = {
   permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
   tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupUncheckedCreateInput = {
@@ -410,6 +414,7 @@ export type PermissionGroupUncheckedCreateInput = {
   children?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutParentInput
   permissions?: Prisma.PermissionGroupPermissionUncheckedCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGroupInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupUpdateInput = {
@@ -429,6 +434,7 @@ export type PermissionGroupUpdateInput = {
   permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
   tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateInput = {
@@ -448,6 +454,7 @@ export type PermissionGroupUncheckedUpdateInput = {
   children?: Prisma.PermissionGroupUncheckedUpdateManyWithoutParentNestedInput
   permissions?: Prisma.PermissionGroupPermissionUncheckedUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGroupNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupCreateManyInput = {
@@ -712,6 +719,22 @@ export type PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.PermissionGroupScalarWhereInput | Prisma.PermissionGroupScalarWhereInput[]
 }
 
+export type PermissionGroupCreateNestedOneWithoutFolderAccessRulesInput = {
+  create?: Prisma.XOR<Prisma.PermissionGroupCreateWithoutFolderAccessRulesInput, Prisma.PermissionGroupUncheckedCreateWithoutFolderAccessRulesInput>
+  connectOrCreate?: Prisma.PermissionGroupCreateOrConnectWithoutFolderAccessRulesInput
+  connect?: Prisma.PermissionGroupWhereUniqueInput
+}
+
+export type PermissionGroupUpdateOneWithoutFolderAccessRulesNestedInput = {
+  create?: Prisma.XOR<Prisma.PermissionGroupCreateWithoutFolderAccessRulesInput, Prisma.PermissionGroupUncheckedCreateWithoutFolderAccessRulesInput>
+  connectOrCreate?: Prisma.PermissionGroupCreateOrConnectWithoutFolderAccessRulesInput
+  upsert?: Prisma.PermissionGroupUpsertWithoutFolderAccessRulesInput
+  disconnect?: Prisma.PermissionGroupWhereInput | boolean
+  delete?: Prisma.PermissionGroupWhereInput | boolean
+  connect?: Prisma.PermissionGroupWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PermissionGroupUpdateToOneWithWhereWithoutFolderAccessRulesInput, Prisma.PermissionGroupUpdateWithoutFolderAccessRulesInput>, Prisma.PermissionGroupUncheckedUpdateWithoutFolderAccessRulesInput>
+}
+
 export type PermissionGroupCreateWithoutChildrenInput = {
   id?: string
   name: string
@@ -728,6 +751,7 @@ export type PermissionGroupCreateWithoutChildrenInput = {
   permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
   tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupUncheckedCreateWithoutChildrenInput = {
@@ -746,6 +770,7 @@ export type PermissionGroupUncheckedCreateWithoutChildrenInput = {
   deletedAt?: Date | string | null
   permissions?: Prisma.PermissionGroupPermissionUncheckedCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGroupInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupCreateOrConnectWithoutChildrenInput = {
@@ -769,6 +794,7 @@ export type PermissionGroupCreateWithoutParentInput = {
   permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
   tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupUncheckedCreateWithoutParentInput = {
@@ -787,6 +813,7 @@ export type PermissionGroupUncheckedCreateWithoutParentInput = {
   children?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutParentInput
   permissions?: Prisma.PermissionGroupPermissionUncheckedCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGroupInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupCreateOrConnectWithoutParentInput = {
@@ -826,6 +853,7 @@ export type PermissionGroupUpdateWithoutChildrenInput = {
   permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
   tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateWithoutChildrenInput = {
@@ -844,6 +872,7 @@ export type PermissionGroupUncheckedUpdateWithoutChildrenInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.PermissionGroupPermissionUncheckedUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGroupNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupUpsertWithWhereUniqueWithoutParentInput = {
@@ -897,6 +926,7 @@ export type PermissionGroupCreateWithoutPermissionsInput = {
   children?: Prisma.PermissionGroupCreateNestedManyWithoutParentInput
   users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
   tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupUncheckedCreateWithoutPermissionsInput = {
@@ -915,6 +945,7 @@ export type PermissionGroupUncheckedCreateWithoutPermissionsInput = {
   deletedAt?: Date | string | null
   children?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutParentInput
   users?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGroupInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupCreateOrConnectWithoutPermissionsInput = {
@@ -949,6 +980,7 @@ export type PermissionGroupUpdateWithoutPermissionsInput = {
   children?: Prisma.PermissionGroupUpdateManyWithoutParentNestedInput
   users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
   tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateWithoutPermissionsInput = {
@@ -967,6 +999,7 @@ export type PermissionGroupUncheckedUpdateWithoutPermissionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   children?: Prisma.PermissionGroupUncheckedUpdateManyWithoutParentNestedInput
   users?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGroupNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupCreateWithoutUsersInput = {
@@ -985,6 +1018,7 @@ export type PermissionGroupCreateWithoutUsersInput = {
   children?: Prisma.PermissionGroupCreateNestedManyWithoutParentInput
   permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
   tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupUncheckedCreateWithoutUsersInput = {
@@ -1003,6 +1037,7 @@ export type PermissionGroupUncheckedCreateWithoutUsersInput = {
   deletedAt?: Date | string | null
   children?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutParentInput
   permissions?: Prisma.PermissionGroupPermissionUncheckedCreateNestedManyWithoutGroupInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupCreateOrConnectWithoutUsersInput = {
@@ -1037,6 +1072,7 @@ export type PermissionGroupUpdateWithoutUsersInput = {
   children?: Prisma.PermissionGroupUpdateManyWithoutParentNestedInput
   permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
   tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateWithoutUsersInput = {
@@ -1055,6 +1091,7 @@ export type PermissionGroupUncheckedUpdateWithoutUsersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   children?: Prisma.PermissionGroupUncheckedUpdateManyWithoutParentNestedInput
   permissions?: Prisma.PermissionGroupPermissionUncheckedUpdateManyWithoutGroupNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupCreateWithoutTenantInput = {
@@ -1073,6 +1110,7 @@ export type PermissionGroupCreateWithoutTenantInput = {
   children?: Prisma.PermissionGroupCreateNestedManyWithoutParentInput
   permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupUncheckedCreateWithoutTenantInput = {
@@ -1091,6 +1129,7 @@ export type PermissionGroupUncheckedCreateWithoutTenantInput = {
   children?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutParentInput
   permissions?: Prisma.PermissionGroupPermissionUncheckedCreateNestedManyWithoutGroupInput
   users?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGroupInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type PermissionGroupCreateOrConnectWithoutTenantInput = {
@@ -1117,6 +1156,98 @@ export type PermissionGroupUpdateWithWhereUniqueWithoutTenantInput = {
 export type PermissionGroupUpdateManyWithWhereWithoutTenantInput = {
   where: Prisma.PermissionGroupScalarWhereInput
   data: Prisma.XOR<Prisma.PermissionGroupUpdateManyMutationInput, Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type PermissionGroupCreateWithoutFolderAccessRulesInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  isSystem?: boolean
+  isActive?: boolean
+  color?: string | null
+  priority?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  parent?: Prisma.PermissionGroupCreateNestedOneWithoutChildrenInput
+  children?: Prisma.PermissionGroupCreateNestedManyWithoutParentInput
+  permissions?: Prisma.PermissionGroupPermissionCreateNestedManyWithoutGroupInput
+  users?: Prisma.UserPermissionGroupCreateNestedManyWithoutGroupInput
+  tenant?: Prisma.TenantCreateNestedOneWithoutPermissionGroupsInput
+}
+
+export type PermissionGroupUncheckedCreateWithoutFolderAccessRulesInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  isSystem?: boolean
+  isActive?: boolean
+  color?: string | null
+  priority?: number
+  parentId?: string | null
+  tenantId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  children?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutParentInput
+  permissions?: Prisma.PermissionGroupPermissionUncheckedCreateNestedManyWithoutGroupInput
+  users?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGroupInput
+}
+
+export type PermissionGroupCreateOrConnectWithoutFolderAccessRulesInput = {
+  where: Prisma.PermissionGroupWhereUniqueInput
+  create: Prisma.XOR<Prisma.PermissionGroupCreateWithoutFolderAccessRulesInput, Prisma.PermissionGroupUncheckedCreateWithoutFolderAccessRulesInput>
+}
+
+export type PermissionGroupUpsertWithoutFolderAccessRulesInput = {
+  update: Prisma.XOR<Prisma.PermissionGroupUpdateWithoutFolderAccessRulesInput, Prisma.PermissionGroupUncheckedUpdateWithoutFolderAccessRulesInput>
+  create: Prisma.XOR<Prisma.PermissionGroupCreateWithoutFolderAccessRulesInput, Prisma.PermissionGroupUncheckedCreateWithoutFolderAccessRulesInput>
+  where?: Prisma.PermissionGroupWhereInput
+}
+
+export type PermissionGroupUpdateToOneWithWhereWithoutFolderAccessRulesInput = {
+  where?: Prisma.PermissionGroupWhereInput
+  data: Prisma.XOR<Prisma.PermissionGroupUpdateWithoutFolderAccessRulesInput, Prisma.PermissionGroupUncheckedUpdateWithoutFolderAccessRulesInput>
+}
+
+export type PermissionGroupUpdateWithoutFolderAccessRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PermissionGroupUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.PermissionGroupUpdateManyWithoutParentNestedInput
+  permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
+  users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
+  tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
+}
+
+export type PermissionGroupUncheckedUpdateWithoutFolderAccessRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  children?: Prisma.PermissionGroupUncheckedUpdateManyWithoutParentNestedInput
+  permissions?: Prisma.PermissionGroupPermissionUncheckedUpdateManyWithoutGroupNestedInput
+  users?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupCreateManyParentInput = {
@@ -1150,6 +1281,7 @@ export type PermissionGroupUpdateWithoutParentInput = {
   permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
   tenant?: Prisma.TenantUpdateOneWithoutPermissionGroupsNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateWithoutParentInput = {
@@ -1168,6 +1300,7 @@ export type PermissionGroupUncheckedUpdateWithoutParentInput = {
   children?: Prisma.PermissionGroupUncheckedUpdateManyWithoutParentNestedInput
   permissions?: Prisma.PermissionGroupPermissionUncheckedUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGroupNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateManyWithoutParentInput = {
@@ -1216,6 +1349,7 @@ export type PermissionGroupUpdateWithoutTenantInput = {
   children?: Prisma.PermissionGroupUpdateManyWithoutParentNestedInput
   permissions?: Prisma.PermissionGroupPermissionUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUpdateManyWithoutGroupNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateWithoutTenantInput = {
@@ -1234,6 +1368,7 @@ export type PermissionGroupUncheckedUpdateWithoutTenantInput = {
   children?: Prisma.PermissionGroupUncheckedUpdateManyWithoutParentNestedInput
   permissions?: Prisma.PermissionGroupPermissionUncheckedUpdateManyWithoutGroupNestedInput
   users?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGroupNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type PermissionGroupUncheckedUpdateManyWithoutTenantInput = {
@@ -1260,12 +1395,14 @@ export type PermissionGroupCountOutputType = {
   children: number
   permissions: number
   users: number
+  folderAccessRules: number
 }
 
 export type PermissionGroupCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   children?: boolean | PermissionGroupCountOutputTypeCountChildrenArgs
   permissions?: boolean | PermissionGroupCountOutputTypeCountPermissionsArgs
   users?: boolean | PermissionGroupCountOutputTypeCountUsersArgs
+  folderAccessRules?: boolean | PermissionGroupCountOutputTypeCountFolderAccessRulesArgs
 }
 
 /**
@@ -1299,6 +1436,13 @@ export type PermissionGroupCountOutputTypeCountUsersArgs<ExtArgs extends runtime
   where?: Prisma.UserPermissionGroupWhereInput
 }
 
+/**
+ * PermissionGroupCountOutputType without action
+ */
+export type PermissionGroupCountOutputTypeCountFolderAccessRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FolderAccessRuleWhereInput
+}
+
 
 export type PermissionGroupSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1319,6 +1463,7 @@ export type PermissionGroupSelect<ExtArgs extends runtime.Types.Extensions.Inter
   permissions?: boolean | Prisma.PermissionGroup$permissionsArgs<ExtArgs>
   users?: boolean | Prisma.PermissionGroup$usersArgs<ExtArgs>
   tenant?: boolean | Prisma.PermissionGroup$tenantArgs<ExtArgs>
+  folderAccessRules?: boolean | Prisma.PermissionGroup$folderAccessRulesArgs<ExtArgs>
   _count?: boolean | Prisma.PermissionGroupCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["permissionGroup"]>
 
@@ -1381,6 +1526,7 @@ export type PermissionGroupInclude<ExtArgs extends runtime.Types.Extensions.Inte
   permissions?: boolean | Prisma.PermissionGroup$permissionsArgs<ExtArgs>
   users?: boolean | Prisma.PermissionGroup$usersArgs<ExtArgs>
   tenant?: boolean | Prisma.PermissionGroup$tenantArgs<ExtArgs>
+  folderAccessRules?: boolean | Prisma.PermissionGroup$folderAccessRulesArgs<ExtArgs>
   _count?: boolean | Prisma.PermissionGroupCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PermissionGroupIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1400,6 +1546,7 @@ export type $PermissionGroupPayload<ExtArgs extends runtime.Types.Extensions.Int
     permissions: Prisma.$PermissionGroupPermissionPayload<ExtArgs>[]
     users: Prisma.$UserPermissionGroupPayload<ExtArgs>[]
     tenant: Prisma.$TenantPayload<ExtArgs> | null
+    folderAccessRules: Prisma.$FolderAccessRulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1814,6 +1961,7 @@ export interface Prisma__PermissionGroupClient<T, Null = never, ExtArgs extends 
   permissions<T extends Prisma.PermissionGroup$permissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PermissionGroup$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PermissionGroupPermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   users<T extends Prisma.PermissionGroup$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PermissionGroup$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPermissionGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tenant<T extends Prisma.PermissionGroup$tenantArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PermissionGroup$tenantArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  folderAccessRules<T extends Prisma.PermissionGroup$folderAccessRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PermissionGroup$folderAccessRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FolderAccessRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2359,6 +2507,30 @@ export type PermissionGroup$tenantArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.TenantInclude<ExtArgs> | null
   where?: Prisma.TenantWhereInput
+}
+
+/**
+ * PermissionGroup.folderAccessRules
+ */
+export type PermissionGroup$folderAccessRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FolderAccessRule
+   */
+  select?: Prisma.FolderAccessRuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FolderAccessRule
+   */
+  omit?: Prisma.FolderAccessRuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FolderAccessRuleInclude<ExtArgs> | null
+  where?: Prisma.FolderAccessRuleWhereInput
+  orderBy?: Prisma.FolderAccessRuleOrderByWithRelationInput | Prisma.FolderAccessRuleOrderByWithRelationInput[]
+  cursor?: Prisma.FolderAccessRuleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FolderAccessRuleScalarFieldEnum | Prisma.FolderAccessRuleScalarFieldEnum[]
 }
 
 /**

@@ -3500,7 +3500,9 @@ model Tenant {
   storageFiles       StorageFile[]
   folderAccessRules  FolderAccessRule[]
   // Calendar domain
-  calendarEvents     CalendarEvent[]
+  calendarEvents      CalendarEvent[]
+  eventParticipants   EventParticipant[]
+  eventReminders      EventReminder[]
 
   // Email domain
   emailAccounts        EmailAccount[]
@@ -4178,6 +4180,7 @@ model CalendarEvent {
   visibility       EventVisibility @default(PUBLIC)
   color            String?         @db.VarChar(7)
   rrule            String?         @db.VarChar(512)
+  timezone         String?         @db.VarChar(64)
   systemSourceType String?         @map("system_source_type") @db.VarChar(64)
   systemSourceId   String?         @map("system_source_id") @db.VarChar(36)
   metadata         Json            @default("{}")
@@ -4202,6 +4205,7 @@ model CalendarEvent {
 
 model EventParticipant {
   id          String            @id @default(uuid())
+  tenantId    String            @map("tenant_id")
   eventId     String            @map("event_id")
   userId      String            @map("user_id")
   role        ParticipantRole   @default(GUEST)
@@ -4210,10 +4214,12 @@ model EventParticipant {
   createdAt   DateTime          @default(now()) @map("created_at")
   updatedAt   DateTime          @updatedAt @map("updated_at")
 
-  event CalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  user  User          @relation(fields: [userId], references: [id])
+  tenant Tenant        @relation(fields: [tenantId], references: [id])
+  event  CalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user   User          @relation(fields: [userId], references: [id])
 
   @@unique([eventId, userId])
+  @@index([tenantId])
   @@index([eventId])
   @@index([userId])
   @@index([status])
@@ -4222,6 +4228,7 @@ model EventParticipant {
 
 model EventReminder {
   id            String    @id @default(uuid())
+  tenantId      String    @map("tenant_id")
   eventId       String    @map("event_id")
   userId        String    @map("user_id")
   minutesBefore Int       @map("minutes_before")
@@ -4229,10 +4236,12 @@ model EventReminder {
   sentAt        DateTime? @map("sent_at")
   createdAt     DateTime  @default(now()) @map("created_at")
 
-  event CalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  user  User          @relation(fields: [userId], references: [id])
+  tenant Tenant        @relation(fields: [tenantId], references: [id])
+  event  CalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user   User          @relation(fields: [userId], references: [id])
 
   @@unique([eventId, userId, minutesBefore])
+  @@index([tenantId])
   @@index([eventId])
   @@index([userId])
   @@index([isSent, eventId])

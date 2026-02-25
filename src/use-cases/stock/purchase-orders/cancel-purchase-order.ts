@@ -4,6 +4,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { PurchaseOrderDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
 import { purchaseOrderToDTO } from '@/mappers/stock/purchase-order/purchase-order-to-dto';
 import type { PurchaseOrdersRepository } from '@/repositories/stock/purchase-orders-repository';
+import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 interface CancelPurchaseOrderUseCaseRequest {
   tenantId: string;
@@ -15,7 +16,10 @@ interface CancelPurchaseOrderUseCaseResponse {
 }
 
 export class CancelPurchaseOrderUseCase {
-  constructor(private purchaseOrdersRepository: PurchaseOrdersRepository) {}
+  constructor(
+    private purchaseOrdersRepository: PurchaseOrdersRepository,
+    private calendarSyncService?: CalendarSyncService,
+  ) {}
 
   async execute(
     request: CancelPurchaseOrderUseCaseRequest,
@@ -41,6 +45,19 @@ export class CancelPurchaseOrderUseCase {
     }
 
     await this.purchaseOrdersRepository.save(purchaseOrder);
+
+    // Remove calendar event (non-blocking)
+    if (this.calendarSyncService) {
+      try {
+        await this.calendarSyncService.removeSystemEvent(
+          tenantId,
+          'STOCK_PO',
+          id,
+        );
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
+    }
 
     return { purchaseOrder: purchaseOrderToDTO(purchaseOrder) };
   }

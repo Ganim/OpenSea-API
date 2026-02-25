@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
+import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 export interface CancelAbsenceRequest {
   tenantId: string;
@@ -16,6 +17,7 @@ export class CancelAbsenceUseCase {
   constructor(
     private absencesRepository: AbsencesRepository,
     private vacationPeriodsRepository: VacationPeriodsRepository,
+    private calendarSyncService?: CalendarSyncService,
   ) {}
 
   async execute(request: CancelAbsenceRequest): Promise<CancelAbsenceResponse> {
@@ -50,6 +52,19 @@ export class CancelAbsenceUseCase {
     // Cancel the absence
     absence.cancel();
     await this.absencesRepository.save(absence);
+
+    // Remove calendar event (non-blocking)
+    if (this.calendarSyncService) {
+      try {
+        await this.calendarSyncService.removeSystemEvent(
+          tenantId,
+          'HR_ABSENCE',
+          absenceId,
+        );
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
+    }
 
     return {
       absence,

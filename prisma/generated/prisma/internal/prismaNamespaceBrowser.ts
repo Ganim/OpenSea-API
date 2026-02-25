@@ -138,7 +138,19 @@ export const ModelName = {
   Loan: 'Loan',
   LoanInstallment: 'LoanInstallment',
   Consortium: 'Consortium',
-  ConsortiumPayment: 'ConsortiumPayment'
+  ConsortiumPayment: 'ConsortiumPayment',
+  StorageFolder: 'StorageFolder',
+  StorageFile: 'StorageFile',
+  StorageFileVersion: 'StorageFileVersion',
+  FolderAccessRule: 'FolderAccessRule',
+  CalendarEvent: 'CalendarEvent',
+  EventParticipant: 'EventParticipant',
+  EventReminder: 'EventReminder',
+  EmailAccount: 'EmailAccount',
+  EmailAccountAccess: 'EmailAccountAccess',
+  EmailFolder: 'EmailFolder',
+  EmailMessage: 'EmailMessage',
+  EmailAttachment: 'EmailAttachment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1637,6 +1649,7 @@ export const PlanScalarFieldEnum = {
   maxUsers: 'maxUsers',
   maxWarehouses: 'maxWarehouses',
   maxProducts: 'maxProducts',
+  maxStorageMb: 'maxStorageMb',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1929,6 +1942,242 @@ export const ConsortiumPaymentScalarFieldEnum = {
 } as const
 
 export type ConsortiumPaymentScalarFieldEnum = (typeof ConsortiumPaymentScalarFieldEnum)[keyof typeof ConsortiumPaymentScalarFieldEnum]
+
+
+export const StorageFolderScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  parentId: 'parentId',
+  name: 'name',
+  slug: 'slug',
+  path: 'path',
+  icon: 'icon',
+  color: 'color',
+  isSystem: 'isSystem',
+  isFilter: 'isFilter',
+  filterFileType: 'filterFileType',
+  module: 'module',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  depth: 'depth',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type StorageFolderScalarFieldEnum = (typeof StorageFolderScalarFieldEnum)[keyof typeof StorageFolderScalarFieldEnum]
+
+
+export const StorageFileScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  folderId: 'folderId',
+  name: 'name',
+  originalName: 'originalName',
+  fileKey: 'fileKey',
+  path: 'path',
+  size: 'size',
+  mimeType: 'mimeType',
+  fileType: 'fileType',
+  thumbnailKey: 'thumbnailKey',
+  status: 'status',
+  currentVersion: 'currentVersion',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  expiresAt: 'expiresAt',
+  uploadedBy: 'uploadedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type StorageFileScalarFieldEnum = (typeof StorageFileScalarFieldEnum)[keyof typeof StorageFileScalarFieldEnum]
+
+
+export const StorageFileVersionScalarFieldEnum = {
+  id: 'id',
+  fileId: 'fileId',
+  version: 'version',
+  fileKey: 'fileKey',
+  size: 'size',
+  mimeType: 'mimeType',
+  changeNote: 'changeNote',
+  uploadedBy: 'uploadedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type StorageFileVersionScalarFieldEnum = (typeof StorageFileVersionScalarFieldEnum)[keyof typeof StorageFileVersionScalarFieldEnum]
+
+
+export const FolderAccessRuleScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  folderId: 'folderId',
+  userId: 'userId',
+  groupId: 'groupId',
+  canRead: 'canRead',
+  canWrite: 'canWrite',
+  canDelete: 'canDelete',
+  canShare: 'canShare',
+  isInherited: 'isInherited',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FolderAccessRuleScalarFieldEnum = (typeof FolderAccessRuleScalarFieldEnum)[keyof typeof FolderAccessRuleScalarFieldEnum]
+
+
+export const CalendarEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  location: 'location',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isAllDay: 'isAllDay',
+  type: 'type',
+  visibility: 'visibility',
+  color: 'color',
+  rrule: 'rrule',
+  timezone: 'timezone',
+  systemSourceType: 'systemSourceType',
+  systemSourceId: 'systemSourceId',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CalendarEventScalarFieldEnum = (typeof CalendarEventScalarFieldEnum)[keyof typeof CalendarEventScalarFieldEnum]
+
+
+export const EventParticipantScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  eventId: 'eventId',
+  userId: 'userId',
+  role: 'role',
+  status: 'status',
+  respondedAt: 'respondedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EventParticipantScalarFieldEnum = (typeof EventParticipantScalarFieldEnum)[keyof typeof EventParticipantScalarFieldEnum]
+
+
+export const EventReminderScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  eventId: 'eventId',
+  userId: 'userId',
+  minutesBefore: 'minutesBefore',
+  isSent: 'isSent',
+  sentAt: 'sentAt',
+  createdAt: 'createdAt'
+} as const
+
+export type EventReminderScalarFieldEnum = (typeof EventReminderScalarFieldEnum)[keyof typeof EventReminderScalarFieldEnum]
+
+
+export const EmailAccountScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  ownerUserId: 'ownerUserId',
+  address: 'address',
+  displayName: 'displayName',
+  imapHost: 'imapHost',
+  imapPort: 'imapPort',
+  imapSecure: 'imapSecure',
+  smtpHost: 'smtpHost',
+  smtpPort: 'smtpPort',
+  smtpSecure: 'smtpSecure',
+  username: 'username',
+  encryptedSecret: 'encryptedSecret',
+  visibility: 'visibility',
+  isActive: 'isActive',
+  isDefault: 'isDefault',
+  signature: 'signature',
+  lastSyncAt: 'lastSyncAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EmailAccountScalarFieldEnum = (typeof EmailAccountScalarFieldEnum)[keyof typeof EmailAccountScalarFieldEnum]
+
+
+export const EmailAccountAccessScalarFieldEnum = {
+  id: 'id',
+  accountId: 'accountId',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  canRead: 'canRead',
+  canSend: 'canSend',
+  canManage: 'canManage',
+  createdAt: 'createdAt'
+} as const
+
+export type EmailAccountAccessScalarFieldEnum = (typeof EmailAccountAccessScalarFieldEnum)[keyof typeof EmailAccountAccessScalarFieldEnum]
+
+
+export const EmailFolderScalarFieldEnum = {
+  id: 'id',
+  accountId: 'accountId',
+  remoteName: 'remoteName',
+  displayName: 'displayName',
+  type: 'type',
+  uidValidity: 'uidValidity',
+  lastUid: 'lastUid',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EmailFolderScalarFieldEnum = (typeof EmailFolderScalarFieldEnum)[keyof typeof EmailFolderScalarFieldEnum]
+
+
+export const EmailMessageScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  accountId: 'accountId',
+  folderId: 'folderId',
+  remoteUid: 'remoteUid',
+  messageId: 'messageId',
+  threadId: 'threadId',
+  fromAddress: 'fromAddress',
+  fromName: 'fromName',
+  toAddresses: 'toAddresses',
+  ccAddresses: 'ccAddresses',
+  bccAddresses: 'bccAddresses',
+  subject: 'subject',
+  snippet: 'snippet',
+  bodyText: 'bodyText',
+  bodyHtmlSanitized: 'bodyHtmlSanitized',
+  receivedAt: 'receivedAt',
+  sentAt: 'sentAt',
+  isRead: 'isRead',
+  isFlagged: 'isFlagged',
+  hasAttachments: 'hasAttachments',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EmailMessageScalarFieldEnum = (typeof EmailMessageScalarFieldEnum)[keyof typeof EmailMessageScalarFieldEnum]
+
+
+export const EmailAttachmentScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  filename: 'filename',
+  contentType: 'contentType',
+  size: 'size',
+  storageKey: 'storageKey',
+  createdAt: 'createdAt'
+} as const
+
+export type EmailAttachmentScalarFieldEnum = (typeof EmailAttachmentScalarFieldEnum)[keyof typeof EmailAttachmentScalarFieldEnum]
 
 
 export const SortOrder = {

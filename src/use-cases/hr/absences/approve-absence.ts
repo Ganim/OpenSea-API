@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Absence } from '@/entities/hr/absence';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
+import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 export interface ApproveAbsenceRequest {
   tenantId: string;
@@ -17,6 +18,7 @@ export class ApproveAbsenceUseCase {
   constructor(
     private absencesRepository: AbsencesRepository,
     private vacationPeriodsRepository: VacationPeriodsRepository,
+    private calendarSyncService?: CalendarSyncService,
   ) {}
 
   async execute(
@@ -50,6 +52,23 @@ export class ApproveAbsenceUseCase {
     // If it's a vacation, update the vacation period
     if (absence.isVacation()) {
       await this.updateVacationPeriod(absence, tenantId);
+    }
+
+    // Sync to calendar (non-blocking)
+    if (this.calendarSyncService) {
+      try {
+        await this.calendarSyncService.syncAbsence({
+          tenantId,
+          absenceId,
+          absenceType: absence.type.value,
+          employeeName: absence.employeeId.toString(),
+          startDate: absence.startDate,
+          endDate: absence.endDate,
+          userId: approvedBy,
+        });
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
     }
 
     return {

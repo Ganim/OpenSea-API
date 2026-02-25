@@ -8,6 +8,7 @@ import {
   WorkRegime,
 } from '@/entities/hr/value-objects';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
+import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 export interface CreateEmployeeRequest {
   tenantId: string;
@@ -75,7 +76,10 @@ export interface CreateEmployeeResponse {
 }
 
 export class CreateEmployeeUseCase {
-  constructor(private employeesRepository: EmployeesRepository) {}
+  constructor(
+    private employeesRepository: EmployeesRepository,
+    private calendarSyncService?: CalendarSyncService,
+  ) {}
 
   async execute(
     request: CreateEmployeeRequest,
@@ -260,6 +264,21 @@ export class CreateEmployeeUseCase {
       metadata,
       pendingIssues,
     });
+
+    // Sync birthday to calendar (non-blocking)
+    if (this.calendarSyncService && birthDate) {
+      try {
+        await this.calendarSyncService.syncBirthday({
+          tenantId,
+          employeeId: employee.id.toString(),
+          employeeName: fullName,
+          birthDate,
+          userId: userId ?? employee.id.toString(),
+        });
+      } catch {
+        // Calendar sync failure should not block the operation
+      }
+    }
 
     return {
       employee,
