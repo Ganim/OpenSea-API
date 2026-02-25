@@ -16,6 +16,7 @@ import { renameFileController } from './v1-rename-file.controller';
 import { restoreFileVersionController } from './v1-restore-file-version.controller';
 import { uploadFileController } from './v1-upload-file.controller';
 import { uploadFileVersionController } from './v1-upload-file-version.controller';
+import { searchStorageController } from './v1-search-storage.controller';
 
 export async function storageFilesRoutes(app: FastifyInstance) {
   // Admin routes with elevated rate limit
@@ -61,6 +62,7 @@ export async function storageFilesRoutes(app: FastifyInstance) {
       queryApp.register(getFileActivityController);
       queryApp.register(listFileVersionsController);
       queryApp.register(getStorageStatsController);
+      queryApp.register(searchStorageController);
     },
     { prefix: '' },
   );

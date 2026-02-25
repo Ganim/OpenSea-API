@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { applyFolderTemplateController } from './v1-apply-folder-template.controller';
@@ -17,7 +17,7 @@ import { renameFolderController } from './v1-rename-folder.controller';
 import { searchFoldersController } from './v1-search-folders.controller';
 import { updateFolderController } from './v1-update-folder.controller';
 
-export async function storageFoldersRoutes() {
+export async function storageFoldersRoutes(app: FastifyInstance) {
   // Admin routes with elevated rate limit
   app.register(
     async (adminApp) => {

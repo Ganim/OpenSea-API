@@ -6,6 +6,7 @@ import { labelTemplatesRoutes } from './controllers/core/label-templates/routes'
 import { meRoutes } from './controllers/core/me/routes';
 import { sessionsRoutes } from './controllers/core/sessions/routes';
 import { tenantsRoutes } from './controllers/core/tenants/routes';
+import { teamsRoutes } from './controllers/core/teams/routes';
 import { usersRoutes } from './controllers/core/users/routes';
 import { healthRoutes } from './controllers/health/routes';
 
@@ -58,6 +59,9 @@ import { zonesRoutes } from './controllers/stock/zones/routes';
 import { storageAccessRoutes } from './controllers/storage/access/routes';
 import { storageFilesRoutes } from './controllers/storage/files/routes';
 import { storageFoldersRoutes } from './controllers/storage/folders/routes';
+import { storageTrashRoutes } from './controllers/storage/trash/routes';
+import { storageSharingRoutes } from './controllers/storage/sharing/routes';
+import { storagePublicRoutes } from './controllers/storage/public/routes';
 
 // Finance routes
 import { financeAttachmentsRoutes } from './controllers/finance/attachments/routes';
@@ -108,6 +112,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(sessionsRoutes);
   await app.register(labelTemplatesRoutes);
   await app.register(tenantsRoutes);
+  await app.register(teamsRoutes);
 
   // Admin routes
   await app.register(adminRoutes);
@@ -172,6 +177,9 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(storageFoldersRoutes);
   await app.register(storageFilesRoutes);
   await app.register(storageAccessRoutes);
+  await app.register(storageTrashRoutes);
+  await app.register(storageSharingRoutes);
+  await app.register(storagePublicRoutes);
 
   // HR routes
   await app.register(employeesRoutes);
