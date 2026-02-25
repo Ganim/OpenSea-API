@@ -3,6 +3,10 @@ import {
   PutObjectCommand,
   DeleteObjectCommand,
   GetObjectCommand,
+  CreateMultipartUploadCommand,
+  UploadPartCommand,
+  CompleteMultipartUploadCommand,
+  AbortMultipartUploadCommand,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { randomUUID } from 'node:crypto';
@@ -12,6 +16,9 @@ import { env } from '@/@env';
 
 import type {
   FileUploadService,
+  MultipartCompletePart,
+  MultipartPartUrl,
+  MultipartUploadInit,
   UploadOptions,
   UploadResult,
 } from './file-upload-service';
@@ -177,5 +184,99 @@ export class S3FileUploadService implements FileUploadService {
     });
 
     await this.s3Client.send(deleteCommand);
+  }
+
+  // --- Multipart Upload ---
+
+  async initiateMultipartUpload(
+    fileName: string,
+    mimeType: string,
+    options: UploadOptions,
+  ): Promise<MultipartUploadInit> {
+    const sanitizedFileName = fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const objectKey = `${options.prefix}/${randomUUID()}-${sanitizedFileName}`;
+
+    const command = new CreateMultipartUploadCommand({
+      Bucket: this.bucket,
+      Key: objectKey,
+      ContentType: mimeType,
+    });
+
+    const response = await this.s3Client.send(command);
+
+    if (!response.UploadId) {
+      throw new Error('Failed to initiate multipart upload');
+    }
+
+    return {
+      uploadId: response.UploadId,
+      key: objectKey,
+    };
+  }
+
+  async getPresignedPartUrls(
+    key: string,
+    uploadId: string,
+    totalParts: number,
+  ): Promise<MultipartPartUrl[]> {
+    const urls: MultipartPartUrl[] = [];
+
+    for (let i = 1; i <= totalParts; i++) {
+      const command = new UploadPartCommand({
+        Bucket: this.bucket,
+        Key: key,
+        UploadId: uploadId,
+        PartNumber: i,
+      });
+
+      const url = await getSignedUrl(this.s3Client, command, {
+        expiresIn: 3600, // 1 hour
+      });
+
+      urls.push({ partNumber: i, url });
+    }
+
+    return urls;
+  }
+
+  async completeMultipartUpload(
+    key: string,
+    uploadId: string,
+    parts: MultipartCompletePart[],
+  ): Promise<UploadResult> {
+    const command = new CompleteMultipartUploadCommand({
+      Bucket: this.bucket,
+      Key: key,
+      UploadId: uploadId,
+      MultipartUpload: {
+        Parts: parts
+          .sort((a, b) => a.partNumber - b.partNumber)
+          .map((p) => ({
+            PartNumber: p.partNumber,
+            ETag: p.etag,
+          })),
+      },
+    });
+
+    await this.s3Client.send(command);
+
+    const objectUrl = `${this.endpoint}/${this.bucket}/${key}`;
+
+    return {
+      key,
+      url: objectUrl,
+      size: 0, // Caller should set actual size
+      mimeType: '', // Caller should set actual mimeType
+    };
+  }
+
+  async abortMultipartUpload(key: string, uploadId: string): Promise<void> {
+    const command = new AbortMultipartUploadCommand({
+      Bucket: this.bucket,
+      Key: key,
+      UploadId: uploadId,
+    });
+
+    await this.s3Client.send(command);
   }
 }

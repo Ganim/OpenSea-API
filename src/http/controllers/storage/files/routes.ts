@@ -18,6 +18,8 @@ import { uploadFileController } from './v1-upload-file.controller';
 import { uploadFileRootController } from './v1-upload-file-root.controller';
 import { uploadFileVersionController } from './v1-upload-file-version.controller';
 import { searchStorageController } from './v1-search-storage.controller';
+import { initiateMultipartUploadController } from './v1-initiate-multipart-upload.controller';
+import { completeMultipartUploadController, abortMultipartUploadController } from './v1-complete-multipart-upload.controller';
 
 export async function storageFilesRoutes(app: FastifyInstance) {
   // Admin routes with elevated rate limit
@@ -37,6 +39,9 @@ export async function storageFilesRoutes(app: FastifyInstance) {
       heavyApp.register(uploadFileController);
       heavyApp.register(uploadFileRootController);
       heavyApp.register(uploadFileVersionController);
+      heavyApp.register(initiateMultipartUploadController);
+      heavyApp.register(completeMultipartUploadController);
+      heavyApp.register(abortMultipartUploadController);
     },
     { prefix: '' },
   );

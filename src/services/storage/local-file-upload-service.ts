@@ -4,6 +4,9 @@ import { randomUUID } from 'node:crypto';
 
 import type {
   FileUploadService,
+  MultipartCompletePart,
+  MultipartPartUrl,
+  MultipartUploadInit,
   UploadOptions,
   UploadResult,
 } from './file-upload-service';
@@ -63,5 +66,43 @@ export class LocalFileUploadService implements FileUploadService {
     const absoluteFilePath = join(UPLOADS_BASE_DIR, key);
 
     unlinkSync(absoluteFilePath);
+  }
+
+  // --- Multipart Upload (not supported in local dev, stubs only) ---
+
+  async initiateMultipartUpload(
+    _fileName: string,
+    _mimeType: string,
+    _options: UploadOptions,
+  ): Promise<MultipartUploadInit> {
+    throw new Error(
+      'Multipart upload is not supported in local file storage. Use S3 for large file uploads.',
+    );
+  }
+
+  async getPresignedPartUrls(
+    _key: string,
+    _uploadId: string,
+    _totalParts: number,
+  ): Promise<MultipartPartUrl[]> {
+    throw new Error(
+      'Multipart upload is not supported in local file storage. Use S3 for large file uploads.',
+    );
+  }
+
+  async completeMultipartUpload(
+    _key: string,
+    _uploadId: string,
+    _parts: MultipartCompletePart[],
+  ): Promise<UploadResult> {
+    throw new Error(
+      'Multipart upload is not supported in local file storage. Use S3 for large file uploads.',
+    );
+  }
+
+  async abortMultipartUpload(_key: string, _uploadId: string): Promise<void> {
+    throw new Error(
+      'Multipart upload is not supported in local file storage. Use S3 for large file uploads.',
+    );
   }
 }
