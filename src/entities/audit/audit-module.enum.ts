@@ -9,6 +9,7 @@ export enum AuditModule {
   REQUESTS = 'REQUESTS',
   NOTIFICATIONS = 'NOTIFICATIONS',
   FINANCE = 'FINANCE',
+  STORAGE = 'STORAGE',
   SYSTEM = 'SYSTEM',
   OTHER = 'OTHER',
 }

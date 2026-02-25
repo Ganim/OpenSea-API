@@ -39,17 +39,23 @@ export class RenameFileUseCase {
       throw new ResourceNotFoundError('File not found');
     }
 
-    const folder = await this.storageFoldersRepository.findById(
-      file.folderId,
-      tenantId,
-    );
-
-    if (!folder) {
-      throw new ResourceNotFoundError('Parent folder not found');
-    }
-
     const newSlug = name.toLowerCase().trim().replace(/\s+/g, '-');
-    const newPath = folder.buildChildPath(newSlug);
+    let newPath: string;
+
+    if (file.folderId) {
+      const folder = await this.storageFoldersRepository.findById(
+        file.folderId,
+        tenantId,
+      );
+
+      if (!folder) {
+        throw new ResourceNotFoundError('Parent folder not found');
+      }
+
+      newPath = folder.buildChildPath(newSlug);
+    } else {
+      newPath = `/${newSlug}`;
+    }
 
     const updatedFile = await this.storageFilesRepository.update({
       id: file.id,

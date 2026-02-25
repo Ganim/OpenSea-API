@@ -317,4 +317,77 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
 
     return whereClause;
   }
+
+  async findDeletedById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<StorageFile | null> {
+    const fileDb = await prisma.storageFile.findFirst({
+      where: {
+        id: id.toString(),
+        tenantId,
+        deletedAt: { not: null },
+      },
+    });
+    return fileDb ? storageFilePrismaToDomain(fileDb) : null;
+  }
+
+  async findDeleted(
+    tenantId: string,
+    page = 1,
+    limit = 20,
+  ): Promise<{ files: StorageFile[]; total: number }> {
+    const [filesDb, total] = await Promise.all([
+      prisma.storageFile.findMany({
+        where: { tenantId, deletedAt: { not: null } },
+        orderBy: { deletedAt: 'desc' },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+      prisma.storageFile.count({
+        where: { tenantId, deletedAt: { not: null } },
+      }),
+    ]);
+    return { files: filesDb.map(storageFilePrismaToDomain), total };
+  }
+
+  async restore(id: UniqueEntityID): Promise<void> {
+    await prisma.storageFile.update({
+      where: { id: id.toString() },
+      data: { deletedAt: null, status: 'ACTIVE' },
+    });
+  }
+
+  async restoreByFolderIds(
+    folderIds: string[],
+    tenantId: string,
+  ): Promise<number> {
+    const result = await prisma.storageFile.updateMany({
+      where: {
+        tenantId,
+        folderId: { in: folderIds },
+        deletedAt: { not: null },
+      },
+      data: { deletedAt: null, status: 'ACTIVE' },
+    });
+    return result.count;
+  }
+
+  async hardDeleteAllSoftDeleted(
+    tenantId: string,
+  ): Promise<{ count: number; fileKeys: string[] }> {
+    const deletedFiles = await prisma.storageFile.findMany({
+      where: { tenantId, deletedAt: { not: null } },
+      select: { id: true, fileKey: true },
+    });
+    const fileKeys = deletedFiles.map((f) => f.fileKey);
+    if (deletedFiles.length > 0) {
+      await prisma.storageFile.deleteMany({
+        where: {
+          id: { in: deletedFiles.map((f) => f.id) },
+        },
+      });
+    }
+    return { count: deletedFiles.length, fileKeys };
+  }
 }

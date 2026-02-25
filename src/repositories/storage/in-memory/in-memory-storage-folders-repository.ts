@@ -214,15 +214,91 @@ export class InMemoryStorageFoldersRepository
   }
 
   async countFiles(folderId: UniqueEntityID): Promise<number> {
-    // In-memory folder repository cannot directly count files as that
-    // requires cross-repository access. This returns the count of
-    // child folders instead. For file counting in tests, use
-    // InMemoryStorageFilesRepository.countByFolder() directly.
     return this.items.filter(
       (item) =>
         item.deletedAt === null &&
         item.parentId !== null &&
         item.parentId.equals(folderId),
     ).length;
+  }
+
+  async search(
+    tenantId: string,
+    query: string,
+    limit = 20,
+  ): Promise<StorageFolder[]> {
+    const lowerQuery = query.toLowerCase();
+    return this.items
+      .filter(
+        (item) =>
+          item.deletedAt === null &&
+          item.tenantId.toString() === tenantId &&
+          item.name.toLowerCase().includes(lowerQuery),
+      )
+      .slice(0, limit);
+  }
+
+  async findDeletedById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<StorageFolder | null> {
+    const folder = this.items.find(
+      (item) =>
+        item.deletedAt !== null &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
+    );
+    return folder ?? null;
+  }
+
+  async findDeleted(
+    tenantId: string,
+    page = 1,
+    limit = 20,
+  ): Promise<{ folders: StorageFolder[]; total: number }> {
+    const deleted = this.items.filter(
+      (item) =>
+        item.deletedAt !== null && item.tenantId.toString() === tenantId,
+    );
+    const total = deleted.length;
+    const startIndex = (page - 1) * limit;
+    const folders = deleted.slice(startIndex, startIndex + limit);
+    return { folders, total };
+  }
+
+  async restore(id: UniqueEntityID): Promise<void> {
+    const folder = this.items.find(
+      (item) => item.deletedAt !== null && item.id.equals(id),
+    );
+    if (folder) {
+      folder.props.deletedAt = null;
+    }
+  }
+
+  async batchRestore(folderIds: string[]): Promise<number> {
+    let count = 0;
+    for (const id of folderIds) {
+      const folder = this.items.find(
+        (item) => item.deletedAt !== null && item.id.toString() === id,
+      );
+      if (folder) {
+        folder.props.deletedAt = null;
+        count++;
+      }
+    }
+    return count;
+  }
+
+  async hardDeleteAllSoftDeleted(tenantId: string): Promise<number> {
+    const deleted = this.items.filter(
+      (item) =>
+        item.deletedAt !== null && item.tenantId.toString() === tenantId,
+    );
+    const count = deleted.length;
+    this.items = this.items.filter(
+      (item) =>
+        !(item.deletedAt !== null && item.tenantId.toString() === tenantId),
+    );
+    return count;
   }
 }

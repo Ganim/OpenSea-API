@@ -343,6 +343,7 @@ export type StorageFileWhereInput = {
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   folder?: Prisma.XOR<Prisma.StorageFolderNullableScalarRelationFilter, Prisma.StorageFolderWhereInput> | null
   versions?: Prisma.StorageFileVersionListRelationFilter
+  shareLinks?: Prisma.StorageShareLinkListRelationFilter
 }
 
 export type StorageFileOrderByWithRelationInput = {
@@ -369,6 +370,7 @@ export type StorageFileOrderByWithRelationInput = {
   tenant?: Prisma.TenantOrderByWithRelationInput
   folder?: Prisma.StorageFolderOrderByWithRelationInput
   versions?: Prisma.StorageFileVersionOrderByRelationAggregateInput
+  shareLinks?: Prisma.StorageShareLinkOrderByRelationAggregateInput
 }
 
 export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
@@ -399,6 +401,7 @@ export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   folder?: Prisma.XOR<Prisma.StorageFolderNullableScalarRelationFilter, Prisma.StorageFolderWhereInput> | null
   versions?: Prisma.StorageFileVersionListRelationFilter
+  shareLinks?: Prisma.StorageShareLinkListRelationFilter
 }, "id" | "storage_files_path_tenant_unique">
 
 export type StorageFileOrderByWithAggregationInput = {
@@ -477,6 +480,7 @@ export type StorageFileCreateInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
   folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
 }
 
 export type StorageFileUncheckedCreateInput = {
@@ -501,6 +505,7 @@ export type StorageFileUncheckedCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
 }
 
 export type StorageFileUpdateInput = {
@@ -525,6 +530,7 @@ export type StorageFileUpdateInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
   folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateInput = {
@@ -549,6 +555,7 @@ export type StorageFileUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileCreateManyInput = {
@@ -820,6 +827,20 @@ export type StorageFileUpdateOneRequiredWithoutVersionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutVersionsInput, Prisma.StorageFileUpdateWithoutVersionsInput>, Prisma.StorageFileUncheckedUpdateWithoutVersionsInput>
 }
 
+export type StorageFileCreateNestedOneWithoutShareLinksInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutShareLinksInput, Prisma.StorageFileUncheckedCreateWithoutShareLinksInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutShareLinksInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+}
+
+export type StorageFileUpdateOneRequiredWithoutShareLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFileCreateWithoutShareLinksInput, Prisma.StorageFileUncheckedCreateWithoutShareLinksInput>
+  connectOrCreate?: Prisma.StorageFileCreateOrConnectWithoutShareLinksInput
+  upsert?: Prisma.StorageFileUpsertWithoutShareLinksInput
+  connect?: Prisma.StorageFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFileUpdateToOneWithWhereWithoutShareLinksInput, Prisma.StorageFileUpdateWithoutShareLinksInput>, Prisma.StorageFileUncheckedUpdateWithoutShareLinksInput>
+}
+
 export type StorageFileCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -841,6 +862,7 @@ export type StorageFileCreateWithoutTenantInput = {
   deletedAt?: Date | string | null
   folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutTenantInput = {
@@ -864,6 +886,7 @@ export type StorageFileUncheckedCreateWithoutTenantInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutTenantInput = {
@@ -939,6 +962,7 @@ export type StorageFileCreateWithoutFolderInput = {
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
   versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutFolderInput = {
@@ -962,6 +986,7 @@ export type StorageFileUncheckedCreateWithoutFolderInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutFolderInput = {
@@ -1011,6 +1036,7 @@ export type StorageFileCreateWithoutVersionsInput = {
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
   folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
+  shareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutFileInput
 }
 
 export type StorageFileUncheckedCreateWithoutVersionsInput = {
@@ -1034,6 +1060,7 @@ export type StorageFileUncheckedCreateWithoutVersionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  shareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutFileInput
 }
 
 export type StorageFileCreateOrConnectWithoutVersionsInput = {
@@ -1073,6 +1100,7 @@ export type StorageFileUpdateWithoutVersionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
   folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutVersionsInput = {
@@ -1096,6 +1124,119 @@ export type StorageFileUncheckedUpdateWithoutVersionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
+}
+
+export type StorageFileCreateWithoutShareLinksInput = {
+  id?: string
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutStorageFilesInput
+  folder?: Prisma.StorageFolderCreateNestedOneWithoutFilesInput
+  versions?: Prisma.StorageFileVersionCreateNestedManyWithoutFileInput
+}
+
+export type StorageFileUncheckedCreateWithoutShareLinksInput = {
+  id?: string
+  tenantId: string
+  folderId?: string | null
+  name: string
+  originalName: string
+  fileKey: string
+  path: string
+  size: number
+  mimeType: string
+  fileType: string
+  thumbnailKey?: string | null
+  status?: $Enums.StorageFileStatus
+  currentVersion?: number
+  entityType?: string | null
+  entityId?: string | null
+  expiresAt?: Date | string | null
+  uploadedBy: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedCreateNestedManyWithoutFileInput
+}
+
+export type StorageFileCreateOrConnectWithoutShareLinksInput = {
+  where: Prisma.StorageFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutShareLinksInput, Prisma.StorageFileUncheckedCreateWithoutShareLinksInput>
+}
+
+export type StorageFileUpsertWithoutShareLinksInput = {
+  update: Prisma.XOR<Prisma.StorageFileUpdateWithoutShareLinksInput, Prisma.StorageFileUncheckedUpdateWithoutShareLinksInput>
+  create: Prisma.XOR<Prisma.StorageFileCreateWithoutShareLinksInput, Prisma.StorageFileUncheckedCreateWithoutShareLinksInput>
+  where?: Prisma.StorageFileWhereInput
+}
+
+export type StorageFileUpdateToOneWithWhereWithoutShareLinksInput = {
+  where?: Prisma.StorageFileWhereInput
+  data: Prisma.XOR<Prisma.StorageFileUpdateWithoutShareLinksInput, Prisma.StorageFileUncheckedUpdateWithoutShareLinksInput>
+}
+
+export type StorageFileUpdateWithoutShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
+  versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+}
+
+export type StorageFileUncheckedUpdateWithoutShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnailKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStorageFileStatusFieldUpdateOperationsInput | $Enums.StorageFileStatus
+  currentVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileCreateManyTenantInput = {
@@ -1141,6 +1282,7 @@ export type StorageFileUpdateWithoutTenantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   folder?: Prisma.StorageFolderUpdateOneWithoutFilesNestedInput
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutTenantInput = {
@@ -1164,6 +1306,7 @@ export type StorageFileUncheckedUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateManyWithoutTenantInput = {
@@ -1231,6 +1374,7 @@ export type StorageFileUpdateWithoutFolderInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFilesNestedInput
   versions?: Prisma.StorageFileVersionUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateWithoutFolderInput = {
@@ -1254,6 +1398,7 @@ export type StorageFileUncheckedUpdateWithoutFolderInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   versions?: Prisma.StorageFileVersionUncheckedUpdateManyWithoutFileNestedInput
+  shareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutFileNestedInput
 }
 
 export type StorageFileUncheckedUpdateManyWithoutFolderInput = {
@@ -1285,10 +1430,12 @@ export type StorageFileUncheckedUpdateManyWithoutFolderInput = {
 
 export type StorageFileCountOutputType = {
   versions: number
+  shareLinks: number
 }
 
 export type StorageFileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   versions?: boolean | StorageFileCountOutputTypeCountVersionsArgs
+  shareLinks?: boolean | StorageFileCountOutputTypeCountShareLinksArgs
 }
 
 /**
@@ -1306,6 +1453,13 @@ export type StorageFileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
  */
 export type StorageFileCountOutputTypeCountVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StorageFileVersionWhereInput
+}
+
+/**
+ * StorageFileCountOutputType without action
+ */
+export type StorageFileCountOutputTypeCountShareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StorageShareLinkWhereInput
 }
 
 
@@ -1333,6 +1487,7 @@ export type StorageFileSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   folder?: boolean | Prisma.StorageFile$folderArgs<ExtArgs>
   versions?: boolean | Prisma.StorageFile$versionsArgs<ExtArgs>
+  shareLinks?: boolean | Prisma.StorageFile$shareLinksArgs<ExtArgs>
   _count?: boolean | Prisma.StorageFileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storageFile"]>
 
@@ -1414,6 +1569,7 @@ export type StorageFileInclude<ExtArgs extends runtime.Types.Extensions.Internal
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   folder?: boolean | Prisma.StorageFile$folderArgs<ExtArgs>
   versions?: boolean | Prisma.StorageFile$versionsArgs<ExtArgs>
+  shareLinks?: boolean | Prisma.StorageFile$shareLinksArgs<ExtArgs>
   _count?: boolean | Prisma.StorageFileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StorageFileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1431,6 +1587,7 @@ export type $StorageFilePayload<ExtArgs extends runtime.Types.Extensions.Interna
     tenant: Prisma.$TenantPayload<ExtArgs>
     folder: Prisma.$StorageFolderPayload<ExtArgs> | null
     versions: Prisma.$StorageFileVersionPayload<ExtArgs>[]
+    shareLinks: Prisma.$StorageShareLinkPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1850,6 +2007,7 @@ export interface Prisma__StorageFileClient<T, Null = never, ExtArgs extends runt
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   folder<T extends Prisma.StorageFile$folderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$folderArgs<ExtArgs>>): Prisma.Prisma__StorageFolderClient<runtime.Types.Result.GetResult<Prisma.$StorageFolderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   versions<T extends Prisma.StorageFile$versionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageFileVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shareLinks<T extends Prisma.StorageFile$shareLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFile$shareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2335,6 +2493,30 @@ export type StorageFile$versionsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.StorageFileVersionScalarFieldEnum | Prisma.StorageFileVersionScalarFieldEnum[]
+}
+
+/**
+ * StorageFile.shareLinks
+ */
+export type StorageFile$shareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StorageShareLink
+   */
+  select?: Prisma.StorageShareLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StorageShareLink
+   */
+  omit?: Prisma.StorageShareLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StorageShareLinkInclude<ExtArgs> | null
+  where?: Prisma.StorageShareLinkWhereInput
+  orderBy?: Prisma.StorageShareLinkOrderByWithRelationInput | Prisma.StorageShareLinkOrderByWithRelationInput[]
+  cursor?: Prisma.StorageShareLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StorageShareLinkScalarFieldEnum | Prisma.StorageShareLinkScalarFieldEnum[]
 }
 
 /**

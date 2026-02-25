@@ -44,7 +44,7 @@ export class UploadFileVersionUseCase {
       throw new ResourceNotFoundError('File not found');
     }
 
-    const uploadPrefix = `storage/${tenantId}/${existingFile.folderId.toString()}`;
+    const uploadPrefix = `storage/${tenantId}/${existingFile.folderId?.toString() ?? 'root'}`;
     const uploadResult = await this.fileUploadService.upload(
       file.buffer,
       file.filename,

@@ -133,6 +133,15 @@ export enum AuditEntity {
   CONSORTIUM_PAYMENT = 'CONSORTIUM_PAYMENT',
 
   // ==========================================
+  // Storage - Armazenamento
+  // ==========================================
+  STORAGE_FOLDER = 'STORAGE_FOLDER',
+  STORAGE_FILE = 'STORAGE_FILE',
+  STORAGE_FILE_VERSION = 'STORAGE_FILE_VERSION',
+  FOLDER_ACCESS_RULE = 'FOLDER_ACCESS_RULE',
+  STORAGE_SHARE_LINK = 'STORAGE_SHARE_LINK',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',

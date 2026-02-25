@@ -478,6 +478,11 @@ export type StorageFileVersion = Prisma.StorageFileVersionModel
  */
 export type FolderAccessRule = Prisma.FolderAccessRuleModel
 /**
+ * Model StorageShareLink
+ * 
+ */
+export type StorageShareLink = Prisma.StorageShareLinkModel
+/**
  * Model CalendarEvent
  * 
  */

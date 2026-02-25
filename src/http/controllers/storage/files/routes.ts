@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { bulkDeleteItemsController } from './v1-bulk-delete-items.controller';
@@ -17,7 +17,7 @@ import { restoreFileVersionController } from './v1-restore-file-version.controll
 import { uploadFileController } from './v1-upload-file.controller';
 import { uploadFileVersionController } from './v1-upload-file-version.controller';
 
-export async function storageFilesRoutes() {
+export async function storageFilesRoutes(app: FastifyInstance) {
   // Admin routes with elevated rate limit
   app.register(
     async (adminApp) => {

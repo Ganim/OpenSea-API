@@ -56,7 +56,7 @@ describe('MoveFileUseCase', () => {
       targetFolderId: targetFolder.id.toString(),
     });
 
-    expect(result.file.folderId.toString()).toBe(targetFolder.id.toString());
+    expect(result.file.folderId?.toString()).toBe(targetFolder.id.toString());
     expect(result.file.path).toContain('archives');
   });
 

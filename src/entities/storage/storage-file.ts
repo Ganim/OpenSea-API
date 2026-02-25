@@ -7,7 +7,7 @@ import { StorageFileStatus } from './value-objects/storage-file-status';
 export interface StorageFileProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
-  folderId: UniqueEntityID;
+  folderId: UniqueEntityID | null;
   name: string;
   originalName: string;
   fileKey: string;
@@ -38,7 +38,7 @@ export class StorageFile extends Entity<StorageFileProps> {
     return this.props.tenantId;
   }
 
-  get folderId(): UniqueEntityID {
+  get folderId(): UniqueEntityID | null {
     return this.props.folderId;
   }
 
@@ -115,7 +115,7 @@ export class StorageFile extends Entity<StorageFileProps> {
   }
 
   // Setters
-  set folderId(folderId: UniqueEntityID) {
+  set folderId(folderId: UniqueEntityID | null) {
     this.props.folderId = folderId;
     this.touch();
   }

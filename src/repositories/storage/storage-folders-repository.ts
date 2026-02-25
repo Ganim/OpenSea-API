@@ -63,4 +63,22 @@ export interface StorageFoldersRepository {
   ): Promise<number>;
   batchSoftDelete(folderIds: string[]): Promise<number>;
   countFiles(folderId: UniqueEntityID): Promise<number>;
+  search(
+    tenantId: string,
+    query: string,
+    limit?: number,
+  ): Promise<StorageFolder[]>;
+  // Trash methods
+  findDeletedById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<StorageFolder | null>;
+  findDeleted(
+    tenantId: string,
+    page?: number,
+    limit?: number,
+  ): Promise<{ folders: StorageFolder[]; total: number }>;
+  restore(id: UniqueEntityID): Promise<void>;
+  batchRestore(folderIds: string[]): Promise<number>;
+  hardDeleteAllSoftDeleted(tenantId: string): Promise<number>;
 }

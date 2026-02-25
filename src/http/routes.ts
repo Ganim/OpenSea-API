@@ -73,10 +73,10 @@ import { loansRoutes } from './controllers/finance/loans/routes';
 // Calendar routes
 import { calendarEventsRoutes } from './controllers/calendar/events/routes';
 
-// Email routes
-import { emailAccountsRoutes } from './controllers/email/accounts/routes';
-import { emailFoldersRoutes } from './controllers/email/folders/routes';
-import { emailMessagesRoutes } from './controllers/email/messages/routes';
+// Email routes - TEMPORARILY DISABLED (BullMQ queue hangs app.ready)
+// import { emailAccountsRoutes } from './controllers/email/accounts/routes';
+// import { emailFoldersRoutes } from './controllers/email/folders/routes';
+// import { emailMessagesRoutes } from './controllers/email/messages/routes';
 
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
@@ -163,10 +163,10 @@ export async function registerRoutes(app: FastifyInstance) {
   // Calendar routes
   await app.register(calendarEventsRoutes);
 
-  // Email routes
-  await app.register(emailAccountsRoutes);
-  await app.register(emailFoldersRoutes);
-  await app.register(emailMessagesRoutes);
+  // Email routes - TEMPORARILY DISABLED (BullMQ queue hangs app.ready)
+  // await app.register(emailAccountsRoutes);
+  // await app.register(emailFoldersRoutes);
+  // await app.register(emailMessagesRoutes);
 
   // Storage routes
   await app.register(storageFoldersRoutes);

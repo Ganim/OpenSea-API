@@ -262,6 +262,7 @@ export type TenantWhereInput = {
   storageFolders?: Prisma.StorageFolderListRelationFilter
   storageFiles?: Prisma.StorageFileListRelationFilter
   folderAccessRules?: Prisma.FolderAccessRuleListRelationFilter
+  storageShareLinks?: Prisma.StorageShareLinkListRelationFilter
   calendarEvents?: Prisma.CalendarEventListRelationFilter
   eventParticipants?: Prisma.EventParticipantListRelationFilter
   eventReminders?: Prisma.EventReminderListRelationFilter
@@ -331,6 +332,7 @@ export type TenantOrderByWithRelationInput = {
   storageFolders?: Prisma.StorageFolderOrderByRelationAggregateInput
   storageFiles?: Prisma.StorageFileOrderByRelationAggregateInput
   folderAccessRules?: Prisma.FolderAccessRuleOrderByRelationAggregateInput
+  storageShareLinks?: Prisma.StorageShareLinkOrderByRelationAggregateInput
   calendarEvents?: Prisma.CalendarEventOrderByRelationAggregateInput
   eventParticipants?: Prisma.EventParticipantOrderByRelationAggregateInput
   eventReminders?: Prisma.EventReminderOrderByRelationAggregateInput
@@ -403,6 +405,7 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   storageFolders?: Prisma.StorageFolderListRelationFilter
   storageFiles?: Prisma.StorageFileListRelationFilter
   folderAccessRules?: Prisma.FolderAccessRuleListRelationFilter
+  storageShareLinks?: Prisma.StorageShareLinkListRelationFilter
   calendarEvents?: Prisma.CalendarEventListRelationFilter
   eventParticipants?: Prisma.EventParticipantListRelationFilter
   eventReminders?: Prisma.EventReminderListRelationFilter
@@ -504,6 +507,7 @@ export type TenantCreateInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -573,6 +577,7 @@ export type TenantUncheckedCreateInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -642,6 +647,7 @@ export type TenantUpdateInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -711,6 +717,7 @@ export type TenantUncheckedUpdateInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -1489,6 +1496,20 @@ export type TenantUpdateOneRequiredWithoutFolderAccessRulesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutFolderAccessRulesInput, Prisma.TenantUpdateWithoutFolderAccessRulesInput>, Prisma.TenantUncheckedUpdateWithoutFolderAccessRulesInput>
 }
 
+export type TenantCreateNestedOneWithoutStorageShareLinksInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutStorageShareLinksInput, Prisma.TenantUncheckedCreateWithoutStorageShareLinksInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutStorageShareLinksInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutStorageShareLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutStorageShareLinksInput, Prisma.TenantUncheckedCreateWithoutStorageShareLinksInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutStorageShareLinksInput
+  upsert?: Prisma.TenantUpsertWithoutStorageShareLinksInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutStorageShareLinksInput, Prisma.TenantUpdateWithoutStorageShareLinksInput>, Prisma.TenantUncheckedUpdateWithoutStorageShareLinksInput>
+}
+
 export type TenantCreateNestedOneWithoutCalendarEventsInput = {
   create?: Prisma.XOR<Prisma.TenantCreateWithoutCalendarEventsInput, Prisma.TenantUncheckedCreateWithoutCalendarEventsInput>
   connectOrCreate?: Prisma.TenantCreateOrConnectWithoutCalendarEventsInput
@@ -1659,6 +1680,7 @@ export type TenantCreateWithoutSessionsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -1727,6 +1749,7 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -1811,6 +1834,7 @@ export type TenantUpdateWithoutSessionsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -1879,6 +1903,7 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -1947,6 +1972,7 @@ export type TenantCreateWithoutRefreshTokensInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -2015,6 +2041,7 @@ export type TenantUncheckedCreateWithoutRefreshTokensInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -2099,6 +2126,7 @@ export type TenantUpdateWithoutRefreshTokensInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -2167,6 +2195,7 @@ export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -2235,6 +2264,7 @@ export type TenantCreateWithoutPermissionGroupsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -2303,6 +2333,7 @@ export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -2387,6 +2418,7 @@ export type TenantUpdateWithoutPermissionGroupsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -2455,6 +2487,7 @@ export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -2523,6 +2556,7 @@ export type TenantCreateWithoutOrganizationsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -2591,6 +2625,7 @@ export type TenantUncheckedCreateWithoutOrganizationsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -2675,6 +2710,7 @@ export type TenantUpdateWithoutOrganizationsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -2743,6 +2779,7 @@ export type TenantUncheckedUpdateWithoutOrganizationsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -2811,6 +2848,7 @@ export type TenantCreateWithoutSuppliersInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -2879,6 +2917,7 @@ export type TenantUncheckedCreateWithoutSuppliersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -2963,6 +3002,7 @@ export type TenantUpdateWithoutSuppliersInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -3031,6 +3071,7 @@ export type TenantUncheckedUpdateWithoutSuppliersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -3099,6 +3140,7 @@ export type TenantCreateWithoutManufacturersInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -3167,6 +3209,7 @@ export type TenantUncheckedCreateWithoutManufacturersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -3251,6 +3294,7 @@ export type TenantUpdateWithoutManufacturersInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -3319,6 +3363,7 @@ export type TenantUncheckedUpdateWithoutManufacturersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -3387,6 +3432,7 @@ export type TenantCreateWithoutCategoriesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -3455,6 +3501,7 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -3539,6 +3586,7 @@ export type TenantUpdateWithoutCategoriesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -3607,6 +3655,7 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -3675,6 +3724,7 @@ export type TenantCreateWithoutWarehousesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -3743,6 +3793,7 @@ export type TenantUncheckedCreateWithoutWarehousesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -3827,6 +3878,7 @@ export type TenantUpdateWithoutWarehousesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -3895,6 +3947,7 @@ export type TenantUncheckedUpdateWithoutWarehousesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -3963,6 +4016,7 @@ export type TenantCreateWithoutZonesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -4031,6 +4085,7 @@ export type TenantUncheckedCreateWithoutZonesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -4115,6 +4170,7 @@ export type TenantUpdateWithoutZonesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -4183,6 +4239,7 @@ export type TenantUncheckedUpdateWithoutZonesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -4251,6 +4308,7 @@ export type TenantCreateWithoutBinsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -4319,6 +4377,7 @@ export type TenantUncheckedCreateWithoutBinsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -4403,6 +4462,7 @@ export type TenantUpdateWithoutBinsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -4471,6 +4531,7 @@ export type TenantUncheckedUpdateWithoutBinsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -4539,6 +4600,7 @@ export type TenantCreateWithoutVolumesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -4607,6 +4669,7 @@ export type TenantUncheckedCreateWithoutVolumesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -4691,6 +4754,7 @@ export type TenantUpdateWithoutVolumesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -4759,6 +4823,7 @@ export type TenantUncheckedUpdateWithoutVolumesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -4827,6 +4892,7 @@ export type TenantCreateWithoutTemplatesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -4895,6 +4961,7 @@ export type TenantUncheckedCreateWithoutTemplatesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -4979,6 +5046,7 @@ export type TenantUpdateWithoutTemplatesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -5047,6 +5115,7 @@ export type TenantUncheckedUpdateWithoutTemplatesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -5115,6 +5184,7 @@ export type TenantCreateWithoutProductsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -5183,6 +5253,7 @@ export type TenantUncheckedCreateWithoutProductsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -5267,6 +5338,7 @@ export type TenantUpdateWithoutProductsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -5335,6 +5407,7 @@ export type TenantUncheckedUpdateWithoutProductsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -5403,6 +5476,7 @@ export type TenantCreateWithoutVariantsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -5471,6 +5545,7 @@ export type TenantUncheckedCreateWithoutVariantsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -5555,6 +5630,7 @@ export type TenantUpdateWithoutVariantsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -5623,6 +5699,7 @@ export type TenantUncheckedUpdateWithoutVariantsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -5691,6 +5768,7 @@ export type TenantCreateWithoutItemsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -5759,6 +5837,7 @@ export type TenantUncheckedCreateWithoutItemsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -5843,6 +5922,7 @@ export type TenantUpdateWithoutItemsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -5911,6 +5991,7 @@ export type TenantUncheckedUpdateWithoutItemsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -5979,6 +6060,7 @@ export type TenantCreateWithoutItemMovementsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -6047,6 +6129,7 @@ export type TenantUncheckedCreateWithoutItemMovementsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -6131,6 +6214,7 @@ export type TenantUpdateWithoutItemMovementsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -6199,6 +6283,7 @@ export type TenantUncheckedUpdateWithoutItemMovementsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -6267,6 +6352,7 @@ export type TenantCreateWithoutAuditLogsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -6335,6 +6421,7 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -6419,6 +6506,7 @@ export type TenantUpdateWithoutAuditLogsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -6487,6 +6575,7 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -6555,6 +6644,7 @@ export type TenantCreateWithoutTagsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -6623,6 +6713,7 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -6707,6 +6798,7 @@ export type TenantUpdateWithoutTagsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -6775,6 +6867,7 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -6843,6 +6936,7 @@ export type TenantCreateWithoutPurchaseOrdersInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -6911,6 +7005,7 @@ export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -6995,6 +7090,7 @@ export type TenantUpdateWithoutPurchaseOrdersInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -7063,6 +7159,7 @@ export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -7131,6 +7228,7 @@ export type TenantCreateWithoutCustomersInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -7199,6 +7297,7 @@ export type TenantUncheckedCreateWithoutCustomersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -7283,6 +7382,7 @@ export type TenantUpdateWithoutCustomersInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -7351,6 +7451,7 @@ export type TenantUncheckedUpdateWithoutCustomersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -7419,6 +7520,7 @@ export type TenantCreateWithoutSalesOrdersInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -7487,6 +7589,7 @@ export type TenantUncheckedCreateWithoutSalesOrdersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -7571,6 +7674,7 @@ export type TenantUpdateWithoutSalesOrdersInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -7639,6 +7743,7 @@ export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -7707,6 +7812,7 @@ export type TenantCreateWithoutEmployeesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -7775,6 +7881,7 @@ export type TenantUncheckedCreateWithoutEmployeesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -7859,6 +7966,7 @@ export type TenantUpdateWithoutEmployeesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -7927,6 +8035,7 @@ export type TenantUncheckedUpdateWithoutEmployeesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -7995,6 +8104,7 @@ export type TenantCreateWithoutDepartmentsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -8063,6 +8173,7 @@ export type TenantUncheckedCreateWithoutDepartmentsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -8147,6 +8258,7 @@ export type TenantUpdateWithoutDepartmentsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -8215,6 +8327,7 @@ export type TenantUncheckedUpdateWithoutDepartmentsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -8283,6 +8396,7 @@ export type TenantCreateWithoutPositionsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -8351,6 +8465,7 @@ export type TenantUncheckedCreateWithoutPositionsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -8435,6 +8550,7 @@ export type TenantUpdateWithoutPositionsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -8503,6 +8619,7 @@ export type TenantUncheckedUpdateWithoutPositionsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -8571,6 +8688,7 @@ export type TenantCreateWithoutTimeEntriesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -8639,6 +8757,7 @@ export type TenantUncheckedCreateWithoutTimeEntriesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -8723,6 +8842,7 @@ export type TenantUpdateWithoutTimeEntriesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -8791,6 +8911,7 @@ export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -8859,6 +8980,7 @@ export type TenantCreateWithoutWorkSchedulesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -8927,6 +9049,7 @@ export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -9011,6 +9134,7 @@ export type TenantUpdateWithoutWorkSchedulesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -9079,6 +9203,7 @@ export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -9147,6 +9272,7 @@ export type TenantCreateWithoutOvertimeInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -9215,6 +9341,7 @@ export type TenantUncheckedCreateWithoutOvertimeInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -9299,6 +9426,7 @@ export type TenantUpdateWithoutOvertimeInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -9367,6 +9495,7 @@ export type TenantUncheckedUpdateWithoutOvertimeInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -9435,6 +9564,7 @@ export type TenantCreateWithoutTimeBanksInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -9503,6 +9633,7 @@ export type TenantUncheckedCreateWithoutTimeBanksInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -9587,6 +9718,7 @@ export type TenantUpdateWithoutTimeBanksInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -9655,6 +9787,7 @@ export type TenantUncheckedUpdateWithoutTimeBanksInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -9723,6 +9856,7 @@ export type TenantCreateWithoutAbsencesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -9791,6 +9925,7 @@ export type TenantUncheckedCreateWithoutAbsencesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -9875,6 +10010,7 @@ export type TenantUpdateWithoutAbsencesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -9943,6 +10079,7 @@ export type TenantUncheckedUpdateWithoutAbsencesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -10011,6 +10148,7 @@ export type TenantCreateWithoutVacationPeriodsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -10079,6 +10217,7 @@ export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -10163,6 +10302,7 @@ export type TenantUpdateWithoutVacationPeriodsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -10231,6 +10371,7 @@ export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -10299,6 +10440,7 @@ export type TenantCreateWithoutPayrollsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -10367,6 +10509,7 @@ export type TenantUncheckedCreateWithoutPayrollsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -10451,6 +10594,7 @@ export type TenantUpdateWithoutPayrollsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -10519,6 +10663,7 @@ export type TenantUncheckedUpdateWithoutPayrollsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -10587,6 +10732,7 @@ export type TenantCreateWithoutBonusesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -10655,6 +10801,7 @@ export type TenantUncheckedCreateWithoutBonusesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -10739,6 +10886,7 @@ export type TenantUpdateWithoutBonusesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -10807,6 +10955,7 @@ export type TenantUncheckedUpdateWithoutBonusesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -10875,6 +11024,7 @@ export type TenantCreateWithoutDeductionsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -10943,6 +11093,7 @@ export type TenantUncheckedCreateWithoutDeductionsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -11027,6 +11178,7 @@ export type TenantUpdateWithoutDeductionsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -11095,6 +11247,7 @@ export type TenantUncheckedUpdateWithoutDeductionsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -11163,6 +11316,7 @@ export type TenantCreateWithoutCompaniesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -11231,6 +11385,7 @@ export type TenantUncheckedCreateWithoutCompaniesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -11315,6 +11470,7 @@ export type TenantUpdateWithoutCompaniesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -11383,6 +11539,7 @@ export type TenantUncheckedUpdateWithoutCompaniesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -11451,6 +11608,7 @@ export type TenantCreateWithoutLabelTemplatesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -11519,6 +11677,7 @@ export type TenantUncheckedCreateWithoutLabelTemplatesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -11603,6 +11762,7 @@ export type TenantUpdateWithoutLabelTemplatesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -11671,6 +11831,7 @@ export type TenantUncheckedUpdateWithoutLabelTemplatesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -11739,6 +11900,7 @@ export type TenantCreateWithoutTenantPlansInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -11807,6 +11969,7 @@ export type TenantUncheckedCreateWithoutTenantPlansInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -11891,6 +12054,7 @@ export type TenantUpdateWithoutTenantPlansInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -11959,6 +12123,7 @@ export type TenantUncheckedUpdateWithoutTenantPlansInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -12027,6 +12192,7 @@ export type TenantCreateWithoutTenantUsersInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -12095,6 +12261,7 @@ export type TenantUncheckedCreateWithoutTenantUsersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -12179,6 +12346,7 @@ export type TenantUpdateWithoutTenantUsersInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -12247,6 +12415,7 @@ export type TenantUncheckedUpdateWithoutTenantUsersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -12315,6 +12484,7 @@ export type TenantCreateWithoutTenantFeatureFlagsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -12383,6 +12553,7 @@ export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -12467,6 +12638,7 @@ export type TenantUpdateWithoutTenantFeatureFlagsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -12535,6 +12707,7 @@ export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -12603,6 +12776,7 @@ export type TenantCreateWithoutCostCentersInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -12671,6 +12845,7 @@ export type TenantUncheckedCreateWithoutCostCentersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -12755,6 +12930,7 @@ export type TenantUpdateWithoutCostCentersInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -12823,6 +12999,7 @@ export type TenantUncheckedUpdateWithoutCostCentersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -12891,6 +13068,7 @@ export type TenantCreateWithoutBankAccountsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -12959,6 +13137,7 @@ export type TenantUncheckedCreateWithoutBankAccountsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -13043,6 +13222,7 @@ export type TenantUpdateWithoutBankAccountsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -13111,6 +13291,7 @@ export type TenantUncheckedUpdateWithoutBankAccountsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -13179,6 +13360,7 @@ export type TenantCreateWithoutFinanceCategoriesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -13247,6 +13429,7 @@ export type TenantUncheckedCreateWithoutFinanceCategoriesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -13331,6 +13514,7 @@ export type TenantUpdateWithoutFinanceCategoriesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -13399,6 +13583,7 @@ export type TenantUncheckedUpdateWithoutFinanceCategoriesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -13467,6 +13652,7 @@ export type TenantCreateWithoutFinanceEntriesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -13535,6 +13721,7 @@ export type TenantUncheckedCreateWithoutFinanceEntriesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -13619,6 +13806,7 @@ export type TenantUpdateWithoutFinanceEntriesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -13687,6 +13875,7 @@ export type TenantUncheckedUpdateWithoutFinanceEntriesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -13755,6 +13944,7 @@ export type TenantCreateWithoutFinanceAttachmentsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -13823,6 +14013,7 @@ export type TenantUncheckedCreateWithoutFinanceAttachmentsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -13907,6 +14098,7 @@ export type TenantUpdateWithoutFinanceAttachmentsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -13975,6 +14167,7 @@ export type TenantUncheckedUpdateWithoutFinanceAttachmentsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -14043,6 +14236,7 @@ export type TenantCreateWithoutLoansInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -14111,6 +14305,7 @@ export type TenantUncheckedCreateWithoutLoansInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -14195,6 +14390,7 @@ export type TenantUpdateWithoutLoansInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -14263,6 +14459,7 @@ export type TenantUncheckedUpdateWithoutLoansInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -14331,6 +14528,7 @@ export type TenantCreateWithoutConsortiaInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -14399,6 +14597,7 @@ export type TenantUncheckedCreateWithoutConsortiaInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -14483,6 +14682,7 @@ export type TenantUpdateWithoutConsortiaInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -14551,6 +14751,7 @@ export type TenantUncheckedUpdateWithoutConsortiaInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -14619,6 +14820,7 @@ export type TenantCreateWithoutStorageFoldersInput = {
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -14687,6 +14889,7 @@ export type TenantUncheckedCreateWithoutStorageFoldersInput = {
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -14771,6 +14974,7 @@ export type TenantUpdateWithoutStorageFoldersInput = {
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -14839,6 +15043,7 @@ export type TenantUncheckedUpdateWithoutStorageFoldersInput = {
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -14907,6 +15112,7 @@ export type TenantCreateWithoutStorageFilesInput = {
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -14975,6 +15181,7 @@ export type TenantUncheckedCreateWithoutStorageFilesInput = {
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -15059,6 +15266,7 @@ export type TenantUpdateWithoutStorageFilesInput = {
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -15127,6 +15335,7 @@ export type TenantUncheckedUpdateWithoutStorageFilesInput = {
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -15195,6 +15404,7 @@ export type TenantCreateWithoutFolderAccessRulesInput = {
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -15263,6 +15473,7 @@ export type TenantUncheckedCreateWithoutFolderAccessRulesInput = {
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -15347,6 +15558,7 @@ export type TenantUpdateWithoutFolderAccessRulesInput = {
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -15415,6 +15627,299 @@ export type TenantUncheckedUpdateWithoutFolderAccessRulesInput = {
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutStorageShareLinksInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutStorageShareLinksInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutStorageShareLinksInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutStorageShareLinksInput, Prisma.TenantUncheckedCreateWithoutStorageShareLinksInput>
+}
+
+export type TenantUpsertWithoutStorageShareLinksInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutStorageShareLinksInput, Prisma.TenantUncheckedUpdateWithoutStorageShareLinksInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutStorageShareLinksInput, Prisma.TenantUncheckedCreateWithoutStorageShareLinksInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutStorageShareLinksInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutStorageShareLinksInput, Prisma.TenantUncheckedUpdateWithoutStorageShareLinksInput>
+}
+
+export type TenantUpdateWithoutStorageShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutStorageShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -15484,6 +15989,7 @@ export type TenantCreateWithoutCalendarEventsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
@@ -15552,6 +16058,7 @@ export type TenantUncheckedCreateWithoutCalendarEventsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
@@ -15636,6 +16143,7 @@ export type TenantUpdateWithoutCalendarEventsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
@@ -15704,6 +16212,7 @@ export type TenantUncheckedUpdateWithoutCalendarEventsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
@@ -15772,6 +16281,7 @@ export type TenantCreateWithoutEventParticipantsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
@@ -15840,6 +16350,7 @@ export type TenantUncheckedCreateWithoutEventParticipantsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
@@ -15924,6 +16435,7 @@ export type TenantUpdateWithoutEventParticipantsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
@@ -15992,6 +16504,7 @@ export type TenantUncheckedUpdateWithoutEventParticipantsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
@@ -16060,6 +16573,7 @@ export type TenantCreateWithoutEventRemindersInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
@@ -16128,6 +16642,7 @@ export type TenantUncheckedCreateWithoutEventRemindersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
@@ -16212,6 +16727,7 @@ export type TenantUpdateWithoutEventRemindersInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
@@ -16280,6 +16796,7 @@ export type TenantUncheckedUpdateWithoutEventRemindersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
@@ -16348,6 +16865,7 @@ export type TenantCreateWithoutEmailAccountsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -16416,6 +16934,7 @@ export type TenantUncheckedCreateWithoutEmailAccountsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -16500,6 +17019,7 @@ export type TenantUpdateWithoutEmailAccountsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -16568,6 +17088,7 @@ export type TenantUncheckedUpdateWithoutEmailAccountsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -16636,6 +17157,7 @@ export type TenantCreateWithoutEmailAccountAccessesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -16704,6 +17226,7 @@ export type TenantUncheckedCreateWithoutEmailAccountAccessesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -16788,6 +17311,7 @@ export type TenantUpdateWithoutEmailAccountAccessesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -16856,6 +17380,7 @@ export type TenantUncheckedUpdateWithoutEmailAccountAccessesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -16924,6 +17449,7 @@ export type TenantCreateWithoutEmailMessagesInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -16992,6 +17518,7 @@ export type TenantUncheckedCreateWithoutEmailMessagesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -17076,6 +17603,7 @@ export type TenantUpdateWithoutEmailMessagesInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -17144,6 +17672,7 @@ export type TenantUncheckedUpdateWithoutEmailMessagesInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -17212,6 +17741,7 @@ export type TenantCreateWithoutTeamsInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -17280,6 +17810,7 @@ export type TenantUncheckedCreateWithoutTeamsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -17364,6 +17895,7 @@ export type TenantUpdateWithoutTeamsInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -17432,6 +17964,7 @@ export type TenantUncheckedUpdateWithoutTeamsInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -17500,6 +18033,7 @@ export type TenantCreateWithoutTeamMembersInput = {
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
@@ -17568,6 +18102,7 @@ export type TenantUncheckedCreateWithoutTeamMembersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
   calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
@@ -17652,6 +18187,7 @@ export type TenantUpdateWithoutTeamMembersInput = {
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
@@ -17720,6 +18256,7 @@ export type TenantUncheckedUpdateWithoutTeamMembersInput = {
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
   calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
@@ -17783,6 +18320,7 @@ export type TenantCountOutputType = {
   storageFolders: number
   storageFiles: number
   folderAccessRules: number
+  storageShareLinks: number
   calendarEvents: number
   eventParticipants: number
   eventReminders: number
@@ -17842,6 +18380,7 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   storageFolders?: boolean | TenantCountOutputTypeCountStorageFoldersArgs
   storageFiles?: boolean | TenantCountOutputTypeCountStorageFilesArgs
   folderAccessRules?: boolean | TenantCountOutputTypeCountFolderAccessRulesArgs
+  storageShareLinks?: boolean | TenantCountOutputTypeCountStorageShareLinksArgs
   calendarEvents?: boolean | TenantCountOutputTypeCountCalendarEventsArgs
   eventParticipants?: boolean | TenantCountOutputTypeCountEventParticipantsArgs
   eventReminders?: boolean | TenantCountOutputTypeCountEventRemindersArgs
@@ -18201,6 +18740,13 @@ export type TenantCountOutputTypeCountFolderAccessRulesArgs<ExtArgs extends runt
 /**
  * TenantCountOutputType without action
  */
+export type TenantCountOutputTypeCountStorageShareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StorageShareLinkWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
 export type TenantCountOutputTypeCountCalendarEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CalendarEventWhereInput
 }
@@ -18314,6 +18860,7 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   storageFolders?: boolean | Prisma.Tenant$storageFoldersArgs<ExtArgs>
   storageFiles?: boolean | Prisma.Tenant$storageFilesArgs<ExtArgs>
   folderAccessRules?: boolean | Prisma.Tenant$folderAccessRulesArgs<ExtArgs>
+  storageShareLinks?: boolean | Prisma.Tenant$storageShareLinksArgs<ExtArgs>
   calendarEvents?: boolean | Prisma.Tenant$calendarEventsArgs<ExtArgs>
   eventParticipants?: boolean | Prisma.Tenant$eventParticipantsArgs<ExtArgs>
   eventReminders?: boolean | Prisma.Tenant$eventRemindersArgs<ExtArgs>
@@ -18414,6 +18961,7 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   storageFolders?: boolean | Prisma.Tenant$storageFoldersArgs<ExtArgs>
   storageFiles?: boolean | Prisma.Tenant$storageFilesArgs<ExtArgs>
   folderAccessRules?: boolean | Prisma.Tenant$folderAccessRulesArgs<ExtArgs>
+  storageShareLinks?: boolean | Prisma.Tenant$storageShareLinksArgs<ExtArgs>
   calendarEvents?: boolean | Prisma.Tenant$calendarEventsArgs<ExtArgs>
   eventParticipants?: boolean | Prisma.Tenant$eventParticipantsArgs<ExtArgs>
   eventReminders?: boolean | Prisma.Tenant$eventRemindersArgs<ExtArgs>
@@ -18478,6 +19026,7 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     storageFolders: Prisma.$StorageFolderPayload<ExtArgs>[]
     storageFiles: Prisma.$StorageFilePayload<ExtArgs>[]
     folderAccessRules: Prisma.$FolderAccessRulePayload<ExtArgs>[]
+    storageShareLinks: Prisma.$StorageShareLinkPayload<ExtArgs>[]
     calendarEvents: Prisma.$CalendarEventPayload<ExtArgs>[]
     eventParticipants: Prisma.$EventParticipantPayload<ExtArgs>[]
     eventReminders: Prisma.$EventReminderPayload<ExtArgs>[]
@@ -18940,6 +19489,7 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   storageFolders<T extends Prisma.Tenant$storageFoldersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$storageFoldersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageFolderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   storageFiles<T extends Prisma.Tenant$storageFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$storageFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   folderAccessRules<T extends Prisma.Tenant$folderAccessRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$folderAccessRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FolderAccessRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  storageShareLinks<T extends Prisma.Tenant$storageShareLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$storageShareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   calendarEvents<T extends Prisma.Tenant$calendarEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$calendarEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   eventParticipants<T extends Prisma.Tenant$eventParticipantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$eventParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   eventReminders<T extends Prisma.Tenant$eventRemindersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$eventRemindersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -20524,6 +21074,30 @@ export type Tenant$folderAccessRulesArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.FolderAccessRuleScalarFieldEnum | Prisma.FolderAccessRuleScalarFieldEnum[]
+}
+
+/**
+ * Tenant.storageShareLinks
+ */
+export type Tenant$storageShareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StorageShareLink
+   */
+  select?: Prisma.StorageShareLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StorageShareLink
+   */
+  omit?: Prisma.StorageShareLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StorageShareLinkInclude<ExtArgs> | null
+  where?: Prisma.StorageShareLinkWhereInput
+  orderBy?: Prisma.StorageShareLinkOrderByWithRelationInput | Prisma.StorageShareLinkOrderByWithRelationInput[]
+  cursor?: Prisma.StorageShareLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StorageShareLinkScalarFieldEnum | Prisma.StorageShareLinkScalarFieldEnum[]
 }
 
 /**

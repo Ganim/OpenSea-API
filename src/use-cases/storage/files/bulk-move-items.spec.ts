@@ -97,7 +97,7 @@ describe('BulkMoveItemsUseCase', () => {
     const movedFile1 = storageFilesRepository.items.find((f) =>
       f.id.equals(file1.id),
     );
-    expect(movedFile1?.folderId.toString()).toBe(target.id.toString());
+    expect(movedFile1?.folderId?.toString()).toBe(target.id.toString());
   });
 
   it('should move a folder with cascade', async () => {

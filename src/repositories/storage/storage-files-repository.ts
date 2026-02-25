@@ -3,7 +3,7 @@ import type { StorageFile } from '@/entities/storage/storage-file';
 
 export interface CreateStorageFileSchema {
   tenantId: string;
-  folderId: string;
+  folderId: string | null;
   name: string;
   originalName: string;
   fileKey: string;
@@ -22,7 +22,7 @@ export interface UpdateStorageFileSchema {
   id: UniqueEntityID;
   name?: string;
   path?: string;
-  folderId?: string;
+  folderId?: string | null;
   status?: string;
   currentVersion?: number;
   thumbnailKey?: string | null;
@@ -74,4 +74,19 @@ export interface StorageFilesRepository {
   getTotalSize(tenantId: string): Promise<number>;
   countByTenant(tenantId: string): Promise<number>;
   countByFileType(tenantId: string): Promise<Record<string, number>>;
+  // Trash methods
+  findDeletedById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<StorageFile | null>;
+  findDeleted(
+    tenantId: string,
+    page?: number,
+    limit?: number,
+  ): Promise<{ files: StorageFile[]; total: number }>;
+  restore(id: UniqueEntityID): Promise<void>;
+  restoreByFolderIds(folderIds: string[], tenantId: string): Promise<number>;
+  hardDeleteAllSoftDeleted(
+    tenantId: string,
+  ): Promise<{ count: number; fileKeys: string[] }>;
 }

@@ -5,7 +5,7 @@ import { storageFileVersionToDTO } from '../storage-file-version/storage-file-ve
 export interface StorageFileDTO {
   id: string;
   tenantId: string;
-  folderId: string;
+  folderId: string | null;
   name: string;
   originalName: string;
   fileKey: string;
@@ -29,7 +29,7 @@ export function storageFileToDTO(file: StorageFile): StorageFileDTO {
   return {
     id: file.fileId.toString(),
     tenantId: file.tenantId.toString(),
-    folderId: file.folderId.toString(),
+    folderId: file.folderId?.toString() ?? null,
     name: file.name,
     originalName: file.originalName,
     fileKey: file.fileKey,

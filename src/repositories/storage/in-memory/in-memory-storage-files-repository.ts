@@ -18,7 +18,7 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
   async create(data: CreateStorageFileSchema): Promise<StorageFile> {
     const file = StorageFile.create({
       tenantId: new UniqueEntityID(data.tenantId),
-      folderId: new UniqueEntityID(data.folderId),
+      folderId: data.folderId ? new UniqueEntityID(data.folderId) : null,
       name: data.name,
       originalName: data.originalName,
       fileKey: data.fileKey,
@@ -73,7 +73,7 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
       if (item.deletedAt !== null) return false;
       if (item.tenantId.toString() !== params.tenantId) return false;
 
-      if (params.folderId && item.folderId.toString() !== params.folderId)
+      if (params.folderId && item.folderId?.toString() !== params.folderId)
         return false;
       if (params.fileType && item.fileType !== params.fileType) return false;
       if (params.entityType && item.entityType !== params.entityType)
@@ -149,7 +149,7 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
     if (data.name !== undefined) file.name = data.name;
     if (data.path !== undefined) file.path = data.path;
     if (data.folderId !== undefined)
-      file.folderId = new UniqueEntityID(data.folderId);
+      file.folderId = data.folderId ? new UniqueEntityID(data.folderId) : null;
     if (data.status !== undefined)
       file.status = StorageFileStatus.create(
         data.status as StorageFileStatusValue,
@@ -221,7 +221,7 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
       if (
         item.deletedAt === null &&
         item.tenantId.toString() === tenantId &&
-        folderIds.includes(item.folderId.toString())
+        item.folderId !== null && folderIds.includes(item.folderId.toString())
       ) {
         item.delete();
         count++;
@@ -232,7 +232,7 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
 
   async countByFolder(folderId: UniqueEntityID): Promise<number> {
     return this.items.filter(
-      (item) => item.deletedAt === null && item.folderId.equals(folderId),
+      (item) => item.deletedAt === null && item.folderId !== null && item.folderId.equals(folderId),
     ).length;
   }
 
@@ -265,5 +265,77 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
       });
 
     return filesByType;
+  }
+
+  async findDeletedById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<StorageFile | null> {
+    const file = this.items.find(
+      (item) =>
+        item.deletedAt !== null &&
+        item.id.equals(id) &&
+        item.tenantId.toString() === tenantId,
+    );
+    return file ?? null;
+  }
+
+  async findDeleted(
+    tenantId: string,
+    page = 1,
+    limit = 20,
+  ): Promise<{ files: StorageFile[]; total: number }> {
+    const deleted = this.items.filter(
+      (item) =>
+        item.deletedAt !== null && item.tenantId.toString() === tenantId,
+    );
+    const total = deleted.length;
+    const startIndex = (page - 1) * limit;
+    const files = deleted.slice(startIndex, startIndex + limit);
+    return { files, total };
+  }
+
+  async restore(id: UniqueEntityID): Promise<void> {
+    const file = this.items.find(
+      (item) => item.deletedAt !== null && item.id.equals(id),
+    );
+    if (file) {
+      file.restore();
+    }
+  }
+
+  async restoreByFolderIds(
+    folderIds: string[],
+    tenantId: string,
+  ): Promise<number> {
+    let count = 0;
+    for (const item of this.items) {
+      if (
+        item.deletedAt !== null &&
+        item.tenantId.toString() === tenantId &&
+        item.folderId &&
+        folderIds.includes(item.folderId.toString())
+      ) {
+        item.restore();
+        count++;
+      }
+    }
+    return count;
+  }
+
+  async hardDeleteAllSoftDeleted(
+    tenantId: string,
+  ): Promise<{ count: number; fileKeys: string[] }> {
+    const deleted = this.items.filter(
+      (item) =>
+        item.deletedAt !== null && item.tenantId.toString() === tenantId,
+    );
+    const fileKeys = deleted.map((item) => item.fileKey);
+    const count = deleted.length;
+    this.items = this.items.filter(
+      (item) =>
+        !(item.deletedAt !== null && item.tenantId.toString() === tenantId),
+    );
+    return { count, fileKeys };
   }
 }

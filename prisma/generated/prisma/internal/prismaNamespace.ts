@@ -476,6 +476,7 @@ export const ModelName = {
   StorageFile: 'StorageFile',
   StorageFileVersion: 'StorageFileVersion',
   FolderAccessRule: 'FolderAccessRule',
+  StorageShareLink: 'StorageShareLink',
   CalendarEvent: 'CalendarEvent',
   EventParticipant: 'EventParticipant',
   EventReminder: 'EventReminder',
@@ -501,7 +502,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -7313,6 +7314,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    StorageShareLink: {
+      payload: Prisma.$StorageShareLinkPayload<ExtArgs>
+      fields: Prisma.StorageShareLinkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StorageShareLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StorageShareLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload>
+        }
+        findFirst: {
+          args: Prisma.StorageShareLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StorageShareLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload>
+        }
+        findMany: {
+          args: Prisma.StorageShareLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload>[]
+        }
+        create: {
+          args: Prisma.StorageShareLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload>
+        }
+        createMany: {
+          args: Prisma.StorageShareLinkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StorageShareLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload>[]
+        }
+        delete: {
+          args: Prisma.StorageShareLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload>
+        }
+        update: {
+          args: Prisma.StorageShareLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload>
+        }
+        deleteMany: {
+          args: Prisma.StorageShareLinkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StorageShareLinkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StorageShareLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload>[]
+        }
+        upsert: {
+          args: Prisma.StorageShareLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorageShareLinkPayload>
+        }
+        aggregate: {
+          args: Prisma.StorageShareLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStorageShareLink>
+        }
+        groupBy: {
+          args: Prisma.StorageShareLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StorageShareLinkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StorageShareLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StorageShareLinkCountAggregateOutputType> | number
+        }
+      }
+    }
     CalendarEvent: {
       payload: Prisma.$CalendarEventPayload<ExtArgs>
       fields: Prisma.CalendarEventFieldRefs
@@ -9951,6 +10026,24 @@ export const FolderAccessRuleScalarFieldEnum = {
 export type FolderAccessRuleScalarFieldEnum = (typeof FolderAccessRuleScalarFieldEnum)[keyof typeof FolderAccessRuleScalarFieldEnum]
 
 
+export const StorageShareLinkScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  fileId: 'fileId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  password: 'password',
+  maxDownloads: 'maxDownloads',
+  downloadCount: 'downloadCount',
+  isActive: 'isActive',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StorageShareLinkScalarFieldEnum = (typeof StorageShareLinkScalarFieldEnum)[keyof typeof StorageShareLinkScalarFieldEnum]
+
+
 export const CalendarEventScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -11338,6 +11431,7 @@ export type GlobalOmitConfig = {
   storageFile?: Prisma.StorageFileOmit
   storageFileVersion?: Prisma.StorageFileVersionOmit
   folderAccessRule?: Prisma.FolderAccessRuleOmit
+  storageShareLink?: Prisma.StorageShareLinkOmit
   calendarEvent?: Prisma.CalendarEventOmit
   eventParticipant?: Prisma.EventParticipantOmit
   eventReminder?: Prisma.EventReminderOmit

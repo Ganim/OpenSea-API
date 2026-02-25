@@ -143,6 +143,7 @@ export const ModelName = {
   StorageFile: 'StorageFile',
   StorageFileVersion: 'StorageFileVersion',
   FolderAccessRule: 'FolderAccessRule',
+  StorageShareLink: 'StorageShareLink',
   CalendarEvent: 'CalendarEvent',
   EventParticipant: 'EventParticipant',
   EventReminder: 'EventReminder',
@@ -2028,6 +2029,24 @@ export const FolderAccessRuleScalarFieldEnum = {
 } as const
 
 export type FolderAccessRuleScalarFieldEnum = (typeof FolderAccessRuleScalarFieldEnum)[keyof typeof FolderAccessRuleScalarFieldEnum]
+
+
+export const StorageShareLinkScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  fileId: 'fileId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  password: 'password',
+  maxDownloads: 'maxDownloads',
+  downloadCount: 'downloadCount',
+  isActive: 'isActive',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StorageShareLinkScalarFieldEnum = (typeof StorageShareLinkScalarFieldEnum)[keyof typeof StorageShareLinkScalarFieldEnum]
 
 
 export const CalendarEventScalarFieldEnum = {

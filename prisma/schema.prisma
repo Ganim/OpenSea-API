@@ -3526,6 +3526,7 @@ model Tenant {
   storageFolders     StorageFolder[]
   storageFiles       StorageFile[]
   folderAccessRules  FolderAccessRule[]
+  storageShareLinks  StorageShareLink[]
   // Calendar domain
   calendarEvents      CalendarEvent[]
   eventParticipants   EventParticipant[]
@@ -4133,9 +4134,10 @@ model StorageFile {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  tenant   Tenant               @relation(fields: [tenantId], references: [id])
-  folder   StorageFolder?       @relation(fields: [folderId], references: [id])
-  versions StorageFileVersion[]
+  tenant     Tenant               @relation(fields: [tenantId], references: [id])
+  folder     StorageFolder?       @relation(fields: [folderId], references: [id])
+  versions   StorageFileVersion[]
+  shareLinks StorageShareLink[]
 
   @@unique([tenantId, path, deletedAt], name: "storage_files_path_tenant_unique")
   @@index([tenantId])
@@ -4194,6 +4196,32 @@ model FolderAccessRule {
   @@index([userId])
   @@index([groupId])
   @@map("folder_access_rules")
+}
+
+model StorageShareLink {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+  fileId   String @map("file_id")
+
+  token         String    @unique @db.VarChar(128)
+  expiresAt     DateTime? @map("expires_at")
+  password      String?   @db.VarChar(128)
+  maxDownloads  Int?      @map("max_downloads")
+  downloadCount Int       @default(0) @map("download_count")
+  isActive      Boolean   @default(true) @map("is_active")
+  createdBy     String    @map("created_by")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant      @relation(fields: [tenantId], references: [id])
+  file   StorageFile @relation(fields: [fileId], references: [id])
+
+  @@index([tenantId])
+  @@index([fileId])
+  @@index([token])
+  @@index([createdBy])
+  @@map("storage_share_links")
 }
 
 // CALENDAR MODULE

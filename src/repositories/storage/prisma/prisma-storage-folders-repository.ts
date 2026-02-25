@@ -226,4 +226,81 @@ export class PrismaStorageFoldersRepository
       },
     });
   }
+
+  async search(
+    tenantId: string,
+    query: string,
+    limit = 20,
+  ): Promise<StorageFolder[]> {
+    const foldersDb = await prisma.storageFolder.findMany({
+      where: {
+        tenantId,
+        deletedAt: null,
+        name: { contains: query, mode: 'insensitive' },
+      },
+      take: limit,
+      orderBy: { name: 'asc' },
+    });
+
+    return foldersDb.map(storageFolderPrismaToDomain);
+  }
+
+  async findDeletedById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<StorageFolder | null> {
+    const folderDb = await prisma.storageFolder.findFirst({
+      where: {
+        id: id.toString(),
+        tenantId,
+        deletedAt: { not: null },
+      },
+    });
+    return folderDb ? storageFolderPrismaToDomain(folderDb) : null;
+  }
+
+  async findDeleted(
+    tenantId: string,
+    page = 1,
+    limit = 20,
+  ): Promise<{ folders: StorageFolder[]; total: number }> {
+    const [foldersDb, total] = await Promise.all([
+      prisma.storageFolder.findMany({
+        where: { tenantId, deletedAt: { not: null } },
+        orderBy: { deletedAt: 'desc' },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+      prisma.storageFolder.count({
+        where: { tenantId, deletedAt: { not: null } },
+      }),
+    ]);
+    return { folders: foldersDb.map(storageFolderPrismaToDomain), total };
+  }
+
+  async restore(id: UniqueEntityID): Promise<void> {
+    await prisma.storageFolder.update({
+      where: { id: id.toString() },
+      data: { deletedAt: null },
+    });
+  }
+
+  async batchRestore(folderIds: string[]): Promise<number> {
+    if (folderIds.length === 0) return 0;
+    const result = await prisma.storageFolder.updateMany({
+      where: {
+        id: { in: folderIds },
+        deletedAt: { not: null },
+      },
+      data: { deletedAt: null },
+    });
+    return result.count;
+  }
+
+  async hardDeleteAllSoftDeleted(tenantId: string): Promise<number> {
+    const result = await prisma.storageFolder.deleteMany({
+      where: { tenantId, deletedAt: { not: null } },
+    });
+    return result.count;
+  }
 }

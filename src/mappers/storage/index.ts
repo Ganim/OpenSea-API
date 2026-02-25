@@ -29,3 +29,8 @@ export {
 } from './folder-access-rule/folder-access-rule-prisma-to-domain';
 export { folderAccessRuleToDTO } from './folder-access-rule/folder-access-rule-to-dto';
 export type { FolderAccessRuleDTO } from './folder-access-rule/folder-access-rule-to-dto';
+
+// StorageShareLink mappers
+export { storageShareLinkPrismaToDomain } from './storage-share-link/storage-share-link-prisma-to-domain';
+export { storageShareLinkToDTO } from './storage-share-link/storage-share-link-to-dto';
+export type { StorageShareLinkDTO } from './storage-share-link/storage-share-link-to-dto';

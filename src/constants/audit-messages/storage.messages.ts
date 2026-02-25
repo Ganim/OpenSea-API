@@ -153,4 +153,35 @@ export const STORAGE_AUDIT_MESSAGES = {
     description:
       '{{userName}} excluiu {{fileCount}} arquivos e {{folderCount}} pastas',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // SHARING - Compartilhamento
+  // ============================================================================
+
+  SHARE_LINK_CREATED: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description:
+      '{{userName}} criou um link de compartilhamento para o arquivo {{fileName}}',
+  } satisfies AuditMessage,
+
+  SHARE_LINK_REVOKED: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description:
+      '{{userName}} revogou um link de compartilhamento para o arquivo {{fileName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // TRASH - Lixeira
+  // ============================================================================
+
+  EMPTY_TRASH: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description: '{{userName}} esvaziou a lixeira',
+  } satisfies AuditMessage,
 } as const;

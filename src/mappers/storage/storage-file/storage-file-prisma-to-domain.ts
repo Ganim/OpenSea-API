@@ -18,7 +18,7 @@ export function mapStorageFilePrismaToDomain(fileDb: StorageFileWithRelations) {
   return {
     id: new UniqueEntityID(fileDb.id),
     tenantId: new UniqueEntityID(fileDb.tenantId),
-    folderId: new UniqueEntityID(fileDb.folderId),
+    folderId: fileDb.folderId ? new UniqueEntityID(fileDb.folderId) : null,
     name: fileDb.name,
     originalName: fileDb.originalName,
     fileKey: fileDb.fileKey,
@@ -37,8 +37,8 @@ export function mapStorageFilePrismaToDomain(fileDb: StorageFileWithRelations) {
       ? fileDb.versions.map(storageFileVersionPrismaToDomain)
       : undefined,
     createdAt: fileDb.createdAt,
-    updatedAt: fileDb.updatedAt ?? undefined,
-    deletedAt: fileDb.deletedAt ?? undefined,
+    updatedAt: fileDb.updatedAt ?? new Date(),
+    deletedAt: fileDb.deletedAt ?? null,
   };
 }
 

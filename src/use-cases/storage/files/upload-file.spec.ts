@@ -83,7 +83,7 @@ describe('UploadFileUseCase', () => {
     expect(result.file.mimeType).toBe('application/pdf');
     expect(result.file.currentVersion).toBe(1);
     expect(result.file.tenantId.toString()).toBe(TENANT_ID);
-    expect(result.file.folderId.toString()).toBe(folder.id.toString());
+    expect(result.file.folderId?.toString()).toBe(folder.id.toString());
     expect(result.version.version).toBe(1);
     expect(result.version.changeNote).toBe('Initial upload');
   });
