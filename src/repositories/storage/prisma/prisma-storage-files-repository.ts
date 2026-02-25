@@ -125,6 +125,21 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
     return filesDb.map(storageFilePrismaToDomain);
   }
 
+  async findExpired(tenantId: string, limit = 100): Promise<StorageFile[]> {
+    const filesDb = await prisma.storageFile.findMany({
+      where: {
+        tenantId,
+        expiresAt: { lt: new Date() },
+        status: 'ACTIVE' as PrismaStorageFileStatus,
+        deletedAt: null,
+      },
+      take: limit,
+      orderBy: { expiresAt: 'asc' },
+    });
+
+    return filesDb.map(storageFilePrismaToDomain);
+  }
+
   async update(data: UpdateStorageFileSchema): Promise<StorageFile | null> {
     const fileDb = await prisma.storageFile.update({
       where: { id: data.id.toString() },

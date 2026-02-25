@@ -8,6 +8,7 @@ import type { StorageFilesRepository } from '@/repositories/storage/storage-file
 import type { StorageFileVersionsRepository } from '@/repositories/storage/storage-file-versions-repository';
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
 import type { FileUploadService } from '@/services/storage/file-upload-service';
+import type { ThumbnailService } from '@/services/storage/thumbnail-service';
 
 interface UploadFileUseCaseRequest {
   tenantId: string;
@@ -34,6 +35,7 @@ export class UploadFileUseCase {
     private storageFilesRepository: StorageFilesRepository,
     private storageFileVersionsRepository: StorageFileVersionsRepository,
     private fileUploadService: FileUploadService,
+    private thumbnailService?: ThumbnailService,
   ) {}
 
   async execute(
@@ -106,6 +108,32 @@ export class UploadFileUseCase {
       changeNote: 'Initial upload',
       uploadedBy,
     });
+
+    // Generate thumbnail if possible (best-effort, never blocks the upload)
+    if (this.thumbnailService?.canGenerate(file.mimetype)) {
+      try {
+        const thumbnail = await this.thumbnailService.generate(
+          file.buffer,
+          file.mimetype,
+        );
+
+        if (thumbnail) {
+          const thumbResult = await this.fileUploadService.upload(
+            thumbnail.buffer,
+            `thumb_${file.filename}`,
+            thumbnail.mimeType,
+            { prefix: `${uploadPrefix}/thumbnails` },
+          );
+
+          await this.storageFilesRepository.update({
+            id: createdFile.id,
+            thumbnailKey: thumbResult.key,
+          });
+        }
+      } catch {
+        // Thumbnail generation failure should not block the upload
+      }
+    }
 
     return {
       file: createdFile,

@@ -59,6 +59,7 @@ export interface StorageFilesRepository {
     tenantId: string,
   ): Promise<StorageFile[]>;
   findByFileType(fileType: string, tenantId: string): Promise<StorageFile[]>;
+  findExpired(tenantId: string, limit?: number): Promise<StorageFile[]>;
   findSoftDeleted(olderThan: Date, limit?: number): Promise<StorageFile[]>;
   update(data: UpdateStorageFileSchema): Promise<StorageFile | null>;
   softDelete(id: UniqueEntityID): Promise<void>;

@@ -4,6 +4,7 @@ import { PrismaStorageFileVersionsRepository } from '@/repositories/storage/pris
 import { PrismaStorageFoldersRepository } from '@/repositories/storage/prisma/prisma-storage-folders-repository';
 import { LocalFileUploadService } from '@/services/storage/local-file-upload-service';
 import { S3FileUploadService } from '@/services/storage/s3-file-upload-service';
+import { SharpThumbnailService } from '@/services/storage/sharp-thumbnail-service';
 import { UploadFileUseCase } from '../upload-file';
 
 export function makeUploadFileUseCase() {
@@ -14,11 +15,13 @@ export function makeUploadFileUseCase() {
   const fileUploadService = env.S3_ENDPOINT
     ? new S3FileUploadService()
     : new LocalFileUploadService();
+  const thumbnailService = new SharpThumbnailService();
 
   return new UploadFileUseCase(
     storageFoldersRepository,
     storageFilesRepository,
     storageFileVersionsRepository,
     fileUploadService,
+    thumbnailService,
   );
 }

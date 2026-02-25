@@ -10,6 +10,7 @@ interface PreviewFileUseCaseRequest {
 
 interface PreviewFileUseCaseResponse {
   url: string;
+  thumbnailUrl: string | null;
   name: string;
   mimeType: string;
   size: number;
@@ -52,8 +53,16 @@ export class PreviewFileUseCase {
 
     const url = await this.fileUploadService.getPresignedUrl(file.fileKey);
 
+    let thumbnailUrl: string | null = null;
+    if (file.hasThumbnail) {
+      thumbnailUrl = await this.fileUploadService.getPresignedUrl(
+        file.thumbnailKey!,
+      );
+    }
+
     return {
       url,
+      thumbnailUrl,
       name: file.name,
       mimeType: file.mimeType,
       size: file.size,

@@ -31,6 +31,7 @@ export async function previewFileController(app: FastifyInstance) {
       response: {
         200: z.object({
           url: z.string(),
+          thumbnailUrl: z.string().nullable(),
           name: z.string(),
           mimeType: z.string(),
           size: z.number().int(),

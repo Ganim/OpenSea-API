@@ -126,6 +126,20 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
     );
   }
 
+  async findExpired(tenantId: string, limit = 100): Promise<StorageFile[]> {
+    const now = new Date();
+    return this.items
+      .filter(
+        (f) =>
+          f.tenantId.toString() === tenantId &&
+          f.expiresAt !== null &&
+          f.expiresAt < now &&
+          f.status.value === 'ACTIVE' &&
+          f.deletedAt === null,
+      )
+      .slice(0, limit);
+  }
+
   async update(data: UpdateStorageFileSchema): Promise<StorageFile | null> {
     const file = this.items.find(
       (item) => item.deletedAt === null && item.id.equals(data.id),

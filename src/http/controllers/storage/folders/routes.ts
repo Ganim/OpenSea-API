@@ -1,6 +1,7 @@
 import { app } from '@/app';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
+import { applyFolderTemplateController } from './v1-apply-folder-template.controller';
 import { createFolderController } from './v1-create-folder.controller';
 import { deleteFolderController } from './v1-delete-folder.controller';
 import { ensureEntityFolderController } from './v1-ensure-entity-folder.controller';
@@ -10,6 +11,7 @@ import { getFolderController } from './v1-get-folder.controller';
 import { getFilterFolderContentsController } from './v1-get-filter-folder-contents.controller';
 import { initializeFoldersController } from './v1-initialize-folders.controller';
 import { listFolderContentsController } from './v1-list-folder-contents.controller';
+import { listFolderTemplatesController } from './v1-list-folder-templates.controller';
 import { moveFolderController } from './v1-move-folder.controller';
 import { renameFolderController } from './v1-rename-folder.controller';
 import { searchFoldersController } from './v1-search-folders.controller';
@@ -35,6 +37,7 @@ export async function storageFoldersRoutes() {
       mutationApp.register(renameFolderController);
       mutationApp.register(moveFolderController);
       mutationApp.register(updateFolderController);
+      mutationApp.register(applyFolderTemplateController);
     },
     { prefix: '' },
   );
@@ -49,6 +52,7 @@ export async function storageFoldersRoutes() {
       queryApp.register(searchFoldersController);
       queryApp.register(getFilterFolderContentsController);
       queryApp.register(getFolderActivityController);
+      queryApp.register(listFolderTemplatesController);
     },
     { prefix: '' },
   );

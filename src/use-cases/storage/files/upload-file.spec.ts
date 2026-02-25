@@ -7,7 +7,8 @@ import type {
   FileUploadService,
   UploadResult,
 } from '@/services/storage/file-upload-service';
-import { beforeEach, describe, expect, it } from 'vitest';
+import type { ThumbnailService } from '@/services/storage/thumbnail-service';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { UploadFileUseCase } from './upload-file';
 
 const TENANT_ID = 'tenant-1';
@@ -226,5 +227,139 @@ describe('UploadFileUseCase', () => {
     });
 
     expect(result.file.name).toBe('large.pdf');
+  });
+
+  it('should set thumbnailKey when uploading an image with thumbnail service', async () => {
+    const folder = storageFoldersRepository.items[0];
+
+    const mockThumbnailService: ThumbnailService = {
+      canGenerate: vi.fn().mockReturnValue(true),
+      generate: vi.fn().mockResolvedValue({
+        buffer: Buffer.from('thumbnail-data'),
+        width: 200,
+        height: 150,
+        mimeType: 'image/jpeg',
+      }),
+    };
+
+    const sutWithThumbnail = new UploadFileUseCase(
+      storageFoldersRepository,
+      storageFilesRepository,
+      storageFileVersionsRepository,
+      fileUploadService,
+      mockThumbnailService,
+    );
+
+    const result = await sutWithThumbnail.execute({
+      tenantId: TENANT_ID,
+      folderId: folder.id.toString(),
+      file: {
+        buffer: Buffer.from('image data'),
+        filename: 'photo.jpg',
+        mimetype: 'image/jpeg',
+      },
+      uploadedBy: 'user-1',
+    });
+
+    expect(mockThumbnailService.canGenerate).toHaveBeenCalledWith('image/jpeg');
+    expect(mockThumbnailService.generate).toHaveBeenCalledWith(
+      Buffer.from('image data'),
+      'image/jpeg',
+    );
+
+    // The file should have a thumbnailKey set via repository update
+    const updatedFile = storageFilesRepository.items[0];
+    expect(updatedFile.thumbnailKey).toBeTruthy();
+    expect(updatedFile.thumbnailKey).toContain('thumbnails');
+    expect(updatedFile.thumbnailKey).toContain('thumb_photo.jpg');
+
+    // The main upload should still succeed
+    expect(result.file.name).toBe('photo.jpg');
+    expect(result.file.fileType).toBe('image');
+  });
+
+  it('should not set thumbnailKey for non-image files', async () => {
+    const folder = storageFoldersRepository.items[0];
+
+    const mockThumbnailService: ThumbnailService = {
+      canGenerate: vi.fn().mockReturnValue(false),
+      generate: vi.fn(),
+    };
+
+    const sutWithThumbnail = new UploadFileUseCase(
+      storageFoldersRepository,
+      storageFilesRepository,
+      storageFileVersionsRepository,
+      fileUploadService,
+      mockThumbnailService,
+    );
+
+    const result = await sutWithThumbnail.execute({
+      tenantId: TENANT_ID,
+      folderId: folder.id.toString(),
+      file: {
+        buffer: Buffer.from('pdf content'),
+        filename: 'document.pdf',
+        mimetype: 'application/pdf',
+      },
+      uploadedBy: 'user-1',
+    });
+
+    expect(mockThumbnailService.canGenerate).toHaveBeenCalledWith(
+      'application/pdf',
+    );
+    expect(mockThumbnailService.generate).not.toHaveBeenCalled();
+    expect(result.file.thumbnailKey).toBeNull();
+  });
+
+  it('should not block upload when thumbnail generation fails', async () => {
+    const folder = storageFoldersRepository.items[0];
+
+    const mockThumbnailService: ThumbnailService = {
+      canGenerate: vi.fn().mockReturnValue(true),
+      generate: vi.fn().mockRejectedValue(new Error('Sharp failed')),
+    };
+
+    const sutWithThumbnail = new UploadFileUseCase(
+      storageFoldersRepository,
+      storageFilesRepository,
+      storageFileVersionsRepository,
+      fileUploadService,
+      mockThumbnailService,
+    );
+
+    // Should not throw even though thumbnail generation fails
+    const result = await sutWithThumbnail.execute({
+      tenantId: TENANT_ID,
+      folderId: folder.id.toString(),
+      file: {
+        buffer: Buffer.from('corrupt image'),
+        filename: 'broken.jpg',
+        mimetype: 'image/jpeg',
+      },
+      uploadedBy: 'user-1',
+    });
+
+    expect(result.file.name).toBe('broken.jpg');
+    expect(result.file.thumbnailKey).toBeNull();
+  });
+
+  it('should work without thumbnail service (backwards compatible)', async () => {
+    const folder = storageFoldersRepository.items[0];
+
+    // sut is created without thumbnailService in beforeEach
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      folderId: folder.id.toString(),
+      file: {
+        buffer: Buffer.from('image data'),
+        filename: 'photo.jpg',
+        mimetype: 'image/jpeg',
+      },
+      uploadedBy: 'user-1',
+    });
+
+    expect(result.file.name).toBe('photo.jpg');
+    expect(result.file.thumbnailKey).toBeNull();
   });
 });
