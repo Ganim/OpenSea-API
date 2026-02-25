@@ -1,5 +1,5 @@
 import { env } from '@/@env';
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { compareVersionsController } from './v1-compare-versions.controller';
@@ -7,7 +7,7 @@ import { getEntityHistoryController } from './v1-get-entity-history.controller';
 import { listAuditLogsController } from './v1-list-audit-logs.controller';
 import { previewRollbackController } from './v1-preview-rollback.controller';
 
-export async function auditRoutes() {
+export async function auditRoutes(app: FastifyInstance) {
   // Audit routes com rate limit de consulta (todas são queries)
   app.register(
     async (queryApp) => {

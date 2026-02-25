@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { approveOvertimeController } from './v1-approve-overtime.controller';
@@ -6,7 +6,7 @@ import { getOvertimeController } from './v1-get-overtime.controller';
 import { listOvertimeController } from './v1-list-overtime.controller';
 import { requestOvertimeController } from './v1-request-overtime.controller';
 
-export async function overtimeRoutes() {
+export async function overtimeRoutes(app: FastifyInstance) {
   // Mutation routes
   app.register(
     async (mutationApp) => {

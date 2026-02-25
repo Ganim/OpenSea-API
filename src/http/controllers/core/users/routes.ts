@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { changeUserEmailController } from './v1-change-user-email.controller';
@@ -16,7 +16,7 @@ import { getUserByUsernameController } from './v1-get-user-by-username.controlle
 import { listAllUsersController } from './v1-list-all-users.controller';
 import { listOnlineUsersController } from './v1-list-online-users.controller';
 
-export async function usersRoutes() {
+export async function usersRoutes(app: FastifyInstance) {
   // Admin routes com rate limit elevado
   app.register(
     async (adminApp) => {

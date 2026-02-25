@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { adjustTimeBankController } from './v1-adjust-time-bank.controller';
@@ -7,7 +7,7 @@ import { debitTimeBankController } from './v1-debit-time-bank.controller';
 import { getTimeBankController } from './v1-get-time-bank.controller';
 import { listTimeBanksController } from './v1-list-time-banks.controller';
 
-export async function timeBankRoutes() {
+export async function timeBankRoutes(app: FastifyInstance) {
   // Manager mutation routes
   app.register(
     async (managerApp) => {

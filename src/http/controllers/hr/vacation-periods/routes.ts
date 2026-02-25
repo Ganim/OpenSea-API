@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { cancelScheduledVacationController } from './v1-cancel-scheduled-vacation.controller';
@@ -10,7 +10,7 @@ import { scheduleVacationController } from './v1-schedule-vacation.controller';
 import { sellVacationDaysController } from './v1-sell-vacation-days.controller';
 import { startVacationController } from './v1-start-vacation.controller';
 
-export async function vacationPeriodsRoutes() {
+export async function vacationPeriodsRoutes(app: FastifyInstance) {
   // Mutation routes
   app.register(
     async (mutationApp) => {

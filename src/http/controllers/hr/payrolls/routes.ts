@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { approvePayrollController } from './v1-approve-payroll.controller';
@@ -9,7 +9,7 @@ import { getPayrollController } from './v1-get-payroll.controller';
 import { listPayrollsController } from './v1-list-payrolls.controller';
 import { payPayrollController } from './v1-pay-payroll.controller';
 
-export async function payrollsRoutes() {
+export async function payrollsRoutes(app: FastifyInstance) {
   // Mutation routes
   app.register(
     async (mutationApp) => {

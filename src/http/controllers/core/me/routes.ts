@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { changeMyEmailController } from './v1-change-my-email.controller';
 import { changeMyPasswordController } from './v1-change-my-password.controller';
 import { changeMyProfileController } from './v1-change-my-profile.controller';
@@ -24,7 +24,7 @@ import { requestMyOvertimeController } from './v1-request-my-overtime.controller
 import { requestMyVacationController } from './v1-request-my-vacation.controller';
 import { updateMyNotificationPreferenceController } from './v1-update-my-notification-preference.controller';
 
-export async function meRoutes() {
+export async function meRoutes(app: FastifyInstance) {
   // Profile Routes
   app.register(changeMyEmailController);
   app.register(changeMyPasswordController);

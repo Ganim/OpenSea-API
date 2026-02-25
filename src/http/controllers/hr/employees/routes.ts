@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createEmployeeController } from './v1-create-employee.controller';
@@ -15,7 +15,7 @@ import { transferEmployeeController } from './v1-transfer-employee.controller';
 import { updateEmployeeController } from './v1-update-employee.controller';
 import { getEmployeesLabelDataController } from './v1-get-employees-label-data.controller';
 
-export async function employeesRoutes() {
+export async function employeesRoutes(app: FastifyInstance) {
   // Manager routes com rate limit de mutação
   app.register(
     async (managerApp) => {

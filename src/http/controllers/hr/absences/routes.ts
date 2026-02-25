@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { approveAbsenceController } from './v1-approve-absence.controller';
@@ -10,7 +10,7 @@ import { rejectAbsenceController } from './v1-reject-absence.controller';
 import { requestSickLeaveController } from './v1-request-sick-leave.controller';
 import { requestVacationController } from './v1-request-vacation.controller';
 
-export async function absencesRoutes() {
+export async function absencesRoutes(app: FastifyInstance) {
   // Mutation routes
   app.register(
     async (mutationApp) => {

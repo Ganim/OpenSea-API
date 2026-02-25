@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createTenantController } from './v1-create-tenant.controller';
@@ -7,7 +7,7 @@ import { inviteUserToTenantController } from './v1-invite-user.controller';
 import { removeUserFromTenantController } from './v1-remove-user.controller';
 import { updateTenantController } from './v1-update-tenant.controller';
 
-export async function tenantsRoutes() {
+export async function tenantsRoutes(app: FastifyInstance) {
   // Admin routes com rate limit elevado
   app.register(
     async (adminApp) => {

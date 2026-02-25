@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { calculateWorkedHoursController } from './v1-calculate-worked-hours.controller';
@@ -6,7 +6,7 @@ import { clockInController } from './v1-clock-in.controller';
 import { clockOutController } from './v1-clock-out.controller';
 import { listTimeEntriesController } from './v1-list-time-entries.controller';
 
-export async function timeControlRoutes() {
+export async function timeControlRoutes(app: FastifyInstance) {
   // Mutation routes - clock in/out
   app.register(
     async (mutationApp) => {

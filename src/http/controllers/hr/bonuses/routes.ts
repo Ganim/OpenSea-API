@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createBonusController } from './v1-create-bonus.controller';
@@ -6,7 +6,7 @@ import { deleteBonusController } from './v1-delete-bonus.controller';
 import { getBonusController } from './v1-get-bonus.controller';
 import { listBonusesController } from './v1-list-bonuses.controller';
 
-export async function bonusesRoutes() {
+export async function bonusesRoutes(app: FastifyInstance) {
   // Mutation routes
   app.register(
     async (mutationApp) => {

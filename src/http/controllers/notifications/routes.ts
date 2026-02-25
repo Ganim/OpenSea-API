@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { deleteNotificationController } from './v1-delete-notification.controller';
@@ -8,7 +8,7 @@ import { markAsReadController } from './v1-mark-as-read.controller';
 import { processScheduledNotificationsController } from './v1-process-scheduled-notifications.controller';
 import { sendNotificationEmailController } from './v1-send-notification-email.controller';
 
-export async function notificationsRoutes() {
+export async function notificationsRoutes(app: FastifyInstance) {
   // Authenticated user routes
   app.register(
     async (queryApp) => {

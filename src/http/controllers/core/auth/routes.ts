@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { authenticateWithAccessPinController } from './v1-authenticate-with-access-pin.controller';
@@ -9,7 +9,7 @@ import { resetPasswordByTokenController } from './v1-reset-password-by-token.con
 import { selectTenantController } from './v1-select-tenant.controller';
 import { sendPasswordResetTokenController } from './v1-send-password-reset-token.controller';
 
-export async function authRoutes() {
+export async function authRoutes(app: FastifyInstance) {
   // Public Routes com rate limit específico para autenticação (proteção contra brute force)
   app.register(
     async (authApp) => {

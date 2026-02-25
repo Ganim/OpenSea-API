@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { addPermissionToGroupController } from './v1-add-permission-to-group.controller';
@@ -11,7 +11,7 @@ import { listUsersByGroupController } from './v1-list-users-by-group.controller'
 import { removeGroupFromUserController } from './v1-remove-group-from-user.controller';
 import { removePermissionFromGroupController } from './v1-remove-permission-from-group.controller';
 
-export async function associationsRoutes() {
+export async function associationsRoutes(app: FastifyInstance) {
   // Admin routes - mutations
   app.register(
     async (adminApp) => {

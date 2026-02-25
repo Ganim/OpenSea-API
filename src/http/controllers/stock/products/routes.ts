@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createProductController } from './v1-create-product.controller';
@@ -7,7 +7,7 @@ import { getProductByIdController } from './v1-get-product-by-id.controller';
 import { listProductsController } from './v1-list-products.controller';
 import { updateProductController } from './v1-update-product.controller';
 
-export async function productsRoutes() {
+export async function productsRoutes(app: FastifyInstance) {
   // Admin routes com rate limit elevado
   app.register(
     async (adminApp) => {

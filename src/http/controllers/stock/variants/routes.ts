@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createVariantController } from './v1-create-variant.controller';
@@ -8,7 +8,7 @@ import { listVariantsByProductIdController } from './v1-list-variants-by-product
 import { listVariantsController } from './v1-list-variants.controller';
 import { updateVariantController } from './v1-update-variant.controller';
 
-export async function variantsRoutes() {
+export async function variantsRoutes(app: FastifyInstance) {
   // Manager routes com rate limit de mutação
   app.register(
     async (managerApp) => {

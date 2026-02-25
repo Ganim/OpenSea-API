@@ -1,4 +1,4 @@
-import { app } from '@/app';
+import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createPermissionController } from './v1-create-permission.controller';
@@ -10,7 +10,7 @@ import { listPermissionsByModulesController } from './v1-list-permissions-by-mod
 import { listPermissionsController } from './v1-list-permissions.controller';
 import { updatePermissionController } from './v1-update-permission.controller';
 
-export async function permissionsRoutes() {
+export async function permissionsRoutes(app: FastifyInstance) {
   // Admin routes - mutations (create, update, delete)
   app.register(
     async (adminApp) => {
