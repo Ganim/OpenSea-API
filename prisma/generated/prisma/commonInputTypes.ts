@@ -1496,6 +1496,23 @@ export type EnumEmailFolderTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumEmailFolderTypeFilter<$PrismaModel>
 }
 
+export type EnumTeamMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberRole | Prisma.EnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel> | $Enums.TeamMemberRole
+}
+
+export type EnumTeamMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberRole | Prisma.EnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.TeamMemberRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -2913,6 +2930,23 @@ export type NestedEnumEmailFolderTypeWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumEmailFolderTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumEmailFolderTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumTeamMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberRole | Prisma.EnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel> | $Enums.TeamMemberRole
+}
+
+export type NestedEnumTeamMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberRole | Prisma.EnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.TeamMemberRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
 }
 
 

@@ -150,7 +150,9 @@ export const ModelName = {
   EmailAccountAccess: 'EmailAccountAccess',
   EmailFolder: 'EmailFolder',
   EmailMessage: 'EmailMessage',
-  EmailAttachment: 'EmailAttachment'
+  EmailAttachment: 'EmailAttachment',
+  Team: 'Team',
+  TeamMember: 'TeamMember'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2178,6 +2180,42 @@ export const EmailAttachmentScalarFieldEnum = {
 } as const
 
 export type EmailAttachmentScalarFieldEnum = (typeof EmailAttachmentScalarFieldEnum)[keyof typeof EmailAttachmentScalarFieldEnum]
+
+
+export const TeamScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  avatarUrl: 'avatarUrl',
+  color: 'color',
+  isActive: 'isActive',
+  permissionGroupId: 'permissionGroupId',
+  storageFolderId: 'storageFolderId',
+  settings: 'settings',
+  createdBy: 'createdBy',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
+
+
+export const TeamMemberScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  teamId: 'teamId',
+  userId: 'userId',
+  role: 'role',
+  joinedAt: 'joinedAt',
+  leftAt: 'leftAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
 
 
 export const SortOrder = {

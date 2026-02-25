@@ -394,6 +394,8 @@ export type UserWhereInput = {
   eventReminders?: Prisma.EventReminderListRelationFilter
   emailAccounts?: Prisma.EmailAccountListRelationFilter
   emailAccountsAccess?: Prisma.EmailAccountAccessListRelationFilter
+  teamsCreated?: Prisma.TeamListRelationFilter
+  teamMembers?: Prisma.TeamMemberListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -461,6 +463,8 @@ export type UserOrderByWithRelationInput = {
   eventReminders?: Prisma.EventReminderOrderByRelationAggregateInput
   emailAccounts?: Prisma.EmailAccountOrderByRelationAggregateInput
   emailAccountsAccess?: Prisma.EmailAccountAccessOrderByRelationAggregateInput
+  teamsCreated?: Prisma.TeamOrderByRelationAggregateInput
+  teamMembers?: Prisma.TeamMemberOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -533,6 +537,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   eventReminders?: Prisma.EventReminderListRelationFilter
   emailAccounts?: Prisma.EmailAccountListRelationFilter
   emailAccountsAccess?: Prisma.EmailAccountAccessListRelationFilter
+  teamsCreated?: Prisma.TeamListRelationFilter
+  teamMembers?: Prisma.TeamMemberListRelationFilter
 }, "id" | "users_email_unique_active" | "users_username_unique_active">
 
 export type UserOrderByWithAggregationInput = {
@@ -658,6 +664,8 @@ export type UserCreateInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -725,6 +733,8 @@ export type UserUncheckedCreateInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -792,6 +802,8 @@ export type UserUpdateInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -859,6 +871,8 @@ export type UserUncheckedUpdateInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1689,6 +1703,34 @@ export type UserUpdateOneRequiredWithoutEmailAccountsAccessNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEmailAccountsAccessInput, Prisma.UserUpdateWithoutEmailAccountsAccessInput>, Prisma.UserUncheckedUpdateWithoutEmailAccountsAccessInput>
 }
 
+export type UserCreateNestedOneWithoutTeamsCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTeamsCreatedInput, Prisma.UserUncheckedCreateWithoutTeamsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTeamsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTeamsCreatedInput, Prisma.UserUncheckedCreateWithoutTeamsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamsCreatedInput
+  upsert?: Prisma.UserUpsertWithoutTeamsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTeamsCreatedInput, Prisma.UserUpdateWithoutTeamsCreatedInput>, Prisma.UserUncheckedUpdateWithoutTeamsCreatedInput>
+}
+
+export type UserCreateNestedOneWithoutTeamMembersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTeamMembersInput, Prisma.UserUncheckedCreateWithoutTeamMembersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamMembersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTeamMembersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTeamMembersInput, Prisma.UserUncheckedCreateWithoutTeamMembersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamMembersInput
+  upsert?: Prisma.UserUpsertWithoutTeamMembersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTeamMembersInput, Prisma.UserUpdateWithoutTeamMembersInput>, Prisma.UserUncheckedUpdateWithoutTeamMembersInput>
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   username?: string | null
@@ -1753,6 +1795,8 @@ export type UserCreateWithoutProfileInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -1819,6 +1863,8 @@ export type UserUncheckedCreateWithoutProfileInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -1901,6 +1947,8 @@ export type UserUpdateWithoutProfileInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -1967,6 +2015,8 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -2033,6 +2083,8 @@ export type UserCreateWithoutSessionsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2099,6 +2151,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2181,6 +2235,8 @@ export type UserUpdateWithoutSessionsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2247,6 +2303,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokenInput = {
@@ -2313,6 +2371,8 @@ export type UserCreateWithoutRefreshTokenInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokenInput = {
@@ -2379,6 +2439,8 @@ export type UserUncheckedCreateWithoutRefreshTokenInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokenInput = {
@@ -2461,6 +2523,8 @@ export type UserUpdateWithoutRefreshTokenInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokenInput = {
@@ -2527,6 +2591,8 @@ export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPermissionGroupsInput = {
@@ -2593,6 +2659,8 @@ export type UserCreateWithoutPermissionGroupsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPermissionGroupsInput = {
@@ -2659,6 +2727,8 @@ export type UserUncheckedCreateWithoutPermissionGroupsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPermissionGroupsInput = {
@@ -2730,6 +2800,8 @@ export type UserCreateWithoutGrantedPermissionsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
@@ -2796,6 +2868,8 @@ export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGrantedPermissionsInput = {
@@ -2878,6 +2952,8 @@ export type UserUpdateWithoutPermissionGroupsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
@@ -2944,6 +3020,8 @@ export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutGrantedPermissionsInput = {
@@ -3021,6 +3099,8 @@ export type UserUpdateWithoutGrantedPermissionsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
@@ -3087,6 +3167,8 @@ export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDirectPermissionsInput = {
@@ -3153,6 +3235,8 @@ export type UserCreateWithoutDirectPermissionsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDirectPermissionsInput = {
@@ -3219,6 +3303,8 @@ export type UserUncheckedCreateWithoutDirectPermissionsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDirectPermissionsInput = {
@@ -3290,6 +3376,8 @@ export type UserCreateWithoutGrantedDirectPermissionsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
@@ -3356,6 +3444,8 @@ export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGrantedDirectPermissionsInput = {
@@ -3438,6 +3528,8 @@ export type UserUpdateWithoutDirectPermissionsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
@@ -3504,6 +3596,8 @@ export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutGrantedDirectPermissionsInput = {
@@ -3581,6 +3675,8 @@ export type UserUpdateWithoutGrantedDirectPermissionsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
@@ -3647,6 +3743,8 @@ export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPermissionAuditLogsInput = {
@@ -3713,6 +3811,8 @@ export type UserCreateWithoutPermissionAuditLogsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
@@ -3779,6 +3879,8 @@ export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPermissionAuditLogsInput = {
@@ -3861,6 +3963,8 @@ export type UserUpdateWithoutPermissionAuditLogsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
@@ -3927,6 +4031,8 @@ export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutVolumesCreatedInput = {
@@ -3993,6 +4099,8 @@ export type UserCreateWithoutVolumesCreatedInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVolumesCreatedInput = {
@@ -4059,6 +4167,8 @@ export type UserUncheckedCreateWithoutVolumesCreatedInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVolumesCreatedInput = {
@@ -4130,6 +4240,8 @@ export type UserCreateWithoutVolumesClosedInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVolumesClosedInput = {
@@ -4196,6 +4308,8 @@ export type UserUncheckedCreateWithoutVolumesClosedInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVolumesClosedInput = {
@@ -4267,6 +4381,8 @@ export type UserCreateWithoutVolumesDeliveredInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
@@ -4333,6 +4449,8 @@ export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVolumesDeliveredInput = {
@@ -4415,6 +4533,8 @@ export type UserUpdateWithoutVolumesCreatedInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
@@ -4481,6 +4601,8 @@ export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutVolumesClosedInput = {
@@ -4558,6 +4680,8 @@ export type UserUpdateWithoutVolumesClosedInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesClosedInput = {
@@ -4624,6 +4748,8 @@ export type UserUncheckedUpdateWithoutVolumesClosedInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutVolumesDeliveredInput = {
@@ -4701,6 +4827,8 @@ export type UserUpdateWithoutVolumesDeliveredInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
@@ -4767,6 +4895,8 @@ export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutItemMovementInput = {
@@ -4833,6 +4963,8 @@ export type UserCreateWithoutItemMovementInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutItemMovementInput = {
@@ -4899,6 +5031,8 @@ export type UserUncheckedCreateWithoutItemMovementInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutItemMovementInput = {
@@ -4970,6 +5104,8 @@ export type UserCreateWithoutApprovedMovementsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApprovedMovementsInput = {
@@ -5036,6 +5172,8 @@ export type UserUncheckedCreateWithoutApprovedMovementsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApprovedMovementsInput = {
@@ -5118,6 +5256,8 @@ export type UserUpdateWithoutItemMovementInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutItemMovementInput = {
@@ -5184,6 +5324,8 @@ export type UserUncheckedUpdateWithoutItemMovementInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutApprovedMovementsInput = {
@@ -5261,6 +5403,8 @@ export type UserUpdateWithoutApprovedMovementsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
@@ -5327,6 +5471,8 @@ export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutVariantPriceHistoryInput = {
@@ -5393,6 +5539,8 @@ export type UserCreateWithoutVariantPriceHistoryInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
@@ -5459,6 +5607,8 @@ export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVariantPriceHistoryInput = {
@@ -5541,6 +5691,8 @@ export type UserUpdateWithoutVariantPriceHistoryInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
@@ -5607,6 +5759,8 @@ export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -5673,6 +5827,8 @@ export type UserCreateWithoutAuditLogsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -5739,6 +5895,8 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -5821,6 +5979,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -5887,6 +6047,8 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAlertsInput = {
@@ -5953,6 +6115,8 @@ export type UserCreateWithoutAlertsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAlertsInput = {
@@ -6019,6 +6183,8 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAlertsInput = {
@@ -6101,6 +6267,8 @@ export type UserUpdateWithoutAlertsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAlertsInput = {
@@ -6167,6 +6335,8 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedPurchaseOrdersInput = {
@@ -6233,6 +6403,8 @@ export type UserCreateWithoutCreatedPurchaseOrdersInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
@@ -6299,6 +6471,8 @@ export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedPurchaseOrdersInput = {
@@ -6381,6 +6555,8 @@ export type UserUpdateWithoutCreatedPurchaseOrdersInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
@@ -6447,6 +6623,8 @@ export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedSalesOrdersInput = {
@@ -6513,6 +6691,8 @@ export type UserCreateWithoutCreatedSalesOrdersInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
@@ -6579,6 +6759,8 @@ export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedSalesOrdersInput = {
@@ -6661,6 +6843,8 @@ export type UserUpdateWithoutCreatedSalesOrdersInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
@@ -6727,6 +6911,8 @@ export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutItemReservationsInput = {
@@ -6793,6 +6979,8 @@ export type UserCreateWithoutItemReservationsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutItemReservationsInput = {
@@ -6859,6 +7047,8 @@ export type UserUncheckedCreateWithoutItemReservationsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutItemReservationsInput = {
@@ -6941,6 +7131,8 @@ export type UserUpdateWithoutItemReservationsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutItemReservationsInput = {
@@ -7007,6 +7199,8 @@ export type UserUncheckedUpdateWithoutItemReservationsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -7073,6 +7267,8 @@ export type UserCreateWithoutCommentsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -7139,6 +7335,8 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -7221,6 +7419,8 @@ export type UserUpdateWithoutCommentsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -7287,6 +7487,8 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferencesInput = {
@@ -7353,6 +7555,8 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
@@ -7419,6 +7623,8 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -7501,6 +7707,8 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
@@ -7567,6 +7775,8 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -7633,6 +7843,8 @@ export type UserCreateWithoutNotificationsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -7699,6 +7911,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -7781,6 +7995,8 @@ export type UserUpdateWithoutNotificationsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -7847,6 +8063,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRequestsCreatedInput = {
@@ -7913,6 +8131,8 @@ export type UserCreateWithoutRequestsCreatedInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRequestsCreatedInput = {
@@ -7979,6 +8199,8 @@ export type UserUncheckedCreateWithoutRequestsCreatedInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRequestsCreatedInput = {
@@ -8050,6 +8272,8 @@ export type UserCreateWithoutRequestsAssignedInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRequestsAssignedInput = {
@@ -8116,6 +8340,8 @@ export type UserUncheckedCreateWithoutRequestsAssignedInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRequestsAssignedInput = {
@@ -8198,6 +8424,8 @@ export type UserUpdateWithoutRequestsCreatedInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
@@ -8264,6 +8492,8 @@ export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutRequestsAssignedInput = {
@@ -8341,6 +8571,8 @@ export type UserUpdateWithoutRequestsAssignedInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
@@ -8407,6 +8639,8 @@ export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUploadedAttachmentsInput = {
@@ -8473,6 +8707,8 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
@@ -8539,6 +8775,8 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUploadedAttachmentsInput = {
@@ -8621,6 +8859,8 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
@@ -8687,6 +8927,8 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRequestCommentsInput = {
@@ -8753,6 +8995,8 @@ export type UserCreateWithoutRequestCommentsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRequestCommentsInput = {
@@ -8819,6 +9063,8 @@ export type UserUncheckedCreateWithoutRequestCommentsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRequestCommentsInput = {
@@ -8901,6 +9147,8 @@ export type UserUpdateWithoutRequestCommentsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestCommentsInput = {
@@ -8967,6 +9215,8 @@ export type UserUncheckedUpdateWithoutRequestCommentsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRequestHistoryActionsInput = {
@@ -9033,6 +9283,8 @@ export type UserCreateWithoutRequestHistoryActionsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
@@ -9099,6 +9351,8 @@ export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRequestHistoryActionsInput = {
@@ -9181,6 +9435,8 @@ export type UserUpdateWithoutRequestHistoryActionsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
@@ -9247,6 +9503,8 @@ export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmployeeInput = {
@@ -9313,6 +9571,8 @@ export type UserCreateWithoutEmployeeInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmployeeInput = {
@@ -9379,6 +9639,8 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmployeeInput = {
@@ -9461,6 +9723,8 @@ export type UserUpdateWithoutEmployeeInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmployeeInput = {
@@ -9527,6 +9791,8 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutApprovedOvertimeInput = {
@@ -9593,6 +9859,8 @@ export type UserCreateWithoutApprovedOvertimeInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
@@ -9659,6 +9927,8 @@ export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApprovedOvertimeInput = {
@@ -9741,6 +10011,8 @@ export type UserUpdateWithoutApprovedOvertimeInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
@@ -9807,6 +10079,8 @@ export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutApprovedAbsencesInput = {
@@ -9873,6 +10147,8 @@ export type UserCreateWithoutApprovedAbsencesInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
@@ -9939,6 +10215,8 @@ export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApprovedAbsencesInput = {
@@ -10021,6 +10299,8 @@ export type UserUpdateWithoutApprovedAbsencesInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
@@ -10087,6 +10367,8 @@ export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProcessedPayrollsInput = {
@@ -10153,6 +10435,8 @@ export type UserCreateWithoutProcessedPayrollsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
@@ -10219,6 +10503,8 @@ export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProcessedPayrollsInput = {
@@ -10290,6 +10576,8 @@ export type UserCreateWithoutApprovedPayrollsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
@@ -10356,6 +10644,8 @@ export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApprovedPayrollsInput = {
@@ -10427,6 +10717,8 @@ export type UserCreateWithoutPaidPayrollsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaidPayrollsInput = {
@@ -10493,6 +10785,8 @@ export type UserUncheckedCreateWithoutPaidPayrollsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaidPayrollsInput = {
@@ -10575,6 +10869,8 @@ export type UserUpdateWithoutProcessedPayrollsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
@@ -10641,6 +10937,8 @@ export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutApprovedPayrollsInput = {
@@ -10718,6 +11016,8 @@ export type UserUpdateWithoutApprovedPayrollsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
@@ -10784,6 +11084,8 @@ export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutPaidPayrollsInput = {
@@ -10861,6 +11163,8 @@ export type UserUpdateWithoutPaidPayrollsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
@@ -10927,6 +11231,8 @@ export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLabelTemplatesCreatedInput = {
@@ -10993,6 +11299,8 @@ export type UserCreateWithoutLabelTemplatesCreatedInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
@@ -11059,6 +11367,8 @@ export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLabelTemplatesCreatedInput = {
@@ -11141,6 +11451,8 @@ export type UserUpdateWithoutLabelTemplatesCreatedInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
@@ -11207,6 +11519,8 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTenantUsersInput = {
@@ -11273,6 +11587,8 @@ export type UserCreateWithoutTenantUsersInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTenantUsersInput = {
@@ -11339,6 +11655,8 @@ export type UserUncheckedCreateWithoutTenantUsersInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTenantUsersInput = {
@@ -11421,6 +11739,8 @@ export type UserUpdateWithoutTenantUsersInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTenantUsersInput = {
@@ -11487,6 +11807,8 @@ export type UserUncheckedUpdateWithoutTenantUsersInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStorageFoldersInput = {
@@ -11553,6 +11875,8 @@ export type UserCreateWithoutStorageFoldersInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStorageFoldersInput = {
@@ -11619,6 +11943,8 @@ export type UserUncheckedCreateWithoutStorageFoldersInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStorageFoldersInput = {
@@ -11701,6 +12027,8 @@ export type UserUpdateWithoutStorageFoldersInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStorageFoldersInput = {
@@ -11767,6 +12095,8 @@ export type UserUncheckedUpdateWithoutStorageFoldersInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFolderAccessRulesInput = {
@@ -11833,6 +12163,8 @@ export type UserCreateWithoutFolderAccessRulesInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
@@ -11899,6 +12231,8 @@ export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFolderAccessRulesInput = {
@@ -11981,6 +12315,8 @@ export type UserUpdateWithoutFolderAccessRulesInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
@@ -12047,6 +12383,8 @@ export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCalendarEventsCreatedInput = {
@@ -12113,6 +12451,8 @@ export type UserCreateWithoutCalendarEventsCreatedInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCalendarEventsCreatedInput = {
@@ -12179,6 +12519,8 @@ export type UserUncheckedCreateWithoutCalendarEventsCreatedInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCalendarEventsCreatedInput = {
@@ -12261,6 +12603,8 @@ export type UserUpdateWithoutCalendarEventsCreatedInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCalendarEventsCreatedInput = {
@@ -12327,6 +12671,8 @@ export type UserUncheckedUpdateWithoutCalendarEventsCreatedInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEventParticipantsInput = {
@@ -12393,6 +12739,8 @@ export type UserCreateWithoutEventParticipantsInput = {
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEventParticipantsInput = {
@@ -12459,6 +12807,8 @@ export type UserUncheckedCreateWithoutEventParticipantsInput = {
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEventParticipantsInput = {
@@ -12541,6 +12891,8 @@ export type UserUpdateWithoutEventParticipantsInput = {
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventParticipantsInput = {
@@ -12607,6 +12959,8 @@ export type UserUncheckedUpdateWithoutEventParticipantsInput = {
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEventRemindersInput = {
@@ -12673,6 +13027,8 @@ export type UserCreateWithoutEventRemindersInput = {
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEventRemindersInput = {
@@ -12739,6 +13095,8 @@ export type UserUncheckedCreateWithoutEventRemindersInput = {
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEventRemindersInput = {
@@ -12821,6 +13179,8 @@ export type UserUpdateWithoutEventRemindersInput = {
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventRemindersInput = {
@@ -12887,6 +13247,8 @@ export type UserUncheckedUpdateWithoutEventRemindersInput = {
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmailAccountsInput = {
@@ -12953,6 +13315,8 @@ export type UserCreateWithoutEmailAccountsInput = {
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailAccountsInput = {
@@ -13019,6 +13383,8 @@ export type UserUncheckedCreateWithoutEmailAccountsInput = {
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailAccountsInput = {
@@ -13101,6 +13467,8 @@ export type UserUpdateWithoutEmailAccountsInput = {
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailAccountsInput = {
@@ -13167,6 +13535,8 @@ export type UserUncheckedUpdateWithoutEmailAccountsInput = {
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmailAccountsAccessInput = {
@@ -13233,6 +13603,8 @@ export type UserCreateWithoutEmailAccountsAccessInput = {
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailAccountsAccessInput = {
@@ -13299,6 +13671,8 @@ export type UserUncheckedCreateWithoutEmailAccountsAccessInput = {
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailAccountsAccessInput = {
@@ -13381,6 +13755,8 @@ export type UserUpdateWithoutEmailAccountsAccessInput = {
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailAccountsAccessInput = {
@@ -13447,6 +13823,584 @@ export type UserUncheckedUpdateWithoutEmailAccountsAccessInput = {
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTeamsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTeamsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTeamsCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTeamsCreatedInput, Prisma.UserUncheckedCreateWithoutTeamsCreatedInput>
+}
+
+export type UserUpsertWithoutTeamsCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTeamsCreatedInput, Prisma.UserUncheckedUpdateWithoutTeamsCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTeamsCreatedInput, Prisma.UserUncheckedCreateWithoutTeamsCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTeamsCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTeamsCreatedInput, Prisma.UserUncheckedUpdateWithoutTeamsCreatedInput>
+}
+
+export type UserUpdateWithoutTeamsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTeamsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTeamMembersInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+}
+
+export type UserUncheckedCreateWithoutTeamMembersInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+}
+
+export type UserCreateOrConnectWithoutTeamMembersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTeamMembersInput, Prisma.UserUncheckedCreateWithoutTeamMembersInput>
+}
+
+export type UserUpsertWithoutTeamMembersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTeamMembersInput, Prisma.UserUncheckedUpdateWithoutTeamMembersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTeamMembersInput, Prisma.UserUncheckedCreateWithoutTeamMembersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTeamMembersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTeamMembersInput, Prisma.UserUncheckedUpdateWithoutTeamMembersInput>
+}
+
+export type UserUpdateWithoutTeamMembersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTeamMembersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 
@@ -13495,6 +14449,8 @@ export type UserCountOutputType = {
   eventReminders: number
   emailAccounts: number
   emailAccountsAccess: number
+  teamsCreated: number
+  teamMembers: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -13538,6 +14494,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   eventReminders?: boolean | UserCountOutputTypeCountEventRemindersArgs
   emailAccounts?: boolean | UserCountOutputTypeCountEmailAccountsArgs
   emailAccountsAccess?: boolean | UserCountOutputTypeCountEmailAccountsAccessArgs
+  teamsCreated?: boolean | UserCountOutputTypeCountTeamsCreatedArgs
+  teamMembers?: boolean | UserCountOutputTypeCountTeamMembersArgs
 }
 
 /**
@@ -13830,6 +14788,20 @@ export type UserCountOutputTypeCountEmailAccountsAccessArgs<ExtArgs extends runt
   where?: Prisma.EmailAccountAccessWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTeamsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TeamWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTeamMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TeamMemberWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -13896,6 +14868,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   eventReminders?: boolean | Prisma.User$eventRemindersArgs<ExtArgs>
   emailAccounts?: boolean | Prisma.User$emailAccountsArgs<ExtArgs>
   emailAccountsAccess?: boolean | Prisma.User$emailAccountsAccessArgs<ExtArgs>
+  teamsCreated?: boolean | Prisma.User$teamsCreatedArgs<ExtArgs>
+  teamMembers?: boolean | Prisma.User$teamMembersArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -14018,6 +14992,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   eventReminders?: boolean | Prisma.User$eventRemindersArgs<ExtArgs>
   emailAccounts?: boolean | Prisma.User$emailAccountsArgs<ExtArgs>
   emailAccountsAccess?: boolean | Prisma.User$emailAccountsAccessArgs<ExtArgs>
+  teamsCreated?: boolean | Prisma.User$teamsCreatedArgs<ExtArgs>
+  teamMembers?: boolean | Prisma.User$teamMembersArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -14068,6 +15044,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     eventReminders: Prisma.$EventReminderPayload<ExtArgs>[]
     emailAccounts: Prisma.$EmailAccountPayload<ExtArgs>[]
     emailAccountsAccess: Prisma.$EmailAccountAccessPayload<ExtArgs>[]
+    teamsCreated: Prisma.$TeamPayload<ExtArgs>[]
+    teamMembers: Prisma.$TeamMemberPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -14528,6 +15506,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   eventReminders<T extends Prisma.User$eventRemindersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$eventRemindersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   emailAccounts<T extends Prisma.User$emailAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   emailAccountsAccess<T extends Prisma.User$emailAccountsAccessArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailAccountsAccessArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailAccountAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  teamsCreated<T extends Prisma.User$teamsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$teamsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  teamMembers<T extends Prisma.User$teamMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$teamMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15962,6 +16942,54 @@ export type User$emailAccountsAccessArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.EmailAccountAccessScalarFieldEnum | Prisma.EmailAccountAccessScalarFieldEnum[]
+}
+
+/**
+ * User.teamsCreated
+ */
+export type User$teamsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Team
+   */
+  select?: Prisma.TeamSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Team
+   */
+  omit?: Prisma.TeamOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamInclude<ExtArgs> | null
+  where?: Prisma.TeamWhereInput
+  orderBy?: Prisma.TeamOrderByWithRelationInput | Prisma.TeamOrderByWithRelationInput[]
+  cursor?: Prisma.TeamWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TeamScalarFieldEnum | Prisma.TeamScalarFieldEnum[]
+}
+
+/**
+ * User.teamMembers
+ */
+export type User$teamMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TeamMember
+   */
+  select?: Prisma.TeamMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TeamMember
+   */
+  omit?: Prisma.TeamMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamMemberInclude<ExtArgs> | null
+  where?: Prisma.TeamMemberWhereInput
+  orderBy?: Prisma.TeamMemberOrderByWithRelationInput | Prisma.TeamMemberOrderByWithRelationInput[]
+  cursor?: Prisma.TeamMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TeamMemberScalarFieldEnum | Prisma.TeamMemberScalarFieldEnum[]
 }
 
 /**

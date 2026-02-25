@@ -859,10 +859,12 @@ export type StorageFolderCreateNestedOneWithoutFilesInput = {
   connect?: Prisma.StorageFolderWhereUniqueInput
 }
 
-export type StorageFolderUpdateOneRequiredWithoutFilesNestedInput = {
+export type StorageFolderUpdateOneWithoutFilesNestedInput = {
   create?: Prisma.XOR<Prisma.StorageFolderCreateWithoutFilesInput, Prisma.StorageFolderUncheckedCreateWithoutFilesInput>
   connectOrCreate?: Prisma.StorageFolderCreateOrConnectWithoutFilesInput
   upsert?: Prisma.StorageFolderUpsertWithoutFilesInput
+  disconnect?: Prisma.StorageFolderWhereInput | boolean
+  delete?: Prisma.StorageFolderWhereInput | boolean
   connect?: Prisma.StorageFolderWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFolderUpdateToOneWithWhereWithoutFilesInput, Prisma.StorageFolderUpdateWithoutFilesInput>, Prisma.StorageFolderUncheckedUpdateWithoutFilesInput>
 }

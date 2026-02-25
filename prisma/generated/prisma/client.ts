@@ -539,3 +539,13 @@ export type EmailMessage = Prisma.EmailMessageModel
  * 
  */
 export type EmailAttachment = Prisma.EmailAttachmentModel
+/**
+ * Model Team
+ * 
+ */
+export type Team = Prisma.TeamModel
+/**
+ * Model TeamMember
+ * 
+ */
+export type TeamMember = Prisma.TeamMemberModel

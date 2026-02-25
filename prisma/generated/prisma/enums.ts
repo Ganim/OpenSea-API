@@ -305,6 +305,8 @@ export const AuditEntity = {
   USER_PERMISSION_GROUP: 'USER_PERMISSION_GROUP',
   USER_DIRECT_PERMISSION: 'USER_DIRECT_PERMISSION',
   LABEL_TEMPLATE: 'LABEL_TEMPLATE',
+  TEAM: 'TEAM',
+  TEAM_MEMBER: 'TEAM_MEMBER',
   PRODUCT: 'PRODUCT',
   VARIANT: 'VARIANT',
   ITEM: 'ITEM',
@@ -367,6 +369,13 @@ export const AuditEntity = {
   LOAN_INSTALLMENT: 'LOAN_INSTALLMENT',
   CONSORTIUM: 'CONSORTIUM',
   CONSORTIUM_PAYMENT: 'CONSORTIUM_PAYMENT',
+  CALENDAR_EVENT: 'CALENDAR_EVENT',
+  CALENDAR_PARTICIPANT: 'CALENDAR_PARTICIPANT',
+  CALENDAR_REMINDER: 'CALENDAR_REMINDER',
+  STORAGE_FOLDER: 'STORAGE_FOLDER',
+  STORAGE_FILE: 'STORAGE_FILE',
+  STORAGE_FILE_VERSION: 'STORAGE_FILE_VERSION',
+  STORAGE_ACCESS_RULE: 'STORAGE_ACCESS_RULE',
   OTHER: 'OTHER'
 } as const
 
@@ -384,6 +393,8 @@ export const AuditModule = {
   REQUESTS: 'REQUESTS',
   NOTIFICATIONS: 'NOTIFICATIONS',
   FINANCE: 'FINANCE',
+  CALENDAR: 'CALENDAR',
+  STORAGE: 'STORAGE',
   SYSTEM: 'SYSTEM',
   OTHER: 'OTHER'
 } as const
@@ -804,6 +815,15 @@ export const SystemModuleEnum = {
 } as const
 
 export type SystemModuleEnum = (typeof SystemModuleEnum)[keyof typeof SystemModuleEnum]
+
+
+export const TeamMemberRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
+} as const
+
+export type TeamMemberRole = (typeof TeamMemberRole)[keyof typeof TeamMemberRole]
 
 
 export const EventType = {
