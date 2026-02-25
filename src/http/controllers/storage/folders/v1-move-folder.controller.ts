@@ -59,7 +59,7 @@ export async function moveFolderController(app: FastifyInstance) {
         const { folder } = await moveFolderUseCase.execute({
           tenantId,
           folderId: id,
-          targetParentId: parentId,
+          targetParentId: parentId ?? null,
         });
 
         await logAudit(request, {

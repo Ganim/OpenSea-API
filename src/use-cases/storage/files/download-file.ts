@@ -44,6 +44,7 @@ export class DownloadFileUseCase {
         await this.storageFileVersionsRepository.findByVersion(
           new UniqueEntityID(fileId),
           version,
+          tenantId,
         );
 
       if (!requestedVersion) {

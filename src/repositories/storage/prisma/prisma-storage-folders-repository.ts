@@ -35,6 +35,18 @@ export class PrismaStorageFoldersRepository
     return storageFolderPrismaToDomain(folderDb);
   }
 
+  async findByIds(ids: string[], tenantId: string): Promise<StorageFolder[]> {
+    if (ids.length === 0) return [];
+    const foldersDb = await prisma.storageFolder.findMany({
+      where: {
+        id: { in: ids },
+        tenantId,
+        deletedAt: null,
+      },
+    });
+    return foldersDb.map(storageFolderPrismaToDomain);
+  }
+
   async findById(
     id: UniqueEntityID,
     tenantId: string,

@@ -33,6 +33,7 @@ export interface UpdateStorageFolderSchema {
 export interface StorageFoldersRepository {
   create(data: CreateStorageFolderSchema): Promise<StorageFolder>;
   findById(id: UniqueEntityID, tenantId: string): Promise<StorageFolder | null>;
+  findByIds(ids: string[], tenantId: string): Promise<StorageFolder[]>;
   findByPath(path: string, tenantId: string): Promise<StorageFolder | null>;
   findChildren(
     parentId: UniqueEntityID,

@@ -4105,6 +4105,8 @@ model StorageFolder {
   @@index([module])
   @@index([entityType, entityId])
   @@index([createdBy])
+  @@index([tenantId, deletedAt])
+  @@index([tenantId, parentId, deletedAt])
   @@map("storage_folders")
 }
 
@@ -4145,6 +4147,8 @@ model StorageFile {
   @@index([fileType])
   @@index([entityType, entityId])
   @@index([uploadedBy])
+  @@index([tenantId, deletedAt])
+  @@index([tenantId, folderId, deletedAt])
   @@map("storage_files")
 }
 
@@ -4195,6 +4199,8 @@ model FolderAccessRule {
   @@index([folderId])
   @@index([userId])
   @@index([groupId])
+  @@index([folderId, userId])
+  @@index([folderId, groupId])
   @@map("folder_access_rules")
 }
 

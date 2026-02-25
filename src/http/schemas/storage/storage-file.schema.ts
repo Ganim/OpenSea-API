@@ -9,7 +9,7 @@ export const renameStorageFileSchema = z.object({
 });
 
 export const moveStorageFileSchema = z.object({
-  folderId: z.string().uuid(),
+  folderId: z.string().uuid().nullable(),
 });
 
 // ============================================================================

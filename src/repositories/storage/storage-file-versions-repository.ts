@@ -13,11 +13,18 @@ export interface CreateStorageFileVersionSchema {
 
 export interface StorageFileVersionsRepository {
   create(data: CreateStorageFileVersionSchema): Promise<StorageFileVersion>;
-  findByFileId(fileId: UniqueEntityID): Promise<StorageFileVersion[]>;
+  findByFileId(
+    fileId: UniqueEntityID,
+    tenantId?: string,
+  ): Promise<StorageFileVersion[]>;
   findByVersion(
     fileId: UniqueEntityID,
     version: number,
+    tenantId?: string,
   ): Promise<StorageFileVersion | null>;
-  findLatest(fileId: UniqueEntityID): Promise<StorageFileVersion | null>;
+  findLatest(
+    fileId: UniqueEntityID,
+    tenantId?: string,
+  ): Promise<StorageFileVersion | null>;
   deleteByFileId(fileId: UniqueEntityID): Promise<void>;
 }

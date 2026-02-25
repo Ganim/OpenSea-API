@@ -28,9 +28,15 @@ export class PrismaStorageFileVersionsRepository
     return storageFileVersionPrismaToDomain(versionDb);
   }
 
-  async findByFileId(fileId: UniqueEntityID): Promise<StorageFileVersion[]> {
+  async findByFileId(
+    fileId: UniqueEntityID,
+    tenantId?: string,
+  ): Promise<StorageFileVersion[]> {
     const versionsDb = await prisma.storageFileVersion.findMany({
-      where: { fileId: fileId.toString() },
+      where: {
+        fileId: fileId.toString(),
+        ...(tenantId && { file: { tenantId } }),
+      },
       orderBy: { version: 'desc' },
     });
 
@@ -40,11 +46,13 @@ export class PrismaStorageFileVersionsRepository
   async findByVersion(
     fileId: UniqueEntityID,
     version: number,
+    tenantId?: string,
   ): Promise<StorageFileVersion | null> {
     const versionDb = await prisma.storageFileVersion.findFirst({
       where: {
         fileId: fileId.toString(),
         version,
+        ...(tenantId && { file: { tenantId } }),
       },
     });
 
@@ -52,9 +60,15 @@ export class PrismaStorageFileVersionsRepository
     return storageFileVersionPrismaToDomain(versionDb);
   }
 
-  async findLatest(fileId: UniqueEntityID): Promise<StorageFileVersion | null> {
+  async findLatest(
+    fileId: UniqueEntityID,
+    tenantId?: string,
+  ): Promise<StorageFileVersion | null> {
     const versionDb = await prisma.storageFileVersion.findFirst({
-      where: { fileId: fileId.toString() },
+      where: {
+        fileId: fileId.toString(),
+        ...(tenantId && { file: { tenantId } }),
+      },
       orderBy: { version: 'desc' },
     });
 

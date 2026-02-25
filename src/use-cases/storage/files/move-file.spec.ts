@@ -97,6 +97,32 @@ describe('MoveFileUseCase', () => {
     ).rejects.toThrow(ResourceNotFoundError);
   });
 
+  it('should move a file to root when targetFolderId is null', async () => {
+    const sourceFolder = storageFoldersRepository.items[0];
+
+    const createdFile = await storageFilesRepository.create({
+      tenantId: TENANT_ID,
+      folderId: sourceFolder.id.toString(),
+      name: 'report.pdf',
+      originalName: 'report.pdf',
+      fileKey: 'storage/tenant-1/folder-1/report.pdf',
+      path: '/documents/report.pdf',
+      size: 1024,
+      mimeType: 'application/pdf',
+      fileType: 'pdf',
+      uploadedBy: 'user-1',
+    });
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      fileId: createdFile.id.toString(),
+      targetFolderId: null,
+    });
+
+    expect(result.file.folderId).toBeNull();
+    expect(result.file.path).toBe('/report.pdf');
+  });
+
   it('should throw when a file with the same name exists in the target folder', async () => {
     const sourceFolder = storageFoldersRepository.items[0];
     const targetFolder = storageFoldersRepository.items[1];

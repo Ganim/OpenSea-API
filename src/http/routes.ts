@@ -62,6 +62,7 @@ import { storageFoldersRoutes } from './controllers/storage/folders/routes';
 import { storageTrashRoutes } from './controllers/storage/trash/routes';
 import { storageSharingRoutes } from './controllers/storage/sharing/routes';
 import { storagePublicRoutes } from './controllers/storage/public/routes';
+import { storageAdminRoutes } from './controllers/storage/admin/routes';
 
 // Finance routes
 import { financeAttachmentsRoutes } from './controllers/finance/attachments/routes';
@@ -77,10 +78,10 @@ import { loansRoutes } from './controllers/finance/loans/routes';
 // Calendar routes
 import { calendarEventsRoutes } from './controllers/calendar/events/routes';
 
-// Email routes - TEMPORARILY DISABLED (BullMQ queue hangs app.ready)
-// import { emailAccountsRoutes } from './controllers/email/accounts/routes';
-// import { emailFoldersRoutes } from './controllers/email/folders/routes';
-// import { emailMessagesRoutes } from './controllers/email/messages/routes';
+// Email routes
+import { emailAccountsRoutes } from './controllers/email/accounts/routes';
+import { emailFoldersRoutes } from './controllers/email/folders/routes';
+import { emailMessagesRoutes } from './controllers/email/messages/routes';
 
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
@@ -168,10 +169,10 @@ export async function registerRoutes(app: FastifyInstance) {
   // Calendar routes
   await app.register(calendarEventsRoutes);
 
-  // Email routes - TEMPORARILY DISABLED (BullMQ queue hangs app.ready)
-  // await app.register(emailAccountsRoutes);
-  // await app.register(emailFoldersRoutes);
-  // await app.register(emailMessagesRoutes);
+  // Email routes
+  await app.register(emailAccountsRoutes);
+  await app.register(emailFoldersRoutes);
+  await app.register(emailMessagesRoutes);
 
   // Storage routes
   await app.register(storageFoldersRoutes);
@@ -180,6 +181,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(storageTrashRoutes);
   await app.register(storageSharingRoutes);
   await app.register(storagePublicRoutes);
+  await app.register(storageAdminRoutes);
 
   // HR routes
   await app.register(employeesRoutes);

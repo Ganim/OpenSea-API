@@ -35,6 +35,18 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
     return storageFilePrismaToDomain(fileDb);
   }
 
+  async findByIds(ids: string[], tenantId: string): Promise<StorageFile[]> {
+    if (ids.length === 0) return [];
+    const filesDb = await prisma.storageFile.findMany({
+      where: {
+        id: { in: ids },
+        tenantId,
+        deletedAt: null,
+      },
+    });
+    return filesDb.map(storageFilePrismaToDomain);
+  }
+
   async findById(
     id: UniqueEntityID,
     tenantId: string,

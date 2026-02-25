@@ -34,13 +34,27 @@ export class BulkDeleteItemsUseCase {
     let deletedFolders = 0;
     const errors: string[] = [];
 
+    // Batch pre-fetch all files and folders
+    const filesMap = new Map<string, import('@/entities/storage/storage-file').StorageFile>();
+    if (fileIds.length > 0) {
+      const files = await this.storageFilesRepository.findByIds(fileIds, tenantId);
+      for (const file of files) {
+        filesMap.set(file.id.toString(), file);
+      }
+    }
+
+    const foldersMap = new Map<string, import('@/entities/storage/storage-folder').StorageFolder>();
+    if (folderIds.length > 0) {
+      const folders = await this.storageFoldersRepository.findByIds(folderIds, tenantId);
+      for (const folder of folders) {
+        foldersMap.set(folder.id.toString(), folder);
+      }
+    }
+
     // Delete individual files
     for (const fileId of fileIds) {
       try {
-        const file = await this.storageFilesRepository.findById(
-          new UniqueEntityID(fileId),
-          tenantId,
-        );
+        const file = filesMap.get(fileId);
 
         if (!file) {
           errors.push(`File ${fileId} not found`);
@@ -61,10 +75,7 @@ export class BulkDeleteItemsUseCase {
     // Delete folders (with cascade)
     for (const folderId of folderIds) {
       try {
-        const folder = await this.storageFoldersRepository.findById(
-          new UniqueEntityID(folderId),
-          tenantId,
-        );
+        const folder = foldersMap.get(folderId);
 
         if (!folder) {
           errors.push(`Folder ${folderId} not found`);

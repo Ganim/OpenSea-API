@@ -35,6 +35,7 @@ export class ListFileVersionsUseCase {
 
     const versions = await this.storageFileVersionsRepository.findByFileId(
       new UniqueEntityID(fileId),
+      tenantId,
     );
 
     return {

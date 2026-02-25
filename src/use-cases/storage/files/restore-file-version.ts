@@ -38,6 +38,7 @@ export class RestoreFileVersionUseCase {
 
     const allVersions = await this.storageFileVersionsRepository.findByFileId(
       new UniqueEntityID(fileId),
+      tenantId,
     );
 
     const targetVersion = allVersions.find((version) =>

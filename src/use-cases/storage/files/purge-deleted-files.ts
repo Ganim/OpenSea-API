@@ -45,6 +45,7 @@ export class PurgeDeletedFilesUseCase {
         // Get all versions to delete their physical files
         const versions = await this.storageFileVersionsRepository.findByFileId(
           file.id,
+          file.tenantId.toString(),
         );
 
         // Delete physical files for each version

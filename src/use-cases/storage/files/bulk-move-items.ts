@@ -8,7 +8,7 @@ interface BulkMoveItemsUseCaseRequest {
   tenantId: string;
   fileIds?: string[];
   folderIds?: string[];
-  targetFolderId: string;
+  targetFolderId: string | null;
 }
 
 interface BulkMoveItemsUseCaseResponse {
@@ -32,27 +32,46 @@ export class BulkMoveItemsUseCase {
       throw new BadRequestError('No items provided for move');
     }
 
-    // Validate target folder exists
-    const targetFolder = await this.storageFoldersRepository.findById(
-      new UniqueEntityID(targetFolderId),
-      tenantId,
-    );
+    // Validate target folder exists (if not moving to root)
+    let targetFolder: import('@/entities/storage/storage-folder').StorageFolder | null =
+      null;
 
-    if (!targetFolder) {
-      throw new ResourceNotFoundError('Target folder not found');
+    if (targetFolderId) {
+      targetFolder = await this.storageFoldersRepository.findById(
+        new UniqueEntityID(targetFolderId),
+        tenantId,
+      );
+
+      if (!targetFolder) {
+        throw new ResourceNotFoundError('Target folder not found');
+      }
     }
 
     let movedFiles = 0;
     let movedFolders = 0;
     const errors: string[] = [];
 
+    // Batch pre-fetch all files and folders
+    const filesMap = new Map<string, import('@/entities/storage/storage-file').StorageFile>();
+    if (fileIds.length > 0) {
+      const files = await this.storageFilesRepository.findByIds(fileIds, tenantId);
+      for (const file of files) {
+        filesMap.set(file.id.toString(), file);
+      }
+    }
+
+    const foldersMap = new Map<string, import('@/entities/storage/storage-folder').StorageFolder>();
+    if (folderIds.length > 0) {
+      const folders = await this.storageFoldersRepository.findByIds(folderIds, tenantId);
+      for (const folder of folders) {
+        foldersMap.set(folder.id.toString(), folder);
+      }
+    }
+
     // Move files
     for (const fileId of fileIds) {
       try {
-        const file = await this.storageFilesRepository.findById(
-          new UniqueEntityID(fileId),
-          tenantId,
-        );
+        const file = filesMap.get(fileId);
 
         if (!file) {
           errors.push(`File ${fileId} not found`);
@@ -60,7 +79,9 @@ export class BulkMoveItemsUseCase {
         }
 
         const newSlug = file.name.toLowerCase().trim().replace(/\s+/g, '-');
-        const newPath = targetFolder.buildChildPath(newSlug);
+        const newPath = targetFolder
+          ? targetFolder.buildChildPath(newSlug)
+          : `/${newSlug}`;
 
         await this.storageFilesRepository.update({
           id: file.id,
@@ -80,15 +101,12 @@ export class BulkMoveItemsUseCase {
     for (const folderId of folderIds) {
       try {
         // Cannot move a folder into itself
-        if (folderId === targetFolderId) {
+        if (targetFolderId && folderId === targetFolderId) {
           errors.push(`Cannot move folder ${folderId} into itself`);
           continue;
         }
 
-        const folder = await this.storageFoldersRepository.findById(
-          new UniqueEntityID(folderId),
-          tenantId,
-        );
+        const folder = foldersMap.get(folderId);
 
         if (!folder) {
           errors.push(`Folder ${folderId} not found`);
@@ -100,27 +118,32 @@ export class BulkMoveItemsUseCase {
           continue;
         }
 
-        // Check for circular reference
-        const descendants = await this.storageFoldersRepository.findDescendants(
-          new UniqueEntityID(folderId),
-          tenantId,
-        );
+        // Check for circular reference (only when moving into a folder)
+        if (targetFolderId) {
+          const descendants =
+            await this.storageFoldersRepository.findDescendants(
+              new UniqueEntityID(folderId),
+              tenantId,
+            );
 
-        const isDescendant = descendants.some((d) =>
-          d.id.equals(new UniqueEntityID(targetFolderId)),
-        );
-
-        if (isDescendant) {
-          errors.push(
-            `Cannot move folder ${folder.name} into one of its descendants`,
+          const isDescendant = descendants.some((d) =>
+            d.id.equals(new UniqueEntityID(targetFolderId)),
           );
-          continue;
+
+          if (isDescendant) {
+            errors.push(
+              `Cannot move folder ${folder.name} into one of its descendants`,
+            );
+            continue;
+          }
         }
 
         const oldPath = folder.path;
-        const newPath = targetFolder.buildChildPath(folder.slug);
+        const newPath = targetFolder
+          ? targetFolder.buildChildPath(folder.slug)
+          : `/${folder.slug}`;
         const oldDepth = folder.depth;
-        const newDepth = targetFolder.depth + 1;
+        const newDepth = targetFolder ? targetFolder.depth + 1 : 0;
 
         // Update folder
         await this.storageFoldersRepository.update({

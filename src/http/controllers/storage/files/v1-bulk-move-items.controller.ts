@@ -29,7 +29,7 @@ export async function bulkMoveItemsController(app: FastifyInstance) {
       body: z.object({
         fileIds: z.array(z.string().uuid()).optional().default([]),
         folderIds: z.array(z.string().uuid()).optional().default([]),
-        targetFolderId: z.string().uuid(),
+        targetFolderId: z.string().uuid().nullable(),
       }),
       response: {
         200: z.object({
@@ -58,12 +58,12 @@ export async function bulkMoveItemsController(app: FastifyInstance) {
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STORAGE.BULK_MOVE,
-          entityId: targetFolderId,
+          entityId: targetFolderId ?? 'root',
           placeholders: {
             userName: request.user.sub,
             fileCount: String(result.movedFiles),
             folderCount: String(result.movedFolders),
-            targetFolder: targetFolderId,
+            targetFolder: targetFolderId ?? 'root',
           },
         });
 

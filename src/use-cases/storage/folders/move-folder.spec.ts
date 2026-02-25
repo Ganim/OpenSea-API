@@ -241,6 +241,61 @@ describe('MoveFolderUseCase', () => {
     expect(updatedFile?.path).toBe('/folder-b/folder-a/child/nested.txt');
   });
 
+  it('should move a folder to root when targetParentId is null', async () => {
+    const { folder: parentFolder } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Parent',
+    });
+
+    const { folder: childFolder } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Child',
+      parentId: parentFolder.id.toString(),
+    });
+
+    const { folder: movedFolder } = await sut.execute({
+      tenantId: TENANT_ID,
+      folderId: childFolder.id.toString(),
+      targetParentId: null,
+    });
+
+    expect(movedFolder.parentId).toBeNull();
+    expect(movedFolder.path).toBe('/child');
+    expect(movedFolder.depth).toBe(0);
+  });
+
+  it('should cascade paths when moving folder to root', async () => {
+    const { folder: parentFolder } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Parent',
+    });
+
+    const { folder: childFolder } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Child',
+      parentId: parentFolder.id.toString(),
+    });
+
+    const { folder: grandchildFolder } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Grandchild',
+      parentId: childFolder.id.toString(),
+    });
+
+    await sut.execute({
+      tenantId: TENANT_ID,
+      folderId: childFolder.id.toString(),
+      targetParentId: null,
+    });
+
+    const updatedGrandchild = storageFoldersRepository.items.find((item) =>
+      item.id.equals(grandchildFolder.id),
+    );
+
+    expect(updatedGrandchild?.path).toBe('/child/grandchild');
+    expect(updatedGrandchild?.depth).toBe(1);
+  });
+
   it('should not move when name conflicts in target parent', async () => {
     const { folder: folderA } = await createFolder.execute({
       tenantId: TENANT_ID,

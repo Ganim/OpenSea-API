@@ -12,7 +12,7 @@ import type { ThumbnailService } from '@/services/storage/thumbnail-service';
 
 interface UploadFileUseCaseRequest {
   tenantId: string;
-  folderId: string;
+  folderId: string | null;
   file: {
     buffer: Buffer;
     filename: string;
@@ -51,13 +51,18 @@ export class UploadFileUseCase {
       maxStorageBytes,
     } = request;
 
-    const folder = await this.storageFoldersRepository.findById(
-      new UniqueEntityID(folderId),
-      tenantId,
-    );
+    let folder: import('@/entities/storage/storage-folder').StorageFolder | null =
+      null;
 
-    if (!folder) {
-      throw new ResourceNotFoundError('Folder not found');
+    if (folderId) {
+      folder = await this.storageFoldersRepository.findById(
+        new UniqueEntityID(folderId),
+        tenantId,
+      );
+
+      if (!folder) {
+        throw new ResourceNotFoundError('Folder not found');
+      }
     }
 
     // Check storage quota if a limit is set
@@ -74,7 +79,9 @@ export class UploadFileUseCase {
 
     const fileType = FileType.fromMimeType(file.mimetype);
 
-    const uploadPrefix = `storage/${tenantId}/${folderId}`;
+    const uploadPrefix = folderId
+      ? `storage/${tenantId}/${folderId}`
+      : `storage/${tenantId}/root`;
     const uploadResult = await this.fileUploadService.upload(
       file.buffer,
       file.filename,
@@ -82,7 +89,9 @@ export class UploadFileUseCase {
       { prefix: uploadPrefix },
     );
 
-    const filePath = folder.buildChildPath(file.filename);
+    const filePath = folder
+      ? folder.buildChildPath(file.filename)
+      : `/${file.filename}`;
 
     const createdFile = await this.storageFilesRepository.create({
       tenantId,

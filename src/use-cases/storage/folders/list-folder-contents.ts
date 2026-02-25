@@ -120,6 +120,8 @@ export class ListFolderContentsUseCase {
    * - System folders: visible if user has `storage.system-folders.list` permission
    * - Filter folders: visible if user has `storage.filter-folders.list` permission
    * - User folders: visible if user is the creator OR has an explicit access rule
+   *
+   * Uses batch query to avoid N+1 queries on access rules.
    */
   private async filterByVisibility(
     folders: import('@/entities/storage/storage-folder').StorageFolder[],
@@ -129,63 +131,61 @@ export class ListFolderContentsUseCase {
     canViewSystemFolders: boolean,
     canViewFilterFolders: boolean,
   ): Promise<import('@/entities/storage/storage-folder').StorageFolder[]> {
+    // Collect folder IDs that need access rule checking
+    const foldersNeedingAccessCheck = folders.filter(
+      (f) => !f.isFilter && !f.isSystem && f.createdBy !== userId,
+    );
+
+    // Batch-load access rules for all folders that need checking
+    let accessRulesMap = new Map<
+      string,
+      import('@/entities/storage/folder-access-rule').FolderAccessRule[]
+    >();
+    if (
+      foldersNeedingAccessCheck.length > 0 &&
+      this.folderAccessRulesRepository
+    ) {
+      const folderIds = foldersNeedingAccessCheck.map((f) =>
+        f.folderId.toString(),
+      );
+      accessRulesMap = await this.folderAccessRulesRepository.findByFolderIds(
+        folderIds,
+        tenantId,
+      );
+    }
+
     const result: import('@/entities/storage/storage-folder').StorageFolder[] =
       [];
 
     for (const folder of folders) {
-      // Filter folders: visible only if user has storage.filter-folders.list permission
       if (folder.isFilter) {
-        if (canViewFilterFolders) {
-          result.push(folder);
-        }
+        if (canViewFilterFolders) result.push(folder);
         continue;
       }
 
-      // System folders: visible only if user has storage.system-folders.list permission
       if (folder.isSystem) {
-        if (canViewSystemFolders) {
-          result.push(folder);
-        }
+        if (canViewSystemFolders) result.push(folder);
         continue;
       }
 
-      // User folders: visible if user is the creator OR has access rule
       if (folder.createdBy === userId) {
         result.push(folder);
         continue;
       }
 
-      const hasAccess = await this.checkFolderAccess(
-        folder.folderId.toString(),
-        tenantId,
-        userId,
-        userGroupIds,
-      );
+      // Check batch-loaded access rules
+      const rules = accessRulesMap.get(folder.folderId.toString()) ?? [];
+      const hasAccess = rules.some((rule) => {
+        if (rule.userId && rule.userId.toString() === userId) return true;
+        if (rule.groupId && userGroupIds.includes(rule.groupId.toString()))
+          return true;
+        return false;
+      });
       if (hasAccess) {
         result.push(folder);
       }
     }
 
     return result;
-  }
-
-  private async checkFolderAccess(
-    folderId: string,
-    _tenantId: string,
-    userId: string,
-    userGroupIds: string[],
-  ): Promise<boolean> {
-    if (!this.folderAccessRulesRepository) return true;
-
-    const rules = await this.folderAccessRulesRepository.findByFolder(
-      new UniqueEntityID(folderId),
-    );
-
-    return rules.some((rule) => {
-      if (rule.userId && rule.userId.toString() === userId) return true;
-      if (rule.groupId && userGroupIds.includes(rule.groupId.toString()))
-        return true;
-      return false;
-    });
   }
 }

@@ -59,7 +59,7 @@ export async function moveFileController(app: FastifyInstance) {
         const { file } = await moveFileUseCase.execute({
           tenantId,
           fileId: id,
-          targetFolderId: folderId,
+          targetFolderId: folderId ?? null,
         });
 
         await logAudit(request, {
@@ -68,7 +68,7 @@ export async function moveFileController(app: FastifyInstance) {
           placeholders: {
             userName: request.user.sub,
             fileName: file.name,
-            targetFolder: folderId,
+            targetFolder: folderId ?? 'root',
           },
           newData: { folderId, path: file.path },
         });

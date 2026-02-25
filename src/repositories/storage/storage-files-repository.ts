@@ -51,6 +51,7 @@ export interface FindManyStorageFilesResult {
 export interface StorageFilesRepository {
   create(data: CreateStorageFileSchema): Promise<StorageFile>;
   findById(id: UniqueEntityID, tenantId: string): Promise<StorageFile | null>;
+  findByIds(ids: string[], tenantId: string): Promise<StorageFile[]>;
   findByPath(path: string, tenantId: string): Promise<StorageFile | null>;
   findMany(params: ListStorageFilesParams): Promise<FindManyStorageFilesResult>;
   findByEntityId(

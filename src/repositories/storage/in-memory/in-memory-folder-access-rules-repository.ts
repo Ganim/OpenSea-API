@@ -115,6 +115,28 @@ export class InMemoryFolderAccessRulesRepository
     });
   }
 
+  async findByFolderIds(
+    folderIds: string[],
+    tenantId: string,
+  ): Promise<Map<string, FolderAccessRule[]>> {
+    const map = new Map<string, FolderAccessRule[]>();
+    for (const folderId of folderIds) {
+      map.set(folderId, []);
+    }
+    for (const item of this.items) {
+      if (
+        item.tenantId.toString() === tenantId &&
+        folderIds.includes(item.folderId.toString())
+      ) {
+        const list = map.get(item.folderId.toString());
+        if (list) {
+          list.push(item);
+        }
+      }
+    }
+    return map;
+  }
+
   async findEffectiveAccess(
     folderId: UniqueEntityID,
     userId: UniqueEntityID,

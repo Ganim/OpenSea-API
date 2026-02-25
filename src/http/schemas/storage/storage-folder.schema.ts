@@ -38,7 +38,7 @@ export const renameStorageFolderSchema = z.object({
 });
 
 export const moveStorageFolderSchema = z.object({
-  parentId: z.string().uuid(),
+  parentId: z.string().uuid().nullable(),
 });
 
 // ============================================================================

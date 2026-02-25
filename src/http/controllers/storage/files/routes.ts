@@ -15,6 +15,7 @@ import { previewFileController } from './v1-preview-file.controller';
 import { renameFileController } from './v1-rename-file.controller';
 import { restoreFileVersionController } from './v1-restore-file-version.controller';
 import { uploadFileController } from './v1-upload-file.controller';
+import { uploadFileRootController } from './v1-upload-file-root.controller';
 import { uploadFileVersionController } from './v1-upload-file-version.controller';
 import { searchStorageController } from './v1-search-storage.controller';
 
@@ -34,6 +35,7 @@ export async function storageFilesRoutes(app: FastifyInstance) {
     async (heavyApp) => {
       heavyApp.register(rateLimit, rateLimitConfig.heavy);
       heavyApp.register(uploadFileController);
+      heavyApp.register(uploadFileRootController);
       heavyApp.register(uploadFileVersionController);
     },
     { prefix: '' },

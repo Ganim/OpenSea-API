@@ -27,13 +27,19 @@ export class InMemoryStorageFileVersionsRepository
     return fileVersion;
   }
 
-  async findByFileId(fileId: UniqueEntityID): Promise<StorageFileVersion[]> {
+  async findByFileId(
+    fileId: UniqueEntityID,
+    _tenantId?: string,
+  ): Promise<StorageFileVersion[]> {
+    // In-memory implementation doesn't have file-to-tenant join;
+    // tenantId filtering is handled by the use case layer.
     return this.items.filter((item) => item.fileId.equals(fileId));
   }
 
   async findByVersion(
     fileId: UniqueEntityID,
     version: number,
+    _tenantId?: string,
   ): Promise<StorageFileVersion | null> {
     const fileVersion = this.items.find(
       (item) => item.fileId.equals(fileId) && item.version === version,
@@ -41,7 +47,10 @@ export class InMemoryStorageFileVersionsRepository
     return fileVersion ?? null;
   }
 
-  async findLatest(fileId: UniqueEntityID): Promise<StorageFileVersion | null> {
+  async findLatest(
+    fileId: UniqueEntityID,
+    _tenantId?: string,
+  ): Promise<StorageFileVersion | null> {
     const versionsForFile = this.items
       .filter((item) => item.fileId.equals(fileId))
       .sort((a, b) => b.version - a.version);

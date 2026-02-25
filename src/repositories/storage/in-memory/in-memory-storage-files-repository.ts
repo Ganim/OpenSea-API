@@ -37,6 +37,15 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
     return file;
   }
 
+  async findByIds(ids: string[], tenantId: string): Promise<StorageFile[]> {
+    return this.items.filter(
+      (item) =>
+        item.deletedAt === null &&
+        ids.includes(item.id.toString()) &&
+        item.tenantId.toString() === tenantId,
+    );
+  }
+
   async findById(
     id: UniqueEntityID,
     tenantId: string,

@@ -8,7 +8,7 @@ import type { StorageFoldersRepository } from '@/repositories/storage/storage-fo
 interface MoveFileUseCaseRequest {
   tenantId: string;
   fileId: string;
-  targetFolderId: string;
+  targetFolderId: string | null;
 }
 
 interface MoveFileUseCaseResponse {
@@ -35,19 +35,26 @@ export class MoveFileUseCase {
       throw new ResourceNotFoundError('File not found');
     }
 
-    const targetFolder = await this.storageFoldersRepository.findById(
-      new UniqueEntityID(targetFolderId),
-      tenantId,
-    );
+    const newSlug = file.name.toLowerCase().trim().replace(/\s+/g, '-');
+    let newPath: string;
 
-    if (!targetFolder) {
-      throw new ResourceNotFoundError('Target folder not found');
+    if (targetFolderId) {
+      const targetFolder = await this.storageFoldersRepository.findById(
+        new UniqueEntityID(targetFolderId),
+        tenantId,
+      );
+
+      if (!targetFolder) {
+        throw new ResourceNotFoundError('Target folder not found');
+      }
+
+      newPath = targetFolder.buildChildPath(newSlug);
+    } else {
+      // Move to root
+      newPath = `/${newSlug}`;
     }
 
-    // Check for name conflict in target folder
-    const newSlug = file.name.toLowerCase().trim().replace(/\s+/g, '-');
-    const newPath = targetFolder.buildChildPath(newSlug);
-
+    // Check for name conflict at target path
     const existingFileAtPath = await this.storageFilesRepository.findByPath(
       newPath,
       tenantId,

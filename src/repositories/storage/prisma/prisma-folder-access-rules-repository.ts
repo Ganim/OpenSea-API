@@ -142,6 +142,33 @@ export class PrismaFolderAccessRulesRepository
     });
   }
 
+  async findByFolderIds(
+    folderIds: string[],
+    tenantId: string,
+  ): Promise<Map<string, FolderAccessRule[]>> {
+    const rulesDb = await prisma.folderAccessRule.findMany({
+      where: {
+        folderId: { in: folderIds },
+        tenantId,
+      },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    const map = new Map<string, FolderAccessRule[]>();
+    for (const folderId of folderIds) {
+      map.set(folderId, []);
+    }
+    for (const ruleDb of rulesDb) {
+      const rule = folderAccessRulePrismaToDomain(ruleDb);
+      const list = map.get(ruleDb.folderId);
+      if (list) {
+        list.push(rule);
+      }
+    }
+
+    return map;
+  }
+
   async findEffectiveAccess(
     folderId: UniqueEntityID,
     userId: UniqueEntityID,

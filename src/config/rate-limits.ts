@@ -90,6 +90,16 @@ export const rateLimitConfig = {
     timeWindow: '1 minute', // por minuto
     message: 'Too many heavy operations, please try again later.',
   },
+
+  /**
+   * Public share link endpoints
+   * Rate limit by share token to prevent brute-force of password-protected links
+   */
+  shareLink: {
+    max: 10, // 10 tentativas por token
+    timeWindow: '1 minute', // por minuto
+    message: 'Too many attempts for this share link, please try again later.',
+  },
 } as const;
 
 /**

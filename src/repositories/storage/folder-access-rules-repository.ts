@@ -42,4 +42,8 @@ export interface FolderAccessRulesRepository {
     userId: UniqueEntityID,
     groupIds: UniqueEntityID[],
   ): Promise<FolderAccessRule[]>;
+  findByFolderIds(
+    folderIds: string[],
+    tenantId: string,
+  ): Promise<Map<string, FolderAccessRule[]>>;
 }

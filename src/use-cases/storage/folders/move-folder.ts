@@ -7,7 +7,7 @@ import type { StorageFoldersRepository } from '@/repositories/storage/storage-fo
 interface MoveFolderUseCaseRequest {
   tenantId: string;
   folderId: string;
-  targetParentId: string;
+  targetParentId: string | null;
 }
 
 interface MoveFolderUseCaseResponse {
@@ -35,60 +35,85 @@ export class MoveFolderUseCase {
       throw new ResourceNotFoundError('Folder not found');
     }
 
-    // Validate target parent exists
-    const targetParent = await this.storageFoldersRepository.findById(
-      new UniqueEntityID(targetParentId),
-      tenantId,
-    );
-
-    if (!targetParent) {
-      throw new ResourceNotFoundError('Target parent folder not found');
-    }
-
     // Prevent moving into itself
-    if (folderId === targetParentId) {
+    if (targetParentId && folderId === targetParentId) {
       throw new BadRequestError('Cannot move a folder into itself');
     }
 
-    // Prevent moving into a descendant (circular reference)
-    const descendants = await this.storageFoldersRepository.findDescendants(
-      new UniqueEntityID(folderId),
-      tenantId,
-    );
+    let newPath: string;
+    let newDepth: number;
 
-    const isDescendant = descendants.some((descendant) =>
-      descendant.id.equals(new UniqueEntityID(targetParentId)),
-    );
-
-    if (isDescendant) {
-      throw new BadRequestError(
-        'Cannot move a folder into one of its descendants',
+    if (targetParentId) {
+      // Validate target parent exists
+      const targetParent = await this.storageFoldersRepository.findById(
+        new UniqueEntityID(targetParentId),
+        tenantId,
       );
-    }
 
-    // Check for name conflict in target parent
-    const targetSiblings = await this.storageFoldersRepository.findChildren(
-      new UniqueEntityID(targetParentId),
-      tenantId,
-    );
+      if (!targetParent) {
+        throw new ResourceNotFoundError('Target parent folder not found');
+      }
 
-    const nameConflict = targetSiblings.find(
-      (sibling) =>
-        sibling.name.toLowerCase() === folder.name.toLowerCase() &&
-        !sibling.id.equals(folder.id),
-    );
-
-    if (nameConflict) {
-      throw new BadRequestError(
-        'A folder with this name already exists in the target folder',
+      // Prevent moving into a descendant (circular reference)
+      const descendants = await this.storageFoldersRepository.findDescendants(
+        new UniqueEntityID(folderId),
+        tenantId,
       );
+
+      const isDescendant = descendants.some((descendant) =>
+        descendant.id.equals(new UniqueEntityID(targetParentId)),
+      );
+
+      if (isDescendant) {
+        throw new BadRequestError(
+          'Cannot move a folder into one of its descendants',
+        );
+      }
+
+      // Check for name conflict in target parent
+      const targetSiblings = await this.storageFoldersRepository.findChildren(
+        new UniqueEntityID(targetParentId),
+        tenantId,
+      );
+
+      const nameConflict = targetSiblings.find(
+        (sibling) =>
+          sibling.name.toLowerCase() === folder.name.toLowerCase() &&
+          !sibling.id.equals(folder.id),
+      );
+
+      if (nameConflict) {
+        throw new BadRequestError(
+          'A folder with this name already exists in the target folder',
+        );
+      }
+
+      newPath = targetParent.buildChildPath(folder.slug);
+      newDepth = targetParent.depth + 1;
+    } else {
+      // Move to root
+      const rootFolders =
+        await this.storageFoldersRepository.findRootFolders(tenantId);
+
+      const nameConflict = rootFolders.find(
+        (sibling) =>
+          sibling.name.toLowerCase() === folder.name.toLowerCase() &&
+          !sibling.id.equals(folder.id),
+      );
+
+      if (nameConflict) {
+        throw new BadRequestError(
+          'A folder with this name already exists at the root level',
+        );
+      }
+
+      newPath = `/${folder.slug}`;
+      newDepth = 0;
     }
 
     // Calculate new path and depth
     const oldPath = folder.path;
     const oldDepth = folder.depth;
-    const newPath = targetParent.buildChildPath(folder.slug);
-    const newDepth = targetParent.depth + 1;
 
     // Update folder
     const updatedFolder = await this.storageFoldersRepository.update({

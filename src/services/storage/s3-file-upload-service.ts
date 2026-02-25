@@ -17,11 +17,19 @@ import type {
 
 const DEFAULT_MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const DEFAULT_PRESIGNED_URL_EXPIRATION = 3600; // 1 hour in seconds
+const PRESIGNED_URL_CACHE_TTL = 50 * 60 * 1000; // 50 minutes (URLs expire in 60min)
+const PRESIGNED_URL_CACHE_MAX = 500;
+
+interface CachedUrl {
+  url: string;
+  expiresAt: number;
+}
 
 export class S3FileUploadService implements FileUploadService {
   private readonly s3Client: S3Client;
   private readonly bucket: string;
   private readonly endpoint: string;
+  private readonly presignedUrlCache = new Map<string, CachedUrl>();
 
   constructor() {
     this.endpoint = env.S3_ENDPOINT!;
@@ -84,6 +92,13 @@ export class S3FileUploadService implements FileUploadService {
     key: string,
     expiresIn: number = DEFAULT_PRESIGNED_URL_EXPIRATION,
   ): Promise<string> {
+    const cacheKey = `${key}:${expiresIn}`;
+    const cached = this.presignedUrlCache.get(cacheKey);
+
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.url;
+    }
+
     const getCommand = new GetObjectCommand({
       Bucket: this.bucket,
       Key: key,
@@ -91,6 +106,17 @@ export class S3FileUploadService implements FileUploadService {
 
     const presignedUrl = await getSignedUrl(this.s3Client, getCommand, {
       expiresIn,
+    });
+
+    // Evict oldest entries if cache is full
+    if (this.presignedUrlCache.size >= PRESIGNED_URL_CACHE_MAX) {
+      const firstKey = this.presignedUrlCache.keys().next().value;
+      if (firstKey) this.presignedUrlCache.delete(firstKey);
+    }
+
+    this.presignedUrlCache.set(cacheKey, {
+      url: presignedUrl,
+      expiresAt: Date.now() + PRESIGNED_URL_CACHE_TTL,
     });
 
     return presignedUrl;

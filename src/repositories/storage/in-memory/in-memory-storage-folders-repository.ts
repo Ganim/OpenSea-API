@@ -34,6 +34,15 @@ export class InMemoryStorageFoldersRepository
     return folder;
   }
 
+  async findByIds(ids: string[], tenantId: string): Promise<StorageFolder[]> {
+    return this.items.filter(
+      (item) =>
+        item.deletedAt === null &&
+        ids.includes(item.id.toString()) &&
+        item.tenantId.toString() === tenantId,
+    );
+  }
+
   async findById(
     id: UniqueEntityID,
     tenantId: string,
