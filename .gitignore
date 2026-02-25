@@ -7,3 +7,8 @@ coverage
 # JWT Keys
 keys/
 nul
+# Uploads and temp files
+uploads/
+*.log
+query.sql
+tsc-output.txt
