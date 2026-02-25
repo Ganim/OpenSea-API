@@ -73,6 +73,11 @@ export interface StorageFilesRepository {
   softDeleteByFolderIds(folderIds: string[], tenantId: string): Promise<number>;
   countByFolder(folderId: UniqueEntityID): Promise<number>;
   getTotalSize(tenantId: string): Promise<number>;
+  atomicCheckQuota(
+    tenantId: string,
+    additionalBytes: number,
+    maxBytes: number,
+  ): Promise<boolean>;
   countByTenant(tenantId: string): Promise<number>;
   countByFileType(tenantId: string): Promise<Record<string, number>>;
   // Trash methods

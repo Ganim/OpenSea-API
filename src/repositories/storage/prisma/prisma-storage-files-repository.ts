@@ -266,6 +266,24 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
     return aggregateResult._sum.size ?? 0;
   }
 
+  async atomicCheckQuota(
+    tenantId: string,
+    additionalBytes: number,
+    maxBytes: number,
+  ): Promise<boolean> {
+    return prisma.$transaction(
+      async (tx) => {
+        const result = await tx.storageFile.aggregate({
+          where: { tenantId, deletedAt: null },
+          _sum: { size: true },
+        });
+        const currentUsage = result._sum.size ?? 0;
+        return currentUsage + additionalBytes <= maxBytes;
+      },
+      { isolationLevel: 'Serializable' },
+    );
+  }
+
   async countByTenant(tenantId: string): Promise<number> {
     return prisma.storageFile.count({
       where: {

@@ -254,6 +254,15 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
       .reduce((totalSize, item) => totalSize + item.size, 0);
   }
 
+  async atomicCheckQuota(
+    tenantId: string,
+    additionalBytes: number,
+    maxBytes: number,
+  ): Promise<boolean> {
+    const currentUsage = await this.getTotalSize(tenantId);
+    return currentUsage + additionalBytes <= maxBytes;
+  }
+
   async countByTenant(tenantId: string): Promise<number> {
     return this.items.filter(
       (item) =>

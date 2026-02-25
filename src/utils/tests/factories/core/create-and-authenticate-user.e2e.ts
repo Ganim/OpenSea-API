@@ -336,6 +336,46 @@ const ALL_PERMISSIONS = {
     rollback: ['preview', 'execute'],
     compare: ['view'],
   },
+  // STORAGE module
+  storage: {
+    interface: ['view'],
+    'user-folders': [
+      'list',
+      'create',
+      'read',
+      'update',
+      'delete',
+      'download',
+      'share-user',
+      'share-group',
+    ],
+    'filter-folders': [
+      'list',
+      'read',
+      'download',
+      'share-user',
+      'share-group',
+    ],
+    'system-folders': [
+      'list',
+      'read',
+      'download',
+      'share-user',
+      'share-group',
+    ],
+    files: [
+      'list',
+      'create',
+      'read',
+      'update',
+      'delete',
+      'download',
+      'share-user',
+      'share-group',
+    ],
+    versions: ['read', 'create', 'restore'],
+    stats: ['view'],
+  },
   // NOTIFICATIONS module
   notifications: {
     _root: ['broadcast', 'manage', 'schedule', 'send'],
@@ -396,6 +436,9 @@ function generatePermissionName(
     romaneio: 'Romaneio',
     duplicate: 'Duplicar',
     generate: 'Gerar',
+    download: 'Baixar',
+    'share-user': 'Compartilhar com Usuário',
+    'share-group': 'Compartilhar com Grupo',
   };
 
   const resourceNames: Record<string, string> = {
@@ -466,6 +509,13 @@ function generatePermissionName(
     consortia: 'Consórcios',
     dashboard: 'Dashboard Financeiro',
     export: 'Exportação Contábil',
+    interface: 'Interface',
+    'user-folders': 'Pastas de Usuário',
+    'filter-folders': 'Pastas de Filtro',
+    'system-folders': 'Pastas do Sistema',
+    files: 'Arquivos',
+    versions: 'Versões',
+    stats: 'Estatísticas',
   };
 
   const actionName = actionNames[action] || action;

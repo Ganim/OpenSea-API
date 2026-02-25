@@ -65,13 +65,15 @@ export class UploadFileUseCase {
       }
     }
 
-    // Check storage quota if a limit is set
+    // Atomic storage quota check (prevents race condition with concurrent uploads)
     if (maxStorageBytes && maxStorageBytes > 0) {
-      const currentUsage =
-        await this.storageFilesRepository.getTotalSize(tenantId);
-      const newTotal = currentUsage + file.buffer.length;
+      const withinQuota = await this.storageFilesRepository.atomicCheckQuota(
+        tenantId,
+        file.buffer.length,
+        maxStorageBytes,
+      );
 
-      if (newTotal > maxStorageBytes) {
+      if (!withinQuota) {
         const limitMb = Math.round(maxStorageBytes / 1024 / 1024);
         throw new PlanLimitExceededError('MB de armazenamento', limitMb);
       }
