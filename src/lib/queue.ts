@@ -203,6 +203,7 @@ export async function closeAllQueues(): Promise<void> {
 export const QUEUE_NAMES = {
   NOTIFICATIONS: 'notifications',
   EMAILS: 'emails',
+  EMAIL_SYNC: 'email-sync',
   AUDIT_LOGS: 'audit-logs',
   REPORTS: 'reports',
 } as const;

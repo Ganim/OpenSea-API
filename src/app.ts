@@ -8,23 +8,32 @@ import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import fastify from 'fastify';
 import {
-  serializerCompiler,
-  validatorCompiler,
+    jsonSchemaTransform,
+    serializerCompiler,
+    validatorCompiler,
 } from 'fastify-type-provider-zod';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { env } from './@env';
 import { errorHandler } from './@errors/error-handler';
+import { getJwtSecret, isUsingRS256, jwtConfig } from './config/jwt';
 import { rateLimitConfig } from './config/rate-limits';
 import { swaggerTags } from './config/swagger-tags';
-import { jwtConfig, getJwtSecret, isUsingRS256 } from './config/jwt';
-import { registerRoutes } from './http/routes';
 import requestIdPlugin from './http/plugins/request-id.plugin';
+import { registerRoutes } from './http/routes';
 import { initSentry } from './lib/sentry';
 
 // Initialize Sentry for error monitoring
 initSentry();
 
-export const app = fastify({ trustProxy: true });
+// pluginTimeout: 0 is required because @fastify/swagger registers an onReady hook
+// for EVERY child plugin instance via onRegister. With ~450+ plugin instances in this
+// app, avvio's _readyQ (fastq) processes them recursively: release → worker → callback
+// → release → ... When pluginTimeout > 0, each item goes through timeoutCall() which
+// adds extra stack frames (setTimeout/clearTimeout). At ~450 children this causes a
+// V8 stack overflow that silently hangs app.ready(). Setting pluginTimeout: 0 uses a
+// lighter code path (direct callback) that stays within the stack limit.
+// See: avvio/boot.js callWithCbOrNextTick() and fastq/queue.js release()
+export const app = fastify({ trustProxy: true, pluginTimeout: 0 });
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
@@ -139,6 +148,7 @@ app.register(swagger, {
     },
     tags: swaggerTags,
   },
+  transform: jsonSchemaTransform,
 });
 
 // Authentication with RS256 support
@@ -176,9 +186,7 @@ app.register(multipart, {
 });
 
 // Routes
-app.after(() => {
-  app.register(registerRoutes);
-});
+app.register(registerRoutes);
 
 // Swagger UI
 const swaggerTheme = new SwaggerTheme();
