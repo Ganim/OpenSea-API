@@ -40,6 +40,8 @@ export async function listFolderContentsController(app: FastifyInstance) {
         200: z.object({
           folders: z.array(storageFolderResponseSchema),
           files: z.array(storageFileResponseSchema),
+          totalFolders: z.number().int(),
+          totalFiles: z.number().int(),
           total: z.number().int(),
         }),
         404: z.object({
@@ -77,7 +79,7 @@ export async function listFolderContentsController(app: FastifyInstance) {
         );
 
         const listFolderContentsUseCase = makeListFolderContentsUseCase();
-        const { folders, files, total } =
+        const { folders, files, totalFolders, totalFiles, total } =
           await listFolderContentsUseCase.execute({
             tenantId,
             folderId,
@@ -93,6 +95,8 @@ export async function listFolderContentsController(app: FastifyInstance) {
         return reply.status(200).send({
           folders: folders.map((folder) => storageFolderToDTO(folder)),
           files: files.map(storageFileToDTO),
+          totalFolders,
+          totalFiles,
           total,
         });
       } catch (error) {

@@ -4,9 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch --env-file=.env src/server.ts",
+    "dev": "node --stack-size=16384 --import tsx/esm --env-file=.env --watch src/server.ts",
     "build": "tsup",
-    "start": "node --env-file=.env build/server.js",
+    "start": "node --stack-size=16384 --env-file=.env build/server.js",
     "notifications:worker": "tsx --env-file=.env src/workers/notifications-scheduler.ts",
     "test": "vitest run --project unit",
     "test:e2e": "vitest run --project e2e",
@@ -64,6 +64,7 @@
     "@prisma/adapter-pg": "7.2.0",
     "@prisma/client": "7.4.0",
     "@sentry/node": "10.34.0",
+    "archiver": "7.0.1",
     "bcryptjs": "3.0.2",
     "bullmq": "5.66.5",
     "cpf-cnpj-validator": "1.0.3",
@@ -91,6 +92,7 @@
   "devDependencies": {
     "@eslint/js": "9.30.1",
     "@faker-js/faker": "9.9.0",
+    "@types/archiver": "7.0.0",
     "@types/decimal.js": "0.0.32",
     "@types/ioredis": "4.28.10",
     "@types/node": "24.0.12",

@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync, unlinkSync } from 'node:fs';
+import { mkdirSync, writeFileSync, unlinkSync, readFileSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
 
@@ -52,6 +52,11 @@ export class LocalFileUploadService implements FileUploadService {
     const absoluteFilePath = join(UPLOADS_BASE_DIR, key);
 
     return `file://${absoluteFilePath}`;
+  }
+
+  async getObject(key: string): Promise<Buffer> {
+    const absoluteFilePath = join(UPLOADS_BASE_DIR, key);
+    return readFileSync(absoluteFilePath);
   }
 
   async delete(key: string): Promise<void> {

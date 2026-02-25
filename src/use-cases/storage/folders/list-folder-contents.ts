@@ -25,6 +25,8 @@ interface ListFolderContentsUseCaseRequest {
 interface ListFolderContentsUseCaseResponse {
   folders: import('@/entities/storage/storage-folder').StorageFolder[];
   files: import('@/entities/storage/storage-file').StorageFile[];
+  totalFolders: number;
+  totalFiles: number;
   total: number;
 }
 
@@ -96,6 +98,14 @@ export class ListFolderContentsUseCase {
       );
     }
 
+    // Paginate folders (after visibility filtering)
+    const totalFolders = childFolders.length;
+    const folderOffset = (page - 1) * limit;
+    const paginatedFolders = childFolders.slice(
+      folderOffset,
+      folderOffset + limit,
+    );
+
     // Get files in folder
     const filesResult = await this.storageFilesRepository.findMany({
       tenantId,
@@ -105,12 +115,13 @@ export class ListFolderContentsUseCase {
       limit,
     });
 
-    const totalFolders = childFolders.length;
     const totalFiles = filesResult.total;
 
     return {
-      folders: childFolders,
+      folders: paginatedFolders,
       files: filesResult.files,
+      totalFolders,
+      totalFiles,
       total: totalFolders + totalFiles,
     };
   }

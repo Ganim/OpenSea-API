@@ -6,6 +6,7 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { randomUUID } from 'node:crypto';
+import { gzipSync } from 'node:zlib';
 
 import { env } from '@/@env';
 
@@ -19,6 +20,23 @@ const DEFAULT_MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const DEFAULT_PRESIGNED_URL_EXPIRATION = 3600; // 1 hour in seconds
 const PRESIGNED_URL_CACHE_TTL = 50 * 60 * 1000; // 50 minutes (URLs expire in 60min)
 const PRESIGNED_URL_CACHE_MAX = 500;
+
+const COMPRESSIBLE_MIME_PREFIXES = ['text/'];
+const COMPRESSIBLE_MIME_TYPES = new Set([
+  'application/json',
+  'application/xml',
+  'application/xhtml+xml',
+  'application/javascript',
+  'application/typescript',
+  'application/x-yaml',
+  'application/csv',
+  'image/svg+xml',
+]);
+
+function isCompressible(mimeType: string): boolean {
+  if (COMPRESSIBLE_MIME_TYPES.has(mimeType)) return true;
+  return COMPRESSIBLE_MIME_PREFIXES.some((p) => mimeType.startsWith(p));
+}
 
 interface CachedUrl {
   url: string;
@@ -69,11 +87,25 @@ export class S3FileUploadService implements FileUploadService {
     const sanitizedFileName = fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
     const objectKey = `${options.prefix}/${randomUUID()}-${sanitizedFileName}`;
 
+    // Gzip compressible text-based files before uploading
+    let body: Buffer = fileBuffer;
+    let contentEncoding: string | undefined;
+
+    if (isCompressible(mimeType) && fileBuffer.length > 1024) {
+      const compressed = gzipSync(fileBuffer);
+      // Only use compression if it actually reduces size
+      if (compressed.length < fileBuffer.length) {
+        body = compressed;
+        contentEncoding = 'gzip';
+      }
+    }
+
     const putCommand = new PutObjectCommand({
       Bucket: this.bucket,
       Key: objectKey,
-      Body: fileBuffer,
+      Body: body,
       ContentType: mimeType,
+      ContentEncoding: contentEncoding,
     });
 
     await this.s3Client.send(putCommand);
@@ -83,7 +115,7 @@ export class S3FileUploadService implements FileUploadService {
     return {
       key: objectKey,
       url: objectUrl,
-      size: fileBuffer.length,
+      size: fileBuffer.length, // Original size for DB records
       mimeType,
     };
   }
@@ -120,6 +152,22 @@ export class S3FileUploadService implements FileUploadService {
     });
 
     return presignedUrl;
+  }
+
+  async getObject(key: string): Promise<Buffer> {
+    const getCommand = new GetObjectCommand({
+      Bucket: this.bucket,
+      Key: key,
+    });
+
+    const response = await this.s3Client.send(getCommand);
+    const bodyBytes = await response.Body?.transformToByteArray();
+
+    if (!bodyBytes) {
+      throw new Error(`Empty response for key: ${key}`);
+    }
+
+    return Buffer.from(bodyBytes);
   }
 
   async delete(key: string): Promise<void> {

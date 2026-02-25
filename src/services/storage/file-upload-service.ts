@@ -21,5 +21,7 @@ export interface FileUploadService {
 
   getPresignedUrl(key: string, expiresIn?: number): Promise<string>;
 
+  getObject(key: string): Promise<Buffer>;
+
   delete(key: string): Promise<void>;
 }

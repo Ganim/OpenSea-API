@@ -16,6 +16,7 @@ import { moveFolderController } from './v1-move-folder.controller';
 import { renameFolderController } from './v1-rename-folder.controller';
 import { searchFoldersController } from './v1-search-folders.controller';
 import { updateFolderController } from './v1-update-folder.controller';
+import { downloadFolderController } from './v1-download-folder.controller';
 
 export async function storageFoldersRoutes(app: FastifyInstance) {
   // Admin routes with elevated rate limit
@@ -53,6 +54,7 @@ export async function storageFoldersRoutes(app: FastifyInstance) {
       queryApp.register(getFilterFolderContentsController);
       queryApp.register(getFolderActivityController);
       queryApp.register(listFolderTemplatesController);
+      queryApp.register(downloadFolderController);
     },
     { prefix: '' },
   );
