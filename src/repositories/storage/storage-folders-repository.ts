@@ -51,5 +51,16 @@ export interface StorageFoldersRepository {
   ): Promise<StorageFolder[]>;
   update(data: UpdateStorageFolderSchema): Promise<StorageFolder | null>;
   softDelete(id: UniqueEntityID): Promise<void>;
+  batchUpdatePaths(
+    oldPathPrefix: string,
+    newPathPrefix: string,
+    tenantId: string,
+  ): Promise<number>;
+  batchUpdateDepths(
+    pathPrefix: string,
+    depthDelta: number,
+    tenantId: string,
+  ): Promise<number>;
+  batchSoftDelete(folderIds: string[]): Promise<number>;
   countFiles(folderId: UniqueEntityID): Promise<number>;
 }

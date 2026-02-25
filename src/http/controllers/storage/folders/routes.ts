@@ -5,6 +5,7 @@ import { createFolderController } from './v1-create-folder.controller';
 import { deleteFolderController } from './v1-delete-folder.controller';
 import { ensureEntityFolderController } from './v1-ensure-entity-folder.controller';
 import { getBreadcrumbController } from './v1-get-breadcrumb.controller';
+import { getFolderActivityController } from './v1-get-folder-activity.controller';
 import { getFolderController } from './v1-get-folder.controller';
 import { getFilterFolderContentsController } from './v1-get-filter-folder-contents.controller';
 import { initializeFoldersController } from './v1-initialize-folders.controller';
@@ -47,6 +48,7 @@ export async function storageFoldersRoutes() {
       queryApp.register(getBreadcrumbController);
       queryApp.register(searchFoldersController);
       queryApp.register(getFilterFolderContentsController);
+      queryApp.register(getFolderActivityController);
     },
     { prefix: '' },
   );

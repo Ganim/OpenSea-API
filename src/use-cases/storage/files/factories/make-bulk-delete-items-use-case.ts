@@ -1,12 +1,13 @@
 import { PrismaStorageFilesRepository } from '@/repositories/storage/prisma/prisma-storage-files-repository';
 import { PrismaStorageFoldersRepository } from '@/repositories/storage/prisma/prisma-storage-folders-repository';
-import { RenameFolderUseCase } from '../rename-folder';
+import { BulkDeleteItemsUseCase } from '../bulk-delete-items';
 
-export function makeRenameFolderUseCase() {
-  const storageFoldersRepository = new PrismaStorageFoldersRepository();
+export function makeBulkDeleteItemsUseCase() {
   const storageFilesRepository = new PrismaStorageFilesRepository();
-  return new RenameFolderUseCase(
-    storageFoldersRepository,
+  const storageFoldersRepository = new PrismaStorageFoldersRepository();
+
+  return new BulkDeleteItemsUseCase(
     storageFilesRepository,
+    storageFoldersRepository,
   );
 }

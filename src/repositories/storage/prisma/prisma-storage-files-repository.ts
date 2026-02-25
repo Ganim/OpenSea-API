@@ -181,6 +181,41 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
     });
   }
 
+  async batchUpdateFilePaths(
+    oldPathPrefix: string,
+    newPathPrefix: string,
+    tenantId: string,
+  ): Promise<number> {
+    const result = await prisma.$executeRaw`
+      UPDATE "storage_files"
+      SET path = ${newPathPrefix} || substring(path, length(${oldPathPrefix}) + 1),
+          "updated_at" = NOW()
+      WHERE "tenant_id" = ${tenantId}
+        AND "deleted_at" IS NULL
+        AND path LIKE ${oldPathPrefix + '/%'}
+    `;
+    return result;
+  }
+
+  async softDeleteByFolderIds(
+    folderIds: string[],
+    tenantId: string,
+  ): Promise<number> {
+    if (folderIds.length === 0) return 0;
+    const result = await prisma.storageFile.updateMany({
+      where: {
+        folderId: { in: folderIds },
+        tenantId,
+        deletedAt: null,
+      },
+      data: {
+        deletedAt: new Date(),
+        status: 'DELETED' as PrismaStorageFileStatus,
+      },
+    });
+    return result.count;
+  }
+
   async countByFolder(folderId: UniqueEntityID): Promise<number> {
     return prisma.storageFile.count({
       where: {

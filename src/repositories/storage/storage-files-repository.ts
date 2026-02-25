@@ -63,6 +63,12 @@ export interface StorageFilesRepository {
   update(data: UpdateStorageFileSchema): Promise<StorageFile | null>;
   softDelete(id: UniqueEntityID): Promise<void>;
   hardDelete(id: UniqueEntityID): Promise<void>;
+  batchUpdateFilePaths(
+    oldPathPrefix: string,
+    newPathPrefix: string,
+    tenantId: string,
+  ): Promise<number>;
+  softDeleteByFolderIds(folderIds: string[], tenantId: string): Promise<number>;
   countByFolder(folderId: UniqueEntityID): Promise<number>;
   getTotalSize(tenantId: string): Promise<number>;
   countByTenant(tenantId: string): Promise<number>;

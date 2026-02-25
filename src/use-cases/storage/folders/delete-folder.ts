@@ -40,31 +40,18 @@ export class DeleteFolderUseCase {
     );
 
     // Collect all folder IDs to delete (including the folder itself)
-    const folderIdsToDelete = [
-      new UniqueEntityID(folderId),
-      ...descendants.map((descendant) => descendant.id),
+    const allFolderIds = [
+      folderId,
+      ...descendants.map((descendant) => descendant.id.toString()),
     ];
 
-    // Soft-delete files in all affected folders
-    for (const folderIdToDelete of folderIdsToDelete) {
-      const filesResult = await this.storageFilesRepository.findMany({
-        tenantId,
-        folderId: folderIdToDelete.toString(),
-      });
-
-      for (const file of filesResult.files) {
-        await this.storageFilesRepository.softDelete(file.id);
-      }
-    }
-
-    // Soft-delete all descendant folders (deepest first)
-    for (const descendant of descendants.reverse()) {
-      await this.storageFoldersRepository.softDelete(descendant.id);
-    }
-
-    // Soft-delete the folder itself
-    await this.storageFoldersRepository.softDelete(
-      new UniqueEntityID(folderId),
+    // Batch soft-delete ALL files in all affected folders (no pagination limit)
+    await this.storageFilesRepository.softDeleteByFolderIds(
+      allFolderIds,
+      tenantId,
     );
+
+    // Batch soft-delete all folders (descendants + the folder itself)
+    await this.storageFoldersRepository.batchSoftDelete(allFolderIds);
   }
 }

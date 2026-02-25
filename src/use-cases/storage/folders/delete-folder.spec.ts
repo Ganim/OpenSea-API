@@ -181,4 +181,39 @@ describe('DeleteFolderUseCase', () => {
       }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
+
+  it('should soft-delete all files even when folder has more than 20 files', async () => {
+    const { folder } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Many Files',
+    });
+
+    // Create 25 files (more than the default pagination limit of 20)
+    const fileCount = 25;
+    for (let i = 0; i < fileCount; i++) {
+      await storageFilesRepository.create({
+        tenantId: TENANT_ID,
+        folderId: folder.id.toString(),
+        name: `file-${i}.txt`,
+        originalName: `file-${i}.txt`,
+        fileKey: `files/file-${i}.txt`,
+        path: `/many-files/file-${i}.txt`,
+        size: 100,
+        mimeType: 'text/plain',
+        fileType: 'DOCUMENT',
+        uploadedBy: 'user-1',
+      });
+    }
+
+    await sut.execute({
+      tenantId: TENANT_ID,
+      folderId: folder.id.toString(),
+    });
+
+    // ALL 25 files should be soft-deleted, not just the first 20
+    const remainingFiles = storageFilesRepository.items.filter(
+      (item) => item.deletedAt === null,
+    );
+    expect(remainingFiles).toHaveLength(0);
+  });
 });

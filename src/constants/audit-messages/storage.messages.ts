@@ -133,4 +133,24 @@ export const STORAGE_AUDIT_MESSAGES = {
     module: AuditModule.STORAGE,
     description: '{{userName}} revogou acesso a pasta {{folderName}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // BULK - Operações em Lote
+  // ============================================================================
+
+  BULK_MOVE: {
+    action: AuditAction.BULK_MOVE,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description:
+      '{{userName}} moveu {{fileCount}} arquivos e {{folderCount}} pastas para {{targetFolder}}',
+  } satisfies AuditMessage,
+
+  BULK_DELETE: {
+    action: AuditAction.BULK_DELETE,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description:
+      '{{userName}} excluiu {{fileCount}} arquivos e {{folderCount}} pastas',
+  } satisfies AuditMessage,
 } as const;

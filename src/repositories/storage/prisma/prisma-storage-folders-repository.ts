@@ -177,6 +177,47 @@ export class PrismaStorageFoldersRepository
     });
   }
 
+  async batchUpdatePaths(
+    oldPathPrefix: string,
+    newPathPrefix: string,
+    tenantId: string,
+  ): Promise<number> {
+    const result = await prisma.$executeRaw`
+      UPDATE "storage_folders"
+      SET path = ${newPathPrefix} || substring(path, length(${oldPathPrefix}) + 1),
+          "updated_at" = NOW()
+      WHERE "tenant_id" = ${tenantId}
+        AND "deleted_at" IS NULL
+        AND path LIKE ${oldPathPrefix + '/%'}
+    `;
+    return result;
+  }
+
+  async batchUpdateDepths(
+    pathPrefix: string,
+    depthDelta: number,
+    tenantId: string,
+  ): Promise<number> {
+    const result = await prisma.$executeRaw`
+      UPDATE "storage_folders"
+      SET depth = depth + ${depthDelta},
+          "updated_at" = NOW()
+      WHERE "tenant_id" = ${tenantId}
+        AND "deleted_at" IS NULL
+        AND path LIKE ${pathPrefix + '/%'}
+    `;
+    return result;
+  }
+
+  async batchSoftDelete(folderIds: string[]): Promise<number> {
+    if (folderIds.length === 0) return 0;
+    const result = await prisma.storageFolder.updateMany({
+      where: { id: { in: folderIds } },
+      data: { deletedAt: new Date() },
+    });
+    return result.count;
+  }
+
   async countFiles(folderId: UniqueEntityID): Promise<number> {
     return prisma.storageFile.count({
       where: {

@@ -102,43 +102,32 @@ export class MoveFolderUseCase {
       throw new ResourceNotFoundError('Folder not found');
     }
 
-    // Cascade path and depth updates to all descendants
-    // Reuse the `descendants` array already fetched (before the folder path changed)
+    // Batch cascade path, depth, and file path updates
     if (oldPath !== newPath) {
       const depthDifference = newDepth - oldDepth;
 
-      for (const descendant of descendants) {
-        const descendantNewPath = descendant.path.replace(oldPath, newPath);
-        const descendantNewDepth = descendant.depth + depthDifference;
+      // Batch update descendant folder paths (old prefix → new prefix)
+      await this.storageFoldersRepository.batchUpdatePaths(
+        oldPath,
+        newPath,
+        tenantId,
+      );
 
-        await this.storageFoldersRepository.update({
-          id: descendant.id,
-          path: descendantNewPath,
-          depth: descendantNewDepth,
-        });
-      }
-
-      // Cascade file path updates in the moved folder and all descendants
-      const allAffectedFolderIds = [
-        new UniqueEntityID(folderId),
-        ...descendants.map((d) => d.id),
-      ];
-
-      for (const affectedFolderId of allAffectedFolderIds) {
-        const filesResult = await this.storageFilesRepository.findMany({
+      // Batch update descendant folder depths (after paths are already updated)
+      if (depthDifference !== 0) {
+        await this.storageFoldersRepository.batchUpdateDepths(
+          newPath,
+          depthDifference,
           tenantId,
-          folderId: affectedFolderId.toString(),
-          limit: 10000,
-        });
-
-        for (const file of filesResult.files) {
-          const newFilePath = file.path.replace(oldPath, newPath);
-          await this.storageFilesRepository.update({
-            id: file.id,
-            path: newFilePath,
-          });
-        }
+        );
       }
+
+      // Batch update file paths in all affected folders
+      await this.storageFilesRepository.batchUpdateFilePaths(
+        oldPath,
+        newPath,
+        tenantId,
+      );
     }
 
     return {

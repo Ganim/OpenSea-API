@@ -106,17 +106,6 @@ export class RenameFolderUseCase {
       newPath = `/${newSlug}`;
     }
 
-    // Collect descendants BEFORE updating the folder path
-    // (in-memory repos mutate objects by reference, so path-based lookups
-    // must happen before the parent path changes)
-    const descendants =
-      oldPath !== newPath
-        ? await this.storageFoldersRepository.findDescendants(
-            new UniqueEntityID(folderId),
-            tenantId,
-          )
-        : [];
-
     // Update folder name, slug, and path
     const updatedFolder = await this.storageFoldersRepository.update({
       id: new UniqueEntityID(folderId),
@@ -129,38 +118,18 @@ export class RenameFolderUseCase {
       throw new ResourceNotFoundError('Folder not found');
     }
 
-    // Cascade path update to all descendants
-    for (const descendant of descendants) {
-      const descendantNewPath = descendant.path.replace(oldPath, newPath);
-
-      await this.storageFoldersRepository.update({
-        id: descendant.id,
-        path: descendantNewPath,
-      });
-    }
-
-    // Cascade file path updates in the renamed folder and all descendants
+    // Batch cascade path updates to all descendant folders and files
     if (oldPath !== newPath) {
-      const allAffectedFolderIds = [
-        new UniqueEntityID(folderId),
-        ...descendants.map((d) => d.id),
-      ];
-
-      for (const affectedFolderId of allAffectedFolderIds) {
-        const filesResult = await this.storageFilesRepository.findMany({
-          tenantId,
-          folderId: affectedFolderId.toString(),
-          limit: 10000,
-        });
-
-        for (const file of filesResult.files) {
-          const newFilePath = file.path.replace(oldPath, newPath);
-          await this.storageFilesRepository.update({
-            id: file.id,
-            path: newFilePath,
-          });
-        }
-      }
+      await this.storageFoldersRepository.batchUpdatePaths(
+        oldPath,
+        newPath,
+        tenantId,
+      );
+      await this.storageFilesRepository.batchUpdateFilePaths(
+        oldPath,
+        newPath,
+        tenantId,
+      );
     }
 
     return {

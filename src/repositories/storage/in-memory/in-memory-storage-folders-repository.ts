@@ -161,6 +161,58 @@ export class InMemoryStorageFoldersRepository
     }
   }
 
+  async batchUpdatePaths(
+    oldPathPrefix: string,
+    newPathPrefix: string,
+    tenantId: string,
+  ): Promise<number> {
+    let count = 0;
+    for (const item of this.items) {
+      if (
+        item.deletedAt === null &&
+        item.tenantId.toString() === tenantId &&
+        item.path.startsWith(oldPathPrefix + '/')
+      ) {
+        item.path = newPathPrefix + item.path.substring(oldPathPrefix.length);
+        count++;
+      }
+    }
+    return count;
+  }
+
+  async batchUpdateDepths(
+    pathPrefix: string,
+    depthDelta: number,
+    tenantId: string,
+  ): Promise<number> {
+    let count = 0;
+    for (const item of this.items) {
+      if (
+        item.deletedAt === null &&
+        item.tenantId.toString() === tenantId &&
+        item.path.startsWith(pathPrefix + '/')
+      ) {
+        item.depth = item.depth + depthDelta;
+        count++;
+      }
+    }
+    return count;
+  }
+
+  async batchSoftDelete(folderIds: string[]): Promise<number> {
+    let count = 0;
+    for (const id of folderIds) {
+      const folder = this.items.find(
+        (item) => item.deletedAt === null && item.id.toString() === id,
+      );
+      if (folder) {
+        folder.delete();
+        count++;
+      }
+    }
+    return count;
+  }
+
   async countFiles(folderId: UniqueEntityID): Promise<number> {
     // In-memory folder repository cannot directly count files as that
     // requires cross-repository access. This returns the count of

@@ -156,7 +156,8 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
   ): Promise<StorageFile[]> {
     const deleted = this.items.filter(
       (item) =>
-        item.deletedAt !== null && item.deletedAt.getTime() < olderThan.getTime(),
+        item.deletedAt !== null &&
+        item.deletedAt.getTime() < olderThan.getTime(),
     );
 
     return limit ? deleted.slice(0, limit) : deleted;
@@ -176,6 +177,43 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
     if (index !== -1) {
       this.items.splice(index, 1);
     }
+  }
+
+  async batchUpdateFilePaths(
+    oldPathPrefix: string,
+    newPathPrefix: string,
+    tenantId: string,
+  ): Promise<number> {
+    let count = 0;
+    for (const item of this.items) {
+      if (
+        item.deletedAt === null &&
+        item.tenantId.toString() === tenantId &&
+        item.path.startsWith(oldPathPrefix + '/')
+      ) {
+        item.path = newPathPrefix + item.path.substring(oldPathPrefix.length);
+        count++;
+      }
+    }
+    return count;
+  }
+
+  async softDeleteByFolderIds(
+    folderIds: string[],
+    tenantId: string,
+  ): Promise<number> {
+    let count = 0;
+    for (const item of this.items) {
+      if (
+        item.deletedAt === null &&
+        item.tenantId.toString() === tenantId &&
+        folderIds.includes(item.folderId.toString())
+      ) {
+        item.delete();
+        count++;
+      }
+    }
+    return count;
   }
 
   async countByFolder(folderId: UniqueEntityID): Promise<number> {

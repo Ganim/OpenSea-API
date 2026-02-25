@@ -5,5 +5,8 @@ import { MoveFolderUseCase } from '../move-folder';
 export function makeMoveFolderUseCase() {
   const storageFoldersRepository = new PrismaStorageFoldersRepository();
   const storageFilesRepository = new PrismaStorageFilesRepository();
-  return new MoveFolderUseCase(storageFoldersRepository, storageFilesRepository);
+  return new MoveFolderUseCase(
+    storageFoldersRepository,
+    storageFilesRepository,
+  );
 }
