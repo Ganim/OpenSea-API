@@ -1,0 +1,511 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { logger } from '@/lib/logger';
+import { makeCreateEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-create-email-account-use-case';
+import { makeDeleteEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-delete-email-account-use-case';
+import { makeGetEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-get-email-account-use-case';
+import { makeListEmailAccountsUseCase } from '@/use-cases/email/accounts/factories/make-list-email-accounts-use-case';
+import { makeShareEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-share-email-account-use-case';
+import { makeTestEmailConnectionUseCase } from '@/use-cases/email/accounts/factories/make-test-email-connection-use-case';
+import { makeUnshareEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-unshare-email-account-use-case';
+import { makeUpdateEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-update-email-account-use-case';
+import { queueEmailSync } from '@/workers/queues/email-sync.queue';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
+
+const emailAccountSchema = z.object({
+  id: z.string().uuid(),
+  address: z.string().email(),
+  displayName: z.string().nullable(),
+  imapHost: z.string(),
+  imapPort: z.number(),
+  imapSecure: z.boolean(),
+  smtpHost: z.string(),
+  smtpPort: z.number(),
+  smtpSecure: z.boolean(),
+  username: z.string(),
+  visibility: z.enum(['PRIVATE', 'SHARED']),
+  isActive: z.boolean(),
+  isDefault: z.boolean(),
+  signature: z.string().nullable(),
+  lastSyncAt: z.coerce.date().nullable(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});
+
+const createEmailAccountBodySchema = z.object({
+  address: z.string().email(),
+  displayName: z.string().max(128).optional(),
+  imapHost: z.string().min(1),
+  imapPort: z.number().int().positive(),
+  imapSecure: z.boolean().default(true),
+  smtpHost: z.string().min(1),
+  smtpPort: z.number().int().positive(),
+  smtpSecure: z.boolean().default(true),
+  username: z.string().min(1),
+  secret: z.string().min(1),
+  isDefault: z.boolean().optional(),
+});
+
+const updateEmailAccountBodySchema = createEmailAccountBodySchema.partial().extend({
+  signature: z.string().nullable().optional(),
+  displayName: z.string().max(128).nullable().optional(),
+});
+
+const shareEmailAccountBodySchema = z.object({
+  userId: z.string().uuid(),
+  canRead: z.boolean().default(true),
+  canSend: z.boolean().default(false),
+  canManage: z.boolean().default(false),
+});
+
+const emailAccountAccessSchema = z.object({
+  id: z.string().uuid(),
+  accountId: z.string().uuid(),
+  tenantId: z.string().uuid(),
+  userId: z.string().uuid(),
+  canRead: z.boolean(),
+  canSend: z.boolean(),
+  canManage: z.boolean(),
+  createdAt: z.coerce.date(),
+});
+
+export async function emailAccountsRoutes(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'POST',
+    url: '/v1/email/accounts',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.ACCOUNTS.CREATE,
+        resource: 'email-accounts',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Accounts'],
+      summary: 'Create email account',
+      security: [{ bearerAuth: [] }],
+      body: createEmailAccountBodySchema,
+      response: {
+        201: z.object({ account: emailAccountSchema }),
+        400: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+
+      try {
+        const useCase = makeCreateEmailAccountUseCase();
+        const result = await useCase.execute({
+          tenantId,
+          userId,
+          ...request.body,
+        });
+
+        return reply.status(201).send(result);
+      } catch (error) {
+        if (error instanceof BadRequestError) {
+          return reply.status(400).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/email/accounts',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.ACCOUNTS.LIST,
+        resource: 'email-accounts',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Accounts'],
+      summary: 'List visible email accounts',
+      security: [{ bearerAuth: [] }],
+      response: {
+        200: z.object({ data: z.array(emailAccountSchema) }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+
+      const useCase = makeListEmailAccountsUseCase();
+      const result = await useCase.execute({ tenantId, userId });
+
+      return reply.status(200).send({ data: result.accounts });
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/email/accounts/:id',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.ACCOUNTS.READ,
+        resource: 'email-accounts',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Accounts'],
+      summary: 'Get email account by id',
+      security: [{ bearerAuth: [] }],
+      params: z.object({ id: z.string().uuid() }),
+      response: {
+        200: z.object({ account: emailAccountSchema }),
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+
+      try {
+        const useCase = makeGetEmailAccountUseCase();
+        const result = await useCase.execute({
+          tenantId,
+          userId,
+          accountId: request.params.id,
+        });
+
+        return reply.status(200).send(result);
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'PATCH',
+    url: '/v1/email/accounts/:id',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.ACCOUNTS.UPDATE,
+        resource: 'email-accounts',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Accounts'],
+      summary: 'Update email account',
+      security: [{ bearerAuth: [] }],
+      params: z.object({ id: z.string().uuid() }),
+      body: updateEmailAccountBodySchema,
+      response: {
+        200: z.object({ account: emailAccountSchema }),
+        400: z.object({ message: z.string() }),
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+
+      try {
+        const useCase = makeUpdateEmailAccountUseCase();
+        const result = await useCase.execute({
+          tenantId,
+          userId,
+          accountId: request.params.id,
+          ...request.body,
+        });
+
+        return reply.status(200).send(result);
+      } catch (error) {
+        if (error instanceof BadRequestError) {
+          return reply.status(400).send({ message: error.message });
+        }
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'DELETE',
+    url: '/v1/email/accounts/:id',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.ACCOUNTS.DELETE,
+        resource: 'email-accounts',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Accounts'],
+      summary: 'Delete email account',
+      security: [{ bearerAuth: [] }],
+      params: z.object({ id: z.string().uuid() }),
+      response: {
+        204: z.object({}),
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+
+      try {
+        const useCase = makeDeleteEmailAccountUseCase();
+        await useCase.execute({
+          tenantId,
+          userId,
+          accountId: request.params.id,
+        });
+
+        return reply.status(204).send();
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'POST',
+    url: '/v1/email/accounts/:id/test',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.ACCOUNTS.READ,
+        resource: 'email-accounts',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Accounts'],
+      summary: 'Test email account connection',
+      security: [{ bearerAuth: [] }],
+      params: z.object({ id: z.string().uuid() }),
+      response: {
+        204: z.object({}),
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+
+      try {
+        const useCase = makeTestEmailConnectionUseCase();
+        await useCase.execute({
+          tenantId,
+          userId,
+          accountId: request.params.id,
+        });
+
+        return reply.status(204).send();
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'POST',
+    url: '/v1/email/accounts/:id/sync',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.SYNC.EXECUTE,
+        resource: 'email-sync',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Accounts'],
+      summary: 'Trigger manual email synchronization',
+      security: [{ bearerAuth: [] }],
+      params: z.object({ id: z.string().uuid() }),
+      response: {
+        202: z.object({ message: z.string() }),
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+      const accountId = request.params.id;
+
+      try {
+        const getAccount = makeGetEmailAccountUseCase();
+        await getAccount.execute({ tenantId, userId, accountId });
+
+        const job = await queueEmailSync({ tenantId, accountId });
+        logger.info(
+          { jobId: job.id, tenantId, accountId },
+          'Manual email sync enqueued',
+        );
+
+        return reply.status(202).send({
+          message: 'Sincronização manual agendada.',
+        });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'POST',
+    url: '/v1/email/accounts/:id/share',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.ACCOUNTS.SHARE,
+        resource: 'email-accounts',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Accounts'],
+      summary: 'Share account with tenant user',
+      security: [{ bearerAuth: [] }],
+      params: z.object({ id: z.string().uuid() }),
+      body: shareEmailAccountBodySchema,
+      response: {
+        201: z.object({ access: emailAccountAccessSchema }),
+        400: z.object({ message: z.string() }),
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+      const accountId = request.params.id;
+
+      try {
+        const useCase = makeShareEmailAccountUseCase();
+        const result = await useCase.execute({
+          tenantId,
+          userId,
+          accountId,
+          targetUserId: request.body.userId,
+          canRead: request.body.canRead,
+          canSend: request.body.canSend,
+          canManage: request.body.canManage,
+        });
+
+        return reply.status(201).send(result);
+      } catch (error) {
+        if (error instanceof BadRequestError) {
+          return reply.status(400).send({ message: error.message });
+        }
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        if ((error as { code?: string }).code === 'P2003') {
+          return reply.status(404).send({ message: 'User not found' });
+        }
+        throw error;
+      }
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'DELETE',
+    url: '/v1/email/accounts/:id/share/:userId',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.ACCOUNTS.SHARE,
+        resource: 'email-accounts',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Accounts'],
+      summary: 'Remove account share for tenant user',
+      security: [{ bearerAuth: [] }],
+      params: z.object({
+        id: z.string().uuid(),
+        userId: z.string().uuid(),
+      }),
+      response: {
+        204: z.null(),
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+      const accountId = request.params.id;
+      const targetUserId = request.params.userId;
+
+      try {
+        const useCase = makeUnshareEmailAccountUseCase();
+        await useCase.execute({
+          tenantId,
+          userId,
+          accountId,
+          targetUserId,
+        });
+
+        return reply.status(204).send(null);
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+}
