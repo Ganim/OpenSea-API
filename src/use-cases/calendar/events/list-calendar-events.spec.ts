@@ -226,4 +226,177 @@ describe('ListCalendarEventsUseCase', () => {
       expect(holidayIdx).toBeLessThan(meetingIdx);
     });
   });
+
+  describe('RRULE expansion', () => {
+    it('should expand weekly recurrence into multiple occurrences', async () => {
+      // Monday March 2, 2026 — FREQ=WEEKLY;BYDAY=MO over 4 weeks
+      await repository.create({
+        tenantId: 'tenant-1',
+        title: 'Weekly Standup',
+        startDate: new Date('2026-03-02T09:00:00'),
+        endDate: new Date('2026-03-02T09:30:00'),
+        createdBy: 'user-1',
+        rrule: 'FREQ=WEEKLY;BYDAY=MO',
+      });
+
+      const { events } = await sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        startDate: new Date('2026-03-01T00:00:00'),
+        endDate: new Date('2026-03-31T23:59:59'),
+        includeSystemEvents: false,
+      });
+
+      const standups = events.filter((e) => e.title === 'Weekly Standup');
+      expect(standups.length).toBeGreaterThanOrEqual(4);
+      // All occurrences should be on Mondays
+      for (const s of standups) {
+        const date = new Date(s.occurrenceDate ?? s.startDate);
+        expect(date.getDay()).toBe(1); // Monday
+      }
+    });
+
+    it('should expand monthly recurrence', async () => {
+      // 15th of each month
+      await repository.create({
+        tenantId: 'tenant-1',
+        title: 'Monthly Review',
+        startDate: new Date('2026-01-15T14:00:00'),
+        endDate: new Date('2026-01-15T15:00:00'),
+        createdBy: 'user-1',
+        rrule: 'FREQ=MONTHLY;BYMONTHDAY=15',
+      });
+
+      const { events } = await sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        startDate: new Date('2026-01-01T00:00:00'),
+        endDate: new Date('2026-03-31T23:59:59'),
+        includeSystemEvents: false,
+      });
+
+      const reviews = events.filter((e) => e.title === 'Monthly Review');
+      expect(reviews).toHaveLength(3); // Jan 15, Feb 15, Mar 15
+    });
+
+    it('should cap yearly recurrence at 90-day range', async () => {
+      await repository.create({
+        tenantId: 'tenant-1',
+        title: 'Anniversary',
+        startDate: new Date('2026-03-10T00:00:00'),
+        endDate: new Date('2026-03-10T23:59:59'),
+        createdBy: 'user-1',
+        rrule: 'FREQ=YEARLY',
+      });
+
+      const { events } = await sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        startDate: new Date('2026-03-01T00:00:00'),
+        endDate: new Date('2026-05-29T23:59:59'),
+        includeSystemEvents: false,
+      });
+
+      const anniversaries = events.filter((e) => e.title === 'Anniversary');
+      expect(anniversaries).toHaveLength(1);
+    });
+
+    it('should gracefully degrade on invalid RRULE', async () => {
+      await repository.create({
+        tenantId: 'tenant-1',
+        title: 'Bad Recurrence',
+        startDate: new Date('2026-03-05T10:00:00'),
+        endDate: new Date('2026-03-05T11:00:00'),
+        createdBy: 'user-1',
+        rrule: 'INVALID',
+      });
+
+      const { events } = await sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        startDate: new Date('2026-03-01T00:00:00'),
+        endDate: new Date('2026-03-31T23:59:59'),
+        includeSystemEvents: false,
+      });
+
+      const bad = events.filter((e) => e.title === 'Bad Recurrence');
+      // Should return the original event (fallback)
+      expect(bad).toHaveLength(1);
+      expect(bad[0].rrule).toBe('INVALID');
+    });
+
+    it('should respect COUNT limit in RRULE', async () => {
+      await repository.create({
+        tenantId: 'tenant-1',
+        title: 'Limited Daily',
+        startDate: new Date('2026-03-01T08:00:00'),
+        endDate: new Date('2026-03-01T09:00:00'),
+        createdBy: 'user-1',
+        rrule: 'FREQ=DAILY;COUNT=3',
+      });
+
+      const { events } = await sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        startDate: new Date('2026-03-01T00:00:00'),
+        endDate: new Date('2026-03-31T23:59:59'),
+        includeSystemEvents: false,
+      });
+
+      const limited = events.filter((e) => e.title === 'Limited Daily');
+      expect(limited).toHaveLength(3);
+    });
+  });
+
+  describe('Multi-tenant isolation', () => {
+    it('should only list events for the requested tenant', async () => {
+      await repository.create({
+        tenantId: 'tenant-1',
+        title: 'Tenant 1 Event',
+        startDate: new Date('2026-03-01T10:00:00'),
+        endDate: new Date('2026-03-01T11:00:00'),
+        createdBy: 'user-1',
+      });
+
+      await repository.create({
+        tenantId: 'tenant-2',
+        title: 'Tenant 2 Event',
+        startDate: new Date('2026-03-01T10:00:00'),
+        endDate: new Date('2026-03-01T11:00:00'),
+        createdBy: 'user-2',
+      });
+
+      const { events } = await sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        startDate: new Date('2026-03-01T00:00:00'),
+        endDate: new Date('2026-03-31T23:59:59'),
+        includeSystemEvents: false,
+      });
+
+      expect(events.every((e) => e.tenantId === 'tenant-1')).toBe(true);
+      expect(events.find((e) => e.title === 'Tenant 2 Event')).toBeUndefined();
+    });
+
+    it('should not show private events from another tenant', async () => {
+      await repository.create({
+        tenantId: 'tenant-1',
+        title: 'Secret in Tenant 1',
+        startDate: new Date('2026-03-01T10:00:00'),
+        endDate: new Date('2026-03-01T11:00:00'),
+        createdBy: 'user-1',
+        visibility: 'PRIVATE',
+      });
+
+      const { events } = await sut.execute({
+        tenantId: 'tenant-2',
+        userId: 'user-2',
+        startDate: new Date('2026-03-01T00:00:00'),
+        endDate: new Date('2026-03-31T23:59:59'),
+        includeSystemEvents: false,
+      });
+
+      expect(events).toHaveLength(0);
+    });
+  });
 });

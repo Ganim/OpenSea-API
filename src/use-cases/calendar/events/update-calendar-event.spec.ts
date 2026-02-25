@@ -80,4 +80,25 @@ describe('UpdateCalendarEventUseCase', () => {
       }),
     ).rejects.toThrow('Only the event creator can update this event');
   });
+
+  describe('Multi-tenant isolation', () => {
+    it('should not update event from another tenant', async () => {
+      const created = await repository.create({
+        tenantId: 'tenant-1',
+        title: 'Tenant 1 Event',
+        startDate: new Date('2026-03-01T10:00:00'),
+        endDate: new Date('2026-03-01T11:00:00'),
+        createdBy: 'user-1',
+      });
+
+      await expect(
+        sut.execute({
+          id: created.id.toString(),
+          tenantId: 'tenant-2',
+          userId: 'user-1',
+          title: 'Cross-tenant Update',
+        }),
+      ).rejects.toThrow('Event not found');
+    });
+  });
 });
