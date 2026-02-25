@@ -133,6 +133,12 @@ export enum AuditEntity {
   CONSORTIUM_PAYMENT = 'CONSORTIUM_PAYMENT',
 
   // ==========================================
+  // Teams - Equipes
+  // ==========================================
+  TEAM = 'TEAM',
+  TEAM_MEMBER = 'TEAM_MEMBER',
+
+  // ==========================================
   // Storage - Armazenamento
   // ==========================================
   STORAGE_FOLDER = 'STORAGE_FOLDER',

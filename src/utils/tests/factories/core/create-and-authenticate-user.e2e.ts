@@ -22,6 +22,8 @@ const ALL_PERMISSIONS = {
       'duplicate',
       'manage',
     ],
+    teams: ['create', 'read', 'update', 'delete', 'list', 'manage'],
+    'teams.members': ['add', 'remove', 'manage'],
   },
   // STOCK module
   stock: {

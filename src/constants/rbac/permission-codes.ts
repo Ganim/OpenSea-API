@@ -327,6 +327,19 @@ export const PermissionCodes = {
       DUPLICATE: 'core.label-templates.duplicate' as const,
       MANAGE: 'core.label-templates.manage' as const,
     },
+    TEAMS: {
+      CREATE: 'core.teams.create' as const,
+      READ: 'core.teams.read' as const,
+      UPDATE: 'core.teams.update' as const,
+      DELETE: 'core.teams.delete' as const,
+      LIST: 'core.teams.list' as const,
+      MANAGE: 'core.teams.manage' as const,
+      MEMBERS: {
+        ADD: 'core.teams.members.add' as const,
+        REMOVE: 'core.teams.members.remove' as const,
+        MANAGE: 'core.teams.members.manage' as const,
+      },
+    },
   },
 
   // ============================================================================
