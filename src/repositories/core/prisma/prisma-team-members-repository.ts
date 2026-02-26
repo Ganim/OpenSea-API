@@ -103,13 +103,37 @@ export class PrismaTeamMembersRepository implements TeamMembersRepository {
         skip,
         take: limit,
         orderBy: { joinedAt: 'asc' },
+        include: {
+          user: {
+            select: {
+              email: true,
+              profile: {
+                select: { name: true, surname: true, avatarUrl: true },
+              },
+            },
+          },
+        },
       }),
       prisma.teamMember.count({ where: whereCondition }),
     ]);
 
+    const usersMap = new Map<string, { name: string | null; email: string | null; avatarUrl: string | null }>();
+    for (const m of members) {
+      const profile = m.user?.profile;
+      const fullName = profile
+        ? [profile.name, profile.surname].filter(Boolean).join(' ') || null
+        : null;
+      usersMap.set(m.userId, {
+        name: fullName,
+        email: m.user?.email ?? null,
+        avatarUrl: profile?.avatarUrl ?? null,
+      });
+    }
+
     return {
       members: members.map(teamMemberPrismaToDomain),
       total,
+      usersMap,
     };
   }
 

@@ -1,12 +1,16 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { teamMemberResponseSchema } from '@/http/schemas/core/teams';
 import { makeAddTeamMemberUseCase } from '@/use-cases/core/teams/factories/make-add-team-member';
+import { makeGetTeamByIdUseCase } from '@/use-cases/core/teams/factories/make-get-team-by-id';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -46,6 +50,18 @@ export async function addTeamMembersController(app: FastifyInstance) {
       const { userId: targetUserId, role } = request.body;
 
       try {
+        const [{ user: requestingUser }, { user: targetUser }, { team }] = await Promise.all([
+          makeGetUserByIdUseCase().execute({ userId }),
+          makeGetUserByIdUseCase().execute({ userId: targetUserId }),
+          makeGetTeamByIdUseCase().execute({ tenantId, teamId }),
+        ]);
+        const userName = requestingUser.profile?.name
+          ? `${requestingUser.profile.name} ${requestingUser.profile.surname || ''}`.trim()
+          : requestingUser.username || requestingUser.email;
+        const memberName = targetUser.profile?.name
+          ? `${targetUser.profile.name} ${targetUser.profile.surname || ''}`.trim()
+          : targetUser.username || targetUser.email;
+
         const useCase = makeAddTeamMemberUseCase();
         const result = await useCase.execute({
           teamId,
@@ -53,6 +69,14 @@ export async function addTeamMembersController(app: FastifyInstance) {
           requestingUserId: userId,
           userId: targetUserId,
           role,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.TEAM_MEMBER_ADD,
+          entityId: result.member.id,
+          placeholders: { userName, memberName, teamName: team.name, teamColor: team.color },
+          newData: { userId: targetUserId, role: role ?? 'MEMBER' },
+          affectedUserId: targetUserId,
         });
 
         return reply.status(201).send(result);

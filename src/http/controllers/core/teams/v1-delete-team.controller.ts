@@ -1,11 +1,15 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeDeleteTeamUseCase } from '@/use-cases/core/teams/factories/make-delete-team';
+import { makeGetTeamByIdUseCase } from '@/use-cases/core/teams/factories/make-get-team-by-id';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -40,8 +44,22 @@ export async function deleteTeamController(app: FastifyInstance) {
       const { teamId } = request.params;
 
       try {
+        const { user } = await makeGetUserByIdUseCase().execute({ userId });
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
+        const { team } = await makeGetTeamByIdUseCase().execute({ tenantId, teamId });
+
         const useCase = makeDeleteTeamUseCase();
         await useCase.execute({ teamId, tenantId, userId });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.TEAM_DELETE,
+          entityId: teamId,
+          placeholders: { userName, teamName: team.name, teamColor: team.color },
+          oldData: { id: team.id, name: team.name, slug: team.slug },
+        });
 
         return reply.status(204).send(null);
       } catch (error) {

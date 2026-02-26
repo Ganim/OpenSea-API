@@ -21,9 +21,16 @@ export interface ListTeamMembersFilters {
   limit?: number;
 }
 
+export interface TeamMemberUserData {
+  name: string | null;
+  email: string | null;
+  avatarUrl: string | null;
+}
+
 export interface ListTeamMembersResult {
   members: TeamMember[];
   total: number;
+  usersMap?: Map<string, TeamMemberUserData>;
 }
 
 export interface TeamMembersRepository {

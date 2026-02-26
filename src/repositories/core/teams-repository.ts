@@ -39,6 +39,7 @@ export interface ListTeamsFilters {
 export interface ListTeamsResult {
   teams: Team[];
   total: number;
+  creatorsMap?: Map<string, string>;
 }
 
 export interface TeamsRepository {
@@ -54,4 +55,5 @@ export interface TeamsRepository {
   ): Promise<ListTeamsResult>;
   update(data: UpdateTeamSchema): Promise<Team | null>;
   softDelete(tenantId: UniqueEntityID, id: UniqueEntityID): Promise<void>;
+  resolveCreatorNames(creatorIds: string[]): Promise<Map<string, string>>;
 }

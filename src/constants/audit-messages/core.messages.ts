@@ -270,6 +270,73 @@ export const CORE_AUDIT_MESSAGES = {
     description:
       '{{userName}} gerou thumbnail para o template de etiqueta {{templateName}}',
   } satisfies AuditMessage,
+  // ============================================================================
+  // TEAMS - Gestão de equipes
+  // ============================================================================
+
+  /** Criou uma equipe */
+  TEAM_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.TEAM,
+    module: AuditModule.CORE,
+    description: '{{userName}} criou a equipe {{teamName}}',
+  } satisfies AuditMessage,
+
+  /** Atualizou informações da equipe */
+  TEAM_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.TEAM,
+    module: AuditModule.CORE,
+    description: '{{userName}} atualizou a equipe {{teamName}}',
+  } satisfies AuditMessage,
+
+  /** Excluiu uma equipe */
+  TEAM_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.TEAM,
+    module: AuditModule.CORE,
+    description: '{{userName}} excluiu a equipe {{teamName}}',
+  } satisfies AuditMessage,
+
+  /** Adicionou um membro à equipe */
+  TEAM_MEMBER_ADD: {
+    action: AuditAction.MEMBER_ADD,
+    entity: AuditEntity.TEAM_MEMBER,
+    module: AuditModule.CORE,
+    description: '{{userName}} adicionou {{memberName}} à equipe {{teamName}}',
+  } satisfies AuditMessage,
+
+  /** Adicionou múltiplos membros à equipe */
+  TEAM_MEMBERS_BULK_ADD: {
+    action: AuditAction.MEMBER_ADD,
+    entity: AuditEntity.TEAM_MEMBER,
+    module: AuditModule.CORE,
+    description: '{{userName}} adicionou {{count}} membros à equipe {{teamName}}',
+  } satisfies AuditMessage,
+
+  /** Removeu um membro da equipe */
+  TEAM_MEMBER_REMOVE: {
+    action: AuditAction.MEMBER_REMOVE,
+    entity: AuditEntity.TEAM_MEMBER,
+    module: AuditModule.CORE,
+    description: '{{userName}} removeu {{memberName}} da equipe {{teamName}}',
+  } satisfies AuditMessage,
+
+  /** Alterou o papel de um membro */
+  TEAM_MEMBER_ROLE_CHANGE: {
+    action: AuditAction.ROLE_CHANGE,
+    entity: AuditEntity.TEAM_MEMBER,
+    module: AuditModule.CORE,
+    description: '{{userName}} alterou o papel de {{memberName}} de {{oldRole}} para {{newRole}} na equipe {{teamName}}',
+  } satisfies AuditMessage,
+
+  /** Transferiu a propriedade da equipe */
+  TEAM_OWNERSHIP_TRANSFER: {
+    action: AuditAction.OWNERSHIP_TRANSFER,
+    entity: AuditEntity.TEAM,
+    module: AuditModule.CORE,
+    description: '{{userName}} transferiu a propriedade da equipe {{teamName}} para {{newOwnerName}}',
+  } satisfies AuditMessage,
 } as const;
 
 export type CoreAuditMessageKey = keyof typeof CORE_AUDIT_MESSAGES;

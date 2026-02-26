@@ -144,4 +144,8 @@ export class InMemoryTeamsRepository implements TeamsRepository {
       team.delete();
     }
   }
+
+  async resolveCreatorNames(_creatorIds: string[]): Promise<Map<string, string>> {
+    return new Map();
+  }
 }

@@ -51,7 +51,14 @@ export class ListTeamMembersUseCase {
     });
 
     return {
-      members: result.members.map((m) => teamMemberToDTO(m)),
+      members: result.members.map((m) => {
+        const userData = result.usersMap?.get(m.userId.toString());
+        return teamMemberToDTO(m, userData ? {
+          userName: userData.name,
+          userEmail: userData.email,
+          userAvatarUrl: userData.avatarUrl,
+        } : undefined);
+      }),
       total: result.total,
     };
   }

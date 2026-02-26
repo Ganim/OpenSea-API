@@ -1,11 +1,16 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { makeGetTeamByIdUseCase } from '@/use-cases/core/teams/factories/make-get-team-by-id';
+import { makeListTeamMembersUseCase } from '@/use-cases/core/teams/factories/make-list-team-members';
 import { makeRemoveTeamMemberUseCase } from '@/use-cases/core/teams/factories/make-remove-team-member';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -43,8 +48,29 @@ export async function removeTeamMemberController(app: FastifyInstance) {
       const { teamId, memberId } = request.params;
 
       try {
+        const [{ user }, { team }, { members }] = await Promise.all([
+          makeGetUserByIdUseCase().execute({ userId }),
+          makeGetTeamByIdUseCase().execute({ tenantId, teamId }),
+          makeListTeamMembersUseCase().execute({ tenantId, teamId, page: 1, limit: 100 }),
+        ]);
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
+        // Resolve the member's name before removing
+        const memberData = members.find(m => m.id === memberId);
+        const memberName = memberData?.userName || memberId;
+
         const useCase = makeRemoveTeamMemberUseCase();
         await useCase.execute({ teamId, tenantId, requestingUserId: userId, memberId });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.TEAM_MEMBER_REMOVE,
+          entityId: memberId,
+          placeholders: { userName, memberName, teamName: team.name, teamColor: team.color },
+          oldData: { memberId, teamId },
+          affectedUserId: memberData?.userId,
+        });
 
         return reply.status(204).send(null);
       } catch (error) {

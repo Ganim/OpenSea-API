@@ -158,6 +158,50 @@ export class LogAuditUseCase {
       return AuditModule.PAYROLL;
     }
 
+    // FINANCE - Financeiro
+    if (
+      [
+        AuditEntity.COST_CENTER,
+        AuditEntity.BANK_ACCOUNT,
+        AuditEntity.FINANCE_CATEGORY,
+        AuditEntity.FINANCE_ENTRY,
+        AuditEntity.FINANCE_ENTRY_PAYMENT,
+        AuditEntity.FINANCE_ATTACHMENT,
+        AuditEntity.LOAN,
+        AuditEntity.LOAN_INSTALLMENT,
+        AuditEntity.CONSORTIUM,
+        AuditEntity.CONSORTIUM_PAYMENT,
+      ].includes(entity)
+    ) {
+      return AuditModule.FINANCE;
+    }
+
+    // STORAGE - Armazenamento
+    if (
+      [
+        AuditEntity.STORAGE_FOLDER,
+        AuditEntity.STORAGE_FILE,
+        AuditEntity.STORAGE_FILE_VERSION,
+        AuditEntity.FOLDER_ACCESS_RULE,
+        AuditEntity.STORAGE_SHARE_LINK,
+      ].includes(entity)
+    ) {
+      return AuditModule.STORAGE;
+    }
+
+    // CORE - Equipes e Templates de Etiquetas
+    if (
+      [
+        AuditEntity.TEAM,
+        AuditEntity.TEAM_MEMBER,
+        AuditEntity.LABEL_TEMPLATE,
+        AuditEntity.USER_ACCESS_PIN,
+        AuditEntity.USER_ACTION_PIN,
+      ].includes(entity)
+    ) {
+      return AuditModule.CORE;
+    }
+
     return AuditModule.OTHER;
   }
 

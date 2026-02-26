@@ -1,7 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -9,7 +11,9 @@ import {
   updateTeamSchema,
   teamResponseSchema,
 } from '@/http/schemas/core/teams';
+import { makeGetTeamByIdUseCase } from '@/use-cases/core/teams/factories/make-get-team-by-id';
 import { makeUpdateTeamUseCase } from '@/use-cases/core/teams/factories/make-update-team';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -46,6 +50,15 @@ export async function updateTeamController(app: FastifyInstance) {
 
       try {
         const { name, description, color, avatarUrl } = request.body;
+
+        const { user } = await makeGetUserByIdUseCase().execute({ userId });
+        const userName = user.profile?.name
+          ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+          : user.username || user.email;
+
+        // Captura estado anterior para o log
+        const { team: oldTeam } = await makeGetTeamByIdUseCase().execute({ tenantId, teamId });
+
         const useCase = makeUpdateTeamUseCase();
         const result = await useCase.execute({
           teamId,
@@ -55,6 +68,14 @@ export async function updateTeamController(app: FastifyInstance) {
           description: description ?? undefined,
           color: color ?? undefined,
           avatarUrl: avatarUrl ?? undefined,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.CORE.TEAM_UPDATE,
+          entityId: teamId,
+          placeholders: { userName, teamName: result.team.name, teamColor: result.team.color },
+          oldData: { name: oldTeam.name, description: oldTeam.description, color: oldTeam.color },
+          newData: { name, description, color, avatarUrl },
         });
 
         return reply.status(200).send(result);

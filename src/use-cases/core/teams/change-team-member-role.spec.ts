@@ -15,7 +15,7 @@ describe('ChangeTeamMemberRoleUseCase', () => {
     sut = new ChangeTeamMemberRoleUseCase(teamsRepository, teamMembersRepository);
   });
 
-  it('should change member role to ADMIN', async () => {
+  it('should allow OWNER to change member role to ADMIN', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
     const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
     await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
@@ -32,10 +32,64 @@ describe('ChangeTeamMemberRoleUseCase', () => {
     expect(updated.role).toBe('ADMIN');
   });
 
-  it('should reject role change by non-OWNER', async () => {
+  it('should allow ADMIN to change MEMBER role to ADMIN', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
     const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
+    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
     await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-2'), role: 'ADMIN' });
+    const member = await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-3') });
+
+    const { member: updated } = await sut.execute({
+      tenantId: 'tenant-1',
+      teamId: team.id.toString(),
+      requestingUserId: 'user-2',
+      memberId: member.id.toString(),
+      role: 'ADMIN',
+    });
+
+    expect(updated.role).toBe('ADMIN');
+  });
+
+  it('should reject ADMIN changing another ADMIN role', async () => {
+    const tenantId = new UniqueEntityID('tenant-1');
+    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
+    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
+    const admin2 = await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-2'), role: 'ADMIN' });
+    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-3'), role: 'ADMIN' });
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        teamId: team.id.toString(),
+        requestingUserId: 'user-3',
+        memberId: admin2.id.toString(),
+        role: 'MEMBER',
+      }),
+    ).rejects.toThrow('Admins can only change the role of regular members');
+  });
+
+  it('should reject ADMIN changing OWNER role', async () => {
+    const tenantId = new UniqueEntityID('tenant-1');
+    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
+    const owner = await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
+    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-2'), role: 'ADMIN' });
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        teamId: team.id.toString(),
+        requestingUserId: 'user-2',
+        memberId: owner.id.toString(),
+        role: 'MEMBER',
+      }),
+    ).rejects.toThrow('Admins can only change the role of regular members');
+  });
+
+  it('should reject role change by regular MEMBER', async () => {
+    const tenantId = new UniqueEntityID('tenant-1');
+    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
+    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
+    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-2') });
     const member = await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-3') });
 
     await expect(
@@ -46,7 +100,7 @@ describe('ChangeTeamMemberRoleUseCase', () => {
         memberId: member.id.toString(),
         role: 'ADMIN',
       }),
-    ).rejects.toThrow('Only team owners can change member roles');
+    ).rejects.toThrow('Only team owners and admins can change member roles');
   });
 
   it('should reject changing own role', async () => {

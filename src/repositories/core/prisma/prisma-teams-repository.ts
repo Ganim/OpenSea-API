@@ -46,6 +46,25 @@ export class PrismaTeamsRepository implements TeamsRepository {
     return teamPrismaToDomain(teamData);
   }
 
+  async resolveCreatorNames(creatorIds: string[]): Promise<Map<string, string>> {
+    if (creatorIds.length === 0) return new Map();
+
+    const users = await prisma.user.findMany({
+      where: { id: { in: creatorIds } },
+      select: {
+        id: true,
+        profile: { select: { name: true, surname: true } },
+      },
+    });
+
+    const map = new Map<string, string>();
+    for (const u of users) {
+      const fullName = [u.profile?.name, u.profile?.surname].filter(Boolean).join(' ');
+      if (fullName) map.set(u.id, fullName);
+    }
+    return map;
+  }
+
   async findBySlug(
     tenantId: UniqueEntityID,
     slug: string,

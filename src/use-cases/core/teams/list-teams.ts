@@ -33,10 +33,14 @@ export class ListTeamsUseCase {
       limit,
     });
 
+    const creatorIds = [...new Set(result.teams.map(t => t.createdBy.toString()))];
+    const creatorsMap = await this.teamsRepository.resolveCreatorNames(creatorIds);
+
     const teams = await Promise.all(
       result.teams.map(async (team) => {
         const membersCount = await this.teamMembersRepository.countByTeam(team.id);
-        return teamToDTO(team, { membersCount });
+        const creatorName = creatorsMap.get(team.createdBy.toString()) ?? null;
+        return teamToDTO(team, { membersCount, creatorName });
       }),
     );
 
