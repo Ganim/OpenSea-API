@@ -25,15 +25,16 @@ import { initSentry } from './lib/sentry';
 // Initialize Sentry for error monitoring
 initSentry();
 
-// pluginTimeout: 0 is required because @fastify/swagger registers an onReady hook
-// for EVERY child plugin instance via onRegister. With ~450+ plugin instances in this
-// app, avvio's _readyQ (fastq) processes them recursively: release → worker → callback
-// → release → ... When pluginTimeout > 0, each item goes through timeoutCall() which
-// adds extra stack frames (setTimeout/clearTimeout). At ~450 children this causes a
-// V8 stack overflow that silently hangs app.ready(). Setting pluginTimeout: 0 uses a
-// lighter code path (direct callback) that stays within the stack limit.
-// See: avvio/boot.js callWithCbOrNextTick() and fastq/queue.js release()
-export const app = fastify({ trustProxy: true, pluginTimeout: 0 });
+// pluginTimeout: 0 em testes (vite-node lazy transforms pode levar 120s+)
+// Em produção: 120s (Swagger compilation can take a while)
+// Em dev sem Swagger: 30s é suficiente
+const pluginTimeout =
+  process.env.NODE_ENV === 'test' || process.env.VITEST
+    ? 0
+    : process.env.ENABLE_SWAGGER === 'true'
+      ? 300_000 // 5min — Swagger compilation on Windows
+      : 60_000;
+export const app = fastify({ trustProxy: true, pluginTimeout });
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
@@ -127,29 +128,38 @@ if (!isTestEnv) {
   app.register(rateLimit, rateLimitConfig.global);
 }
 
-// Swagger
-app.register(swagger, {
-  mode: 'dynamic',
-  openapi: {
-    info: {
-      title: 'OpenSea API',
-      description:
-        'API completa para gestão de estoque e vendas com Clean Architecture',
-      version: '3.5.0',
-    },
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
+// Swagger: disabled in tests (hangs), disabled in dev by default (takes 3min+ on Windows).
+// In dev, set ENABLE_SWAGGER=true in .env to opt-in when you need /docs.
+// In production, Swagger is always enabled.
+const shouldEnableSwagger =
+  !isTestEnv &&
+  (env.NODE_ENV === 'production' || process.env.ENABLE_SWAGGER === 'true');
+
+if (shouldEnableSwagger) {
+  console.log('[startup] Registering Swagger (this may take a few minutes)...');
+  app.register(swagger, {
+    mode: 'dynamic',
+    openapi: {
+      info: {
+        title: 'OpenSea API',
+        description:
+          'API completa para gestão de estoque e vendas com Clean Architecture',
+        version: '3.5.0',
+      },
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+          },
         },
       },
+      tags: swaggerTags,
     },
-    tags: swaggerTags,
-  },
-  transform: jsonSchemaTransform,
-});
+    transform: jsonSchemaTransform,
+  });
+}
 
 // Authentication with RS256 support
 const jwtSecret = getJwtSecret();
@@ -188,20 +198,22 @@ app.register(multipart, {
 // Routes
 app.register(registerRoutes);
 
-// Swagger UI
-const swaggerTheme = new SwaggerTheme();
-const theme = swaggerTheme.getBuffer(SwaggerThemeNameEnum.FLATTOP);
+// Swagger UI (only when Swagger is enabled)
+if (shouldEnableSwagger) {
+  const swaggerTheme = new SwaggerTheme();
+  const theme = swaggerTheme.getBuffer(SwaggerThemeNameEnum.FLATTOP);
 
-app.register(swaggerUI, {
-  routePrefix: '/docs',
-  staticCSP: true,
-  uiConfig: {
-    docExpansion: 'list',
-    deepLinking: false,
-    displayRequestDuration: true,
-    operationsSorter: 'method',
-  },
-  theme: {
-    css: [{ filename: 'theme.css', content: theme }],
-  },
-});
+  app.register(swaggerUI, {
+    routePrefix: '/docs',
+    staticCSP: true,
+    uiConfig: {
+      docExpansion: 'list',
+      deepLinking: false,
+      displayRequestDuration: true,
+      operationsSorter: 'method',
+    },
+    theme: {
+      css: [{ filename: 'theme.css', content: theme }],
+    },
+  });
+}
