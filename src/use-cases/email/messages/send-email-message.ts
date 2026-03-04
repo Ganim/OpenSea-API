@@ -22,6 +22,8 @@ interface SendEmailMessageRequest {
   subject: string;
   bodyHtml: string;
   attachments?: SmtpAttachmentInput[];
+  inReplyTo?: string;
+  references?: string[];
 }
 
 interface SendEmailMessageResponse {
@@ -93,6 +95,8 @@ export class SendEmailMessageUseCase {
         subject: request.subject,
         html,
         attachments: request.attachments,
+        inReplyTo: request.inReplyTo,
+        references: request.references,
       },
     );
 
@@ -108,6 +112,9 @@ export class SendEmailMessageUseCase {
       cc: request.cc,
       subject: request.subject,
       html,
+      messageId,
+      inReplyTo: request.inReplyTo,
+      references: request.references,
     });
 
     return { messageId };
@@ -125,6 +132,9 @@ export class SendEmailMessageUseCase {
     cc?: string[];
     subject: string;
     html: string;
+    messageId?: string;
+    inReplyTo?: string;
+    references?: string[];
   }): Promise<void> {
     if (process.env.NODE_ENV === 'test') {
       return;
@@ -155,6 +165,9 @@ export class SendEmailMessageUseCase {
         cc: params.cc,
         subject: params.subject,
         html: params.html,
+        messageId: params.messageId,
+        inReplyTo: params.inReplyTo,
+        references: params.references,
       });
 
       try {
@@ -179,6 +192,9 @@ export class SendEmailMessageUseCase {
     cc?: string[];
     subject: string;
     html: string;
+    messageId?: string;
+    inReplyTo?: string;
+    references?: string[];
   }): string {
     const headers = [
       `From: ${params.from}`,
@@ -186,6 +202,11 @@ export class SendEmailMessageUseCase {
       ...(params.cc?.length ? [`Cc: ${params.cc.join(', ')}`] : []),
       `Subject: ${params.subject}`,
       `Date: ${new Date().toUTCString()}`,
+      ...(params.messageId ? [`Message-ID: ${params.messageId}`] : []),
+      ...(params.inReplyTo ? [`In-Reply-To: ${params.inReplyTo}`] : []),
+      ...(params.references?.length
+        ? [`References: ${params.references.join(' ')}`]
+        : []),
       'MIME-Version: 1.0',
       'Content-Type: text/html; charset="UTF-8"',
       'Content-Transfer-Encoding: 8bit',

@@ -17,6 +17,8 @@ const folderSchema = z.object({
   type: z.enum(['INBOX', 'SENT', 'DRAFTS', 'TRASH', 'SPAM', 'CUSTOM']),
   uidValidity: z.number().int().nullable(),
   lastUid: z.number().int().nullable(),
+  totalMessages: z.number().int(),
+  unreadMessages: z.number().int(),
   updatedAt: z.coerce.date(),
 });
 

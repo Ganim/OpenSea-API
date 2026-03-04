@@ -21,6 +21,12 @@ export interface UpdateEmailFolderSchema {
   lastUid?: number | null;
 }
 
+export interface FolderMessageCounts {
+  folderId: string;
+  totalMessages: number;
+  unreadMessages: number;
+}
+
 export interface EmailFoldersRepository {
   create(data: CreateEmailFolderSchema): Promise<EmailFolder>;
   findById(id: string, accountId: string): Promise<EmailFolder | null>;
@@ -33,6 +39,7 @@ export interface EmailFoldersRepository {
     remoteName: string,
   ): Promise<EmailFolder | null>;
   listByAccount(accountId: string): Promise<EmailFolder[]>;
+  getMessageCounts(accountId: string): Promise<FolderMessageCounts[]>;
   update(data: UpdateEmailFolderSchema): Promise<EmailFolder | null>;
   delete(id: string, accountId: string): Promise<void>;
 }

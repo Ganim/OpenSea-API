@@ -23,7 +23,7 @@ const messageSchema = z.object({
   accountId: z.string().uuid(),
   folderId: z.string().uuid(),
   subject: z.string(),
-  fromAddress: z.string().email(),
+  fromAddress: z.string(),
   fromName: z.string().nullable(),
   snippet: z.string().nullable(),
   receivedAt: z.coerce.date(),
@@ -49,7 +49,7 @@ const messageDetailSchema = z.object({
   remoteUid: z.number(),
   messageId: z.string().nullable(),
   threadId: z.string().nullable(),
-  fromAddress: z.string().email(),
+  fromAddress: z.string(),
   fromName: z.string().nullable(),
   toAddresses: z.array(z.string()),
   ccAddresses: z.array(z.string()),
@@ -76,6 +76,8 @@ const _sendMessageBodySchema = z.object({
   bcc: z.array(z.string().email()).optional(),
   subject: z.string().min(1),
   bodyHtml: z.string().min(1),
+  inReplyTo: z.string().optional(),
+  references: z.array(z.string()).optional(),
 });
 
 const saveDraftBodySchema = z.object({
@@ -331,6 +333,8 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
           bcc: z.array(z.string().email()).optional(),
           subject: z.string().min(1),
           bodyHtml: z.string().min(1),
+          inReplyTo: z.string().optional(),
+          references: z.array(z.string()).optional(),
         });
         const parsed = sendBodySchema.safeParse(request.body);
         if (!parsed.success) {
@@ -345,6 +349,12 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
           bodyHtml: parsed.data.bodyHtml,
           ...(parsed.data.cc ? { cc: parsed.data.cc } : {}),
           ...(parsed.data.bcc ? { bcc: parsed.data.bcc } : {}),
+          ...(parsed.data.inReplyTo
+            ? { inReplyTo: parsed.data.inReplyTo }
+            : {}),
+          ...(parsed.data.references
+            ? { references: parsed.data.references }
+            : {}),
         };
       }
 
@@ -360,6 +370,14 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
 
       try {
         const useCase = makeSendEmailMessageUseCase();
+        const inReplyTo = getField('inReplyTo') || undefined;
+        const referencesRaw = fields['references'];
+        const references = referencesRaw
+          ? Array.isArray(referencesRaw)
+            ? referencesRaw
+            : [referencesRaw]
+          : undefined;
+
         const result = await useCase.execute({
           tenantId,
           userId,
@@ -370,6 +388,8 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
           subject: getField('subject'),
           bodyHtml: getField('bodyHtml'),
           attachments: attachments.length ? attachments : undefined,
+          inReplyTo,
+          references: references?.length ? references : undefined,
         });
 
         return reply.status(202).send(result);

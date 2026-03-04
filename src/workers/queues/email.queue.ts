@@ -1,6 +1,5 @@
 import type { Queue } from 'bullmq';
-import { Job } from 'bullmq';
-import { createQueue, createWorker, QUEUE_NAMES } from '@/lib/queue';
+import { createQueue, QUEUE_NAMES } from '@/lib/queue';
 
 export interface EmailJobData {
   to: string | string[];
@@ -41,34 +40,4 @@ export async function queueEmail(
     delay: options?.delay,
     priority: options?.priority,
   });
-}
-
-/**
- * Inicia o worker de processamento de emails
- */
-export function startEmailWorker() {
-  return createWorker<EmailJobData>(
-    QUEUE_NAMES.EMAILS,
-    async (job: Job<EmailJobData>) => {
-      const { to, subject, html: _html, text: _text } = job.data;
-
-      console.log(
-        `[EmailWorker] Processing email to: ${to}, subject: ${subject}`,
-      );
-
-      // TODO: Implementar envio real com nodemailer
-      // Por enquanto, apenas loga
-      // const transporter = nodemailer.createTransport({...});
-      // await transporter.sendMail({...});
-
-      console.log(`[EmailWorker] Email sent successfully to: ${to}`);
-    },
-    {
-      concurrency: 5,
-      limiter: {
-        max: 10,
-        duration: 1000, // 10 emails por segundo
-      },
-    },
-  );
 }

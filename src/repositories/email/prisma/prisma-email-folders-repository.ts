@@ -4,6 +4,7 @@ import { emailFolderPrismaToDomain } from '@/mappers/email';
 import type {
   CreateEmailFolderSchema,
   EmailFoldersRepository,
+  FolderMessageCounts,
   UpdateEmailFolderSchema,
 } from '../email-folders-repository';
 
@@ -63,6 +64,41 @@ export class PrismaEmailFoldersRepository implements EmailFoldersRepository {
     });
 
     return folders.map(emailFolderPrismaToDomain);
+  }
+
+  async getMessageCounts(accountId: string): Promise<FolderMessageCounts[]> {
+    const results = await prisma.emailMessage.groupBy({
+      by: ['folderId'],
+      where: {
+        accountId,
+        deletedAt: null,
+      },
+      _count: {
+        _all: true,
+      },
+    });
+
+    const unreadResults = await prisma.emailMessage.groupBy({
+      by: ['folderId'],
+      where: {
+        accountId,
+        deletedAt: null,
+        isRead: false,
+      },
+      _count: {
+        _all: true,
+      },
+    });
+
+    const unreadMap = new Map(
+      unreadResults.map((r) => [r.folderId, r._count._all]),
+    );
+
+    return results.map((r) => ({
+      folderId: r.folderId,
+      totalMessages: r._count._all,
+      unreadMessages: unreadMap.get(r.folderId) ?? 0,
+    }));
   }
 
   async update(data: UpdateEmailFolderSchema): Promise<EmailFolder | null> {

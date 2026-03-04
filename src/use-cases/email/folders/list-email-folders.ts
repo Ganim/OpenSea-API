@@ -49,10 +49,17 @@ export class ListEmailFoldersUseCase {
       }
     }
 
-    const folders = await this.emailFoldersRepository.listByAccount(accountId);
+    const [folders, messageCounts] = await Promise.all([
+      this.emailFoldersRepository.listByAccount(accountId),
+      this.emailFoldersRepository.getMessageCounts(accountId),
+    ]);
+
+    const countsMap = new Map(messageCounts.map((c) => [c.folderId, c]));
 
     return {
-      folders: folders.map(emailFolderToDTO),
+      folders: folders.map((folder) =>
+        emailFolderToDTO(folder, countsMap.get(folder.id.toString())),
+      ),
     };
   }
 }

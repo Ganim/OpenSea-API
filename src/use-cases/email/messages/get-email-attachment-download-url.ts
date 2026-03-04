@@ -47,12 +47,16 @@ export class GetEmailAttachmentDownloadUrlUseCase {
       throw new ResourceNotFoundError('Email account not found');
     }
 
-    const canRead =
-      account.ownerUserId.toString() === userId ||
-      !!(await this.emailAccountsRepository.findAccess(
+    const isOwner = account.ownerUserId.toString() === userId;
+    let canRead = isOwner;
+
+    if (!isOwner) {
+      const access = await this.emailAccountsRepository.findAccess(
         account.id.toString(),
         userId,
-      ));
+      );
+      canRead = access?.canRead === true;
+    }
 
     if (!canRead) {
       throw new ForbiddenError('You do not have access to this email account');

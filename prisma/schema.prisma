@@ -4374,18 +4374,21 @@ model TeamCalendarConfig {
   ownerCanEdit   Boolean @default(true) @map("owner_can_edit")
   ownerCanDelete Boolean @default(true) @map("owner_can_delete")
   ownerCanShare  Boolean @default(true) @map("owner_can_share")
+  ownerCanManage Boolean @default(true) @map("owner_can_manage")
 
   adminCanRead   Boolean @default(true) @map("admin_can_read")
   adminCanCreate Boolean @default(true) @map("admin_can_create")
   adminCanEdit   Boolean @default(true) @map("admin_can_edit")
   adminCanDelete Boolean @default(false) @map("admin_can_delete")
   adminCanShare  Boolean @default(false) @map("admin_can_share")
+  adminCanManage Boolean @default(false) @map("admin_can_manage")
 
   memberCanRead   Boolean @default(true) @map("member_can_read")
   memberCanCreate Boolean @default(false) @map("member_can_create")
   memberCanEdit   Boolean @default(false) @map("member_can_edit")
   memberCanDelete Boolean @default(false) @map("member_can_delete")
   memberCanShare  Boolean @default(false) @map("member_can_share")
+  memberCanManage Boolean @default(false) @map("member_can_manage")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -4534,6 +4537,7 @@ model EmailAccount {
   folders   EmailFolder[]
   messages  EmailMessage[]
 
+  @@unique([tenantId, address])
   @@index([tenantId])
   @@index([ownerUserId])
   @@index([tenantId, isActive])

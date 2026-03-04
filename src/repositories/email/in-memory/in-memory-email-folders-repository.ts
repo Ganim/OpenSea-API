@@ -3,14 +3,17 @@ import {
   EmailFolder,
   type EmailFolderType,
 } from '@/entities/email/email-folder';
+import type { EmailMessage } from '@/entities/email/email-message';
 import type {
   CreateEmailFolderSchema,
   EmailFoldersRepository,
+  FolderMessageCounts,
   UpdateEmailFolderSchema,
 } from '../email-folders-repository';
 
 export class InMemoryEmailFoldersRepository implements EmailFoldersRepository {
   public items: EmailFolder[] = [];
+  public messages: EmailMessage[] = [];
 
   async create(data: CreateEmailFolderSchema): Promise<EmailFolder> {
     const folder = EmailFolder.create(
@@ -64,6 +67,33 @@ export class InMemoryEmailFoldersRepository implements EmailFoldersRepository {
 
   async listByAccount(accountId: string): Promise<EmailFolder[]> {
     return this.items.filter((item) => item.accountId.toString() === accountId);
+  }
+
+  async getMessageCounts(accountId: string): Promise<FolderMessageCounts[]> {
+    const folderIds = this.items
+      .filter((f) => f.accountId.toString() === accountId)
+      .map((f) => f.id.toString());
+
+    const counts: FolderMessageCounts[] = [];
+
+    for (const folderId of folderIds) {
+      const folderMessages = this.messages.filter(
+        (m) =>
+          m.folderId.toString() === folderId &&
+          m.accountId.toString() === accountId &&
+          !m.deletedAt,
+      );
+
+      const unread = folderMessages.filter((m) => !m.isRead);
+
+      counts.push({
+        folderId,
+        totalMessages: folderMessages.length,
+        unreadMessages: unread.length,
+      });
+    }
+
+    return counts;
   }
 
   async update(data: UpdateEmailFolderSchema): Promise<EmailFolder | null> {

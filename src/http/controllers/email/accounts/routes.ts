@@ -51,6 +51,8 @@ const createEmailAccountBodySchema = z.object({
   username: z.string().min(1),
   secret: z.string().min(1),
   isDefault: z.boolean().optional(),
+  visibility: z.enum(['PRIVATE', 'SHARED']).optional(),
+  signature: z.string().nullable().optional(),
 });
 
 const updateEmailAccountBodySchema = createEmailAccountBodySchema

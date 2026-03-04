@@ -23,6 +23,8 @@ export interface SendEmailPayload {
   html: string;
   text?: string;
   attachments?: SmtpAttachmentInput[];
+  inReplyTo?: string;
+  references?: string[];
 }
 
 export class SmtpClientService {
@@ -58,6 +60,10 @@ export class SmtpClientService {
         content: a.content,
         contentType: a.contentType,
       })),
+      ...(payload.inReplyTo ? { inReplyTo: payload.inReplyTo } : {}),
+      ...(payload.references?.length
+        ? { references: payload.references.join(' ') }
+        : {}),
     };
 
     const result = await transporter.sendMail(sendOptions);

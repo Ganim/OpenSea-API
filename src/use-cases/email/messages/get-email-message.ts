@@ -10,6 +10,7 @@ import type {
   EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
+import { sanitizeEmailHtml } from '@/services/email/html-sanitizer.service';
 import { ImapFlow } from 'imapflow';
 // @ts-expect-error - mailparser has no type declarations
 import { simpleParser } from 'mailparser';
@@ -25,24 +26,6 @@ interface GetEmailMessageResponse {
 }
 
 const SNIPPET_MAX_LENGTH = 200;
-
-function sanitizeHtml(html: string): string {
-  let sanitized = html;
-
-  // Remove <script> tags and their content
-  sanitized = sanitized.replace(
-    /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
-    '',
-  );
-
-  // Remove on* event handler attributes
-  sanitized = sanitized.replace(
-    /\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi,
-    '',
-  );
-
-  return sanitized;
-}
 
 function extractSnippet(bodyText: string | null): string | null {
   if (!bodyText) return null;
@@ -178,7 +161,7 @@ export class GetEmailMessageUseCase {
 
           const bodyText = parsed.text ?? null;
           const rawHtml = parsed.html || null;
-          const bodyHtmlSanitized = rawHtml ? sanitizeHtml(rawHtml) : null;
+          const bodyHtmlSanitized = rawHtml ? sanitizeEmailHtml(rawHtml) : null;
           const snippet = extractSnippet(bodyText);
 
           // Update in-memory entity so the returned DTO has the body

@@ -9,6 +9,7 @@ export type {
 export type {
   CreateEmailFolderSchema,
   EmailFoldersRepository,
+  FolderMessageCounts,
   UpdateEmailFolderSchema,
 } from './email-folders-repository';
 
