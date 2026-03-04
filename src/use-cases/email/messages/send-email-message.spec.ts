@@ -95,4 +95,108 @@ describe('SendEmailMessageUseCase', () => {
       }),
     ).rejects.toThrow('Email account not found');
   });
+
+  it('should append signature to email body when account has signature', async () => {
+    const smtpService = new FakeSmtpClientService();
+    sut = new SendEmailMessageUseCase(
+      accountsRepository,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      foldersRepository as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      new FakeCipherService() as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      smtpService as any,
+    );
+
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      accountId: account!.id.toString(),
+      to: ['recipient@example.com'],
+      subject: 'With Signature',
+      bodyHtml: '<p>Hello</p>',
+    });
+
+    expect(smtpService.send).toHaveBeenCalledOnce();
+    const sendCall = smtpService.send.mock.calls[0];
+    const mailOptions = sendCall[1];
+    // The html should contain the original body + signature
+    expect(mailOptions.html).toContain('<p>Hello</p>');
+    expect(mailOptions.html).toContain('Best regards');
+  });
+
+  it('should send with inReplyTo and references headers', async () => {
+    const smtpService = new FakeSmtpClientService();
+    sut = new SendEmailMessageUseCase(
+      accountsRepository,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      foldersRepository as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      new FakeCipherService() as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      smtpService as any,
+    );
+
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      accountId: account!.id.toString(),
+      to: ['recipient@example.com'],
+      subject: 'Re: Original',
+      bodyHtml: '<p>Reply</p>',
+      inReplyTo: '<original-msg-id@example.com>',
+      references: [
+        '<original-msg-id@example.com>',
+        '<earlier-msg-id@example.com>',
+      ],
+    });
+
+    expect(smtpService.send).toHaveBeenCalledOnce();
+    const sendCall = smtpService.send.mock.calls[0];
+    const mailOptions = sendCall[1];
+    expect(mailOptions.inReplyTo).toBe('<original-msg-id@example.com>');
+    expect(mailOptions.references).toEqual([
+      '<original-msg-id@example.com>',
+      '<earlier-msg-id@example.com>',
+    ]);
+  });
+
+  it('should handle inactive account', async () => {
+    // Create an inactive account
+    const inactiveAccount = await accountsRepository.create({
+      tenantId: 'tenant-1',
+      ownerUserId: 'user-1',
+      address: 'inactive@example.com',
+      imapHost: 'imap.example.com',
+      imapPort: 993,
+      imapSecure: true,
+      smtpHost: 'smtp.example.com',
+      smtpPort: 587,
+      smtpSecure: true,
+      username: 'inactive@example.com',
+      encryptedSecret: 'enc:password',
+      isActive: false,
+    });
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        accountId: inactiveAccount.id.toString(),
+        to: ['recipient@example.com'],
+        subject: 'Test',
+        bodyHtml: '<p>Test</p>',
+      }),
+    ).rejects.toThrow('Email account is not active');
+  });
 });

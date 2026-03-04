@@ -1,3 +1,5 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { EmailMessage } from '@/entities/email/email-message';
 import { InMemoryEmailAccountsRepository } from '@/repositories/email/in-memory/in-memory-email-accounts-repository';
 import { InMemoryEmailFoldersRepository } from '@/repositories/email/in-memory/in-memory-email-folders-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -127,6 +129,88 @@ describe('ListEmailFoldersUseCase', () => {
         accountId: otherAccount.id.toString(),
       }),
     ).rejects.toThrow('You do not have access to this account');
+  });
+
+  it('should return totalMessages and unreadMessages counts', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    const folders = await foldersRepository.listByAccount(
+      account!.id.toString(),
+    );
+    const inboxFolder = folders.find((f) => f.type === 'INBOX')!;
+    const sentFolder = folders.find((f) => f.type === 'SENT')!;
+
+    // Add messages to the folders repository's messages array (used by getMessageCounts)
+    const msg1 = EmailMessage.create({
+      tenantId: new UniqueEntityID('tenant-1'),
+      accountId: new UniqueEntityID(account!.id.toString()),
+      folderId: new UniqueEntityID(inboxFolder.id.toString()),
+      remoteUid: 1,
+      fromAddress: 'a@example.com',
+      toAddresses: ['user@example.com'],
+      subject: 'Message 1',
+      receivedAt: new Date(),
+      isRead: false,
+    });
+
+    const msg2 = EmailMessage.create({
+      tenantId: new UniqueEntityID('tenant-1'),
+      accountId: new UniqueEntityID(account!.id.toString()),
+      folderId: new UniqueEntityID(inboxFolder.id.toString()),
+      remoteUid: 2,
+      fromAddress: 'b@example.com',
+      toAddresses: ['user@example.com'],
+      subject: 'Message 2',
+      receivedAt: new Date(),
+      isRead: true,
+    });
+
+    const msg3 = EmailMessage.create({
+      tenantId: new UniqueEntityID('tenant-1'),
+      accountId: new UniqueEntityID(account!.id.toString()),
+      folderId: new UniqueEntityID(inboxFolder.id.toString()),
+      remoteUid: 3,
+      fromAddress: 'c@example.com',
+      toAddresses: ['user@example.com'],
+      subject: 'Message 3',
+      receivedAt: new Date(),
+      isRead: false,
+    });
+
+    const msg4 = EmailMessage.create({
+      tenantId: new UniqueEntityID('tenant-1'),
+      accountId: new UniqueEntityID(account!.id.toString()),
+      folderId: new UniqueEntityID(sentFolder.id.toString()),
+      remoteUid: 1,
+      fromAddress: 'user@example.com',
+      toAddresses: ['someone@example.com'],
+      subject: 'Sent Message',
+      receivedAt: new Date(),
+      isRead: true,
+    });
+
+    foldersRepository.messages.push(msg1, msg2, msg3, msg4);
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      accountId: account!.id.toString(),
+    });
+
+    const inboxResult = result.folders.find((f) => f.type === 'INBOX')!;
+    expect(inboxResult.totalMessages).toBe(3);
+    expect(inboxResult.unreadMessages).toBe(2);
+
+    const sentResult = result.folders.find((f) => f.type === 'SENT')!;
+    expect(sentResult.totalMessages).toBe(1);
+    expect(sentResult.unreadMessages).toBe(0);
+
+    const draftsResult = result.folders.find((f) => f.type === 'DRAFTS')!;
+    expect(draftsResult.totalMessages).toBe(0);
+    expect(draftsResult.unreadMessages).toBe(0);
   });
 
   it('should allow access if user has read permission via share', async () => {

@@ -94,4 +94,51 @@ describe('SaveEmailDraftUseCase', () => {
       }),
     ).rejects.toThrow('Email account not found');
   });
+
+  it('should throw error when DRAFTS folder not found', async () => {
+    // Override foldersRepository to return no folders
+    foldersRepository.listByAccount = vi.fn().mockResolvedValue([]);
+
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        accountId: account!.id.toString(),
+        subject: 'Test draft',
+        bodyHtml: '<p>Content</p>',
+      }),
+    ).rejects.toThrow('Drafts folder not found for this account');
+  });
+
+  it('should throw error when account is inactive', async () => {
+    const inactiveAccount = await accountsRepository.create({
+      tenantId: 'tenant-1',
+      ownerUserId: 'user-1',
+      address: 'inactive@example.com',
+      imapHost: 'imap.example.com',
+      imapPort: 993,
+      imapSecure: true,
+      smtpHost: 'smtp.example.com',
+      smtpPort: 587,
+      smtpSecure: true,
+      username: 'inactive@example.com',
+      encryptedSecret: 'enc:password',
+      isActive: false,
+    });
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        accountId: inactiveAccount.id.toString(),
+        subject: 'Draft',
+        bodyHtml: '<p>Content</p>',
+      }),
+    ).rejects.toThrow('Email account is not active');
+  });
 });

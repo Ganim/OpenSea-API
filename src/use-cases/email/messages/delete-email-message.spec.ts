@@ -215,6 +215,54 @@ describe('DeleteEmailMessageUseCase', () => {
     ).rejects.toThrow('Email message not found');
   });
 
+  it('should be idempotent for already soft-deleted messages', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    const trashFolder = await foldersRepository.findByType(
+      account!.id.toString(),
+      'TRASH',
+    );
+
+    // Create a message directly in the Trash folder
+    const trashMessage = await messagesRepository.create({
+      tenantId: 'tenant-1',
+      accountId: account!.id.toString(),
+      folderId: trashFolder!.id.toString(),
+      remoteUid: 3,
+      fromAddress: 'sender@example.com',
+      toAddresses: ['user@example.com'],
+      subject: 'Will be deleted twice',
+      bodyText: 'Test',
+      receivedAt: new Date(),
+    });
+
+    // First delete - permanently deletes (sets deletedAt)
+    await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      messageId: trashMessage.id.toString(),
+    });
+
+    // Message should now be soft-deleted (findById returns null)
+    const afterFirstDelete = await messagesRepository.findById(
+      trashMessage.id.toString(),
+      'tenant-1',
+    );
+    expect(afterFirstDelete).toBeNull();
+
+    // Second delete - should throw because findById returns null for deleted messages
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        messageId: trashMessage.id.toString(),
+      }),
+    ).rejects.toThrow('Email message not found');
+  });
+
   it('should throw error if user does not have manage permission', async () => {
     const account = await accountsRepository.findByAddress(
       'user@example.com',

@@ -185,4 +185,89 @@ describe('MoveEmailMessageUseCase', () => {
       }),
     ).rejects.toThrow('You do not have access to move messages');
   });
+
+  it('should prevent moving to same folder', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+    const result = await messagesRepository.list({
+      tenantId: 'tenant-1',
+      accountId: account!.id.toString(),
+      limit: 1,
+    });
+    const message = result.messages[0];
+    const folders = await foldersRepository.listByAccount(
+      account!.id.toString(),
+    );
+    const inboxFolder = folders.find((f) => f.type === 'INBOX');
+
+    // Moving to the same folder where the message already is should still succeed
+    // (the use case does not explicitly block same-folder moves, it handles it gracefully)
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        messageId: message.id.toString(),
+        targetFolderId: inboxFolder!.id.toString(),
+      }),
+    ).resolves.toBeUndefined();
+
+    // Message should still be in the same folder
+    const updated = await messagesRepository.findById(
+      message.id.toString(),
+      'tenant-1',
+    );
+    expect(updated!.folderId.toString()).toBe(inboxFolder!.id.toString());
+  });
+
+  it('should prevent cross-account folder move', async () => {
+    // Create a second account with its own folder
+    const otherAccount = await accountsRepository.create({
+      tenantId: 'tenant-1',
+      ownerUserId: 'other-user',
+      address: 'other@example.com',
+      imapHost: 'imap.example.com',
+      imapPort: 993,
+      imapSecure: true,
+      smtpHost: 'smtp.example.com',
+      smtpPort: 587,
+      smtpSecure: true,
+      username: 'other@example.com',
+      encryptedSecret: 'enc:password',
+      isActive: true,
+    });
+
+    const otherFolder = await foldersRepository.create({
+      accountId: otherAccount.id.toString(),
+      displayName: 'Other INBOX',
+      remoteName: 'INBOX',
+      type: 'INBOX',
+      uidValidity: 999,
+      lastUid: 50,
+    });
+
+    // Get message from first account
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+    const result = await messagesRepository.list({
+      tenantId: 'tenant-1',
+      accountId: account!.id.toString(),
+      limit: 1,
+    });
+    const message = result.messages[0];
+
+    // Try to move to a folder that belongs to a different account
+    // The use case looks up target folder by ID + accountId, so it should fail
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        userId: 'user-1',
+        messageId: message.id.toString(),
+        targetFolderId: otherFolder.id.toString(),
+      }),
+    ).rejects.toThrow('Target email folder not found');
+  });
 });

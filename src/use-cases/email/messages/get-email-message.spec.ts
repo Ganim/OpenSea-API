@@ -2,6 +2,7 @@ import { InMemoryEmailAccountsRepository } from '@/repositories/email/in-memory/
 import { InMemoryEmailFoldersRepository } from '@/repositories/email/in-memory/in-memory-email-folders-repository';
 import { InMemoryEmailMessagesRepository } from '@/repositories/email/in-memory/in-memory-email-messages-repository';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
+import { sanitizeEmailHtml } from '@/services/email/html-sanitizer.service';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GetEmailMessageUseCase } from './get-email-message';
 
@@ -243,6 +244,32 @@ describe('GetEmailMessageUseCase', () => {
     // Body remains null because IMAP connection failed in test env
     expect(response.message.bodyText).toBeNull();
     expect(response.message.bodyHtmlSanitized).toBeNull();
+  });
+
+  it('should sanitize HTML body with script tags', () => {
+    const maliciousHtml =
+      '<p>Hello</p><script>alert("xss")</script><p>World</p>';
+
+    const sanitized = sanitizeEmailHtml(maliciousHtml);
+
+    // sanitizeEmailHtml should strip script tags entirely
+    expect(sanitized).not.toContain('<script>');
+    expect(sanitized).not.toContain('alert');
+    expect(sanitized).toContain('<p>Hello</p>');
+    expect(sanitized).toContain('<p>World</p>');
+  });
+
+  it('should sanitize HTML body with event handlers', () => {
+    const htmlWithEventHandlers =
+      '<p onclick="alert(1)" onmouseover="steal()">Click me</p><img src="x" onerror="alert(2)" />';
+
+    const sanitized = sanitizeEmailHtml(htmlWithEventHandlers);
+
+    // sanitizeEmailHtml should strip on* event handler attributes
+    expect(sanitized).not.toContain('onclick');
+    expect(sanitized).not.toContain('onmouseover');
+    expect(sanitized).not.toContain('onerror');
+    expect(sanitized).toContain('Click me');
   });
 
   it('should return message with null body when folder is not found for lazy fetch', async () => {
