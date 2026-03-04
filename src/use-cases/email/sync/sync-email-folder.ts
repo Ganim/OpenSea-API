@@ -49,14 +49,21 @@ function normalizeImapInt(value: unknown): number | null {
   return null;
 }
 
+interface CreatedMessageRef {
+  id: string;
+  remoteUid: number;
+  receivedAt: Date;
+}
+
 async function processMessages(
   messages: AsyncIterable<unknown>,
   account: EmailAccount,
   folder: EmailFolder,
   emailMessagesRepository: EmailMessagesRepository,
-): Promise<{ synced: number; maxUid: number }> {
+): Promise<{ synced: number; maxUid: number; createdMessages: CreatedMessageRef[] }> {
   let synced = 0;
   let maxUid = folder.lastUid ?? 0;
+  const createdMessages: CreatedMessageRef[] = [];
 
   for await (const rawMessage of messages) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -84,7 +91,7 @@ async function processMessages(
 
     const hasAttachments = hasAttachmentFromStructure(message.bodyStructure);
 
-    await emailMessagesRepository.create({
+    const created = await emailMessagesRepository.create({
       tenantId: account.tenantId.toString(),
       accountId: account.id.toString(),
       folderId: folder.id.toString(),
@@ -113,11 +120,111 @@ async function processMessages(
       hasAttachments,
     });
 
+    createdMessages.push({
+      id: created.id.toString(),
+      remoteUid: uid,
+      receivedAt: created.receivedAt,
+    });
+
     maxUid = Math.max(maxUid, uid);
     synced += 1;
   }
 
-  return { synced, maxUid };
+  return { synced, maxUid, createdMessages };
+}
+
+const SNIPPET_BATCH_LIMIT = 50;
+
+async function generateSnippets(
+  client: ImapFlow,
+  createdMessages: CreatedMessageRef[],
+  folderId: string,
+  emailMessagesRepository: EmailMessagesRepository,
+): Promise<void> {
+  if (createdMessages.length === 0) return;
+
+  // Pick the 50 most recent messages (by receivedAt desc)
+  const candidates = [...createdMessages]
+    .sort((a, b) => b.receivedAt.getTime() - a.receivedAt.getTime())
+    .slice(0, SNIPPET_BATCH_LIMIT);
+
+  logger.debug(
+    { folderId, total: createdMessages.length, candidates: candidates.length },
+    'Starting snippet generation for newly synced messages',
+  );
+
+  let generated = 0;
+
+  for (const msg of candidates) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let textContent: string | undefined;
+
+      // First attempt: fetch text/plain body part '1' (works for simple and multipart messages)
+      try {
+        const bodyPart = await client.fetchOne(
+          msg.remoteUid.toString(),
+          { bodyParts: ['1'] },
+          { uid: true },
+        );
+
+        if (bodyPart && bodyPart.bodyParts) {
+          const value = bodyPart.bodyParts.values().next().value;
+          textContent = value instanceof Buffer
+            ? value.toString('utf-8')
+            : typeof value === 'string'
+              ? value
+              : undefined;
+        }
+      } catch {
+        // Part '1' not available — fall through to source fallback
+      }
+
+      // Fallback: fetch raw source with a size limit and extract plain text lines
+      if (!textContent) {
+        try {
+          const sourcePart = await client.fetchOne(
+            msg.remoteUid.toString(),
+            { source: { start: 0, maxLength: 4096 } },
+            { uid: true },
+          );
+
+          if (sourcePart && sourcePart.source) {
+            const raw = sourcePart.source instanceof Buffer
+              ? sourcePart.source.toString('utf-8')
+              : String(sourcePart.source);
+
+            // Strip MIME headers (everything before first blank line)
+            const bodyStart = raw.indexOf('\r\n\r\n');
+            const rawBody = bodyStart !== -1 ? raw.substring(bodyStart + 4) : raw;
+            textContent = rawBody.replace(/=\r?\n/g, '').replace(/<[^>]+>/g, ' ');
+          }
+        } catch {
+          // Source fetch also failed — skip this message
+        }
+      }
+
+      if (textContent) {
+        const snippet = textContent
+          .replace(/\r?\n/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .substring(0, 200);
+
+        if (snippet) {
+          await emailMessagesRepository.updateBody(msg.id, null, null, snippet);
+          generated += 1;
+        }
+      }
+    } catch {
+      // Snippet generation is best-effort — never block sync
+    }
+  }
+
+  logger.debug(
+    { folderId, generated, candidates: candidates.length },
+    'Snippet generation complete',
+  );
 }
 
 export class SyncEmailFolderUseCase {
@@ -150,6 +257,7 @@ export class SyncEmailFolderUseCase {
 
     let synced = 0;
     let maxUid = folder.lastUid ?? 0;
+    const allCreatedMessages: CreatedMessageRef[] = [];
 
     try {
       if (!request.client) {
@@ -234,6 +342,7 @@ export class SyncEmailFolderUseCase {
 
           synced += result.synced;
           maxUid = result.maxUid;
+          allCreatedMessages.push(...result.createdMessages);
         } catch (error) {
           const errorMsg =
             error instanceof Error ? error.message : String(error);
@@ -299,6 +408,7 @@ export class SyncEmailFolderUseCase {
 
             synced += retryResult.synced;
             maxUid = retryResult.maxUid;
+            allCreatedMessages.push(...retryResult.createdMessages);
           } else {
             throw error;
           }
@@ -314,6 +424,18 @@ export class SyncEmailFolderUseCase {
               maxUid,
             },
             'Email folder sync completed',
+          );
+        }
+
+        // Generate snippets for the 50 most recent newly-synced messages.
+        // This is done after the main sync loop so it never delays message creation.
+        // Failures are silently swallowed inside generateSnippets.
+        if (allCreatedMessages.length > 0) {
+          await generateSnippets(
+            client,
+            allCreatedMessages,
+            folder.id.toString(),
+            this.emailMessagesRepository,
           );
         }
 
