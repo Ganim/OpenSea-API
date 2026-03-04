@@ -203,7 +203,7 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const index = this.items.findIndex((item) => item.id.equals(id));
     if (index >= 0) {
       this.items.splice(index, 1);

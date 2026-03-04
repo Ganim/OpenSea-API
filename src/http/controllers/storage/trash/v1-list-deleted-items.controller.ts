@@ -29,7 +29,13 @@ export async function listDeletedItemsController(app: FastifyInstance) {
       summary: 'List all deleted files and folders',
       querystring: z.object({
         page: z.coerce.number().int().positive().optional().default(1),
-        limit: z.coerce.number().int().positive().max(100).optional().default(20),
+        limit: z.coerce
+          .number()
+          .int()
+          .positive()
+          .max(100)
+          .optional()
+          .default(20),
       }),
       response: {
         200: z.object({

@@ -6,9 +6,14 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 const ALL_EMAIL_PERMISSIONS = [
-  'email.accounts.create', 'email.accounts.read', 'email.accounts.list',
-  'email.messages.send', 'email.messages.list', 'email.messages.read',
-  'email.messages.update', 'email.messages.delete',
+  'email.accounts.create',
+  'email.accounts.read',
+  'email.accounts.list',
+  'email.messages.send',
+  'email.messages.list',
+  'email.messages.read',
+  'email.messages.update',
+  'email.messages.delete',
   'email.sync.execute',
 ];
 
@@ -25,13 +30,21 @@ describe('Email Messages Controller (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { tenantId: tid } = await createAndSetupTenant({ name: 'Test Email Messages Tenant' });
+    const { tenantId: tid } = await createAndSetupTenant({
+      name: 'Test Email Messages Tenant',
+    });
     tenantId = tid;
 
-    const authResult = await createAndAuthenticateUser(app, { tenantId, permissions: ALL_EMAIL_PERMISSIONS });
+    const authResult = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: ALL_EMAIL_PERMISSIONS,
+    });
     token = authResult.token;
 
-    const noPermsResult = await createAndAuthenticateUser(app, { tenantId, permissions: [] });
+    const noPermsResult = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: [],
+    });
     tokenNoPerms = noPermsResult.token;
 
     // Criar conta de email
@@ -51,16 +64,31 @@ describe('Email Messages Controller (E2E)', () => {
 
     // Criar pastas diretamente no DB (send é assíncrono, não cria pastas imediatamente)
     const sentFolder = await prisma.emailFolder.create({
-      data: { accountId, remoteName: 'SENT', displayName: 'Enviados', type: 'SENT' },
+      data: {
+        accountId,
+        remoteName: 'SENT',
+        displayName: 'Enviados',
+        type: 'SENT',
+      },
     });
     sentFolderId = sentFolder.id;
 
     await prisma.emailFolder.create({
-      data: { accountId, remoteName: 'DRAFTS', displayName: 'Rascunhos', type: 'DRAFTS' },
+      data: {
+        accountId,
+        remoteName: 'DRAFTS',
+        displayName: 'Rascunhos',
+        type: 'DRAFTS',
+      },
     });
 
     const trashFolder = await prisma.emailFolder.create({
-      data: { accountId, remoteName: 'TRASH', displayName: 'Lixeira', type: 'TRASH' },
+      data: {
+        accountId,
+        remoteName: 'TRASH',
+        displayName: 'Lixeira',
+        type: 'TRASH',
+      },
     });
     trashFolderId = trashFolder.id;
 
@@ -79,9 +107,11 @@ describe('Email Messages Controller (E2E)', () => {
       },
     });
     sentMessageId = testMsg.id;
-  }, 30000);
+  });
 
-  afterAll(async () => { await app.close(); });
+  afterAll(async () => {
+    await app.close();
+  });
 
   // ─── POST /v1/email/messages/send ────────────────────────────────────────
   describe('Enviar mensagem (POST /v1/email/messages/send)', () => {
@@ -164,7 +194,12 @@ describe('Email Messages Controller (E2E)', () => {
     it('[FALHA] deve retornar 401 sem autenticação', async () => {
       const response = await request(app.server)
         .post('/v1/email/messages/send')
-        .send({ accountId, to: ['dest@example.com'], subject: 'x', bodyHtml: '<p>x</p>' });
+        .send({
+          accountId,
+          to: ['dest@example.com'],
+          subject: 'x',
+          bodyHtml: '<p>x</p>',
+        });
       expect(response.status).toBe(401);
     });
 
@@ -172,7 +207,12 @@ describe('Email Messages Controller (E2E)', () => {
       const response = await request(app.server)
         .post('/v1/email/messages/send')
         .set('Authorization', `Bearer ${tokenNoPerms}`)
-        .send({ accountId, to: ['dest@example.com'], subject: 'x', bodyHtml: '<p>x</p>' });
+        .send({
+          accountId,
+          to: ['dest@example.com'],
+          subject: 'x',
+          bodyHtml: '<p>x</p>',
+        });
       expect(response.status).toBe(403);
     });
   });
@@ -276,8 +316,9 @@ describe('Email Messages Controller (E2E)', () => {
     });
 
     it('[FALHA] deve retornar 401 sem autenticação', async () => {
-      const response = await request(app.server)
-        .get('/v1/email/messages/00000000-0000-0000-0000-000000000000');
+      const response = await request(app.server).get(
+        '/v1/email/messages/00000000-0000-0000-0000-000000000000',
+      );
       expect(response.status).toBe(401);
     });
 
@@ -296,7 +337,11 @@ describe('Email Messages Controller (E2E)', () => {
       const response = await request(app.server)
         .post('/v1/email/messages/draft')
         .set('Authorization', `Bearer ${token}`)
-        .send({ accountId, subject: 'Rascunho E2E', bodyHtml: '<p>Rascunho</p>' });
+        .send({
+          accountId,
+          subject: 'Rascunho E2E',
+          bodyHtml: '<p>Rascunho</p>',
+        });
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('draftId');
       expect(typeof response.body.draftId).toBe('string');
@@ -330,7 +375,10 @@ describe('Email Messages Controller (E2E)', () => {
       const response = await request(app.server)
         .post('/v1/email/messages/draft')
         .set('Authorization', `Bearer ${token}`)
-        .send({ accountId: '00000000-0000-0000-0000-000000000000', subject: 'x' });
+        .send({
+          accountId: '00000000-0000-0000-0000-000000000000',
+          subject: 'x',
+        });
       expect(response.status).toBe(404);
     });
 
@@ -520,8 +568,17 @@ describe('Email Messages Controller (E2E)', () => {
         },
       });
 
-      await request(app.server).delete(`/v1/email/messages/${msgToDelete.id}`).set('Authorization', `Bearer ${token}`);
-      const getRes = await request(app.server).get(`/v1/email/messages/${msgToDelete.id}`).set('Authorization', `Bearer ${token}`);
+      // First delete moves to trash
+      await request(app.server)
+        .delete(`/v1/email/messages/${msgToDelete.id}`)
+        .set('Authorization', `Bearer ${token}`);
+      // Second delete permanently soft-deletes
+      await request(app.server)
+        .delete(`/v1/email/messages/${msgToDelete.id}`)
+        .set('Authorization', `Bearer ${token}`);
+      const getRes = await request(app.server)
+        .get(`/v1/email/messages/${msgToDelete.id}`)
+        .set('Authorization', `Bearer ${token}`);
       expect(getRes.status).toBe(404);
     });
 
@@ -533,8 +590,9 @@ describe('Email Messages Controller (E2E)', () => {
     });
 
     it('[FALHA] deve retornar 401 sem autenticação', async () => {
-      const response = await request(app.server)
-        .delete('/v1/email/messages/00000000-0000-0000-0000-000000000000');
+      const response = await request(app.server).delete(
+        '/v1/email/messages/00000000-0000-0000-0000-000000000000',
+      );
       expect(response.status).toBe(401);
     });
 
@@ -542,7 +600,12 @@ describe('Email Messages Controller (E2E)', () => {
       const sendRes = await request(app.server)
         .post('/v1/email/messages/send')
         .set('Authorization', `Bearer ${token}`)
-        .send({ accountId, to: ['x@x.com'], subject: 'Sem Permissão Delete', bodyHtml: '<p>x</p>' });
+        .send({
+          accountId,
+          to: ['x@x.com'],
+          subject: 'Sem Permissão Delete',
+          bodyHtml: '<p>x</p>',
+        });
       const msgId = sendRes.body.messageId;
       const response = await request(app.server)
         .delete(`/v1/email/messages/${msgId}`)

@@ -41,7 +41,10 @@ async function scheduleSyncJobs() {
 try {
   await scheduleSyncJobs();
   setInterval(scheduleSyncJobs, INTERVAL_MS);
-  logger.info({ interval: INTERVAL_MS }, 'Email sync scheduler worker started successfully');
+  logger.info(
+    { interval: INTERVAL_MS },
+    'Email sync scheduler worker started successfully',
+  );
 } catch {
   logger.error('Failed to start email sync scheduler worker');
 }

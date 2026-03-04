@@ -49,7 +49,8 @@ export async function updateTeamController(app: FastifyInstance) {
       const { teamId } = request.params;
 
       try {
-        const { name, description, color, avatarUrl } = request.body;
+        const { name, description, color, avatarUrl, emailAccountId } =
+          request.body;
 
         const { user } = await makeGetUserByIdUseCase().execute({ userId });
         const userName = user.profile?.name
@@ -57,7 +58,10 @@ export async function updateTeamController(app: FastifyInstance) {
           : user.username || user.email;
 
         // Captura estado anterior para o log
-        const { team: oldTeam } = await makeGetTeamByIdUseCase().execute({ tenantId, teamId });
+        const { team: oldTeam } = await makeGetTeamByIdUseCase().execute({
+          tenantId,
+          teamId,
+        });
 
         const useCase = makeUpdateTeamUseCase();
         const result = await useCase.execute({
@@ -68,14 +72,25 @@ export async function updateTeamController(app: FastifyInstance) {
           description: description ?? undefined,
           color: color ?? undefined,
           avatarUrl: avatarUrl ?? undefined,
+          emailAccountId:
+            emailAccountId !== undefined ? emailAccountId : undefined,
         });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.CORE.TEAM_UPDATE,
           entityId: teamId,
-          placeholders: { userName, teamName: result.team.name, teamColor: result.team.color },
-          oldData: { name: oldTeam.name, description: oldTeam.description, color: oldTeam.color },
-          newData: { name, description, color, avatarUrl },
+          placeholders: {
+            userName,
+            teamName: result.team.name,
+            teamColor: result.team.color,
+          },
+          oldData: {
+            name: oldTeam.name,
+            description: oldTeam.description,
+            color: oldTeam.color,
+            emailAccountId: oldTeam.emailAccountId,
+          },
+          newData: { name, description, color, avatarUrl, emailAccountId },
         });
 
         return reply.status(200).send(result);

@@ -7,6 +7,8 @@ import type {
 } from '@/entities/hr/organization';
 import { prisma } from '@/lib/prisma';
 import type { Prisma } from '@prisma/generated/client.js';
+import { getFieldCipherService } from '@/services/security/field-cipher-service';
+import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import type {
   BaseOrganizationRepository,
   CreateOrganizationSchema,
@@ -14,6 +16,55 @@ import type {
   FindManyOrganizationsResult,
   UpdateOrganizationSchema,
 } from '../base-organization-repository';
+
+const orgEncConfig = ENCRYPTED_FIELD_CONFIG.Organization;
+const fiscalEncConfig = ENCRYPTED_FIELD_CONFIG.OrganizationFiscalSettings;
+const stakeholderEncConfig = ENCRYPTED_FIELD_CONFIG.OrganizationStakeholder;
+
+function tryGetCipher() {
+  try {
+    return getFieldCipherService();
+  } catch {
+    return null;
+  }
+}
+
+function decryptOrganizationData<T extends Record<string, unknown>>(
+  data: T,
+): T {
+  const cipher = tryGetCipher();
+  if (!cipher) return data;
+  const decrypted = cipher.decryptFields(data, orgEncConfig.encryptedFields);
+  Object.assign(data, decrypted);
+
+  // Decrypt related fiscal settings if loaded via include
+  if (Array.isArray(data.fiscalSettings)) {
+    for (const fs of data.fiscalSettings) {
+      if (fs && typeof fs === 'object') {
+        const decryptedFs = cipher.decryptFields(
+          fs as Record<string, unknown>,
+          fiscalEncConfig.encryptedFields,
+        );
+        Object.assign(fs, decryptedFs);
+      }
+    }
+  }
+
+  // Decrypt related stakeholders if loaded via include
+  if (Array.isArray(data.stakeholders)) {
+    for (const sh of data.stakeholders) {
+      if (sh && typeof sh === 'object') {
+        const decryptedSh = cipher.decryptFields(
+          sh as Record<string, unknown>,
+          stakeholderEncConfig.encryptedFields,
+        );
+        Object.assign(sh, decryptedSh);
+      }
+    }
+  }
+
+  return data;
+}
 
 export abstract class PrismaBaseOrganizationRepository<T extends Organization>
   implements BaseOrganizationRepository<T>
@@ -25,26 +76,55 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
   ): Prisma.OrganizationUpdateInput;
 
   async create(data: CreateOrganizationSchema): Promise<T> {
+    const cipher = tryGetCipher();
+
+    const createData: Record<string, unknown> = {
+      tenantId: data.tenantId,
+      type: this.organizationType,
+      legalName: data.legalName,
+      cnpj: data.cnpj ?? null,
+      cpf: data.cpf ?? null,
+      tradeName: data.tradeName ?? null,
+      stateRegistration: data.stateRegistration ?? null,
+      municipalRegistration: data.municipalRegistration ?? null,
+      taxRegime: (data.taxRegime as TaxRegime | undefined) ?? null,
+      status: (data.status ?? 'ACTIVE') as OrganizationStatus,
+      email: data.email ?? null,
+      phoneMain: data.phoneMain ?? null,
+      website: data.website ?? null,
+      typeSpecificData: (data.typeSpecificData ?? {}) as Prisma.InputJsonValue,
+      metadata: (data.metadata ?? {}) as Prisma.InputJsonValue,
+    };
+
+    if (cipher) {
+      // Encrypt sensitive fields
+      for (const field of orgEncConfig.encryptedFields) {
+        if (
+          createData[field] !== null &&
+          createData[field] !== undefined &&
+          typeof createData[field] === 'string'
+        ) {
+          createData[field] = cipher.encrypt(createData[field] as string);
+        }
+      }
+
+      // Generate blind index hashes from ORIGINAL plaintext values
+      const hashes = cipher.generateHashes(
+        { cnpj: data.cnpj ?? undefined, cpf: data.cpf ?? undefined },
+        orgEncConfig.hashFields,
+      );
+      Object.assign(createData, hashes);
+    }
+
     const organizationData = await prisma.organization.create({
-      data: {
-        tenantId: data.tenantId,
-        type: this.organizationType,
-        legalName: data.legalName,
-        cnpj: data.cnpj ?? null,
-        cpf: data.cpf ?? null,
-        tradeName: data.tradeName ?? null,
-        stateRegistration: data.stateRegistration ?? null,
-        municipalRegistration: data.municipalRegistration ?? null,
-        taxRegime: (data.taxRegime as TaxRegime | undefined) ?? null,
-        status: (data.status ?? 'ACTIVE') as OrganizationStatus,
-        email: data.email ?? null,
-        phoneMain: data.phoneMain ?? null,
-        website: data.website ?? null,
-        typeSpecificData: (data.typeSpecificData ??
-          {}) as Prisma.InputJsonValue,
-        metadata: (data.metadata ?? {}) as Prisma.InputJsonValue,
-      },
+      data: createData as Parameters<
+        typeof prisma.organization.create
+      >[0]['data'],
     });
+
+    decryptOrganizationData(
+      organizationData as unknown as Record<string, unknown>,
+    );
 
     return this.toDomain(organizationData);
   }
@@ -77,33 +157,67 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
 
     if (!organizationData) return null;
 
+    decryptOrganizationData(
+      organizationData as unknown as Record<string, unknown>,
+    );
+
     return this.toDomain(organizationData);
   }
 
   async findByCnpj(cnpj: string, includeDeleted = false): Promise<T | null> {
+    const cipher = tryGetCipher();
+
+    // Use blind index hash for lookup when encryption is available
+    const whereClause: Record<string, unknown> = {
+      type: this.organizationType,
+      ...(includeDeleted ? {} : { deletedAt: null }),
+    };
+
+    if (cipher) {
+      const cnpjHash = cipher.blindIndex(cnpj);
+      whereClause.cnpjHash = cnpjHash;
+    } else {
+      whereClause.cnpj = cnpj;
+    }
+
     const organizationData = await prisma.organization.findFirst({
-      where: {
-        cnpj,
-        type: this.organizationType,
-        ...(includeDeleted ? {} : { deletedAt: null }),
-      },
+      where: whereClause as Prisma.OrganizationWhereInput,
     });
 
     if (!organizationData) return null;
+
+    decryptOrganizationData(
+      organizationData as unknown as Record<string, unknown>,
+    );
 
     return this.toDomain(organizationData);
   }
 
   async findByCpf(cpf: string, includeDeleted = false): Promise<T | null> {
+    const cipher = tryGetCipher();
+
+    // Use blind index hash for lookup when encryption is available
+    const whereClause: Record<string, unknown> = {
+      type: this.organizationType,
+      ...(includeDeleted ? {} : { deletedAt: null }),
+    };
+
+    if (cipher) {
+      const cpfHash = cipher.blindIndex(cpf);
+      whereClause.cpfHash = cpfHash;
+    } else {
+      whereClause.cpf = cpf;
+    }
+
     const organizationData = await prisma.organization.findFirst({
-      where: {
-        cpf,
-        type: this.organizationType,
-        ...(includeDeleted ? {} : { deletedAt: null }),
-      },
+      where: whereClause as Prisma.OrganizationWhereInput,
     });
 
     if (!organizationData) return null;
+
+    decryptOrganizationData(
+      organizationData as unknown as Record<string, unknown>,
+    );
 
     return this.toDomain(organizationData);
   }
@@ -152,9 +266,10 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
       prisma.organization.count({ where }),
     ]);
 
-    const organizationDomains = organizations.map((data) =>
-      this.toDomain(data),
-    );
+    const organizationDomains = organizations.map((data) => {
+      decryptOrganizationData(data as unknown as Record<string, unknown>);
+      return this.toDomain(data);
+    });
 
     return { organizations: organizationDomains, total };
   }
@@ -169,7 +284,10 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
       orderBy: { createdAt: 'desc' },
     });
 
-    return organizations.map((data) => this.toDomain(data));
+    return organizations.map((data) => {
+      decryptOrganizationData(data as unknown as Record<string, unknown>);
+      return this.toDomain(data);
+    });
   }
 
   async findManyInactive(): Promise<T[]> {
@@ -181,7 +299,10 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
       orderBy: { createdAt: 'desc' },
     });
 
-    return organizations.map((data) => this.toDomain(data));
+    return organizations.map((data) => {
+      decryptOrganizationData(data as unknown as Record<string, unknown>);
+      return this.toDomain(data);
+    });
   }
 
   async update(data: UpdateOrganizationSchema): Promise<T | null> {
@@ -250,16 +371,44 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
   }
 
   async save(organization: T): Promise<void> {
-    const data = this.fromDomain(organization);
+    const domainData = this.fromDomain(organization);
+    const cipher = tryGetCipher();
+
+    // The domainData comes from fromDomain() which contains plaintext field values.
+    // We need to encrypt the sensitive fields before writing to the database.
+    const saveData: Record<string, unknown> = {
+      ...(domainData as Record<string, unknown>),
+      updatedAt: organization.updatedAt,
+    };
+
+    if (cipher) {
+      // Encrypt sensitive fields in the save data
+      for (const field of orgEncConfig.encryptedFields) {
+        if (
+          saveData[field] !== null &&
+          saveData[field] !== undefined &&
+          typeof saveData[field] === 'string'
+        ) {
+          saveData[field] = cipher.encrypt(saveData[field] as string);
+        }
+      }
+
+      // Regenerate blind index hashes from plaintext values (from domain entity)
+      const hashes = cipher.generateHashes(
+        {
+          cnpj: organization.cnpj ?? undefined,
+          cpf: organization.cpf ?? undefined,
+        },
+        orgEncConfig.hashFields,
+      );
+      Object.assign(saveData, hashes);
+    }
 
     await prisma.organization.update({
       where: {
         id: organization.id.toString(),
       },
-      data: {
-        ...data,
-        updatedAt: organization.updatedAt,
-      },
+      data: saveData as Prisma.OrganizationUpdateInput,
     });
   }
 

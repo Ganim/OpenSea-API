@@ -389,6 +389,7 @@ export type UserWhereInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateListRelationFilter
   folderAccessRules?: Prisma.FolderAccessRuleListRelationFilter
   storageFolders?: Prisma.StorageFolderListRelationFilter
+  calendarsCreated?: Prisma.CalendarListRelationFilter
   calendarEventsCreated?: Prisma.CalendarEventListRelationFilter
   eventParticipants?: Prisma.EventParticipantListRelationFilter
   eventReminders?: Prisma.EventReminderListRelationFilter
@@ -396,6 +397,7 @@ export type UserWhereInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessListRelationFilter
   teamsCreated?: Prisma.TeamListRelationFilter
   teamMembers?: Prisma.TeamMemberListRelationFilter
+  teamEmailLinks?: Prisma.TeamEmailAccountListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -458,6 +460,7 @@ export type UserOrderByWithRelationInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateOrderByRelationAggregateInput
   folderAccessRules?: Prisma.FolderAccessRuleOrderByRelationAggregateInput
   storageFolders?: Prisma.StorageFolderOrderByRelationAggregateInput
+  calendarsCreated?: Prisma.CalendarOrderByRelationAggregateInput
   calendarEventsCreated?: Prisma.CalendarEventOrderByRelationAggregateInput
   eventParticipants?: Prisma.EventParticipantOrderByRelationAggregateInput
   eventReminders?: Prisma.EventReminderOrderByRelationAggregateInput
@@ -465,6 +468,7 @@ export type UserOrderByWithRelationInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessOrderByRelationAggregateInput
   teamsCreated?: Prisma.TeamOrderByRelationAggregateInput
   teamMembers?: Prisma.TeamMemberOrderByRelationAggregateInput
+  teamEmailLinks?: Prisma.TeamEmailAccountOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -532,6 +536,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   LabelTemplatesCreated?: Prisma.LabelTemplateListRelationFilter
   folderAccessRules?: Prisma.FolderAccessRuleListRelationFilter
   storageFolders?: Prisma.StorageFolderListRelationFilter
+  calendarsCreated?: Prisma.CalendarListRelationFilter
   calendarEventsCreated?: Prisma.CalendarEventListRelationFilter
   eventParticipants?: Prisma.EventParticipantListRelationFilter
   eventReminders?: Prisma.EventReminderListRelationFilter
@@ -539,6 +544,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   emailAccountsAccess?: Prisma.EmailAccountAccessListRelationFilter
   teamsCreated?: Prisma.TeamListRelationFilter
   teamMembers?: Prisma.TeamMemberListRelationFilter
+  teamEmailLinks?: Prisma.TeamEmailAccountListRelationFilter
 }, "id" | "users_email_unique_active" | "users_username_unique_active">
 
 export type UserOrderByWithAggregationInput = {
@@ -659,6 +665,7 @@ export type UserCreateInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -666,6 +673,7 @@ export type UserCreateInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -728,6 +736,7 @@ export type UserUncheckedCreateInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -735,6 +744,7 @@ export type UserUncheckedCreateInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUpdateInput = {
@@ -797,6 +807,7 @@ export type UserUpdateInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -804,6 +815,7 @@ export type UserUpdateInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -866,6 +878,7 @@ export type UserUncheckedUpdateInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -873,6 +886,7 @@ export type UserUncheckedUpdateInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1633,6 +1647,20 @@ export type UserUpdateOneWithoutFolderAccessRulesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFolderAccessRulesInput, Prisma.UserUpdateWithoutFolderAccessRulesInput>, Prisma.UserUncheckedUpdateWithoutFolderAccessRulesInput>
 }
 
+export type UserCreateNestedOneWithoutCalendarsCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCalendarsCreatedInput, Prisma.UserUncheckedCreateWithoutCalendarsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCalendarsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCalendarsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCalendarsCreatedInput, Prisma.UserUncheckedCreateWithoutCalendarsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCalendarsCreatedInput
+  upsert?: Prisma.UserUpsertWithoutCalendarsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCalendarsCreatedInput, Prisma.UserUpdateWithoutCalendarsCreatedInput>, Prisma.UserUncheckedUpdateWithoutCalendarsCreatedInput>
+}
+
 export type UserCreateNestedOneWithoutCalendarEventsCreatedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCalendarEventsCreatedInput, Prisma.UserUncheckedCreateWithoutCalendarEventsCreatedInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCalendarEventsCreatedInput
@@ -1731,6 +1759,20 @@ export type UserUpdateOneRequiredWithoutTeamMembersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTeamMembersInput, Prisma.UserUpdateWithoutTeamMembersInput>, Prisma.UserUncheckedUpdateWithoutTeamMembersInput>
 }
 
+export type UserCreateNestedOneWithoutTeamEmailLinksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTeamEmailLinksInput, Prisma.UserUncheckedCreateWithoutTeamEmailLinksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamEmailLinksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTeamEmailLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTeamEmailLinksInput, Prisma.UserUncheckedCreateWithoutTeamEmailLinksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamEmailLinksInput
+  upsert?: Prisma.UserUpsertWithoutTeamEmailLinksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTeamEmailLinksInput, Prisma.UserUpdateWithoutTeamEmailLinksInput>, Prisma.UserUncheckedUpdateWithoutTeamEmailLinksInput>
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   username?: string | null
@@ -1790,6 +1832,7 @@ export type UserCreateWithoutProfileInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -1797,6 +1840,7 @@ export type UserCreateWithoutProfileInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -1858,6 +1902,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -1865,6 +1910,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -1942,6 +1988,7 @@ export type UserUpdateWithoutProfileInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -1949,6 +1996,7 @@ export type UserUpdateWithoutProfileInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -2010,6 +2058,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -2017,6 +2066,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -2078,6 +2128,7 @@ export type UserCreateWithoutSessionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -2085,6 +2136,7 @@ export type UserCreateWithoutSessionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2146,6 +2198,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -2153,6 +2206,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2230,6 +2284,7 @@ export type UserUpdateWithoutSessionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -2237,6 +2292,7 @@ export type UserUpdateWithoutSessionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2298,6 +2354,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -2305,6 +2362,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutRefreshTokenInput = {
@@ -2366,6 +2424,7 @@ export type UserCreateWithoutRefreshTokenInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -2373,6 +2432,7 @@ export type UserCreateWithoutRefreshTokenInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokenInput = {
@@ -2434,6 +2494,7 @@ export type UserUncheckedCreateWithoutRefreshTokenInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -2441,6 +2502,7 @@ export type UserUncheckedCreateWithoutRefreshTokenInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokenInput = {
@@ -2518,6 +2580,7 @@ export type UserUpdateWithoutRefreshTokenInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -2525,6 +2588,7 @@ export type UserUpdateWithoutRefreshTokenInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokenInput = {
@@ -2586,6 +2650,7 @@ export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -2593,6 +2658,7 @@ export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutPermissionGroupsInput = {
@@ -2654,6 +2720,7 @@ export type UserCreateWithoutPermissionGroupsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -2661,6 +2728,7 @@ export type UserCreateWithoutPermissionGroupsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutPermissionGroupsInput = {
@@ -2722,6 +2790,7 @@ export type UserUncheckedCreateWithoutPermissionGroupsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -2729,6 +2798,7 @@ export type UserUncheckedCreateWithoutPermissionGroupsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutPermissionGroupsInput = {
@@ -2795,6 +2865,7 @@ export type UserCreateWithoutGrantedPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -2802,6 +2873,7 @@ export type UserCreateWithoutGrantedPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
@@ -2863,6 +2935,7 @@ export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -2870,6 +2943,7 @@ export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutGrantedPermissionsInput = {
@@ -2947,6 +3021,7 @@ export type UserUpdateWithoutPermissionGroupsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -2954,6 +3029,7 @@ export type UserUpdateWithoutPermissionGroupsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
@@ -3015,6 +3091,7 @@ export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -3022,6 +3099,7 @@ export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUpsertWithoutGrantedPermissionsInput = {
@@ -3094,6 +3172,7 @@ export type UserUpdateWithoutGrantedPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -3101,6 +3180,7 @@ export type UserUpdateWithoutGrantedPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
@@ -3162,6 +3242,7 @@ export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -3169,6 +3250,7 @@ export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutDirectPermissionsInput = {
@@ -3230,6 +3312,7 @@ export type UserCreateWithoutDirectPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -3237,6 +3320,7 @@ export type UserCreateWithoutDirectPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutDirectPermissionsInput = {
@@ -3298,6 +3382,7 @@ export type UserUncheckedCreateWithoutDirectPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -3305,6 +3390,7 @@ export type UserUncheckedCreateWithoutDirectPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutDirectPermissionsInput = {
@@ -3371,6 +3457,7 @@ export type UserCreateWithoutGrantedDirectPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -3378,6 +3465,7 @@ export type UserCreateWithoutGrantedDirectPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
@@ -3439,6 +3527,7 @@ export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -3446,6 +3535,7 @@ export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutGrantedDirectPermissionsInput = {
@@ -3523,6 +3613,7 @@ export type UserUpdateWithoutDirectPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -3530,6 +3621,7 @@ export type UserUpdateWithoutDirectPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
@@ -3591,6 +3683,7 @@ export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -3598,6 +3691,7 @@ export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUpsertWithoutGrantedDirectPermissionsInput = {
@@ -3670,6 +3764,7 @@ export type UserUpdateWithoutGrantedDirectPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -3677,6 +3772,7 @@ export type UserUpdateWithoutGrantedDirectPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
@@ -3738,6 +3834,7 @@ export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -3745,6 +3842,7 @@ export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutPermissionAuditLogsInput = {
@@ -3806,6 +3904,7 @@ export type UserCreateWithoutPermissionAuditLogsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -3813,6 +3912,7 @@ export type UserCreateWithoutPermissionAuditLogsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
@@ -3874,6 +3974,7 @@ export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -3881,6 +3982,7 @@ export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutPermissionAuditLogsInput = {
@@ -3958,6 +4060,7 @@ export type UserUpdateWithoutPermissionAuditLogsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -3965,6 +4068,7 @@ export type UserUpdateWithoutPermissionAuditLogsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
@@ -4026,6 +4130,7 @@ export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -4033,6 +4138,7 @@ export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutVolumesCreatedInput = {
@@ -4094,6 +4200,7 @@ export type UserCreateWithoutVolumesCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -4101,6 +4208,7 @@ export type UserCreateWithoutVolumesCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutVolumesCreatedInput = {
@@ -4162,6 +4270,7 @@ export type UserUncheckedCreateWithoutVolumesCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -4169,6 +4278,7 @@ export type UserUncheckedCreateWithoutVolumesCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutVolumesCreatedInput = {
@@ -4235,6 +4345,7 @@ export type UserCreateWithoutVolumesClosedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -4242,6 +4353,7 @@ export type UserCreateWithoutVolumesClosedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutVolumesClosedInput = {
@@ -4303,6 +4415,7 @@ export type UserUncheckedCreateWithoutVolumesClosedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -4310,6 +4423,7 @@ export type UserUncheckedCreateWithoutVolumesClosedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutVolumesClosedInput = {
@@ -4376,6 +4490,7 @@ export type UserCreateWithoutVolumesDeliveredInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -4383,6 +4498,7 @@ export type UserCreateWithoutVolumesDeliveredInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
@@ -4444,6 +4560,7 @@ export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -4451,6 +4568,7 @@ export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutVolumesDeliveredInput = {
@@ -4528,6 +4646,7 @@ export type UserUpdateWithoutVolumesCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -4535,6 +4654,7 @@ export type UserUpdateWithoutVolumesCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
@@ -4596,6 +4716,7 @@ export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -4603,6 +4724,7 @@ export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUpsertWithoutVolumesClosedInput = {
@@ -4675,6 +4797,7 @@ export type UserUpdateWithoutVolumesClosedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -4682,6 +4805,7 @@ export type UserUpdateWithoutVolumesClosedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesClosedInput = {
@@ -4743,6 +4867,7 @@ export type UserUncheckedUpdateWithoutVolumesClosedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -4750,6 +4875,7 @@ export type UserUncheckedUpdateWithoutVolumesClosedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUpsertWithoutVolumesDeliveredInput = {
@@ -4822,6 +4948,7 @@ export type UserUpdateWithoutVolumesDeliveredInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -4829,6 +4956,7 @@ export type UserUpdateWithoutVolumesDeliveredInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
@@ -4890,6 +5018,7 @@ export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -4897,6 +5026,7 @@ export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutItemMovementInput = {
@@ -4958,6 +5088,7 @@ export type UserCreateWithoutItemMovementInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -4965,6 +5096,7 @@ export type UserCreateWithoutItemMovementInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutItemMovementInput = {
@@ -5026,6 +5158,7 @@ export type UserUncheckedCreateWithoutItemMovementInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -5033,6 +5166,7 @@ export type UserUncheckedCreateWithoutItemMovementInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutItemMovementInput = {
@@ -5099,6 +5233,7 @@ export type UserCreateWithoutApprovedMovementsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -5106,6 +5241,7 @@ export type UserCreateWithoutApprovedMovementsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutApprovedMovementsInput = {
@@ -5167,6 +5303,7 @@ export type UserUncheckedCreateWithoutApprovedMovementsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -5174,6 +5311,7 @@ export type UserUncheckedCreateWithoutApprovedMovementsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutApprovedMovementsInput = {
@@ -5251,6 +5389,7 @@ export type UserUpdateWithoutItemMovementInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -5258,6 +5397,7 @@ export type UserUpdateWithoutItemMovementInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutItemMovementInput = {
@@ -5319,6 +5459,7 @@ export type UserUncheckedUpdateWithoutItemMovementInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -5326,6 +5467,7 @@ export type UserUncheckedUpdateWithoutItemMovementInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUpsertWithoutApprovedMovementsInput = {
@@ -5398,6 +5540,7 @@ export type UserUpdateWithoutApprovedMovementsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -5405,6 +5548,7 @@ export type UserUpdateWithoutApprovedMovementsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
@@ -5466,6 +5610,7 @@ export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -5473,6 +5618,7 @@ export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutVariantPriceHistoryInput = {
@@ -5534,6 +5680,7 @@ export type UserCreateWithoutVariantPriceHistoryInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -5541,6 +5688,7 @@ export type UserCreateWithoutVariantPriceHistoryInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
@@ -5602,6 +5750,7 @@ export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -5609,6 +5758,7 @@ export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutVariantPriceHistoryInput = {
@@ -5686,6 +5836,7 @@ export type UserUpdateWithoutVariantPriceHistoryInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -5693,6 +5844,7 @@ export type UserUpdateWithoutVariantPriceHistoryInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
@@ -5754,6 +5906,7 @@ export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -5761,6 +5914,7 @@ export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -5822,6 +5976,7 @@ export type UserCreateWithoutAuditLogsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -5829,6 +5984,7 @@ export type UserCreateWithoutAuditLogsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -5890,6 +6046,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -5897,6 +6054,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -5974,6 +6132,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -5981,6 +6140,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -6042,6 +6202,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -6049,6 +6210,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutAlertsInput = {
@@ -6110,6 +6272,7 @@ export type UserCreateWithoutAlertsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -6117,6 +6280,7 @@ export type UserCreateWithoutAlertsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutAlertsInput = {
@@ -6178,6 +6342,7 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -6185,6 +6350,7 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutAlertsInput = {
@@ -6262,6 +6428,7 @@ export type UserUpdateWithoutAlertsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -6269,6 +6436,7 @@ export type UserUpdateWithoutAlertsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAlertsInput = {
@@ -6330,6 +6498,7 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -6337,6 +6506,7 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutCreatedPurchaseOrdersInput = {
@@ -6398,6 +6568,7 @@ export type UserCreateWithoutCreatedPurchaseOrdersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -6405,6 +6576,7 @@ export type UserCreateWithoutCreatedPurchaseOrdersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
@@ -6466,6 +6638,7 @@ export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -6473,6 +6646,7 @@ export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutCreatedPurchaseOrdersInput = {
@@ -6550,6 +6724,7 @@ export type UserUpdateWithoutCreatedPurchaseOrdersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -6557,6 +6732,7 @@ export type UserUpdateWithoutCreatedPurchaseOrdersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
@@ -6618,6 +6794,7 @@ export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -6625,6 +6802,7 @@ export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutCreatedSalesOrdersInput = {
@@ -6686,6 +6864,7 @@ export type UserCreateWithoutCreatedSalesOrdersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -6693,6 +6872,7 @@ export type UserCreateWithoutCreatedSalesOrdersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
@@ -6754,6 +6934,7 @@ export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -6761,6 +6942,7 @@ export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutCreatedSalesOrdersInput = {
@@ -6838,6 +7020,7 @@ export type UserUpdateWithoutCreatedSalesOrdersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -6845,6 +7028,7 @@ export type UserUpdateWithoutCreatedSalesOrdersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
@@ -6906,6 +7090,7 @@ export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -6913,6 +7098,7 @@ export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutItemReservationsInput = {
@@ -6974,6 +7160,7 @@ export type UserCreateWithoutItemReservationsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -6981,6 +7168,7 @@ export type UserCreateWithoutItemReservationsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutItemReservationsInput = {
@@ -7042,6 +7230,7 @@ export type UserUncheckedCreateWithoutItemReservationsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -7049,6 +7238,7 @@ export type UserUncheckedCreateWithoutItemReservationsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutItemReservationsInput = {
@@ -7126,6 +7316,7 @@ export type UserUpdateWithoutItemReservationsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -7133,6 +7324,7 @@ export type UserUpdateWithoutItemReservationsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutItemReservationsInput = {
@@ -7194,6 +7386,7 @@ export type UserUncheckedUpdateWithoutItemReservationsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -7201,6 +7394,7 @@ export type UserUncheckedUpdateWithoutItemReservationsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -7262,6 +7456,7 @@ export type UserCreateWithoutCommentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -7269,6 +7464,7 @@ export type UserCreateWithoutCommentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -7330,6 +7526,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -7337,6 +7534,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -7414,6 +7612,7 @@ export type UserUpdateWithoutCommentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -7421,6 +7620,7 @@ export type UserUpdateWithoutCommentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -7482,6 +7682,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -7489,6 +7690,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferencesInput = {
@@ -7550,6 +7752,7 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -7557,6 +7760,7 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
@@ -7618,6 +7822,7 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -7625,6 +7830,7 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -7702,6 +7908,7 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -7709,6 +7916,7 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
@@ -7770,6 +7978,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -7777,6 +7986,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -7838,6 +8048,7 @@ export type UserCreateWithoutNotificationsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -7845,6 +8056,7 @@ export type UserCreateWithoutNotificationsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -7906,6 +8118,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -7913,6 +8126,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -7990,6 +8204,7 @@ export type UserUpdateWithoutNotificationsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -7997,6 +8212,7 @@ export type UserUpdateWithoutNotificationsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -8058,6 +8274,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -8065,6 +8282,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutRequestsCreatedInput = {
@@ -8126,6 +8344,7 @@ export type UserCreateWithoutRequestsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -8133,6 +8352,7 @@ export type UserCreateWithoutRequestsCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutRequestsCreatedInput = {
@@ -8194,6 +8414,7 @@ export type UserUncheckedCreateWithoutRequestsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -8201,6 +8422,7 @@ export type UserUncheckedCreateWithoutRequestsCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutRequestsCreatedInput = {
@@ -8267,6 +8489,7 @@ export type UserCreateWithoutRequestsAssignedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -8274,6 +8497,7 @@ export type UserCreateWithoutRequestsAssignedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutRequestsAssignedInput = {
@@ -8335,6 +8559,7 @@ export type UserUncheckedCreateWithoutRequestsAssignedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -8342,6 +8567,7 @@ export type UserUncheckedCreateWithoutRequestsAssignedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutRequestsAssignedInput = {
@@ -8419,6 +8645,7 @@ export type UserUpdateWithoutRequestsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -8426,6 +8653,7 @@ export type UserUpdateWithoutRequestsCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
@@ -8487,6 +8715,7 @@ export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -8494,6 +8723,7 @@ export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUpsertWithoutRequestsAssignedInput = {
@@ -8566,6 +8796,7 @@ export type UserUpdateWithoutRequestsAssignedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -8573,6 +8804,7 @@ export type UserUpdateWithoutRequestsAssignedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
@@ -8634,6 +8866,7 @@ export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -8641,6 +8874,7 @@ export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutUploadedAttachmentsInput = {
@@ -8702,6 +8936,7 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -8709,6 +8944,7 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
@@ -8770,6 +9006,7 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -8777,6 +9014,7 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutUploadedAttachmentsInput = {
@@ -8854,6 +9092,7 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -8861,6 +9100,7 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
@@ -8922,6 +9162,7 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -8929,6 +9170,7 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutRequestCommentsInput = {
@@ -8990,6 +9232,7 @@ export type UserCreateWithoutRequestCommentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -8997,6 +9240,7 @@ export type UserCreateWithoutRequestCommentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutRequestCommentsInput = {
@@ -9058,6 +9302,7 @@ export type UserUncheckedCreateWithoutRequestCommentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -9065,6 +9310,7 @@ export type UserUncheckedCreateWithoutRequestCommentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutRequestCommentsInput = {
@@ -9142,6 +9388,7 @@ export type UserUpdateWithoutRequestCommentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -9149,6 +9396,7 @@ export type UserUpdateWithoutRequestCommentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestCommentsInput = {
@@ -9210,6 +9458,7 @@ export type UserUncheckedUpdateWithoutRequestCommentsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -9217,6 +9466,7 @@ export type UserUncheckedUpdateWithoutRequestCommentsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutRequestHistoryActionsInput = {
@@ -9278,6 +9528,7 @@ export type UserCreateWithoutRequestHistoryActionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -9285,6 +9536,7 @@ export type UserCreateWithoutRequestHistoryActionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
@@ -9346,6 +9598,7 @@ export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -9353,6 +9606,7 @@ export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutRequestHistoryActionsInput = {
@@ -9430,6 +9684,7 @@ export type UserUpdateWithoutRequestHistoryActionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -9437,6 +9692,7 @@ export type UserUpdateWithoutRequestHistoryActionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
@@ -9498,6 +9754,7 @@ export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -9505,6 +9762,7 @@ export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutEmployeeInput = {
@@ -9566,6 +9824,7 @@ export type UserCreateWithoutEmployeeInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -9573,6 +9832,7 @@ export type UserCreateWithoutEmployeeInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutEmployeeInput = {
@@ -9634,6 +9894,7 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -9641,6 +9902,7 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutEmployeeInput = {
@@ -9718,6 +9980,7 @@ export type UserUpdateWithoutEmployeeInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -9725,6 +9988,7 @@ export type UserUpdateWithoutEmployeeInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmployeeInput = {
@@ -9786,6 +10050,7 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -9793,6 +10058,7 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutApprovedOvertimeInput = {
@@ -9854,6 +10120,7 @@ export type UserCreateWithoutApprovedOvertimeInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -9861,6 +10128,7 @@ export type UserCreateWithoutApprovedOvertimeInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
@@ -9922,6 +10190,7 @@ export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -9929,6 +10198,7 @@ export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutApprovedOvertimeInput = {
@@ -10006,6 +10276,7 @@ export type UserUpdateWithoutApprovedOvertimeInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -10013,6 +10284,7 @@ export type UserUpdateWithoutApprovedOvertimeInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
@@ -10074,6 +10346,7 @@ export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -10081,6 +10354,7 @@ export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutApprovedAbsencesInput = {
@@ -10142,6 +10416,7 @@ export type UserCreateWithoutApprovedAbsencesInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -10149,6 +10424,7 @@ export type UserCreateWithoutApprovedAbsencesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
@@ -10210,6 +10486,7 @@ export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -10217,6 +10494,7 @@ export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutApprovedAbsencesInput = {
@@ -10294,6 +10572,7 @@ export type UserUpdateWithoutApprovedAbsencesInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -10301,6 +10580,7 @@ export type UserUpdateWithoutApprovedAbsencesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
@@ -10362,6 +10642,7 @@ export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -10369,6 +10650,7 @@ export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutProcessedPayrollsInput = {
@@ -10430,6 +10712,7 @@ export type UserCreateWithoutProcessedPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -10437,6 +10720,7 @@ export type UserCreateWithoutProcessedPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
@@ -10498,6 +10782,7 @@ export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -10505,6 +10790,7 @@ export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutProcessedPayrollsInput = {
@@ -10571,6 +10857,7 @@ export type UserCreateWithoutApprovedPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -10578,6 +10865,7 @@ export type UserCreateWithoutApprovedPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
@@ -10639,6 +10927,7 @@ export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -10646,6 +10935,7 @@ export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutApprovedPayrollsInput = {
@@ -10712,6 +11002,7 @@ export type UserCreateWithoutPaidPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -10719,6 +11010,7 @@ export type UserCreateWithoutPaidPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutPaidPayrollsInput = {
@@ -10780,6 +11072,7 @@ export type UserUncheckedCreateWithoutPaidPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -10787,6 +11080,7 @@ export type UserUncheckedCreateWithoutPaidPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutPaidPayrollsInput = {
@@ -10864,6 +11158,7 @@ export type UserUpdateWithoutProcessedPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -10871,6 +11166,7 @@ export type UserUpdateWithoutProcessedPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
@@ -10932,6 +11228,7 @@ export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -10939,6 +11236,7 @@ export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUpsertWithoutApprovedPayrollsInput = {
@@ -11011,6 +11309,7 @@ export type UserUpdateWithoutApprovedPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -11018,6 +11317,7 @@ export type UserUpdateWithoutApprovedPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
@@ -11079,6 +11379,7 @@ export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -11086,6 +11387,7 @@ export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUpsertWithoutPaidPayrollsInput = {
@@ -11158,6 +11460,7 @@ export type UserUpdateWithoutPaidPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -11165,6 +11468,7 @@ export type UserUpdateWithoutPaidPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
@@ -11226,6 +11530,7 @@ export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -11233,6 +11538,7 @@ export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutLabelTemplatesCreatedInput = {
@@ -11294,6 +11600,7 @@ export type UserCreateWithoutLabelTemplatesCreatedInput = {
   VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -11301,6 +11608,7 @@ export type UserCreateWithoutLabelTemplatesCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
@@ -11362,6 +11670,7 @@ export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
   VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -11369,6 +11678,7 @@ export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutLabelTemplatesCreatedInput = {
@@ -11446,6 +11756,7 @@ export type UserUpdateWithoutLabelTemplatesCreatedInput = {
   VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -11453,6 +11764,7 @@ export type UserUpdateWithoutLabelTemplatesCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
@@ -11514,6 +11826,7 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
   VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -11521,6 +11834,7 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutTenantUsersInput = {
@@ -11582,6 +11896,7 @@ export type UserCreateWithoutTenantUsersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -11589,6 +11904,7 @@ export type UserCreateWithoutTenantUsersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutTenantUsersInput = {
@@ -11650,6 +11966,7 @@ export type UserUncheckedCreateWithoutTenantUsersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -11657,6 +11974,7 @@ export type UserUncheckedCreateWithoutTenantUsersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutTenantUsersInput = {
@@ -11734,6 +12052,7 @@ export type UserUpdateWithoutTenantUsersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -11741,6 +12060,7 @@ export type UserUpdateWithoutTenantUsersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTenantUsersInput = {
@@ -11802,6 +12122,7 @@ export type UserUncheckedUpdateWithoutTenantUsersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -11809,6 +12130,7 @@ export type UserUncheckedUpdateWithoutTenantUsersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutStorageFoldersInput = {
@@ -11870,6 +12192,7 @@ export type UserCreateWithoutStorageFoldersInput = {
   VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -11877,6 +12200,7 @@ export type UserCreateWithoutStorageFoldersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutStorageFoldersInput = {
@@ -11938,6 +12262,7 @@ export type UserUncheckedCreateWithoutStorageFoldersInput = {
   VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -11945,6 +12270,7 @@ export type UserUncheckedCreateWithoutStorageFoldersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutStorageFoldersInput = {
@@ -12022,6 +12348,7 @@ export type UserUpdateWithoutStorageFoldersInput = {
   VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -12029,6 +12356,7 @@ export type UserUpdateWithoutStorageFoldersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStorageFoldersInput = {
@@ -12090,6 +12418,7 @@ export type UserUncheckedUpdateWithoutStorageFoldersInput = {
   VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -12097,6 +12426,7 @@ export type UserUncheckedUpdateWithoutStorageFoldersInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutFolderAccessRulesInput = {
@@ -12158,6 +12488,7 @@ export type UserCreateWithoutFolderAccessRulesInput = {
   VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
@@ -12165,6 +12496,7 @@ export type UserCreateWithoutFolderAccessRulesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
@@ -12226,6 +12558,7 @@ export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
   VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
@@ -12233,6 +12566,7 @@ export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutFolderAccessRulesInput = {
@@ -12310,6 +12644,7 @@ export type UserUpdateWithoutFolderAccessRulesInput = {
   VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
@@ -12317,6 +12652,7 @@ export type UserUpdateWithoutFolderAccessRulesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
@@ -12378,6 +12714,7 @@ export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
   VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
@@ -12385,6 +12722,303 @@ export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+}
+
+export type UserCreateWithoutCalendarsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+}
+
+export type UserUncheckedCreateWithoutCalendarsCreatedInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+}
+
+export type UserCreateOrConnectWithoutCalendarsCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCalendarsCreatedInput, Prisma.UserUncheckedCreateWithoutCalendarsCreatedInput>
+}
+
+export type UserUpsertWithoutCalendarsCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCalendarsCreatedInput, Prisma.UserUncheckedUpdateWithoutCalendarsCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCalendarsCreatedInput, Prisma.UserUncheckedCreateWithoutCalendarsCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCalendarsCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCalendarsCreatedInput, Prisma.UserUncheckedUpdateWithoutCalendarsCreatedInput>
+}
+
+export type UserUpdateWithoutCalendarsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCalendarsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutCalendarEventsCreatedInput = {
@@ -12447,12 +13081,14 @@ export type UserCreateWithoutCalendarEventsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutCalendarEventsCreatedInput = {
@@ -12515,12 +13151,14 @@ export type UserUncheckedCreateWithoutCalendarEventsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutCalendarEventsCreatedInput = {
@@ -12599,12 +13237,14 @@ export type UserUpdateWithoutCalendarEventsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCalendarEventsCreatedInput = {
@@ -12667,12 +13307,14 @@ export type UserUncheckedUpdateWithoutCalendarEventsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutEventParticipantsInput = {
@@ -12735,12 +13377,14 @@ export type UserCreateWithoutEventParticipantsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutEventParticipantsInput = {
@@ -12803,12 +13447,14 @@ export type UserUncheckedCreateWithoutEventParticipantsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutEventParticipantsInput = {
@@ -12887,12 +13533,14 @@ export type UserUpdateWithoutEventParticipantsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventParticipantsInput = {
@@ -12955,12 +13603,14 @@ export type UserUncheckedUpdateWithoutEventParticipantsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutEventRemindersInput = {
@@ -13023,12 +13673,14 @@ export type UserCreateWithoutEventRemindersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutEventRemindersInput = {
@@ -13091,12 +13743,14 @@ export type UserUncheckedCreateWithoutEventRemindersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutEventRemindersInput = {
@@ -13175,12 +13829,14 @@ export type UserUpdateWithoutEventRemindersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventRemindersInput = {
@@ -13243,12 +13899,14 @@ export type UserUncheckedUpdateWithoutEventRemindersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutEmailAccountsInput = {
@@ -13311,12 +13969,14 @@ export type UserCreateWithoutEmailAccountsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutEmailAccountsInput = {
@@ -13379,12 +14039,14 @@ export type UserUncheckedCreateWithoutEmailAccountsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutEmailAccountsInput = {
@@ -13463,12 +14125,14 @@ export type UserUpdateWithoutEmailAccountsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailAccountsInput = {
@@ -13531,12 +14195,14 @@ export type UserUncheckedUpdateWithoutEmailAccountsInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutEmailAccountsAccessInput = {
@@ -13599,12 +14265,14 @@ export type UserCreateWithoutEmailAccountsAccessInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutEmailAccountsAccessInput = {
@@ -13667,12 +14335,14 @@ export type UserUncheckedCreateWithoutEmailAccountsAccessInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutEmailAccountsAccessInput = {
@@ -13751,12 +14421,14 @@ export type UserUpdateWithoutEmailAccountsAccessInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailAccountsAccessInput = {
@@ -13819,12 +14491,14 @@ export type UserUncheckedUpdateWithoutEmailAccountsAccessInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutTeamsCreatedInput = {
@@ -13887,12 +14561,14 @@ export type UserCreateWithoutTeamsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutTeamsCreatedInput = {
@@ -13955,12 +14631,14 @@ export type UserUncheckedCreateWithoutTeamsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutTeamsCreatedInput = {
@@ -14039,12 +14717,14 @@ export type UserUpdateWithoutTeamsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamsCreatedInput = {
@@ -14107,12 +14787,14 @@ export type UserUncheckedUpdateWithoutTeamsCreatedInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserCreateWithoutTeamMembersInput = {
@@ -14175,12 +14857,14 @@ export type UserCreateWithoutTeamMembersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
 }
 
 export type UserUncheckedCreateWithoutTeamMembersInput = {
@@ -14243,12 +14927,14 @@ export type UserUncheckedCreateWithoutTeamMembersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
   emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
   teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
 }
 
 export type UserCreateOrConnectWithoutTeamMembersInput = {
@@ -14327,12 +15013,14 @@ export type UserUpdateWithoutTeamMembersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamMembersInput = {
@@ -14395,12 +15083,310 @@ export type UserUncheckedUpdateWithoutTeamMembersInput = {
   LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
   calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
   emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
   emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
   teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+}
+
+export type UserCreateWithoutTeamEmailLinksInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTeamEmailLinksInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTeamEmailLinksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTeamEmailLinksInput, Prisma.UserUncheckedCreateWithoutTeamEmailLinksInput>
+}
+
+export type UserUpsertWithoutTeamEmailLinksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTeamEmailLinksInput, Prisma.UserUncheckedUpdateWithoutTeamEmailLinksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTeamEmailLinksInput, Prisma.UserUncheckedCreateWithoutTeamEmailLinksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTeamEmailLinksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTeamEmailLinksInput, Prisma.UserUncheckedUpdateWithoutTeamEmailLinksInput>
+}
+
+export type UserUpdateWithoutTeamEmailLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTeamEmailLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -14444,6 +15430,7 @@ export type UserCountOutputType = {
   LabelTemplatesCreated: number
   folderAccessRules: number
   storageFolders: number
+  calendarsCreated: number
   calendarEventsCreated: number
   eventParticipants: number
   eventReminders: number
@@ -14451,6 +15438,7 @@ export type UserCountOutputType = {
   emailAccountsAccess: number
   teamsCreated: number
   teamMembers: number
+  teamEmailLinks: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -14489,6 +15477,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   LabelTemplatesCreated?: boolean | UserCountOutputTypeCountLabelTemplatesCreatedArgs
   folderAccessRules?: boolean | UserCountOutputTypeCountFolderAccessRulesArgs
   storageFolders?: boolean | UserCountOutputTypeCountStorageFoldersArgs
+  calendarsCreated?: boolean | UserCountOutputTypeCountCalendarsCreatedArgs
   calendarEventsCreated?: boolean | UserCountOutputTypeCountCalendarEventsCreatedArgs
   eventParticipants?: boolean | UserCountOutputTypeCountEventParticipantsArgs
   eventReminders?: boolean | UserCountOutputTypeCountEventRemindersArgs
@@ -14496,6 +15485,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   emailAccountsAccess?: boolean | UserCountOutputTypeCountEmailAccountsAccessArgs
   teamsCreated?: boolean | UserCountOutputTypeCountTeamsCreatedArgs
   teamMembers?: boolean | UserCountOutputTypeCountTeamMembersArgs
+  teamEmailLinks?: boolean | UserCountOutputTypeCountTeamEmailLinksArgs
 }
 
 /**
@@ -14756,6 +15746,13 @@ export type UserCountOutputTypeCountStorageFoldersArgs<ExtArgs extends runtime.T
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountCalendarsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CalendarWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountCalendarEventsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CalendarEventWhereInput
 }
@@ -14800,6 +15797,13 @@ export type UserCountOutputTypeCountTeamsCreatedArgs<ExtArgs extends runtime.Typ
  */
 export type UserCountOutputTypeCountTeamMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TeamMemberWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTeamEmailLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TeamEmailAccountWhereInput
 }
 
 
@@ -14863,6 +15867,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   LabelTemplatesCreated?: boolean | Prisma.User$LabelTemplatesCreatedArgs<ExtArgs>
   folderAccessRules?: boolean | Prisma.User$folderAccessRulesArgs<ExtArgs>
   storageFolders?: boolean | Prisma.User$storageFoldersArgs<ExtArgs>
+  calendarsCreated?: boolean | Prisma.User$calendarsCreatedArgs<ExtArgs>
   calendarEventsCreated?: boolean | Prisma.User$calendarEventsCreatedArgs<ExtArgs>
   eventParticipants?: boolean | Prisma.User$eventParticipantsArgs<ExtArgs>
   eventReminders?: boolean | Prisma.User$eventRemindersArgs<ExtArgs>
@@ -14870,6 +15875,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   emailAccountsAccess?: boolean | Prisma.User$emailAccountsAccessArgs<ExtArgs>
   teamsCreated?: boolean | Prisma.User$teamsCreatedArgs<ExtArgs>
   teamMembers?: boolean | Prisma.User$teamMembersArgs<ExtArgs>
+  teamEmailLinks?: boolean | Prisma.User$teamEmailLinksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -14987,6 +15993,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   LabelTemplatesCreated?: boolean | Prisma.User$LabelTemplatesCreatedArgs<ExtArgs>
   folderAccessRules?: boolean | Prisma.User$folderAccessRulesArgs<ExtArgs>
   storageFolders?: boolean | Prisma.User$storageFoldersArgs<ExtArgs>
+  calendarsCreated?: boolean | Prisma.User$calendarsCreatedArgs<ExtArgs>
   calendarEventsCreated?: boolean | Prisma.User$calendarEventsCreatedArgs<ExtArgs>
   eventParticipants?: boolean | Prisma.User$eventParticipantsArgs<ExtArgs>
   eventReminders?: boolean | Prisma.User$eventRemindersArgs<ExtArgs>
@@ -14994,6 +16001,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   emailAccountsAccess?: boolean | Prisma.User$emailAccountsAccessArgs<ExtArgs>
   teamsCreated?: boolean | Prisma.User$teamsCreatedArgs<ExtArgs>
   teamMembers?: boolean | Prisma.User$teamMembersArgs<ExtArgs>
+  teamEmailLinks?: boolean | Prisma.User$teamEmailLinksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -15039,6 +16047,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     LabelTemplatesCreated: Prisma.$LabelTemplatePayload<ExtArgs>[]
     folderAccessRules: Prisma.$FolderAccessRulePayload<ExtArgs>[]
     storageFolders: Prisma.$StorageFolderPayload<ExtArgs>[]
+    calendarsCreated: Prisma.$CalendarPayload<ExtArgs>[]
     calendarEventsCreated: Prisma.$CalendarEventPayload<ExtArgs>[]
     eventParticipants: Prisma.$EventParticipantPayload<ExtArgs>[]
     eventReminders: Prisma.$EventReminderPayload<ExtArgs>[]
@@ -15046,6 +16055,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     emailAccountsAccess: Prisma.$EmailAccountAccessPayload<ExtArgs>[]
     teamsCreated: Prisma.$TeamPayload<ExtArgs>[]
     teamMembers: Prisma.$TeamMemberPayload<ExtArgs>[]
+    teamEmailLinks: Prisma.$TeamEmailAccountPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -15501,6 +16511,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   LabelTemplatesCreated<T extends Prisma.User$LabelTemplatesCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$LabelTemplatesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LabelTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   folderAccessRules<T extends Prisma.User$folderAccessRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$folderAccessRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FolderAccessRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   storageFolders<T extends Prisma.User$storageFoldersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$storageFoldersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageFolderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  calendarsCreated<T extends Prisma.User$calendarsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$calendarsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalendarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   calendarEventsCreated<T extends Prisma.User$calendarEventsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$calendarEventsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   eventParticipants<T extends Prisma.User$eventParticipantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$eventParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   eventReminders<T extends Prisma.User$eventRemindersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$eventRemindersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -15508,6 +16519,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   emailAccountsAccess<T extends Prisma.User$emailAccountsAccessArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailAccountsAccessArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailAccountAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   teamsCreated<T extends Prisma.User$teamsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$teamsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   teamMembers<T extends Prisma.User$teamMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$teamMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  teamEmailLinks<T extends Prisma.User$teamEmailLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$teamEmailLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamEmailAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16825,6 +17837,30 @@ export type User$storageFoldersArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * User.calendarsCreated
+ */
+export type User$calendarsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Calendar
+   */
+  select?: Prisma.CalendarSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Calendar
+   */
+  omit?: Prisma.CalendarOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CalendarInclude<ExtArgs> | null
+  where?: Prisma.CalendarWhereInput
+  orderBy?: Prisma.CalendarOrderByWithRelationInput | Prisma.CalendarOrderByWithRelationInput[]
+  cursor?: Prisma.CalendarWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CalendarScalarFieldEnum | Prisma.CalendarScalarFieldEnum[]
+}
+
+/**
  * User.calendarEventsCreated
  */
 export type User$calendarEventsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -16990,6 +18026,30 @@ export type User$teamMembersArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.TeamMemberScalarFieldEnum | Prisma.TeamMemberScalarFieldEnum[]
+}
+
+/**
+ * User.teamEmailLinks
+ */
+export type User$teamEmailLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TeamEmailAccount
+   */
+  select?: Prisma.TeamEmailAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TeamEmailAccount
+   */
+  omit?: Prisma.TeamEmailAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamEmailAccountInclude<ExtArgs> | null
+  where?: Prisma.TeamEmailAccountWhereInput
+  orderBy?: Prisma.TeamEmailAccountOrderByWithRelationInput | Prisma.TeamEmailAccountOrderByWithRelationInput[]
+  cursor?: Prisma.TeamEmailAccountWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TeamEmailAccountScalarFieldEnum | Prisma.TeamEmailAccountScalarFieldEnum[]
 }
 
 /**

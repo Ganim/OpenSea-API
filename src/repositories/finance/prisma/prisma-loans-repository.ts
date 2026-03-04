@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Loan } from '@/entities/finance/loan';
+import { getFieldCipherService } from '@/services/security/field-cipher-service';
+import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import {
   Prisma,
   type LoanType,
@@ -13,6 +15,16 @@ import type {
   FindManyLoansOptions,
   FindManyLoansResult,
 } from '../loans-repository';
+
+const { encryptedFields } = ENCRYPTED_FIELD_CONFIG.Loan;
+
+function tryGetCipher() {
+  try {
+    return getFieldCipherService();
+  } catch {
+    return null;
+  }
+}
 
 function loanPrismaToDomain(raw: {
   id: string;
@@ -69,6 +81,14 @@ function loanPrismaToDomain(raw: {
 
 export class PrismaLoansRepository implements LoansRepository {
   async create(data: CreateLoanSchema): Promise<Loan> {
+    const cipher = tryGetCipher();
+
+    // Encrypt contractNumber before create
+    const encryptedContractNumber =
+      cipher && data.contractNumber
+        ? cipher.encrypt(data.contractNumber)
+        : data.contractNumber;
+
     const loan = await prisma.loan.create({
       data: {
         tenantId: data.tenantId,
@@ -76,7 +96,7 @@ export class PrismaLoansRepository implements LoansRepository {
         costCenterId: data.costCenterId,
         name: data.name,
         type: data.type as LoanType,
-        contractNumber: data.contractNumber,
+        contractNumber: encryptedContractNumber,
         principalAmount: new Prisma.Decimal(data.principalAmount),
         outstandingBalance: new Prisma.Decimal(data.outstandingBalance),
         interestRate: new Prisma.Decimal(data.interestRate),
@@ -91,7 +111,12 @@ export class PrismaLoansRepository implements LoansRepository {
       },
     });
 
-    return loanPrismaToDomain(loan);
+    // Decrypt before passing to mapper
+    const decrypted = cipher
+      ? cipher.decryptFields(loan as Record<string, unknown>, encryptedFields)
+      : loan;
+
+    return loanPrismaToDomain(decrypted as typeof loan);
   }
 
   async findById(id: UniqueEntityID, tenantId: string): Promise<Loan | null> {
@@ -104,7 +129,13 @@ export class PrismaLoansRepository implements LoansRepository {
     });
 
     if (!loan) return null;
-    return loanPrismaToDomain(loan);
+
+    const cipher = tryGetCipher();
+    const decrypted = cipher
+      ? cipher.decryptFields(loan as Record<string, unknown>, encryptedFields)
+      : loan;
+
+    return loanPrismaToDomain(decrypted as typeof loan);
   }
 
   async findMany(options: FindManyLoansOptions): Promise<FindManyLoansResult> {
@@ -138,38 +169,74 @@ export class PrismaLoansRepository implements LoansRepository {
       prisma.loan.count({ where }),
     ]);
 
+    const cipher = tryGetCipher();
+
     return {
-      loans: loans.map(loanPrismaToDomain),
+      loans: loans.map((l) => {
+        const decrypted = cipher
+          ? cipher.decryptFields(l as Record<string, unknown>, encryptedFields)
+          : l;
+        return loanPrismaToDomain(decrypted as typeof l);
+      }),
       total,
     };
   }
 
   async update(data: UpdateLoanSchema): Promise<Loan | null> {
+    const cipher = tryGetCipher();
+
+    // Build update data
+    const updateData: Record<string, unknown> = {
+      ...(data.name !== undefined && { name: data.name }),
+      ...(data.contractNumber !== undefined && {
+        contractNumber: data.contractNumber,
+      }),
+      ...(data.status !== undefined && { status: data.status as LoanStatus }),
+      ...(data.outstandingBalance !== undefined && {
+        outstandingBalance: new Prisma.Decimal(data.outstandingBalance),
+      }),
+      ...(data.paidInstallments !== undefined && {
+        paidInstallments: data.paidInstallments,
+      }),
+      ...(data.notes !== undefined && { notes: data.notes }),
+      ...(data.endDate !== undefined && { endDate: data.endDate }),
+    };
+
+    // Encrypt the sensitive fields in updateData
+    const encryptedUpdateData = cipher
+      ? cipher.encryptFields(updateData, encryptedFields)
+      : updateData;
+
+    const whereClause: { id: string; tenantId?: string } = {
+      id: data.id.toString(),
+    };
+    if (data.tenantId) {
+      whereClause.tenantId = data.tenantId;
+    }
+
     const loan = await prisma.loan.update({
-      where: { id: data.id.toString() },
-      data: {
-        ...(data.name !== undefined && { name: data.name }),
-        ...(data.contractNumber !== undefined && {
-          contractNumber: data.contractNumber,
-        }),
-        ...(data.status !== undefined && { status: data.status as LoanStatus }),
-        ...(data.outstandingBalance !== undefined && {
-          outstandingBalance: new Prisma.Decimal(data.outstandingBalance),
-        }),
-        ...(data.paidInstallments !== undefined && {
-          paidInstallments: data.paidInstallments,
-        }),
-        ...(data.notes !== undefined && { notes: data.notes }),
-        ...(data.endDate !== undefined && { endDate: data.endDate }),
-      },
+      where: whereClause,
+      data: encryptedUpdateData,
     });
 
-    return loanPrismaToDomain(loan);
+    // Decrypt before passing to mapper
+    const decrypted = cipher
+      ? cipher.decryptFields(loan as Record<string, unknown>, encryptedFields)
+      : loan;
+
+    return loanPrismaToDomain(decrypted as typeof loan);
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+    const whereClause: { id: string; tenantId?: string } = {
+      id: id.toString(),
+    };
+    if (tenantId) {
+      whereClause.tenantId = tenantId;
+    }
+
     await prisma.loan.update({
-      where: { id: id.toString() },
+      where: whereClause,
       data: { deletedAt: new Date() },
     });
   }

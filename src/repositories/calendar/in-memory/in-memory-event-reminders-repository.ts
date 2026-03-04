@@ -7,7 +7,9 @@ import type {
 } from '../event-reminders-repository';
 import type { InMemoryCalendarEventsRepository } from './in-memory-calendar-events-repository';
 
-export class InMemoryEventRemindersRepository implements EventRemindersRepository {
+export class InMemoryEventRemindersRepository
+  implements EventRemindersRepository
+{
   public items: EventReminder[] = [];
 
   constructor(private eventsRepository?: InMemoryCalendarEventsRepository) {}
@@ -42,7 +44,9 @@ export class InMemoryEventRemindersRepository implements EventRemindersRepositor
       // Only include if event is in the future and reminder time has passed
       if (event.startDate <= now) continue;
 
-      const reminderTime = new Date(event.startDate.getTime() - item.minutesBefore * 60_000);
+      const reminderTime = new Date(
+        event.startDate.getTime() - item.minutesBefore * 60_000,
+      );
       if (reminderTime <= now) {
         results.push({ reminder: item, eventTitle: event.title });
       }
@@ -63,12 +67,18 @@ export class InMemoryEventRemindersRepository implements EventRemindersRepositor
   }
 
   async deleteByEventId(eventId: string): Promise<void> {
-    this.items = this.items.filter((item) => item.eventId.toString() !== eventId);
+    this.items = this.items.filter(
+      (item) => item.eventId.toString() !== eventId,
+    );
   }
 
   async deleteByEventAndUser(eventId: string, userId: string): Promise<void> {
     this.items = this.items.filter(
-      (item) => !(item.eventId.toString() === eventId && item.userId.toString() === userId),
+      (item) =>
+        !(
+          item.eventId.toString() === eventId &&
+          item.userId.toString() === userId
+        ),
     );
   }
 }

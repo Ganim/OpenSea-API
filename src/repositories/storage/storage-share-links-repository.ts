@@ -24,5 +24,5 @@ export interface StorageShareLinksRepository {
     tenantId: string,
   ): Promise<StorageShareLink[]>;
   save(shareLink: StorageShareLink): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

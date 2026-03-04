@@ -57,7 +57,7 @@ export class InMemoryStorageShareLinksRepository
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const index = this.items.findIndex((item) => item.id.equals(id));
     if (index !== -1) {
       this.items.splice(index, 1);

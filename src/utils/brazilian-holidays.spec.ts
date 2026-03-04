@@ -9,7 +9,7 @@ describe('getEasterDate', () => {
   it.each([
     [2024, new Date(2024, 2, 31)], // March 31
     [2025, new Date(2025, 3, 20)], // April 20
-    [2026, new Date(2026, 3, 5)],  // April 5
+    [2026, new Date(2026, 3, 5)], // April 5
     [2027, new Date(2027, 2, 28)], // March 28
     [2028, new Date(2028, 3, 16)], // April 16
     [2030, new Date(2030, 3, 21)], // April 21
@@ -99,13 +99,21 @@ describe('getBrazilianHolidays', () => {
     const holidays = getBrazilianHolidays(2026);
     const byName = Object.fromEntries(holidays.map((h) => [h.name, h]));
 
-    expect(byName['Confraternização Universal'].date).toEqual(new Date(2026, 0, 1));
+    expect(byName['Confraternização Universal'].date).toEqual(
+      new Date(2026, 0, 1),
+    );
     expect(byName['Tiradentes'].date).toEqual(new Date(2026, 3, 21));
     expect(byName['Dia do Trabalho'].date).toEqual(new Date(2026, 4, 1));
-    expect(byName['Independência do Brasil'].date).toEqual(new Date(2026, 8, 7));
-    expect(byName['Nossa Senhora Aparecida'].date).toEqual(new Date(2026, 9, 12));
+    expect(byName['Independência do Brasil'].date).toEqual(
+      new Date(2026, 8, 7),
+    );
+    expect(byName['Nossa Senhora Aparecida'].date).toEqual(
+      new Date(2026, 9, 12),
+    );
     expect(byName['Finados'].date).toEqual(new Date(2026, 10, 2));
-    expect(byName['Proclamação da República'].date).toEqual(new Date(2026, 10, 15));
+    expect(byName['Proclamação da República'].date).toEqual(
+      new Date(2026, 10, 15),
+    );
     expect(byName['Natal'].date).toEqual(new Date(2026, 11, 25));
   });
 });

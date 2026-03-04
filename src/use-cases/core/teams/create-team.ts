@@ -3,6 +3,8 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { type TeamDTO, teamToDTO } from '@/mappers/core/team/team-to-dto';
 import type { TeamsRepository } from '@/repositories/core/teams-repository';
 import type { TeamMembersRepository } from '@/repositories/core/team-members-repository';
+import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
+import type { FolderAccessRulesRepository } from '@/repositories/storage/folder-access-rules-repository';
 
 interface CreateTeamRequest {
   tenantId: string;
@@ -21,6 +23,8 @@ export class CreateTeamUseCase {
   constructor(
     private teamsRepository: TeamsRepository,
     private teamMembersRepository: TeamMembersRepository,
+    private storageFoldersRepository?: StorageFoldersRepository,
+    private folderAccessRulesRepository?: FolderAccessRulesRepository,
   ) {}
 
   async execute(request: CreateTeamRequest): Promise<CreateTeamResponse> {
@@ -62,6 +66,35 @@ export class CreateTeamUseCase {
       userId: new UniqueEntityID(userId),
       role: 'OWNER',
     });
+
+    // Auto-create storage folder for the team
+    if (this.storageFoldersRepository && this.folderAccessRulesRepository) {
+      const folder = await this.storageFoldersRepository.create({
+        tenantId,
+        name: name.trim(),
+        slug,
+        path: `/${slug}`,
+        createdBy: userId,
+      });
+
+      // Grant full access to the team on their folder
+      await this.folderAccessRulesRepository.create({
+        tenantId,
+        folderId: folder.folderId.toString(),
+        teamId: team.id.toString(),
+        canRead: true,
+        canWrite: true,
+        canDelete: false,
+        canShare: false,
+      });
+
+      // Update team with the storage folder ID
+      await this.teamsRepository.update({
+        id: team.id,
+        tenantId: new UniqueEntityID(tenantId),
+        storageFolderId: folder.folderId,
+      });
+    }
 
     return {
       team: teamToDTO(team, { membersCount: 1 }),

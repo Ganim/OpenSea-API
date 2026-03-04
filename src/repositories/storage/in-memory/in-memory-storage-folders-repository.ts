@@ -157,6 +157,10 @@ export class InMemoryStorageFoldersRepository
         ? new UniqueEntityID(data.parentId)
         : null;
     if (data.depth !== undefined) folder.depth = data.depth;
+    if (data.isProtected !== undefined) folder.isProtected = data.isProtected;
+    if (data.protectionHash !== undefined)
+      folder.protectionHash = data.protectionHash;
+    if (data.isHidden !== undefined) folder.isHidden = data.isHidden;
 
     return folder;
   }

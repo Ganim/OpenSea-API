@@ -339,6 +339,12 @@ export const PermissionCodes = {
         REMOVE: 'core.teams.members.remove' as const,
         MANAGE: 'core.teams.members.manage' as const,
       },
+      EMAILS: {
+        LINK: 'core.teams.emails.link' as const,
+        READ: 'core.teams.emails.read' as const,
+        MANAGE: 'core.teams.emails.manage' as const,
+        UNLINK: 'core.teams.emails.unlink' as const,
+      },
     },
   },
 
@@ -989,6 +995,9 @@ export const PermissionCodes = {
       DELETE: 'calendar.events.delete' as const,
       LIST: 'calendar.events.list' as const,
       MANAGE: 'calendar.events.manage' as const,
+      SHARE_USERS: 'calendar.events.share-users' as const,
+      SHARE_TEAMS: 'calendar.events.share-teams' as const,
+      EXPORT: 'calendar.events.export' as const,
     },
     PARTICIPANTS: {
       INVITE: 'calendar.participants.invite' as const,
@@ -1077,6 +1086,9 @@ export const PermissionCodes = {
     },
     STATS: {
       VIEW: 'storage.stats.view' as const,
+    },
+    SECURITY: {
+      MANAGE: 'storage.security.manage' as const,
     },
   },
 } as const;

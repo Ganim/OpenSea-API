@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 
 export interface CalendarEventProps {
   tenantId: UniqueEntityID;
+  calendarId?: string | null;
   title: string;
   description?: string | null;
   location?: string | null;
@@ -26,6 +27,15 @@ export interface CalendarEventProps {
 export class CalendarEvent extends Entity<CalendarEventProps> {
   get tenantId(): UniqueEntityID {
     return this.props.tenantId;
+  }
+
+  get calendarId(): string | null {
+    return this.props.calendarId ?? null;
+  }
+
+  set calendarId(calendarId: string | null) {
+    this.props.calendarId = calendarId;
+    this.touch();
   }
 
   get title(): string {

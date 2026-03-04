@@ -95,6 +95,7 @@ export class RegisterPaymentUseCase {
       const fullyPaidStatus = entry.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
       await this.financeEntriesRepository.update({
         id: new UniqueEntityID(entryId),
+        tenantId,
         status: fullyPaidStatus,
         actualAmount: newTotal,
         paymentDate: paidAt,
@@ -103,6 +104,7 @@ export class RegisterPaymentUseCase {
       // Partially paid
       await this.financeEntriesRepository.update({
         id: new UniqueEntityID(entryId),
+        tenantId,
         status: 'PARTIALLY_PAID',
         actualAmount: newTotal,
       });
@@ -227,6 +229,7 @@ export class RegisterPaymentUseCase {
       const masterStatus = entry.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
       await this.financeEntriesRepository.update({
         id: new UniqueEntityID(parentId),
+        tenantId,
         status: masterStatus,
       });
     }

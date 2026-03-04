@@ -1,5 +1,6 @@
 import { logger } from '@/lib/logger';
 import type { CalendarEventsRepository } from '@/repositories/calendar/calendar-events-repository';
+import type { CalendarsRepository } from '@/repositories/calendar/calendars-repository';
 
 interface SyncAbsenceParams {
   tenantId: string;
@@ -38,7 +39,34 @@ interface SyncBirthdayParams {
 }
 
 export class CalendarSyncService {
-  constructor(private calendarEventsRepository: CalendarEventsRepository) {}
+  constructor(
+    private calendarEventsRepository: CalendarEventsRepository,
+    private calendarsRepository?: CalendarsRepository,
+  ) {}
+
+  private async resolveSystemCalendarId(
+    tenantId: string,
+    module: string,
+  ): Promise<string | undefined> {
+    if (!this.calendarsRepository) return undefined;
+    const calendar = await this.calendarsRepository.findSystemByModule(
+      module,
+      tenantId,
+    );
+    return calendar?.id.toString();
+  }
+
+  private async resolvePersonalCalendarId(
+    tenantId: string,
+    userId: string,
+  ): Promise<string | undefined> {
+    if (!this.calendarsRepository) return undefined;
+    const calendar = await this.calendarsRepository.findPersonalByUser(
+      userId,
+      tenantId,
+    );
+    return calendar?.id.toString();
+  }
 
   async syncAbsence(params: SyncAbsenceParams): Promise<void> {
     const {
@@ -58,6 +86,10 @@ export class CalendarSyncService {
       : `Ausência: ${employeeName} - ${absenceType}`;
 
     try {
+      const calendarId =
+        (await this.resolveSystemCalendarId(tenantId, 'HR')) ??
+        (await this.resolvePersonalCalendarId(tenantId, userId));
+
       const existing = await this.calendarEventsRepository.findBySystemSource(
         tenantId,
         'HR_ABSENCE',
@@ -74,9 +106,10 @@ export class CalendarSyncService {
           type: eventType,
           isAllDay: true,
         });
-      } else {
+      } else if (calendarId) {
         await this.calendarEventsRepository.create({
           tenantId,
+          calendarId,
           title,
           startDate,
           endDate,
@@ -87,17 +120,20 @@ export class CalendarSyncService {
           systemSourceId: absenceId,
           createdBy: userId,
         });
+      } else {
+        logger.warn(
+          { tenantId, absenceId },
+          'No calendar found for HR absence sync',
+        );
       }
     } catch (err) {
-      logger.warn(
-        { err, absenceId },
-        'Failed to sync absence to calendar',
-      );
+      logger.warn({ err, absenceId }, 'Failed to sync absence to calendar');
     }
   }
 
   async syncFinanceEntry(params: SyncFinanceEntryParams): Promise<void> {
-    const { tenantId, entryId, entryType, description, dueDate, userId } = params;
+    const { tenantId, entryId, entryType, description, dueDate, userId } =
+      params;
 
     const title =
       entryType === 'PAYABLE'
@@ -111,6 +147,10 @@ export class CalendarSyncService {
     endDate.setHours(23, 59, 59, 999);
 
     try {
+      const calendarId =
+        (await this.resolveSystemCalendarId(tenantId, 'FINANCE')) ??
+        (await this.resolvePersonalCalendarId(tenantId, userId));
+
       const existing = await this.calendarEventsRepository.findBySystemSource(
         tenantId,
         'FINANCE_ENTRY',
@@ -127,9 +167,10 @@ export class CalendarSyncService {
           type: 'FINANCE_DUE',
           isAllDay: true,
         });
-      } else {
+      } else if (calendarId) {
         await this.calendarEventsRepository.create({
           tenantId,
+          calendarId,
           title,
           startDate,
           endDate,
@@ -140,12 +181,14 @@ export class CalendarSyncService {
           systemSourceId: entryId,
           createdBy: userId,
         });
+      } else {
+        logger.warn(
+          { tenantId, entryId },
+          'No calendar found for finance entry sync',
+        );
       }
     } catch (err) {
-      logger.warn(
-        { err, entryId },
-        'Failed to sync finance entry to calendar',
-      );
+      logger.warn({ err, entryId }, 'Failed to sync finance entry to calendar');
     }
   }
 
@@ -160,6 +203,10 @@ export class CalendarSyncService {
     endDate.setHours(23, 59, 59, 999);
 
     try {
+      const calendarId =
+        (await this.resolveSystemCalendarId(tenantId, 'STOCK')) ??
+        (await this.resolvePersonalCalendarId(tenantId, userId));
+
       const existing = await this.calendarEventsRepository.findBySystemSource(
         tenantId,
         'STOCK_PO',
@@ -176,9 +223,10 @@ export class CalendarSyncService {
           type: 'PURCHASE_ORDER',
           isAllDay: true,
         });
-      } else {
+      } else if (calendarId) {
         await this.calendarEventsRepository.create({
           tenantId,
+          calendarId,
           title,
           startDate,
           endDate,
@@ -189,6 +237,11 @@ export class CalendarSyncService {
           systemSourceId: poId,
           createdBy: userId,
         });
+      } else {
+        logger.warn(
+          { tenantId, poId },
+          'No calendar found for purchase order sync',
+        );
       }
     } catch (err) {
       logger.warn({ err, poId }, 'Failed to sync purchase order to calendar');
@@ -205,16 +258,24 @@ export class CalendarSyncService {
       now.getFullYear(),
       birthDate.getMonth(),
       birthDate.getDate(),
-      0, 0, 0,
+      0,
+      0,
+      0,
     );
     const endDate = new Date(
       now.getFullYear(),
       birthDate.getMonth(),
       birthDate.getDate(),
-      23, 59, 59,
+      23,
+      59,
+      59,
     );
 
     try {
+      const calendarId =
+        (await this.resolveSystemCalendarId(tenantId, 'HR')) ??
+        (await this.resolvePersonalCalendarId(tenantId, userId));
+
       const existing = await this.calendarEventsRepository.findBySystemSource(
         tenantId,
         'HR_BIRTHDAY',
@@ -232,9 +293,10 @@ export class CalendarSyncService {
           isAllDay: true,
           rrule: 'FREQ=YEARLY',
         });
-      } else {
+      } else if (calendarId) {
         await this.calendarEventsRepository.create({
           tenantId,
+          calendarId,
           title,
           startDate,
           endDate,
@@ -246,12 +308,14 @@ export class CalendarSyncService {
           systemSourceId: employeeId,
           createdBy: userId,
         });
+      } else {
+        logger.warn(
+          { tenantId, employeeId },
+          'No calendar found for birthday sync',
+        );
       }
     } catch (err) {
-      logger.warn(
-        { err, employeeId },
-        'Failed to sync birthday to calendar',
-      );
+      logger.warn({ err, employeeId }, 'Failed to sync birthday to calendar');
     }
   }
 

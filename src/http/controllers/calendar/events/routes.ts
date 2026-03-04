@@ -11,6 +11,9 @@ import { respondToEventController } from './v1-respond-to-event.controller';
 import { removeParticipantController } from './v1-remove-participant.controller';
 import { manageRemindersController } from './v1-manage-reminders.controller';
 import { processDueRemindersController } from './v1-process-due-reminders.controller';
+import { shareEventWithUsersController } from './v1-share-event-with-users.controller';
+import { shareEventWithTeamController } from './v1-share-event-with-team.controller';
+import { unshareEventController } from './v1-unshare-event.controller';
 
 export async function calendarEventsRoutes(app: FastifyInstance) {
   // Register export before :id routes to avoid path collision
@@ -23,6 +26,9 @@ export async function calendarEventsRoutes(app: FastifyInstance) {
   app.register(inviteParticipantsController);
   app.register(respondToEventController);
   app.register(removeParticipantController);
+  app.register(shareEventWithUsersController);
+  app.register(shareEventWithTeamController);
+  app.register(unshareEventController);
   app.register(manageRemindersController);
   app.register(processDueRemindersController);
 }

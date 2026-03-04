@@ -2,16 +2,16 @@ import type { EmailAttachment } from '@/entities/email/email-attachment';
 import type { EmailMessage } from '@/entities/email/email-message';
 import { prisma } from '@/lib/prisma';
 import {
-    emailAttachmentPrismaToDomain,
-    emailMessagePrismaToDomain,
+  emailAttachmentPrismaToDomain,
+  emailMessagePrismaToDomain,
 } from '@/mappers/email';
 import type {
-    CreateEmailAttachmentSchema,
-    CreateEmailMessageSchema,
-    EmailMessagesListParams,
-    EmailMessagesListResult,
-    EmailMessagesRepository,
-    UpdateEmailMessageSchema,
+  CreateEmailAttachmentSchema,
+  CreateEmailMessageSchema,
+  EmailMessagesListParams,
+  EmailMessagesListResult,
+  EmailMessagesRepository,
+  UpdateEmailMessageSchema,
 } from '../email-messages-repository';
 
 export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
@@ -163,6 +163,22 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
     });
 
     return messageDb ? emailMessagePrismaToDomain(messageDb) : null;
+  }
+
+  async updateBody(
+    id: string,
+    bodyText: string | null,
+    bodyHtmlSanitized: string | null,
+    snippet: string | null,
+  ): Promise<void> {
+    await prisma.emailMessage.update({
+      where: { id },
+      data: {
+        bodyText,
+        bodyHtmlSanitized,
+        snippet,
+      },
+    });
   }
 
   async createAttachment(

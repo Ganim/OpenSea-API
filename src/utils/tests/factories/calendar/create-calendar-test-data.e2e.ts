@@ -1,16 +1,23 @@
 import { prisma } from '@/lib/prisma';
 import { randomUUID } from 'node:crypto';
+import type {
+  EventType,
+  EventVisibility,
+  ParticipantRole,
+  ParticipantStatus,
+} from '@prisma/generated/client.js';
 
 interface CreateCalendarEventOptions {
   id?: string;
+  calendarId?: string;
   title?: string;
   description?: string | null;
   location?: string | null;
   startDate?: Date;
   endDate?: Date;
   isAllDay?: boolean;
-  type?: string;
-  visibility?: string;
+  type?: EventType;
+  visibility?: EventVisibility;
   color?: string | null;
   rrule?: string | null;
   timezone?: string | null;
@@ -19,7 +26,36 @@ interface CreateCalendarEventOptions {
 }
 
 /**
+ * Creates a personal calendar for a user if it doesn't already exist.
+ * Returns the calendar ID.
+ */
+export async function ensurePersonalCalendar(
+  tenantId: string,
+  userId: string,
+): Promise<string> {
+  const existing = await prisma.calendar.findFirst({
+    where: { tenantId, type: 'PERSONAL', ownerId: userId, deletedAt: null },
+  });
+  if (existing) return existing.id;
+
+  const calendar = await prisma.calendar.create({
+    data: {
+      tenantId,
+      name: 'Meu Calendário',
+      color: '#3b82f6',
+      type: 'PERSONAL',
+      ownerId: userId,
+      isDefault: true,
+      settings: {},
+      createdBy: userId,
+    },
+  });
+  return calendar.id;
+}
+
+/**
  * Creates a calendar event directly in the database for E2E tests.
+ * Automatically creates a personal calendar if no calendarId is provided.
  */
 export async function createCalendarEvent(
   tenantId: string,
@@ -27,6 +63,8 @@ export async function createCalendarEvent(
   overrides: CreateCalendarEventOptions = {},
 ) {
   const id = overrides.id ?? randomUUID();
+  const calendarId =
+    overrides.calendarId ?? (await ensurePersonalCalendar(tenantId, createdBy));
   const now = new Date();
   const start = overrides.startDate ?? new Date(now.getTime() + 3600_000);
   const end = overrides.endDate ?? new Date(start.getTime() + 3600_000);
@@ -35,6 +73,7 @@ export async function createCalendarEvent(
     data: {
       id,
       tenantId,
+      calendarId,
       title: overrides.title ?? `Test Event ${Date.now()}`,
       description: overrides.description ?? null,
       location: overrides.location ?? null,
@@ -68,8 +107,8 @@ export async function createCalendarEvent(
 }
 
 interface CreateEventParticipantOptions {
-  role?: string;
-  status?: string;
+  role?: ParticipantRole;
+  status?: ParticipantStatus;
 }
 
 /**

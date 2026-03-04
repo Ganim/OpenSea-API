@@ -49,7 +49,10 @@ export async function deleteTeamController(app: FastifyInstance) {
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
-        const { team } = await makeGetTeamByIdUseCase().execute({ tenantId, teamId });
+        const { team } = await makeGetTeamByIdUseCase().execute({
+          tenantId,
+          teamId,
+        });
 
         const useCase = makeDeleteTeamUseCase();
         await useCase.execute({ teamId, tenantId, userId });
@@ -57,7 +60,11 @@ export async function deleteTeamController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.CORE.TEAM_DELETE,
           entityId: teamId,
-          placeholders: { userName, teamName: team.name, teamColor: team.color },
+          placeholders: {
+            userName,
+            teamName: team.name,
+            teamColor: team.color,
+          },
           oldData: { id: team.id, name: team.name, slug: team.slug },
         });
 

@@ -96,9 +96,7 @@ describe('List Share Links (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .get(
-        '/v1/storage/files/00000000-0000-0000-0000-000000000000/shares',
-      )
+      .get('/v1/storage/files/00000000-0000-0000-0000-000000000000/shares')
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(404);

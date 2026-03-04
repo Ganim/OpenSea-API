@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Consortium } from '@/entities/finance/consortium';
+import { getFieldCipherService } from '@/services/security/field-cipher-service';
+import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import { Prisma, type ConsortiumStatus } from '@prisma/generated/client.js';
 import type {
   ConsortiaRepository,
@@ -9,6 +11,16 @@ import type {
   FindManyConsortiaOptions,
   FindManyConsortiaResult,
 } from '../consortia-repository';
+
+const { encryptedFields } = ENCRYPTED_FIELD_CONFIG.Consortium;
+
+function tryGetCipher() {
+  try {
+    return getFieldCipherService();
+  } catch {
+    return null;
+  }
+}
 
 function consortiumPrismaToDomain(raw: {
   id: string;
@@ -71,6 +83,13 @@ function consortiumPrismaToDomain(raw: {
 
 export class PrismaConsortiaRepository implements ConsortiaRepository {
   async create(data: CreateConsortiumSchema): Promise<Consortium> {
+    const cipher = tryGetCipher();
+
+    const encryptedContractNumber =
+      data.contractNumber && cipher
+        ? cipher.encrypt(data.contractNumber)
+        : data.contractNumber;
+
     const consortium = await prisma.consortium.create({
       data: {
         tenantId: data.tenantId,
@@ -80,7 +99,7 @@ export class PrismaConsortiaRepository implements ConsortiaRepository {
         administrator: data.administrator,
         groupNumber: data.groupNumber,
         quotaNumber: data.quotaNumber,
-        contractNumber: data.contractNumber,
+        contractNumber: encryptedContractNumber,
         creditValue: new Prisma.Decimal(data.creditValue),
         monthlyPayment: new Prisma.Decimal(data.monthlyPayment),
         totalInstallments: data.totalInstallments,
@@ -94,7 +113,13 @@ export class PrismaConsortiaRepository implements ConsortiaRepository {
       },
     });
 
-    return consortiumPrismaToDomain(consortium);
+    const decrypted = cipher
+      ? cipher.decryptFields(
+          consortium as Record<string, unknown>,
+          encryptedFields,
+        )
+      : consortium;
+    return consortiumPrismaToDomain(decrypted as typeof consortium);
   }
 
   async findById(
@@ -110,7 +135,15 @@ export class PrismaConsortiaRepository implements ConsortiaRepository {
     });
 
     if (!consortium) return null;
-    return consortiumPrismaToDomain(consortium);
+
+    const cipher = tryGetCipher();
+    const decrypted = cipher
+      ? cipher.decryptFields(
+          consortium as Record<string, unknown>,
+          encryptedFields,
+        )
+      : consortium;
+    return consortiumPrismaToDomain(decrypted as typeof consortium);
   }
 
   async findMany(
@@ -148,49 +181,86 @@ export class PrismaConsortiaRepository implements ConsortiaRepository {
       prisma.consortium.count({ where }),
     ]);
 
+    const cipher = tryGetCipher();
+
     return {
-      consortia: consortia.map(consortiumPrismaToDomain),
+      consortia: consortia.map((c) => {
+        const decrypted = cipher
+          ? cipher.decryptFields(c as Record<string, unknown>, encryptedFields)
+          : c;
+        return consortiumPrismaToDomain(decrypted as typeof c);
+      }),
       total,
     };
   }
 
   async update(data: UpdateConsortiumSchema): Promise<Consortium | null> {
+    const cipher = tryGetCipher();
+
+    // Build update data
+    const updateData: Record<string, unknown> = {
+      ...(data.name !== undefined && { name: data.name }),
+      ...(data.administrator !== undefined && {
+        administrator: data.administrator,
+      }),
+      ...(data.contractNumber !== undefined && {
+        contractNumber: data.contractNumber,
+      }),
+      ...(data.status !== undefined && {
+        status: data.status as ConsortiumStatus,
+      }),
+      ...(data.paidInstallments !== undefined && {
+        paidInstallments: data.paidInstallments,
+      }),
+      ...(data.isContemplated !== undefined && {
+        isContemplated: data.isContemplated,
+      }),
+      ...(data.contemplatedAt !== undefined && {
+        contemplatedAt: data.contemplatedAt,
+      }),
+      ...(data.contemplationType !== undefined && {
+        contemplationType: data.contemplationType,
+      }),
+      ...(data.notes !== undefined && { notes: data.notes }),
+      ...(data.endDate !== undefined && { endDate: data.endDate }),
+    };
+
+    // Encrypt the sensitive fields in updateData
+    const encryptedUpdateData = cipher
+      ? cipher.encryptFields(updateData, encryptedFields)
+      : updateData;
+
+    const whereClause: { id: string; tenantId?: string } = {
+      id: data.id.toString(),
+    };
+    if (data.tenantId) {
+      whereClause.tenantId = data.tenantId;
+    }
+
     const consortium = await prisma.consortium.update({
-      where: { id: data.id.toString() },
-      data: {
-        ...(data.name !== undefined && { name: data.name }),
-        ...(data.administrator !== undefined && {
-          administrator: data.administrator,
-        }),
-        ...(data.contractNumber !== undefined && {
-          contractNumber: data.contractNumber,
-        }),
-        ...(data.status !== undefined && {
-          status: data.status as ConsortiumStatus,
-        }),
-        ...(data.paidInstallments !== undefined && {
-          paidInstallments: data.paidInstallments,
-        }),
-        ...(data.isContemplated !== undefined && {
-          isContemplated: data.isContemplated,
-        }),
-        ...(data.contemplatedAt !== undefined && {
-          contemplatedAt: data.contemplatedAt,
-        }),
-        ...(data.contemplationType !== undefined && {
-          contemplationType: data.contemplationType,
-        }),
-        ...(data.notes !== undefined && { notes: data.notes }),
-        ...(data.endDate !== undefined && { endDate: data.endDate }),
-      },
+      where: whereClause,
+      data: encryptedUpdateData,
     });
 
-    return consortiumPrismaToDomain(consortium);
+    const decrypted = cipher
+      ? cipher.decryptFields(
+          consortium as Record<string, unknown>,
+          encryptedFields,
+        )
+      : consortium;
+    return consortiumPrismaToDomain(decrypted as typeof consortium);
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+    const whereClause: { id: string; tenantId?: string } = {
+      id: id.toString(),
+    };
+    if (tenantId) {
+      whereClause.tenantId = tenantId;
+    }
+
     await prisma.consortium.update({
-      where: { id: id.toString() },
+      where: whereClause,
       data: { deletedAt: new Date() },
     });
   }

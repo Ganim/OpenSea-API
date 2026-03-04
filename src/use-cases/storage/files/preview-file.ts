@@ -24,6 +24,9 @@ const PREVIEWABLE_MIME_TYPES = [
   'text/plain',
   'text/html',
   'text/csv',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/vnd.ms-excel',
 ];
 
 export class PreviewFileUseCase {

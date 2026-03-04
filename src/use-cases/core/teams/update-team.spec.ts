@@ -17,8 +17,18 @@ describe('UpdateTeamUseCase', () => {
 
   it('should update a team name and slug', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const createdTeam = await teamsRepository.create({ tenantId, name: 'Old Name', slug: 'old-name', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: createdTeam.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
+    const createdTeam = await teamsRepository.create({
+      tenantId,
+      name: 'Old Name',
+      slug: 'old-name',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: createdTeam.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
 
     const { team } = await sut.execute({
       tenantId: 'tenant-1',
@@ -33,8 +43,18 @@ describe('UpdateTeamUseCase', () => {
 
   it('should allow ADMIN to update', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const createdTeam = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: createdTeam.id, userId: new UniqueEntityID('user-2'), role: 'ADMIN' });
+    const createdTeam = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: createdTeam.id,
+      userId: new UniqueEntityID('user-2'),
+      role: 'ADMIN',
+    });
 
     const { team } = await sut.execute({
       tenantId: 'tenant-1',
@@ -48,8 +68,18 @@ describe('UpdateTeamUseCase', () => {
 
   it('should reject update from regular MEMBER', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const createdTeam = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: createdTeam.id, userId: new UniqueEntityID('user-3'), role: 'MEMBER' });
+    const createdTeam = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: createdTeam.id,
+      userId: new UniqueEntityID('user-3'),
+      role: 'MEMBER',
+    });
 
     await expect(
       sut.execute({
@@ -63,9 +93,24 @@ describe('UpdateTeamUseCase', () => {
 
   it('should reject duplicate slug', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    await teamsRepository.create({ tenantId, name: 'Existing', slug: 'existing', createdBy: new UniqueEntityID('user-1') });
-    const team2 = await teamsRepository.create({ tenantId, name: 'Other', slug: 'other', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team2.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
+    await teamsRepository.create({
+      tenantId,
+      name: 'Existing',
+      slug: 'existing',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    const team2 = await teamsRepository.create({
+      tenantId,
+      name: 'Other',
+      slug: 'other',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team2.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
 
     await expect(
       sut.execute({
@@ -90,8 +135,18 @@ describe('UpdateTeamUseCase', () => {
 
   it('should reject empty name', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const createdTeam = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: createdTeam.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
+    const createdTeam = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: createdTeam.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
 
     await expect(
       sut.execute({

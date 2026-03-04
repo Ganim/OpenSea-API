@@ -29,6 +29,7 @@ export type TenantUserMinAggregateOutputType = {
   tenantId: string | null
   userId: string | null
   role: string | null
+  securityKeyHash: string | null
   joinedAt: Date | null
   deletedAt: Date | null
   createdAt: Date | null
@@ -40,6 +41,7 @@ export type TenantUserMaxAggregateOutputType = {
   tenantId: string | null
   userId: string | null
   role: string | null
+  securityKeyHash: string | null
   joinedAt: Date | null
   deletedAt: Date | null
   createdAt: Date | null
@@ -51,6 +53,7 @@ export type TenantUserCountAggregateOutputType = {
   tenantId: number
   userId: number
   role: number
+  securityKeyHash: number
   joinedAt: number
   deletedAt: number
   createdAt: number
@@ -64,6 +67,7 @@ export type TenantUserMinAggregateInputType = {
   tenantId?: true
   userId?: true
   role?: true
+  securityKeyHash?: true
   joinedAt?: true
   deletedAt?: true
   createdAt?: true
@@ -75,6 +79,7 @@ export type TenantUserMaxAggregateInputType = {
   tenantId?: true
   userId?: true
   role?: true
+  securityKeyHash?: true
   joinedAt?: true
   deletedAt?: true
   createdAt?: true
@@ -86,6 +91,7 @@ export type TenantUserCountAggregateInputType = {
   tenantId?: true
   userId?: true
   role?: true
+  securityKeyHash?: true
   joinedAt?: true
   deletedAt?: true
   createdAt?: true
@@ -170,6 +176,7 @@ export type TenantUserGroupByOutputType = {
   tenantId: string
   userId: string
   role: string
+  securityKeyHash: string | null
   joinedAt: Date
   deletedAt: Date | null
   createdAt: Date
@@ -202,6 +209,7 @@ export type TenantUserWhereInput = {
   tenantId?: Prisma.StringFilter<"TenantUser"> | string
   userId?: Prisma.StringFilter<"TenantUser"> | string
   role?: Prisma.StringFilter<"TenantUser"> | string
+  securityKeyHash?: Prisma.StringNullableFilter<"TenantUser"> | string | null
   joinedAt?: Prisma.DateTimeFilter<"TenantUser"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"TenantUser"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TenantUser"> | Date | string
@@ -215,6 +223,7 @@ export type TenantUserOrderByWithRelationInput = {
   tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  securityKeyHash?: Prisma.SortOrderInput | Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -232,6 +241,7 @@ export type TenantUserWhereUniqueInput = Prisma.AtLeast<{
   tenantId?: Prisma.StringFilter<"TenantUser"> | string
   userId?: Prisma.StringFilter<"TenantUser"> | string
   role?: Prisma.StringFilter<"TenantUser"> | string
+  securityKeyHash?: Prisma.StringNullableFilter<"TenantUser"> | string | null
   joinedAt?: Prisma.DateTimeFilter<"TenantUser"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"TenantUser"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TenantUser"> | Date | string
@@ -245,6 +255,7 @@ export type TenantUserOrderByWithAggregationInput = {
   tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  securityKeyHash?: Prisma.SortOrderInput | Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -262,6 +273,7 @@ export type TenantUserScalarWhereWithAggregatesInput = {
   tenantId?: Prisma.StringWithAggregatesFilter<"TenantUser"> | string
   userId?: Prisma.StringWithAggregatesFilter<"TenantUser"> | string
   role?: Prisma.StringWithAggregatesFilter<"TenantUser"> | string
+  securityKeyHash?: Prisma.StringNullableWithAggregatesFilter<"TenantUser"> | string | null
   joinedAt?: Prisma.DateTimeWithAggregatesFilter<"TenantUser"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TenantUser"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TenantUser"> | Date | string
@@ -271,6 +283,7 @@ export type TenantUserScalarWhereWithAggregatesInput = {
 export type TenantUserCreateInput = {
   id?: string
   role?: string
+  securityKeyHash?: string | null
   joinedAt?: Date | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -284,6 +297,7 @@ export type TenantUserUncheckedCreateInput = {
   tenantId: string
   userId: string
   role?: string
+  securityKeyHash?: string | null
   joinedAt?: Date | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -293,6 +307,7 @@ export type TenantUserUncheckedCreateInput = {
 export type TenantUserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  securityKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -306,6 +321,7 @@ export type TenantUserUncheckedUpdateInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  securityKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -317,6 +333,7 @@ export type TenantUserCreateManyInput = {
   tenantId: string
   userId: string
   role?: string
+  securityKeyHash?: string | null
   joinedAt?: Date | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -326,6 +343,7 @@ export type TenantUserCreateManyInput = {
 export type TenantUserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  securityKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -337,6 +355,7 @@ export type TenantUserUncheckedUpdateManyInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  securityKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -364,6 +383,7 @@ export type TenantUserCountOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  securityKeyHash?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -375,6 +395,7 @@ export type TenantUserMaxOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  securityKeyHash?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -386,6 +407,7 @@ export type TenantUserMinOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  securityKeyHash?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -479,6 +501,7 @@ export type TenantUserUncheckedUpdateManyWithoutTenantNestedInput = {
 export type TenantUserCreateWithoutUserInput = {
   id?: string
   role?: string
+  securityKeyHash?: string | null
   joinedAt?: Date | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -490,6 +513,7 @@ export type TenantUserUncheckedCreateWithoutUserInput = {
   id?: string
   tenantId: string
   role?: string
+  securityKeyHash?: string | null
   joinedAt?: Date | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -530,6 +554,7 @@ export type TenantUserScalarWhereInput = {
   tenantId?: Prisma.StringFilter<"TenantUser"> | string
   userId?: Prisma.StringFilter<"TenantUser"> | string
   role?: Prisma.StringFilter<"TenantUser"> | string
+  securityKeyHash?: Prisma.StringNullableFilter<"TenantUser"> | string | null
   joinedAt?: Prisma.DateTimeFilter<"TenantUser"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"TenantUser"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TenantUser"> | Date | string
@@ -539,6 +564,7 @@ export type TenantUserScalarWhereInput = {
 export type TenantUserCreateWithoutTenantInput = {
   id?: string
   role?: string
+  securityKeyHash?: string | null
   joinedAt?: Date | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -550,6 +576,7 @@ export type TenantUserUncheckedCreateWithoutTenantInput = {
   id?: string
   userId: string
   role?: string
+  securityKeyHash?: string | null
   joinedAt?: Date | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -586,6 +613,7 @@ export type TenantUserCreateManyUserInput = {
   id?: string
   tenantId: string
   role?: string
+  securityKeyHash?: string | null
   joinedAt?: Date | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -595,6 +623,7 @@ export type TenantUserCreateManyUserInput = {
 export type TenantUserUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  securityKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -606,6 +635,7 @@ export type TenantUserUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  securityKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -616,6 +646,7 @@ export type TenantUserUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  securityKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -626,6 +657,7 @@ export type TenantUserCreateManyTenantInput = {
   id?: string
   userId: string
   role?: string
+  securityKeyHash?: string | null
   joinedAt?: Date | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -635,6 +667,7 @@ export type TenantUserCreateManyTenantInput = {
 export type TenantUserUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  securityKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -646,6 +679,7 @@ export type TenantUserUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  securityKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -656,6 +690,7 @@ export type TenantUserUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  securityKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -669,6 +704,7 @@ export type TenantUserSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   tenantId?: boolean
   userId?: boolean
   role?: boolean
+  securityKeyHash?: boolean
   joinedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
@@ -682,6 +718,7 @@ export type TenantUserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   tenantId?: boolean
   userId?: boolean
   role?: boolean
+  securityKeyHash?: boolean
   joinedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
@@ -695,6 +732,7 @@ export type TenantUserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   tenantId?: boolean
   userId?: boolean
   role?: boolean
+  securityKeyHash?: boolean
   joinedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
@@ -708,13 +746,14 @@ export type TenantUserSelectScalar = {
   tenantId?: boolean
   userId?: boolean
   role?: boolean
+  securityKeyHash?: boolean
   joinedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TenantUserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "role" | "joinedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantUser"]>
+export type TenantUserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "role" | "securityKeyHash" | "joinedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantUser"]>
 export type TenantUserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -739,6 +778,7 @@ export type $TenantUserPayload<ExtArgs extends runtime.Types.Extensions.Internal
     tenantId: string
     userId: string
     role: string
+    securityKeyHash: string | null
     joinedAt: Date
     deletedAt: Date | null
     createdAt: Date
@@ -1172,6 +1212,7 @@ export interface TenantUserFieldRefs {
   readonly tenantId: Prisma.FieldRef<"TenantUser", 'String'>
   readonly userId: Prisma.FieldRef<"TenantUser", 'String'>
   readonly role: Prisma.FieldRef<"TenantUser", 'String'>
+  readonly securityKeyHash: Prisma.FieldRef<"TenantUser", 'String'>
   readonly joinedAt: Prisma.FieldRef<"TenantUser", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"TenantUser", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"TenantUser", 'DateTime'>

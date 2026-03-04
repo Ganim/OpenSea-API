@@ -6,6 +6,7 @@ export interface CreateFolderAccessRuleSchema {
   folderId: string;
   userId?: string | null;
   groupId?: string | null;
+  teamId?: string | null;
   canRead?: boolean;
   canWrite?: boolean;
   canDelete?: boolean;
@@ -30,12 +31,17 @@ export interface FolderAccessRulesRepository {
     folderId: UniqueEntityID,
     groupId: UniqueEntityID,
   ): Promise<FolderAccessRule | null>;
+  findByFolderAndTeam(
+    folderId: UniqueEntityID,
+    teamId: UniqueEntityID,
+  ): Promise<FolderAccessRule | null>;
   deleteRule(id: UniqueEntityID): Promise<void>;
   deleteInheritedByFolder(folderId: UniqueEntityID): Promise<void>;
   deleteInheritedByFolderAndSubject(
     folderId: UniqueEntityID,
     userId: UniqueEntityID | null,
     groupId: UniqueEntityID | null,
+    teamId?: UniqueEntityID | null,
   ): Promise<void>;
   findEffectiveAccess(
     folderId: UniqueEntityID,

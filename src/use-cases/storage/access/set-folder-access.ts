@@ -11,6 +11,7 @@ interface SetFolderAccessUseCaseRequest {
   folderId: string;
   userId?: string;
   groupId?: string;
+  teamId?: string;
   canRead: boolean;
   canWrite: boolean;
   canDelete: boolean;
@@ -33,6 +34,7 @@ export class SetFolderAccessUseCase {
     folderId,
     userId,
     groupId,
+    teamId,
     canRead,
     canWrite,
     canDelete,
@@ -40,14 +42,21 @@ export class SetFolderAccessUseCase {
   }: SetFolderAccessUseCaseRequest): Promise<SetFolderAccessUseCaseResponse> {
     const hasUserId = userId !== undefined && userId !== null;
     const hasGroupId = groupId !== undefined && groupId !== null;
+    const hasTeamId = teamId !== undefined && teamId !== null;
 
-    if (!hasUserId && !hasGroupId) {
-      throw new BadRequestError('Either userId or groupId must be provided.');
+    const subjectCount = [hasUserId, hasGroupId, hasTeamId].filter(
+      Boolean,
+    ).length;
+
+    if (subjectCount === 0) {
+      throw new BadRequestError(
+        'One of userId, groupId, or teamId must be provided.',
+      );
     }
 
-    if (hasUserId && hasGroupId) {
+    if (subjectCount > 1) {
       throw new BadRequestError(
-        'Only one of userId or groupId can be provided, not both.',
+        'Only one of userId, groupId, or teamId can be provided.',
       );
     }
 
@@ -69,12 +78,17 @@ export class SetFolderAccessUseCase {
         folderEntityId,
         new UniqueEntityID(userId),
       );
-    } else {
+    } else if (hasGroupId) {
       existingRule =
         await this.folderAccessRulesRepository.findByFolderAndGroup(
           folderEntityId,
           new UniqueEntityID(groupId!),
         );
+    } else {
+      existingRule = await this.folderAccessRulesRepository.findByFolderAndTeam(
+        folderEntityId,
+        new UniqueEntityID(teamId!),
+      );
     }
 
     let rule: FolderAccessRule;
@@ -94,6 +108,7 @@ export class SetFolderAccessUseCase {
         folderId,
         userId: hasUserId ? userId : null,
         groupId: hasGroupId ? groupId : null,
+        teamId: hasTeamId ? teamId : null,
         canRead,
         canWrite,
         canDelete,
@@ -107,6 +122,7 @@ export class SetFolderAccessUseCase {
       folderId,
       userId: hasUserId ? userId : null,
       groupId: hasGroupId ? groupId : null,
+      teamId: hasTeamId ? teamId : null,
       canRead,
       canWrite,
       canDelete,

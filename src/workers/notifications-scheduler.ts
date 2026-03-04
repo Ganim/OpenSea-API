@@ -28,7 +28,10 @@ async function processBatch() {
 try {
   await processBatch();
   setInterval(processBatch, interval);
-  logger.info({ interval }, 'Notifications scheduler worker started successfully');
+  logger.info(
+    { interval },
+    'Notifications scheduler worker started successfully',
+  );
 } catch {
   logger.error('Failed to start notifications scheduler worker');
 }

@@ -11,6 +11,7 @@ export function mapFolderAccessRulePrismaToDomain(
     folderId: new UniqueEntityID(ruleDb.folderId),
     userId: ruleDb.userId ? new UniqueEntityID(ruleDb.userId) : null,
     groupId: ruleDb.groupId ? new UniqueEntityID(ruleDb.groupId) : null,
+    teamId: ruleDb.teamId ? new UniqueEntityID(ruleDb.teamId) : null,
     canRead: ruleDb.canRead,
     canWrite: ruleDb.canWrite,
     canDelete: ruleDb.canDelete,

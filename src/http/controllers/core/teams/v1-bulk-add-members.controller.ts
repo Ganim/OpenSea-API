@@ -72,8 +72,16 @@ export async function bulkAddTeamMembersController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.CORE.TEAM_MEMBERS_BULK_ADD,
           entityId: teamId,
-          placeholders: { userName, count: result.added.length, teamName: team.name, teamColor: team.color },
-          newData: { addedCount: result.added.length, skippedCount: result.skipped.length },
+          placeholders: {
+            userName,
+            count: result.added.length,
+            teamName: team.name,
+            teamColor: team.color,
+          },
+          newData: {
+            addedCount: result.added.length,
+            skippedCount: result.skipped.length,
+          },
         });
 
         return reply.status(200).send(result);

@@ -10,6 +10,7 @@ process.loadEnvFile();
 
 process.env.NODE_ENV = 'test';
 process.env.SILENCE_RATE_LIMIT_LOGS = '1';
+console.log(`🧪 Vitest execArgv: ${JSON.stringify(process.execArgv)}`);
 
 // Gera schema único ANTES de qualquer importação do app
 const schema = `test_${randomUUID().replace(/-/g, '_')}`;
@@ -43,6 +44,32 @@ await execFileAsync(
     shell: true,
   },
 );
+
+// Create system user required by EnsureSystemCalendarsUseCase (SYSTEM_USER_ID)
+{
+  const { PrismaClient } = await import('./generated/prisma/client.js');
+  const { PrismaPg } = await import('@prisma/adapter-pg');
+
+  const adapter = new PrismaPg(
+    { connectionString: testDatabaseUrl },
+    { schema },
+  );
+  const setupClient = new PrismaClient({ adapter });
+
+  await setupClient.user
+    .create({
+      data: {
+        id: '00000000-0000-0000-0000-000000000000',
+        email: 'system@system.internal',
+        password_hash: 'not-a-real-hash',
+      },
+    })
+    .catch(() => {
+      // Ignore if already exists
+    });
+
+  await setupClient.$disconnect();
+}
 
 console.log(`🧪 Testes E2E usando schema: ${schema}`);
 

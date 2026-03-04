@@ -8,6 +8,8 @@ export interface FolderAccessRuleDTO {
   userName: string | null;
   groupId: string | null;
   groupName: string | null;
+  teamId: string | null;
+  teamName: string | null;
   canRead: boolean;
   canWrite: boolean;
   canDelete: boolean;
@@ -19,7 +21,11 @@ export interface FolderAccessRuleDTO {
 
 export function folderAccessRuleToDTO(
   rule: FolderAccessRule,
-  resolvedNames?: { userName?: string | null; groupName?: string | null },
+  resolvedNames?: {
+    userName?: string | null;
+    groupName?: string | null;
+    teamName?: string | null;
+  },
 ): FolderAccessRuleDTO {
   return {
     id: rule.ruleId.toString(),
@@ -29,6 +35,8 @@ export function folderAccessRuleToDTO(
     userName: resolvedNames?.userName ?? null,
     groupId: rule.groupId?.toString() ?? null,
     groupName: resolvedNames?.groupName ?? null,
+    teamId: rule.teamId?.toString() ?? null,
+    teamName: resolvedNames?.teamName ?? null,
     canRead: rule.canRead,
     canWrite: rule.canWrite,
     canDelete: rule.canDelete,

@@ -23,6 +23,6 @@ export class DeleteBankAccountUseCase {
       throw new ResourceNotFoundError('Bank account not found');
     }
 
-    await this.bankAccountsRepository.delete(new UniqueEntityID(id));
+    await this.bankAccountsRepository.delete(new UniqueEntityID(id), tenantId);
   }
 }

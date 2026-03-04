@@ -144,7 +144,7 @@ export class InMemoryManufacturersRepository
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const manufacturer = this.items.find(
       (item) => !item.deletedAt && item.manufacturerId.equals(id),
     );

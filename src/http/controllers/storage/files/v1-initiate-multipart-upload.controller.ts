@@ -1,6 +1,7 @@
 import { env } from '@/@env';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PermissionCodes } from '@/constants/rbac';
+import { isAllowedMimeType } from '@/constants/storage/allowed-mime-types';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -65,13 +66,23 @@ export async function initiateMultipartUploadController(app: FastifyInstance) {
           prefix?: string;
         };
 
+      // Validate MIME type
+      if (!isAllowedMimeType(mimeType)) {
+        return reply.status(400).send({
+          message: `Tipo de arquivo não permitido: ${mimeType}`,
+        });
+      }
+
       try {
         const fileUploadService = env.S3_ENDPOINT
           ? new S3FileUploadService()
           : new LocalFileUploadService();
 
         const uploadPrefix =
-          prefix ?? (folderId ? `storage/${tenantId}/${folderId}` : `storage/${tenantId}`);
+          prefix ??
+          (folderId
+            ? `storage/${tenantId}/${folderId}`
+            : `storage/${tenantId}`);
 
         const { uploadId, key } =
           await fileUploadService.initiateMultipartUpload(fileName, mimeType, {

@@ -51,6 +51,7 @@ export type ManufacturerMinAggregateOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  cnpjHash: string | null
   isActive: boolean | null
   notes: string | null
   rating: runtime.Decimal | null
@@ -75,6 +76,7 @@ export type ManufacturerMaxAggregateOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  cnpjHash: string | null
   isActive: boolean | null
   notes: string | null
   rating: runtime.Decimal | null
@@ -99,6 +101,7 @@ export type ManufacturerCountAggregateOutputType = {
   city: number
   state: number
   zipCode: number
+  cnpjHash: number
   isActive: number
   notes: number
   rating: number
@@ -135,6 +138,7 @@ export type ManufacturerMinAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  cnpjHash?: true
   isActive?: true
   notes?: true
   rating?: true
@@ -159,6 +163,7 @@ export type ManufacturerMaxAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  cnpjHash?: true
   isActive?: true
   notes?: true
   rating?: true
@@ -183,6 +188,7 @@ export type ManufacturerCountAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  cnpjHash?: true
   isActive?: true
   notes?: true
   rating?: true
@@ -294,6 +300,7 @@ export type ManufacturerGroupByOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  cnpjHash: string | null
   isActive: boolean
   notes: string | null
   rating: runtime.Decimal | null
@@ -341,6 +348,7 @@ export type ManufacturerWhereInput = {
   city?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   state?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   isActive?: Prisma.BoolFilter<"Manufacturer"> | boolean
   notes?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   rating?: Prisma.DecimalNullableFilter<"Manufacturer"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -367,6 +375,7 @@ export type ManufacturerOrderByWithRelationInput = {
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   state?: Prisma.SortOrderInput | Prisma.SortOrder
   zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -397,6 +406,7 @@ export type ManufacturerWhereUniqueInput = Prisma.AtLeast<{
   city?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   state?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   isActive?: Prisma.BoolFilter<"Manufacturer"> | boolean
   notes?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   rating?: Prisma.DecimalNullableFilter<"Manufacturer"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -423,6 +433,7 @@ export type ManufacturerOrderByWithAggregationInput = {
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   state?: Prisma.SortOrderInput | Prisma.SortOrder
   zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -455,6 +466,7 @@ export type ManufacturerScalarWhereWithAggregatesInput = {
   city?: Prisma.StringNullableWithAggregatesFilter<"Manufacturer"> | string | null
   state?: Prisma.StringNullableWithAggregatesFilter<"Manufacturer"> | string | null
   zipCode?: Prisma.StringNullableWithAggregatesFilter<"Manufacturer"> | string | null
+  cnpjHash?: Prisma.StringNullableWithAggregatesFilter<"Manufacturer"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"Manufacturer"> | boolean
   notes?: Prisma.StringNullableWithAggregatesFilter<"Manufacturer"> | string | null
   rating?: Prisma.DecimalNullableWithAggregatesFilter<"Manufacturer"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -479,6 +491,7 @@ export type ManufacturerCreateInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
   isActive?: boolean
   notes?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -504,6 +517,7 @@ export type ManufacturerUncheckedCreateInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
   isActive?: boolean
   notes?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -529,6 +543,7 @@ export type ManufacturerUpdateInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -554,6 +569,7 @@ export type ManufacturerUncheckedUpdateInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -579,6 +595,7 @@ export type ManufacturerCreateManyInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
   isActive?: boolean
   notes?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -603,6 +620,7 @@ export type ManufacturerUpdateManyMutationInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -626,6 +644,7 @@ export type ManufacturerUncheckedUpdateManyInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -655,6 +674,7 @@ export type ManufacturerCountOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -684,6 +704,7 @@ export type ManufacturerMaxOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -708,6 +729,7 @@ export type ManufacturerMinOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -810,6 +832,7 @@ export type ManufacturerCreateWithoutProductsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
   isActive?: boolean
   notes?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -834,6 +857,7 @@ export type ManufacturerUncheckedCreateWithoutProductsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
   isActive?: boolean
   notes?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -874,6 +898,7 @@ export type ManufacturerUpdateWithoutProductsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -898,6 +923,7 @@ export type ManufacturerUncheckedUpdateWithoutProductsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -922,6 +948,7 @@ export type ManufacturerCreateWithoutTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
   isActive?: boolean
   notes?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -946,6 +973,7 @@ export type ManufacturerUncheckedCreateWithoutTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
   isActive?: boolean
   notes?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -999,6 +1027,7 @@ export type ManufacturerScalarWhereInput = {
   city?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   state?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   isActive?: Prisma.BoolFilter<"Manufacturer"> | boolean
   notes?: Prisma.StringNullableFilter<"Manufacturer"> | string | null
   rating?: Prisma.DecimalNullableFilter<"Manufacturer"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1023,6 +1052,7 @@ export type ManufacturerCreateManyTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
   isActive?: boolean
   notes?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1046,6 +1076,7 @@ export type ManufacturerUpdateWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1070,6 +1101,7 @@ export type ManufacturerUncheckedUpdateWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1094,6 +1126,7 @@ export type ManufacturerUncheckedUpdateManyWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1148,6 +1181,7 @@ export type ManufacturerSelect<ExtArgs extends runtime.Types.Extensions.Internal
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cnpjHash?: boolean
   isActive?: boolean
   notes?: boolean
   rating?: boolean
@@ -1175,6 +1209,7 @@ export type ManufacturerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cnpjHash?: boolean
   isActive?: boolean
   notes?: boolean
   rating?: boolean
@@ -1200,6 +1235,7 @@ export type ManufacturerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cnpjHash?: boolean
   isActive?: boolean
   notes?: boolean
   rating?: boolean
@@ -1225,6 +1261,7 @@ export type ManufacturerSelectScalar = {
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cnpjHash?: boolean
   isActive?: boolean
   notes?: boolean
   rating?: boolean
@@ -1234,7 +1271,7 @@ export type ManufacturerSelectScalar = {
   tenantId?: boolean
 }
 
-export type ManufacturerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "sequentialCode" | "name" | "legalName" | "cnpj" | "country" | "email" | "phone" | "website" | "address" | "city" | "state" | "zipCode" | "isActive" | "notes" | "rating" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["manufacturer"]>
+export type ManufacturerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "sequentialCode" | "name" | "legalName" | "cnpj" | "country" | "email" | "phone" | "website" | "address" | "city" | "state" | "zipCode" | "cnpjHash" | "isActive" | "notes" | "rating" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["manufacturer"]>
 export type ManufacturerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Manufacturer$productsArgs<ExtArgs>
@@ -1268,6 +1305,7 @@ export type $ManufacturerPayload<ExtArgs extends runtime.Types.Extensions.Intern
     city: string | null
     state: string | null
     zipCode: string | null
+    cnpjHash: string | null
     isActive: boolean
     notes: string | null
     rating: runtime.Decimal | null
@@ -1714,6 +1752,7 @@ export interface ManufacturerFieldRefs {
   readonly city: Prisma.FieldRef<"Manufacturer", 'String'>
   readonly state: Prisma.FieldRef<"Manufacturer", 'String'>
   readonly zipCode: Prisma.FieldRef<"Manufacturer", 'String'>
+  readonly cnpjHash: Prisma.FieldRef<"Manufacturer", 'String'>
   readonly isActive: Prisma.FieldRef<"Manufacturer", 'Boolean'>
   readonly notes: Prisma.FieldRef<"Manufacturer", 'String'>
   readonly rating: Prisma.FieldRef<"Manufacturer", 'Decimal'>

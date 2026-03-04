@@ -36,6 +36,7 @@ describe('InviteParticipantsUseCase', () => {
     // Create an event
     await eventsRepo.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Team Meeting',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -49,6 +50,7 @@ describe('InviteParticipantsUseCase', () => {
       userId: 'user-owner',
       role: 'OWNER',
       status: 'ACCEPTED',
+      tenantId: 'tenant-1',
     });
   });
 
@@ -79,6 +81,7 @@ describe('InviteParticipantsUseCase', () => {
       eventId,
       userId: 'user-2',
       role: 'GUEST',
+      tenantId: 'tenant-1',
     });
 
     const result = await sut.execute({
@@ -99,6 +102,7 @@ describe('InviteParticipantsUseCase', () => {
       eventId,
       userId: 'user-guest',
       role: 'GUEST',
+      tenantId: 'tenant-1',
     });
 
     await expect(

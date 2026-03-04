@@ -28,12 +28,14 @@ describe('RespondToEventUseCase', () => {
       code: 'calendar.event.rsvp',
       name: 'Calendar Event RSVP',
       titleTemplate: 'Resposta ao convite',
-      messageTemplate: '{{participantName}} {{status}} o convite para "{{eventTitle}}"',
+      messageTemplate:
+        '{{participantName}} {{status}} o convite para "{{eventTitle}}"',
       defaultChannel: 'IN_APP',
     });
 
     await eventsRepo.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Team Meeting',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -47,6 +49,7 @@ describe('RespondToEventUseCase', () => {
       userId: 'user-owner',
       role: 'OWNER',
       status: 'ACCEPTED',
+      tenantId: 'tenant-1',
     });
 
     await participantsRepo.create({
@@ -54,6 +57,7 @@ describe('RespondToEventUseCase', () => {
       userId: 'user-guest',
       role: 'GUEST',
       status: 'PENDING',
+      tenantId: 'tenant-1',
     });
   });
 
@@ -69,7 +73,10 @@ describe('RespondToEventUseCase', () => {
     });
 
     expect(result.status).toBe('ACCEPTED');
-    const participant = await participantsRepo.findByEventAndUser(eventId, 'user-guest');
+    const participant = await participantsRepo.findByEventAndUser(
+      eventId,
+      'user-guest',
+    );
     expect(participant?.status).toBe('ACCEPTED');
     expect(participant?.respondedAt).toBeTruthy();
   });

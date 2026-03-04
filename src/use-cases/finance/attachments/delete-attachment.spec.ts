@@ -22,6 +22,18 @@ function createMockFileUploadService(): FileUploadService {
       .fn()
       .mockResolvedValue('https://storage.example.com/presigned/test.pdf'),
     delete: vi.fn().mockResolvedValue(undefined),
+    getObject: vi.fn().mockResolvedValue(Buffer.alloc(0)),
+    initiateMultipartUpload: vi
+      .fn()
+      .mockResolvedValue({ uploadId: 'test', key: 'test' }),
+    getPresignedPartUrls: vi.fn().mockResolvedValue([]),
+    completeMultipartUpload: vi.fn().mockResolvedValue({
+      key: 'test',
+      url: 'test',
+      size: 0,
+      mimeType: 'test',
+    }),
+    abortMultipartUpload: vi.fn().mockResolvedValue(undefined),
   };
 }
 

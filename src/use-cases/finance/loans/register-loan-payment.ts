@@ -84,6 +84,7 @@ export class RegisterLoanPaymentUseCase {
 
     const updatedLoan = await this.loansRepository.update({
       id: new UniqueEntityID(loanId),
+      tenantId,
       outstandingBalance: newOutstandingBalance,
       paidInstallments: newPaidInstallments,
       ...(isFullyPaid && { status: 'PAID_OFF' }),

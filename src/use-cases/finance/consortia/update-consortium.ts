@@ -47,6 +47,7 @@ export class UpdateConsortiumUseCase {
 
     const updated = await this.consortiaRepository.update({
       id: new UniqueEntityID(id),
+      tenantId,
       name: request.name?.trim(),
       administrator: request.administrator?.trim(),
       contractNumber: request.contractNumber,

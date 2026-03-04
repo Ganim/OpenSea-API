@@ -22,6 +22,10 @@ export interface StorageFileProps {
   entityId: string | null;
   expiresAt: Date | null;
   uploadedBy: string;
+  isEncrypted: boolean;
+  isProtected: boolean;
+  protectionHash: string | null;
+  isHidden: boolean;
   versions?: StorageFileVersion[];
   createdAt: Date;
   updatedAt: Date;
@@ -96,6 +100,22 @@ export class StorageFile extends Entity<StorageFileProps> {
 
   get uploadedBy(): string {
     return this.props.uploadedBy;
+  }
+
+  get isEncrypted(): boolean {
+    return this.props.isEncrypted;
+  }
+
+  get isProtected(): boolean {
+    return this.props.isProtected;
+  }
+
+  get protectionHash(): string | null {
+    return this.props.protectionHash;
+  }
+
+  get isHidden(): boolean {
+    return this.props.isHidden;
   }
 
   get versions(): StorageFileVersion[] | undefined {
@@ -220,6 +240,10 @@ export class StorageFile extends Entity<StorageFileProps> {
       | 'entityType'
       | 'entityId'
       | 'expiresAt'
+      | 'isEncrypted'
+      | 'isProtected'
+      | 'protectionHash'
+      | 'isHidden'
     >,
     id?: UniqueEntityID,
   ): StorageFile {
@@ -233,6 +257,10 @@ export class StorageFile extends Entity<StorageFileProps> {
         entityType: props.entityType ?? null,
         entityId: props.entityId ?? null,
         expiresAt: props.expiresAt ?? null,
+        isEncrypted: props.isEncrypted ?? false,
+        isProtected: props.isProtected ?? false,
+        protectionHash: props.protectionHash ?? null,
+        isHidden: props.isHidden ?? false,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
         deletedAt: props.deletedAt ?? null,

@@ -2,18 +2,31 @@ import { CalendarEvent } from '@/entities/calendar/calendar-event';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
   CalendarEventsRepository,
+  CalendarEventWithRelations,
   CreateCalendarEventSchema,
   UpdateCalendarEventSchema,
   FindManyCalendarEventsOptions,
   FindManyCalendarEventsResult,
+  FindManyWithRelationsResult,
 } from '../calendar-events-repository';
 
-export class InMemoryCalendarEventsRepository implements CalendarEventsRepository {
+export class InMemoryCalendarEventsRepository
+  implements CalendarEventsRepository
+{
   public items: CalendarEvent[] = [];
+  public participantsStore = new Map<
+    string,
+    CalendarEventWithRelations['participants']
+  >();
+  public remindersStore = new Map<
+    string,
+    CalendarEventWithRelations['reminders']
+  >();
 
   async create(data: CreateCalendarEventSchema): Promise<CalendarEvent> {
     const event = CalendarEvent.create({
       tenantId: new UniqueEntityID(data.tenantId),
+      calendarId: data.calendarId,
       title: data.title,
       description: data.description,
       location: data.location,
@@ -46,7 +59,23 @@ export class InMemoryCalendarEventsRepository implements CalendarEventsRepositor
     );
   }
 
-  async findMany(options: FindManyCalendarEventsOptions): Promise<FindManyCalendarEventsResult> {
+  async findByIdWithRelations(
+    id: string,
+    tenantId: string,
+  ): Promise<CalendarEventWithRelations | null> {
+    const event = await this.findById(id, tenantId);
+    if (!event) return null;
+    return {
+      event,
+      creatorName: null,
+      participants: this.participantsStore.get(event.id.toString()) ?? [],
+      reminders: this.remindersStore.get(event.id.toString()) ?? [],
+    };
+  }
+
+  async findMany(
+    options: FindManyCalendarEventsOptions,
+  ): Promise<FindManyCalendarEventsResult> {
     const filtered = this.items.filter((item) => {
       if (item.tenantId.toString() !== options.tenantId) return false;
       if (item.deletedAt) return false;
@@ -54,11 +83,15 @@ export class InMemoryCalendarEventsRepository implements CalendarEventsRepositor
       if (item.endDate < options.startDate) return false;
       if (options.type && item.type !== options.type) return false;
       if (!options.includeSystemEvents && item.isSystemEvent) return false;
+      if (options.calendarIds && options.calendarIds.length > 0) {
+        if (!item.calendarId || !options.calendarIds.includes(item.calendarId))
+          return false;
+      }
       if (options.search) {
         const search = options.search.toLowerCase();
         if (
           !item.title.toLowerCase().includes(search) &&
-          !(item.description?.toLowerCase().includes(search))
+          !item.description?.toLowerCase().includes(search)
         ) {
           return false;
         }
@@ -79,6 +112,21 @@ export class InMemoryCalendarEventsRepository implements CalendarEventsRepositor
     return { events, total };
   }
 
+  async findManyWithRelations(
+    options: FindManyCalendarEventsOptions,
+  ): Promise<FindManyWithRelationsResult> {
+    const { events, total } = await this.findMany(options);
+    return {
+      events: events.map((event) => ({
+        event,
+        creatorName: null,
+        participants: this.participantsStore.get(event.id.toString()) ?? [],
+        reminders: this.remindersStore.get(event.id.toString()) ?? [],
+      })),
+      total,
+    };
+  }
+
   async findBySystemSource(
     tenantId: string,
     sourceType: string,
@@ -97,7 +145,9 @@ export class InMemoryCalendarEventsRepository implements CalendarEventsRepositor
 
   async update(data: UpdateCalendarEventSchema): Promise<CalendarEvent | null> {
     const event = this.items.find(
-      (item) => item.id.toString() === data.id && item.tenantId.toString() === data.tenantId,
+      (item) =>
+        item.id.toString() === data.id &&
+        item.tenantId.toString() === data.tenantId,
     );
     if (!event) return null;
 
@@ -119,7 +169,8 @@ export class InMemoryCalendarEventsRepository implements CalendarEventsRepositor
 
   async softDelete(id: string, tenantId: string): Promise<void> {
     const event = this.items.find(
-      (item) => item.id.toString() === id && item.tenantId.toString() === tenantId,
+      (item) =>
+        item.id.toString() === id && item.tenantId.toString() === tenantId,
     );
     if (event) {
       event.delete();

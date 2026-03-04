@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { financeEntryPrismaToDomain } from '@/mappers/finance/finance-entry/finance-entry-prisma-to-domain';
+import { getFieldCipherService } from '@/services/security/field-cipher-service';
+import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import {
   Prisma,
   type FinanceEntryType,
@@ -22,10 +24,40 @@ import type {
   OverdueByParty,
 } from '../finance-entries-repository';
 
+const { encryptedFields } = ENCRYPTED_FIELD_CONFIG.FinanceEntry;
+
+function tryGetCipher() {
+  try {
+    return getFieldCipherService();
+  } catch {
+    return null;
+  }
+}
+
 export class PrismaFinanceEntriesRepository
   implements FinanceEntriesRepository
 {
   async create(data: CreateFinanceEntrySchema): Promise<FinanceEntry> {
+    const cipher = tryGetCipher();
+
+    // Encrypt sensitive fields
+    const encryptedData = cipher
+      ? cipher.encryptFields(
+          {
+            boletoBarcode: data.boletoBarcode,
+            boletoDigitLine: data.boletoDigitLine,
+            supplierName: data.supplierName,
+            customerName: data.customerName,
+          },
+          encryptedFields,
+        )
+      : {
+          boletoBarcode: data.boletoBarcode,
+          boletoDigitLine: data.boletoDigitLine,
+          supplierName: data.supplierName,
+          customerName: data.customerName,
+        };
+
     const entry = await prisma.financeEntry.create({
       data: {
         tenantId: data.tenantId,
@@ -36,8 +68,8 @@ export class PrismaFinanceEntriesRepository
         categoryId: data.categoryId,
         costCenterId: data.costCenterId,
         bankAccountId: data.bankAccountId,
-        supplierName: data.supplierName,
-        customerName: data.customerName,
+        supplierName: encryptedData.supplierName,
+        customerName: encryptedData.customerName,
         supplierId: data.supplierId,
         customerId: data.customerId,
         salesOrderId: data.salesOrderId,
@@ -61,15 +93,20 @@ export class PrismaFinanceEntriesRepository
         totalInstallments: data.totalInstallments,
         currentInstallment: data.currentInstallment,
         parentEntryId: data.parentEntryId,
-        boletoBarcode: data.boletoBarcode,
-        boletoDigitLine: data.boletoDigitLine,
+        boletoBarcode: encryptedData.boletoBarcode,
+        boletoDigitLine: encryptedData.boletoDigitLine,
         metadata: (data.metadata ?? {}) as Record<string, never>,
         tags: data.tags ?? [],
         createdBy: data.createdBy,
       },
     });
 
-    return financeEntryPrismaToDomain(entry);
+    // Decrypt before passing to mapper
+    const decrypted = cipher
+      ? cipher.decryptFields(entry as Record<string, unknown>, encryptedFields)
+      : entry;
+
+    return financeEntryPrismaToDomain(decrypted as typeof entry);
   }
 
   async findById(
@@ -85,7 +122,13 @@ export class PrismaFinanceEntriesRepository
     });
 
     if (!entry) return null;
-    return financeEntryPrismaToDomain(entry);
+
+    const cipher = tryGetCipher();
+    const decrypted = cipher
+      ? cipher.decryptFields(entry as Record<string, unknown>, encryptedFields)
+      : entry;
+
+    return financeEntryPrismaToDomain(decrypted as typeof entry);
   }
 
   async findByCode(
@@ -101,7 +144,13 @@ export class PrismaFinanceEntriesRepository
     });
 
     if (!entry) return null;
-    return financeEntryPrismaToDomain(entry);
+
+    const cipher = tryGetCipher();
+    const decrypted = cipher
+      ? cipher.decryptFields(entry as Record<string, unknown>, encryptedFields)
+      : entry;
+
+    return financeEntryPrismaToDomain(decrypted as typeof entry);
   }
 
   async findMany(
@@ -224,74 +273,110 @@ export class PrismaFinanceEntriesRepository
       prisma.financeEntry.count({ where }),
     ]);
 
+    const cipher = tryGetCipher();
+
     return {
-      entries: entries.map(financeEntryPrismaToDomain),
+      entries: entries.map((e) => {
+        const decrypted = cipher
+          ? cipher.decryptFields(e as Record<string, unknown>, encryptedFields)
+          : e;
+        return financeEntryPrismaToDomain(decrypted as typeof e);
+      }),
       total,
     };
   }
 
   async update(data: UpdateFinanceEntrySchema): Promise<FinanceEntry | null> {
+    const cipher = tryGetCipher();
+
+    // Build update data object with original values first
+    const updateData: Record<string, unknown> = {
+      ...(data.description !== undefined && {
+        description: data.description,
+      }),
+      ...(data.notes !== undefined && { notes: data.notes }),
+      ...(data.categoryId !== undefined && { categoryId: data.categoryId }),
+      ...(data.costCenterId !== undefined && {
+        costCenterId: data.costCenterId,
+      }),
+      ...(data.bankAccountId !== undefined && {
+        bankAccountId: data.bankAccountId,
+      }),
+      ...(data.supplierName !== undefined && {
+        supplierName: data.supplierName,
+      }),
+      ...(data.customerName !== undefined && {
+        customerName: data.customerName,
+      }),
+      ...(data.expectedAmount !== undefined && {
+        expectedAmount: new Prisma.Decimal(data.expectedAmount),
+      }),
+      ...(data.discount !== undefined && {
+        discount: new Prisma.Decimal(data.discount),
+      }),
+      ...(data.interest !== undefined && {
+        interest: new Prisma.Decimal(data.interest),
+      }),
+      ...(data.penalty !== undefined && {
+        penalty: new Prisma.Decimal(data.penalty),
+      }),
+      ...(data.dueDate !== undefined && { dueDate: data.dueDate }),
+      ...(data.competenceDate !== undefined && {
+        competenceDate: data.competenceDate,
+      }),
+      ...(data.status !== undefined && {
+        status: data.status as FinanceEntryStatus,
+      }),
+      ...(data.actualAmount !== undefined && {
+        actualAmount: new Prisma.Decimal(data.actualAmount),
+      }),
+      ...(data.paymentDate !== undefined && {
+        paymentDate: data.paymentDate,
+      }),
+      ...(data.boletoBarcode !== undefined && {
+        boletoBarcode: data.boletoBarcode,
+      }),
+      ...(data.boletoDigitLine !== undefined && {
+        boletoDigitLine: data.boletoDigitLine,
+      }),
+      ...(data.tags !== undefined && { tags: data.tags }),
+    };
+
+    // Encrypt the sensitive fields in updateData
+    const encryptedUpdateData = cipher
+      ? cipher.encryptFields(updateData, encryptedFields)
+      : updateData;
+
+    const whereClause: { id: string; tenantId?: string } = {
+      id: data.id.toString(),
+    };
+    if (data.tenantId) {
+      whereClause.tenantId = data.tenantId;
+    }
+
     const entry = await prisma.financeEntry.update({
-      where: { id: data.id.toString() },
-      data: {
-        ...(data.description !== undefined && {
-          description: data.description,
-        }),
-        ...(data.notes !== undefined && { notes: data.notes }),
-        ...(data.categoryId !== undefined && { categoryId: data.categoryId }),
-        ...(data.costCenterId !== undefined && {
-          costCenterId: data.costCenterId,
-        }),
-        ...(data.bankAccountId !== undefined && {
-          bankAccountId: data.bankAccountId,
-        }),
-        ...(data.supplierName !== undefined && {
-          supplierName: data.supplierName,
-        }),
-        ...(data.customerName !== undefined && {
-          customerName: data.customerName,
-        }),
-        ...(data.expectedAmount !== undefined && {
-          expectedAmount: new Prisma.Decimal(data.expectedAmount),
-        }),
-        ...(data.discount !== undefined && {
-          discount: new Prisma.Decimal(data.discount),
-        }),
-        ...(data.interest !== undefined && {
-          interest: new Prisma.Decimal(data.interest),
-        }),
-        ...(data.penalty !== undefined && {
-          penalty: new Prisma.Decimal(data.penalty),
-        }),
-        ...(data.dueDate !== undefined && { dueDate: data.dueDate }),
-        ...(data.competenceDate !== undefined && {
-          competenceDate: data.competenceDate,
-        }),
-        ...(data.status !== undefined && {
-          status: data.status as FinanceEntryStatus,
-        }),
-        ...(data.actualAmount !== undefined && {
-          actualAmount: new Prisma.Decimal(data.actualAmount),
-        }),
-        ...(data.paymentDate !== undefined && {
-          paymentDate: data.paymentDate,
-        }),
-        ...(data.boletoBarcode !== undefined && {
-          boletoBarcode: data.boletoBarcode,
-        }),
-        ...(data.boletoDigitLine !== undefined && {
-          boletoDigitLine: data.boletoDigitLine,
-        }),
-        ...(data.tags !== undefined && { tags: data.tags }),
-      },
+      where: whereClause,
+      data: encryptedUpdateData,
     });
 
-    return financeEntryPrismaToDomain(entry);
+    // Decrypt before passing to mapper
+    const decrypted = cipher
+      ? cipher.decryptFields(entry as Record<string, unknown>, encryptedFields)
+      : entry;
+
+    return financeEntryPrismaToDomain(decrypted as typeof entry);
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+    const whereClause: { id: string; tenantId?: string } = {
+      id: id.toString(),
+    };
+    if (tenantId) {
+      whereClause.tenantId = tenantId;
+    }
+
     await prisma.financeEntry.update({
-      where: { id: id.toString() },
+      where: whereClause,
       data: { deletedAt: new Date() },
     });
   }

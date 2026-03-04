@@ -24,7 +24,8 @@ export async function restoreFolderController(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Storage - Trash'],
-      summary: 'Restore a deleted folder from trash (with descendants and files)',
+      summary:
+        'Restore a deleted folder from trash (with descendants and files)',
       params: z.object({
         folderId: z.string().uuid(),
       }),

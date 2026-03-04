@@ -1,13 +1,13 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import {
-    emailMessageToListDTO,
-    type EmailMessageListItemDTO,
+  emailMessageToListDTO,
+  type EmailMessageListItemDTO,
 } from '@/mappers/email';
 import type {
-    EmailAccountsRepository,
-    EmailFoldersRepository,
-    EmailMessagesRepository,
+  EmailAccountsRepository,
+  EmailFoldersRepository,
+  EmailMessagesRepository,
 } from '@/repositories/email';
 
 interface ListEmailMessagesRequest {

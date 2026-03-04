@@ -311,7 +311,8 @@ export const CORE_AUDIT_MESSAGES = {
     action: AuditAction.MEMBER_ADD,
     entity: AuditEntity.TEAM_MEMBER,
     module: AuditModule.CORE,
-    description: '{{userName}} adicionou {{count}} membros à equipe {{teamName}}',
+    description:
+      '{{userName}} adicionou {{count}} membros à equipe {{teamName}}',
   } satisfies AuditMessage,
 
   /** Removeu um membro da equipe */
@@ -327,7 +328,8 @@ export const CORE_AUDIT_MESSAGES = {
     action: AuditAction.ROLE_CHANGE,
     entity: AuditEntity.TEAM_MEMBER,
     module: AuditModule.CORE,
-    description: '{{userName}} alterou o papel de {{memberName}} de {{oldRole}} para {{newRole}} na equipe {{teamName}}',
+    description:
+      '{{userName}} alterou o papel de {{memberName}} de {{oldRole}} para {{newRole}} na equipe {{teamName}}',
   } satisfies AuditMessage,
 
   /** Transferiu a propriedade da equipe */
@@ -335,7 +337,8 @@ export const CORE_AUDIT_MESSAGES = {
     action: AuditAction.OWNERSHIP_TRANSFER,
     entity: AuditEntity.TEAM,
     module: AuditModule.CORE,
-    description: '{{userName}} transferiu a propriedade da equipe {{teamName}} para {{newOwnerName}}',
+    description:
+      '{{userName}} transferiu a propriedade da equipe {{teamName}} para {{newOwnerName}}',
   } satisfies AuditMessage,
 } as const;
 

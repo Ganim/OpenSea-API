@@ -1,10 +1,14 @@
+import { env } from '@/@env';
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { isAllowedMimeType } from '@/constants/storage/allowed-mime-types';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { StorageFile } from '@/entities/storage/storage-file';
 import type { StorageFileVersion } from '@/entities/storage/storage-file-version';
 import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
 import type { StorageFileVersionsRepository } from '@/repositories/storage/storage-file-versions-repository';
 import type { FileUploadService } from '@/services/storage/file-upload-service';
+import { EncryptionService } from '@/services/storage/encryption-service';
 
 interface UploadFileVersionUseCaseRequest {
   tenantId: string;
@@ -35,6 +39,13 @@ export class UploadFileVersionUseCase {
   ): Promise<UploadFileVersionUseCaseResponse> {
     const { tenantId, fileId, file, changeNote, uploadedBy } = request;
 
+    // Validate MIME type
+    if (!isAllowedMimeType(file.mimetype)) {
+      throw new BadRequestError(
+        `Tipo de arquivo não permitido: ${file.mimetype}`,
+      );
+    }
+
     const existingFile = await this.storageFilesRepository.findById(
       new UniqueEntityID(fileId),
       tenantId,
@@ -44,9 +55,21 @@ export class UploadFileVersionUseCase {
       throw new ResourceNotFoundError('File not found');
     }
 
+    // Encrypt file buffer if encryption key is configured
+    let uploadBuffer = file.buffer;
+    let isEncrypted = false;
+
+    if (env.STORAGE_ENCRYPTION_KEY) {
+      const encryptionService = new EncryptionService(
+        env.STORAGE_ENCRYPTION_KEY,
+      );
+      uploadBuffer = encryptionService.encrypt(file.buffer);
+      isEncrypted = true;
+    }
+
     const uploadPrefix = `storage/${tenantId}/${existingFile.folderId?.toString() ?? 'root'}`;
     const uploadResult = await this.fileUploadService.upload(
-      file.buffer,
+      uploadBuffer,
       file.filename,
       file.mimetype,
       { prefix: uploadPrefix },
@@ -58,7 +81,7 @@ export class UploadFileVersionUseCase {
       fileId: existingFile.id.toString(),
       version: nextVersionNumber,
       fileKey: uploadResult.key,
-      size: uploadResult.size,
+      size: file.buffer.length, // Store original (unencrypted) size
       mimeType: file.mimetype,
       changeNote: changeNote ?? null,
       uploadedBy,
@@ -68,8 +91,9 @@ export class UploadFileVersionUseCase {
       id: existingFile.id,
       currentVersion: nextVersionNumber,
       fileKey: uploadResult.key,
-      size: uploadResult.size,
+      size: file.buffer.length, // Store original (unencrypted) size
       mimeType: file.mimetype,
+      isEncrypted,
     });
 
     if (!updatedFile) {

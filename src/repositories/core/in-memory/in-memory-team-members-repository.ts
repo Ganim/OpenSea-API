@@ -50,8 +50,7 @@ export class InMemoryTeamMembersRepository implements TeamMembersRepository {
     const limit = filters.limit ?? 20;
 
     let filtered = this.items.filter(
-      (item) =>
-        item.teamId.equals(filters.teamId) && item.leftAt === undefined,
+      (item) => item.teamId.equals(filters.teamId) && item.leftAt === undefined,
     );
 
     if (filters.role) {

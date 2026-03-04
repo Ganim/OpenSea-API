@@ -62,9 +62,7 @@ describe('Revoke Share Link (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .delete(
-        '/v1/storage/shares/00000000-0000-0000-0000-000000000000',
-      )
+      .delete('/v1/storage/shares/00000000-0000-0000-0000-000000000000')
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(404);

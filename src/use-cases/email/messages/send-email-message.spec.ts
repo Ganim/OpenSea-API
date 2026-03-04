@@ -27,8 +27,11 @@ describe('SendEmailMessageUseCase', () => {
 
     sut = new SendEmailMessageUseCase(
       accountsRepository,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       foldersRepository as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new FakeCipherService() as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new FakeSmtpClientService() as any,
     );
 
@@ -54,8 +57,11 @@ describe('SendEmailMessageUseCase', () => {
     const smtpService = new FakeSmtpClientService();
     sut = new SendEmailMessageUseCase(
       accountsRepository,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       foldersRepository as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new FakeCipherService() as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       smtpService as any,
     );
 

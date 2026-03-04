@@ -85,12 +85,27 @@ export class EmailMessage extends Entity<EmailMessageProps> {
     return this.props.snippet;
   }
 
+  set snippet(value: string | null) {
+    this.props.snippet = value;
+    this.touch();
+  }
+
   get bodyText(): string | null {
     return this.props.bodyText;
   }
 
+  set bodyText(value: string | null) {
+    this.props.bodyText = value;
+    this.touch();
+  }
+
   get bodyHtmlSanitized(): string | null {
     return this.props.bodyHtmlSanitized;
+  }
+
+  set bodyHtmlSanitized(value: string | null) {
+    this.props.bodyHtmlSanitized = value;
+    this.touch();
   }
 
   get receivedAt(): Date {

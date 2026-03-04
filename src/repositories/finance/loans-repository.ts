@@ -23,6 +23,7 @@ export interface CreateLoanSchema {
 
 export interface UpdateLoanSchema {
   id: UniqueEntityID;
+  tenantId?: string;
   name?: string;
   contractNumber?: string | null;
   status?: string;
@@ -53,5 +54,5 @@ export interface LoansRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<Loan | null>;
   findMany(options: FindManyLoansOptions): Promise<FindManyLoansResult>;
   update(data: UpdateLoanSchema): Promise<Loan | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

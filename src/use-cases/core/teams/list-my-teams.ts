@@ -33,7 +33,9 @@ export class ListMyTeamsUseCase {
 
     const teams = await Promise.all(
       result.teams.map(async (team) => {
-        const membersCount = await this.teamMembersRepository.countByTeam(team.id);
+        const membersCount = await this.teamMembersRepository.countByTeam(
+          team.id,
+        );
         return teamToDTO(team, { membersCount });
       }),
     );

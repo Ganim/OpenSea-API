@@ -117,7 +117,10 @@ export class PrismaTeamMembersRepository implements TeamMembersRepository {
       prisma.teamMember.count({ where: whereCondition }),
     ]);
 
-    const usersMap = new Map<string, { name: string | null; email: string | null; avatarUrl: string | null }>();
+    const usersMap = new Map<
+      string,
+      { name: string | null; email: string | null; avatarUrl: string | null }
+    >();
     for (const m of members) {
       const profile = m.user?.profile;
       const fullName = profile

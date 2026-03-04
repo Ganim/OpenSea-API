@@ -39,6 +39,7 @@ describe('MoveEmailMessageUseCase', () => {
       accountsRepository,
       foldersRepository,
       messagesRepository,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new FakeCipherService() as any,
     );
 
@@ -78,7 +79,7 @@ describe('MoveEmailMessageUseCase', () => {
     });
 
     // Create test message in INBOX
-    const message = await messagesRepository.create({
+    const _message = await messagesRepository.create({
       tenantId: 'tenant-1',
       accountId: account.id.toString(),
       folderId: inboxFolder.id.toString(),

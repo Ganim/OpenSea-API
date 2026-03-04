@@ -43,6 +43,7 @@ export class UpdateLoanUseCase {
 
     const updated = await this.loansRepository.update({
       id: new UniqueEntityID(id),
+      tenantId,
       name: request.name?.trim(),
       contractNumber: request.contractNumber,
       notes: request.notes,

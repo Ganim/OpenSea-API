@@ -1,5 +1,4 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { CalendarEvent } from '@/entities/calendar/calendar-event';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryCalendarEventsRepository } from '@/repositories/calendar/in-memory/in-memory-calendar-events-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -19,6 +18,7 @@ describe('ExportCalendarEventsUseCase', () => {
   it('should export events in valid iCal format', async () => {
     await repository.create({
       tenantId,
+      calendarId: 'calendar-1',
       title: 'Reunião de equipe',
       startDate: new Date('2026-03-01T10:00:00Z'),
       endDate: new Date('2026-03-01T11:00:00Z'),
@@ -45,6 +45,7 @@ describe('ExportCalendarEventsUseCase', () => {
   it('should respect date range', async () => {
     await repository.create({
       tenantId,
+      calendarId: 'calendar-1',
       title: 'Evento dentro do range',
       startDate: new Date('2026-03-15T10:00:00Z'),
       endDate: new Date('2026-03-15T11:00:00Z'),
@@ -53,6 +54,7 @@ describe('ExportCalendarEventsUseCase', () => {
 
     await repository.create({
       tenantId,
+      calendarId: 'calendar-1',
       title: 'Evento fora do range',
       startDate: new Date('2026-04-15T10:00:00Z'),
       endDate: new Date('2026-04-15T11:00:00Z'),
@@ -75,6 +77,7 @@ describe('ExportCalendarEventsUseCase', () => {
 
     await repository.create({
       tenantId,
+      calendarId: 'calendar-1',
       title: 'Evento privado de outro usuário',
       startDate: new Date('2026-03-10T10:00:00Z'),
       endDate: new Date('2026-03-10T11:00:00Z'),
@@ -84,6 +87,7 @@ describe('ExportCalendarEventsUseCase', () => {
 
     await repository.create({
       tenantId,
+      calendarId: 'calendar-1',
       title: 'Evento público',
       startDate: new Date('2026-03-10T14:00:00Z'),
       endDate: new Date('2026-03-10T15:00:00Z'),
@@ -104,6 +108,7 @@ describe('ExportCalendarEventsUseCase', () => {
   it('should include RRULE for recurring events', async () => {
     await repository.create({
       tenantId,
+      calendarId: 'calendar-1',
       title: 'Reunião semanal',
       startDate: new Date('2026-03-02T09:00:00Z'),
       endDate: new Date('2026-03-02T10:00:00Z'),
@@ -125,6 +130,7 @@ describe('ExportCalendarEventsUseCase', () => {
   it('should handle all-day events', async () => {
     await repository.create({
       tenantId,
+      calendarId: 'calendar-1',
       title: 'Feriado nacional',
       startDate: new Date('2026-03-05T00:00:00Z'),
       endDate: new Date('2026-03-05T23:59:59Z'),

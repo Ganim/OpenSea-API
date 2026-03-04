@@ -2,11 +2,11 @@ import type { EmailAccount } from '@/entities/email/email-account';
 import { prisma } from '@/lib/prisma';
 import { emailAccountPrismaToDomain } from '@/mappers/email';
 import type {
-    CreateEmailAccountSchema,
-    EmailAccountAccessItem,
-    EmailAccountsRepository,
-    UpdateEmailAccountSchema,
-    UpsertEmailAccountAccessSchema,
+  CreateEmailAccountSchema,
+  EmailAccountAccessItem,
+  EmailAccountsRepository,
+  UpdateEmailAccountSchema,
+  UpsertEmailAccountAccessSchema,
 } from '../email-accounts-repository';
 
 export class PrismaEmailAccountsRepository implements EmailAccountsRepository {

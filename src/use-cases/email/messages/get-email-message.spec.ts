@@ -1,12 +1,23 @@
 import { InMemoryEmailAccountsRepository } from '@/repositories/email/in-memory/in-memory-email-accounts-repository';
 import { InMemoryEmailFoldersRepository } from '@/repositories/email/in-memory/in-memory-email-folders-repository';
 import { InMemoryEmailMessagesRepository } from '@/repositories/email/in-memory/in-memory-email-messages-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GetEmailMessageUseCase } from './get-email-message';
+
+vi.mock('@/lib/logger', () => ({
+  logger: {
+    info: vi.fn(),
+    debug: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+  },
+}));
 
 let accountsRepository: InMemoryEmailAccountsRepository;
 let foldersRepository: InMemoryEmailFoldersRepository;
 let messagesRepository: InMemoryEmailMessagesRepository;
+let credentialCipherService: CredentialCipherService;
 let sut: GetEmailMessageUseCase;
 
 describe('GetEmailMessageUseCase', () => {
@@ -15,7 +26,17 @@ describe('GetEmailMessageUseCase', () => {
     foldersRepository = new InMemoryEmailFoldersRepository();
     messagesRepository = new InMemoryEmailMessagesRepository();
 
-    sut = new GetEmailMessageUseCase(accountsRepository, messagesRepository);
+    credentialCipherService = {
+      encrypt: vi.fn().mockReturnValue('encrypted'),
+      decrypt: vi.fn().mockReturnValue('decrypted-password'),
+    } as unknown as CredentialCipherService;
+
+    sut = new GetEmailMessageUseCase(
+      accountsRepository,
+      messagesRepository,
+      foldersRepository,
+      credentialCipherService,
+    );
 
     // Create test account
     const account = await accountsRepository.create({
@@ -43,8 +64,8 @@ describe('GetEmailMessageUseCase', () => {
       lastUid: 100,
     });
 
-    // Create test message with attachments
-    const message = await messagesRepository.create({
+    // Create test message with body already present
+    await messagesRepository.create({
       tenantId: 'tenant-1',
       accountId: account.id.toString(),
       folderId: folder.id.toString(),
@@ -131,7 +152,7 @@ describe('GetEmailMessageUseCase', () => {
 
     const otherFolder = await foldersRepository.create({
       accountId: otherAccount.id.toString(),
-      name: 'INBOX',
+      displayName: 'INBOX',
       remoteName: 'INBOX',
       type: 'INBOX',
       uidValidity: 124,
@@ -157,5 +178,101 @@ describe('GetEmailMessageUseCase', () => {
         messageId: otherMessage.id.toString(),
       }),
     ).rejects.toThrow('You do not have access to this message');
+  });
+
+  it('should not attempt IMAP fetch when body is already present', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+    const result = await messagesRepository.list({
+      tenantId: 'tenant-1',
+      accountId: account!.id.toString(),
+      limit: 1,
+    });
+    const message = result.messages[0];
+
+    // Message already has bodyText='Test message with attachment'
+    const response = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      messageId: message.id.toString(),
+    });
+
+    expect(response.message.bodyText).toBe('Test message with attachment');
+    // decrypt should NOT be called since body already exists
+    expect(credentialCipherService.decrypt).not.toHaveBeenCalled();
+  });
+
+  it('should attempt lazy fetch when body is null but not break on IMAP failure', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    const folders = await foldersRepository.listByAccount(
+      account!.id.toString(),
+    );
+    const folder = folders[0];
+
+    // Create a message with no body (simulates sync without body fetch)
+    const messageWithoutBody = await messagesRepository.create({
+      tenantId: 'tenant-1',
+      accountId: account!.id.toString(),
+      folderId: folder.id.toString(),
+      remoteUid: 42,
+      fromAddress: 'noreply@example.com',
+      toAddresses: ['user@example.com'],
+      subject: 'Message without body',
+      bodyText: null,
+      bodyHtmlSanitized: null,
+      receivedAt: new Date(),
+    });
+
+    // In test environment, ImapFlow will fail to connect - but the use case should still return
+    const response = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      messageId: messageWithoutBody.id.toString(),
+    });
+
+    // Should return the message even though IMAP fetch failed
+    expect(response.message).toBeDefined();
+    expect(response.message.id).toBe(messageWithoutBody.id.toString());
+    expect(response.message.subject).toBe('Message without body');
+    // Body remains null because IMAP connection failed in test env
+    expect(response.message.bodyText).toBeNull();
+    expect(response.message.bodyHtmlSanitized).toBeNull();
+  });
+
+  it('should return message with null body when folder is not found for lazy fetch', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    // Create a message pointing to a non-existent folder
+    const messageWithOrphanFolder = await messagesRepository.create({
+      tenantId: 'tenant-1',
+      accountId: account!.id.toString(),
+      folderId: 'non-existent-folder-id',
+      remoteUid: 99,
+      fromAddress: 'noreply@example.com',
+      toAddresses: ['user@example.com'],
+      subject: 'Orphan folder message',
+      bodyText: null,
+      bodyHtmlSanitized: null,
+      receivedAt: new Date(),
+    });
+
+    const response = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      messageId: messageWithOrphanFolder.id.toString(),
+    });
+
+    // Should return gracefully, no error thrown
+    expect(response.message).toBeDefined();
+    expect(response.message.bodyText).toBeNull();
   });
 });

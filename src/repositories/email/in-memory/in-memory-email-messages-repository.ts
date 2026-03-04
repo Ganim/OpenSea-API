@@ -2,12 +2,12 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { EmailAttachment } from '@/entities/email/email-attachment';
 import { EmailMessage } from '@/entities/email/email-message';
 import type {
-    CreateEmailAttachmentSchema,
-    CreateEmailMessageSchema,
-    EmailMessagesListParams,
-    EmailMessagesListResult,
-    EmailMessagesRepository,
-    UpdateEmailMessageSchema,
+  CreateEmailAttachmentSchema,
+  CreateEmailMessageSchema,
+  EmailMessagesListParams,
+  EmailMessagesListResult,
+  EmailMessagesRepository,
+  UpdateEmailMessageSchema,
 } from '../email-messages-repository';
 
 export class InMemoryEmailMessagesRepository
@@ -142,6 +142,21 @@ export class InMemoryEmailMessagesRepository
     return message;
   }
 
+  async updateBody(
+    id: string,
+    bodyText: string | null,
+    bodyHtmlSanitized: string | null,
+    snippet: string | null,
+  ): Promise<void> {
+    const message = this.items.find((item) => item.id.toString() === id);
+
+    if (message) {
+      message.bodyText = bodyText;
+      message.bodyHtmlSanitized = bodyHtmlSanitized;
+      message.snippet = snippet;
+    }
+  }
+
   async createAttachment(
     data: CreateEmailAttachmentSchema,
   ): Promise<EmailAttachment> {
@@ -167,4 +182,5 @@ export class InMemoryEmailMessagesRepository
   }
   async findAttachmentById(id: string): Promise<EmailAttachment | null> {
     return this.attachments.find((att) => att.id.toString() === id) ?? null;
-  }}
+  }
+}

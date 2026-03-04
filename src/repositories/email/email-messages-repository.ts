@@ -66,6 +66,12 @@ export interface EmailMessagesRepository {
   ): Promise<EmailMessage | null>;
   list(params: EmailMessagesListParams): Promise<EmailMessagesListResult>;
   update(data: UpdateEmailMessageSchema): Promise<EmailMessage | null>;
+  updateBody(
+    id: string,
+    bodyText: string | null,
+    bodyHtmlSanitized: string | null,
+    snippet: string | null,
+  ): Promise<void>;
   createAttachment(data: CreateEmailAttachmentSchema): Promise<EmailAttachment>;
   listAttachments(messageId: string): Promise<EmailAttachment[]>;
   findAttachmentById(id: string): Promise<EmailAttachment | null>;

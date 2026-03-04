@@ -167,8 +167,6 @@ describe('ListEmailMessagesUseCase', () => {
       isActive: true,
     });
 
-    await accountsRepository.create(otherAccount);
-
     await expect(
       sut.execute({
         tenantId: 'tenant-1',

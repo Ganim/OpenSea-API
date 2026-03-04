@@ -25,28 +25,42 @@ describe('Email Accounts Controller (E2E)', () => {
 
   beforeAll(async () => {
     await app.ready();
-    const { tenantId: tid } = await createAndSetupTenant({ name: 'Test Email Accounts Tenant' });
+    const { tenantId: tid } = await createAndSetupTenant({
+      name: 'Test Email Accounts Tenant',
+    });
 
     tenantId = tid;
 
     const authResult = await createAndAuthenticateUser(app, {
       tenantId,
       permissions: [
-        'email.accounts.create', 'email.accounts.read', 'email.accounts.update',
-        'email.accounts.delete', 'email.accounts.list', 'email.accounts.share',
+        'email.accounts.create',
+        'email.accounts.read',
+        'email.accounts.update',
+        'email.accounts.delete',
+        'email.accounts.list',
+        'email.accounts.share',
         'email.sync.execute',
       ],
     });
     token = authResult.token;
 
-    const noPermsResult = await createAndAuthenticateUser(app, { tenantId, permissions: [] });
+    const noPermsResult = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: [],
+    });
     tokenNoPerms = noPermsResult.token;
 
-    const secondUserResult = await createAndAuthenticateUser(app, { tenantId, permissions: ['email.accounts.read'] });
+    const secondUserResult = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: ['email.accounts.read'],
+    });
     secondUserId = secondUserResult.user.user.id;
-  }, 30000);
+  }, 60000);
 
-  afterAll(async () => { await app.close(); });
+  afterAll(async () => {
+    await app.close();
+  });
 
   // ─── POST /v1/email/accounts ─────────────────────────────────────────────
   describe('Criar conta (POST /v1/email/accounts)', () => {
@@ -57,7 +71,10 @@ describe('Email Accounts Controller (E2E)', () => {
         .send(makeAccountPayload({ displayName: 'Conta Principal' }));
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('account');
-      expect(response.body.account).toMatchObject({ displayName: 'Conta Principal', isActive: true });
+      expect(response.body.account).toMatchObject({
+        displayName: 'Conta Principal',
+        isActive: true,
+      });
       expect(response.body.account).toHaveProperty('id');
     });
 
@@ -163,7 +180,10 @@ describe('Email Accounts Controller (E2E)', () => {
         .get(`/v1/email/accounts/${accountId}`)
         .set('Authorization', `Bearer ${token}`);
       expect(response.status).toBe(200);
-      expect(response.body.account).toMatchObject({ id: accountId, displayName: 'Busca por ID' });
+      expect(response.body.account).toMatchObject({
+        id: accountId,
+        displayName: 'Busca por ID',
+      });
     });
 
     it('[FALHA] deve retornar 404 para ID inexistente', async () => {
@@ -174,8 +194,9 @@ describe('Email Accounts Controller (E2E)', () => {
     });
 
     it('[FALHA] deve retornar 401 sem autenticação', async () => {
-      const response = await request(app.server)
-        .get('/v1/email/accounts/00000000-0000-0000-0000-000000000000');
+      const response = await request(app.server).get(
+        '/v1/email/accounts/00000000-0000-0000-0000-000000000000',
+      );
       expect(response.status).toBe(401);
     });
   });
@@ -193,7 +214,10 @@ describe('Email Accounts Controller (E2E)', () => {
         .set('Authorization', `Bearer ${token}`)
         .send({ displayName: 'Nome Atualizado', signature: 'Att, Teste' });
       expect(response.status).toBe(200);
-      expect(response.body.account).toMatchObject({ displayName: 'Nome Atualizado', signature: 'Att, Teste' });
+      expect(response.body.account).toMatchObject({
+        displayName: 'Nome Atualizado',
+        signature: 'Att, Teste',
+      });
     });
 
     it('[FALHA] deve retornar 404 para conta inexistente', async () => {
@@ -258,8 +282,12 @@ describe('Email Accounts Controller (E2E)', () => {
         .set('Authorization', `Bearer ${token}`)
         .send(makeAccountPayload());
       const accountId = createRes.body.account.id;
-      await request(app.server).delete(`/v1/email/accounts/${accountId}`).set('Authorization', `Bearer ${token}`);
-      const getRes = await request(app.server).get(`/v1/email/accounts/${accountId}`).set('Authorization', `Bearer ${token}`);
+      await request(app.server)
+        .delete(`/v1/email/accounts/${accountId}`)
+        .set('Authorization', `Bearer ${token}`);
+      const getRes = await request(app.server)
+        .get(`/v1/email/accounts/${accountId}`)
+        .set('Authorization', `Bearer ${token}`);
       expect(getRes.status).toBe(404);
     });
 
@@ -271,8 +299,9 @@ describe('Email Accounts Controller (E2E)', () => {
     });
 
     it('[FALHA] deve retornar 401 sem autenticação', async () => {
-      const response = await request(app.server)
-        .delete('/v1/email/accounts/00000000-0000-0000-0000-000000000000');
+      const response = await request(app.server).delete(
+        '/v1/email/accounts/00000000-0000-0000-0000-000000000000',
+      );
       expect(response.status).toBe(401);
     });
 
@@ -312,8 +341,9 @@ describe('Email Accounts Controller (E2E)', () => {
     });
 
     it('[FALHA] deve retornar 401 sem autenticação', async () => {
-      const response = await request(app.server)
-        .post('/v1/email/accounts/00000000-0000-0000-0000-000000000000/sync');
+      const response = await request(app.server).post(
+        '/v1/email/accounts/00000000-0000-0000-0000-000000000000/sync',
+      );
       expect(response.status).toBe(401);
     });
 
@@ -340,8 +370,9 @@ describe('Email Accounts Controller (E2E)', () => {
     });
 
     it('[FALHA] deve retornar 401 sem autenticação', async () => {
-      const response = await request(app.server)
-        .post('/v1/email/accounts/00000000-0000-0000-0000-000000000000/test');
+      const response = await request(app.server).post(
+        '/v1/email/accounts/00000000-0000-0000-0000-000000000000/test',
+      );
       expect(response.status).toBe(401);
     });
 
@@ -370,9 +401,18 @@ describe('Email Accounts Controller (E2E)', () => {
       const response = await request(app.server)
         .post(`/v1/email/accounts/${accountId}/share`)
         .set('Authorization', `Bearer ${token}`)
-        .send({ userId: secondUserId, canRead: true, canSend: false, canManage: false });
+        .send({
+          userId: secondUserId,
+          canRead: true,
+          canSend: false,
+          canManage: false,
+        });
       expect(response.status).toBe(201);
-      expect(response.body.access).toMatchObject({ accountId, userId: secondUserId, canRead: true });
+      expect(response.body.access).toMatchObject({
+        accountId,
+        userId: secondUserId,
+        canRead: true,
+      });
     });
 
     it('[COMPORTAMENTO] deve ser idempotente ao compartilhar o mesmo usuário duas vezes', async () => {
@@ -381,7 +421,12 @@ describe('Email Accounts Controller (E2E)', () => {
         .set('Authorization', `Bearer ${token}`)
         .send(makeAccountPayload());
       const accountId = createRes.body.account.id;
-      const sharePayload = { userId: secondUserId, canRead: true, canSend: false, canManage: false };
+      const sharePayload = {
+        userId: secondUserId,
+        canRead: true,
+        canSend: false,
+        canManage: false,
+      };
       await request(app.server)
         .post(`/v1/email/accounts/${accountId}/share`)
         .set('Authorization', `Bearer ${token}`)
@@ -402,13 +447,16 @@ describe('Email Accounts Controller (E2E)', () => {
       const response = await request(app.server)
         .post(`/v1/email/accounts/${accountId}/share`)
         .set('Authorization', `Bearer ${token}`)
-        .send({ userId: '00000000-0000-0000-0000-000000000000', canRead: true });
+        .send({
+          userId: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
+          canRead: true,
+        });
       expect(response.status).toBe(404);
     });
 
     it('[FALHA] deve retornar 401 sem autenticação', async () => {
       const response = await request(app.server)
-        .post('/v1/email/accounts/00000000-0000-0000-0000-000000000000/share')
+        .post('/v1/email/accounts/f47ac10b-58cc-4372-a567-0e02b2c3d479/share')
         .send({ userId: secondUserId, canRead: true });
       expect(response.status).toBe(401);
     });
@@ -438,7 +486,12 @@ describe('Email Accounts Controller (E2E)', () => {
       await request(app.server)
         .post(`/v1/email/accounts/${accountId}/share`)
         .set('Authorization', `Bearer ${token}`)
-        .send({ userId: secondUserId, canRead: true, canSend: false, canManage: false });
+        .send({
+          userId: secondUserId,
+          canRead: true,
+          canSend: false,
+          canManage: false,
+        });
       const response = await request(app.server)
         .delete(`/v1/email/accounts/${accountId}/share/${secondUserId}`)
         .set('Authorization', `Bearer ${token}`);
@@ -452,14 +505,17 @@ describe('Email Accounts Controller (E2E)', () => {
         .send(makeAccountPayload());
       const accountId = createRes.body.account.id;
       const response = await request(app.server)
-        .delete(`/v1/email/accounts/${accountId}/share/00000000-0000-0000-0000-000000000000`)
+        .delete(
+          `/v1/email/accounts/${accountId}/share/00000000-0000-0000-0000-000000000000`,
+        )
         .set('Authorization', `Bearer ${token}`);
       expect(response.status).toBe(204); // deleteMany: sem erro se não encontrou
     });
 
     it('[FALHA] deve retornar 401 sem autenticação', async () => {
-      const response = await request(app.server)
-        .delete('/v1/email/accounts/00000000-0000-0000-0000-000000000000/share/00000000-0000-0000-0000-000000000000');
+      const response = await request(app.server).delete(
+        '/v1/email/accounts/00000000-0000-0000-0000-000000000000/share/00000000-0000-0000-0000-000000000000',
+      );
       expect(response.status).toBe(401);
     });
   });

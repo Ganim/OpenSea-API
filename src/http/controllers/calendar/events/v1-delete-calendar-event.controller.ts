@@ -44,7 +44,11 @@ export async function deleteCalendarEventController(app: FastifyInstance) {
       try {
         // Get event title for audit before deleting
         const getUseCase = makeGetCalendarEventByIdUseCase();
-        const { event: existingEvent } = await getUseCase.execute({ id, tenantId, userId });
+        const { event: existingEvent } = await getUseCase.execute({
+          id,
+          tenantId,
+          userId,
+        });
 
         const getUserByIdUseCase = makeGetUserByIdUseCase();
         const { user } = await getUserByIdUseCase.execute({ userId });

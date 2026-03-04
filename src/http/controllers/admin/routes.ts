@@ -17,6 +17,7 @@ import { listTenantsAdminController } from './v1-list-tenants.controller';
 import { manageFeatureFlagsAdminController } from './v1-manage-feature-flags.controller';
 import { removeTenantUserAdminController } from './v1-remove-tenant-user.controller';
 import { setPlanModulesAdminController } from './v1-set-plan-modules.controller';
+import { setUserSecurityKeyAdminController } from './v1-set-user-security-key.controller';
 import { updatePlanAdminController } from './v1-update-plan.controller';
 import { updateTenantAdminController } from './v1-update-tenant.controller';
 
@@ -37,6 +38,7 @@ export async function adminRoutes(app: FastifyInstance) {
       adminApp.register(setPlanModulesAdminController);
       adminApp.register(createTenantUserAdminController);
       adminApp.register(removeTenantUserAdminController);
+      adminApp.register(setUserSecurityKeyAdminController);
     },
     { prefix: '' },
   );

@@ -69,7 +69,10 @@ describe('UnshareEmailAccountUseCase', () => {
   });
 
   it('should throw error if user does not have manage permission', async () => {
-    const account = await repository.findByAddress('user@example.com');
+    const _account = await repository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
 
     // Create another account owned by different user
     const otherAccount = await repository.create({

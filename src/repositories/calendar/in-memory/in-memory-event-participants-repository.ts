@@ -5,7 +5,9 @@ import type {
   CreateEventParticipantSchema,
 } from '../event-participants-repository';
 
-export class InMemoryEventParticipantsRepository implements EventParticipantsRepository {
+export class InMemoryEventParticipantsRepository
+  implements EventParticipantsRepository
+{
   public items: EventParticipant[] = [];
 
   async create(data: CreateEventParticipantSchema): Promise<EventParticipant> {
@@ -28,15 +30,23 @@ export class InMemoryEventParticipantsRepository implements EventParticipantsRep
     return this.items.filter((item) => item.userId.toString() === userId);
   }
 
-  async findByEventAndUser(eventId: string, userId: string): Promise<EventParticipant | null> {
+  async findByEventAndUser(
+    eventId: string,
+    userId: string,
+  ): Promise<EventParticipant | null> {
     return (
       this.items.find(
-        (item) => item.eventId.toString() === eventId && item.userId.toString() === userId,
+        (item) =>
+          item.eventId.toString() === eventId &&
+          item.userId.toString() === userId,
       ) ?? null
     );
   }
 
-  async updateStatus(id: string, status: string): Promise<EventParticipant | null> {
+  async updateStatus(
+    id: string,
+    status: string,
+  ): Promise<EventParticipant | null> {
     const participant = this.items.find((item) => item.id.toString() === id);
     if (!participant) return null;
     participant.respond(status);
@@ -48,6 +58,8 @@ export class InMemoryEventParticipantsRepository implements EventParticipantsRep
   }
 
   async deleteByEventId(eventId: string): Promise<void> {
-    this.items = this.items.filter((item) => item.eventId.toString() !== eventId);
+    this.items = this.items.filter(
+      (item) => item.eventId.toString() !== eventId,
+    );
   }
 }

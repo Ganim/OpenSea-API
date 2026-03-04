@@ -8,18 +8,15 @@ export const setFolderAccessSchema = z
   .object({
     userId: z.string().uuid().optional(),
     groupId: z.string().uuid().optional(),
+    teamId: z.string().uuid().optional(),
     canRead: z.boolean().default(true),
     canWrite: z.boolean().default(false),
     canDelete: z.boolean().default(false),
     canShare: z.boolean().default(false),
   })
-  .refine((accessRule) => accessRule.userId || accessRule.groupId, {
-    message: 'Either userId or groupId must be provided',
+  .refine((r) => [r.userId, r.groupId, r.teamId].filter(Boolean).length === 1, {
+    message: 'Exactly one of userId, groupId, or teamId must be provided',
     path: ['userId'],
-  })
-  .refine((accessRule) => !(accessRule.userId && accessRule.groupId), {
-    message: 'Only one of userId or groupId can be provided, not both',
-    path: ['groupId'],
   });
 
 // ============================================================================
@@ -33,6 +30,8 @@ export const folderAccessRuleResponseSchema = z.object({
   userName: z.string().optional().nullable(),
   groupId: z.string().uuid().optional().nullable(),
   groupName: z.string().optional().nullable(),
+  teamId: z.string().uuid().optional().nullable(),
+  teamName: z.string().optional().nullable(),
   canRead: z.boolean(),
   canWrite: z.boolean(),
   canDelete: z.boolean(),

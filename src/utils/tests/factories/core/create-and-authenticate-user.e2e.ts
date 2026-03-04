@@ -24,6 +24,7 @@ const ALL_PERMISSIONS = {
     ],
     teams: ['create', 'read', 'update', 'delete', 'list', 'manage'],
     'teams.members': ['add', 'remove', 'manage'],
+    'teams.emails': ['link', 'read', 'manage', 'unlink'],
   },
   // STOCK module
   stock: {
@@ -349,20 +350,8 @@ const ALL_PERMISSIONS = {
       'share-user',
       'share-group',
     ],
-    'filter-folders': [
-      'list',
-      'read',
-      'download',
-      'share-user',
-      'share-group',
-    ],
-    'system-folders': [
-      'list',
-      'read',
-      'download',
-      'share-user',
-      'share-group',
-    ],
+    'filter-folders': ['list', 'read', 'download', 'share-user', 'share-group'],
+    'system-folders': ['list', 'read', 'download', 'share-user', 'share-group'],
     files: [
       'list',
       'create',
@@ -375,12 +364,29 @@ const ALL_PERMISSIONS = {
     ],
     versions: ['read', 'create', 'restore'],
     stats: ['view'],
+    security: ['manage'],
   },
   // NOTIFICATIONS module
   notifications: {
     _root: ['broadcast', 'manage', 'schedule', 'send'],
     notifications: ['create', 'read', 'update', 'delete', 'list', 'manage'],
     preferences: ['create', 'read', 'update', 'delete', 'list'],
+  },
+  // CALENDAR module
+  calendar: {
+    events: [
+      'create',
+      'read',
+      'update',
+      'delete',
+      'list',
+      'manage',
+      'share-users',
+      'share-teams',
+      'export',
+    ],
+    participants: ['invite', 'respond', 'manage'],
+    reminders: ['create', 'delete'],
   },
 };
 
@@ -436,9 +442,16 @@ function generatePermissionName(
     romaneio: 'Romaneio',
     duplicate: 'Duplicar',
     generate: 'Gerar',
+    link: 'Vincular',
+    unlink: 'Desvincular',
     download: 'Baixar',
     'share-user': 'Compartilhar com Usuário',
     'share-group': 'Compartilhar com Grupo',
+    'share-users': 'Compartilhar com Usuários',
+    'share-teams': 'Compartilhar com Equipes',
+    invite: 'Convidar',
+    respond: 'Responder',
+    export: 'Exportar',
   };
 
   const resourceNames: Record<string, string> = {
@@ -516,6 +529,9 @@ function generatePermissionName(
     files: 'Arquivos',
     versions: 'Versões',
     stats: 'Estatísticas',
+    events: 'Eventos',
+    participants: 'Participantes',
+    reminders: 'Lembretes',
   };
 
   const actionName = actionNames[action] || action;

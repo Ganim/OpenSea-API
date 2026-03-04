@@ -2,9 +2,9 @@ import type { EmailFolder } from '@/entities/email/email-folder';
 import { prisma } from '@/lib/prisma';
 import { emailFolderPrismaToDomain } from '@/mappers/email';
 import type {
-    CreateEmailFolderSchema,
-    EmailFoldersRepository,
-    UpdateEmailFolderSchema,
+  CreateEmailFolderSchema,
+  EmailFoldersRepository,
+  UpdateEmailFolderSchema,
 } from '../email-folders-repository';
 
 export class PrismaEmailFoldersRepository implements EmailFoldersRepository {
@@ -26,6 +26,20 @@ export class PrismaEmailFoldersRepository implements EmailFoldersRepository {
   async findById(id: string, accountId: string): Promise<EmailFolder | null> {
     const folderDb = await prisma.emailFolder.findFirst({
       where: { id, accountId },
+    });
+
+    return folderDb ? emailFolderPrismaToDomain(folderDb) : null;
+  }
+
+  async findByType(
+    accountId: string,
+    type: string,
+  ): Promise<EmailFolder | null> {
+    const folderDb = await prisma.emailFolder.findFirst({
+      where: {
+        accountId,
+        type: type as 'INBOX' | 'SENT' | 'DRAFTS' | 'TRASH' | 'SPAM' | 'CUSTOM',
+      },
     });
 
     return folderDb ? emailFolderPrismaToDomain(folderDb) : null;

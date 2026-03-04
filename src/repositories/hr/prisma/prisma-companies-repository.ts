@@ -7,6 +7,8 @@ import {
 import { prisma } from '@/lib/prisma';
 import type { Prisma } from '@prisma/generated/client.js';
 import { mapCompanyPrismaToDomain } from '@/mappers/hr/company/company-prisma-to-domain';
+import { getFieldCipherService } from '@/services/security/field-cipher-service';
+import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import type {
   CreateCompanySchema,
   CompaniesRepository,
@@ -15,36 +17,98 @@ import type {
   UpdateCompanySchema,
 } from '../companies-repository';
 
+const companyEncConfig = ENCRYPTED_FIELD_CONFIG.Company;
+const fiscalEncConfig = ENCRYPTED_FIELD_CONFIG.CompanyFiscalSettings;
+
+function tryGetCipher() {
+  try {
+    return getFieldCipherService();
+  } catch {
+    return null;
+  }
+}
+
+function decryptCompanyData<T extends Record<string, unknown>>(data: T): T {
+  const cipher = tryGetCipher();
+  if (!cipher) return data;
+  const decrypted = cipher.decryptFields(
+    data,
+    companyEncConfig.encryptedFields,
+  );
+  Object.assign(data, decrypted);
+
+  // Decrypt related fiscal settings if loaded
+  if (Array.isArray(data.fiscalSettings)) {
+    for (const fs of data.fiscalSettings) {
+      if (fs && typeof fs === 'object') {
+        const decryptedFs = cipher.decryptFields(
+          fs as Record<string, unknown>,
+          fiscalEncConfig.encryptedFields,
+        );
+        Object.assign(fs, decryptedFs);
+      }
+    }
+  }
+
+  return data;
+}
+
 export class PrismaCompaniesRepository implements CompaniesRepository {
   async create(data: CreateCompanySchema): Promise<Company> {
+    const cipher = tryGetCipher();
+
+    const createData: Record<string, unknown> = {
+      tenantId: data.tenantId,
+      legalName: data.legalName,
+      cnpj: data.cnpj,
+      tradeName: data.tradeName ?? null,
+      stateRegistration: data.stateRegistration ?? null,
+      municipalRegistration: data.municipalRegistration ?? null,
+      legalNature: data.legalNature ?? null,
+      taxRegime: (data.taxRegime as TaxRegime | undefined) ?? null,
+      taxRegimeDetail: data.taxRegimeDetail ?? null,
+      activityStartDate: data.activityStartDate ?? null,
+      status: (data.status ?? 'ACTIVE') as CompanyStatus,
+      email: data.email ?? null,
+      phoneMain: data.phoneMain ?? null,
+      phoneAlt: data.phoneAlt ?? null,
+      logoUrl: data.logoUrl ?? null,
+      metadata: (data.metadata ?? {}) as Prisma.InputJsonValue,
+      pendingIssues: [],
+    };
+
+    if (cipher) {
+      // Encrypt sensitive fields
+      for (const field of companyEncConfig.encryptedFields) {
+        if (
+          createData[field] !== null &&
+          createData[field] !== undefined &&
+          typeof createData[field] === 'string'
+        ) {
+          createData[field] = cipher.encrypt(createData[field] as string);
+        }
+      }
+
+      // Generate blind index hashes from ORIGINAL plaintext values
+      const hashes = cipher.generateHashes(
+        { cnpj: data.cnpj },
+        companyEncConfig.hashFields,
+      );
+      Object.assign(createData, hashes);
+    }
+
     const companyData = await prisma.company.create({
-      data: {
-        tenantId: data.tenantId,
-        legalName: data.legalName,
-        cnpj: data.cnpj,
-        tradeName: data.tradeName ?? null,
-        stateRegistration: data.stateRegistration ?? null,
-        municipalRegistration: data.municipalRegistration ?? null,
-        legalNature: data.legalNature ?? null,
-        taxRegime: (data.taxRegime as TaxRegime | undefined) ?? null,
-        taxRegimeDetail: data.taxRegimeDetail ?? null,
-        activityStartDate: data.activityStartDate ?? null,
-        status: (data.status ?? 'ACTIVE') as CompanyStatus,
-        email: data.email ?? null,
-        phoneMain: data.phoneMain ?? null,
-        phoneAlt: data.phoneAlt ?? null,
-        logoUrl: data.logoUrl ?? null,
-        metadata: (data.metadata ?? {}) as Prisma.InputJsonValue,
-        pendingIssues: [],
-      },
+      data: createData as Parameters<typeof prisma.company.create>[0]['data'],
     });
+
+    decryptCompanyData(companyData as unknown as Record<string, unknown>);
 
     const company = Company.create(
       mapCompanyPrismaToDomain(companyData),
       new UniqueEntityID(companyData.id),
     );
 
-    // Calcular pendências iniciais
+    // Calcular pendencias iniciais
     company.updateMainData(
       company.tradeName,
       company.stateRegistration,
@@ -59,7 +123,7 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
       company.logoUrl,
     );
 
-    // Salvar com pendências calculadas
+    // Salvar com pendencias calculadas
     await this.save(company);
 
     return company;
@@ -96,6 +160,8 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
 
     if (!companyData) return null;
 
+    decryptCompanyData(companyData as unknown as Record<string, unknown>);
+
     const company = Company.create(
       mapCompanyPrismaToDomain(companyData),
       new UniqueEntityID(companyData.id),
@@ -108,15 +174,28 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
     tenantId: string,
     includeDeleted = false,
   ): Promise<Company | null> {
+    const cipher = tryGetCipher();
+
+    // Use blind index hash for lookup when encryption is available
+    const whereClause: Record<string, unknown> = {
+      tenantId,
+      ...(includeDeleted ? {} : { deletedAt: null }),
+    };
+
+    if (cipher) {
+      const cnpjHash = cipher.blindIndex(cnpj);
+      whereClause.cnpjHash = cnpjHash;
+    } else {
+      whereClause.cnpj = cnpj;
+    }
+
     const companyData = await prisma.company.findFirst({
-      where: {
-        cnpj,
-        tenantId,
-        ...(includeDeleted ? {} : { deletedAt: null }),
-      },
+      where: whereClause as Prisma.CompanyWhereInput,
     });
 
     if (!companyData) return null;
+
+    decryptCompanyData(companyData as unknown as Record<string, unknown>);
 
     const company = Company.create(
       mapCompanyPrismaToDomain(companyData),
@@ -157,12 +236,13 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
       prisma.company.count({ where }),
     ]);
 
-    const companyDomains = companies.map((companyData) =>
-      Company.create(
+    const companyDomains = companies.map((companyData) => {
+      decryptCompanyData(companyData as unknown as Record<string, unknown>);
+      return Company.create(
         mapCompanyPrismaToDomain(companyData),
         new UniqueEntityID(companyData.id),
-      ),
-    );
+      );
+    });
 
     return { companies: companyDomains, total };
   }
@@ -176,12 +256,13 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
       orderBy: { createdAt: 'desc' },
     });
 
-    return companies.map((companyData) =>
-      Company.create(
+    return companies.map((companyData) => {
+      decryptCompanyData(companyData as unknown as Record<string, unknown>);
+      return Company.create(
         mapCompanyPrismaToDomain(companyData),
         new UniqueEntityID(companyData.id),
-      ),
-    );
+      );
+    });
   }
 
   async findManyInactive(tenantId: string): Promise<Company[]> {
@@ -193,12 +274,13 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
       orderBy: { createdAt: 'desc' },
     });
 
-    return companies.map((companyData) =>
-      Company.create(
+    return companies.map((companyData) => {
+      decryptCompanyData(companyData as unknown as Record<string, unknown>);
+      return Company.create(
         mapCompanyPrismaToDomain(companyData),
         new UniqueEntityID(companyData.id),
-      ),
-    );
+      );
+    });
   }
 
   async update(data: UpdateCompanySchema): Promise<Company | null> {
@@ -211,6 +293,8 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
     });
 
     if (!companyData) return null;
+
+    decryptCompanyData(companyData as unknown as Record<string, unknown>);
 
     const company = Company.create(
       mapCompanyPrismaToDomain(companyData),
@@ -232,7 +316,7 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
       data.phoneAlt !== undefined ||
       data.logoUrl !== undefined
     ) {
-      // Atualizar dados principais (que recalculam pendências)
+      // Atualizar dados principais (que recalculam pendencias)
       company.updateMainData(
         data.tradeName !== undefined
           ? (data.tradeName ?? undefined)
@@ -283,37 +367,61 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
       company.updateMetadata(data.metadata);
     }
 
-    // Persistir alterações no banco de dados
+    // Persistir alteracoes no banco de dados
     await this.save(company);
 
     return company;
   }
 
   async save(company: Company): Promise<void> {
+    const cipher = tryGetCipher();
+
+    const saveData: Record<string, unknown> = {
+      legalName: company.legalName,
+      cnpj: company.cnpj,
+      tradeName: company.tradeName ?? null,
+      stateRegistration: company.stateRegistration ?? null,
+      municipalRegistration: company.municipalRegistration ?? null,
+      legalNature: company.legalNature ?? null,
+      taxRegime: (company.taxRegime as TaxRegime | null | undefined) ?? null,
+      taxRegimeDetail: company.taxRegimeDetail ?? null,
+      activityStartDate: company.activityStartDate ?? null,
+      status: company.status,
+      email: company.email ?? null,
+      phoneMain: company.phoneMain ?? null,
+      phoneAlt: company.phoneAlt ?? null,
+      logoUrl: company.logoUrl ?? null,
+      metadata: (company.metadata ?? {}) as Prisma.InputJsonValue,
+      pendingIssues: company.pendingIssues ?? [],
+      deletedAt: company.deletedAt ?? null,
+      updatedAt: company.updatedAt,
+    };
+
+    if (cipher) {
+      // Encrypt sensitive fields
+      for (const field of companyEncConfig.encryptedFields) {
+        if (
+          saveData[field] !== null &&
+          saveData[field] !== undefined &&
+          typeof saveData[field] === 'string'
+        ) {
+          saveData[field] = cipher.encrypt(saveData[field] as string);
+        }
+      }
+
+      // Regenerate blind index hashes from plaintext values
+      const hashes = cipher.generateHashes(
+        { cnpj: company.cnpj },
+        companyEncConfig.hashFields,
+      );
+      Object.assign(saveData, hashes);
+    }
+
     await prisma.company.update({
       where: {
         id: company.id.toString(),
       },
-      data: {
-        legalName: company.legalName,
-        cnpj: company.cnpj,
-        tradeName: company.tradeName ?? null,
-        stateRegistration: company.stateRegistration ?? null,
-        municipalRegistration: company.municipalRegistration ?? null,
-        legalNature: company.legalNature ?? null,
-        taxRegime: (company.taxRegime as TaxRegime | null | undefined) ?? null,
-        taxRegimeDetail: company.taxRegimeDetail ?? null,
-        activityStartDate: company.activityStartDate ?? null,
-        status: company.status,
-        email: company.email ?? null,
-        phoneMain: company.phoneMain ?? null,
-        phoneAlt: company.phoneAlt ?? null,
-        logoUrl: company.logoUrl ?? null,
-        metadata: (company.metadata ?? {}) as Prisma.InputJsonValue,
-        pendingIssues: company.pendingIssues ?? [],
-        deletedAt: company.deletedAt ?? null,
-        updatedAt: company.updatedAt,
-      },
+      data: saveData as Parameters<typeof prisma.company.update>[0]['data'],
     });
   }
 
@@ -322,6 +430,8 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
       where: { id: id.toString(), deletedAt: null },
     });
     if (companyData) {
+      decryptCompanyData(companyData as unknown as Record<string, unknown>);
+
       const company = Company.create(
         mapCompanyPrismaToDomain(companyData),
         new UniqueEntityID(companyData.id),

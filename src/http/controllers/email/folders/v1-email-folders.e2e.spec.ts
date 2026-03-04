@@ -15,19 +15,26 @@ describe('Email Folders Controller (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
 
-    const { tenantId: tid } = await createAndSetupTenant({ name: 'Test Email Folders Tenant' });
+    const { tenantId: tid } = await createAndSetupTenant({
+      name: 'Test Email Folders Tenant',
+    });
     tenantId = tid;
 
     const authResult = await createAndAuthenticateUser(app, {
       tenantId,
       permissions: [
-        'email.accounts.create', 'email.accounts.read', 'email.messages.read',
+        'email.accounts.create',
+        'email.accounts.read',
+        'email.messages.read',
         'email.messages.send',
       ],
     });
     token = authResult.token;
 
-    const noPermsResult = await createAndAuthenticateUser(app, { tenantId, permissions: [] });
+    const noPermsResult = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: [],
+    });
     tokenNoPerms = noPermsResult.token;
 
     // Criar conta
@@ -55,9 +62,11 @@ describe('Email Folders Controller (E2E)', () => {
       },
     });
     sentFolderId = sentFolder.id;
-  }, 30000);
+  }, 60000);
 
-  afterAll(async () => { await app.close(); });
+  afterAll(async () => {
+    await app.close();
+  });
 
   // --- GET /v1/email/folders -----------------------------------------------
   describe('Listar pastas (GET /v1/email/folders)', () => {
@@ -98,7 +107,14 @@ describe('Email Folders Controller (E2E)', () => {
         expect(folder).toHaveProperty('remoteName');
         expect(folder).toHaveProperty('displayName');
         expect(folder).toHaveProperty('type');
-        expect(['INBOX', 'SENT', 'DRAFTS', 'TRASH', 'SPAM', 'CUSTOM']).toContain(folder.type);
+        expect([
+          'INBOX',
+          'SENT',
+          'DRAFTS',
+          'TRASH',
+          'SPAM',
+          'CUSTOM',
+        ]).toContain(folder.type);
       }
     });
 

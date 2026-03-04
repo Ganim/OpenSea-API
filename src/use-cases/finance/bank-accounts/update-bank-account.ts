@@ -57,6 +57,7 @@ export class UpdateBankAccountUseCase {
 
     const updated = await this.bankAccountsRepository.update({
       id: new UniqueEntityID(id),
+      tenantId,
       name: name?.trim(),
       bankName: request.bankName,
       agency: request.agency,

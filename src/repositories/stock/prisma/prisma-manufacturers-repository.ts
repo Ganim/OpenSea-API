@@ -2,62 +2,109 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
 import { prisma } from '@/lib/prisma';
+import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
+import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import type {
   CreateManufacturerSchema,
   ManufacturersRepository,
   UpdateManufacturerSchema,
 } from '../manufacturers-repository';
 
+const { encryptedFields, hashFields } = ENCRYPTED_FIELD_CONFIG.Manufacturer;
+
+function tryGetCipher() {
+  try {
+    return getFieldCipherService();
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Decrypts the DB-level field names (address, zipCode) which correspond
+ * to the Prisma column names used in ENCRYPTED_FIELD_CONFIG.Manufacturer.
+ */
+function decryptManufacturerData<T extends Record<string, unknown>>(
+  data: T,
+): T {
+  const cipher = tryGetCipher();
+  if (!cipher) return data;
+  return cipher.decryptFields(data, encryptedFields);
+}
+
+function mapToDomain(m: Record<string, unknown>): Manufacturer {
+  const d = decryptManufacturerData(m);
+  return Manufacturer.create(
+    {
+      tenantId: new EntityID(d.tenantId as string),
+      code: d.code as string,
+      sequentialCode: d.sequentialCode as number,
+      name: d.name as string,
+      legalName: d.legalName as string | null,
+      cnpj: d.cnpj as string | null,
+      country: (d.country as string) ?? '',
+      email: d.email as string | null,
+      phone: d.phone as string | null,
+      website: d.website as string | null,
+      addressLine1: d.address as string | null,
+      addressLine2: null,
+      city: d.city as string | null,
+      state: d.state as string | null,
+      postalCode: d.zipCode as string | null,
+      isActive: d.isActive as boolean,
+      rating: d.rating ? Number(d.rating.toString()) : null,
+      notes: d.notes as string | null,
+      createdAt: d.createdAt as Date,
+      updatedAt: d.updatedAt as Date,
+    },
+    new EntityID(d.id as string),
+  );
+}
+
 export class PrismaManufacturersRepository implements ManufacturersRepository {
   async create(data: CreateManufacturerSchema): Promise<Manufacturer> {
+    const cipher = tryGetCipher();
+
+    // Map domain field names to DB column names for encryption
+    const plainValues: Record<string, string | null | undefined> = {
+      cnpj: data.cnpj,
+      email: data.email,
+      phone: data.phone,
+      address: data.addressLine1, // domain addressLine1 -> DB address
+      city: data.city,
+      state: data.state,
+      zipCode: data.postalCode, // domain postalCode -> DB zipCode
+    };
+
+    const hashes = cipher ? cipher.generateHashes(plainValues, hashFields) : {};
+
+    const encryptedValues = cipher
+      ? cipher.encryptFields({ ...plainValues }, encryptedFields)
+      : plainValues;
+
     const manufacturerData = await prisma.manufacturer.create({
       data: {
         tenantId: data.tenantId,
-        code: data.code, // Codigo hierarquico auto-gerado
+        code: data.code,
         name: data.name,
         legalName: data.legalName,
-        cnpj: data.cnpj,
+        cnpj: encryptedValues.cnpj ?? undefined,
         country: data.country,
-        email: data.email,
-        phone: data.phone,
+        email: encryptedValues.email ?? undefined,
+        phone: encryptedValues.phone ?? undefined,
         website: data.website,
-        address: data.addressLine1,
-        city: data.city,
-        state: data.state,
-        zipCode: data.postalCode,
+        address: encryptedValues.address ?? undefined,
+        city: encryptedValues.city ?? undefined,
+        state: encryptedValues.state ?? undefined,
+        zipCode: encryptedValues.zipCode ?? undefined,
         isActive: data.isActive ?? true,
         rating: data.rating ? data.rating : undefined,
         notes: data.notes,
+        ...hashes,
       },
     });
 
-    return Manufacturer.create(
-      {
-        tenantId: new EntityID(manufacturerData.tenantId),
-        code: manufacturerData.code,
-        sequentialCode: manufacturerData.sequentialCode,
-        name: manufacturerData.name,
-        legalName: manufacturerData.legalName,
-        cnpj: manufacturerData.cnpj,
-        country: manufacturerData.country ?? '',
-        email: manufacturerData.email,
-        phone: manufacturerData.phone,
-        website: manufacturerData.website,
-        addressLine1: manufacturerData.address,
-        addressLine2: null,
-        city: manufacturerData.city,
-        state: manufacturerData.state,
-        postalCode: manufacturerData.zipCode,
-        isActive: manufacturerData.isActive,
-        rating: manufacturerData.rating
-          ? Number(manufacturerData.rating.toString())
-          : null,
-        notes: manufacturerData.notes,
-        createdAt: manufacturerData.createdAt,
-        updatedAt: manufacturerData.updatedAt,
-      },
-      new EntityID(manufacturerData.id),
-    );
+    return mapToDomain(manufacturerData as unknown as Record<string, unknown>);
   }
 
   async findById(
@@ -76,33 +123,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
       return null;
     }
 
-    return Manufacturer.create(
-      {
-        tenantId: new EntityID(manufacturerData.tenantId),
-        code: manufacturerData.code,
-        sequentialCode: manufacturerData.sequentialCode,
-        name: manufacturerData.name,
-        legalName: manufacturerData.legalName,
-        cnpj: manufacturerData.cnpj,
-        country: manufacturerData.country ?? '',
-        email: manufacturerData.email,
-        phone: manufacturerData.phone,
-        website: manufacturerData.website,
-        addressLine1: manufacturerData.address,
-        addressLine2: null,
-        city: manufacturerData.city,
-        state: manufacturerData.state,
-        postalCode: manufacturerData.zipCode,
-        isActive: manufacturerData.isActive,
-        rating: manufacturerData.rating
-          ? Number(manufacturerData.rating.toString())
-          : null,
-        notes: manufacturerData.notes,
-        createdAt: manufacturerData.createdAt,
-        updatedAt: manufacturerData.updatedAt,
-      },
-      new EntityID(manufacturerData.id),
-    );
+    return mapToDomain(manufacturerData as unknown as Record<string, unknown>);
   }
 
   async findByName(
@@ -124,33 +145,7 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
       return null;
     }
 
-    return Manufacturer.create(
-      {
-        tenantId: new EntityID(manufacturerData.tenantId),
-        code: manufacturerData.code,
-        sequentialCode: manufacturerData.sequentialCode,
-        name: manufacturerData.name,
-        legalName: manufacturerData.legalName,
-        cnpj: manufacturerData.cnpj,
-        country: manufacturerData.country ?? '',
-        email: manufacturerData.email,
-        phone: manufacturerData.phone,
-        website: manufacturerData.website,
-        addressLine1: manufacturerData.address,
-        addressLine2: null,
-        city: manufacturerData.city,
-        state: manufacturerData.state,
-        postalCode: manufacturerData.zipCode,
-        isActive: manufacturerData.isActive,
-        rating: manufacturerData.rating
-          ? Number(manufacturerData.rating.toString())
-          : null,
-        notes: manufacturerData.notes,
-        createdAt: manufacturerData.createdAt,
-        updatedAt: manufacturerData.updatedAt,
-      },
-      new EntityID(manufacturerData.id),
-    );
+    return mapToDomain(manufacturerData as unknown as Record<string, unknown>);
   }
 
   async findMany(tenantId: string): Promise<Manufacturer[]> {
@@ -161,34 +156,8 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
       },
     });
 
-    return manufacturers.map((manufacturerData) =>
-      Manufacturer.create(
-        {
-          tenantId: new EntityID(manufacturerData.tenantId),
-          code: manufacturerData.code,
-          sequentialCode: manufacturerData.sequentialCode,
-          name: manufacturerData.name,
-          legalName: manufacturerData.legalName,
-          cnpj: manufacturerData.cnpj,
-          country: manufacturerData.country ?? '',
-          email: manufacturerData.email,
-          phone: manufacturerData.phone,
-          website: manufacturerData.website,
-          addressLine1: manufacturerData.address,
-          addressLine2: null,
-          city: manufacturerData.city,
-          state: manufacturerData.state,
-          postalCode: manufacturerData.zipCode,
-          isActive: manufacturerData.isActive,
-          rating: manufacturerData.rating
-            ? Number(manufacturerData.rating.toString())
-            : null,
-          notes: manufacturerData.notes,
-          createdAt: manufacturerData.createdAt,
-          updatedAt: manufacturerData.updatedAt,
-        },
-        new EntityID(manufacturerData.id),
-      ),
+    return manufacturers.map((m) =>
+      mapToDomain(m as unknown as Record<string, unknown>),
     );
   }
 
@@ -204,34 +173,8 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
       },
     });
 
-    return manufacturers.map((manufacturerData) =>
-      Manufacturer.create(
-        {
-          tenantId: new EntityID(manufacturerData.tenantId),
-          code: manufacturerData.code,
-          sequentialCode: manufacturerData.sequentialCode,
-          name: manufacturerData.name,
-          legalName: manufacturerData.legalName,
-          cnpj: manufacturerData.cnpj,
-          country: manufacturerData.country ?? '',
-          email: manufacturerData.email,
-          phone: manufacturerData.phone,
-          website: manufacturerData.website,
-          addressLine1: manufacturerData.address,
-          addressLine2: null,
-          city: manufacturerData.city,
-          state: manufacturerData.state,
-          postalCode: manufacturerData.zipCode,
-          isActive: manufacturerData.isActive,
-          rating: manufacturerData.rating
-            ? Number(manufacturerData.rating.toString())
-            : null,
-          notes: manufacturerData.notes,
-          createdAt: manufacturerData.createdAt,
-          updatedAt: manufacturerData.updatedAt,
-        },
-        new EntityID(manufacturerData.id),
-      ),
+    return manufacturers.map((m) =>
+      mapToDomain(m as unknown as Record<string, unknown>),
     );
   }
 
@@ -249,34 +192,8 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
       },
     });
 
-    return manufacturers.map((manufacturerData) =>
-      Manufacturer.create(
-        {
-          tenantId: new EntityID(manufacturerData.tenantId),
-          code: manufacturerData.code,
-          sequentialCode: manufacturerData.sequentialCode,
-          name: manufacturerData.name,
-          legalName: manufacturerData.legalName,
-          cnpj: manufacturerData.cnpj,
-          country: manufacturerData.country ?? '',
-          email: manufacturerData.email,
-          phone: manufacturerData.phone,
-          website: manufacturerData.website,
-          addressLine1: manufacturerData.address,
-          addressLine2: null,
-          city: manufacturerData.city,
-          state: manufacturerData.state,
-          postalCode: manufacturerData.zipCode,
-          isActive: manufacturerData.isActive,
-          rating: manufacturerData.rating
-            ? Number(manufacturerData.rating.toString())
-            : null,
-          notes: manufacturerData.notes,
-          createdAt: manufacturerData.createdAt,
-          updatedAt: manufacturerData.updatedAt,
-        },
-        new EntityID(manufacturerData.id),
-      ),
+    return manufacturers.map((m) =>
+      mapToDomain(m as unknown as Record<string, unknown>),
     );
   }
 
@@ -289,90 +206,81 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
       },
     });
 
-    return manufacturers.map((manufacturerData) =>
-      Manufacturer.create(
-        {
-          tenantId: new EntityID(manufacturerData.tenantId),
-          code: manufacturerData.code,
-          sequentialCode: manufacturerData.sequentialCode,
-          name: manufacturerData.name,
-          legalName: manufacturerData.legalName,
-          cnpj: manufacturerData.cnpj,
-          country: manufacturerData.country ?? '',
-          email: manufacturerData.email,
-          phone: manufacturerData.phone,
-          website: manufacturerData.website,
-          addressLine1: manufacturerData.address,
-          addressLine2: null,
-          city: manufacturerData.city,
-          state: manufacturerData.state,
-          postalCode: manufacturerData.zipCode,
-          isActive: manufacturerData.isActive,
-          rating: manufacturerData.rating
-            ? Number(manufacturerData.rating.toString())
-            : null,
-          notes: manufacturerData.notes,
-          createdAt: manufacturerData.createdAt,
-          updatedAt: manufacturerData.updatedAt,
-        },
-        new EntityID(manufacturerData.id),
-      ),
+    return manufacturers.map((m) =>
+      mapToDomain(m as unknown as Record<string, unknown>),
     );
   }
 
   async update(data: UpdateManufacturerSchema): Promise<Manufacturer | null> {
+    const cipher = tryGetCipher();
+
+    // Map domain field names to DB column names for encryption
+    const plainValues: Record<string, string | null | undefined> = {
+      cnpj: data.cnpj,
+      email: data.email,
+      phone: data.phone,
+      address: data.addressLine1, // domain addressLine1 -> DB address
+      city: data.city,
+      state: data.state,
+      zipCode: data.postalCode, // domain postalCode -> DB zipCode
+    };
+
+    const hashes = cipher ? cipher.generateHashes(plainValues, hashFields) : {};
+
+    const encryptedValues = cipher
+      ? cipher.encryptFields({ ...plainValues }, encryptedFields)
+      : plainValues;
+
     const manufacturerData = await prisma.manufacturer.update({
       where: {
         id: data.id.toString(),
+        tenantId: data.tenantId,
       },
       data: {
         ...(data.name !== undefined && { name: data.name }),
         ...(data.legalName !== undefined && { legalName: data.legalName }),
-        ...(data.cnpj !== undefined && { cnpj: data.cnpj }),
+        ...(data.cnpj !== undefined && { cnpj: encryptedValues.cnpj }),
         ...(data.country !== undefined && { country: data.country }),
-        ...(data.email !== undefined && { email: data.email }),
-        ...(data.phone !== undefined && { phone: data.phone }),
+        ...(data.email !== undefined && { email: encryptedValues.email }),
+        ...(data.phone !== undefined && { phone: encryptedValues.phone }),
         ...(data.website !== undefined && { website: data.website }),
-        ...(data.addressLine1 !== undefined && { address: data.addressLine1 }),
-        ...(data.city !== undefined && { city: data.city }),
-        ...(data.state !== undefined && { state: data.state }),
-        ...(data.postalCode !== undefined && { zipCode: data.postalCode }),
+        ...(data.addressLine1 !== undefined && {
+          address: encryptedValues.address,
+        }),
+        ...(data.city !== undefined && { city: encryptedValues.city }),
+        ...(data.state !== undefined && { state: encryptedValues.state }),
+        ...(data.postalCode !== undefined && {
+          zipCode: encryptedValues.zipCode,
+        }),
         ...(data.isActive !== undefined && { isActive: data.isActive }),
         ...(data.rating !== undefined && { rating: data.rating }),
         ...(data.notes !== undefined && { notes: data.notes }),
+        ...hashes,
       },
     });
 
-    return Manufacturer.create(
-      {
-        tenantId: new EntityID(manufacturerData.tenantId),
-        code: manufacturerData.code,
-        sequentialCode: manufacturerData.sequentialCode,
-        name: manufacturerData.name,
-        legalName: manufacturerData.legalName,
-        cnpj: manufacturerData.cnpj,
-        country: manufacturerData.country ?? '',
-        email: manufacturerData.email,
-        phone: manufacturerData.phone,
-        website: manufacturerData.website,
-        addressLine1: manufacturerData.address,
-        addressLine2: null,
-        city: manufacturerData.city,
-        state: manufacturerData.state,
-        postalCode: manufacturerData.zipCode,
-        isActive: manufacturerData.isActive,
-        rating: manufacturerData.rating
-          ? Number(manufacturerData.rating.toString())
-          : null,
-        notes: manufacturerData.notes,
-        createdAt: manufacturerData.createdAt,
-        updatedAt: manufacturerData.updatedAt,
-      },
-      new EntityID(manufacturerData.id),
-    );
+    return mapToDomain(manufacturerData as unknown as Record<string, unknown>);
   }
 
   async save(manufacturer: Manufacturer): Promise<void> {
+    const cipher = tryGetCipher();
+
+    const plainValues: Record<string, string | null | undefined> = {
+      cnpj: manufacturer.cnpj,
+      email: manufacturer.email,
+      phone: manufacturer.phone,
+      address: manufacturer.addressLine1,
+      city: manufacturer.city,
+      state: manufacturer.state,
+      zipCode: manufacturer.postalCode,
+    };
+
+    const hashes = cipher ? cipher.generateHashes(plainValues, hashFields) : {};
+
+    const encryptedValues = cipher
+      ? cipher.encryptFields({ ...plainValues }, encryptedFields)
+      : plainValues;
+
     await prisma.manufacturer.update({
       where: {
         id: manufacturer.manufacturerId.toString(),
@@ -380,27 +288,29 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
       data: {
         name: manufacturer.name,
         legalName: manufacturer.legalName,
-        cnpj: manufacturer.cnpj,
+        cnpj: encryptedValues.cnpj ?? undefined,
         country: manufacturer.country,
-        email: manufacturer.email,
-        phone: manufacturer.phone,
+        email: encryptedValues.email ?? undefined,
+        phone: encryptedValues.phone ?? undefined,
         website: manufacturer.website,
-        address: manufacturer.addressLine1,
-        city: manufacturer.city,
-        state: manufacturer.state,
-        zipCode: manufacturer.postalCode,
+        address: encryptedValues.address ?? undefined,
+        city: encryptedValues.city ?? undefined,
+        state: encryptedValues.state ?? undefined,
+        zipCode: encryptedValues.zipCode ?? undefined,
         isActive: manufacturer.isActive,
         rating: manufacturer.rating ? manufacturer.rating : null,
         notes: manufacturer.notes,
         updatedAt: new Date(),
+        ...hashes,
       },
     });
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.manufacturer.update({
       where: {
         id: id.toString(),
+        ...(tenantId && { tenantId }),
       },
       data: {
         deletedAt: new Date(),

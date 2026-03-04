@@ -92,4 +92,8 @@ export interface BinsRepository {
     zoneId: UniqueEntityID,
     tenantId: string,
   ): Promise<Map<string, number>>;
+  findSoftDeletedByTenant(
+    tenantId: string,
+  ): Promise<Array<{ binId: UniqueEntityID; address: string }>>;
+  countItemsPerBinForTenant(tenantId: string): Promise<Map<string, number>>;
 }

@@ -6,14 +6,43 @@ vi.mock('@/lib/logger', () => ({
 
 import { CalendarSyncService } from './calendar-sync.service';
 import { InMemoryCalendarEventsRepository } from '@/repositories/calendar/in-memory/in-memory-calendar-events-repository';
+import { InMemoryCalendarsRepository } from '@/repositories/calendar/in-memory/in-memory-calendars-repository';
 
 let repo: InMemoryCalendarEventsRepository;
+let calendarsRepo: InMemoryCalendarsRepository;
 let sut: CalendarSyncService;
 
 describe('CalendarSyncService', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     repo = new InMemoryCalendarEventsRepository();
-    sut = new CalendarSyncService(repo);
+    calendarsRepo = new InMemoryCalendarsRepository();
+    sut = new CalendarSyncService(repo, calendarsRepo);
+
+    // Create system calendars for each module
+    await calendarsRepo.create({
+      tenantId: 'tenant-1',
+      name: 'Calendário RH',
+      color: '#8b5cf6',
+      type: 'SYSTEM',
+      systemModule: 'HR',
+      createdBy: '00000000-0000-0000-0000-000000000000',
+    });
+    await calendarsRepo.create({
+      tenantId: 'tenant-1',
+      name: 'Calendário Financeiro',
+      color: '#10b981',
+      type: 'SYSTEM',
+      systemModule: 'FINANCE',
+      createdBy: '00000000-0000-0000-0000-000000000000',
+    });
+    await calendarsRepo.create({
+      tenantId: 'tenant-1',
+      name: 'Calendário Estoque',
+      color: '#f59e0b',
+      type: 'SYSTEM',
+      systemModule: 'STOCK',
+      createdBy: '00000000-0000-0000-0000-000000000000',
+    });
   });
 
   describe('syncAbsence', () => {
@@ -34,6 +63,7 @@ describe('CalendarSyncService', () => {
       expect(repo.items[0].systemSourceType).toBe('HR_ABSENCE');
       expect(repo.items[0].systemSourceId).toBe('absence-1');
       expect(repo.items[0].isAllDay).toBe(true);
+      expect(repo.items[0].calendarId).toBeTruthy();
     });
 
     it('should create an ABSENCE event for non-vacation absences', async () => {
@@ -91,6 +121,7 @@ describe('CalendarSyncService', () => {
       expect(repo.items[0].type).toBe('FINANCE_DUE');
       expect(repo.items[0].title).toBe('Vencimento: Aluguel Janeiro');
       expect(repo.items[0].systemSourceType).toBe('FINANCE_ENTRY');
+      expect(repo.items[0].calendarId).toBeTruthy();
     });
 
     it('should create event with "Recebimento" for receivable entries', async () => {
@@ -122,6 +153,7 @@ describe('CalendarSyncService', () => {
       expect(repo.items[0].type).toBe('PURCHASE_ORDER');
       expect(repo.items[0].title).toBe('Entrega PO #001 - Fornecedor ABC');
       expect(repo.items[0].systemSourceType).toBe('STOCK_PO');
+      expect(repo.items[0].calendarId).toBeTruthy();
     });
   });
 

@@ -29,6 +29,7 @@ export type OrganizationStakeholderMinAggregateOutputType = {
   organizationId: string | null
   name: string | null
   cpf: string | null
+  cpfHash: string | null
   role: $Enums.CompanyStakeholderRole | null
   qualification: string | null
   entryDate: Date | null
@@ -45,6 +46,7 @@ export type OrganizationStakeholderMaxAggregateOutputType = {
   organizationId: string | null
   name: string | null
   cpf: string | null
+  cpfHash: string | null
   role: $Enums.CompanyStakeholderRole | null
   qualification: string | null
   entryDate: Date | null
@@ -61,6 +63,7 @@ export type OrganizationStakeholderCountAggregateOutputType = {
   organizationId: number
   name: number
   cpf: number
+  cpfHash: number
   role: number
   qualification: number
   entryDate: number
@@ -81,6 +84,7 @@ export type OrganizationStakeholderMinAggregateInputType = {
   organizationId?: true
   name?: true
   cpf?: true
+  cpfHash?: true
   role?: true
   qualification?: true
   entryDate?: true
@@ -97,6 +101,7 @@ export type OrganizationStakeholderMaxAggregateInputType = {
   organizationId?: true
   name?: true
   cpf?: true
+  cpfHash?: true
   role?: true
   qualification?: true
   entryDate?: true
@@ -113,6 +118,7 @@ export type OrganizationStakeholderCountAggregateInputType = {
   organizationId?: true
   name?: true
   cpf?: true
+  cpfHash?: true
   role?: true
   qualification?: true
   entryDate?: true
@@ -204,6 +210,7 @@ export type OrganizationStakeholderGroupByOutputType = {
   organizationId: string
   name: string
   cpf: string | null
+  cpfHash: string | null
   role: $Enums.CompanyStakeholderRole | null
   qualification: string | null
   entryDate: Date | null
@@ -243,6 +250,7 @@ export type OrganizationStakeholderWhereInput = {
   organizationId?: Prisma.StringFilter<"OrganizationStakeholder"> | string
   name?: Prisma.StringFilter<"OrganizationStakeholder"> | string
   cpf?: Prisma.StringNullableFilter<"OrganizationStakeholder"> | string | null
+  cpfHash?: Prisma.StringNullableFilter<"OrganizationStakeholder"> | string | null
   role?: Prisma.EnumCompanyStakeholderRoleNullableFilter<"OrganizationStakeholder"> | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.StringNullableFilter<"OrganizationStakeholder"> | string | null
   entryDate?: Prisma.DateTimeNullableFilter<"OrganizationStakeholder"> | Date | string | null
@@ -262,6 +270,7 @@ export type OrganizationStakeholderOrderByWithRelationInput = {
   organizationId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   cpf?: Prisma.SortOrderInput | Prisma.SortOrder
+  cpfHash?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrderInput | Prisma.SortOrder
   qualification?: Prisma.SortOrderInput | Prisma.SortOrder
   entryDate?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -285,6 +294,7 @@ export type OrganizationStakeholderWhereUniqueInput = Prisma.AtLeast<{
   organizationId?: Prisma.StringFilter<"OrganizationStakeholder"> | string
   name?: Prisma.StringFilter<"OrganizationStakeholder"> | string
   cpf?: Prisma.StringNullableFilter<"OrganizationStakeholder"> | string | null
+  cpfHash?: Prisma.StringNullableFilter<"OrganizationStakeholder"> | string | null
   role?: Prisma.EnumCompanyStakeholderRoleNullableFilter<"OrganizationStakeholder"> | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.StringNullableFilter<"OrganizationStakeholder"> | string | null
   entryDate?: Prisma.DateTimeNullableFilter<"OrganizationStakeholder"> | Date | string | null
@@ -304,6 +314,7 @@ export type OrganizationStakeholderOrderByWithAggregationInput = {
   organizationId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   cpf?: Prisma.SortOrderInput | Prisma.SortOrder
+  cpfHash?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrderInput | Prisma.SortOrder
   qualification?: Prisma.SortOrderInput | Prisma.SortOrder
   entryDate?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -328,6 +339,7 @@ export type OrganizationStakeholderScalarWhereWithAggregatesInput = {
   organizationId?: Prisma.StringWithAggregatesFilter<"OrganizationStakeholder"> | string
   name?: Prisma.StringWithAggregatesFilter<"OrganizationStakeholder"> | string
   cpf?: Prisma.StringNullableWithAggregatesFilter<"OrganizationStakeholder"> | string | null
+  cpfHash?: Prisma.StringNullableWithAggregatesFilter<"OrganizationStakeholder"> | string | null
   role?: Prisma.EnumCompanyStakeholderRoleNullableWithAggregatesFilter<"OrganizationStakeholder"> | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.StringNullableWithAggregatesFilter<"OrganizationStakeholder"> | string | null
   entryDate?: Prisma.DateTimeNullableWithAggregatesFilter<"OrganizationStakeholder"> | Date | string | null
@@ -345,6 +357,7 @@ export type OrganizationStakeholderCreateInput = {
   id?: string
   name: string
   cpf?: string | null
+  cpfHash?: string | null
   role?: $Enums.CompanyStakeholderRole | null
   qualification?: string | null
   entryDate?: Date | string | null
@@ -364,6 +377,7 @@ export type OrganizationStakeholderUncheckedCreateInput = {
   organizationId: string
   name: string
   cpf?: string | null
+  cpfHash?: string | null
   role?: $Enums.CompanyStakeholderRole | null
   qualification?: string | null
   entryDate?: Date | string | null
@@ -381,6 +395,7 @@ export type OrganizationStakeholderUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.NullableEnumCompanyStakeholderRoleFieldUpdateOperationsInput | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -400,6 +415,7 @@ export type OrganizationStakeholderUncheckedUpdateInput = {
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.NullableEnumCompanyStakeholderRoleFieldUpdateOperationsInput | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -418,6 +434,7 @@ export type OrganizationStakeholderCreateManyInput = {
   organizationId: string
   name: string
   cpf?: string | null
+  cpfHash?: string | null
   role?: $Enums.CompanyStakeholderRole | null
   qualification?: string | null
   entryDate?: Date | string | null
@@ -435,6 +452,7 @@ export type OrganizationStakeholderUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.NullableEnumCompanyStakeholderRoleFieldUpdateOperationsInput | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -453,6 +471,7 @@ export type OrganizationStakeholderUncheckedUpdateManyInput = {
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.NullableEnumCompanyStakeholderRoleFieldUpdateOperationsInput | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -478,7 +497,7 @@ export type OrganizationStakeholderOrderByRelationAggregateInput = {
 
 export type OrganizationStakeholderOrganization_stakeholders_org_cpf_unique_activeCompoundUniqueInput = {
   organizationId: string
-  cpf: string
+  cpfHash: string
   deletedAt: Date | string
 }
 
@@ -487,6 +506,7 @@ export type OrganizationStakeholderCountOrderByAggregateInput = {
   organizationId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   cpf?: Prisma.SortOrder
+  cpfHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   qualification?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
@@ -505,6 +525,7 @@ export type OrganizationStakeholderMaxOrderByAggregateInput = {
   organizationId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   cpf?: Prisma.SortOrder
+  cpfHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   qualification?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
@@ -521,6 +542,7 @@ export type OrganizationStakeholderMinOrderByAggregateInput = {
   organizationId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   cpf?: Prisma.SortOrder
+  cpfHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   qualification?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
@@ -590,6 +612,7 @@ export type OrganizationStakeholderCreateWithoutOrganizationInput = {
   id?: string
   name: string
   cpf?: string | null
+  cpfHash?: string | null
   role?: $Enums.CompanyStakeholderRole | null
   qualification?: string | null
   entryDate?: Date | string | null
@@ -607,6 +630,7 @@ export type OrganizationStakeholderUncheckedCreateWithoutOrganizationInput = {
   id?: string
   name: string
   cpf?: string | null
+  cpfHash?: string | null
   role?: $Enums.CompanyStakeholderRole | null
   qualification?: string | null
   entryDate?: Date | string | null
@@ -654,6 +678,7 @@ export type OrganizationStakeholderScalarWhereInput = {
   organizationId?: Prisma.StringFilter<"OrganizationStakeholder"> | string
   name?: Prisma.StringFilter<"OrganizationStakeholder"> | string
   cpf?: Prisma.StringNullableFilter<"OrganizationStakeholder"> | string | null
+  cpfHash?: Prisma.StringNullableFilter<"OrganizationStakeholder"> | string | null
   role?: Prisma.EnumCompanyStakeholderRoleNullableFilter<"OrganizationStakeholder"> | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.StringNullableFilter<"OrganizationStakeholder"> | string | null
   entryDate?: Prisma.DateTimeNullableFilter<"OrganizationStakeholder"> | Date | string | null
@@ -671,6 +696,7 @@ export type OrganizationStakeholderCreateManyOrganizationInput = {
   id?: string
   name: string
   cpf?: string | null
+  cpfHash?: string | null
   role?: $Enums.CompanyStakeholderRole | null
   qualification?: string | null
   entryDate?: Date | string | null
@@ -688,6 +714,7 @@ export type OrganizationStakeholderUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.NullableEnumCompanyStakeholderRoleFieldUpdateOperationsInput | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -705,6 +732,7 @@ export type OrganizationStakeholderUncheckedUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.NullableEnumCompanyStakeholderRoleFieldUpdateOperationsInput | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -722,6 +750,7 @@ export type OrganizationStakeholderUncheckedUpdateManyWithoutOrganizationInput =
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.NullableEnumCompanyStakeholderRoleFieldUpdateOperationsInput | $Enums.CompanyStakeholderRole | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -742,6 +771,7 @@ export type OrganizationStakeholderSelect<ExtArgs extends runtime.Types.Extensio
   organizationId?: boolean
   name?: boolean
   cpf?: boolean
+  cpfHash?: boolean
   role?: boolean
   qualification?: boolean
   entryDate?: boolean
@@ -761,6 +791,7 @@ export type OrganizationStakeholderSelectCreateManyAndReturn<ExtArgs extends run
   organizationId?: boolean
   name?: boolean
   cpf?: boolean
+  cpfHash?: boolean
   role?: boolean
   qualification?: boolean
   entryDate?: boolean
@@ -780,6 +811,7 @@ export type OrganizationStakeholderSelectUpdateManyAndReturn<ExtArgs extends run
   organizationId?: boolean
   name?: boolean
   cpf?: boolean
+  cpfHash?: boolean
   role?: boolean
   qualification?: boolean
   entryDate?: boolean
@@ -799,6 +831,7 @@ export type OrganizationStakeholderSelectScalar = {
   organizationId?: boolean
   name?: boolean
   cpf?: boolean
+  cpfHash?: boolean
   role?: boolean
   qualification?: boolean
   entryDate?: boolean
@@ -812,7 +845,7 @@ export type OrganizationStakeholderSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrganizationStakeholderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "name" | "cpf" | "role" | "qualification" | "entryDate" | "exitDate" | "status" | "source" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["organizationStakeholder"]>
+export type OrganizationStakeholderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "name" | "cpf" | "cpfHash" | "role" | "qualification" | "entryDate" | "exitDate" | "status" | "source" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["organizationStakeholder"]>
 export type OrganizationStakeholderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }
@@ -833,6 +866,7 @@ export type $OrganizationStakeholderPayload<ExtArgs extends runtime.Types.Extens
     organizationId: string
     name: string
     cpf: string | null
+    cpfHash: string | null
     role: $Enums.CompanyStakeholderRole | null
     qualification: string | null
     entryDate: Date | null
@@ -1272,6 +1306,7 @@ export interface OrganizationStakeholderFieldRefs {
   readonly organizationId: Prisma.FieldRef<"OrganizationStakeholder", 'String'>
   readonly name: Prisma.FieldRef<"OrganizationStakeholder", 'String'>
   readonly cpf: Prisma.FieldRef<"OrganizationStakeholder", 'String'>
+  readonly cpfHash: Prisma.FieldRef<"OrganizationStakeholder", 'String'>
   readonly role: Prisma.FieldRef<"OrganizationStakeholder", 'CompanyStakeholderRole'>
   readonly qualification: Prisma.FieldRef<"OrganizationStakeholder", 'String'>
   readonly entryDate: Prisma.FieldRef<"OrganizationStakeholder", 'DateTime'>

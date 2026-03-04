@@ -2,8 +2,8 @@ import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { emailFolderToDTO, type EmailFolderDTO } from '@/mappers/email';
 import type {
-    EmailAccountsRepository,
-    EmailFoldersRepository,
+  EmailAccountsRepository,
+  EmailFoldersRepository,
 } from '@/repositories/email';
 
 interface ListEmailFoldersRequest {

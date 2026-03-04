@@ -22,10 +22,7 @@ describe('Invite Participants (E2E)', () => {
 
   it('should invite a participant to an event', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
-    const { token: token2, user: user2 } = await createAndAuthenticateUser(
-      app,
-      { tenantId },
-    );
+    const { user: user2 } = await createAndAuthenticateUser(app, { tenantId });
 
     const event = await createCalendarEvent(tenantId, user.user.id);
 
@@ -66,32 +63,29 @@ describe('Invite Participants (E2E)', () => {
     expect(response.body).toHaveProperty('invited', 0);
   });
 
-  it(
-    'should reject invite by non-owner',
-    async () => {
-      const { user: user1 } = await createAndAuthenticateUser(app, {
-        tenantId,
+  it('should reject invite by non-owner', async () => {
+    const { user: user1 } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
+    const { token: token2 } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
+    const { user: user3 } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
+
+    const event = await createCalendarEvent(tenantId, user1.user.id);
+
+    const response = await request(app.server)
+      .post(`/v1/calendar/events/${event.id}/participants`)
+      .set('Authorization', `Bearer ${token2}`)
+      .send({
+        participants: [{ userId: user3.user.id }],
       });
-      const { token: token2, user: user2 } =
-        await createAndAuthenticateUser(app, { tenantId });
-      const { user: user3 } = await createAndAuthenticateUser(app, {
-        tenantId,
-      });
 
-      const event = await createCalendarEvent(tenantId, user1.user.id);
-
-      const response = await request(app.server)
-        .post(`/v1/calendar/events/${event.id}/participants`)
-        .set('Authorization', `Bearer ${token2}`)
-        .send({
-          participants: [{ userId: user3.user.id }],
-        });
-
-      expect(response.status).toBe(400);
-      expect(response.body).toHaveProperty('message');
-    },
-    15000,
-  );
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message');
+  }, 15000);
 
   it('should return 404 for non-existent event', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

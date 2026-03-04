@@ -149,7 +149,7 @@ export class InMemoryCustomersRepository implements CustomersRepository {
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const customer = this.items.find(
       (item) => !item.deletedAt && item.id.equals(id),
     );

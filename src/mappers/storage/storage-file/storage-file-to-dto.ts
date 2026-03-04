@@ -20,6 +20,9 @@ export interface StorageFileDTO {
   entityId: string | null;
   expiresAt: Date | null;
   uploadedBy: string;
+  isEncrypted: boolean;
+  isProtected: boolean;
+  isHidden: boolean;
   versions?: StorageFileVersionDTO[];
   createdAt: Date;
   updatedAt?: Date;
@@ -44,6 +47,9 @@ export function storageFileToDTO(file: StorageFile): StorageFileDTO {
     entityId: file.entityId,
     expiresAt: file.expiresAt,
     uploadedBy: file.uploadedBy,
+    isEncrypted: file.isEncrypted,
+    isProtected: file.isProtected,
+    isHidden: file.isHidden,
     versions: file.versions?.map(storageFileVersionToDTO),
     createdAt: file.createdAt,
     updatedAt: file.updatedAt,

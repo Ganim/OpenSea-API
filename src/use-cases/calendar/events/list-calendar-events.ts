@@ -33,6 +33,7 @@ interface ListCalendarEventsRequest {
   type?: string;
   search?: string;
   includeSystemEvents?: boolean;
+  calendarIds?: string[];
   page?: number;
   limit?: number;
 }
@@ -70,21 +71,30 @@ export class ListCalendarEventsUseCase {
     const page = request.page ?? 1;
     const limit = request.limit ?? 500;
 
-    const { events, total } = await this.calendarEventsRepository.findMany({
-      tenantId: request.tenantId,
-      userId: request.userId,
-      startDate,
-      endDate,
-      type: request.type,
-      search: request.search,
-      includeSystemEvents: request.includeSystemEvents,
-      page,
-      limit,
-    });
+    const { events: eventsWithRelations, total } =
+      await this.calendarEventsRepository.findManyWithRelations({
+        tenantId: request.tenantId,
+        userId: request.userId,
+        startDate,
+        endDate,
+        type: request.type,
+        search: request.search,
+        includeSystemEvents: request.includeSystemEvents,
+        calendarIds: request.calendarIds,
+        page,
+        limit,
+      });
 
     const result: CalendarEventDTO[] = [];
 
-    for (const event of events) {
+    for (const {
+      event,
+      creatorName,
+      participants,
+      reminders,
+    } of eventsWithRelations) {
+      const dtoOptions = { creatorName, participants, reminders };
+
       if (event.isRecurring && event.rrule) {
         // Expand recurrence
         try {
@@ -99,22 +109,19 @@ export class ListCalendarEventsUseCase {
           const occurrences = rule.between(startDate, endDate);
 
           for (const occurrence of occurrences) {
-            const duration =
-              event.endDate.getTime() - event.startDate.getTime();
-            const occurrenceEnd = new Date(occurrence.getTime() + duration);
-
             result.push(
               calendarEventToDTO(event, {
+                ...dtoOptions,
                 occurrenceDate: occurrence,
               }),
             );
           }
         } catch {
           // If RRULE parsing fails, just include the original event
-          result.push(calendarEventToDTO(event));
+          result.push(calendarEventToDTO(event, dtoOptions));
         }
       } else {
-        result.push(calendarEventToDTO(event));
+        result.push(calendarEventToDTO(event, dtoOptions));
       }
     }
 
@@ -124,10 +131,11 @@ export class ListCalendarEventsUseCase {
       (!request.type || request.type === 'HOLIDAY') &&
       !request.search;
 
-    const holidays = shouldIncludeHolidays ? getHolidaysInRange(startDate, endDate) : [];
+    const holidays = shouldIncludeHolidays
+      ? getHolidaysInRange(startDate, endDate)
+      : [];
 
     if (shouldIncludeHolidays) {
-
       for (const holiday of holidays) {
         const dateStr = holiday.date.toISOString().slice(0, 10);
         const holidayEnd = new Date(holiday.date);
@@ -136,6 +144,7 @@ export class ListCalendarEventsUseCase {
         result.push({
           id: deterministicUUID(`holiday-${dateStr}`),
           tenantId: request.tenantId,
+          calendarId: null,
           title: holiday.name,
           description: null,
           location: null,
@@ -176,7 +185,9 @@ export class ListCalendarEventsUseCase {
         total: total + (shouldIncludeHolidays ? holidays.length : 0),
         page,
         limit,
-        pages: Math.ceil((total + (shouldIncludeHolidays ? holidays.length : 0)) / limit),
+        pages: Math.ceil(
+          (total + (shouldIncludeHolidays ? holidays.length : 0)) / limit,
+        ),
       },
     };
   }

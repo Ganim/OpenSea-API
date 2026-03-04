@@ -31,7 +31,9 @@ export class UnshareEmailAccountUseCase {
       );
 
       if (!access || !access.canManage) {
-        throw new ForbiddenError('You do not have access to unshare this account');
+        throw new ForbiddenError(
+          'You do not have access to unshare this account',
+        );
       }
     }
 

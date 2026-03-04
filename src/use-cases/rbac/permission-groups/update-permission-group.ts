@@ -14,6 +14,7 @@ interface UpdatePermissionGroupRequest {
   priority?: number;
   parentId?: string | null;
   isActive?: boolean;
+  storageSettings?: Record<string, unknown> | null;
 }
 
 interface UpdatePermissionGroupResponse {
@@ -35,6 +36,7 @@ export class UpdatePermissionGroupUseCase {
       priority,
       parentId,
       isActive,
+      storageSettings,
     } = request;
 
     const id = new UniqueEntityID(groupId);
@@ -117,6 +119,7 @@ export class UpdatePermissionGroupUseCase {
       priority,
       parentId: parentId !== undefined ? (parentIdEntity ?? null) : undefined,
       isActive,
+      storageSettings,
     });
 
     if (!updated) {

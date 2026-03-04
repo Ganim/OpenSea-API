@@ -30,6 +30,7 @@ export type FolderAccessRuleMinAggregateOutputType = {
   folderId: string | null
   userId: string | null
   groupId: string | null
+  teamId: string | null
   canRead: boolean | null
   canWrite: boolean | null
   canDelete: boolean | null
@@ -45,6 +46,7 @@ export type FolderAccessRuleMaxAggregateOutputType = {
   folderId: string | null
   userId: string | null
   groupId: string | null
+  teamId: string | null
   canRead: boolean | null
   canWrite: boolean | null
   canDelete: boolean | null
@@ -60,6 +62,7 @@ export type FolderAccessRuleCountAggregateOutputType = {
   folderId: number
   userId: number
   groupId: number
+  teamId: number
   canRead: number
   canWrite: number
   canDelete: number
@@ -77,6 +80,7 @@ export type FolderAccessRuleMinAggregateInputType = {
   folderId?: true
   userId?: true
   groupId?: true
+  teamId?: true
   canRead?: true
   canWrite?: true
   canDelete?: true
@@ -92,6 +96,7 @@ export type FolderAccessRuleMaxAggregateInputType = {
   folderId?: true
   userId?: true
   groupId?: true
+  teamId?: true
   canRead?: true
   canWrite?: true
   canDelete?: true
@@ -107,6 +112,7 @@ export type FolderAccessRuleCountAggregateInputType = {
   folderId?: true
   userId?: true
   groupId?: true
+  teamId?: true
   canRead?: true
   canWrite?: true
   canDelete?: true
@@ -195,6 +201,7 @@ export type FolderAccessRuleGroupByOutputType = {
   folderId: string
   userId: string | null
   groupId: string | null
+  teamId: string | null
   canRead: boolean
   canWrite: boolean
   canDelete: boolean
@@ -231,6 +238,7 @@ export type FolderAccessRuleWhereInput = {
   folderId?: Prisma.StringFilter<"FolderAccessRule"> | string
   userId?: Prisma.StringNullableFilter<"FolderAccessRule"> | string | null
   groupId?: Prisma.StringNullableFilter<"FolderAccessRule"> | string | null
+  teamId?: Prisma.StringNullableFilter<"FolderAccessRule"> | string | null
   canRead?: Prisma.BoolFilter<"FolderAccessRule"> | boolean
   canWrite?: Prisma.BoolFilter<"FolderAccessRule"> | boolean
   canDelete?: Prisma.BoolFilter<"FolderAccessRule"> | boolean
@@ -242,6 +250,7 @@ export type FolderAccessRuleWhereInput = {
   folder?: Prisma.XOR<Prisma.StorageFolderScalarRelationFilter, Prisma.StorageFolderWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   group?: Prisma.XOR<Prisma.PermissionGroupNullableScalarRelationFilter, Prisma.PermissionGroupWhereInput> | null
+  team?: Prisma.XOR<Prisma.TeamNullableScalarRelationFilter, Prisma.TeamWhereInput> | null
 }
 
 export type FolderAccessRuleOrderByWithRelationInput = {
@@ -250,6 +259,7 @@ export type FolderAccessRuleOrderByWithRelationInput = {
   folderId?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   groupId?: Prisma.SortOrderInput | Prisma.SortOrder
+  teamId?: Prisma.SortOrderInput | Prisma.SortOrder
   canRead?: Prisma.SortOrder
   canWrite?: Prisma.SortOrder
   canDelete?: Prisma.SortOrder
@@ -261,12 +271,14 @@ export type FolderAccessRuleOrderByWithRelationInput = {
   folder?: Prisma.StorageFolderOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
   group?: Prisma.PermissionGroupOrderByWithRelationInput
+  team?: Prisma.TeamOrderByWithRelationInput
 }
 
 export type FolderAccessRuleWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   folder_access_user_unique?: Prisma.FolderAccessRuleFolder_access_user_uniqueCompoundUniqueInput
   folder_access_group_unique?: Prisma.FolderAccessRuleFolder_access_group_uniqueCompoundUniqueInput
+  folder_access_team_unique?: Prisma.FolderAccessRuleFolder_access_team_uniqueCompoundUniqueInput
   AND?: Prisma.FolderAccessRuleWhereInput | Prisma.FolderAccessRuleWhereInput[]
   OR?: Prisma.FolderAccessRuleWhereInput[]
   NOT?: Prisma.FolderAccessRuleWhereInput | Prisma.FolderAccessRuleWhereInput[]
@@ -274,6 +286,7 @@ export type FolderAccessRuleWhereUniqueInput = Prisma.AtLeast<{
   folderId?: Prisma.StringFilter<"FolderAccessRule"> | string
   userId?: Prisma.StringNullableFilter<"FolderAccessRule"> | string | null
   groupId?: Prisma.StringNullableFilter<"FolderAccessRule"> | string | null
+  teamId?: Prisma.StringNullableFilter<"FolderAccessRule"> | string | null
   canRead?: Prisma.BoolFilter<"FolderAccessRule"> | boolean
   canWrite?: Prisma.BoolFilter<"FolderAccessRule"> | boolean
   canDelete?: Prisma.BoolFilter<"FolderAccessRule"> | boolean
@@ -285,7 +298,8 @@ export type FolderAccessRuleWhereUniqueInput = Prisma.AtLeast<{
   folder?: Prisma.XOR<Prisma.StorageFolderScalarRelationFilter, Prisma.StorageFolderWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   group?: Prisma.XOR<Prisma.PermissionGroupNullableScalarRelationFilter, Prisma.PermissionGroupWhereInput> | null
-}, "id" | "folder_access_user_unique" | "folder_access_group_unique">
+  team?: Prisma.XOR<Prisma.TeamNullableScalarRelationFilter, Prisma.TeamWhereInput> | null
+}, "id" | "folder_access_user_unique" | "folder_access_group_unique" | "folder_access_team_unique">
 
 export type FolderAccessRuleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -293,6 +307,7 @@ export type FolderAccessRuleOrderByWithAggregationInput = {
   folderId?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   groupId?: Prisma.SortOrderInput | Prisma.SortOrder
+  teamId?: Prisma.SortOrderInput | Prisma.SortOrder
   canRead?: Prisma.SortOrder
   canWrite?: Prisma.SortOrder
   canDelete?: Prisma.SortOrder
@@ -314,6 +329,7 @@ export type FolderAccessRuleScalarWhereWithAggregatesInput = {
   folderId?: Prisma.StringWithAggregatesFilter<"FolderAccessRule"> | string
   userId?: Prisma.StringNullableWithAggregatesFilter<"FolderAccessRule"> | string | null
   groupId?: Prisma.StringNullableWithAggregatesFilter<"FolderAccessRule"> | string | null
+  teamId?: Prisma.StringNullableWithAggregatesFilter<"FolderAccessRule"> | string | null
   canRead?: Prisma.BoolWithAggregatesFilter<"FolderAccessRule"> | boolean
   canWrite?: Prisma.BoolWithAggregatesFilter<"FolderAccessRule"> | boolean
   canDelete?: Prisma.BoolWithAggregatesFilter<"FolderAccessRule"> | boolean
@@ -336,6 +352,7 @@ export type FolderAccessRuleCreateInput = {
   folder: Prisma.StorageFolderCreateNestedOneWithoutAccessRulesInput
   user?: Prisma.UserCreateNestedOneWithoutFolderAccessRulesInput
   group?: Prisma.PermissionGroupCreateNestedOneWithoutFolderAccessRulesInput
+  team?: Prisma.TeamCreateNestedOneWithoutFolderAccessRulesInput
 }
 
 export type FolderAccessRuleUncheckedCreateInput = {
@@ -344,6 +361,7 @@ export type FolderAccessRuleUncheckedCreateInput = {
   folderId: string
   userId?: string | null
   groupId?: string | null
+  teamId?: string | null
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -366,6 +384,7 @@ export type FolderAccessRuleUpdateInput = {
   folder?: Prisma.StorageFolderUpdateOneRequiredWithoutAccessRulesNestedInput
   user?: Prisma.UserUpdateOneWithoutFolderAccessRulesNestedInput
   group?: Prisma.PermissionGroupUpdateOneWithoutFolderAccessRulesNestedInput
+  team?: Prisma.TeamUpdateOneWithoutFolderAccessRulesNestedInput
 }
 
 export type FolderAccessRuleUncheckedUpdateInput = {
@@ -374,6 +393,7 @@ export type FolderAccessRuleUncheckedUpdateInput = {
   folderId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -389,6 +409,7 @@ export type FolderAccessRuleCreateManyInput = {
   folderId: string
   userId?: string | null
   groupId?: string | null
+  teamId?: string | null
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -415,6 +436,7 @@ export type FolderAccessRuleUncheckedUpdateManyInput = {
   folderId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -444,12 +466,18 @@ export type FolderAccessRuleFolder_access_group_uniqueCompoundUniqueInput = {
   groupId: string
 }
 
+export type FolderAccessRuleFolder_access_team_uniqueCompoundUniqueInput = {
+  folderId: string
+  teamId: string
+}
+
 export type FolderAccessRuleCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   folderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
+  teamId?: Prisma.SortOrder
   canRead?: Prisma.SortOrder
   canWrite?: Prisma.SortOrder
   canDelete?: Prisma.SortOrder
@@ -465,6 +493,7 @@ export type FolderAccessRuleMaxOrderByAggregateInput = {
   folderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
+  teamId?: Prisma.SortOrder
   canRead?: Prisma.SortOrder
   canWrite?: Prisma.SortOrder
   canDelete?: Prisma.SortOrder
@@ -480,6 +509,7 @@ export type FolderAccessRuleMinOrderByAggregateInput = {
   folderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
+  teamId?: Prisma.SortOrder
   canRead?: Prisma.SortOrder
   canWrite?: Prisma.SortOrder
   canDelete?: Prisma.SortOrder
@@ -657,6 +687,48 @@ export type FolderAccessRuleUncheckedUpdateManyWithoutFolderNestedInput = {
   deleteMany?: Prisma.FolderAccessRuleScalarWhereInput | Prisma.FolderAccessRuleScalarWhereInput[]
 }
 
+export type FolderAccessRuleCreateNestedManyWithoutTeamInput = {
+  create?: Prisma.XOR<Prisma.FolderAccessRuleCreateWithoutTeamInput, Prisma.FolderAccessRuleUncheckedCreateWithoutTeamInput> | Prisma.FolderAccessRuleCreateWithoutTeamInput[] | Prisma.FolderAccessRuleUncheckedCreateWithoutTeamInput[]
+  connectOrCreate?: Prisma.FolderAccessRuleCreateOrConnectWithoutTeamInput | Prisma.FolderAccessRuleCreateOrConnectWithoutTeamInput[]
+  createMany?: Prisma.FolderAccessRuleCreateManyTeamInputEnvelope
+  connect?: Prisma.FolderAccessRuleWhereUniqueInput | Prisma.FolderAccessRuleWhereUniqueInput[]
+}
+
+export type FolderAccessRuleUncheckedCreateNestedManyWithoutTeamInput = {
+  create?: Prisma.XOR<Prisma.FolderAccessRuleCreateWithoutTeamInput, Prisma.FolderAccessRuleUncheckedCreateWithoutTeamInput> | Prisma.FolderAccessRuleCreateWithoutTeamInput[] | Prisma.FolderAccessRuleUncheckedCreateWithoutTeamInput[]
+  connectOrCreate?: Prisma.FolderAccessRuleCreateOrConnectWithoutTeamInput | Prisma.FolderAccessRuleCreateOrConnectWithoutTeamInput[]
+  createMany?: Prisma.FolderAccessRuleCreateManyTeamInputEnvelope
+  connect?: Prisma.FolderAccessRuleWhereUniqueInput | Prisma.FolderAccessRuleWhereUniqueInput[]
+}
+
+export type FolderAccessRuleUpdateManyWithoutTeamNestedInput = {
+  create?: Prisma.XOR<Prisma.FolderAccessRuleCreateWithoutTeamInput, Prisma.FolderAccessRuleUncheckedCreateWithoutTeamInput> | Prisma.FolderAccessRuleCreateWithoutTeamInput[] | Prisma.FolderAccessRuleUncheckedCreateWithoutTeamInput[]
+  connectOrCreate?: Prisma.FolderAccessRuleCreateOrConnectWithoutTeamInput | Prisma.FolderAccessRuleCreateOrConnectWithoutTeamInput[]
+  upsert?: Prisma.FolderAccessRuleUpsertWithWhereUniqueWithoutTeamInput | Prisma.FolderAccessRuleUpsertWithWhereUniqueWithoutTeamInput[]
+  createMany?: Prisma.FolderAccessRuleCreateManyTeamInputEnvelope
+  set?: Prisma.FolderAccessRuleWhereUniqueInput | Prisma.FolderAccessRuleWhereUniqueInput[]
+  disconnect?: Prisma.FolderAccessRuleWhereUniqueInput | Prisma.FolderAccessRuleWhereUniqueInput[]
+  delete?: Prisma.FolderAccessRuleWhereUniqueInput | Prisma.FolderAccessRuleWhereUniqueInput[]
+  connect?: Prisma.FolderAccessRuleWhereUniqueInput | Prisma.FolderAccessRuleWhereUniqueInput[]
+  update?: Prisma.FolderAccessRuleUpdateWithWhereUniqueWithoutTeamInput | Prisma.FolderAccessRuleUpdateWithWhereUniqueWithoutTeamInput[]
+  updateMany?: Prisma.FolderAccessRuleUpdateManyWithWhereWithoutTeamInput | Prisma.FolderAccessRuleUpdateManyWithWhereWithoutTeamInput[]
+  deleteMany?: Prisma.FolderAccessRuleScalarWhereInput | Prisma.FolderAccessRuleScalarWhereInput[]
+}
+
+export type FolderAccessRuleUncheckedUpdateManyWithoutTeamNestedInput = {
+  create?: Prisma.XOR<Prisma.FolderAccessRuleCreateWithoutTeamInput, Prisma.FolderAccessRuleUncheckedCreateWithoutTeamInput> | Prisma.FolderAccessRuleCreateWithoutTeamInput[] | Prisma.FolderAccessRuleUncheckedCreateWithoutTeamInput[]
+  connectOrCreate?: Prisma.FolderAccessRuleCreateOrConnectWithoutTeamInput | Prisma.FolderAccessRuleCreateOrConnectWithoutTeamInput[]
+  upsert?: Prisma.FolderAccessRuleUpsertWithWhereUniqueWithoutTeamInput | Prisma.FolderAccessRuleUpsertWithWhereUniqueWithoutTeamInput[]
+  createMany?: Prisma.FolderAccessRuleCreateManyTeamInputEnvelope
+  set?: Prisma.FolderAccessRuleWhereUniqueInput | Prisma.FolderAccessRuleWhereUniqueInput[]
+  disconnect?: Prisma.FolderAccessRuleWhereUniqueInput | Prisma.FolderAccessRuleWhereUniqueInput[]
+  delete?: Prisma.FolderAccessRuleWhereUniqueInput | Prisma.FolderAccessRuleWhereUniqueInput[]
+  connect?: Prisma.FolderAccessRuleWhereUniqueInput | Prisma.FolderAccessRuleWhereUniqueInput[]
+  update?: Prisma.FolderAccessRuleUpdateWithWhereUniqueWithoutTeamInput | Prisma.FolderAccessRuleUpdateWithWhereUniqueWithoutTeamInput[]
+  updateMany?: Prisma.FolderAccessRuleUpdateManyWithWhereWithoutTeamInput | Prisma.FolderAccessRuleUpdateManyWithWhereWithoutTeamInput[]
+  deleteMany?: Prisma.FolderAccessRuleScalarWhereInput | Prisma.FolderAccessRuleScalarWhereInput[]
+}
+
 export type FolderAccessRuleCreateWithoutUserInput = {
   id?: string
   canRead?: boolean
@@ -669,6 +741,7 @@ export type FolderAccessRuleCreateWithoutUserInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutFolderAccessRulesInput
   folder: Prisma.StorageFolderCreateNestedOneWithoutAccessRulesInput
   group?: Prisma.PermissionGroupCreateNestedOneWithoutFolderAccessRulesInput
+  team?: Prisma.TeamCreateNestedOneWithoutFolderAccessRulesInput
 }
 
 export type FolderAccessRuleUncheckedCreateWithoutUserInput = {
@@ -676,6 +749,7 @@ export type FolderAccessRuleUncheckedCreateWithoutUserInput = {
   tenantId: string
   folderId: string
   groupId?: string | null
+  teamId?: string | null
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -720,6 +794,7 @@ export type FolderAccessRuleScalarWhereInput = {
   folderId?: Prisma.StringFilter<"FolderAccessRule"> | string
   userId?: Prisma.StringNullableFilter<"FolderAccessRule"> | string | null
   groupId?: Prisma.StringNullableFilter<"FolderAccessRule"> | string | null
+  teamId?: Prisma.StringNullableFilter<"FolderAccessRule"> | string | null
   canRead?: Prisma.BoolFilter<"FolderAccessRule"> | boolean
   canWrite?: Prisma.BoolFilter<"FolderAccessRule"> | boolean
   canDelete?: Prisma.BoolFilter<"FolderAccessRule"> | boolean
@@ -741,6 +816,7 @@ export type FolderAccessRuleCreateWithoutGroupInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutFolderAccessRulesInput
   folder: Prisma.StorageFolderCreateNestedOneWithoutAccessRulesInput
   user?: Prisma.UserCreateNestedOneWithoutFolderAccessRulesInput
+  team?: Prisma.TeamCreateNestedOneWithoutFolderAccessRulesInput
 }
 
 export type FolderAccessRuleUncheckedCreateWithoutGroupInput = {
@@ -748,6 +824,7 @@ export type FolderAccessRuleUncheckedCreateWithoutGroupInput = {
   tenantId: string
   folderId: string
   userId?: string | null
+  teamId?: string | null
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -795,6 +872,7 @@ export type FolderAccessRuleCreateWithoutTenantInput = {
   folder: Prisma.StorageFolderCreateNestedOneWithoutAccessRulesInput
   user?: Prisma.UserCreateNestedOneWithoutFolderAccessRulesInput
   group?: Prisma.PermissionGroupCreateNestedOneWithoutFolderAccessRulesInput
+  team?: Prisma.TeamCreateNestedOneWithoutFolderAccessRulesInput
 }
 
 export type FolderAccessRuleUncheckedCreateWithoutTenantInput = {
@@ -802,6 +880,7 @@ export type FolderAccessRuleUncheckedCreateWithoutTenantInput = {
   folderId: string
   userId?: string | null
   groupId?: string | null
+  teamId?: string | null
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -849,6 +928,7 @@ export type FolderAccessRuleCreateWithoutFolderInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutFolderAccessRulesInput
   user?: Prisma.UserCreateNestedOneWithoutFolderAccessRulesInput
   group?: Prisma.PermissionGroupCreateNestedOneWithoutFolderAccessRulesInput
+  team?: Prisma.TeamCreateNestedOneWithoutFolderAccessRulesInput
 }
 
 export type FolderAccessRuleUncheckedCreateWithoutFolderInput = {
@@ -856,6 +936,7 @@ export type FolderAccessRuleUncheckedCreateWithoutFolderInput = {
   tenantId: string
   userId?: string | null
   groupId?: string | null
+  teamId?: string | null
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -891,11 +972,68 @@ export type FolderAccessRuleUpdateManyWithWhereWithoutFolderInput = {
   data: Prisma.XOR<Prisma.FolderAccessRuleUpdateManyMutationInput, Prisma.FolderAccessRuleUncheckedUpdateManyWithoutFolderInput>
 }
 
+export type FolderAccessRuleCreateWithoutTeamInput = {
+  id?: string
+  canRead?: boolean
+  canWrite?: boolean
+  canDelete?: boolean
+  canShare?: boolean
+  isInherited?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutFolderAccessRulesInput
+  folder: Prisma.StorageFolderCreateNestedOneWithoutAccessRulesInput
+  user?: Prisma.UserCreateNestedOneWithoutFolderAccessRulesInput
+  group?: Prisma.PermissionGroupCreateNestedOneWithoutFolderAccessRulesInput
+}
+
+export type FolderAccessRuleUncheckedCreateWithoutTeamInput = {
+  id?: string
+  tenantId: string
+  folderId: string
+  userId?: string | null
+  groupId?: string | null
+  canRead?: boolean
+  canWrite?: boolean
+  canDelete?: boolean
+  canShare?: boolean
+  isInherited?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FolderAccessRuleCreateOrConnectWithoutTeamInput = {
+  where: Prisma.FolderAccessRuleWhereUniqueInput
+  create: Prisma.XOR<Prisma.FolderAccessRuleCreateWithoutTeamInput, Prisma.FolderAccessRuleUncheckedCreateWithoutTeamInput>
+}
+
+export type FolderAccessRuleCreateManyTeamInputEnvelope = {
+  data: Prisma.FolderAccessRuleCreateManyTeamInput | Prisma.FolderAccessRuleCreateManyTeamInput[]
+  skipDuplicates?: boolean
+}
+
+export type FolderAccessRuleUpsertWithWhereUniqueWithoutTeamInput = {
+  where: Prisma.FolderAccessRuleWhereUniqueInput
+  update: Prisma.XOR<Prisma.FolderAccessRuleUpdateWithoutTeamInput, Prisma.FolderAccessRuleUncheckedUpdateWithoutTeamInput>
+  create: Prisma.XOR<Prisma.FolderAccessRuleCreateWithoutTeamInput, Prisma.FolderAccessRuleUncheckedCreateWithoutTeamInput>
+}
+
+export type FolderAccessRuleUpdateWithWhereUniqueWithoutTeamInput = {
+  where: Prisma.FolderAccessRuleWhereUniqueInput
+  data: Prisma.XOR<Prisma.FolderAccessRuleUpdateWithoutTeamInput, Prisma.FolderAccessRuleUncheckedUpdateWithoutTeamInput>
+}
+
+export type FolderAccessRuleUpdateManyWithWhereWithoutTeamInput = {
+  where: Prisma.FolderAccessRuleScalarWhereInput
+  data: Prisma.XOR<Prisma.FolderAccessRuleUpdateManyMutationInput, Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTeamInput>
+}
+
 export type FolderAccessRuleCreateManyUserInput = {
   id?: string
   tenantId: string
   folderId: string
   groupId?: string | null
+  teamId?: string | null
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -917,6 +1055,7 @@ export type FolderAccessRuleUpdateWithoutUserInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFolderAccessRulesNestedInput
   folder?: Prisma.StorageFolderUpdateOneRequiredWithoutAccessRulesNestedInput
   group?: Prisma.PermissionGroupUpdateOneWithoutFolderAccessRulesNestedInput
+  team?: Prisma.TeamUpdateOneWithoutFolderAccessRulesNestedInput
 }
 
 export type FolderAccessRuleUncheckedUpdateWithoutUserInput = {
@@ -924,6 +1063,7 @@ export type FolderAccessRuleUncheckedUpdateWithoutUserInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   folderId?: Prisma.StringFieldUpdateOperationsInput | string
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -938,6 +1078,7 @@ export type FolderAccessRuleUncheckedUpdateManyWithoutUserInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   folderId?: Prisma.StringFieldUpdateOperationsInput | string
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -952,6 +1093,7 @@ export type FolderAccessRuleCreateManyGroupInput = {
   tenantId: string
   folderId: string
   userId?: string | null
+  teamId?: string | null
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -973,6 +1115,7 @@ export type FolderAccessRuleUpdateWithoutGroupInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFolderAccessRulesNestedInput
   folder?: Prisma.StorageFolderUpdateOneRequiredWithoutAccessRulesNestedInput
   user?: Prisma.UserUpdateOneWithoutFolderAccessRulesNestedInput
+  team?: Prisma.TeamUpdateOneWithoutFolderAccessRulesNestedInput
 }
 
 export type FolderAccessRuleUncheckedUpdateWithoutGroupInput = {
@@ -980,6 +1123,7 @@ export type FolderAccessRuleUncheckedUpdateWithoutGroupInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   folderId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -994,6 +1138,7 @@ export type FolderAccessRuleUncheckedUpdateManyWithoutGroupInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   folderId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1008,6 +1153,7 @@ export type FolderAccessRuleCreateManyTenantInput = {
   folderId: string
   userId?: string | null
   groupId?: string | null
+  teamId?: string | null
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -1029,6 +1175,7 @@ export type FolderAccessRuleUpdateWithoutTenantInput = {
   folder?: Prisma.StorageFolderUpdateOneRequiredWithoutAccessRulesNestedInput
   user?: Prisma.UserUpdateOneWithoutFolderAccessRulesNestedInput
   group?: Prisma.PermissionGroupUpdateOneWithoutFolderAccessRulesNestedInput
+  team?: Prisma.TeamUpdateOneWithoutFolderAccessRulesNestedInput
 }
 
 export type FolderAccessRuleUncheckedUpdateWithoutTenantInput = {
@@ -1036,6 +1183,7 @@ export type FolderAccessRuleUncheckedUpdateWithoutTenantInput = {
   folderId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1050,6 +1198,7 @@ export type FolderAccessRuleUncheckedUpdateManyWithoutTenantInput = {
   folderId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1064,6 +1213,7 @@ export type FolderAccessRuleCreateManyFolderInput = {
   tenantId: string
   userId?: string | null
   groupId?: string | null
+  teamId?: string | null
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -1085,6 +1235,7 @@ export type FolderAccessRuleUpdateWithoutFolderInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFolderAccessRulesNestedInput
   user?: Prisma.UserUpdateOneWithoutFolderAccessRulesNestedInput
   group?: Prisma.PermissionGroupUpdateOneWithoutFolderAccessRulesNestedInput
+  team?: Prisma.TeamUpdateOneWithoutFolderAccessRulesNestedInput
 }
 
 export type FolderAccessRuleUncheckedUpdateWithoutFolderInput = {
@@ -1092,6 +1243,7 @@ export type FolderAccessRuleUncheckedUpdateWithoutFolderInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
   canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1104,6 +1256,67 @@ export type FolderAccessRuleUncheckedUpdateWithoutFolderInput = {
 export type FolderAccessRuleUncheckedUpdateManyWithoutFolderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isInherited?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FolderAccessRuleCreateManyTeamInput = {
+  id?: string
+  tenantId: string
+  folderId: string
+  userId?: string | null
+  groupId?: string | null
+  canRead?: boolean
+  canWrite?: boolean
+  canDelete?: boolean
+  canShare?: boolean
+  isInherited?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FolderAccessRuleUpdateWithoutTeamInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isInherited?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutFolderAccessRulesNestedInput
+  folder?: Prisma.StorageFolderUpdateOneRequiredWithoutAccessRulesNestedInput
+  user?: Prisma.UserUpdateOneWithoutFolderAccessRulesNestedInput
+  group?: Prisma.PermissionGroupUpdateOneWithoutFolderAccessRulesNestedInput
+}
+
+export type FolderAccessRuleUncheckedUpdateWithoutTeamInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canWrite?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isInherited?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FolderAccessRuleUncheckedUpdateManyWithoutTeamInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1123,6 +1336,7 @@ export type FolderAccessRuleSelect<ExtArgs extends runtime.Types.Extensions.Inte
   folderId?: boolean
   userId?: boolean
   groupId?: boolean
+  teamId?: boolean
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -1134,6 +1348,7 @@ export type FolderAccessRuleSelect<ExtArgs extends runtime.Types.Extensions.Inte
   folder?: boolean | Prisma.StorageFolderDefaultArgs<ExtArgs>
   user?: boolean | Prisma.FolderAccessRule$userArgs<ExtArgs>
   group?: boolean | Prisma.FolderAccessRule$groupArgs<ExtArgs>
+  team?: boolean | Prisma.FolderAccessRule$teamArgs<ExtArgs>
 }, ExtArgs["result"]["folderAccessRule"]>
 
 export type FolderAccessRuleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1142,6 +1357,7 @@ export type FolderAccessRuleSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   folderId?: boolean
   userId?: boolean
   groupId?: boolean
+  teamId?: boolean
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -1153,6 +1369,7 @@ export type FolderAccessRuleSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   folder?: boolean | Prisma.StorageFolderDefaultArgs<ExtArgs>
   user?: boolean | Prisma.FolderAccessRule$userArgs<ExtArgs>
   group?: boolean | Prisma.FolderAccessRule$groupArgs<ExtArgs>
+  team?: boolean | Prisma.FolderAccessRule$teamArgs<ExtArgs>
 }, ExtArgs["result"]["folderAccessRule"]>
 
 export type FolderAccessRuleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1161,6 +1378,7 @@ export type FolderAccessRuleSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   folderId?: boolean
   userId?: boolean
   groupId?: boolean
+  teamId?: boolean
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -1172,6 +1390,7 @@ export type FolderAccessRuleSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   folder?: boolean | Prisma.StorageFolderDefaultArgs<ExtArgs>
   user?: boolean | Prisma.FolderAccessRule$userArgs<ExtArgs>
   group?: boolean | Prisma.FolderAccessRule$groupArgs<ExtArgs>
+  team?: boolean | Prisma.FolderAccessRule$teamArgs<ExtArgs>
 }, ExtArgs["result"]["folderAccessRule"]>
 
 export type FolderAccessRuleSelectScalar = {
@@ -1180,6 +1399,7 @@ export type FolderAccessRuleSelectScalar = {
   folderId?: boolean
   userId?: boolean
   groupId?: boolean
+  teamId?: boolean
   canRead?: boolean
   canWrite?: boolean
   canDelete?: boolean
@@ -1189,24 +1409,27 @@ export type FolderAccessRuleSelectScalar = {
   updatedAt?: boolean
 }
 
-export type FolderAccessRuleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "folderId" | "userId" | "groupId" | "canRead" | "canWrite" | "canDelete" | "canShare" | "isInherited" | "createdAt" | "updatedAt", ExtArgs["result"]["folderAccessRule"]>
+export type FolderAccessRuleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "folderId" | "userId" | "groupId" | "teamId" | "canRead" | "canWrite" | "canDelete" | "canShare" | "isInherited" | "createdAt" | "updatedAt", ExtArgs["result"]["folderAccessRule"]>
 export type FolderAccessRuleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   folder?: boolean | Prisma.StorageFolderDefaultArgs<ExtArgs>
   user?: boolean | Prisma.FolderAccessRule$userArgs<ExtArgs>
   group?: boolean | Prisma.FolderAccessRule$groupArgs<ExtArgs>
+  team?: boolean | Prisma.FolderAccessRule$teamArgs<ExtArgs>
 }
 export type FolderAccessRuleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   folder?: boolean | Prisma.StorageFolderDefaultArgs<ExtArgs>
   user?: boolean | Prisma.FolderAccessRule$userArgs<ExtArgs>
   group?: boolean | Prisma.FolderAccessRule$groupArgs<ExtArgs>
+  team?: boolean | Prisma.FolderAccessRule$teamArgs<ExtArgs>
 }
 export type FolderAccessRuleIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   folder?: boolean | Prisma.StorageFolderDefaultArgs<ExtArgs>
   user?: boolean | Prisma.FolderAccessRule$userArgs<ExtArgs>
   group?: boolean | Prisma.FolderAccessRule$groupArgs<ExtArgs>
+  team?: boolean | Prisma.FolderAccessRule$teamArgs<ExtArgs>
 }
 
 export type $FolderAccessRulePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1216,6 +1439,7 @@ export type $FolderAccessRulePayload<ExtArgs extends runtime.Types.Extensions.In
     folder: Prisma.$StorageFolderPayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs> | null
     group: Prisma.$PermissionGroupPayload<ExtArgs> | null
+    team: Prisma.$TeamPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1223,6 +1447,7 @@ export type $FolderAccessRulePayload<ExtArgs extends runtime.Types.Extensions.In
     folderId: string
     userId: string | null
     groupId: string | null
+    teamId: string | null
     canRead: boolean
     canWrite: boolean
     canDelete: boolean
@@ -1628,6 +1853,7 @@ export interface Prisma__FolderAccessRuleClient<T, Null = never, ExtArgs extends
   folder<T extends Prisma.StorageFolderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFolderDefaultArgs<ExtArgs>>): Prisma.Prisma__StorageFolderClient<runtime.Types.Result.GetResult<Prisma.$StorageFolderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.FolderAccessRule$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FolderAccessRule$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   group<T extends Prisma.FolderAccessRule$groupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FolderAccessRule$groupArgs<ExtArgs>>): Prisma.Prisma__PermissionGroupClient<runtime.Types.Result.GetResult<Prisma.$PermissionGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  team<T extends Prisma.FolderAccessRule$teamArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FolderAccessRule$teamArgs<ExtArgs>>): Prisma.Prisma__TeamClient<runtime.Types.Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1662,6 +1888,7 @@ export interface FolderAccessRuleFieldRefs {
   readonly folderId: Prisma.FieldRef<"FolderAccessRule", 'String'>
   readonly userId: Prisma.FieldRef<"FolderAccessRule", 'String'>
   readonly groupId: Prisma.FieldRef<"FolderAccessRule", 'String'>
+  readonly teamId: Prisma.FieldRef<"FolderAccessRule", 'String'>
   readonly canRead: Prisma.FieldRef<"FolderAccessRule", 'Boolean'>
   readonly canWrite: Prisma.FieldRef<"FolderAccessRule", 'Boolean'>
   readonly canDelete: Prisma.FieldRef<"FolderAccessRule", 'Boolean'>
@@ -2100,6 +2327,25 @@ export type FolderAccessRule$groupArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.PermissionGroupInclude<ExtArgs> | null
   where?: Prisma.PermissionGroupWhereInput
+}
+
+/**
+ * FolderAccessRule.team
+ */
+export type FolderAccessRule$teamArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Team
+   */
+  select?: Prisma.TeamSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Team
+   */
+  omit?: Prisma.TeamOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamInclude<ExtArgs> | null
+  where?: Prisma.TeamWhereInput
 }
 
 /**

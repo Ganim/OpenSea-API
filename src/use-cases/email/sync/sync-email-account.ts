@@ -3,9 +3,9 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { EmailFolderType } from '@/entities/email/email-folder';
 import { logger } from '@/lib/logger';
 import type {
-    EmailAccountsRepository,
-    EmailFoldersRepository,
-    EmailMessagesRepository,
+  EmailAccountsRepository,
+  EmailFoldersRepository,
+  EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { ImapFlow } from 'imapflow';

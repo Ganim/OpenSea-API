@@ -12,6 +12,7 @@ export class PermissionGroupPresenter {
       description: group.description,
       color: group.color,
       priority: group.priority,
+      storageSettings: group.storageSettings ?? null,
       isActive: group.isActive,
       isSystem: group.isSystem,
       parentId: group.parentId?.toString() ?? null,

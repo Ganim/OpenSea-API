@@ -41,6 +41,7 @@ export type CompanyMinAggregateOutputType = {
   phoneMain: string | null
   phoneAlt: string | null
   logoUrl: string | null
+  cnpjHash: string | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -63,6 +64,7 @@ export type CompanyMaxAggregateOutputType = {
   phoneMain: string | null
   phoneAlt: string | null
   logoUrl: string | null
+  cnpjHash: string | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -85,6 +87,7 @@ export type CompanyCountAggregateOutputType = {
   phoneMain: number
   phoneAlt: number
   logoUrl: number
+  cnpjHash: number
   metadata: number
   pendingIssues: number
   deletedAt: number
@@ -111,6 +114,7 @@ export type CompanyMinAggregateInputType = {
   phoneMain?: true
   phoneAlt?: true
   logoUrl?: true
+  cnpjHash?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -133,6 +137,7 @@ export type CompanyMaxAggregateInputType = {
   phoneMain?: true
   phoneAlt?: true
   logoUrl?: true
+  cnpjHash?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -155,6 +160,7 @@ export type CompanyCountAggregateInputType = {
   phoneMain?: true
   phoneAlt?: true
   logoUrl?: true
+  cnpjHash?: true
   metadata?: true
   pendingIssues?: true
   deletedAt?: true
@@ -252,6 +258,7 @@ export type CompanyGroupByOutputType = {
   phoneMain: string | null
   phoneAlt: string | null
   logoUrl: string | null
+  cnpjHash: string | null
   metadata: runtime.JsonValue
   pendingIssues: string[]
   deletedAt: Date | null
@@ -297,6 +304,7 @@ export type CompanyWhereInput = {
   phoneMain?: Prisma.StringNullableFilter<"Company"> | string | null
   phoneAlt?: Prisma.StringNullableFilter<"Company"> | string | null
   logoUrl?: Prisma.StringNullableFilter<"Company"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Company"> | string | null
   metadata?: Prisma.JsonFilter<"Company">
   pendingIssues?: Prisma.StringNullableListFilter<"Company">
   deletedAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
@@ -330,6 +338,7 @@ export type CompanyOrderByWithRelationInput = {
   phoneMain?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneAlt?: Prisma.SortOrderInput | Prisma.SortOrder
   logoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   pendingIssues?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -367,6 +376,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   phoneMain?: Prisma.StringNullableFilter<"Company"> | string | null
   phoneAlt?: Prisma.StringNullableFilter<"Company"> | string | null
   logoUrl?: Prisma.StringNullableFilter<"Company"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Company"> | string | null
   metadata?: Prisma.JsonFilter<"Company">
   pendingIssues?: Prisma.StringNullableListFilter<"Company">
   deletedAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
@@ -400,6 +410,7 @@ export type CompanyOrderByWithAggregationInput = {
   phoneMain?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneAlt?: Prisma.SortOrderInput | Prisma.SortOrder
   logoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   pendingIssues?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -430,6 +441,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   phoneMain?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   phoneAlt?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   logoUrl?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
+  cnpjHash?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   metadata?: Prisma.JsonWithAggregatesFilter<"Company">
   pendingIssues?: Prisma.StringNullableListFilter<"Company">
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Company"> | Date | string | null
@@ -453,6 +465,7 @@ export type CompanyCreateInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -486,6 +499,7 @@ export type CompanyUncheckedCreateInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -517,6 +531,7 @@ export type CompanyUpdateInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -550,6 +565,7 @@ export type CompanyUncheckedUpdateInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -582,6 +598,7 @@ export type CompanyCreateManyInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -605,6 +622,7 @@ export type CompanyUpdateManyMutationInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -629,6 +647,7 @@ export type CompanyUncheckedUpdateManyInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -647,7 +666,7 @@ export type CompanyScalarRelationFilter = {
 }
 
 export type CompanyCompanies_cnpj_tenant_unique_activeCompoundUniqueInput = {
-  cnpj: string
+  cnpjHash: string
   tenantId: string
   deletedAt: Date | string
 }
@@ -669,6 +688,7 @@ export type CompanyCountOrderByAggregateInput = {
   phoneMain?: Prisma.SortOrder
   phoneAlt?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   pendingIssues?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -693,6 +713,7 @@ export type CompanyMaxOrderByAggregateInput = {
   phoneMain?: Prisma.SortOrder
   phoneAlt?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -715,6 +736,7 @@ export type CompanyMinOrderByAggregateInput = {
   phoneMain?: Prisma.SortOrder
   phoneAlt?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -919,6 +941,7 @@ export type CompanyCreateWithoutEmployeesInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -951,6 +974,7 @@ export type CompanyUncheckedCreateWithoutEmployeesInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -997,6 +1021,7 @@ export type CompanyUpdateWithoutEmployeesInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1029,6 +1054,7 @@ export type CompanyUncheckedUpdateWithoutEmployeesInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1059,6 +1085,7 @@ export type CompanyCreateWithoutDepartmentsInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1091,6 +1118,7 @@ export type CompanyUncheckedCreateWithoutDepartmentsInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1137,6 +1165,7 @@ export type CompanyUpdateWithoutDepartmentsInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1169,6 +1198,7 @@ export type CompanyUncheckedUpdateWithoutDepartmentsInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1199,6 +1229,7 @@ export type CompanyCreateWithoutAddressesInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1231,6 +1262,7 @@ export type CompanyUncheckedCreateWithoutAddressesInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1277,6 +1309,7 @@ export type CompanyUpdateWithoutAddressesInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1309,6 +1342,7 @@ export type CompanyUncheckedUpdateWithoutAddressesInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1339,6 +1373,7 @@ export type CompanyCreateWithoutCnaesInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1371,6 +1406,7 @@ export type CompanyUncheckedCreateWithoutCnaesInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1417,6 +1453,7 @@ export type CompanyUpdateWithoutCnaesInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1449,6 +1486,7 @@ export type CompanyUncheckedUpdateWithoutCnaesInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1479,6 +1517,7 @@ export type CompanyCreateWithoutFiscalSettingsInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1511,6 +1550,7 @@ export type CompanyUncheckedCreateWithoutFiscalSettingsInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1557,6 +1597,7 @@ export type CompanyUpdateWithoutFiscalSettingsInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1589,6 +1630,7 @@ export type CompanyUncheckedUpdateWithoutFiscalSettingsInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1619,6 +1661,7 @@ export type CompanyCreateWithoutStakeholdersInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1651,6 +1694,7 @@ export type CompanyUncheckedCreateWithoutStakeholdersInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1697,6 +1741,7 @@ export type CompanyUpdateWithoutStakeholdersInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1729,6 +1774,7 @@ export type CompanyUncheckedUpdateWithoutStakeholdersInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1759,6 +1805,7 @@ export type CompanyCreateWithoutTenantInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1790,6 +1837,7 @@ export type CompanyUncheckedCreateWithoutTenantInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1851,6 +1899,7 @@ export type CompanyScalarWhereInput = {
   phoneMain?: Prisma.StringNullableFilter<"Company"> | string | null
   phoneAlt?: Prisma.StringNullableFilter<"Company"> | string | null
   logoUrl?: Prisma.StringNullableFilter<"Company"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Company"> | string | null
   metadata?: Prisma.JsonFilter<"Company">
   pendingIssues?: Prisma.StringNullableListFilter<"Company">
   deletedAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
@@ -1874,6 +1923,7 @@ export type CompanyCreateWithoutCostCentersInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1906,6 +1956,7 @@ export type CompanyUncheckedCreateWithoutCostCentersInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -1952,6 +2003,7 @@ export type CompanyUpdateWithoutCostCentersInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1984,6 +2036,7 @@ export type CompanyUncheckedUpdateWithoutCostCentersInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2014,6 +2067,7 @@ export type CompanyCreateWithoutBankAccountsInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -2046,6 +2100,7 @@ export type CompanyUncheckedCreateWithoutBankAccountsInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -2092,6 +2147,7 @@ export type CompanyUpdateWithoutBankAccountsInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2124,6 +2180,7 @@ export type CompanyUncheckedUpdateWithoutBankAccountsInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2154,6 +2211,7 @@ export type CompanyCreateManyTenantInput = {
   phoneMain?: string | null
   phoneAlt?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
   deletedAt?: Date | string | null
@@ -2177,6 +2235,7 @@ export type CompanyUpdateWithoutTenantInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2208,6 +2267,7 @@ export type CompanyUncheckedUpdateWithoutTenantInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2239,6 +2299,7 @@ export type CompanyUncheckedUpdateManyWithoutTenantInput = {
   phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2348,6 +2409,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   phoneMain?: boolean
   phoneAlt?: boolean
   logoUrl?: boolean
+  cnpjHash?: boolean
   metadata?: boolean
   pendingIssues?: boolean
   deletedAt?: boolean
@@ -2382,6 +2444,7 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   phoneMain?: boolean
   phoneAlt?: boolean
   logoUrl?: boolean
+  cnpjHash?: boolean
   metadata?: boolean
   pendingIssues?: boolean
   deletedAt?: boolean
@@ -2407,6 +2470,7 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   phoneMain?: boolean
   phoneAlt?: boolean
   logoUrl?: boolean
+  cnpjHash?: boolean
   metadata?: boolean
   pendingIssues?: boolean
   deletedAt?: boolean
@@ -2432,6 +2496,7 @@ export type CompanySelectScalar = {
   phoneMain?: boolean
   phoneAlt?: boolean
   logoUrl?: boolean
+  cnpjHash?: boolean
   metadata?: boolean
   pendingIssues?: boolean
   deletedAt?: boolean
@@ -2439,7 +2504,7 @@ export type CompanySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "legalName" | "cnpj" | "tradeName" | "stateRegistration" | "municipalRegistration" | "legalNature" | "taxRegime" | "taxRegimeDetail" | "activityStartDate" | "status" | "email" | "phoneMain" | "phoneAlt" | "logoUrl" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "legalName" | "cnpj" | "tradeName" | "stateRegistration" | "municipalRegistration" | "legalNature" | "taxRegime" | "taxRegimeDetail" | "activityStartDate" | "status" | "email" | "phoneMain" | "phoneAlt" | "logoUrl" | "cnpjHash" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employees?: boolean | Prisma.Company$employeesArgs<ExtArgs>
@@ -2489,6 +2554,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     phoneMain: string | null
     phoneAlt: string | null
     logoUrl: string | null
+    cnpjHash: string | null
     metadata: runtime.JsonValue
     pendingIssues: string[]
     deletedAt: Date | null
@@ -2942,6 +3008,7 @@ export interface CompanyFieldRefs {
   readonly phoneMain: Prisma.FieldRef<"Company", 'String'>
   readonly phoneAlt: Prisma.FieldRef<"Company", 'String'>
   readonly logoUrl: Prisma.FieldRef<"Company", 'String'>
+  readonly cnpjHash: Prisma.FieldRef<"Company", 'String'>
   readonly metadata: Prisma.FieldRef<"Company", 'Json'>
   readonly pendingIssues: Prisma.FieldRef<"Company", 'String[]'>
   readonly deletedAt: Prisma.FieldRef<"Company", 'DateTime'>

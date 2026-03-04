@@ -11,7 +11,7 @@ export interface EmailAccountDTO {
   smtpPort: number;
   smtpSecure: boolean;
   username: string;
-  visibility: string;
+  visibility: 'PRIVATE' | 'SHARED';
   isActive: boolean;
   isDefault: boolean;
   signature: string | null;

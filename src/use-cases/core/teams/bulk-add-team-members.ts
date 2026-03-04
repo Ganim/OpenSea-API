@@ -8,6 +8,10 @@ import {
 } from '@/mappers/core/team/team-member-to-dto';
 import type { TeamsRepository } from '@/repositories/core/teams-repository';
 import type { TeamMembersRepository } from '@/repositories/core/team-members-repository';
+import type { TeamEmailAccountsRepository } from '@/repositories/core/team-email-accounts-repository';
+import type { EmailAccountsRepository } from '@/repositories/email/email-accounts-repository';
+
+import { getPermissionsForRole } from './helpers/get-permissions-for-role';
 
 interface BulkMemberInput {
   userId: string;
@@ -30,6 +34,8 @@ export class BulkAddTeamMembersUseCase {
   constructor(
     private teamsRepository: TeamsRepository,
     private teamMembersRepository: TeamMembersRepository,
+    private teamEmailAccountsRepository: TeamEmailAccountsRepository,
+    private emailAccountsRepository: EmailAccountsRepository,
   ) {}
 
   async execute(
@@ -81,6 +87,23 @@ export class BulkAddTeamMembersUseCase {
       });
 
       added.push(teamMemberToDTO(member));
+
+      // Sync email access for team email accounts
+      const teamEmailAccounts =
+        await this.teamEmailAccountsRepository.findByTeam(teamId);
+
+      for (const tea of teamEmailAccounts) {
+        const perms = getPermissionsForRole(member.role, tea);
+
+        await this.emailAccountsRepository.upsertAccess({
+          accountId: tea.accountId,
+          tenantId,
+          userId: input.userId,
+          canRead: perms.canRead,
+          canSend: perms.canSend,
+          canManage: perms.canManage,
+        });
+      }
     }
 
     return { added, skipped };

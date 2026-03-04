@@ -96,6 +96,13 @@ export const STORAGE_AUDIT_MESSAGES = {
     description: '{{userName}} baixou o arquivo {{fileName}}',
   } satisfies AuditMessage,
 
+  FILE_ACCESS: {
+    action: AuditAction.FILE_ACCESS,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description: '{{userName}} acessou o arquivo {{fileName}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // FILE VERSIONS - Versoes de Arquivos
   // ============================================================================
@@ -172,6 +179,39 @@ export const STORAGE_AUDIT_MESSAGES = {
     module: AuditModule.STORAGE,
     description:
       '{{userName}} revogou um link de compartilhamento para o arquivo {{fileName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // SECURITY - Segurança (Proteção por Senha)
+  // ============================================================================
+
+  ITEM_PROTECT: {
+    action: AuditAction.ITEM_PROTECT,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description: '{{userName}} protegeu o {{itemType}} {{itemName}} com senha',
+  } satisfies AuditMessage,
+
+  ITEM_UNPROTECT: {
+    action: AuditAction.ITEM_UNPROTECT,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description:
+      '{{userName}} removeu a proteção por senha do {{itemType}} {{itemName}}',
+  } satisfies AuditMessage,
+
+  ITEM_HIDE: {
+    action: AuditAction.ITEM_HIDE,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description: '{{userName}} ocultou o {{itemType}} {{itemName}}',
+  } satisfies AuditMessage,
+
+  ITEM_UNHIDE: {
+    action: AuditAction.ITEM_UNHIDE,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description: '{{userName}} revelou o {{itemType}} {{itemName}}',
   } satisfies AuditMessage,
 
   // ============================================================================

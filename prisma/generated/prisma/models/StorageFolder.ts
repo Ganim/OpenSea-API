@@ -51,6 +51,9 @@ export type StorageFolderMinAggregateOutputType = {
   entityId: string | null
   depth: number | null
   createdBy: string | null
+  isProtected: boolean | null
+  protectionHash: string | null
+  isHidden: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -73,6 +76,9 @@ export type StorageFolderMaxAggregateOutputType = {
   entityId: string | null
   depth: number | null
   createdBy: string | null
+  isProtected: boolean | null
+  protectionHash: string | null
+  isHidden: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -95,6 +101,9 @@ export type StorageFolderCountAggregateOutputType = {
   entityId: number
   depth: number
   createdBy: number
+  isProtected: number
+  protectionHash: number
+  isHidden: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -127,6 +136,9 @@ export type StorageFolderMinAggregateInputType = {
   entityId?: true
   depth?: true
   createdBy?: true
+  isProtected?: true
+  protectionHash?: true
+  isHidden?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -149,6 +161,9 @@ export type StorageFolderMaxAggregateInputType = {
   entityId?: true
   depth?: true
   createdBy?: true
+  isProtected?: true
+  protectionHash?: true
+  isHidden?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -171,6 +186,9 @@ export type StorageFolderCountAggregateInputType = {
   entityId?: true
   depth?: true
   createdBy?: true
+  isProtected?: true
+  protectionHash?: true
+  isHidden?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -280,6 +298,9 @@ export type StorageFolderGroupByOutputType = {
   entityId: string | null
   depth: number
   createdBy: string | null
+  isProtected: boolean
+  protectionHash: string | null
+  isHidden: boolean
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -325,6 +346,9 @@ export type StorageFolderWhereInput = {
   entityId?: Prisma.StringNullableFilter<"StorageFolder"> | string | null
   depth?: Prisma.IntFilter<"StorageFolder"> | number
   createdBy?: Prisma.StringNullableFilter<"StorageFolder"> | string | null
+  isProtected?: Prisma.BoolFilter<"StorageFolder"> | boolean
+  protectionHash?: Prisma.StringNullableFilter<"StorageFolder"> | string | null
+  isHidden?: Prisma.BoolFilter<"StorageFolder"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StorageFolder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StorageFolder"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"StorageFolder"> | Date | string | null
@@ -353,6 +377,9 @@ export type StorageFolderOrderByWithRelationInput = {
   entityId?: Prisma.SortOrderInput | Prisma.SortOrder
   depth?: Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  isProtected?: Prisma.SortOrder
+  protectionHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  isHidden?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -385,6 +412,9 @@ export type StorageFolderWhereUniqueInput = Prisma.AtLeast<{
   entityId?: Prisma.StringNullableFilter<"StorageFolder"> | string | null
   depth?: Prisma.IntFilter<"StorageFolder"> | number
   createdBy?: Prisma.StringNullableFilter<"StorageFolder"> | string | null
+  isProtected?: Prisma.BoolFilter<"StorageFolder"> | boolean
+  protectionHash?: Prisma.StringNullableFilter<"StorageFolder"> | string | null
+  isHidden?: Prisma.BoolFilter<"StorageFolder"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StorageFolder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StorageFolder"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"StorageFolder"> | Date | string | null
@@ -413,6 +443,9 @@ export type StorageFolderOrderByWithAggregationInput = {
   entityId?: Prisma.SortOrderInput | Prisma.SortOrder
   depth?: Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  isProtected?: Prisma.SortOrder
+  protectionHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  isHidden?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -443,6 +476,9 @@ export type StorageFolderScalarWhereWithAggregatesInput = {
   entityId?: Prisma.StringNullableWithAggregatesFilter<"StorageFolder"> | string | null
   depth?: Prisma.IntWithAggregatesFilter<"StorageFolder"> | number
   createdBy?: Prisma.StringNullableWithAggregatesFilter<"StorageFolder"> | string | null
+  isProtected?: Prisma.BoolWithAggregatesFilter<"StorageFolder"> | boolean
+  protectionHash?: Prisma.StringNullableWithAggregatesFilter<"StorageFolder"> | string | null
+  isHidden?: Prisma.BoolWithAggregatesFilter<"StorageFolder"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StorageFolder"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"StorageFolder"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"StorageFolder"> | Date | string | null
@@ -462,6 +498,9 @@ export type StorageFolderCreateInput = {
   entityType?: string | null
   entityId?: string | null
   depth?: number
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -490,6 +529,9 @@ export type StorageFolderUncheckedCreateInput = {
   entityId?: string | null
   depth?: number
   createdBy?: string | null
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -512,6 +554,9 @@ export type StorageFolderUpdateInput = {
   entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -540,6 +585,9 @@ export type StorageFolderUncheckedUpdateInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -565,6 +613,9 @@ export type StorageFolderCreateManyInput = {
   entityId?: string | null
   depth?: number
   createdBy?: string | null
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -584,6 +635,9 @@ export type StorageFolderUpdateManyMutationInput = {
   entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -606,6 +660,9 @@ export type StorageFolderUncheckedUpdateManyInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -649,6 +706,9 @@ export type StorageFolderCountOrderByAggregateInput = {
   entityId?: Prisma.SortOrder
   depth?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
+  isProtected?: Prisma.SortOrder
+  protectionHash?: Prisma.SortOrder
+  isHidden?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -675,6 +735,9 @@ export type StorageFolderMaxOrderByAggregateInput = {
   entityId?: Prisma.SortOrder
   depth?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
+  isProtected?: Prisma.SortOrder
+  protectionHash?: Prisma.SortOrder
+  isHidden?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -697,6 +760,9 @@ export type StorageFolderMinOrderByAggregateInput = {
   entityId?: Prisma.SortOrder
   depth?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
+  isProtected?: Prisma.SortOrder
+  protectionHash?: Prisma.SortOrder
+  isHidden?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -897,6 +963,9 @@ export type StorageFolderCreateWithoutCreatedByUserInput = {
   entityType?: string | null
   entityId?: string | null
   depth?: number
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -923,6 +992,9 @@ export type StorageFolderUncheckedCreateWithoutCreatedByUserInput = {
   entityType?: string | null
   entityId?: string | null
   depth?: number
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -977,6 +1049,9 @@ export type StorageFolderScalarWhereInput = {
   entityId?: Prisma.StringNullableFilter<"StorageFolder"> | string | null
   depth?: Prisma.IntFilter<"StorageFolder"> | number
   createdBy?: Prisma.StringNullableFilter<"StorageFolder"> | string | null
+  isProtected?: Prisma.BoolFilter<"StorageFolder"> | boolean
+  protectionHash?: Prisma.StringNullableFilter<"StorageFolder"> | string | null
+  isHidden?: Prisma.BoolFilter<"StorageFolder"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StorageFolder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StorageFolder"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"StorageFolder"> | Date | string | null
@@ -996,6 +1071,9 @@ export type StorageFolderCreateWithoutTenantInput = {
   entityType?: string | null
   entityId?: string | null
   depth?: number
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1022,6 +1100,9 @@ export type StorageFolderUncheckedCreateWithoutTenantInput = {
   entityId?: string | null
   depth?: number
   createdBy?: string | null
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1070,6 +1151,9 @@ export type StorageFolderCreateWithoutChildrenInput = {
   entityType?: string | null
   entityId?: string | null
   depth?: number
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1097,6 +1181,9 @@ export type StorageFolderUncheckedCreateWithoutChildrenInput = {
   entityId?: string | null
   depth?: number
   createdBy?: string | null
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1123,6 +1210,9 @@ export type StorageFolderCreateWithoutParentInput = {
   entityType?: string | null
   entityId?: string | null
   depth?: number
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1149,6 +1239,9 @@ export type StorageFolderUncheckedCreateWithoutParentInput = {
   entityId?: string | null
   depth?: number
   createdBy?: string | null
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1192,6 +1285,9 @@ export type StorageFolderUpdateWithoutChildrenInput = {
   entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1219,6 +1315,9 @@ export type StorageFolderUncheckedUpdateWithoutChildrenInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1256,6 +1355,9 @@ export type StorageFolderCreateWithoutFilesInput = {
   entityType?: string | null
   entityId?: string | null
   depth?: number
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1283,6 +1385,9 @@ export type StorageFolderUncheckedCreateWithoutFilesInput = {
   entityId?: string | null
   depth?: number
   createdBy?: string | null
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1320,6 +1425,9 @@ export type StorageFolderUpdateWithoutFilesInput = {
   entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1347,6 +1455,9 @@ export type StorageFolderUncheckedUpdateWithoutFilesInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1368,6 +1479,9 @@ export type StorageFolderCreateWithoutAccessRulesInput = {
   entityType?: string | null
   entityId?: string | null
   depth?: number
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1395,6 +1509,9 @@ export type StorageFolderUncheckedCreateWithoutAccessRulesInput = {
   entityId?: string | null
   depth?: number
   createdBy?: string | null
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1432,6 +1549,9 @@ export type StorageFolderUpdateWithoutAccessRulesInput = {
   entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1459,6 +1579,9 @@ export type StorageFolderUncheckedUpdateWithoutAccessRulesInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1482,6 +1605,9 @@ export type StorageFolderCreateManyCreatedByUserInput = {
   entityType?: string | null
   entityId?: string | null
   depth?: number
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1501,6 +1627,9 @@ export type StorageFolderUpdateWithoutCreatedByUserInput = {
   entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1527,6 +1656,9 @@ export type StorageFolderUncheckedUpdateWithoutCreatedByUserInput = {
   entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1551,6 +1683,9 @@ export type StorageFolderUncheckedUpdateManyWithoutCreatedByUserInput = {
   entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1572,6 +1707,9 @@ export type StorageFolderCreateManyTenantInput = {
   entityId?: string | null
   depth?: number
   createdBy?: string | null
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1591,6 +1729,9 @@ export type StorageFolderUpdateWithoutTenantInput = {
   entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1617,6 +1758,9 @@ export type StorageFolderUncheckedUpdateWithoutTenantInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1641,6 +1785,9 @@ export type StorageFolderUncheckedUpdateManyWithoutTenantInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1662,6 +1809,9 @@ export type StorageFolderCreateManyParentInput = {
   entityId?: string | null
   depth?: number
   createdBy?: string | null
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1681,6 +1831,9 @@ export type StorageFolderUpdateWithoutParentInput = {
   entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1707,6 +1860,9 @@ export type StorageFolderUncheckedUpdateWithoutParentInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1731,6 +1887,9 @@ export type StorageFolderUncheckedUpdateManyWithoutParentInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   depth?: Prisma.IntFieldUpdateOperationsInput | number
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1802,6 +1961,9 @@ export type StorageFolderSelect<ExtArgs extends runtime.Types.Extensions.Interna
   entityId?: boolean
   depth?: boolean
   createdBy?: boolean
+  isProtected?: boolean
+  protectionHash?: boolean
+  isHidden?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1831,6 +1993,9 @@ export type StorageFolderSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   entityId?: boolean
   depth?: boolean
   createdBy?: boolean
+  isProtected?: boolean
+  protectionHash?: boolean
+  isHidden?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1856,6 +2021,9 @@ export type StorageFolderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   entityId?: boolean
   depth?: boolean
   createdBy?: boolean
+  isProtected?: boolean
+  protectionHash?: boolean
+  isHidden?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1881,12 +2049,15 @@ export type StorageFolderSelectScalar = {
   entityId?: boolean
   depth?: boolean
   createdBy?: boolean
+  isProtected?: boolean
+  protectionHash?: boolean
+  isHidden?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type StorageFolderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "parentId" | "name" | "slug" | "path" | "icon" | "color" | "isSystem" | "isFilter" | "filterFileType" | "module" | "entityType" | "entityId" | "depth" | "createdBy" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["storageFolder"]>
+export type StorageFolderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "parentId" | "name" | "slug" | "path" | "icon" | "color" | "isSystem" | "isFilter" | "filterFileType" | "module" | "entityType" | "entityId" | "depth" | "createdBy" | "isProtected" | "protectionHash" | "isHidden" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["storageFolder"]>
 export type StorageFolderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.StorageFolder$parentArgs<ExtArgs>
@@ -1934,6 +2105,9 @@ export type $StorageFolderPayload<ExtArgs extends runtime.Types.Extensions.Inter
     entityId: string | null
     depth: number
     createdBy: string | null
+    isProtected: boolean
+    protectionHash: string | null
+    isHidden: boolean
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -2382,6 +2556,9 @@ export interface StorageFolderFieldRefs {
   readonly entityId: Prisma.FieldRef<"StorageFolder", 'String'>
   readonly depth: Prisma.FieldRef<"StorageFolder", 'Int'>
   readonly createdBy: Prisma.FieldRef<"StorageFolder", 'String'>
+  readonly isProtected: Prisma.FieldRef<"StorageFolder", 'Boolean'>
+  readonly protectionHash: Prisma.FieldRef<"StorageFolder", 'String'>
+  readonly isHidden: Prisma.FieldRef<"StorageFolder", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"StorageFolder", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"StorageFolder", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"StorageFolder", 'DateTime'>

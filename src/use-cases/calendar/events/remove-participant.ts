@@ -30,7 +30,10 @@ export class RemoveParticipantUseCase {
   ): Promise<RemoveParticipantResponse> {
     const { eventId, tenantId, userId, participantUserId } = request;
 
-    const event = await this.calendarEventsRepository.findById(eventId, tenantId);
+    const event = await this.calendarEventsRepository.findById(
+      eventId,
+      tenantId,
+    );
     if (!event) {
       throw new ResourceNotFoundError('Event not found');
     }
@@ -76,8 +79,14 @@ export class RemoveParticipantUseCase {
       };
 
       await Promise.allSettled([
-        createFromTemplate.execute({ ...notificationData, templateCode: 'calendar.event.removed' }),
-        createFromTemplate.execute({ ...notificationData, templateCode: 'calendar.event.removed.email' }),
+        createFromTemplate.execute({
+          ...notificationData,
+          templateCode: 'calendar.event.removed',
+        }),
+        createFromTemplate.execute({
+          ...notificationData,
+          templateCode: 'calendar.event.removed.email',
+        }),
       ]);
     } catch {
       // Notification failure should not block the removal

@@ -31,7 +31,10 @@ export class InviteParticipantsUseCase {
   ): Promise<InviteParticipantsResponse> {
     const { eventId, tenantId, userId, userName, participants } = request;
 
-    const event = await this.calendarEventsRepository.findById(eventId, tenantId);
+    const event = await this.calendarEventsRepository.findById(
+      eventId,
+      tenantId,
+    );
     if (!event) {
       throw new ResourceNotFoundError('Event not found');
     }
@@ -53,10 +56,11 @@ export class InviteParticipantsUseCase {
 
     for (const participant of participants) {
       // Skip if already a participant
-      const existing = await this.eventParticipantsRepository.findByEventAndUser(
-        eventId,
-        participant.userId,
-      );
+      const existing =
+        await this.eventParticipantsRepository.findByEventAndUser(
+          eventId,
+          participant.userId,
+        );
       if (existing) continue;
 
       await this.eventParticipantsRepository.create({
@@ -81,8 +85,14 @@ export class InviteParticipantsUseCase {
         };
 
         await Promise.allSettled([
-          createFromTemplate.execute({ ...notificationData, templateCode: 'calendar.event.invite' }),
-          createFromTemplate.execute({ ...notificationData, templateCode: 'calendar.event.invite.email' }),
+          createFromTemplate.execute({
+            ...notificationData,
+            templateCode: 'calendar.event.invite',
+          }),
+          createFromTemplate.execute({
+            ...notificationData,
+            templateCode: 'calendar.event.invite.email',
+          }),
         ]);
       } catch {
         // Notification failure should not block the invite

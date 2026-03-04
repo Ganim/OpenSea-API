@@ -16,6 +16,7 @@ export interface CreateStorageFileSchema {
   entityId?: string | null;
   expiresAt?: Date | null;
   uploadedBy: string;
+  isEncrypted?: boolean;
 }
 
 export interface UpdateStorageFileSchema {
@@ -29,11 +30,15 @@ export interface UpdateStorageFileSchema {
   fileKey?: string;
   size?: number;
   mimeType?: string;
+  isEncrypted?: boolean;
+  isProtected?: boolean;
+  protectionHash?: string | null;
+  isHidden?: boolean;
 }
 
 export interface ListStorageFilesParams {
   tenantId: string;
-  folderId?: string;
+  folderId?: string | null;
   fileType?: string;
   entityType?: string;
   entityId?: string;
@@ -41,6 +46,10 @@ export interface ListStorageFilesParams {
   status?: string;
   page?: number;
   limit?: number;
+  /** Filter files by uploader. Used for ownership-based visibility at root level. */
+  uploadedBy?: string;
+  /** When false (default), hidden files are excluded */
+  showHidden?: boolean;
 }
 
 export interface FindManyStorageFilesResult {

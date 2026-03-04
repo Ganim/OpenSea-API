@@ -35,17 +35,29 @@ export class BulkDeleteItemsUseCase {
     const errors: string[] = [];
 
     // Batch pre-fetch all files and folders
-    const filesMap = new Map<string, import('@/entities/storage/storage-file').StorageFile>();
+    const filesMap = new Map<
+      string,
+      import('@/entities/storage/storage-file').StorageFile
+    >();
     if (fileIds.length > 0) {
-      const files = await this.storageFilesRepository.findByIds(fileIds, tenantId);
+      const files = await this.storageFilesRepository.findByIds(
+        fileIds,
+        tenantId,
+      );
       for (const file of files) {
         filesMap.set(file.id.toString(), file);
       }
     }
 
-    const foldersMap = new Map<string, import('@/entities/storage/storage-folder').StorageFolder>();
+    const foldersMap = new Map<
+      string,
+      import('@/entities/storage/storage-folder').StorageFolder
+    >();
     if (folderIds.length > 0) {
-      const folders = await this.storageFoldersRepository.findByIds(folderIds, tenantId);
+      const folders = await this.storageFoldersRepository.findByIds(
+        folderIds,
+        tenantId,
+      );
       for (const folder of folders) {
         foldersMap.set(folder.id.toString(), folder);
       }

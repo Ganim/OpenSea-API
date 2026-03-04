@@ -51,23 +51,38 @@ export async function removeTeamMemberController(app: FastifyInstance) {
         const [{ user }, { team }, { members }] = await Promise.all([
           makeGetUserByIdUseCase().execute({ userId }),
           makeGetTeamByIdUseCase().execute({ tenantId, teamId }),
-          makeListTeamMembersUseCase().execute({ tenantId, teamId, page: 1, limit: 100 }),
+          makeListTeamMembersUseCase().execute({
+            tenantId,
+            teamId,
+            page: 1,
+            limit: 100,
+          }),
         ]);
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         // Resolve the member's name before removing
-        const memberData = members.find(m => m.id === memberId);
+        const memberData = members.find((m) => m.id === memberId);
         const memberName = memberData?.userName || memberId;
 
         const useCase = makeRemoveTeamMemberUseCase();
-        await useCase.execute({ teamId, tenantId, requestingUserId: userId, memberId });
+        await useCase.execute({
+          teamId,
+          tenantId,
+          requestingUserId: userId,
+          memberId,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.CORE.TEAM_MEMBER_REMOVE,
           entityId: memberId,
-          placeholders: { userName, memberName, teamName: team.name, teamColor: team.color },
+          placeholders: {
+            userName,
+            memberName,
+            teamName: team.name,
+            teamColor: team.color,
+          },
           oldData: { memberId, teamId },
           affectedUserId: memberData?.userId,
         });

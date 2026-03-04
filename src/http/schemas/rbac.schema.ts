@@ -81,6 +81,15 @@ export const listPermissionsQuerySchema = z.object({
 /**
  * Permission Group Entity Schema
  */
+const storageSettingsSchema = z
+  .object({
+    allowedFileTypes: z.array(z.string()).optional(),
+    maxFileSizeMb: z.number().int().min(1).max(500).optional(),
+    maxStorageMb: z.number().int().min(1).optional(),
+  })
+  .nullable()
+  .optional();
+
 export const permissionGroupSchema = z.object({
   id: idSchema,
   name: z.string(),
@@ -88,6 +97,7 @@ export const permissionGroupSchema = z.object({
   description: z.string().nullable(),
   color: z.string().nullable(),
   priority: z.number(),
+  storageSettings: storageSettingsSchema,
   isActive: z.boolean(),
   isSystem: z.boolean(),
   parentId: idSchema.nullable(),
@@ -168,6 +178,7 @@ export const updatePermissionGroupSchema = z.object({
   priority: z.number().int().min(0).max(1000).optional(),
   parentId: z.string().uuid().nullable().optional(),
   isActive: z.boolean().optional(),
+  storageSettings: storageSettingsSchema,
 });
 
 /**

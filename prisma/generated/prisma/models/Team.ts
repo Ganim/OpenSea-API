@@ -261,6 +261,9 @@ export type TeamWhereInput = {
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.TeamMemberListRelationFilter
+  emailAccounts?: Prisma.TeamEmailAccountListRelationFilter
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigListRelationFilter
+  folderAccessRules?: Prisma.FolderAccessRuleListRelationFilter
 }
 
 export type TeamOrderByWithRelationInput = {
@@ -282,6 +285,9 @@ export type TeamOrderByWithRelationInput = {
   tenant?: Prisma.TenantOrderByWithRelationInput
   creator?: Prisma.UserOrderByWithRelationInput
   members?: Prisma.TeamMemberOrderByRelationAggregateInput
+  emailAccounts?: Prisma.TeamEmailAccountOrderByRelationAggregateInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigOrderByRelationAggregateInput
+  folderAccessRules?: Prisma.FolderAccessRuleOrderByRelationAggregateInput
 }
 
 export type TeamWhereUniqueInput = Prisma.AtLeast<{
@@ -307,6 +313,9 @@ export type TeamWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.TeamMemberListRelationFilter
+  emailAccounts?: Prisma.TeamEmailAccountListRelationFilter
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigListRelationFilter
+  folderAccessRules?: Prisma.FolderAccessRuleListRelationFilter
 }, "id" | "teams_slug_tenant_unique_active">
 
 export type TeamOrderByWithAggregationInput = {
@@ -368,6 +377,9 @@ export type TeamCreateInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutTeamsInput
   creator: Prisma.UserCreateNestedOneWithoutTeamsCreatedInput
   members?: Prisma.TeamMemberCreateNestedManyWithoutTeamInput
+  emailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTeamInput
 }
 
 export type TeamUncheckedCreateInput = {
@@ -387,6 +399,9 @@ export type TeamUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTeamInput
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTeamInput
 }
 
 export type TeamUpdateInput = {
@@ -406,6 +421,9 @@ export type TeamUpdateInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTeamsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutTeamsCreatedNestedInput
   members?: Prisma.TeamMemberUpdateManyWithoutTeamNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateInput = {
@@ -425,6 +443,9 @@ export type TeamUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamCreateManyInput = {
@@ -489,6 +510,16 @@ export type TeamOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type TeamNullableScalarRelationFilter = {
+  is?: Prisma.TeamWhereInput | null
+  isNot?: Prisma.TeamWhereInput | null
+}
+
+export type TeamScalarRelationFilter = {
+  is?: Prisma.TeamWhereInput
+  isNot?: Prisma.TeamWhereInput
+}
+
 export type TeamTeams_slug_tenant_unique_activeCompoundUniqueInput = {
   tenantId: string
   slug: string
@@ -545,11 +576,6 @@ export type TeamMinOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type TeamScalarRelationFilter = {
-  is?: Prisma.TeamWhereInput
-  isNot?: Prisma.TeamWhereInput
 }
 
 export type TeamCreateNestedManyWithoutCreatorInput = {
@@ -636,6 +662,36 @@ export type TeamUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.TeamScalarWhereInput | Prisma.TeamScalarWhereInput[]
 }
 
+export type TeamCreateNestedOneWithoutFolderAccessRulesInput = {
+  create?: Prisma.XOR<Prisma.TeamCreateWithoutFolderAccessRulesInput, Prisma.TeamUncheckedCreateWithoutFolderAccessRulesInput>
+  connectOrCreate?: Prisma.TeamCreateOrConnectWithoutFolderAccessRulesInput
+  connect?: Prisma.TeamWhereUniqueInput
+}
+
+export type TeamUpdateOneWithoutFolderAccessRulesNestedInput = {
+  create?: Prisma.XOR<Prisma.TeamCreateWithoutFolderAccessRulesInput, Prisma.TeamUncheckedCreateWithoutFolderAccessRulesInput>
+  connectOrCreate?: Prisma.TeamCreateOrConnectWithoutFolderAccessRulesInput
+  upsert?: Prisma.TeamUpsertWithoutFolderAccessRulesInput
+  disconnect?: Prisma.TeamWhereInput | boolean
+  delete?: Prisma.TeamWhereInput | boolean
+  connect?: Prisma.TeamWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TeamUpdateToOneWithWhereWithoutFolderAccessRulesInput, Prisma.TeamUpdateWithoutFolderAccessRulesInput>, Prisma.TeamUncheckedUpdateWithoutFolderAccessRulesInput>
+}
+
+export type TeamCreateNestedOneWithoutTeamCalendarConfigsInput = {
+  create?: Prisma.XOR<Prisma.TeamCreateWithoutTeamCalendarConfigsInput, Prisma.TeamUncheckedCreateWithoutTeamCalendarConfigsInput>
+  connectOrCreate?: Prisma.TeamCreateOrConnectWithoutTeamCalendarConfigsInput
+  connect?: Prisma.TeamWhereUniqueInput
+}
+
+export type TeamUpdateOneRequiredWithoutTeamCalendarConfigsNestedInput = {
+  create?: Prisma.XOR<Prisma.TeamCreateWithoutTeamCalendarConfigsInput, Prisma.TeamUncheckedCreateWithoutTeamCalendarConfigsInput>
+  connectOrCreate?: Prisma.TeamCreateOrConnectWithoutTeamCalendarConfigsInput
+  upsert?: Prisma.TeamUpsertWithoutTeamCalendarConfigsInput
+  connect?: Prisma.TeamWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TeamUpdateToOneWithWhereWithoutTeamCalendarConfigsInput, Prisma.TeamUpdateWithoutTeamCalendarConfigsInput>, Prisma.TeamUncheckedUpdateWithoutTeamCalendarConfigsInput>
+}
+
 export type TeamCreateNestedOneWithoutMembersInput = {
   create?: Prisma.XOR<Prisma.TeamCreateWithoutMembersInput, Prisma.TeamUncheckedCreateWithoutMembersInput>
   connectOrCreate?: Prisma.TeamCreateOrConnectWithoutMembersInput
@@ -648,6 +704,20 @@ export type TeamUpdateOneRequiredWithoutMembersNestedInput = {
   upsert?: Prisma.TeamUpsertWithoutMembersInput
   connect?: Prisma.TeamWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TeamUpdateToOneWithWhereWithoutMembersInput, Prisma.TeamUpdateWithoutMembersInput>, Prisma.TeamUncheckedUpdateWithoutMembersInput>
+}
+
+export type TeamCreateNestedOneWithoutEmailAccountsInput = {
+  create?: Prisma.XOR<Prisma.TeamCreateWithoutEmailAccountsInput, Prisma.TeamUncheckedCreateWithoutEmailAccountsInput>
+  connectOrCreate?: Prisma.TeamCreateOrConnectWithoutEmailAccountsInput
+  connect?: Prisma.TeamWhereUniqueInput
+}
+
+export type TeamUpdateOneRequiredWithoutEmailAccountsNestedInput = {
+  create?: Prisma.XOR<Prisma.TeamCreateWithoutEmailAccountsInput, Prisma.TeamUncheckedCreateWithoutEmailAccountsInput>
+  connectOrCreate?: Prisma.TeamCreateOrConnectWithoutEmailAccountsInput
+  upsert?: Prisma.TeamUpsertWithoutEmailAccountsInput
+  connect?: Prisma.TeamWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TeamUpdateToOneWithWhereWithoutEmailAccountsInput, Prisma.TeamUpdateWithoutEmailAccountsInput>, Prisma.TeamUncheckedUpdateWithoutEmailAccountsInput>
 }
 
 export type TeamCreateWithoutCreatorInput = {
@@ -666,6 +736,9 @@ export type TeamCreateWithoutCreatorInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTeamsInput
   members?: Prisma.TeamMemberCreateNestedManyWithoutTeamInput
+  emailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTeamInput
 }
 
 export type TeamUncheckedCreateWithoutCreatorInput = {
@@ -684,6 +757,9 @@ export type TeamUncheckedCreateWithoutCreatorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTeamInput
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTeamInput
 }
 
 export type TeamCreateOrConnectWithoutCreatorInput = {
@@ -749,6 +825,9 @@ export type TeamCreateWithoutTenantInput = {
   updatedAt?: Date | string
   creator: Prisma.UserCreateNestedOneWithoutTeamsCreatedInput
   members?: Prisma.TeamMemberCreateNestedManyWithoutTeamInput
+  emailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTeamInput
 }
 
 export type TeamUncheckedCreateWithoutTenantInput = {
@@ -767,6 +846,9 @@ export type TeamUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTeamInput
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTeamInput
 }
 
 export type TeamCreateOrConnectWithoutTenantInput = {
@@ -795,6 +877,206 @@ export type TeamUpdateManyWithWhereWithoutTenantInput = {
   data: Prisma.XOR<Prisma.TeamUpdateManyMutationInput, Prisma.TeamUncheckedUpdateManyWithoutTenantInput>
 }
 
+export type TeamCreateWithoutFolderAccessRulesInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  avatarUrl?: string | null
+  color?: string | null
+  isActive?: boolean
+  permissionGroupId?: string | null
+  storageFolderId?: string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutTeamsInput
+  creator: Prisma.UserCreateNestedOneWithoutTeamsCreatedInput
+  members?: Prisma.TeamMemberCreateNestedManyWithoutTeamInput
+  emailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTeamInput
+}
+
+export type TeamUncheckedCreateWithoutFolderAccessRulesInput = {
+  id?: string
+  tenantId: string
+  name: string
+  slug: string
+  description?: string | null
+  avatarUrl?: string | null
+  color?: string | null
+  isActive?: boolean
+  permissionGroupId?: string | null
+  storageFolderId?: string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdBy: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  members?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTeamInput
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTeamInput
+}
+
+export type TeamCreateOrConnectWithoutFolderAccessRulesInput = {
+  where: Prisma.TeamWhereUniqueInput
+  create: Prisma.XOR<Prisma.TeamCreateWithoutFolderAccessRulesInput, Prisma.TeamUncheckedCreateWithoutFolderAccessRulesInput>
+}
+
+export type TeamUpsertWithoutFolderAccessRulesInput = {
+  update: Prisma.XOR<Prisma.TeamUpdateWithoutFolderAccessRulesInput, Prisma.TeamUncheckedUpdateWithoutFolderAccessRulesInput>
+  create: Prisma.XOR<Prisma.TeamCreateWithoutFolderAccessRulesInput, Prisma.TeamUncheckedCreateWithoutFolderAccessRulesInput>
+  where?: Prisma.TeamWhereInput
+}
+
+export type TeamUpdateToOneWithWhereWithoutFolderAccessRulesInput = {
+  where?: Prisma.TeamWhereInput
+  data: Prisma.XOR<Prisma.TeamUpdateWithoutFolderAccessRulesInput, Prisma.TeamUncheckedUpdateWithoutFolderAccessRulesInput>
+}
+
+export type TeamUpdateWithoutFolderAccessRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissionGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutTeamsNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutTeamsCreatedNestedInput
+  members?: Prisma.TeamMemberUpdateManyWithoutTeamNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTeamNestedInput
+}
+
+export type TeamUncheckedUpdateWithoutFolderAccessRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissionGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  members?: Prisma.TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTeamNestedInput
+}
+
+export type TeamCreateWithoutTeamCalendarConfigsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  avatarUrl?: string | null
+  color?: string | null
+  isActive?: boolean
+  permissionGroupId?: string | null
+  storageFolderId?: string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutTeamsInput
+  creator: Prisma.UserCreateNestedOneWithoutTeamsCreatedInput
+  members?: Prisma.TeamMemberCreateNestedManyWithoutTeamInput
+  emailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTeamInput
+}
+
+export type TeamUncheckedCreateWithoutTeamCalendarConfigsInput = {
+  id?: string
+  tenantId: string
+  name: string
+  slug: string
+  description?: string | null
+  avatarUrl?: string | null
+  color?: string | null
+  isActive?: boolean
+  permissionGroupId?: string | null
+  storageFolderId?: string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdBy: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  members?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTeamInput
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTeamInput
+}
+
+export type TeamCreateOrConnectWithoutTeamCalendarConfigsInput = {
+  where: Prisma.TeamWhereUniqueInput
+  create: Prisma.XOR<Prisma.TeamCreateWithoutTeamCalendarConfigsInput, Prisma.TeamUncheckedCreateWithoutTeamCalendarConfigsInput>
+}
+
+export type TeamUpsertWithoutTeamCalendarConfigsInput = {
+  update: Prisma.XOR<Prisma.TeamUpdateWithoutTeamCalendarConfigsInput, Prisma.TeamUncheckedUpdateWithoutTeamCalendarConfigsInput>
+  create: Prisma.XOR<Prisma.TeamCreateWithoutTeamCalendarConfigsInput, Prisma.TeamUncheckedCreateWithoutTeamCalendarConfigsInput>
+  where?: Prisma.TeamWhereInput
+}
+
+export type TeamUpdateToOneWithWhereWithoutTeamCalendarConfigsInput = {
+  where?: Prisma.TeamWhereInput
+  data: Prisma.XOR<Prisma.TeamUpdateWithoutTeamCalendarConfigsInput, Prisma.TeamUncheckedUpdateWithoutTeamCalendarConfigsInput>
+}
+
+export type TeamUpdateWithoutTeamCalendarConfigsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissionGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutTeamsNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutTeamsCreatedNestedInput
+  members?: Prisma.TeamMemberUpdateManyWithoutTeamNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTeamNestedInput
+}
+
+export type TeamUncheckedUpdateWithoutTeamCalendarConfigsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissionGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  members?: Prisma.TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTeamNestedInput
+}
+
 export type TeamCreateWithoutMembersInput = {
   id?: string
   name: string
@@ -811,6 +1093,9 @@ export type TeamCreateWithoutMembersInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTeamsInput
   creator: Prisma.UserCreateNestedOneWithoutTeamsCreatedInput
+  emailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTeamInput
 }
 
 export type TeamUncheckedCreateWithoutMembersInput = {
@@ -829,6 +1114,9 @@ export type TeamUncheckedCreateWithoutMembersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTeamInput
 }
 
 export type TeamCreateOrConnectWithoutMembersInput = {
@@ -863,6 +1151,9 @@ export type TeamUpdateWithoutMembersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTeamsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutTeamsCreatedNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateWithoutMembersInput = {
@@ -881,6 +1172,109 @@ export type TeamUncheckedUpdateWithoutMembersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTeamNestedInput
+}
+
+export type TeamCreateWithoutEmailAccountsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  avatarUrl?: string | null
+  color?: string | null
+  isActive?: boolean
+  permissionGroupId?: string | null
+  storageFolderId?: string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutTeamsInput
+  creator: Prisma.UserCreateNestedOneWithoutTeamsCreatedInput
+  members?: Prisma.TeamMemberCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTeamInput
+}
+
+export type TeamUncheckedCreateWithoutEmailAccountsInput = {
+  id?: string
+  tenantId: string
+  name: string
+  slug: string
+  description?: string | null
+  avatarUrl?: string | null
+  color?: string | null
+  isActive?: boolean
+  permissionGroupId?: string | null
+  storageFolderId?: string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdBy: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  members?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTeamInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTeamInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTeamInput
+}
+
+export type TeamCreateOrConnectWithoutEmailAccountsInput = {
+  where: Prisma.TeamWhereUniqueInput
+  create: Prisma.XOR<Prisma.TeamCreateWithoutEmailAccountsInput, Prisma.TeamUncheckedCreateWithoutEmailAccountsInput>
+}
+
+export type TeamUpsertWithoutEmailAccountsInput = {
+  update: Prisma.XOR<Prisma.TeamUpdateWithoutEmailAccountsInput, Prisma.TeamUncheckedUpdateWithoutEmailAccountsInput>
+  create: Prisma.XOR<Prisma.TeamCreateWithoutEmailAccountsInput, Prisma.TeamUncheckedCreateWithoutEmailAccountsInput>
+  where?: Prisma.TeamWhereInput
+}
+
+export type TeamUpdateToOneWithWhereWithoutEmailAccountsInput = {
+  where?: Prisma.TeamWhereInput
+  data: Prisma.XOR<Prisma.TeamUpdateWithoutEmailAccountsInput, Prisma.TeamUncheckedUpdateWithoutEmailAccountsInput>
+}
+
+export type TeamUpdateWithoutEmailAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissionGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutTeamsNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutTeamsCreatedNestedInput
+  members?: Prisma.TeamMemberUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTeamNestedInput
+}
+
+export type TeamUncheckedUpdateWithoutEmailAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissionGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  members?: Prisma.TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamCreateManyCreatorInput = {
@@ -916,6 +1310,9 @@ export type TeamUpdateWithoutCreatorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTeamsNestedInput
   members?: Prisma.TeamMemberUpdateManyWithoutTeamNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateWithoutCreatorInput = {
@@ -934,6 +1331,9 @@ export type TeamUncheckedUpdateWithoutCreatorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateManyWithoutCreatorInput = {
@@ -986,6 +1386,9 @@ export type TeamUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creator?: Prisma.UserUpdateOneRequiredWithoutTeamsCreatedNestedInput
   members?: Prisma.TeamMemberUpdateManyWithoutTeamNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateWithoutTenantInput = {
@@ -1004,6 +1407,9 @@ export type TeamUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
+  emailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTeamNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTeamNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateManyWithoutTenantInput = {
@@ -1030,10 +1436,16 @@ export type TeamUncheckedUpdateManyWithoutTenantInput = {
 
 export type TeamCountOutputType = {
   members: number
+  emailAccounts: number
+  teamCalendarConfigs: number
+  folderAccessRules: number
 }
 
 export type TeamCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   members?: boolean | TeamCountOutputTypeCountMembersArgs
+  emailAccounts?: boolean | TeamCountOutputTypeCountEmailAccountsArgs
+  teamCalendarConfigs?: boolean | TeamCountOutputTypeCountTeamCalendarConfigsArgs
+  folderAccessRules?: boolean | TeamCountOutputTypeCountFolderAccessRulesArgs
 }
 
 /**
@@ -1051,6 +1463,27 @@ export type TeamCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
  */
 export type TeamCountOutputTypeCountMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TeamMemberWhereInput
+}
+
+/**
+ * TeamCountOutputType without action
+ */
+export type TeamCountOutputTypeCountEmailAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TeamEmailAccountWhereInput
+}
+
+/**
+ * TeamCountOutputType without action
+ */
+export type TeamCountOutputTypeCountTeamCalendarConfigsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TeamCalendarConfigWhereInput
+}
+
+/**
+ * TeamCountOutputType without action
+ */
+export type TeamCountOutputTypeCountFolderAccessRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FolderAccessRuleWhereInput
 }
 
 
@@ -1073,6 +1506,9 @@ export type TeamSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Team$membersArgs<ExtArgs>
+  emailAccounts?: boolean | Prisma.Team$emailAccountsArgs<ExtArgs>
+  teamCalendarConfigs?: boolean | Prisma.Team$teamCalendarConfigsArgs<ExtArgs>
+  folderAccessRules?: boolean | Prisma.Team$folderAccessRulesArgs<ExtArgs>
   _count?: boolean | Prisma.TeamCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["team"]>
 
@@ -1139,6 +1575,9 @@ export type TeamInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   members?: boolean | Prisma.Team$membersArgs<ExtArgs>
+  emailAccounts?: boolean | Prisma.Team$emailAccountsArgs<ExtArgs>
+  teamCalendarConfigs?: boolean | Prisma.Team$teamCalendarConfigsArgs<ExtArgs>
+  folderAccessRules?: boolean | Prisma.Team$folderAccessRulesArgs<ExtArgs>
   _count?: boolean | Prisma.TeamCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TeamIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1156,6 +1595,9 @@ export type $TeamPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     tenant: Prisma.$TenantPayload<ExtArgs>
     creator: Prisma.$UserPayload<ExtArgs>
     members: Prisma.$TeamMemberPayload<ExtArgs>[]
+    emailAccounts: Prisma.$TeamEmailAccountPayload<ExtArgs>[]
+    teamCalendarConfigs: Prisma.$TeamCalendarConfigPayload<ExtArgs>[]
+    folderAccessRules: Prisma.$FolderAccessRulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1570,6 +2012,9 @@ export interface Prisma__TeamClient<T, Null = never, ExtArgs extends runtime.Typ
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   members<T extends Prisma.Team$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Team$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailAccounts<T extends Prisma.Team$emailAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Team$emailAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamEmailAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  teamCalendarConfigs<T extends Prisma.Team$teamCalendarConfigsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Team$teamCalendarConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamCalendarConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  folderAccessRules<T extends Prisma.Team$folderAccessRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Team$folderAccessRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FolderAccessRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2031,6 +2476,78 @@ export type Team$membersArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.TeamMemberScalarFieldEnum | Prisma.TeamMemberScalarFieldEnum[]
+}
+
+/**
+ * Team.emailAccounts
+ */
+export type Team$emailAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TeamEmailAccount
+   */
+  select?: Prisma.TeamEmailAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TeamEmailAccount
+   */
+  omit?: Prisma.TeamEmailAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamEmailAccountInclude<ExtArgs> | null
+  where?: Prisma.TeamEmailAccountWhereInput
+  orderBy?: Prisma.TeamEmailAccountOrderByWithRelationInput | Prisma.TeamEmailAccountOrderByWithRelationInput[]
+  cursor?: Prisma.TeamEmailAccountWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TeamEmailAccountScalarFieldEnum | Prisma.TeamEmailAccountScalarFieldEnum[]
+}
+
+/**
+ * Team.teamCalendarConfigs
+ */
+export type Team$teamCalendarConfigsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TeamCalendarConfig
+   */
+  select?: Prisma.TeamCalendarConfigSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TeamCalendarConfig
+   */
+  omit?: Prisma.TeamCalendarConfigOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamCalendarConfigInclude<ExtArgs> | null
+  where?: Prisma.TeamCalendarConfigWhereInput
+  orderBy?: Prisma.TeamCalendarConfigOrderByWithRelationInput | Prisma.TeamCalendarConfigOrderByWithRelationInput[]
+  cursor?: Prisma.TeamCalendarConfigWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TeamCalendarConfigScalarFieldEnum | Prisma.TeamCalendarConfigScalarFieldEnum[]
+}
+
+/**
+ * Team.folderAccessRules
+ */
+export type Team$folderAccessRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FolderAccessRule
+   */
+  select?: Prisma.FolderAccessRuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FolderAccessRule
+   */
+  omit?: Prisma.FolderAccessRuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FolderAccessRuleInclude<ExtArgs> | null
+  where?: Prisma.FolderAccessRuleWhereInput
+  orderBy?: Prisma.FolderAccessRuleOrderByWithRelationInput | Prisma.FolderAccessRuleOrderByWithRelationInput[]
+  cursor?: Prisma.FolderAccessRuleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FolderAccessRuleScalarFieldEnum | Prisma.FolderAccessRuleScalarFieldEnum[]
 }
 
 /**

@@ -8,6 +8,7 @@ export interface FolderAccessRuleProps {
   folderId: UniqueEntityID;
   userId: UniqueEntityID | null;
   groupId: UniqueEntityID | null;
+  teamId: UniqueEntityID | null;
   canRead: boolean;
   canWrite: boolean;
   canDelete: boolean;
@@ -37,6 +38,10 @@ export class FolderAccessRule extends Entity<FolderAccessRuleProps> {
 
   get groupId(): UniqueEntityID | null {
     return this.props.groupId;
+  }
+
+  get teamId(): UniqueEntityID | null {
+    return this.props.teamId;
   }
 
   get canRead(): boolean {
@@ -95,6 +100,10 @@ export class FolderAccessRule extends Entity<FolderAccessRuleProps> {
 
   get isGroupRule(): boolean {
     return this.props.groupId !== null;
+  }
+
+  get isTeamRule(): boolean {
+    return this.props.teamId !== null;
   }
 
   get hasFullAccess(): boolean {

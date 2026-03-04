@@ -44,6 +44,8 @@ export type OrganizationMinAggregateOutputType = {
   phoneAlt: string | null
   website: string | null
   logoUrl: string | null
+  cnpjHash: string | null
+  cpfHash: string | null
   notes: string | null
   deletedAt: Date | null
   createdAt: Date | null
@@ -70,6 +72,8 @@ export type OrganizationMaxAggregateOutputType = {
   phoneAlt: string | null
   website: string | null
   logoUrl: string | null
+  cnpjHash: string | null
+  cpfHash: string | null
   notes: string | null
   deletedAt: Date | null
   createdAt: Date | null
@@ -96,6 +100,8 @@ export type OrganizationCountAggregateOutputType = {
   phoneAlt: number
   website: number
   logoUrl: number
+  cnpjHash: number
+  cpfHash: number
   typeSpecificData: number
   metadata: number
   notes: number
@@ -126,6 +132,8 @@ export type OrganizationMinAggregateInputType = {
   phoneAlt?: true
   website?: true
   logoUrl?: true
+  cnpjHash?: true
+  cpfHash?: true
   notes?: true
   deletedAt?: true
   createdAt?: true
@@ -152,6 +160,8 @@ export type OrganizationMaxAggregateInputType = {
   phoneAlt?: true
   website?: true
   logoUrl?: true
+  cnpjHash?: true
+  cpfHash?: true
   notes?: true
   deletedAt?: true
   createdAt?: true
@@ -178,6 +188,8 @@ export type OrganizationCountAggregateInputType = {
   phoneAlt?: true
   website?: true
   logoUrl?: true
+  cnpjHash?: true
+  cpfHash?: true
   typeSpecificData?: true
   metadata?: true
   notes?: true
@@ -279,6 +291,8 @@ export type OrganizationGroupByOutputType = {
   phoneAlt: string | null
   website: string | null
   logoUrl: string | null
+  cnpjHash: string | null
+  cpfHash: string | null
   typeSpecificData: runtime.JsonValue | null
   metadata: runtime.JsonValue
   notes: string | null
@@ -328,6 +342,8 @@ export type OrganizationWhereInput = {
   phoneAlt?: Prisma.StringNullableFilter<"Organization"> | string | null
   website?: Prisma.StringNullableFilter<"Organization"> | string | null
   logoUrl?: Prisma.StringNullableFilter<"Organization"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Organization"> | string | null
+  cpfHash?: Prisma.StringNullableFilter<"Organization"> | string | null
   typeSpecificData?: Prisma.JsonNullableFilter<"Organization">
   metadata?: Prisma.JsonFilter<"Organization">
   notes?: Prisma.StringNullableFilter<"Organization"> | string | null
@@ -363,6 +379,8 @@ export type OrganizationOrderByWithRelationInput = {
   phoneAlt?: Prisma.SortOrderInput | Prisma.SortOrder
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   logoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  cpfHash?: Prisma.SortOrderInput | Prisma.SortOrder
   typeSpecificData?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -403,6 +421,8 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
   phoneAlt?: Prisma.StringNullableFilter<"Organization"> | string | null
   website?: Prisma.StringNullableFilter<"Organization"> | string | null
   logoUrl?: Prisma.StringNullableFilter<"Organization"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Organization"> | string | null
+  cpfHash?: Prisma.StringNullableFilter<"Organization"> | string | null
   typeSpecificData?: Prisma.JsonNullableFilter<"Organization">
   metadata?: Prisma.JsonFilter<"Organization">
   notes?: Prisma.StringNullableFilter<"Organization"> | string | null
@@ -438,6 +458,8 @@ export type OrganizationOrderByWithAggregationInput = {
   phoneAlt?: Prisma.SortOrderInput | Prisma.SortOrder
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   logoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  cpfHash?: Prisma.SortOrderInput | Prisma.SortOrder
   typeSpecificData?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -472,6 +494,8 @@ export type OrganizationScalarWhereWithAggregatesInput = {
   phoneAlt?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
   website?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
   logoUrl?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
+  cnpjHash?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
+  cpfHash?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
   typeSpecificData?: Prisma.JsonNullableWithAggregatesFilter<"Organization">
   metadata?: Prisma.JsonWithAggregatesFilter<"Organization">
   notes?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
@@ -499,6 +523,8 @@ export type OrganizationCreateInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -534,6 +560,8 @@ export type OrganizationUncheckedCreateInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -567,6 +595,8 @@ export type OrganizationUpdateInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -602,6 +632,8 @@ export type OrganizationUncheckedUpdateInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -636,6 +668,8 @@ export type OrganizationCreateManyInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -663,6 +697,8 @@ export type OrganizationUpdateManyMutationInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -691,6 +727,8 @@ export type OrganizationUncheckedUpdateManyInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -700,14 +738,14 @@ export type OrganizationUncheckedUpdateManyInput = {
 }
 
 export type OrganizationOrganizations_cnpj_type_tenant_unique_activeCompoundUniqueInput = {
-  cnpj: string
+  cnpjHash: string
   type: $Enums.OrganizationType
   tenantId: string
   deletedAt: Date | string
 }
 
 export type OrganizationOrganizations_cpf_type_tenant_unique_activeCompoundUniqueInput = {
-  cpf: string
+  cpfHash: string
   type: $Enums.OrganizationType
   tenantId: string
   deletedAt: Date | string
@@ -733,6 +771,8 @@ export type OrganizationCountOrderByAggregateInput = {
   phoneAlt?: Prisma.SortOrder
   website?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
+  cpfHash?: Prisma.SortOrder
   typeSpecificData?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -761,6 +801,8 @@ export type OrganizationMaxOrderByAggregateInput = {
   phoneAlt?: Prisma.SortOrder
   website?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
+  cpfHash?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -787,6 +829,8 @@ export type OrganizationMinOrderByAggregateInput = {
   phoneAlt?: Prisma.SortOrder
   website?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
+  cpfHash?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -974,6 +1018,8 @@ export type OrganizationCreateWithoutAddressesInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1008,6 +1054,8 @@ export type OrganizationUncheckedCreateWithoutAddressesInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1056,6 +1104,8 @@ export type OrganizationUpdateWithoutAddressesInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1090,6 +1140,8 @@ export type OrganizationUncheckedUpdateWithoutAddressesInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1122,6 +1174,8 @@ export type OrganizationCreateWithoutCnaesInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1156,6 +1210,8 @@ export type OrganizationUncheckedCreateWithoutCnaesInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1204,6 +1260,8 @@ export type OrganizationUpdateWithoutCnaesInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1238,6 +1296,8 @@ export type OrganizationUncheckedUpdateWithoutCnaesInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1270,6 +1330,8 @@ export type OrganizationCreateWithoutFiscalSettingsInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1304,6 +1366,8 @@ export type OrganizationUncheckedCreateWithoutFiscalSettingsInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1352,6 +1416,8 @@ export type OrganizationUpdateWithoutFiscalSettingsInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1386,6 +1452,8 @@ export type OrganizationUncheckedUpdateWithoutFiscalSettingsInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1418,6 +1486,8 @@ export type OrganizationCreateWithoutStakeholdersInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1452,6 +1522,8 @@ export type OrganizationUncheckedCreateWithoutStakeholdersInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1500,6 +1572,8 @@ export type OrganizationUpdateWithoutStakeholdersInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1534,6 +1608,8 @@ export type OrganizationUncheckedUpdateWithoutStakeholdersInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1566,6 +1642,8 @@ export type OrganizationCreateWithoutProductsInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1600,6 +1678,8 @@ export type OrganizationUncheckedCreateWithoutProductsInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1648,6 +1728,8 @@ export type OrganizationUpdateWithoutProductsInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1682,6 +1764,8 @@ export type OrganizationUncheckedUpdateWithoutProductsInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1714,6 +1798,8 @@ export type OrganizationCreateWithoutEmployeesInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1748,6 +1834,8 @@ export type OrganizationUncheckedCreateWithoutEmployeesInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1796,6 +1884,8 @@ export type OrganizationUpdateWithoutEmployeesInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1830,6 +1920,8 @@ export type OrganizationUncheckedUpdateWithoutEmployeesInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1862,6 +1954,8 @@ export type OrganizationCreateWithoutTenantInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1895,6 +1989,8 @@ export type OrganizationUncheckedCreateWithoutTenantInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -1958,6 +2054,8 @@ export type OrganizationScalarWhereInput = {
   phoneAlt?: Prisma.StringNullableFilter<"Organization"> | string | null
   website?: Prisma.StringNullableFilter<"Organization"> | string | null
   logoUrl?: Prisma.StringNullableFilter<"Organization"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Organization"> | string | null
+  cpfHash?: Prisma.StringNullableFilter<"Organization"> | string | null
   typeSpecificData?: Prisma.JsonNullableFilter<"Organization">
   metadata?: Prisma.JsonFilter<"Organization">
   notes?: Prisma.StringNullableFilter<"Organization"> | string | null
@@ -1985,6 +2083,8 @@ export type OrganizationCreateManyTenantInput = {
   phoneAlt?: string | null
   website?: string | null
   logoUrl?: string | null
+  cnpjHash?: string | null
+  cpfHash?: string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
@@ -2012,6 +2112,8 @@ export type OrganizationUpdateWithoutTenantInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2045,6 +2147,8 @@ export type OrganizationUncheckedUpdateWithoutTenantInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2078,6 +2182,8 @@ export type OrganizationUncheckedUpdateManyWithoutTenantInput = {
   phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   typeSpecificData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2173,6 +2279,8 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   phoneAlt?: boolean
   website?: boolean
   logoUrl?: boolean
+  cnpjHash?: boolean
+  cpfHash?: boolean
   typeSpecificData?: boolean
   metadata?: boolean
   notes?: boolean
@@ -2209,6 +2317,8 @@ export type OrganizationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   phoneAlt?: boolean
   website?: boolean
   logoUrl?: boolean
+  cnpjHash?: boolean
+  cpfHash?: boolean
   typeSpecificData?: boolean
   metadata?: boolean
   notes?: boolean
@@ -2238,6 +2348,8 @@ export type OrganizationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   phoneAlt?: boolean
   website?: boolean
   logoUrl?: boolean
+  cnpjHash?: boolean
+  cpfHash?: boolean
   typeSpecificData?: boolean
   metadata?: boolean
   notes?: boolean
@@ -2267,6 +2379,8 @@ export type OrganizationSelectScalar = {
   phoneAlt?: boolean
   website?: boolean
   logoUrl?: boolean
+  cnpjHash?: boolean
+  cpfHash?: boolean
   typeSpecificData?: boolean
   metadata?: boolean
   notes?: boolean
@@ -2275,7 +2389,7 @@ export type OrganizationSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrganizationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "tenantId" | "legalName" | "cnpj" | "cpf" | "tradeName" | "stateRegistration" | "municipalRegistration" | "legalNature" | "taxRegime" | "taxRegimeDetail" | "activityStartDate" | "status" | "email" | "phoneMain" | "phoneAlt" | "website" | "logoUrl" | "typeSpecificData" | "metadata" | "notes" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["organization"]>
+export type OrganizationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "tenantId" | "legalName" | "cnpj" | "cpf" | "tradeName" | "stateRegistration" | "municipalRegistration" | "legalNature" | "taxRegime" | "taxRegimeDetail" | "activityStartDate" | "status" | "email" | "phoneMain" | "phoneAlt" | "website" | "logoUrl" | "cnpjHash" | "cpfHash" | "typeSpecificData" | "metadata" | "notes" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["organization"]>
 export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   addresses?: boolean | Prisma.Organization$addressesArgs<ExtArgs>
@@ -2324,6 +2438,8 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     phoneAlt: string | null
     website: string | null
     logoUrl: string | null
+    cnpjHash: string | null
+    cpfHash: string | null
     typeSpecificData: runtime.JsonValue | null
     metadata: runtime.JsonValue
     notes: string | null
@@ -2779,6 +2895,8 @@ export interface OrganizationFieldRefs {
   readonly phoneAlt: Prisma.FieldRef<"Organization", 'String'>
   readonly website: Prisma.FieldRef<"Organization", 'String'>
   readonly logoUrl: Prisma.FieldRef<"Organization", 'String'>
+  readonly cnpjHash: Prisma.FieldRef<"Organization", 'String'>
+  readonly cpfHash: Prisma.FieldRef<"Organization", 'String'>
   readonly typeSpecificData: Prisma.FieldRef<"Organization", 'Json'>
   readonly metadata: Prisma.FieldRef<"Organization", 'Json'>
   readonly notes: Prisma.FieldRef<"Organization", 'String'>

@@ -51,15 +51,18 @@ export async function listFolderAccessController(app: FastifyInstance) {
           folderId,
         });
 
-        // Resolve user/group names for display
+        // Resolve user/group/team names for display
         const userIds = rules
           .map((r) => r.userId?.toString())
           .filter(Boolean) as string[];
         const groupIds = rules
           .map((r) => r.groupId?.toString())
           .filter(Boolean) as string[];
+        const teamIds = rules
+          .map((r) => r.teamId?.toString())
+          .filter(Boolean) as string[];
 
-        const [users, groups] = await Promise.all([
+        const [users, groups, teams] = await Promise.all([
           userIds.length > 0
             ? prisma.user.findMany({
                 where: { id: { in: userIds } },
@@ -72,10 +75,17 @@ export async function listFolderAccessController(app: FastifyInstance) {
                 select: { id: true, name: true },
               })
             : [],
+          teamIds.length > 0
+            ? prisma.team.findMany({
+                where: { id: { in: teamIds } },
+                select: { id: true, name: true },
+              })
+            : [],
         ]);
 
         const userMap = new Map(users.map((u) => [u.id, u.username]));
         const groupMap = new Map(groups.map((g) => [g.id, g.name]));
+        const teamMap = new Map(teams.map((t) => [t.id, t.name]));
 
         return reply.status(200).send({
           rules: rules.map((rule) =>
@@ -85,6 +95,9 @@ export async function listFolderAccessController(app: FastifyInstance) {
                 : null,
               groupName: rule.groupId
                 ? (groupMap.get(rule.groupId.toString()) ?? null)
+                : null,
+              teamName: rule.teamId
+                ? (teamMap.get(rule.teamId.toString()) ?? null)
                 : null,
             }),
           ),

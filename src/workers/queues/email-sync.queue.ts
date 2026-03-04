@@ -1,6 +1,7 @@
 import { logger } from '@/lib/logger';
 import { createQueue, createWorker, QUEUE_NAMES } from '@/lib/queue';
 import { makeSyncEmailAccountUseCase } from '@/use-cases/email/sync/factories/make-sync-email-account-use-case';
+import type { Queue } from 'bullmq';
 import { Job } from 'bullmq';
 
 export interface EmailSyncJobData {
@@ -8,9 +9,15 @@ export interface EmailSyncJobData {
   accountId: string;
 }
 
-export const emailSyncQueue = createQueue<EmailSyncJobData>(
-  QUEUE_NAMES.EMAIL_SYNC,
-);
+// Lazy — fila só é criada na primeira chamada, evitando conexão Redis no boot
+let _emailSyncQueue: Queue<EmailSyncJobData> | null = null;
+
+function getEmailSyncQueue(): Queue<EmailSyncJobData> {
+  if (!_emailSyncQueue) {
+    _emailSyncQueue = createQueue<EmailSyncJobData>(QUEUE_NAMES.EMAIL_SYNC);
+  }
+  return _emailSyncQueue;
+}
 
 export async function queueEmailSync(
   data: EmailSyncJobData,
@@ -20,7 +27,7 @@ export async function queueEmailSync(
     jobId?: string;
   },
 ) {
-  return emailSyncQueue.add(QUEUE_NAMES.EMAIL_SYNC, data, {
+  return getEmailSyncQueue().add(QUEUE_NAMES.EMAIL_SYNC, data, {
     delay: options?.delay,
     priority: options?.priority,
     jobId: options?.jobId,

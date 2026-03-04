@@ -58,7 +58,9 @@ async function processMessages(
   let synced = 0;
   let maxUid = folder.lastUid ?? 0;
 
-  for await (const message of messages) {
+  for await (const rawMessage of messages) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const message = rawMessage as any;
     const uid = message.uid ?? 0;
     if (!uid) continue;
 
@@ -91,9 +93,15 @@ async function processMessages(
       threadId: envelope?.inReplyTo ?? null,
       fromAddress: from?.address ?? '',
       fromName: from?.name ?? null,
-      toAddresses: to.map((item) => item.address ?? '').filter(Boolean),
-      ccAddresses: cc.map((item) => item.address ?? '').filter(Boolean),
-      bccAddresses: bcc.map((item) => item.address ?? '').filter(Boolean),
+      toAddresses: (to as Array<{ address?: string }>)
+        .map((item) => item.address ?? '')
+        .filter(Boolean),
+      ccAddresses: (cc as Array<{ address?: string }>)
+        .map((item) => item.address ?? '')
+        .filter(Boolean),
+      bccAddresses: (bcc as Array<{ address?: string }>)
+        .map((item) => item.address ?? '')
+        .filter(Boolean),
       subject: envelope?.subject ?? '',
       snippet: null,
       bodyText: null,
@@ -229,14 +237,14 @@ export class SyncEmailFolderUseCase {
         } catch (error) {
           const errorMsg =
             error instanceof Error ? error.message : String(error);
-          
+
           // Check for IMAP messageset error (can be in error.message or in error.responseText)
           const responseText =
             (error as { responseText?: string })?.responseText ?? '';
           const commandResponse =
-            (error as { response?: { attributes?: Array<{ value?: string }> } })?.response?.attributes?.[0]
-              ?.value ?? '';
-          
+            (error as { response?: { attributes?: Array<{ value?: string }> } })
+              ?.response?.attributes?.[0]?.value ?? '';
+
           const isMessagesetError =
             errorMsg.includes('Invalid messageset') ||
             errorMsg.includes('messageset') ||

@@ -21,6 +21,7 @@ export interface CreateCustomerSchema {
 
 export interface UpdateCustomerSchema {
   id: UniqueEntityID;
+  tenantId: string;
   name?: string;
   type?: CustomerType;
   document?: Document;
@@ -68,5 +69,5 @@ export interface CustomersRepository {
   save(customer: Customer): Promise<void>;
 
   // DELETE
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

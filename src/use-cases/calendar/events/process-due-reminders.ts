@@ -28,7 +28,8 @@ export class ProcessDueRemindersUseCase {
     let processed = 0;
     let errors = 0;
 
-    const dueReminders = await this.eventRemindersRepository.findDueReminders(now);
+    const dueReminders =
+      await this.eventRemindersRepository.findDueReminders(now);
     const batch = request?.batchSize
       ? dueReminders.slice(0, request.batchSize)
       : dueReminders;
@@ -55,14 +56,23 @@ export class ProcessDueRemindersUseCase {
 
         // Send IN_APP + EMAIL notifications
         await Promise.allSettled([
-          createFromTemplate.execute({ ...notificationData, templateCode: 'calendar.event.reminder' }),
-          createFromTemplate.execute({ ...notificationData, templateCode: 'calendar.event.reminder.email' }),
+          createFromTemplate.execute({
+            ...notificationData,
+            templateCode: 'calendar.event.reminder',
+          }),
+          createFromTemplate.execute({
+            ...notificationData,
+            templateCode: 'calendar.event.reminder.email',
+          }),
         ]);
 
         await this.eventRemindersRepository.markSent(reminder.id.toString());
         processed++;
       } catch (err) {
-        logger.error({ err, reminderId: reminder.id.toString() }, 'Failed to process reminder');
+        logger.error(
+          { err, reminderId: reminder.id.toString() },
+          'Failed to process reminder',
+        );
         errors++;
       }
     }

@@ -2,11 +2,14 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type {
-    EmailAccountsRepository,
-    EmailFoldersRepository,
+  EmailAccountsRepository,
+  EmailFoldersRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import type { SmtpAttachmentInput, SmtpClientService } from '@/services/email/smtp-client.service';
+import type {
+  SmtpAttachmentInput,
+  SmtpClientService,
+} from '@/services/email/smtp-client.service';
 import { ImapFlow } from 'imapflow';
 
 interface SendEmailMessageRequest {
@@ -156,10 +159,12 @@ export class SendEmailMessageUseCase {
 
       try {
         await client.connect();
-        await client.append(sentFolder.remoteName, rawMessage, {
-          flags: ['\\Seen'],
-          internalDate: new Date(),
-        });
+        await client.append(
+          sentFolder.remoteName,
+          rawMessage,
+          ['\\Seen'],
+          new Date(),
+        );
       } finally {
         await client.logout().catch(() => undefined);
       }

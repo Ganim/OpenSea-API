@@ -9,6 +9,10 @@ import {
 } from '@/mappers/core/team/team-member-to-dto';
 import type { TeamsRepository } from '@/repositories/core/teams-repository';
 import type { TeamMembersRepository } from '@/repositories/core/team-members-repository';
+import type { TeamEmailAccountsRepository } from '@/repositories/core/team-email-accounts-repository';
+import type { EmailAccountsRepository } from '@/repositories/email/email-accounts-repository';
+
+import { getPermissionsForRole } from './helpers/get-permissions-for-role';
 
 interface ChangeTeamMemberRoleRequest {
   tenantId: string;
@@ -26,6 +30,8 @@ export class ChangeTeamMemberRoleUseCase {
   constructor(
     private teamsRepository: TeamsRepository,
     private teamMembersRepository: TeamMembersRepository,
+    private teamEmailAccountsRepository: TeamEmailAccountsRepository,
+    private emailAccountsRepository: EmailAccountsRepository,
   ) {}
 
   async execute(
@@ -49,14 +55,19 @@ export class ChangeTeamMemberRoleUseCase {
     );
 
     if (!requestingMember || !requestingMember.isAdminOrOwner) {
-      throw new ForbiddenError('Only team owners and admins can change member roles');
+      throw new ForbiddenError(
+        'Only team owners and admins can change member roles',
+      );
     }
 
     const memberToUpdate = await this.teamMembersRepository.findById(
       new UniqueEntityID(memberId),
     );
 
-    if (!memberToUpdate || !memberToUpdate.teamId.equals(new UniqueEntityID(teamId))) {
+    if (
+      !memberToUpdate ||
+      !memberToUpdate.teamId.equals(new UniqueEntityID(teamId))
+    ) {
       throw new ResourceNotFoundError('Team member not found');
     }
 
@@ -67,12 +78,16 @@ export class ChangeTeamMemberRoleUseCase {
 
     // Cannot promote to OWNER via this use case
     if (role === 'OWNER') {
-      throw new BadRequestError('Cannot assign OWNER role. Use transfer ownership instead');
+      throw new BadRequestError(
+        'Cannot assign OWNER role. Use transfer ownership instead',
+      );
     }
 
     // ADMINs can only change MEMBER roles, not other ADMINs or OWNER
     if (requestingMember.isAdmin && memberToUpdate.isAdminOrOwner) {
-      throw new ForbiddenError('Admins can only change the role of regular members');
+      throw new ForbiddenError(
+        'Admins can only change the role of regular members',
+      );
     }
 
     const updatedMember = await this.teamMembersRepository.update({
@@ -82,6 +97,23 @@ export class ChangeTeamMemberRoleUseCase {
 
     if (!updatedMember) {
       throw new ResourceNotFoundError('Team member not found');
+    }
+
+    // Re-sync email access based on new role
+    const teamEmailAccounts =
+      await this.teamEmailAccountsRepository.findByTeam(teamId);
+
+    for (const tea of teamEmailAccounts) {
+      const perms = getPermissionsForRole(updatedMember.role, tea);
+
+      await this.emailAccountsRepository.upsertAccess({
+        accountId: tea.accountId,
+        tenantId,
+        userId: memberToUpdate.userId.toString(),
+        canRead: perms.canRead,
+        canSend: perms.canSend,
+        canManage: perms.canManage,
+      });
     }
 
     return {

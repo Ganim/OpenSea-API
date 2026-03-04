@@ -27,5 +27,8 @@ export function mapTeamPrismaToDomain(teamDb: PrismaTeam) {
 }
 
 export function teamPrismaToDomain(teamDb: PrismaTeam): Team {
-  return Team.create(mapTeamPrismaToDomain(teamDb), new UniqueEntityID(teamDb.id));
+  return Team.create(
+    mapTeamPrismaToDomain(teamDb),
+    new UniqueEntityID(teamDb.id),
+  );
 }

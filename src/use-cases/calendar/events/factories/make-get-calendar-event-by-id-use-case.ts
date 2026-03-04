@@ -5,5 +5,8 @@ import { GetCalendarEventByIdUseCase } from '../get-calendar-event-by-id';
 export function makeGetCalendarEventByIdUseCase() {
   const calendarEventsRepository = new PrismaCalendarEventsRepository();
   const eventParticipantsRepository = new PrismaEventParticipantsRepository();
-  return new GetCalendarEventByIdUseCase(calendarEventsRepository, eventParticipantsRepository);
+  return new GetCalendarEventByIdUseCase(
+    calendarEventsRepository,
+    eventParticipantsRepository,
+  );
 }

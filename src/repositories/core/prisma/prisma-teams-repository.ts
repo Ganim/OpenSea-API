@@ -46,7 +46,9 @@ export class PrismaTeamsRepository implements TeamsRepository {
     return teamPrismaToDomain(teamData);
   }
 
-  async resolveCreatorNames(creatorIds: string[]): Promise<Map<string, string>> {
+  async resolveCreatorNames(
+    creatorIds: string[],
+  ): Promise<Map<string, string>> {
     if (creatorIds.length === 0) return new Map();
 
     const users = await prisma.user.findMany({
@@ -59,7 +61,9 @@ export class PrismaTeamsRepository implements TeamsRepository {
 
     const map = new Map<string, string>();
     for (const u of users) {
-      const fullName = [u.profile?.name, u.profile?.surname].filter(Boolean).join(' ');
+      const fullName = [u.profile?.name, u.profile?.surname]
+        .filter(Boolean)
+        .join(' ');
       if (fullName) map.set(u.id, fullName);
     }
     return map;
@@ -93,8 +97,18 @@ export class PrismaTeamsRepository implements TeamsRepository {
       ...(filters.search
         ? {
             OR: [
-              { name: { contains: filters.search, mode: 'insensitive' as const } },
-              { description: { contains: filters.search, mode: 'insensitive' as const } },
+              {
+                name: {
+                  contains: filters.search,
+                  mode: 'insensitive' as const,
+                },
+              },
+              {
+                description: {
+                  contains: filters.search,
+                  mode: 'insensitive' as const,
+                },
+              },
             ],
           }
         : {}),

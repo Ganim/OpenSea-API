@@ -11,12 +11,16 @@ describe('GetCalendarEventByIdUseCase', () => {
   beforeEach(() => {
     eventsRepository = new InMemoryCalendarEventsRepository();
     participantsRepository = new InMemoryEventParticipantsRepository();
-    sut = new GetCalendarEventByIdUseCase(eventsRepository, participantsRepository);
+    sut = new GetCalendarEventByIdUseCase(
+      eventsRepository,
+      participantsRepository,
+    );
   });
 
   it('should get a calendar event by id', async () => {
     const created = await eventsRepository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'My Event',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -35,6 +39,7 @@ describe('GetCalendarEventByIdUseCase', () => {
   it('should return "Ocupado" for private events to non-participants', async () => {
     const created = await eventsRepository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Secret Meeting',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -58,6 +63,7 @@ describe('GetCalendarEventByIdUseCase', () => {
   it('should show full details of private event to participants', async () => {
     const created = await eventsRepository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Secret Meeting',
       description: 'Confidential discussion',
       location: 'Room 42',
@@ -71,6 +77,7 @@ describe('GetCalendarEventByIdUseCase', () => {
       eventId: created.id.toString(),
       userId: 'user-2',
       role: 'GUEST',
+      tenantId: 'tenant-1',
     });
 
     const { event } = await sut.execute({
@@ -87,6 +94,7 @@ describe('GetCalendarEventByIdUseCase', () => {
   it('should show full details of private event to creator', async () => {
     const created = await eventsRepository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'My Private Event',
       description: 'Only for me',
       startDate: new Date('2026-03-01T10:00:00'),
@@ -119,6 +127,7 @@ describe('GetCalendarEventByIdUseCase', () => {
     it('should not return event from another tenant', async () => {
       const created = await eventsRepository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Tenant 1 Only',
         startDate: new Date('2026-03-01T10:00:00'),
         endDate: new Date('2026-03-01T11:00:00'),

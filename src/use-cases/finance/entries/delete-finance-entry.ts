@@ -31,6 +31,9 @@ export class DeleteFinanceEntryUseCase {
       );
     }
 
-    await this.financeEntriesRepository.delete(new UniqueEntityID(id));
+    await this.financeEntriesRepository.delete(
+      new UniqueEntityID(id),
+      tenantId,
+    );
   }
 }

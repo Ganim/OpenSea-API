@@ -40,6 +40,7 @@ export interface CreateFinanceEntrySchema {
 
 export interface UpdateFinanceEntrySchema {
   id: UniqueEntityID;
+  tenantId?: string;
   description?: string;
   notes?: string | null;
   categoryId?: string;
@@ -121,7 +122,7 @@ export interface FinanceEntriesRepository {
   findByCode(code: string, tenantId: string): Promise<FinanceEntry | null>;
   findMany(options: FindManyFinanceEntriesOptions): Promise<FindManyResult>;
   update(data: UpdateFinanceEntrySchema): Promise<FinanceEntry | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
   generateNextCode(tenantId: string, type: string): Promise<string>;
 
   // Aggregation queries

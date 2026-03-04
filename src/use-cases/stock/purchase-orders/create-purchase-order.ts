@@ -138,11 +138,7 @@ export class CreatePurchaseOrderUseCase {
     });
 
     // Sync to calendar if approved with expected date (non-blocking)
-    if (
-      this.calendarSyncService &&
-      status === 'APPROVED' &&
-      expectedDate
-    ) {
+    if (this.calendarSyncService && status === 'APPROVED' && expectedDate) {
       try {
         await this.calendarSyncService.syncPurchaseOrder({
           tenantId,

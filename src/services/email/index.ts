@@ -3,7 +3,6 @@ export { ImapClientService } from './imap-client.service';
 export type { ImapConnectionConfig } from './imap-client.service';
 export { SmtpClientService } from './smtp-client.service';
 export type {
-    SendEmailPayload,
-    SmtpConnectionConfig
+  SendEmailPayload,
+  SmtpConnectionConfig,
 } from './smtp-client.service';
-

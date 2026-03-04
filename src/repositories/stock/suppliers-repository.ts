@@ -24,6 +24,7 @@ export interface CreateSupplierSchema {
 
 export interface UpdateSupplierSchema {
   id: UniqueEntityID;
+  tenantId: string;
   name?: string;
   cnpj?: CNPJ;
   taxId?: string;
@@ -52,5 +53,5 @@ export interface SuppliersRepository {
   findManyByRating(minRating: number, tenantId: string): Promise<Supplier[]>;
   update(data: UpdateSupplierSchema): Promise<Supplier | null>;
   save(supplier: Supplier): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

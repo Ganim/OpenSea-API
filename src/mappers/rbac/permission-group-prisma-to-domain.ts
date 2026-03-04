@@ -15,6 +15,10 @@ export function mapPermissionGroupPrismaToDomain(
       isActive: prismaGroup.isActive,
       color: prismaGroup.color,
       priority: prismaGroup.priority,
+      storageSettings: prismaGroup.storageSettings as Record<
+        string,
+        unknown
+      > | null,
       parentId: prismaGroup.parentId
         ? new UniqueEntityID(prismaGroup.parentId)
         : null,

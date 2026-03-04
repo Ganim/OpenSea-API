@@ -35,6 +35,8 @@ export type CustomerMinAggregateOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  documentHash: string | null
+  emailHash: string | null
   country: string | null
   notes: string | null
   isActive: boolean | null
@@ -55,6 +57,8 @@ export type CustomerMaxAggregateOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  documentHash: string | null
+  emailHash: string | null
   country: string | null
   notes: string | null
   isActive: boolean | null
@@ -75,6 +79,8 @@ export type CustomerCountAggregateOutputType = {
   city: number
   state: number
   zipCode: number
+  documentHash: number
+  emailHash: number
   country: number
   notes: number
   isActive: number
@@ -97,6 +103,8 @@ export type CustomerMinAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  documentHash?: true
+  emailHash?: true
   country?: true
   notes?: true
   isActive?: true
@@ -117,6 +125,8 @@ export type CustomerMaxAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  documentHash?: true
+  emailHash?: true
   country?: true
   notes?: true
   isActive?: true
@@ -137,6 +147,8 @@ export type CustomerCountAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  documentHash?: true
+  emailHash?: true
   country?: true
   notes?: true
   isActive?: true
@@ -230,6 +242,8 @@ export type CustomerGroupByOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  documentHash: string | null
+  emailHash: string | null
   country: string | null
   notes: string | null
   isActive: boolean
@@ -271,6 +285,8 @@ export type CustomerWhereInput = {
   city?: Prisma.StringNullableFilter<"Customer"> | string | null
   state?: Prisma.StringNullableFilter<"Customer"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Customer"> | string | null
+  documentHash?: Prisma.StringNullableFilter<"Customer"> | string | null
+  emailHash?: Prisma.StringNullableFilter<"Customer"> | string | null
   country?: Prisma.StringNullableFilter<"Customer"> | string | null
   notes?: Prisma.StringNullableFilter<"Customer"> | string | null
   isActive?: Prisma.BoolFilter<"Customer"> | boolean
@@ -293,6 +309,8 @@ export type CustomerOrderByWithRelationInput = {
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   state?: Prisma.SortOrderInput | Prisma.SortOrder
   zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  documentHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailHash?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -319,6 +337,8 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   city?: Prisma.StringNullableFilter<"Customer"> | string | null
   state?: Prisma.StringNullableFilter<"Customer"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Customer"> | string | null
+  documentHash?: Prisma.StringNullableFilter<"Customer"> | string | null
+  emailHash?: Prisma.StringNullableFilter<"Customer"> | string | null
   country?: Prisma.StringNullableFilter<"Customer"> | string | null
   notes?: Prisma.StringNullableFilter<"Customer"> | string | null
   isActive?: Prisma.BoolFilter<"Customer"> | boolean
@@ -341,6 +361,8 @@ export type CustomerOrderByWithAggregationInput = {
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   state?: Prisma.SortOrderInput | Prisma.SortOrder
   zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  documentHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailHash?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -367,6 +389,8 @@ export type CustomerScalarWhereWithAggregatesInput = {
   city?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   state?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   zipCode?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
+  documentHash?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
+  emailHash?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   country?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"Customer"> | boolean
@@ -387,6 +411,8 @@ export type CustomerCreateInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
   country?: string | null
   notes?: string | null
   isActive?: boolean
@@ -408,6 +434,8 @@ export type CustomerUncheckedCreateInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
   country?: string | null
   notes?: string | null
   isActive?: boolean
@@ -429,6 +457,8 @@ export type CustomerUpdateInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -450,6 +480,8 @@ export type CustomerUncheckedUpdateInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -471,6 +503,8 @@ export type CustomerCreateManyInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
   country?: string | null
   notes?: string | null
   isActive?: boolean
@@ -491,6 +525,8 @@ export type CustomerUpdateManyMutationInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -510,6 +546,8 @@ export type CustomerUncheckedUpdateManyInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -520,7 +558,7 @@ export type CustomerUncheckedUpdateManyInput = {
 }
 
 export type CustomerCustomers_document_unique_activeCompoundUniqueInput = {
-  document: string
+  documentHash: string
   tenantId: string
   deletedAt: Date | string
 }
@@ -536,6 +574,8 @@ export type CustomerCountOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  documentHash?: Prisma.SortOrder
+  emailHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -556,6 +596,8 @@ export type CustomerMaxOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  documentHash?: Prisma.SortOrder
+  emailHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -576,6 +618,8 @@ export type CustomerMinOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  documentHash?: Prisma.SortOrder
+  emailHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -671,6 +715,8 @@ export type CustomerCreateWithoutSalesOrdersInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
   country?: string | null
   notes?: string | null
   isActive?: boolean
@@ -691,6 +737,8 @@ export type CustomerUncheckedCreateWithoutSalesOrdersInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
   country?: string | null
   notes?: string | null
   isActive?: boolean
@@ -727,6 +775,8 @@ export type CustomerUpdateWithoutSalesOrdersInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -747,6 +797,8 @@ export type CustomerUncheckedUpdateWithoutSalesOrdersInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -767,6 +819,8 @@ export type CustomerCreateWithoutTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
   country?: string | null
   notes?: string | null
   isActive?: boolean
@@ -787,6 +841,8 @@ export type CustomerUncheckedCreateWithoutTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
   country?: string | null
   notes?: string | null
   isActive?: boolean
@@ -836,6 +892,8 @@ export type CustomerScalarWhereInput = {
   city?: Prisma.StringNullableFilter<"Customer"> | string | null
   state?: Prisma.StringNullableFilter<"Customer"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Customer"> | string | null
+  documentHash?: Prisma.StringNullableFilter<"Customer"> | string | null
+  emailHash?: Prisma.StringNullableFilter<"Customer"> | string | null
   country?: Prisma.StringNullableFilter<"Customer"> | string | null
   notes?: Prisma.StringNullableFilter<"Customer"> | string | null
   isActive?: Prisma.BoolFilter<"Customer"> | boolean
@@ -856,6 +914,8 @@ export type CustomerCreateManyTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  documentHash?: string | null
+  emailHash?: string | null
   country?: string | null
   notes?: string | null
   isActive?: boolean
@@ -875,6 +935,8 @@ export type CustomerUpdateWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -895,6 +957,8 @@ export type CustomerUncheckedUpdateWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -915,6 +979,8 @@ export type CustomerUncheckedUpdateManyWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -965,6 +1031,8 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  documentHash?: boolean
+  emailHash?: boolean
   country?: boolean
   notes?: boolean
   isActive?: boolean
@@ -988,6 +1056,8 @@ export type CustomerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  documentHash?: boolean
+  emailHash?: boolean
   country?: boolean
   notes?: boolean
   isActive?: boolean
@@ -1009,6 +1079,8 @@ export type CustomerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  documentHash?: boolean
+  emailHash?: boolean
   country?: boolean
   notes?: boolean
   isActive?: boolean
@@ -1030,6 +1102,8 @@ export type CustomerSelectScalar = {
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  documentHash?: boolean
+  emailHash?: boolean
   country?: boolean
   notes?: boolean
   isActive?: boolean
@@ -1039,7 +1113,7 @@ export type CustomerSelectScalar = {
   tenantId?: boolean
 }
 
-export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "document" | "email" | "phone" | "address" | "city" | "state" | "zipCode" | "country" | "notes" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["customer"]>
+export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "document" | "email" | "phone" | "address" | "city" | "state" | "zipCode" | "documentHash" | "emailHash" | "country" | "notes" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["customer"]>
 export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   salesOrders?: boolean | Prisma.Customer$salesOrdersArgs<ExtArgs>
@@ -1069,6 +1143,8 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     city: string | null
     state: string | null
     zipCode: string | null
+    documentHash: string | null
+    emailHash: string | null
     country: string | null
     notes: string | null
     isActive: boolean
@@ -1511,6 +1587,8 @@ export interface CustomerFieldRefs {
   readonly city: Prisma.FieldRef<"Customer", 'String'>
   readonly state: Prisma.FieldRef<"Customer", 'String'>
   readonly zipCode: Prisma.FieldRef<"Customer", 'String'>
+  readonly documentHash: Prisma.FieldRef<"Customer", 'String'>
+  readonly emailHash: Prisma.FieldRef<"Customer", 'String'>
   readonly country: Prisma.FieldRef<"Customer", 'String'>
   readonly notes: Prisma.FieldRef<"Customer", 'String'>
   readonly isActive: Prisma.FieldRef<"Customer", 'Boolean'>

@@ -16,6 +16,7 @@ import { prisma } from '@/lib/prisma';
 import { PrismaTenantUsersRepository } from '@/repositories/core/prisma/prisma-tenant-users-repository';
 import { makeCreateUserUseCase } from '@/use-cases/core/users/factories/make-create-user-use-case';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
+import { makeCreatePersonalCalendarUseCase } from '@/use-cases/calendar/calendars/factories/make-create-personal-calendar-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -112,6 +113,11 @@ export async function createUserController(app: FastifyInstance) {
             },
           });
         }
+
+        // Create personal calendar for the new user
+        makeCreatePersonalCalendarUseCase()
+          .execute({ tenantId, userId: user.id.toString() })
+          .catch(() => {});
 
         // Log de auditoria
         const userName = user.profile?.name

@@ -236,6 +236,7 @@ model User {
   storageFolders     StorageFolder[]    @relation("StorageFolderCreator")
 
   // Calendar Relations
+  calendarsCreated      Calendar[]         @relation("CalendarsCreated")
   calendarEventsCreated CalendarEvent[]    @relation("CalendarEventsCreated")
   eventParticipants     EventParticipant[]
   eventReminders        EventReminder[]
@@ -245,8 +246,9 @@ model User {
   emailAccountsAccess EmailAccountAccess[]
 
   // Teams Relations
-  teamsCreated Team[]       @relation("TeamsCreated")
-  teamMembers  TeamMember[]
+  teamsCreated   Team[]             @relation("TeamsCreated")
+  teamMembers    TeamMember[]
+  teamEmailLinks TeamEmailAccount[] @relation("TeamEmailLinker")
 
   @@unique([email, deletedAt], name: "users_email_unique_active")
   @@unique([username, deletedAt], name: "users_username_unique_active")
@@ -421,6 +423,9 @@ model PermissionGroup {
 
   // Prioridade (para resolver conflitos)
   priority Int @default(0)
+
+  // Configurações de armazenamento (allowedFileTypes, maxFileSizeMb, maxStorageMb)
+  storageSettings Json? @map("storage_settings")
 
   // Grupo pai (para herança)
   parentId String? @map("parent_id")
@@ -722,6 +727,10 @@ enum AuditAction {
   ACCESS_REVOKE
   BULK_MOVE
   BULK_DELETE
+  ITEM_PROTECT
+  ITEM_UNPROTECT
+  ITEM_HIDE
+  ITEM_UNHIDE
 
   // Finance - Pagamentos
   PAYMENT_REGISTER
@@ -1008,8 +1017,8 @@ model Organization {
   legalName String @map("legal_name") @db.VarChar(256)
 
   // Identificação fiscal
-  cnpj String? @db.VarChar(18) // Para PJ
-  cpf  String? @db.VarChar(14) // Para PF (alguns fornecedores)
+  cnpj String? @db.VarChar(256) // Para PJ
+  cpf  String? @db.VarChar(256) // Para PF (alguns fornecedores)
 
   // Dados opcionais principais
   tradeName             String?                @map("trade_name") @db.VarChar(256)
@@ -1021,10 +1030,14 @@ model Organization {
   activityStartDate     DateTime?              @map("activity_start_date")
   status                OrganizationStatusEnum @default(ACTIVE)
   email                 String?                @db.VarChar(256)
-  phoneMain             String?                @map("phone_main") @db.VarChar(20)
-  phoneAlt              String?                @map("phone_alt") @db.VarChar(20)
+  phoneMain             String?                @map("phone_main") @db.VarChar(256)
+  phoneAlt              String?                @map("phone_alt") @db.VarChar(256)
   website               String?                @db.VarChar(512)
   logoUrl               String?                @map("logo_url") @db.VarChar(512)
+
+  // Blind index hashes
+  cnpjHash              String? @map("cnpj_hash") @db.VarChar(64)
+  cpfHash               String? @map("cpf_hash") @db.VarChar(64)
 
   // Dados específicos por tipo (JSON para campos que variam por tipo)
   // Supplier: { paymentTerms, rating, sequentialCode, etc }
@@ -1051,12 +1064,12 @@ model Organization {
   employees      Employee[]
   products       Product[]
 
-  @@unique([cnpj, type, tenantId, deletedAt], name: "organizations_cnpj_type_tenant_unique_active")
-  @@unique([cpf, type, tenantId, deletedAt], name: "organizations_cpf_type_tenant_unique_active")
+  @@unique([cnpjHash, type, tenantId, deletedAt], name: "organizations_cnpj_type_tenant_unique_active")
+  @@unique([cpfHash, type, tenantId, deletedAt], name: "organizations_cpf_type_tenant_unique_active")
   @@index([tenantId])
   @@index([type])
-  @@index([cnpj])
-  @@index([cpf])
+  @@index([cnpjHash])
+  @@index([cpfHash])
   @@index([legalName])
   @@index([status])
   @@index([deletedAt])
@@ -1137,7 +1150,7 @@ model OrganizationFiscalSettings {
   nfeSeries      Int?                    @map("nfe_series")
   nfeNumber      Int?                    @default(1) @map("nfe_number")
   nfeEnvironment NfeEnvironment?         @map("nfe_environment")
-  nfePassword    String?                 @map("nfe_password") @db.VarChar(128)
+  nfePassword    String?                 @map("nfe_password") @db.VarChar(512)
   nfeCertificate String?                 @map("nfe_certificate") @db.Text
   nfeCertType    DigitalCertificateType? @map("nfe_cert_type")
 
@@ -1167,7 +1180,8 @@ model OrganizationStakeholder {
 
   organizationId String                    @map("organization_id")
   name           String                    @db.VarChar(256)
-  cpf            String?                   @db.VarChar(14)
+  cpf            String?                   @db.VarChar(256)
+  cpfHash        String?                   @map("cpf_hash") @db.VarChar(64)
   role           CompanyStakeholderRole?
   qualification  String?                   @db.VarChar(256)
   entryDate      DateTime?                 @map("entry_date")
@@ -1184,9 +1198,9 @@ model OrganizationStakeholder {
   // Relations
   organization Organization @relation(fields: [organizationId], references: [id])
 
-  @@unique([organizationId, cpf, deletedAt], name: "organization_stakeholders_org_cpf_unique_active")
+  @@unique([organizationId, cpfHash, deletedAt], name: "organization_stakeholders_org_cpf_unique_active")
   @@index([organizationId])
-  @@index([cpf])
+  @@index([cpfHash])
   @@index([status])
   @@index([deletedAt])
   @@index([createdAt])
@@ -1197,20 +1211,25 @@ model Supplier {
   id             String  @id @default(uuid())
   sequentialCode Int     @default(autoincrement()) @map("sequential_code")
   name           String  @db.VarChar(128)
-  cnpj           String? @db.VarChar(18)
+  cnpj           String? @db.VarChar(256)
   taxId          String? @map("tax_id") @db.VarChar(32) // Inscrição Estadual
-  contact        String? @db.VarChar(128)
+  contact        String? @db.VarChar(256)
 
   // Contato
-  email   String? @db.VarChar(254)
-  phone   String? @db.VarChar(20)
+  email   String? @db.VarChar(512)
+  phone   String? @db.VarChar(256)
   website String? @db.VarChar(512)
 
   // Endereço
-  address String? @db.VarChar(256)
+  address String? @db.VarChar(512)
   city    String? @db.VarChar(128)
   state   String? @db.VarChar(2) // UF
   zipCode String? @map("zip_code") @db.VarChar(10)
+
+  // Blind index hashes
+  cnpjHash     String? @map("cnpj_hash") @db.VarChar(64)
+  emailHash    String? @map("email_hash") @db.VarChar(64)
+
   country String? @db.VarChar(64)
 
   // Gestão Comercial
@@ -1230,7 +1249,7 @@ model Supplier {
   purchaseOrders       PurchaseOrder[]
   variantSupplierCodes VariantSupplierCode[]
 
-  @@unique([cnpj, tenantId, deletedAt], name: "suppliers_cnpj_unique_active")
+  @@unique([cnpjHash, tenantId, deletedAt], name: "suppliers_cnpj_unique_active")
   @@index([sequentialCode])
   @@index([isActive])
   @@index([rating])
@@ -1244,19 +1263,22 @@ model Manufacturer {
   sequentialCode Int     @default(autoincrement()) @map("sequential_code") // Para geração do code
   name           String  @db.VarChar(128)
   legalName      String? @map("legal_name") @db.VarChar(256)
-  cnpj           String? @db.VarChar(18)
+  cnpj           String? @db.VarChar(256)
   country        String? @db.VarChar(64)
 
   // Contato
-  email   String? @db.VarChar(254)
-  phone   String? @db.VarChar(20)
+  email   String? @db.VarChar(512)
+  phone   String? @db.VarChar(256)
   website String? @db.VarChar(512)
 
   // Endereço
-  address String? @db.VarChar(256)
+  address String? @db.VarChar(512)
   city    String? @db.VarChar(128)
   state   String? @db.VarChar(64)
   zipCode String? @map("zip_code") @db.VarChar(10)
+
+  // Blind index hash
+  cnpjHash     String? @map("cnpj_hash") @db.VarChar(64)
 
   // Gestão
   isActive Boolean  @default(true) @map("is_active")
@@ -2004,13 +2026,18 @@ model Customer {
   id        String       @id @default(uuid())
   name      String       @db.VarChar(128)
   type      CustomerType @default(INDIVIDUAL)
-  document  String?      @db.VarChar(18) // CPF ou CNPJ
-  email     String?      @db.VarChar(254)
-  phone     String?      @db.VarChar(20)
-  address   String?      @db.VarChar(256)
+  document  String?      @db.VarChar(256) // CPF ou CNPJ
+  email     String?      @db.VarChar(512)
+  phone     String?      @db.VarChar(256)
+  address   String?      @db.VarChar(512)
   city      String?      @db.VarChar(128)
   state     String?      @db.VarChar(2) // UF
   zipCode   String?      @map("zip_code") @db.VarChar(10)
+
+  // Blind index hashes
+  documentHash String? @map("document_hash") @db.VarChar(64)
+  emailHash    String? @map("email_hash") @db.VarChar(64)
+
   country   String?      @db.VarChar(64)
   notes     String?      @db.Text
   isActive  Boolean      @default(true) @map("is_active")
@@ -2023,9 +2050,9 @@ model Customer {
 
   salesOrders SalesOrder[]
 
-  @@unique([document, tenantId, deletedAt], name: "customers_document_unique_active")
-  @@index([document])
-  @@index([email])
+  @@unique([documentHash, tenantId, deletedAt], name: "customers_document_unique_active")
+  @@index([documentHash])
+  @@index([emailHash])
   @@index([isActive])
   @@index([type])
   @@index([tenantId])
@@ -2459,42 +2486,50 @@ model Employee {
   healthConditions     Json?     @map("health_conditions")
 
   // Documentos
-  cpf         String    @db.VarChar(14)
-  rg          String?   @db.VarChar(20)
+  cpf         String    @db.VarChar(256)
+  rg          String?   @db.VarChar(256)
   rgIssuer    String?   @map("rg_issuer") @db.VarChar(32)
   rgIssueDate DateTime? @map("rg_issue_date")
-  pis         String?   @db.VarChar(14)
-  ctpsNumber  String?   @db.VarChar(32)
-  ctpsSeries  String?   @db.VarChar(16)
+  pis         String?   @db.VarChar(256)
+  ctpsNumber  String?   @db.VarChar(256)
+  ctpsSeries  String?   @db.VarChar(256)
   ctpsState   String?   @db.VarChar(2)
-  voterTitle  String?   @db.VarChar(16)
-  militaryDoc String?   @db.VarChar(32)
+  voterTitle  String?   @db.VarChar(256)
+  militaryDoc String?   @db.VarChar(256)
 
   // Contato
   email            String? @db.VarChar(254)
-  personalEmail    String? @map("personal_email") @db.VarChar(254)
+  personalEmail    String? @map("personal_email") @db.VarChar(512)
   phone            String? @db.VarChar(20)
-  mobilePhone      String? @map("mobile_phone") @db.VarChar(20)
-  emergencyContact String? @map("emergency_contact") @db.VarChar(128)
-  emergencyPhone   String? @map("emergency_phone") @db.VarChar(20)
+  mobilePhone      String? @map("mobile_phone") @db.VarChar(256)
+  emergencyContact String? @map("emergency_contact") @db.VarChar(256)
+  emergencyPhone   String? @map("emergency_phone") @db.VarChar(256)
 
   // Endereço
-  address       String? @db.VarChar(256)
+  address       String? @db.VarChar(512)
   addressNumber String? @db.VarChar(16)
   complement    String? @db.VarChar(128)
   neighborhood  String? @db.VarChar(128)
   city          String? @db.VarChar(128)
   state         String? @db.VarChar(2)
   zipCode       String? @map("zip_code") @db.VarChar(10)
+
+  // Blind index hashes for encrypted field search
+  cpfHash              String?        @map("cpf_hash") @db.VarChar(64)
+  rgHash               String?        @map("rg_hash") @db.VarChar(64)
+  pisHash              String?        @map("pis_hash") @db.VarChar(64)
+  pixKeyHash           String?        @map("pix_key_hash") @db.VarChar(64)
+  bankAccountHash      String?        @map("bank_account_hash") @db.VarChar(64)
+
   country       String  @default("Brasil") @db.VarChar(64)
 
   // Dados bancários
   bankCode        String? @db.VarChar(8)
   bankName        String? @db.VarChar(128)
-  bankAgency      String? @db.VarChar(16)
-  bankAccount     String? @db.VarChar(32)
+  bankAgency      String? @db.VarChar(256)
+  bankAccount     String? @db.VarChar(256)
   bankAccountType String? @db.VarChar(32)
-  pixKey          String? @db.VarChar(128)
+  pixKey          String? @db.VarChar(256)
 
   // Vínculo empregatício
   departmentId    String?        @map("department_id")
@@ -2560,11 +2595,14 @@ model Employee {
   companyId          String?
 
   @@unique([registrationNumber, tenantId, deletedAt], name: "employees_registration_tenant_unique_active")
-  @@unique([cpf, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
-  @@unique([pis, tenantId, deletedAt], name: "employees_pis_tenant_unique_active")
+  @@unique([cpfHash, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
+  @@unique([pisHash, tenantId, deletedAt], name: "employees_pis_tenant_unique_active")
   @@index([tenantId])
   @@index([userId])
-  @@index([cpf])
+  @@index([cpfHash])
+  @@index([pisHash])
+  @@index([pixKeyHash])
+  @@index([bankAccountHash])
   @@index([registrationNumber])
   @@index([departmentId])
   @@index([positionId])
@@ -2831,7 +2869,7 @@ model Absence {
   totalDays            Int           @map("total_days") // Total days of absence
   reason               String?       @db.Text
   documentUrl          String?       @map("document_url") @db.VarChar(512) // URL do atestado/documento
-  cid                  String?       @db.VarChar(10) // Código CID para atestados médicos
+  cid                  String?       @db.VarChar(256) // Código CID para atestados médicos
   isPaid               Boolean       @default(true) @map("is_paid")
   isInssResponsibility Boolean       @default(false) @map("is_inss_responsibility") // Para afastamentos > 15 dias
   vacationPeriodId     String?       @map("vacation_period_id") // Para férias
@@ -3140,7 +3178,7 @@ model Company {
 
   // Dados obrigatórios
   legalName String @map("legal_name") @db.VarChar(256)
-  cnpj      String @db.VarChar(18)
+  cnpj      String @db.VarChar(256)
 
   // Dados opcionais principais
   tradeName             String?           @map("trade_name") @db.VarChar(256)
@@ -3152,9 +3190,12 @@ model Company {
   activityStartDate     DateTime?         @map("activity_start_date")
   status                CompanyStatusEnum @default(ACTIVE)
   email                 String?           @db.VarChar(256)
-  phoneMain             String?           @map("phone_main") @db.VarChar(20)
-  phoneAlt              String?           @map("phone_alt") @db.VarChar(20)
+  phoneMain             String?           @map("phone_main") @db.VarChar(256)
+  phoneAlt              String?           @map("phone_alt") @db.VarChar(256)
   logoUrl               String?           @map("logo_url") @db.VarChar(512)
+
+  // Blind index hash
+  cnpjHash              String? @map("cnpj_hash") @db.VarChar(64)
 
   // Metadados e pendências
   metadata      Json     @default("{}")
@@ -3179,9 +3220,9 @@ model Company {
   costCenters    CostCenter[]
   bankAccounts   BankAccount[]
 
-  @@unique([cnpj, tenantId, deletedAt], name: "companies_cnpj_tenant_unique_active")
+  @@unique([cnpjHash, tenantId, deletedAt], name: "companies_cnpj_tenant_unique_active")
   @@index([tenantId])
-  @@index([cnpj])
+  @@index([cnpjHash])
   @@index([legalName])
   @@index([status])
   @@index([deletedAt])
@@ -3272,8 +3313,8 @@ model CompanyFiscalSettings {
 
   // NFC-e Configuration
   nfceEnabled  Boolean @default(false) @map("nfce_enabled")
-  nfceCscId    String? @map("nfce_csc_id") @db.VarChar(64)
-  nfceCscToken String? @map("nfce_csc_token") @db.VarChar(256)
+  nfceCscId    String? @map("nfce_csc_id") @db.VarChar(256)
+  nfceCscToken String? @map("nfce_csc_token") @db.VarChar(512)
 
   // Optional Tax Profile reference
   defaultTaxProfileId String? @map("default_tax_profile_id")
@@ -3311,7 +3352,7 @@ model CompanyStakeholder {
   role                 CompanyStakeholderRole? @map("role")
   entryDate            DateTime?               @map("entry_date") @db.Date
   exitDate             DateTime?               @map("exit_date") @db.Date
-  personDocumentMasked String?                 @map("person_document_masked") @db.VarChar(32)
+  personDocumentMasked String?                 @map("person_document_masked") @db.VarChar(256)
 
   // Legal Information
   isLegalRepresentative Boolean                  @default(false) @map("is_legal_representative")
@@ -3444,6 +3485,14 @@ enum TeamMemberRole {
   @@map("team_member_role")
 }
 
+enum CalendarType {
+  PERSONAL
+  TEAM
+  SYSTEM
+
+  @@map("calendar_type")
+}
+
 enum EventType {
   MEETING
   TASK
@@ -3556,9 +3605,11 @@ model Tenant {
   folderAccessRules  FolderAccessRule[]
   storageShareLinks  StorageShareLink[]
   // Calendar domain
-  calendarEvents      CalendarEvent[]
-  eventParticipants   EventParticipant[]
-  eventReminders      EventReminder[]
+  calendars            Calendar[]
+  calendarEvents       CalendarEvent[]
+  eventParticipants    EventParticipant[]
+  eventReminders       EventReminder[]
+  teamCalendarConfigs  TeamCalendarConfig[]
 
   // Email domain
   emailAccounts        EmailAccount[]
@@ -3566,8 +3617,9 @@ model Tenant {
   emailAccountAccesses EmailAccountAccess[]
 
   // Teams domain
-  teams       Team[]
-  teamMembers TeamMember[]
+  teams             Team[]
+  teamMembers       TeamMember[]
+  teamEmailAccounts TeamEmailAccount[]
 
   @@index([status])
   @@index([deletedAt])
@@ -3644,6 +3696,9 @@ model TenantUser {
   tenantId String @map("tenant_id")
   userId   String @map("user_id")
   role     String @default("member") @db.VarChar(32)
+
+  // Security
+  securityKeyHash String? @map("security_key_hash") @db.VarChar(256)
 
   // Dates
   joinedAt  DateTime  @default(now()) @map("joined_at")
@@ -3735,17 +3790,21 @@ model BankAccount {
   name          String            @db.VarChar(128)
   bankCode      String            @map("bank_code") @db.VarChar(5)
   bankName      String?           @map("bank_name") @db.VarChar(128)
-  agency        String            @db.VarChar(10)
-  agencyDigit   String?           @map("agency_digit") @db.VarChar(2)
-  accountNumber String            @map("account_number") @db.VarChar(20)
-  accountDigit  String?           @map("account_digit") @db.VarChar(2)
+  agency        String            @db.VarChar(256)
+  agencyDigit   String?           @map("agency_digit") @db.VarChar(256)
+  accountNumber String            @map("account_number") @db.VarChar(256)
+  accountDigit  String?           @map("account_digit") @db.VarChar(256)
   accountType   BankAccountType   @map("account_type")
   status        BankAccountStatus @default(ACTIVE)
 
   pixKeyType String? @map("pix_key_type") @db.VarChar(16)
-  pixKey     String? @map("pix_key") @db.VarChar(128)
+  pixKey     String? @map("pix_key") @db.VarChar(256)
 
   currentBalance   Decimal   @default(0) @map("current_balance") @db.Decimal(15, 2)
+
+  // Blind index hashes
+  accountNumberHash String? @map("account_number_hash") @db.VarChar(64)
+  pixKeyHash        String? @map("pix_key_hash") @db.VarChar(64)
   balanceUpdatedAt DateTime? @map("balance_updated_at")
 
   color     String? @db.VarChar(7)
@@ -3765,7 +3824,7 @@ model BankAccount {
   consortia          Consortium[]
   consortiumPayments ConsortiumPayment[]
 
-  @@unique([tenantId, bankCode, agency, accountNumber, deletedAt], name: "bank_accounts_unique_active")
+  @@unique([tenantId, bankCode, accountNumberHash, deletedAt], name: "bank_accounts_unique_active")
   @@index([tenantId])
   @@index([companyId])
   @@index([bankCode])
@@ -3823,8 +3882,8 @@ model FinanceEntry {
   costCenterId  String  @map("cost_center_id")
   bankAccountId String? @map("bank_account_id")
 
-  supplierName String? @map("supplier_name") @db.VarChar(256)
-  customerName String? @map("customer_name") @db.VarChar(256)
+  supplierName String? @map("supplier_name") @db.VarChar(512)
+  customerName String? @map("customer_name") @db.VarChar(512)
   supplierId   String? @map("supplier_id")
   customerId   String? @map("customer_id")
   salesOrderId String? @map("sales_order_id")
@@ -3849,8 +3908,8 @@ model FinanceEntry {
   currentInstallment Int?                   @map("current_installment")
   parentEntryId      String?                @map("parent_entry_id")
 
-  boletoBarcode   String? @map("boleto_barcode") @db.VarChar(64)
-  boletoDigitLine String? @map("boleto_digit_line") @db.VarChar(64)
+  boletoBarcode   String? @map("boleto_barcode") @db.VarChar(256)
+  boletoDigitLine String? @map("boleto_digit_line") @db.VarChar(256)
 
   metadata Json     @default("{}")
   tags     String[] @default([])
@@ -3948,7 +4007,7 @@ model Loan {
 
   name           String     @db.VarChar(128)
   type           LoanType
-  contractNumber String?    @map("contract_number") @db.VarChar(64)
+  contractNumber String?    @map("contract_number") @db.VarChar(256)
   status         LoanStatus @default(ACTIVE)
 
   principalAmount    Decimal @map("principal_amount") @db.Decimal(15, 2)
@@ -4026,7 +4085,7 @@ model Consortium {
   administrator  String           @db.VarChar(128)
   groupNumber    String?          @map("group_number") @db.VarChar(32)
   quotaNumber    String?          @map("quota_number") @db.VarChar(32)
-  contractNumber String?          @map("contract_number") @db.VarChar(64)
+  contractNumber String?          @map("contract_number") @db.VarChar(256)
   status         ConsortiumStatus @default(ACTIVE)
 
   creditValue       Decimal @map("credit_value") @db.Decimal(15, 2)
@@ -4115,6 +4174,11 @@ model StorageFolder {
   depth      Int     @default(0)
   createdBy  String? @map("created_by")
 
+  // Security
+  isProtected    Boolean  @default(false) @map("is_protected")
+  protectionHash String?  @map("protection_hash") @db.VarChar(256)
+  isHidden       Boolean  @default(false) @map("is_hidden")
+
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
@@ -4159,6 +4223,12 @@ model StorageFile {
   entityId   String?   @map("entity_id")
   expiresAt  DateTime? @map("expires_at")
   uploadedBy String    @map("uploaded_by")
+
+  // Security
+  isEncrypted    Boolean  @default(false) @map("is_encrypted")
+  isProtected    Boolean  @default(false) @map("is_protected")
+  protectionHash String?  @map("protection_hash") @db.VarChar(256)
+  isHidden       Boolean  @default(false) @map("is_hidden")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -4206,6 +4276,7 @@ model FolderAccessRule {
   folderId String  @map("folder_id")
   userId   String? @map("user_id")
   groupId  String? @map("group_id")
+  teamId   String? @map("team_id")
 
   canRead     Boolean @default(true) @map("can_read")
   canWrite    Boolean @default(false) @map("can_write")
@@ -4220,15 +4291,19 @@ model FolderAccessRule {
   folder StorageFolder    @relation(fields: [folderId], references: [id], onDelete: Cascade)
   user   User?            @relation(fields: [userId], references: [id])
   group  PermissionGroup? @relation(fields: [groupId], references: [id])
+  team   Team?            @relation(fields: [teamId], references: [id])
 
   @@unique([folderId, userId], name: "folder_access_user_unique")
   @@unique([folderId, groupId], name: "folder_access_group_unique")
+  @@unique([folderId, teamId], name: "folder_access_team_unique")
   @@index([tenantId])
   @@index([folderId])
   @@index([userId])
   @@index([groupId])
+  @@index([teamId])
   @@index([folderId, userId])
   @@index([folderId, groupId])
+  @@index([folderId, teamId])
   @@map("folder_access_rules")
 }
 
@@ -4239,7 +4314,7 @@ model StorageShareLink {
 
   token         String    @unique @db.VarChar(128)
   expiresAt     DateTime? @map("expires_at")
-  password      String?   @db.VarChar(128)
+  password      String?   @db.VarChar(512)
   maxDownloads  Int?      @map("max_downloads")
   downloadCount Int       @default(0) @map("download_count")
   isActive      Boolean   @default(true) @map("is_active")
@@ -4260,9 +4335,76 @@ model StorageShareLink {
 
 // CALENDAR MODULE
 
+model Calendar {
+  id           String       @id @default(uuid())
+  tenantId     String       @map("tenant_id")
+  name         String       @db.VarChar(128)
+  description  String?      @db.Text
+  color        String?      @db.VarChar(7)
+  type         CalendarType
+  ownerId      String?      @map("owner_id") @db.VarChar(36)
+  systemModule String?      @map("system_module") @db.VarChar(32)
+  isDefault    Boolean      @default(false) @map("is_default")
+  settings     Json         @default("{}")
+  createdBy    String       @map("created_by")
+  deletedAt    DateTime?    @map("deleted_at")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+
+  tenant             Tenant               @relation(fields: [tenantId], references: [id])
+  creator            User                 @relation("CalendarsCreated", fields: [createdBy], references: [id])
+  events             CalendarEvent[]
+  teamCalendarConfig TeamCalendarConfig[]
+
+  @@unique([tenantId, ownerId, type, systemModule, deletedAt], name: "calendars_unique_active")
+  @@index([tenantId])
+  @@index([tenantId, type])
+  @@index([ownerId])
+  @@map("calendars")
+}
+
+model TeamCalendarConfig {
+  id         String @id @default(uuid())
+  tenantId   String @map("tenant_id")
+  teamId     String @map("team_id")
+  calendarId String @map("calendar_id")
+
+  ownerCanRead   Boolean @default(true) @map("owner_can_read")
+  ownerCanCreate Boolean @default(true) @map("owner_can_create")
+  ownerCanEdit   Boolean @default(true) @map("owner_can_edit")
+  ownerCanDelete Boolean @default(true) @map("owner_can_delete")
+  ownerCanShare  Boolean @default(true) @map("owner_can_share")
+
+  adminCanRead   Boolean @default(true) @map("admin_can_read")
+  adminCanCreate Boolean @default(true) @map("admin_can_create")
+  adminCanEdit   Boolean @default(true) @map("admin_can_edit")
+  adminCanDelete Boolean @default(false) @map("admin_can_delete")
+  adminCanShare  Boolean @default(false) @map("admin_can_share")
+
+  memberCanRead   Boolean @default(true) @map("member_can_read")
+  memberCanCreate Boolean @default(false) @map("member_can_create")
+  memberCanEdit   Boolean @default(false) @map("member_can_edit")
+  memberCanDelete Boolean @default(false) @map("member_can_delete")
+  memberCanShare  Boolean @default(false) @map("member_can_share")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  team     Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, calendarId])
+  @@index([tenantId])
+  @@index([teamId])
+  @@index([calendarId])
+  @@map("team_calendar_configs")
+}
+
 model CalendarEvent {
   id               String          @id @default(uuid())
   tenantId         String          @map("tenant_id")
+  calendarId       String          @map("calendar_id")
   title            String          @db.VarChar(256)
   description      String?         @db.Text
   location         String?         @db.VarChar(512)
@@ -4283,6 +4425,7 @@ model CalendarEvent {
   updatedAt        DateTime        @updatedAt @map("updated_at")
 
   tenant       Tenant             @relation(fields: [tenantId], references: [id])
+  calendar     Calendar           @relation(fields: [calendarId], references: [id])
   creator      User               @relation("CalendarEventsCreated", fields: [createdBy], references: [id])
   participants EventParticipant[]
   reminders    EventReminder[]
@@ -4290,6 +4433,7 @@ model CalendarEvent {
   @@index([tenantId])
   @@index([tenantId, startDate, endDate])
   @@index([tenantId, type])
+  @@index([calendarId])
   @@index([createdBy])
   @@index([systemSourceType, systemSourceId])
   @@index([deletedAt])
@@ -4385,9 +4529,10 @@ model EmailAccount {
 
   tenant   Tenant               @relation(fields: [tenantId], references: [id])
   owner    User                 @relation(fields: [ownerUserId], references: [id])
-  access   EmailAccountAccess[]
-  folders  EmailFolder[]
-  messages EmailMessage[]
+  access    EmailAccountAccess[]
+  teamLinks TeamEmailAccount[]
+  folders   EmailFolder[]
+  messages  EmailMessage[]
 
   @@index([tenantId])
   @@index([ownerUserId])
@@ -4510,9 +4655,12 @@ model Team {
   createdAt         DateTime  @default(now()) @map("created_at")
   updatedAt         DateTime  @updatedAt @map("updated_at")
 
-  tenant  Tenant     @relation(fields: [tenantId], references: [id])
-  creator User       @relation("TeamsCreated", fields: [createdBy], references: [id])
-  members TeamMember[]
+  tenant            Tenant             @relation(fields: [tenantId], references: [id])
+  creator           User               @relation("TeamsCreated", fields: [createdBy], references: [id])
+  members              TeamMember[]
+  emailAccounts        TeamEmailAccount[]
+  teamCalendarConfigs  TeamCalendarConfig[]
+  folderAccessRules    FolderAccessRule[]
 
   @@unique([tenantId, slug, deletedAt], name: "teams_slug_tenant_unique_active")
   @@index([tenantId])
@@ -4542,4 +4690,37 @@ model TeamMember {
   @@index([teamId])
   @@index([userId])
   @@map("team_members")
+}
+
+model TeamEmailAccount {
+  id        String @id @default(uuid())
+  tenantId  String @map("tenant_id")
+  teamId    String @map("team_id")
+  accountId String @map("account_id")
+
+  // Role-based permission defaults
+  ownerCanRead    Boolean @default(true) @map("owner_can_read")
+  ownerCanSend    Boolean @default(true) @map("owner_can_send")
+  ownerCanManage  Boolean @default(true) @map("owner_can_manage")
+  adminCanRead    Boolean @default(true) @map("admin_can_read")
+  adminCanSend    Boolean @default(true) @map("admin_can_send")
+  adminCanManage  Boolean @default(false) @map("admin_can_manage")
+  memberCanRead   Boolean @default(true) @map("member_can_read")
+  memberCanSend   Boolean @default(false) @map("member_can_send")
+  memberCanManage Boolean @default(false) @map("member_can_manage")
+
+  linkedBy  String   @map("linked_by")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant  Tenant       @relation(fields: [tenantId], references: [id])
+  team    Team         @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  account EmailAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  linker  User         @relation("TeamEmailLinker", fields: [linkedBy], references: [id])
+
+  @@unique([teamId, accountId])
+  @@index([tenantId])
+  @@index([teamId])
+  @@index([accountId])
+  @@map("team_email_accounts")
 }

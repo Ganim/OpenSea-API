@@ -11,6 +11,7 @@ export interface PermissionGroupProps {
   isActive: boolean;
   color: string | null;
   priority: number;
+  storageSettings: Record<string, unknown> | null;
   parentId: UniqueEntityID | null;
   tenantId: UniqueEntityID | null;
   createdAt: Date;
@@ -55,6 +56,10 @@ export class PermissionGroup extends Entity<PermissionGroupProps> {
 
   get priority(): number {
     return this.props.priority;
+  }
+
+  get storageSettings(): Record<string, unknown> | null {
+    return this.props.storageSettings;
   }
 
   get parentId(): UniqueEntityID | null {
@@ -119,6 +124,11 @@ export class PermissionGroup extends Entity<PermissionGroupProps> {
     this.touch();
   }
 
+  set storageSettings(storageSettings: Record<string, unknown> | null) {
+    this.props.storageSettings = storageSettings;
+    this.touch();
+  }
+
   set parentId(parentId: UniqueEntityID | null) {
     this.props.parentId = parentId;
     this.touch();
@@ -170,6 +180,7 @@ export class PermissionGroup extends Entity<PermissionGroupProps> {
       | 'isSystem'
       | 'isActive'
       | 'priority'
+      | 'storageSettings'
       | 'tenantId'
     >,
     id?: UniqueEntityID,
@@ -180,6 +191,7 @@ export class PermissionGroup extends Entity<PermissionGroupProps> {
         isSystem: props.isSystem ?? false,
         isActive: props.isActive ?? true,
         priority: props.priority ?? 0,
+        storageSettings: props.storageSettings ?? null,
         tenantId: props.tenantId ?? null,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),

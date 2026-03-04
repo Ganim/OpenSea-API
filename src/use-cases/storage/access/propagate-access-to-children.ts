@@ -7,6 +7,7 @@ interface PropagateAccessToChildrenUseCaseRequest {
   folderId: string;
   userId?: string | null;
   groupId?: string | null;
+  teamId?: string | null;
   canRead: boolean;
   canWrite: boolean;
   canDelete: boolean;
@@ -24,6 +25,7 @@ export class PropagateAccessToChildrenUseCase {
     folderId,
     userId,
     groupId,
+    teamId,
     canRead,
     canWrite,
     canDelete,
@@ -40,15 +42,26 @@ export class PropagateAccessToChildrenUseCase {
     for (const descendantFolder of descendantFolders) {
       const descendantFolderIdStr = descendantFolder.id.toString();
 
-      const existingRule = userId
-        ? await this.folderAccessRulesRepository.findByFolderAndUser(
+      let existingRule;
+      if (userId) {
+        existingRule =
+          await this.folderAccessRulesRepository.findByFolderAndUser(
             descendantFolder.id,
             new UniqueEntityID(userId),
-          )
-        : await this.folderAccessRulesRepository.findByFolderAndGroup(
-            descendantFolder.id,
-            new UniqueEntityID(groupId!),
           );
+      } else if (groupId) {
+        existingRule =
+          await this.folderAccessRulesRepository.findByFolderAndGroup(
+            descendantFolder.id,
+            new UniqueEntityID(groupId),
+          );
+      } else if (teamId) {
+        existingRule =
+          await this.folderAccessRulesRepository.findByFolderAndTeam(
+            descendantFolder.id,
+            new UniqueEntityID(teamId),
+          );
+      }
 
       if (existingRule) {
         continue;
@@ -59,6 +72,7 @@ export class PropagateAccessToChildrenUseCase {
         folderId: descendantFolderIdStr,
         userId: userId ?? null,
         groupId: groupId ?? null,
+        teamId: teamId ?? null,
         canRead,
         canWrite,
         canDelete,

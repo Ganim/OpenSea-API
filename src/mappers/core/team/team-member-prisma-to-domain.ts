@@ -16,7 +16,9 @@ export function mapTeamMemberPrismaToDomain(memberDb: PrismaTeamMember) {
   };
 }
 
-export function teamMemberPrismaToDomain(memberDb: PrismaTeamMember): TeamMember {
+export function teamMemberPrismaToDomain(
+  memberDb: PrismaTeamMember,
+): TeamMember {
   return TeamMember.create(
     mapTeamMemberPrismaToDomain(memberDb),
     new UniqueEntityID(memberDb.id),

@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeCreateTenantUserAdminUseCase } from '@/use-cases/admin/tenants/factories/make-create-tenant-user-admin-use-case';
+import { makeCreatePersonalCalendarUseCase } from '@/use-cases/calendar/calendars/factories/make-create-personal-calendar-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -67,6 +68,11 @@ export async function createTenantUserAdminController(app: FastifyInstance) {
           username,
           role,
         });
+
+        // Create personal calendar for the new user
+        makeCreatePersonalCalendarUseCase()
+          .execute({ tenantId: id, userId: user.id.toString() })
+          .catch(() => {});
 
         return reply.status(201).send({ user, tenantUser });
       } catch (error) {

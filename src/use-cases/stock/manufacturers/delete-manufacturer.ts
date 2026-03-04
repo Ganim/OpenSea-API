@@ -22,6 +22,6 @@ export class DeleteManufacturerUseCase {
       throw new ResourceNotFoundError('Manufacturer not found');
     }
 
-    await this.manufacturersRepository.delete(new UniqueEntityID(id));
+    await this.manufacturersRepository.delete(new UniqueEntityID(id), tenantId);
   }
 }

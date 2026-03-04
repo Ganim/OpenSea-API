@@ -49,5 +49,5 @@ process.on('SIGINT', async () => {
   process.exit(0);
 });
 
-// Start workers when this entrypoint runs
+// Start workers when this entrypoint runs (Dockerfile.worker: node build/workers/index.js)
 startAllWorkers();

@@ -477,6 +477,8 @@ export const ModelName = {
   StorageFileVersion: 'StorageFileVersion',
   FolderAccessRule: 'FolderAccessRule',
   StorageShareLink: 'StorageShareLink',
+  Calendar: 'Calendar',
+  TeamCalendarConfig: 'TeamCalendarConfig',
   CalendarEvent: 'CalendarEvent',
   EventParticipant: 'EventParticipant',
   EventReminder: 'EventReminder',
@@ -486,7 +488,8 @@ export const ModelName = {
   EmailMessage: 'EmailMessage',
   EmailAttachment: 'EmailAttachment',
   Team: 'Team',
-  TeamMember: 'TeamMember'
+  TeamMember: 'TeamMember',
+  TeamEmailAccount: 'TeamEmailAccount'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -502,7 +505,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -7388,6 +7391,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Calendar: {
+      payload: Prisma.$CalendarPayload<ExtArgs>
+      fields: Prisma.CalendarFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CalendarFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CalendarFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload>
+        }
+        findFirst: {
+          args: Prisma.CalendarFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CalendarFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload>
+        }
+        findMany: {
+          args: Prisma.CalendarFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload>[]
+        }
+        create: {
+          args: Prisma.CalendarCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload>
+        }
+        createMany: {
+          args: Prisma.CalendarCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CalendarCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload>[]
+        }
+        delete: {
+          args: Prisma.CalendarDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload>
+        }
+        update: {
+          args: Prisma.CalendarUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload>
+        }
+        deleteMany: {
+          args: Prisma.CalendarDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CalendarUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CalendarUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload>[]
+        }
+        upsert: {
+          args: Prisma.CalendarUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalendarPayload>
+        }
+        aggregate: {
+          args: Prisma.CalendarAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCalendar>
+        }
+        groupBy: {
+          args: Prisma.CalendarGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CalendarGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CalendarCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CalendarCountAggregateOutputType> | number
+        }
+      }
+    }
+    TeamCalendarConfig: {
+      payload: Prisma.$TeamCalendarConfigPayload<ExtArgs>
+      fields: Prisma.TeamCalendarConfigFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TeamCalendarConfigFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TeamCalendarConfigFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload>
+        }
+        findFirst: {
+          args: Prisma.TeamCalendarConfigFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TeamCalendarConfigFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload>
+        }
+        findMany: {
+          args: Prisma.TeamCalendarConfigFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload>[]
+        }
+        create: {
+          args: Prisma.TeamCalendarConfigCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload>
+        }
+        createMany: {
+          args: Prisma.TeamCalendarConfigCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TeamCalendarConfigCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload>[]
+        }
+        delete: {
+          args: Prisma.TeamCalendarConfigDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload>
+        }
+        update: {
+          args: Prisma.TeamCalendarConfigUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload>
+        }
+        deleteMany: {
+          args: Prisma.TeamCalendarConfigDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TeamCalendarConfigUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TeamCalendarConfigUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload>[]
+        }
+        upsert: {
+          args: Prisma.TeamCalendarConfigUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamCalendarConfigPayload>
+        }
+        aggregate: {
+          args: Prisma.TeamCalendarConfigAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTeamCalendarConfig>
+        }
+        groupBy: {
+          args: Prisma.TeamCalendarConfigGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamCalendarConfigGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TeamCalendarConfigCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamCalendarConfigCountAggregateOutputType> | number
+        }
+      }
+    }
     CalendarEvent: {
       payload: Prisma.$CalendarEventPayload<ExtArgs>
       fields: Prisma.CalendarEventFieldRefs
@@ -8128,6 +8279,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TeamEmailAccount: {
+      payload: Prisma.$TeamEmailAccountPayload<ExtArgs>
+      fields: Prisma.TeamEmailAccountFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TeamEmailAccountFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TeamEmailAccountFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload>
+        }
+        findFirst: {
+          args: Prisma.TeamEmailAccountFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TeamEmailAccountFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload>
+        }
+        findMany: {
+          args: Prisma.TeamEmailAccountFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload>[]
+        }
+        create: {
+          args: Prisma.TeamEmailAccountCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload>
+        }
+        createMany: {
+          args: Prisma.TeamEmailAccountCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TeamEmailAccountCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload>[]
+        }
+        delete: {
+          args: Prisma.TeamEmailAccountDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload>
+        }
+        update: {
+          args: Prisma.TeamEmailAccountUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload>
+        }
+        deleteMany: {
+          args: Prisma.TeamEmailAccountDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TeamEmailAccountUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TeamEmailAccountUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload>[]
+        }
+        upsert: {
+          args: Prisma.TeamEmailAccountUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamEmailAccountPayload>
+        }
+        aggregate: {
+          args: Prisma.TeamEmailAccountAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTeamEmailAccount>
+        }
+        groupBy: {
+          args: Prisma.TeamEmailAccountGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamEmailAccountGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TeamEmailAccountCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamEmailAccountCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -8282,6 +8507,7 @@ export const PermissionGroupScalarFieldEnum = {
   isActive: 'isActive',
   color: 'color',
   priority: 'priority',
+  storageSettings: 'storageSettings',
   parentId: 'parentId',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
@@ -8368,6 +8594,8 @@ export const OrganizationScalarFieldEnum = {
   phoneAlt: 'phoneAlt',
   website: 'website',
   logoUrl: 'logoUrl',
+  cnpjHash: 'cnpjHash',
+  cpfHash: 'cpfHash',
   typeSpecificData: 'typeSpecificData',
   metadata: 'metadata',
   notes: 'notes',
@@ -8449,6 +8677,7 @@ export const OrganizationStakeholderScalarFieldEnum = {
   organizationId: 'organizationId',
   name: 'name',
   cpf: 'cpf',
+  cpfHash: 'cpfHash',
   role: 'role',
   qualification: 'qualification',
   entryDate: 'entryDate',
@@ -8479,6 +8708,8 @@ export const SupplierScalarFieldEnum = {
   city: 'city',
   state: 'state',
   zipCode: 'zipCode',
+  cnpjHash: 'cnpjHash',
+  emailHash: 'emailHash',
   country: 'country',
   paymentTerms: 'paymentTerms',
   rating: 'rating',
@@ -8508,6 +8739,7 @@ export const ManufacturerScalarFieldEnum = {
   city: 'city',
   state: 'state',
   zipCode: 'zipCode',
+  cnpjHash: 'cnpjHash',
   isActive: 'isActive',
   notes: 'notes',
   rating: 'rating',
@@ -8941,6 +9173,8 @@ export const CustomerScalarFieldEnum = {
   city: 'city',
   state: 'state',
   zipCode: 'zipCode',
+  documentHash: 'documentHash',
+  emailHash: 'emailHash',
   country: 'country',
   notes: 'notes',
   isActive: 'isActive',
@@ -9213,6 +9447,11 @@ export const EmployeeScalarFieldEnum = {
   city: 'city',
   state: 'state',
   zipCode: 'zipCode',
+  cpfHash: 'cpfHash',
+  rgHash: 'rgHash',
+  pisHash: 'pisHash',
+  pixKeyHash: 'pixKeyHash',
+  bankAccountHash: 'bankAccountHash',
   country: 'country',
   bankCode: 'bankCode',
   bankName: 'bankName',
@@ -9500,6 +9739,7 @@ export const CompanyScalarFieldEnum = {
   phoneMain: 'phoneMain',
   phoneAlt: 'phoneAlt',
   logoUrl: 'logoUrl',
+  cnpjHash: 'cnpjHash',
   metadata: 'metadata',
   pendingIssues: 'pendingIssues',
   deletedAt: 'deletedAt',
@@ -9682,6 +9922,7 @@ export const TenantUserScalarFieldEnum = {
   tenantId: 'tenantId',
   userId: 'userId',
   role: 'role',
+  securityKeyHash: 'securityKeyHash',
   joinedAt: 'joinedAt',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
@@ -9739,6 +9980,8 @@ export const BankAccountScalarFieldEnum = {
   pixKeyType: 'pixKeyType',
   pixKey: 'pixKey',
   currentBalance: 'currentBalance',
+  accountNumberHash: 'accountNumberHash',
+  pixKeyHash: 'pixKeyHash',
   balanceUpdatedAt: 'balanceUpdatedAt',
   color: 'color',
   isDefault: 'isDefault',
@@ -9959,6 +10202,9 @@ export const StorageFolderScalarFieldEnum = {
   entityId: 'entityId',
   depth: 'depth',
   createdBy: 'createdBy',
+  isProtected: 'isProtected',
+  protectionHash: 'protectionHash',
+  isHidden: 'isHidden',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -9985,6 +10231,10 @@ export const StorageFileScalarFieldEnum = {
   entityId: 'entityId',
   expiresAt: 'expiresAt',
   uploadedBy: 'uploadedBy',
+  isEncrypted: 'isEncrypted',
+  isProtected: 'isProtected',
+  protectionHash: 'protectionHash',
+  isHidden: 'isHidden',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -10014,6 +10264,7 @@ export const FolderAccessRuleScalarFieldEnum = {
   folderId: 'folderId',
   userId: 'userId',
   groupId: 'groupId',
+  teamId: 'teamId',
   canRead: 'canRead',
   canWrite: 'canWrite',
   canDelete: 'canDelete',
@@ -10044,9 +10295,57 @@ export const StorageShareLinkScalarFieldEnum = {
 export type StorageShareLinkScalarFieldEnum = (typeof StorageShareLinkScalarFieldEnum)[keyof typeof StorageShareLinkScalarFieldEnum]
 
 
+export const CalendarScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  color: 'color',
+  type: 'type',
+  ownerId: 'ownerId',
+  systemModule: 'systemModule',
+  isDefault: 'isDefault',
+  settings: 'settings',
+  createdBy: 'createdBy',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CalendarScalarFieldEnum = (typeof CalendarScalarFieldEnum)[keyof typeof CalendarScalarFieldEnum]
+
+
+export const TeamCalendarConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  teamId: 'teamId',
+  calendarId: 'calendarId',
+  ownerCanRead: 'ownerCanRead',
+  ownerCanCreate: 'ownerCanCreate',
+  ownerCanEdit: 'ownerCanEdit',
+  ownerCanDelete: 'ownerCanDelete',
+  ownerCanShare: 'ownerCanShare',
+  adminCanRead: 'adminCanRead',
+  adminCanCreate: 'adminCanCreate',
+  adminCanEdit: 'adminCanEdit',
+  adminCanDelete: 'adminCanDelete',
+  adminCanShare: 'adminCanShare',
+  memberCanRead: 'memberCanRead',
+  memberCanCreate: 'memberCanCreate',
+  memberCanEdit: 'memberCanEdit',
+  memberCanDelete: 'memberCanDelete',
+  memberCanShare: 'memberCanShare',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamCalendarConfigScalarFieldEnum = (typeof TeamCalendarConfigScalarFieldEnum)[keyof typeof TeamCalendarConfigScalarFieldEnum]
+
+
 export const CalendarEventScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
+  calendarId: 'calendarId',
   title: 'title',
   description: 'description',
   location: 'location',
@@ -10230,6 +10529,28 @@ export const TeamMemberScalarFieldEnum = {
 } as const
 
 export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
+
+
+export const TeamEmailAccountScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  teamId: 'teamId',
+  accountId: 'accountId',
+  ownerCanRead: 'ownerCanRead',
+  ownerCanSend: 'ownerCanSend',
+  ownerCanManage: 'ownerCanManage',
+  adminCanRead: 'adminCanRead',
+  adminCanSend: 'adminCanSend',
+  adminCanManage: 'adminCanManage',
+  memberCanRead: 'memberCanRead',
+  memberCanSend: 'memberCanSend',
+  memberCanManage: 'memberCanManage',
+  linkedBy: 'linkedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamEmailAccountScalarFieldEnum = (typeof TeamEmailAccountScalarFieldEnum)[keyof typeof TeamEmailAccountScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -11148,6 +11469,20 @@ export type ListEnumStorageFileStatusFieldRefInput<$PrismaModel> = FieldRefInput
 
 
 /**
+ * Reference to a field of type 'CalendarType'
+ */
+export type EnumCalendarTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CalendarType'>
+    
+
+
+/**
+ * Reference to a field of type 'CalendarType[]'
+ */
+export type ListEnumCalendarTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CalendarType[]'>
+    
+
+
+/**
  * Reference to a field of type 'EventType'
  */
 export type EnumEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventType'>
@@ -11432,6 +11767,8 @@ export type GlobalOmitConfig = {
   storageFileVersion?: Prisma.StorageFileVersionOmit
   folderAccessRule?: Prisma.FolderAccessRuleOmit
   storageShareLink?: Prisma.StorageShareLinkOmit
+  calendar?: Prisma.CalendarOmit
+  teamCalendarConfig?: Prisma.TeamCalendarConfigOmit
   calendarEvent?: Prisma.CalendarEventOmit
   eventParticipant?: Prisma.EventParticipantOmit
   eventReminder?: Prisma.EventReminderOmit
@@ -11442,6 +11779,7 @@ export type GlobalOmitConfig = {
   emailAttachment?: Prisma.EmailAttachmentOmit
   team?: Prisma.TeamOmit
   teamMember?: Prisma.TeamMemberOmit
+  teamEmailAccount?: Prisma.TeamEmailAccountOmit
 }
 
 /* Types for Logging */

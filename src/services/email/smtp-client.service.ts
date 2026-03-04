@@ -53,7 +53,7 @@ export class SmtpClientService {
       subject: payload.subject,
       html: payload.html,
       text: payload.text,
-      attachments: payload.attachments?.map(a => ({
+      attachments: payload.attachments?.map((a) => ({
         filename: a.filename,
         content: a.content,
         contentType: a.contentType,

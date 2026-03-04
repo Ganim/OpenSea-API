@@ -12,7 +12,10 @@ export interface EventParticipantsRepository {
   create(data: CreateEventParticipantSchema): Promise<EventParticipant>;
   findByEventId(eventId: string): Promise<EventParticipant[]>;
   findByUserId(userId: string): Promise<EventParticipant[]>;
-  findByEventAndUser(eventId: string, userId: string): Promise<EventParticipant | null>;
+  findByEventAndUser(
+    eventId: string,
+    userId: string,
+  ): Promise<EventParticipant | null>;
   updateStatus(id: string, status: string): Promise<EventParticipant | null>;
   delete(id: string): Promise<void>;
   deleteByEventId(eventId: string): Promise<void>;

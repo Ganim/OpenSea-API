@@ -2,9 +2,14 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { logger } from '@/lib/logger';
 import { type TeamDTO, teamToDTO } from '@/mappers/core/team/team-to-dto';
-import type { TeamsRepository, UpdateTeamSchema } from '@/repositories/core/teams-repository';
+import type {
+  TeamsRepository,
+  UpdateTeamSchema,
+} from '@/repositories/core/teams-repository';
 import type { TeamMembersRepository } from '@/repositories/core/team-members-repository';
+import type { EmailAccountsRepository } from '@/repositories/email/email-accounts-repository';
 
 interface UpdateTeamRequest {
   tenantId: string;
@@ -14,6 +19,7 @@ interface UpdateTeamRequest {
   description?: string;
   color?: string;
   avatarUrl?: string;
+  emailAccountId?: string | null;
 }
 
 interface UpdateTeamResponse {
@@ -24,10 +30,20 @@ export class UpdateTeamUseCase {
   constructor(
     private teamsRepository: TeamsRepository,
     private teamMembersRepository: TeamMembersRepository,
+    private emailAccountsRepository?: EmailAccountsRepository,
   ) {}
 
   async execute(request: UpdateTeamRequest): Promise<UpdateTeamResponse> {
-    const { tenantId, teamId, userId, name, description, color, avatarUrl } = request;
+    const {
+      tenantId,
+      teamId,
+      userId,
+      name,
+      description,
+      color,
+      avatarUrl,
+      emailAccountId,
+    } = request;
 
     const team = await this.teamsRepository.findById(
       new UniqueEntityID(tenantId),
@@ -45,7 +61,9 @@ export class UpdateTeamUseCase {
     );
 
     if (!member || !member.isAdminOrOwner) {
-      throw new ForbiddenError('Only team owners and admins can update the team');
+      throw new ForbiddenError(
+        'Only team owners and admins can update the team',
+      );
     }
 
     const updateData: UpdateTeamSchema = {
@@ -78,17 +96,105 @@ export class UpdateTeamUseCase {
     if (color !== undefined) updateData.color = color;
     if (avatarUrl !== undefined) updateData.avatarUrl = avatarUrl;
 
+    // Handle emailAccountId in settings
+    if (emailAccountId !== undefined) {
+      const currentSettings = { ...team.settings };
+      const oldEmailAccountId =
+        (currentSettings.emailAccountId as string) ?? null;
+
+      if (emailAccountId === null) {
+        delete currentSettings.emailAccountId;
+      } else {
+        // Validate that the email account exists
+        if (this.emailAccountsRepository) {
+          const emailAccount = await this.emailAccountsRepository.findById(
+            emailAccountId,
+            tenantId,
+          );
+          if (!emailAccount) {
+            throw new ResourceNotFoundError('Email account not found');
+          }
+        }
+        currentSettings.emailAccountId = emailAccountId;
+      }
+
+      updateData.settings = currentSettings;
+
+      // Sync email access for team members
+      if (
+        oldEmailAccountId !== emailAccountId &&
+        this.emailAccountsRepository
+      ) {
+        await this.syncEmailAccess(
+          teamId,
+          tenantId,
+          oldEmailAccountId,
+          emailAccountId,
+        );
+      }
+    }
+
     const updatedTeam = await this.teamsRepository.update(updateData);
 
     if (!updatedTeam) {
       throw new ResourceNotFoundError('Team not found');
     }
 
-    const membersCount = await this.teamMembersRepository.countByTeam(updatedTeam.id);
+    const membersCount = await this.teamMembersRepository.countByTeam(
+      updatedTeam.id,
+    );
 
     return {
       team: teamToDTO(updatedTeam, { membersCount }),
     };
+  }
+
+  private async syncEmailAccess(
+    teamId: string,
+    tenantId: string,
+    oldAccountId: string | null,
+    newAccountId: string | null,
+  ): Promise<void> {
+    if (!this.emailAccountsRepository) return;
+
+    try {
+      // Get all team members
+      const { members } = await this.teamMembersRepository.findMany({
+        teamId: new UniqueEntityID(teamId),
+        limit: 1000,
+      });
+
+      // Remove access for old account
+      if (oldAccountId) {
+        for (const m of members) {
+          await this.emailAccountsRepository.deleteAccess(
+            oldAccountId,
+            m.userId.toString(),
+            tenantId,
+          );
+        }
+      }
+
+      // Grant access for new account
+      if (newAccountId) {
+        for (const m of members) {
+          const isAdmin = m.isAdminOrOwner;
+          await this.emailAccountsRepository.upsertAccess({
+            accountId: newAccountId,
+            tenantId,
+            userId: m.userId.toString(),
+            canRead: true,
+            canSend: true,
+            canManage: isAdmin,
+          });
+        }
+      }
+    } catch (error) {
+      logger.error(
+        { err: error, teamId, tenantId },
+        'Failed to sync email access for team members',
+      );
+    }
   }
 
   private generateSlug(name: string): string {

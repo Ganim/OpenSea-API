@@ -42,6 +42,11 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3333
 
+# LibreOffice headless for office → PDF conversion (document preview)
+RUN apk add --no-cache libreoffice-writer libreoffice-calc libreoffice-impress \
+    font-noto font-noto-cjk && \
+    rm -rf /var/cache/apk/*
+
 # Cria usuário não-root para segurança
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 fastify

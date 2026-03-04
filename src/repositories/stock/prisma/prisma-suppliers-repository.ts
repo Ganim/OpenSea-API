@@ -3,64 +3,103 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Supplier } from '@/entities/stock/supplier';
 import { CNPJ } from '@/entities/stock/value-objects/cnpj';
 import { prisma } from '@/lib/prisma';
+import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
+import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import type {
   CreateSupplierSchema,
   SuppliersRepository,
   UpdateSupplierSchema,
 } from '../suppliers-repository';
 
+const { encryptedFields, hashFields } = ENCRYPTED_FIELD_CONFIG.Supplier;
+
+function tryGetCipher() {
+  try {
+    return getFieldCipherService();
+  } catch {
+    return null;
+  }
+}
+
+function decryptSupplierData<T extends Record<string, unknown>>(data: T): T {
+  const cipher = tryGetCipher();
+  if (!cipher) return data;
+  return cipher.decryptFields(data, encryptedFields);
+}
+
+function mapToDomain(supplierData: Record<string, unknown>): Supplier {
+  const d = decryptSupplierData(supplierData);
+  return Supplier.create(
+    {
+      tenantId: new EntityID(d.tenantId as string),
+      name: d.name as string,
+      cnpj: d.cnpj ? (CNPJ.create(d.cnpj as string) ?? undefined) : undefined,
+      taxId: (d.taxId as string) ?? undefined,
+      contact: (d.contact as string) ?? undefined,
+      email: (d.email as string) ?? undefined,
+      phone: (d.phone as string) ?? undefined,
+      website: (d.website as string) ?? undefined,
+      address: (d.address as string) ?? undefined,
+      city: (d.city as string) ?? undefined,
+      state: (d.state as string) ?? undefined,
+      zipCode: (d.zipCode as string) ?? undefined,
+      country: (d.country as string) ?? undefined,
+      paymentTerms: (d.paymentTerms as string) ?? undefined,
+      rating: d.rating ? Number(d.rating.toString()) : undefined,
+      isActive: d.isActive as boolean,
+      notes: (d.notes as string) ?? undefined,
+      createdAt: d.createdAt as Date,
+      updatedAt: (d.updatedAt as Date) ?? undefined,
+    },
+    new EntityID(d.id as string),
+  );
+}
+
 export class PrismaSuppliersRepository implements SuppliersRepository {
   async create(data: CreateSupplierSchema): Promise<Supplier> {
+    const cipher = tryGetCipher();
+
+    const plainValues: Record<string, string | null | undefined> = {
+      cnpj: data.cnpj?.unformatted,
+      contact: data.contact,
+      email: data.email,
+      phone: data.phone,
+      address: data.address,
+      city: data.city,
+      state: data.state,
+      zipCode: data.zipCode,
+    };
+
+    const hashes = cipher ? cipher.generateHashes(plainValues, hashFields) : {};
+
+    const encryptedValues = cipher
+      ? cipher.encryptFields({ ...plainValues }, encryptedFields)
+      : plainValues;
+
     const supplierData = await prisma.supplier.create({
       data: {
         tenantId: data.tenantId,
         name: data.name,
-        cnpj: data.cnpj?.unformatted,
+        cnpj: encryptedValues.cnpj ?? undefined,
         taxId: data.taxId,
-        contact: data.contact,
-        email: data.email,
-        phone: data.phone,
+        contact: encryptedValues.contact ?? undefined,
+        email: encryptedValues.email ?? undefined,
+        phone: encryptedValues.phone ?? undefined,
         website: data.website,
-        address: data.address,
-        city: data.city,
-        state: data.state,
-        zipCode: data.zipCode,
+        address: encryptedValues.address ?? undefined,
+        city: encryptedValues.city ?? undefined,
+        state: encryptedValues.state ?? undefined,
+        zipCode: encryptedValues.zipCode ?? undefined,
         country: data.country,
         paymentTerms: data.paymentTerms,
         rating: data.rating ? data.rating : undefined,
         isActive: data.isActive ?? true,
         notes: data.notes,
+        ...hashes,
       },
     });
 
-    return Supplier.create(
-      {
-        tenantId: new EntityID(supplierData.tenantId),
-        name: supplierData.name,
-        cnpj: supplierData.cnpj
-          ? (CNPJ.create(supplierData.cnpj) ?? undefined)
-          : undefined,
-        taxId: supplierData.taxId ?? undefined,
-        contact: supplierData.contact ?? undefined,
-        email: supplierData.email ?? undefined,
-        phone: supplierData.phone ?? undefined,
-        website: supplierData.website ?? undefined,
-        address: supplierData.address ?? undefined,
-        city: supplierData.city ?? undefined,
-        state: supplierData.state ?? undefined,
-        zipCode: supplierData.zipCode ?? undefined,
-        country: supplierData.country ?? undefined,
-        paymentTerms: supplierData.paymentTerms ?? undefined,
-        rating: supplierData.rating
-          ? Number(supplierData.rating.toString())
-          : undefined,
-        isActive: supplierData.isActive,
-        notes: supplierData.notes ?? undefined,
-        createdAt: supplierData.createdAt,
-        updatedAt: supplierData.updatedAt ?? undefined,
-      },
-      new EntityID(supplierData.id),
-    );
+    return mapToDomain(supplierData as unknown as Record<string, unknown>);
   }
 
   async findById(
@@ -79,77 +118,27 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
       return null;
     }
 
-    return Supplier.create(
-      {
-        tenantId: new EntityID(supplierData.tenantId),
-        name: supplierData.name,
-        cnpj: supplierData.cnpj
-          ? (CNPJ.create(supplierData.cnpj) ?? undefined)
-          : undefined,
-        taxId: supplierData.taxId ?? undefined,
-        contact: supplierData.contact ?? undefined,
-        email: supplierData.email ?? undefined,
-        phone: supplierData.phone ?? undefined,
-        website: supplierData.website ?? undefined,
-        address: supplierData.address ?? undefined,
-        city: supplierData.city ?? undefined,
-        state: supplierData.state ?? undefined,
-        zipCode: supplierData.zipCode ?? undefined,
-        country: supplierData.country ?? undefined,
-        paymentTerms: supplierData.paymentTerms ?? undefined,
-        rating: supplierData.rating
-          ? Number(supplierData.rating.toString())
-          : undefined,
-        isActive: supplierData.isActive,
-        notes: supplierData.notes ?? undefined,
-        createdAt: supplierData.createdAt,
-        updatedAt: supplierData.updatedAt ?? undefined,
-      },
-      new EntityID(supplierData.id),
-    );
+    return mapToDomain(supplierData as unknown as Record<string, unknown>);
   }
 
   async findByCNPJ(cnpj: CNPJ, tenantId: string): Promise<Supplier | null> {
+    const cipher = tryGetCipher();
+    const cnpjHash = cipher ? cipher.blindIndex(cnpj.unformatted) : null;
+
+    const where =
+      cipher && cnpjHash
+        ? { cnpjHash, tenantId, deletedAt: null }
+        : { cnpj: cnpj.unformatted, tenantId, deletedAt: null };
+
     const supplierData = await prisma.supplier.findFirst({
-      where: {
-        cnpj: cnpj.unformatted,
-        tenantId,
-        deletedAt: null,
-      },
+      where,
     });
 
     if (!supplierData) {
       return null;
     }
 
-    return Supplier.create(
-      {
-        tenantId: new EntityID(supplierData.tenantId),
-        name: supplierData.name,
-        cnpj: supplierData.cnpj
-          ? (CNPJ.create(supplierData.cnpj) ?? undefined)
-          : undefined,
-        taxId: supplierData.taxId ?? undefined,
-        contact: supplierData.contact ?? undefined,
-        email: supplierData.email ?? undefined,
-        phone: supplierData.phone ?? undefined,
-        website: supplierData.website ?? undefined,
-        address: supplierData.address ?? undefined,
-        city: supplierData.city ?? undefined,
-        state: supplierData.state ?? undefined,
-        zipCode: supplierData.zipCode ?? undefined,
-        country: supplierData.country ?? undefined,
-        paymentTerms: supplierData.paymentTerms ?? undefined,
-        rating: supplierData.rating
-          ? Number(supplierData.rating.toString())
-          : undefined,
-        isActive: supplierData.isActive,
-        notes: supplierData.notes ?? undefined,
-        createdAt: supplierData.createdAt,
-        updatedAt: supplierData.updatedAt ?? undefined,
-      },
-      new EntityID(supplierData.id),
-    );
+    return mapToDomain(supplierData as unknown as Record<string, unknown>);
   }
 
   async findByName(name: string, tenantId: string): Promise<Supplier[]> {
@@ -165,34 +154,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     });
 
     return suppliers.map((supplierData) =>
-      Supplier.create(
-        {
-          tenantId: new EntityID(supplierData.tenantId),
-          name: supplierData.name,
-          cnpj: supplierData.cnpj
-            ? (CNPJ.create(supplierData.cnpj) ?? undefined)
-            : undefined,
-          taxId: supplierData.taxId ?? undefined,
-          contact: supplierData.contact ?? undefined,
-          email: supplierData.email ?? undefined,
-          phone: supplierData.phone ?? undefined,
-          website: supplierData.website ?? undefined,
-          address: supplierData.address ?? undefined,
-          city: supplierData.city ?? undefined,
-          state: supplierData.state ?? undefined,
-          zipCode: supplierData.zipCode ?? undefined,
-          country: supplierData.country ?? undefined,
-          paymentTerms: supplierData.paymentTerms ?? undefined,
-          rating: supplierData.rating
-            ? Number(supplierData.rating.toString())
-            : undefined,
-          isActive: supplierData.isActive,
-          notes: supplierData.notes ?? undefined,
-          createdAt: supplierData.createdAt,
-          updatedAt: supplierData.updatedAt ?? undefined,
-        },
-        new EntityID(supplierData.id),
-      ),
+      mapToDomain(supplierData as unknown as Record<string, unknown>),
     );
   }
 
@@ -211,34 +173,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     });
 
     return suppliers.map((supplierData) =>
-      Supplier.create(
-        {
-          tenantId: new EntityID(supplierData.tenantId),
-          name: supplierData.name,
-          cnpj: supplierData.cnpj
-            ? (CNPJ.create(supplierData.cnpj) ?? undefined)
-            : undefined,
-          taxId: supplierData.taxId ?? undefined,
-          contact: supplierData.contact ?? undefined,
-          email: supplierData.email ?? undefined,
-          phone: supplierData.phone ?? undefined,
-          website: supplierData.website ?? undefined,
-          address: supplierData.address ?? undefined,
-          city: supplierData.city ?? undefined,
-          state: supplierData.state ?? undefined,
-          zipCode: supplierData.zipCode ?? undefined,
-          country: supplierData.country ?? undefined,
-          paymentTerms: supplierData.paymentTerms ?? undefined,
-          rating: supplierData.rating
-            ? Number(supplierData.rating.toString())
-            : undefined,
-          isActive: supplierData.isActive,
-          notes: supplierData.notes ?? undefined,
-          createdAt: supplierData.createdAt,
-          updatedAt: supplierData.updatedAt ?? undefined,
-        },
-        new EntityID(supplierData.id),
-      ),
+      mapToDomain(supplierData as unknown as Record<string, unknown>),
     );
   }
 
@@ -251,34 +186,7 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     });
 
     return suppliers.map((supplierData) =>
-      Supplier.create(
-        {
-          tenantId: new EntityID(supplierData.tenantId),
-          name: supplierData.name,
-          cnpj: supplierData.cnpj
-            ? (CNPJ.create(supplierData.cnpj) ?? undefined)
-            : undefined,
-          taxId: supplierData.taxId ?? undefined,
-          contact: supplierData.contact ?? undefined,
-          email: supplierData.email ?? undefined,
-          phone: supplierData.phone ?? undefined,
-          website: supplierData.website ?? undefined,
-          address: supplierData.address ?? undefined,
-          city: supplierData.city ?? undefined,
-          state: supplierData.state ?? undefined,
-          zipCode: supplierData.zipCode ?? undefined,
-          country: supplierData.country ?? undefined,
-          paymentTerms: supplierData.paymentTerms ?? undefined,
-          rating: supplierData.rating
-            ? Number(supplierData.rating.toString())
-            : undefined,
-          isActive: supplierData.isActive,
-          notes: supplierData.notes ?? undefined,
-          createdAt: supplierData.createdAt,
-          updatedAt: supplierData.updatedAt ?? undefined,
-        },
-        new EntityID(supplierData.id),
-      ),
+      mapToDomain(supplierData as unknown as Record<string, unknown>),
     );
   }
 
@@ -292,123 +200,111 @@ export class PrismaSuppliersRepository implements SuppliersRepository {
     });
 
     return suppliers.map((supplierData) =>
-      Supplier.create(
-        {
-          tenantId: new EntityID(supplierData.tenantId),
-          name: supplierData.name,
-          cnpj: supplierData.cnpj
-            ? (CNPJ.create(supplierData.cnpj) ?? undefined)
-            : undefined,
-          taxId: supplierData.taxId ?? undefined,
-          contact: supplierData.contact ?? undefined,
-          email: supplierData.email ?? undefined,
-          phone: supplierData.phone ?? undefined,
-          website: supplierData.website ?? undefined,
-          address: supplierData.address ?? undefined,
-          city: supplierData.city ?? undefined,
-          state: supplierData.state ?? undefined,
-          zipCode: supplierData.zipCode ?? undefined,
-          country: supplierData.country ?? undefined,
-          paymentTerms: supplierData.paymentTerms ?? undefined,
-          rating: supplierData.rating
-            ? Number(supplierData.rating.toString())
-            : undefined,
-          isActive: supplierData.isActive,
-          notes: supplierData.notes ?? undefined,
-          createdAt: supplierData.createdAt,
-          updatedAt: supplierData.updatedAt ?? undefined,
-        },
-        new EntityID(supplierData.id),
-      ),
+      mapToDomain(supplierData as unknown as Record<string, unknown>),
     );
   }
 
   async update(data: UpdateSupplierSchema): Promise<Supplier | null> {
+    const cipher = tryGetCipher();
+
+    const plainValues: Record<string, string | null | undefined> = {
+      cnpj: data.cnpj?.unformatted,
+      contact: data.contact,
+      email: data.email,
+      phone: data.phone,
+      address: data.address,
+      city: data.city,
+      state: data.state,
+      zipCode: data.zipCode,
+    };
+
+    const hashes = cipher ? cipher.generateHashes(plainValues, hashFields) : {};
+
+    const encryptedValues = cipher
+      ? cipher.encryptFields({ ...plainValues }, encryptedFields)
+      : plainValues;
+
     const supplierData = await prisma.supplier.update({
       where: {
         id: data.id.toString(),
+        tenantId: data.tenantId,
       },
       data: {
         name: data.name,
-        cnpj: data.cnpj?.unformatted,
+        cnpj: encryptedValues.cnpj ?? undefined,
         taxId: data.taxId,
-        contact: data.contact,
-        email: data.email,
-        phone: data.phone,
+        contact: encryptedValues.contact ?? undefined,
+        email: encryptedValues.email ?? undefined,
+        phone: encryptedValues.phone ?? undefined,
         website: data.website,
-        address: data.address,
-        city: data.city,
-        state: data.state,
-        zipCode: data.zipCode,
+        address: encryptedValues.address ?? undefined,
+        city: encryptedValues.city ?? undefined,
+        state: encryptedValues.state ?? undefined,
+        zipCode: encryptedValues.zipCode ?? undefined,
         country: data.country,
         paymentTerms: data.paymentTerms,
         rating: data.rating ? data.rating : undefined,
         isActive: data.isActive,
         notes: data.notes,
+        ...hashes,
       },
     });
 
-    return Supplier.create(
-      {
-        tenantId: new EntityID(supplierData.tenantId),
-        name: supplierData.name,
-        cnpj: supplierData.cnpj
-          ? (CNPJ.create(supplierData.cnpj) ?? undefined)
-          : undefined,
-        taxId: supplierData.taxId ?? undefined,
-        contact: supplierData.contact ?? undefined,
-        email: supplierData.email ?? undefined,
-        phone: supplierData.phone ?? undefined,
-        website: supplierData.website ?? undefined,
-        address: supplierData.address ?? undefined,
-        city: supplierData.city ?? undefined,
-        state: supplierData.state ?? undefined,
-        zipCode: supplierData.zipCode ?? undefined,
-        country: supplierData.country ?? undefined,
-        paymentTerms: supplierData.paymentTerms ?? undefined,
-        rating: supplierData.rating
-          ? Number(supplierData.rating.toString())
-          : undefined,
-        isActive: supplierData.isActive,
-        notes: supplierData.notes ?? undefined,
-        createdAt: supplierData.createdAt,
-        updatedAt: supplierData.updatedAt ?? undefined,
-      },
-      new EntityID(supplierData.id),
-    );
+    return mapToDomain(supplierData as unknown as Record<string, unknown>);
   }
 
   async save(supplier: Supplier): Promise<void> {
+    const cipher = tryGetCipher();
+
+    const plainValues: Record<string, string | null | undefined> = {
+      cnpj: supplier.cnpj?.unformatted,
+      contact: supplier.contact,
+      email: supplier.email,
+      phone: supplier.phone,
+      address: supplier.address,
+      city: supplier.city,
+      state: supplier.state,
+      zipCode: supplier.zipCode,
+    };
+
+    const hashes = cipher ? cipher.generateHashes(plainValues, hashFields) : {};
+
+    const encryptedValues = cipher
+      ? cipher.encryptFields({ ...plainValues }, encryptedFields)
+      : plainValues;
+
     await prisma.supplier.update({
       where: {
         id: supplier.id.toString(),
       },
       data: {
         name: supplier.name,
-        cnpj: supplier.cnpj?.unformatted,
+        cnpj: encryptedValues.cnpj ?? undefined,
         taxId: supplier.taxId,
-        contact: supplier.contact,
-        email: supplier.email,
-        phone: supplier.phone,
+        contact: encryptedValues.contact ?? undefined,
+        email: encryptedValues.email ?? undefined,
+        phone: encryptedValues.phone ?? undefined,
         website: supplier.website,
-        address: supplier.address,
-        city: supplier.city,
-        state: supplier.state,
-        zipCode: supplier.zipCode,
+        address: encryptedValues.address ?? undefined,
+        city: encryptedValues.city ?? undefined,
+        state: encryptedValues.state ?? undefined,
+        zipCode: encryptedValues.zipCode ?? undefined,
         country: supplier.country,
         paymentTerms: supplier.paymentTerms,
         rating: supplier.rating ? supplier.rating : undefined,
         isActive: supplier.isActive,
         notes: supplier.notes,
         updatedAt: new Date(),
+        ...hashes,
       },
     });
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.supplier.update({
       where: {
         id: id.toString(),
+        ...(tenantId && { tenantId }),
       },
       data: {
         deletedAt: new Date(),

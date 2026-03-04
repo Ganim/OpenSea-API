@@ -1,12 +1,15 @@
 import { prisma } from '@/lib/prisma';
 import { eventReminderPrismaToDomain } from '@/mappers/calendar/event-reminder/event-reminder-prisma-to-domain';
+import type { EventReminder } from '@/entities/calendar/event-reminder';
 import type {
   EventRemindersRepository,
   CreateEventReminderSchema,
   DueReminderInfo,
 } from '../event-reminders-repository';
 
-export class PrismaEventRemindersRepository implements EventRemindersRepository {
+export class PrismaEventRemindersRepository
+  implements EventRemindersRepository
+{
   async create(data: CreateEventReminderSchema): Promise<EventReminder> {
     const raw = await prisma.eventReminder.create({
       data: {
@@ -29,6 +32,7 @@ export class PrismaEventRemindersRepository implements EventRemindersRepository 
   async findDueReminders(now: Date): Promise<DueReminderInfo[]> {
     // Find reminders that haven't been sent yet
     // where the event start_date minus minutes_before is <= now
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const raws = await prisma.$queryRaw<any[]>`
       SELECT er.*, ce.title as event_title FROM event_reminders er
       JOIN calendar_events ce ON er.event_id = ce.id

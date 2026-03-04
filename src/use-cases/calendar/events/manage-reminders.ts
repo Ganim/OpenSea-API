@@ -27,18 +27,24 @@ export class ManageRemindersUseCase {
   ): Promise<ManageRemindersResponse> {
     const { eventId, tenantId, userId, reminders } = request;
 
-    const event = await this.calendarEventsRepository.findById(eventId, tenantId);
+    const event = await this.calendarEventsRepository.findById(
+      eventId,
+      tenantId,
+    );
     if (!event) {
       throw new ResourceNotFoundError('Event not found');
     }
 
     // Verify user is a participant
-    const participant = await this.eventParticipantsRepository.findByEventAndUser(
-      eventId,
-      userId,
-    );
+    const participant =
+      await this.eventParticipantsRepository.findByEventAndUser(
+        eventId,
+        userId,
+      );
     if (!participant) {
-      throw new BadRequestError('You must be a participant to manage reminders');
+      throw new BadRequestError(
+        'You must be a participant to manage reminders',
+      );
     }
 
     // Delete existing reminders for this user on this event

@@ -8,9 +8,7 @@ export async function storagePublicRoutes(app: FastifyInstance) {
   const shareLinkKeyGenerator = (req: FastifyRequest) => {
     const params = req.params as { token?: string };
     // Rate limit by token + IP to prevent brute-force of passwords
-    return params.token
-      ? `share:${params.token}:${req.ip}`
-      : req.ip;
+    return params.token ? `share:${params.token}:${req.ip}` : req.ip;
   };
 
   // Query routes (access info) - rate limit by token

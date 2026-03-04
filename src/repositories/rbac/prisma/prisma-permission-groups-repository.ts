@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PermissionGroup } from '@/entities/rbac/permission-group';
 import { prisma } from '@/lib/prisma';
 import { mapPermissionGroupPrismaToDomain } from '@/mappers/rbac/permission-group-prisma-to-domain';
+import { Prisma } from '@prisma/generated/client.js';
 import type {
   CreatePermissionGroupSchema,
   ListPermissionGroupsParams,
@@ -36,18 +37,30 @@ export class PrismaPermissionGroupsRepository
     data: UpdatePermissionGroupSchema,
   ): Promise<PermissionGroup | null> {
     try {
+      const updateData: Prisma.PermissionGroupUncheckedUpdateInput = {
+        name: data.name,
+        slug: data.slug,
+        description: data.description,
+        isActive: data.isActive,
+        color: data.color,
+        priority: data.priority,
+        deletedAt: data.deletedAt ?? undefined,
+      };
+
+      if (data.parentId !== undefined) {
+        updateData.parentId = data.parentId?.toString() ?? null;
+      }
+
+      if (data.storageSettings !== undefined) {
+        updateData.storageSettings =
+          data.storageSettings === null
+            ? Prisma.DbNull
+            : (data.storageSettings as Prisma.InputJsonValue);
+      }
+
       const group = await prisma.permissionGroup.update({
         where: { id: data.id.toString() },
-        data: {
-          name: data.name,
-          slug: data.slug,
-          description: data.description,
-          isActive: data.isActive,
-          color: data.color,
-          priority: data.priority,
-          parentId: data.parentId?.toString() ?? undefined,
-          deletedAt: data.deletedAt ?? undefined,
-        },
+        data: updateData,
       });
 
       return mapPermissionGroupPrismaToDomain(group);

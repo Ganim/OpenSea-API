@@ -4,4 +4,3 @@ export { EmailAttachment } from './email-attachment';
 export { EmailFolder } from './email-folder';
 export type { EmailFolderType } from './email-folder';
 export { EmailMessage } from './email-message';
-

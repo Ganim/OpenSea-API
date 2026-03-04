@@ -2,8 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type {
-    EmailAccountAccessItem,
-    EmailAccountsRepository,
+  EmailAccountAccessItem,
+  EmailAccountsRepository,
 } from '@/repositories/email';
 
 interface ShareEmailAccountRequest {

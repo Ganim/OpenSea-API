@@ -1,10 +1,8 @@
 import archiver from 'archiver';
-import { PassThrough } from 'node:stream';
 
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { StorageFile } from '@/entities/storage/storage-file';
-import type { StorageFolder } from '@/entities/storage/storage-folder';
 import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
 import type { FileUploadService } from '@/services/storage/file-upload-service';
@@ -73,21 +71,22 @@ export class DownloadFolderUseCase {
     const folderPathMap = new Map<string, string>();
     folderPathMap.set(folderId, '');
     for (const desc of descendants) {
-      const relativePath = desc.path.replace(folder.path, '').replace(/^\//, '');
+      const relativePath = desc.path
+        .replace(folder.path, '')
+        .replace(/^\//, '');
       folderPathMap.set(desc.id.toString(), relativePath);
     }
 
-    // Create ZIP archive
+    // Create ZIP archive — collect data directly from archiver stream
     const archive = archiver('zip', { zlib: { level: 6 } });
-    const passThrough = new PassThrough();
     const chunks: Buffer[] = [];
 
-    passThrough.on('data', (chunk: Buffer) => chunks.push(chunk));
-    archive.pipe(passThrough);
+    archive.on('data', (chunk: Buffer) => chunks.push(chunk));
 
     // Add files to archive
     for (const file of allFiles) {
-      const folderRelPath = folderPathMap.get(file.folderId ?? '') ?? '';
+      const folderRelPath =
+        folderPathMap.get(file.folderId?.toString() ?? '') ?? '';
       const zipPath = folderRelPath
         ? `${folderRelPath}/${file.name}`
         : file.name;
@@ -101,7 +100,7 @@ export class DownloadFolderUseCase {
       const relativePath = folderPathMap.get(desc.id.toString());
       if (relativePath) {
         const hasFiles = allFiles.some(
-          (f) => f.folderId === desc.id.toString(),
+          (f) => f.folderId?.toString() === desc.id.toString(),
         );
         if (!hasFiles) {
           archive.append('', { name: `${relativePath}/` });
@@ -109,13 +108,14 @@ export class DownloadFolderUseCase {
       }
     }
 
-    await archive.finalize();
-
-    // Wait for all data to be collected
-    await new Promise<void>((resolve, reject) => {
-      passThrough.on('end', resolve);
-      passThrough.on('error', reject);
-    });
+    // Finalize and wait for all data to be written
+    await Promise.all([
+      archive.finalize(),
+      new Promise<void>((resolve, reject) => {
+        archive.on('end', resolve);
+        archive.on('error', reject);
+      }),
+    ]);
 
     const zipBuffer = Buffer.concat(chunks);
     const zipFileName = `${folder.slug}-${Date.now()}.zip`;

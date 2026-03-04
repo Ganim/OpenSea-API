@@ -14,6 +14,7 @@ describe('DeleteCalendarEventUseCase', () => {
   it('should soft delete a calendar event', async () => {
     const created = await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'To Delete',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -33,6 +34,7 @@ describe('DeleteCalendarEventUseCase', () => {
   it('should reject deletion of system event', async () => {
     const created = await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'System Event',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -53,6 +55,7 @@ describe('DeleteCalendarEventUseCase', () => {
   it('should reject deletion by non-creator', async () => {
     const created = await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'My Event',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -72,6 +75,7 @@ describe('DeleteCalendarEventUseCase', () => {
     it('should not delete event from another tenant', async () => {
       const created = await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Tenant 1 Event',
         startDate: new Date('2026-03-01T10:00:00'),
         endDate: new Date('2026-03-01T11:00:00'),

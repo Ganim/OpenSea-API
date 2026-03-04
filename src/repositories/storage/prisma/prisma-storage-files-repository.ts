@@ -29,6 +29,7 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
         entityId: data.entityId ?? null,
         expiresAt: data.expiresAt ?? null,
         uploadedBy: data.uploadedBy,
+        isEncrypted: data.isEncrypted ?? false,
       },
     });
 
@@ -171,6 +172,16 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
         ...(data.fileKey !== undefined && { fileKey: data.fileKey }),
         ...(data.size !== undefined && { size: data.size }),
         ...(data.mimeType !== undefined && { mimeType: data.mimeType }),
+        ...(data.isEncrypted !== undefined && {
+          isEncrypted: data.isEncrypted,
+        }),
+        ...(data.isProtected !== undefined && {
+          isProtected: data.isProtected,
+        }),
+        ...(data.protectionHash !== undefined && {
+          protectionHash: data.protectionHash,
+        }),
+        ...(data.isHidden !== undefined && { isHidden: data.isHidden }),
       },
     });
 
@@ -320,7 +331,11 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
 
     if (params.folderId) {
       whereClause.folderId = params.folderId;
+    } else if (params.folderId === null) {
+      // Root-level files only (folderId IS NULL)
+      whereClause.folderId = null;
     }
+    // If undefined: no filter on folderId (returns files from all folders)
 
     if (params.fileType) {
       whereClause.fileType = params.fileType;
@@ -343,6 +358,14 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
         contains: params.search,
         mode: 'insensitive',
       };
+    }
+
+    if (params.uploadedBy) {
+      whereClause.uploadedBy = params.uploadedBy;
+    }
+
+    if (!params.showHidden) {
+      whereClause.isHidden = false;
     }
 
     return whereClause;

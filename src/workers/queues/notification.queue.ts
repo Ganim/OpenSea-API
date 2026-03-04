@@ -1,3 +1,4 @@
+import type { Queue } from 'bullmq';
 import { Job } from 'bullmq';
 import { createQueue, createWorker, QUEUE_NAMES } from '@/lib/queue';
 
@@ -10,10 +11,17 @@ export interface NotificationJobData {
   metadata?: Record<string, unknown>;
 }
 
-// Cria a fila de notificações
-export const notificationQueue = createQueue<NotificationJobData>(
-  QUEUE_NAMES.NOTIFICATIONS,
-);
+// Lazy — fila só é criada na primeira chamada, evitando conexão Redis no boot
+let _notificationQueue: Queue<NotificationJobData> | null = null;
+
+function getNotificationQueue(): Queue<NotificationJobData> {
+  if (!_notificationQueue) {
+    _notificationQueue = createQueue<NotificationJobData>(
+      QUEUE_NAMES.NOTIFICATIONS,
+    );
+  }
+  return _notificationQueue;
+}
 
 /**
  * Adiciona uma notificação à fila
@@ -25,7 +33,7 @@ export async function queueNotification(
     priority?: number;
   },
 ) {
-  return notificationQueue.add(QUEUE_NAMES.NOTIFICATIONS, data, {
+  return getNotificationQueue().add(QUEUE_NAMES.NOTIFICATIONS, data, {
     delay: options?.delay,
     priority: options?.priority,
   });
@@ -41,7 +49,6 @@ export async function scheduleNotification(
   const delay = scheduledFor.getTime() - Date.now();
 
   if (delay <= 0) {
-    // Se já passou, envia imediatamente
     return queueNotification(data);
   }
 

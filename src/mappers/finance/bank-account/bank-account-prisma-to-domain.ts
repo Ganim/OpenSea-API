@@ -6,7 +6,7 @@ export function mapBankAccountPrismaToDomain(data: PrismaBankAccount) {
   return {
     id: new UniqueEntityID(data.id),
     tenantId: new UniqueEntityID(data.tenantId),
-    companyId: new UniqueEntityID(data.companyId),
+    companyId: new UniqueEntityID(data.companyId ?? undefined),
     name: data.name,
     bankCode: data.bankCode,
     bankName: data.bankName ?? undefined,

@@ -8,9 +8,9 @@ import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import fastify from 'fastify';
 import {
-    jsonSchemaTransform,
-    serializerCompiler,
-    validatorCompiler,
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
 } from 'fastify-type-provider-zod';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { env } from './@env';

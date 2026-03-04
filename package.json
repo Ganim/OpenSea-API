@@ -10,6 +10,8 @@
     "notifications:worker": "tsx --env-file=.env src/workers/notifications-scheduler.ts",
     "test": "vitest run --project unit",
     "test:e2e": "vitest run --project e2e",
+    "test:e2e:email": "vitest run --project e2e \"src/http/controllers/email/**/*.e2e.spec.ts\"",
+    "test:e2e:email:messages": "vitest run --project e2e src/http/controllers/email/messages/v1-email-messages.e2e.spec.ts",
     "test:watch": "vitest --project unit",
     "test:e2e:watch": "vitest --project e2e",
     "test:coverage": "vitest run --coverage",
@@ -29,7 +31,8 @@
     "cron:check-overdue": "tsx --env-file=.env scripts/check-overdue-cron.ts",
     "cron:location-consistency": "tsx --env-file=.env scripts/location-consistency-cron.ts",
     "cron:storage-gc": "tsx --env-file=.env scripts/storage-gc-cron.ts",
-    "cron:archive-expired-files": "tsx --env-file=.env scripts/archive-expired-files-cron.ts"
+    "cron:archive-expired-files": "tsx --env-file=.env scripts/archive-expired-files-cron.ts",
+    "encrypt-existing": "tsx --env-file=.env scripts/encrypt-existing-files.ts"
   },
   "keywords": [
     "opensea",
@@ -86,6 +89,7 @@
     "rrule": "2.8.1",
     "sharp": "0.34.5",
     "swagger-themes": "1.4.3",
+    "unzipper": "0.12.3",
     "uuid": "11.1.0",
     "zod": "4.0.2"
   },
@@ -102,6 +106,7 @@
     "@types/pg": "8.11.10",
     "@types/sharp": "0.31.1",
     "@types/supertest": "6.0.3",
+    "@types/unzipper": "0.10.11",
     "@types/uuid": "10.0.0",
     "@typescript-eslint/eslint-plugin": "8.36.0",
     "@typescript-eslint/parser": "8.36.0",

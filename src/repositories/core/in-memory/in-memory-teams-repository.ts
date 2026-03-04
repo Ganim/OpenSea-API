@@ -61,8 +61,7 @@ export class InMemoryTeamsRepository implements TeamsRepository {
 
     let filtered = this.items.filter(
       (item) =>
-        item.tenantId.equals(filters.tenantId) &&
-        item.deletedAt === undefined,
+        item.tenantId.equals(filters.tenantId) && item.deletedAt === undefined,
     );
 
     if (filters.isActive !== undefined) {
@@ -94,9 +93,7 @@ export class InMemoryTeamsRepository implements TeamsRepository {
     // This method needs teamMembers data. In tests, we'll use a separate members repo.
     // For in-memory, we just return all teams (tests will set up proper data).
     const filtered = this.items.filter(
-      (item) =>
-        item.tenantId.equals(tenantId) &&
-        item.deletedAt === undefined,
+      (item) => item.tenantId.equals(tenantId) && item.deletedAt === undefined,
     );
 
     const total = filtered.length;
@@ -122,8 +119,10 @@ export class InMemoryTeamsRepository implements TeamsRepository {
     if (data.avatarUrl !== undefined) team.avatarUrl = data.avatarUrl;
     if (data.color !== undefined) team.color = data.color;
     if (data.isActive !== undefined) team.isActive = data.isActive;
-    if (data.permissionGroupId !== undefined) team.permissionGroupId = data.permissionGroupId;
-    if (data.storageFolderId !== undefined) team.storageFolderId = data.storageFolderId;
+    if (data.permissionGroupId !== undefined)
+      team.permissionGroupId = data.permissionGroupId;
+    if (data.storageFolderId !== undefined)
+      team.storageFolderId = data.storageFolderId;
     if (data.settings !== undefined) team.settings = data.settings;
 
     return team;
@@ -145,7 +144,9 @@ export class InMemoryTeamsRepository implements TeamsRepository {
     }
   }
 
-  async resolveCreatorNames(_creatorIds: string[]): Promise<Map<string, string>> {
+  async resolveCreatorNames(
+    _creatorIds: string[],
+  ): Promise<Map<string, string>> {
     return new Map();
   }
 }

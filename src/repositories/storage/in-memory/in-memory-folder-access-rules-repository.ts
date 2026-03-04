@@ -16,6 +16,7 @@ export class InMemoryFolderAccessRulesRepository
       folderId: new UniqueEntityID(data.folderId),
       userId: data.userId ? new UniqueEntityID(data.userId) : null,
       groupId: data.groupId ? new UniqueEntityID(data.groupId) : null,
+      teamId: data.teamId ? new UniqueEntityID(data.teamId) : null,
       canRead: data.canRead ?? true,
       canWrite: data.canWrite ?? false,
       canDelete: data.canDelete ?? false,
@@ -81,6 +82,19 @@ export class InMemoryFolderAccessRulesRepository
     return accessRule ?? null;
   }
 
+  async findByFolderAndTeam(
+    folderId: UniqueEntityID,
+    teamId: UniqueEntityID,
+  ): Promise<FolderAccessRule | null> {
+    const accessRule = this.items.find(
+      (item) =>
+        item.folderId.equals(folderId) &&
+        item.teamId !== null &&
+        item.teamId.equals(teamId),
+    );
+    return accessRule ?? null;
+  }
+
   async deleteRule(id: UniqueEntityID): Promise<void> {
     const ruleIndex = this.items.findIndex((item) => item.id.equals(id));
     if (ruleIndex >= 0) {
@@ -98,6 +112,7 @@ export class InMemoryFolderAccessRulesRepository
     folderId: UniqueEntityID,
     userId: UniqueEntityID | null,
     groupId: UniqueEntityID | null,
+    teamId?: UniqueEntityID | null,
   ): Promise<void> {
     this.items = this.items.filter((item) => {
       if (!item.folderId.equals(folderId)) return true;
@@ -108,6 +123,10 @@ export class InMemoryFolderAccessRulesRepository
       }
 
       if (groupId && item.groupId !== null && item.groupId.equals(groupId)) {
+        return false;
+      }
+
+      if (teamId && item.teamId !== null && item.teamId.equals(teamId)) {
         return false;
       }
 

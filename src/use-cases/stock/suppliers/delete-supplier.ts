@@ -20,6 +20,6 @@ export class DeleteSupplierUseCase {
       throw new ResourceNotFoundError('Supplier not found');
     }
 
-    await this.suppliersRepository.delete(new UniqueEntityID(id));
+    await this.suppliersRepository.delete(new UniqueEntityID(id), tenantId);
   }
 }

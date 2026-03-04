@@ -17,6 +17,7 @@ const exportQuerySchema = z.object({
     .string()
     .transform((val) => val === 'true')
     .optional(),
+  calendarId: z.string().uuid().optional(),
 });
 
 export async function exportCalendarEventsController(app: FastifyInstance) {
@@ -27,7 +28,7 @@ export async function exportCalendarEventsController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.CALENDAR.EVENTS.LIST,
+        permissionCode: PermissionCodes.CALENDAR.EVENTS.EXPORT,
         resource: 'calendar-events',
       }),
     ],
@@ -37,6 +38,7 @@ export async function exportCalendarEventsController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
       querystring: exportQuerySchema,
       response: {
+        200: z.string().describe('iCal file content'),
         400: z.object({ message: z.string() }),
       },
     },

@@ -12,6 +12,7 @@ export interface TeamDTO {
   permissionGroupId: string | null;
   storageFolderId: string | null;
   settings: Record<string, unknown>;
+  emailAccountId: string | null;
   membersCount: number;
   createdBy: string;
   creatorName: string | null;
@@ -36,6 +37,7 @@ export function teamToDTO(
     permissionGroupId: team.permissionGroupId?.toString() ?? null,
     storageFolderId: team.storageFolderId?.toString() ?? null,
     settings: team.settings,
+    emailAccountId: (team.settings.emailAccountId as string) ?? null,
     membersCount: extra?.membersCount ?? 0,
     createdBy: team.createdBy.toString(),
     creatorName: extra?.creatorName ?? null,

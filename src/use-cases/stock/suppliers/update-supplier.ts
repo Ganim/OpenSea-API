@@ -115,6 +115,7 @@ export class UpdateSupplierUseCase {
     // Update supplier
     const updatedSupplier = await this.suppliersRepository.update({
       id: new UniqueEntityID(id),
+      tenantId,
       name: name?.trim(),
       cnpj: supplierCNPJ,
       taxId,

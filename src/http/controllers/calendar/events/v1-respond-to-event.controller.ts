@@ -54,7 +54,11 @@ export async function respondToEventController(app: FastifyInstance) {
           : user.username || user.email;
 
         const getEventUseCase = makeGetCalendarEventByIdUseCase();
-        const { event } = await getEventUseCase.execute({ id: eventId, tenantId, userId });
+        const { event } = await getEventUseCase.execute({
+          id: eventId,
+          tenantId,
+          userId,
+        });
 
         const useCase = makeRespondToEventUseCase();
         const result = await useCase.execute({
@@ -68,7 +72,11 @@ export async function respondToEventController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.CALENDAR.PARTICIPANT_RESPOND,
           entityId: eventId,
-          placeholders: { userName, eventTitle: event.title, status: request.body.status },
+          placeholders: {
+            userName,
+            eventTitle: event.title,
+            status: request.body.status,
+          },
         });
 
         return reply.status(200).send(result);

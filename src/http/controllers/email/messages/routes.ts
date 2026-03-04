@@ -69,7 +69,7 @@ const messageDetailSchema = z.object({
   attachments: z.array(attachmentSchema).optional(),
 });
 
-const sendMessageBodySchema = z.object({
+const _sendMessageBodySchema = z.object({
   accountId: z.string().uuid(),
   to: z.array(z.string().email()).min(1),
   cc: z.array(z.string().email()).optional(),
@@ -121,6 +121,8 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
             pages: z.number(),
           }),
         }),
+        404: z.object({ message: z.string() }),
+        403: z.object({ message: z.string() }),
       },
     },
     handler: async (request, reply) => {
@@ -264,7 +266,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
     },
   });
 
-  app.route({
+  app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/email/messages/send',
     onRequest: [
@@ -277,47 +279,73 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Email - Messages'],
-      summary: 'Send email message (multipart/form-data)',
+      summary:
+        'Send email message (JSON or multipart/form-data with attachments)',
       security: [{ bearerAuth: [] }],
-      consumes: ['multipart/form-data'],
       response: {
-        202: { type: 'object', properties: { messageId: { type: 'string' } } },
-        400: { type: 'object', properties: { message: { type: 'string' } } },
-        403: { type: 'object', properties: { message: { type: 'string' } } },
-        404: { type: 'object', properties: { message: { type: 'string' } } },
+        202: z.object({ messageId: z.string() }),
+        400: z.object({ message: z.string() }),
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
       },
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
 
-      // Parse multipart/form-data
-      const fields: Record<string, string | string[]> = {};
+      let fields: Record<string, string | string[]> = {};
       const attachments: {
         filename: string;
         content: Buffer;
         contentType: string;
       }[] = [];
 
-      const parts = request.parts();
-      for await (const part of parts) {
-        if (part.type === 'file') {
-          const buffer = await part.toBuffer();
-          attachments.push({
-            filename: part.filename,
-            content: buffer,
-            contentType: part.mimetype,
-          });
-        } else {
-          const existing = fields[part.fieldname];
-          if (existing !== undefined) {
-            fields[part.fieldname] = Array.isArray(existing)
-              ? [...existing, part.value as string]
-              : [existing, part.value as string];
+      if (request.isMultipart()) {
+        // Parse multipart/form-data (suporta anexos)
+        const parts = request.parts();
+        for await (const part of parts) {
+          if (part.type === 'file') {
+            const buffer = await part.toBuffer();
+            attachments.push({
+              filename: part.filename,
+              content: buffer,
+              contentType: part.mimetype,
+            });
           } else {
-            fields[part.fieldname] = part.value as string;
+            const existing = fields[part.fieldname];
+            if (existing !== undefined) {
+              fields[part.fieldname] = Array.isArray(existing)
+                ? [...existing, part.value as string]
+                : [existing, part.value as string];
+            } else {
+              fields[part.fieldname] = part.value as string;
+            }
           }
         }
+      } else {
+        // Parse JSON body (sem anexos)
+        const sendBodySchema = z.object({
+          accountId: z.string().uuid(),
+          to: z.array(z.string().email()).min(1),
+          cc: z.array(z.string().email()).optional(),
+          bcc: z.array(z.string().email()).optional(),
+          subject: z.string().min(1),
+          bodyHtml: z.string().min(1),
+        });
+        const parsed = sendBodySchema.safeParse(request.body);
+        if (!parsed.success) {
+          const firstError =
+            parsed.error?.issues?.[0]?.message ?? 'Invalid request body';
+          return reply.status(400).send({ message: firstError });
+        }
+        fields = {
+          accountId: parsed.data.accountId,
+          to: parsed.data.to,
+          subject: parsed.data.subject,
+          bodyHtml: parsed.data.bodyHtml,
+          ...(parsed.data.cc ? { cc: parsed.data.cc } : {}),
+          ...(parsed.data.bcc ? { bcc: parsed.data.bcc } : {}),
+        };
       }
 
       const getField = (name: string): string => {

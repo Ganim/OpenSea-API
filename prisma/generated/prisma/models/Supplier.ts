@@ -50,6 +50,8 @@ export type SupplierMinAggregateOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  cnpjHash: string | null
+  emailHash: string | null
   country: string | null
   paymentTerms: string | null
   rating: runtime.Decimal | null
@@ -75,6 +77,8 @@ export type SupplierMaxAggregateOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  cnpjHash: string | null
+  emailHash: string | null
   country: string | null
   paymentTerms: string | null
   rating: runtime.Decimal | null
@@ -100,6 +104,8 @@ export type SupplierCountAggregateOutputType = {
   city: number
   state: number
   zipCode: number
+  cnpjHash: number
+  emailHash: number
   country: number
   paymentTerms: number
   rating: number
@@ -137,6 +143,8 @@ export type SupplierMinAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  cnpjHash?: true
+  emailHash?: true
   country?: true
   paymentTerms?: true
   rating?: true
@@ -162,6 +170,8 @@ export type SupplierMaxAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  cnpjHash?: true
+  emailHash?: true
   country?: true
   paymentTerms?: true
   rating?: true
@@ -187,6 +197,8 @@ export type SupplierCountAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  cnpjHash?: true
+  emailHash?: true
   country?: true
   paymentTerms?: true
   rating?: true
@@ -299,6 +311,8 @@ export type SupplierGroupByOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  cnpjHash: string | null
+  emailHash: string | null
   country: string | null
   paymentTerms: string | null
   rating: runtime.Decimal | null
@@ -347,6 +361,8 @@ export type SupplierWhereInput = {
   city?: Prisma.StringNullableFilter<"Supplier"> | string | null
   state?: Prisma.StringNullableFilter<"Supplier"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Supplier"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Supplier"> | string | null
+  emailHash?: Prisma.StringNullableFilter<"Supplier"> | string | null
   country?: Prisma.StringNullableFilter<"Supplier"> | string | null
   paymentTerms?: Prisma.StringNullableFilter<"Supplier"> | string | null
   rating?: Prisma.DecimalNullableFilter<"Supplier"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -376,6 +392,8 @@ export type SupplierOrderByWithRelationInput = {
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   state?: Prisma.SortOrderInput | Prisma.SortOrder
   zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailHash?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentTerms?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -409,6 +427,8 @@ export type SupplierWhereUniqueInput = Prisma.AtLeast<{
   city?: Prisma.StringNullableFilter<"Supplier"> | string | null
   state?: Prisma.StringNullableFilter<"Supplier"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Supplier"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Supplier"> | string | null
+  emailHash?: Prisma.StringNullableFilter<"Supplier"> | string | null
   country?: Prisma.StringNullableFilter<"Supplier"> | string | null
   paymentTerms?: Prisma.StringNullableFilter<"Supplier"> | string | null
   rating?: Prisma.DecimalNullableFilter<"Supplier"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -438,6 +458,8 @@ export type SupplierOrderByWithAggregationInput = {
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   state?: Prisma.SortOrderInput | Prisma.SortOrder
   zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailHash?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentTerms?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -471,6 +493,8 @@ export type SupplierScalarWhereWithAggregatesInput = {
   city?: Prisma.StringNullableWithAggregatesFilter<"Supplier"> | string | null
   state?: Prisma.StringNullableWithAggregatesFilter<"Supplier"> | string | null
   zipCode?: Prisma.StringNullableWithAggregatesFilter<"Supplier"> | string | null
+  cnpjHash?: Prisma.StringNullableWithAggregatesFilter<"Supplier"> | string | null
+  emailHash?: Prisma.StringNullableWithAggregatesFilter<"Supplier"> | string | null
   country?: Prisma.StringNullableWithAggregatesFilter<"Supplier"> | string | null
   paymentTerms?: Prisma.StringNullableWithAggregatesFilter<"Supplier"> | string | null
   rating?: Prisma.DecimalNullableWithAggregatesFilter<"Supplier"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -496,6 +520,8 @@ export type SupplierCreateInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -524,6 +550,8 @@ export type SupplierUncheckedCreateInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -552,6 +580,8 @@ export type SupplierUpdateInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -580,6 +610,8 @@ export type SupplierUncheckedUpdateInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -608,6 +640,8 @@ export type SupplierCreateManyInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -633,6 +667,8 @@ export type SupplierUpdateManyMutationInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -657,6 +693,8 @@ export type SupplierUncheckedUpdateManyInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -669,7 +707,7 @@ export type SupplierUncheckedUpdateManyInput = {
 }
 
 export type SupplierSuppliers_cnpj_unique_activeCompoundUniqueInput = {
-  cnpj: string
+  cnpjHash: string
   tenantId: string
   deletedAt: Date | string
 }
@@ -688,6 +726,8 @@ export type SupplierCountOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
+  emailHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
   paymentTerms?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -718,6 +758,8 @@ export type SupplierMaxOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
+  emailHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
   paymentTerms?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -743,6 +785,8 @@ export type SupplierMinOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  cnpjHash?: Prisma.SortOrder
+  emailHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
   paymentTerms?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -879,6 +923,8 @@ export type SupplierCreateWithoutProductsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -906,6 +952,8 @@ export type SupplierUncheckedCreateWithoutProductsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -949,6 +997,8 @@ export type SupplierUpdateWithoutProductsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -976,6 +1026,8 @@ export type SupplierUncheckedUpdateWithoutProductsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1003,6 +1055,8 @@ export type SupplierCreateWithoutPurchaseOrdersInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1030,6 +1084,8 @@ export type SupplierUncheckedCreateWithoutPurchaseOrdersInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1073,6 +1129,8 @@ export type SupplierUpdateWithoutPurchaseOrdersInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1100,6 +1158,8 @@ export type SupplierUncheckedUpdateWithoutPurchaseOrdersInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1127,6 +1187,8 @@ export type SupplierCreateWithoutVariantSupplierCodesInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1154,6 +1216,8 @@ export type SupplierUncheckedCreateWithoutVariantSupplierCodesInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1197,6 +1261,8 @@ export type SupplierUpdateWithoutVariantSupplierCodesInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1224,6 +1290,8 @@ export type SupplierUncheckedUpdateWithoutVariantSupplierCodesInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1251,6 +1319,8 @@ export type SupplierCreateWithoutTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1278,6 +1348,8 @@ export type SupplierUncheckedCreateWithoutTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1334,6 +1406,8 @@ export type SupplierScalarWhereInput = {
   city?: Prisma.StringNullableFilter<"Supplier"> | string | null
   state?: Prisma.StringNullableFilter<"Supplier"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Supplier"> | string | null
+  cnpjHash?: Prisma.StringNullableFilter<"Supplier"> | string | null
+  emailHash?: Prisma.StringNullableFilter<"Supplier"> | string | null
   country?: Prisma.StringNullableFilter<"Supplier"> | string | null
   paymentTerms?: Prisma.StringNullableFilter<"Supplier"> | string | null
   rating?: Prisma.DecimalNullableFilter<"Supplier"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1359,6 +1433,8 @@ export type SupplierCreateManyTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cnpjHash?: string | null
+  emailHash?: string | null
   country?: string | null
   paymentTerms?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1383,6 +1459,8 @@ export type SupplierUpdateWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1410,6 +1488,8 @@ export type SupplierUncheckedUpdateWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1437,6 +1517,8 @@ export type SupplierUncheckedUpdateManyWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1510,6 +1592,8 @@ export type SupplierSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cnpjHash?: boolean
+  emailHash?: boolean
   country?: boolean
   paymentTerms?: boolean
   rating?: boolean
@@ -1540,6 +1624,8 @@ export type SupplierSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cnpjHash?: boolean
+  emailHash?: boolean
   country?: boolean
   paymentTerms?: boolean
   rating?: boolean
@@ -1566,6 +1652,8 @@ export type SupplierSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cnpjHash?: boolean
+  emailHash?: boolean
   country?: boolean
   paymentTerms?: boolean
   rating?: boolean
@@ -1592,6 +1680,8 @@ export type SupplierSelectScalar = {
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cnpjHash?: boolean
+  emailHash?: boolean
   country?: boolean
   paymentTerms?: boolean
   rating?: boolean
@@ -1603,7 +1693,7 @@ export type SupplierSelectScalar = {
   tenantId?: boolean
 }
 
-export type SupplierOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sequentialCode" | "name" | "cnpj" | "taxId" | "contact" | "email" | "phone" | "website" | "address" | "city" | "state" | "zipCode" | "country" | "paymentTerms" | "rating" | "isActive" | "notes" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["supplier"]>
+export type SupplierOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sequentialCode" | "name" | "cnpj" | "taxId" | "contact" | "email" | "phone" | "website" | "address" | "city" | "state" | "zipCode" | "cnpjHash" | "emailHash" | "country" | "paymentTerms" | "rating" | "isActive" | "notes" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["supplier"]>
 export type SupplierInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Supplier$productsArgs<ExtArgs>
@@ -1640,6 +1730,8 @@ export type $SupplierPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     city: string | null
     state: string | null
     zipCode: string | null
+    cnpjHash: string | null
+    emailHash: string | null
     country: string | null
     paymentTerms: string | null
     rating: runtime.Decimal | null
@@ -2089,6 +2181,8 @@ export interface SupplierFieldRefs {
   readonly city: Prisma.FieldRef<"Supplier", 'String'>
   readonly state: Prisma.FieldRef<"Supplier", 'String'>
   readonly zipCode: Prisma.FieldRef<"Supplier", 'String'>
+  readonly cnpjHash: Prisma.FieldRef<"Supplier", 'String'>
+  readonly emailHash: Prisma.FieldRef<"Supplier", 'String'>
   readonly country: Prisma.FieldRef<"Supplier", 'String'>
   readonly paymentTerms: Prisma.FieldRef<"Supplier", 'String'>
   readonly rating: Prisma.FieldRef<"Supplier", 'Decimal'>

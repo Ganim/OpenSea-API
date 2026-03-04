@@ -40,6 +40,7 @@ export class CancelFinanceEntryUseCase {
 
     const cancelled = await this.financeEntriesRepository.update({
       id: new UniqueEntityID(id),
+      tenantId,
       status: 'CANCELLED',
     });
 

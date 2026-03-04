@@ -61,15 +61,23 @@ export async function setFolderAccessController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id: folderId } = request.params;
-      const { userId, groupId, canRead, canWrite, canDelete, canShare } =
-        request.body as {
-          userId?: string;
-          groupId?: string;
-          canRead: boolean;
-          canWrite: boolean;
-          canDelete: boolean;
-          canShare: boolean;
-        };
+      const {
+        userId,
+        groupId,
+        teamId,
+        canRead,
+        canWrite,
+        canDelete,
+        canShare,
+      } = request.body as {
+        userId?: string;
+        groupId?: string;
+        teamId?: string;
+        canRead: boolean;
+        canWrite: boolean;
+        canDelete: boolean;
+        canShare: boolean;
+      };
 
       try {
         // Determine the required share permission based on folder type and target
@@ -86,7 +94,7 @@ export async function setFolderAccessController(app: FastifyInstance) {
         const requiredPermission = resolveSharePermission(
           folder.isSystem,
           folder.isFilter,
-          !!groupId,
+          !!groupId || !!teamId,
         );
 
         await checkInlinePermission(request, requiredPermission);
@@ -97,6 +105,7 @@ export async function setFolderAccessController(app: FastifyInstance) {
           folderId,
           userId,
           groupId,
+          teamId,
           canRead,
           canWrite,
           canDelete,
@@ -110,7 +119,15 @@ export async function setFolderAccessController(app: FastifyInstance) {
             userName: request.user.sub,
             folderName: folderId,
           },
-          newData: { userId, groupId, canRead, canWrite, canDelete, canShare },
+          newData: {
+            userId,
+            groupId,
+            teamId,
+            canRead,
+            canWrite,
+            canDelete,
+            canShare,
+          },
         });
 
         return reply.status(201).send({ rule: folderAccessRuleToDTO(rule) });

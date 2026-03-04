@@ -1,6 +1,6 @@
 import type {
-    EmailFolder,
-    EmailFolderType,
+  EmailFolder,
+  EmailFolderType,
 } from '@/entities/email/email-folder';
 
 export interface CreateEmailFolderSchema {
@@ -24,6 +24,10 @@ export interface UpdateEmailFolderSchema {
 export interface EmailFoldersRepository {
   create(data: CreateEmailFolderSchema): Promise<EmailFolder>;
   findById(id: string, accountId: string): Promise<EmailFolder | null>;
+  findByType(
+    accountId: string,
+    type: EmailFolderType,
+  ): Promise<EmailFolder | null>;
   findByRemoteName(
     accountId: string,
     remoteName: string,

@@ -27,6 +27,7 @@ export type AggregateCalendarEvent = {
 export type CalendarEventMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
+  calendarId: string | null
   title: string | null
   description: string | null
   location: string | null
@@ -49,6 +50,7 @@ export type CalendarEventMinAggregateOutputType = {
 export type CalendarEventMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
+  calendarId: string | null
   title: string | null
   description: string | null
   location: string | null
@@ -71,6 +73,7 @@ export type CalendarEventMaxAggregateOutputType = {
 export type CalendarEventCountAggregateOutputType = {
   id: number
   tenantId: number
+  calendarId: number
   title: number
   description: number
   location: number
@@ -96,6 +99,7 @@ export type CalendarEventCountAggregateOutputType = {
 export type CalendarEventMinAggregateInputType = {
   id?: true
   tenantId?: true
+  calendarId?: true
   title?: true
   description?: true
   location?: true
@@ -118,6 +122,7 @@ export type CalendarEventMinAggregateInputType = {
 export type CalendarEventMaxAggregateInputType = {
   id?: true
   tenantId?: true
+  calendarId?: true
   title?: true
   description?: true
   location?: true
@@ -140,6 +145,7 @@ export type CalendarEventMaxAggregateInputType = {
 export type CalendarEventCountAggregateInputType = {
   id?: true
   tenantId?: true
+  calendarId?: true
   title?: true
   description?: true
   location?: true
@@ -236,6 +242,7 @@ export type CalendarEventGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type CalendarEventGroupByOutputType = {
   id: string
   tenantId: string
+  calendarId: string
   title: string
   description: string | null
   location: string | null
@@ -280,6 +287,7 @@ export type CalendarEventWhereInput = {
   NOT?: Prisma.CalendarEventWhereInput | Prisma.CalendarEventWhereInput[]
   id?: Prisma.StringFilter<"CalendarEvent"> | string
   tenantId?: Prisma.StringFilter<"CalendarEvent"> | string
+  calendarId?: Prisma.StringFilter<"CalendarEvent"> | string
   title?: Prisma.StringFilter<"CalendarEvent"> | string
   description?: Prisma.StringNullableFilter<"CalendarEvent"> | string | null
   location?: Prisma.StringNullableFilter<"CalendarEvent"> | string | null
@@ -299,6 +307,7 @@ export type CalendarEventWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  calendar?: Prisma.XOR<Prisma.CalendarScalarRelationFilter, Prisma.CalendarWhereInput>
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   participants?: Prisma.EventParticipantListRelationFilter
   reminders?: Prisma.EventReminderListRelationFilter
@@ -307,6 +316,7 @@ export type CalendarEventWhereInput = {
 export type CalendarEventOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+  calendarId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -326,6 +336,7 @@ export type CalendarEventOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  calendar?: Prisma.CalendarOrderByWithRelationInput
   creator?: Prisma.UserOrderByWithRelationInput
   participants?: Prisma.EventParticipantOrderByRelationAggregateInput
   reminders?: Prisma.EventReminderOrderByRelationAggregateInput
@@ -337,6 +348,7 @@ export type CalendarEventWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CalendarEventWhereInput[]
   NOT?: Prisma.CalendarEventWhereInput | Prisma.CalendarEventWhereInput[]
   tenantId?: Prisma.StringFilter<"CalendarEvent"> | string
+  calendarId?: Prisma.StringFilter<"CalendarEvent"> | string
   title?: Prisma.StringFilter<"CalendarEvent"> | string
   description?: Prisma.StringNullableFilter<"CalendarEvent"> | string | null
   location?: Prisma.StringNullableFilter<"CalendarEvent"> | string | null
@@ -356,6 +368,7 @@ export type CalendarEventWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  calendar?: Prisma.XOR<Prisma.CalendarScalarRelationFilter, Prisma.CalendarWhereInput>
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   participants?: Prisma.EventParticipantListRelationFilter
   reminders?: Prisma.EventReminderListRelationFilter
@@ -364,6 +377,7 @@ export type CalendarEventWhereUniqueInput = Prisma.AtLeast<{
 export type CalendarEventOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+  calendarId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -393,6 +407,7 @@ export type CalendarEventScalarWhereWithAggregatesInput = {
   NOT?: Prisma.CalendarEventScalarWhereWithAggregatesInput | Prisma.CalendarEventScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"CalendarEvent"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"CalendarEvent"> | string
+  calendarId?: Prisma.StringWithAggregatesFilter<"CalendarEvent"> | string
   title?: Prisma.StringWithAggregatesFilter<"CalendarEvent"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"CalendarEvent"> | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"CalendarEvent"> | string | null
@@ -433,6 +448,7 @@ export type CalendarEventCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutCalendarEventsInput
+  calendar: Prisma.CalendarCreateNestedOneWithoutEventsInput
   creator: Prisma.UserCreateNestedOneWithoutCalendarEventsCreatedInput
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
   reminders?: Prisma.EventReminderCreateNestedManyWithoutEventInput
@@ -441,6 +457,7 @@ export type CalendarEventCreateInput = {
 export type CalendarEventUncheckedCreateInput = {
   id?: string
   tenantId: string
+  calendarId: string
   title: string
   description?: string | null
   location?: string | null
@@ -483,6 +500,7 @@ export type CalendarEventUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCalendarEventsNestedInput
+  calendar?: Prisma.CalendarUpdateOneRequiredWithoutEventsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutCalendarEventsCreatedNestedInput
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
   reminders?: Prisma.EventReminderUpdateManyWithoutEventNestedInput
@@ -491,6 +509,7 @@ export type CalendarEventUpdateInput = {
 export type CalendarEventUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  calendarId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -516,6 +535,7 @@ export type CalendarEventUncheckedUpdateInput = {
 export type CalendarEventCreateManyInput = {
   id?: string
   tenantId: string
+  calendarId: string
   title: string
   description?: string | null
   location?: string | null
@@ -560,6 +580,7 @@ export type CalendarEventUpdateManyMutationInput = {
 export type CalendarEventUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  calendarId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -593,6 +614,7 @@ export type CalendarEventOrderByRelationAggregateInput = {
 export type CalendarEventCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+  calendarId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
@@ -616,6 +638,7 @@ export type CalendarEventCountOrderByAggregateInput = {
 export type CalendarEventMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+  calendarId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
@@ -638,6 +661,7 @@ export type CalendarEventMaxOrderByAggregateInput = {
 export type CalendarEventMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+  calendarId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
@@ -746,6 +770,48 @@ export type CalendarEventUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.CalendarEventScalarWhereInput | Prisma.CalendarEventScalarWhereInput[]
 }
 
+export type CalendarEventCreateNestedManyWithoutCalendarInput = {
+  create?: Prisma.XOR<Prisma.CalendarEventCreateWithoutCalendarInput, Prisma.CalendarEventUncheckedCreateWithoutCalendarInput> | Prisma.CalendarEventCreateWithoutCalendarInput[] | Prisma.CalendarEventUncheckedCreateWithoutCalendarInput[]
+  connectOrCreate?: Prisma.CalendarEventCreateOrConnectWithoutCalendarInput | Prisma.CalendarEventCreateOrConnectWithoutCalendarInput[]
+  createMany?: Prisma.CalendarEventCreateManyCalendarInputEnvelope
+  connect?: Prisma.CalendarEventWhereUniqueInput | Prisma.CalendarEventWhereUniqueInput[]
+}
+
+export type CalendarEventUncheckedCreateNestedManyWithoutCalendarInput = {
+  create?: Prisma.XOR<Prisma.CalendarEventCreateWithoutCalendarInput, Prisma.CalendarEventUncheckedCreateWithoutCalendarInput> | Prisma.CalendarEventCreateWithoutCalendarInput[] | Prisma.CalendarEventUncheckedCreateWithoutCalendarInput[]
+  connectOrCreate?: Prisma.CalendarEventCreateOrConnectWithoutCalendarInput | Prisma.CalendarEventCreateOrConnectWithoutCalendarInput[]
+  createMany?: Prisma.CalendarEventCreateManyCalendarInputEnvelope
+  connect?: Prisma.CalendarEventWhereUniqueInput | Prisma.CalendarEventWhereUniqueInput[]
+}
+
+export type CalendarEventUpdateManyWithoutCalendarNestedInput = {
+  create?: Prisma.XOR<Prisma.CalendarEventCreateWithoutCalendarInput, Prisma.CalendarEventUncheckedCreateWithoutCalendarInput> | Prisma.CalendarEventCreateWithoutCalendarInput[] | Prisma.CalendarEventUncheckedCreateWithoutCalendarInput[]
+  connectOrCreate?: Prisma.CalendarEventCreateOrConnectWithoutCalendarInput | Prisma.CalendarEventCreateOrConnectWithoutCalendarInput[]
+  upsert?: Prisma.CalendarEventUpsertWithWhereUniqueWithoutCalendarInput | Prisma.CalendarEventUpsertWithWhereUniqueWithoutCalendarInput[]
+  createMany?: Prisma.CalendarEventCreateManyCalendarInputEnvelope
+  set?: Prisma.CalendarEventWhereUniqueInput | Prisma.CalendarEventWhereUniqueInput[]
+  disconnect?: Prisma.CalendarEventWhereUniqueInput | Prisma.CalendarEventWhereUniqueInput[]
+  delete?: Prisma.CalendarEventWhereUniqueInput | Prisma.CalendarEventWhereUniqueInput[]
+  connect?: Prisma.CalendarEventWhereUniqueInput | Prisma.CalendarEventWhereUniqueInput[]
+  update?: Prisma.CalendarEventUpdateWithWhereUniqueWithoutCalendarInput | Prisma.CalendarEventUpdateWithWhereUniqueWithoutCalendarInput[]
+  updateMany?: Prisma.CalendarEventUpdateManyWithWhereWithoutCalendarInput | Prisma.CalendarEventUpdateManyWithWhereWithoutCalendarInput[]
+  deleteMany?: Prisma.CalendarEventScalarWhereInput | Prisma.CalendarEventScalarWhereInput[]
+}
+
+export type CalendarEventUncheckedUpdateManyWithoutCalendarNestedInput = {
+  create?: Prisma.XOR<Prisma.CalendarEventCreateWithoutCalendarInput, Prisma.CalendarEventUncheckedCreateWithoutCalendarInput> | Prisma.CalendarEventCreateWithoutCalendarInput[] | Prisma.CalendarEventUncheckedCreateWithoutCalendarInput[]
+  connectOrCreate?: Prisma.CalendarEventCreateOrConnectWithoutCalendarInput | Prisma.CalendarEventCreateOrConnectWithoutCalendarInput[]
+  upsert?: Prisma.CalendarEventUpsertWithWhereUniqueWithoutCalendarInput | Prisma.CalendarEventUpsertWithWhereUniqueWithoutCalendarInput[]
+  createMany?: Prisma.CalendarEventCreateManyCalendarInputEnvelope
+  set?: Prisma.CalendarEventWhereUniqueInput | Prisma.CalendarEventWhereUniqueInput[]
+  disconnect?: Prisma.CalendarEventWhereUniqueInput | Prisma.CalendarEventWhereUniqueInput[]
+  delete?: Prisma.CalendarEventWhereUniqueInput | Prisma.CalendarEventWhereUniqueInput[]
+  connect?: Prisma.CalendarEventWhereUniqueInput | Prisma.CalendarEventWhereUniqueInput[]
+  update?: Prisma.CalendarEventUpdateWithWhereUniqueWithoutCalendarInput | Prisma.CalendarEventUpdateWithWhereUniqueWithoutCalendarInput[]
+  updateMany?: Prisma.CalendarEventUpdateManyWithWhereWithoutCalendarInput | Prisma.CalendarEventUpdateManyWithWhereWithoutCalendarInput[]
+  deleteMany?: Prisma.CalendarEventScalarWhereInput | Prisma.CalendarEventScalarWhereInput[]
+}
+
 export type EnumEventTypeFieldUpdateOperationsInput = {
   set?: $Enums.EventType
 }
@@ -802,6 +868,7 @@ export type CalendarEventCreateWithoutCreatorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutCalendarEventsInput
+  calendar: Prisma.CalendarCreateNestedOneWithoutEventsInput
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
   reminders?: Prisma.EventReminderCreateNestedManyWithoutEventInput
 }
@@ -809,6 +876,7 @@ export type CalendarEventCreateWithoutCreatorInput = {
 export type CalendarEventUncheckedCreateWithoutCreatorInput = {
   id?: string
   tenantId: string
+  calendarId: string
   title: string
   description?: string | null
   location?: string | null
@@ -862,6 +930,7 @@ export type CalendarEventScalarWhereInput = {
   NOT?: Prisma.CalendarEventScalarWhereInput | Prisma.CalendarEventScalarWhereInput[]
   id?: Prisma.StringFilter<"CalendarEvent"> | string
   tenantId?: Prisma.StringFilter<"CalendarEvent"> | string
+  calendarId?: Prisma.StringFilter<"CalendarEvent"> | string
   title?: Prisma.StringFilter<"CalendarEvent"> | string
   description?: Prisma.StringNullableFilter<"CalendarEvent"> | string | null
   location?: Prisma.StringNullableFilter<"CalendarEvent"> | string | null
@@ -901,6 +970,7 @@ export type CalendarEventCreateWithoutTenantInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  calendar: Prisma.CalendarCreateNestedOneWithoutEventsInput
   creator: Prisma.UserCreateNestedOneWithoutCalendarEventsCreatedInput
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
   reminders?: Prisma.EventReminderCreateNestedManyWithoutEventInput
@@ -908,6 +978,7 @@ export type CalendarEventCreateWithoutTenantInput = {
 
 export type CalendarEventUncheckedCreateWithoutTenantInput = {
   id?: string
+  calendarId: string
   title: string
   description?: string | null
   location?: string | null
@@ -956,7 +1027,7 @@ export type CalendarEventUpdateManyWithWhereWithoutTenantInput = {
   data: Prisma.XOR<Prisma.CalendarEventUpdateManyMutationInput, Prisma.CalendarEventUncheckedUpdateManyWithoutTenantInput>
 }
 
-export type CalendarEventCreateWithoutParticipantsInput = {
+export type CalendarEventCreateWithoutCalendarInput = {
   id?: string
   title: string
   description?: string | null
@@ -977,12 +1048,90 @@ export type CalendarEventCreateWithoutParticipantsInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutCalendarEventsInput
   creator: Prisma.UserCreateNestedOneWithoutCalendarEventsCreatedInput
+  participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
+  reminders?: Prisma.EventReminderCreateNestedManyWithoutEventInput
+}
+
+export type CalendarEventUncheckedCreateWithoutCalendarInput = {
+  id?: string
+  tenantId: string
+  title: string
+  description?: string | null
+  location?: string | null
+  startDate: Date | string
+  endDate: Date | string
+  isAllDay?: boolean
+  type?: $Enums.EventType
+  visibility?: $Enums.EventVisibility
+  color?: string | null
+  rrule?: string | null
+  timezone?: string | null
+  systemSourceType?: string | null
+  systemSourceId?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdBy: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  participants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutEventInput
+  reminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutEventInput
+}
+
+export type CalendarEventCreateOrConnectWithoutCalendarInput = {
+  where: Prisma.CalendarEventWhereUniqueInput
+  create: Prisma.XOR<Prisma.CalendarEventCreateWithoutCalendarInput, Prisma.CalendarEventUncheckedCreateWithoutCalendarInput>
+}
+
+export type CalendarEventCreateManyCalendarInputEnvelope = {
+  data: Prisma.CalendarEventCreateManyCalendarInput | Prisma.CalendarEventCreateManyCalendarInput[]
+  skipDuplicates?: boolean
+}
+
+export type CalendarEventUpsertWithWhereUniqueWithoutCalendarInput = {
+  where: Prisma.CalendarEventWhereUniqueInput
+  update: Prisma.XOR<Prisma.CalendarEventUpdateWithoutCalendarInput, Prisma.CalendarEventUncheckedUpdateWithoutCalendarInput>
+  create: Prisma.XOR<Prisma.CalendarEventCreateWithoutCalendarInput, Prisma.CalendarEventUncheckedCreateWithoutCalendarInput>
+}
+
+export type CalendarEventUpdateWithWhereUniqueWithoutCalendarInput = {
+  where: Prisma.CalendarEventWhereUniqueInput
+  data: Prisma.XOR<Prisma.CalendarEventUpdateWithoutCalendarInput, Prisma.CalendarEventUncheckedUpdateWithoutCalendarInput>
+}
+
+export type CalendarEventUpdateManyWithWhereWithoutCalendarInput = {
+  where: Prisma.CalendarEventScalarWhereInput
+  data: Prisma.XOR<Prisma.CalendarEventUpdateManyMutationInput, Prisma.CalendarEventUncheckedUpdateManyWithoutCalendarInput>
+}
+
+export type CalendarEventCreateWithoutParticipantsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  location?: string | null
+  startDate: Date | string
+  endDate: Date | string
+  isAllDay?: boolean
+  type?: $Enums.EventType
+  visibility?: $Enums.EventVisibility
+  color?: string | null
+  rrule?: string | null
+  timezone?: string | null
+  systemSourceType?: string | null
+  systemSourceId?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutCalendarEventsInput
+  calendar: Prisma.CalendarCreateNestedOneWithoutEventsInput
+  creator: Prisma.UserCreateNestedOneWithoutCalendarEventsCreatedInput
   reminders?: Prisma.EventReminderCreateNestedManyWithoutEventInput
 }
 
 export type CalendarEventUncheckedCreateWithoutParticipantsInput = {
   id?: string
   tenantId: string
+  calendarId: string
   title: string
   description?: string | null
   location?: string | null
@@ -1040,6 +1189,7 @@ export type CalendarEventUpdateWithoutParticipantsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCalendarEventsNestedInput
+  calendar?: Prisma.CalendarUpdateOneRequiredWithoutEventsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutCalendarEventsCreatedNestedInput
   reminders?: Prisma.EventReminderUpdateManyWithoutEventNestedInput
 }
@@ -1047,6 +1197,7 @@ export type CalendarEventUpdateWithoutParticipantsInput = {
 export type CalendarEventUncheckedUpdateWithoutParticipantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  calendarId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1088,6 +1239,7 @@ export type CalendarEventCreateWithoutRemindersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutCalendarEventsInput
+  calendar: Prisma.CalendarCreateNestedOneWithoutEventsInput
   creator: Prisma.UserCreateNestedOneWithoutCalendarEventsCreatedInput
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
 }
@@ -1095,6 +1247,7 @@ export type CalendarEventCreateWithoutRemindersInput = {
 export type CalendarEventUncheckedCreateWithoutRemindersInput = {
   id?: string
   tenantId: string
+  calendarId: string
   title: string
   description?: string | null
   location?: string | null
@@ -1152,6 +1305,7 @@ export type CalendarEventUpdateWithoutRemindersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCalendarEventsNestedInput
+  calendar?: Prisma.CalendarUpdateOneRequiredWithoutEventsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutCalendarEventsCreatedNestedInput
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
 }
@@ -1159,6 +1313,7 @@ export type CalendarEventUpdateWithoutRemindersInput = {
 export type CalendarEventUncheckedUpdateWithoutRemindersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  calendarId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1183,6 +1338,7 @@ export type CalendarEventUncheckedUpdateWithoutRemindersInput = {
 export type CalendarEventCreateManyCreatorInput = {
   id?: string
   tenantId: string
+  calendarId: string
   title: string
   description?: string | null
   location?: string | null
@@ -1222,6 +1378,7 @@ export type CalendarEventUpdateWithoutCreatorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCalendarEventsNestedInput
+  calendar?: Prisma.CalendarUpdateOneRequiredWithoutEventsNestedInput
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
   reminders?: Prisma.EventReminderUpdateManyWithoutEventNestedInput
 }
@@ -1229,6 +1386,7 @@ export type CalendarEventUpdateWithoutCreatorInput = {
 export type CalendarEventUncheckedUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  calendarId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1253,6 +1411,7 @@ export type CalendarEventUncheckedUpdateWithoutCreatorInput = {
 export type CalendarEventUncheckedUpdateManyWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  calendarId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1274,6 +1433,7 @@ export type CalendarEventUncheckedUpdateManyWithoutCreatorInput = {
 
 export type CalendarEventCreateManyTenantInput = {
   id?: string
+  calendarId: string
   title: string
   description?: string | null
   location?: string | null
@@ -1313,6 +1473,7 @@ export type CalendarEventUpdateWithoutTenantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  calendar?: Prisma.CalendarUpdateOneRequiredWithoutEventsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutCalendarEventsCreatedNestedInput
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
   reminders?: Prisma.EventReminderUpdateManyWithoutEventNestedInput
@@ -1320,6 +1481,7 @@ export type CalendarEventUpdateWithoutTenantInput = {
 
 export type CalendarEventUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  calendarId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1344,6 +1506,103 @@ export type CalendarEventUncheckedUpdateWithoutTenantInput = {
 
 export type CalendarEventUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  calendarId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAllDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  type?: Prisma.EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
+  visibility?: Prisma.EnumEventVisibilityFieldUpdateOperationsInput | $Enums.EventVisibility
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rrule?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  systemSourceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  systemSourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CalendarEventCreateManyCalendarInput = {
+  id?: string
+  tenantId: string
+  title: string
+  description?: string | null
+  location?: string | null
+  startDate: Date | string
+  endDate: Date | string
+  isAllDay?: boolean
+  type?: $Enums.EventType
+  visibility?: $Enums.EventVisibility
+  color?: string | null
+  rrule?: string | null
+  timezone?: string | null
+  systemSourceType?: string | null
+  systemSourceId?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdBy: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CalendarEventUpdateWithoutCalendarInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAllDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  type?: Prisma.EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
+  visibility?: Prisma.EnumEventVisibilityFieldUpdateOperationsInput | $Enums.EventVisibility
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rrule?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  systemSourceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  systemSourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCalendarEventsNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutCalendarEventsCreatedNestedInput
+  participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
+  reminders?: Prisma.EventReminderUpdateManyWithoutEventNestedInput
+}
+
+export type CalendarEventUncheckedUpdateWithoutCalendarInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAllDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  type?: Prisma.EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
+  visibility?: Prisma.EnumEventVisibilityFieldUpdateOperationsInput | $Enums.EventVisibility
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rrule?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  systemSourceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  systemSourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  participants?: Prisma.EventParticipantUncheckedUpdateManyWithoutEventNestedInput
+  reminders?: Prisma.EventReminderUncheckedUpdateManyWithoutEventNestedInput
+}
+
+export type CalendarEventUncheckedUpdateManyWithoutCalendarInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1407,6 +1666,7 @@ export type CalendarEventCountOutputTypeCountRemindersArgs<ExtArgs extends runti
 export type CalendarEventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
+  calendarId?: boolean
   title?: boolean
   description?: boolean
   location?: boolean
@@ -1426,6 +1686,7 @@ export type CalendarEventSelect<ExtArgs extends runtime.Types.Extensions.Interna
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  calendar?: boolean | Prisma.CalendarDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   participants?: boolean | Prisma.CalendarEvent$participantsArgs<ExtArgs>
   reminders?: boolean | Prisma.CalendarEvent$remindersArgs<ExtArgs>
@@ -1435,6 +1696,7 @@ export type CalendarEventSelect<ExtArgs extends runtime.Types.Extensions.Interna
 export type CalendarEventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
+  calendarId?: boolean
   title?: boolean
   description?: boolean
   location?: boolean
@@ -1454,12 +1716,14 @@ export type CalendarEventSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  calendar?: boolean | Prisma.CalendarDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["calendarEvent"]>
 
 export type CalendarEventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
+  calendarId?: boolean
   title?: boolean
   description?: boolean
   location?: boolean
@@ -1479,12 +1743,14 @@ export type CalendarEventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  calendar?: boolean | Prisma.CalendarDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["calendarEvent"]>
 
 export type CalendarEventSelectScalar = {
   id?: boolean
   tenantId?: boolean
+  calendarId?: boolean
   title?: boolean
   description?: boolean
   location?: boolean
@@ -1505,9 +1771,10 @@ export type CalendarEventSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CalendarEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "description" | "location" | "startDate" | "endDate" | "isAllDay" | "type" | "visibility" | "color" | "rrule" | "timezone" | "systemSourceType" | "systemSourceId" | "metadata" | "createdBy" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["calendarEvent"]>
+export type CalendarEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "calendarId" | "title" | "description" | "location" | "startDate" | "endDate" | "isAllDay" | "type" | "visibility" | "color" | "rrule" | "timezone" | "systemSourceType" | "systemSourceId" | "metadata" | "createdBy" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["calendarEvent"]>
 export type CalendarEventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  calendar?: boolean | Prisma.CalendarDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   participants?: boolean | Prisma.CalendarEvent$participantsArgs<ExtArgs>
   reminders?: boolean | Prisma.CalendarEvent$remindersArgs<ExtArgs>
@@ -1515,10 +1782,12 @@ export type CalendarEventInclude<ExtArgs extends runtime.Types.Extensions.Intern
 }
 export type CalendarEventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  calendar?: boolean | Prisma.CalendarDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type CalendarEventIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  calendar?: boolean | Prisma.CalendarDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
@@ -1526,6 +1795,7 @@ export type $CalendarEventPayload<ExtArgs extends runtime.Types.Extensions.Inter
   name: "CalendarEvent"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    calendar: Prisma.$CalendarPayload<ExtArgs>
     creator: Prisma.$UserPayload<ExtArgs>
     participants: Prisma.$EventParticipantPayload<ExtArgs>[]
     reminders: Prisma.$EventReminderPayload<ExtArgs>[]
@@ -1533,6 +1803,7 @@ export type $CalendarEventPayload<ExtArgs extends runtime.Types.Extensions.Inter
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
+    calendarId: string
     title: string
     description: string | null
     location: string | null
@@ -1946,6 +2217,7 @@ readonly fields: CalendarEventFieldRefs;
 export interface Prisma__CalendarEventClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  calendar<T extends Prisma.CalendarDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CalendarDefaultArgs<ExtArgs>>): Prisma.Prisma__CalendarClient<runtime.Types.Result.GetResult<Prisma.$CalendarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   participants<T extends Prisma.CalendarEvent$participantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CalendarEvent$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reminders<T extends Prisma.CalendarEvent$remindersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CalendarEvent$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1980,6 +2252,7 @@ export interface Prisma__CalendarEventClient<T, Null = never, ExtArgs extends ru
 export interface CalendarEventFieldRefs {
   readonly id: Prisma.FieldRef<"CalendarEvent", 'String'>
   readonly tenantId: Prisma.FieldRef<"CalendarEvent", 'String'>
+  readonly calendarId: Prisma.FieldRef<"CalendarEvent", 'String'>
   readonly title: Prisma.FieldRef<"CalendarEvent", 'String'>
   readonly description: Prisma.FieldRef<"CalendarEvent", 'String'>
   readonly location: Prisma.FieldRef<"CalendarEvent", 'String'>

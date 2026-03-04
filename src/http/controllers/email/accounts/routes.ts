@@ -53,10 +53,12 @@ const createEmailAccountBodySchema = z.object({
   isDefault: z.boolean().optional(),
 });
 
-const updateEmailAccountBodySchema = createEmailAccountBodySchema.partial().extend({
-  signature: z.string().nullable().optional(),
-  displayName: z.string().max(128).nullable().optional(),
-});
+const updateEmailAccountBodySchema = createEmailAccountBodySchema
+  .partial()
+  .extend({
+    signature: z.string().nullable().optional(),
+    displayName: z.string().max(128).nullable().optional(),
+  });
 
 const shareEmailAccountBodySchema = z.object({
   userId: z.string().uuid(),
@@ -267,7 +269,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
       params: z.object({ id: z.string().uuid() }),
       response: {
-        204: z.object({}),
+        204: z.null(),
         403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
@@ -284,7 +286,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
           accountId: request.params.id,
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
@@ -314,7 +316,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
       params: z.object({ id: z.string().uuid() }),
       response: {
-        204: z.object({}),
+        204: z.null(),
         403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
@@ -331,7 +333,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
           accountId: request.params.id,
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

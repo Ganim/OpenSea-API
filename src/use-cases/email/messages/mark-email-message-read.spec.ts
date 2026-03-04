@@ -42,6 +42,7 @@ describe('MarkEmailMessageReadUseCase', () => {
       accountsRepository,
       foldersRepository,
       messagesRepository,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       cipherService as any,
     );
 
@@ -72,7 +73,7 @@ describe('MarkEmailMessageReadUseCase', () => {
     });
 
     // Create test message
-    const message = await messagesRepository.create({
+    const _message = await messagesRepository.create({
       tenantId: 'tenant-1',
       accountId: account.id.toString(),
       folderId: folder.id.toString(),

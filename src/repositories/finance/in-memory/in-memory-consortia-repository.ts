@@ -118,7 +118,7 @@ export class InMemoryConsortiaRepository implements ConsortiaRepository {
     return item;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const item = this.items.find((i) => !i.deletedAt && i.id.equals(id));
     if (item) item.delete();
   }

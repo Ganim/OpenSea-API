@@ -54,6 +54,10 @@ export type StorageFileMinAggregateOutputType = {
   entityId: string | null
   expiresAt: Date | null
   uploadedBy: string | null
+  isEncrypted: boolean | null
+  isProtected: boolean | null
+  protectionHash: string | null
+  isHidden: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -77,6 +81,10 @@ export type StorageFileMaxAggregateOutputType = {
   entityId: string | null
   expiresAt: Date | null
   uploadedBy: string | null
+  isEncrypted: boolean | null
+  isProtected: boolean | null
+  protectionHash: string | null
+  isHidden: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -100,6 +108,10 @@ export type StorageFileCountAggregateOutputType = {
   entityId: number
   expiresAt: number
   uploadedBy: number
+  isEncrypted: number
+  isProtected: number
+  protectionHash: number
+  isHidden: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -135,6 +147,10 @@ export type StorageFileMinAggregateInputType = {
   entityId?: true
   expiresAt?: true
   uploadedBy?: true
+  isEncrypted?: true
+  isProtected?: true
+  protectionHash?: true
+  isHidden?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -158,6 +174,10 @@ export type StorageFileMaxAggregateInputType = {
   entityId?: true
   expiresAt?: true
   uploadedBy?: true
+  isEncrypted?: true
+  isProtected?: true
+  protectionHash?: true
+  isHidden?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -181,6 +201,10 @@ export type StorageFileCountAggregateInputType = {
   entityId?: true
   expiresAt?: true
   uploadedBy?: true
+  isEncrypted?: true
+  isProtected?: true
+  protectionHash?: true
+  isHidden?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -291,6 +315,10 @@ export type StorageFileGroupByOutputType = {
   entityId: string | null
   expiresAt: Date | null
   uploadedBy: string
+  isEncrypted: boolean
+  isProtected: boolean
+  protectionHash: string | null
+  isHidden: boolean
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -337,6 +365,10 @@ export type StorageFileWhereInput = {
   entityId?: Prisma.StringNullableFilter<"StorageFile"> | string | null
   expiresAt?: Prisma.DateTimeNullableFilter<"StorageFile"> | Date | string | null
   uploadedBy?: Prisma.StringFilter<"StorageFile"> | string
+  isEncrypted?: Prisma.BoolFilter<"StorageFile"> | boolean
+  isProtected?: Prisma.BoolFilter<"StorageFile"> | boolean
+  protectionHash?: Prisma.StringNullableFilter<"StorageFile"> | string | null
+  isHidden?: Prisma.BoolFilter<"StorageFile"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StorageFile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StorageFile"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"StorageFile"> | Date | string | null
@@ -364,6 +396,10 @@ export type StorageFileOrderByWithRelationInput = {
   entityId?: Prisma.SortOrderInput | Prisma.SortOrder
   expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   uploadedBy?: Prisma.SortOrder
+  isEncrypted?: Prisma.SortOrder
+  isProtected?: Prisma.SortOrder
+  protectionHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  isHidden?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -395,6 +431,10 @@ export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
   entityId?: Prisma.StringNullableFilter<"StorageFile"> | string | null
   expiresAt?: Prisma.DateTimeNullableFilter<"StorageFile"> | Date | string | null
   uploadedBy?: Prisma.StringFilter<"StorageFile"> | string
+  isEncrypted?: Prisma.BoolFilter<"StorageFile"> | boolean
+  isProtected?: Prisma.BoolFilter<"StorageFile"> | boolean
+  protectionHash?: Prisma.StringNullableFilter<"StorageFile"> | string | null
+  isHidden?: Prisma.BoolFilter<"StorageFile"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StorageFile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StorageFile"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"StorageFile"> | Date | string | null
@@ -422,6 +462,10 @@ export type StorageFileOrderByWithAggregationInput = {
   entityId?: Prisma.SortOrderInput | Prisma.SortOrder
   expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   uploadedBy?: Prisma.SortOrder
+  isEncrypted?: Prisma.SortOrder
+  isProtected?: Prisma.SortOrder
+  protectionHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  isHidden?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -453,6 +497,10 @@ export type StorageFileScalarWhereWithAggregatesInput = {
   entityId?: Prisma.StringNullableWithAggregatesFilter<"StorageFile"> | string | null
   expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"StorageFile"> | Date | string | null
   uploadedBy?: Prisma.StringWithAggregatesFilter<"StorageFile"> | string
+  isEncrypted?: Prisma.BoolWithAggregatesFilter<"StorageFile"> | boolean
+  isProtected?: Prisma.BoolWithAggregatesFilter<"StorageFile"> | boolean
+  protectionHash?: Prisma.StringNullableWithAggregatesFilter<"StorageFile"> | string | null
+  isHidden?: Prisma.BoolWithAggregatesFilter<"StorageFile"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StorageFile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"StorageFile"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"StorageFile"> | Date | string | null
@@ -474,6 +522,10 @@ export type StorageFileCreateInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -501,6 +553,10 @@ export type StorageFileUncheckedCreateInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -524,6 +580,10 @@ export type StorageFileUpdateInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -551,6 +611,10 @@ export type StorageFileUncheckedUpdateInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -576,6 +640,10 @@ export type StorageFileCreateManyInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -597,6 +665,10 @@ export type StorageFileUpdateManyMutationInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -620,6 +692,10 @@ export type StorageFileUncheckedUpdateManyInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -659,6 +735,10 @@ export type StorageFileCountOrderByAggregateInput = {
   entityId?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   uploadedBy?: Prisma.SortOrder
+  isEncrypted?: Prisma.SortOrder
+  isProtected?: Prisma.SortOrder
+  protectionHash?: Prisma.SortOrder
+  isHidden?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -687,6 +767,10 @@ export type StorageFileMaxOrderByAggregateInput = {
   entityId?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   uploadedBy?: Prisma.SortOrder
+  isEncrypted?: Prisma.SortOrder
+  isProtected?: Prisma.SortOrder
+  protectionHash?: Prisma.SortOrder
+  isHidden?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -710,6 +794,10 @@ export type StorageFileMinOrderByAggregateInput = {
   entityId?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   uploadedBy?: Prisma.SortOrder
+  isEncrypted?: Prisma.SortOrder
+  isProtected?: Prisma.SortOrder
+  protectionHash?: Prisma.SortOrder
+  isHidden?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -857,6 +945,10 @@ export type StorageFileCreateWithoutTenantInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -882,6 +974,10 @@ export type StorageFileUncheckedCreateWithoutTenantInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -936,6 +1032,10 @@ export type StorageFileScalarWhereInput = {
   entityId?: Prisma.StringNullableFilter<"StorageFile"> | string | null
   expiresAt?: Prisma.DateTimeNullableFilter<"StorageFile"> | Date | string | null
   uploadedBy?: Prisma.StringFilter<"StorageFile"> | string
+  isEncrypted?: Prisma.BoolFilter<"StorageFile"> | boolean
+  isProtected?: Prisma.BoolFilter<"StorageFile"> | boolean
+  protectionHash?: Prisma.StringNullableFilter<"StorageFile"> | string | null
+  isHidden?: Prisma.BoolFilter<"StorageFile"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StorageFile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StorageFile"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"StorageFile"> | Date | string | null
@@ -957,6 +1057,10 @@ export type StorageFileCreateWithoutFolderInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -982,6 +1086,10 @@ export type StorageFileUncheckedCreateWithoutFolderInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1031,6 +1139,10 @@ export type StorageFileCreateWithoutVersionsInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1057,6 +1169,10 @@ export type StorageFileUncheckedCreateWithoutVersionsInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1095,6 +1211,10 @@ export type StorageFileUpdateWithoutVersionsInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1121,6 +1241,10 @@ export type StorageFileUncheckedUpdateWithoutVersionsInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1143,6 +1267,10 @@ export type StorageFileCreateWithoutShareLinksInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1169,6 +1297,10 @@ export type StorageFileUncheckedCreateWithoutShareLinksInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1207,6 +1339,10 @@ export type StorageFileUpdateWithoutShareLinksInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1233,6 +1369,10 @@ export type StorageFileUncheckedUpdateWithoutShareLinksInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1256,6 +1396,10 @@ export type StorageFileCreateManyTenantInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1277,6 +1421,10 @@ export type StorageFileUpdateWithoutTenantInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1302,6 +1450,10 @@ export type StorageFileUncheckedUpdateWithoutTenantInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1326,6 +1478,10 @@ export type StorageFileUncheckedUpdateManyWithoutTenantInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1348,6 +1504,10 @@ export type StorageFileCreateManyFolderInput = {
   entityId?: string | null
   expiresAt?: Date | string | null
   uploadedBy: string
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1369,6 +1529,10 @@ export type StorageFileUpdateWithoutFolderInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1394,6 +1558,10 @@ export type StorageFileUncheckedUpdateWithoutFolderInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1418,6 +1586,10 @@ export type StorageFileUncheckedUpdateManyWithoutFolderInput = {
   entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  isEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1481,6 +1653,10 @@ export type StorageFileSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   entityId?: boolean
   expiresAt?: boolean
   uploadedBy?: boolean
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: boolean
+  isHidden?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1509,6 +1685,10 @@ export type StorageFileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   entityId?: boolean
   expiresAt?: boolean
   uploadedBy?: boolean
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: boolean
+  isHidden?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1534,6 +1714,10 @@ export type StorageFileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   entityId?: boolean
   expiresAt?: boolean
   uploadedBy?: boolean
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: boolean
+  isHidden?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1559,12 +1743,16 @@ export type StorageFileSelectScalar = {
   entityId?: boolean
   expiresAt?: boolean
   uploadedBy?: boolean
+  isEncrypted?: boolean
+  isProtected?: boolean
+  protectionHash?: boolean
+  isHidden?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type StorageFileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "folderId" | "name" | "originalName" | "fileKey" | "path" | "size" | "mimeType" | "fileType" | "thumbnailKey" | "status" | "currentVersion" | "entityType" | "entityId" | "expiresAt" | "uploadedBy" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["storageFile"]>
+export type StorageFileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "folderId" | "name" | "originalName" | "fileKey" | "path" | "size" | "mimeType" | "fileType" | "thumbnailKey" | "status" | "currentVersion" | "entityType" | "entityId" | "expiresAt" | "uploadedBy" | "isEncrypted" | "isProtected" | "protectionHash" | "isHidden" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["storageFile"]>
 export type StorageFileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   folder?: boolean | Prisma.StorageFile$folderArgs<ExtArgs>
@@ -1607,6 +1795,10 @@ export type $StorageFilePayload<ExtArgs extends runtime.Types.Extensions.Interna
     entityId: string | null
     expiresAt: Date | null
     uploadedBy: string
+    isEncrypted: boolean
+    isProtected: boolean
+    protectionHash: string | null
+    isHidden: boolean
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -2054,6 +2246,10 @@ export interface StorageFileFieldRefs {
   readonly entityId: Prisma.FieldRef<"StorageFile", 'String'>
   readonly expiresAt: Prisma.FieldRef<"StorageFile", 'DateTime'>
   readonly uploadedBy: Prisma.FieldRef<"StorageFile", 'String'>
+  readonly isEncrypted: Prisma.FieldRef<"StorageFile", 'Boolean'>
+  readonly isProtected: Prisma.FieldRef<"StorageFile", 'Boolean'>
+  readonly protectionHash: Prisma.FieldRef<"StorageFile", 'String'>
+  readonly isHidden: Prisma.FieldRef<"StorageFile", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"StorageFile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"StorageFile", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"StorageFile", 'DateTime'>

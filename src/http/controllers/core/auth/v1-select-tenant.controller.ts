@@ -2,7 +2,10 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { logger } from '@/lib/logger';
 import { makeSelectTenantUseCase } from '@/use-cases/core/tenants/factories/make-select-tenant-use-case';
+import { makeCreatePersonalCalendarUseCase } from '@/use-cases/calendar/calendars/factories/make-create-personal-calendar-use-case';
+import { makeEnsureSystemCalendarsUseCase } from '@/use-cases/calendar/calendars/factories/make-ensure-system-calendars-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -56,6 +59,17 @@ export async function selectTenantController(app: FastifyInstance) {
           sessionId,
           isSuperAdmin,
           reply,
+        });
+
+        // Ensure personal calendar + system calendars exist (fire-and-forget, non-blocking)
+        Promise.all([
+          makeCreatePersonalCalendarUseCase().execute({ tenantId, userId }),
+          makeEnsureSystemCalendarsUseCase().execute({ tenantId }),
+        ]).catch((err) => {
+          logger.warn(
+            { err, tenantId, userId },
+            'Failed to ensure calendars on tenant selection',
+          );
         });
 
         return reply.status(200).send({ token, tenant });

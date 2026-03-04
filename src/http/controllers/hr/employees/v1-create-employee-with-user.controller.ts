@@ -12,6 +12,7 @@ import {
 import { employeeToDTO } from '@/mappers/hr/employee/employee-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateEmployeeWithUserUseCase } from '@/use-cases/hr/employees/factories/make-create-employee-with-user-use-case';
+import { makeCreatePersonalCalendarUseCase } from '@/use-cases/calendar/calendars/factories/make-create-personal-calendar-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -63,6 +64,11 @@ export async function createEmployeeWithUserController(app: FastifyInstance) {
           tenantId,
           ...data,
         });
+
+        // Create personal calendar for the new user
+        makeCreatePersonalCalendarUseCase()
+          .execute({ tenantId, userId: user.id.toString() })
+          .catch(() => {});
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.HR.EMPLOYEE_CREATE,

@@ -38,21 +38,29 @@ export class RespondToEventUseCase {
   ): Promise<RespondToEventResponse> {
     const { eventId, tenantId, userId, userName, status } = request;
 
-    const event = await this.calendarEventsRepository.findById(eventId, tenantId);
+    const event = await this.calendarEventsRepository.findById(
+      eventId,
+      tenantId,
+    );
     if (!event) {
       throw new ResourceNotFoundError('Event not found');
     }
 
-    const participant = await this.eventParticipantsRepository.findByEventAndUser(
-      eventId,
-      userId,
-    );
+    const participant =
+      await this.eventParticipantsRepository.findByEventAndUser(
+        eventId,
+        userId,
+      );
     if (!participant) {
-      throw new ResourceNotFoundError('You are not a participant of this event');
+      throw new ResourceNotFoundError(
+        'You are not a participant of this event',
+      );
     }
 
     if (participant.role === 'OWNER') {
-      throw new BadRequestError('Event owner cannot respond to their own event');
+      throw new BadRequestError(
+        'Event owner cannot respond to their own event',
+      );
     }
 
     const updated = await this.eventParticipantsRepository.updateStatus(
@@ -80,8 +88,14 @@ export class RespondToEventUseCase {
       };
 
       await Promise.allSettled([
-        createFromTemplate.execute({ ...notificationData, templateCode: 'calendar.event.rsvp' }),
-        createFromTemplate.execute({ ...notificationData, templateCode: 'calendar.event.rsvp.email' }),
+        createFromTemplate.execute({
+          ...notificationData,
+          templateCode: 'calendar.event.rsvp',
+        }),
+        createFromTemplate.execute({
+          ...notificationData,
+          templateCode: 'calendar.event.rsvp.email',
+        }),
       ]);
     } catch {
       // Notification failure should not block the response

@@ -51,7 +51,11 @@ export async function inviteParticipantsController(app: FastifyInstance) {
           : user.username || user.email;
 
         const getEventUseCase = makeGetCalendarEventByIdUseCase();
-        const { event } = await getEventUseCase.execute({ id: eventId, tenantId, userId });
+        const { event } = await getEventUseCase.execute({
+          id: eventId,
+          tenantId,
+          userId,
+        });
 
         const useCase = makeInviteParticipantsUseCase();
         const result = await useCase.execute({

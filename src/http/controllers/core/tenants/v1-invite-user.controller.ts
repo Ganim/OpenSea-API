@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeInviteUserToTenantUseCase } from '@/use-cases/core/tenants/factories/make-invite-user-to-tenant-use-case';
+import { makeCreatePersonalCalendarUseCase } from '@/use-cases/calendar/calendars/factories/make-create-personal-calendar-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
@@ -57,6 +58,11 @@ export async function inviteUserToTenantController(app: FastifyInstance) {
           userId,
           role,
         });
+
+        // Create personal calendar for the invited user
+        makeCreatePersonalCalendarUseCase()
+          .execute({ tenantId, userId })
+          .catch(() => {});
 
         return reply.status(201).send({ tenantUser });
       } catch (error) {

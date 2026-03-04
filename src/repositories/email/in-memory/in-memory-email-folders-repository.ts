@@ -1,9 +1,12 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { EmailFolder } from '@/entities/email/email-folder';
+import {
+  EmailFolder,
+  type EmailFolderType,
+} from '@/entities/email/email-folder';
 import type {
-    CreateEmailFolderSchema,
-    EmailFoldersRepository,
-    UpdateEmailFolderSchema,
+  CreateEmailFolderSchema,
+  EmailFoldersRepository,
+  UpdateEmailFolderSchema,
 } from '../email-folders-repository';
 
 export class InMemoryEmailFoldersRepository implements EmailFoldersRepository {
@@ -31,6 +34,17 @@ export class InMemoryEmailFoldersRepository implements EmailFoldersRepository {
       this.items.find(
         (item) =>
           item.id.toString() === id && item.accountId.toString() === accountId,
+      ) ?? null
+    );
+  }
+
+  async findByType(
+    accountId: string,
+    type: EmailFolderType,
+  ): Promise<EmailFolder | null> {
+    return (
+      this.items.find(
+        (item) => item.accountId.toString() === accountId && item.type === type,
       ) ?? null
     );
   }

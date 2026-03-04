@@ -27,6 +27,7 @@ export const participantStatusEnum = z.enum([
 
 export const createCalendarEventSchema = z
   .object({
+    calendarId: z.string().uuid().optional().nullable(),
     title: z.string().min(1).max(256),
     description: z.string().max(5000).optional().nullable(),
     location: z.string().max(512).optional().nullable(),
@@ -103,6 +104,10 @@ export const listCalendarEventsQuerySchema = z.object({
     .string()
     .transform((val) => val === 'true')
     .optional(),
+  calendarIds: z
+    .string()
+    .transform((val) => val.split(',').filter(Boolean))
+    .optional(),
   page: z.coerce.number().int().min(1).optional().default(1),
   limit: z.coerce.number().int().min(1).max(1000).optional().default(500),
 });
@@ -133,6 +138,7 @@ export const reminderResponseSchema = z.object({
 export const calendarEventResponseSchema = z.object({
   id: z.string().uuid(),
   tenantId: z.string().uuid(),
+  calendarId: z.string().uuid().optional().nullable(),
   title: z.string(),
   description: z.string().optional().nullable(),
   location: z.string().optional().nullable(),
@@ -171,6 +177,14 @@ export const inviteParticipantsSchema = z.object({
       }),
     )
     .min(1),
+});
+
+export const shareEventWithUsersSchema = z.object({
+  userIds: z.array(z.string().uuid()).min(1),
+});
+
+export const shareEventWithTeamSchema = z.object({
+  teamId: z.string().uuid(),
 });
 
 export const manageRemindersSchema = z.object({

@@ -144,6 +144,8 @@ export const ModelName = {
   StorageFileVersion: 'StorageFileVersion',
   FolderAccessRule: 'FolderAccessRule',
   StorageShareLink: 'StorageShareLink',
+  Calendar: 'Calendar',
+  TeamCalendarConfig: 'TeamCalendarConfig',
   CalendarEvent: 'CalendarEvent',
   EventParticipant: 'EventParticipant',
   EventReminder: 'EventReminder',
@@ -153,7 +155,8 @@ export const ModelName = {
   EmailMessage: 'EmailMessage',
   EmailAttachment: 'EmailAttachment',
   Team: 'Team',
-  TeamMember: 'TeamMember'
+  TeamMember: 'TeamMember',
+  TeamEmailAccount: 'TeamEmailAccount'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -287,6 +290,7 @@ export const PermissionGroupScalarFieldEnum = {
   isActive: 'isActive',
   color: 'color',
   priority: 'priority',
+  storageSettings: 'storageSettings',
   parentId: 'parentId',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
@@ -373,6 +377,8 @@ export const OrganizationScalarFieldEnum = {
   phoneAlt: 'phoneAlt',
   website: 'website',
   logoUrl: 'logoUrl',
+  cnpjHash: 'cnpjHash',
+  cpfHash: 'cpfHash',
   typeSpecificData: 'typeSpecificData',
   metadata: 'metadata',
   notes: 'notes',
@@ -454,6 +460,7 @@ export const OrganizationStakeholderScalarFieldEnum = {
   organizationId: 'organizationId',
   name: 'name',
   cpf: 'cpf',
+  cpfHash: 'cpfHash',
   role: 'role',
   qualification: 'qualification',
   entryDate: 'entryDate',
@@ -484,6 +491,8 @@ export const SupplierScalarFieldEnum = {
   city: 'city',
   state: 'state',
   zipCode: 'zipCode',
+  cnpjHash: 'cnpjHash',
+  emailHash: 'emailHash',
   country: 'country',
   paymentTerms: 'paymentTerms',
   rating: 'rating',
@@ -513,6 +522,7 @@ export const ManufacturerScalarFieldEnum = {
   city: 'city',
   state: 'state',
   zipCode: 'zipCode',
+  cnpjHash: 'cnpjHash',
   isActive: 'isActive',
   notes: 'notes',
   rating: 'rating',
@@ -946,6 +956,8 @@ export const CustomerScalarFieldEnum = {
   city: 'city',
   state: 'state',
   zipCode: 'zipCode',
+  documentHash: 'documentHash',
+  emailHash: 'emailHash',
   country: 'country',
   notes: 'notes',
   isActive: 'isActive',
@@ -1218,6 +1230,11 @@ export const EmployeeScalarFieldEnum = {
   city: 'city',
   state: 'state',
   zipCode: 'zipCode',
+  cpfHash: 'cpfHash',
+  rgHash: 'rgHash',
+  pisHash: 'pisHash',
+  pixKeyHash: 'pixKeyHash',
+  bankAccountHash: 'bankAccountHash',
   country: 'country',
   bankCode: 'bankCode',
   bankName: 'bankName',
@@ -1505,6 +1522,7 @@ export const CompanyScalarFieldEnum = {
   phoneMain: 'phoneMain',
   phoneAlt: 'phoneAlt',
   logoUrl: 'logoUrl',
+  cnpjHash: 'cnpjHash',
   metadata: 'metadata',
   pendingIssues: 'pendingIssues',
   deletedAt: 'deletedAt',
@@ -1687,6 +1705,7 @@ export const TenantUserScalarFieldEnum = {
   tenantId: 'tenantId',
   userId: 'userId',
   role: 'role',
+  securityKeyHash: 'securityKeyHash',
   joinedAt: 'joinedAt',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
@@ -1744,6 +1763,8 @@ export const BankAccountScalarFieldEnum = {
   pixKeyType: 'pixKeyType',
   pixKey: 'pixKey',
   currentBalance: 'currentBalance',
+  accountNumberHash: 'accountNumberHash',
+  pixKeyHash: 'pixKeyHash',
   balanceUpdatedAt: 'balanceUpdatedAt',
   color: 'color',
   isDefault: 'isDefault',
@@ -1964,6 +1985,9 @@ export const StorageFolderScalarFieldEnum = {
   entityId: 'entityId',
   depth: 'depth',
   createdBy: 'createdBy',
+  isProtected: 'isProtected',
+  protectionHash: 'protectionHash',
+  isHidden: 'isHidden',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -1990,6 +2014,10 @@ export const StorageFileScalarFieldEnum = {
   entityId: 'entityId',
   expiresAt: 'expiresAt',
   uploadedBy: 'uploadedBy',
+  isEncrypted: 'isEncrypted',
+  isProtected: 'isProtected',
+  protectionHash: 'protectionHash',
+  isHidden: 'isHidden',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -2019,6 +2047,7 @@ export const FolderAccessRuleScalarFieldEnum = {
   folderId: 'folderId',
   userId: 'userId',
   groupId: 'groupId',
+  teamId: 'teamId',
   canRead: 'canRead',
   canWrite: 'canWrite',
   canDelete: 'canDelete',
@@ -2049,9 +2078,57 @@ export const StorageShareLinkScalarFieldEnum = {
 export type StorageShareLinkScalarFieldEnum = (typeof StorageShareLinkScalarFieldEnum)[keyof typeof StorageShareLinkScalarFieldEnum]
 
 
+export const CalendarScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  color: 'color',
+  type: 'type',
+  ownerId: 'ownerId',
+  systemModule: 'systemModule',
+  isDefault: 'isDefault',
+  settings: 'settings',
+  createdBy: 'createdBy',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CalendarScalarFieldEnum = (typeof CalendarScalarFieldEnum)[keyof typeof CalendarScalarFieldEnum]
+
+
+export const TeamCalendarConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  teamId: 'teamId',
+  calendarId: 'calendarId',
+  ownerCanRead: 'ownerCanRead',
+  ownerCanCreate: 'ownerCanCreate',
+  ownerCanEdit: 'ownerCanEdit',
+  ownerCanDelete: 'ownerCanDelete',
+  ownerCanShare: 'ownerCanShare',
+  adminCanRead: 'adminCanRead',
+  adminCanCreate: 'adminCanCreate',
+  adminCanEdit: 'adminCanEdit',
+  adminCanDelete: 'adminCanDelete',
+  adminCanShare: 'adminCanShare',
+  memberCanRead: 'memberCanRead',
+  memberCanCreate: 'memberCanCreate',
+  memberCanEdit: 'memberCanEdit',
+  memberCanDelete: 'memberCanDelete',
+  memberCanShare: 'memberCanShare',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamCalendarConfigScalarFieldEnum = (typeof TeamCalendarConfigScalarFieldEnum)[keyof typeof TeamCalendarConfigScalarFieldEnum]
+
+
 export const CalendarEventScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
+  calendarId: 'calendarId',
   title: 'title',
   description: 'description',
   location: 'location',
@@ -2235,6 +2312,28 @@ export const TeamMemberScalarFieldEnum = {
 } as const
 
 export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
+
+
+export const TeamEmailAccountScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  teamId: 'teamId',
+  accountId: 'accountId',
+  ownerCanRead: 'ownerCanRead',
+  ownerCanSend: 'ownerCanSend',
+  ownerCanManage: 'ownerCanManage',
+  adminCanRead: 'adminCanRead',
+  adminCanSend: 'adminCanSend',
+  adminCanManage: 'adminCanManage',
+  memberCanRead: 'memberCanRead',
+  memberCanSend: 'memberCanSend',
+  memberCanManage: 'memberCanManage',
+  linkedBy: 'linkedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamEmailAccountScalarFieldEnum = (typeof TeamEmailAccountScalarFieldEnum)[keyof typeof TeamEmailAccountScalarFieldEnum]
 
 
 export const SortOrder = {

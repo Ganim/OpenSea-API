@@ -53,6 +53,16 @@ export const folderContentsQuerySchema = z.object({
     .optional()
     .default('name'),
   search: z.string().max(256).optional(),
+  viewAll: z
+    .enum(['true', 'false'])
+    .optional()
+    .default('false')
+    .transform((v) => v === 'true'),
+  showHidden: z
+    .enum(['true', 'false'])
+    .optional()
+    .default('false')
+    .transform((v) => v === 'true'),
 });
 
 // ============================================================================
@@ -76,6 +86,8 @@ export const storageFolderResponseSchema = z.object({
   entityId: z.string().optional().nullable(),
   depth: z.number().int(),
   createdBy: z.string().uuid().nullable(),
+  isProtected: z.boolean(),
+  isHidden: z.boolean(),
   fileCount: z.number().int().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),

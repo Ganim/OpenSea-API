@@ -47,6 +47,7 @@ export class MarkContemplatedUseCase {
 
     const updated = await this.consortiaRepository.update({
       id: new UniqueEntityID(id),
+      tenantId,
       isContemplated: true,
       contemplatedAt,
       contemplationType,

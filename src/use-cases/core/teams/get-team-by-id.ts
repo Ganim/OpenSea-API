@@ -32,7 +32,9 @@ export class GetTeamByIdUseCase {
     }
 
     const membersCount = await this.teamMembersRepository.countByTeam(team.id);
-    const creatorsMap = await this.teamsRepository.resolveCreatorNames([team.createdBy.toString()]);
+    const creatorsMap = await this.teamsRepository.resolveCreatorNames([
+      team.createdBy.toString(),
+    ]);
     const creatorName = creatorsMap.get(team.createdBy.toString()) ?? null;
 
     return {

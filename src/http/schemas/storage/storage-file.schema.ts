@@ -60,6 +60,9 @@ export const storageFileResponseSchema = z.object({
   entityId: z.string().optional().nullable(),
   expiresAt: z.coerce.date().optional().nullable(),
   uploadedBy: z.string(),
+  isEncrypted: z.boolean(),
+  isProtected: z.boolean(),
+  isHidden: z.boolean(),
   versions: z
     .array(
       z.object({

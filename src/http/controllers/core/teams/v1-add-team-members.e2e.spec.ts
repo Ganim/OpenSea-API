@@ -20,11 +20,15 @@ describe('Add Team Member (E2E)', () => {
   });
 
   it('should add a member to the team', async () => {
-    const { token, user: ownerUser } = await createAndAuthenticateUser(app, { tenantId });
+    const { token, user: ownerUser } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
     const ownerId = ownerUser.user.id;
     const team = await createTeam(tenantId, ownerId);
 
-    const { user: memberUser } = await createAndAuthenticateUser(app, { tenantId });
+    const { user: memberUser } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
     const memberId = memberUser.user.id;
 
     const response = await request(app.server)
@@ -39,11 +43,15 @@ describe('Add Team Member (E2E)', () => {
   });
 
   it('should add a member with ADMIN role', async () => {
-    const { token, user: ownerUser } = await createAndAuthenticateUser(app, { tenantId });
+    const { token, user: ownerUser } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
     const ownerId = ownerUser.user.id;
     const team = await createTeam(tenantId, ownerId);
 
-    const { user: memberUser } = await createAndAuthenticateUser(app, { tenantId });
+    const { user: memberUser } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
     const memberId = memberUser.user.id;
 
     const response = await request(app.server)
@@ -56,11 +64,15 @@ describe('Add Team Member (E2E)', () => {
   });
 
   it('should reject duplicate member', async () => {
-    const { token, user: ownerUser } = await createAndAuthenticateUser(app, { tenantId });
+    const { token, user: ownerUser } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
     const ownerId = ownerUser.user.id;
     const team = await createTeam(tenantId, ownerId);
 
-    const { user: memberUser } = await createAndAuthenticateUser(app, { tenantId });
+    const { user: memberUser } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
     const memberId = memberUser.user.id;
 
     await request(app.server)
@@ -78,7 +90,9 @@ describe('Add Team Member (E2E)', () => {
   });
 
   it('should return 404 for non-existent team', async () => {
-    const { token, user: memberUser } = await createAndAuthenticateUser(app, { tenantId });
+    const { token, user: memberUser } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
 
     const response = await request(app.server)
       .post('/v1/teams/00000000-0000-0000-0000-000000000000/members')

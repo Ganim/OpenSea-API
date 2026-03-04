@@ -15,6 +15,7 @@ describe('CreateCalendarEventUseCase', () => {
     const { event } = await sut.execute({
       tenantId: 'tenant-1',
       userId: 'user-1',
+      calendarId: 'calendar-1',
       title: 'Team Meeting',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -31,6 +32,7 @@ describe('CreateCalendarEventUseCase', () => {
       sut.execute({
         tenantId: 'tenant-1',
         userId: 'user-1',
+        calendarId: 'calendar-1',
         title: '',
         startDate: new Date('2026-03-01T10:00:00'),
         endDate: new Date('2026-03-01T11:00:00'),
@@ -43,6 +45,7 @@ describe('CreateCalendarEventUseCase', () => {
       sut.execute({
         tenantId: 'tenant-1',
         userId: 'user-1',
+        calendarId: 'calendar-1',
         title: 'Test',
         startDate: new Date('2026-03-01T11:00:00'),
         endDate: new Date('2026-03-01T10:00:00'),
@@ -54,6 +57,7 @@ describe('CreateCalendarEventUseCase', () => {
     const { event } = await sut.execute({
       tenantId: 'tenant-1',
       userId: 'user-1',
+      calendarId: 'calendar-1',
       title: 'Simple Event',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),

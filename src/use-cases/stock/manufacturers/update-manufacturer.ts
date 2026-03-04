@@ -119,6 +119,7 @@ export class UpdateManufacturerUseCase {
     // Update manufacturer
     const updatedManufacturer = await this.manufacturersRepository.update({
       id: new UniqueEntityID(id),
+      tenantId,
       name,
       legalName,
       cnpj,

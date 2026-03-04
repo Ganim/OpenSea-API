@@ -26,6 +26,7 @@ export interface CalendarEventReminderDTO {
 export interface CalendarEventDTO {
   id: string;
   tenantId: string;
+  calendarId: string | null;
   title: string;
   description: string | null;
   location: string | null;
@@ -63,6 +64,7 @@ export function calendarEventToDTO(
   return {
     id: event.id.toString(),
     tenantId: event.tenantId.toString(),
+    calendarId: event.calendarId,
     title: event.title,
     description: event.description,
     location: event.location,

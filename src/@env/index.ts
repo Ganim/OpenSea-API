@@ -44,6 +44,13 @@ const envSchema = z.object({
   S3_SECRET_ACCESS_KEY: z.string().optional(),
   S3_BUCKET: z.string().default('opensea-attachments'),
   S3_REGION: z.string().default('auto'),
+
+  // Storage encryption (AES-256-GCM) — 256-bit key, hex-encoded (64 hex chars)
+  STORAGE_ENCRYPTION_KEY: z.string().length(64).optional(),
+
+  // Field-level encryption (AES-256-GCM) for PII/sensitive data
+  FIELD_ENCRYPTION_KEY: z.string().length(64).optional(),
+  FIELD_HMAC_KEY: z.string().min(16).optional(),
 });
 
 const _env = envSchema.safeParse(process.env);

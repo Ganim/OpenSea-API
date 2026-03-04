@@ -24,6 +24,7 @@ export interface CreateConsortiumSchema {
 
 export interface UpdateConsortiumSchema {
   id: UniqueEntityID;
+  tenantId?: string;
   name?: string;
   administrator?: string;
   contractNumber?: string | null;
@@ -57,5 +58,5 @@ export interface ConsortiaRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<Consortium | null>;
   findMany(options: FindManyConsortiaOptions): Promise<FindManyConsortiaResult>;
   update(data: UpdateConsortiumSchema): Promise<Consortium | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

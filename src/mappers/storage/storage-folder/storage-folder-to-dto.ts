@@ -16,6 +16,8 @@ export interface StorageFolderDTO {
   entityType: string | null;
   entityId: string | null;
   depth: number;
+  isProtected: boolean;
+  isHidden: boolean;
   createdBy: string | null;
   fileCount?: number;
   createdAt: Date;
@@ -42,6 +44,8 @@ export function storageFolderToDTO(
     entityType: folder.entityType,
     entityId: folder.entityId,
     depth: folder.depth,
+    isProtected: folder.isProtected,
+    isHidden: folder.isHidden,
     createdBy: folder.createdBy,
     fileCount,
     createdAt: folder.createdAt,

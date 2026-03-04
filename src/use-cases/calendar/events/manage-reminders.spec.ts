@@ -14,10 +14,15 @@ describe('ManageRemindersUseCase', () => {
     eventsRepo = new InMemoryCalendarEventsRepository();
     participantsRepo = new InMemoryEventParticipantsRepository();
     remindersRepo = new InMemoryEventRemindersRepository();
-    sut = new ManageRemindersUseCase(eventsRepo, participantsRepo, remindersRepo);
+    sut = new ManageRemindersUseCase(
+      eventsRepo,
+      participantsRepo,
+      remindersRepo,
+    );
 
     await eventsRepo.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Team Meeting',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -31,6 +36,7 @@ describe('ManageRemindersUseCase', () => {
       userId: 'user-owner',
       role: 'OWNER',
       status: 'ACCEPTED',
+      tenantId: 'tenant-1',
     });
   });
 

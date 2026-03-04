@@ -28,6 +28,9 @@ export interface UpdateStorageFolderSchema {
   color?: string | null;
   parentId?: string | null;
   depth?: number;
+  isProtected?: boolean;
+  protectionHash?: string | null;
+  isHidden?: boolean;
 }
 
 export interface StorageFoldersRepository {

@@ -46,13 +46,19 @@ export async function removeParticipantController(app: FastifyInstance) {
 
       try {
         const getUserByIdUseCase = makeGetUserByIdUseCase();
-        const { user } = await getUserByIdUseCase.execute({ userId: currentUserId });
+        const { user } = await getUserByIdUseCase.execute({
+          userId: currentUserId,
+        });
         const userName = user.profile?.name
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
         const getEventUseCase = makeGetCalendarEventByIdUseCase();
-        const { event } = await getEventUseCase.execute({ id: eventId, tenantId, userId: currentUserId });
+        const { event } = await getEventUseCase.execute({
+          id: eventId,
+          tenantId,
+          userId: currentUserId,
+        });
 
         const useCase = makeRemoveParticipantUseCase();
         const result = await useCase.execute({
@@ -65,7 +71,11 @@ export async function removeParticipantController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.CALENDAR.PARTICIPANT_REMOVE,
           entityId: eventId,
-          placeholders: { userName, participantName: participantUserId, eventTitle: event.title },
+          placeholders: {
+            userName,
+            participantName: participantUserId,
+            eventTitle: event.title,
+          },
         });
 
         return reply.status(200).send(result);

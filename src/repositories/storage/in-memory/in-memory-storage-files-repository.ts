@@ -31,6 +31,7 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
       entityId: data.entityId ?? null,
       expiresAt: data.expiresAt ?? null,
       uploadedBy: data.uploadedBy,
+      isEncrypted: data.isEncrypted ?? false,
     });
 
     this.items.push(file);
@@ -82,8 +83,11 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
       if (item.deletedAt !== null) return false;
       if (item.tenantId.toString() !== params.tenantId) return false;
 
-      if (params.folderId && item.folderId?.toString() !== params.folderId)
-        return false;
+      if (params.folderId) {
+        if (item.folderId?.toString() !== params.folderId) return false;
+      } else if (params.folderId === null) {
+        if (item.folderId !== null) return false;
+      }
       if (params.fileType && item.fileType !== params.fileType) return false;
       if (params.entityType && item.entityType !== params.entityType)
         return false;
@@ -98,6 +102,11 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
           .includes(searchTerm);
         if (!matchesName && !matchesOriginalName) return false;
       }
+
+      if (params.uploadedBy && item.uploadedBy !== params.uploadedBy)
+        return false;
+
+      if (!params.showHidden && item.props.isHidden) return false;
 
       return true;
     });
@@ -169,6 +178,13 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
     if (data.fileKey !== undefined) file.props.fileKey = data.fileKey;
     if (data.size !== undefined) file.props.size = data.size;
     if (data.mimeType !== undefined) file.props.mimeType = data.mimeType;
+    if (data.isEncrypted !== undefined)
+      file.props.isEncrypted = data.isEncrypted;
+    if (data.isProtected !== undefined)
+      file.props.isProtected = data.isProtected;
+    if (data.protectionHash !== undefined)
+      file.props.protectionHash = data.protectionHash;
+    if (data.isHidden !== undefined) file.props.isHidden = data.isHidden;
 
     return file;
   }
@@ -230,7 +246,8 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
       if (
         item.deletedAt === null &&
         item.tenantId.toString() === tenantId &&
-        item.folderId !== null && folderIds.includes(item.folderId.toString())
+        item.folderId !== null &&
+        folderIds.includes(item.folderId.toString())
       ) {
         item.delete();
         count++;
@@ -241,7 +258,10 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
 
   async countByFolder(folderId: UniqueEntityID): Promise<number> {
     return this.items.filter(
-      (item) => item.deletedAt === null && item.folderId !== null && item.folderId.equals(folderId),
+      (item) =>
+        item.deletedAt === null &&
+        item.folderId !== null &&
+        item.folderId.equals(folderId),
     ).length;
   }
 

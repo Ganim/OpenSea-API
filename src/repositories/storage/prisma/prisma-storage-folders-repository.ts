@@ -176,6 +176,13 @@ export class PrismaStorageFoldersRepository
         ...(data.color !== undefined && { color: data.color }),
         ...(data.parentId !== undefined && { parentId: data.parentId }),
         ...(data.depth !== undefined && { depth: data.depth }),
+        ...(data.isProtected !== undefined && {
+          isProtected: data.isProtected,
+        }),
+        ...(data.protectionHash !== undefined && {
+          protectionHash: data.protectionHash,
+        }),
+        ...(data.isHidden !== undefined && { isHidden: data.isHidden }),
       },
     });
 

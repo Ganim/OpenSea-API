@@ -55,15 +55,21 @@ export async function completeMultipartUploadController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
-      const { key, uploadId, parts, fileName, mimeType, fileSize } =
-        request.body as {
-          key: string;
-          uploadId: string;
-          parts: Array<{ partNumber: number; etag: string }>;
-          fileName: string;
-          mimeType: string;
-          fileSize: number;
-        };
+      const {
+        key,
+        uploadId,
+        parts,
+        fileName: _fileName,
+        mimeType,
+        fileSize,
+      } = request.body as {
+        key: string;
+        uploadId: string;
+        parts: Array<{ partNumber: number; etag: string }>;
+        fileName: string;
+        mimeType: string;
+        fileSize: number;
+      };
 
       try {
         const fileUploadService = env.S3_ENDPOINT
@@ -107,7 +113,8 @@ export async function abortMultipartUploadController(app: FastifyInstance) {
     schema: {
       tags: ['Storage - Files'],
       summary: 'Abort a multipart upload',
-      description: 'Aborts an in-progress multipart upload and cleans up uploaded parts.',
+      description:
+        'Aborts an in-progress multipart upload and cleans up uploaded parts.',
       security: [{ bearerAuth: [] }],
       body: z.object({
         key: z.string().min(1),
@@ -134,7 +141,7 @@ export async function abortMultipartUploadController(app: FastifyInstance) {
 
         await fileUploadService.abortMultipartUpload(key, uploadId);
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

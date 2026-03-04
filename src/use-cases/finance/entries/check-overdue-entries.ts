@@ -48,6 +48,7 @@ export class CheckOverdueEntriesUseCase {
     for (const entry of actuallyOverdue) {
       await this.financeEntriesRepository.update({
         id: entry.id,
+        tenantId,
         status: 'OVERDUE',
       });
       markedOverdue++;

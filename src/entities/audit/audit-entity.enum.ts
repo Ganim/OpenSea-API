@@ -139,6 +139,14 @@ export enum AuditEntity {
   TEAM_MEMBER = 'TEAM_MEMBER',
 
   // ==========================================
+  // Calendar - Agenda
+  // ==========================================
+  CALENDAR = 'CALENDAR',
+  CALENDAR_EVENT = 'CALENDAR_EVENT',
+  EVENT_PARTICIPANT = 'EVENT_PARTICIPANT',
+  EVENT_REMINDER = 'EVENT_REMINDER',
+
+  // ==========================================
   // Storage - Armazenamento
   // ==========================================
   STORAGE_FOLDER = 'STORAGE_FOLDER',

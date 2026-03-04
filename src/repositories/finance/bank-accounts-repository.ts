@@ -20,6 +20,7 @@ export interface CreateBankAccountSchema {
 
 export interface UpdateBankAccountSchema {
   id: UniqueEntityID;
+  tenantId: string;
   name?: string;
   bankName?: string;
   agency?: string;
@@ -39,5 +40,5 @@ export interface BankAccountsRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<BankAccount | null>;
   findMany(tenantId: string): Promise<BankAccount[]>;
   update(data: UpdateBankAccountSchema): Promise<BankAccount | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

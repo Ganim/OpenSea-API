@@ -59,10 +59,7 @@ export async function downloadFolderController(app: FastifyInstance) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
-        if (
-          error instanceof Error &&
-          error.message.includes('limite')
-        ) {
+        if (error instanceof Error && error.message.includes('limite')) {
           return reply.status(400).send({ message: error.message });
         }
         throw error;

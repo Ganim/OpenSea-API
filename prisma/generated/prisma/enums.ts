@@ -291,6 +291,10 @@ export const AuditAction = {
   ACCESS_REVOKE: 'ACCESS_REVOKE',
   BULK_MOVE: 'BULK_MOVE',
   BULK_DELETE: 'BULK_DELETE',
+  ITEM_PROTECT: 'ITEM_PROTECT',
+  ITEM_UNPROTECT: 'ITEM_UNPROTECT',
+  ITEM_HIDE: 'ITEM_HIDE',
+  ITEM_UNHIDE: 'ITEM_UNHIDE',
   PAYMENT_REGISTER: 'PAYMENT_REGISTER',
   PAYMENT_CANCEL: 'PAYMENT_CANCEL',
   ENTRY_CANCEL: 'ENTRY_CANCEL',
@@ -846,6 +850,15 @@ export const TeamMemberRole = {
 } as const
 
 export type TeamMemberRole = (typeof TeamMemberRole)[keyof typeof TeamMemberRole]
+
+
+export const CalendarType = {
+  PERSONAL: 'PERSONAL',
+  TEAM: 'TEAM',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type CalendarType = (typeof CalendarType)[keyof typeof CalendarType]
 
 
 export const EventType = {

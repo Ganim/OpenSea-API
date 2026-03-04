@@ -17,10 +17,24 @@ describe('DeleteTeamUseCase', () => {
 
   it('should soft-delete a team', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
 
-    await sut.execute({ tenantId: 'tenant-1', teamId: team.id.toString(), userId: 'user-1' });
+    await sut.execute({
+      tenantId: 'tenant-1',
+      teamId: team.id.toString(),
+      userId: 'user-1',
+    });
 
     const found = await teamsRepository.findById(tenantId, team.id);
     expect(found).toBeNull();
@@ -28,36 +42,77 @@ describe('DeleteTeamUseCase', () => {
 
   it('should reject deletion by non-owner', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-2'), role: 'ADMIN' });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-2'),
+      role: 'ADMIN',
+    });
 
     await expect(
-      sut.execute({ tenantId: 'tenant-1', teamId: team.id.toString(), userId: 'user-2' }),
+      sut.execute({
+        tenantId: 'tenant-1',
+        teamId: team.id.toString(),
+        userId: 'user-2',
+      }),
     ).rejects.toThrow('Only team owners can delete the team');
   });
 
   it('should reject deletion by regular member', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-3'), role: 'MEMBER' });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-3'),
+      role: 'MEMBER',
+    });
 
     await expect(
-      sut.execute({ tenantId: 'tenant-1', teamId: team.id.toString(), userId: 'user-3' }),
+      sut.execute({
+        tenantId: 'tenant-1',
+        teamId: team.id.toString(),
+        userId: 'user-3',
+      }),
     ).rejects.toThrow('Only team owners can delete the team');
   });
 
   it('should throw if team not found', async () => {
     await expect(
-      sut.execute({ tenantId: 'tenant-1', teamId: 'non-existent', userId: 'user-1' }),
+      sut.execute({
+        tenantId: 'tenant-1',
+        teamId: 'non-existent',
+        userId: 'user-1',
+      }),
     ).rejects.toThrow('Team not found');
   });
 
   it('should reject deletion by non-member', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
 
     await expect(
-      sut.execute({ tenantId: 'tenant-1', teamId: team.id.toString(), userId: 'user-5' }),
+      sut.execute({
+        tenantId: 'tenant-1',
+        teamId: team.id.toString(),
+        userId: 'user-5',
+      }),
     ).rejects.toThrow('Only team owners can delete the team');
   });
 });

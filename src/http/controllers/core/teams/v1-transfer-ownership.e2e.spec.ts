@@ -91,9 +91,7 @@ describe('Transfer Team Ownership (E2E)', () => {
 
   it('should return 401 without token', async () => {
     const response = await request(app.server)
-      .post(
-        '/v1/teams/00000000-0000-0000-0000-000000000000/transfer-ownership',
-      )
+      .post('/v1/teams/00000000-0000-0000-0000-000000000000/transfer-ownership')
       .send({ userId: '00000000-0000-0000-0000-000000000001' });
 
     expect(response.status).toBe(401);

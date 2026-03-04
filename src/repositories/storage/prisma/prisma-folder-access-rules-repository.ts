@@ -17,6 +17,7 @@ export class PrismaFolderAccessRulesRepository
         folderId: data.folderId,
         userId: data.userId ?? null,
         groupId: data.groupId ?? null,
+        teamId: data.teamId ?? null,
         canRead: data.canRead ?? true,
         canWrite: data.canWrite ?? false,
         canDelete: data.canDelete ?? false,
@@ -104,6 +105,21 @@ export class PrismaFolderAccessRulesRepository
     return folderAccessRulePrismaToDomain(ruleDb);
   }
 
+  async findByFolderAndTeam(
+    folderId: UniqueEntityID,
+    teamId: UniqueEntityID,
+  ): Promise<FolderAccessRule | null> {
+    const ruleDb = await prisma.folderAccessRule.findFirst({
+      where: {
+        folderId: folderId.toString(),
+        teamId: teamId.toString(),
+      },
+    });
+
+    if (!ruleDb) return null;
+    return folderAccessRulePrismaToDomain(ruleDb);
+  }
+
   async deleteRule(id: UniqueEntityID): Promise<void> {
     await prisma.folderAccessRule.delete({
       where: { id: id.toString() },
@@ -123,6 +139,7 @@ export class PrismaFolderAccessRulesRepository
     folderId: UniqueEntityID,
     userId: UniqueEntityID | null,
     groupId: UniqueEntityID | null,
+    teamId?: UniqueEntityID | null,
   ): Promise<void> {
     const whereCondition: Record<string, unknown> = {
       folderId: folderId.toString(),
@@ -135,6 +152,10 @@ export class PrismaFolderAccessRulesRepository
 
     if (groupId) {
       whereCondition.groupId = groupId.toString();
+    }
+
+    if (teamId) {
+      whereCondition.teamId = teamId.toString();
     }
 
     await prisma.folderAccessRule.deleteMany({

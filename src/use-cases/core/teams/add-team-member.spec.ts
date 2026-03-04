@@ -2,23 +2,44 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { AddTeamMemberUseCase } from './add-team-member';
 import { InMemoryTeamsRepository } from '@/repositories/core/in-memory/in-memory-teams-repository';
 import { InMemoryTeamMembersRepository } from '@/repositories/core/in-memory/in-memory-team-members-repository';
+import { InMemoryTeamEmailAccountsRepository } from '@/repositories/core/in-memory/in-memory-team-email-accounts-repository';
+import { InMemoryEmailAccountsRepository } from '@/repositories/email/in-memory/in-memory-email-accounts-repository';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 
 let teamsRepository: InMemoryTeamsRepository;
 let teamMembersRepository: InMemoryTeamMembersRepository;
+let teamEmailAccountsRepository: InMemoryTeamEmailAccountsRepository;
+let emailAccountsRepository: InMemoryEmailAccountsRepository;
 let sut: AddTeamMemberUseCase;
 
 describe('AddTeamMemberUseCase', () => {
   beforeEach(() => {
     teamsRepository = new InMemoryTeamsRepository();
     teamMembersRepository = new InMemoryTeamMembersRepository();
-    sut = new AddTeamMemberUseCase(teamsRepository, teamMembersRepository);
+    teamEmailAccountsRepository = new InMemoryTeamEmailAccountsRepository();
+    emailAccountsRepository = new InMemoryEmailAccountsRepository();
+    sut = new AddTeamMemberUseCase(
+      teamsRepository,
+      teamMembersRepository,
+      teamEmailAccountsRepository,
+      emailAccountsRepository,
+    );
   });
 
   it('should add a member to a team', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
 
     const { member } = await sut.execute({
       tenantId: 'tenant-1',
@@ -33,8 +54,18 @@ describe('AddTeamMemberUseCase', () => {
 
   it('should add a member with ADMIN role', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
 
     const { member } = await sut.execute({
       tenantId: 'tenant-1',
@@ -49,8 +80,18 @@ describe('AddTeamMemberUseCase', () => {
 
   it('should reject if requesting user is not OWNER/ADMIN', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-3'), role: 'MEMBER' });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-3'),
+      role: 'MEMBER',
+    });
 
     await expect(
       sut.execute({
@@ -64,9 +105,23 @@ describe('AddTeamMemberUseCase', () => {
 
   it('should reject adding existing member', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-2') });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-2'),
+    });
 
     await expect(
       sut.execute({
@@ -80,8 +135,18 @@ describe('AddTeamMemberUseCase', () => {
 
   it('should reject OWNER role assignment', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
 
     await expect(
       sut.execute({

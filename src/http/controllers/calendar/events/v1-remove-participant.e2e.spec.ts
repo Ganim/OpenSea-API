@@ -68,36 +68,32 @@ describe('Remove Participant (E2E)', () => {
     expect(response.body).toHaveProperty('message');
   });
 
-  it(
-    'should reject removal by non-owner',
-    async () => {
-      const { user: ownerUser } = await createAndAuthenticateUser(app, {
-        tenantId,
-      });
-      const { token: user2Token, user: user2 } =
-        await createAndAuthenticateUser(app, { tenantId });
-      const { user: user3 } = await createAndAuthenticateUser(app, {
-        tenantId,
-      });
+  it('should reject removal by non-owner', async () => {
+    const { user: ownerUser } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
+    const { token: user2Token, user: user2 } = await createAndAuthenticateUser(
+      app,
+      { tenantId },
+    );
+    const { user: user3 } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
 
-      const event = await createCalendarEvent(tenantId, ownerUser.user.id);
+    const event = await createCalendarEvent(tenantId, ownerUser.user.id);
 
-      // Add user2 and user3 as participants directly in DB
-      await createEventParticipant(event.id, user2.user.id, tenantId);
-      await createEventParticipant(event.id, user3.user.id, tenantId);
+    // Add user2 and user3 as participants directly in DB
+    await createEventParticipant(event.id, user2.user.id, tenantId);
+    await createEventParticipant(event.id, user3.user.id, tenantId);
 
-      // user2 (non-owner) tries to remove user3
-      const response = await request(app.server)
-        .delete(
-          `/v1/calendar/events/${event.id}/participants/${user3.user.id}`,
-        )
-        .set('Authorization', `Bearer ${user2Token}`);
+    // user2 (non-owner) tries to remove user3
+    const response = await request(app.server)
+      .delete(`/v1/calendar/events/${event.id}/participants/${user3.user.id}`)
+      .set('Authorization', `Bearer ${user2Token}`);
 
-      expect(response.status).toBe(400);
-      expect(response.body).toHaveProperty('message');
-    },
-    15000,
-  );
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message');
+  }, 15000);
 
   it('should return 401 without token', async () => {
     const fakeEventId = randomUUID();

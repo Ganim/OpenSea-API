@@ -50,11 +50,12 @@ export async function addTeamMembersController(app: FastifyInstance) {
       const { userId: targetUserId, role } = request.body;
 
       try {
-        const [{ user: requestingUser }, { user: targetUser }, { team }] = await Promise.all([
-          makeGetUserByIdUseCase().execute({ userId }),
-          makeGetUserByIdUseCase().execute({ userId: targetUserId }),
-          makeGetTeamByIdUseCase().execute({ tenantId, teamId }),
-        ]);
+        const [{ user: requestingUser }, { user: targetUser }, { team }] =
+          await Promise.all([
+            makeGetUserByIdUseCase().execute({ userId }),
+            makeGetUserByIdUseCase().execute({ userId: targetUserId }),
+            makeGetTeamByIdUseCase().execute({ tenantId, teamId }),
+          ]);
         const userName = requestingUser.profile?.name
           ? `${requestingUser.profile.name} ${requestingUser.profile.surname || ''}`.trim()
           : requestingUser.username || requestingUser.email;
@@ -74,7 +75,12 @@ export async function addTeamMembersController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.CORE.TEAM_MEMBER_ADD,
           entityId: result.member.id,
-          placeholders: { userName, memberName, teamName: team.name, teamColor: team.color },
+          placeholders: {
+            userName,
+            memberName,
+            teamName: team.name,
+            teamColor: team.color,
+          },
           newData: { userId: targetUserId, role: role ?? 'MEMBER' },
           affectedUserId: targetUserId,
         });

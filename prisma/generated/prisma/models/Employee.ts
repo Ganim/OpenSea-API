@@ -72,6 +72,11 @@ export type EmployeeMinAggregateOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  cpfHash: string | null
+  rgHash: string | null
+  pisHash: string | null
+  pixKeyHash: string | null
+  bankAccountHash: string | null
   country: string | null
   bankCode: string | null
   bankName: string | null
@@ -133,6 +138,11 @@ export type EmployeeMaxAggregateOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  cpfHash: string | null
+  rgHash: string | null
+  pisHash: string | null
+  pixKeyHash: string | null
+  bankAccountHash: string | null
   country: string | null
   bankCode: string | null
   bankName: string | null
@@ -196,6 +206,11 @@ export type EmployeeCountAggregateOutputType = {
   city: number
   state: number
   zipCode: number
+  cpfHash: number
+  rgHash: number
+  pisHash: number
+  pixKeyHash: number
+  bankAccountHash: number
   country: number
   bankCode: number
   bankName: number
@@ -271,6 +286,11 @@ export type EmployeeMinAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  cpfHash?: true
+  rgHash?: true
+  pisHash?: true
+  pixKeyHash?: true
+  bankAccountHash?: true
   country?: true
   bankCode?: true
   bankName?: true
@@ -332,6 +352,11 @@ export type EmployeeMaxAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  cpfHash?: true
+  rgHash?: true
+  pisHash?: true
+  pixKeyHash?: true
+  bankAccountHash?: true
   country?: true
   bankCode?: true
   bankName?: true
@@ -395,6 +420,11 @@ export type EmployeeCountAggregateInputType = {
   city?: true
   state?: true
   zipCode?: true
+  cpfHash?: true
+  rgHash?: true
+  pisHash?: true
+  pixKeyHash?: true
+  bankAccountHash?: true
   country?: true
   bankCode?: true
   bankName?: true
@@ -547,6 +577,11 @@ export type EmployeeGroupByOutputType = {
   city: string | null
   state: string | null
   zipCode: string | null
+  cpfHash: string | null
+  rgHash: string | null
+  pisHash: string | null
+  pixKeyHash: string | null
+  bankAccountHash: string | null
   country: string
   bankCode: string | null
   bankName: string | null
@@ -635,6 +670,11 @@ export type EmployeeWhereInput = {
   city?: Prisma.StringNullableFilter<"Employee"> | string | null
   state?: Prisma.StringNullableFilter<"Employee"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cpfHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  rgHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  pisHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  pixKeyHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  bankAccountHash?: Prisma.StringNullableFilter<"Employee"> | string | null
   country?: Prisma.StringFilter<"Employee"> | string
   bankCode?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankName?: Prisma.StringNullableFilter<"Employee"> | string | null
@@ -717,6 +757,11 @@ export type EmployeeOrderByWithRelationInput = {
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   state?: Prisma.SortOrderInput | Prisma.SortOrder
   zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  cpfHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  rgHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  pisHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  pixKeyHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  bankAccountHash?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrder
   bankCode?: Prisma.SortOrderInput | Prisma.SortOrder
   bankName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -805,6 +850,11 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   city?: Prisma.StringNullableFilter<"Employee"> | string | null
   state?: Prisma.StringNullableFilter<"Employee"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cpfHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  rgHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  pisHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  pixKeyHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  bankAccountHash?: Prisma.StringNullableFilter<"Employee"> | string | null
   country?: Prisma.StringFilter<"Employee"> | string
   bankCode?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankName?: Prisma.StringNullableFilter<"Employee"> | string | null
@@ -887,6 +937,11 @@ export type EmployeeOrderByWithAggregationInput = {
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   state?: Prisma.SortOrderInput | Prisma.SortOrder
   zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  cpfHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  rgHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  pisHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  pixKeyHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  bankAccountHash?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrder
   bankCode?: Prisma.SortOrderInput | Prisma.SortOrder
   bankName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -960,6 +1015,11 @@ export type EmployeeScalarWhereWithAggregatesInput = {
   city?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   state?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   zipCode?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  cpfHash?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  rgHash?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  pisHash?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  pixKeyHash?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  bankAccountHash?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   country?: Prisma.StringWithAggregatesFilter<"Employee"> | string
   bankCode?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   bankName?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
@@ -1023,6 +1083,11 @@ export type EmployeeCreateInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -1100,6 +1165,11 @@ export type EmployeeUncheckedCreateInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -1173,6 +1243,11 @@ export type EmployeeUpdateInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1250,6 +1325,11 @@ export type EmployeeUncheckedUpdateInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1325,6 +1405,11 @@ export type EmployeeCreateManyInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -1388,6 +1473,11 @@ export type EmployeeUpdateManyMutationInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1448,6 +1538,11 @@ export type EmployeeUncheckedUpdateManyInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1497,13 +1592,13 @@ export type EmployeeEmployees_registration_tenant_unique_activeCompoundUniqueInp
 }
 
 export type EmployeeEmployees_cpf_tenant_unique_activeCompoundUniqueInput = {
-  cpf: string
+  cpfHash: string
   tenantId: string
   deletedAt: Date | string
 }
 
 export type EmployeeEmployees_pis_tenant_unique_activeCompoundUniqueInput = {
-  pis: string
+  pisHash: string
   tenantId: string
   deletedAt: Date | string
 }
@@ -1546,6 +1641,11 @@ export type EmployeeCountOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  cpfHash?: Prisma.SortOrder
+  rgHash?: Prisma.SortOrder
+  pisHash?: Prisma.SortOrder
+  pixKeyHash?: Prisma.SortOrder
+  bankAccountHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
   bankCode?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
@@ -1614,6 +1714,11 @@ export type EmployeeMaxOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  cpfHash?: Prisma.SortOrder
+  rgHash?: Prisma.SortOrder
+  pisHash?: Prisma.SortOrder
+  pixKeyHash?: Prisma.SortOrder
+  bankAccountHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
   bankCode?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
@@ -1675,6 +1780,11 @@ export type EmployeeMinOrderByAggregateInput = {
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
+  cpfHash?: Prisma.SortOrder
+  rgHash?: Prisma.SortOrder
+  pisHash?: Prisma.SortOrder
+  pixKeyHash?: Prisma.SortOrder
+  bankAccountHash?: Prisma.SortOrder
   country?: Prisma.SortOrder
   bankCode?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
@@ -2186,6 +2296,11 @@ export type EmployeeCreateWithoutUserInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -2261,6 +2376,11 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -2350,6 +2470,11 @@ export type EmployeeUpdateWithoutUserInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2425,6 +2550,11 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2498,6 +2628,11 @@ export type EmployeeCreateWithoutOrganizationInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -2574,6 +2709,11 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -2677,6 +2817,11 @@ export type EmployeeScalarWhereInput = {
   city?: Prisma.StringNullableFilter<"Employee"> | string | null
   state?: Prisma.StringNullableFilter<"Employee"> | string | null
   zipCode?: Prisma.StringNullableFilter<"Employee"> | string | null
+  cpfHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  rgHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  pisHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  pixKeyHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  bankAccountHash?: Prisma.StringNullableFilter<"Employee"> | string | null
   country?: Prisma.StringFilter<"Employee"> | string
   bankCode?: Prisma.StringNullableFilter<"Employee"> | string | null
   bankName?: Prisma.StringNullableFilter<"Employee"> | string | null
@@ -2740,6 +2885,11 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -2816,6 +2966,11 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -2893,6 +3048,11 @@ export type EmployeeCreateWithoutSupervisorInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -2969,6 +3129,11 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -3062,6 +3227,11 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3138,6 +3308,11 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3226,6 +3401,11 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -3302,6 +3482,11 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -3379,6 +3564,11 @@ export type EmployeeCreateWithoutDepartmentInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -3455,6 +3645,11 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -3548,6 +3743,11 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3624,6 +3824,11 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3712,6 +3917,11 @@ export type EmployeeCreateWithoutPositionInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -3788,6 +3998,11 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -3886,6 +4101,11 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -3962,6 +4182,11 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -4050,6 +4275,11 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4126,6 +4356,11 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4198,6 +4433,11 @@ export type EmployeeCreateWithoutOvertimeInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -4274,6 +4514,11 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -4362,6 +4607,11 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4438,6 +4688,11 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4510,6 +4765,11 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -4586,6 +4846,11 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -4674,6 +4939,11 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4750,6 +5020,11 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4822,6 +5097,11 @@ export type EmployeeCreateWithoutAbsencesInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -4898,6 +5178,11 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -4986,6 +5271,11 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5062,6 +5352,11 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5134,6 +5429,11 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -5210,6 +5510,11 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -5298,6 +5603,11 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5374,6 +5684,11 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5446,6 +5761,11 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -5522,6 +5842,11 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -5610,6 +5935,11 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5686,6 +6016,11 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5758,6 +6093,11 @@ export type EmployeeCreateWithoutBonusesInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -5834,6 +6174,11 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -5922,6 +6267,11 @@ export type EmployeeUpdateWithoutBonusesInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5998,6 +6348,11 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6070,6 +6425,11 @@ export type EmployeeCreateWithoutDeductionsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -6146,6 +6506,11 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -6234,6 +6599,11 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6310,6 +6680,11 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6382,6 +6757,11 @@ export type EmployeeCreateWithoutCompanyInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -6458,6 +6838,11 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -6556,6 +6941,11 @@ export type EmployeeCreateWithoutTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -6631,6 +7021,11 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -6732,6 +7127,11 @@ export type EmployeeCreateManyOrganizationInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -6794,6 +7194,11 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6870,6 +7275,11 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6944,6 +7354,11 @@ export type EmployeeUncheckedUpdateManyWithoutOrganizationInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7008,6 +7423,11 @@ export type EmployeeCreateManySupervisorInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -7070,6 +7490,11 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7146,6 +7571,11 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7220,6 +7650,11 @@ export type EmployeeUncheckedUpdateManyWithoutSupervisorInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7284,6 +7719,11 @@ export type EmployeeCreateManyDepartmentInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -7346,6 +7786,11 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7422,6 +7867,11 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7496,6 +7946,11 @@ export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7560,6 +8015,11 @@ export type EmployeeCreateManyPositionInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -7622,6 +8082,11 @@ export type EmployeeUpdateWithoutPositionInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7698,6 +8163,11 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7772,6 +8242,11 @@ export type EmployeeUncheckedUpdateManyWithoutPositionInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7836,6 +8311,11 @@ export type EmployeeCreateManyCompanyInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -7898,6 +8378,11 @@ export type EmployeeUpdateWithoutCompanyInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7974,6 +8459,11 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8048,6 +8538,11 @@ export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8111,6 +8606,11 @@ export type EmployeeCreateManyTenantInput = {
   city?: string | null
   state?: string | null
   zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
   country?: string
   bankCode?: string | null
   bankName?: string | null
@@ -8174,6 +8674,11 @@ export type EmployeeUpdateWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8249,6 +8754,11 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8323,6 +8833,11 @@ export type EmployeeUncheckedUpdateManyWithoutTenantInput = {
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8500,6 +9015,11 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cpfHash?: boolean
+  rgHash?: boolean
+  pisHash?: boolean
+  pixKeyHash?: boolean
+  bankAccountHash?: boolean
   country?: boolean
   bankCode?: boolean
   bankName?: boolean
@@ -8583,6 +9103,11 @@ export type EmployeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cpfHash?: boolean
+  rgHash?: boolean
+  pisHash?: boolean
+  pixKeyHash?: boolean
+  bankAccountHash?: boolean
   country?: boolean
   bankCode?: boolean
   bankName?: boolean
@@ -8655,6 +9180,11 @@ export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cpfHash?: boolean
+  rgHash?: boolean
+  pisHash?: boolean
+  pixKeyHash?: boolean
+  bankAccountHash?: boolean
   country?: boolean
   bankCode?: boolean
   bankName?: boolean
@@ -8727,6 +9257,11 @@ export type EmployeeSelectScalar = {
   city?: boolean
   state?: boolean
   zipCode?: boolean
+  cpfHash?: boolean
+  rgHash?: boolean
+  pisHash?: boolean
+  pixKeyHash?: boolean
+  bankAccountHash?: boolean
   country?: boolean
   bankCode?: boolean
   bankName?: boolean
@@ -8754,7 +9289,7 @@ export type EmployeeSelectScalar = {
   companyId?: boolean
 }
 
-export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "registrationNumber" | "userId" | "fullName" | "socialName" | "birthDate" | "gender" | "pcd" | "maritalStatus" | "nationality" | "birthPlace" | "emergencyContactInfo" | "healthConditions" | "cpf" | "rg" | "rgIssuer" | "rgIssueDate" | "pis" | "ctpsNumber" | "ctpsSeries" | "ctpsState" | "voterTitle" | "militaryDoc" | "email" | "personalEmail" | "phone" | "mobilePhone" | "emergencyContact" | "emergencyPhone" | "address" | "addressNumber" | "complement" | "neighborhood" | "city" | "state" | "zipCode" | "country" | "bankCode" | "bankName" | "bankAgency" | "bankAccount" | "bankAccountType" | "pixKey" | "departmentId" | "positionId" | "supervisorId" | "organizationId" | "hireDate" | "terminationDate" | "status" | "baseSalary" | "contractType" | "workRegime" | "weeklyHours" | "photoUrl" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["employee"]>
+export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "registrationNumber" | "userId" | "fullName" | "socialName" | "birthDate" | "gender" | "pcd" | "maritalStatus" | "nationality" | "birthPlace" | "emergencyContactInfo" | "healthConditions" | "cpf" | "rg" | "rgIssuer" | "rgIssueDate" | "pis" | "ctpsNumber" | "ctpsSeries" | "ctpsState" | "voterTitle" | "militaryDoc" | "email" | "personalEmail" | "phone" | "mobilePhone" | "emergencyContact" | "emergencyPhone" | "address" | "addressNumber" | "complement" | "neighborhood" | "city" | "state" | "zipCode" | "cpfHash" | "rgHash" | "pisHash" | "pixKeyHash" | "bankAccountHash" | "country" | "bankCode" | "bankName" | "bankAgency" | "bankAccount" | "bankAccountType" | "pixKey" | "departmentId" | "positionId" | "supervisorId" | "organizationId" | "hireDate" | "terminationDate" | "status" | "baseSalary" | "contractType" | "workRegime" | "weeklyHours" | "photoUrl" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["employee"]>
 export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Employee$userArgs<ExtArgs>
@@ -8853,6 +9388,11 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     city: string | null
     state: string | null
     zipCode: string | null
+    cpfHash: string | null
+    rgHash: string | null
+    pisHash: string | null
+    pixKeyHash: string | null
+    bankAccountHash: string | null
     country: string
     bankCode: string | null
     bankName: string | null
@@ -9355,6 +9895,11 @@ export interface EmployeeFieldRefs {
   readonly city: Prisma.FieldRef<"Employee", 'String'>
   readonly state: Prisma.FieldRef<"Employee", 'String'>
   readonly zipCode: Prisma.FieldRef<"Employee", 'String'>
+  readonly cpfHash: Prisma.FieldRef<"Employee", 'String'>
+  readonly rgHash: Prisma.FieldRef<"Employee", 'String'>
+  readonly pisHash: Prisma.FieldRef<"Employee", 'String'>
+  readonly pixKeyHash: Prisma.FieldRef<"Employee", 'String'>
+  readonly bankAccountHash: Prisma.FieldRef<"Employee", 'String'>
   readonly country: Prisma.FieldRef<"Employee", 'String'>
   readonly bankCode: Prisma.FieldRef<"Employee", 'String'>
   readonly bankName: Prisma.FieldRef<"Employee", 'String'>

@@ -18,6 +18,9 @@ export interface StorageFolderProps {
   entityType: string | null;
   entityId: string | null;
   depth: number;
+  isProtected: boolean;
+  protectionHash: string | null;
+  isHidden: boolean;
   createdBy: string | null;
   createdAt: Date;
   updatedAt: Date;
@@ -84,6 +87,18 @@ export class StorageFolder extends Entity<StorageFolderProps> {
 
   get depth(): number {
     return this.props.depth;
+  }
+
+  get isProtected(): boolean {
+    return this.props.isProtected;
+  }
+
+  get protectionHash(): string | null {
+    return this.props.protectionHash;
+  }
+
+  get isHidden(): boolean {
+    return this.props.isHidden;
   }
 
   get createdBy(): string | null {
@@ -163,6 +178,21 @@ export class StorageFolder extends Entity<StorageFolderProps> {
     this.touch();
   }
 
+  set isProtected(isProtected: boolean) {
+    this.props.isProtected = isProtected;
+    this.touch();
+  }
+
+  set protectionHash(protectionHash: string | null) {
+    this.props.protectionHash = protectionHash;
+    this.touch();
+  }
+
+  set isHidden(isHidden: boolean) {
+    this.props.isHidden = isHidden;
+    this.touch();
+  }
+
   set deletedAt(deletedAt: Date | null) {
     this.props.deletedAt = deletedAt;
     this.touch();
@@ -226,6 +256,9 @@ export class StorageFolder extends Entity<StorageFolderProps> {
       | 'entityType'
       | 'entityId'
       | 'depth'
+      | 'isProtected'
+      | 'protectionHash'
+      | 'isHidden'
       | 'createdBy'
     >,
     id?: UniqueEntityID,
@@ -244,6 +277,9 @@ export class StorageFolder extends Entity<StorageFolderProps> {
         entityType: props.entityType ?? null,
         entityId: props.entityId ?? null,
         depth: props.depth ?? 0,
+        isProtected: props.isProtected ?? false,
+        protectionHash: props.protectionHash ?? null,
+        isHidden: props.isHidden ?? false,
         createdBy: props.createdBy ?? null,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),

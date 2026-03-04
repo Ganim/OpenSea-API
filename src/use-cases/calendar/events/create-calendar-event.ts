@@ -2,14 +2,13 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import {
   type CalendarEventDTO,
   calendarEventToDTO,
-  type CalendarEventParticipantDTO,
-  type CalendarEventReminderDTO,
 } from '@/mappers/calendar/calendar-event/calendar-event-to-dto';
 import type { CalendarEventsRepository } from '@/repositories/calendar/calendar-events-repository';
 
 interface CreateCalendarEventRequest {
   tenantId: string;
   userId: string;
+  calendarId: string;
   title: string;
   description?: string | null;
   location?: string | null;
@@ -63,6 +62,7 @@ export class CreateCalendarEventUseCase {
 
     const event = await this.calendarEventsRepository.create({
       tenantId,
+      calendarId: request.calendarId,
       title: title.trim(),
       description: request.description,
       location: request.location,

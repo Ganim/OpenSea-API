@@ -20,6 +20,6 @@ export class DeleteLoanUseCase {
       throw new ResourceNotFoundError('Loan not found');
     }
 
-    await this.loansRepository.delete(new UniqueEntityID(id));
+    await this.loansRepository.delete(new UniqueEntityID(id), tenantId);
   }
 }

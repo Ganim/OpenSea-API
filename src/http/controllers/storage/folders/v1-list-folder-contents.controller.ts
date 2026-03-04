@@ -9,6 +9,7 @@ import {
   storageFileResponseSchema,
 } from '@/http/schemas/storage';
 import { storageFolderToDTO, storageFileToDTO } from '@/mappers/storage';
+import { prisma } from '@/lib/prisma';
 import { makeListUserPermissionsUseCase } from '@/use-cases/rbac/factories';
 import { makeListFolderContentsUseCase } from '@/use-cases/storage/folders/factories/make-list-folder-contents-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -54,7 +55,7 @@ export async function listFolderContentsController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
-      const { page, limit, search } = request.query;
+      const { page, limit, search, viewAll, showHidden } = request.query;
 
       const folderId = id === 'root' ? undefined : id;
 
@@ -78,6 +79,17 @@ export async function listFolderContentsController(app: FastifyInstance) {
           'storage.filter-folders.list',
         );
 
+        // Fetch user's team IDs for visibility filtering
+        const teamMembers = await prisma.teamMember.findMany({
+          where: {
+            userId: request.user.sub,
+            tenantId,
+            team: { deletedAt: null, isActive: true },
+          },
+          select: { teamId: true },
+        });
+        const userTeamIds = teamMembers.map((m) => m.teamId);
+
         const listFolderContentsUseCase = makeListFolderContentsUseCase();
         const { folders, files, totalFolders, totalFiles, total } =
           await listFolderContentsUseCase.execute({
@@ -87,13 +99,55 @@ export async function listFolderContentsController(app: FastifyInstance) {
             limit,
             search,
             userId: request.user.sub,
+            userTeamIds,
             isAdmin: request.user.isSuperAdmin === true,
+            viewAll: viewAll && request.user.isSuperAdmin === true,
             canViewSystemFolders,
             canViewFilterFolders,
+            showHidden,
           });
 
+        // Batch-count children (files + subfolders) per folder in 2 queries
+        const folderIds = folders.map((f) => f.folderId.toString());
+        const itemCountMap = new Map<string, number>();
+
+        if (folderIds.length > 0) {
+          const [fileCounts, subfolderCounts] = await Promise.all([
+            prisma.storageFile.groupBy({
+              by: ['folderId'],
+              where: { folderId: { in: folderIds }, deletedAt: null },
+              _count: true,
+            }),
+            prisma.storageFolder.groupBy({
+              by: ['parentId'],
+              where: { parentId: { in: folderIds }, deletedAt: null },
+              _count: true,
+            }),
+          ]);
+
+          for (const row of fileCounts) {
+            if (row.folderId) {
+              itemCountMap.set(
+                row.folderId,
+                (itemCountMap.get(row.folderId) ?? 0) + row._count,
+              );
+            }
+          }
+          for (const row of subfolderCounts) {
+            if (row.parentId) {
+              itemCountMap.set(
+                row.parentId,
+                (itemCountMap.get(row.parentId) ?? 0) + row._count,
+              );
+            }
+          }
+        }
+
         return reply.status(200).send({
-          folders: folders.map((folder) => storageFolderToDTO(folder)),
+          folders: folders.map((folder) => {
+            const fid = folder.folderId.toString();
+            return storageFolderToDTO(folder, itemCountMap.get(fid) ?? 0);
+          }),
           files: files.map(storageFileToDTO),
           totalFolders,
           totalFiles,

@@ -1,5 +1,8 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+
+// Carrega as variáveis do .env (sem prefixo = todas as vars)
+const envVars = loadEnv('', process.cwd(), '');
 
 export default defineConfig({
   plugins: [tsconfigPaths()],
@@ -26,20 +29,32 @@ export default defineConfig({
         test: {
           name: 'e2e',
           dir: 'src/http/controllers',
-          include: ['**/*.spec.ts', '**/*.e2e.spec.ts', '**/*.e2e-spec.ts'],
+          include: ['**/*.e2e.spec.ts', '**/*.e2e-spec.ts'],
           exclude: [],
           setupFiles: ['./prisma/vitest-setup-e2e.ts'],
           env: {
+            ...envVars,
             NODE_ENV: 'test',
           },
-          // Cada arquivo de teste roda em processo isolado
-          // com seu próprio schema PostgreSQL (criado pelo setupFile)
+          // singleFork: true → todos os specs compartilham um único processo fork.
+          // O app Fastify é inicializado UMA vez pelo primeiro spec; specs
+          // subsequentes chamam app.ready() e retornam instantaneamente (já pronto).
+          // Isso evita cold-start de TypeScript/Fastify em cada spec (~130s/spec).
+          //
+          // execArgv: --stack-size=16384 → aumenta o stack do V8 de ~1MB para 16MB.
+          // Necessário pois o Fastify com ~450+ plugins causa stack overflow durante
+          // a inicialização recursiva via avvio/fastq. Com stack grande, pluginTimeout
+          // pode ser definido (não-zero) para evitar hang eterno se algo falhar.
+          //
+          // fileParallelism: false → arquivos executam sequencialmente, evitando
+          // contention do advisory lock do PostgreSQL no prisma migrate deploy.
           testTimeout: 30000,
-          hookTimeout: 30000,
+          hookTimeout: 300000,
           pool: 'forks',
           poolOptions: {
             forks: {
               singleFork: true,
+              execArgv: ['--stack-size=16384'],
             },
           },
           fileParallelism: false,

@@ -32,7 +32,8 @@ describe('ProcessDueRemindersUseCase', () => {
       code: 'calendar.event.reminder',
       name: 'Calendar Event Reminder',
       titleTemplate: 'Lembrete de evento',
-      messageTemplate: 'Lembrete: "{{eventTitle}}" começa em {{minutesBefore}} minutos',
+      messageTemplate:
+        'Lembrete: "{{eventTitle}}" começa em {{minutesBefore}} minutos',
       defaultChannel: 'IN_APP',
     });
 
@@ -41,6 +42,7 @@ describe('ProcessDueRemindersUseCase', () => {
 
     await eventsRepo.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Team Meeting',
       startDate: eventStart,
       endDate: new Date('2026-03-01T11:00:00'),
@@ -51,6 +53,7 @@ describe('ProcessDueRemindersUseCase', () => {
 
     // 15-minute reminder → due at 09:45 (now=09:50 → due)
     await remindersRepo.create({
+      tenantId: 'tenant-1',
       eventId,
       userId: 'user-owner',
       minutesBefore: 15,
@@ -58,6 +61,7 @@ describe('ProcessDueRemindersUseCase', () => {
 
     // 30-minute reminder → due at 09:30 (now=09:50 → due)
     await remindersRepo.create({
+      tenantId: 'tenant-1',
       eventId,
       userId: 'user-guest',
       minutesBefore: 30,

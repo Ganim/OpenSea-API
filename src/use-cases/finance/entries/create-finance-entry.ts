@@ -165,7 +165,7 @@ export class CreateFinanceEntryUseCase {
         await this.calendarSyncService.syncFinanceEntry({
           tenantId,
           entryId: entry.id.toString(),
-          entryType: type,
+          entryType: type as 'PAYABLE' | 'RECEIVABLE',
           description: description.trim(),
           dueDate: request.dueDate,
           userId: request.createdBy ?? entry.id.toString(),
@@ -257,7 +257,7 @@ export class CreateFinanceEntryUseCase {
           await this.calendarSyncService.syncFinanceEntry({
             tenantId: request.tenantId,
             entryId: installmentEntry.id.toString(),
-            entryType: request.type,
+            entryType: request.type as 'PAYABLE' | 'RECEIVABLE',
             description: `${request.description.trim()} (${i}/${request.totalInstallments})`,
             dueDate: installmentDueDate,
             userId: request.createdBy ?? installmentEntry.id.toString(),
@@ -315,7 +315,7 @@ export class CreateFinanceEntryUseCase {
         await this.calendarSyncService.syncFinanceEntry({
           tenantId: request.tenantId,
           entryId: occurrence.id.toString(),
-          entryType: request.type,
+          entryType: request.type as 'PAYABLE' | 'RECEIVABLE',
           description: `${request.description.trim()} (1)`,
           dueDate: request.dueDate,
           userId: request.createdBy ?? occurrence.id.toString(),

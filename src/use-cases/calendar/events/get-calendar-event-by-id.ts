@@ -25,23 +25,27 @@ export class GetCalendarEventByIdUseCase {
   async execute(
     request: GetCalendarEventByIdRequest,
   ): Promise<GetCalendarEventByIdResponse> {
-    const event = await this.calendarEventsRepository.findById(
+    const result = await this.calendarEventsRepository.findByIdWithRelations(
       request.id,
       request.tenantId,
     );
 
-    if (!event) {
+    if (!result) {
       throw new ResourceNotFoundError('Event not found');
     }
 
+    const { event, creatorName, participants, reminders } = result;
+
     // For private events, show limited info to non-creators and non-participants
     if (event.isPrivate && event.createdBy.toString() !== request.userId) {
-      const participant = await this.eventParticipantsRepository.findByEventAndUser(
-        event.id.toString(),
-        request.userId,
-      );
+      const isParticipant =
+        participants.some((p) => p.userId === request.userId) ||
+        !!(await this.eventParticipantsRepository.findByEventAndUser(
+          event.id.toString(),
+          request.userId,
+        ));
 
-      if (!participant) {
+      if (!isParticipant) {
         // Return a "busy" placeholder for private events
         const dto = calendarEventToDTO(event);
         return {
@@ -58,6 +62,12 @@ export class GetCalendarEventByIdUseCase {
       }
     }
 
-    return { event: calendarEventToDTO(event) };
+    return {
+      event: calendarEventToDTO(event, {
+        creatorName,
+        participants,
+        reminders,
+      }),
+    };
   }
 }

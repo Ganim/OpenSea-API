@@ -14,6 +14,7 @@ describe('UpdateCalendarEventUseCase', () => {
   it('should update a calendar event', async () => {
     const created = await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Original Title',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -44,6 +45,7 @@ describe('UpdateCalendarEventUseCase', () => {
   it('should reject update of system event', async () => {
     const created = await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'System Event',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -65,6 +67,7 @@ describe('UpdateCalendarEventUseCase', () => {
   it('should reject update by non-creator', async () => {
     const created = await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'My Event',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -85,6 +88,7 @@ describe('UpdateCalendarEventUseCase', () => {
     it('should not update event from another tenant', async () => {
       const created = await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Tenant 1 Event',
         startDate: new Date('2026-03-01T10:00:00'),
         endDate: new Date('2026-03-01T11:00:00'),

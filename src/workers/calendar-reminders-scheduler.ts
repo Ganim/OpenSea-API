@@ -26,7 +26,10 @@ async function processBatch() {
 try {
   await processBatch();
   setInterval(processBatch, INTERVAL_MS);
-  logger.info({ interval: INTERVAL_MS }, 'Calendar reminders scheduler worker started successfully');
+  logger.info(
+    { interval: INTERVAL_MS },
+    'Calendar reminders scheduler worker started successfully',
+  );
 } catch {
   logger.error('Failed to start calendar reminders scheduler worker');
 }

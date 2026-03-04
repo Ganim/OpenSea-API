@@ -20,6 +20,7 @@ export interface CreateAbsenceSchema {
 
 export interface UpdateAbsenceSchema {
   id: UniqueEntityID;
+  tenantId?: string;
   status?: string;
   reason?: string;
   documentUrl?: string;
@@ -75,5 +76,5 @@ export interface AbsencesRepository {
   ): Promise<number>;
   update(data: UpdateAbsenceSchema): Promise<Absence | null>;
   save(absence: Absence): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

@@ -483,6 +483,16 @@ export type FolderAccessRule = Prisma.FolderAccessRuleModel
  */
 export type StorageShareLink = Prisma.StorageShareLinkModel
 /**
+ * Model Calendar
+ * 
+ */
+export type Calendar = Prisma.CalendarModel
+/**
+ * Model TeamCalendarConfig
+ * 
+ */
+export type TeamCalendarConfig = Prisma.TeamCalendarConfigModel
+/**
  * Model CalendarEvent
  * 
  */
@@ -532,3 +542,8 @@ export type Team = Prisma.TeamModel
  * 
  */
 export type TeamMember = Prisma.TeamMemberModel
+/**
+ * Model TeamEmailAccount
+ * 
+ */
+export type TeamEmailAccount = Prisma.TeamEmailAccountModel

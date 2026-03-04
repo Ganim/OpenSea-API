@@ -50,6 +50,8 @@ export type BankAccountMinAggregateOutputType = {
   pixKeyType: string | null
   pixKey: string | null
   currentBalance: runtime.Decimal | null
+  accountNumberHash: string | null
+  pixKeyHash: string | null
   balanceUpdatedAt: Date | null
   color: string | null
   isDefault: boolean | null
@@ -74,6 +76,8 @@ export type BankAccountMaxAggregateOutputType = {
   pixKeyType: string | null
   pixKey: string | null
   currentBalance: runtime.Decimal | null
+  accountNumberHash: string | null
+  pixKeyHash: string | null
   balanceUpdatedAt: Date | null
   color: string | null
   isDefault: boolean | null
@@ -98,6 +102,8 @@ export type BankAccountCountAggregateOutputType = {
   pixKeyType: number
   pixKey: number
   currentBalance: number
+  accountNumberHash: number
+  pixKeyHash: number
   balanceUpdatedAt: number
   color: number
   isDefault: number
@@ -132,6 +138,8 @@ export type BankAccountMinAggregateInputType = {
   pixKeyType?: true
   pixKey?: true
   currentBalance?: true
+  accountNumberHash?: true
+  pixKeyHash?: true
   balanceUpdatedAt?: true
   color?: true
   isDefault?: true
@@ -156,6 +164,8 @@ export type BankAccountMaxAggregateInputType = {
   pixKeyType?: true
   pixKey?: true
   currentBalance?: true
+  accountNumberHash?: true
+  pixKeyHash?: true
   balanceUpdatedAt?: true
   color?: true
   isDefault?: true
@@ -180,6 +190,8 @@ export type BankAccountCountAggregateInputType = {
   pixKeyType?: true
   pixKey?: true
   currentBalance?: true
+  accountNumberHash?: true
+  pixKeyHash?: true
   balanceUpdatedAt?: true
   color?: true
   isDefault?: true
@@ -291,6 +303,8 @@ export type BankAccountGroupByOutputType = {
   pixKeyType: string | null
   pixKey: string | null
   currentBalance: runtime.Decimal
+  accountNumberHash: string | null
+  pixKeyHash: string | null
   balanceUpdatedAt: Date | null
   color: string | null
   isDefault: boolean
@@ -338,6 +352,8 @@ export type BankAccountWhereInput = {
   pixKeyType?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   pixKey?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   currentBalance?: Prisma.DecimalFilter<"BankAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  pixKeyHash?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   balanceUpdatedAt?: Prisma.DateTimeNullableFilter<"BankAccount"> | Date | string | null
   color?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   isDefault?: Prisma.BoolFilter<"BankAccount"> | boolean
@@ -370,6 +386,8 @@ export type BankAccountOrderByWithRelationInput = {
   pixKeyType?: Prisma.SortOrderInput | Prisma.SortOrder
   pixKey?: Prisma.SortOrderInput | Prisma.SortOrder
   currentBalance?: Prisma.SortOrder
+  accountNumberHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  pixKeyHash?: Prisma.SortOrderInput | Prisma.SortOrder
   balanceUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   isDefault?: Prisma.SortOrder
@@ -406,6 +424,8 @@ export type BankAccountWhereUniqueInput = Prisma.AtLeast<{
   pixKeyType?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   pixKey?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   currentBalance?: Prisma.DecimalFilter<"BankAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  pixKeyHash?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   balanceUpdatedAt?: Prisma.DateTimeNullableFilter<"BankAccount"> | Date | string | null
   color?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   isDefault?: Prisma.BoolFilter<"BankAccount"> | boolean
@@ -438,6 +458,8 @@ export type BankAccountOrderByWithAggregationInput = {
   pixKeyType?: Prisma.SortOrderInput | Prisma.SortOrder
   pixKey?: Prisma.SortOrderInput | Prisma.SortOrder
   currentBalance?: Prisma.SortOrder
+  accountNumberHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  pixKeyHash?: Prisma.SortOrderInput | Prisma.SortOrder
   balanceUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   isDefault?: Prisma.SortOrder
@@ -470,6 +492,8 @@ export type BankAccountScalarWhereWithAggregatesInput = {
   pixKeyType?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
   pixKey?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
   currentBalance?: Prisma.DecimalWithAggregatesFilter<"BankAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+  pixKeyHash?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
   balanceUpdatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"BankAccount"> | Date | string | null
   color?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
   isDefault?: Prisma.BoolWithAggregatesFilter<"BankAccount"> | boolean
@@ -492,6 +516,8 @@ export type BankAccountCreateInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -524,6 +550,8 @@ export type BankAccountUncheckedCreateInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -552,6 +580,8 @@ export type BankAccountUpdateInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -584,6 +614,8 @@ export type BankAccountUncheckedUpdateInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -614,6 +646,8 @@ export type BankAccountCreateManyInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -636,6 +670,8 @@ export type BankAccountUpdateManyMutationInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -660,6 +696,8 @@ export type BankAccountUncheckedUpdateManyInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -681,8 +719,7 @@ export type BankAccountOrderByRelationAggregateInput = {
 export type BankAccountBank_accounts_unique_activeCompoundUniqueInput = {
   tenantId: string
   bankCode: string
-  agency: string
-  accountNumber: string
+  accountNumberHash: string
   deletedAt: Date | string
 }
 
@@ -702,6 +739,8 @@ export type BankAccountCountOrderByAggregateInput = {
   pixKeyType?: Prisma.SortOrder
   pixKey?: Prisma.SortOrder
   currentBalance?: Prisma.SortOrder
+  accountNumberHash?: Prisma.SortOrder
+  pixKeyHash?: Prisma.SortOrder
   balanceUpdatedAt?: Prisma.SortOrder
   color?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
@@ -730,6 +769,8 @@ export type BankAccountMaxOrderByAggregateInput = {
   pixKeyType?: Prisma.SortOrder
   pixKey?: Prisma.SortOrder
   currentBalance?: Prisma.SortOrder
+  accountNumberHash?: Prisma.SortOrder
+  pixKeyHash?: Prisma.SortOrder
   balanceUpdatedAt?: Prisma.SortOrder
   color?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
@@ -754,6 +795,8 @@ export type BankAccountMinOrderByAggregateInput = {
   pixKeyType?: Prisma.SortOrder
   pixKey?: Prisma.SortOrder
   currentBalance?: Prisma.SortOrder
+  accountNumberHash?: Prisma.SortOrder
+  pixKeyHash?: Prisma.SortOrder
   balanceUpdatedAt?: Prisma.SortOrder
   color?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
@@ -974,6 +1017,8 @@ export type BankAccountCreateWithoutCompanyInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1004,6 +1049,8 @@ export type BankAccountUncheckedCreateWithoutCompanyInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1063,6 +1110,8 @@ export type BankAccountScalarWhereInput = {
   pixKeyType?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   pixKey?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   currentBalance?: Prisma.DecimalFilter<"BankAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  pixKeyHash?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   balanceUpdatedAt?: Prisma.DateTimeNullableFilter<"BankAccount"> | Date | string | null
   color?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   isDefault?: Prisma.BoolFilter<"BankAccount"> | boolean
@@ -1085,6 +1134,8 @@ export type BankAccountCreateWithoutTenantInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1115,6 +1166,8 @@ export type BankAccountUncheckedCreateWithoutTenantInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1169,6 +1222,8 @@ export type BankAccountCreateWithoutFinanceEntriesInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1200,6 +1255,8 @@ export type BankAccountUncheckedCreateWithoutFinanceEntriesInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1243,6 +1300,8 @@ export type BankAccountUpdateWithoutFinanceEntriesInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1274,6 +1333,8 @@ export type BankAccountUncheckedUpdateWithoutFinanceEntriesInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1301,6 +1362,8 @@ export type BankAccountCreateWithoutFinancePaymentsInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1332,6 +1395,8 @@ export type BankAccountUncheckedCreateWithoutFinancePaymentsInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1375,6 +1440,8 @@ export type BankAccountUpdateWithoutFinancePaymentsInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1406,6 +1473,8 @@ export type BankAccountUncheckedUpdateWithoutFinancePaymentsInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1433,6 +1502,8 @@ export type BankAccountCreateWithoutLoansInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1464,6 +1535,8 @@ export type BankAccountUncheckedCreateWithoutLoansInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1507,6 +1580,8 @@ export type BankAccountUpdateWithoutLoansInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1538,6 +1613,8 @@ export type BankAccountUncheckedUpdateWithoutLoansInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1565,6 +1642,8 @@ export type BankAccountCreateWithoutLoanInstallmentsInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1596,6 +1675,8 @@ export type BankAccountUncheckedCreateWithoutLoanInstallmentsInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1639,6 +1720,8 @@ export type BankAccountUpdateWithoutLoanInstallmentsInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1670,6 +1753,8 @@ export type BankAccountUncheckedUpdateWithoutLoanInstallmentsInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1697,6 +1782,8 @@ export type BankAccountCreateWithoutConsortiaInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1728,6 +1815,8 @@ export type BankAccountUncheckedCreateWithoutConsortiaInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1771,6 +1860,8 @@ export type BankAccountUpdateWithoutConsortiaInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1802,6 +1893,8 @@ export type BankAccountUncheckedUpdateWithoutConsortiaInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1829,6 +1922,8 @@ export type BankAccountCreateWithoutConsortiumPaymentsInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1860,6 +1955,8 @@ export type BankAccountUncheckedCreateWithoutConsortiumPaymentsInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1903,6 +2000,8 @@ export type BankAccountUpdateWithoutConsortiumPaymentsInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1934,6 +2033,8 @@ export type BankAccountUncheckedUpdateWithoutConsortiumPaymentsInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1962,6 +2063,8 @@ export type BankAccountCreateManyCompanyInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -1984,6 +2087,8 @@ export type BankAccountUpdateWithoutCompanyInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2014,6 +2119,8 @@ export type BankAccountUncheckedUpdateWithoutCompanyInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2043,6 +2150,8 @@ export type BankAccountUncheckedUpdateManyWithoutCompanyInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2066,6 +2175,8 @@ export type BankAccountCreateManyTenantInput = {
   pixKeyType?: string | null
   pixKey?: string | null
   currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
@@ -2088,6 +2199,8 @@ export type BankAccountUpdateWithoutTenantInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2118,6 +2231,8 @@ export type BankAccountUncheckedUpdateWithoutTenantInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2147,6 +2262,8 @@ export type BankAccountUncheckedUpdateManyWithoutTenantInput = {
   pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2247,6 +2364,8 @@ export type BankAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   pixKeyType?: boolean
   pixKey?: boolean
   currentBalance?: boolean
+  accountNumberHash?: boolean
+  pixKeyHash?: boolean
   balanceUpdatedAt?: boolean
   color?: boolean
   isDefault?: boolean
@@ -2280,6 +2399,8 @@ export type BankAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   pixKeyType?: boolean
   pixKey?: boolean
   currentBalance?: boolean
+  accountNumberHash?: boolean
+  pixKeyHash?: boolean
   balanceUpdatedAt?: boolean
   color?: boolean
   isDefault?: boolean
@@ -2306,6 +2427,8 @@ export type BankAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   pixKeyType?: boolean
   pixKey?: boolean
   currentBalance?: boolean
+  accountNumberHash?: boolean
+  pixKeyHash?: boolean
   balanceUpdatedAt?: boolean
   color?: boolean
   isDefault?: boolean
@@ -2332,6 +2455,8 @@ export type BankAccountSelectScalar = {
   pixKeyType?: boolean
   pixKey?: boolean
   currentBalance?: boolean
+  accountNumberHash?: boolean
+  pixKeyHash?: boolean
   balanceUpdatedAt?: boolean
   color?: boolean
   isDefault?: boolean
@@ -2340,7 +2465,7 @@ export type BankAccountSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BankAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "companyId" | "name" | "bankCode" | "bankName" | "agency" | "agencyDigit" | "accountNumber" | "accountDigit" | "accountType" | "status" | "pixKeyType" | "pixKey" | "currentBalance" | "balanceUpdatedAt" | "color" | "isDefault" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["bankAccount"]>
+export type BankAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "companyId" | "name" | "bankCode" | "bankName" | "agency" | "agencyDigit" | "accountNumber" | "accountDigit" | "accountType" | "status" | "pixKeyType" | "pixKey" | "currentBalance" | "accountNumberHash" | "pixKeyHash" | "balanceUpdatedAt" | "color" | "isDefault" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["bankAccount"]>
 export type BankAccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   company?: boolean | Prisma.BankAccount$companyArgs<ExtArgs>
@@ -2389,6 +2514,8 @@ export type $BankAccountPayload<ExtArgs extends runtime.Types.Extensions.Interna
     pixKeyType: string | null
     pixKey: string | null
     currentBalance: runtime.Decimal
+    accountNumberHash: string | null
+    pixKeyHash: string | null
     balanceUpdatedAt: Date | null
     color: string | null
     isDefault: boolean
@@ -2841,6 +2968,8 @@ export interface BankAccountFieldRefs {
   readonly pixKeyType: Prisma.FieldRef<"BankAccount", 'String'>
   readonly pixKey: Prisma.FieldRef<"BankAccount", 'String'>
   readonly currentBalance: Prisma.FieldRef<"BankAccount", 'Decimal'>
+  readonly accountNumberHash: Prisma.FieldRef<"BankAccount", 'String'>
+  readonly pixKeyHash: Prisma.FieldRef<"BankAccount", 'String'>
   readonly balanceUpdatedAt: Prisma.FieldRef<"BankAccount", 'DateTime'>
   readonly color: Prisma.FieldRef<"BankAccount", 'String'>
   readonly isDefault: Prisma.FieldRef<"BankAccount", 'Boolean'>

@@ -1,4 +1,7 @@
-import type { EmailFolder, EmailFolderType } from '@/entities/email/email-folder';
+import type {
+  EmailFolder,
+  EmailFolderType,
+} from '@/entities/email/email-folder';
 
 export interface EmailFolderDTO {
   id: string;

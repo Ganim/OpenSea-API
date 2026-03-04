@@ -2,8 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type {
-    EmailAccountsRepository,
-    EmailFoldersRepository,
+  EmailAccountsRepository,
+  EmailFoldersRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { ImapFlow } from 'imapflow';
@@ -69,7 +69,9 @@ export class SaveEmailDraftUseCase {
       throw new BadRequestError('Drafts folder not found for this account');
     }
 
-    const secret = this.credentialCipherService.decrypt(account.encryptedSecret);
+    const secret = this.credentialCipherService.decrypt(
+      account.encryptedSecret,
+    );
     const draftId = `<${randomUUID()}@opensea.local>`;
 
     const from = account.displayName
@@ -104,10 +106,12 @@ export class SaveEmailDraftUseCase {
 
     try {
       await client.connect();
-      await client.append(draftsFolder.remoteName, rawMessage, {
-        flags: ['\\Draft'],
-        internalDate: new Date(),
-      });
+      await client.append(
+        draftsFolder.remoteName,
+        rawMessage,
+        ['\\Draft'],
+        new Date(),
+      );
 
       return { draftId };
     } catch {

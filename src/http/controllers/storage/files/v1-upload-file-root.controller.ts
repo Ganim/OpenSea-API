@@ -2,7 +2,9 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PlanLimitExceededError } from '@/@errors/use-cases/plan-limit-exceeded-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { validateAgainstStorageSettings } from '@/constants/storage/allowed-mime-types';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { resolveUserStorageSettings } from '@/http/helpers/resolve-storage-settings';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -58,6 +60,19 @@ export async function uploadFileRootController(app: FastifyInstance) {
         }
 
         const fileBuffer = await multipartFile.toBuffer();
+
+        // Validate against user's permission group storage settings
+        const groupSettings = await resolveUserStorageSettings(userId);
+        if (groupSettings) {
+          const validationError = validateAgainstStorageSettings(
+            multipartFile.mimetype,
+            fileBuffer.length,
+            groupSettings,
+          );
+          if (validationError) {
+            return reply.status(400).send({ message: validationError });
+          }
+        }
 
         // Resolve tenant storage quota
         const tenantContext = new TenantContextService();

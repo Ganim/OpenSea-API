@@ -17,10 +17,28 @@ describe('ListTeamMembersUseCase', () => {
 
   it('should list team members', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-2') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-3') });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-2'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-3'),
+    });
 
     const { members, total } = await sut.execute({
       tenantId: 'tenant-1',
@@ -33,10 +51,29 @@ describe('ListTeamMembersUseCase', () => {
 
   it('should filter by role', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-2'), role: 'ADMIN' });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-3') });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-2'),
+      role: 'ADMIN',
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-3'),
+    });
 
     const { members } = await sut.execute({
       tenantId: 'tenant-1',
@@ -59,9 +96,23 @@ describe('ListTeamMembersUseCase', () => {
 
   it('should not include removed members', async () => {
     const tenantId = new UniqueEntityID('tenant-1');
-    const team = await teamsRepository.create({ tenantId, name: 'Team', slug: 'team', createdBy: new UniqueEntityID('user-1') });
-    await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-1'), role: 'OWNER' });
-    const removed = await teamMembersRepository.create({ tenantId, teamId: team.id, userId: new UniqueEntityID('user-2') });
+    const team = await teamsRepository.create({
+      tenantId,
+      name: 'Team',
+      slug: 'team',
+      createdBy: new UniqueEntityID('user-1'),
+    });
+    await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-1'),
+      role: 'OWNER',
+    });
+    const removed = await teamMembersRepository.create({
+      tenantId,
+      teamId: team.id,
+      userId: new UniqueEntityID('user-2'),
+    });
     await teamMembersRepository.remove(removed.id);
 
     const { members } = await sut.execute({

@@ -285,8 +285,6 @@ export class InMemoryBinsRepository implements BinsRepository {
     zoneId: UniqueEntityID,
     _tenantId: string,
   ): Promise<Map<string, number>> {
-    // For testing, return empty map (or could be integrated with items repository)
-    // In a real scenario, this would count items in each bin of the zone
     const map = new Map<string, number>();
     const binsInZone = this.bins.filter(
       (b) => !b.deletedAt && b.zoneId.equals(zoneId),
@@ -295,5 +293,25 @@ export class InMemoryBinsRepository implements BinsRepository {
       map.set(bin.binId.toString(), 0);
     }
     return map;
+  }
+
+  async findSoftDeletedByTenant(
+    tenantId: string,
+  ): Promise<Array<{ binId: UniqueEntityID; address: string }>> {
+    return this.bins
+      .filter(
+        (b) =>
+          b.deletedAt !== null &&
+          b.deletedAt !== undefined &&
+          b.tenantId.toString() === tenantId,
+      )
+      .map((b) => ({ binId: b.binId, address: b.address }));
+  }
+
+  async countItemsPerBinForTenant(
+    _tenantId: string,
+  ): Promise<Map<string, number>> {
+    // Default returns empty map; tests monkey-patch this to wire up with items repo
+    return new Map<string, number>();
   }
 }

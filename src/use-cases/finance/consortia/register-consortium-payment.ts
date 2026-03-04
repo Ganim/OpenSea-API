@@ -89,6 +89,7 @@ export class RegisterConsortiumPaymentUseCase {
 
     const updatedConsortium = await this.consortiaRepository.update({
       id: new UniqueEntityID(consortiumId),
+      tenantId,
       paidInstallments: newPaidInstallments,
       ...(isFullyPaid && { status: 'COMPLETED' }),
     });

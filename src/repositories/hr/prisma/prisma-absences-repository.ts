@@ -2,6 +2,8 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Absence } from '@/entities/hr/absence';
 import { prisma } from '@/lib/prisma';
 import { mapAbsencePrismaToDomain } from '@/mappers/hr/absence';
+import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
+import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import type { AbsenceStatus, AbsenceType } from '@prisma/generated/client.js';
 import type {
   AbsencesRepository,
@@ -10,8 +12,34 @@ import type {
   UpdateAbsenceSchema,
 } from '../absences-repository';
 
+const { encryptedFields } = ENCRYPTED_FIELD_CONFIG.Absence;
+
+function tryGetCipher() {
+  try {
+    return getFieldCipherService();
+  } catch {
+    return null;
+  }
+}
+
+function decryptAbsenceData<T extends Record<string, unknown>>(data: T): T {
+  const cipher = tryGetCipher();
+  if (!cipher) return data;
+  return cipher.decryptFields(data, encryptedFields);
+}
+
+function decryptAndMap(absenceData: Record<string, unknown>) {
+  const decrypted = decryptAbsenceData(absenceData);
+  return mapAbsencePrismaToDomain(decrypted as never);
+}
+
 export class PrismaAbsencesRepository implements AbsencesRepository {
   async create(data: CreateAbsenceSchema): Promise<Absence> {
+    const cipher = tryGetCipher();
+
+    const cidEncrypted =
+      data.cid && cipher ? cipher.encrypt(data.cid) : data.cid;
+
     const absenceData = await prisma.absence.create({
       data: {
         tenantId: data.tenantId,
@@ -23,7 +51,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
         totalDays: data.totalDays,
         reason: data.reason,
         documentUrl: data.documentUrl,
-        cid: data.cid,
+        cid: cidEncrypted,
         isPaid: data.isPaid,
         isInssResponsibility: data.isInssResponsibility ?? false,
         vacationPeriodId: data.vacationPeriodId?.toString(),
@@ -33,7 +61,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     });
 
     const absence = Absence.create(
-      mapAbsencePrismaToDomain(absenceData),
+      decryptAndMap(absenceData as unknown as Record<string, unknown>),
       new UniqueEntityID(absenceData.id),
     );
     return absence;
@@ -50,7 +78,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     if (!absenceData) return null;
 
     const absence = Absence.create(
-      mapAbsencePrismaToDomain(absenceData),
+      decryptAndMap(absenceData as unknown as Record<string, unknown>),
       new UniqueEntityID(absenceData.id),
     );
     return absence;
@@ -75,7 +103,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
 
     return absences.map((item) =>
       Absence.create(
-        mapAbsencePrismaToDomain(item),
+        decryptAndMap(item as unknown as Record<string, unknown>),
         new UniqueEntityID(item.id),
       ),
     );
@@ -96,7 +124,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
 
     return absences.map((item) =>
       Absence.create(
-        mapAbsencePrismaToDomain(item),
+        decryptAndMap(item as unknown as Record<string, unknown>),
         new UniqueEntityID(item.id),
       ),
     );
@@ -133,7 +161,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
 
     return absences.map((item) =>
       Absence.create(
-        mapAbsencePrismaToDomain(item),
+        decryptAndMap(item as unknown as Record<string, unknown>),
         new UniqueEntityID(item.id),
       ),
     );
@@ -151,7 +179,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
 
     return absences.map((item) =>
       Absence.create(
-        mapAbsencePrismaToDomain(item),
+        decryptAndMap(item as unknown as Record<string, unknown>),
         new UniqueEntityID(item.id),
       ),
     );
@@ -194,7 +222,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
 
     return absences.map((item) =>
       Absence.create(
-        mapAbsencePrismaToDomain(item),
+        decryptAndMap(item as unknown as Record<string, unknown>),
         new UniqueEntityID(item.id),
       ),
     );
@@ -252,13 +280,25 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
 
     if (!existingAbsence) return null;
 
+    const cipher = tryGetCipher();
+
+    const cidEncrypted =
+      data.cid !== undefined
+        ? data.cid && cipher
+          ? cipher.encrypt(data.cid)
+          : data.cid
+        : undefined;
+
     const absenceData = await prisma.absence.update({
-      where: { id: data.id.toString() },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         status: data.status as AbsenceStatus | undefined,
         reason: data.reason,
         documentUrl: data.documentUrl,
-        cid: data.cid,
+        cid: cidEncrypted,
         approvedBy: data.approvedBy?.toString(),
         approvedAt: data.approvedAt,
         rejectionReason: data.rejectionReason,
@@ -267,20 +307,25 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     });
 
     const absence = Absence.create(
-      mapAbsencePrismaToDomain(absenceData),
+      decryptAndMap(absenceData as unknown as Record<string, unknown>),
       new UniqueEntityID(absenceData.id),
     );
     return absence;
   }
 
   async save(absence: Absence): Promise<void> {
+    const cipher = tryGetCipher();
+
+    const cidEncrypted =
+      absence.cid && cipher ? cipher.encrypt(absence.cid) : absence.cid;
+
     await prisma.absence.update({
       where: { id: absence.id.toString() },
       data: {
         status: absence.status.value,
         reason: absence.reason,
         documentUrl: absence.documentUrl,
-        cid: absence.cid,
+        cid: cidEncrypted,
         approvedBy: absence.approvedBy?.toString(),
         approvedAt: absence.approvedAt,
         rejectionReason: absence.rejectionReason,
@@ -290,9 +335,12 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     });
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.absence.update({
-      where: { id: id.toString() },
+      where: {
+        id: id.toString(),
+        ...(tenantId && { tenantId }),
+      },
       data: { deletedAt: new Date() },
     });
   }

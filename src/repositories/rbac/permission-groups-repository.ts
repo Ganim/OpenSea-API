@@ -23,6 +23,7 @@ export interface UpdatePermissionGroupSchema {
   priority?: number;
   parentId?: UniqueEntityID | null;
   deletedAt?: Date | null;
+  storageSettings?: Record<string, unknown> | null;
 }
 
 export interface ListPermissionGroupsParams {

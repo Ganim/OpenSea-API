@@ -1,6 +1,11 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import type { CalendarEventsRepository } from '@/repositories/calendar/calendar-events-repository';
-import ical, { ICalCalendarMethod, ICalEventClass, ICalEventStatus } from 'ical-generator';
+import type { CalendarsRepository } from '@/repositories/calendar/calendars-repository';
+import ical, {
+  ICalCalendarMethod,
+  ICalEventClass,
+  ICalEventStatus,
+} from 'ical-generator';
 
 interface ExportCalendarEventsRequest {
   tenantId: string;
@@ -9,6 +14,7 @@ interface ExportCalendarEventsRequest {
   endDate: Date;
   type?: string;
   includeSystemEvents?: boolean;
+  calendarId?: string;
 }
 
 interface ExportCalendarEventsResponse {
@@ -18,7 +24,10 @@ interface ExportCalendarEventsResponse {
 }
 
 export class ExportCalendarEventsUseCase {
-  constructor(private calendarEventsRepository: CalendarEventsRepository) {}
+  constructor(
+    private calendarEventsRepository: CalendarEventsRepository,
+    private calendarsRepository?: CalendarsRepository,
+  ) {}
 
   async execute(
     request: ExportCalendarEventsRequest,
@@ -37,6 +46,30 @@ export class ExportCalendarEventsUseCase {
       throw new BadRequestError('End date must be after start date');
     }
 
+    // If a specific calendarId is provided, validate it's a personal calendar
+    if (request.calendarId && this.calendarsRepository) {
+      const calendar = await this.calendarsRepository.findById(
+        request.calendarId,
+        tenantId,
+      );
+      if (!calendar) {
+        throw new BadRequestError('Calendário não encontrado');
+      }
+      if (calendar.type !== 'PERSONAL') {
+        throw new BadRequestError(
+          'Exportação permitida apenas para calendários pessoais',
+        );
+      }
+      if (calendar.ownerId !== userId) {
+        throw new BadRequestError(
+          'Exportação permitida apenas do seu calendário pessoal',
+        );
+      }
+    }
+
+    // Default: export only from personal calendar
+    const calendarIds = request.calendarId ? [request.calendarId] : undefined;
+
     const { events } = await this.calendarEventsRepository.findMany({
       tenantId,
       userId,
@@ -44,6 +77,7 @@ export class ExportCalendarEventsUseCase {
       endDate,
       type: request.type,
       includeSystemEvents: request.includeSystemEvents,
+      calendarIds,
       limit: 1000,
     });
 

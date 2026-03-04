@@ -23,6 +23,7 @@ export interface CreateManufacturerSchema {
 
 export interface UpdateManufacturerSchema {
   id: UniqueEntityID;
+  tenantId: string;
   name?: string;
   legalName?: string;
   cnpj?: string;
@@ -53,6 +54,6 @@ export interface ManufacturersRepository {
   findManyActive(tenantId: string): Promise<Manufacturer[]>;
   update(data: UpdateManufacturerSchema): Promise<Manufacturer | null>;
   save(manufacturer: Manufacturer): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
   getNextSequentialCode(tenantId: string): Promise<number>;
 }

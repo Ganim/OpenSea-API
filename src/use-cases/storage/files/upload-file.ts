@@ -1,5 +1,8 @@
+import { env } from '@/@env';
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PlanLimitExceededError } from '@/@errors/use-cases/plan-limit-exceeded-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { isAllowedMimeType } from '@/constants/storage/allowed-mime-types';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { FileType } from '@/entities/storage';
 import type { StorageFile } from '@/entities/storage/storage-file';
@@ -8,6 +11,7 @@ import type { StorageFilesRepository } from '@/repositories/storage/storage-file
 import type { StorageFileVersionsRepository } from '@/repositories/storage/storage-file-versions-repository';
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
 import type { FileUploadService } from '@/services/storage/file-upload-service';
+import { EncryptionService } from '@/services/storage/encryption-service';
 import type { ThumbnailService } from '@/services/storage/thumbnail-service';
 
 interface UploadFileUseCaseRequest {
@@ -51,8 +55,9 @@ export class UploadFileUseCase {
       maxStorageBytes,
     } = request;
 
-    let folder: import('@/entities/storage/storage-folder').StorageFolder | null =
-      null;
+    let folder:
+      | import('@/entities/storage/storage-folder').StorageFolder
+      | null = null;
 
     if (folderId) {
       folder = await this.storageFoldersRepository.findById(
@@ -63,6 +68,13 @@ export class UploadFileUseCase {
       if (!folder) {
         throw new ResourceNotFoundError('Folder not found');
       }
+    }
+
+    // Validate MIME type
+    if (!isAllowedMimeType(file.mimetype)) {
+      throw new BadRequestError(
+        `Tipo de arquivo não permitido: ${file.mimetype}`,
+      );
     }
 
     // Atomic storage quota check (prevents race condition with concurrent uploads)
@@ -81,11 +93,23 @@ export class UploadFileUseCase {
 
     const fileType = FileType.fromMimeType(file.mimetype);
 
+    // Encrypt file buffer if encryption key is configured
+    let uploadBuffer = file.buffer;
+    let isEncrypted = false;
+
+    if (env.STORAGE_ENCRYPTION_KEY) {
+      const encryptionService = new EncryptionService(
+        env.STORAGE_ENCRYPTION_KEY,
+      );
+      uploadBuffer = encryptionService.encrypt(file.buffer);
+      isEncrypted = true;
+    }
+
     const uploadPrefix = folderId
       ? `storage/${tenantId}/${folderId}`
       : `storage/${tenantId}/root`;
     const uploadResult = await this.fileUploadService.upload(
-      file.buffer,
+      uploadBuffer,
       file.filename,
       file.mimetype,
       { prefix: uploadPrefix },
@@ -102,19 +126,20 @@ export class UploadFileUseCase {
       originalName: file.filename,
       fileKey: uploadResult.key,
       path: filePath,
-      size: uploadResult.size,
+      size: file.buffer.length, // Store original (unencrypted) size
       mimeType: file.mimetype,
       fileType: fileType.value,
       entityType: entityType ?? null,
       entityId: entityId ?? null,
       uploadedBy,
+      isEncrypted,
     });
 
     const initialVersion = await this.storageFileVersionsRepository.create({
       fileId: createdFile.id.toString(),
       version: 1,
       fileKey: uploadResult.key,
-      size: uploadResult.size,
+      size: file.buffer.length, // Store original (unencrypted) size
       mimeType: file.mimetype,
       changeNote: 'Initial upload',
       uploadedBy,

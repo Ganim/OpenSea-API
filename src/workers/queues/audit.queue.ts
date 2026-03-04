@@ -1,3 +1,4 @@
+import type { Queue } from 'bullmq';
 import { Job } from 'bullmq';
 import { createQueue, createWorker, QUEUE_NAMES } from '@/lib/queue';
 
@@ -16,16 +17,22 @@ export interface AuditLogJobData {
   requestId?: string;
 }
 
-// Cria a fila de audit logs
-export const auditQueue = createQueue<AuditLogJobData>(QUEUE_NAMES.AUDIT_LOGS);
+// Lazy — fila só é criada na primeira chamada, evitando conexão Redis no boot
+let _auditQueue: Queue<AuditLogJobData> | null = null;
+
+function getAuditQueue(): Queue<AuditLogJobData> {
+  if (!_auditQueue) {
+    _auditQueue = createQueue<AuditLogJobData>(QUEUE_NAMES.AUDIT_LOGS);
+  }
+  return _auditQueue;
+}
 
 /**
  * Adiciona um audit log à fila
  * Usar para operações de alto volume onde não é crítico ter sincronia
  */
 export async function queueAuditLog(data: AuditLogJobData) {
-  return auditQueue.add(QUEUE_NAMES.AUDIT_LOGS, data, {
-    // Audit logs têm alta prioridade
+  return getAuditQueue().add(QUEUE_NAMES.AUDIT_LOGS, data, {
     priority: 1,
   });
 }
@@ -40,7 +47,7 @@ export async function queueBulkAuditLogs(logs: AuditLogJobData[]) {
     opts: { priority: 1 },
   }));
 
-  return auditQueue.addBulk(jobs);
+  return getAuditQueue().addBulk(jobs);
 }
 
 /**

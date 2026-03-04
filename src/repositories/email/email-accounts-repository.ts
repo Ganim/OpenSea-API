@@ -1,6 +1,6 @@
 import type {
-    EmailAccount,
-    EmailAccountVisibility,
+  EmailAccount,
+  EmailAccountVisibility,
 } from '@/entities/email/email-account';
 
 export interface EmailAccountAccessItem {

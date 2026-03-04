@@ -1,11 +1,11 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { EmailAccount } from '@/entities/email/email-account';
 import type {
-    CreateEmailAccountSchema,
-    EmailAccountAccessItem,
-    EmailAccountsRepository,
-    UpdateEmailAccountSchema,
-    UpsertEmailAccountAccessSchema,
+  CreateEmailAccountSchema,
+  EmailAccountAccessItem,
+  EmailAccountsRepository,
+  UpdateEmailAccountSchema,
+  UpsertEmailAccountAccessSchema,
 } from '../email-accounts-repository';
 
 export class InMemoryEmailAccountsRepository

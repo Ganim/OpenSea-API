@@ -9,6 +9,10 @@ import {
 } from '@/mappers/core/team/team-member-to-dto';
 import type { TeamsRepository } from '@/repositories/core/teams-repository';
 import type { TeamMembersRepository } from '@/repositories/core/team-members-repository';
+import type { TeamEmailAccountsRepository } from '@/repositories/core/team-email-accounts-repository';
+import type { EmailAccountsRepository } from '@/repositories/email/email-accounts-repository';
+
+import { getPermissionsForRole } from './helpers/get-permissions-for-role';
 
 interface AddTeamMemberRequest {
   tenantId: string;
@@ -26,6 +30,8 @@ export class AddTeamMemberUseCase {
   constructor(
     private teamsRepository: TeamsRepository,
     private teamMembersRepository: TeamMembersRepository,
+    private teamEmailAccountsRepository: TeamEmailAccountsRepository,
+    private emailAccountsRepository: EmailAccountsRepository,
   ) {}
 
   async execute(request: AddTeamMemberRequest): Promise<AddTeamMemberResponse> {
@@ -62,7 +68,9 @@ export class AddTeamMemberUseCase {
 
     // Cannot assign OWNER role via add (use TransferOwnership instead)
     if (role === 'OWNER') {
-      throw new BadRequestError('Cannot assign OWNER role directly. Use transfer ownership instead');
+      throw new BadRequestError(
+        'Cannot assign OWNER role directly. Use transfer ownership instead',
+      );
     }
 
     const member = await this.teamMembersRepository.create({
@@ -71,6 +79,23 @@ export class AddTeamMemberUseCase {
       userId: new UniqueEntityID(userId),
       role: role ?? 'MEMBER',
     });
+
+    // Sync email access for team email accounts
+    const teamEmailAccounts =
+      await this.teamEmailAccountsRepository.findByTeam(teamId);
+
+    for (const tea of teamEmailAccounts) {
+      const perms = getPermissionsForRole(member.role, tea);
+
+      await this.emailAccountsRepository.upsertAccess({
+        accountId: tea.accountId,
+        tenantId,
+        userId,
+        canRead: perms.canRead,
+        canSend: perms.canSend,
+        canManage: perms.canManage,
+      });
+    }
 
     return {
       member: teamMemberToDTO(member),

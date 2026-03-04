@@ -34,6 +34,7 @@ describe('RemoveParticipantUseCase', () => {
 
     await eventsRepo.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Team Meeting',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -47,6 +48,7 @@ describe('RemoveParticipantUseCase', () => {
       userId: 'user-owner',
       role: 'OWNER',
       status: 'ACCEPTED',
+      tenantId: 'tenant-1',
     });
 
     await participantsRepo.create({
@@ -54,6 +56,7 @@ describe('RemoveParticipantUseCase', () => {
       userId: 'user-guest',
       role: 'GUEST',
       status: 'ACCEPTED',
+      tenantId: 'tenant-1',
     });
   });
 

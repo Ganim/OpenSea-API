@@ -5,8 +5,8 @@ import { authRoutes } from './controllers/core/auth/routes';
 import { labelTemplatesRoutes } from './controllers/core/label-templates/routes';
 import { meRoutes } from './controllers/core/me/routes';
 import { sessionsRoutes } from './controllers/core/sessions/routes';
-import { tenantsRoutes } from './controllers/core/tenants/routes';
 import { teamsRoutes } from './controllers/core/teams/routes';
+import { tenantsRoutes } from './controllers/core/tenants/routes';
 import { usersRoutes } from './controllers/core/users/routes';
 import { healthRoutes } from './controllers/health/routes';
 
@@ -57,12 +57,13 @@ import { zonesRoutes } from './controllers/stock/zones/routes';
 
 // Storage routes
 import { storageAccessRoutes } from './controllers/storage/access/routes';
+import { storageAdminRoutes } from './controllers/storage/admin/routes';
 import { storageFilesRoutes } from './controllers/storage/files/routes';
 import { storageFoldersRoutes } from './controllers/storage/folders/routes';
-import { storageTrashRoutes } from './controllers/storage/trash/routes';
-import { storageSharingRoutes } from './controllers/storage/sharing/routes';
 import { storagePublicRoutes } from './controllers/storage/public/routes';
-import { storageAdminRoutes } from './controllers/storage/admin/routes';
+import { storageSharingRoutes } from './controllers/storage/sharing/routes';
+import { storageSecurityRoutes } from './controllers/storage/security/routes';
+import { storageTrashRoutes } from './controllers/storage/trash/routes';
 
 // Finance routes
 import { financeAttachmentsRoutes } from './controllers/finance/attachments/routes';
@@ -76,6 +77,7 @@ import { financeExportRoutes } from './controllers/finance/export/routes';
 import { loansRoutes } from './controllers/finance/loans/routes';
 
 // Calendar routes
+import { calendarCalendarsRoutes } from './controllers/calendar/calendars/routes';
 import { calendarEventsRoutes } from './controllers/calendar/events/routes';
 
 // Email routes
@@ -167,6 +169,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(financeExportRoutes);
 
   // Calendar routes
+  await app.register(calendarCalendarsRoutes);
   await app.register(calendarEventsRoutes);
 
   // Email routes
@@ -180,6 +183,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(storageAccessRoutes);
   await app.register(storageTrashRoutes);
   await app.register(storageSharingRoutes);
+  await app.register(storageSecurityRoutes);
   await app.register(storagePublicRoutes);
   await app.register(storageAdminRoutes);
 

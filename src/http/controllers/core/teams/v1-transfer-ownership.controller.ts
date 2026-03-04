@@ -70,7 +70,12 @@ export async function transferTeamOwnershipController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.CORE.TEAM_OWNERSHIP_TRANSFER,
           entityId: teamId,
-          placeholders: { userName, newOwnerName, teamName: team.name, teamColor: team.color },
+          placeholders: {
+            userName,
+            newOwnerName,
+            teamName: team.name,
+            teamColor: team.color,
+          },
           oldData: { ownerId: userId },
           newData: { ownerId: newOwnerUserId },
           affectedUserId: newOwnerUserId,

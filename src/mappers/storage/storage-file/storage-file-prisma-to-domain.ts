@@ -33,6 +33,10 @@ export function mapStorageFilePrismaToDomain(fileDb: StorageFileWithRelations) {
     entityId: fileDb.entityId ?? null,
     expiresAt: fileDb.expiresAt ?? null,
     uploadedBy: fileDb.uploadedBy,
+    isEncrypted: fileDb.isEncrypted,
+    isProtected: fileDb.isProtected,
+    protectionHash: fileDb.protectionHash ?? null,
+    isHidden: fileDb.isHidden,
     versions: fileDb.versions
       ? fileDb.versions.map(storageFileVersionPrismaToDomain)
       : undefined,

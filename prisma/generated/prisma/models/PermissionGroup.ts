@@ -75,6 +75,7 @@ export type PermissionGroupCountAggregateOutputType = {
   isActive: number
   color: number
   priority: number
+  storageSettings: number
   parentId: number
   tenantId: number
   createdAt: number
@@ -133,6 +134,7 @@ export type PermissionGroupCountAggregateInputType = {
   isActive?: true
   color?: true
   priority?: true
+  storageSettings?: true
   parentId?: true
   tenantId?: true
   createdAt?: true
@@ -236,6 +238,7 @@ export type PermissionGroupGroupByOutputType = {
   isActive: boolean
   color: string | null
   priority: number
+  storageSettings: runtime.JsonValue | null
   parentId: string | null
   tenantId: string | null
   createdAt: Date
@@ -275,6 +278,7 @@ export type PermissionGroupWhereInput = {
   isActive?: Prisma.BoolFilter<"PermissionGroup"> | boolean
   color?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   priority?: Prisma.IntFilter<"PermissionGroup"> | number
+  storageSettings?: Prisma.JsonNullableFilter<"PermissionGroup">
   parentId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   tenantId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PermissionGroup"> | Date | string
@@ -297,6 +301,7 @@ export type PermissionGroupOrderByWithRelationInput = {
   isActive?: Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   priority?: Prisma.SortOrder
+  storageSettings?: Prisma.SortOrderInput | Prisma.SortOrder
   parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -324,6 +329,7 @@ export type PermissionGroupWhereUniqueInput = Prisma.AtLeast<{
   isActive?: Prisma.BoolFilter<"PermissionGroup"> | boolean
   color?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   priority?: Prisma.IntFilter<"PermissionGroup"> | number
+  storageSettings?: Prisma.JsonNullableFilter<"PermissionGroup">
   parentId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   tenantId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PermissionGroup"> | Date | string
@@ -346,6 +352,7 @@ export type PermissionGroupOrderByWithAggregationInput = {
   isActive?: Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   priority?: Prisma.SortOrder
+  storageSettings?: Prisma.SortOrderInput | Prisma.SortOrder
   parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -370,6 +377,7 @@ export type PermissionGroupScalarWhereWithAggregatesInput = {
   isActive?: Prisma.BoolWithAggregatesFilter<"PermissionGroup"> | boolean
   color?: Prisma.StringNullableWithAggregatesFilter<"PermissionGroup"> | string | null
   priority?: Prisma.IntWithAggregatesFilter<"PermissionGroup"> | number
+  storageSettings?: Prisma.JsonNullableWithAggregatesFilter<"PermissionGroup">
   parentId?: Prisma.StringNullableWithAggregatesFilter<"PermissionGroup"> | string | null
   tenantId?: Prisma.StringNullableWithAggregatesFilter<"PermissionGroup"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PermissionGroup"> | Date | string
@@ -386,6 +394,7 @@ export type PermissionGroupCreateInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -406,6 +415,7 @@ export type PermissionGroupUncheckedCreateInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: string | null
   tenantId?: string | null
   createdAt?: Date | string
@@ -426,6 +436,7 @@ export type PermissionGroupUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -446,6 +457,7 @@ export type PermissionGroupUncheckedUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -466,6 +478,7 @@ export type PermissionGroupCreateManyInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: string | null
   tenantId?: string | null
   createdAt?: Date | string
@@ -482,6 +495,7 @@ export type PermissionGroupUpdateManyMutationInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -496,6 +510,7 @@ export type PermissionGroupUncheckedUpdateManyInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -539,6 +554,7 @@ export type PermissionGroupCountOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   color?: Prisma.SortOrder
   priority?: Prisma.SortOrder
+  storageSettings?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -744,6 +760,7 @@ export type PermissionGroupCreateWithoutChildrenInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -763,6 +780,7 @@ export type PermissionGroupUncheckedCreateWithoutChildrenInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: string | null
   tenantId?: string | null
   createdAt?: Date | string
@@ -787,6 +805,7 @@ export type PermissionGroupCreateWithoutParentInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -806,6 +825,7 @@ export type PermissionGroupUncheckedCreateWithoutParentInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenantId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -846,6 +866,7 @@ export type PermissionGroupUpdateWithoutChildrenInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -865,6 +886,7 @@ export type PermissionGroupUncheckedUpdateWithoutChildrenInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -903,6 +925,7 @@ export type PermissionGroupScalarWhereInput = {
   isActive?: Prisma.BoolFilter<"PermissionGroup"> | boolean
   color?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   priority?: Prisma.IntFilter<"PermissionGroup"> | number
+  storageSettings?: Prisma.JsonNullableFilter<"PermissionGroup">
   parentId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   tenantId?: Prisma.StringNullableFilter<"PermissionGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PermissionGroup"> | Date | string
@@ -919,6 +942,7 @@ export type PermissionGroupCreateWithoutPermissionsInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -938,6 +962,7 @@ export type PermissionGroupUncheckedCreateWithoutPermissionsInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: string | null
   tenantId?: string | null
   createdAt?: Date | string
@@ -973,6 +998,7 @@ export type PermissionGroupUpdateWithoutPermissionsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -992,6 +1018,7 @@ export type PermissionGroupUncheckedUpdateWithoutPermissionsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1011,6 +1038,7 @@ export type PermissionGroupCreateWithoutUsersInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1030,6 +1058,7 @@ export type PermissionGroupUncheckedCreateWithoutUsersInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: string | null
   tenantId?: string | null
   createdAt?: Date | string
@@ -1065,6 +1094,7 @@ export type PermissionGroupUpdateWithoutUsersInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1084,6 +1114,7 @@ export type PermissionGroupUncheckedUpdateWithoutUsersInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1103,6 +1134,7 @@ export type PermissionGroupCreateWithoutTenantInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1122,6 +1154,7 @@ export type PermissionGroupUncheckedCreateWithoutTenantInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1167,6 +1200,7 @@ export type PermissionGroupCreateWithoutFolderAccessRulesInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1186,6 +1220,7 @@ export type PermissionGroupUncheckedCreateWithoutFolderAccessRulesInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: string | null
   tenantId?: string | null
   createdAt?: Date | string
@@ -1221,6 +1256,7 @@ export type PermissionGroupUpdateWithoutFolderAccessRulesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1240,6 +1276,7 @@ export type PermissionGroupUncheckedUpdateWithoutFolderAccessRulesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1259,6 +1296,7 @@ export type PermissionGroupCreateManyParentInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenantId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1274,6 +1312,7 @@ export type PermissionGroupUpdateWithoutParentInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1293,6 +1332,7 @@ export type PermissionGroupUncheckedUpdateWithoutParentInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1312,6 +1352,7 @@ export type PermissionGroupUncheckedUpdateManyWithoutParentInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1327,6 +1368,7 @@ export type PermissionGroupCreateManyTenantInput = {
   isActive?: boolean
   color?: string | null
   priority?: number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1342,6 +1384,7 @@ export type PermissionGroupUpdateWithoutTenantInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1361,6 +1404,7 @@ export type PermissionGroupUncheckedUpdateWithoutTenantInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1380,6 +1424,7 @@ export type PermissionGroupUncheckedUpdateManyWithoutTenantInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priority?: Prisma.IntFieldUpdateOperationsInput | number
+  storageSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1453,6 +1498,7 @@ export type PermissionGroupSelect<ExtArgs extends runtime.Types.Extensions.Inter
   isActive?: boolean
   color?: boolean
   priority?: boolean
+  storageSettings?: boolean
   parentId?: boolean
   tenantId?: boolean
   createdAt?: boolean
@@ -1476,6 +1522,7 @@ export type PermissionGroupSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   isActive?: boolean
   color?: boolean
   priority?: boolean
+  storageSettings?: boolean
   parentId?: boolean
   tenantId?: boolean
   createdAt?: boolean
@@ -1494,6 +1541,7 @@ export type PermissionGroupSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   isActive?: boolean
   color?: boolean
   priority?: boolean
+  storageSettings?: boolean
   parentId?: boolean
   tenantId?: boolean
   createdAt?: boolean
@@ -1512,6 +1560,7 @@ export type PermissionGroupSelectScalar = {
   isActive?: boolean
   color?: boolean
   priority?: boolean
+  storageSettings?: boolean
   parentId?: boolean
   tenantId?: boolean
   createdAt?: boolean
@@ -1519,7 +1568,7 @@ export type PermissionGroupSelectScalar = {
   deletedAt?: boolean
 }
 
-export type PermissionGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "isSystem" | "isActive" | "color" | "priority" | "parentId" | "tenantId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["permissionGroup"]>
+export type PermissionGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "isSystem" | "isActive" | "color" | "priority" | "storageSettings" | "parentId" | "tenantId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["permissionGroup"]>
 export type PermissionGroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   parent?: boolean | Prisma.PermissionGroup$parentArgs<ExtArgs>
   children?: boolean | Prisma.PermissionGroup$childrenArgs<ExtArgs>
@@ -1557,6 +1606,7 @@ export type $PermissionGroupPayload<ExtArgs extends runtime.Types.Extensions.Int
     isActive: boolean
     color: string | null
     priority: number
+    storageSettings: runtime.JsonValue | null
     parentId: string | null
     tenantId: string | null
     createdAt: Date
@@ -1999,6 +2049,7 @@ export interface PermissionGroupFieldRefs {
   readonly isActive: Prisma.FieldRef<"PermissionGroup", 'Boolean'>
   readonly color: Prisma.FieldRef<"PermissionGroup", 'String'>
   readonly priority: Prisma.FieldRef<"PermissionGroup", 'Int'>
+  readonly storageSettings: Prisma.FieldRef<"PermissionGroup", 'Json'>
   readonly parentId: Prisma.FieldRef<"PermissionGroup", 'String'>
   readonly tenantId: Prisma.FieldRef<"PermissionGroup", 'String'>
   readonly createdAt: Prisma.FieldRef<"PermissionGroup", 'DateTime'>

@@ -23,6 +23,6 @@ export class DeleteConsortiumUseCase {
       throw new ResourceNotFoundError('Consortium not found');
     }
 
-    await this.consortiaRepository.delete(new UniqueEntityID(id));
+    await this.consortiaRepository.delete(new UniqueEntityID(id), tenantId);
   }
 }

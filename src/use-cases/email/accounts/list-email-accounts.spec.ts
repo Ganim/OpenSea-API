@@ -48,7 +48,7 @@ describe('ListEmailAccountsUseCase', () => {
   });
 
   it('should include accounts shared with the user', async () => {
-    const owned = await repository.create({
+    const _owned = await repository.create({
       tenantId: 'tenant-1',
       ownerUserId: 'user-1',
       address: 'owned@example.com',

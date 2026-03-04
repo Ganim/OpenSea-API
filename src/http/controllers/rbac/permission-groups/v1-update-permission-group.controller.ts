@@ -59,8 +59,15 @@ export async function updatePermissionGroupController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { groupId } = request.params;
-      const { name, description, color, priority, parentId, isActive } =
-        request.body;
+      const {
+        name,
+        description,
+        color,
+        priority,
+        parentId,
+        isActive,
+        storageSettings,
+      } = request.body;
       const adminId = request.user.sub;
       const tenantId = request.user.tenantId!;
 
@@ -88,6 +95,7 @@ export async function updatePermissionGroupController(app: FastifyInstance) {
           priority,
           parentId,
           isActive,
+          storageSettings,
         });
 
         // Log de auditoria

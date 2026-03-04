@@ -10,6 +10,8 @@ vi.mock('imapflow', () => {
       release: vi.fn().mockResolvedValue(undefined),
     });
     messageFlagsAdd = vi.fn().mockResolvedValue(undefined);
+    messageMove = vi.fn().mockResolvedValue(undefined);
+    mailboxClose = vi.fn().mockResolvedValue(undefined);
     expunge = vi.fn().mockResolvedValue(undefined);
     logout = vi.fn().mockResolvedValue(undefined);
   };
@@ -40,6 +42,7 @@ describe('DeleteEmailMessageUseCase', () => {
       accountsRepository,
       foldersRepository,
       messagesRepository,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new FakeCipherService() as any,
     );
 
@@ -59,8 +62,8 @@ describe('DeleteEmailMessageUseCase', () => {
       isActive: true,
     });
 
-    // Create test folder
-    const folder = await foldersRepository.create({
+    // Create INBOX folder
+    const inboxFolder = await foldersRepository.create({
       accountId: account.id.toString(),
       displayName: 'INBOX',
       remoteName: 'INBOX',
@@ -69,11 +72,21 @@ describe('DeleteEmailMessageUseCase', () => {
       lastUid: 100,
     });
 
-    // Create test message
-    const message = await messagesRepository.create({
+    // Create TRASH folder
+    await foldersRepository.create({
+      accountId: account.id.toString(),
+      displayName: 'Trash',
+      remoteName: '[Gmail]/Trash',
+      type: 'TRASH',
+      uidValidity: 124,
+      lastUid: 50,
+    });
+
+    // Create test message in INBOX
+    await messagesRepository.create({
       tenantId: 'tenant-1',
       accountId: account.id.toString(),
-      folderId: folder.id.toString(),
+      folderId: inboxFolder.id.toString(),
       remoteUid: 1,
       fromAddress: 'sender@example.com',
       toAddresses: ['user@example.com'],
@@ -83,17 +96,22 @@ describe('DeleteEmailMessageUseCase', () => {
     });
   });
 
-  it('should delete message', async () => {
+  it('should move message to trash when deleting from inbox', async () => {
     const account = await accountsRepository.findByAddress(
       'user@example.com',
       'tenant-1',
     );
-    const result = await messagesRepository.list({
+    const messagesList = await messagesRepository.list({
       tenantId: 'tenant-1',
       accountId: account!.id.toString(),
       limit: 1,
     });
-    const message = result.messages[0];
+    const message = messagesList.messages[0];
+
+    const trashFolder = await foldersRepository.findByType(
+      account!.id.toString(),
+      'TRASH',
+    );
 
     await sut.execute({
       tenantId: 'tenant-1',
@@ -101,12 +119,90 @@ describe('DeleteEmailMessageUseCase', () => {
       messageId: message.id.toString(),
     });
 
-    const deleted = await messagesRepository.findById(
+    // Message should still exist (not soft-deleted)
+    const movedMessage = await messagesRepository.findById(
       message.id.toString(),
       'tenant-1',
     );
-    // After deletion, findById should return null (deleted messages are filtered)
-    expect(deleted).toBeNull();
+    expect(movedMessage).not.toBeNull();
+    // Message should now be in the Trash folder
+    expect(movedMessage!.folderId.toString()).toBe(trashFolder!.id.toString());
+    expect(movedMessage!.deletedAt).toBeNull();
+  });
+
+  it('should permanently delete message when already in trash', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    const trashFolder = await foldersRepository.findByType(
+      account!.id.toString(),
+      'TRASH',
+    );
+
+    // Create a message directly in the Trash folder
+    const trashMessage = await messagesRepository.create({
+      tenantId: 'tenant-1',
+      accountId: account!.id.toString(),
+      folderId: trashFolder!.id.toString(),
+      remoteUid: 2,
+      fromAddress: 'sender@example.com',
+      toAddresses: ['user@example.com'],
+      subject: 'Already in trash',
+      bodyText: 'This message is already in trash',
+      receivedAt: new Date(),
+    });
+
+    await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      messageId: trashMessage.id.toString(),
+    });
+
+    // After permanent deletion, findById should return null (deletedAt is set)
+    const deletedMessage = await messagesRepository.findById(
+      trashMessage.id.toString(),
+      'tenant-1',
+    );
+    expect(deletedMessage).toBeNull();
+  });
+
+  it('should fall back to soft-delete when trash folder does not exist', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    // Remove the Trash folder to simulate it not existing
+    const trashFolder = await foldersRepository.findByType(
+      account!.id.toString(),
+      'TRASH',
+    );
+    await foldersRepository.delete(
+      trashFolder!.id.toString(),
+      account!.id.toString(),
+    );
+
+    const messagesList = await messagesRepository.list({
+      tenantId: 'tenant-1',
+      accountId: account!.id.toString(),
+      limit: 1,
+    });
+    const message = messagesList.messages[0];
+
+    await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      messageId: message.id.toString(),
+    });
+
+    // Should have been soft-deleted (findById returns null because deletedAt is set)
+    const deletedMessage = await messagesRepository.findById(
+      message.id.toString(),
+      'tenant-1',
+    );
+    expect(deletedMessage).toBeNull();
   });
 
   it('should throw error if message not found', async () => {
@@ -124,12 +220,12 @@ describe('DeleteEmailMessageUseCase', () => {
       'user@example.com',
       'tenant-1',
     );
-    const result = await messagesRepository.list({
+    const messagesList = await messagesRepository.list({
       tenantId: 'tenant-1',
       accountId: account!.id.toString(),
       limit: 1,
     });
-    const message = result.messages[0];
+    const message = messagesList.messages[0];
 
     await expect(
       sut.execute({

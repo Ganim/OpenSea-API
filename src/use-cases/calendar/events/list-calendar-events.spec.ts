@@ -14,6 +14,7 @@ describe('ListCalendarEventsUseCase', () => {
   it('should list events within date range', async () => {
     await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Event 1',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -22,6 +23,7 @@ describe('ListCalendarEventsUseCase', () => {
 
     await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Event 2',
       startDate: new Date('2026-04-01T10:00:00'),
       endDate: new Date('2026-04-01T11:00:00'),
@@ -53,6 +55,7 @@ describe('ListCalendarEventsUseCase', () => {
   it('should filter by type', async () => {
     await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Meeting',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -62,6 +65,7 @@ describe('ListCalendarEventsUseCase', () => {
 
     await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Task',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -84,6 +88,7 @@ describe('ListCalendarEventsUseCase', () => {
   it('should hide private events from non-participants', async () => {
     await repository.create({
       tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
       title: 'Private Event',
       startDate: new Date('2026-03-01T10:00:00'),
       endDate: new Date('2026-03-01T11:00:00'),
@@ -111,7 +116,9 @@ describe('ListCalendarEventsUseCase', () => {
         endDate: new Date('2026-01-31T23:59:59'),
       });
 
-      const holiday = events.find((e) => e.title === 'Confraternização Universal');
+      const holiday = events.find(
+        (e) => e.title === 'Confraternização Universal',
+      );
       expect(holiday).toBeDefined();
       expect(holiday!.type).toBe('HOLIDAY');
       expect(holiday!.isAllDay).toBe(true);
@@ -159,6 +166,7 @@ describe('ListCalendarEventsUseCase', () => {
     it('should include only holidays when filtering by HOLIDAY type', async () => {
       await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'My Event',
         startDate: new Date('2026-01-05T10:00:00'),
         endDate: new Date('2026-01-05T11:00:00'),
@@ -207,6 +215,7 @@ describe('ListCalendarEventsUseCase', () => {
     it('should mix holidays with regular events sorted by date', async () => {
       await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Meeting Jan 15',
         startDate: new Date('2026-01-15T10:00:00'),
         endDate: new Date('2026-01-15T11:00:00'),
@@ -221,7 +230,9 @@ describe('ListCalendarEventsUseCase', () => {
       });
 
       // Confraternização (Jan 1) should come before Meeting (Jan 15)
-      const holidayIdx = events.findIndex((e) => e.title === 'Confraternização Universal');
+      const holidayIdx = events.findIndex(
+        (e) => e.title === 'Confraternização Universal',
+      );
       const meetingIdx = events.findIndex((e) => e.title === 'Meeting Jan 15');
       expect(holidayIdx).toBeLessThan(meetingIdx);
     });
@@ -232,6 +243,7 @@ describe('ListCalendarEventsUseCase', () => {
       // Monday March 2, 2026 — FREQ=WEEKLY;BYDAY=MO over 4 weeks
       await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Weekly Standup',
         startDate: new Date('2026-03-02T09:00:00'),
         endDate: new Date('2026-03-02T09:30:00'),
@@ -260,6 +272,7 @@ describe('ListCalendarEventsUseCase', () => {
       // 15th of each month
       await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Monthly Review',
         startDate: new Date('2026-01-15T14:00:00'),
         endDate: new Date('2026-01-15T15:00:00'),
@@ -282,6 +295,7 @@ describe('ListCalendarEventsUseCase', () => {
     it('should cap yearly recurrence at 90-day range', async () => {
       await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Anniversary',
         startDate: new Date('2026-03-10T00:00:00'),
         endDate: new Date('2026-03-10T23:59:59'),
@@ -304,6 +318,7 @@ describe('ListCalendarEventsUseCase', () => {
     it('should gracefully degrade on invalid RRULE', async () => {
       await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Bad Recurrence',
         startDate: new Date('2026-03-05T10:00:00'),
         endDate: new Date('2026-03-05T11:00:00'),
@@ -328,6 +343,7 @@ describe('ListCalendarEventsUseCase', () => {
     it('should respect COUNT limit in RRULE', async () => {
       await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Limited Daily',
         startDate: new Date('2026-03-01T08:00:00'),
         endDate: new Date('2026-03-01T09:00:00'),
@@ -352,6 +368,7 @@ describe('ListCalendarEventsUseCase', () => {
     it('should only list events for the requested tenant', async () => {
       await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Tenant 1 Event',
         startDate: new Date('2026-03-01T10:00:00'),
         endDate: new Date('2026-03-01T11:00:00'),
@@ -360,6 +377,7 @@ describe('ListCalendarEventsUseCase', () => {
 
       await repository.create({
         tenantId: 'tenant-2',
+        calendarId: 'calendar-1',
         title: 'Tenant 2 Event',
         startDate: new Date('2026-03-01T10:00:00'),
         endDate: new Date('2026-03-01T11:00:00'),
@@ -381,6 +399,7 @@ describe('ListCalendarEventsUseCase', () => {
     it('should not show private events from another tenant', async () => {
       await repository.create({
         tenantId: 'tenant-1',
+        calendarId: 'calendar-1',
         title: 'Secret in Tenant 1',
         startDate: new Date('2026-03-01T10:00:00'),
         endDate: new Date('2026-03-01T11:00:00'),
