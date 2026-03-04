@@ -1,3 +1,4 @@
+import { moduleLoadStart } from './startup-banner';
 import { env } from './@env';
 import { app } from './app';
 import { prisma } from './lib/prisma';
@@ -30,7 +31,10 @@ async function checkDatabaseConnection(): Promise<boolean> {
 
 async function start() {
   const startTime = Date.now();
-  console.log(`[startup] Starting OpenSea API (${env.NODE_ENV})...`);
+  const moduleLoadMs = startTime - moduleLoadStart;
+  console.log(
+    `[startup] Modules loaded (${(moduleLoadMs / 1000).toFixed(1)}s). Starting OpenSea API (${env.NODE_ENV})...`,
+  );
 
   // Check database connectivity
   console.log('[startup] Checking database connection...');
@@ -53,9 +57,7 @@ async function start() {
     });
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-    console.log(
-      `[startup] Server ready on port ${env.PORT} (${elapsed}s)`,
-    );
+    console.log(`[startup] Server ready on port ${env.PORT} (${elapsed}s)`);
     httpLogger.info(
       { port: env.PORT, startupMs: Date.now() - startTime },
       'HTTP server is running on port %d',
