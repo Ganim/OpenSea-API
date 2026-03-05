@@ -11,6 +11,7 @@ export enum AuditModule {
   FINANCE = 'FINANCE',
   CALENDAR = 'CALENDAR',
   STORAGE = 'STORAGE',
+  TASKS = 'TASKS',
   SYSTEM = 'SYSTEM',
   OTHER = 'OTHER',
 }

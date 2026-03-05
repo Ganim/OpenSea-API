@@ -156,6 +156,14 @@ export enum AuditEntity {
   STORAGE_SHARE_LINK = 'STORAGE_SHARE_LINK',
 
   // ==========================================
+  // Tasks - Tarefas
+  // ==========================================
+  TASK_BOARD = 'TASK_BOARD',
+  TASK_CARD = 'TASK_CARD',
+  BOARD_MEMBER = 'BOARD_MEMBER',
+  BOARD_AUTOMATION = 'BOARD_AUTOMATION',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',

@@ -85,6 +85,19 @@ import { emailAccountsRoutes } from './controllers/email/accounts/routes';
 import { emailFoldersRoutes } from './controllers/email/folders/routes';
 import { emailMessagesRoutes } from './controllers/email/messages/routes';
 
+// Tasks routes
+import { taskActivityRoutes } from './controllers/tasks/activity/routes';
+import { taskAttachmentsRoutes } from './controllers/tasks/attachments/routes';
+import { taskAutomationsRoutes } from './controllers/tasks/automations/routes';
+import { taskBoardsRoutes } from './controllers/tasks/boards/routes';
+import { taskCardsRoutes } from './controllers/tasks/cards/routes';
+import { taskChecklistsRoutes } from './controllers/tasks/checklists/routes';
+import { taskColumnsRoutes } from './controllers/tasks/columns/routes';
+import { taskCommentsRoutes } from './controllers/tasks/comments/routes';
+import { taskCustomFieldsRoutes } from './controllers/tasks/custom-fields/routes';
+import { taskLabelsRoutes } from './controllers/tasks/labels/routes';
+import { taskSubtasksRoutes } from './controllers/tasks/subtasks/routes';
+
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
 import { bonusesRoutes } from './controllers/hr/bonuses/routes';
@@ -207,6 +220,19 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(companyCnaesRoutes);
   await app.register(companyFiscalSettingsRoutes);
   await app.register(companyStakeholderRoutes);
+
+  // Tasks routes
+  await app.register(taskBoardsRoutes);
+  await app.register(taskColumnsRoutes);
+  await app.register(taskCardsRoutes);
+  await app.register(taskSubtasksRoutes);
+  await app.register(taskChecklistsRoutes);
+  await app.register(taskCommentsRoutes);
+  await app.register(taskAttachmentsRoutes);
+  await app.register(taskLabelsRoutes);
+  await app.register(taskCustomFieldsRoutes);
+  await app.register(taskAutomationsRoutes);
+  await app.register(taskActivityRoutes);
 
   // Audit routes
   await app.register(auditRoutes);
