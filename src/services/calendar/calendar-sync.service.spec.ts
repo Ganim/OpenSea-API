@@ -43,6 +43,14 @@ describe('CalendarSyncService', () => {
       systemModule: 'STOCK',
       createdBy: '00000000-0000-0000-0000-000000000000',
     });
+    await calendarsRepo.create({
+      tenantId: 'tenant-1',
+      name: 'Calendário Tarefas',
+      color: '#6366f1',
+      type: 'SYSTEM',
+      systemModule: 'TASKS',
+      createdBy: '00000000-0000-0000-0000-000000000000',
+    });
   });
 
   describe('syncAbsence', () => {
@@ -172,6 +180,45 @@ describe('CalendarSyncService', () => {
       expect(repo.items[0].title).toBe('Aniversário de Ana Costa');
       expect(repo.items[0].rrule).toBe('FREQ=YEARLY');
       expect(repo.items[0].systemSourceType).toBe('HR_BIRTHDAY');
+    });
+  });
+
+  describe('syncTaskDue', () => {
+    it('should create a TASK event for a card with due date', async () => {
+      await sut.syncTaskDue({
+        tenantId: 'tenant-1',
+        cardId: 'card-1',
+        title: 'Revisar layout da home',
+        dueDate: new Date('2026-04-01'),
+        userId: 'user-1',
+      });
+
+      expect(repo.items).toHaveLength(1);
+      expect(repo.items[0].type).toBe('TASK');
+      expect(repo.items[0].title).toBe('📋 Revisar layout da home');
+      expect(repo.items[0].systemSourceType).toBe('TASK_DUE');
+      expect(repo.items[0].systemSourceId).toBe('card-1');
+      expect(repo.items[0].calendarId).toBeTruthy();
+    });
+
+    it('should update existing event on re-sync', async () => {
+      await sut.syncTaskDue({
+        tenantId: 'tenant-1',
+        cardId: 'card-1',
+        title: 'Tarefa Original',
+        dueDate: new Date('2026-04-01'),
+        userId: 'user-1',
+      });
+
+      await sut.syncTaskDue({
+        tenantId: 'tenant-1',
+        cardId: 'card-1',
+        title: 'Tarefa Atualizada',
+        dueDate: new Date('2026-04-05'),
+        userId: 'user-1',
+      });
+
+      expect(repo.items).toHaveLength(1);
     });
   });
 

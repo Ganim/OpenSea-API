@@ -319,6 +319,67 @@ export class CalendarSyncService {
     }
   }
 
+  async syncTaskDue(params: {
+    tenantId: string;
+    cardId: string;
+    title: string;
+    dueDate: Date;
+    userId: string;
+  }): Promise<void> {
+    const { tenantId, cardId, title, dueDate, userId } = params;
+
+    const eventTitle = `📋 ${title}`;
+    const startDate = new Date(dueDate);
+    startDate.setHours(0, 0, 0, 0);
+    const endDate = new Date(dueDate);
+    endDate.setHours(23, 59, 59, 999);
+
+    try {
+      const calendarId =
+        (await this.resolveSystemCalendarId(tenantId, 'TASKS')) ??
+        (await this.resolvePersonalCalendarId(tenantId, userId));
+
+      const existing = await this.calendarEventsRepository.findBySystemSource(
+        tenantId,
+        'TASK_DUE',
+        cardId,
+      );
+
+      if (existing) {
+        await this.calendarEventsRepository.update({
+          id: existing.id.toString(),
+          tenantId,
+          title: eventTitle,
+          startDate,
+          endDate,
+          type: 'TASK',
+          isAllDay: true,
+        });
+      } else if (calendarId) {
+        await this.calendarEventsRepository.create({
+          tenantId,
+          calendarId,
+          title: eventTitle,
+          startDate,
+          endDate,
+          isAllDay: true,
+          type: 'TASK',
+          visibility: 'PUBLIC',
+          systemSourceType: 'TASK_DUE',
+          systemSourceId: cardId,
+          createdBy: userId,
+        });
+      } else {
+        logger.warn(
+          { tenantId, cardId },
+          'No calendar found for task due date sync',
+        );
+      }
+    } catch (err) {
+      logger.warn({ err, cardId }, 'Failed to sync task due date to calendar');
+    }
+  }
+
   async removeSystemEvent(
     tenantId: string,
     sourceType: string,
