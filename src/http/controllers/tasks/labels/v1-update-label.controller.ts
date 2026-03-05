@@ -1,0 +1,63 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { NotFoundError } from '@/@errors/use-cases/not-found-error';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { boardLabelResponseSchema, updateLabelSchema } from '@/http/schemas/tasks';
+import { makeUpdateLabelUseCase } from '@/use-cases/tasks/labels/factories/make-update-label-use-case';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
+
+export async function updateLabelController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'PATCH',
+    url: '/v1/tasks/boards/:boardId/labels/:labelId',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.TASKS.BOARDS.UPDATE,
+        resource: 'task-boards',
+      }),
+    ],
+    schema: {
+      tags: ['Tasks - Labels'],
+      summary: 'Update a label',
+      security: [{ bearerAuth: [] }],
+      params: z.object({
+        boardId: z.string().uuid(),
+        labelId: z.string().uuid(),
+      }),
+      body: updateLabelSchema,
+      response: {
+        200: z.object({ label: boardLabelResponseSchema }),
+        400: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const { boardId, labelId } = request.params;
+
+      try {
+        const useCase = makeUpdateLabelUseCase();
+        const result = await useCase.execute({
+          boardId,
+          labelId,
+          ...request.body,
+        });
+
+        return reply.status(200).send(result);
+      } catch (error) {
+        if (error instanceof BadRequestError) {
+          return reply.status(400).send({ message: error.message });
+        }
+        if (error instanceof NotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+}
