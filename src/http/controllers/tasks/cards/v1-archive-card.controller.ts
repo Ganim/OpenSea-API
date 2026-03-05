@@ -1,4 +1,4 @@
-import { NotFoundError } from '@/@errors/use-cases/not-found-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -61,7 +61,7 @@ export async function archiveCardController(app: FastifyInstance) {
 
         return reply.status(200).send(result);
       } catch (error) {
-        if (error instanceof NotFoundError) {
+        if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
         throw error;

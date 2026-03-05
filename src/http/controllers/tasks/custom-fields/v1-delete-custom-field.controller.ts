@@ -1,4 +1,4 @@
-import { NotFoundError } from '@/@errors/use-cases/not-found-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -42,7 +42,7 @@ export async function deleteCustomFieldController(app: FastifyInstance) {
 
         return reply.status(204).send();
       } catch (error) {
-        if (error instanceof NotFoundError) {
+        if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
         throw error;
