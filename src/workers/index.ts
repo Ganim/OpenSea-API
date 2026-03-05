@@ -1,4 +1,5 @@
 import { closeAllQueues } from '@/lib/queue';
+import { startEmailSyncScheduler } from './email-sync-scheduler';
 import { startAuditWorker } from './queues/audit.queue';
 import { startEmailSyncWorker } from './queues/email-sync.queue';
 import { startNotificationWorker } from './queues/notification.queue';
@@ -8,7 +9,7 @@ let workersStarted = false;
 /**
  * Inicia todos os workers de fila
  */
-export function startAllWorkers(): void {
+export async function startAllWorkers(): Promise<void> {
   if (workersStarted) {
     console.log('[Workers] Workers already started');
     return;
@@ -19,6 +20,13 @@ export function startAllWorkers(): void {
   startEmailSyncWorker();
   startNotificationWorker();
   startAuditWorker();
+
+  // Start the email sync scheduler (enqueues periodic sync jobs)
+  try {
+    await startEmailSyncScheduler();
+  } catch (err) {
+    console.error('[Workers] Failed to start email sync scheduler:', err);
+  }
 
   workersStarted = true;
   console.log('[Workers] All workers started successfully');
@@ -48,4 +56,7 @@ process.on('SIGINT', async () => {
 });
 
 // Start workers when this entrypoint runs (Dockerfile.worker: node build/workers/index.js)
-startAllWorkers();
+startAllWorkers().catch((err) => {
+  console.error('[Workers] Fatal error starting workers:', err);
+  process.exit(1);
+});

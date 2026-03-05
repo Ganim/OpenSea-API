@@ -20,6 +20,7 @@ let mockClient: {
   getMailboxLock: ReturnType<typeof vi.fn>;
   status: ReturnType<typeof vi.fn>;
   fetch: ReturnType<typeof vi.fn>;
+  on: ReturnType<typeof vi.fn>;
 };
 
 vi.mock('imapflow', () => ({

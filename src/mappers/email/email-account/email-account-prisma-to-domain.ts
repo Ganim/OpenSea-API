@@ -2,9 +2,19 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { EmailAccount } from '@/entities/email/email-account';
 import type { EmailAccount as PrismaEmailAccount } from '@prisma/generated/client.js';
 
+/** Extended Prisma result with optional team data from include */
+type PrismaEmailAccountWithTeam = PrismaEmailAccount & {
+  teamLinks?: Array<{
+    team: { id: string; name: string };
+  }>;
+};
+
 export function emailAccountPrismaToDomain(
-  accountDb: PrismaEmailAccount,
+  accountDb: PrismaEmailAccountWithTeam,
 ): EmailAccount {
+  // Use the first team link if present
+  const firstTeam = accountDb.teamLinks?.[0]?.team ?? null;
+
   return EmailAccount.create(
     {
       tenantId: new UniqueEntityID(accountDb.tenantId),
@@ -26,6 +36,8 @@ export function emailAccountPrismaToDomain(
       lastSyncAt: accountDb.lastSyncAt ?? null,
       createdAt: accountDb.createdAt,
       updatedAt: accountDb.updatedAt,
+      teamId: firstTeam?.id ?? null,
+      teamName: firstTeam?.name ?? null,
     },
     new UniqueEntityID(accountDb.id),
   );

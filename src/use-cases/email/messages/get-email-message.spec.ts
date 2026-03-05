@@ -272,6 +272,17 @@ describe('GetEmailMessageUseCase', () => {
     expect(sanitized).toContain('Click me');
   });
 
+  it('should sanitize HTML body with style tags', () => {
+    const htmlWithStyleTag =
+      '<style>body{padding:40px} p{margin:32px}</style><p>Conteúdo seguro</p>';
+
+    const sanitized = sanitizeEmailHtml(htmlWithStyleTag);
+
+    expect(sanitized).not.toContain('<style>');
+    expect(sanitized).not.toContain('body{padding:40px}');
+    expect(sanitized).toContain('Conteúdo seguro');
+  });
+
   it('should return message with null body when folder is not found for lazy fetch', async () => {
     const account = await accountsRepository.findByAddress(
       'user@example.com',

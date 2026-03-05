@@ -79,6 +79,10 @@ export class SmtpClientService {
         user: config.username,
         pass: config.secret,
       },
+      // Prevent zombie connections on unreliable mail servers
+      connectionTimeout: 30_000,  // 30s to establish TCP connection
+      greetingTimeout: 30_000,    // 30s for server greeting
+      socketTimeout: 120_000,     // 2min inactivity before closing
     });
   }
 }

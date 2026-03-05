@@ -2,15 +2,16 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type {
-  EmailAccountsRepository,
-  EmailFoldersRepository,
+    EmailAccountsRepository,
+    EmailFoldersRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
+import { createImapClient } from '@/services/email/imap-client.service';
 import type {
-  SmtpAttachmentInput,
-  SmtpClientService,
+    SmtpAttachmentInput,
+    SmtpClientService,
 } from '@/services/email/smtp-client.service';
-import { ImapFlow } from 'imapflow';
+import MailComposer from 'nodemailer/lib/mail-composer/index.js';
 
 interface SendEmailMessageRequest {
   tenantId: string;
@@ -115,6 +116,7 @@ export class SendEmailMessageUseCase {
       messageId,
       inReplyTo: request.inReplyTo,
       references: request.references,
+      attachments: request.attachments,
     });
 
     return { messageId };
@@ -135,6 +137,7 @@ export class SendEmailMessageUseCase {
     messageId?: string;
     inReplyTo?: string;
     references?: string[];
+    attachments?: SmtpAttachmentInput[];
   }): Promise<void> {
     if (process.env.NODE_ENV === 'test') {
       return;
@@ -148,18 +151,15 @@ export class SendEmailMessageUseCase {
 
       if (!sentFolder) return;
 
-      const client = new ImapFlow({
+      const client = createImapClient({
         host: params.host,
         port: params.port,
         secure: params.secure,
-        auth: {
-          user: params.username,
-          pass: params.secret,
-        },
-        logger: false,
+        username: params.username,
+        secret: params.secret,
       });
 
-      const rawMessage = this.buildRawMessage({
+      const rawMessage = await this.buildRawMessage({
         from: params.from,
         to: params.to,
         cc: params.cc,
@@ -168,6 +168,7 @@ export class SendEmailMessageUseCase {
         messageId: params.messageId,
         inReplyTo: params.inReplyTo,
         references: params.references,
+        attachments: params.attachments,
       });
 
       try {
@@ -186,7 +187,7 @@ export class SendEmailMessageUseCase {
     }
   }
 
-  private buildRawMessage(params: {
+  private async buildRawMessage(params: {
     from: string;
     to: string[];
     cc?: string[];
@@ -195,23 +196,26 @@ export class SendEmailMessageUseCase {
     messageId?: string;
     inReplyTo?: string;
     references?: string[];
-  }): string {
-    const headers = [
-      `From: ${params.from}`,
-      `To: ${params.to.join(', ')}`,
-      ...(params.cc?.length ? [`Cc: ${params.cc.join(', ')}`] : []),
-      `Subject: ${params.subject}`,
-      `Date: ${new Date().toUTCString()}`,
-      ...(params.messageId ? [`Message-ID: ${params.messageId}`] : []),
-      ...(params.inReplyTo ? [`In-Reply-To: ${params.inReplyTo}`] : []),
+    attachments?: SmtpAttachmentInput[];
+  }): Promise<Buffer> {
+    const mail = new MailComposer({
+      from: params.from,
+      to: params.to.join(', '),
+      ...(params.cc?.length ? { cc: params.cc.join(', ') } : {}),
+      subject: params.subject,
+      html: params.html,
+      ...(params.messageId ? { messageId: params.messageId } : {}),
+      ...(params.inReplyTo ? { inReplyTo: params.inReplyTo } : {}),
       ...(params.references?.length
-        ? [`References: ${params.references.join(' ')}`]
-        : []),
-      'MIME-Version: 1.0',
-      'Content-Type: text/html; charset="UTF-8"',
-      'Content-Transfer-Encoding: 8bit',
-    ];
+        ? { references: params.references.join(' ') }
+        : {}),
+      attachments: params.attachments?.map((a) => ({
+        filename: a.filename,
+        content: a.content,
+        contentType: a.contentType,
+      })),
+    });
 
-    return `${headers.join('\r\n')}\r\n\r\n${params.html}`;
+    return mail.compile().build();
   }
 }

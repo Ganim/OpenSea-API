@@ -1,3 +1,4 @@
+import { env } from '@/@env';
 import forge from 'node-forge';
 
 interface DecryptionPayload {
@@ -79,7 +80,7 @@ export class CredentialCipherService {
   }
 
   private resolveKey(): string {
-    const key = process.env.EMAIL_CREDENTIALS_KEY;
+    const key = env.EMAIL_CREDENTIALS_KEY;
 
     if (!key) {
       throw new Error('EMAIL_CREDENTIALS_KEY is not configured');

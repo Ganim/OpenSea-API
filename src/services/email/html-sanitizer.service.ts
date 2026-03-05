@@ -8,9 +8,6 @@ export function sanitizeEmailHtml(html: string): string {
   return sanitizeHtml(html, {
     allowedTags: [
       // Structure
-      'html',
-      'head',
-      'body',
       'div',
       'span',
       'p',
@@ -68,8 +65,6 @@ export function sanitizeEmailHtml(html: string): string {
       // Links & images
       'a',
       'img',
-      // Style
-      'style',
     ],
     allowedAttributes: {
       '*': ['style', 'class', 'id', 'dir', 'lang', 'title'],
@@ -112,6 +107,53 @@ export function sanitizeEmailHtml(html: string): string {
     allowedSchemesByTag: {
       img: ['http', 'https', 'cid', 'data'],
       a: ['http', 'https', 'mailto'],
+    },
+    // Whitelist safe CSS properties to prevent UI spoofing attacks
+    // (position:fixed overlays, z-index abuse, external background images)
+    allowedStyles: {
+      '*': {
+        color: [/.*/],
+        'background-color': [/.*/],
+        'text-align': [/^(left|right|center|justify)$/],
+        'font-size': [/.*/],
+        'font-family': [/.*/],
+        'font-weight': [/.*/],
+        'font-style': [/.*/],
+        'text-decoration': [/.*/],
+        'line-height': [/.*/],
+        'letter-spacing': [/.*/],
+        width: [/.*/],
+        'max-width': [/.*/],
+        height: [/.*/],
+        'min-height': [/.*/],
+        margin: [/.*/],
+        'margin-top': [/.*/],
+        'margin-bottom': [/.*/],
+        'margin-left': [/.*/],
+        'margin-right': [/.*/],
+        padding: [/.*/],
+        'padding-top': [/.*/],
+        'padding-bottom': [/.*/],
+        'padding-left': [/.*/],
+        'padding-right': [/.*/],
+        border: [/.*/],
+        'border-top': [/.*/],
+        'border-bottom': [/.*/],
+        'border-left': [/.*/],
+        'border-right': [/.*/],
+        'border-radius': [/.*/],
+        'border-collapse': [/.*/],
+        'border-spacing': [/.*/],
+        'border-color': [/.*/],
+        'vertical-align': [/.*/],
+        'white-space': [/.*/],
+        'word-break': [/.*/],
+        'overflow-wrap': [/.*/],
+        display: [/^(block|inline|inline-block|none|flex|table|table-row|table-cell)$/],
+        'list-style-type': [/.*/],
+        'text-transform': [/.*/],
+        opacity: [/.*/],
+      },
     },
     // Block dangerous tags explicitly (sanitize-html strips unknown tags by default)
     disallowedTagsMode: 'discard',

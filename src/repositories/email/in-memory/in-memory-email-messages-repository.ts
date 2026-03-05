@@ -73,6 +73,21 @@ export class InMemoryEmailMessagesRepository
     );
   }
 
+  async findExistingRemoteUids(
+    accountId: string,
+    folderId: string,
+    remoteUids: number[],
+  ): Promise<Set<number>> {
+    const uidSet = new Set(remoteUids);
+    const existing = this.items.filter(
+      (item) =>
+        item.accountId.toString() === accountId &&
+        item.folderId.toString() === folderId &&
+        uidSet.has(item.remoteUid),
+    );
+    return new Set(existing.map((item) => item.remoteUid));
+  }
+
   async list(
     params: EmailMessagesListParams,
   ): Promise<EmailMessagesListResult> {

@@ -61,7 +61,17 @@ export class PrismaEmailAccountsRepository implements EmailAccountsRepository {
     const accounts = await prisma.emailAccount.findMany({
       where: {
         tenantId,
-        OR: [{ ownerUserId: userId }, { access: { some: { userId } } }],
+        OR: [
+          { ownerUserId: userId },
+          { access: { some: { userId } } },
+          { teamLinks: { some: { team: { members: { some: { userId } } } } } },
+        ],
+      },
+      include: {
+        teamLinks: {
+          include: { team: { select: { id: true, name: true } } },
+          take: 1,
+        },
       },
       orderBy: { createdAt: 'desc' },
     });

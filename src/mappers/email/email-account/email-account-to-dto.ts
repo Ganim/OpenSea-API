@@ -18,6 +18,8 @@ export interface EmailAccountDTO {
   lastSyncAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
+  teamId: string | null;
+  teamName: string | null;
 }
 
 export function emailAccountToDTO(account: EmailAccount): EmailAccountDTO {
@@ -39,5 +41,7 @@ export function emailAccountToDTO(account: EmailAccount): EmailAccountDTO {
     lastSyncAt: account.lastSyncAt,
     createdAt: account.createdAt,
     updatedAt: account.updatedAt,
+    teamId: account.teamId,
+    teamName: account.teamName,
   };
 }

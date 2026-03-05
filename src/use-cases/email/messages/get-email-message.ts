@@ -10,8 +10,8 @@ import type {
   EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
+import { createImapClient } from '@/services/email/imap-client.service';
 import { sanitizeEmailHtml } from '@/services/email/html-sanitizer.service';
-import { ImapFlow } from 'imapflow';
 // @ts-expect-error - mailparser has no type declarations
 import { simpleParser } from 'mailparser';
 
@@ -88,9 +88,18 @@ export class GetEmailMessageUseCase {
       await this.fetchAndStoreBody(message, account);
     }
 
-    const attachments = await this.emailMessagesRepository.listAttachments(
+    let attachments = await this.emailMessagesRepository.listAttachments(
       message.id.toString(),
     );
+
+    // Lazy-fetch attachments if the message has them but records are missing
+    // (backwards compat for messages whose body was fetched before attachment support)
+    if (message.hasAttachments && attachments.length === 0) {
+      await this.fetchAndStoreAttachments(message, account);
+      attachments = await this.emailMessagesRepository.listAttachments(
+        message.id.toString(),
+      );
+    }
 
     return {
       message: emailMessageToDTO(message, attachments),
@@ -122,15 +131,12 @@ export class GetEmailMessageUseCase {
         account.encryptedSecret,
       );
 
-      const client = new ImapFlow({
+      const client = createImapClient({
         host: account.imapHost,
         port: account.imapPort,
         secure: account.imapSecure,
-        auth: {
-          user: account.username,
-          pass: secret,
-        },
-        logger: false,
+        username: account.username,
+        secret,
       });
 
       try {
@@ -177,6 +183,9 @@ export class GetEmailMessageUseCase {
             snippet,
           );
 
+          // Extract and store attachment METADATA (no file upload — files stay on IMAP)
+          await this.extractAndStoreAttachmentMetadata(parsed, message);
+
           logger.info(
             {
               messageId: message.id.toString(),
@@ -203,6 +212,127 @@ export class GetEmailMessageUseCase {
         `Failed to lazy-fetch email body: ${reason}`,
       );
       // Do not throw - return message with null body rather than breaking the flow
+    }
+  }
+
+  /**
+   * Extract attachment METADATA from a parsed email and create EmailAttachment
+   * records. Files are NOT uploaded to storage — they remain on the IMAP server
+   * and are downloaded on-demand when the user clicks download.
+   *
+   * storageKey stores "imap:{index}" to identify which attachment to fetch later.
+   */
+  private async extractAndStoreAttachmentMetadata(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    parsed: any,
+    message: EmailMessage,
+  ): Promise<void> {
+    const parsedAttachments = parsed.attachments as
+      | Array<{
+          filename?: string;
+          contentType?: string;
+          size?: number;
+          content: Buffer;
+          contentId?: string;
+          related?: boolean;
+        }>
+      | undefined;
+
+    if (!parsedAttachments || parsedAttachments.length === 0) return;
+
+    // Check idempotency — skip if attachments already exist
+    const existing = await this.emailMessagesRepository.listAttachments(
+      message.id.toString(),
+    );
+    if (existing.length > 0) return;
+
+    // Filter out inline CID images (embedded in the HTML body, not downloadable)
+    const downloadable = parsedAttachments.filter(
+      (att) => !att.related && !att.contentId,
+    );
+
+    for (let idx = 0; idx < downloadable.length; idx++) {
+      const att = downloadable[idx];
+      try {
+        await this.emailMessagesRepository.createAttachment({
+          messageId: message.id.toString(),
+          filename: att.filename || 'sem-nome',
+          contentType: att.contentType || 'application/octet-stream',
+          size: att.size ?? att.content.length,
+          storageKey: `imap:${idx}`,
+        });
+      } catch (error) {
+        const reason = error instanceof Error ? error.message : String(error);
+        logger.warn(
+          { messageId: message.id.toString(), filename: att.filename },
+          `Failed to store attachment metadata: ${reason}`,
+        );
+      }
+    }
+  }
+
+  /**
+   * Backwards-compatible lazy-fetch: for messages whose body was already fetched
+   * (by older code without attachment support), connect to IMAP, download source,
+   * parse, and store attachment metadata.
+   */
+  private async fetchAndStoreAttachments(
+    message: EmailMessage,
+    account: EmailAccount,
+  ): Promise<void> {
+    try {
+      const folder = await this.emailFoldersRepository.findById(
+        message.folderId.toString(),
+        account.id.toString(),
+      );
+
+      if (!folder) return;
+
+      const secret = this.credentialCipherService.decrypt(
+        account.encryptedSecret,
+      );
+
+      const client = createImapClient({
+        host: account.imapHost,
+        port: account.imapPort,
+        secure: account.imapSecure,
+        username: account.username,
+        secret,
+      });
+
+      try {
+        await client.connect();
+        const lock = await client.getMailboxLock(folder.remoteName);
+
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const rawMessage: any = await client.fetchOne(
+            String(message.remoteUid),
+            { source: true } as Record<string, boolean>,
+            { uid: true },
+          );
+
+          if (!rawMessage?.source) return;
+
+          const parsed = await simpleParser(rawMessage.source as Buffer);
+          await this.extractAndStoreAttachmentMetadata(parsed, message);
+        } finally {
+          lock.release();
+        }
+      } finally {
+        await client.logout().catch(() => undefined);
+      }
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : String(error);
+      logger.error(
+        {
+          err: error,
+          messageId: message.id.toString(),
+          accountId: account.id.toString(),
+        },
+        `Failed to lazy-fetch email attachments: ${reason}`,
+      );
+      // Do not throw — return without attachments rather than breaking the flow
     }
   }
 }

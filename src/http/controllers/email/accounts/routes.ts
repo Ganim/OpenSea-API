@@ -37,6 +37,8 @@ const emailAccountSchema = z.object({
   lastSyncAt: z.coerce.date().nullable(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
+  teamId: z.string().uuid().nullable(),
+  teamName: z.string().nullable(),
 });
 
 const createEmailAccountBodySchema = z.object({
@@ -79,6 +81,8 @@ const emailAccountAccessSchema = z.object({
   canManage: z.boolean(),
   createdAt: z.coerce.date(),
 });
+
+const MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS = 30_000;
 
 export async function emailAccountsRoutes(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -379,7 +383,13 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
         const getAccount = makeGetEmailAccountUseCase();
         await getAccount.execute({ tenantId, userId, accountId });
 
-        const job = await queueEmailSync({ tenantId, accountId });
+        const bucket = Math.floor(Date.now() / MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS);
+        const jobId = `manual-email-sync-${tenantId}-${accountId}-${bucket}`;
+
+        const job = await queueEmailSync(
+          { tenantId, accountId },
+          { jobId },
+        );
         logger.info(
           { jobId: job.id, tenantId, accountId },
           'Manual email sync enqueued',

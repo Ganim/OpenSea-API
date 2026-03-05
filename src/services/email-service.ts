@@ -24,11 +24,14 @@ export class EmailService {
   private transporter = nodemailer.createTransport({
     host: env.SMTP_HOST,
     port: Number(env.SMTP_PORT),
-    secure: false, // true para 465, false para outros
+    secure: Number(env.SMTP_PORT) === 465, // SMTPS on 465, STARTTLS on 587/25
     auth: {
       user: env.SMTP_USER,
       pass: env.SMTP_PASS,
     },
+    connectionTimeout: 30_000,
+    greetingTimeout: 30_000,
+    socketTimeout: 60_000,
   });
 
   async sendPasswordResetEmail(

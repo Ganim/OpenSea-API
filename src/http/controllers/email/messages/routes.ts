@@ -6,7 +6,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeDeleteEmailMessageUseCase } from '@/use-cases/email/messages/factories/make-delete-email-message-use-case';
-import { makeGetEmailAttachmentDownloadUrlUseCase } from '@/use-cases/email/messages/factories/make-get-email-attachment-download-url-use-case';
+import { makeDownloadEmailAttachmentUseCase } from '@/use-cases/email/messages/factories/make-get-email-attachment-download-url-use-case';
 import { makeGetEmailMessageUseCase } from '@/use-cases/email/messages/factories/make-get-email-message-use-case';
 import { makeListEmailMessagesUseCase } from '@/use-cases/email/messages/factories/make-list-email-messages-use-case';
 import { makeMarkEmailMessageReadUseCase } from '@/use-cases/email/messages/factories/make-mark-email-message-read-use-case';
@@ -578,18 +578,13 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Email - Messages'],
-      summary: 'Get presigned download URL for an email attachment',
+      summary: 'Download email attachment binary from IMAP on-demand',
       security: [{ bearerAuth: [] }],
       params: z.object({
         messageId: z.string().uuid(),
         attachmentId: z.string().uuid(),
       }),
       response: {
-        200: z.object({
-          url: z.string(),
-          filename: z.string(),
-          contentType: z.string(),
-        }),
         403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
@@ -599,7 +594,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       const userId = request.user.sub;
 
       try {
-        const useCase = makeGetEmailAttachmentDownloadUrlUseCase();
+        const useCase = makeDownloadEmailAttachmentUseCase();
         const result = await useCase.execute({
           tenantId,
           userId,
@@ -607,7 +602,21 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
           attachmentId: request.params.attachmentId,
         });
 
-        return reply.status(200).send(result);
+        // Encode filename for Content-Disposition (RFC 5987)
+        const encodedFilename = encodeURIComponent(result.filename).replace(
+          /[!'()*]/g,
+          (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`,
+        );
+        const safeFilename = result.filename.replace(/["\\\r\n]/g, '_');
+
+        // Use reply.raw to bypass Zod serialization for binary content
+        reply.raw.writeHead(200, {
+          'Content-Type': result.contentType,
+          'Content-Disposition': `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+          'Content-Length': result.size,
+        });
+        reply.raw.end(result.content);
+        return;
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -23,6 +23,10 @@ export interface EmailAccountProps {
   lastSyncAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
+  /** First linked team ID (read-only, populated from teamLinks join) */
+  teamId?: string | null;
+  /** First linked team name (read-only, populated from teamLinks join) */
+  teamName?: string | null;
 }
 
 export class EmailAccount extends Entity<EmailAccountProps> {
@@ -172,6 +176,14 @@ export class EmailAccount extends Entity<EmailAccountProps> {
     return this.props.updatedAt;
   }
 
+  get teamId(): string | null {
+    return this.props.teamId ?? null;
+  }
+
+  get teamName(): string | null {
+    return this.props.teamName ?? null;
+  }
+
   private touch(): void {
     this.props.updatedAt = new Date();
   }
@@ -200,6 +212,8 @@ export class EmailAccount extends Entity<EmailAccountProps> {
       lastSyncAt?: Date | null;
       createdAt?: Date;
       updatedAt?: Date;
+      teamId?: string | null;
+      teamName?: string | null;
     },
     id?: UniqueEntityID,
   ): EmailAccount {
@@ -216,6 +230,8 @@ export class EmailAccount extends Entity<EmailAccountProps> {
         lastSyncAt: props.lastSyncAt ?? null,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
+        teamId: props.teamId ?? null,
+        teamName: props.teamName ?? null,
       },
       id,
     );

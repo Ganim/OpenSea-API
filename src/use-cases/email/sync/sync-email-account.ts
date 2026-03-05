@@ -8,7 +8,7 @@ import type {
   EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { ImapFlow } from 'imapflow';
+import { createImapClient } from '@/services/email/imap-client.service';
 import { SyncEmailFolderUseCase } from './sync-email-folder';
 
 interface SyncEmailAccountRequest {
@@ -91,15 +91,12 @@ export class SyncEmailAccountUseCase {
       account.encryptedSecret,
     );
 
-    const client = new ImapFlow({
+    const client = createImapClient({
       host: account.imapHost,
       port: account.imapPort,
       secure: account.imapSecure,
-      auth: {
-        user: account.username,
-        pass: secret,
-      },
-      logger: false,
+      username: account.username,
+      secret,
     });
 
     let syncedFolders = 0;

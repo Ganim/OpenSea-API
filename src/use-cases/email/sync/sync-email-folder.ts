@@ -3,10 +3,11 @@ import type { EmailAccount } from '@/entities/email/email-account';
 import type { EmailFolder } from '@/entities/email/email-folder';
 import { logger } from '@/lib/logger';
 import type {
-  EmailFoldersRepository,
-  EmailMessagesRepository,
+    EmailFoldersRepository,
+    EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
+import { createImapClient } from '@/services/email/imap-client.service';
 import { ImapFlow } from 'imapflow';
 
 interface SyncEmailFolderRequest {
@@ -55,15 +56,97 @@ interface CreatedMessageRef {
   receivedAt: Date;
 }
 
+const PROCESS_BATCH_SIZE = 200;
+
+interface RawMessageData {
+  uid: number;
+  envelope: unknown;
+  flags: string[];
+  internalDate: Date | undefined;
+  bodyStructure: unknown;
+}
+
 async function processMessages(
   messages: AsyncIterable<unknown>,
   account: EmailAccount,
   folder: EmailFolder,
   emailMessagesRepository: EmailMessagesRepository,
-): Promise<{ synced: number; maxUid: number; createdMessages: CreatedMessageRef[] }> {
+): Promise<{
+  synced: number;
+  maxUid: number;
+  createdMessages: CreatedMessageRef[];
+}> {
   let synced = 0;
   let maxUid = folder.lastUid ?? 0;
   const createdMessages: CreatedMessageRef[] = [];
+
+  // Collect messages in batches and batch-check existence to avoid N+1 queries
+  let batch: RawMessageData[] = [];
+
+  async function processBatch(items: RawMessageData[]) {
+    if (items.length === 0) return;
+
+    const uids = items.map((m) => m.uid);
+    const existingUids = await emailMessagesRepository.findExistingRemoteUids(
+      account.id.toString(),
+      folder.id.toString(),
+      uids,
+    );
+
+    for (const message of items) {
+      maxUid = Math.max(maxUid, message.uid);
+
+      if (existingUids.has(message.uid)) {
+        continue;
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const envelope = (message as any).envelope ?? undefined;
+      const from = envelope?.from?.[0];
+      const to = envelope?.to ?? [];
+      const cc = envelope?.cc ?? [];
+      const bcc = envelope?.bcc ?? [];
+      const flags = new Set(message.flags);
+      const hasAttachments = hasAttachmentFromStructure(message.bodyStructure);
+
+      const created = await emailMessagesRepository.create({
+        tenantId: account.tenantId.toString(),
+        accountId: account.id.toString(),
+        folderId: folder.id.toString(),
+        remoteUid: message.uid,
+        messageId: envelope?.messageId ?? null,
+        threadId: envelope?.inReplyTo ?? null,
+        fromAddress: from?.address ?? '',
+        fromName: from?.name ?? null,
+        toAddresses: (to as Array<{ address?: string }>)
+          .map((item) => item.address ?? '')
+          .filter(Boolean),
+        ccAddresses: (cc as Array<{ address?: string }>)
+          .map((item) => item.address ?? '')
+          .filter(Boolean),
+        bccAddresses: (bcc as Array<{ address?: string }>)
+          .map((item) => item.address ?? '')
+          .filter(Boolean),
+        subject: envelope?.subject ?? '',
+        snippet: null,
+        bodyText: null,
+        bodyHtmlSanitized: null,
+        receivedAt: message.internalDate ?? new Date(),
+        sentAt: envelope?.date ?? null,
+        isRead: flags.has('\\Seen'),
+        isFlagged: flags.has('\\Flagged'),
+        hasAttachments,
+      });
+
+      createdMessages.push({
+        id: created.id.toString(),
+        remoteUid: message.uid,
+        receivedAt: created.receivedAt,
+      });
+
+      synced += 1;
+    }
+  }
 
   for await (const rawMessage of messages) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -71,64 +154,22 @@ async function processMessages(
     const uid = message.uid ?? 0;
     if (!uid) continue;
 
-    const existing = await emailMessagesRepository.findByRemoteUid(
-      account.id.toString(),
-      folder.id.toString(),
+    batch.push({
       uid,
-    );
+      envelope: message.envelope,
+      flags: [...(message.flags ?? [])],
+      internalDate: message.internalDate,
+      bodyStructure: message.bodyStructure,
+    });
 
-    if (existing) {
-      maxUid = Math.max(maxUid, uid);
-      continue;
+    if (batch.length >= PROCESS_BATCH_SIZE) {
+      await processBatch(batch);
+      batch = [];
     }
-
-    const envelope = message.envelope ?? undefined;
-    const from = envelope?.from?.[0];
-    const to = envelope?.to ?? [];
-    const cc = envelope?.cc ?? [];
-    const bcc = envelope?.bcc ?? [];
-    const flags = new Set((message.flags ?? []) as string[]);
-
-    const hasAttachments = hasAttachmentFromStructure(message.bodyStructure);
-
-    const created = await emailMessagesRepository.create({
-      tenantId: account.tenantId.toString(),
-      accountId: account.id.toString(),
-      folderId: folder.id.toString(),
-      remoteUid: uid,
-      messageId: envelope?.messageId ?? null,
-      threadId: envelope?.inReplyTo ?? null,
-      fromAddress: from?.address ?? '',
-      fromName: from?.name ?? null,
-      toAddresses: (to as Array<{ address?: string }>)
-        .map((item) => item.address ?? '')
-        .filter(Boolean),
-      ccAddresses: (cc as Array<{ address?: string }>)
-        .map((item) => item.address ?? '')
-        .filter(Boolean),
-      bccAddresses: (bcc as Array<{ address?: string }>)
-        .map((item) => item.address ?? '')
-        .filter(Boolean),
-      subject: envelope?.subject ?? '',
-      snippet: null,
-      bodyText: null,
-      bodyHtmlSanitized: null,
-      receivedAt: message.internalDate ?? new Date(),
-      sentAt: envelope?.date ?? null,
-      isRead: flags.has('\\Seen'),
-      isFlagged: flags.has('\\Flagged'),
-      hasAttachments,
-    });
-
-    createdMessages.push({
-      id: created.id.toString(),
-      remoteUid: uid,
-      receivedAt: created.receivedAt,
-    });
-
-    maxUid = Math.max(maxUid, uid);
-    synced += 1;
   }
+
+  // Process remaining messages
+  await processBatch(batch);
 
   return { synced, maxUid, createdMessages };
 }
@@ -157,7 +198,6 @@ async function generateSnippets(
 
   for (const msg of candidates) {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let textContent: string | undefined;
 
       // First attempt: fetch text/plain body part '1' (works for simple and multipart messages)
@@ -170,11 +210,12 @@ async function generateSnippets(
 
         if (bodyPart && bodyPart.bodyParts) {
           const value = bodyPart.bodyParts.values().next().value;
-          textContent = value instanceof Buffer
-            ? value.toString('utf-8')
-            : typeof value === 'string'
-              ? value
-              : undefined;
+          textContent =
+            value instanceof Buffer
+              ? value.toString('utf-8')
+              : typeof value === 'string'
+                ? value
+                : undefined;
         }
       } catch {
         // Part '1' not available — fall through to source fallback
@@ -190,14 +231,18 @@ async function generateSnippets(
           );
 
           if (sourcePart && sourcePart.source) {
-            const raw = sourcePart.source instanceof Buffer
-              ? sourcePart.source.toString('utf-8')
-              : String(sourcePart.source);
+            const raw =
+              sourcePart.source instanceof Buffer
+                ? sourcePart.source.toString('utf-8')
+                : String(sourcePart.source);
 
             // Strip MIME headers (everything before first blank line)
             const bodyStart = raw.indexOf('\r\n\r\n');
-            const rawBody = bodyStart !== -1 ? raw.substring(bodyStart + 4) : raw;
-            textContent = rawBody.replace(/=\r?\n/g, '').replace(/<[^>]+>/g, ' ');
+            const rawBody =
+              bodyStart !== -1 ? raw.substring(bodyStart + 4) : raw;
+            textContent = rawBody
+              .replace(/=\r?\n/g, '')
+              .replace(/<[^>]+>/g, ' ');
           }
         } catch {
           // Source fetch also failed — skip this message
@@ -244,15 +289,12 @@ export class SyncEmailFolderUseCase {
 
     const client =
       request.client ??
-      new ImapFlow({
+      createImapClient({
         host: account.imapHost,
         port: account.imapPort,
         secure: account.imapSecure,
-        auth: {
-          user: account.username,
-          pass: secret,
-        },
-        logger: false,
+        username: account.username,
+        secret,
       });
 
     let synced = 0;

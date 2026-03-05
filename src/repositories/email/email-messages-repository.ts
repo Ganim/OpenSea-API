@@ -64,6 +64,11 @@ export interface EmailMessagesRepository {
     folderId: string,
     remoteUid: number,
   ): Promise<EmailMessage | null>;
+  findExistingRemoteUids(
+    accountId: string,
+    folderId: string,
+    remoteUids: number[],
+  ): Promise<Set<number>>;
   list(params: EmailMessagesListParams): Promise<EmailMessagesListResult>;
   update(data: UpdateEmailMessageSchema): Promise<EmailMessage | null>;
   updateBody(

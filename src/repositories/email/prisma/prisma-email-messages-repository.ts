@@ -64,6 +64,21 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
     return messageDb ? emailMessagePrismaToDomain(messageDb) : null;
   }
 
+  async findExistingRemoteUids(
+    accountId: string,
+    folderId: string,
+    remoteUids: number[],
+  ): Promise<Set<number>> {
+    if (remoteUids.length === 0) return new Set();
+
+    const rows = await prisma.emailMessage.findMany({
+      where: { accountId, folderId, remoteUid: { in: remoteUids } },
+      select: { remoteUid: true },
+    });
+
+    return new Set(rows.map((r) => r.remoteUid));
+  }
+
   async list(
     params: EmailMessagesListParams,
   ): Promise<EmailMessagesListResult> {
@@ -118,7 +133,7 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
       index += 1;
     }
 
-    whereClause += ` AND to_tsvector('simple', COALESCE(subject, '') || ' ' || COALESCE(from_address, '') || ' ' || COALESCE(from_name, '') || ' ' || COALESCE(snippet, '') || ' ' || COALESCE("bodyText", '') || ' ' || COALESCE(body_html_sanitized, '')) @@ plainto_tsquery('simple', $${index})`;
+    whereClause += ` AND to_tsvector('simple', COALESCE(subject, '') || ' ' || COALESCE(from_address, '') || ' ' || COALESCE(from_name, '') || ' ' || COALESCE(snippet, '')) @@ plainto_tsquery('simple', $${index})`;
     paramsList.push(search);
     index += 1;
 

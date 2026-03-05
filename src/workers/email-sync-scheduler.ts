@@ -37,14 +37,15 @@ async function scheduleSyncJobs() {
   }
 }
 
-// Initial run + start interval
-try {
+/**
+ * Starts the scheduler: runs an initial sync pass then repeats on a fixed interval.
+ * Safe to call once from the worker entrypoint.
+ */
+export async function startEmailSyncScheduler(): Promise<void> {
   await scheduleSyncJobs();
   setInterval(scheduleSyncJobs, INTERVAL_MS);
   logger.info(
     { interval: INTERVAL_MS },
-    'Email sync scheduler worker started successfully',
+    'Email sync scheduler started successfully',
   );
-} catch {
-  logger.error('Failed to start email sync scheduler worker');
 }
