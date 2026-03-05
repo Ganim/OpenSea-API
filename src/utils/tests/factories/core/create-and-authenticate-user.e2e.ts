@@ -388,6 +388,13 @@ const ALL_PERMISSIONS = {
     participants: ['invite', 'respond', 'manage'],
     reminders: ['create', 'delete'],
   },
+  // TASKS module
+  tasks: {
+    boards: ['create', 'read', 'update', 'delete', 'list', 'manage'],
+    cards: ['create', 'read', 'update', 'delete', 'list', 'move', 'assign'],
+    comments: ['create', 'read', 'update', 'delete'],
+    attachments: ['upload', 'delete'],
+  },
 };
 
 /**
@@ -452,6 +459,8 @@ function generatePermissionName(
     invite: 'Convidar',
     respond: 'Responder',
     export: 'Exportar',
+    move: 'Mover',
+    upload: 'Enviar',
   };
 
   const resourceNames: Record<string, string> = {
@@ -532,6 +541,9 @@ function generatePermissionName(
     events: 'Eventos',
     participants: 'Participantes',
     reminders: 'Lembretes',
+    boards: 'Quadros',
+    cards: 'Cartões',
+    attachments: 'Anexos',
   };
 
   const actionName = actionNames[action] || action;
