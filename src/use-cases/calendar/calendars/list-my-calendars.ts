@@ -15,6 +15,7 @@ interface ListMyCalendarsRequest {
   tenantId: string;
   userId: string;
   teamMemberships: TeamMembership[];
+  teamInfoMap?: Map<string, { name: string; color: string | null }>;
 }
 
 interface ListMyCalendarsResponse {
@@ -30,7 +31,7 @@ export class ListMyCalendarsUseCase {
   async execute(
     request: ListMyCalendarsRequest,
   ): Promise<ListMyCalendarsResponse> {
-    const { tenantId, userId, teamMemberships } = request;
+    const { tenantId, userId, teamMemberships, teamInfoMap } = request;
 
     const teamIds = teamMemberships.map((m) => m.teamId);
     const allCalendars = await this.calendarsRepository.listByUser(
@@ -104,7 +105,11 @@ export class ListMyCalendarsUseCase {
 
       // Only include if user can read
       if (access.canRead) {
-        result.push(calendarToDTO(calendar, access));
+        const ownerInfo =
+          calendar.isTeam && calendar.ownerId
+            ? teamInfoMap?.get(calendar.ownerId)
+            : undefined;
+        result.push(calendarToDTO(calendar, access, ownerInfo));
       }
     }
 

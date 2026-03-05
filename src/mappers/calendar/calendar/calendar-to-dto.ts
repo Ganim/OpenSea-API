@@ -6,6 +6,7 @@ export interface CalendarAccessDTO {
   canEdit: boolean;
   canDelete: boolean;
   canShare: boolean;
+  canManage: boolean;
 }
 
 export interface CalendarDTO {
@@ -16,6 +17,8 @@ export interface CalendarDTO {
   color: string | null;
   type: string;
   ownerId: string | null;
+  ownerName: string | null;
+  ownerColor: string | null;
   systemModule: string | null;
   isDefault: boolean;
   access: CalendarAccessDTO;
@@ -26,6 +29,7 @@ export interface CalendarDTO {
 export function calendarToDTO(
   calendar: Calendar,
   access: CalendarAccessDTO,
+  ownerInfo?: { name?: string; color?: string | null },
 ): CalendarDTO {
   return {
     id: calendar.id.toString(),
@@ -35,6 +39,8 @@ export function calendarToDTO(
     color: calendar.color,
     type: calendar.type,
     ownerId: calendar.ownerId,
+    ownerName: ownerInfo?.name ?? null,
+    ownerColor: ownerInfo?.color ?? null,
     systemModule: calendar.systemModule,
     isDefault: calendar.isDefault,
     access,

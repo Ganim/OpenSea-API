@@ -8,16 +8,19 @@ export interface TeamCalendarConfigData {
   ownerCanEdit: boolean;
   ownerCanDelete: boolean;
   ownerCanShare: boolean;
+  ownerCanManage: boolean;
   adminCanRead: boolean;
   adminCanCreate: boolean;
   adminCanEdit: boolean;
   adminCanDelete: boolean;
   adminCanShare: boolean;
+  adminCanManage: boolean;
   memberCanRead: boolean;
   memberCanCreate: boolean;
   memberCanEdit: boolean;
   memberCanDelete: boolean;
   memberCanShare: boolean;
+  memberCanManage: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,16 +34,19 @@ export interface CreateTeamCalendarConfigSchema {
   ownerCanEdit?: boolean;
   ownerCanDelete?: boolean;
   ownerCanShare?: boolean;
+  ownerCanManage?: boolean;
   adminCanRead?: boolean;
   adminCanCreate?: boolean;
   adminCanEdit?: boolean;
   adminCanDelete?: boolean;
   adminCanShare?: boolean;
+  adminCanManage?: boolean;
   memberCanRead?: boolean;
   memberCanCreate?: boolean;
   memberCanEdit?: boolean;
   memberCanDelete?: boolean;
   memberCanShare?: boolean;
+  memberCanManage?: boolean;
 }
 
 export interface UpdateTeamCalendarConfigSchema {
@@ -51,16 +57,19 @@ export interface UpdateTeamCalendarConfigSchema {
   ownerCanEdit?: boolean;
   ownerCanDelete?: boolean;
   ownerCanShare?: boolean;
+  ownerCanManage?: boolean;
   adminCanRead?: boolean;
   adminCanCreate?: boolean;
   adminCanEdit?: boolean;
   adminCanDelete?: boolean;
   adminCanShare?: boolean;
+  adminCanManage?: boolean;
   memberCanRead?: boolean;
   memberCanCreate?: boolean;
   memberCanEdit?: boolean;
   memberCanDelete?: boolean;
   memberCanShare?: boolean;
+  memberCanManage?: boolean;
 }
 
 export interface TeamCalendarConfigsRepository {

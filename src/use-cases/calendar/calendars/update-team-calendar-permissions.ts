@@ -15,16 +15,19 @@ interface UpdateTeamCalendarPermissionsRequest {
     ownerCanEdit?: boolean;
     ownerCanDelete?: boolean;
     ownerCanShare?: boolean;
+    ownerCanManage?: boolean;
     adminCanRead?: boolean;
     adminCanCreate?: boolean;
     adminCanEdit?: boolean;
     adminCanDelete?: boolean;
     adminCanShare?: boolean;
+    adminCanManage?: boolean;
     memberCanRead?: boolean;
     memberCanCreate?: boolean;
     memberCanEdit?: boolean;
     memberCanDelete?: boolean;
     memberCanShare?: boolean;
+    memberCanManage?: boolean;
   };
 }
 
@@ -42,24 +45,44 @@ export class UpdateTeamCalendarPermissionsUseCase {
   ): Promise<UpdateTeamCalendarPermissionsResponse> {
     const { calendarId, teamId, teamRole, permissions } = request;
 
-    // Only team OWNER can modify permissions
-    if (teamRole !== 'OWNER') {
+    // Must be OWNER or ADMIN to modify permissions
+    if (teamRole !== 'OWNER' && teamRole !== 'ADMIN') {
       throw new ForbiddenError();
     }
 
-    const existing =
+    // Verify canManage permission from config
+    const config =
       await this.teamCalendarConfigsRepository.findByTeamAndCalendar(
         teamId,
         calendarId,
       );
-    if (!existing) {
+    if (!config) {
       throw new ResourceNotFoundError();
+    }
+
+    const canManage =
+      teamRole === 'OWNER' ? config.ownerCanManage : config.adminCanManage;
+    if (!canManage) {
+      throw new ForbiddenError();
+    }
+
+    // ADMIN can only change member permissions (not owner or admin)
+    let filteredPermissions = permissions;
+    if (teamRole === 'ADMIN') {
+      filteredPermissions = {
+        memberCanRead: permissions.memberCanRead,
+        memberCanCreate: permissions.memberCanCreate,
+        memberCanEdit: permissions.memberCanEdit,
+        memberCanDelete: permissions.memberCanDelete,
+        memberCanShare: permissions.memberCanShare,
+        memberCanManage: permissions.memberCanManage,
+      };
     }
 
     const updated = await this.teamCalendarConfigsRepository.update({
       teamId,
       calendarId,
-      ...permissions,
+      ...filteredPermissions,
     });
 
     if (!updated) throw new ResourceNotFoundError();

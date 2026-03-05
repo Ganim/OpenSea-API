@@ -8,6 +8,7 @@ export const calendarAccessSchema = z.object({
   canEdit: z.boolean(),
   canDelete: z.boolean(),
   canShare: z.boolean(),
+  canManage: z.boolean(),
 });
 
 export const calendarResponseSchema = z.object({
@@ -18,6 +19,8 @@ export const calendarResponseSchema = z.object({
   color: z.string().optional().nullable(),
   type: z.string(),
   ownerId: z.string().optional().nullable(),
+  ownerName: z.string().optional().nullable(),
+  ownerColor: z.string().optional().nullable(),
   systemModule: z.string().optional().nullable(),
   isDefault: z.boolean(),
   access: calendarAccessSchema,
@@ -52,14 +55,17 @@ export const teamCalendarPermissionsSchema = z.object({
   ownerCanEdit: z.boolean().optional(),
   ownerCanDelete: z.boolean().optional(),
   ownerCanShare: z.boolean().optional(),
+  ownerCanManage: z.boolean().optional(),
   adminCanRead: z.boolean().optional(),
   adminCanCreate: z.boolean().optional(),
   adminCanEdit: z.boolean().optional(),
   adminCanDelete: z.boolean().optional(),
   adminCanShare: z.boolean().optional(),
+  adminCanManage: z.boolean().optional(),
   memberCanRead: z.boolean().optional(),
   memberCanCreate: z.boolean().optional(),
   memberCanEdit: z.boolean().optional(),
   memberCanDelete: z.boolean().optional(),
   memberCanShare: z.boolean().optional(),
+  memberCanManage: z.boolean().optional(),
 });

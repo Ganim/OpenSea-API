@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import type { CalendarsRepository } from '@/repositories/calendar/calendars-repository';
+import type { TeamCalendarConfigsRepository } from '@/repositories/calendar/team-calendar-configs-repository';
 import {
   type CalendarDTO,
   calendarToDTO,
@@ -23,7 +24,10 @@ interface UpdateCalendarResponse {
 }
 
 export class UpdateCalendarUseCase {
-  constructor(private calendarsRepository: CalendarsRepository) {}
+  constructor(
+    private calendarsRepository: CalendarsRepository,
+    private teamCalendarConfigsRepository: TeamCalendarConfigsRepository,
+  ) {}
 
   async execute(
     request: UpdateCalendarRequest,
@@ -43,8 +47,22 @@ export class UpdateCalendarUseCase {
       throw new BadRequestError('System calendars cannot be edited');
     }
 
-    const access = resolveCalendarAccess({ calendar, userId, teamRole });
-    if (!access.canEdit) {
+    let teamCalendarConfig = null;
+    if (calendar.isTeam && calendar.ownerId) {
+      teamCalendarConfig =
+        await this.teamCalendarConfigsRepository.findByTeamAndCalendar(
+          calendar.ownerId,
+          calendarId,
+        );
+    }
+
+    const access = resolveCalendarAccess({
+      calendar,
+      userId,
+      teamRole,
+      teamCalendarConfig,
+    });
+    if (!access.canManage) {
       throw new ForbiddenError();
     }
 

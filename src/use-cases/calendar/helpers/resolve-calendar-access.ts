@@ -7,6 +7,7 @@ export interface CalendarAccess {
   canEdit: boolean;
   canDelete: boolean;
   canShare: boolean;
+  canManage: boolean;
 }
 
 interface ResolveCalendarAccessParams {
@@ -30,6 +31,7 @@ export function resolveCalendarAccess(
       canEdit: isOwner,
       canDelete: false, // Personal calendars can never be deleted
       canShare: isOwner,
+      canManage: isOwner,
     };
   }
 
@@ -42,6 +44,7 @@ export function resolveCalendarAccess(
         canEdit: false,
         canDelete: false,
         canShare: false,
+        canManage: false,
       };
     }
 
@@ -55,6 +58,7 @@ export function resolveCalendarAccess(
           canEdit: config.ownerCanEdit,
           canDelete: config.ownerCanDelete,
           canShare: config.ownerCanShare,
+          canManage: config.ownerCanManage,
         };
       case 'ADMIN':
         return {
@@ -63,6 +67,7 @@ export function resolveCalendarAccess(
           canEdit: config.adminCanEdit,
           canDelete: config.adminCanDelete,
           canShare: config.adminCanShare,
+          canManage: config.adminCanManage,
         };
       case 'MEMBER':
       default:
@@ -72,6 +77,7 @@ export function resolveCalendarAccess(
           canEdit: config.memberCanEdit,
           canDelete: config.memberCanDelete,
           canShare: config.memberCanShare,
+          canManage: config.memberCanManage,
         };
     }
   }
@@ -83,5 +89,6 @@ export function resolveCalendarAccess(
     canEdit: false,
     canDelete: false,
     canShare: false,
+    canManage: false,
   };
 }
