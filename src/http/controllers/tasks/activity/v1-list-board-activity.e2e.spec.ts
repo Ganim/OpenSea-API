@@ -34,7 +34,7 @@ describe('List Board Activity (E2E)', () => {
         cardId: card.id,
         boardId: board.id,
         userId,
-        type: 'CARD_CREATED',
+        type: 'CREATED',
         description: 'Cartão criado',
       },
     });

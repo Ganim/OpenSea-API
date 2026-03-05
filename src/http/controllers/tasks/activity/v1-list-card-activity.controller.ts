@@ -47,13 +47,26 @@ export async function listCardActivityController(app: FastifyInstance) {
       const { cardId } = request.params;
 
       try {
+        const page = request.query.page ?? 1;
+        const limit = request.query.limit ?? 20;
+
         const useCase = makeListCardActivityUseCase();
         const result = await useCase.execute({
           cardId,
-          ...request.query,
+          type: request.query.type,
+          page,
+          limit,
         });
 
-        return reply.status(200).send(result);
+        return reply.status(200).send({
+          activities: result.activities,
+          meta: {
+            total: result.total,
+            page,
+            limit,
+            pages: Math.ceil(result.total / limit),
+          },
+        });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

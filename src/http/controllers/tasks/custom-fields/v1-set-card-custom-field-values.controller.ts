@@ -53,7 +53,7 @@ export async function setCardCustomFieldValuesController(app: FastifyInstance) {
           values: request.body.values,
         });
 
-        return reply.status(200).send(result);
+        return reply.status(200).send({ values: result.fieldValues });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

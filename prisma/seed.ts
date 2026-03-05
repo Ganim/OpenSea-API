@@ -56,6 +56,7 @@ const MODULE_LABELS: Record<string, string> = {
   studio: 'Studio',
   storage: 'Arquivos',
   finance: 'Financeiro',
+  tasks: 'Tarefas',
 };
 
 const ACTION_LABELS: Record<string, string> = {
@@ -90,6 +91,7 @@ const ACTION_LABELS: Record<string, string> = {
   comment: 'Comentar',
   download: 'Baixar',
   upload: 'Enviar',
+  move: 'Mover',
   set: 'Definir',
   close: 'Fechar',
   reopen: 'Reabrir',
@@ -546,8 +548,8 @@ async function seedPlanModules(planIds: Record<string, string>) {
   const modulesByPlan: Record<string, string[]> = {
     Free: ['CORE'],
     Starter: ['CORE', 'STOCK', 'SALES'],
-    Professional: ['CORE', 'STOCK', 'SALES', 'HR', 'FINANCE', 'REPORTS', 'AUDIT', 'NOTIFICATIONS', 'REQUESTS', 'CALENDAR', 'STORAGE', 'EMAIL'],
-    Enterprise: ['CORE', 'STOCK', 'SALES', 'HR', 'PAYROLL', 'FINANCE', 'REPORTS', 'AUDIT', 'REQUESTS', 'NOTIFICATIONS', 'CALENDAR', 'STORAGE', 'EMAIL'],
+    Professional: ['CORE', 'STOCK', 'SALES', 'HR', 'FINANCE', 'REPORTS', 'AUDIT', 'NOTIFICATIONS', 'REQUESTS', 'CALENDAR', 'STORAGE', 'EMAIL', 'TASKS'],
+    Enterprise: ['CORE', 'STOCK', 'SALES', 'HR', 'PAYROLL', 'FINANCE', 'REPORTS', 'AUDIT', 'REQUESTS', 'NOTIFICATIONS', 'CALENDAR', 'STORAGE', 'EMAIL', 'TASKS'],
   };
 
   for (const [planName, modules] of Object.entries(modulesByPlan)) {

@@ -55,7 +55,7 @@ export async function toggleChecklistItemController(app: FastifyInstance) {
           isCompleted: request.body.isCompleted,
         });
 
-        return reply.status(200).send(result);
+        return reply.status(200).send({ item: result.checklistItem });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

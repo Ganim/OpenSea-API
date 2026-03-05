@@ -250,6 +250,13 @@ model User {
   teamMembers    TeamMember[]
   teamEmailLinks TeamEmailAccount[] @relation("TeamEmailLinker")
 
+  // Task Board Relations
+  ownedBoards      Board[]        @relation("BoardOwner")
+  assignedCards    Card[]         @relation("CardAssignee")
+  reportedCards    Card[]         @relation("CardReporter")
+  boardMemberships BoardMember[]
+  cardComments     CardComment[]
+
   @@unique([email, deletedAt], name: "users_email_unique_active")
   @@unique([username, deletedAt], name: "users_username_unique_active")
   // Optimizations
@@ -865,6 +872,12 @@ enum AuditEntity {
   CALENDAR_PARTICIPANT
   CALENDAR_REMINDER
 
+  // Tasks
+  TASK_BOARD
+  TASK_CARD
+  BOARD_MEMBER
+  BOARD_AUTOMATION
+
   // Storage
   STORAGE_FOLDER
   STORAGE_FILE
@@ -889,6 +902,7 @@ enum AuditModule {
   CALENDAR
   STORAGE
   EMAIL
+  TASKS
   SYSTEM
   OTHER
 }
@@ -3475,6 +3489,7 @@ enum SystemModuleEnum {
   CALENDAR
   STORAGE
   EMAIL
+  TASKS
 }
 
 enum TeamMemberRole {
@@ -3620,6 +3635,9 @@ model Tenant {
   teams             Team[]
   teamMembers       TeamMember[]
   teamEmailAccounts TeamEmailAccount[]
+
+  // Task Board domain
+  boards Board[]
 
   @@index([status])
   @@index([deletedAt])
@@ -4189,6 +4207,7 @@ model StorageFolder {
   files         StorageFile[]
   accessRules   FolderAccessRule[]
   createdByUser User?              @relation("StorageFolderCreator", fields: [createdBy], references: [id])
+  boards        Board[]
 
   @@unique([tenantId, path, deletedAt], name: "storage_folders_path_tenant_unique")
   @@index([tenantId])
@@ -4234,10 +4253,11 @@ model StorageFile {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  tenant     Tenant               @relation(fields: [tenantId], references: [id])
-  folder     StorageFolder?       @relation(fields: [folderId], references: [id])
-  versions   StorageFileVersion[]
-  shareLinks StorageShareLink[]
+  tenant          Tenant               @relation(fields: [tenantId], references: [id])
+  folder          StorageFolder?       @relation(fields: [folderId], references: [id])
+  versions        StorageFileVersion[]
+  shareLinks      StorageShareLink[]
+  cardAttachments CardAttachment[]
 
   @@unique([tenantId, path, deletedAt], name: "storage_files_path_tenant_unique")
   @@index([tenantId])
@@ -4665,6 +4685,7 @@ model Team {
   emailAccounts        TeamEmailAccount[]
   teamCalendarConfigs  TeamCalendarConfig[]
   folderAccessRules    FolderAccessRule[]
+  boards               Board[]
 
   @@unique([tenantId, slug, deletedAt], name: "teams_slug_tenant_unique_active")
   @@index([tenantId])
@@ -4727,4 +4748,432 @@ model TeamEmailAccount {
   @@index([teamId])
   @@index([accountId])
   @@map("team_email_accounts")
+}
+
+// ===============================================
+// TASK BOARD MODULE
+// ===============================================
+
+// --- Enums ---
+
+enum BoardType {
+  PERSONAL
+  TEAM
+}
+
+enum BoardVisibility {
+  PRIVATE
+  SHARED
+}
+
+enum BoardView {
+  KANBAN
+  TABLE
+  CALENDAR
+  TIMELINE
+  DASHBOARD
+}
+
+enum BoardMemberRole {
+  VIEWER
+  EDITOR
+}
+
+enum CardStatus {
+  OPEN
+  IN_PROGRESS
+  DONE
+  CANCELED
+}
+
+enum CardPriority {
+  NONE
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum CustomFieldType {
+  TEXT
+  NUMBER
+  DATE
+  CHECKBOX
+  SELECT
+  MULTI_SELECT
+}
+
+enum CardActivityType {
+  CREATED
+  UPDATED
+  MOVED
+  ASSIGNED
+  COMMENTED
+  COMMENT_ADDED
+  FIELD_CHANGED
+  ATTACHMENT_ADDED
+  ATTACHMENT_REMOVED
+  LABEL_ADDED
+  LABEL_REMOVED
+  SUBTASK_ADDED
+  SUBTASK_UPDATED
+  SUBTASK_REMOVED
+  SUBTASK_COMPLETED
+  SUBTASK_REOPENED
+  CHECKLIST_ITEM_COMPLETED
+  CHECKLIST_ITEM_UNCOMPLETED
+  AUTOMATION_TRIGGERED
+  ARCHIVED
+  RESTORED
+  DELETED
+}
+
+enum AutomationTrigger {
+  CARD_MOVED
+  CARD_CREATED
+  DUE_DATE_REACHED
+  ALL_SUBTASKS_DONE
+  FIELD_CHANGED
+}
+
+enum AutomationAction {
+  SET_FIELD
+  MOVE_CARD
+  ASSIGN_USER
+  ADD_LABEL
+  SEND_NOTIFICATION
+  COMPLETE_CARD
+}
+
+// --- Models ---
+
+model Board {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  title       String          @db.VarChar(256)
+  description String?         @db.Text
+  type        BoardType       @default(PERSONAL)
+  teamId      String?         @map("team_id")
+  ownerId     String          @map("owner_id")
+  storageFolderId String?     @map("storage_folder_id")
+  visibility  BoardVisibility @default(PRIVATE)
+  defaultView BoardView       @default(KANBAN) @map("default_view")
+  settings    Json?
+  metadata    Json?
+  position    Int             @default(0)
+
+  archivedAt DateTime? @map("archived_at")
+  deletedAt  DateTime? @map("deleted_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  tenant        Tenant         @relation(fields: [tenantId], references: [id])
+  owner         User           @relation("BoardOwner", fields: [ownerId], references: [id])
+  team          Team?          @relation(fields: [teamId], references: [id])
+  storageFolder StorageFolder? @relation(fields: [storageFolderId], references: [id])
+  columns       BoardColumn[]
+  cards         Card[]
+  labels        BoardLabel[]
+  members       BoardMember[]
+  customFields  BoardCustomField[]
+  activities    CardActivity[]
+  automations   BoardAutomation[]
+
+  @@index([tenantId])
+  @@index([tenantId, ownerId])
+  @@index([tenantId, teamId])
+  @@index([tenantId, deletedAt])
+  @@map("boards")
+}
+
+model BoardColumn {
+  id      String @id @default(uuid())
+  boardId String @map("board_id")
+
+  title     String  @db.VarChar(256)
+  color     String? @db.VarChar(7)
+  position  Int     @default(0)
+  isDefault Boolean @default(false) @map("is_default")
+  isDone    Boolean @default(false) @map("is_done")
+  wipLimit  Int?    @map("wip_limit")
+
+  archivedAt DateTime? @map("archived_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  board Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  cards Card[]
+
+  @@index([boardId])
+  @@index([boardId, position])
+  @@map("board_columns")
+}
+
+model Card {
+  id           String @id @default(uuid())
+  boardId      String @map("board_id")
+  columnId     String @map("column_id")
+  parentCardId String? @map("parent_card_id")
+
+  title       String       @db.VarChar(512)
+  description String?      @db.Text
+  status      CardStatus   @default(OPEN)
+  priority    CardPriority @default(NONE)
+  position    Int          @default(0)
+
+  assigneeId String? @map("assignee_id")
+  reporterId String  @map("reporter_id")
+
+  startDate        DateTime? @map("start_date")
+  dueDate          DateTime? @map("due_date")
+  completedAt      DateTime? @map("completed_at")
+  estimatedMinutes Int?      @map("estimated_minutes")
+
+  coverColor   String? @map("cover_color") @db.VarChar(7)
+  coverImageId String? @map("cover_image_id")
+  metadata     Json?
+
+  systemSourceType String? @map("system_source_type") @db.VarChar(64)
+  systemSourceId   String? @map("system_source_id")
+
+  archivedAt DateTime? @map("archived_at")
+  deletedAt  DateTime? @map("deleted_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  board      Board       @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  column     BoardColumn @relation(fields: [columnId], references: [id])
+  parentCard Card?       @relation("CardSubtasks", fields: [parentCardId], references: [id])
+  subtasks   Card[]      @relation("CardSubtasks")
+  assignee   User?       @relation("CardAssignee", fields: [assigneeId], references: [id])
+  reporter   User        @relation("CardReporter", fields: [reporterId], references: [id])
+
+  labels           CardLabel[]
+  customFieldValues CardCustomFieldValue[]
+  comments         CardComment[]
+  attachments      CardAttachment[]
+  checklists       CardChecklist[]
+  activities       CardActivity[]
+
+  @@index([boardId])
+  @@index([boardId, columnId])
+  @@index([boardId, assigneeId])
+  @@index([boardId, parentCardId])
+  @@index([boardId, deletedAt])
+  @@index([systemSourceType, systemSourceId])
+  @@map("cards")
+}
+
+model BoardLabel {
+  id      String @id @default(uuid())
+  boardId String @map("board_id")
+
+  name     String @db.VarChar(64)
+  color    String @db.VarChar(7)
+  position Int    @default(0)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  board Board       @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  cards CardLabel[]
+
+  @@index([boardId])
+  @@map("board_labels")
+}
+
+model CardLabel {
+  cardId  String @map("card_id")
+  labelId String @map("label_id")
+
+  card  Card       @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  label BoardLabel @relation(fields: [labelId], references: [id], onDelete: Cascade)
+
+  @@id([cardId, labelId])
+  @@map("card_labels")
+}
+
+model BoardMember {
+  id      String @id @default(uuid())
+  boardId String @map("board_id")
+  userId  String @map("user_id")
+
+  role BoardMemberRole @default(VIEWER)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  board Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@unique([boardId, userId])
+  @@index([boardId])
+  @@map("board_members")
+}
+
+model BoardCustomField {
+  id      String @id @default(uuid())
+  boardId String @map("board_id")
+
+  name       String          @db.VarChar(128)
+  type       CustomFieldType
+  options    Json?
+  position   Int             @default(0)
+  isRequired Boolean         @default(false) @map("is_required")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  board  Board                @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  values CardCustomFieldValue[]
+
+  @@index([boardId])
+  @@map("board_custom_fields")
+}
+
+model CardCustomFieldValue {
+  id      String @id @default(uuid())
+  cardId  String @map("card_id")
+  fieldId String @map("field_id")
+
+  value Json
+
+  card  Card             @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  field BoardCustomField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+
+  @@unique([cardId, fieldId])
+  @@map("card_custom_field_values")
+}
+
+model CardComment {
+  id       String @id @default(uuid())
+  cardId   String @map("card_id")
+  authorId String @map("author_id")
+
+  content  String @db.Text
+  mentions Json?
+
+  editedAt  DateTime? @map("edited_at")
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  card      Card              @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  author    User              @relation(fields: [authorId], references: [id])
+  reactions CommentReaction[]
+
+  @@index([cardId])
+  @@index([cardId, deletedAt])
+  @@map("card_comments")
+}
+
+model CommentReaction {
+  id        String @id @default(uuid())
+  commentId String @map("comment_id")
+  userId    String @map("user_id")
+  emoji     String @db.VarChar(16)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  comment CardComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([commentId, userId, emoji])
+  @@map("comment_reactions")
+}
+
+model CardAttachment {
+  id     String @id @default(uuid())
+  cardId String @map("card_id")
+  fileId String @map("file_id")
+
+  addedBy String @map("added_by")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  card Card        @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  file StorageFile @relation(fields: [fileId], references: [id])
+
+  @@index([cardId])
+  @@map("card_attachments")
+}
+
+model CardChecklist {
+  id     String @id @default(uuid())
+  cardId String @map("card_id")
+
+  title    String @db.VarChar(256)
+  position Int    @default(0)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  card  Card            @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  items ChecklistItem[]
+
+  @@index([cardId])
+  @@map("card_checklists")
+}
+
+model ChecklistItem {
+  id          String @id @default(uuid())
+  checklistId String @map("checklist_id")
+
+  title       String   @db.VarChar(512)
+  isCompleted Boolean  @default(false) @map("is_completed")
+  assigneeId  String?  @map("assignee_id")
+  dueDate     DateTime? @map("due_date")
+  position    Int      @default(0)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  checklist CardChecklist @relation(fields: [checklistId], references: [id], onDelete: Cascade)
+
+  @@index([checklistId])
+  @@map("checklist_items")
+}
+
+model CardActivity {
+  id      String @id @default(uuid())
+  cardId  String @map("card_id")
+  boardId String @map("board_id")
+  userId  String @map("user_id")
+
+  type        CardActivityType
+  description String           @db.Text
+  field       String?          @db.VarChar(128)
+  oldValue    Json?            @map("old_value")
+  newValue    Json?            @map("new_value")
+  metadata    Json?
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  card  Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  board Board @relation(fields: [boardId], references: [id])
+
+  @@index([cardId])
+  @@index([boardId])
+  @@index([cardId, createdAt])
+  @@map("card_activities")
+}
+
+model BoardAutomation {
+  id      String @id @default(uuid())
+  boardId String @map("board_id")
+
+  name     String  @db.VarChar(256)
+  isActive Boolean @default(true) @map("is_active")
+
+  trigger       AutomationTrigger
+  triggerConfig Json              @map("trigger_config")
+  action        AutomationAction
+  actionConfig  Json              @map("action_config")
+
+  createdBy String @map("created_by")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  board Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  @@index([boardId])
+  @@index([boardId, isActive])
+  @@map("board_automations")
 }

@@ -34,16 +34,19 @@ export type TeamCalendarConfigMinAggregateOutputType = {
   ownerCanEdit: boolean | null
   ownerCanDelete: boolean | null
   ownerCanShare: boolean | null
+  ownerCanManage: boolean | null
   adminCanRead: boolean | null
   adminCanCreate: boolean | null
   adminCanEdit: boolean | null
   adminCanDelete: boolean | null
   adminCanShare: boolean | null
+  adminCanManage: boolean | null
   memberCanRead: boolean | null
   memberCanCreate: boolean | null
   memberCanEdit: boolean | null
   memberCanDelete: boolean | null
   memberCanShare: boolean | null
+  memberCanManage: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -58,16 +61,19 @@ export type TeamCalendarConfigMaxAggregateOutputType = {
   ownerCanEdit: boolean | null
   ownerCanDelete: boolean | null
   ownerCanShare: boolean | null
+  ownerCanManage: boolean | null
   adminCanRead: boolean | null
   adminCanCreate: boolean | null
   adminCanEdit: boolean | null
   adminCanDelete: boolean | null
   adminCanShare: boolean | null
+  adminCanManage: boolean | null
   memberCanRead: boolean | null
   memberCanCreate: boolean | null
   memberCanEdit: boolean | null
   memberCanDelete: boolean | null
   memberCanShare: boolean | null
+  memberCanManage: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -82,16 +88,19 @@ export type TeamCalendarConfigCountAggregateOutputType = {
   ownerCanEdit: number
   ownerCanDelete: number
   ownerCanShare: number
+  ownerCanManage: number
   adminCanRead: number
   adminCanCreate: number
   adminCanEdit: number
   adminCanDelete: number
   adminCanShare: number
+  adminCanManage: number
   memberCanRead: number
   memberCanCreate: number
   memberCanEdit: number
   memberCanDelete: number
   memberCanShare: number
+  memberCanManage: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -108,16 +117,19 @@ export type TeamCalendarConfigMinAggregateInputType = {
   ownerCanEdit?: true
   ownerCanDelete?: true
   ownerCanShare?: true
+  ownerCanManage?: true
   adminCanRead?: true
   adminCanCreate?: true
   adminCanEdit?: true
   adminCanDelete?: true
   adminCanShare?: true
+  adminCanManage?: true
   memberCanRead?: true
   memberCanCreate?: true
   memberCanEdit?: true
   memberCanDelete?: true
   memberCanShare?: true
+  memberCanManage?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -132,16 +144,19 @@ export type TeamCalendarConfigMaxAggregateInputType = {
   ownerCanEdit?: true
   ownerCanDelete?: true
   ownerCanShare?: true
+  ownerCanManage?: true
   adminCanRead?: true
   adminCanCreate?: true
   adminCanEdit?: true
   adminCanDelete?: true
   adminCanShare?: true
+  adminCanManage?: true
   memberCanRead?: true
   memberCanCreate?: true
   memberCanEdit?: true
   memberCanDelete?: true
   memberCanShare?: true
+  memberCanManage?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -156,16 +171,19 @@ export type TeamCalendarConfigCountAggregateInputType = {
   ownerCanEdit?: true
   ownerCanDelete?: true
   ownerCanShare?: true
+  ownerCanManage?: true
   adminCanRead?: true
   adminCanCreate?: true
   adminCanEdit?: true
   adminCanDelete?: true
   adminCanShare?: true
+  adminCanManage?: true
   memberCanRead?: true
   memberCanCreate?: true
   memberCanEdit?: true
   memberCanDelete?: true
   memberCanShare?: true
+  memberCanManage?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -253,16 +271,19 @@ export type TeamCalendarConfigGroupByOutputType = {
   ownerCanEdit: boolean
   ownerCanDelete: boolean
   ownerCanShare: boolean
+  ownerCanManage: boolean
   adminCanRead: boolean
   adminCanCreate: boolean
   adminCanEdit: boolean
   adminCanDelete: boolean
   adminCanShare: boolean
+  adminCanManage: boolean
   memberCanRead: boolean
   memberCanCreate: boolean
   memberCanEdit: boolean
   memberCanDelete: boolean
   memberCanShare: boolean
+  memberCanManage: boolean
   createdAt: Date
   updatedAt: Date
   _count: TeamCalendarConfigCountAggregateOutputType | null
@@ -298,16 +319,19 @@ export type TeamCalendarConfigWhereInput = {
   ownerCanEdit?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   ownerCanDelete?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   ownerCanShare?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
+  ownerCanManage?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanRead?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanCreate?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanEdit?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanDelete?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanShare?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
+  adminCanManage?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanRead?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanCreate?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanEdit?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanDelete?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanShare?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
+  memberCanManage?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   createdAt?: Prisma.DateTimeFilter<"TeamCalendarConfig"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TeamCalendarConfig"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -325,16 +349,19 @@ export type TeamCalendarConfigOrderByWithRelationInput = {
   ownerCanEdit?: Prisma.SortOrder
   ownerCanDelete?: Prisma.SortOrder
   ownerCanShare?: Prisma.SortOrder
+  ownerCanManage?: Prisma.SortOrder
   adminCanRead?: Prisma.SortOrder
   adminCanCreate?: Prisma.SortOrder
   adminCanEdit?: Prisma.SortOrder
   adminCanDelete?: Prisma.SortOrder
   adminCanShare?: Prisma.SortOrder
+  adminCanManage?: Prisma.SortOrder
   memberCanRead?: Prisma.SortOrder
   memberCanCreate?: Prisma.SortOrder
   memberCanEdit?: Prisma.SortOrder
   memberCanDelete?: Prisma.SortOrder
   memberCanShare?: Prisma.SortOrder
+  memberCanManage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -356,16 +383,19 @@ export type TeamCalendarConfigWhereUniqueInput = Prisma.AtLeast<{
   ownerCanEdit?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   ownerCanDelete?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   ownerCanShare?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
+  ownerCanManage?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanRead?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanCreate?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanEdit?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanDelete?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanShare?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
+  adminCanManage?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanRead?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanCreate?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanEdit?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanDelete?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanShare?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
+  memberCanManage?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   createdAt?: Prisma.DateTimeFilter<"TeamCalendarConfig"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TeamCalendarConfig"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -383,16 +413,19 @@ export type TeamCalendarConfigOrderByWithAggregationInput = {
   ownerCanEdit?: Prisma.SortOrder
   ownerCanDelete?: Prisma.SortOrder
   ownerCanShare?: Prisma.SortOrder
+  ownerCanManage?: Prisma.SortOrder
   adminCanRead?: Prisma.SortOrder
   adminCanCreate?: Prisma.SortOrder
   adminCanEdit?: Prisma.SortOrder
   adminCanDelete?: Prisma.SortOrder
   adminCanShare?: Prisma.SortOrder
+  adminCanManage?: Prisma.SortOrder
   memberCanRead?: Prisma.SortOrder
   memberCanCreate?: Prisma.SortOrder
   memberCanEdit?: Prisma.SortOrder
   memberCanDelete?: Prisma.SortOrder
   memberCanShare?: Prisma.SortOrder
+  memberCanManage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TeamCalendarConfigCountOrderByAggregateInput
@@ -413,16 +446,19 @@ export type TeamCalendarConfigScalarWhereWithAggregatesInput = {
   ownerCanEdit?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   ownerCanDelete?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   ownerCanShare?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
+  ownerCanManage?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   adminCanRead?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   adminCanCreate?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   adminCanEdit?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   adminCanDelete?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   adminCanShare?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
+  adminCanManage?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   memberCanRead?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   memberCanCreate?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   memberCanEdit?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   memberCanDelete?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   memberCanShare?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
+  memberCanManage?: Prisma.BoolWithAggregatesFilter<"TeamCalendarConfig"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TeamCalendarConfig"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TeamCalendarConfig"> | Date | string
 }
@@ -434,16 +470,19 @@ export type TeamCalendarConfigCreateInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTeamCalendarConfigsInput
@@ -461,16 +500,19 @@ export type TeamCalendarConfigUncheckedCreateInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -482,16 +524,19 @@ export type TeamCalendarConfigUpdateInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTeamCalendarConfigsNestedInput
@@ -509,16 +554,19 @@ export type TeamCalendarConfigUncheckedUpdateInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -533,16 +581,19 @@ export type TeamCalendarConfigCreateManyInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -554,16 +605,19 @@ export type TeamCalendarConfigUpdateManyMutationInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -578,16 +632,19 @@ export type TeamCalendarConfigUncheckedUpdateManyInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -617,16 +674,19 @@ export type TeamCalendarConfigCountOrderByAggregateInput = {
   ownerCanEdit?: Prisma.SortOrder
   ownerCanDelete?: Prisma.SortOrder
   ownerCanShare?: Prisma.SortOrder
+  ownerCanManage?: Prisma.SortOrder
   adminCanRead?: Prisma.SortOrder
   adminCanCreate?: Prisma.SortOrder
   adminCanEdit?: Prisma.SortOrder
   adminCanDelete?: Prisma.SortOrder
   adminCanShare?: Prisma.SortOrder
+  adminCanManage?: Prisma.SortOrder
   memberCanRead?: Prisma.SortOrder
   memberCanCreate?: Prisma.SortOrder
   memberCanEdit?: Prisma.SortOrder
   memberCanDelete?: Prisma.SortOrder
   memberCanShare?: Prisma.SortOrder
+  memberCanManage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -641,16 +701,19 @@ export type TeamCalendarConfigMaxOrderByAggregateInput = {
   ownerCanEdit?: Prisma.SortOrder
   ownerCanDelete?: Prisma.SortOrder
   ownerCanShare?: Prisma.SortOrder
+  ownerCanManage?: Prisma.SortOrder
   adminCanRead?: Prisma.SortOrder
   adminCanCreate?: Prisma.SortOrder
   adminCanEdit?: Prisma.SortOrder
   adminCanDelete?: Prisma.SortOrder
   adminCanShare?: Prisma.SortOrder
+  adminCanManage?: Prisma.SortOrder
   memberCanRead?: Prisma.SortOrder
   memberCanCreate?: Prisma.SortOrder
   memberCanEdit?: Prisma.SortOrder
   memberCanDelete?: Prisma.SortOrder
   memberCanShare?: Prisma.SortOrder
+  memberCanManage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -665,16 +728,19 @@ export type TeamCalendarConfigMinOrderByAggregateInput = {
   ownerCanEdit?: Prisma.SortOrder
   ownerCanDelete?: Prisma.SortOrder
   ownerCanShare?: Prisma.SortOrder
+  ownerCanManage?: Prisma.SortOrder
   adminCanRead?: Prisma.SortOrder
   adminCanCreate?: Prisma.SortOrder
   adminCanEdit?: Prisma.SortOrder
   adminCanDelete?: Prisma.SortOrder
   adminCanShare?: Prisma.SortOrder
+  adminCanManage?: Prisma.SortOrder
   memberCanRead?: Prisma.SortOrder
   memberCanCreate?: Prisma.SortOrder
   memberCanEdit?: Prisma.SortOrder
   memberCanDelete?: Prisma.SortOrder
   memberCanShare?: Prisma.SortOrder
+  memberCanManage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -812,16 +878,19 @@ export type TeamCalendarConfigCreateWithoutTenantInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   team: Prisma.TeamCreateNestedOneWithoutTeamCalendarConfigsInput
@@ -837,16 +906,19 @@ export type TeamCalendarConfigUncheckedCreateWithoutTenantInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -890,16 +962,19 @@ export type TeamCalendarConfigScalarWhereInput = {
   ownerCanEdit?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   ownerCanDelete?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   ownerCanShare?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
+  ownerCanManage?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanRead?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanCreate?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanEdit?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanDelete?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   adminCanShare?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
+  adminCanManage?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanRead?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanCreate?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanEdit?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanDelete?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   memberCanShare?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
+  memberCanManage?: Prisma.BoolFilter<"TeamCalendarConfig"> | boolean
   createdAt?: Prisma.DateTimeFilter<"TeamCalendarConfig"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TeamCalendarConfig"> | Date | string
 }
@@ -911,16 +986,19 @@ export type TeamCalendarConfigCreateWithoutCalendarInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTeamCalendarConfigsInput
@@ -936,16 +1014,19 @@ export type TeamCalendarConfigUncheckedCreateWithoutCalendarInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -983,16 +1064,19 @@ export type TeamCalendarConfigCreateWithoutTeamInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTeamCalendarConfigsInput
@@ -1008,16 +1092,19 @@ export type TeamCalendarConfigUncheckedCreateWithoutTeamInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1057,16 +1144,19 @@ export type TeamCalendarConfigCreateManyTenantInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1078,16 +1168,19 @@ export type TeamCalendarConfigUpdateWithoutTenantInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   team?: Prisma.TeamUpdateOneRequiredWithoutTeamCalendarConfigsNestedInput
@@ -1103,16 +1196,19 @@ export type TeamCalendarConfigUncheckedUpdateWithoutTenantInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1126,16 +1222,19 @@ export type TeamCalendarConfigUncheckedUpdateManyWithoutTenantInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1149,16 +1248,19 @@ export type TeamCalendarConfigCreateManyCalendarInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1170,16 +1272,19 @@ export type TeamCalendarConfigUpdateWithoutCalendarInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTeamCalendarConfigsNestedInput
@@ -1195,16 +1300,19 @@ export type TeamCalendarConfigUncheckedUpdateWithoutCalendarInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1218,16 +1326,19 @@ export type TeamCalendarConfigUncheckedUpdateManyWithoutCalendarInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1241,16 +1352,19 @@ export type TeamCalendarConfigCreateManyTeamInput = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1262,16 +1376,19 @@ export type TeamCalendarConfigUpdateWithoutTeamInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTeamCalendarConfigsNestedInput
@@ -1287,16 +1404,19 @@ export type TeamCalendarConfigUncheckedUpdateWithoutTeamInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1310,16 +1430,19 @@ export type TeamCalendarConfigUncheckedUpdateManyWithoutTeamInput = {
   ownerCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownerCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   adminCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  adminCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanDelete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   memberCanShare?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  memberCanManage?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1336,16 +1459,19 @@ export type TeamCalendarConfigSelect<ExtArgs extends runtime.Types.Extensions.In
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1363,16 +1489,19 @@ export type TeamCalendarConfigSelectCreateManyAndReturn<ExtArgs extends runtime.
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1390,16 +1519,19 @@ export type TeamCalendarConfigSelectUpdateManyAndReturn<ExtArgs extends runtime.
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1417,21 +1549,24 @@ export type TeamCalendarConfigSelectScalar = {
   ownerCanEdit?: boolean
   ownerCanDelete?: boolean
   ownerCanShare?: boolean
+  ownerCanManage?: boolean
   adminCanRead?: boolean
   adminCanCreate?: boolean
   adminCanEdit?: boolean
   adminCanDelete?: boolean
   adminCanShare?: boolean
+  adminCanManage?: boolean
   memberCanRead?: boolean
   memberCanCreate?: boolean
   memberCanEdit?: boolean
   memberCanDelete?: boolean
   memberCanShare?: boolean
+  memberCanManage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TeamCalendarConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "teamId" | "calendarId" | "ownerCanRead" | "ownerCanCreate" | "ownerCanEdit" | "ownerCanDelete" | "ownerCanShare" | "adminCanRead" | "adminCanCreate" | "adminCanEdit" | "adminCanDelete" | "adminCanShare" | "memberCanRead" | "memberCanCreate" | "memberCanEdit" | "memberCanDelete" | "memberCanShare" | "createdAt" | "updatedAt", ExtArgs["result"]["teamCalendarConfig"]>
+export type TeamCalendarConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "teamId" | "calendarId" | "ownerCanRead" | "ownerCanCreate" | "ownerCanEdit" | "ownerCanDelete" | "ownerCanShare" | "ownerCanManage" | "adminCanRead" | "adminCanCreate" | "adminCanEdit" | "adminCanDelete" | "adminCanShare" | "adminCanManage" | "memberCanRead" | "memberCanCreate" | "memberCanEdit" | "memberCanDelete" | "memberCanShare" | "memberCanManage" | "createdAt" | "updatedAt", ExtArgs["result"]["teamCalendarConfig"]>
 export type TeamCalendarConfigInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
@@ -1465,16 +1600,19 @@ export type $TeamCalendarConfigPayload<ExtArgs extends runtime.Types.Extensions.
     ownerCanEdit: boolean
     ownerCanDelete: boolean
     ownerCanShare: boolean
+    ownerCanManage: boolean
     adminCanRead: boolean
     adminCanCreate: boolean
     adminCanEdit: boolean
     adminCanDelete: boolean
     adminCanShare: boolean
+    adminCanManage: boolean
     memberCanRead: boolean
     memberCanCreate: boolean
     memberCanEdit: boolean
     memberCanDelete: boolean
     memberCanShare: boolean
+    memberCanManage: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["teamCalendarConfig"]>
@@ -1912,16 +2050,19 @@ export interface TeamCalendarConfigFieldRefs {
   readonly ownerCanEdit: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly ownerCanDelete: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly ownerCanShare: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
+  readonly ownerCanManage: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly adminCanRead: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly adminCanCreate: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly adminCanEdit: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly adminCanDelete: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly adminCanShare: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
+  readonly adminCanManage: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly memberCanRead: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly memberCanCreate: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly memberCanEdit: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly memberCanDelete: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly memberCanShare: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
+  readonly memberCanManage: Prisma.FieldRef<"TeamCalendarConfig", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"TeamCalendarConfig", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TeamCalendarConfig", 'DateTime'>
 }

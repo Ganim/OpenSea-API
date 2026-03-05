@@ -5,6 +5,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { cardResponseSchema, createCardSchema } from '@/http/schemas/tasks';
+import { cardToDTO } from '@/mappers/tasks/card/card-to-dto';
 import { makeCreateSubtaskUseCase } from '@/use-cases/tasks/subtasks/factories/make-create-subtask-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -53,7 +54,7 @@ export async function createSubtaskController(app: FastifyInstance) {
           ...request.body,
         });
 
-        return reply.status(201).send(result);
+        return reply.status(201).send({ subtask: cardToDTO(result.subtask) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

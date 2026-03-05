@@ -1530,6 +1530,176 @@ export type EnumTeamMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
 }
 
+export type EnumBoardTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardType | Prisma.EnumBoardTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardType[] | Prisma.ListEnumBoardTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardType[] | Prisma.ListEnumBoardTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardTypeFilter<$PrismaModel> | $Enums.BoardType
+}
+
+export type EnumBoardVisibilityFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardVisibility | Prisma.EnumBoardVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardVisibility[] | Prisma.ListEnumBoardVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardVisibility[] | Prisma.ListEnumBoardVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardVisibilityFilter<$PrismaModel> | $Enums.BoardVisibility
+}
+
+export type EnumBoardViewFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardView | Prisma.EnumBoardViewFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardView[] | Prisma.ListEnumBoardViewFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardView[] | Prisma.ListEnumBoardViewFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardViewFilter<$PrismaModel> | $Enums.BoardView
+}
+
+export type EnumBoardTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardType | Prisma.EnumBoardTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardType[] | Prisma.ListEnumBoardTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardType[] | Prisma.ListEnumBoardTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardTypeWithAggregatesFilter<$PrismaModel> | $Enums.BoardType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBoardTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBoardTypeFilter<$PrismaModel>
+}
+
+export type EnumBoardVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardVisibility | Prisma.EnumBoardVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardVisibility[] | Prisma.ListEnumBoardVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardVisibility[] | Prisma.ListEnumBoardVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.BoardVisibility
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBoardVisibilityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBoardVisibilityFilter<$PrismaModel>
+}
+
+export type EnumBoardViewWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardView | Prisma.EnumBoardViewFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardView[] | Prisma.ListEnumBoardViewFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardView[] | Prisma.ListEnumBoardViewFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardViewWithAggregatesFilter<$PrismaModel> | $Enums.BoardView
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBoardViewFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBoardViewFilter<$PrismaModel>
+}
+
+export type EnumCardStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardStatus | Prisma.EnumCardStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CardStatus[] | Prisma.ListEnumCardStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardStatus[] | Prisma.ListEnumCardStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardStatusFilter<$PrismaModel> | $Enums.CardStatus
+}
+
+export type EnumCardPriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardPriority | Prisma.EnumCardPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.CardPriority[] | Prisma.ListEnumCardPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardPriority[] | Prisma.ListEnumCardPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardPriorityFilter<$PrismaModel> | $Enums.CardPriority
+}
+
+export type EnumCardStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardStatus | Prisma.EnumCardStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CardStatus[] | Prisma.ListEnumCardStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardStatus[] | Prisma.ListEnumCardStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardStatusWithAggregatesFilter<$PrismaModel> | $Enums.CardStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCardStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCardStatusFilter<$PrismaModel>
+}
+
+export type EnumCardPriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardPriority | Prisma.EnumCardPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.CardPriority[] | Prisma.ListEnumCardPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardPriority[] | Prisma.ListEnumCardPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardPriorityWithAggregatesFilter<$PrismaModel> | $Enums.CardPriority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCardPriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCardPriorityFilter<$PrismaModel>
+}
+
+export type EnumBoardMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardMemberRole | Prisma.EnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardMemberRole[] | Prisma.ListEnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardMemberRole[] | Prisma.ListEnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardMemberRoleFilter<$PrismaModel> | $Enums.BoardMemberRole
+}
+
+export type EnumBoardMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardMemberRole | Prisma.EnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardMemberRole[] | Prisma.ListEnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardMemberRole[] | Prisma.ListEnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.BoardMemberRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBoardMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBoardMemberRoleFilter<$PrismaModel>
+}
+
+export type EnumCustomFieldTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomFieldType | Prisma.EnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomFieldType[] | Prisma.ListEnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomFieldType[] | Prisma.ListEnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomFieldTypeFilter<$PrismaModel> | $Enums.CustomFieldType
+}
+
+export type EnumCustomFieldTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomFieldType | Prisma.EnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomFieldType[] | Prisma.ListEnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomFieldType[] | Prisma.ListEnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomFieldTypeWithAggregatesFilter<$PrismaModel> | $Enums.CustomFieldType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomFieldTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomFieldTypeFilter<$PrismaModel>
+}
+
+export type EnumCardActivityTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardActivityType | Prisma.EnumCardActivityTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CardActivityType[] | Prisma.ListEnumCardActivityTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardActivityType[] | Prisma.ListEnumCardActivityTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardActivityTypeFilter<$PrismaModel> | $Enums.CardActivityType
+}
+
+export type EnumCardActivityTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardActivityType | Prisma.EnumCardActivityTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CardActivityType[] | Prisma.ListEnumCardActivityTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardActivityType[] | Prisma.ListEnumCardActivityTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardActivityTypeWithAggregatesFilter<$PrismaModel> | $Enums.CardActivityType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCardActivityTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCardActivityTypeFilter<$PrismaModel>
+}
+
+export type EnumAutomationTriggerFilter<$PrismaModel = never> = {
+  equals?: $Enums.AutomationTrigger | Prisma.EnumAutomationTriggerFieldRefInput<$PrismaModel>
+  in?: $Enums.AutomationTrigger[] | Prisma.ListEnumAutomationTriggerFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AutomationTrigger[] | Prisma.ListEnumAutomationTriggerFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAutomationTriggerFilter<$PrismaModel> | $Enums.AutomationTrigger
+}
+
+export type EnumAutomationActionFilter<$PrismaModel = never> = {
+  equals?: $Enums.AutomationAction | Prisma.EnumAutomationActionFieldRefInput<$PrismaModel>
+  in?: $Enums.AutomationAction[] | Prisma.ListEnumAutomationActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AutomationAction[] | Prisma.ListEnumAutomationActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAutomationActionFilter<$PrismaModel> | $Enums.AutomationAction
+}
+
+export type EnumAutomationTriggerWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AutomationTrigger | Prisma.EnumAutomationTriggerFieldRefInput<$PrismaModel>
+  in?: $Enums.AutomationTrigger[] | Prisma.ListEnumAutomationTriggerFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AutomationTrigger[] | Prisma.ListEnumAutomationTriggerFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAutomationTriggerWithAggregatesFilter<$PrismaModel> | $Enums.AutomationTrigger
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAutomationTriggerFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAutomationTriggerFilter<$PrismaModel>
+}
+
+export type EnumAutomationActionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AutomationAction | Prisma.EnumAutomationActionFieldRefInput<$PrismaModel>
+  in?: $Enums.AutomationAction[] | Prisma.ListEnumAutomationActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AutomationAction[] | Prisma.ListEnumAutomationActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAutomationActionWithAggregatesFilter<$PrismaModel> | $Enums.AutomationAction
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAutomationActionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAutomationActionFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -2981,6 +3151,176 @@ export type NestedEnumTeamMemberRoleWithAggregatesFilter<$PrismaModel = never> =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumBoardTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardType | Prisma.EnumBoardTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardType[] | Prisma.ListEnumBoardTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardType[] | Prisma.ListEnumBoardTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardTypeFilter<$PrismaModel> | $Enums.BoardType
+}
+
+export type NestedEnumBoardVisibilityFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardVisibility | Prisma.EnumBoardVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardVisibility[] | Prisma.ListEnumBoardVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardVisibility[] | Prisma.ListEnumBoardVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardVisibilityFilter<$PrismaModel> | $Enums.BoardVisibility
+}
+
+export type NestedEnumBoardViewFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardView | Prisma.EnumBoardViewFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardView[] | Prisma.ListEnumBoardViewFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardView[] | Prisma.ListEnumBoardViewFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardViewFilter<$PrismaModel> | $Enums.BoardView
+}
+
+export type NestedEnumBoardTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardType | Prisma.EnumBoardTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardType[] | Prisma.ListEnumBoardTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardType[] | Prisma.ListEnumBoardTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardTypeWithAggregatesFilter<$PrismaModel> | $Enums.BoardType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBoardTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBoardTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumBoardVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardVisibility | Prisma.EnumBoardVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardVisibility[] | Prisma.ListEnumBoardVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardVisibility[] | Prisma.ListEnumBoardVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.BoardVisibility
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBoardVisibilityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBoardVisibilityFilter<$PrismaModel>
+}
+
+export type NestedEnumBoardViewWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardView | Prisma.EnumBoardViewFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardView[] | Prisma.ListEnumBoardViewFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardView[] | Prisma.ListEnumBoardViewFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardViewWithAggregatesFilter<$PrismaModel> | $Enums.BoardView
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBoardViewFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBoardViewFilter<$PrismaModel>
+}
+
+export type NestedEnumCardStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardStatus | Prisma.EnumCardStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CardStatus[] | Prisma.ListEnumCardStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardStatus[] | Prisma.ListEnumCardStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardStatusFilter<$PrismaModel> | $Enums.CardStatus
+}
+
+export type NestedEnumCardPriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardPriority | Prisma.EnumCardPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.CardPriority[] | Prisma.ListEnumCardPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardPriority[] | Prisma.ListEnumCardPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardPriorityFilter<$PrismaModel> | $Enums.CardPriority
+}
+
+export type NestedEnumCardStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardStatus | Prisma.EnumCardStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CardStatus[] | Prisma.ListEnumCardStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardStatus[] | Prisma.ListEnumCardStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardStatusWithAggregatesFilter<$PrismaModel> | $Enums.CardStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCardStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCardStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumCardPriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardPriority | Prisma.EnumCardPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.CardPriority[] | Prisma.ListEnumCardPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardPriority[] | Prisma.ListEnumCardPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardPriorityWithAggregatesFilter<$PrismaModel> | $Enums.CardPriority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCardPriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCardPriorityFilter<$PrismaModel>
+}
+
+export type NestedEnumBoardMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardMemberRole | Prisma.EnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardMemberRole[] | Prisma.ListEnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardMemberRole[] | Prisma.ListEnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardMemberRoleFilter<$PrismaModel> | $Enums.BoardMemberRole
+}
+
+export type NestedEnumBoardMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BoardMemberRole | Prisma.EnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.BoardMemberRole[] | Prisma.ListEnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BoardMemberRole[] | Prisma.ListEnumBoardMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBoardMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.BoardMemberRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBoardMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBoardMemberRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumCustomFieldTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomFieldType | Prisma.EnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomFieldType[] | Prisma.ListEnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomFieldType[] | Prisma.ListEnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomFieldTypeFilter<$PrismaModel> | $Enums.CustomFieldType
+}
+
+export type NestedEnumCustomFieldTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomFieldType | Prisma.EnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomFieldType[] | Prisma.ListEnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomFieldType[] | Prisma.ListEnumCustomFieldTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomFieldTypeWithAggregatesFilter<$PrismaModel> | $Enums.CustomFieldType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomFieldTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomFieldTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumCardActivityTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardActivityType | Prisma.EnumCardActivityTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CardActivityType[] | Prisma.ListEnumCardActivityTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardActivityType[] | Prisma.ListEnumCardActivityTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardActivityTypeFilter<$PrismaModel> | $Enums.CardActivityType
+}
+
+export type NestedEnumCardActivityTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CardActivityType | Prisma.EnumCardActivityTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CardActivityType[] | Prisma.ListEnumCardActivityTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CardActivityType[] | Prisma.ListEnumCardActivityTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCardActivityTypeWithAggregatesFilter<$PrismaModel> | $Enums.CardActivityType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCardActivityTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCardActivityTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumAutomationTriggerFilter<$PrismaModel = never> = {
+  equals?: $Enums.AutomationTrigger | Prisma.EnumAutomationTriggerFieldRefInput<$PrismaModel>
+  in?: $Enums.AutomationTrigger[] | Prisma.ListEnumAutomationTriggerFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AutomationTrigger[] | Prisma.ListEnumAutomationTriggerFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAutomationTriggerFilter<$PrismaModel> | $Enums.AutomationTrigger
+}
+
+export type NestedEnumAutomationActionFilter<$PrismaModel = never> = {
+  equals?: $Enums.AutomationAction | Prisma.EnumAutomationActionFieldRefInput<$PrismaModel>
+  in?: $Enums.AutomationAction[] | Prisma.ListEnumAutomationActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AutomationAction[] | Prisma.ListEnumAutomationActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAutomationActionFilter<$PrismaModel> | $Enums.AutomationAction
+}
+
+export type NestedEnumAutomationTriggerWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AutomationTrigger | Prisma.EnumAutomationTriggerFieldRefInput<$PrismaModel>
+  in?: $Enums.AutomationTrigger[] | Prisma.ListEnumAutomationTriggerFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AutomationTrigger[] | Prisma.ListEnumAutomationTriggerFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAutomationTriggerWithAggregatesFilter<$PrismaModel> | $Enums.AutomationTrigger
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAutomationTriggerFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAutomationTriggerFilter<$PrismaModel>
+}
+
+export type NestedEnumAutomationActionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AutomationAction | Prisma.EnumAutomationActionFieldRefInput<$PrismaModel>
+  in?: $Enums.AutomationAction[] | Prisma.ListEnumAutomationActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AutomationAction[] | Prisma.ListEnumAutomationActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAutomationActionWithAggregatesFilter<$PrismaModel> | $Enums.AutomationAction
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAutomationActionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAutomationActionFilter<$PrismaModel>
 }
 
 

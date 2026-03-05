@@ -28,18 +28,26 @@ describe('Upload Attachment (E2E)', () => {
     const { board, columns } = await createTaskBoard(tenantId, userId);
     const card = await createTaskCard(board.id, columns[0].id, userId);
 
-    // Create a storage file for testing
     const storageFolder = await prisma.storageFolder.create({
-      data: { tenantId, name: 'Test', createdBy: userId, type: 'USER' },
+      data: {
+        tenantId,
+        name: 'Test',
+        slug: `test-${Date.now()}`,
+        path: `/test-${Date.now()}`,
+        createdBy: userId,
+      },
     });
     const storageFile = await prisma.storageFile.create({
       data: {
         tenantId,
         folderId: storageFolder.id,
         name: 'test.txt',
-        key: `test-key-${Date.now()}`,
+        originalName: 'test.txt',
+        fileKey: `test-key-${Date.now()}`,
+        path: `/test/test.txt`,
         size: 100,
         mimeType: 'text/plain',
+        fileType: 'document',
         uploadedBy: userId,
       },
     });

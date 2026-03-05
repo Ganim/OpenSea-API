@@ -156,7 +156,22 @@ export const ModelName = {
   EmailAttachment: 'EmailAttachment',
   Team: 'Team',
   TeamMember: 'TeamMember',
-  TeamEmailAccount: 'TeamEmailAccount'
+  TeamEmailAccount: 'TeamEmailAccount',
+  Board: 'Board',
+  BoardColumn: 'BoardColumn',
+  Card: 'Card',
+  BoardLabel: 'BoardLabel',
+  CardLabel: 'CardLabel',
+  BoardMember: 'BoardMember',
+  BoardCustomField: 'BoardCustomField',
+  CardCustomFieldValue: 'CardCustomFieldValue',
+  CardComment: 'CardComment',
+  CommentReaction: 'CommentReaction',
+  CardAttachment: 'CardAttachment',
+  CardChecklist: 'CardChecklist',
+  ChecklistItem: 'ChecklistItem',
+  CardActivity: 'CardActivity',
+  BoardAutomation: 'BoardAutomation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2108,16 +2123,19 @@ export const TeamCalendarConfigScalarFieldEnum = {
   ownerCanEdit: 'ownerCanEdit',
   ownerCanDelete: 'ownerCanDelete',
   ownerCanShare: 'ownerCanShare',
+  ownerCanManage: 'ownerCanManage',
   adminCanRead: 'adminCanRead',
   adminCanCreate: 'adminCanCreate',
   adminCanEdit: 'adminCanEdit',
   adminCanDelete: 'adminCanDelete',
   adminCanShare: 'adminCanShare',
+  adminCanManage: 'adminCanManage',
   memberCanRead: 'memberCanRead',
   memberCanCreate: 'memberCanCreate',
   memberCanEdit: 'memberCanEdit',
   memberCanDelete: 'memberCanDelete',
   memberCanShare: 'memberCanShare',
+  memberCanManage: 'memberCanManage',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2334,6 +2352,228 @@ export const TeamEmailAccountScalarFieldEnum = {
 } as const
 
 export type TeamEmailAccountScalarFieldEnum = (typeof TeamEmailAccountScalarFieldEnum)[keyof typeof TeamEmailAccountScalarFieldEnum]
+
+
+export const BoardScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  teamId: 'teamId',
+  ownerId: 'ownerId',
+  storageFolderId: 'storageFolderId',
+  visibility: 'visibility',
+  defaultView: 'defaultView',
+  settings: 'settings',
+  metadata: 'metadata',
+  position: 'position',
+  archivedAt: 'archivedAt',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BoardScalarFieldEnum = (typeof BoardScalarFieldEnum)[keyof typeof BoardScalarFieldEnum]
+
+
+export const BoardColumnScalarFieldEnum = {
+  id: 'id',
+  boardId: 'boardId',
+  title: 'title',
+  color: 'color',
+  position: 'position',
+  isDefault: 'isDefault',
+  isDone: 'isDone',
+  wipLimit: 'wipLimit',
+  archivedAt: 'archivedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BoardColumnScalarFieldEnum = (typeof BoardColumnScalarFieldEnum)[keyof typeof BoardColumnScalarFieldEnum]
+
+
+export const CardScalarFieldEnum = {
+  id: 'id',
+  boardId: 'boardId',
+  columnId: 'columnId',
+  parentCardId: 'parentCardId',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  priority: 'priority',
+  position: 'position',
+  assigneeId: 'assigneeId',
+  reporterId: 'reporterId',
+  startDate: 'startDate',
+  dueDate: 'dueDate',
+  completedAt: 'completedAt',
+  estimatedMinutes: 'estimatedMinutes',
+  coverColor: 'coverColor',
+  coverImageId: 'coverImageId',
+  metadata: 'metadata',
+  systemSourceType: 'systemSourceType',
+  systemSourceId: 'systemSourceId',
+  archivedAt: 'archivedAt',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
+
+
+export const BoardLabelScalarFieldEnum = {
+  id: 'id',
+  boardId: 'boardId',
+  name: 'name',
+  color: 'color',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type BoardLabelScalarFieldEnum = (typeof BoardLabelScalarFieldEnum)[keyof typeof BoardLabelScalarFieldEnum]
+
+
+export const CardLabelScalarFieldEnum = {
+  cardId: 'cardId',
+  labelId: 'labelId'
+} as const
+
+export type CardLabelScalarFieldEnum = (typeof CardLabelScalarFieldEnum)[keyof typeof CardLabelScalarFieldEnum]
+
+
+export const BoardMemberScalarFieldEnum = {
+  id: 'id',
+  boardId: 'boardId',
+  userId: 'userId',
+  role: 'role',
+  createdAt: 'createdAt'
+} as const
+
+export type BoardMemberScalarFieldEnum = (typeof BoardMemberScalarFieldEnum)[keyof typeof BoardMemberScalarFieldEnum]
+
+
+export const BoardCustomFieldScalarFieldEnum = {
+  id: 'id',
+  boardId: 'boardId',
+  name: 'name',
+  type: 'type',
+  options: 'options',
+  position: 'position',
+  isRequired: 'isRequired',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BoardCustomFieldScalarFieldEnum = (typeof BoardCustomFieldScalarFieldEnum)[keyof typeof BoardCustomFieldScalarFieldEnum]
+
+
+export const CardCustomFieldValueScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  fieldId: 'fieldId',
+  value: 'value'
+} as const
+
+export type CardCustomFieldValueScalarFieldEnum = (typeof CardCustomFieldValueScalarFieldEnum)[keyof typeof CardCustomFieldValueScalarFieldEnum]
+
+
+export const CardCommentScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  authorId: 'authorId',
+  content: 'content',
+  mentions: 'mentions',
+  editedAt: 'editedAt',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CardCommentScalarFieldEnum = (typeof CardCommentScalarFieldEnum)[keyof typeof CardCommentScalarFieldEnum]
+
+
+export const CommentReactionScalarFieldEnum = {
+  id: 'id',
+  commentId: 'commentId',
+  userId: 'userId',
+  emoji: 'emoji',
+  createdAt: 'createdAt'
+} as const
+
+export type CommentReactionScalarFieldEnum = (typeof CommentReactionScalarFieldEnum)[keyof typeof CommentReactionScalarFieldEnum]
+
+
+export const CardAttachmentScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  fileId: 'fileId',
+  addedBy: 'addedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type CardAttachmentScalarFieldEnum = (typeof CardAttachmentScalarFieldEnum)[keyof typeof CardAttachmentScalarFieldEnum]
+
+
+export const CardChecklistScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  title: 'title',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type CardChecklistScalarFieldEnum = (typeof CardChecklistScalarFieldEnum)[keyof typeof CardChecklistScalarFieldEnum]
+
+
+export const ChecklistItemScalarFieldEnum = {
+  id: 'id',
+  checklistId: 'checklistId',
+  title: 'title',
+  isCompleted: 'isCompleted',
+  assigneeId: 'assigneeId',
+  dueDate: 'dueDate',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChecklistItemScalarFieldEnum = (typeof ChecklistItemScalarFieldEnum)[keyof typeof ChecklistItemScalarFieldEnum]
+
+
+export const CardActivityScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  boardId: 'boardId',
+  userId: 'userId',
+  type: 'type',
+  description: 'description',
+  field: 'field',
+  oldValue: 'oldValue',
+  newValue: 'newValue',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type CardActivityScalarFieldEnum = (typeof CardActivityScalarFieldEnum)[keyof typeof CardActivityScalarFieldEnum]
+
+
+export const BoardAutomationScalarFieldEnum = {
+  id: 'id',
+  boardId: 'boardId',
+  name: 'name',
+  isActive: 'isActive',
+  trigger: 'trigger',
+  triggerConfig: 'triggerConfig',
+  action: 'action',
+  actionConfig: 'actionConfig',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BoardAutomationScalarFieldEnum = (typeof BoardAutomationScalarFieldEnum)[keyof typeof BoardAutomationScalarFieldEnum]
 
 
 export const SortOrder = {

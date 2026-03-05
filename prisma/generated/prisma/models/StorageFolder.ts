@@ -358,6 +358,7 @@ export type StorageFolderWhereInput = {
   files?: Prisma.StorageFileListRelationFilter
   accessRules?: Prisma.FolderAccessRuleListRelationFilter
   createdByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  boards?: Prisma.BoardListRelationFilter
 }
 
 export type StorageFolderOrderByWithRelationInput = {
@@ -389,6 +390,7 @@ export type StorageFolderOrderByWithRelationInput = {
   files?: Prisma.StorageFileOrderByRelationAggregateInput
   accessRules?: Prisma.FolderAccessRuleOrderByRelationAggregateInput
   createdByUser?: Prisma.UserOrderByWithRelationInput
+  boards?: Prisma.BoardOrderByRelationAggregateInput
 }
 
 export type StorageFolderWhereUniqueInput = Prisma.AtLeast<{
@@ -424,6 +426,7 @@ export type StorageFolderWhereUniqueInput = Prisma.AtLeast<{
   files?: Prisma.StorageFileListRelationFilter
   accessRules?: Prisma.FolderAccessRuleListRelationFilter
   createdByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  boards?: Prisma.BoardListRelationFilter
 }, "id" | "storage_folders_path_tenant_unique">
 
 export type StorageFolderOrderByWithAggregationInput = {
@@ -510,6 +513,7 @@ export type StorageFolderCreateInput = {
   files?: Prisma.StorageFileCreateNestedManyWithoutFolderInput
   accessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutFolderInput
   createdByUser?: Prisma.UserCreateNestedOneWithoutStorageFoldersInput
+  boards?: Prisma.BoardCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderUncheckedCreateInput = {
@@ -538,6 +542,7 @@ export type StorageFolderUncheckedCreateInput = {
   children?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutParentInput
   files?: Prisma.StorageFileUncheckedCreateNestedManyWithoutFolderInput
   accessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutFolderInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderUpdateInput = {
@@ -566,6 +571,7 @@ export type StorageFolderUpdateInput = {
   files?: Prisma.StorageFileUpdateManyWithoutFolderNestedInput
   accessRules?: Prisma.FolderAccessRuleUpdateManyWithoutFolderNestedInput
   createdByUser?: Prisma.UserUpdateOneWithoutStorageFoldersNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUncheckedUpdateInput = {
@@ -594,6 +600,7 @@ export type StorageFolderUncheckedUpdateInput = {
   children?: Prisma.StorageFolderUncheckedUpdateManyWithoutParentNestedInput
   files?: Prisma.StorageFileUncheckedUpdateManyWithoutFolderNestedInput
   accessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutFolderNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderCreateManyInput = {
@@ -949,6 +956,22 @@ export type StorageFolderUpdateOneRequiredWithoutAccessRulesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFolderUpdateToOneWithWhereWithoutAccessRulesInput, Prisma.StorageFolderUpdateWithoutAccessRulesInput>, Prisma.StorageFolderUncheckedUpdateWithoutAccessRulesInput>
 }
 
+export type StorageFolderCreateNestedOneWithoutBoardsInput = {
+  create?: Prisma.XOR<Prisma.StorageFolderCreateWithoutBoardsInput, Prisma.StorageFolderUncheckedCreateWithoutBoardsInput>
+  connectOrCreate?: Prisma.StorageFolderCreateOrConnectWithoutBoardsInput
+  connect?: Prisma.StorageFolderWhereUniqueInput
+}
+
+export type StorageFolderUpdateOneWithoutBoardsNestedInput = {
+  create?: Prisma.XOR<Prisma.StorageFolderCreateWithoutBoardsInput, Prisma.StorageFolderUncheckedCreateWithoutBoardsInput>
+  connectOrCreate?: Prisma.StorageFolderCreateOrConnectWithoutBoardsInput
+  upsert?: Prisma.StorageFolderUpsertWithoutBoardsInput
+  disconnect?: Prisma.StorageFolderWhereInput | boolean
+  delete?: Prisma.StorageFolderWhereInput | boolean
+  connect?: Prisma.StorageFolderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StorageFolderUpdateToOneWithWhereWithoutBoardsInput, Prisma.StorageFolderUpdateWithoutBoardsInput>, Prisma.StorageFolderUncheckedUpdateWithoutBoardsInput>
+}
+
 export type StorageFolderCreateWithoutCreatedByUserInput = {
   id?: string
   name: string
@@ -974,6 +997,7 @@ export type StorageFolderCreateWithoutCreatedByUserInput = {
   children?: Prisma.StorageFolderCreateNestedManyWithoutParentInput
   files?: Prisma.StorageFileCreateNestedManyWithoutFolderInput
   accessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutFolderInput
+  boards?: Prisma.BoardCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderUncheckedCreateWithoutCreatedByUserInput = {
@@ -1001,6 +1025,7 @@ export type StorageFolderUncheckedCreateWithoutCreatedByUserInput = {
   children?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutParentInput
   files?: Prisma.StorageFileUncheckedCreateNestedManyWithoutFolderInput
   accessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutFolderInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderCreateOrConnectWithoutCreatedByUserInput = {
@@ -1082,6 +1107,7 @@ export type StorageFolderCreateWithoutTenantInput = {
   files?: Prisma.StorageFileCreateNestedManyWithoutFolderInput
   accessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutFolderInput
   createdByUser?: Prisma.UserCreateNestedOneWithoutStorageFoldersInput
+  boards?: Prisma.BoardCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderUncheckedCreateWithoutTenantInput = {
@@ -1109,6 +1135,7 @@ export type StorageFolderUncheckedCreateWithoutTenantInput = {
   children?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutParentInput
   files?: Prisma.StorageFileUncheckedCreateNestedManyWithoutFolderInput
   accessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutFolderInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderCreateOrConnectWithoutTenantInput = {
@@ -1162,6 +1189,7 @@ export type StorageFolderCreateWithoutChildrenInput = {
   files?: Prisma.StorageFileCreateNestedManyWithoutFolderInput
   accessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutFolderInput
   createdByUser?: Prisma.UserCreateNestedOneWithoutStorageFoldersInput
+  boards?: Prisma.BoardCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderUncheckedCreateWithoutChildrenInput = {
@@ -1189,6 +1217,7 @@ export type StorageFolderUncheckedCreateWithoutChildrenInput = {
   deletedAt?: Date | string | null
   files?: Prisma.StorageFileUncheckedCreateNestedManyWithoutFolderInput
   accessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutFolderInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderCreateOrConnectWithoutChildrenInput = {
@@ -1221,6 +1250,7 @@ export type StorageFolderCreateWithoutParentInput = {
   files?: Prisma.StorageFileCreateNestedManyWithoutFolderInput
   accessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutFolderInput
   createdByUser?: Prisma.UserCreateNestedOneWithoutStorageFoldersInput
+  boards?: Prisma.BoardCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderUncheckedCreateWithoutParentInput = {
@@ -1248,6 +1278,7 @@ export type StorageFolderUncheckedCreateWithoutParentInput = {
   children?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutParentInput
   files?: Prisma.StorageFileUncheckedCreateNestedManyWithoutFolderInput
   accessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutFolderInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderCreateOrConnectWithoutParentInput = {
@@ -1296,6 +1327,7 @@ export type StorageFolderUpdateWithoutChildrenInput = {
   files?: Prisma.StorageFileUpdateManyWithoutFolderNestedInput
   accessRules?: Prisma.FolderAccessRuleUpdateManyWithoutFolderNestedInput
   createdByUser?: Prisma.UserUpdateOneWithoutStorageFoldersNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUncheckedUpdateWithoutChildrenInput = {
@@ -1323,6 +1355,7 @@ export type StorageFolderUncheckedUpdateWithoutChildrenInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   files?: Prisma.StorageFileUncheckedUpdateManyWithoutFolderNestedInput
   accessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutFolderNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUpsertWithWhereUniqueWithoutParentInput = {
@@ -1366,6 +1399,7 @@ export type StorageFolderCreateWithoutFilesInput = {
   children?: Prisma.StorageFolderCreateNestedManyWithoutParentInput
   accessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutFolderInput
   createdByUser?: Prisma.UserCreateNestedOneWithoutStorageFoldersInput
+  boards?: Prisma.BoardCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderUncheckedCreateWithoutFilesInput = {
@@ -1393,6 +1427,7 @@ export type StorageFolderUncheckedCreateWithoutFilesInput = {
   deletedAt?: Date | string | null
   children?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutParentInput
   accessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutFolderInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderCreateOrConnectWithoutFilesInput = {
@@ -1436,6 +1471,7 @@ export type StorageFolderUpdateWithoutFilesInput = {
   children?: Prisma.StorageFolderUpdateManyWithoutParentNestedInput
   accessRules?: Prisma.FolderAccessRuleUpdateManyWithoutFolderNestedInput
   createdByUser?: Prisma.UserUpdateOneWithoutStorageFoldersNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUncheckedUpdateWithoutFilesInput = {
@@ -1463,6 +1499,7 @@ export type StorageFolderUncheckedUpdateWithoutFilesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   children?: Prisma.StorageFolderUncheckedUpdateManyWithoutParentNestedInput
   accessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutFolderNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderCreateWithoutAccessRulesInput = {
@@ -1490,6 +1527,7 @@ export type StorageFolderCreateWithoutAccessRulesInput = {
   children?: Prisma.StorageFolderCreateNestedManyWithoutParentInput
   files?: Prisma.StorageFileCreateNestedManyWithoutFolderInput
   createdByUser?: Prisma.UserCreateNestedOneWithoutStorageFoldersInput
+  boards?: Prisma.BoardCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderUncheckedCreateWithoutAccessRulesInput = {
@@ -1517,6 +1555,7 @@ export type StorageFolderUncheckedCreateWithoutAccessRulesInput = {
   deletedAt?: Date | string | null
   children?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutParentInput
   files?: Prisma.StorageFileUncheckedCreateNestedManyWithoutFolderInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutStorageFolderInput
 }
 
 export type StorageFolderCreateOrConnectWithoutAccessRulesInput = {
@@ -1560,6 +1599,7 @@ export type StorageFolderUpdateWithoutAccessRulesInput = {
   children?: Prisma.StorageFolderUpdateManyWithoutParentNestedInput
   files?: Prisma.StorageFileUpdateManyWithoutFolderNestedInput
   createdByUser?: Prisma.UserUpdateOneWithoutStorageFoldersNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUncheckedUpdateWithoutAccessRulesInput = {
@@ -1587,6 +1627,135 @@ export type StorageFolderUncheckedUpdateWithoutAccessRulesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   children?: Prisma.StorageFolderUncheckedUpdateManyWithoutParentNestedInput
   files?: Prisma.StorageFileUncheckedUpdateManyWithoutFolderNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutStorageFolderNestedInput
+}
+
+export type StorageFolderCreateWithoutBoardsInput = {
+  id?: string
+  name: string
+  slug: string
+  path: string
+  icon?: string | null
+  color?: string | null
+  isSystem?: boolean
+  isFilter?: boolean
+  filterFileType?: string | null
+  module?: string | null
+  entityType?: string | null
+  entityId?: string | null
+  depth?: number
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutStorageFoldersInput
+  parent?: Prisma.StorageFolderCreateNestedOneWithoutChildrenInput
+  children?: Prisma.StorageFolderCreateNestedManyWithoutParentInput
+  files?: Prisma.StorageFileCreateNestedManyWithoutFolderInput
+  accessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutFolderInput
+  createdByUser?: Prisma.UserCreateNestedOneWithoutStorageFoldersInput
+}
+
+export type StorageFolderUncheckedCreateWithoutBoardsInput = {
+  id?: string
+  tenantId: string
+  parentId?: string | null
+  name: string
+  slug: string
+  path: string
+  icon?: string | null
+  color?: string | null
+  isSystem?: boolean
+  isFilter?: boolean
+  filterFileType?: string | null
+  module?: string | null
+  entityType?: string | null
+  entityId?: string | null
+  depth?: number
+  createdBy?: string | null
+  isProtected?: boolean
+  protectionHash?: string | null
+  isHidden?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  children?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutParentInput
+  files?: Prisma.StorageFileUncheckedCreateNestedManyWithoutFolderInput
+  accessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutFolderInput
+}
+
+export type StorageFolderCreateOrConnectWithoutBoardsInput = {
+  where: Prisma.StorageFolderWhereUniqueInput
+  create: Prisma.XOR<Prisma.StorageFolderCreateWithoutBoardsInput, Prisma.StorageFolderUncheckedCreateWithoutBoardsInput>
+}
+
+export type StorageFolderUpsertWithoutBoardsInput = {
+  update: Prisma.XOR<Prisma.StorageFolderUpdateWithoutBoardsInput, Prisma.StorageFolderUncheckedUpdateWithoutBoardsInput>
+  create: Prisma.XOR<Prisma.StorageFolderCreateWithoutBoardsInput, Prisma.StorageFolderUncheckedCreateWithoutBoardsInput>
+  where?: Prisma.StorageFolderWhereInput
+}
+
+export type StorageFolderUpdateToOneWithWhereWithoutBoardsInput = {
+  where?: Prisma.StorageFolderWhereInput
+  data: Prisma.XOR<Prisma.StorageFolderUpdateWithoutBoardsInput, Prisma.StorageFolderUncheckedUpdateWithoutBoardsInput>
+}
+
+export type StorageFolderUpdateWithoutBoardsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFilter?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  filterFileType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  module?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  depth?: Prisma.IntFieldUpdateOperationsInput | number
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutStorageFoldersNestedInput
+  parent?: Prisma.StorageFolderUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.StorageFolderUpdateManyWithoutParentNestedInput
+  files?: Prisma.StorageFileUpdateManyWithoutFolderNestedInput
+  accessRules?: Prisma.FolderAccessRuleUpdateManyWithoutFolderNestedInput
+  createdByUser?: Prisma.UserUpdateOneWithoutStorageFoldersNestedInput
+}
+
+export type StorageFolderUncheckedUpdateWithoutBoardsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFilter?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  filterFileType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  module?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  depth?: Prisma.IntFieldUpdateOperationsInput | number
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProtected?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  protectionHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  children?: Prisma.StorageFolderUncheckedUpdateManyWithoutParentNestedInput
+  files?: Prisma.StorageFileUncheckedUpdateManyWithoutFolderNestedInput
+  accessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutFolderNestedInput
 }
 
 export type StorageFolderCreateManyCreatedByUserInput = {
@@ -1638,6 +1807,7 @@ export type StorageFolderUpdateWithoutCreatedByUserInput = {
   children?: Prisma.StorageFolderUpdateManyWithoutParentNestedInput
   files?: Prisma.StorageFileUpdateManyWithoutFolderNestedInput
   accessRules?: Prisma.FolderAccessRuleUpdateManyWithoutFolderNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUncheckedUpdateWithoutCreatedByUserInput = {
@@ -1665,6 +1835,7 @@ export type StorageFolderUncheckedUpdateWithoutCreatedByUserInput = {
   children?: Prisma.StorageFolderUncheckedUpdateManyWithoutParentNestedInput
   files?: Prisma.StorageFileUncheckedUpdateManyWithoutFolderNestedInput
   accessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutFolderNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUncheckedUpdateManyWithoutCreatedByUserInput = {
@@ -1740,6 +1911,7 @@ export type StorageFolderUpdateWithoutTenantInput = {
   files?: Prisma.StorageFileUpdateManyWithoutFolderNestedInput
   accessRules?: Prisma.FolderAccessRuleUpdateManyWithoutFolderNestedInput
   createdByUser?: Prisma.UserUpdateOneWithoutStorageFoldersNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUncheckedUpdateWithoutTenantInput = {
@@ -1767,6 +1939,7 @@ export type StorageFolderUncheckedUpdateWithoutTenantInput = {
   children?: Prisma.StorageFolderUncheckedUpdateManyWithoutParentNestedInput
   files?: Prisma.StorageFileUncheckedUpdateManyWithoutFolderNestedInput
   accessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutFolderNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUncheckedUpdateManyWithoutTenantInput = {
@@ -1842,6 +2015,7 @@ export type StorageFolderUpdateWithoutParentInput = {
   files?: Prisma.StorageFileUpdateManyWithoutFolderNestedInput
   accessRules?: Prisma.FolderAccessRuleUpdateManyWithoutFolderNestedInput
   createdByUser?: Prisma.UserUpdateOneWithoutStorageFoldersNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUncheckedUpdateWithoutParentInput = {
@@ -1869,6 +2043,7 @@ export type StorageFolderUncheckedUpdateWithoutParentInput = {
   children?: Prisma.StorageFolderUncheckedUpdateManyWithoutParentNestedInput
   files?: Prisma.StorageFileUncheckedUpdateManyWithoutFolderNestedInput
   accessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutFolderNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutStorageFolderNestedInput
 }
 
 export type StorageFolderUncheckedUpdateManyWithoutParentInput = {
@@ -1904,12 +2079,14 @@ export type StorageFolderCountOutputType = {
   children: number
   files: number
   accessRules: number
+  boards: number
 }
 
 export type StorageFolderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   children?: boolean | StorageFolderCountOutputTypeCountChildrenArgs
   files?: boolean | StorageFolderCountOutputTypeCountFilesArgs
   accessRules?: boolean | StorageFolderCountOutputTypeCountAccessRulesArgs
+  boards?: boolean | StorageFolderCountOutputTypeCountBoardsArgs
 }
 
 /**
@@ -1943,6 +2120,13 @@ export type StorageFolderCountOutputTypeCountAccessRulesArgs<ExtArgs extends run
   where?: Prisma.FolderAccessRuleWhereInput
 }
 
+/**
+ * StorageFolderCountOutputType without action
+ */
+export type StorageFolderCountOutputTypeCountBoardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BoardWhereInput
+}
+
 
 export type StorageFolderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1973,6 +2157,7 @@ export type StorageFolderSelect<ExtArgs extends runtime.Types.Extensions.Interna
   files?: boolean | Prisma.StorageFolder$filesArgs<ExtArgs>
   accessRules?: boolean | Prisma.StorageFolder$accessRulesArgs<ExtArgs>
   createdByUser?: boolean | Prisma.StorageFolder$createdByUserArgs<ExtArgs>
+  boards?: boolean | Prisma.StorageFolder$boardsArgs<ExtArgs>
   _count?: boolean | Prisma.StorageFolderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storageFolder"]>
 
@@ -2065,6 +2250,7 @@ export type StorageFolderInclude<ExtArgs extends runtime.Types.Extensions.Intern
   files?: boolean | Prisma.StorageFolder$filesArgs<ExtArgs>
   accessRules?: boolean | Prisma.StorageFolder$accessRulesArgs<ExtArgs>
   createdByUser?: boolean | Prisma.StorageFolder$createdByUserArgs<ExtArgs>
+  boards?: boolean | Prisma.StorageFolder$boardsArgs<ExtArgs>
   _count?: boolean | Prisma.StorageFolderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StorageFolderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2087,6 +2273,7 @@ export type $StorageFolderPayload<ExtArgs extends runtime.Types.Extensions.Inter
     files: Prisma.$StorageFilePayload<ExtArgs>[]
     accessRules: Prisma.$FolderAccessRulePayload<ExtArgs>[]
     createdByUser: Prisma.$UserPayload<ExtArgs> | null
+    boards: Prisma.$BoardPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2511,6 +2698,7 @@ export interface Prisma__StorageFolderClient<T, Null = never, ExtArgs extends ru
   files<T extends Prisma.StorageFolder$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFolder$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accessRules<T extends Prisma.StorageFolder$accessRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFolder$accessRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FolderAccessRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdByUser<T extends Prisma.StorageFolder$createdByUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFolder$createdByUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  boards<T extends Prisma.StorageFolder$boardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StorageFolder$boardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3065,6 +3253,30 @@ export type StorageFolder$createdByUserArgs<ExtArgs extends runtime.Types.Extens
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * StorageFolder.boards
+ */
+export type StorageFolder$boardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Board
+   */
+  select?: Prisma.BoardSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Board
+   */
+  omit?: Prisma.BoardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BoardInclude<ExtArgs> | null
+  where?: Prisma.BoardWhereInput
+  orderBy?: Prisma.BoardOrderByWithRelationInput | Prisma.BoardOrderByWithRelationInput[]
+  cursor?: Prisma.BoardWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BoardScalarFieldEnum | Prisma.BoardScalarFieldEnum[]
 }
 
 /**

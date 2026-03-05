@@ -274,6 +274,7 @@ export type TenantWhereInput = {
   teams?: Prisma.TeamListRelationFilter
   teamMembers?: Prisma.TeamMemberListRelationFilter
   teamEmailAccounts?: Prisma.TeamEmailAccountListRelationFilter
+  boards?: Prisma.BoardListRelationFilter
 }
 
 export type TenantOrderByWithRelationInput = {
@@ -347,6 +348,7 @@ export type TenantOrderByWithRelationInput = {
   teams?: Prisma.TeamOrderByRelationAggregateInput
   teamMembers?: Prisma.TeamMemberOrderByRelationAggregateInput
   teamEmailAccounts?: Prisma.TeamEmailAccountOrderByRelationAggregateInput
+  boards?: Prisma.BoardOrderByRelationAggregateInput
 }
 
 export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -423,6 +425,7 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   teams?: Prisma.TeamListRelationFilter
   teamMembers?: Prisma.TeamMemberListRelationFilter
   teamEmailAccounts?: Prisma.TeamEmailAccountListRelationFilter
+  boards?: Prisma.BoardListRelationFilter
 }, "id" | "slug">
 
 export type TenantOrderByWithAggregationInput = {
@@ -528,6 +531,7 @@ export type TenantCreateInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateInput = {
@@ -601,6 +605,7 @@ export type TenantUncheckedCreateInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUpdateInput = {
@@ -674,6 +679,7 @@ export type TenantUpdateInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateInput = {
@@ -747,6 +753,7 @@ export type TenantUncheckedUpdateInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateManyInput = {
@@ -1685,6 +1692,20 @@ export type TenantUpdateOneRequiredWithoutTeamEmailAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutTeamEmailAccountsInput, Prisma.TenantUpdateWithoutTeamEmailAccountsInput>, Prisma.TenantUncheckedUpdateWithoutTeamEmailAccountsInput>
 }
 
+export type TenantCreateNestedOneWithoutBoardsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBoardsInput, Prisma.TenantUncheckedCreateWithoutBoardsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBoardsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutBoardsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutBoardsInput, Prisma.TenantUncheckedCreateWithoutBoardsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutBoardsInput
+  upsert?: Prisma.TenantUpsertWithoutBoardsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutBoardsInput, Prisma.TenantUpdateWithoutBoardsInput>, Prisma.TenantUncheckedUpdateWithoutBoardsInput>
+}
+
 export type TenantCreateWithoutSessionsInput = {
   id?: string
   name: string
@@ -1755,6 +1776,7 @@ export type TenantCreateWithoutSessionsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSessionsInput = {
@@ -1827,6 +1849,7 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSessionsInput = {
@@ -1915,6 +1938,7 @@ export type TenantUpdateWithoutSessionsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSessionsInput = {
@@ -1987,6 +2011,7 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutRefreshTokensInput = {
@@ -2059,6 +2084,7 @@ export type TenantCreateWithoutRefreshTokensInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutRefreshTokensInput = {
@@ -2131,6 +2157,7 @@ export type TenantUncheckedCreateWithoutRefreshTokensInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutRefreshTokensInput = {
@@ -2219,6 +2246,7 @@ export type TenantUpdateWithoutRefreshTokensInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
@@ -2291,6 +2319,7 @@ export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPermissionGroupsInput = {
@@ -2363,6 +2392,7 @@ export type TenantCreateWithoutPermissionGroupsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
@@ -2435,6 +2465,7 @@ export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPermissionGroupsInput = {
@@ -2523,6 +2554,7 @@ export type TenantUpdateWithoutPermissionGroupsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
@@ -2595,6 +2627,7 @@ export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutOrganizationsInput = {
@@ -2667,6 +2700,7 @@ export type TenantCreateWithoutOrganizationsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutOrganizationsInput = {
@@ -2739,6 +2773,7 @@ export type TenantUncheckedCreateWithoutOrganizationsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutOrganizationsInput = {
@@ -2827,6 +2862,7 @@ export type TenantUpdateWithoutOrganizationsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutOrganizationsInput = {
@@ -2899,6 +2935,7 @@ export type TenantUncheckedUpdateWithoutOrganizationsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSuppliersInput = {
@@ -2971,6 +3008,7 @@ export type TenantCreateWithoutSuppliersInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSuppliersInput = {
@@ -3043,6 +3081,7 @@ export type TenantUncheckedCreateWithoutSuppliersInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSuppliersInput = {
@@ -3131,6 +3170,7 @@ export type TenantUpdateWithoutSuppliersInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSuppliersInput = {
@@ -3203,6 +3243,7 @@ export type TenantUncheckedUpdateWithoutSuppliersInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutManufacturersInput = {
@@ -3275,6 +3316,7 @@ export type TenantCreateWithoutManufacturersInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutManufacturersInput = {
@@ -3347,6 +3389,7 @@ export type TenantUncheckedCreateWithoutManufacturersInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutManufacturersInput = {
@@ -3435,6 +3478,7 @@ export type TenantUpdateWithoutManufacturersInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutManufacturersInput = {
@@ -3507,6 +3551,7 @@ export type TenantUncheckedUpdateWithoutManufacturersInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCategoriesInput = {
@@ -3579,6 +3624,7 @@ export type TenantCreateWithoutCategoriesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCategoriesInput = {
@@ -3651,6 +3697,7 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCategoriesInput = {
@@ -3739,6 +3786,7 @@ export type TenantUpdateWithoutCategoriesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCategoriesInput = {
@@ -3811,6 +3859,7 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutWarehousesInput = {
@@ -3883,6 +3932,7 @@ export type TenantCreateWithoutWarehousesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutWarehousesInput = {
@@ -3955,6 +4005,7 @@ export type TenantUncheckedCreateWithoutWarehousesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutWarehousesInput = {
@@ -4043,6 +4094,7 @@ export type TenantUpdateWithoutWarehousesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutWarehousesInput = {
@@ -4115,6 +4167,7 @@ export type TenantUncheckedUpdateWithoutWarehousesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutZonesInput = {
@@ -4187,6 +4240,7 @@ export type TenantCreateWithoutZonesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutZonesInput = {
@@ -4259,6 +4313,7 @@ export type TenantUncheckedCreateWithoutZonesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutZonesInput = {
@@ -4347,6 +4402,7 @@ export type TenantUpdateWithoutZonesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutZonesInput = {
@@ -4419,6 +4475,7 @@ export type TenantUncheckedUpdateWithoutZonesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBinsInput = {
@@ -4491,6 +4548,7 @@ export type TenantCreateWithoutBinsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBinsInput = {
@@ -4563,6 +4621,7 @@ export type TenantUncheckedCreateWithoutBinsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBinsInput = {
@@ -4651,6 +4710,7 @@ export type TenantUpdateWithoutBinsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBinsInput = {
@@ -4723,6 +4783,7 @@ export type TenantUncheckedUpdateWithoutBinsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVolumesInput = {
@@ -4795,6 +4856,7 @@ export type TenantCreateWithoutVolumesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVolumesInput = {
@@ -4867,6 +4929,7 @@ export type TenantUncheckedCreateWithoutVolumesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVolumesInput = {
@@ -4955,6 +5018,7 @@ export type TenantUpdateWithoutVolumesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVolumesInput = {
@@ -5027,6 +5091,7 @@ export type TenantUncheckedUpdateWithoutVolumesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTemplatesInput = {
@@ -5099,6 +5164,7 @@ export type TenantCreateWithoutTemplatesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTemplatesInput = {
@@ -5171,6 +5237,7 @@ export type TenantUncheckedCreateWithoutTemplatesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTemplatesInput = {
@@ -5259,6 +5326,7 @@ export type TenantUpdateWithoutTemplatesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTemplatesInput = {
@@ -5331,6 +5399,7 @@ export type TenantUncheckedUpdateWithoutTemplatesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProductsInput = {
@@ -5403,6 +5472,7 @@ export type TenantCreateWithoutProductsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProductsInput = {
@@ -5475,6 +5545,7 @@ export type TenantUncheckedCreateWithoutProductsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProductsInput = {
@@ -5563,6 +5634,7 @@ export type TenantUpdateWithoutProductsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProductsInput = {
@@ -5635,6 +5707,7 @@ export type TenantUncheckedUpdateWithoutProductsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVariantsInput = {
@@ -5707,6 +5780,7 @@ export type TenantCreateWithoutVariantsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVariantsInput = {
@@ -5779,6 +5853,7 @@ export type TenantUncheckedCreateWithoutVariantsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVariantsInput = {
@@ -5867,6 +5942,7 @@ export type TenantUpdateWithoutVariantsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVariantsInput = {
@@ -5939,6 +6015,7 @@ export type TenantUncheckedUpdateWithoutVariantsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutItemsInput = {
@@ -6011,6 +6088,7 @@ export type TenantCreateWithoutItemsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutItemsInput = {
@@ -6083,6 +6161,7 @@ export type TenantUncheckedCreateWithoutItemsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutItemsInput = {
@@ -6171,6 +6250,7 @@ export type TenantUpdateWithoutItemsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutItemsInput = {
@@ -6243,6 +6323,7 @@ export type TenantUncheckedUpdateWithoutItemsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutItemMovementsInput = {
@@ -6315,6 +6396,7 @@ export type TenantCreateWithoutItemMovementsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutItemMovementsInput = {
@@ -6387,6 +6469,7 @@ export type TenantUncheckedCreateWithoutItemMovementsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutItemMovementsInput = {
@@ -6475,6 +6558,7 @@ export type TenantUpdateWithoutItemMovementsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutItemMovementsInput = {
@@ -6547,6 +6631,7 @@ export type TenantUncheckedUpdateWithoutItemMovementsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAuditLogsInput = {
@@ -6619,6 +6704,7 @@ export type TenantCreateWithoutAuditLogsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -6691,6 +6777,7 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -6779,6 +6866,7 @@ export type TenantUpdateWithoutAuditLogsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -6851,6 +6939,7 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTagsInput = {
@@ -6923,6 +7012,7 @@ export type TenantCreateWithoutTagsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTagsInput = {
@@ -6995,6 +7085,7 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTagsInput = {
@@ -7083,6 +7174,7 @@ export type TenantUpdateWithoutTagsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTagsInput = {
@@ -7155,6 +7247,7 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPurchaseOrdersInput = {
@@ -7227,6 +7320,7 @@ export type TenantCreateWithoutPurchaseOrdersInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -7299,6 +7393,7 @@ export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -7387,6 +7482,7 @@ export type TenantUpdateWithoutPurchaseOrdersInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -7459,6 +7555,7 @@ export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCustomersInput = {
@@ -7531,6 +7628,7 @@ export type TenantCreateWithoutCustomersInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCustomersInput = {
@@ -7603,6 +7701,7 @@ export type TenantUncheckedCreateWithoutCustomersInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCustomersInput = {
@@ -7691,6 +7790,7 @@ export type TenantUpdateWithoutCustomersInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCustomersInput = {
@@ -7763,6 +7863,7 @@ export type TenantUncheckedUpdateWithoutCustomersInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSalesOrdersInput = {
@@ -7835,6 +7936,7 @@ export type TenantCreateWithoutSalesOrdersInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSalesOrdersInput = {
@@ -7907,6 +8009,7 @@ export type TenantUncheckedCreateWithoutSalesOrdersInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSalesOrdersInput = {
@@ -7995,6 +8098,7 @@ export type TenantUpdateWithoutSalesOrdersInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
@@ -8067,6 +8171,7 @@ export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmployeesInput = {
@@ -8139,6 +8244,7 @@ export type TenantCreateWithoutEmployeesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmployeesInput = {
@@ -8211,6 +8317,7 @@ export type TenantUncheckedCreateWithoutEmployeesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmployeesInput = {
@@ -8299,6 +8406,7 @@ export type TenantUpdateWithoutEmployeesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmployeesInput = {
@@ -8371,6 +8479,7 @@ export type TenantUncheckedUpdateWithoutEmployeesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutDepartmentsInput = {
@@ -8443,6 +8552,7 @@ export type TenantCreateWithoutDepartmentsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutDepartmentsInput = {
@@ -8515,6 +8625,7 @@ export type TenantUncheckedCreateWithoutDepartmentsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutDepartmentsInput = {
@@ -8603,6 +8714,7 @@ export type TenantUpdateWithoutDepartmentsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutDepartmentsInput = {
@@ -8675,6 +8787,7 @@ export type TenantUncheckedUpdateWithoutDepartmentsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPositionsInput = {
@@ -8747,6 +8860,7 @@ export type TenantCreateWithoutPositionsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPositionsInput = {
@@ -8819,6 +8933,7 @@ export type TenantUncheckedCreateWithoutPositionsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPositionsInput = {
@@ -8907,6 +9022,7 @@ export type TenantUpdateWithoutPositionsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPositionsInput = {
@@ -8979,6 +9095,7 @@ export type TenantUncheckedUpdateWithoutPositionsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTimeEntriesInput = {
@@ -9051,6 +9168,7 @@ export type TenantCreateWithoutTimeEntriesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTimeEntriesInput = {
@@ -9123,6 +9241,7 @@ export type TenantUncheckedCreateWithoutTimeEntriesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTimeEntriesInput = {
@@ -9211,6 +9330,7 @@ export type TenantUpdateWithoutTimeEntriesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
@@ -9283,6 +9403,7 @@ export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutWorkSchedulesInput = {
@@ -9355,6 +9476,7 @@ export type TenantCreateWithoutWorkSchedulesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
@@ -9427,6 +9549,7 @@ export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutWorkSchedulesInput = {
@@ -9515,6 +9638,7 @@ export type TenantUpdateWithoutWorkSchedulesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
@@ -9587,6 +9711,7 @@ export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutOvertimeInput = {
@@ -9659,6 +9784,7 @@ export type TenantCreateWithoutOvertimeInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutOvertimeInput = {
@@ -9731,6 +9857,7 @@ export type TenantUncheckedCreateWithoutOvertimeInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutOvertimeInput = {
@@ -9819,6 +9946,7 @@ export type TenantUpdateWithoutOvertimeInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutOvertimeInput = {
@@ -9891,6 +10019,7 @@ export type TenantUncheckedUpdateWithoutOvertimeInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTimeBanksInput = {
@@ -9963,6 +10092,7 @@ export type TenantCreateWithoutTimeBanksInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTimeBanksInput = {
@@ -10035,6 +10165,7 @@ export type TenantUncheckedCreateWithoutTimeBanksInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTimeBanksInput = {
@@ -10123,6 +10254,7 @@ export type TenantUpdateWithoutTimeBanksInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTimeBanksInput = {
@@ -10195,6 +10327,7 @@ export type TenantUncheckedUpdateWithoutTimeBanksInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAbsencesInput = {
@@ -10267,6 +10400,7 @@ export type TenantCreateWithoutAbsencesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAbsencesInput = {
@@ -10339,6 +10473,7 @@ export type TenantUncheckedCreateWithoutAbsencesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAbsencesInput = {
@@ -10427,6 +10562,7 @@ export type TenantUpdateWithoutAbsencesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAbsencesInput = {
@@ -10499,6 +10635,7 @@ export type TenantUncheckedUpdateWithoutAbsencesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutVacationPeriodsInput = {
@@ -10571,6 +10708,7 @@ export type TenantCreateWithoutVacationPeriodsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
@@ -10643,6 +10781,7 @@ export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutVacationPeriodsInput = {
@@ -10731,6 +10870,7 @@ export type TenantUpdateWithoutVacationPeriodsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
@@ -10803,6 +10943,7 @@ export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPayrollsInput = {
@@ -10875,6 +11016,7 @@ export type TenantCreateWithoutPayrollsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPayrollsInput = {
@@ -10947,6 +11089,7 @@ export type TenantUncheckedCreateWithoutPayrollsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPayrollsInput = {
@@ -11035,6 +11178,7 @@ export type TenantUpdateWithoutPayrollsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPayrollsInput = {
@@ -11107,6 +11251,7 @@ export type TenantUncheckedUpdateWithoutPayrollsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBonusesInput = {
@@ -11179,6 +11324,7 @@ export type TenantCreateWithoutBonusesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBonusesInput = {
@@ -11251,6 +11397,7 @@ export type TenantUncheckedCreateWithoutBonusesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBonusesInput = {
@@ -11339,6 +11486,7 @@ export type TenantUpdateWithoutBonusesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBonusesInput = {
@@ -11411,6 +11559,7 @@ export type TenantUncheckedUpdateWithoutBonusesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutDeductionsInput = {
@@ -11483,6 +11632,7 @@ export type TenantCreateWithoutDeductionsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutDeductionsInput = {
@@ -11555,6 +11705,7 @@ export type TenantUncheckedCreateWithoutDeductionsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutDeductionsInput = {
@@ -11643,6 +11794,7 @@ export type TenantUpdateWithoutDeductionsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutDeductionsInput = {
@@ -11715,6 +11867,7 @@ export type TenantUncheckedUpdateWithoutDeductionsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCompaniesInput = {
@@ -11787,6 +11940,7 @@ export type TenantCreateWithoutCompaniesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCompaniesInput = {
@@ -11859,6 +12013,7 @@ export type TenantUncheckedCreateWithoutCompaniesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCompaniesInput = {
@@ -11947,6 +12102,7 @@ export type TenantUpdateWithoutCompaniesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCompaniesInput = {
@@ -12019,6 +12175,7 @@ export type TenantUncheckedUpdateWithoutCompaniesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutLabelTemplatesInput = {
@@ -12091,6 +12248,7 @@ export type TenantCreateWithoutLabelTemplatesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutLabelTemplatesInput = {
@@ -12163,6 +12321,7 @@ export type TenantUncheckedCreateWithoutLabelTemplatesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutLabelTemplatesInput = {
@@ -12251,6 +12410,7 @@ export type TenantUpdateWithoutLabelTemplatesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutLabelTemplatesInput = {
@@ -12323,6 +12483,7 @@ export type TenantUncheckedUpdateWithoutLabelTemplatesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantPlansInput = {
@@ -12395,6 +12556,7 @@ export type TenantCreateWithoutTenantPlansInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantPlansInput = {
@@ -12467,6 +12629,7 @@ export type TenantUncheckedCreateWithoutTenantPlansInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantPlansInput = {
@@ -12555,6 +12718,7 @@ export type TenantUpdateWithoutTenantPlansInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantPlansInput = {
@@ -12627,6 +12791,7 @@ export type TenantUncheckedUpdateWithoutTenantPlansInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantUsersInput = {
@@ -12699,6 +12864,7 @@ export type TenantCreateWithoutTenantUsersInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantUsersInput = {
@@ -12771,6 +12937,7 @@ export type TenantUncheckedCreateWithoutTenantUsersInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantUsersInput = {
@@ -12859,6 +13026,7 @@ export type TenantUpdateWithoutTenantUsersInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantUsersInput = {
@@ -12931,6 +13099,7 @@ export type TenantUncheckedUpdateWithoutTenantUsersInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTenantFeatureFlagsInput = {
@@ -13003,6 +13172,7 @@ export type TenantCreateWithoutTenantFeatureFlagsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
@@ -13075,6 +13245,7 @@ export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTenantFeatureFlagsInput = {
@@ -13163,6 +13334,7 @@ export type TenantUpdateWithoutTenantFeatureFlagsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
@@ -13235,6 +13407,7 @@ export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCostCentersInput = {
@@ -13307,6 +13480,7 @@ export type TenantCreateWithoutCostCentersInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCostCentersInput = {
@@ -13379,6 +13553,7 @@ export type TenantUncheckedCreateWithoutCostCentersInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCostCentersInput = {
@@ -13467,6 +13642,7 @@ export type TenantUpdateWithoutCostCentersInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCostCentersInput = {
@@ -13539,6 +13715,7 @@ export type TenantUncheckedUpdateWithoutCostCentersInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutBankAccountsInput = {
@@ -13611,6 +13788,7 @@ export type TenantCreateWithoutBankAccountsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutBankAccountsInput = {
@@ -13683,6 +13861,7 @@ export type TenantUncheckedCreateWithoutBankAccountsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutBankAccountsInput = {
@@ -13771,6 +13950,7 @@ export type TenantUpdateWithoutBankAccountsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutBankAccountsInput = {
@@ -13843,6 +14023,7 @@ export type TenantUncheckedUpdateWithoutBankAccountsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFinanceCategoriesInput = {
@@ -13915,6 +14096,7 @@ export type TenantCreateWithoutFinanceCategoriesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFinanceCategoriesInput = {
@@ -13987,6 +14169,7 @@ export type TenantUncheckedCreateWithoutFinanceCategoriesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFinanceCategoriesInput = {
@@ -14075,6 +14258,7 @@ export type TenantUpdateWithoutFinanceCategoriesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFinanceCategoriesInput = {
@@ -14147,6 +14331,7 @@ export type TenantUncheckedUpdateWithoutFinanceCategoriesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFinanceEntriesInput = {
@@ -14219,6 +14404,7 @@ export type TenantCreateWithoutFinanceEntriesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFinanceEntriesInput = {
@@ -14291,6 +14477,7 @@ export type TenantUncheckedCreateWithoutFinanceEntriesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFinanceEntriesInput = {
@@ -14379,6 +14566,7 @@ export type TenantUpdateWithoutFinanceEntriesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFinanceEntriesInput = {
@@ -14451,6 +14639,7 @@ export type TenantUncheckedUpdateWithoutFinanceEntriesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFinanceAttachmentsInput = {
@@ -14523,6 +14712,7 @@ export type TenantCreateWithoutFinanceAttachmentsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFinanceAttachmentsInput = {
@@ -14595,6 +14785,7 @@ export type TenantUncheckedCreateWithoutFinanceAttachmentsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFinanceAttachmentsInput = {
@@ -14683,6 +14874,7 @@ export type TenantUpdateWithoutFinanceAttachmentsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFinanceAttachmentsInput = {
@@ -14755,6 +14947,7 @@ export type TenantUncheckedUpdateWithoutFinanceAttachmentsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutLoansInput = {
@@ -14827,6 +15020,7 @@ export type TenantCreateWithoutLoansInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutLoansInput = {
@@ -14899,6 +15093,7 @@ export type TenantUncheckedCreateWithoutLoansInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutLoansInput = {
@@ -14987,6 +15182,7 @@ export type TenantUpdateWithoutLoansInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutLoansInput = {
@@ -15059,6 +15255,7 @@ export type TenantUncheckedUpdateWithoutLoansInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutConsortiaInput = {
@@ -15131,6 +15328,7 @@ export type TenantCreateWithoutConsortiaInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutConsortiaInput = {
@@ -15203,6 +15401,7 @@ export type TenantUncheckedCreateWithoutConsortiaInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutConsortiaInput = {
@@ -15291,6 +15490,7 @@ export type TenantUpdateWithoutConsortiaInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutConsortiaInput = {
@@ -15363,6 +15563,7 @@ export type TenantUncheckedUpdateWithoutConsortiaInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStorageFoldersInput = {
@@ -15435,6 +15636,7 @@ export type TenantCreateWithoutStorageFoldersInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStorageFoldersInput = {
@@ -15507,6 +15709,7 @@ export type TenantUncheckedCreateWithoutStorageFoldersInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutStorageFoldersInput = {
@@ -15595,6 +15798,7 @@ export type TenantUpdateWithoutStorageFoldersInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStorageFoldersInput = {
@@ -15667,6 +15871,7 @@ export type TenantUncheckedUpdateWithoutStorageFoldersInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStorageFilesInput = {
@@ -15739,6 +15944,7 @@ export type TenantCreateWithoutStorageFilesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStorageFilesInput = {
@@ -15811,6 +16017,7 @@ export type TenantUncheckedCreateWithoutStorageFilesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutStorageFilesInput = {
@@ -15899,6 +16106,7 @@ export type TenantUpdateWithoutStorageFilesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStorageFilesInput = {
@@ -15971,6 +16179,7 @@ export type TenantUncheckedUpdateWithoutStorageFilesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutFolderAccessRulesInput = {
@@ -16043,6 +16252,7 @@ export type TenantCreateWithoutFolderAccessRulesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutFolderAccessRulesInput = {
@@ -16115,6 +16325,7 @@ export type TenantUncheckedCreateWithoutFolderAccessRulesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutFolderAccessRulesInput = {
@@ -16203,6 +16414,7 @@ export type TenantUpdateWithoutFolderAccessRulesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutFolderAccessRulesInput = {
@@ -16275,6 +16487,7 @@ export type TenantUncheckedUpdateWithoutFolderAccessRulesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStorageShareLinksInput = {
@@ -16347,6 +16560,7 @@ export type TenantCreateWithoutStorageShareLinksInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStorageShareLinksInput = {
@@ -16419,6 +16633,7 @@ export type TenantUncheckedCreateWithoutStorageShareLinksInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutStorageShareLinksInput = {
@@ -16507,6 +16722,7 @@ export type TenantUpdateWithoutStorageShareLinksInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStorageShareLinksInput = {
@@ -16579,6 +16795,7 @@ export type TenantUncheckedUpdateWithoutStorageShareLinksInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCalendarsInput = {
@@ -16651,6 +16868,7 @@ export type TenantCreateWithoutCalendarsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCalendarsInput = {
@@ -16723,6 +16941,7 @@ export type TenantUncheckedCreateWithoutCalendarsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCalendarsInput = {
@@ -16811,6 +17030,7 @@ export type TenantUpdateWithoutCalendarsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCalendarsInput = {
@@ -16883,6 +17103,7 @@ export type TenantUncheckedUpdateWithoutCalendarsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamCalendarConfigsInput = {
@@ -16955,6 +17176,7 @@ export type TenantCreateWithoutTeamCalendarConfigsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamCalendarConfigsInput = {
@@ -17027,6 +17249,7 @@ export type TenantUncheckedCreateWithoutTeamCalendarConfigsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamCalendarConfigsInput = {
@@ -17115,6 +17338,7 @@ export type TenantUpdateWithoutTeamCalendarConfigsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamCalendarConfigsInput = {
@@ -17187,6 +17411,7 @@ export type TenantUncheckedUpdateWithoutTeamCalendarConfigsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCalendarEventsInput = {
@@ -17259,6 +17484,7 @@ export type TenantCreateWithoutCalendarEventsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCalendarEventsInput = {
@@ -17331,6 +17557,7 @@ export type TenantUncheckedCreateWithoutCalendarEventsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCalendarEventsInput = {
@@ -17419,6 +17646,7 @@ export type TenantUpdateWithoutCalendarEventsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCalendarEventsInput = {
@@ -17491,6 +17719,7 @@ export type TenantUncheckedUpdateWithoutCalendarEventsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEventParticipantsInput = {
@@ -17563,6 +17792,7 @@ export type TenantCreateWithoutEventParticipantsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEventParticipantsInput = {
@@ -17635,6 +17865,7 @@ export type TenantUncheckedCreateWithoutEventParticipantsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEventParticipantsInput = {
@@ -17723,6 +17954,7 @@ export type TenantUpdateWithoutEventParticipantsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEventParticipantsInput = {
@@ -17795,6 +18027,7 @@ export type TenantUncheckedUpdateWithoutEventParticipantsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEventRemindersInput = {
@@ -17867,6 +18100,7 @@ export type TenantCreateWithoutEventRemindersInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEventRemindersInput = {
@@ -17939,6 +18173,7 @@ export type TenantUncheckedCreateWithoutEventRemindersInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEventRemindersInput = {
@@ -18027,6 +18262,7 @@ export type TenantUpdateWithoutEventRemindersInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEventRemindersInput = {
@@ -18099,6 +18335,7 @@ export type TenantUncheckedUpdateWithoutEventRemindersInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmailAccountsInput = {
@@ -18171,6 +18408,7 @@ export type TenantCreateWithoutEmailAccountsInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmailAccountsInput = {
@@ -18243,6 +18481,7 @@ export type TenantUncheckedCreateWithoutEmailAccountsInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmailAccountsInput = {
@@ -18331,6 +18570,7 @@ export type TenantUpdateWithoutEmailAccountsInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmailAccountsInput = {
@@ -18403,6 +18643,7 @@ export type TenantUncheckedUpdateWithoutEmailAccountsInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmailAccountAccessesInput = {
@@ -18475,6 +18716,7 @@ export type TenantCreateWithoutEmailAccountAccessesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmailAccountAccessesInput = {
@@ -18547,6 +18789,7 @@ export type TenantUncheckedCreateWithoutEmailAccountAccessesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmailAccountAccessesInput = {
@@ -18635,6 +18878,7 @@ export type TenantUpdateWithoutEmailAccountAccessesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmailAccountAccessesInput = {
@@ -18707,6 +18951,7 @@ export type TenantUncheckedUpdateWithoutEmailAccountAccessesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutEmailMessagesInput = {
@@ -18779,6 +19024,7 @@ export type TenantCreateWithoutEmailMessagesInput = {
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutEmailMessagesInput = {
@@ -18851,6 +19097,7 @@ export type TenantUncheckedCreateWithoutEmailMessagesInput = {
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutEmailMessagesInput = {
@@ -18939,6 +19186,7 @@ export type TenantUpdateWithoutEmailMessagesInput = {
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutEmailMessagesInput = {
@@ -19011,6 +19259,7 @@ export type TenantUncheckedUpdateWithoutEmailMessagesInput = {
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamsInput = {
@@ -19083,6 +19332,7 @@ export type TenantCreateWithoutTeamsInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamsInput = {
@@ -19155,6 +19405,7 @@ export type TenantUncheckedCreateWithoutTeamsInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamsInput = {
@@ -19243,6 +19494,7 @@ export type TenantUpdateWithoutTeamsInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamsInput = {
@@ -19315,6 +19567,7 @@ export type TenantUncheckedUpdateWithoutTeamsInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamMembersInput = {
@@ -19387,6 +19640,7 @@ export type TenantCreateWithoutTeamMembersInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamMembersInput = {
@@ -19459,6 +19713,7 @@ export type TenantUncheckedCreateWithoutTeamMembersInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamMembersInput = {
@@ -19547,6 +19802,7 @@ export type TenantUpdateWithoutTeamMembersInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamMembersInput = {
@@ -19619,6 +19875,7 @@ export type TenantUncheckedUpdateWithoutTeamMembersInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTeamEmailAccountsInput = {
@@ -19691,6 +19948,7 @@ export type TenantCreateWithoutTeamEmailAccountsInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
   teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTeamEmailAccountsInput = {
@@ -19763,6 +20021,7 @@ export type TenantUncheckedCreateWithoutTeamEmailAccountsInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
   teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
   teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTeamEmailAccountsInput = {
@@ -19851,6 +20110,7 @@ export type TenantUpdateWithoutTeamEmailAccountsInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
   teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTeamEmailAccountsInput = {
@@ -19923,6 +20183,315 @@ export type TenantUncheckedUpdateWithoutTeamEmailAccountsInput = {
   emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
   teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
   teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutBoardsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutBoardsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutBoardsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBoardsInput, Prisma.TenantUncheckedCreateWithoutBoardsInput>
+}
+
+export type TenantUpsertWithoutBoardsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutBoardsInput, Prisma.TenantUncheckedUpdateWithoutBoardsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutBoardsInput, Prisma.TenantUncheckedCreateWithoutBoardsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutBoardsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutBoardsInput, Prisma.TenantUncheckedUpdateWithoutBoardsInput>
+}
+
+export type TenantUpdateWithoutBoardsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutBoardsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 
@@ -19991,6 +20560,7 @@ export type TenantCountOutputType = {
   teams: number
   teamMembers: number
   teamEmailAccounts: number
+  boards: number
 }
 
 export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -20054,6 +20624,7 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   teams?: boolean | TenantCountOutputTypeCountTeamsArgs
   teamMembers?: boolean | TenantCountOutputTypeCountTeamMembersArgs
   teamEmailAccounts?: boolean | TenantCountOutputTypeCountTeamEmailAccountsArgs
+  boards?: boolean | TenantCountOutputTypeCountBoardsArgs
 }
 
 /**
@@ -20486,6 +21057,13 @@ export type TenantCountOutputTypeCountTeamEmailAccountsArgs<ExtArgs extends runt
   where?: Prisma.TeamEmailAccountWhereInput
 }
 
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountBoardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BoardWhereInput
+}
+
 
 export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -20558,6 +21136,7 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   teams?: boolean | Prisma.Tenant$teamsArgs<ExtArgs>
   teamMembers?: boolean | Prisma.Tenant$teamMembersArgs<ExtArgs>
   teamEmailAccounts?: boolean | Prisma.Tenant$teamEmailAccountsArgs<ExtArgs>
+  boards?: boolean | Prisma.Tenant$boardsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenant"]>
 
@@ -20662,6 +21241,7 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   teams?: boolean | Prisma.Tenant$teamsArgs<ExtArgs>
   teamMembers?: boolean | Prisma.Tenant$teamMembersArgs<ExtArgs>
   teamEmailAccounts?: boolean | Prisma.Tenant$teamEmailAccountsArgs<ExtArgs>
+  boards?: boolean | Prisma.Tenant$boardsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -20730,6 +21310,7 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     teams: Prisma.$TeamPayload<ExtArgs>[]
     teamMembers: Prisma.$TeamMemberPayload<ExtArgs>[]
     teamEmailAccounts: Prisma.$TeamEmailAccountPayload<ExtArgs>[]
+    boards: Prisma.$BoardPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -21196,6 +21777,7 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   teams<T extends Prisma.Tenant$teamsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$teamsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   teamMembers<T extends Prisma.Tenant$teamMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$teamMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   teamEmailAccounts<T extends Prisma.Tenant$teamEmailAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$teamEmailAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamEmailAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  boards<T extends Prisma.Tenant$boardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$boardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -23060,6 +23642,30 @@ export type Tenant$teamEmailAccountsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.TeamEmailAccountScalarFieldEnum | Prisma.TeamEmailAccountScalarFieldEnum[]
+}
+
+/**
+ * Tenant.boards
+ */
+export type Tenant$boardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Board
+   */
+  select?: Prisma.BoardSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Board
+   */
+  omit?: Prisma.BoardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BoardInclude<ExtArgs> | null
+  where?: Prisma.BoardWhereInput
+  orderBy?: Prisma.BoardOrderByWithRelationInput | Prisma.BoardOrderByWithRelationInput[]
+  cursor?: Prisma.BoardWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BoardScalarFieldEnum | Prisma.BoardScalarFieldEnum[]
 }
 
 /**

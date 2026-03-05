@@ -52,7 +52,7 @@ export async function addChecklistItemController(app: FastifyInstance) {
           ...request.body,
         });
 
-        return reply.status(201).send(result);
+        return reply.status(201).send({ item: result.checklistItem });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

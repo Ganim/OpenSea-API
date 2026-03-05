@@ -547,3 +547,78 @@ export type TeamMember = Prisma.TeamMemberModel
  * 
  */
 export type TeamEmailAccount = Prisma.TeamEmailAccountModel
+/**
+ * Model Board
+ * 
+ */
+export type Board = Prisma.BoardModel
+/**
+ * Model BoardColumn
+ * 
+ */
+export type BoardColumn = Prisma.BoardColumnModel
+/**
+ * Model Card
+ * 
+ */
+export type Card = Prisma.CardModel
+/**
+ * Model BoardLabel
+ * 
+ */
+export type BoardLabel = Prisma.BoardLabelModel
+/**
+ * Model CardLabel
+ * 
+ */
+export type CardLabel = Prisma.CardLabelModel
+/**
+ * Model BoardMember
+ * 
+ */
+export type BoardMember = Prisma.BoardMemberModel
+/**
+ * Model BoardCustomField
+ * 
+ */
+export type BoardCustomField = Prisma.BoardCustomFieldModel
+/**
+ * Model CardCustomFieldValue
+ * 
+ */
+export type CardCustomFieldValue = Prisma.CardCustomFieldValueModel
+/**
+ * Model CardComment
+ * 
+ */
+export type CardComment = Prisma.CardCommentModel
+/**
+ * Model CommentReaction
+ * 
+ */
+export type CommentReaction = Prisma.CommentReactionModel
+/**
+ * Model CardAttachment
+ * 
+ */
+export type CardAttachment = Prisma.CardAttachmentModel
+/**
+ * Model CardChecklist
+ * 
+ */
+export type CardChecklist = Prisma.CardChecklistModel
+/**
+ * Model ChecklistItem
+ * 
+ */
+export type ChecklistItem = Prisma.ChecklistItemModel
+/**
+ * Model CardActivity
+ * 
+ */
+export type CardActivity = Prisma.CardActivityModel
+/**
+ * Model BoardAutomation
+ * 
+ */
+export type BoardAutomation = Prisma.BoardAutomationModel

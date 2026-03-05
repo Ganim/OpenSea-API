@@ -379,6 +379,7 @@ export type EmailAccountOrderByWithRelationInput = {
 
 export type EmailAccountWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  tenantId_address?: Prisma.EmailAccountTenantIdAddressCompoundUniqueInput
   AND?: Prisma.EmailAccountWhereInput | Prisma.EmailAccountWhereInput[]
   OR?: Prisma.EmailAccountWhereInput[]
   NOT?: Prisma.EmailAccountWhereInput | Prisma.EmailAccountWhereInput[]
@@ -407,7 +408,7 @@ export type EmailAccountWhereUniqueInput = Prisma.AtLeast<{
   teamLinks?: Prisma.TeamEmailAccountListRelationFilter
   folders?: Prisma.EmailFolderListRelationFilter
   messages?: Prisma.EmailMessageListRelationFilter
-}, "id">
+}, "id" | "tenantId_address">
 
 export type EmailAccountOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -646,6 +647,11 @@ export type EmailAccountListRelationFilter = {
 
 export type EmailAccountOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type EmailAccountTenantIdAddressCompoundUniqueInput = {
+  tenantId: string
+  address: string
 }
 
 export type EmailAccountCountOrderByAggregateInput = {

@@ -396,6 +396,10 @@ export const AuditEntity = {
   CALENDAR_EVENT: 'CALENDAR_EVENT',
   CALENDAR_PARTICIPANT: 'CALENDAR_PARTICIPANT',
   CALENDAR_REMINDER: 'CALENDAR_REMINDER',
+  TASK_BOARD: 'TASK_BOARD',
+  TASK_CARD: 'TASK_CARD',
+  BOARD_MEMBER: 'BOARD_MEMBER',
+  BOARD_AUTOMATION: 'BOARD_AUTOMATION',
   STORAGE_FOLDER: 'STORAGE_FOLDER',
   STORAGE_FILE: 'STORAGE_FILE',
   STORAGE_FILE_VERSION: 'STORAGE_FILE_VERSION',
@@ -420,6 +424,7 @@ export const AuditModule = {
   CALENDAR: 'CALENDAR',
   STORAGE: 'STORAGE',
   EMAIL: 'EMAIL',
+  TASKS: 'TASKS',
   SYSTEM: 'SYSTEM',
   OTHER: 'OTHER'
 } as const
@@ -837,7 +842,8 @@ export const SystemModuleEnum = {
   FINANCE: 'FINANCE',
   CALENDAR: 'CALENDAR',
   STORAGE: 'STORAGE',
-  EMAIL: 'EMAIL'
+  EMAIL: 'EMAIL',
+  TASKS: 'TASKS'
 } as const
 
 export type SystemModuleEnum = (typeof SystemModuleEnum)[keyof typeof SystemModuleEnum]
@@ -923,3 +929,122 @@ export const EmailFolderType = {
 } as const
 
 export type EmailFolderType = (typeof EmailFolderType)[keyof typeof EmailFolderType]
+
+
+export const BoardType = {
+  PERSONAL: 'PERSONAL',
+  TEAM: 'TEAM'
+} as const
+
+export type BoardType = (typeof BoardType)[keyof typeof BoardType]
+
+
+export const BoardVisibility = {
+  PRIVATE: 'PRIVATE',
+  SHARED: 'SHARED'
+} as const
+
+export type BoardVisibility = (typeof BoardVisibility)[keyof typeof BoardVisibility]
+
+
+export const BoardView = {
+  KANBAN: 'KANBAN',
+  TABLE: 'TABLE',
+  CALENDAR: 'CALENDAR',
+  TIMELINE: 'TIMELINE',
+  DASHBOARD: 'DASHBOARD'
+} as const
+
+export type BoardView = (typeof BoardView)[keyof typeof BoardView]
+
+
+export const BoardMemberRole = {
+  VIEWER: 'VIEWER',
+  EDITOR: 'EDITOR'
+} as const
+
+export type BoardMemberRole = (typeof BoardMemberRole)[keyof typeof BoardMemberRole]
+
+
+export const CardStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DONE: 'DONE',
+  CANCELED: 'CANCELED'
+} as const
+
+export type CardStatus = (typeof CardStatus)[keyof typeof CardStatus]
+
+
+export const CardPriority = {
+  NONE: 'NONE',
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type CardPriority = (typeof CardPriority)[keyof typeof CardPriority]
+
+
+export const CustomFieldType = {
+  TEXT: 'TEXT',
+  NUMBER: 'NUMBER',
+  DATE: 'DATE',
+  CHECKBOX: 'CHECKBOX',
+  SELECT: 'SELECT',
+  MULTI_SELECT: 'MULTI_SELECT'
+} as const
+
+export type CustomFieldType = (typeof CustomFieldType)[keyof typeof CustomFieldType]
+
+
+export const CardActivityType = {
+  CREATED: 'CREATED',
+  UPDATED: 'UPDATED',
+  MOVED: 'MOVED',
+  ASSIGNED: 'ASSIGNED',
+  COMMENTED: 'COMMENTED',
+  COMMENT_ADDED: 'COMMENT_ADDED',
+  FIELD_CHANGED: 'FIELD_CHANGED',
+  ATTACHMENT_ADDED: 'ATTACHMENT_ADDED',
+  ATTACHMENT_REMOVED: 'ATTACHMENT_REMOVED',
+  LABEL_ADDED: 'LABEL_ADDED',
+  LABEL_REMOVED: 'LABEL_REMOVED',
+  SUBTASK_ADDED: 'SUBTASK_ADDED',
+  SUBTASK_UPDATED: 'SUBTASK_UPDATED',
+  SUBTASK_REMOVED: 'SUBTASK_REMOVED',
+  SUBTASK_COMPLETED: 'SUBTASK_COMPLETED',
+  SUBTASK_REOPENED: 'SUBTASK_REOPENED',
+  CHECKLIST_ITEM_COMPLETED: 'CHECKLIST_ITEM_COMPLETED',
+  CHECKLIST_ITEM_UNCOMPLETED: 'CHECKLIST_ITEM_UNCOMPLETED',
+  AUTOMATION_TRIGGERED: 'AUTOMATION_TRIGGERED',
+  ARCHIVED: 'ARCHIVED',
+  RESTORED: 'RESTORED',
+  DELETED: 'DELETED'
+} as const
+
+export type CardActivityType = (typeof CardActivityType)[keyof typeof CardActivityType]
+
+
+export const AutomationTrigger = {
+  CARD_MOVED: 'CARD_MOVED',
+  CARD_CREATED: 'CARD_CREATED',
+  DUE_DATE_REACHED: 'DUE_DATE_REACHED',
+  ALL_SUBTASKS_DONE: 'ALL_SUBTASKS_DONE',
+  FIELD_CHANGED: 'FIELD_CHANGED'
+} as const
+
+export type AutomationTrigger = (typeof AutomationTrigger)[keyof typeof AutomationTrigger]
+
+
+export const AutomationAction = {
+  SET_FIELD: 'SET_FIELD',
+  MOVE_CARD: 'MOVE_CARD',
+  ASSIGN_USER: 'ASSIGN_USER',
+  ADD_LABEL: 'ADD_LABEL',
+  SEND_NOTIFICATION: 'SEND_NOTIFICATION',
+  COMPLETE_CARD: 'COMPLETE_CARD'
+} as const
+
+export type AutomationAction = (typeof AutomationAction)[keyof typeof AutomationAction]

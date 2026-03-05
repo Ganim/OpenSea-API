@@ -1091,6 +1091,39 @@ export const PermissionCodes = {
       MANAGE: 'storage.security.manage' as const,
     },
   },
+
+  // ============================================================================
+  // TASKS - Quadro de Tarefas (Kanban)
+  // ============================================================================
+  TASKS: {
+    BOARDS: {
+      CREATE: 'tasks.boards.create' as const,
+      READ: 'tasks.boards.read' as const,
+      UPDATE: 'tasks.boards.update' as const,
+      DELETE: 'tasks.boards.delete' as const,
+      LIST: 'tasks.boards.list' as const,
+      MANAGE: 'tasks.boards.manage' as const,
+    },
+    CARDS: {
+      CREATE: 'tasks.cards.create' as const,
+      READ: 'tasks.cards.read' as const,
+      UPDATE: 'tasks.cards.update' as const,
+      DELETE: 'tasks.cards.delete' as const,
+      LIST: 'tasks.cards.list' as const,
+      MOVE: 'tasks.cards.move' as const,
+      ASSIGN: 'tasks.cards.assign' as const,
+    },
+    COMMENTS: {
+      CREATE: 'tasks.comments.create' as const,
+      READ: 'tasks.comments.read' as const,
+      UPDATE: 'tasks.comments.update' as const,
+      DELETE: 'tasks.comments.delete' as const,
+    },
+    ATTACHMENTS: {
+      UPLOAD: 'tasks.attachments.upload' as const,
+      DELETE: 'tasks.attachments.delete' as const,
+    },
+  },
 } as const;
 
 /**

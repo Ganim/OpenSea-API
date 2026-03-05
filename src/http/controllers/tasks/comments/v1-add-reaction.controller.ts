@@ -4,7 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { addReactionSchema, commentResponseSchema } from '@/http/schemas/tasks';
+import { addReactionSchema, commentReactionResponseSchema } from '@/http/schemas/tasks';
 import { makeAddReactionUseCase } from '@/use-cases/tasks/comments/factories/make-add-reaction-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -33,7 +33,7 @@ export async function addReactionController(app: FastifyInstance) {
       }),
       body: addReactionSchema,
       response: {
-        201: z.object({ comment: commentResponseSchema }),
+        201: z.object({ reaction: commentReactionResponseSchema }),
         400: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },

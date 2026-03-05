@@ -4,6 +4,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { cardResponseSchema } from '@/http/schemas/tasks';
+import { cardToDTO } from '@/mappers/tasks/card/card-to-dto';
 import { makeListSubtasksUseCase } from '@/use-cases/tasks/subtasks/factories/make-list-subtasks-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -41,7 +42,9 @@ export async function listSubtasksController(app: FastifyInstance) {
         const useCase = makeListSubtasksUseCase();
         const result = await useCase.execute({ parentCardId: cardId });
 
-        return reply.status(200).send(result);
+        return reply.status(200).send({
+          subtasks: result.subtasks.map((card) => cardToDTO(card)),
+        });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

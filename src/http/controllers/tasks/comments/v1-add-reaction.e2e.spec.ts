@@ -44,6 +44,6 @@ describe('Add Reaction (E2E)', () => {
       .send({ emoji: '👍' });
 
     expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('comment');
+    expect(response.body).toHaveProperty('reaction');
   });
 });
