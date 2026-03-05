@@ -5,14 +5,18 @@ import { prisma } from './lib/prisma';
 import { httpLogger } from './lib/logger';
 
 // Global error handlers
+// NÃO usar process.exit(1) em unhandledRejection — erros temporários de Redis/IMAP
+// são comuns e BullMQ/ioredis reconectam automaticamente. Matar o processo causa restart loop.
 process.on('unhandledRejection', (reason) => {
-  console.error('[FATAL] Unhandled promise rejection:', reason);
-  process.exit(1);
+  console.error('[ERROR] Unhandled promise rejection:', reason);
+  // Log mas não mata o processo — permite reconexão automática de Redis/BullMQ
 });
 
 process.on('uncaughtException', (error) => {
   console.error('[FATAL] Uncaught exception:', error);
-  process.exit(1);
+  // uncaughtException é mais grave — o estado do processo pode estar corrompido
+  // Dá 1s para flush de logs antes de sair
+  setTimeout(() => process.exit(1), 1000);
 });
 
 async function checkDatabaseConnection(): Promise<boolean> {

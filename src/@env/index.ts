@@ -51,6 +51,9 @@ const envSchema = z.object({
   // Field-level encryption (AES-256-GCM) for PII/sensitive data
   FIELD_ENCRYPTION_KEY: z.string().length(64).optional(),
   FIELD_HMAC_KEY: z.string().min(16).optional(),
+
+  // Email account credentials encryption (AES-GCM)
+  EMAIL_CREDENTIALS_KEY: z.string().min(32).optional(),
 });
 
 const _env = envSchema.safeParse(process.env);

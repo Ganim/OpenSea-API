@@ -18,6 +18,7 @@ interface SendEmailNotificationRequest {
 interface SendEmailNotificationResponse {
   success: boolean;
   notification: NotificationDTO;
+  recipientEmail: string;
 }
 
 export class SendEmailNotificationUseCase {
@@ -93,6 +94,6 @@ export class SendEmailNotificationUseCase {
       throw new BadRequestError('Failed to send notification e-mail');
     }
 
-    return { success: true, notification: notificationToDTO(notification) };
+    return { success: true, notification: notificationToDTO(notification), recipientEmail: targetEmail };
   }
 }

@@ -1,12 +1,20 @@
-import { Queue, Worker, Job, QueueEvents } from 'bullmq';
+import { Queue, Worker, Job } from 'bullmq';
 import { env } from '@/@env';
 
 // Configuração de conexão para o BullMQ
+// IMPORTANTE: maxRetriesPerRequest DEVE ser null — BullMQ usa blocking commands (BRPOPLPUSH)
+// que não são compatíveis com retry automático do ioredis.
 const getConnection = () => ({
   host: env.REDIS_HOST,
   port: env.REDIS_PORT,
   password: env.REDIS_PASSWORD || undefined,
   db: env.REDIS_DB,
+  tls: env.REDIS_TLS ? {} : undefined,
+  maxRetriesPerRequest: null,
+  enableReadyCheck: false,
+  retryStrategy(times: number) {
+    return Math.min(times * 200, 5000);
+  },
 });
 
 // Opções padrão para jobs
@@ -29,7 +37,6 @@ const defaultJobOptions = {
 // Store para manter referência das filas e workers
 const queues = new Map<string, Queue>();
 const workers = new Map<string, Worker>();
-const queueEvents = new Map<string, QueueEvents>();
 
 /**
  * Cria uma nova fila
@@ -44,13 +51,11 @@ export function createQueue<T = unknown>(name: string): Queue<T> {
     defaultJobOptions,
   });
 
-  queues.set(name, queue);
-
-  // Cria eventos para monitoramento
-  const events = new QueueEvents(name, {
-    connection: getConnection(),
+  queue.on('error', (err) => {
+    console.error(`[Queue:${name}] Connection error:`, err.message);
   });
-  queueEvents.set(name, events);
+
+  queues.set(name, queue);
 
   return queue;
 }
@@ -92,6 +97,8 @@ export function createWorker<T = unknown>(
   });
 
   worker.on('error', (err) => {
+    // Workers emitem 'error' em desconexões Redis — isso é esperado e recuperável.
+    // BullMQ reconecta automaticamente. NÃO propagar para unhandledRejection.
     console.error(`[Queue:${name}] Worker error:`, err.message);
   });
 
@@ -186,15 +193,10 @@ export async function closeAllQueues(): Promise<void> {
     closePromises.push(queue.close());
   }
 
-  for (const events of queueEvents.values()) {
-    closePromises.push(events.close());
-  }
-
   await Promise.all(closePromises);
 
   workers.clear();
   queues.clear();
-  queueEvents.clear();
 
   console.log('[Queue] All queues and workers closed');
 }

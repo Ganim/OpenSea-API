@@ -39,7 +39,7 @@ export async function sendNotificationEmailController(app: FastifyInstance) {
       await logAudit(request, {
         message: AUDIT_MESSAGES.NOTIFICATIONS.NOTIFICATION_SEND_EMAIL,
         entityId: id,
-        placeholders: { recipientEmail: result.notification.id || 'N/A' },
+        placeholders: { recipientEmail: result.recipientEmail },
         newData: { success: result.success },
       });
 

@@ -4,11 +4,20 @@ build
 /generated/prisma
 coverage
 .claude
+.serena/
+
 # JWT Keys
 keys/
+
+# OS / IDE
 nul
+.DS_Store
+
 # Uploads and temp files
 uploads/
 *.log
 query.sql
 tsc-output.txt
+
+# Temporary docs/reports
+docs/

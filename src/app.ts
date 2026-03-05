@@ -191,7 +191,11 @@ app.register(fastifyCookie);
 // Multipart (file uploads)
 app.register(multipart, {
   limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB
+    fileSize: 10 * 1024 * 1024, // 10MB per file
+    files: 10,                   // max 10 files per request
+    fields: 20,                  // max 20 text fields per request
+    fieldSize: 1_000_000,        // max 1MB per text field
+    headerPairs: 2000,           // max header pairs
   },
 });
 

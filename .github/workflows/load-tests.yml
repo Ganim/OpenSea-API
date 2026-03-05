@@ -12,6 +12,7 @@ on:
           - smoke
           - auth-flow
           - products-crud
+          - email-bulk-and-open
       environment:
         description: 'Target environment'
         required: true
@@ -127,6 +128,17 @@ jobs:
           TEST_EMAIL: admin@teste.com
           TEST_PASSWORD: Teste@123
         run: k6 run tests/load/scenarios/products-crud.js
+
+      - name: Run email bulk + open test
+        if: ${{ inputs.scenario == 'email-bulk-and-open' }}
+        env:
+          BASE_URL: http://localhost:3333
+          TEST_EMAIL: admin@teste.com
+          TEST_PASSWORD: Teste@123
+          MARK_COUNT: 200
+          OPEN_COUNT: 50
+          BULK_BATCH_SIZE: 20
+        run: k6 run tests/load/scenarios/email-bulk-and-open.js
 
       - name: Upload test reports
         uses: actions/upload-artifact@v4

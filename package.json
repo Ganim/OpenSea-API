@@ -25,6 +25,7 @@
     "test:load:smoke": "k6 run tests/load/smoke.js",
     "test:load:auth": "k6 run tests/load/scenarios/auth-flow.js",
     "test:load:products": "k6 run tests/load/scenarios/products-crud.js",
+    "test:load:email": "k6 run tests/load/scenarios/email-bulk-and-open.js",
     "docker:build": "docker build -t opensea-api .",
     "docker:run": "docker run -p 3333:3333 --env-file .env opensea-api",
     "workers:start": "tsx --env-file=.env src/workers/index.ts",
