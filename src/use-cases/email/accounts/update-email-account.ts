@@ -107,21 +107,40 @@ export class UpdateEmailAccountUseCase {
         );
       }
 
-      await this.imapClientService.testConnection({
-        host: request.imapHost ?? account.imapHost,
-        port: request.imapPort ?? account.imapPort,
-        secure: request.imapSecure ?? account.imapSecure,
-        username: request.username ?? account.username,
-        secret: secretToUse,
-      });
+      const effectiveImapHost = request.imapHost ?? account.imapHost;
+      const effectiveImapPort = request.imapPort ?? account.imapPort;
+      const effectiveSmtpHost = request.smtpHost ?? account.smtpHost;
+      const effectiveSmtpPort = request.smtpPort ?? account.smtpPort;
 
-      await this.smtpClientService.testConnection({
-        host: request.smtpHost ?? account.smtpHost,
-        port: request.smtpPort ?? account.smtpPort,
-        secure: request.smtpSecure ?? account.smtpSecure,
-        username: request.username ?? account.username,
-        secret: secretToUse,
-      });
+      try {
+        await this.imapClientService.testConnection({
+          host: effectiveImapHost,
+          port: effectiveImapPort,
+          secure: request.imapSecure ?? account.imapSecure,
+          username: request.username ?? account.username,
+          secret: secretToUse,
+        });
+      } catch (err) {
+        const detail = err instanceof Error ? err.message : String(err);
+        throw new BadRequestError(
+          `Falha ao conectar ao servidor IMAP (${effectiveImapHost}:${effectiveImapPort}): ${detail}`,
+        );
+      }
+
+      try {
+        await this.smtpClientService.testConnection({
+          host: effectiveSmtpHost,
+          port: effectiveSmtpPort,
+          secure: request.smtpSecure ?? account.smtpSecure,
+          username: request.username ?? account.username,
+          secret: secretToUse,
+        });
+      } catch (err) {
+        const detail = err instanceof Error ? err.message : String(err);
+        throw new BadRequestError(
+          `Falha ao conectar ao servidor SMTP (${effectiveSmtpHost}:${effectiveSmtpPort}): ${detail}`,
+        );
+      }
     }
 
     if (request.isDefault) {

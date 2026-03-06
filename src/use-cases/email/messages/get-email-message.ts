@@ -92,18 +92,36 @@ export class GetEmailMessageUseCase {
       message.id.toString(),
     );
 
-    // Lazy-fetch attachment metadata from IMAP if the message has them but
-    // records are missing (backwards compat for messages synced before
-    // attachment support was added to fetchAndStoreBody)
-    if (message.hasAttachments && attachments.length === 0) {
-      await this.fetchAndStoreAttachments(message, account);
-      attachments = await this.emailMessagesRepository.listAttachments(
-        message.id.toString(),
-      );
+    // Lazy-fetch attachment metadata from IMAP if no attachment records exist.
+    // Two cases:
+    //   1. hasAttachments=true but no records → backwards compat (synced before
+    //      attachment support was added to fetchAndStoreBody).
+    //   2. hasAttachments=false but body was already fetched → BODYSTRUCTURE
+    //      detection failed during sync (type mismatch bug) OR attachment
+    //      extraction filter was too aggressive. Re-fetch to check with
+    //      corrected logic. Self-heals: once attachments are found the flag is
+    //      corrected and this branch won't trigger again.
+    if (attachments.length === 0) {
+      const shouldFetchAttachments =
+        message.hasAttachments || // case 1
+        message.bodyText !== null; // case 2 — body already fetched
+
+      if (shouldFetchAttachments) {
+        if (!message.hasAttachments && message.bodyText !== null) {
+          logger.debug(
+            { messageId: message.id.toString() },
+            'Re-checking attachments for message with fetched body but hasAttachments=false',
+          );
+        }
+        await this.fetchAndStoreAttachments(message, account);
+        attachments = await this.emailMessagesRepository.listAttachments(
+          message.id.toString(),
+        );
+      }
     }
 
     // Fix hasAttachments flag if it was incorrectly set to false during sync
-    // but attachments were found when the body was lazy-fetched
+    // but attachments were found when the body was lazy-fetched / re-checked
     if (attachments.length > 0 && !message.hasAttachments) {
       await this.emailMessagesRepository.update({
         id: message.id.toString(),
@@ -258,10 +276,27 @@ export class GetEmailMessageUseCase {
     );
     if (existing.length > 0) return;
 
-    // Filter out inline CID images (embedded in the HTML body, not downloadable)
-    const downloadable = parsedAttachments.filter(
-      (att) => !att.related && !att.contentId,
-    );
+    // Filter out inline CID images that are truly embedded in the HTML body.
+    // Keep everything else, including files with CID when they have a filename
+    // (some email clients set CID on all MIME parts, even regular attachments).
+    const downloadable = parsedAttachments.filter((att) => {
+      const disposition = (att as Record<string, unknown>)
+        .contentDisposition as string | undefined;
+
+      // Explicitly marked as attachment → always include
+      if (disposition === 'attachment') return true;
+
+      // Inline CID image without a user-facing filename → embedded in HTML, skip
+      if (att.related && att.contentId && !att.filename) return false;
+
+      // Has a filename → user-facing file, include it
+      if (att.filename) return true;
+
+      // No CID and not related → include (standard attachment without filename)
+      if (!att.related && !att.contentId) return true;
+
+      return false;
+    });
 
     for (let idx = 0; idx < downloadable.length; idx++) {
       const att = downloadable[idx];

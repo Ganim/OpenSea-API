@@ -181,7 +181,7 @@ describe('GetEmailMessageUseCase', () => {
     ).rejects.toThrow('You do not have access to this message');
   });
 
-  it('should not attempt IMAP fetch when body is already present', async () => {
+  it('should not re-fetch body when body is already present', async () => {
     const account = await accountsRepository.findByAddress(
       'user@example.com',
       'tenant-1',
@@ -200,9 +200,12 @@ describe('GetEmailMessageUseCase', () => {
       messageId: message.id.toString(),
     });
 
+    // Body should be returned as-is from DB — not re-downloaded from IMAP
     expect(response.message.bodyText).toBe('Test message with attachment');
-    // decrypt should NOT be called since body already exists
-    expect(credentialCipherService.decrypt).not.toHaveBeenCalled();
+    // Note: credentialCipherService.decrypt IS called once for the attachment
+    // recovery path (re-checks messages with body but no attachment records to
+    // fix false-negative hasAttachments flags). The body itself is NOT re-fetched.
+    expect(credentialCipherService.decrypt).toHaveBeenCalledTimes(1);
   });
 
   it('should attempt lazy fetch when body is null but not break on IMAP failure', async () => {

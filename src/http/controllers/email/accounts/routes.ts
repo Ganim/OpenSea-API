@@ -348,6 +348,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       params: z.object({ id: z.string().uuid() }),
       response: {
         204: z.null(),
+        400: z.object({ message: z.string() }),
         403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
@@ -366,6 +367,9 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
 
         return reply.status(204).send(null);
       } catch (error) {
+        if (error instanceof BadRequestError) {
+          return reply.status(400).send({ message: error.message });
+        }
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }

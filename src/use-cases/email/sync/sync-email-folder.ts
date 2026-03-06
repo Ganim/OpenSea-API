@@ -22,21 +22,57 @@ interface SyncEmailFolderResponse {
   lastUid: number | null;
 }
 
+/**
+ * Detect attachments from ImapFlow BODYSTRUCTURE.
+ *
+ * ImapFlow's MessageStructureObject uses:
+ *   - disposition: string ("attachment" | "inline"), NOT an object
+ *   - dispositionParameters: { filename?, name?, ... }
+ *   - type: full MIME type string ("image/png", "text/plain", "multipart/mixed")
+ *   - parameters: Content-Type params like { name: "photo.png", charset: "utf-8" }
+ *   - childNodes: sub-parts for multipart messages
+ */
 function hasAttachmentFromStructure(structure: unknown): boolean {
   if (!structure || typeof structure !== 'object') return false;
+
   const part = structure as {
     childNodes?: unknown[];
-    disposition?: { type?: string; params?: Record<string, string> };
+    disposition?: string;
+    dispositionParameters?: Record<string, string>;
+    type?: string;
+    parameters?: Record<string, string>;
   };
 
-  if (part.disposition?.type === 'attachment') return true;
-  if (
-    part.disposition?.type === 'inline' &&
-    part.disposition?.params?.filename
-  ) {
-    return true;
+  const disposition =
+    typeof part.disposition === 'string'
+      ? part.disposition.toLowerCase()
+      : '';
+
+  // Content-Disposition: attachment
+  if (disposition === 'attachment') return true;
+
+  // Content-Disposition: inline with filename → named inline = downloadable attachment
+  if (disposition === 'inline') {
+    const filename =
+      part.dispositionParameters?.filename ??
+      part.dispositionParameters?.name;
+    if (filename) return true;
   }
 
+  // Non-text, non-multipart MIME parts with a filename in Content-Type parameters.
+  // Some email clients attach files without Content-Disposition, relying on
+  // Content-Type: image/png; name="photo.png"
+  const mimeType = part.type?.toLowerCase() ?? '';
+  if (
+    mimeType &&
+    !mimeType.startsWith('multipart/') &&
+    !mimeType.startsWith('text/')
+  ) {
+    const ctFilename = part.parameters?.name ?? part.parameters?.filename;
+    if (ctFilename) return true;
+  }
+
+  // Recurse into child MIME parts (multipart/mixed, multipart/alternative, etc.)
   if (Array.isArray(part.childNodes)) {
     return part.childNodes.some(hasAttachmentFromStructure);
   }

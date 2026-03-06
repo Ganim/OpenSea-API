@@ -64,21 +64,35 @@ export class CreateEmailAccountUseCase {
       );
     }
 
-    await this.imapClientService.testConnection({
-      host: request.imapHost,
-      port: request.imapPort,
-      secure: request.imapSecure ?? true,
-      username: request.username,
-      secret: request.secret,
-    });
+    try {
+      await this.imapClientService.testConnection({
+        host: request.imapHost,
+        port: request.imapPort,
+        secure: request.imapSecure ?? true,
+        username: request.username,
+        secret: request.secret,
+      });
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : String(err);
+      throw new BadRequestError(
+        `Falha ao conectar ao servidor IMAP (${request.imapHost}:${request.imapPort}): ${detail}`,
+      );
+    }
 
-    await this.smtpClientService.testConnection({
-      host: request.smtpHost,
-      port: request.smtpPort,
-      secure: request.smtpSecure ?? true,
-      username: request.username,
-      secret: request.secret,
-    });
+    try {
+      await this.smtpClientService.testConnection({
+        host: request.smtpHost,
+        port: request.smtpPort,
+        secure: request.smtpSecure ?? true,
+        username: request.username,
+        secret: request.secret,
+      });
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : String(err);
+      throw new BadRequestError(
+        `Falha ao conectar ao servidor SMTP (${request.smtpHost}:${request.smtpPort}): ${detail}`,
+      );
+    }
 
     if (request.isDefault) {
       await this.emailAccountsRepository.unsetDefaultAccounts(

@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { EmailAccountsRepository } from '@/repositories/email';
@@ -46,20 +47,34 @@ export class TestEmailConnectionUseCase {
       account.encryptedSecret,
     );
 
-    await this.imapClientService.testConnection({
-      host: account.imapHost,
-      port: account.imapPort,
-      secure: account.imapSecure,
-      username: account.username,
-      secret,
-    });
+    try {
+      await this.imapClientService.testConnection({
+        host: account.imapHost,
+        port: account.imapPort,
+        secure: account.imapSecure,
+        username: account.username,
+        secret,
+      });
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : String(err);
+      throw new BadRequestError(
+        `Falha ao conectar ao servidor IMAP (${account.imapHost}:${account.imapPort}): ${detail}`,
+      );
+    }
 
-    await this.smtpClientService.testConnection({
-      host: account.smtpHost,
-      port: account.smtpPort,
-      secure: account.smtpSecure,
-      username: account.username,
-      secret,
-    });
+    try {
+      await this.smtpClientService.testConnection({
+        host: account.smtpHost,
+        port: account.smtpPort,
+        secure: account.smtpSecure,
+        username: account.username,
+        secret,
+      });
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : String(err);
+      throw new BadRequestError(
+        `Falha ao conectar ao servidor SMTP (${account.smtpHost}:${account.smtpPort}): ${detail}`,
+      );
+    }
   }
 }
