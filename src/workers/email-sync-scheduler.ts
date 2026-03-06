@@ -4,6 +4,10 @@ import { queueEmailSync } from './queues/email-sync.queue';
 
 const INTERVAL_MS = 5 * 60 * 1000;
 
+let intervalId: ReturnType<typeof setInterval> | null = null;
+let consecutiveErrors = 0;
+const MAX_CONSECUTIVE_ERRORS = 5;
+
 async function scheduleSyncJobs() {
   const emailAccountsRepository = new PrismaEmailAccountsRepository();
 
@@ -23,6 +27,8 @@ async function scheduleSyncJobs() {
       );
     }
 
+    consecutiveErrors = 0;
+
     if (accounts.length > 0) {
       logger.info(
         { count: accounts.length },
@@ -30,8 +36,25 @@ async function scheduleSyncJobs() {
       );
     }
   } catch (err) {
-    logger.error({ err }, 'Failed to schedule email sync jobs');
-    throw err;
+    consecutiveErrors++;
+    logger.error(
+      { err, consecutiveErrors, maxErrors: MAX_CONSECUTIVE_ERRORS },
+      'Failed to schedule email sync jobs',
+    );
+    if (consecutiveErrors >= MAX_CONSECUTIVE_ERRORS) {
+      logger.error(
+        `Email sync scheduler stopping after ${MAX_CONSECUTIVE_ERRORS} consecutive failures`,
+      );
+      stopEmailSyncScheduler();
+    }
+  }
+}
+
+export function stopEmailSyncScheduler() {
+  if (intervalId) {
+    clearInterval(intervalId);
+    intervalId = null;
+    logger.info('Email sync scheduler stopped');
   }
 }
 
@@ -41,7 +64,7 @@ async function scheduleSyncJobs() {
  */
 export async function startEmailSyncScheduler(): Promise<void> {
   await scheduleSyncJobs();
-  setInterval(scheduleSyncJobs, INTERVAL_MS);
+  intervalId = setInterval(scheduleSyncJobs, INTERVAL_MS);
   logger.info(
     { interval: INTERVAL_MS },
     'Email sync scheduler started successfully',

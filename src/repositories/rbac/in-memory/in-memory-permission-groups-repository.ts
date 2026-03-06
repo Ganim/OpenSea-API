@@ -250,8 +250,14 @@ export class InMemoryPermissionGroupsRepository
   async findAncestors(id: UniqueEntityID): Promise<PermissionGroup[]> {
     const ancestors: PermissionGroup[] = [];
     let currentId: UniqueEntityID | null = id;
+    const visitedIds = new Set<string>();
+    const MAX_DEPTH = 50;
 
     while (currentId) {
+      const currentIdStr = currentId.toString();
+      if (visitedIds.has(currentIdStr) || visitedIds.size >= MAX_DEPTH) break;
+      visitedIds.add(currentIdStr);
+
       const group = this.items.find((item) => item.id.equals(currentId!));
 
       if (!group || !group.parentId) break;

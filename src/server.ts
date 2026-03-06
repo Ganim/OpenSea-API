@@ -4,34 +4,105 @@ import { app } from './app';
 import { prisma } from './lib/prisma';
 import { httpLogger } from './lib/logger';
 
+let isShuttingDown = false;
+const SHUTDOWN_TIMEOUT_MS = 15_000;
+
 // Global error handlers
 // NÃO usar process.exit(1) em unhandledRejection — erros temporários de Redis/IMAP
 // são comuns e BullMQ/ioredis reconectam automaticamente. Matar o processo causa restart loop.
 process.on('unhandledRejection', (reason) => {
+  const mem = process.memoryUsage();
   console.error('[ERROR] Unhandled promise rejection:', reason);
+  console.error('[ERROR] Memory at rejection: heap=%dMB rss=%dMB',
+    Math.round(mem.heapUsed / 1024 / 1024),
+    Math.round(mem.rss / 1024 / 1024),
+  );
   // Log mas não mata o processo — permite reconexão automática de Redis/BullMQ
 });
 
 process.on('uncaughtException', (error) => {
+  const mem = process.memoryUsage();
   console.error('[FATAL] Uncaught exception:', error);
+  console.error('[FATAL] Memory at crash: heap=%dMB rss=%dMB',
+    Math.round(mem.heapUsed / 1024 / 1024),
+    Math.round(mem.rss / 1024 / 1024),
+  );
+  console.error('[FATAL] Uptime: %ds', Math.round(process.uptime()));
   // uncaughtException é mais grave — o estado do processo pode estar corrompido
-  // Dá 1s para flush de logs antes de sair
-  setTimeout(() => process.exit(1), 1000);
+  // Dá 3s para flush de logs antes de sair
+  setTimeout(() => process.exit(1), 3000);
 });
+
+// Memory pressure warning — log when heap exceeds threshold
+const HEAP_WARNING_THRESHOLD = 0.85;
+let lastHeapWarning = 0;
+const heapCheckInterval = setInterval(() => {
+  const mem = process.memoryUsage();
+  const heapRatio = mem.heapUsed / mem.heapTotal;
+  if (heapRatio > HEAP_WARNING_THRESHOLD && Date.now() - lastHeapWarning > 60_000) {
+    lastHeapWarning = Date.now();
+    console.warn(
+      '[MEMORY] High heap usage: %dMB / %dMB (%.1f%%) — rss=%dMB',
+      Math.round(mem.heapUsed / 1024 / 1024),
+      Math.round(mem.heapTotal / 1024 / 1024),
+      heapRatio * 100,
+      Math.round(mem.rss / 1024 / 1024),
+    );
+  }
+}, 30_000);
+heapCheckInterval.unref();
 
 async function checkDatabaseConnection(): Promise<boolean> {
   try {
+    const timeoutId = setTimeout(() => {}, 5000);
     await Promise.race([
       prisma.$queryRaw`SELECT 1`,
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('timeout')), 5000),
-      ),
+      new Promise((_, reject) => {
+        const timer = setTimeout(() => reject(new Error('Database connection timeout (5s)')), 5000);
+        timer.unref();
+      }),
     ]);
+    clearTimeout(timeoutId);
     return true;
-  } catch {
+  } catch (err) {
+    console.error('[startup] Database check failed:', err);
     return false;
   }
 }
+
+async function gracefulShutdown(signal: string) {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+
+  console.log(`[shutdown] ${signal} received. Starting graceful shutdown...`);
+  httpLogger.info(`Graceful shutdown initiated by ${signal}`);
+
+  const shutdownTimer = setTimeout(() => {
+    console.error(`[shutdown] Timed out after ${SHUTDOWN_TIMEOUT_MS}ms, forcing exit`);
+    process.exit(1);
+  }, SHUTDOWN_TIMEOUT_MS);
+  shutdownTimer.unref();
+
+  try {
+    // Close HTTP server (stop accepting new connections)
+    await app.close();
+    console.log('[shutdown] HTTP server closed');
+
+    // Disconnect Prisma (release DB connections)
+    await prisma.$disconnect();
+    console.log('[shutdown] Database disconnected');
+  } catch (err) {
+    console.error('[shutdown] Error during shutdown:', err);
+  } finally {
+    clearTimeout(shutdownTimer);
+    clearInterval(heapCheckInterval);
+    console.log('[shutdown] Shutdown complete');
+    process.exit(0);
+  }
+}
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 async function start() {
   const startTime = Date.now();
@@ -45,7 +116,7 @@ async function start() {
   const dbOk = await checkDatabaseConnection();
   if (!dbOk) {
     console.error(
-      '[startup] ⚠ Cannot connect to PostgreSQL! Make sure Docker is running:\n' +
+      '[startup] Cannot connect to PostgreSQL! Make sure Docker is running:\n' +
         '         docker compose up -d\n' +
         '         (or: docker-compose up -d)',
     );
@@ -61,7 +132,12 @@ async function start() {
     });
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-    console.log(`[startup] Server ready on port ${env.PORT} (${elapsed}s)`);
+    const mem = process.memoryUsage();
+    console.log(
+      `[startup] Server ready on port ${env.PORT} (${elapsed}s) — heap=%dMB rss=%dMB`,
+      Math.round(mem.heapUsed / 1024 / 1024),
+      Math.round(mem.rss / 1024 / 1024),
+    );
     httpLogger.info(
       { port: env.PORT, startupMs: Date.now() - startTime },
       'HTTP server is running on port %d',

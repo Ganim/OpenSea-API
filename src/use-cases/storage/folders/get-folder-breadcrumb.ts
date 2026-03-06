@@ -37,10 +37,20 @@ export class GetFolderBreadcrumbUseCase {
     // Walk up the tree from the current folder to the root
     const breadcrumb: BreadcrumbItem[] = [];
     let currentFolder = folder;
+    const visitedIds = new Set<string>();
+    const MAX_DEPTH = 50;
 
     while (currentFolder) {
+      const currentId = currentFolder.id.toString();
+
+      // Guard against circular references
+      if (visitedIds.has(currentId) || visitedIds.size >= MAX_DEPTH) {
+        break;
+      }
+      visitedIds.add(currentId);
+
       breadcrumb.unshift({
-        id: currentFolder.id.toString(),
+        id: currentId,
         name: currentFolder.name,
         path: currentFolder.path,
       });

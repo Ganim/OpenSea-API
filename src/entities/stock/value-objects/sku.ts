@@ -51,13 +51,19 @@ export class SKU {
   ): Promise<string> {
     let sku = baseSKU;
     let counter = 1;
+    const MAX_ATTEMPTS = 1000;
 
     while (await variantsRepository.findBySKU(sku, tenantId ?? '')) {
       sku = `${baseSKU}-${counter}`;
       counter++;
 
+      if (counter > MAX_ATTEMPTS) {
+        throw new BadRequestError(
+          `Could not generate unique SKU after ${MAX_ATTEMPTS} attempts for base "${baseSKU}"`,
+        );
+      }
+
       if (sku.length > 64) {
-        // Se ainda assim exceder, trunca o baseSKU
         const maxBaseLength = 64 - `-${counter}`.length;
         sku = `${baseSKU.substring(0, maxBaseLength)}-${counter}`;
       }

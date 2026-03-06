@@ -43,4 +43,4 @@ USER worker
 # Worker não precisa expor porta
 # Health check via BullMQ metrics
 
-CMD ["node", "build/workers/index.js"]
+CMD ["node", "--stack-size=8192", "build/workers/index.js"]

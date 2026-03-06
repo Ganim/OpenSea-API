@@ -147,10 +147,23 @@ export class S3FileUploadService implements FileUploadService {
       expiresIn,
     });
 
-    // Evict oldest entries if cache is full
+    // Evict expired + oldest entries if cache is full
     if (this.presignedUrlCache.size >= PRESIGNED_URL_CACHE_MAX) {
-      const firstKey = this.presignedUrlCache.keys().next().value;
-      if (firstKey) this.presignedUrlCache.delete(firstKey);
+      const now = Date.now();
+      // First pass: remove all expired entries
+      for (const [k, v] of this.presignedUrlCache) {
+        if (v.expiresAt <= now) this.presignedUrlCache.delete(k);
+      }
+      // If still over limit, remove oldest 10% via FIFO
+      if (this.presignedUrlCache.size >= PRESIGNED_URL_CACHE_MAX) {
+        const toRemove = Math.max(1, Math.floor(PRESIGNED_URL_CACHE_MAX * 0.1));
+        let removed = 0;
+        for (const k of this.presignedUrlCache.keys()) {
+          if (removed >= toRemove) break;
+          this.presignedUrlCache.delete(k);
+          removed++;
+        }
+      }
     }
 
     this.presignedUrlCache.set(cacheKey, {

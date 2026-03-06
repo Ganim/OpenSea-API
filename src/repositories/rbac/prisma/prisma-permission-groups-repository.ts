@@ -228,8 +228,13 @@ export class PrismaPermissionGroupsRepository
   async findAncestors(id: UniqueEntityID): Promise<PermissionGroup[]> {
     const ancestors: PermissionGroup[] = [];
     let currentId: string | null = id.toString();
+    const visitedIds = new Set<string>();
+    const MAX_DEPTH = 50;
 
     while (currentId) {
+      if (visitedIds.has(currentId) || visitedIds.size >= MAX_DEPTH) break;
+      visitedIds.add(currentId);
+
       const group: {
         id: string;
         parentId: string | null;
@@ -241,25 +246,14 @@ export class PrismaPermissionGroupsRepository
 
       if (!group || !group.parentId) break;
 
-      const parent: {
-        id: string;
-        parentId: string | null;
-      } | null = await prisma.permissionGroup.findUnique({
-        where: { id: group.parentId },
-        select: { id: true, parentId: true },
-      });
-
-      if (parent) {
-        const fullParent = await prisma.permissionGroup.findUnique({
-          where: { id: parent.id },
+      const fullParent: { id: string; parentId: string | null; [key: string]: unknown } | null =
+        await prisma.permissionGroup.findUnique({
+          where: { id: group.parentId },
         });
 
-        if (fullParent) {
-          ancestors.push(mapPermissionGroupPrismaToDomain(fullParent));
-          currentId = parent.parentId;
-        } else {
-          break;
-        }
+      if (fullParent) {
+        ancestors.push(mapPermissionGroupPrismaToDomain(fullParent));
+        currentId = fullParent.parentId;
       } else {
         break;
       }

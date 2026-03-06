@@ -90,7 +90,16 @@ export class UpdateCategoryUseCase {
 
         // Verifica se o novo pai não é uma subcategoria da categoria atual
         let currentParent = parentCategory;
+        const visitedIds = new Set<string>();
+        const MAX_DEPTH = 50;
+
         while (currentParent.parentId) {
+          const currentId = currentParent.id.toString();
+          if (visitedIds.has(currentId) || visitedIds.size >= MAX_DEPTH) {
+            break;
+          }
+          visitedIds.add(currentId);
+
           if (currentParent.parentId.equals(category.id)) {
             throw new BadRequestError(
               'Cannot set a subcategory as parent (circular reference).',

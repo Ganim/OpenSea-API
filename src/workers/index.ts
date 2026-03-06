@@ -1,10 +1,13 @@
 import { closeAllQueues } from '@/lib/queue';
-import { startEmailSyncScheduler } from './email-sync-scheduler';
+import { stopCalendarRemindersScheduler } from './calendar-reminders-scheduler';
+import { startEmailSyncScheduler, stopEmailSyncScheduler } from './email-sync-scheduler';
+import { stopNotificationsScheduler } from './notifications-scheduler';
 import { startAuditWorker } from './queues/audit.queue';
 import { startEmailSyncWorker } from './queues/email-sync.queue';
 import { startNotificationWorker } from './queues/notification.queue';
 
 let workersStarted = false;
+let isShuttingDown = false;
 
 /**
  * Inicia todos os workers de fila
@@ -37,23 +40,44 @@ export async function startAllWorkers(): Promise<void> {
  */
 export async function stopAllWorkers(): Promise<void> {
   console.log('[Workers] Stopping all queue workers...');
+
+  // Stop all schedulers first (prevent new jobs from being enqueued)
+  stopCalendarRemindersScheduler();
+  stopEmailSyncScheduler();
+  stopNotificationsScheduler();
+
+  // Then close BullMQ queues and workers
   await closeAllQueues();
   workersStarted = false;
   console.log('[Workers] All workers stopped');
 }
 
-// Graceful shutdown
-process.on('SIGTERM', async () => {
-  console.log('[Workers] SIGTERM received, shutting down...');
-  await stopAllWorkers();
-  process.exit(0);
-});
+const SHUTDOWN_TIMEOUT_MS = 15_000;
 
-process.on('SIGINT', async () => {
-  console.log('[Workers] SIGINT received, shutting down...');
-  await stopAllWorkers();
-  process.exit(0);
-});
+async function gracefulShutdown(signal: string) {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+
+  console.log(`[Workers] ${signal} received, shutting down...`);
+
+  const shutdownTimer = setTimeout(() => {
+    console.error(`[Workers] Shutdown timed out after ${SHUTDOWN_TIMEOUT_MS}ms, forcing exit`);
+    process.exit(1);
+  }, SHUTDOWN_TIMEOUT_MS);
+
+  try {
+    await stopAllWorkers();
+  } catch (err) {
+    console.error('[Workers] Error during shutdown:', err);
+  } finally {
+    clearTimeout(shutdownTimer);
+    process.exit(0);
+  }
+}
+
+// Graceful shutdown
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 // Start workers when this entrypoint runs (Dockerfile.worker: node build/workers/index.js)
 startAllWorkers().catch((err) => {

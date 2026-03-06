@@ -482,8 +482,13 @@ export class PrismaUserPermissionGroupsRepository
   private async getAncestorGroupIds(groupId: string): Promise<string[]> {
     const ancestors: string[] = [];
     let currentId: string | null = groupId;
+    const visitedIds = new Set<string>();
+    const MAX_DEPTH = 50;
 
     while (currentId) {
+      if (visitedIds.has(currentId) || visitedIds.size >= MAX_DEPTH) break;
+      visitedIds.add(currentId);
+
       const group: {
         parentId: string | null;
       } | null = await prisma.permissionGroup.findUnique({

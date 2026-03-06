@@ -33,7 +33,8 @@
     "cron:location-consistency": "tsx --env-file=.env scripts/location-consistency-cron.ts",
     "cron:storage-gc": "tsx --env-file=.env scripts/storage-gc-cron.ts",
     "cron:archive-expired-files": "tsx --env-file=.env scripts/archive-expired-files-cron.ts",
-    "encrypt-existing": "tsx --env-file=.env scripts/encrypt-existing-files.ts"
+    "encrypt-existing": "tsx --env-file=.env scripts/encrypt-existing-files.ts",
+    "stress-test": "tsx scripts/stress-test.ts"
   },
   "keywords": [
     "opensea",

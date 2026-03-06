@@ -297,8 +297,14 @@ export class InMemoryUserPermissionGroupsRepository
 
     const ancestors: UniqueEntityID[] = [];
     let currentGroup = await this.permissionGroupsRepository.findById(groupId);
+    const visitedIds = new Set<string>();
+    const MAX_DEPTH = 50;
 
     while (currentGroup?.parentId) {
+      const currentId = currentGroup.id.toString();
+      if (visitedIds.has(currentId) || visitedIds.size >= MAX_DEPTH) break;
+      visitedIds.add(currentId);
+
       const parent = await this.permissionGroupsRepository.findById(
         currentGroup.parentId,
       );

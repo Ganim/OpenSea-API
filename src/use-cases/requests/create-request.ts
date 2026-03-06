@@ -71,9 +71,12 @@ export class CreateRequestUseCase {
   private calculateSLADeadline(businessDays: number): Date {
     const date = new Date();
     let addedDays = 0;
+    const maxIterations = businessDays * 3 + 10; // Safety limit (accounts for weekends + holidays)
+    let iterations = 0;
 
-    while (addedDays < businessDays) {
+    while (addedDays < businessDays && iterations < maxIterations) {
       date.setDate(date.getDate() + 1);
+      iterations++;
       // Pular fins de semana
       const dayOfWeek = date.getDay();
       if (dayOfWeek !== 0 && dayOfWeek !== 6) {

@@ -3,10 +3,15 @@ import { makeProcessDueRemindersUseCase } from '@/use-cases/calendar/events/fact
 
 const INTERVAL_MS = 60_000;
 
+let intervalId: ReturnType<typeof setInterval> | null = null;
+let consecutiveErrors = 0;
+const MAX_CONSECUTIVE_ERRORS = 10;
+
 async function processBatch() {
   const useCase = makeProcessDueRemindersUseCase();
   try {
     const result = await useCase.execute();
+    consecutiveErrors = 0;
     if (result.processed > 0) {
       logger.info(
         {
@@ -17,19 +22,36 @@ async function processBatch() {
       );
     }
   } catch (err) {
-    logger.error({ err }, 'Failed to process calendar reminders batch');
-    throw err;
+    consecutiveErrors++;
+    logger.error(
+      { err, consecutiveErrors, maxErrors: MAX_CONSECUTIVE_ERRORS },
+      'Failed to process calendar reminders batch',
+    );
+    if (consecutiveErrors >= MAX_CONSECUTIVE_ERRORS) {
+      logger.error(
+        `Calendar reminders scheduler stopping after ${MAX_CONSECUTIVE_ERRORS} consecutive failures`,
+      );
+      stopCalendarRemindersScheduler();
+    }
+  }
+}
+
+export function stopCalendarRemindersScheduler() {
+  if (intervalId) {
+    clearInterval(intervalId);
+    intervalId = null;
+    logger.info('Calendar reminders scheduler stopped');
   }
 }
 
 // Initial run + start interval
 try {
   await processBatch();
-  setInterval(processBatch, INTERVAL_MS);
+  intervalId = setInterval(processBatch, INTERVAL_MS);
   logger.info(
     { interval: INTERVAL_MS },
     'Calendar reminders scheduler worker started successfully',
   );
-} catch {
-  logger.error('Failed to start calendar reminders scheduler worker');
+} catch (err) {
+  logger.error({ err }, 'Failed to start calendar reminders scheduler worker');
 }

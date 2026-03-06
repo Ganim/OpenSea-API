@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync, unlinkSync, readFileSync } from 'node:fs';
+import { mkdir, writeFile, unlink, readFile } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
 
@@ -40,8 +40,8 @@ export class LocalFileUploadService implements FileUploadService {
     const targetDirectory = join(UPLOADS_BASE_DIR, options.prefix);
     const absoluteFilePath = join(UPLOADS_BASE_DIR, objectKey);
 
-    mkdirSync(targetDirectory, { recursive: true });
-    writeFileSync(absoluteFilePath, fileBuffer);
+    await mkdir(targetDirectory, { recursive: true });
+    await writeFile(absoluteFilePath, fileBuffer);
 
     return {
       key: objectKey,
@@ -59,13 +59,13 @@ export class LocalFileUploadService implements FileUploadService {
 
   async getObject(key: string): Promise<Buffer> {
     const absoluteFilePath = join(UPLOADS_BASE_DIR, key);
-    return readFileSync(absoluteFilePath);
+    return readFile(absoluteFilePath);
   }
 
   async delete(key: string): Promise<void> {
     const absoluteFilePath = join(UPLOADS_BASE_DIR, key);
 
-    unlinkSync(absoluteFilePath);
+    await unlink(absoluteFilePath);
   }
 
   // --- Multipart Upload (not supported in local dev, stubs only) ---
