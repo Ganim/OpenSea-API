@@ -1,14 +1,17 @@
 import { env } from '@/@env';
-import forge from 'node-forge';
+import crypto from 'node:crypto';
 
 interface DecryptionPayload {
+  v?: number; // version (undefined = legacy, 1 = current)
   iv: string;
   tag: string;
   content: string;
 }
 
+const CURRENT_VERSION = 1;
+
 export class CredentialCipherService {
-  private readonly key: string;
+  private readonly key: Buffer;
 
   constructor() {
     this.key = this.resolveKey();
@@ -19,29 +22,24 @@ export class CredentialCipherService {
       throw new Error('Credential text is required');
     }
 
-    const iv = forge.random.getBytesSync(12);
-    const cipher = forge.cipher.createCipher('AES-GCM', this.key);
+    const iv = crypto.randomBytes(12);
+    const cipher = crypto.createCipheriv('aes-256-gcm', this.key, iv);
 
-    cipher.start({
-      iv,
-      tagLength: 128,
-    });
+    const encrypted = Buffer.concat([
+      cipher.update(plainText, 'utf8'),
+      cipher.final(),
+    ]);
 
-    cipher.update(forge.util.createBuffer(plainText, 'utf8'));
-
-    const finished = cipher.finish();
-
-    if (!finished) {
-      throw new Error('Failed to encrypt credential');
-    }
+    const tag = cipher.getAuthTag();
 
     const payload: DecryptionPayload = {
-      iv: forge.util.encode64(iv),
-      tag: forge.util.encode64(cipher.mode.tag.getBytes()),
-      content: forge.util.encode64(cipher.output.getBytes()),
+      v: CURRENT_VERSION,
+      iv: iv.toString('base64'),
+      tag: tag.toString('base64'),
+      content: encrypted.toString('base64'),
     };
 
-    return forge.util.encode64(JSON.stringify(payload));
+    return Buffer.from(JSON.stringify(payload)).toString('base64');
   }
 
   decrypt(encryptedText: string): string {
@@ -52,48 +50,48 @@ export class CredentialCipherService {
     let payload: DecryptionPayload;
 
     try {
-      const rawPayload = forge.util.decode64(encryptedText);
+      const rawPayload = Buffer.from(encryptedText, 'base64').toString('utf8');
       payload = JSON.parse(rawPayload) as DecryptionPayload;
     } catch {
       throw new Error('Invalid encrypted credential payload');
     }
 
-    const decipher = forge.cipher.createDecipher('AES-GCM', this.key);
+    const iv = Buffer.from(payload.iv, 'base64');
+    const tag = Buffer.from(payload.tag, 'base64');
+    const content = Buffer.from(payload.content, 'base64');
 
-    decipher.start({
-      iv: forge.util.decode64(payload.iv),
-      tag: forge.util.createBuffer(forge.util.decode64(payload.tag)),
-      tagLength: 128,
-    });
+    const decipher = crypto.createDecipheriv('aes-256-gcm', this.key, iv);
+    decipher.setAuthTag(tag);
 
-    decipher.update(
-      forge.util.createBuffer(forge.util.decode64(payload.content)),
-    );
-
-    const finished = decipher.finish();
-
-    if (!finished) {
+    let decrypted: Buffer;
+    try {
+      decrypted = Buffer.concat([
+        decipher.update(content),
+        decipher.final(),
+      ]);
+    } catch {
       throw new Error('Failed to decrypt credential');
     }
 
-    return decipher.output.toString();
+    return decrypted.toString('utf8');
   }
 
-  private resolveKey(): string {
+  private resolveKey(): Buffer {
     const key = env.EMAIL_CREDENTIALS_KEY;
 
     if (!key) {
       throw new Error('EMAIL_CREDENTIALS_KEY is not configured');
     }
 
+    // Try base64-encoded 32-byte key
     const fromBase64 = this.tryDecodeBase64Key(key);
-
     if (fromBase64) {
       return fromBase64;
     }
 
+    // Try raw 32-char key
     if (key.length === 32) {
-      return key;
+      return Buffer.from(key, 'utf8');
     }
 
     throw new Error(
@@ -101,9 +99,9 @@ export class CredentialCipherService {
     );
   }
 
-  private tryDecodeBase64Key(value: string): string | null {
+  private tryDecodeBase64Key(value: string): Buffer | null {
     try {
-      const decoded = forge.util.decode64(value);
+      const decoded = Buffer.from(value, 'base64');
       if (decoded.length === 32) {
         return decoded;
       }

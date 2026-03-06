@@ -52,6 +52,7 @@ export type EmailMessageMinAggregateOutputType = {
   sentAt: Date | null
   isRead: boolean | null
   isFlagged: boolean | null
+  isAnswered: boolean | null
   hasAttachments: boolean | null
   deletedAt: Date | null
   createdAt: Date | null
@@ -76,6 +77,7 @@ export type EmailMessageMaxAggregateOutputType = {
   sentAt: Date | null
   isRead: boolean | null
   isFlagged: boolean | null
+  isAnswered: boolean | null
   hasAttachments: boolean | null
   deletedAt: Date | null
   createdAt: Date | null
@@ -103,6 +105,7 @@ export type EmailMessageCountAggregateOutputType = {
   sentAt: number
   isRead: number
   isFlagged: number
+  isAnswered: number
   hasAttachments: number
   deletedAt: number
   createdAt: number
@@ -137,6 +140,7 @@ export type EmailMessageMinAggregateInputType = {
   sentAt?: true
   isRead?: true
   isFlagged?: true
+  isAnswered?: true
   hasAttachments?: true
   deletedAt?: true
   createdAt?: true
@@ -161,6 +165,7 @@ export type EmailMessageMaxAggregateInputType = {
   sentAt?: true
   isRead?: true
   isFlagged?: true
+  isAnswered?: true
   hasAttachments?: true
   deletedAt?: true
   createdAt?: true
@@ -188,6 +193,7 @@ export type EmailMessageCountAggregateInputType = {
   sentAt?: true
   isRead?: true
   isFlagged?: true
+  isAnswered?: true
   hasAttachments?: true
   deletedAt?: true
   createdAt?: true
@@ -302,6 +308,7 @@ export type EmailMessageGroupByOutputType = {
   sentAt: Date | null
   isRead: boolean
   isFlagged: boolean
+  isAnswered: boolean
   hasAttachments: boolean
   deletedAt: Date | null
   createdAt: Date
@@ -352,6 +359,7 @@ export type EmailMessageWhereInput = {
   sentAt?: Prisma.DateTimeNullableFilter<"EmailMessage"> | Date | string | null
   isRead?: Prisma.BoolFilter<"EmailMessage"> | boolean
   isFlagged?: Prisma.BoolFilter<"EmailMessage"> | boolean
+  isAnswered?: Prisma.BoolFilter<"EmailMessage"> | boolean
   hasAttachments?: Prisma.BoolFilter<"EmailMessage"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"EmailMessage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"EmailMessage"> | Date | string
@@ -383,6 +391,7 @@ export type EmailMessageOrderByWithRelationInput = {
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   isRead?: Prisma.SortOrder
   isFlagged?: Prisma.SortOrder
+  isAnswered?: Prisma.SortOrder
   hasAttachments?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -418,6 +427,7 @@ export type EmailMessageWhereUniqueInput = Prisma.AtLeast<{
   sentAt?: Prisma.DateTimeNullableFilter<"EmailMessage"> | Date | string | null
   isRead?: Prisma.BoolFilter<"EmailMessage"> | boolean
   isFlagged?: Prisma.BoolFilter<"EmailMessage"> | boolean
+  isAnswered?: Prisma.BoolFilter<"EmailMessage"> | boolean
   hasAttachments?: Prisma.BoolFilter<"EmailMessage"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"EmailMessage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"EmailMessage"> | Date | string
@@ -449,6 +459,7 @@ export type EmailMessageOrderByWithAggregationInput = {
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   isRead?: Prisma.SortOrder
   isFlagged?: Prisma.SortOrder
+  isAnswered?: Prisma.SortOrder
   hasAttachments?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -484,6 +495,7 @@ export type EmailMessageScalarWhereWithAggregatesInput = {
   sentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EmailMessage"> | Date | string | null
   isRead?: Prisma.BoolWithAggregatesFilter<"EmailMessage"> | boolean
   isFlagged?: Prisma.BoolWithAggregatesFilter<"EmailMessage"> | boolean
+  isAnswered?: Prisma.BoolWithAggregatesFilter<"EmailMessage"> | boolean
   hasAttachments?: Prisma.BoolWithAggregatesFilter<"EmailMessage"> | boolean
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EmailMessage"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EmailMessage"> | Date | string
@@ -508,6 +520,7 @@ export type EmailMessageCreateInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -539,6 +552,7 @@ export type EmailMessageUncheckedCreateInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -564,6 +578,7 @@ export type EmailMessageUpdateInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -595,6 +610,7 @@ export type EmailMessageUncheckedUpdateInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -623,6 +639,7 @@ export type EmailMessageCreateManyInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -647,6 +664,7 @@ export type EmailMessageUpdateManyMutationInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -674,6 +692,7 @@ export type EmailMessageUncheckedUpdateManyInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -717,6 +736,7 @@ export type EmailMessageCountOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   isRead?: Prisma.SortOrder
   isFlagged?: Prisma.SortOrder
+  isAnswered?: Prisma.SortOrder
   hasAttachments?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -745,6 +765,7 @@ export type EmailMessageMaxOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   isRead?: Prisma.SortOrder
   isFlagged?: Prisma.SortOrder
+  isAnswered?: Prisma.SortOrder
   hasAttachments?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -769,6 +790,7 @@ export type EmailMessageMinOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   isRead?: Prisma.SortOrder
   isFlagged?: Prisma.SortOrder
+  isAnswered?: Prisma.SortOrder
   hasAttachments?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -969,6 +991,7 @@ export type EmailMessageCreateWithoutTenantInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -998,6 +1021,7 @@ export type EmailMessageUncheckedCreateWithoutTenantInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1055,6 +1079,7 @@ export type EmailMessageScalarWhereInput = {
   sentAt?: Prisma.DateTimeNullableFilter<"EmailMessage"> | Date | string | null
   isRead?: Prisma.BoolFilter<"EmailMessage"> | boolean
   isFlagged?: Prisma.BoolFilter<"EmailMessage"> | boolean
+  isAnswered?: Prisma.BoolFilter<"EmailMessage"> | boolean
   hasAttachments?: Prisma.BoolFilter<"EmailMessage"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"EmailMessage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"EmailMessage"> | Date | string
@@ -1079,6 +1104,7 @@ export type EmailMessageCreateWithoutAccountInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1108,6 +1134,7 @@ export type EmailMessageUncheckedCreateWithoutAccountInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1159,6 +1186,7 @@ export type EmailMessageCreateWithoutFolderInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1188,6 +1216,7 @@ export type EmailMessageUncheckedCreateWithoutFolderInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1239,6 +1268,7 @@ export type EmailMessageCreateWithoutAttachmentsInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1269,6 +1299,7 @@ export type EmailMessageUncheckedCreateWithoutAttachmentsInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1309,6 +1340,7 @@ export type EmailMessageUpdateWithoutAttachmentsInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1339,6 +1371,7 @@ export type EmailMessageUncheckedUpdateWithoutAttachmentsInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1365,6 +1398,7 @@ export type EmailMessageCreateManyTenantInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1389,6 +1423,7 @@ export type EmailMessageUpdateWithoutTenantInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1418,6 +1453,7 @@ export type EmailMessageUncheckedUpdateWithoutTenantInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1445,6 +1481,7 @@ export type EmailMessageUncheckedUpdateManyWithoutTenantInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1471,6 +1508,7 @@ export type EmailMessageCreateManyAccountInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1495,6 +1533,7 @@ export type EmailMessageUpdateWithoutAccountInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1524,6 +1563,7 @@ export type EmailMessageUncheckedUpdateWithoutAccountInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1551,6 +1591,7 @@ export type EmailMessageUncheckedUpdateManyWithoutAccountInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1577,6 +1618,7 @@ export type EmailMessageCreateManyFolderInput = {
   sentAt?: Date | string | null
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1601,6 +1643,7 @@ export type EmailMessageUpdateWithoutFolderInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1630,6 +1673,7 @@ export type EmailMessageUncheckedUpdateWithoutFolderInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1657,6 +1701,7 @@ export type EmailMessageUncheckedUpdateManyWithoutFolderInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAnswered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAttachments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1715,6 +1760,7 @@ export type EmailMessageSelect<ExtArgs extends runtime.Types.Extensions.Internal
   sentAt?: boolean
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: boolean
   createdAt?: boolean
@@ -1747,6 +1793,7 @@ export type EmailMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   sentAt?: boolean
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: boolean
   createdAt?: boolean
@@ -1777,6 +1824,7 @@ export type EmailMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   sentAt?: boolean
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: boolean
   createdAt?: boolean
@@ -1807,13 +1855,14 @@ export type EmailMessageSelectScalar = {
   sentAt?: boolean
   isRead?: boolean
   isFlagged?: boolean
+  isAnswered?: boolean
   hasAttachments?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EmailMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "accountId" | "folderId" | "remoteUid" | "messageId" | "threadId" | "fromAddress" | "fromName" | "toAddresses" | "ccAddresses" | "bccAddresses" | "subject" | "snippet" | "bodyText" | "bodyHtmlSanitized" | "receivedAt" | "sentAt" | "isRead" | "isFlagged" | "hasAttachments" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["emailMessage"]>
+export type EmailMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "accountId" | "folderId" | "remoteUid" | "messageId" | "threadId" | "fromAddress" | "fromName" | "toAddresses" | "ccAddresses" | "bccAddresses" | "subject" | "snippet" | "bodyText" | "bodyHtmlSanitized" | "receivedAt" | "sentAt" | "isRead" | "isFlagged" | "isAnswered" | "hasAttachments" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["emailMessage"]>
 export type EmailMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   account?: boolean | Prisma.EmailAccountDefaultArgs<ExtArgs>
@@ -1861,6 +1910,7 @@ export type $EmailMessagePayload<ExtArgs extends runtime.Types.Extensions.Intern
     sentAt: Date | null
     isRead: boolean
     isFlagged: boolean
+    isAnswered: boolean
     hasAttachments: boolean
     deletedAt: Date | null
     createdAt: Date
@@ -2312,6 +2362,7 @@ export interface EmailMessageFieldRefs {
   readonly sentAt: Prisma.FieldRef<"EmailMessage", 'DateTime'>
   readonly isRead: Prisma.FieldRef<"EmailMessage", 'Boolean'>
   readonly isFlagged: Prisma.FieldRef<"EmailMessage", 'Boolean'>
+  readonly isAnswered: Prisma.FieldRef<"EmailMessage", 'Boolean'>
   readonly hasAttachments: Prisma.FieldRef<"EmailMessage", 'Boolean'>
   readonly deletedAt: Prisma.FieldRef<"EmailMessage", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"EmailMessage", 'DateTime'>

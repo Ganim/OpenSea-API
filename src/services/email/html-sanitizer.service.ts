@@ -108,6 +108,18 @@ export function sanitizeEmailHtml(html: string): string {
       img: ['http', 'https', 'cid', 'data'],
       a: ['http', 'https', 'mailto'],
     },
+    // Block data:image/svg+xml (XSS vector) — only allow safe bitmap data URIs
+    transformTags: {
+      img: (tagName: string, attribs: Record<string, string>) => {
+        if (attribs.src && attribs.src.startsWith('data:')) {
+          const isSafeBitmap = /^data:image\/(png|jpe?g|gif|webp|bmp|x-icon);/i.test(attribs.src);
+          if (!isSafeBitmap) {
+            delete attribs.src;
+          }
+        }
+        return { tagName, attribs };
+      },
+    },
     // Whitelist safe CSS properties to prevent UI spoofing attacks
     // (position:fixed overlays, z-index abuse, external background images)
     allowedStyles: {

@@ -88,11 +88,6 @@ export class SaveEmailDraftUseCase {
       messageId: draftId,
     });
 
-    // In test environment, skip IMAP connection (no real server available)
-    if (process.env.NODE_ENV === 'test') {
-      return { draftId };
-    }
-
     const client = createImapClient({
       host: account.imapHost,
       port: account.imapPort,

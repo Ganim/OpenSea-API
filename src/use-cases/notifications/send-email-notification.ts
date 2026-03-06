@@ -3,8 +3,8 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
 import {
-  notificationToDTO,
-  type NotificationDTO,
+    notificationToDTO,
+    type NotificationDTO,
 } from '@/mappers/notifications/notification-to-dto';
 import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
 import type { NotificationPreferencesRepository } from '@/repositories/sales/notification-preferences-repository';

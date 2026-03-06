@@ -8,6 +8,7 @@ import type {
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { createImapClient } from '@/services/email/imap-client.service';
+import { Prisma } from '@prisma/generated/client.js';
 import { ImapFlow } from 'imapflow';
 
 interface SyncEmailFolderRequest {
@@ -109,34 +110,48 @@ async function processMessages(
       const flags = new Set(message.flags);
       const hasAttachments = hasAttachmentFromStructure(message.bodyStructure);
 
-      const created = await emailMessagesRepository.create({
-        tenantId: account.tenantId.toString(),
-        accountId: account.id.toString(),
-        folderId: folder.id.toString(),
-        remoteUid: message.uid,
-        messageId: envelope?.messageId ?? null,
-        threadId: envelope?.inReplyTo ?? null,
-        fromAddress: from?.address ?? '',
-        fromName: from?.name ?? null,
-        toAddresses: (to as Array<{ address?: string }>)
-          .map((item) => item.address ?? '')
-          .filter(Boolean),
-        ccAddresses: (cc as Array<{ address?: string }>)
-          .map((item) => item.address ?? '')
-          .filter(Boolean),
-        bccAddresses: (bcc as Array<{ address?: string }>)
-          .map((item) => item.address ?? '')
-          .filter(Boolean),
-        subject: envelope?.subject ?? '',
-        snippet: null,
-        bodyText: null,
-        bodyHtmlSanitized: null,
-        receivedAt: message.internalDate ?? new Date(),
-        sentAt: envelope?.date ?? null,
-        isRead: flags.has('\\Seen'),
-        isFlagged: flags.has('\\Flagged'),
-        hasAttachments,
-      });
+      const created = await emailMessagesRepository
+        .create({
+          tenantId: account.tenantId.toString(),
+          accountId: account.id.toString(),
+          folderId: folder.id.toString(),
+          remoteUid: message.uid,
+          messageId: envelope?.messageId ?? null,
+          threadId: envelope?.inReplyTo ?? null,
+          fromAddress: from?.address ?? '',
+          fromName: from?.name ?? null,
+          toAddresses: (to as Array<{ address?: string }>)
+            .map((item) => item.address ?? '')
+            .filter(Boolean),
+          ccAddresses: (cc as Array<{ address?: string }>)
+            .map((item) => item.address ?? '')
+            .filter(Boolean),
+          bccAddresses: (bcc as Array<{ address?: string }>)
+            .map((item) => item.address ?? '')
+            .filter(Boolean),
+          subject: envelope?.subject ?? '',
+          snippet: null,
+          bodyText: null,
+          bodyHtmlSanitized: null,
+          receivedAt: message.internalDate ?? new Date(),
+          sentAt: envelope?.date ?? null,
+          isRead: flags.has('\\Seen'),
+          isFlagged: flags.has('\\Flagged'),
+          isAnswered: flags.has('\\Answered'),
+          hasAttachments,
+        })
+        .catch((err) => {
+          // Skip duplicate messages (race condition between parallel syncs)
+          if (
+            err instanceof Prisma.PrismaClientKnownRequestError &&
+            err.code === 'P2002'
+          ) {
+            return null;
+          }
+          throw err;
+        });
+
+      if (!created) continue;
 
       createdMessages.push({
         id: created.id.toString(),
@@ -326,6 +341,24 @@ export class SyncEmailFolderUseCase {
         const fromUid = Math.max(lastUid + 1, 1);
 
         const range = `${fromUid}:*`;
+
+        // When uidValidity changes, old UIDs are invalid — soft-delete stale messages
+        if (uidValidityChanged) {
+          const deleted = await this.emailMessagesRepository.softDeleteByFolder(
+            folder.id.toString(),
+            account.tenantId.toString(),
+          );
+          if (deleted > 0) {
+            logger.info(
+              {
+                accountId: account.id.toString(),
+                folderId: folder.id.toString(),
+                deleted,
+              },
+              'Soft-deleted stale messages after uidValidity change',
+            );
+          }
+        }
 
         if (uidValidityValue !== null) {
           await this.emailFoldersRepository.update({

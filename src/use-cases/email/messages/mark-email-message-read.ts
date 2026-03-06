@@ -65,16 +65,6 @@ export class MarkEmailMessageReadUseCase {
       throw new ResourceNotFoundError('Email folder not found');
     }
 
-    // In test environment, skip IMAP connection
-    if (process.env.NODE_ENV === 'test') {
-      await this.emailMessagesRepository.update({
-        id: message.id.toString(),
-        tenantId: request.tenantId,
-        isRead: request.isRead,
-      });
-      return;
-    }
-
     const secret = this.credentialCipherService.decrypt(
       account.encryptedSecret,
     );

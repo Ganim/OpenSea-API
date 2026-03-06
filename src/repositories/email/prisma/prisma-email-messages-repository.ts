@@ -2,16 +2,17 @@ import type { EmailAttachment } from '@/entities/email/email-attachment';
 import type { EmailMessage } from '@/entities/email/email-message';
 import { prisma } from '@/lib/prisma';
 import {
-  emailAttachmentPrismaToDomain,
-  emailMessagePrismaToDomain,
+    emailAttachmentPrismaToDomain,
+    emailMessagePrismaToDomain,
 } from '@/mappers/email';
 import type {
-  CreateEmailAttachmentSchema,
-  CreateEmailMessageSchema,
-  EmailMessagesListParams,
-  EmailMessagesListResult,
-  EmailMessagesRepository,
-  UpdateEmailMessageSchema,
+    CentralInboxListParams,
+    CreateEmailAttachmentSchema,
+    CreateEmailMessageSchema,
+    EmailMessagesListParams,
+    EmailMessagesListResult,
+    EmailMessagesRepository,
+    UpdateEmailMessageSchema,
 } from '../email-messages-repository';
 
 export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
@@ -37,6 +38,7 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
         sentAt: data.sentAt ?? null,
         isRead: data.isRead ?? false,
         isFlagged: data.isFlagged ?? false,
+        isAnswered: data.isAnswered ?? false,
         hasAttachments: data.hasAttachments ?? false,
       },
     });
@@ -59,6 +61,17 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
   ): Promise<EmailMessage | null> {
     const messageDb = await prisma.emailMessage.findFirst({
       where: { accountId, folderId, remoteUid },
+    });
+
+    return messageDb ? emailMessagePrismaToDomain(messageDb) : null;
+  }
+
+  async findByRfcMessageId(
+    accountId: string,
+    rfcMessageId: string,
+  ): Promise<EmailMessage | null> {
+    const messageDb = await prisma.emailMessage.findFirst({
+      where: { accountId, messageId: rfcMessageId, deletedAt: null },
     });
 
     return messageDb ? emailMessagePrismaToDomain(messageDb) : null;
@@ -173,6 +186,10 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
         ...(data.folderId !== undefined && { folderId: data.folderId }),
         ...(data.isRead !== undefined && { isRead: data.isRead }),
         ...(data.isFlagged !== undefined && { isFlagged: data.isFlagged }),
+        ...(data.isAnswered !== undefined && { isAnswered: data.isAnswered }),
+        ...(data.hasAttachments !== undefined && {
+          hasAttachments: data.hasAttachments,
+        }),
         ...(data.deletedAt !== undefined && { deletedAt: data.deletedAt }),
       },
     });
@@ -228,5 +245,78 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
 
     if (!attachment) return null;
     return emailAttachmentPrismaToDomain(attachment);
+  }
+
+  async listCentralInbox(
+    params: CentralInboxListParams,
+  ): Promise<EmailMessagesListResult> {
+    if (params.accountIds.length === 0) {
+      return { messages: [], total: 0 };
+    }
+
+    const page = params.page ?? 1;
+    const limit = Math.min(params.limit ?? 50, 100);
+    const skip = (page - 1) * limit;
+
+    // Find all INBOX folder IDs for the given accounts
+    const inboxFolders = await prisma.emailFolder.findMany({
+      where: {
+        accountId: { in: params.accountIds },
+        type: 'INBOX',
+      },
+      select: { id: true },
+    });
+
+    const inboxFolderIds = inboxFolders.map(f => f.id);
+
+    if (inboxFolderIds.length === 0) {
+      return { messages: [], total: 0 };
+    }
+
+    const where = {
+      tenantId: params.tenantId,
+      accountId: { in: params.accountIds },
+      folderId: { in: inboxFolderIds },
+      deletedAt: null,
+      ...(params.unread !== undefined ? { isRead: !params.unread } : {}),
+      ...(params.search
+        ? {
+            OR: [
+              { subject: { contains: params.search, mode: 'insensitive' as const } },
+              { fromAddress: { contains: params.search, mode: 'insensitive' as const } },
+              { fromName: { contains: params.search, mode: 'insensitive' as const } },
+            ],
+          }
+        : {}),
+    };
+
+    const [messages, total] = await Promise.all([
+      prisma.emailMessage.findMany({
+        where,
+        orderBy: { receivedAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+      prisma.emailMessage.count({ where }),
+    ]);
+
+    return {
+      messages: messages.map(emailMessagePrismaToDomain),
+      total,
+    };
+  }
+
+  async softDeleteByFolder(folderId: string, tenantId: string): Promise<number> {
+    const result = await prisma.emailMessage.updateMany({
+      where: {
+        folderId,
+        tenantId,
+        deletedAt: null,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
+    return result.count;
   }
 }

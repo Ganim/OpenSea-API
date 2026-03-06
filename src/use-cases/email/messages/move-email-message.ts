@@ -74,16 +74,6 @@ export class MoveEmailMessageUseCase {
       throw new ResourceNotFoundError('Target email folder not found');
     }
 
-    // In test environment, skip IMAP connection
-    if (process.env.NODE_ENV === 'test') {
-      await this.emailMessagesRepository.update({
-        id: message.id.toString(),
-        tenantId: request.tenantId,
-        folderId: targetFolder.id.toString(),
-      });
-      return;
-    }
-
     const secret = this.credentialCipherService.decrypt(
       account.encryptedSecret,
     );

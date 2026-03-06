@@ -2274,6 +2274,7 @@ export const EmailMessageScalarFieldEnum = {
   sentAt: 'sentAt',
   isRead: 'isRead',
   isFlagged: 'isFlagged',
+  isAnswered: 'isAnswered',
   hasAttachments: 'hasAttachments',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',

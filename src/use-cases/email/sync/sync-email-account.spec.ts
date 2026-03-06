@@ -61,6 +61,7 @@ describe('SyncEmailAccountUseCase', () => {
       getMailboxLock: vi.fn().mockResolvedValue({ release: vi.fn() }),
       status: vi.fn().mockResolvedValue({ uidValidity: 10, uidNext: 2 }),
       fetch: vi.fn(),
+      on: vi.fn(),
     };
 
     sut = new SyncEmailAccountUseCase(

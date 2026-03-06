@@ -3,6 +3,10 @@ import { InMemoryEmailFoldersRepository } from '@/repositories/email/in-memory/i
 import { InMemoryEmailMessagesRepository } from '@/repositories/email/in-memory/in-memory-email-messages-repository';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+vi.mock('@/lib/logger', () => ({
+  logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
+}));
+
 vi.mock('imapflow', () => {
   const FakeImapFlow = class {
     connect = vi.fn().mockResolvedValue(undefined);
@@ -11,6 +15,7 @@ vi.mock('imapflow', () => {
     });
     messageMove = vi.fn().mockResolvedValue(undefined);
     logout = vi.fn().mockResolvedValue(undefined);
+    on = vi.fn();
   };
 
   return { ImapFlow: FakeImapFlow };

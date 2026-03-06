@@ -8,9 +8,9 @@ import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import fastify from 'fastify';
 import {
-  jsonSchemaTransform,
-  serializerCompiler,
-  validatorCompiler,
+    jsonSchemaTransform,
+    serializerCompiler,
+    validatorCompiler,
 } from 'fastify-type-provider-zod';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { env } from './@env';
@@ -116,7 +116,7 @@ app.register(cors, {
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Content-Length', 'X-Request-Id'],
+  exposedHeaders: ['Content-Length', 'Content-Disposition', 'X-Request-Id'],
 });
 
 // Rate limiting global (disabled in tests to avoid flakiness)

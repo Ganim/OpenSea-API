@@ -1,5 +1,5 @@
-import { Queue, Worker, Job } from 'bullmq';
 import { env } from '@/@env';
+import { Job, Queue, Worker } from 'bullmq';
 
 // Configuração de conexão para o BullMQ
 // IMPORTANTE: maxRetriesPerRequest DEVE ser null — BullMQ usa blocking commands (BRPOPLPUSH)
@@ -22,7 +22,7 @@ const defaultJobOptions = {
   attempts: 3,
   backoff: {
     type: 'exponential' as const,
-    delay: 1000,
+    delay: 5000,
   },
   removeOnComplete: {
     count: 1000, // Mantém últimos 1000 jobs completos

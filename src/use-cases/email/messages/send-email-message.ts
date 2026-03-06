@@ -4,6 +4,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type {
     EmailAccountsRepository,
     EmailFoldersRepository,
+    EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { createImapClient } from '@/services/email/imap-client.service';
@@ -35,6 +36,7 @@ export class SendEmailMessageUseCase {
   constructor(
     private emailAccountsRepository: EmailAccountsRepository,
     private emailFoldersRepository: EmailFoldersRepository,
+    private emailMessagesRepository: EmailMessagesRepository,
     private credentialCipherService: CredentialCipherService,
     private smtpClientService: SmtpClientService,
   ) {}
@@ -76,9 +78,9 @@ export class SendEmailMessageUseCase {
       ? `${account.displayName} <${account.address}>`
       : account.address;
 
-    const html = account.signature
-      ? `${request.bodyHtml}<br /><br />${account.signature}`
-      : request.bodyHtml;
+    // NOTE: signature is already included by the frontend compose dialog.
+    // Do NOT append it again here to avoid duplication.
+    const html = request.bodyHtml;
 
     const messageId = await this.smtpClientService.send(
       {
@@ -101,7 +103,10 @@ export class SendEmailMessageUseCase {
       },
     );
 
-    await this.appendToSentFolder({
+    // Fire-and-forget: append to IMAP Sent folder and mark original as answered.
+    // These are non-critical and should NOT block the HTTP response — SMTP
+    // delivery already succeeded at this point.
+    this.appendToSentFolder({
       accountId: account.id.toString(),
       host: account.imapHost,
       port: account.imapPort,
@@ -117,7 +122,15 @@ export class SendEmailMessageUseCase {
       inReplyTo: request.inReplyTo,
       references: request.references,
       attachments: request.attachments,
-    });
+    }).catch(() => {});
+
+    if (request.inReplyTo) {
+      this.markOriginalAsAnswered(
+        account.id.toString(),
+        request.tenantId,
+        request.inReplyTo,
+      ).catch(() => {});
+    }
 
     return { messageId };
   }
@@ -139,10 +152,6 @@ export class SendEmailMessageUseCase {
     references?: string[];
     attachments?: SmtpAttachmentInput[];
   }): Promise<void> {
-    if (process.env.NODE_ENV === 'test') {
-      return;
-    }
-
     try {
       const folders = await this.emailFoldersRepository.listByAccount(
         params.accountId,
@@ -184,6 +193,29 @@ export class SendEmailMessageUseCase {
       }
     } catch {
       // ignore append errors to avoid failing SMTP send
+    }
+  }
+
+  private async markOriginalAsAnswered(
+    accountId: string,
+    tenantId: string,
+    inReplyTo: string,
+  ): Promise<void> {
+    try {
+      const original = await this.emailMessagesRepository.findByRfcMessageId(
+        accountId,
+        inReplyTo,
+      );
+
+      if (original && !original.isAnswered) {
+        await this.emailMessagesRepository.update({
+          id: original.id.toString(),
+          tenantId,
+          isAnswered: true,
+        });
+      }
+    } catch {
+      // ignore errors to avoid failing the send
     }
   }
 

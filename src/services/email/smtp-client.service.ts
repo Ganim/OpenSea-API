@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger';
 import nodemailer, { type SendMailOptions } from 'nodemailer';
 
 export interface SmtpConnectionConfig {
@@ -45,6 +46,11 @@ export class SmtpClientService {
       return 'test-message-id';
     }
 
+    logger.debug(
+      { host: config.host, port: config.port, secure: config.secure, to: payload.to, subject: payload.subject },
+      '[SMTP] Sending email',
+    );
+
     const transporter = this.createTransporter(config);
 
     const sendOptions: SendMailOptions = {
@@ -66,8 +72,20 @@ export class SmtpClientService {
         : {}),
     };
 
-    const result = await transporter.sendMail(sendOptions);
-    return result.messageId;
+    try {
+      const result = await transporter.sendMail(sendOptions);
+      logger.info(
+        { messageId: result.messageId, accepted: result.accepted, rejected: result.rejected },
+        '[SMTP] Email sent successfully',
+      );
+      return result.messageId;
+    } catch (error) {
+      logger.error(
+        { err: error, host: config.host, port: config.port, to: payload.to },
+        '[SMTP] Failed to send email',
+      );
+      throw error;
+    }
   }
 
   private createTransporter(config: SmtpConnectionConfig) {

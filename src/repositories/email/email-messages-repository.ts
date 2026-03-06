@@ -21,6 +21,7 @@ export interface CreateEmailMessageSchema {
   sentAt?: Date | null;
   isRead?: boolean;
   isFlagged?: boolean;
+  isAnswered?: boolean;
   hasAttachments?: boolean;
 }
 
@@ -45,6 +46,8 @@ export interface UpdateEmailMessageSchema {
   folderId?: string;
   isRead?: boolean;
   isFlagged?: boolean;
+  isAnswered?: boolean;
+  hasAttachments?: boolean;
   deletedAt?: Date | null;
 }
 
@@ -56,9 +59,22 @@ export interface CreateEmailAttachmentSchema {
   storageKey: string;
 }
 
+export interface CentralInboxListParams {
+  tenantId: string;
+  accountIds: string[];
+  unread?: boolean;
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
 export interface EmailMessagesRepository {
   create(data: CreateEmailMessageSchema): Promise<EmailMessage>;
   findById(id: string, tenantId: string): Promise<EmailMessage | null>;
+  findByRfcMessageId(
+    accountId: string,
+    rfcMessageId: string,
+  ): Promise<EmailMessage | null>;
   findByRemoteUid(
     accountId: string,
     folderId: string,
@@ -70,6 +86,7 @@ export interface EmailMessagesRepository {
     remoteUids: number[],
   ): Promise<Set<number>>;
   list(params: EmailMessagesListParams): Promise<EmailMessagesListResult>;
+  listCentralInbox(params: CentralInboxListParams): Promise<EmailMessagesListResult>;
   update(data: UpdateEmailMessageSchema): Promise<EmailMessage | null>;
   updateBody(
     id: string,
@@ -80,4 +97,5 @@ export interface EmailMessagesRepository {
   createAttachment(data: CreateEmailAttachmentSchema): Promise<EmailAttachment>;
   listAttachments(messageId: string): Promise<EmailAttachment[]>;
   findAttachmentById(id: string): Promise<EmailAttachment | null>;
+  softDeleteByFolder(folderId: string, tenantId: string): Promise<number>;
 }

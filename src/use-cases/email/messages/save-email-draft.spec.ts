@@ -2,10 +2,15 @@ import { InMemoryEmailAccountsRepository } from '@/repositories/email/in-memory/
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SaveEmailDraftUseCase } from './save-email-draft';
 
+vi.mock('@/lib/logger', () => ({
+  logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
+}));
+
 let mockClient: {
   connect: ReturnType<typeof vi.fn>;
   append: ReturnType<typeof vi.fn>;
   logout: ReturnType<typeof vi.fn>;
+  on: ReturnType<typeof vi.fn>;
 };
 
 vi.mock('imapflow', () => ({
@@ -41,6 +46,7 @@ describe('SaveEmailDraftUseCase', () => {
       connect: vi.fn().mockResolvedValue(undefined),
       append: vi.fn().mockResolvedValue(undefined),
       logout: vi.fn().mockResolvedValue(undefined),
+      on: vi.fn(),
     };
 
     sut = new SaveEmailDraftUseCase(

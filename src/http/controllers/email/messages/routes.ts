@@ -2,12 +2,14 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
+import { logger } from '@/lib/logger';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeDeleteEmailMessageUseCase } from '@/use-cases/email/messages/factories/make-delete-email-message-use-case';
 import { makeDownloadEmailAttachmentUseCase } from '@/use-cases/email/messages/factories/make-get-email-attachment-download-url-use-case';
 import { makeGetEmailMessageUseCase } from '@/use-cases/email/messages/factories/make-get-email-message-use-case';
+import { makeListCentralInboxUseCase } from '@/use-cases/email/messages/factories/make-list-central-inbox-use-case';
 import { makeListEmailMessagesUseCase } from '@/use-cases/email/messages/factories/make-list-email-messages-use-case';
 import { makeMarkEmailMessageReadUseCase } from '@/use-cases/email/messages/factories/make-mark-email-message-read-use-case';
 import { makeMoveEmailMessageUseCase } from '@/use-cases/email/messages/factories/make-move-email-message-use-case';
@@ -28,6 +30,7 @@ const messageSchema = z.object({
   snippet: z.string().nullable(),
   receivedAt: z.coerce.date(),
   isRead: z.boolean(),
+  isAnswered: z.boolean(),
   hasAttachments: z.boolean(),
 });
 
@@ -62,6 +65,7 @@ const messageDetailSchema = z.object({
   sentAt: z.coerce.date().nullable(),
   isRead: z.boolean(),
   isFlagged: z.boolean(),
+  isAnswered: z.boolean(),
   hasAttachments: z.boolean(),
   deletedAt: z.coerce.date().nullable(),
   createdAt: z.coerce.date(),
@@ -157,6 +161,75 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/email/messages/central-inbox',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.MESSAGES.LIST,
+        resource: 'email-messages',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Messages'],
+      summary: 'List central inbox messages (aggregated across accounts)',
+      security: [{ bearerAuth: [] }],
+      querystring: z.object({
+        accountIds: z.string().transform((val) => val.split(',')).pipe(z.array(z.string().uuid()).min(1).max(20)),
+        page: z.coerce.number().int().positive().default(1),
+        limit: z.coerce.number().int().positive().max(100).default(50),
+        unread: z.coerce.boolean().optional(),
+        search: z.string().trim().min(2).max(128).optional(),
+      }),
+      response: {
+        200: z.object({
+          data: z.array(messageSchema),
+          meta: z.object({
+            total: z.number(),
+            page: z.number(),
+            limit: z.number(),
+            pages: z.number(),
+          }),
+        }),
+        403: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+
+      try {
+        const useCase = makeListCentralInboxUseCase();
+        const result = await useCase.execute({
+          tenantId,
+          userId,
+          accountIds: request.query.accountIds,
+          unread: request.query.unread,
+          search: request.query.search,
+          page: request.query.page,
+          limit: request.query.limit,
+        });
+
+        return reply.status(200).send({
+          data: result.messages,
+          meta: {
+            total: result.total,
+            page: result.page,
+            limit: result.limit,
+            pages: result.pages,
+          },
+        });
+      } catch (error) {
         if (error instanceof ForbiddenError) {
           return reply.status(403).send({ message: error.message });
         }
@@ -392,8 +465,17 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
           references: references?.length ? references : undefined,
         });
 
+        logger.info(
+          { messageId: result.messageId, to: getArrayField('to'), subject: getField('subject') },
+          '[Email Send] Email sent successfully',
+        );
+
         return reply.status(202).send(result);
       } catch (error) {
+        logger.error(
+          { err: error, accountId: getField('accountId'), to: getArrayField('to') },
+          '[Email Send] Failed to send email',
+        );
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }
@@ -609,14 +691,16 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
         );
         const safeFilename = result.filename.replace(/["\\\r\n]/g, '_');
 
-        // Use reply.raw to bypass Zod serialization for binary content
-        reply.raw.writeHead(200, {
-          'Content-Type': result.contentType,
-          'Content-Disposition': `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
-          'Content-Length': result.size,
-        });
-        reply.raw.end(result.content);
-        return;
+        // Send binary response through Fastify (preserves CORS headers)
+        return reply
+          .status(200)
+          .header('Content-Type', result.contentType)
+          .header(
+            'Content-Disposition',
+            `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+          )
+          .header('Content-Length', result.size)
+          .send(result.content);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

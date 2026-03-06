@@ -24,6 +24,7 @@ export function mapEmailMessagePrismaToDomain(messageDb: PrismaEmailMessage) {
     sentAt: messageDb.sentAt ?? null,
     isRead: messageDb.isRead,
     isFlagged: messageDb.isFlagged,
+    isAnswered: messageDb.isAnswered,
     hasAttachments: messageDb.hasAttachments,
     deletedAt: messageDb.deletedAt ?? null,
     createdAt: messageDb.createdAt,

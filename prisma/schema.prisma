@@ -232,8 +232,8 @@ model User {
   LabelTemplatesCreated LabelTemplate[]
 
   // Storage Relations
-  folderAccessRules  FolderAccessRule[]
-  storageFolders     StorageFolder[]    @relation("StorageFolderCreator")
+  folderAccessRules FolderAccessRule[]
+  storageFolders    StorageFolder[]    @relation("StorageFolderCreator")
 
   // Calendar Relations
   calendarsCreated      Calendar[]         @relation("CalendarsCreated")
@@ -251,9 +251,9 @@ model User {
   teamEmailLinks TeamEmailAccount[] @relation("TeamEmailLinker")
 
   // Task Board Relations
-  ownedBoards      Board[]        @relation("BoardOwner")
-  assignedCards    Card[]         @relation("CardAssignee")
-  reportedCards    Card[]         @relation("CardReporter")
+  ownedBoards      Board[]       @relation("BoardOwner")
+  assignedCards    Card[]        @relation("CardAssignee")
+  reportedCards    Card[]        @relation("CardReporter")
   boardMemberships BoardMember[]
   cardComments     CardComment[]
 
@@ -1050,8 +1050,8 @@ model Organization {
   logoUrl               String?                @map("logo_url") @db.VarChar(512)
 
   // Blind index hashes
-  cnpjHash              String? @map("cnpj_hash") @db.VarChar(64)
-  cpfHash               String? @map("cpf_hash") @db.VarChar(64)
+  cnpjHash String? @map("cnpj_hash") @db.VarChar(64)
+  cpfHash  String? @map("cpf_hash") @db.VarChar(64)
 
   // Dados específicos por tipo (JSON para campos que variam por tipo)
   // Supplier: { paymentTerms, rating, sequentialCode, etc }
@@ -1241,8 +1241,8 @@ model Supplier {
   zipCode String? @map("zip_code") @db.VarChar(10)
 
   // Blind index hashes
-  cnpjHash     String? @map("cnpj_hash") @db.VarChar(64)
-  emailHash    String? @map("email_hash") @db.VarChar(64)
+  cnpjHash  String? @map("cnpj_hash") @db.VarChar(64)
+  emailHash String? @map("email_hash") @db.VarChar(64)
 
   country String? @db.VarChar(64)
 
@@ -1292,7 +1292,7 @@ model Manufacturer {
   zipCode String? @map("zip_code") @db.VarChar(10)
 
   // Blind index hash
-  cnpjHash     String? @map("cnpj_hash") @db.VarChar(64)
+  cnpjHash String? @map("cnpj_hash") @db.VarChar(64)
 
   // Gestão
   isActive Boolean  @default(true) @map("is_active")
@@ -2037,27 +2037,27 @@ model StockSnapshot {
 // --- Sistema de Clientes e Vendas ---
 
 model Customer {
-  id        String       @id @default(uuid())
-  name      String       @db.VarChar(128)
-  type      CustomerType @default(INDIVIDUAL)
-  document  String?      @db.VarChar(256) // CPF ou CNPJ
-  email     String?      @db.VarChar(512)
-  phone     String?      @db.VarChar(256)
-  address   String?      @db.VarChar(512)
-  city      String?      @db.VarChar(128)
-  state     String?      @db.VarChar(2) // UF
-  zipCode   String?      @map("zip_code") @db.VarChar(10)
+  id       String       @id @default(uuid())
+  name     String       @db.VarChar(128)
+  type     CustomerType @default(INDIVIDUAL)
+  document String?      @db.VarChar(256) // CPF ou CNPJ
+  email    String?      @db.VarChar(512)
+  phone    String?      @db.VarChar(256)
+  address  String?      @db.VarChar(512)
+  city     String?      @db.VarChar(128)
+  state    String?      @db.VarChar(2) // UF
+  zipCode  String?      @map("zip_code") @db.VarChar(10)
 
   // Blind index hashes
   documentHash String? @map("document_hash") @db.VarChar(64)
   emailHash    String? @map("email_hash") @db.VarChar(64)
 
-  country   String?      @db.VarChar(64)
-  notes     String?      @db.Text
-  isActive  Boolean      @default(true) @map("is_active")
-  createdAt DateTime     @default(now()) @map("created_at")
-  updatedAt DateTime     @updatedAt @map("updated_at")
-  deletedAt DateTime?    @map("deleted_at")
+  country   String?   @db.VarChar(64)
+  notes     String?   @db.Text
+  isActive  Boolean   @default(true) @map("is_active")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
   tenantId String @map("tenant_id")
   tenant   Tenant @relation(fields: [tenantId], references: [id])
@@ -2529,13 +2529,13 @@ model Employee {
   zipCode       String? @map("zip_code") @db.VarChar(10)
 
   // Blind index hashes for encrypted field search
-  cpfHash              String?        @map("cpf_hash") @db.VarChar(64)
-  rgHash               String?        @map("rg_hash") @db.VarChar(64)
-  pisHash              String?        @map("pis_hash") @db.VarChar(64)
-  pixKeyHash           String?        @map("pix_key_hash") @db.VarChar(64)
-  bankAccountHash      String?        @map("bank_account_hash") @db.VarChar(64)
+  cpfHash         String? @map("cpf_hash") @db.VarChar(64)
+  rgHash          String? @map("rg_hash") @db.VarChar(64)
+  pisHash         String? @map("pis_hash") @db.VarChar(64)
+  pixKeyHash      String? @map("pix_key_hash") @db.VarChar(64)
+  bankAccountHash String? @map("bank_account_hash") @db.VarChar(64)
 
-  country       String  @default("Brasil") @db.VarChar(64)
+  country String @default("Brasil") @db.VarChar(64)
 
   // Dados bancários
   bankCode        String? @db.VarChar(8)
@@ -3209,7 +3209,7 @@ model Company {
   logoUrl               String?           @map("logo_url") @db.VarChar(512)
 
   // Blind index hash
-  cnpjHash              String? @map("cnpj_hash") @db.VarChar(64)
+  cnpjHash String? @map("cnpj_hash") @db.VarChar(64)
 
   // Metadados e pendências
   metadata      Json     @default("{}")
@@ -3570,61 +3570,61 @@ model Tenant {
   refreshTokens      RefreshToken[]
 
   // Stock domain
-  warehouses         Warehouse[]
-  zones              Zone[]
-  bins               Bin[]
-  templates          Template[]
-  products           Product[]
-  variants           Variant[]
-  items              Item[]
-  itemMovements      ItemMovement[]
-  categories         Category[]
-  tags               Tag[]
-  suppliers          Supplier[]
-  manufacturers      Manufacturer[]
-  volumes            Volume[]
-  purchaseOrders     PurchaseOrder[]
+  warehouses          Warehouse[]
+  zones               Zone[]
+  bins                Bin[]
+  templates           Template[]
+  products            Product[]
+  variants            Variant[]
+  items               Item[]
+  itemMovements       ItemMovement[]
+  categories          Category[]
+  tags                Tag[]
+  suppliers           Supplier[]
+  manufacturers       Manufacturer[]
+  volumes             Volume[]
+  purchaseOrders      PurchaseOrder[]
   // Sales domain
-  customers          Customer[]
-  salesOrders        SalesOrder[]
+  customers           Customer[]
+  salesOrders         SalesOrder[]
   // HR domain
-  companies          Company[]
-  departments        Department[]
-  positions          Position[]
-  employees          Employee[]
-  timeEntries        TimeEntry[]
-  workSchedules      WorkSchedule[]
-  overtime           Overtime[]
-  timeBanks          TimeBank[]
-  absences           Absence[]
-  vacationPeriods    VacationPeriod[]
-  payrolls           Payroll[]
-  bonuses            Bonus[]
-  deductions         Deduction[]
+  companies           Company[]
+  departments         Department[]
+  positions           Position[]
+  employees           Employee[]
+  timeEntries         TimeEntry[]
+  workSchedules       WorkSchedule[]
+  overtime            Overtime[]
+  timeBanks           TimeBank[]
+  absences            Absence[]
+  vacationPeriods     VacationPeriod[]
+  payrolls            Payroll[]
+  bonuses             Bonus[]
+  deductions          Deduction[]
   // Audit domain
-  auditLogs          AuditLog[]
+  auditLogs           AuditLog[]
   // Core domain
-  labelTemplates     LabelTemplate[]
-  organizations      Organization[]
+  labelTemplates      LabelTemplate[]
+  organizations       Organization[]
   // Finance domain
-  costCenters        CostCenter[]
-  bankAccounts       BankAccount[]
-  financeCategories  FinanceCategory[]
-  financeEntries     FinanceEntry[]
-  financeAttachments FinanceAttachment[]
-  loans              Loan[]
-  consortia          Consortium[]
+  costCenters         CostCenter[]
+  bankAccounts        BankAccount[]
+  financeCategories   FinanceCategory[]
+  financeEntries      FinanceEntry[]
+  financeAttachments  FinanceAttachment[]
+  loans               Loan[]
+  consortia           Consortium[]
   // Storage domain
-  storageFolders     StorageFolder[]
-  storageFiles       StorageFile[]
-  folderAccessRules  FolderAccessRule[]
-  storageShareLinks  StorageShareLink[]
+  storageFolders      StorageFolder[]
+  storageFiles        StorageFile[]
+  folderAccessRules   FolderAccessRule[]
+  storageShareLinks   StorageShareLink[]
   // Calendar domain
-  calendars            Calendar[]
-  calendarEvents       CalendarEvent[]
-  eventParticipants    EventParticipant[]
-  eventReminders       EventReminder[]
-  teamCalendarConfigs  TeamCalendarConfig[]
+  calendars           Calendar[]
+  calendarEvents      CalendarEvent[]
+  eventParticipants   EventParticipant[]
+  eventReminders      EventReminder[]
+  teamCalendarConfigs TeamCalendarConfig[]
 
   // Email domain
   emailAccounts        EmailAccount[]
@@ -3818,12 +3818,12 @@ model BankAccount {
   pixKeyType String? @map("pix_key_type") @db.VarChar(16)
   pixKey     String? @map("pix_key") @db.VarChar(256)
 
-  currentBalance   Decimal   @default(0) @map("current_balance") @db.Decimal(15, 2)
+  currentBalance Decimal @default(0) @map("current_balance") @db.Decimal(15, 2)
 
   // Blind index hashes
-  accountNumberHash String? @map("account_number_hash") @db.VarChar(64)
-  pixKeyHash        String? @map("pix_key_hash") @db.VarChar(64)
-  balanceUpdatedAt DateTime? @map("balance_updated_at")
+  accountNumberHash String?   @map("account_number_hash") @db.VarChar(64)
+  pixKeyHash        String?   @map("pix_key_hash") @db.VarChar(64)
+  balanceUpdatedAt  DateTime? @map("balance_updated_at")
 
   color     String? @db.VarChar(7)
   isDefault Boolean @default(false) @map("is_default")
@@ -4193,9 +4193,9 @@ model StorageFolder {
   createdBy  String? @map("created_by")
 
   // Security
-  isProtected    Boolean  @default(false) @map("is_protected")
-  protectionHash String?  @map("protection_hash") @db.VarChar(256)
-  isHidden       Boolean  @default(false) @map("is_hidden")
+  isProtected    Boolean @default(false) @map("is_protected")
+  protectionHash String? @map("protection_hash") @db.VarChar(256)
+  isHidden       Boolean @default(false) @map("is_hidden")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -4222,8 +4222,8 @@ model StorageFolder {
 }
 
 model StorageFile {
-  id       String @id @default(uuid())
-  tenantId String @map("tenant_id")
+  id       String  @id @default(uuid())
+  tenantId String  @map("tenant_id")
   folderId String? @map("folder_id")
 
   name         String  @db.VarChar(256)
@@ -4244,10 +4244,10 @@ model StorageFile {
   uploadedBy String    @map("uploaded_by")
 
   // Security
-  isEncrypted    Boolean  @default(false) @map("is_encrypted")
-  isProtected    Boolean  @default(false) @map("is_protected")
-  protectionHash String?  @map("protection_hash") @db.VarChar(256)
-  isHidden       Boolean  @default(false) @map("is_hidden")
+  isEncrypted    Boolean @default(false) @map("is_encrypted")
+  isProtected    Boolean @default(false) @map("is_protected")
+  protectionHash String? @map("protection_hash") @db.VarChar(256)
+  isHidden       Boolean @default(false) @map("is_hidden")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -4550,8 +4550,8 @@ model EmailAccount {
   createdAt       DateTime               @default(now()) @map("created_at")
   updatedAt       DateTime               @updatedAt @map("updated_at")
 
-  tenant   Tenant               @relation(fields: [tenantId], references: [id])
-  owner    User                 @relation(fields: [ownerUserId], references: [id])
+  tenant    Tenant               @relation(fields: [tenantId], references: [id])
+  owner     User                 @relation(fields: [ownerUserId], references: [id])
   access    EmailAccountAccess[]
   teamLinks TeamEmailAccount[]
   folders   EmailFolder[]
@@ -4623,6 +4623,7 @@ model EmailMessage {
   sentAt            DateTime? @map("sent_at")
   isRead            Boolean   @default(false) @map("is_read")
   isFlagged         Boolean   @default(false) @map("is_flagged")
+  isAnswered        Boolean   @default(false) @map("is_answered")
   hasAttachments    Boolean   @default(false) @map("has_attachments")
   deletedAt         DateTime? @map("deleted_at")
   createdAt         DateTime  @default(now()) @map("created_at")
@@ -4679,13 +4680,13 @@ model Team {
   createdAt         DateTime  @default(now()) @map("created_at")
   updatedAt         DateTime  @updatedAt @map("updated_at")
 
-  tenant            Tenant             @relation(fields: [tenantId], references: [id])
-  creator           User               @relation("TeamsCreated", fields: [createdBy], references: [id])
-  members              TeamMember[]
-  emailAccounts        TeamEmailAccount[]
-  teamCalendarConfigs  TeamCalendarConfig[]
-  folderAccessRules    FolderAccessRule[]
-  boards               Board[]
+  tenant              Tenant               @relation(fields: [tenantId], references: [id])
+  creator             User                 @relation("TeamsCreated", fields: [createdBy], references: [id])
+  members             TeamMember[]
+  emailAccounts       TeamEmailAccount[]
+  teamCalendarConfigs TeamCalendarConfig[]
+  folderAccessRules   FolderAccessRule[]
+  boards              Board[]
 
   @@unique([tenantId, slug, deletedAt], name: "teams_slug_tenant_unique_active")
   @@index([tenantId])
@@ -4851,27 +4852,27 @@ model Board {
   id       String @id @default(uuid())
   tenantId String @map("tenant_id")
 
-  title       String          @db.VarChar(256)
-  description String?         @db.Text
-  type        BoardType       @default(PERSONAL)
-  teamId      String?         @map("team_id")
-  ownerId     String          @map("owner_id")
-  storageFolderId String?     @map("storage_folder_id")
-  visibility  BoardVisibility @default(PRIVATE)
-  defaultView BoardView       @default(KANBAN) @map("default_view")
-  settings    Json?
-  metadata    Json?
-  position    Int             @default(0)
+  title           String          @db.VarChar(256)
+  description     String?         @db.Text
+  type            BoardType       @default(PERSONAL)
+  teamId          String?         @map("team_id")
+  ownerId         String          @map("owner_id")
+  storageFolderId String?         @map("storage_folder_id")
+  visibility      BoardVisibility @default(PRIVATE)
+  defaultView     BoardView       @default(KANBAN) @map("default_view")
+  settings        Json?
+  metadata        Json?
+  position        Int             @default(0)
 
   archivedAt DateTime? @map("archived_at")
   deletedAt  DateTime? @map("deleted_at")
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @updatedAt @map("updated_at")
 
-  tenant        Tenant         @relation(fields: [tenantId], references: [id])
-  owner         User           @relation("BoardOwner", fields: [ownerId], references: [id])
-  team          Team?          @relation(fields: [teamId], references: [id])
-  storageFolder StorageFolder? @relation(fields: [storageFolderId], references: [id])
+  tenant        Tenant             @relation(fields: [tenantId], references: [id])
+  owner         User               @relation("BoardOwner", fields: [ownerId], references: [id])
+  team          Team?              @relation(fields: [teamId], references: [id])
+  storageFolder StorageFolder?     @relation(fields: [storageFolderId], references: [id])
   columns       BoardColumn[]
   cards         Card[]
   labels        BoardLabel[]
@@ -4911,9 +4912,9 @@ model BoardColumn {
 }
 
 model Card {
-  id           String @id @default(uuid())
-  boardId      String @map("board_id")
-  columnId     String @map("column_id")
+  id           String  @id @default(uuid())
+  boardId      String  @map("board_id")
+  columnId     String  @map("column_id")
   parentCardId String? @map("parent_card_id")
 
   title       String       @db.VarChar(512)
@@ -4949,12 +4950,12 @@ model Card {
   assignee   User?       @relation("CardAssignee", fields: [assigneeId], references: [id])
   reporter   User        @relation("CardReporter", fields: [reporterId], references: [id])
 
-  labels           CardLabel[]
+  labels            CardLabel[]
   customFieldValues CardCustomFieldValue[]
-  comments         CardComment[]
-  attachments      CardAttachment[]
-  checklists       CardChecklist[]
-  activities       CardActivity[]
+  comments          CardComment[]
+  attachments       CardAttachment[]
+  checklists        CardChecklist[]
+  activities        CardActivity[]
 
   @@index([boardId])
   @@index([boardId, columnId])
@@ -5023,7 +5024,7 @@ model BoardCustomField {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  board  Board                @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  board  Board                  @relation(fields: [boardId], references: [id], onDelete: Cascade)
   values CardCustomFieldValue[]
 
   @@index([boardId])
@@ -5115,11 +5116,11 @@ model ChecklistItem {
   id          String @id @default(uuid())
   checklistId String @map("checklist_id")
 
-  title       String   @db.VarChar(512)
-  isCompleted Boolean  @default(false) @map("is_completed")
-  assigneeId  String?  @map("assignee_id")
+  title       String    @db.VarChar(512)
+  isCompleted Boolean   @default(false) @map("is_completed")
+  assigneeId  String?   @map("assignee_id")
   dueDate     DateTime? @map("due_date")
-  position    Int      @default(0)
+  position    Int       @default(0)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

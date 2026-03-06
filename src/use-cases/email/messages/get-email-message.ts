@@ -5,13 +5,13 @@ import type { EmailMessage } from '@/entities/email/email-message';
 import { logger } from '@/lib/logger';
 import { emailMessageToDTO, type EmailMessageDTO } from '@/mappers/email';
 import type {
-  EmailAccountsRepository,
-  EmailFoldersRepository,
-  EmailMessagesRepository,
+    EmailAccountsRepository,
+    EmailFoldersRepository,
+    EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { createImapClient } from '@/services/email/imap-client.service';
 import { sanitizeEmailHtml } from '@/services/email/html-sanitizer.service';
+import { createImapClient } from '@/services/email/imap-client.service';
 // @ts-expect-error - mailparser has no type declarations
 import { simpleParser } from 'mailparser';
 
@@ -92,13 +92,25 @@ export class GetEmailMessageUseCase {
       message.id.toString(),
     );
 
-    // Lazy-fetch attachments if the message has them but records are missing
-    // (backwards compat for messages whose body was fetched before attachment support)
+    // Lazy-fetch attachment metadata from IMAP if the message has them but
+    // records are missing (backwards compat for messages synced before
+    // attachment support was added to fetchAndStoreBody)
     if (message.hasAttachments && attachments.length === 0) {
       await this.fetchAndStoreAttachments(message, account);
       attachments = await this.emailMessagesRepository.listAttachments(
         message.id.toString(),
       );
+    }
+
+    // Fix hasAttachments flag if it was incorrectly set to false during sync
+    // but attachments were found when the body was lazy-fetched
+    if (attachments.length > 0 && !message.hasAttachments) {
+      await this.emailMessagesRepository.update({
+        id: message.id.toString(),
+        tenantId: message.tenantId.toString(),
+        hasAttachments: true,
+      });
+      message.hasAttachments = true;
     }
 
     return {

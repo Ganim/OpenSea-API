@@ -106,16 +106,6 @@ export class DeleteEmailMessageUseCase {
     trashFolder: { id: { toString(): string }; remoteName: string },
     tenantId: string,
   ): Promise<void> {
-    // In test environment, skip IMAP connection
-    if (process.env.NODE_ENV === 'test') {
-      await this.emailMessagesRepository.update({
-        id: message.id.toString(),
-        tenantId,
-        folderId: trashFolder.id.toString(),
-      });
-      return;
-    }
-
     const secret = this.credentialCipherService.decrypt(
       account.encryptedSecret,
     );
@@ -135,15 +125,15 @@ export class DeleteEmailMessageUseCase {
         await client.messageMove(message.remoteUid, trashFolder.remoteName, {
           uid: true,
         });
+
+        await this.emailMessagesRepository.update({
+          id: message.id.toString(),
+          tenantId,
+          folderId: trashFolder.id.toString(),
+        });
       } finally {
         lock.release();
       }
-
-      await this.emailMessagesRepository.update({
-        id: message.id.toString(),
-        tenantId,
-        folderId: trashFolder.id.toString(),
-      });
     } catch (_error) {
       throw new BadRequestError('Failed to move email message to trash');
     } finally {
@@ -163,16 +153,6 @@ export class DeleteEmailMessageUseCase {
     folder: { remoteName: string },
     tenantId: string,
   ): Promise<void> {
-    // In test environment, skip IMAP connection
-    if (process.env.NODE_ENV === 'test') {
-      await this.emailMessagesRepository.update({
-        id: message.id.toString(),
-        tenantId,
-        deletedAt: new Date(),
-      });
-      return;
-    }
-
     const secret = this.credentialCipherService.decrypt(
       account.encryptedSecret,
     );
@@ -193,15 +173,15 @@ export class DeleteEmailMessageUseCase {
           uid: true,
         });
         await client.mailboxClose();
+
+        await this.emailMessagesRepository.update({
+          id: message.id.toString(),
+          tenantId,
+          deletedAt: new Date(),
+        });
       } finally {
         lock.release();
       }
-
-      await this.emailMessagesRepository.update({
-        id: message.id.toString(),
-        tenantId,
-        deletedAt: new Date(),
-      });
     } catch (_error) {
       throw new BadRequestError('Failed to delete email message');
     } finally {

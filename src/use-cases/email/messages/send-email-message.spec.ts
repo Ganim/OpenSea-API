@@ -1,5 +1,20 @@
 import { InMemoryEmailAccountsRepository } from '@/repositories/email/in-memory/in-memory-email-accounts-repository';
+import { InMemoryEmailMessagesRepository } from '@/repositories/email/in-memory/in-memory-email-messages-repository';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/lib/logger', () => ({
+  logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
+}));
+
+vi.mock('imapflow', () => ({
+  ImapFlow: vi.fn(() => ({
+    connect: vi.fn().mockResolvedValue(undefined),
+    append: vi.fn().mockResolvedValue(undefined),
+    logout: vi.fn().mockResolvedValue(undefined),
+    on: vi.fn(),
+  })),
+}));
+
 import { SendEmailMessageUseCase } from './send-email-message';
 
 class FakeCipherService {
@@ -17,18 +32,21 @@ class FakeEmailFoldersRepository {
 }
 
 let accountsRepository: InMemoryEmailAccountsRepository;
+let messagesRepository: InMemoryEmailMessagesRepository;
 let foldersRepository: FakeEmailFoldersRepository;
 let sut: SendEmailMessageUseCase;
 
 describe('SendEmailMessageUseCase', () => {
   beforeEach(async () => {
     accountsRepository = new InMemoryEmailAccountsRepository();
+    messagesRepository = new InMemoryEmailMessagesRepository();
     foldersRepository = new FakeEmailFoldersRepository();
 
     sut = new SendEmailMessageUseCase(
       accountsRepository,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       foldersRepository as any,
+      messagesRepository,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new FakeCipherService() as any,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,6 +77,7 @@ describe('SendEmailMessageUseCase', () => {
       accountsRepository,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       foldersRepository as any,
+      messagesRepository,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new FakeCipherService() as any,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -96,12 +115,13 @@ describe('SendEmailMessageUseCase', () => {
     ).rejects.toThrow('Email account not found');
   });
 
-  it('should append signature to email body when account has signature', async () => {
+  it('should send bodyHtml as-is (signature is added by frontend)', async () => {
     const smtpService = new FakeSmtpClientService();
     sut = new SendEmailMessageUseCase(
       accountsRepository,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       foldersRepository as any,
+      messagesRepository,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new FakeCipherService() as any,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -119,15 +139,14 @@ describe('SendEmailMessageUseCase', () => {
       accountId: account!.id.toString(),
       to: ['recipient@example.com'],
       subject: 'With Signature',
-      bodyHtml: '<p>Hello</p>',
+      bodyHtml: '<p>Hello</p><hr/><p>Best regards</p>',
     });
 
     expect(smtpService.send).toHaveBeenCalledOnce();
     const sendCall = smtpService.send.mock.calls[0];
     const mailOptions = sendCall[1];
-    // The html should contain the original body + signature
-    expect(mailOptions.html).toContain('<p>Hello</p>');
-    expect(mailOptions.html).toContain('Best regards');
+    // Backend should pass bodyHtml through without modification
+    expect(mailOptions.html).toBe('<p>Hello</p><hr/><p>Best regards</p>');
   });
 
   it('should send with inReplyTo and references headers', async () => {
@@ -136,6 +155,7 @@ describe('SendEmailMessageUseCase', () => {
       accountsRepository,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       foldersRepository as any,
+      messagesRepository,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new FakeCipherService() as any,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -198,5 +218,57 @@ describe('SendEmailMessageUseCase', () => {
         bodyHtml: '<p>Test</p>',
       }),
     ).rejects.toThrow('Email account is not active');
+  });
+
+  it('should mark original message as answered when replying', async () => {
+    const smtpService = new FakeSmtpClientService();
+    sut = new SendEmailMessageUseCase(
+      accountsRepository,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      foldersRepository as any,
+      messagesRepository,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      new FakeCipherService() as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      smtpService as any,
+    );
+
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    // Create the original message in the repository
+    const originalMessage = await messagesRepository.create({
+      tenantId: 'tenant-1',
+      accountId: account!.id.toString(),
+      folderId: 'folder-1',
+      remoteUid: 1,
+      messageId: '<original-msg-id@example.com>',
+      fromAddress: 'sender@example.com',
+      toAddresses: ['user@example.com'],
+      subject: 'Original Subject',
+      receivedAt: new Date(),
+      isAnswered: false,
+    });
+
+    expect(originalMessage.isAnswered).toBe(false);
+
+    await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      accountId: account!.id.toString(),
+      to: ['sender@example.com'],
+      subject: 'Re: Original Subject',
+      bodyHtml: '<p>Reply</p>',
+      inReplyTo: '<original-msg-id@example.com>',
+    });
+
+    const updated = await messagesRepository.findByRfcMessageId(
+      account!.id.toString(),
+      '<original-msg-id@example.com>',
+    );
+
+    expect(updated!.isAnswered).toBe(true);
   });
 });

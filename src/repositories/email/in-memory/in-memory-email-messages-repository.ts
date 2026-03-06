@@ -2,12 +2,13 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { EmailAttachment } from '@/entities/email/email-attachment';
 import { EmailMessage } from '@/entities/email/email-message';
 import type {
-  CreateEmailAttachmentSchema,
-  CreateEmailMessageSchema,
-  EmailMessagesListParams,
-  EmailMessagesListResult,
-  EmailMessagesRepository,
-  UpdateEmailMessageSchema,
+    CentralInboxListParams,
+    CreateEmailAttachmentSchema,
+    CreateEmailMessageSchema,
+    EmailMessagesListParams,
+    EmailMessagesListResult,
+    EmailMessagesRepository,
+    UpdateEmailMessageSchema,
 } from '../email-messages-repository';
 
 export class InMemoryEmailMessagesRepository
@@ -38,6 +39,7 @@ export class InMemoryEmailMessagesRepository
         sentAt: data.sentAt ?? null,
         isRead: data.isRead ?? false,
         isFlagged: data.isFlagged ?? false,
+        isAnswered: data.isAnswered ?? false,
         hasAttachments: data.hasAttachments ?? false,
       },
       new UniqueEntityID(),
@@ -69,6 +71,20 @@ export class InMemoryEmailMessagesRepository
           item.accountId.toString() === accountId &&
           item.folderId.toString() === folderId &&
           item.remoteUid === remoteUid,
+      ) ?? null
+    );
+  }
+
+  async findByRfcMessageId(
+    accountId: string,
+    rfcMessageId: string,
+  ): Promise<EmailMessage | null> {
+    return (
+      this.items.find(
+        (item) =>
+          item.accountId.toString() === accountId &&
+          item.messageId === rfcMessageId &&
+          !item.deletedAt,
       ) ?? null
     );
   }
@@ -152,6 +168,9 @@ export class InMemoryEmailMessagesRepository
     }
     if (data.isRead !== undefined) message.isRead = data.isRead;
     if (data.isFlagged !== undefined) message.isFlagged = data.isFlagged;
+    if (data.isAnswered !== undefined) message.isAnswered = data.isAnswered;
+    if (data.hasAttachments !== undefined)
+      message.hasAttachments = data.hasAttachments;
     if (data.deletedAt !== undefined) message.deletedAt = data.deletedAt;
 
     return message;
@@ -197,5 +216,59 @@ export class InMemoryEmailMessagesRepository
   }
   async findAttachmentById(id: string): Promise<EmailAttachment | null> {
     return this.attachments.find((att) => att.id.toString() === id) ?? null;
+  }
+
+  async listCentralInbox(
+    params: CentralInboxListParams,
+  ): Promise<EmailMessagesListResult> {
+    const page = params.page ?? 1;
+    const limit = params.limit ?? 50;
+    const skip = (page - 1) * limit;
+
+    let filtered = this.items.filter(
+      (m) =>
+        m.tenantId.toString() === params.tenantId &&
+        params.accountIds.includes(m.accountId.toString()) &&
+        !m.deletedAt,
+    );
+
+    if (params.unread !== undefined) {
+      filtered = filtered.filter((m) => m.isRead === !params.unread);
+    }
+
+    if (params.search) {
+      const s = params.search.toLowerCase();
+      filtered = filtered.filter(
+        (m) =>
+          m.subject.toLowerCase().includes(s) ||
+          m.fromAddress.toLowerCase().includes(s) ||
+          (m.fromName && m.fromName.toLowerCase().includes(s)),
+      );
+    }
+
+    filtered.sort(
+      (a, b) => b.receivedAt.getTime() - a.receivedAt.getTime(),
+    );
+
+    return {
+      messages: filtered.slice(skip, skip + limit),
+      total: filtered.length,
+    };
+  }
+
+  async softDeleteByFolder(folderId: string, tenantId: string): Promise<number> {
+    let count = 0;
+    const now = new Date();
+    for (const msg of this.items) {
+      if (
+        msg.folderId.toString() === folderId &&
+        msg.tenantId.toString() === tenantId &&
+        !msg.deletedAt
+      ) {
+        (msg as { deletedAt: Date | null }).deletedAt = now;
+        count++;
+      }
+    }
+    return count;
   }
 }

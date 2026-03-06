@@ -11,11 +11,9 @@ async function scheduleSyncJobs() {
     const accounts = await emailAccountsRepository.listActive();
 
     for (const account of accounts) {
-      // Use fixed jobId to prevent duplicate jobs within a 5-minute window.
-      // Rotating the ID by time bucket ensures new jobs can be scheduled even if
-      // a previous job permanently failed (maxAttempts exhausted).
-      const bucketMinutes = Math.floor(Date.now() / INTERVAL_MS);
-      const jobId = `email-sync-${account.id.toString()}-${bucketMinutes}`;
+      // Fixed jobId per account — BullMQ deduplicates so only one job per
+      // account can be queued at a time, preventing parallel syncs.
+      const jobId = `email-sync-${account.id.toString()}`;
       await queueEmailSync(
         {
           tenantId: account.tenantId.toString(),

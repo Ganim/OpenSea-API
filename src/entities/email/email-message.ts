@@ -21,6 +21,7 @@ export interface EmailMessageProps {
   sentAt: Date | null;
   isRead: boolean;
   isFlagged: boolean;
+  isAnswered: boolean;
   hasAttachments: boolean;
   deletedAt: Date | null;
   createdAt: Date;
@@ -134,6 +135,15 @@ export class EmailMessage extends Entity<EmailMessageProps> {
     this.touch();
   }
 
+  get isAnswered(): boolean {
+    return this.props.isAnswered;
+  }
+
+  set isAnswered(value: boolean) {
+    this.props.isAnswered = value;
+    this.touch();
+  }
+
   get hasAttachments(): boolean {
     return this.props.hasAttachments;
   }
@@ -178,6 +188,7 @@ export class EmailMessage extends Entity<EmailMessageProps> {
       | 'sentAt'
       | 'isRead'
       | 'isFlagged'
+      | 'isAnswered'
       | 'hasAttachments'
       | 'deletedAt'
       | 'createdAt'
@@ -194,6 +205,7 @@ export class EmailMessage extends Entity<EmailMessageProps> {
       sentAt?: Date | null;
       isRead?: boolean;
       isFlagged?: boolean;
+      isAnswered?: boolean;
       hasAttachments?: boolean;
       deletedAt?: Date | null;
       createdAt?: Date;
@@ -215,6 +227,7 @@ export class EmailMessage extends Entity<EmailMessageProps> {
         sentAt: props.sentAt ?? null,
         isRead: props.isRead ?? false,
         isFlagged: props.isFlagged ?? false,
+        isAnswered: props.isAnswered ?? false,
         hasAttachments: props.hasAttachments ?? false,
         deletedAt: props.deletedAt ?? null,
         createdAt: props.createdAt ?? new Date(),
