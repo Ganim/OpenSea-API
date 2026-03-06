@@ -6,6 +6,7 @@ import type { EmailAccountsRepository } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import type { ImapClientService } from '@/services/email/imap-client.service';
 import type { SmtpClientService } from '@/services/email/smtp-client.service';
+import { isEmailHostSafe } from '@/utils/security/validate-email-host';
 
 interface UpdateEmailAccountRequest {
   tenantId: string;
@@ -82,6 +83,24 @@ export class UpdateEmailAccountUseCase {
     let secretToUse = request.secret;
 
     if (needsConnectionTest) {
+      // SSRF protection: resolve DNS and block private/reserved IPs
+      const imapHost = request.imapHost ?? account.imapHost;
+      const smtpHost = request.smtpHost ?? account.smtpHost;
+      const [imapSafe, smtpSafe] = await Promise.all([
+        isEmailHostSafe(imapHost),
+        isEmailHostSafe(smtpHost),
+      ]);
+      if (!imapSafe) {
+        throw new BadRequestError(
+          'Host IMAP bloqueado: endereços internos ou não-resolvíveis não são permitidos',
+        );
+      }
+      if (!smtpSafe) {
+        throw new BadRequestError(
+          'Host SMTP bloqueado: endereços internos ou não-resolvíveis não são permitidos',
+        );
+      }
+
       if (!secretToUse) {
         secretToUse = this.credentialCipherService.decrypt(
           account.encryptedSecret,

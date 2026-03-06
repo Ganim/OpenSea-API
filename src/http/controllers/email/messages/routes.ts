@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { rateLimitConfig } from '@/config/rate-limits';
 import { PermissionCodes } from '@/constants/rbac';
 import { logger } from '@/lib/logger';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -15,6 +16,8 @@ import { makeMarkEmailMessageReadUseCase } from '@/use-cases/email/messages/fact
 import { makeMoveEmailMessageUseCase } from '@/use-cases/email/messages/factories/make-move-email-message-use-case';
 import { makeSaveEmailDraftUseCase } from '@/use-cases/email/messages/factories/make-save-email-draft-use-case';
 import { makeSendEmailMessageUseCase } from '@/use-cases/email/messages/factories/make-send-email-message-use-case';
+import { queueEmailSync } from '@/workers/queues/email-sync.queue';
+import rateLimit from '@fastify/rate-limit';
 import '@fastify/multipart';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -73,12 +76,17 @@ const messageDetailSchema = z.object({
   attachments: z.array(attachmentSchema).optional(),
 });
 
+/** Prevents CRLF header injection in email subject/fields */
+const noLineBreaks = (val: string) => !val.includes('\r') && !val.includes('\n');
+
 const _sendMessageBodySchema = z.object({
   accountId: z.string().uuid(),
   to: z.array(z.string().email()).min(1),
   cc: z.array(z.string().email()).optional(),
   bcc: z.array(z.string().email()).optional(),
-  subject: z.string().min(1),
+  subject: z.string().min(1).refine(noLineBreaks, {
+    message: 'Assunto não pode conter quebras de linha',
+  }),
   bodyHtml: z.string().min(1),
   inReplyTo: z.string().optional(),
   references: z.array(z.string()).optional(),
@@ -94,6 +102,9 @@ const saveDraftBodySchema = z.object({
 });
 
 export async function emailMessagesRoutes(app: FastifyInstance) {
+  // Rate limit: email sending (30/min) - most expensive operation
+  app.register(rateLimit, rateLimitConfig.emailSend);
+
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/email/messages',
@@ -325,6 +336,18 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
           bodyHtml: request.body.bodyHtml,
         });
 
+        // Fire-and-forget: queue an email sync so the draft appears
+        // in the local database (the use case only appends to IMAP).
+        queueEmailSync({
+          tenantId,
+          accountId: request.body.accountId,
+        }).catch((err) => {
+          logger.warn(
+            { err, accountId: request.body.accountId },
+            '[SaveDraft] Failed to queue post-draft sync (non-critical)',
+          );
+        });
+
         return reply.status(201).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {
@@ -404,7 +427,9 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
           to: z.array(z.string().email()).min(1),
           cc: z.array(z.string().email()).optional(),
           bcc: z.array(z.string().email()).optional(),
-          subject: z.string().min(1),
+          subject: z.string().min(1).refine(noLineBreaks, {
+            message: 'Assunto não pode conter quebras de linha',
+          }),
           bodyHtml: z.string().min(1),
           inReplyTo: z.string().optional(),
           references: z.array(z.string()).optional(),
@@ -691,16 +716,21 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
         );
         const safeFilename = result.filename.replace(/["\\\r\n]/g, '_');
 
-        // Send binary response through Fastify (preserves CORS headers)
-        return reply
-          .status(200)
-          .header('Content-Type', result.contentType)
-          .header(
-            'Content-Disposition',
-            `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
-          )
-          .header('Content-Length', result.size)
-          .send(result.content);
+        // Binary response — reply.raw bypasses Zod type provider serialization
+        // (Zod cannot express Buffer in response schemas) and also bypasses
+        // Fastify hooks. We must set CORS headers manually using the real
+        // request origin (not '*') because the frontend sends credentials.
+        const origin = request.headers.origin ?? 'http://localhost:3000';
+        reply.raw.writeHead(200, {
+          'Content-Type': result.contentType,
+          'Content-Disposition': `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+          'Content-Length': result.size,
+          'Access-Control-Allow-Origin': origin,
+          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Expose-Headers': 'Content-Disposition',
+        });
+        reply.raw.end(result.content);
+        return;
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { logger } from '@/lib/logger';
 import type {
     EmailAccountsRepository,
     EmailFoldersRepository,
@@ -122,14 +123,24 @@ export class SendEmailMessageUseCase {
       inReplyTo: request.inReplyTo,
       references: request.references,
       attachments: request.attachments,
-    }).catch(() => {});
+    }).catch((err) => {
+      logger.warn(
+        { err, accountId: account.id.toString(), messageId },
+        '[SendEmail] Failed to append message to Sent folder (non-critical)',
+      );
+    });
 
     if (request.inReplyTo) {
       this.markOriginalAsAnswered(
         account.id.toString(),
         request.tenantId,
         request.inReplyTo,
-      ).catch(() => {});
+      ).catch((err) => {
+        logger.warn(
+          { err, accountId: account.id.toString(), inReplyTo: request.inReplyTo },
+          '[SendEmail] Failed to mark original as answered (non-critical)',
+        );
+      });
     }
 
     return { messageId };
@@ -191,8 +202,11 @@ export class SendEmailMessageUseCase {
       } finally {
         await client.logout().catch(() => undefined);
       }
-    } catch {
-      // ignore append errors to avoid failing SMTP send
+    } catch (err) {
+      logger.warn(
+        { err, accountId: params.accountId },
+        '[SendEmail] appendToSentFolder inner error',
+      );
     }
   }
 
@@ -214,8 +228,11 @@ export class SendEmailMessageUseCase {
           isAnswered: true,
         });
       }
-    } catch {
-      // ignore errors to avoid failing the send
+    } catch (err) {
+      logger.warn(
+        { err, accountId, inReplyTo },
+        '[SendEmail] markOriginalAsAnswered inner error',
+      );
     }
   }
 

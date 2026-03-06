@@ -100,6 +100,27 @@ export const rateLimitConfig = {
     timeWindow: '1 minute', // por minuto
     message: 'Too many attempts for this share link, please try again later.',
   },
+
+  /**
+   * Email sending endpoints
+   * Limite restritivo para prevenir email bombing e abuso de cota SMTP.
+   * Envio de email é a operação mais custosa (conexão SMTP + reputação do domínio).
+   */
+  emailSend: {
+    max: 30, // 30 emails por minuto
+    timeWindow: '1 minute',
+    message: 'Limite de envio de emails atingido. Aguarde antes de enviar mais.',
+  },
+
+  /**
+   * Email connection test endpoints
+   * Limite restritivo para prevenir brute-force de credenciais SMTP/IMAP.
+   */
+  emailTest: {
+    max: 10, // 10 tentativas por minuto
+    timeWindow: '1 minute',
+    message: 'Muitas tentativas de teste de conexão. Aguarde antes de testar novamente.',
+  },
 } as const;
 
 /**

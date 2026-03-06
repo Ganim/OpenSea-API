@@ -2,6 +2,11 @@ import { InMemoryEmailAccountsRepository } from '@/repositories/email/in-memory/
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { CreateEmailAccountUseCase } from './create-email-account';
 
+// Mock SSRF validation — unit tests use fake hosts like imap.example.com
+vi.mock('@/utils/security/validate-email-host', () => ({
+  isEmailHostSafe: vi.fn().mockResolvedValue(true),
+}));
+
 class FakeCipherService {
   encrypt(value: string) {
     return `enc:${value}`;

@@ -4641,6 +4641,8 @@ model EmailMessage {
   @@index([tenantId, isRead])
   @@index([tenantId, receivedAt(sort: Desc)])
   @@index([deletedAt])
+  @@index([accountId, messageId])
+  @@index([accountId, folderId, receivedAt(sort: Desc)])
   @@map("email_messages")
 }
 

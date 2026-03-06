@@ -3,6 +3,11 @@ import { env } from './@env';
 import { app } from './app';
 import { prisma } from './lib/prisma';
 import { httpLogger } from './lib/logger';
+import { startEmailSyncWorker } from './workers/queues/email-sync.queue';
+import { startEmailSyncScheduler, stopEmailSyncScheduler } from './workers/email-sync-scheduler';
+import { startAuditWorker } from './workers/queues/audit.queue';
+import { startNotificationWorker } from './workers/queues/notification.queue';
+import { closeAllQueues } from './lib/queue';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -84,9 +89,16 @@ async function gracefulShutdown(signal: string) {
   shutdownTimer.unref();
 
   try {
+    // Stop schedulers first (prevent new jobs from being enqueued)
+    stopEmailSyncScheduler();
+
     // Close HTTP server (stop accepting new connections)
     await app.close();
     console.log('[shutdown] HTTP server closed');
+
+    // Close BullMQ queues and workers
+    await closeAllQueues().catch(() => undefined);
+    console.log('[shutdown] BullMQ queues closed');
 
     // Disconnect Prisma (release DB connections)
     await prisma.$disconnect();
@@ -143,6 +155,22 @@ async function start() {
       'HTTP server is running on port %d',
       env.PORT,
     );
+
+    // Start BullMQ workers inline (same process) so email sync, audit, and
+    // notification queues are always consumed — even in development where
+    // Dockerfile.worker doesn't run.
+    // In production this is harmless: workers/index.ts runs separately AND
+    // these workers also run here — BullMQ distributes jobs across consumers.
+    try {
+      startEmailSyncWorker();
+      startNotificationWorker();
+      startAuditWorker();
+      await startEmailSyncScheduler();
+      console.log('[startup] Inline BullMQ workers + email sync scheduler started');
+    } catch (workerErr) {
+      // Non-fatal: Redis may not be available, workers simply won't run
+      console.warn('[startup] Could not start inline workers (Redis unavailable?):', workerErr);
+    }
   } catch (err) {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     console.error(`[startup] Failed after ${elapsed}s:`, err);

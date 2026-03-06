@@ -34,6 +34,12 @@ export function createImapClient(config: {
       pass: config.secret,
     },
     logger: false,
+    tls: {
+      // cPanel/HostGator shared hosting uses certificates issued for the
+      // server hostname, not the custom domain.  Without this, ImapFlow
+      // rejects the TLS handshake on hostname mismatch.
+      rejectUnauthorized: false,
+    },
     // Prevent zombie connections on unreliable mail servers
     connectionTimeout: 30_000,  // 30s to establish TCP connection
     greetingTimeout: 30_000,    // 30s for server greeting

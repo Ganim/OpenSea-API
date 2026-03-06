@@ -209,22 +209,34 @@ async function generateSnippets(
     'Starting snippet generation for newly synced messages',
   );
 
+  // Build a UID lookup map for O(1) access
+  const uidToId = new Map(candidates.map((m) => [m.remoteUid, m.id]));
+  const uidSet = candidates.map((m) => m.remoteUid.toString()).join(',');
+
   let generated = 0;
 
-  for (const msg of candidates) {
-    try {
-      let textContent: string | undefined;
+  // Batch fetch: single IMAP FETCH command for all UIDs at once
+  // This replaces N individual fetchOne calls with 1 batch call
+  try {
+    const messages = client.fetch(uidSet, {
+      uid: true,
+      bodyParts: ['1'],
+      source: { start: 0, maxLength: 4096 },
+    }, { uid: true });
 
-      // First attempt: fetch text/plain body part '1' (works for simple and multipart messages)
+    for await (const rawMsg of messages) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const msg = rawMsg as any;
+      const uid = msg.uid as number;
+      const dbId = uidToId.get(uid);
+      if (!dbId) continue;
+
       try {
-        const bodyPart = await client.fetchOne(
-          msg.remoteUid.toString(),
-          { bodyParts: ['1'] },
-          { uid: true },
-        );
+        let textContent: string | undefined;
 
-        if (bodyPart && bodyPart.bodyParts) {
-          const value = bodyPart.bodyParts.values().next().value;
+        // Try body part '1' first (text/plain in simple or multipart messages)
+        if (msg.bodyParts) {
+          const value = msg.bodyParts.values().next().value;
           textContent =
             value instanceof Buffer
               ? value.toString('utf-8')
@@ -232,53 +244,44 @@ async function generateSnippets(
                 ? value
                 : undefined;
         }
-      } catch {
-        // Part '1' not available — fall through to source fallback
-      }
 
-      // Fallback: fetch raw source with a size limit and extract plain text lines
-      if (!textContent) {
-        try {
-          const sourcePart = await client.fetchOne(
-            msg.remoteUid.toString(),
-            { source: { start: 0, maxLength: 4096 } },
-            { uid: true },
-          );
+        // Fallback: partial source
+        if (!textContent && msg.source) {
+          const raw =
+            msg.source instanceof Buffer
+              ? msg.source.toString('utf-8')
+              : String(msg.source);
 
-          if (sourcePart && sourcePart.source) {
-            const raw =
-              sourcePart.source instanceof Buffer
-                ? sourcePart.source.toString('utf-8')
-                : String(sourcePart.source);
+          const bodyStart = raw.indexOf('\r\n\r\n');
+          const rawBody =
+            bodyStart !== -1 ? raw.substring(bodyStart + 4) : raw;
+          textContent = rawBody
+            .replace(/=\r?\n/g, '')
+            .replace(/<[^>]+>/g, ' ');
+        }
 
-            // Strip MIME headers (everything before first blank line)
-            const bodyStart = raw.indexOf('\r\n\r\n');
-            const rawBody =
-              bodyStart !== -1 ? raw.substring(bodyStart + 4) : raw;
-            textContent = rawBody
-              .replace(/=\r?\n/g, '')
-              .replace(/<[^>]+>/g, ' ');
+        if (textContent) {
+          const snippet = textContent
+            .replace(/\r?\n/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .substring(0, 200);
+
+          if (snippet) {
+            await emailMessagesRepository.updateBody(dbId, null, null, snippet);
+            generated += 1;
           }
-        } catch {
-          // Source fetch also failed — skip this message
         }
+      } catch {
+        // Skip individual message errors — snippet is best-effort
       }
-
-      if (textContent) {
-        const snippet = textContent
-          .replace(/\r?\n/g, ' ')
-          .replace(/\s+/g, ' ')
-          .trim()
-          .substring(0, 200);
-
-        if (snippet) {
-          await emailMessagesRepository.updateBody(msg.id, null, null, snippet);
-          generated += 1;
-        }
-      }
-    } catch {
-      // Snippet generation is best-effort — never block sync
     }
+  } catch (err) {
+    // Batch fetch failed — log and skip snippet generation entirely
+    logger.warn(
+      { err, folderId, uidCount: candidates.length },
+      'Batch snippet fetch failed — skipping snippet generation',
+    );
   }
 
   logger.debug(

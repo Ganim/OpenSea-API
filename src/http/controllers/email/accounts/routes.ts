@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { rateLimitConfig } from '@/config/rate-limits';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -14,7 +15,13 @@ import { makeShareEmailAccountUseCase } from '@/use-cases/email/accounts/factori
 import { makeTestEmailConnectionUseCase } from '@/use-cases/email/accounts/factories/make-test-email-connection-use-case';
 import { makeUnshareEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-unshare-email-account-use-case';
 import { makeUpdateEmailAccountUseCase } from '@/use-cases/email/accounts/factories/make-update-email-account-use-case';
+import { makeSyncEmailAccountUseCase } from '@/use-cases/email/sync/factories/make-sync-email-account-use-case';
+import {
+  isEmailHostObviouslySafe,
+  isEmailPortValid,
+} from '@/utils/security/validate-email-host';
 import { queueEmailSync } from '@/workers/queues/email-sync.queue';
+import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -41,14 +48,29 @@ const emailAccountSchema = z.object({
   teamName: z.string().nullable(),
 });
 
+const emailHostSchema = z
+  .string()
+  .min(1)
+  .refine(isEmailHostObviouslySafe, {
+    message: 'Endereço de host inválido ou bloqueado (IPs internos não são permitidos)',
+  });
+
+const emailPortSchema = z
+  .number()
+  .int()
+  .positive()
+  .refine(isEmailPortValid, {
+    message: 'Porta inválida. Portas permitidas: 25, 110, 143, 465, 587, 993, 995, 2525',
+  });
+
 const createEmailAccountBodySchema = z.object({
   address: z.string().email(),
   displayName: z.string().max(128).optional(),
-  imapHost: z.string().min(1),
-  imapPort: z.number().int().positive(),
+  imapHost: emailHostSchema,
+  imapPort: emailPortSchema,
   imapSecure: z.boolean().default(true),
-  smtpHost: z.string().min(1),
-  smtpPort: z.number().int().positive(),
+  smtpHost: emailHostSchema,
+  smtpPort: emailPortSchema,
   smtpSecure: z.boolean().default(true),
   username: z.string().min(1),
   secret: z.string().min(1),
@@ -85,6 +107,9 @@ const emailAccountAccessSchema = z.object({
 const MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS = 30_000;
 
 export async function emailAccountsRoutes(app: FastifyInstance) {
+  // Rate limit all account endpoints (mutation-level: 100/min)
+  app.register(rateLimit, rateLimitConfig.mutation);
+
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/email/accounts',
@@ -369,6 +394,7 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
       params: z.object({ id: z.string().uuid() }),
       response: {
+        200: z.object({ message: z.string() }),
         202: z.object({ message: z.string() }),
         403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
@@ -383,21 +409,42 @@ export async function emailAccountsRoutes(app: FastifyInstance) {
         const getAccount = makeGetEmailAccountUseCase();
         await getAccount.execute({ tenantId, userId, accountId });
 
-        const bucket = Math.floor(Date.now() / MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS);
-        const jobId = `manual-email-sync-${tenantId}-${accountId}-${bucket}`;
+        // Try BullMQ first (async, returns 202 immediately)
+        try {
+          const bucket = Math.floor(Date.now() / MANUAL_EMAIL_SYNC_DEDUP_WINDOW_MS);
+          const jobId = `manual-email-sync-${tenantId}-${accountId}-${bucket}`;
 
-        const job = await queueEmailSync(
-          { tenantId, accountId },
-          { jobId },
-        );
-        logger.info(
-          { jobId: job.id, tenantId, accountId },
-          'Manual email sync enqueued',
-        );
+          const job = await queueEmailSync(
+            { tenantId, accountId },
+            { jobId },
+          );
+          logger.info(
+            { jobId: job.id, tenantId, accountId },
+            'Manual email sync enqueued',
+          );
 
-        return reply.status(202).send({
-          message: 'Sincronização manual agendada.',
-        });
+          return reply.status(202).send({
+            message: 'Sincronização manual agendada.',
+          });
+        } catch (queueError) {
+          // BullMQ/Redis unavailable — fall back to inline sync
+          logger.warn(
+            { err: queueError, tenantId, accountId },
+            'BullMQ unavailable, falling back to inline sync',
+          );
+
+          const syncUseCase = makeSyncEmailAccountUseCase();
+          const result = await syncUseCase.execute({ tenantId, accountId });
+
+          logger.info(
+            { tenantId, accountId, ...result },
+            'Inline email sync completed',
+          );
+
+          return reply.status(200).send({
+            message: `Sincronização concluída: ${result.syncedMessages} mensagens sincronizadas.`,
+          });
+        }
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

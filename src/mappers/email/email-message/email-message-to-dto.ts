@@ -46,6 +46,7 @@ export interface EmailMessageDTO {
   sentAt: Date | null;
   isRead: boolean;
   isFlagged: boolean;
+  isAnswered: boolean;
   hasAttachments: boolean;
   deletedAt: Date | null;
   createdAt: Date;

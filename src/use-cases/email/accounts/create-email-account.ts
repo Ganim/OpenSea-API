@@ -4,6 +4,7 @@ import type { EmailAccountsRepository } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import type { ImapClientService } from '@/services/email/imap-client.service';
 import type { SmtpClientService } from '@/services/email/smtp-client.service';
+import { isEmailHostSafe } from '@/utils/security/validate-email-host';
 
 interface CreateEmailAccountRequest {
   tenantId: string;
@@ -45,6 +46,22 @@ export class CreateEmailAccountUseCase {
 
     if (existing) {
       throw new BadRequestError('Email account already exists for this tenant');
+    }
+
+    // SSRF protection: resolve DNS and block private/reserved IPs
+    const [imapSafe, smtpSafe] = await Promise.all([
+      isEmailHostSafe(request.imapHost),
+      isEmailHostSafe(request.smtpHost),
+    ]);
+    if (!imapSafe) {
+      throw new BadRequestError(
+        'Host IMAP bloqueado: endereços internos ou não-resolvíveis não são permitidos',
+      );
+    }
+    if (!smtpSafe) {
+      throw new BadRequestError(
+        'Host SMTP bloqueado: endereços internos ou não-resolvíveis não são permitidos',
+      );
     }
 
     await this.imapClientService.testConnection({
