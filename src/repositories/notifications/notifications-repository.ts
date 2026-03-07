@@ -17,6 +17,7 @@ export interface CreateNotificationSchema {
   actionText?: string;
   entityType?: string;
   entityId?: string;
+  metadata?: Record<string, unknown>;
   scheduledFor?: Date;
 }
 
@@ -35,6 +36,11 @@ export interface ListNotificationsFilter {
 export interface NotificationsRepository {
   create(data: CreateNotificationSchema): Promise<Notification>;
   findById(id: UniqueEntityID): Promise<Notification | null>;
+  findByUserAndEntity(
+    userId: string,
+    entityType: string,
+    entityId: string,
+  ): Promise<Notification | null>;
   list(
     filter: ListNotificationsFilter,
   ): Promise<{ data: Notification[]; total: number }>;

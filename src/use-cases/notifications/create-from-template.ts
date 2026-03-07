@@ -26,6 +26,7 @@ interface CreateFromTemplateUseCaseRequest {
   actionText?: string;
   entityType?: string;
   entityId?: string;
+  metadata?: Record<string, unknown>;
   scheduledFor?: Date;
 }
 
@@ -54,6 +55,19 @@ export class CreateFromTemplateUseCase {
     const title = interpolate(template.titleTemplate, vars);
     const message = interpolate(template.messageTemplate, vars);
 
+    // Dedup: skip if an active notification already exists for this user + entity
+    if (params.entityType && params.entityId) {
+      const existing =
+        await this.notificationsRepository.findByUserAndEntity(
+          params.userId,
+          params.entityType,
+          params.entityId,
+        );
+      if (existing) {
+        return { notification: existing };
+      }
+    }
+
     const notification = await this.notificationsRepository.create({
       userId: new UniqueEntityID(params.userId),
       title,
@@ -65,6 +79,7 @@ export class CreateFromTemplateUseCase {
       actionText: params.actionText,
       entityType: params.entityType,
       entityId: params.entityId,
+      metadata: params.metadata,
       scheduledFor: params.scheduledFor,
     });
 

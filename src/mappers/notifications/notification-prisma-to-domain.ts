@@ -20,6 +20,7 @@ export function mapNotificationPrismaToDomain(model: PrismaNotification) {
     actionText: model.actionText ?? undefined,
     entityType: model.entityType ?? undefined,
     entityId: model.entityId ?? undefined,
+    metadata: (model.metadata as Record<string, unknown>) ?? undefined,
     isRead: model.isRead,
     isSent: model.isSent,
     scheduledFor: model.scheduledFor ?? undefined,

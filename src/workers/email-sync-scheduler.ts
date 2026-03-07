@@ -1,6 +1,6 @@
 import { logger } from '@/lib/logger';
 import { PrismaEmailAccountsRepository } from '@/repositories/email/prisma/prisma-email-accounts-repository';
-import { queueEmailSync } from './queues/email-sync.queue';
+import { queueEmailSync, getEmailSyncQueueInstance } from './queues/email-sync.queue';
 
 const INTERVAL_MS = 5 * 60 * 1000;
 
@@ -15,9 +15,23 @@ async function scheduleSyncJobs() {
     const accounts = await emailAccountsRepository.listActive();
 
     for (const account of accounts) {
-      // Fixed jobId per account — BullMQ deduplicates so only one job per
-      // account can be queued at a time, preventing parallel syncs.
+      // Fixed jobId per account — prevents parallel syncs for the same account.
+      // We must remove completed/failed jobs first, otherwise BullMQ silently
+      // ignores re-adds with the same jobId.
       const jobId = `email-sync-${account.id.toString()}`;
+
+      const queue = getEmailSyncQueueInstance();
+      const existing = await queue.getJob(jobId);
+      if (existing) {
+        const state = await existing.getState();
+        if (state === 'active' || state === 'waiting' || state === 'delayed') {
+          // Sync already in progress or queued — skip this round
+          continue;
+        }
+        // Remove completed/failed jobs so the new job can be added
+        await existing.remove().catch(() => undefined);
+      }
+
       await queueEmailSync(
         {
           tenantId: account.tenantId.toString(),

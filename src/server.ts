@@ -8,6 +8,7 @@ import { startEmailSyncScheduler, stopEmailSyncScheduler } from './workers/email
 import { startAuditWorker } from './workers/queues/audit.queue';
 import { startNotificationWorker } from './workers/queues/notification.queue';
 import { closeAllQueues } from './lib/queue';
+import { closeRedisConnection } from './lib/redis';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -100,6 +101,10 @@ async function gracefulShutdown(signal: string) {
     await closeAllQueues().catch(() => undefined);
     console.log('[shutdown] BullMQ queues closed');
 
+    // Close Redis connection (lib/redis.ts singleton)
+    await closeRedisConnection().catch(() => undefined);
+    console.log('[shutdown] Redis disconnected');
+
     // Disconnect Prisma (release DB connections)
     await prisma.$disconnect();
     console.log('[shutdown] Database disconnected');
@@ -159,17 +164,21 @@ async function start() {
     // Start BullMQ workers inline (same process) so email sync, audit, and
     // notification queues are always consumed — even in development where
     // Dockerfile.worker doesn't run.
-    // In production this is harmless: workers/index.ts runs separately AND
-    // these workers also run here — BullMQ distributes jobs across consumers.
-    try {
-      startEmailSyncWorker();
-      startNotificationWorker();
-      startAuditWorker();
-      await startEmailSyncScheduler();
-      console.log('[startup] Inline BullMQ workers + email sync scheduler started');
-    } catch (workerErr) {
-      // Non-fatal: Redis may not be available, workers simply won't run
-      console.warn('[startup] Could not start inline workers (Redis unavailable?):', workerErr);
+    // Set DISABLE_INLINE_WORKERS=true in .env to skip workers in dev
+    // (useful when Redis is unavailable or to reduce memory pressure).
+    if (env.DISABLE_INLINE_WORKERS) {
+      console.log('[startup] Inline workers disabled (DISABLE_INLINE_WORKERS=true)');
+    } else {
+      try {
+        startEmailSyncWorker();
+        startNotificationWorker();
+        startAuditWorker();
+        await startEmailSyncScheduler();
+        console.log('[startup] Inline BullMQ workers + email sync scheduler started');
+      } catch (workerErr) {
+        // Non-fatal: Redis may not be available, workers simply won't run
+        console.warn('[startup] Could not start inline workers (Redis unavailable?):', workerErr);
+      }
     }
   } catch (err) {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);

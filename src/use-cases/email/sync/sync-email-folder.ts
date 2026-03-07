@@ -20,6 +20,7 @@ interface SyncEmailFolderRequest {
 interface SyncEmailFolderResponse {
   synced: number;
   lastUid: number | null;
+  createdMessages: CreatedMessageRef[];
 }
 
 /**
@@ -87,10 +88,13 @@ function normalizeImapInt(value: unknown): number | null {
   return null;
 }
 
-interface CreatedMessageRef {
+export interface CreatedMessageRef {
   id: string;
   remoteUid: number;
   receivedAt: Date;
+  fromName: string | null;
+  fromAddress: string;
+  subject: string;
 }
 
 const PROCESS_BATCH_SIZE = 200;
@@ -193,6 +197,9 @@ async function processMessages(
         id: created.id.toString(),
         remoteUid: message.uid,
         receivedAt: created.receivedAt,
+        fromName: from?.name ?? null,
+        fromAddress: from?.address ?? '',
+        subject: envelope?.subject ?? '',
       });
 
       synced += 1;
@@ -421,7 +428,7 @@ export class SyncEmailFolderUseCase {
             },
             'No new messages to sync (fromUid >= uidNext)',
           );
-          return { synced: 0, lastUid: folder.lastUid ?? null };
+          return { synced: 0, lastUid: folder.lastUid ?? null, createdMessages: [] };
         }
 
         logger.info(
@@ -565,6 +572,7 @@ export class SyncEmailFolderUseCase {
       return {
         synced,
         lastUid: (maxUid || folder.lastUid) ?? null,
+        createdMessages: allCreatedMessages,
       };
     } catch (error) {
       const reason = error instanceof Error ? error.message : String(error);

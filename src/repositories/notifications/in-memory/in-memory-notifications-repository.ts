@@ -23,6 +23,7 @@ export class InMemoryNotificationsRepository
       actionText: data.actionText,
       entityType: data.entityType,
       entityId: data.entityId,
+      metadata: data.metadata,
       scheduledFor: data.scheduledFor,
       isRead: false,
       isSent: false,
@@ -34,6 +35,21 @@ export class InMemoryNotificationsRepository
 
   async findById(id: UniqueEntityID): Promise<Notification | null> {
     const found = this.items.find((n) => n.id.equals(id));
+    return found ?? null;
+  }
+
+  async findByUserAndEntity(
+    userId: string,
+    entityType: string,
+    entityId: string,
+  ): Promise<Notification | null> {
+    const found = this.items.find(
+      (n) =>
+        n.userId.toString() === userId &&
+        n.entityType === entityType &&
+        n.entityId === entityId &&
+        !n.deletedAt,
+    );
     return found ?? null;
   }
 

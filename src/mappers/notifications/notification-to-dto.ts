@@ -12,6 +12,7 @@ export interface NotificationDTO {
   actionText?: string | null;
   entityType?: string | null;
   entityId?: string | null;
+  metadata?: Record<string, unknown> | null;
   isRead: boolean;
   isSent: boolean;
   scheduledFor?: Date | null;
@@ -35,6 +36,7 @@ export function notificationToDTO(notification: Notification): NotificationDTO {
     actionText: notification.actionText ?? null,
     entityType: notification.entityType ?? null,
     entityId: notification.entityId ?? null,
+    metadata: notification.metadata ?? null,
     isRead: notification.isRead,
     isSent: notification.isSent,
     scheduledFor: notification.scheduledFor ?? null,

@@ -186,11 +186,22 @@ export async function closeAllQueues(): Promise<void> {
   const closePromises: Promise<void>[] = [];
 
   for (const worker of workers.values()) {
-    closePromises.push(worker.close());
+    closePromises.push(
+      worker.close().then(async () => {
+        // BullMQ workers hold their own Redis connection — disconnect it
+        const conn = await worker.client;
+        await conn.disconnect().catch(() => undefined);
+      }),
+    );
   }
 
   for (const queue of queues.values()) {
-    closePromises.push(queue.close());
+    closePromises.push(
+      queue.close().then(async () => {
+        const conn = await queue.client;
+        await conn.disconnect().catch(() => undefined);
+      }),
+    );
   }
 
   await Promise.all(closePromises);
@@ -198,7 +209,7 @@ export async function closeAllQueues(): Promise<void> {
   workers.clear();
   queues.clear();
 
-  console.log('[Queue] All queues and workers closed');
+  console.log('[Queue] All queues, workers, and Redis connections closed');
 }
 
 // Nomes das filas disponíveis

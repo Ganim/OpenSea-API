@@ -2,11 +2,11 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Notification } from '@/entities/notifications/notification';
 import { prisma } from '@/lib/prisma';
 import { notificationPrismaToDomain } from '@/mappers/notifications/notification-prisma-to-domain';
-import type {
+import {
   Prisma,
-  NotificationChannel as PrismaNotificationChannel,
-  NotificationPriority as PrismaNotificationPriority,
-  NotificationType as PrismaNotificationType,
+  type NotificationChannel as PrismaNotificationChannel,
+  type NotificationPriority as PrismaNotificationPriority,
+  type NotificationType as PrismaNotificationType,
 } from '@prisma/generated/client.js';
 import type {
   CreateNotificationSchema,
@@ -16,28 +16,68 @@ import type {
 
 export class PrismaNotificationsRepository implements NotificationsRepository {
   async create(data: CreateNotificationSchema): Promise<Notification> {
-    const created = await prisma.notification.create({
-      data: {
-        userId: data.userId.toString(),
-        title: data.title,
-        message: data.message,
-        type: data.type as PrismaNotificationType,
-        priority: (data.priority ?? 'NORMAL') as PrismaNotificationPriority,
-        channel: data.channel as PrismaNotificationChannel,
-        actionUrl: data.actionUrl,
-        actionText: data.actionText,
-        entityType: data.entityType,
-        entityId: data.entityId,
-        scheduledFor: data.scheduledFor,
-      },
-    });
+    try {
+      const created = await prisma.notification.create({
+        data: {
+          userId: data.userId.toString(),
+          title: data.title,
+          message: data.message,
+          type: data.type as PrismaNotificationType,
+          priority: (data.priority ?? 'NORMAL') as PrismaNotificationPriority,
+          channel: data.channel as PrismaNotificationChannel,
+          actionUrl: data.actionUrl,
+          actionText: data.actionText,
+          entityType: data.entityType,
+          entityId: data.entityId,
+          metadata: (data.metadata as Prisma.InputJsonValue) ?? undefined,
+          scheduledFor: data.scheduledFor,
+        },
+      });
 
-    return notificationPrismaToDomain(created);
+      return notificationPrismaToDomain(created);
+    } catch (err) {
+      // Safety net: unique constraint violation from partial index → return existing
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === 'P2002' &&
+        data.entityType &&
+        data.entityId
+      ) {
+        const existing = await prisma.notification.findFirst({
+          where: {
+            userId: data.userId.toString(),
+            entityType: data.entityType,
+            entityId: data.entityId,
+            deletedAt: null,
+          },
+        });
+        if (existing) return notificationPrismaToDomain(existing);
+      }
+      throw err;
+    }
   }
 
   async findById(id: UniqueEntityID): Promise<Notification | null> {
     const found = await prisma.notification.findUnique({
       where: { id: id.toString() },
+    });
+    if (!found) return null;
+    return notificationPrismaToDomain(found);
+  }
+
+  async findByUserAndEntity(
+    userId: string,
+    entityType: string,
+    entityId: string,
+  ): Promise<Notification | null> {
+    const found = await prisma.notification.findFirst({
+      where: {
+        userId,
+        entityType,
+        entityId,
+        deletedAt: null,
+      },
+      orderBy: { createdAt: 'desc' },
     });
     if (!found) return null;
     return notificationPrismaToDomain(found);
@@ -130,6 +170,7 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
         actionText: notification.actionText,
         entityType: notification.entityType,
         entityId: notification.entityId,
+        metadata: (notification.metadata as Prisma.InputJsonValue) ?? undefined,
         isRead: notification.isRead,
         isSent: notification.isSent,
         scheduledFor: notification.scheduledFor,

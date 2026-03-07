@@ -9,6 +9,7 @@ import type {
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { createImapClient } from '@/services/email/imap-client.service';
+import type { CreatedMessageRef } from './sync-email-folder';
 import { SyncEmailFolderUseCase } from './sync-email-folder';
 
 interface SyncEmailAccountRequest {
@@ -28,6 +29,7 @@ export interface EmailSyncNotificationService {
     accountAddress: string;
     ownerUserId: string;
     syncedMessages: number;
+    messages?: CreatedMessageRef[];
   }): Promise<void>;
 }
 
@@ -101,6 +103,7 @@ export class SyncEmailAccountUseCase {
 
     let syncedFolders = 0;
     let syncedMessages = 0;
+    const allCreatedMessages: CreatedMessageRef[] = [];
 
     try {
       await client.connect();
@@ -112,37 +115,51 @@ export class SyncEmailAccountUseCase {
         const displayName = mailbox.name ?? mailbox.path;
         const type = resolveFolderType(mailbox);
 
-        const existing = await this.emailFoldersRepository.findByRemoteName(
-          account.id.toString(),
-          remoteName,
-        );
+        try {
+          const existing = await this.emailFoldersRepository.findByRemoteName(
+            account.id.toString(),
+            remoteName,
+          );
 
-        const folder = existing
-          ? await this.emailFoldersRepository.update({
-              id: existing.id.toString(),
-              accountId: account.id.toString(),
-              displayName,
-              type,
-            })
-          : await this.emailFoldersRepository.create({
+          const folder = existing
+            ? await this.emailFoldersRepository.update({
+                id: existing.id.toString(),
+                accountId: account.id.toString(),
+                displayName,
+                type,
+              })
+            : await this.emailFoldersRepository.create({
+                accountId: account.id.toString(),
+                remoteName,
+                displayName,
+                type,
+              });
+
+          if (!folder) {
+            continue;
+          }
+
+          const syncResult = await this.syncEmailFolderUseCase.execute({
+            account,
+            folder,
+            client,
+          });
+
+          syncedFolders += 1;
+          syncedMessages += syncResult.synced;
+          allCreatedMessages.push(...syncResult.createdMessages);
+        } catch (folderError) {
+          // Log and continue — one folder failure must not block the entire sync
+          logger.warn(
+            {
+              err: folderError,
               accountId: account.id.toString(),
               remoteName,
               displayName,
-              type,
-            });
-
-        if (!folder) {
-          continue;
+            },
+            'Failed to sync folder, continuing with next folder',
+          );
         }
-
-        const syncResult = await this.syncEmailFolderUseCase.execute({
-          account,
-          folder,
-          client,
-        });
-
-        syncedFolders += 1;
-        syncedMessages += syncResult.synced;
       }
 
       await this.emailAccountsRepository.update({
@@ -159,6 +176,7 @@ export class SyncEmailAccountUseCase {
             accountAddress: account.address,
             ownerUserId: account.ownerUserId.toString(),
             syncedMessages,
+            messages: allCreatedMessages,
           })
           .catch(() => undefined);
       }

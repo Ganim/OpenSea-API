@@ -859,10 +859,33 @@ const CALENDAR_NOTIFICATION_TEMPLATES = [
   },
 ];
 
+const EMAIL_NOTIFICATION_TEMPLATES = [
+  {
+    code: 'email.new_message',
+    name: 'Novo e-mail recebido',
+    titleTemplate: 'Novo e-mail de {{senderName}}',
+    messageTemplate: '{{subject}}',
+    defaultChannel: 'IN_APP' as const,
+  },
+  {
+    code: 'email.new_messages_batch',
+    name: 'Novos e-mails (lote)',
+    titleTemplate: 'Novos e-mails sincronizados',
+    messageTemplate:
+      'A conta {{accountAddress}} recebeu {{count}} novas mensagens.',
+    defaultChannel: 'IN_APP' as const,
+  },
+];
+
 async function seedNotificationTemplates() {
   console.log('\n📧 Notification Templates...');
 
-  for (const tpl of CALENDAR_NOTIFICATION_TEMPLATES) {
+  const allTemplates = [
+    ...CALENDAR_NOTIFICATION_TEMPLATES,
+    ...EMAIL_NOTIFICATION_TEMPLATES,
+  ];
+
+  for (const tpl of allTemplates) {
     await prisma.notificationTemplate.upsert({
       where: { code: tpl.code },
       update: {

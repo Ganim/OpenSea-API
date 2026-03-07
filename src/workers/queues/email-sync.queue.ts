@@ -19,6 +19,11 @@ function getEmailSyncQueue(): Queue<EmailSyncJobData> {
   return _emailSyncQueue;
 }
 
+/** Exposed for the scheduler to inspect/remove stale jobs before re-scheduling. */
+export function getEmailSyncQueueInstance(): Queue<EmailSyncJobData> {
+  return getEmailSyncQueue();
+}
+
 export async function queueEmailSync(
   data: EmailSyncJobData,
   options?: {

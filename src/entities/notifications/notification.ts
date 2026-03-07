@@ -23,6 +23,7 @@ export interface NotificationProps {
   actionText?: string;
   entityType?: string;
   entityId?: string;
+  metadata?: Record<string, unknown>;
   isRead: boolean;
   isSent: boolean;
   scheduledFor?: Date;
@@ -66,6 +67,9 @@ export class Notification extends Entity<NotificationProps> {
   }
   get entityId(): string | undefined {
     return this.props.entityId;
+  }
+  get metadata(): Record<string, unknown> | undefined {
+    return this.props.metadata;
   }
   get isRead(): boolean {
     return this.props.isRead;
