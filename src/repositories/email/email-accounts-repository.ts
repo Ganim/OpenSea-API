@@ -66,6 +66,7 @@ export interface UpsertEmailAccountAccessSchema {
 export interface EmailAccountsRepository {
   create(data: CreateEmailAccountSchema): Promise<EmailAccount>;
   findById(id: string, tenantId: string): Promise<EmailAccount | null>;
+  findManyByIds(ids: string[], tenantId: string): Promise<EmailAccount[]>;
   findByAddress(
     address: string,
     tenantId: string,
@@ -95,4 +96,8 @@ export interface EmailAccountsRepository {
     accountId: string,
     userId: string,
   ): Promise<EmailAccountAccessItem | null>;
+  findAccessByAccountIds(
+    accountIds: string[],
+    userId: string,
+  ): Promise<EmailAccountAccessItem[]>;
 }

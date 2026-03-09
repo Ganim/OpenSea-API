@@ -335,6 +335,20 @@ export class PrismaItemsRepository implements ItemsRepository {
     return this.toDomainItem(itemData);
   }
 
+  async findManyByIds(ids: UniqueEntityID[], tenantId: string): Promise<Item[]> {
+    if (ids.length === 0) return [];
+
+    const items = await prisma.item.findMany({
+      where: {
+        id: { in: ids.map((id) => id.toString()) },
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    return items.map((item) => this.toDomainItem(item));
+  }
+
   async findByIdWithRelations(
     id: UniqueEntityID,
     tenantId: string,

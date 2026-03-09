@@ -44,6 +44,16 @@ export class PrismaEmailAccountsRepository implements EmailAccountsRepository {
     return accountDb ? emailAccountPrismaToDomain(accountDb) : null;
   }
 
+  async findManyByIds(ids: string[], tenantId: string): Promise<EmailAccount[]> {
+    if (ids.length === 0) return [];
+
+    const accounts = await prisma.emailAccount.findMany({
+      where: { id: { in: ids }, tenantId },
+    });
+
+    return accounts.map(emailAccountPrismaToDomain);
+  }
+
   async findByAddress(
     address: string,
     tenantId: string,
@@ -235,5 +245,27 @@ export class PrismaEmailAccountsRepository implements EmailAccountsRepository {
       canManage: access.canManage,
       createdAt: access.createdAt,
     };
+  }
+
+  async findAccessByAccountIds(
+    accountIds: string[],
+    userId: string,
+  ): Promise<EmailAccountAccessItem[]> {
+    if (accountIds.length === 0) return [];
+
+    const accessList = await prisma.emailAccountAccess.findMany({
+      where: { accountId: { in: accountIds }, userId },
+    });
+
+    return accessList.map((access) => ({
+      id: access.id,
+      accountId: access.accountId,
+      tenantId: access.tenantId,
+      userId: access.userId,
+      canRead: access.canRead,
+      canSend: access.canSend,
+      canManage: access.canManage,
+      createdAt: access.createdAt,
+    }));
   }
 }

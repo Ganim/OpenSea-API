@@ -48,6 +48,15 @@ export class InMemoryEmailAccountsRepository
     );
   }
 
+  async findManyByIds(ids: string[], tenantId: string): Promise<EmailAccount[]> {
+    const idSet = new Set(ids);
+    return this.items.filter(
+      (item) =>
+        idSet.has(item.id.toString()) &&
+        item.tenantId.toString() === tenantId,
+    );
+  }
+
   async findByAddress(
     address: string,
     tenantId: string,
@@ -211,6 +220,16 @@ export class InMemoryEmailAccountsRepository
       this.accesses.find(
         (access) => access.accountId === accountId && access.userId === userId,
       ) ?? null
+    );
+  }
+
+  async findAccessByAccountIds(
+    accountIds: string[],
+    userId: string,
+  ): Promise<EmailAccountAccessItem[]> {
+    const idSet = new Set(accountIds);
+    return this.accesses.filter(
+      (access) => idSet.has(access.accountId) && access.userId === userId,
     );
   }
 }

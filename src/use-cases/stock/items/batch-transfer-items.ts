@@ -73,34 +73,54 @@ export class BatchTransferItemsUseCase {
     input: BatchTransferItemsUseCaseRequest,
     destinationBin: { binId: UniqueEntityID; address: string; isBlocked: boolean },
   ): Promise<BatchTransferItemsUseCaseResponse> {
-    const movements: ItemMovementDTO[] = [];
-    const originBinIds = new Set<string>();
+    // Batch-load all items upfront (N+1 → 1 query)
+    const items = await this.itemsRepository.findManyByIds(
+      input.itemIds.map((id) => new UniqueEntityID(id)),
+      input.tenantId,
+    );
 
+    const itemsMap = new Map(items.map((item) => [item.id.toString(), item]));
+
+    // Validate all items exist
     for (const itemId of input.itemIds) {
-      const item = await this.itemsRepository.findById(
-        new UniqueEntityID(itemId),
-        input.tenantId,
-      );
-      if (!item) {
+      if (!itemsMap.has(itemId)) {
         throw new ResourceNotFoundError(`Item ${itemId} not found.`);
       }
+    }
+
+    // Collect origin bin IDs for batch loading
+    const originBinIdSet = new Set<string>();
+    for (const item of items) {
+      if (item.binId && !item.binId.equals(destinationBin.binId)) {
+        originBinIdSet.add(item.binId.toString());
+      }
+    }
+
+    // Batch-load all origin bins (N+1 → 1 query)
+    const originBins = originBinIdSet.size > 0
+      ? await this.binsRepository.findManyByIds(
+          [...originBinIdSet].map((id) => new UniqueEntityID(id)),
+          input.tenantId,
+        )
+      : [];
+    const originBinsMap = new Map(
+      originBins.map((bin) => [bin.binId.toString(), bin]),
+    );
+
+    const movements: ItemMovementDTO[] = [];
+
+    for (const itemId of input.itemIds) {
+      const item = itemsMap.get(itemId)!;
 
       // Skip if already in destination bin
       if (item.binId && item.binId.equals(destinationBin.binId)) {
         continue;
       }
 
-      // Capture origin bin address
-      let originAddress: string | undefined;
-      if (item.binId) {
-        const originBinId = item.binId.toString();
-        originBinIds.add(originBinId);
-        const originBin = await this.binsRepository.findById(
-          item.binId,
-          input.tenantId,
-        );
-        originAddress = originBin?.address;
-      }
+      // Resolve origin bin address from pre-fetched map
+      const originAddress = item.binId
+        ? originBinsMap.get(item.binId.toString())?.address
+        : undefined;
 
       // Update item
       item.binId = destinationBin.binId;
@@ -125,11 +145,9 @@ export class BatchTransferItemsUseCase {
     }
 
     // Auto-cleanup: check if any origin bins are blocked and now empty
-    for (const originBinId of originBinIds) {
-      const originBin = await this.binsRepository.findById(
-        new UniqueEntityID(originBinId),
-        input.tenantId,
-      );
+    // Batch-load origin bins for cleanup (reuse pre-fetched data)
+    for (const originBinId of originBinIdSet) {
+      const originBin = originBinsMap.get(originBinId);
       if (originBin && originBin.isBlocked) {
         const binItemCount = await this.binsRepository.countItemsPerBin(
           originBin.zoneId,

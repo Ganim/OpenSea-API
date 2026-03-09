@@ -63,6 +63,16 @@ export class InMemoryItemsRepository implements ItemsRepository {
     return item ?? null;
   }
 
+  async findManyByIds(ids: UniqueEntityID[], tenantId: string): Promise<Item[]> {
+    const idSet = new Set(ids.map((id) => id.toString()));
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        idSet.has(item.id.toString()) &&
+        item.tenantId.toString() === tenantId,
+    );
+  }
+
   async findByUniqueCode(
     uniqueCode: string,
     tenantId: string,

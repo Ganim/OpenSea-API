@@ -67,6 +67,7 @@ export interface UpdateItemSchema {
 export interface ItemsRepository {
   create(data: CreateItemSchema): Promise<Item>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Item | null>;
+  findManyByIds(ids: UniqueEntityID[], tenantId: string): Promise<Item[]>;
   findByUniqueCode(uniqueCode: string, tenantId: string): Promise<Item | null>;
   findAll(tenantId: string): Promise<Item[]>;
   findManyByVariant(
