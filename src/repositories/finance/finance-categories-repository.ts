@@ -12,6 +12,7 @@ export interface CreateFinanceCategorySchema {
   parentId?: string;
   displayOrder?: number;
   isActive?: boolean;
+  isSystem?: boolean;
 }
 
 export interface UpdateFinanceCategorySchema {
@@ -35,6 +36,9 @@ export interface FinanceCategoriesRepository {
   ): Promise<FinanceCategory | null>;
   findBySlug(slug: string, tenantId: string): Promise<FinanceCategory | null>;
   findMany(tenantId: string): Promise<FinanceCategory[]>;
+  findByParentId(parentId: UniqueEntityID, tenantId: string): Promise<FinanceCategory[]>;
+  countEntriesByCategoryId(categoryId: string, tenantId: string): Promise<number>;
+  migrateEntries(fromCategoryId: string, toCategoryId: string, tenantId: string): Promise<void>;
   update(data: UpdateFinanceCategorySchema): Promise<FinanceCategory | null>;
   delete(id: UniqueEntityID): Promise<void>;
 }

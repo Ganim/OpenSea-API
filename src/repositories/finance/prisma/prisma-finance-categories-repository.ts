@@ -25,6 +25,7 @@ export class PrismaFinanceCategoriesRepository
         parentId: data.parentId,
         displayOrder: data.displayOrder ?? 0,
         isActive: data.isActive ?? true,
+        isSystem: data.isSystem ?? false,
       },
     });
 
@@ -73,6 +74,50 @@ export class PrismaFinanceCategoriesRepository
     });
 
     return categories.map(financeCategoryPrismaToDomain);
+  }
+
+  async findByParentId(
+    parentId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<FinanceCategory[]> {
+    const categories = await prisma.financeCategory.findMany({
+      where: {
+        parentId: parentId.toString(),
+        tenantId,
+        deletedAt: null,
+      },
+    });
+    return categories.map(financeCategoryPrismaToDomain);
+  }
+
+  async countEntriesByCategoryId(
+    categoryId: string,
+    tenantId: string,
+  ): Promise<number> {
+    return prisma.financeEntry.count({
+      where: {
+        categoryId,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+  }
+
+  async migrateEntries(
+    fromCategoryId: string,
+    toCategoryId: string,
+    tenantId: string,
+  ): Promise<void> {
+    await prisma.financeEntry.updateMany({
+      where: {
+        categoryId: fromCategoryId,
+        tenantId,
+        deletedAt: null,
+      },
+      data: {
+        categoryId: toCategoryId,
+      },
+    });
   }
 
   async update(

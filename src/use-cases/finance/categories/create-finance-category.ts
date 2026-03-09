@@ -4,7 +4,10 @@ import {
   type FinanceCategoryDTO,
   financeCategoryToDTO,
 } from '@/mappers/finance/finance-category/finance-category-to-dto';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceCategoriesRepository } from '@/repositories/finance/finance-categories-repository';
+
+const MAX_CATEGORY_DEPTH = 3;
 
 const PT_BR_TRANSLITERATION: Record<string, string> = {
   'á': 'a', 'à': 'a', 'â': 'a', 'ã': 'a', 'ä': 'a',
@@ -36,6 +39,7 @@ interface CreateFinanceCategoryUseCaseRequest {
   parentId?: string;
   displayOrder?: number;
   isActive?: boolean;
+  isSystem?: boolean;
 }
 
 interface CreateFinanceCategoryUseCaseResponse {
@@ -80,6 +84,26 @@ export class CreateFinanceCategoryUseCase {
       );
     }
 
+    // Enforce 3-level max depth when parentId is provided
+    if (request.parentId) {
+      let depth = 1; // The new category itself
+      let currentId: string | undefined = request.parentId;
+      while (currentId) {
+        depth++;
+        if (depth > MAX_CATEGORY_DEPTH) {
+          throw new BadRequestError(
+            `Category hierarchy cannot exceed ${MAX_CATEGORY_DEPTH} levels`,
+            ErrorCodes.FINANCE_CATEGORY_MAX_DEPTH,
+          );
+        }
+        const parent = await this.categoriesRepository.findById(
+          new UniqueEntityID(currentId),
+          tenantId,
+        );
+        currentId = parent?.parentId?.toString();
+      }
+    }
+
     const category = await this.categoriesRepository.create({
       tenantId,
       name: name.trim(),
@@ -91,6 +115,7 @@ export class CreateFinanceCategoryUseCase {
       parentId: request.parentId,
       displayOrder: request.displayOrder,
       isActive: request.isActive,
+      isSystem: request.isSystem,
     });
 
     return { category: financeCategoryToDTO(category) };

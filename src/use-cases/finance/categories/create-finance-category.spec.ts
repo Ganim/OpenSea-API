@@ -51,7 +51,7 @@ describe('CreateFinanceCategoryUseCase', () => {
   it('should auto-generate slug from name with PT-BR transliteration', async () => {
     const result = await sut.execute({
       tenantId: 'tenant-1',
-      name: 'Material de Escritório',
+      name: 'Material de Escritorio',
       type: 'EXPENSE',
     });
 
@@ -61,7 +61,7 @@ describe('CreateFinanceCategoryUseCase', () => {
   it('should transliterate all PT-BR accented characters in slug', async () => {
     const result = await sut.execute({
       tenantId: 'tenant-1',
-      name: 'Manutenção e Reparação de Veículos',
+      name: 'Manutencao e Reparacao de Veiculos',
       type: 'EXPENSE',
     });
 
@@ -138,5 +138,100 @@ describe('CreateFinanceCategoryUseCase', () => {
       expect(error).toBeInstanceOf(BadRequestError);
       expect((error as BadRequestError).code).toBe(ErrorCodes.BAD_REQUEST);
     }
+  });
+
+  // --- Hierarchy depth enforcement ---
+
+  it('should create a category at depth 2 (child of root)', async () => {
+    const root = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Despesas Operacionais',
+      type: 'EXPENSE',
+    });
+
+    const child = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Pessoal',
+      slug: 'pessoal',
+      type: 'EXPENSE',
+      parentId: root.category.id,
+    });
+
+    expect(child.category.parentId).toBe(root.category.id);
+  });
+
+  it('should create a category at depth 3 (grandchild)', async () => {
+    const root = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Despesas Operacionais',
+      type: 'EXPENSE',
+    });
+
+    const child = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Pessoal',
+      slug: 'pessoal',
+      type: 'EXPENSE',
+      parentId: root.category.id,
+    });
+
+    const grandchild = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Salarios',
+      slug: 'salarios',
+      type: 'EXPENSE',
+      parentId: child.category.id,
+    });
+
+    expect(grandchild.category.parentId).toBe(child.category.id);
+  });
+
+  it('should reject creating a category at depth 4 (great-grandchild)', async () => {
+    const root = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Despesas Operacionais',
+      type: 'EXPENSE',
+    });
+
+    const child = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Pessoal',
+      slug: 'pessoal',
+      type: 'EXPENSE',
+      parentId: root.category.id,
+    });
+
+    const grandchild = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Salarios',
+      slug: 'salarios',
+      type: 'EXPENSE',
+      parentId: child.category.id,
+    });
+
+    try {
+      await sut.execute({
+        tenantId: 'tenant-1',
+        name: 'Hora Extra',
+        slug: 'hora-extra',
+        type: 'EXPENSE',
+        parentId: grandchild.category.id,
+      });
+      expect.unreachable('Should have thrown');
+    } catch (error) {
+      expect(error).toBeInstanceOf(BadRequestError);
+      expect((error as BadRequestError).code).toBe(ErrorCodes.FINANCE_CATEGORY_MAX_DEPTH);
+    }
+  });
+
+  it('should create an isSystem category', async () => {
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Receita Operacional',
+      type: 'REVENUE',
+      isSystem: true,
+    });
+
+    expect(result.category.isSystem).toBe(true);
   });
 });

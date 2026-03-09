@@ -31,3 +31,7 @@ export const financeCategoryResponseSchema = z.object({
 
 export const updateFinanceCategorySchema =
   createFinanceCategorySchema.partial();
+
+export const deleteFinanceCategoryBodySchema = z.object({
+  replacementCategoryId: z.string().uuid().optional(),
+});

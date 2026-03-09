@@ -23,6 +23,7 @@ export class InMemoryFinanceCategoriesRepository
       parentId: data.parentId ? new UniqueEntityID(data.parentId) : undefined,
       displayOrder: data.displayOrder ?? 0,
       isActive: data.isActive ?? true,
+      isSystem: data.isSystem ?? false,
     });
 
     this.items.push(category);
@@ -55,6 +56,43 @@ export class InMemoryFinanceCategoriesRepository
     return this.items.filter(
       (i) => !i.deletedAt && i.tenantId.toString() === tenantId,
     );
+  }
+
+  async findByParentId(
+    parentId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<FinanceCategory[]> {
+    return this.items.filter(
+      (i) =>
+        !i.deletedAt &&
+        i.parentId?.equals(parentId) &&
+        i.tenantId.toString() === tenantId,
+    );
+  }
+
+  // Track entries for testing entry migration
+  public entryCounts: Map<string, number> = new Map();
+  public entryMigrations: Array<{ from: string; to: string; tenantId: string }> = [];
+
+  async countEntriesByCategoryId(
+    categoryId: string,
+    _tenantId: string,
+  ): Promise<number> {
+    return this.entryCounts.get(categoryId) ?? 0;
+  }
+
+  async migrateEntries(
+    fromCategoryId: string,
+    toCategoryId: string,
+    tenantId: string,
+  ): Promise<void> {
+    this.entryMigrations.push({ from: fromCategoryId, to: toCategoryId, tenantId });
+    const count = this.entryCounts.get(fromCategoryId) ?? 0;
+    if (count > 0) {
+      const existing = this.entryCounts.get(toCategoryId) ?? 0;
+      this.entryCounts.set(toCategoryId, existing + count);
+      this.entryCounts.set(fromCategoryId, 0);
+    }
   }
 
   async update(
