@@ -5,7 +5,7 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 export interface BankAccountProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
-  companyId: UniqueEntityID;
+  companyId?: UniqueEntityID;
   name: string;
   bankCode: string;
   bankName?: string;
@@ -34,7 +34,7 @@ export class BankAccount extends Entity<BankAccountProps> {
     return this.props.tenantId;
   }
 
-  get companyId(): UniqueEntityID {
+  get companyId(): UniqueEntityID | undefined {
     return this.props.companyId;
   }
 

@@ -3,7 +3,7 @@ import type { BankAccount } from '@/entities/finance/bank-account';
 
 export interface CreateBankAccountSchema {
   tenantId: string;
-  companyId: string;
+  companyId?: string;
   name: string;
   bankCode: string;
   bankName?: string;

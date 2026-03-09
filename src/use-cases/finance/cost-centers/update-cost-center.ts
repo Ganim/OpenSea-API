@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -37,23 +38,24 @@ export class UpdateCostCenterUseCase {
       tenantId,
     );
     if (!costCenter) {
-      throw new ResourceNotFoundError('Cost center not found');
+      throw new ResourceNotFoundError('Cost center not found', ErrorCodes.FINANCE_COST_CENTER_NOT_FOUND);
     }
 
     if (name !== undefined) {
       if (name.trim().length === 0) {
-        throw new BadRequestError('Cost center name cannot be empty');
+        throw new BadRequestError('Cost center name cannot be empty', ErrorCodes.BAD_REQUEST);
       }
       if (name.length > 128) {
         throw new BadRequestError(
           'Cost center name must be at most 128 characters',
+          ErrorCodes.BAD_REQUEST,
         );
       }
     }
 
     if (code !== undefined) {
       if (code.trim().length === 0) {
-        throw new BadRequestError('Cost center code cannot be empty');
+        throw new BadRequestError('Cost center code cannot be empty', ErrorCodes.BAD_REQUEST);
       }
       const existingCode = await this.costCentersRepository.findByCode(
         code,
@@ -62,6 +64,7 @@ export class UpdateCostCenterUseCase {
       if (existingCode && !existingCode.id.equals(costCenter.id)) {
         throw new BadRequestError(
           'A cost center with this code already exists',
+          ErrorCodes.CONFLICT,
         );
       }
     }
@@ -79,7 +82,7 @@ export class UpdateCostCenterUseCase {
     });
 
     if (!updated) {
-      throw new ResourceNotFoundError('Cost center not found');
+      throw new ResourceNotFoundError('Cost center not found', ErrorCodes.FINANCE_COST_CENTER_NOT_FOUND);
     }
 
     return { costCenter: costCenterToDTO(updated) };

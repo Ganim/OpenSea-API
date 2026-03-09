@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const createBankAccountSchema = z.object({
-  companyId: z.string().uuid(),
+  companyId: z.string().uuid().optional(),
   name: z.string().min(1).max(128),
   bankCode: z.string().min(1).max(5),
   bankName: z.string().max(128).optional(),

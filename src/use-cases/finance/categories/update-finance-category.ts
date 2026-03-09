@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -38,16 +39,17 @@ export class UpdateFinanceCategoryUseCase {
       tenantId,
     );
     if (!category) {
-      throw new ResourceNotFoundError('Finance category not found');
+      throw new ResourceNotFoundError('Finance category not found', ErrorCodes.FINANCE_CATEGORY_NOT_FOUND);
     }
 
     if (name !== undefined) {
       if (name.trim().length === 0) {
-        throw new BadRequestError('Category name cannot be empty');
+        throw new BadRequestError('Category name cannot be empty', ErrorCodes.BAD_REQUEST);
       }
       if (name.length > 128) {
         throw new BadRequestError(
           'Category name must be at most 128 characters',
+          ErrorCodes.BAD_REQUEST,
         );
       }
     }
@@ -57,6 +59,7 @@ export class UpdateFinanceCategoryUseCase {
       if (!validTypes.includes(type)) {
         throw new BadRequestError(
           'Category type must be EXPENSE, REVENUE, or BOTH',
+          ErrorCodes.BAD_REQUEST,
         );
       }
     }
@@ -67,7 +70,7 @@ export class UpdateFinanceCategoryUseCase {
         tenantId,
       );
       if (existingSlug && !existingSlug.id.equals(category.id)) {
-        throw new BadRequestError('A category with this slug already exists');
+        throw new BadRequestError('A category with this slug already exists', ErrorCodes.FINANCE_CATEGORY_DUPLICATE_SLUG);
       }
     }
 
@@ -85,7 +88,7 @@ export class UpdateFinanceCategoryUseCase {
     });
 
     if (!updated) {
-      throw new ResourceNotFoundError('Finance category not found');
+      throw new ResourceNotFoundError('Finance category not found', ErrorCodes.FINANCE_CATEGORY_NOT_FOUND);
     }
 
     return { category: financeCategoryToDTO(updated) };

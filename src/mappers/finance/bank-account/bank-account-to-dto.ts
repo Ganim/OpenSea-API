@@ -2,7 +2,7 @@ import type { BankAccount } from '@/entities/finance/bank-account';
 
 export interface BankAccountDTO {
   id: string;
-  companyId: string;
+  companyId?: string;
   name: string;
   bankCode: string;
   bankName?: string;
@@ -26,7 +26,7 @@ export interface BankAccountDTO {
 export function bankAccountToDTO(bankAccount: BankAccount): BankAccountDTO {
   return {
     id: bankAccount.id.toString(),
-    companyId: bankAccount.companyId.toString(),
+    companyId: bankAccount.companyId?.toString(),
     name: bankAccount.name,
     bankCode: bankAccount.bankCode,
     bankName: bankAccount.bankName,

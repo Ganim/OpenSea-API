@@ -3,6 +3,7 @@ import { CostCenter } from '@/entities/finance/cost-center';
 import type {
   CostCentersRepository,
   CreateCostCenterSchema,
+  FindManyPaginatedResult,
   UpdateCostCenterSchema,
 } from '../cost-centers-repository';
 
@@ -51,6 +52,20 @@ export class InMemoryCostCentersRepository implements CostCentersRepository {
     return this.items.filter(
       (i) => !i.deletedAt && i.tenantId.toString() === tenantId,
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    page: number,
+    limit: number,
+  ): Promise<FindManyPaginatedResult> {
+    const all = this.items.filter(
+      (i) => !i.deletedAt && i.tenantId.toString() === tenantId,
+    );
+    const total = all.length;
+    const offset = (page - 1) * limit;
+    const costCenters = all.slice(offset, offset + limit);
+    return { costCenters, total };
   }
 
   async update(data: UpdateCostCenterSchema): Promise<CostCenter | null> {

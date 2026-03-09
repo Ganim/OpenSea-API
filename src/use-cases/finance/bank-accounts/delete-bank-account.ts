@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { BankAccountsRepository } from '@/repositories/finance/bank-accounts-repository';
@@ -20,7 +21,7 @@ export class DeleteBankAccountUseCase {
     );
 
     if (!bankAccount) {
-      throw new ResourceNotFoundError('Bank account not found');
+      throw new ResourceNotFoundError('Bank account not found', ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND);
     }
 
     await this.bankAccountsRepository.delete(new UniqueEntityID(id), tenantId);

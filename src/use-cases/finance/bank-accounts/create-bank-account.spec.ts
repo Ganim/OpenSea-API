@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ErrorCodes } from '@/@errors/error-codes';
 import { InMemoryBankAccountsRepository } from '@/repositories/finance/in-memory/in-memory-bank-accounts-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateBankAccountUseCase } from './create-bank-account';
@@ -31,6 +32,24 @@ describe('CreateBankAccountUseCase', () => {
         accountType: 'CHECKING',
         status: 'ACTIVE',
         isDefault: false,
+      }),
+    );
+  });
+
+  it('should create a bank account without companyId (optional)', async () => {
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Conta Sem Empresa',
+      bankCode: '001',
+      agency: '1234',
+      accountNumber: '12345-6',
+      accountType: 'CHECKING',
+    });
+
+    expect(result.bankAccount).toEqual(
+      expect.objectContaining({
+        id: expect.any(String),
+        name: 'Conta Sem Empresa',
       }),
     );
   });
@@ -96,5 +115,22 @@ describe('CreateBankAccountUseCase', () => {
         accountType: 'CHECKING',
       }),
     ).rejects.toThrow(BadRequestError);
+  });
+
+  it('should include error codes on thrown errors', async () => {
+    try {
+      await sut.execute({
+        tenantId: 'tenant-1',
+        name: '',
+        bankCode: '001',
+        agency: '1234',
+        accountNumber: '12345-6',
+        accountType: 'CHECKING',
+      });
+      expect.unreachable('Should have thrown');
+    } catch (error) {
+      expect(error).toBeInstanceOf(BadRequestError);
+      expect((error as BadRequestError).code).toBe(ErrorCodes.BAD_REQUEST);
+    }
   });
 });

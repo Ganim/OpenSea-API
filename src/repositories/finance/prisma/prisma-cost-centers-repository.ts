@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
 import type {
   CostCentersRepository,
   CreateCostCenterSchema,
+  FindManyPaginatedResult,
   UpdateCostCenterSchema,
 } from '../cost-centers-repository';
 
@@ -66,6 +67,28 @@ export class PrismaCostCentersRepository implements CostCentersRepository {
     });
 
     return costCenters.map(costCenterPrismaToDomain);
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    page: number,
+    limit: number,
+  ): Promise<FindManyPaginatedResult> {
+    const where = { tenantId, deletedAt: null };
+    const [costCenters, total] = await Promise.all([
+      prisma.costCenter.findMany({
+        where,
+        orderBy: { name: 'asc' },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+      prisma.costCenter.count({ where }),
+    ]);
+
+    return {
+      costCenters: costCenters.map(costCenterPrismaToDomain),
+      total,
+    };
   }
 
   async update(data: UpdateCostCenterSchema): Promise<CostCenter | null> {

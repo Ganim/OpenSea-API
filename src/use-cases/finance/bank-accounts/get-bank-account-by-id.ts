@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
@@ -28,7 +29,7 @@ export class GetBankAccountByIdUseCase {
     );
 
     if (!bankAccount) {
-      throw new ResourceNotFoundError('Bank account not found');
+      throw new ResourceNotFoundError('Bank account not found', ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND);
     }
 
     return { bankAccount: bankAccountToDTO(bankAccount) };

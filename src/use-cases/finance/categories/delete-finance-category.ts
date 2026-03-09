@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceCategoriesRepository } from '@/repositories/finance/finance-categories-repository';
@@ -20,7 +21,7 @@ export class DeleteFinanceCategoryUseCase {
     );
 
     if (!category) {
-      throw new ResourceNotFoundError('Finance category not found');
+      throw new ResourceNotFoundError('Finance category not found', ErrorCodes.FINANCE_CATEGORY_NOT_FOUND);
     }
 
     await this.categoriesRepository.delete(new UniqueEntityID(id));

@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -41,16 +42,17 @@ export class UpdateBankAccountUseCase {
       tenantId,
     );
     if (!bankAccount) {
-      throw new ResourceNotFoundError('Bank account not found');
+      throw new ResourceNotFoundError('Bank account not found', ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND);
     }
 
     if (name !== undefined) {
       if (name.trim().length === 0) {
-        throw new BadRequestError('Bank account name cannot be empty');
+        throw new BadRequestError('Bank account name cannot be empty', ErrorCodes.BAD_REQUEST);
       }
       if (name.length > 128) {
         throw new BadRequestError(
           'Bank account name must be at most 128 characters',
+          ErrorCodes.BAD_REQUEST,
         );
       }
     }
@@ -73,7 +75,7 @@ export class UpdateBankAccountUseCase {
     });
 
     if (!updated) {
-      throw new ResourceNotFoundError('Bank account not found');
+      throw new ResourceNotFoundError('Bank account not found', ErrorCodes.FINANCE_BANK_ACCOUNT_NOT_FOUND);
     }
 
     return { bankAccount: bankAccountToDTO(updated) };

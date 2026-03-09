@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
@@ -28,7 +29,7 @@ export class GetCostCenterByIdUseCase {
     );
 
     if (!costCenter) {
-      throw new ResourceNotFoundError('Cost center not found');
+      throw new ResourceNotFoundError('Cost center not found', ErrorCodes.FINANCE_COST_CENTER_NOT_FOUND);
     }
 
     return { costCenter: costCenterToDTO(costCenter) };

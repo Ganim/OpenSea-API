@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import {
   type CostCenterDTO,
@@ -30,22 +31,24 @@ export class CreateCostCenterUseCase {
     const { tenantId, code, name } = request;
 
     if (!name || name.trim().length === 0) {
-      throw new BadRequestError('Cost center name is required');
+      throw new BadRequestError('Cost center name is required', ErrorCodes.BAD_REQUEST);
     }
 
     if (name.length > 128) {
       throw new BadRequestError(
         'Cost center name must be at most 128 characters',
+        ErrorCodes.BAD_REQUEST,
       );
     }
 
     if (!code || code.trim().length === 0) {
-      throw new BadRequestError('Cost center code is required');
+      throw new BadRequestError('Cost center code is required', ErrorCodes.BAD_REQUEST);
     }
 
     if (code.length > 32) {
       throw new BadRequestError(
         'Cost center code must be at most 32 characters',
+        ErrorCodes.BAD_REQUEST,
       );
     }
 
@@ -54,7 +57,7 @@ export class CreateCostCenterUseCase {
       tenantId,
     );
     if (existingCode) {
-      throw new BadRequestError('A cost center with this code already exists');
+      throw new BadRequestError('A cost center with this code already exists', ErrorCodes.CONFLICT);
     }
 
     const costCenter = await this.costCentersRepository.create({

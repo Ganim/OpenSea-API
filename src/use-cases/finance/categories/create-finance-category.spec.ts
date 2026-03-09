@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ErrorCodes } from '@/@errors/error-codes';
 import { InMemoryFinanceCategoriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-categories-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateFinanceCategoryUseCase } from './create-finance-category';
@@ -47,14 +48,24 @@ describe('CreateFinanceCategoryUseCase', () => {
     expect(result.category.displayOrder).toBe(5);
   });
 
-  it('should auto-generate slug from name', async () => {
+  it('should auto-generate slug from name with PT-BR transliteration', async () => {
     const result = await sut.execute({
       tenantId: 'tenant-1',
       name: 'Material de Escritório',
       type: 'EXPENSE',
     });
 
-    expect(result.category.slug).toBe('material-de-escritrio');
+    expect(result.category.slug).toBe('material-de-escritorio');
+  });
+
+  it('should transliterate all PT-BR accented characters in slug', async () => {
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Manutenção e Reparação de Veículos',
+      type: 'EXPENSE',
+    });
+
+    expect(result.category.slug).toBe('manutencao-e-reparacao-de-veiculos');
   });
 
   it('should not create with empty name', async () => {
@@ -90,10 +101,42 @@ describe('CreateFinanceCategoryUseCase', () => {
   it('should create BOTH type category', async () => {
     const result = await sut.execute({
       tenantId: 'tenant-1',
-      name: 'Transferências',
+      name: 'Transferencias',
       type: 'BOTH',
     });
 
     expect(result.category.type).toBe('BOTH');
+  });
+
+  it('should throw duplicate slug error with correct error code', async () => {
+    await sut.execute({
+      tenantId: 'tenant-1',
+      name: 'Aluguel',
+      slug: 'aluguel',
+      type: 'EXPENSE',
+    });
+
+    try {
+      await sut.execute({
+        tenantId: 'tenant-1',
+        name: 'Aluguel Novo',
+        slug: 'aluguel',
+        type: 'EXPENSE',
+      });
+      expect.unreachable('Should have thrown');
+    } catch (error) {
+      expect(error).toBeInstanceOf(BadRequestError);
+      expect((error as BadRequestError).code).toBe(ErrorCodes.FINANCE_CATEGORY_DUPLICATE_SLUG);
+    }
+  });
+
+  it('should include error codes on all thrown errors', async () => {
+    try {
+      await sut.execute({ tenantId: 'tenant-1', name: '', type: 'EXPENSE' });
+      expect.unreachable('Should have thrown');
+    } catch (error) {
+      expect(error).toBeInstanceOf(BadRequestError);
+      expect((error as BadRequestError).code).toBe(ErrorCodes.BAD_REQUEST);
+    }
   });
 });

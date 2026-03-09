@@ -51,7 +51,7 @@ export const errorHandler = (
 
   if (error instanceof BadRequestError) {
     return reply.status(400).send({
-      code: ErrorCodes.BAD_REQUEST,
+      code: error.code ?? ErrorCodes.BAD_REQUEST,
       message: error.message,
       requestId,
     });
@@ -95,7 +95,7 @@ export const errorHandler = (
 
   if (error instanceof ResourceNotFoundError) {
     return reply.status(404).send({
-      code: ErrorCodes.RESOURCE_NOT_FOUND,
+      code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
       message: error.message,
       requestId,
     });
