@@ -19,6 +19,7 @@ import { getJwtSecret, isUsingRS256, jwtConfig } from './config/jwt';
 import { rateLimitConfig } from './config/rate-limits';
 import { swaggerTags } from './config/swagger-tags';
 import cacheControlPlugin from './http/plugins/cache-control.plugin';
+import { idempotencyPlugin } from './http/plugins/idempotency.plugin';
 import requestIdPlugin from './http/plugins/request-id.plugin';
 import { registerRoutes } from './http/routes';
 import { initSentry } from './lib/sentry';
@@ -213,6 +214,7 @@ app.register(multipart, {
 // HTTP Cache-Control + ETag (disabled in tests)
 if (!isTestEnv) {
   app.register(cacheControlPlugin);
+  app.register(idempotencyPlugin);
 }
 
 // Routes
