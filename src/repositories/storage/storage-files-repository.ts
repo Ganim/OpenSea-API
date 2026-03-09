@@ -87,6 +87,7 @@ export interface StorageFilesRepository {
     additionalBytes: number,
     maxBytes: number,
   ): Promise<boolean>;
+  archiveByIds(ids: UniqueEntityID[]): Promise<number>;
   countByTenant(tenantId: string): Promise<number>;
   countByFileType(tenantId: string): Promise<Record<string, number>>;
   // Trash methods

@@ -69,6 +69,10 @@ export class DownloadSharedFileUseCase {
       throw new ResourceNotFoundError('File not found');
     }
 
+    if (!file.isAccessible) {
+      throw new ForbiddenError('File is not accessible');
+    }
+
     shareLink.incrementDownloads();
     await this.storageShareLinksRepository.save(shareLink);
 

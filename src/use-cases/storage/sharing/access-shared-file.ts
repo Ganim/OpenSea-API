@@ -67,6 +67,10 @@ export class AccessSharedFileUseCase {
       throw new ResourceNotFoundError('File not found');
     }
 
+    if (!file.isAccessible) {
+      throw new ForbiddenError('File is not accessible');
+    }
+
     return { file, shareLink };
   }
 }

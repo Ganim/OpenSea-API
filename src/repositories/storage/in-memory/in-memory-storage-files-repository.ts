@@ -256,6 +256,21 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
     return count;
   }
 
+  async archiveByIds(ids: UniqueEntityID[]): Promise<number> {
+    let count = 0;
+    for (const item of this.items) {
+      if (
+        item.deletedAt === null &&
+        item.status.isActive &&
+        ids.some((id) => id.equals(item.id))
+      ) {
+        item.status = StorageFileStatus.create('ARCHIVED');
+        count++;
+      }
+    }
+    return count;
+  }
+
   async countByFolder(folderId: UniqueEntityID): Promise<number> {
     return this.items.filter(
       (item) =>

@@ -33,22 +33,25 @@ export class SearchStorageUseCase {
       return { files: [], folders: [], totalFiles: 0, totalFolders: 0 };
     }
 
-    const [filesResult, folders] = await Promise.all([
+    const trimmedQuery = query.trim();
+
+    const [filesResult, folders, totalFolders] = await Promise.all([
       this.storageFilesRepository.findMany({
         tenantId,
-        search: query.trim(),
+        search: trimmedQuery,
         fileType,
         page,
         limit,
       }),
-      this.storageFoldersRepository.search(tenantId, query.trim(), limit),
+      this.storageFoldersRepository.search(tenantId, trimmedQuery, limit),
+      this.storageFoldersRepository.searchCount(tenantId, trimmedQuery),
     ]);
 
     return {
       files: filesResult.files,
       folders,
       totalFiles: filesResult.total,
-      totalFolders: folders.length,
+      totalFolders,
     };
   }
 }

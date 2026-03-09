@@ -72,6 +72,7 @@ export interface StorageFoldersRepository {
     query: string,
     limit?: number,
   ): Promise<StorageFolder[]>;
+  searchCount(tenantId: string, query: string): Promise<number>;
   // Trash methods
   findDeletedById(
     id: UniqueEntityID,

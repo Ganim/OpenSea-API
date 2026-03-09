@@ -251,6 +251,16 @@ export class InMemoryStorageFoldersRepository
       .slice(0, limit);
   }
 
+  async searchCount(tenantId: string, query: string): Promise<number> {
+    const lowerQuery = query.toLowerCase();
+    return this.items.filter(
+      (item) =>
+        item.deletedAt === null &&
+        item.tenantId.toString() === tenantId &&
+        item.name.toLowerCase().includes(lowerQuery),
+    ).length;
+  }
+
   async findDeletedById(
     id: UniqueEntityID,
     tenantId: string,

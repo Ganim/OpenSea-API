@@ -31,7 +31,10 @@ export async function restoreFileController(app: FastifyInstance) {
         fileId: z.string().uuid(),
       }),
       response: {
-        200: z.object({ file: storageFileResponseSchema }),
+        200: z.object({
+          file: storageFileResponseSchema,
+          relocatedToRoot: z.boolean(),
+        }),
         404: z.object({ message: z.string() }),
       },
       security: [{ bearerAuth: [] }],
@@ -43,7 +46,7 @@ export async function restoreFileController(app: FastifyInstance) {
 
       try {
         const useCase = makeRestoreFileUseCase();
-        const { file } = await useCase.execute({ tenantId, fileId });
+        const { file, relocatedToRoot } = await useCase.execute({ tenantId, fileId });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.STORAGE.FILE_RESTORE,
@@ -54,7 +57,7 @@ export async function restoreFileController(app: FastifyInstance) {
           },
         });
 
-        return reply.status(200).send({ file: storageFileToDTO(file) });
+        return reply.status(200).send({ file: storageFileToDTO(file), relocatedToRoot });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -23,21 +23,13 @@ export class ArchiveExpiredFilesUseCase {
       batchSize,
     );
 
-    let archivedCount = 0;
-    let errors = 0;
-
-    for (const file of expiredFiles) {
-      try {
-        await this.storageFilesRepository.update({
-          id: file.id,
-          status: 'ARCHIVED',
-        });
-        archivedCount++;
-      } catch {
-        errors++;
-      }
+    if (expiredFiles.length === 0) {
+      return { archivedCount: 0, errors: 0 };
     }
 
-    return { archivedCount, errors };
+    const ids = expiredFiles.map((file) => file.id);
+    const archivedCount = await this.storageFilesRepository.archiveByIds(ids);
+
+    return { archivedCount, errors: 0 };
   }
 }

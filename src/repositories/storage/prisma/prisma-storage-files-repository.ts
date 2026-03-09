@@ -254,6 +254,20 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
     return result.count;
   }
 
+  async archiveByIds(ids: UniqueEntityID[]): Promise<number> {
+    const result = await prisma.storageFile.updateMany({
+      where: {
+        id: { in: ids.map((id) => id.toString()) },
+        deletedAt: null,
+        status: 'ACTIVE' as PrismaStorageFileStatus,
+      },
+      data: {
+        status: 'ARCHIVED' as PrismaStorageFileStatus,
+      },
+    });
+    return result.count;
+  }
+
   async countByFolder(folderId: UniqueEntityID): Promise<number> {
     return prisma.storageFile.count({
       where: {

@@ -1,3 +1,4 @@
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { StorageFile } from '@/entities/storage/storage-file';
@@ -35,6 +36,10 @@ export class DownloadFileUseCase {
 
     if (!file) {
       throw new ResourceNotFoundError('File not found');
+    }
+
+    if (!file.isAccessible) {
+      throw new ForbiddenError('File is not accessible');
     }
 
     let fileKeyToDownload = file.fileKey;

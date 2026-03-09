@@ -11,6 +11,7 @@ interface RestoreFileUseCaseRequest {
 
 interface RestoreFileUseCaseResponse {
   file: StorageFile;
+  relocatedToRoot: boolean;
 }
 
 export class RestoreFileUseCase {
@@ -36,6 +37,8 @@ export class RestoreFileUseCase {
     // Restore the file
     await this.storageFilesRepository.restore(new UniqueEntityID(fileId));
 
+    let relocatedToRoot = false;
+
     // Check if the parent folder still exists (is not deleted)
     if (file.folderId) {
       const parentFolder = await this.storageFoldersRepository.findById(
@@ -58,9 +61,10 @@ export class RestoreFileUseCase {
 
         file.folderId = null;
         file.path = `/${slug}`;
+        relocatedToRoot = true;
       }
     }
 
-    return { file };
+    return { file, relocatedToRoot };
   }
 }

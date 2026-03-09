@@ -1,75 +1,12 @@
 import { InMemoryStorageFilesRepository } from '@/repositories/storage/in-memory/in-memory-storage-files-repository';
 import { InMemoryStorageFileVersionsRepository } from '@/repositories/storage/in-memory/in-memory-storage-file-versions-repository';
-import type {
-  FileUploadService,
-  UploadResult,
-} from '@/services/storage/file-upload-service';
+import { FakeFileUploadService } from '@/utils/tests/fakes/fake-file-upload-service';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { PurgeDeletedFilesUseCase } from './purge-deleted-files';
 
 const TENANT_ID = 'tenant-1';
 
-class FakeFileUploadService implements FileUploadService {
-  public deletedKeys: string[] = [];
-
-  async upload(
-    _fileBuffer: Buffer,
-    fileName: string,
-    mimeType: string,
-    options: { prefix: string },
-  ): Promise<UploadResult> {
-    return {
-      key: `${options.prefix}/${fileName}`,
-      url: `https://fake-storage.example.com/${options.prefix}/${fileName}`,
-      size: _fileBuffer.length,
-      mimeType,
-    };
-  }
-
-  async getPresignedUrl(key: string): Promise<string> {
-    return `https://fake-storage.example.com/${key}?signed=true`;
-  }
-
-  async delete(key: string): Promise<void> {
-    this.deletedKeys.push(key);
-  }
-
-  async getObject(_key: string): Promise<Buffer> {
-    return Buffer.alloc(0);
-  }
-
-  async initiateMultipartUpload(
-    _fileName: string,
-    _mimeType: string,
-    _options: { prefix: string },
-  ) {
-    return { uploadId: 'test-upload-id', key: 'test-key' };
-  }
-
-  async getPresignedPartUrls(
-    _key: string,
-    _uploadId: string,
-    _totalParts: number,
-  ) {
-    return [];
-  }
-
-  async completeMultipartUpload(
-    _key: string,
-    _uploadId: string,
-    _parts: { partNumber: number; etag: string }[],
-  ): Promise<UploadResult> {
-    return {
-      key: _key,
-      url: `https://fake-storage.example.com/${_key}`,
-      size: 0,
-      mimeType: 'application/octet-stream',
-    };
-  }
-
-  async abortMultipartUpload(_key: string, _uploadId: string): Promise<void> {}
-}
-
+let deletedKeys: string[];
 let storageFilesRepository: InMemoryStorageFilesRepository;
 let storageFileVersionsRepository: InMemoryStorageFileVersionsRepository;
 let fileUploadService: FakeFileUploadService;
@@ -80,6 +17,10 @@ describe('PurgeDeletedFilesUseCase', () => {
     storageFilesRepository = new InMemoryStorageFilesRepository();
     storageFileVersionsRepository = new InMemoryStorageFileVersionsRepository();
     fileUploadService = new FakeFileUploadService();
+    deletedKeys = [];
+    vi.spyOn(fileUploadService, 'delete').mockImplementation(async (key: string) => {
+      deletedKeys.push(key);
+    });
     sut = new PurgeDeletedFilesUseCase(
       storageFilesRepository,
       storageFileVersionsRepository,
@@ -128,7 +69,7 @@ describe('PurgeDeletedFilesUseCase', () => {
     expect(storageFileVersionsRepository.items).toHaveLength(0);
 
     // Physical file should be deleted
-    expect(fileUploadService.deletedKeys).toContain(
+    expect(deletedKeys).toContain(
       'storage/tenant-1/folder-1/old-doc.pdf',
     );
   });
@@ -198,7 +139,7 @@ describe('PurgeDeletedFilesUseCase', () => {
     expect(result.purgedFiles).toBe(1);
     expect(result.purgedVersions).toBe(2);
     expect(result.freedBytes).toBe(3072); // 1024 + 2048
-    expect(fileUploadService.deletedKeys).toHaveLength(2);
+    expect(deletedKeys).toHaveLength(2);
   });
 
   it('should respect batchSize limit', async () => {

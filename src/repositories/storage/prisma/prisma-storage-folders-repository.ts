@@ -264,6 +264,16 @@ export class PrismaStorageFoldersRepository
     return foldersDb.map(storageFolderPrismaToDomain);
   }
 
+  async searchCount(tenantId: string, query: string): Promise<number> {
+    return prisma.storageFolder.count({
+      where: {
+        tenantId,
+        deletedAt: null,
+        name: { contains: query, mode: 'insensitive' },
+      },
+    });
+  }
+
   async findDeletedById(
     id: UniqueEntityID,
     tenantId: string,
