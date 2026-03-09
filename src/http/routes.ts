@@ -12,6 +12,7 @@ import { healthRoutes } from './controllers/health/routes';
 
 // Admin routes
 import { adminRoutes } from './controllers/admin/routes';
+import { adminCompaniesRoutes } from './controllers/admin/companies/routes';
 
 // RBAC routes
 import { associationsRoutes } from './controllers/rbac/associations/routes';
@@ -131,8 +132,10 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(tenantsRoutes);
   await app.register(teamsRoutes);
 
-  // Admin routes
+  // Admin routes (super-admin)
   await app.register(adminRoutes);
+  // Admin routes (tenant-scoped)
+  await app.register(adminCompaniesRoutes);
 
   // RBAC routes
   await app.register(permissionsRoutes);
