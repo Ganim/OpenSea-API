@@ -3,10 +3,12 @@ import { GetCardUseCase } from './get-card';
 import { InMemoryBoardsRepository } from '@/repositories/tasks/in-memory/in-memory-boards-repository';
 import { InMemoryBoardLabelsRepository } from '@/repositories/tasks/in-memory/in-memory-board-labels-repository';
 import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
+import { InMemoryBoardMembersRepository } from '@/repositories/tasks/in-memory/in-memory-board-members-repository';
 
 let boardsRepository: InMemoryBoardsRepository;
 let boardLabelsRepository: InMemoryBoardLabelsRepository;
 let cardsRepository: InMemoryCardsRepository;
+let boardMembersRepository: InMemoryBoardMembersRepository;
 let sut: GetCardUseCase;
 
 describe('GetCardUseCase', () => {
@@ -14,7 +16,8 @@ describe('GetCardUseCase', () => {
     boardsRepository = new InMemoryBoardsRepository();
     boardLabelsRepository = new InMemoryBoardLabelsRepository();
     cardsRepository = new InMemoryCardsRepository();
-    sut = new GetCardUseCase(boardsRepository, cardsRepository, boardLabelsRepository);
+    boardMembersRepository = new InMemoryBoardMembersRepository();
+    sut = new GetCardUseCase(boardsRepository, cardsRepository, boardLabelsRepository, boardMembersRepository);
 
     await boardsRepository.create({
       tenantId: 'tenant-1',

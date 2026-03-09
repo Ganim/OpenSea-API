@@ -3,10 +3,12 @@ import { AssignCardUseCase } from './assign-card';
 import { InMemoryBoardsRepository } from '@/repositories/tasks/in-memory/in-memory-boards-repository';
 import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
 import { InMemoryCardActivitiesRepository } from '@/repositories/tasks/in-memory/in-memory-card-activities-repository';
+import { InMemoryBoardMembersRepository } from '@/repositories/tasks/in-memory/in-memory-board-members-repository';
 
 let boardsRepository: InMemoryBoardsRepository;
 let cardsRepository: InMemoryCardsRepository;
 let cardActivitiesRepository: InMemoryCardActivitiesRepository;
+let boardMembersRepository: InMemoryBoardMembersRepository;
 let sut: AssignCardUseCase;
 
 describe('AssignCardUseCase', () => {
@@ -14,10 +16,12 @@ describe('AssignCardUseCase', () => {
     boardsRepository = new InMemoryBoardsRepository();
     cardsRepository = new InMemoryCardsRepository();
     cardActivitiesRepository = new InMemoryCardActivitiesRepository();
+    boardMembersRepository = new InMemoryBoardMembersRepository();
     sut = new AssignCardUseCase(
       boardsRepository,
       cardsRepository,
       cardActivitiesRepository,
+      boardMembersRepository,
     );
 
     await boardsRepository.create({

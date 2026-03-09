@@ -1,7 +1,9 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { type CardDTO, cardToDTO } from '@/mappers/tasks/card/card-to-dto';
+import type { BoardMembersRepository } from '@/repositories/tasks/board-members-repository';
 import type { BoardsRepository } from '@/repositories/tasks/boards-repository';
 import type { CardsRepository } from '@/repositories/tasks/cards-repository';
+import { verifyBoardAccess } from '../helpers/verify-board-access';
 
 interface ListCardsRequest {
   tenantId: string;
@@ -33,6 +35,7 @@ export class ListCardsUseCase {
   constructor(
     private boardsRepository: BoardsRepository,
     private cardsRepository: CardsRepository,
+    private boardMembersRepository: BoardMembersRepository,
   ) {}
 
   async execute(request: ListCardsRequest): Promise<ListCardsResponse> {
@@ -45,6 +48,8 @@ export class ListCardsUseCase {
     if (!board) {
       throw new ResourceNotFoundError('Board not found');
     }
+
+    await verifyBoardAccess(this.boardMembersRepository, board, request.userId, 'read');
 
     const { cards, total } = await this.cardsRepository.findMany({
       boardId,

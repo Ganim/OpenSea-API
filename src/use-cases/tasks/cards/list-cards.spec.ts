@@ -2,16 +2,19 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { ListCardsUseCase } from './list-cards';
 import { InMemoryBoardsRepository } from '@/repositories/tasks/in-memory/in-memory-boards-repository';
 import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
+import { InMemoryBoardMembersRepository } from '@/repositories/tasks/in-memory/in-memory-board-members-repository';
 
 let boardsRepository: InMemoryBoardsRepository;
 let cardsRepository: InMemoryCardsRepository;
+let boardMembersRepository: InMemoryBoardMembersRepository;
 let sut: ListCardsUseCase;
 
 describe('ListCardsUseCase', () => {
   beforeEach(async () => {
     boardsRepository = new InMemoryBoardsRepository();
     cardsRepository = new InMemoryCardsRepository();
-    sut = new ListCardsUseCase(boardsRepository, cardsRepository);
+    boardMembersRepository = new InMemoryBoardMembersRepository();
+    sut = new ListCardsUseCase(boardsRepository, cardsRepository, boardMembersRepository);
 
     await boardsRepository.create({
       tenantId: 'tenant-1',

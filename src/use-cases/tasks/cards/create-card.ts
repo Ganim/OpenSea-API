@@ -2,9 +2,11 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { type CardDTO, cardToDTO } from '@/mappers/tasks/card/card-to-dto';
 import type { BoardColumnsRepository } from '@/repositories/tasks/board-columns-repository';
+import type { BoardMembersRepository } from '@/repositories/tasks/board-members-repository';
 import type { BoardsRepository } from '@/repositories/tasks/boards-repository';
 import type { CardActivitiesRepository } from '@/repositories/tasks/card-activities-repository';
 import type { CardsRepository } from '@/repositories/tasks/cards-repository';
+import { verifyBoardAccess } from '../helpers/verify-board-access';
 
 interface CreateCardRequest {
   tenantId: string;
@@ -37,6 +39,7 @@ export class CreateCardUseCase {
     private boardColumnsRepository: BoardColumnsRepository,
     private cardsRepository: CardsRepository,
     private cardActivitiesRepository: CardActivitiesRepository,
+    private boardMembersRepository: BoardMembersRepository,
   ) {}
 
   async execute(request: CreateCardRequest): Promise<CreateCardResponse> {
@@ -65,6 +68,8 @@ export class CreateCardUseCase {
     if (!board) {
       throw new ResourceNotFoundError('Board not found');
     }
+
+    await verifyBoardAccess(this.boardMembersRepository, board, userId, 'write');
 
     if (!title || title.trim().length === 0) {
       throw new BadRequestError('Card title is required');

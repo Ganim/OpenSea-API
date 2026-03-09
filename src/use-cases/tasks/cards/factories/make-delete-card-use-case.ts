@@ -1,3 +1,4 @@
+import { PrismaBoardMembersRepository } from '@/repositories/tasks/prisma/prisma-board-members-repository';
 import { PrismaBoardsRepository } from '@/repositories/tasks/prisma/prisma-boards-repository';
 import { PrismaCardsRepository } from '@/repositories/tasks/prisma/prisma-cards-repository';
 import { PrismaCardActivitiesRepository } from '@/repositories/tasks/prisma/prisma-card-activities-repository';
@@ -7,5 +8,6 @@ export function makeDeleteCardUseCase() {
   const boardsRepository = new PrismaBoardsRepository();
   const cardsRepository = new PrismaCardsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
-  return new DeleteCardUseCase(boardsRepository, cardsRepository, cardActivitiesRepository);
+  const boardMembersRepository = new PrismaBoardMembersRepository();
+  return new DeleteCardUseCase(boardsRepository, cardsRepository, cardActivitiesRepository, boardMembersRepository);
 }

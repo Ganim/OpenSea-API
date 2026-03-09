@@ -4,11 +4,13 @@ import { InMemoryBoardsRepository } from '@/repositories/tasks/in-memory/in-memo
 import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
 import { InMemoryBoardLabelsRepository } from '@/repositories/tasks/in-memory/in-memory-board-labels-repository';
 import { InMemoryCardActivitiesRepository } from '@/repositories/tasks/in-memory/in-memory-card-activities-repository';
+import { InMemoryBoardMembersRepository } from '@/repositories/tasks/in-memory/in-memory-board-members-repository';
 
 let boardsRepository: InMemoryBoardsRepository;
 let cardsRepository: InMemoryCardsRepository;
 let boardLabelsRepository: InMemoryBoardLabelsRepository;
 let cardActivitiesRepository: InMemoryCardActivitiesRepository;
+let boardMembersRepository: InMemoryBoardMembersRepository;
 let sut: ManageCardLabelsUseCase;
 
 describe('ManageCardLabelsUseCase', () => {
@@ -17,11 +19,13 @@ describe('ManageCardLabelsUseCase', () => {
     cardsRepository = new InMemoryCardsRepository();
     boardLabelsRepository = new InMemoryBoardLabelsRepository();
     cardActivitiesRepository = new InMemoryCardActivitiesRepository();
+    boardMembersRepository = new InMemoryBoardMembersRepository();
     sut = new ManageCardLabelsUseCase(
       boardsRepository,
       cardsRepository,
       boardLabelsRepository,
       cardActivitiesRepository,
+      boardMembersRepository,
     );
 
     await boardsRepository.create({

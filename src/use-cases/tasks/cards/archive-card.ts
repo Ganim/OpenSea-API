@@ -1,8 +1,10 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { type CardDTO, cardToDTO } from '@/mappers/tasks/card/card-to-dto';
+import type { BoardMembersRepository } from '@/repositories/tasks/board-members-repository';
 import type { BoardsRepository } from '@/repositories/tasks/boards-repository';
 import type { CardActivitiesRepository } from '@/repositories/tasks/card-activities-repository';
 import type { CardsRepository } from '@/repositories/tasks/cards-repository';
+import { verifyBoardAccess } from '../helpers/verify-board-access';
 
 interface ArchiveCardRequest {
   tenantId: string;
@@ -22,6 +24,7 @@ export class ArchiveCardUseCase {
     private boardsRepository: BoardsRepository,
     private cardsRepository: CardsRepository,
     private cardActivitiesRepository: CardActivitiesRepository,
+    private boardMembersRepository: BoardMembersRepository,
   ) {}
 
   async execute(request: ArchiveCardRequest): Promise<ArchiveCardResponse> {
@@ -33,6 +36,8 @@ export class ArchiveCardUseCase {
     if (!board) {
       throw new ResourceNotFoundError('Board not found');
     }
+
+    await verifyBoardAccess(this.boardMembersRepository, board, userId, 'write');
 
     const card = await this.cardsRepository.findById(cardId, boardId);
 
