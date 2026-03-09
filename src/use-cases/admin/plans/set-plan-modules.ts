@@ -15,10 +15,15 @@ const VALID_SYSTEM_MODULES: SystemModule[] = [
   'SALES',
   'HR',
   'PAYROLL',
+  'FINANCE',
   'REPORTS',
   'AUDIT',
   'REQUESTS',
   'NOTIFICATIONS',
+  'CALENDAR',
+  'STORAGE',
+  'EMAIL',
+  'TASKS',
 ];
 
 interface SetPlanModulesUseCaseRequest {

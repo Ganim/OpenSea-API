@@ -12,7 +12,11 @@ export type SystemModule =
   | 'REPORTS'
   | 'AUDIT'
   | 'REQUESTS'
-  | 'NOTIFICATIONS';
+  | 'NOTIFICATIONS'
+  | 'CALENDAR'
+  | 'STORAGE'
+  | 'EMAIL'
+  | 'TASKS';
 
 export interface PlanModuleProps {
   id: UniqueEntityID;
