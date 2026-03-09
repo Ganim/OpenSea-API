@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
 
@@ -19,6 +20,7 @@ export class BulkDeleteItemsUseCase {
   constructor(
     private storageFilesRepository: StorageFilesRepository,
     private storageFoldersRepository: StorageFoldersRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -30,6 +32,22 @@ export class BulkDeleteItemsUseCase {
       throw new BadRequestError('No items provided for deletion');
     }
 
+    // Wrap all mutations in a transaction to prevent partial cascading deletes
+    const doDelete = async () => {
+      return this.performDelete(tenantId, fileIds, folderIds);
+    };
+
+    if (this.transactionManager) {
+      return this.transactionManager.run(() => doDelete());
+    }
+    return doDelete();
+  }
+
+  private async performDelete(
+    tenantId: string,
+    fileIds: string[],
+    folderIds: string[],
+  ): Promise<BulkDeleteItemsUseCaseResponse> {
     let deletedFiles = 0;
     let deletedFolders = 0;
     const errors: string[] = [];

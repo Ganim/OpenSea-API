@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
 
@@ -18,6 +19,7 @@ export class MoveFolderUseCase {
   constructor(
     private storageFoldersRepository: StorageFoldersRepository,
     private storageFilesRepository: StorageFilesRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -115,59 +117,62 @@ export class MoveFolderUseCase {
     const oldPath = folder.path;
     const oldDepth = folder.depth;
 
-    // Update folder (unique constraint on [tenantId, path, deletedAt] prevents race conditions)
-    let updatedFolder;
-    try {
-      updatedFolder = await this.storageFoldersRepository.update({
-        id: new UniqueEntityID(folderId),
-        parentId: targetParentId,
-        path: newPath,
-        depth: newDepth,
-      });
-    } catch (error: unknown) {
-      // Prisma unique constraint violation (P2002) — another request created a folder with the same path
-      if (error && typeof error === 'object' && 'code' in error && error.code === 'P2002') {
-        throw new BadRequestError(
-          'A folder with this name already exists in the target folder',
-        );
+    // Wrap all mutations in a transaction to prevent partial path cascades
+    const doMove = async () => {
+      // Update folder (unique constraint on [tenantId, path, deletedAt] prevents race conditions)
+      let updatedFolder;
+      try {
+        updatedFolder = await this.storageFoldersRepository.update({
+          id: new UniqueEntityID(folderId),
+          parentId: targetParentId,
+          path: newPath,
+          depth: newDepth,
+        });
+      } catch (error: unknown) {
+        // Prisma unique constraint violation (P2002) — another request created a folder with the same path
+        if (error && typeof error === 'object' && 'code' in error && error.code === 'P2002') {
+          throw new BadRequestError(
+            'A folder with this name already exists in the target folder',
+          );
+        }
+        throw error;
       }
-      throw error;
-    }
 
-    if (!updatedFolder) {
-      throw new ResourceNotFoundError('Folder not found');
-    }
+      if (!updatedFolder) {
+        throw new ResourceNotFoundError('Folder not found');
+      }
 
-    // Batch cascade path, depth, and file path updates
-    if (oldPath !== newPath) {
-      const depthDifference = newDepth - oldDepth;
+      // Batch cascade path, depth, and file path updates
+      if (oldPath !== newPath) {
+        const depthDifference = newDepth - oldDepth;
 
-      // Batch update descendant folder paths (old prefix → new prefix)
-      await this.storageFoldersRepository.batchUpdatePaths(
-        oldPath,
-        newPath,
-        tenantId,
-      );
-
-      // Batch update descendant folder depths (after paths are already updated)
-      if (depthDifference !== 0) {
-        await this.storageFoldersRepository.batchUpdateDepths(
+        await this.storageFoldersRepository.batchUpdatePaths(
+          oldPath,
           newPath,
-          depthDifference,
+          tenantId,
+        );
+
+        if (depthDifference !== 0) {
+          await this.storageFoldersRepository.batchUpdateDepths(
+            newPath,
+            depthDifference,
+            tenantId,
+          );
+        }
+
+        await this.storageFilesRepository.batchUpdateFilePaths(
+          oldPath,
+          newPath,
           tenantId,
         );
       }
 
-      // Batch update file paths in all affected folders
-      await this.storageFilesRepository.batchUpdateFilePaths(
-        oldPath,
-        newPath,
-        tenantId,
-      );
-    }
-
-    return {
-      folder: updatedFolder,
+      return { folder: updatedFolder };
     };
+
+    if (this.transactionManager) {
+      return this.transactionManager.run(() => doMove());
+    }
+    return doMove();
   }
 }

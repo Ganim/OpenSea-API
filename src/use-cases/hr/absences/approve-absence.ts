@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Absence } from '@/entities/hr/absence';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import type { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
@@ -21,6 +22,7 @@ export class ApproveAbsenceUseCase {
     private vacationPeriodsRepository: VacationPeriodsRepository,
     private employeesRepository: EmployeesRepository,
     private calendarSyncService?: CalendarSyncService,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -47,16 +49,24 @@ export class ApproveAbsenceUseCase {
       throw new Error('Only pending absences can be approved');
     }
 
-    // Approve the absence
+    // Approve the absence and deduct vacation days atomically
     absence.approve(new UniqueEntityID(approvedBy));
-    await this.absencesRepository.save(absence);
 
-    // If it's a vacation, update the vacation period
-    if (absence.isVacation()) {
-      await this.updateVacationPeriod(absence, tenantId);
+    const doApprove = async () => {
+      await this.absencesRepository.save(absence);
+
+      if (absence.isVacation()) {
+        await this.updateVacationPeriod(absence, tenantId);
+      }
+    };
+
+    if (this.transactionManager) {
+      await this.transactionManager.run(() => doApprove());
+    } else {
+      await doApprove();
     }
 
-    // Sync to calendar (non-blocking)
+    // Sync to calendar (non-blocking, outside transaction)
     if (this.calendarSyncService) {
       try {
         const employee = await this.employeesRepository.findById(

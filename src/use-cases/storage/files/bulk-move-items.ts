@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
 
@@ -21,6 +22,7 @@ export class BulkMoveItemsUseCase {
   constructor(
     private storageFilesRepository: StorageFilesRepository,
     private storageFoldersRepository: StorageFoldersRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -48,6 +50,24 @@ export class BulkMoveItemsUseCase {
       }
     }
 
+    // Wrap all mutations in a transaction to prevent partial moves
+    const doMove = async () => {
+      return this.performMove(tenantId, fileIds, folderIds, targetFolder);
+    };
+
+    if (this.transactionManager) {
+      return this.transactionManager.run(() => doMove());
+    }
+    return doMove();
+  }
+
+  private async performMove(
+    tenantId: string,
+    fileIds: string[],
+    folderIds: string[],
+    targetFolder: import('@/entities/storage/storage-folder').StorageFolder | null,
+  ): Promise<BulkMoveItemsUseCaseResponse> {
+    const targetFolderId = targetFolder?.id.toString() ?? null;
     let movedFiles = 0;
     let movedFolders = 0;
     const errors: string[] = [];

@@ -1,3 +1,4 @@
+import { PrismaTransactionManager } from '@/lib/transaction-manager';
 import { PrismaStorageFilesRepository } from '@/repositories/storage/prisma/prisma-storage-files-repository';
 import { PrismaStorageFoldersRepository } from '@/repositories/storage/prisma/prisma-storage-folders-repository';
 import { MoveFolderUseCase } from '../move-folder';
@@ -5,8 +6,10 @@ import { MoveFolderUseCase } from '../move-folder';
 export function makeMoveFolderUseCase() {
   const storageFoldersRepository = new PrismaStorageFoldersRepository();
   const storageFilesRepository = new PrismaStorageFilesRepository();
+  const transactionManager = new PrismaTransactionManager();
   return new MoveFolderUseCase(
     storageFoldersRepository,
     storageFilesRepository,
+    transactionManager,
   );
 }

@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { emailAccountToDTO, type EmailAccountDTO } from '@/mappers/email';
 import type { EmailAccountsRepository } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
@@ -35,6 +36,7 @@ export class CreateEmailAccountUseCase {
     private credentialCipherService: CredentialCipherService,
     private imapClientService: ImapClientService,
     private smtpClientService: SmtpClientService,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -97,36 +99,43 @@ export class CreateEmailAccountUseCase {
       );
     }
 
-    if (request.isDefault) {
-      await this.emailAccountsRepository.unsetDefaultAccounts(
-        request.tenantId,
-        request.userId,
-      );
-    }
-
     const encryptedSecret = this.credentialCipherService.encrypt(
       request.secret,
     );
 
-    const account = await this.emailAccountsRepository.create({
-      tenantId: request.tenantId,
-      ownerUserId: request.userId,
-      address: request.address,
-      displayName: request.displayName ?? null,
-      imapHost: request.imapHost,
-      imapPort: request.imapPort,
-      imapSecure: request.imapSecure ?? true,
-      smtpHost: request.smtpHost,
-      smtpPort: request.smtpPort,
-      smtpSecure: request.smtpSecure ?? true,
-      tlsVerify: request.tlsVerify ?? false,
-      username: request.username,
-      encryptedSecret,
-      isDefault: request.isDefault ?? false,
-      signature: request.signature ?? null,
-      visibility: request.visibility ?? 'PRIVATE',
-      isActive: true,
-    });
+    // Wrap unsetDefault + create in transaction to prevent orphaned default state
+    const doCreate = async () => {
+      if (request.isDefault) {
+        await this.emailAccountsRepository.unsetDefaultAccounts(
+          request.tenantId,
+          request.userId,
+        );
+      }
+
+      return this.emailAccountsRepository.create({
+        tenantId: request.tenantId,
+        ownerUserId: request.userId,
+        address: request.address,
+        displayName: request.displayName ?? null,
+        imapHost: request.imapHost,
+        imapPort: request.imapPort,
+        imapSecure: request.imapSecure ?? true,
+        smtpHost: request.smtpHost,
+        smtpPort: request.smtpPort,
+        smtpSecure: request.smtpSecure ?? true,
+        tlsVerify: request.tlsVerify ?? false,
+        username: request.username,
+        encryptedSecret,
+        isDefault: request.isDefault ?? false,
+        signature: request.signature ?? null,
+        visibility: request.visibility ?? 'PRIVATE',
+        isActive: true,
+      });
+    };
+
+    const account = this.transactionManager
+      ? await this.transactionManager.run(() => doCreate())
+      : await doCreate();
 
     return { account: emailAccountToDTO(account) };
   }

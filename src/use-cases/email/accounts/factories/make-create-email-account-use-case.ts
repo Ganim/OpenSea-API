@@ -1,3 +1,4 @@
+import { PrismaTransactionManager } from '@/lib/transaction-manager';
 import { PrismaEmailAccountsRepository } from '@/repositories/email/prisma/prisma-email-accounts-repository';
 import { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { ImapClientService } from '@/services/email/imap-client.service';
@@ -10,5 +11,6 @@ export function makeCreateEmailAccountUseCase() {
     new CredentialCipherService(),
     new ImapClientService(),
     new SmtpClientService(),
+    new PrismaTransactionManager(),
   );
 }
