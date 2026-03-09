@@ -64,6 +64,7 @@ export class UpdateBoardMemberUseCase {
         role: updatedMember.role,
         userName: updatedMember.userName ?? null,
         userEmail: updatedMember.userEmail ?? null,
+        userAvatarUrl: updatedMember.userAvatarUrl ?? null,
         createdAt: updatedMember.createdAt,
       },
     };

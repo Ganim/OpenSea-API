@@ -9,7 +9,7 @@ export const createVariantSchema = z.object({
   sku: z.string().min(1).max(100).optional(), // Agora opcional
   name: z.string().min(1).max(255),
   price: z.number().nonnegative().optional().default(0),
-  imageUrl: z.string().url().optional(),
+  imageUrl: z.string().max(500).optional(),
   attributes: z.record(z.string(), z.unknown()).optional(),
   costPrice: z.number().positive().optional(),
   profitMargin: z.number().optional(),

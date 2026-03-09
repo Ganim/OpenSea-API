@@ -7,6 +7,7 @@ import { updateLabelTemplateController } from './v1-update-label-template.contro
 import { deleteLabelTemplateController } from './v1-delete-label-template.controller';
 import { duplicateLabelTemplateController } from './v1-duplicate-label-template.controller';
 import { generateLabelTemplateThumbnailController } from './v1-generate-label-template-thumbnail.controller';
+import { uploadLabelTemplateImageController } from './v1-upload-label-template-image.controller';
 
 export async function labelTemplatesRoutes(app: FastifyInstance) {
   await app.register(listSystemLabelTemplatesController);
@@ -17,4 +18,5 @@ export async function labelTemplatesRoutes(app: FastifyInstance) {
   await app.register(deleteLabelTemplateController);
   await app.register(duplicateLabelTemplateController);
   await app.register(generateLabelTemplateThumbnailController);
+  await app.register(uploadLabelTemplateImageController);
 }

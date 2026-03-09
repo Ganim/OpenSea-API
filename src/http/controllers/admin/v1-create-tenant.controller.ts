@@ -1,4 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeCreateTenantAdminUseCase } from '@/use-cases/admin/tenants/factories/make-create-tenant-admin-use-case';
@@ -19,7 +21,7 @@ export async function createTenantAdminController(app: FastifyInstance) {
       body: z.object({
         name: z.string().min(1).max(128),
         slug: z.string().min(1).max(128).optional(),
-        logoUrl: z.string().url().nullable().optional(),
+        logoUrl: z.string().max(512).nullable().optional(),
         status: z.enum(['ACTIVE', 'INACTIVE', 'SUSPENDED']).optional(),
       }),
       response: {
@@ -52,6 +54,13 @@ export async function createTenantAdminController(app: FastifyInstance) {
           slug,
           logoUrl,
           status,
+        });
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.TENANT_CREATE,
+          entityId: tenant.id,
+          placeholders: { adminName: request.user.sub, tenantName: name },
+          newData: { name, slug, logoUrl, status },
         });
 
         return reply.status(201).send({ tenant });

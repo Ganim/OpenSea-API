@@ -13,7 +13,7 @@ const userInclude = {
       id: true,
       email: true,
       username: true,
-      profile: { select: { name: true, surname: true } },
+      profile: { select: { name: true, surname: true, avatarUrl: true } },
     },
   },
 } as const;
@@ -45,6 +45,7 @@ function toRecord(raw: any): BoardMemberRecord {
     createdAt: raw.createdAt,
     userName: resolveUserName(raw.user ?? null),
     userEmail: raw.user?.email ?? null,
+    userAvatarUrl: raw.user?.profile?.avatarUrl ?? null,
   };
 }
 

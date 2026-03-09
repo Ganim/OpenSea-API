@@ -4,7 +4,7 @@ export const createFinanceCategorySchema = z.object({
   name: z.string().min(1).max(128),
   slug: z.string().min(1).max(128).optional(),
   description: z.string().max(500).optional(),
-  iconUrl: z.string().url().max(512).optional(),
+  iconUrl: z.string().max(512).optional(),
   color: z.string().max(7).optional(),
   type: z.enum(['EXPENSE', 'REVENUE', 'BOTH']),
   parentId: z.string().uuid().optional(),

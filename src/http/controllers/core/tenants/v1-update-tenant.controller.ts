@@ -22,7 +22,7 @@ export async function updateTenantController(app: FastifyInstance) {
       }),
       body: z.object({
         name: z.string().min(2).max(100).optional(),
-        logoUrl: z.string().url().nullable().optional(),
+        logoUrl: z.string().max(512).nullable().optional(),
         settings: z.record(z.string(), z.unknown()).optional(),
       }),
       response: {

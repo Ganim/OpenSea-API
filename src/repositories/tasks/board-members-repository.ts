@@ -6,6 +6,7 @@ export interface BoardMemberRecord {
   createdAt: Date;
   userName?: string | null;
   userEmail?: string | null;
+  userAvatarUrl?: string | null;
 }
 
 export interface CreateBoardMemberSchema {

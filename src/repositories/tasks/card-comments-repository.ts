@@ -9,6 +9,7 @@ export interface CardCommentRecord {
   createdAt: Date;
   authorName?: string | null;
   authorEmail?: string | null;
+  authorAvatarUrl?: string | null;
 }
 
 export interface CreateCardCommentSchema {

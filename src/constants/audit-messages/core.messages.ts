@@ -270,6 +270,15 @@ export const CORE_AUDIT_MESSAGES = {
     description:
       '{{userName}} gerou thumbnail para o template de etiqueta {{templateName}}',
   } satisfies AuditMessage,
+
+  /** Enviou imagem para template de etiqueta */
+  LABEL_TEMPLATE_IMAGE_UPLOAD: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.LABEL_TEMPLATE,
+    module: AuditModule.CORE,
+    description:
+      '{{userName}} enviou imagem para o template de etiqueta {{templateName}}',
+  } satisfies AuditMessage,
   // ============================================================================
   // TEAMS - Gestão de equipes
   // ============================================================================

@@ -35,7 +35,7 @@ export async function changeUserProfileController(app: FastifyInstance) {
           birthday: z.coerce.date().optional(),
           location: z.string().optional(),
           bio: z.string().optional(),
-          avatarUrl: z.url().optional(),
+          avatarUrl: z.string().max(500).optional(),
         }),
       }),
       response: {

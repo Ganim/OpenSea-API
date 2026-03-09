@@ -86,6 +86,7 @@ export class GetBoardUseCase {
       role: member.role,
       userName: member.userName ?? null,
       userEmail: member.userEmail ?? null,
+      userAvatarUrl: member.userAvatarUrl ?? null,
       createdAt: member.createdAt,
     }));
 

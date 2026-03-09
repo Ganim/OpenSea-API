@@ -45,7 +45,7 @@ export const createCompanySchema = z.object({
   email: z.string().email().max(256).optional(),
   phoneMain: z.string().min(10).max(20).optional(),
   phoneAlt: z.string().min(10).max(20).optional(),
-  logoUrl: z.string().url().max(512).optional(),
+  logoUrl: z.string().max(512).optional(),
 
   // Metadados
   metadata: z.record(z.string(), z.unknown()).optional(),

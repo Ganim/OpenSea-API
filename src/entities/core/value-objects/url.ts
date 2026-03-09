@@ -15,6 +15,10 @@ export class Url {
   }
 
   public static isValid(url: string): boolean {
+    // Accept relative paths (e.g. /v1/storage/files/:id/serve)
+    if (url.startsWith('/')) {
+      return true;
+    }
     try {
       new globalThis.URL(url);
       return true;
@@ -39,23 +43,33 @@ export class Url {
     return this._value === url.value;
   }
 
+  private tryParseUrl(): globalThis.URL | null {
+    if (!this._value || this._value.startsWith('/')) return null;
+    try {
+      return new globalThis.URL(this._value);
+    } catch {
+      return null;
+    }
+  }
+
   public get protocol(): string {
-    return this._value === '' ? '' : new globalThis.URL(this._value).protocol;
+    return this.tryParseUrl()?.protocol ?? '';
   }
 
   public get host(): string {
-    return this._value === '' ? '' : new globalThis.URL(this._value).host;
+    return this.tryParseUrl()?.host ?? '';
   }
 
   public get pathname(): string {
-    return this._value === '' ? '' : new globalThis.URL(this._value).pathname;
+    if (this._value.startsWith('/')) return this._value.split('?')[0];
+    return this.tryParseUrl()?.pathname ?? '';
   }
 
   public get search(): string {
-    return this._value === '' ? '' : new globalThis.URL(this._value).search;
+    return this.tryParseUrl()?.search ?? '';
   }
 
   public get hash(): string {
-    return this._value === '' ? '' : new globalThis.URL(this._value).hash;
+    return this.tryParseUrl()?.hash ?? '';
   }
 }

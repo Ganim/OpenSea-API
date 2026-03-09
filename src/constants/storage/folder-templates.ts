@@ -39,7 +39,10 @@ export const ROOT_SYSTEM_FOLDERS: SystemFolderTemplate[] = [
     name: 'Estoque',
     icon: 'package',
     module: 'stock',
-    children: [{ name: 'Fabricantes', icon: 'factory' }],
+    children: [
+      { name: 'Fabricantes', icon: 'factory' },
+      { name: 'Etiquetas', icon: 'tag' },
+    ],
   },
   { name: 'Usuários', icon: 'user-circle', module: 'core' },
 ];
@@ -55,7 +58,7 @@ export const ENTITY_FOLDER_CONFIGS: EntityFolderConfig[] = [
     module: 'core',
     entityType: 'user',
     basePath: '/usuarios',
-    subfolders: ['Anexos'],
+    subfolders: [],
   },
   {
     module: 'finance',
@@ -72,6 +75,12 @@ export const ENTITY_FOLDER_CONFIGS: EntityFolderConfig[] = [
     module: 'stock',
     entityType: 'manufacturer',
     basePath: '/estoque/fabricantes',
+    subfolders: [],
+  },
+  {
+    module: 'core',
+    entityType: 'label-template',
+    basePath: '/estoque/etiquetas',
     subfolders: [],
   },
 ];

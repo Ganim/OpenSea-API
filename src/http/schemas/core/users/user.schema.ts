@@ -10,7 +10,6 @@ import {
   idSchema,
   nameSchema,
   strongPasswordSchema,
-  urlSchema,
   usernameSchema,
 } from '../../common.schema';
 
@@ -54,7 +53,7 @@ export const userProfileSchema = z.object({
   birthday: dateSchema.optional(),
   location: z.string().max(200).optional(),
   bio: z.string().max(500).optional(),
-  avatarUrl: urlSchema.optional(),
+  avatarUrl: z.string().max(500).optional(),
 });
 
 /**

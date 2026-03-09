@@ -15,7 +15,7 @@ const authorInclude = {
       id: true,
       email: true,
       username: true,
-      profile: { select: { name: true, surname: true } },
+      profile: { select: { name: true, surname: true, avatarUrl: true } },
     },
   },
 } as const;
@@ -50,6 +50,7 @@ function toRecord(raw: any): CardCommentRecord {
     createdAt: raw.createdAt,
     authorName: resolveAuthorName(raw.author ?? null),
     authorEmail: raw.author?.email ?? null,
+    authorAvatarUrl: raw.author?.profile?.avatarUrl ?? null,
   };
 }
 

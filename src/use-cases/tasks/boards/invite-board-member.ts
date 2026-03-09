@@ -71,6 +71,7 @@ export class InviteBoardMemberUseCase {
         role: createdMember.role,
         userName: createdMember.userName ?? null,
         userEmail: createdMember.userEmail ?? null,
+        userAvatarUrl: createdMember.userAvatarUrl ?? null,
         createdAt: createdMember.createdAt,
       },
     };

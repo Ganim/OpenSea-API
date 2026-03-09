@@ -63,7 +63,7 @@ export const createTemplateSchema = z.object({
     .regex(/^\d{3}$/, 'Code must be exactly 3 digits (e.g., 001, 042)')
     .optional(), // Código hierárquico manual (auto-gerado se não fornecido)
   name: z.string().min(1).max(100),
-  iconUrl: z.string().url().max(512).optional(),
+  iconUrl: z.string().max(512).optional(),
   unitOfMeasure: z
     .enum(['METERS', 'KILOGRAMS', 'UNITS'])
     .optional()

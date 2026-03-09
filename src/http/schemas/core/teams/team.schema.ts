@@ -10,7 +10,7 @@ export const createTeamSchema = z.object({
     .regex(/^#[0-9a-fA-F]{6}$/, 'Color must be a valid hex color')
     .optional()
     .nullable(),
-  avatarUrl: z.string().url().max(512).optional().nullable(),
+  avatarUrl: z.string().max(512).optional().nullable(),
   emailAccountId: z.string().uuid().optional().nullable(),
 });
 

@@ -53,7 +53,7 @@ export const requestSickLeaveSchema = z.object({
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
   cid: z.string().min(1).max(10),
-  documentUrl: z.string().url().optional(),
+  documentUrl: z.string().max(500).optional(),
   reason: z.string().min(10).max(500),
 });
 

@@ -23,6 +23,8 @@ import { listMyRequestsController } from './v1-list-my-requests.controller';
 import { requestMyOvertimeController } from './v1-request-my-overtime.controller';
 import { requestMyVacationController } from './v1-request-my-vacation.controller';
 import { updateMyNotificationPreferenceController } from './v1-update-my-notification-preference.controller';
+import { uploadMyAvatarController } from './v1-upload-my-avatar.controller';
+import { deleteMyAvatarController } from './v1-delete-my-avatar.controller';
 
 export async function meRoutes(app: FastifyInstance) {
   // Profile Routes
@@ -32,6 +34,8 @@ export async function meRoutes(app: FastifyInstance) {
   app.register(changeMyProfileController);
   app.register(getMyUserController);
   app.register(deleteMyUserController);
+  app.register(uploadMyAvatarController);
+  app.register(deleteMyAvatarController);
 
   // PIN Routes
   app.register(setMyAccessPinController);

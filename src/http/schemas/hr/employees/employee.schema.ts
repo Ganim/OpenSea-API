@@ -102,7 +102,7 @@ export const createEmployeeSchema = z.object({
   companyId: idSchema.optional(),
 
   // Foto
-  photoUrl: z.string().url().optional(),
+  photoUrl: z.string().max(500).optional(),
 
   // Metadados
   metadata: z.record(z.string(), z.unknown()).optional(),

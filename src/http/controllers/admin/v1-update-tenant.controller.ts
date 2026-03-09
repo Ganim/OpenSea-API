@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeUpdateTenantAdminUseCase } from '@/use-cases/admin/tenants/factories/make-update-tenant-admin-use-case';
@@ -23,7 +25,7 @@ export async function updateTenantAdminController(app: FastifyInstance) {
       body: z.object({
         name: z.string().min(1).max(128).optional(),
         slug: z.string().min(1).max(128).optional(),
-        logoUrl: z.string().url().nullable().optional(),
+        logoUrl: z.string().max(512).nullable().optional(),
         settings: z.record(z.string(), z.unknown()).optional(),
       }),
       response: {
@@ -61,6 +63,13 @@ export async function updateTenantAdminController(app: FastifyInstance) {
           slug,
           logoUrl,
           settings,
+        });
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.TENANT_UPDATE,
+          entityId: id,
+          placeholders: { adminName: request.user.sub, tenantName: tenant.name },
+          newData: { name, slug, logoUrl, settings },
         });
 
         return reply.status(200).send({ tenant });
