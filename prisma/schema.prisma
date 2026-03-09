@@ -3814,9 +3814,10 @@ model CostCenter {
   parent   CostCenter?  @relation("CostCenterHierarchy", fields: [parentId], references: [id])
   children CostCenter[] @relation("CostCenterHierarchy")
 
-  financeEntries FinanceEntry[]
-  loans          Loan[]
-  consortia      Consortium[]
+  financeEntries              FinanceEntry[]
+  financeEntryCostCenters     FinanceEntryCostCenter[]
+  loans                       Loan[]
+  consortia                   Consortium[]
 
   @@unique([code, tenantId, deletedAt], name: "cost_centers_code_tenant_unique_active")
   @@index([tenantId])
@@ -3894,6 +3895,9 @@ model FinanceCategory {
   isActive     Boolean             @default(true) @map("is_active")
   isSystem     Boolean             @default(false) @map("is_system")
 
+  interestRate Decimal? @map("interest_rate") @db.Decimal(5, 4)
+  penaltyRate  Decimal? @map("penalty_rate") @db.Decimal(5, 4)
+
   deletedAt DateTime? @map("deleted_at")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -3924,7 +3928,7 @@ model FinanceEntry {
   notes       String? @db.Text
 
   categoryId    String  @map("category_id")
-  costCenterId  String  @map("cost_center_id")
+  costCenterId  String? @map("cost_center_id")
   bankAccountId String? @map("bank_account_id")
 
   supplierName String? @map("supplier_name") @db.VarChar(512)
@@ -3966,13 +3970,14 @@ model FinanceEntry {
 
   tenant       Tenant          @relation(fields: [tenantId], references: [id])
   category     FinanceCategory @relation(fields: [categoryId], references: [id])
-  costCenter   CostCenter      @relation(fields: [costCenterId], references: [id])
+  costCenter   CostCenter?     @relation(fields: [costCenterId], references: [id])
   bankAccount  BankAccount?    @relation(fields: [bankAccountId], references: [id])
   parentEntry  FinanceEntry?   @relation("EntryRecurrence", fields: [parentEntryId], references: [id])
   childEntries FinanceEntry[]  @relation("EntryRecurrence")
 
-  payments    FinanceEntryPayment[]
-  attachments FinanceAttachment[]
+  payments              FinanceEntryPayment[]
+  attachments           FinanceAttachment[]
+  costCenterAllocations FinanceEntryCostCenter[]
 
   @@unique([code, tenantId, deletedAt], name: "finance_entries_code_tenant_unique_active")
   @@index([tenantId])
@@ -4014,6 +4019,25 @@ model FinanceEntryPayment {
   @@index([bankAccountId])
   @@index([paidAt])
   @@map("finance_entry_payments")
+}
+
+model FinanceEntryCostCenter {
+  id String @id @default(uuid())
+
+  entryId      String  @map("entry_id")
+  costCenterId String  @map("cost_center_id")
+  percentage   Decimal @db.Decimal(5, 2)
+  amount       Decimal @db.Decimal(15, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  entry      FinanceEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  costCenter CostCenter   @relation(fields: [costCenterId], references: [id])
+
+  @@unique([entryId, costCenterId])
+  @@index([entryId])
+  @@index([costCenterId])
+  @@map("finance_entry_cost_centers")
 }
 
 model FinanceAttachment {

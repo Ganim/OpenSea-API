@@ -9,7 +9,7 @@ export interface CreateFinanceEntrySchema {
   description: string;
   notes?: string;
   categoryId: string;
-  costCenterId: string;
+  costCenterId?: string;
   bankAccountId?: string;
   supplierName?: string;
   customerName?: string;

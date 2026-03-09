@@ -134,6 +134,7 @@ export const ModelName = {
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
   FinanceEntryPayment: 'FinanceEntryPayment',
+  FinanceEntryCostCenter: 'FinanceEntryCostCenter',
   FinanceAttachment: 'FinanceAttachment',
   Loan: 'Loan',
   LoanInstallment: 'LoanInstallment',
@@ -1806,6 +1807,8 @@ export const FinanceCategoryScalarFieldEnum = {
   displayOrder: 'displayOrder',
   isActive: 'isActive',
   isSystem: 'isSystem',
+  interestRate: 'interestRate',
+  penaltyRate: 'penaltyRate',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1872,6 +1875,18 @@ export const FinanceEntryPaymentScalarFieldEnum = {
 } as const
 
 export type FinanceEntryPaymentScalarFieldEnum = (typeof FinanceEntryPaymentScalarFieldEnum)[keyof typeof FinanceEntryPaymentScalarFieldEnum]
+
+
+export const FinanceEntryCostCenterScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  costCenterId: 'costCenterId',
+  percentage: 'percentage',
+  amount: 'amount',
+  createdAt: 'createdAt'
+} as const
+
+export type FinanceEntryCostCenterScalarFieldEnum = (typeof FinanceEntryCostCenterScalarFieldEnum)[keyof typeof FinanceEntryCostCenterScalarFieldEnum]
 
 
 export const FinanceAttachmentScalarFieldEnum = {

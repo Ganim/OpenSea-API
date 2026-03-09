@@ -28,10 +28,14 @@ export type AggregateFinanceCategory = {
 
 export type FinanceCategoryAvgAggregateOutputType = {
   displayOrder: number | null
+  interestRate: runtime.Decimal | null
+  penaltyRate: runtime.Decimal | null
 }
 
 export type FinanceCategorySumAggregateOutputType = {
   displayOrder: number | null
+  interestRate: runtime.Decimal | null
+  penaltyRate: runtime.Decimal | null
 }
 
 export type FinanceCategoryMinAggregateOutputType = {
@@ -47,6 +51,8 @@ export type FinanceCategoryMinAggregateOutputType = {
   displayOrder: number | null
   isActive: boolean | null
   isSystem: boolean | null
+  interestRate: runtime.Decimal | null
+  penaltyRate: runtime.Decimal | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -65,6 +71,8 @@ export type FinanceCategoryMaxAggregateOutputType = {
   displayOrder: number | null
   isActive: boolean | null
   isSystem: boolean | null
+  interestRate: runtime.Decimal | null
+  penaltyRate: runtime.Decimal | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -83,6 +91,8 @@ export type FinanceCategoryCountAggregateOutputType = {
   displayOrder: number
   isActive: number
   isSystem: number
+  interestRate: number
+  penaltyRate: number
   deletedAt: number
   createdAt: number
   updatedAt: number
@@ -92,10 +102,14 @@ export type FinanceCategoryCountAggregateOutputType = {
 
 export type FinanceCategoryAvgAggregateInputType = {
   displayOrder?: true
+  interestRate?: true
+  penaltyRate?: true
 }
 
 export type FinanceCategorySumAggregateInputType = {
   displayOrder?: true
+  interestRate?: true
+  penaltyRate?: true
 }
 
 export type FinanceCategoryMinAggregateInputType = {
@@ -111,6 +125,8 @@ export type FinanceCategoryMinAggregateInputType = {
   displayOrder?: true
   isActive?: true
   isSystem?: true
+  interestRate?: true
+  penaltyRate?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -129,6 +145,8 @@ export type FinanceCategoryMaxAggregateInputType = {
   displayOrder?: true
   isActive?: true
   isSystem?: true
+  interestRate?: true
+  penaltyRate?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -147,6 +165,8 @@ export type FinanceCategoryCountAggregateInputType = {
   displayOrder?: true
   isActive?: true
   isSystem?: true
+  interestRate?: true
+  penaltyRate?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -252,6 +272,8 @@ export type FinanceCategoryGroupByOutputType = {
   displayOrder: number
   isActive: boolean
   isSystem: boolean
+  interestRate: runtime.Decimal | null
+  penaltyRate: runtime.Decimal | null
   deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -293,6 +315,8 @@ export type FinanceCategoryWhereInput = {
   displayOrder?: Prisma.IntFilter<"FinanceCategory"> | number
   isActive?: Prisma.BoolFilter<"FinanceCategory"> | boolean
   isSystem?: Prisma.BoolFilter<"FinanceCategory"> | boolean
+  interestRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceCategory"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
@@ -315,6 +339,8 @@ export type FinanceCategoryOrderByWithRelationInput = {
   displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isSystem?: Prisma.SortOrder
+  interestRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  penaltyRate?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -341,6 +367,8 @@ export type FinanceCategoryWhereUniqueInput = Prisma.AtLeast<{
   displayOrder?: Prisma.IntFilter<"FinanceCategory"> | number
   isActive?: Prisma.BoolFilter<"FinanceCategory"> | boolean
   isSystem?: Prisma.BoolFilter<"FinanceCategory"> | boolean
+  interestRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceCategory"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
@@ -363,6 +391,8 @@ export type FinanceCategoryOrderByWithAggregationInput = {
   displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isSystem?: Prisma.SortOrder
+  interestRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  penaltyRate?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -389,6 +419,8 @@ export type FinanceCategoryScalarWhereWithAggregatesInput = {
   displayOrder?: Prisma.IntWithAggregatesFilter<"FinanceCategory"> | number
   isActive?: Prisma.BoolWithAggregatesFilter<"FinanceCategory"> | boolean
   isSystem?: Prisma.BoolWithAggregatesFilter<"FinanceCategory"> | boolean
+  interestRate?: Prisma.DecimalNullableWithAggregatesFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.DecimalNullableWithAggregatesFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FinanceCategory"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FinanceCategory"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"FinanceCategory"> | Date | string
@@ -405,6 +437,8 @@ export type FinanceCategoryCreateInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -427,6 +461,8 @@ export type FinanceCategoryUncheckedCreateInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -445,6 +481,8 @@ export type FinanceCategoryUpdateInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -467,6 +505,8 @@ export type FinanceCategoryUncheckedUpdateInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -487,6 +527,8 @@ export type FinanceCategoryCreateManyInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -503,6 +545,8 @@ export type FinanceCategoryUpdateManyMutationInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -521,6 +565,8 @@ export type FinanceCategoryUncheckedUpdateManyInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -560,6 +606,8 @@ export type FinanceCategoryCountOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isSystem?: Prisma.SortOrder
+  interestRate?: Prisma.SortOrder
+  penaltyRate?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -567,6 +615,8 @@ export type FinanceCategoryCountOrderByAggregateInput = {
 
 export type FinanceCategoryAvgOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
+  interestRate?: Prisma.SortOrder
+  penaltyRate?: Prisma.SortOrder
 }
 
 export type FinanceCategoryMaxOrderByAggregateInput = {
@@ -582,6 +632,8 @@ export type FinanceCategoryMaxOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isSystem?: Prisma.SortOrder
+  interestRate?: Prisma.SortOrder
+  penaltyRate?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -600,6 +652,8 @@ export type FinanceCategoryMinOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isSystem?: Prisma.SortOrder
+  interestRate?: Prisma.SortOrder
+  penaltyRate?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -607,6 +661,8 @@ export type FinanceCategoryMinOrderByAggregateInput = {
 
 export type FinanceCategorySumOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
+  interestRate?: Prisma.SortOrder
+  penaltyRate?: Prisma.SortOrder
 }
 
 export type FinanceCategoryScalarRelationFilter = {
@@ -743,6 +799,8 @@ export type FinanceCategoryCreateWithoutTenantInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -763,6 +821,8 @@ export type FinanceCategoryUncheckedCreateWithoutTenantInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -812,6 +872,8 @@ export type FinanceCategoryScalarWhereInput = {
   displayOrder?: Prisma.IntFilter<"FinanceCategory"> | number
   isActive?: Prisma.BoolFilter<"FinanceCategory"> | boolean
   isSystem?: Prisma.BoolFilter<"FinanceCategory"> | boolean
+  interestRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceCategory"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
@@ -828,6 +890,8 @@ export type FinanceCategoryCreateWithoutChildrenInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -849,6 +913,8 @@ export type FinanceCategoryUncheckedCreateWithoutChildrenInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -871,6 +937,8 @@ export type FinanceCategoryCreateWithoutParentInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -891,6 +959,8 @@ export type FinanceCategoryUncheckedCreateWithoutParentInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -930,6 +1000,8 @@ export type FinanceCategoryUpdateWithoutChildrenInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -951,6 +1023,8 @@ export type FinanceCategoryUncheckedUpdateWithoutChildrenInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -984,6 +1058,8 @@ export type FinanceCategoryCreateWithoutFinanceEntriesInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1005,6 +1081,8 @@ export type FinanceCategoryUncheckedCreateWithoutFinanceEntriesInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1038,6 +1116,8 @@ export type FinanceCategoryUpdateWithoutFinanceEntriesInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1059,6 +1139,8 @@ export type FinanceCategoryUncheckedUpdateWithoutFinanceEntriesInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1077,6 +1159,8 @@ export type FinanceCategoryCreateManyTenantInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1093,6 +1177,8 @@ export type FinanceCategoryUpdateWithoutTenantInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1113,6 +1199,8 @@ export type FinanceCategoryUncheckedUpdateWithoutTenantInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1132,6 +1220,8 @@ export type FinanceCategoryUncheckedUpdateManyWithoutTenantInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1149,6 +1239,8 @@ export type FinanceCategoryCreateManyParentInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1165,6 +1257,8 @@ export type FinanceCategoryUpdateWithoutParentInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1185,6 +1279,8 @@ export type FinanceCategoryUncheckedUpdateWithoutParentInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1204,6 +1300,8 @@ export type FinanceCategoryUncheckedUpdateManyWithoutParentInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1262,6 +1360,8 @@ export type FinanceCategorySelect<ExtArgs extends runtime.Types.Extensions.Inter
   displayOrder?: boolean
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: boolean
+  penaltyRate?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1285,6 +1385,8 @@ export type FinanceCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   displayOrder?: boolean
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: boolean
+  penaltyRate?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1305,6 +1407,8 @@ export type FinanceCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   displayOrder?: boolean
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: boolean
+  penaltyRate?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1325,12 +1429,14 @@ export type FinanceCategorySelectScalar = {
   displayOrder?: boolean
   isActive?: boolean
   isSystem?: boolean
+  interestRate?: boolean
+  penaltyRate?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type FinanceCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "slug" | "description" | "iconUrl" | "color" | "type" | "parentId" | "displayOrder" | "isActive" | "isSystem" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["financeCategory"]>
+export type FinanceCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "slug" | "description" | "iconUrl" | "color" | "type" | "parentId" | "displayOrder" | "isActive" | "isSystem" | "interestRate" | "penaltyRate" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["financeCategory"]>
 export type FinanceCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.FinanceCategory$parentArgs<ExtArgs>
@@ -1368,6 +1474,8 @@ export type $FinanceCategoryPayload<ExtArgs extends runtime.Types.Extensions.Int
     displayOrder: number
     isActive: boolean
     isSystem: boolean
+    interestRate: runtime.Decimal | null
+    penaltyRate: runtime.Decimal | null
     deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -1810,6 +1918,8 @@ export interface FinanceCategoryFieldRefs {
   readonly displayOrder: Prisma.FieldRef<"FinanceCategory", 'Int'>
   readonly isActive: Prisma.FieldRef<"FinanceCategory", 'Boolean'>
   readonly isSystem: Prisma.FieldRef<"FinanceCategory", 'Boolean'>
+  readonly interestRate: Prisma.FieldRef<"FinanceCategory", 'Decimal'>
+  readonly penaltyRate: Prisma.FieldRef<"FinanceCategory", 'Decimal'>
   readonly deletedAt: Prisma.FieldRef<"FinanceCategory", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"FinanceCategory", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"FinanceCategory", 'DateTime'>

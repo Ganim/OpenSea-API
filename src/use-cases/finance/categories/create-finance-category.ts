@@ -40,6 +40,8 @@ interface CreateFinanceCategoryUseCaseRequest {
   displayOrder?: number;
   isActive?: boolean;
   isSystem?: boolean;
+  interestRate?: number;
+  penaltyRate?: number;
 }
 
 interface CreateFinanceCategoryUseCaseResponse {
@@ -116,6 +118,8 @@ export class CreateFinanceCategoryUseCase {
       displayOrder: request.displayOrder,
       isActive: request.isActive,
       isSystem: request.isSystem,
+      interestRate: request.interestRate,
+      penaltyRate: request.penaltyRate,
     });
 
     return { category: financeCategoryToDTO(category) };

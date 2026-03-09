@@ -13,6 +13,8 @@ export interface CreateFinanceCategorySchema {
   displayOrder?: number;
   isActive?: boolean;
   isSystem?: boolean;
+  interestRate?: number;
+  penaltyRate?: number;
 }
 
 export interface UpdateFinanceCategorySchema {
@@ -26,6 +28,8 @@ export interface UpdateFinanceCategorySchema {
   parentId?: string;
   displayOrder?: number;
   isActive?: boolean;
+  interestRate?: number;
+  penaltyRate?: number;
 }
 
 export interface FinanceCategoriesRepository {

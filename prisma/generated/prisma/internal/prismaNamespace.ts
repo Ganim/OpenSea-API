@@ -467,6 +467,7 @@ export const ModelName = {
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
   FinanceEntryPayment: 'FinanceEntryPayment',
+  FinanceEntryCostCenter: 'FinanceEntryCostCenter',
   FinanceAttachment: 'FinanceAttachment',
   Loan: 'Loan',
   LoanInstallment: 'LoanInstallment',
@@ -521,7 +522,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeEntryCostCenter" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6667,6 +6668,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FinanceEntryCostCenter: {
+      payload: Prisma.$FinanceEntryCostCenterPayload<ExtArgs>
+      fields: Prisma.FinanceEntryCostCenterFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FinanceEntryCostCenterFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FinanceEntryCostCenterFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload>
+        }
+        findFirst: {
+          args: Prisma.FinanceEntryCostCenterFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FinanceEntryCostCenterFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload>
+        }
+        findMany: {
+          args: Prisma.FinanceEntryCostCenterFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload>[]
+        }
+        create: {
+          args: Prisma.FinanceEntryCostCenterCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload>
+        }
+        createMany: {
+          args: Prisma.FinanceEntryCostCenterCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FinanceEntryCostCenterCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload>[]
+        }
+        delete: {
+          args: Prisma.FinanceEntryCostCenterDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload>
+        }
+        update: {
+          args: Prisma.FinanceEntryCostCenterUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload>
+        }
+        deleteMany: {
+          args: Prisma.FinanceEntryCostCenterDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FinanceEntryCostCenterUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FinanceEntryCostCenterUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload>[]
+        }
+        upsert: {
+          args: Prisma.FinanceEntryCostCenterUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinanceEntryCostCenterPayload>
+        }
+        aggregate: {
+          args: Prisma.FinanceEntryCostCenterAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinanceEntryCostCenter>
+        }
+        groupBy: {
+          args: Prisma.FinanceEntryCostCenterGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceEntryCostCenterGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FinanceEntryCostCenterCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinanceEntryCostCenterCountAggregateOutputType> | number
+        }
+      }
+    }
     FinanceAttachment: {
       payload: Prisma.$FinanceAttachmentPayload<ExtArgs>
       fields: Prisma.FinanceAttachmentFieldRefs
@@ -11207,6 +11282,8 @@ export const FinanceCategoryScalarFieldEnum = {
   displayOrder: 'displayOrder',
   isActive: 'isActive',
   isSystem: 'isSystem',
+  interestRate: 'interestRate',
+  penaltyRate: 'penaltyRate',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -11273,6 +11350,18 @@ export const FinanceEntryPaymentScalarFieldEnum = {
 } as const
 
 export type FinanceEntryPaymentScalarFieldEnum = (typeof FinanceEntryPaymentScalarFieldEnum)[keyof typeof FinanceEntryPaymentScalarFieldEnum]
+
+
+export const FinanceEntryCostCenterScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  costCenterId: 'costCenterId',
+  percentage: 'percentage',
+  amount: 'amount',
+  createdAt: 'createdAt'
+} as const
+
+export type FinanceEntryCostCenterScalarFieldEnum = (typeof FinanceEntryCostCenterScalarFieldEnum)[keyof typeof FinanceEntryCostCenterScalarFieldEnum]
 
 
 export const FinanceAttachmentScalarFieldEnum = {
@@ -13337,6 +13426,7 @@ export type GlobalOmitConfig = {
   financeCategory?: Prisma.FinanceCategoryOmit
   financeEntry?: Prisma.FinanceEntryOmit
   financeEntryPayment?: Prisma.FinanceEntryPaymentOmit
+  financeEntryCostCenter?: Prisma.FinanceEntryCostCenterOmit
   financeAttachment?: Prisma.FinanceAttachmentOmit
   loan?: Prisma.LoanOmit
   loanInstallment?: Prisma.LoanInstallmentOmit

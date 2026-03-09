@@ -12,6 +12,8 @@ export interface FinanceCategoryDTO {
   displayOrder: number;
   isActive: boolean;
   isSystem: boolean;
+  interestRate?: number;
+  penaltyRate?: number;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -32,6 +34,8 @@ export function financeCategoryToDTO(
     displayOrder: category.displayOrder,
     isActive: category.isActive,
     isSystem: category.isSystem,
+    interestRate: category.interestRate,
+    penaltyRate: category.penaltyRate,
     createdAt: category.createdAt,
     updatedAt: category.updatedAt,
     deletedAt: category.deletedAt,

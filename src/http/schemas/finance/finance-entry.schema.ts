@@ -1,11 +1,17 @@
 import { z } from 'zod';
 
+const costCenterAllocationSchema = z.object({
+  costCenterId: z.string().uuid(),
+  percentage: z.number().min(0.01).max(100),
+});
+
 export const createFinanceEntrySchema = z.object({
   type: z.enum(['PAYABLE', 'RECEIVABLE']),
   description: z.string().min(1).max(500),
   notes: z.string().optional(),
   categoryId: z.string().uuid(),
-  costCenterId: z.string().uuid(),
+  costCenterId: z.string().uuid().optional(),
+  costCenterAllocations: z.array(costCenterAllocationSchema).optional(),
   bankAccountId: z.string().uuid().optional(),
   supplierName: z.string().max(256).optional(),
   customerName: z.string().max(256).optional(),
@@ -66,7 +72,18 @@ export const financeEntryResponseSchema = z.object({
   description: z.string(),
   notes: z.string().optional().nullable(),
   categoryId: z.string().uuid(),
-  costCenterId: z.string().uuid(),
+  costCenterId: z.string().uuid().optional().nullable(),
+  costCenterAllocations: z
+    .array(
+      z.object({
+        costCenterId: z.string().uuid(),
+        costCenterName: z.string().optional().nullable(),
+        percentage: z.number(),
+        amount: z.number(),
+      }),
+    )
+    .optional()
+    .nullable(),
   bankAccountId: z.string().uuid().optional().nullable(),
   supplierName: z.string().optional().nullable(),
   customerName: z.string().optional().nullable(),

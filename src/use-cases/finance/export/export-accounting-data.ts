@@ -135,7 +135,7 @@ export class ExportAccountingDataUseCase {
       formatType(e.type),
       escapeCsvField(e.description),
       e.categoryId.toString(),
-      e.costCenterId.toString(),
+      e.costCenterId?.toString() ?? '',
       formatMoney(e.expectedAmount),
       e.actualAmount !== undefined ? formatMoney(e.actualAmount) : '',
       formatMoney(e.discount),

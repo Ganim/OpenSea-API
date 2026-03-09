@@ -10,7 +10,7 @@ export interface FinanceEntryProps {
   description: string;
   notes?: string;
   categoryId: UniqueEntityID;
-  costCenterId: UniqueEntityID;
+  costCenterId?: UniqueEntityID;
   bankAccountId?: UniqueEntityID;
   supplierName?: string;
   customerName?: string;
@@ -87,10 +87,10 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
     this.touch();
   }
 
-  get costCenterId(): UniqueEntityID {
+  get costCenterId(): UniqueEntityID | undefined {
     return this.props.costCenterId;
   }
-  set costCenterId(value: UniqueEntityID) {
+  set costCenterId(value: UniqueEntityID | undefined) {
     this.props.costCenterId = value;
     this.touch();
   }
@@ -358,6 +358,7 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
       | 'recurrenceType'
       | 'metadata'
       | 'tags'
+      | 'costCenterId'
     >,
     id?: UniqueEntityID,
   ): FinanceEntry {

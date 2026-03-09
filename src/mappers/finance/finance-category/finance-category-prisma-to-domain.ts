@@ -16,6 +16,8 @@ export function mapFinanceCategoryPrismaToDomain(data: PrismaFinanceCategory) {
     displayOrder: data.displayOrder,
     isActive: data.isActive,
     isSystem: data.isSystem,
+    interestRate: data.interestRate ? Number(data.interestRate) : undefined,
+    penaltyRate: data.penaltyRate ? Number(data.penaltyRate) : undefined,
     createdAt: data.createdAt,
     updatedAt: data.updatedAt,
     deletedAt: data.deletedAt ?? undefined,

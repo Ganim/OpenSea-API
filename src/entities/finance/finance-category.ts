@@ -15,6 +15,8 @@ export interface FinanceCategoryProps {
   displayOrder: number;
   isActive: boolean;
   isSystem: boolean;
+  interestRate?: number;
+  penaltyRate?: number;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -104,6 +106,22 @@ export class FinanceCategory extends Entity<FinanceCategoryProps> {
     return this.props.isSystem;
   }
 
+  get interestRate(): number | undefined {
+    return this.props.interestRate;
+  }
+  set interestRate(value: number | undefined) {
+    this.props.interestRate = value;
+    this.touch();
+  }
+
+  get penaltyRate(): number | undefined {
+    return this.props.penaltyRate;
+  }
+  set penaltyRate(value: number | undefined) {
+    this.props.penaltyRate = value;
+    this.touch();
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -147,6 +165,8 @@ export class FinanceCategory extends Entity<FinanceCategoryProps> {
       | 'isActive'
       | 'isSystem'
       | 'displayOrder'
+      | 'interestRate'
+      | 'penaltyRate'
     >,
     id?: UniqueEntityID,
   ): FinanceCategory {

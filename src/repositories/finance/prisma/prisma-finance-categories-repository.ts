@@ -26,6 +26,8 @@ export class PrismaFinanceCategoriesRepository
         displayOrder: data.displayOrder ?? 0,
         isActive: data.isActive ?? true,
         isSystem: data.isSystem ?? false,
+        interestRate: data.interestRate,
+        penaltyRate: data.penaltyRate,
       },
     });
 
@@ -141,6 +143,8 @@ export class PrismaFinanceCategoriesRepository
           displayOrder: data.displayOrder,
         }),
         ...(data.isActive !== undefined && { isActive: data.isActive }),
+        ...(data.interestRate !== undefined && { interestRate: data.interestRate }),
+        ...(data.penaltyRate !== undefined && { penaltyRate: data.penaltyRate }),
       },
     });
 

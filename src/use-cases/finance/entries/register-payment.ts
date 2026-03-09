@@ -186,7 +186,7 @@ export class RegisterPaymentUseCase {
       description: `${entry.description.replace(/\s*\(\d+\)$/, '')} (${nextInstallment})`,
       notes: entry.notes,
       categoryId: entry.categoryId.toString(),
-      costCenterId: entry.costCenterId.toString(),
+      costCenterId: entry.costCenterId?.toString(),
       bankAccountId: entry.bankAccountId?.toString(),
       supplierName: entry.supplierName,
       customerName: entry.customerName,

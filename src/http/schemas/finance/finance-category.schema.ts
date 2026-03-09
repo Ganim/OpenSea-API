@@ -10,6 +10,8 @@ export const createFinanceCategorySchema = z.object({
   parentId: z.string().uuid().optional(),
   displayOrder: z.number().int().min(0).optional(),
   isActive: z.boolean().optional(),
+  interestRate: z.number().min(0).max(1).optional(),
+  penaltyRate: z.number().min(0).max(1).optional(),
 });
 
 export const financeCategoryResponseSchema = z.object({
@@ -24,6 +26,8 @@ export const financeCategoryResponseSchema = z.object({
   displayOrder: z.number(),
   isActive: z.boolean(),
   isSystem: z.boolean(),
+  interestRate: z.number().optional().nullable(),
+  penaltyRate: z.number().optional().nullable(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().optional().nullable(),

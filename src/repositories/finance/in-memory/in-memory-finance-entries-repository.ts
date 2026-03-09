@@ -26,7 +26,9 @@ export class InMemoryFinanceEntriesRepository
       description: data.description,
       notes: data.notes,
       categoryId: new UniqueEntityID(data.categoryId),
-      costCenterId: new UniqueEntityID(data.costCenterId),
+      costCenterId: data.costCenterId
+        ? new UniqueEntityID(data.costCenterId)
+        : undefined,
       bankAccountId: data.bankAccountId
         ? new UniqueEntityID(data.bankAccountId)
         : undefined,
@@ -102,7 +104,7 @@ export class InMemoryFinanceEntriesRepository
         return false;
       if (
         options.costCenterId &&
-        i.costCenterId.toString() !== options.costCenterId
+        i.costCenterId?.toString() !== options.costCenterId
       )
         return false;
       if (
@@ -195,7 +197,9 @@ export class InMemoryFinanceEntriesRepository
     if (data.categoryId !== undefined)
       item.categoryId = new UniqueEntityID(data.categoryId);
     if (data.costCenterId !== undefined)
-      item.costCenterId = new UniqueEntityID(data.costCenterId);
+      item.costCenterId = data.costCenterId
+        ? new UniqueEntityID(data.costCenterId)
+        : undefined;
     if (data.bankAccountId !== undefined)
       item.bankAccountId = data.bankAccountId
         ? new UniqueEntityID(data.bankAccountId)
@@ -334,7 +338,7 @@ export class InMemoryFinanceEntriesRepository
 
     const map = new Map<string, number>();
     for (const e of entries) {
-      const ccId = e.costCenterId.toString();
+      const ccId = e.costCenterId?.toString() ?? 'unassigned';
       map.set(ccId, (map.get(ccId) ?? 0) + e.expectedAmount);
     }
 

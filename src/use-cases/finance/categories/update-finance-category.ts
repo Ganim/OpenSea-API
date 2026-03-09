@@ -20,6 +20,8 @@ interface UpdateFinanceCategoryUseCaseRequest {
   parentId?: string;
   displayOrder?: number;
   isActive?: boolean;
+  interestRate?: number;
+  penaltyRate?: number;
 }
 
 interface UpdateFinanceCategoryUseCaseResponse {
@@ -85,6 +87,8 @@ export class UpdateFinanceCategoryUseCase {
       parentId: request.parentId,
       displayOrder: request.displayOrder,
       isActive: request.isActive,
+      interestRate: request.interestRate,
+      penaltyRate: request.penaltyRate,
     });
 
     if (!updated) {

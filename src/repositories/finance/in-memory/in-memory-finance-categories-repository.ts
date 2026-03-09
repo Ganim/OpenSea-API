@@ -24,6 +24,8 @@ export class InMemoryFinanceCategoriesRepository
       displayOrder: data.displayOrder ?? 0,
       isActive: data.isActive ?? true,
       isSystem: data.isSystem ?? false,
+      interestRate: data.interestRate,
+      penaltyRate: data.penaltyRate,
     });
 
     this.items.push(category);
@@ -113,6 +115,8 @@ export class InMemoryFinanceCategoriesRepository
         : undefined;
     if (data.displayOrder !== undefined) item.displayOrder = data.displayOrder;
     if (data.isActive !== undefined) item.isActive = data.isActive;
+    if (data.interestRate !== undefined) item.interestRate = data.interestRate;
+    if (data.penaltyRate !== undefined) item.penaltyRate = data.penaltyRate;
 
     return item;
   }
