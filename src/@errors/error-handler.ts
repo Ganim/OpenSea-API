@@ -8,6 +8,7 @@ import { captureException } from '@/lib/sentry';
 import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
 import { env } from 'process';
 import z, { ZodError } from 'zod';
+import { ErrorCodes } from './error-codes';
 import { UserBlockedError } from './use-cases/user-blocked-error';
 import {
   VolumeNotFoundError,
@@ -23,6 +24,8 @@ export const errorHandler = (
   request: FastifyRequest,
   reply: FastifyReply,
 ) => {
+  const requestId = request.requestId;
+
   // Silenciar opcionalmente logs de rate limit (429) em teste/CI
   const silenceRateLimitLogs =
     process.env.SILENCE_RATE_LIMIT_LOGS === 'true' ||
@@ -31,34 +34,43 @@ export const errorHandler = (
   // Handle Fastify validation errors (from Zod schemas)
   if (error.code === 'FST_ERR_VALIDATION') {
     return reply.status(400).send({
+      code: ErrorCodes.VALIDATION_ERROR,
       message: error.message,
+      requestId,
     });
   }
 
   if (error instanceof ZodError) {
     return reply.status(400).send({
+      code: ErrorCodes.VALIDATION_ERROR,
       message: 'Validation error',
-      errors: z.treeifyError(error),
+      requestId,
+      details: z.treeifyError(error),
     });
   }
 
   if (error instanceof BadRequestError) {
     return reply.status(400).send({
+      code: ErrorCodes.BAD_REQUEST,
       message: error.message,
+      requestId,
     });
   }
 
   if (error instanceof UserBlockedError) {
     return reply.status(403).send({
+      code: ErrorCodes.USER_BLOCKED,
       message: error.message,
+      requestId,
       blockedUntil: error.blockedUntil,
     });
   }
 
   if (error instanceof PasswordResetRequiredError) {
     return reply.status(403).send({
+      code: ErrorCodes.PASSWORD_RESET_REQUIRED,
       message: error.message,
-      code: error.code,
+      requestId,
       resetToken: error.data.resetToken,
       reason: error.data.reason,
       requestedAt: error.data.requestedAt,
@@ -67,19 +79,25 @@ export const errorHandler = (
 
   if (error instanceof UnauthorizedError) {
     return reply.status(401).send({
+      code: ErrorCodes.UNAUTHORIZED,
       message: error.message,
+      requestId,
     });
   }
 
   if (error instanceof ForbiddenError) {
     return reply.status(403).send({
+      code: ErrorCodes.FORBIDDEN,
       message: error.message,
+      requestId,
     });
   }
 
   if (error instanceof ResourceNotFoundError) {
     return reply.status(404).send({
+      code: ErrorCodes.RESOURCE_NOT_FOUND,
       message: error.message,
+      requestId,
     });
   }
 
@@ -88,8 +106,14 @@ export const errorHandler = (
     error instanceof VolumeNotFoundError ||
     error instanceof VolumeItemNotFoundError
   ) {
+    const code =
+      error instanceof VolumeNotFoundError
+        ? ErrorCodes.VOLUME_NOT_FOUND
+        : ErrorCodes.VOLUME_ITEM_NOT_FOUND;
     return reply.status(404).send({
+      code,
       message: error.message,
+      requestId,
     });
   }
 
@@ -97,8 +121,14 @@ export const errorHandler = (
     error instanceof VolumeAlreadyExistsError ||
     error instanceof VolumeItemAlreadyExistsError
   ) {
+    const code =
+      error instanceof VolumeAlreadyExistsError
+        ? ErrorCodes.VOLUME_ALREADY_EXISTS
+        : ErrorCodes.VOLUME_ITEM_ALREADY_EXISTS;
     return reply.status(409).send({
+      code,
       message: error.message,
+      requestId,
     });
   }
 
@@ -106,8 +136,14 @@ export const errorHandler = (
     error instanceof VolumeCannotBeClosed ||
     error instanceof InvalidVolumeStatusError
   ) {
+    const code =
+      error instanceof VolumeCannotBeClosed
+        ? ErrorCodes.VOLUME_CANNOT_BE_CLOSED
+        : ErrorCodes.INVALID_VOLUME_STATUS;
     return reply.status(400).send({
+      code,
       message: error.message,
+      requestId,
     });
   }
 
@@ -119,7 +155,17 @@ export const errorHandler = (
 
   if (isRateLimitError && silenceRateLimitLogs) {
     return reply.status(429).send({
+      code: ErrorCodes.RATE_LIMITED,
       message: error.message,
+      requestId,
+    });
+  }
+
+  if (isRateLimitError) {
+    return reply.status(429).send({
+      code: ErrorCodes.RATE_LIMITED,
+      message: error.message,
+      requestId,
     });
   }
 
@@ -134,15 +180,16 @@ export const errorHandler = (
     endpoint: request.url,
     method: request.method,
     extra: {
-      requestId: request.requestId,
+      requestId,
       params: request.params,
       query: request.query,
     },
   });
 
   return reply.status(500).send({
+    code: ErrorCodes.INTERNAL_ERROR,
     message: 'Internal server error',
-    requestId: request.requestId,
-    errors: env.NODE_ENV !== 'production' ? error.message : undefined,
+    requestId,
+    ...(env.NODE_ENV !== 'production' && { details: error.message }),
   });
 };
