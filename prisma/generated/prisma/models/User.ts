@@ -405,6 +405,7 @@ export type UserWhereInput = {
   cardComments?: Prisma.CardCommentListRelationFilter
   commentReactions?: Prisma.CommentReactionListRelationFilter
   cardActivities?: Prisma.CardActivityListRelationFilter
+  cardWatchers?: Prisma.CardWatcherListRelationFilter
   checklistAssignees?: Prisma.ChecklistItemListRelationFilter
 }
 
@@ -484,6 +485,7 @@ export type UserOrderByWithRelationInput = {
   cardComments?: Prisma.CardCommentOrderByRelationAggregateInput
   commentReactions?: Prisma.CommentReactionOrderByRelationAggregateInput
   cardActivities?: Prisma.CardActivityOrderByRelationAggregateInput
+  cardWatchers?: Prisma.CardWatcherOrderByRelationAggregateInput
   checklistAssignees?: Prisma.ChecklistItemOrderByRelationAggregateInput
 }
 
@@ -568,6 +570,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   cardComments?: Prisma.CardCommentListRelationFilter
   commentReactions?: Prisma.CommentReactionListRelationFilter
   cardActivities?: Prisma.CardActivityListRelationFilter
+  cardWatchers?: Prisma.CardWatcherListRelationFilter
   checklistAssignees?: Prisma.ChecklistItemListRelationFilter
 }, "id" | "users_email_unique_active" | "users_username_unique_active">
 
@@ -705,6 +708,7 @@ export type UserCreateInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -784,6 +788,7 @@ export type UserUncheckedCreateInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -863,6 +868,7 @@ export type UserUpdateInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -942,6 +948,7 @@ export type UserUncheckedUpdateInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -1945,6 +1952,20 @@ export type UserUpdateOneRequiredWithoutCardActivitiesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCardActivitiesInput, Prisma.UserUpdateWithoutCardActivitiesInput>, Prisma.UserUncheckedUpdateWithoutCardActivitiesInput>
 }
 
+export type UserCreateNestedOneWithoutCardWatchersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCardWatchersInput, Prisma.UserUncheckedCreateWithoutCardWatchersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCardWatchersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCardWatchersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCardWatchersInput, Prisma.UserUncheckedCreateWithoutCardWatchersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCardWatchersInput
+  upsert?: Prisma.UserUpsertWithoutCardWatchersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCardWatchersInput, Prisma.UserUpdateWithoutCardWatchersInput>, Prisma.UserUncheckedUpdateWithoutCardWatchersInput>
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   username?: string | null
@@ -2020,6 +2041,7 @@ export type UserCreateWithoutProfileInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -2098,6 +2120,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -2192,6 +2215,7 @@ export type UserUpdateWithoutProfileInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -2270,6 +2294,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -2348,6 +2373,7 @@ export type UserCreateWithoutSessionsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -2426,6 +2452,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -2520,6 +2547,7 @@ export type UserUpdateWithoutSessionsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -2598,6 +2626,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -2676,6 +2705,7 @@ export type UserCreateWithoutRefreshTokenInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -2754,6 +2784,7 @@ export type UserUncheckedCreateWithoutRefreshTokenInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -2848,6 +2879,7 @@ export type UserUpdateWithoutRefreshTokenInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -2926,6 +2958,7 @@ export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -3004,6 +3037,7 @@ export type UserCreateWithoutPermissionGroupsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -3082,6 +3116,7 @@ export type UserUncheckedCreateWithoutPermissionGroupsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -3165,6 +3200,7 @@ export type UserCreateWithoutGrantedPermissionsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -3243,6 +3279,7 @@ export type UserUncheckedCreateWithoutGrantedPermissionsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -3337,6 +3374,7 @@ export type UserUpdateWithoutPermissionGroupsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -3415,6 +3453,7 @@ export type UserUncheckedUpdateWithoutPermissionGroupsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -3504,6 +3543,7 @@ export type UserUpdateWithoutGrantedPermissionsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -3582,6 +3622,7 @@ export type UserUncheckedUpdateWithoutGrantedPermissionsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -3660,6 +3701,7 @@ export type UserCreateWithoutDirectPermissionsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -3738,6 +3780,7 @@ export type UserUncheckedCreateWithoutDirectPermissionsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -3821,6 +3864,7 @@ export type UserCreateWithoutGrantedDirectPermissionsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -3899,6 +3943,7 @@ export type UserUncheckedCreateWithoutGrantedDirectPermissionsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -3993,6 +4038,7 @@ export type UserUpdateWithoutDirectPermissionsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -4071,6 +4117,7 @@ export type UserUncheckedUpdateWithoutDirectPermissionsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -4160,6 +4207,7 @@ export type UserUpdateWithoutGrantedDirectPermissionsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -4238,6 +4286,7 @@ export type UserUncheckedUpdateWithoutGrantedDirectPermissionsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -4316,6 +4365,7 @@ export type UserCreateWithoutPermissionAuditLogsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -4394,6 +4444,7 @@ export type UserUncheckedCreateWithoutPermissionAuditLogsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -4488,6 +4539,7 @@ export type UserUpdateWithoutPermissionAuditLogsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -4566,6 +4618,7 @@ export type UserUncheckedUpdateWithoutPermissionAuditLogsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -4644,6 +4697,7 @@ export type UserCreateWithoutVolumesCreatedInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -4722,6 +4776,7 @@ export type UserUncheckedCreateWithoutVolumesCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -4805,6 +4860,7 @@ export type UserCreateWithoutVolumesClosedInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -4883,6 +4939,7 @@ export type UserUncheckedCreateWithoutVolumesClosedInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -4966,6 +5023,7 @@ export type UserCreateWithoutVolumesDeliveredInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -5044,6 +5102,7 @@ export type UserUncheckedCreateWithoutVolumesDeliveredInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -5138,6 +5197,7 @@ export type UserUpdateWithoutVolumesCreatedInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -5216,6 +5276,7 @@ export type UserUncheckedUpdateWithoutVolumesCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -5305,6 +5366,7 @@ export type UserUpdateWithoutVolumesClosedInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -5383,6 +5445,7 @@ export type UserUncheckedUpdateWithoutVolumesClosedInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -5472,6 +5535,7 @@ export type UserUpdateWithoutVolumesDeliveredInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -5550,6 +5614,7 @@ export type UserUncheckedUpdateWithoutVolumesDeliveredInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -5628,6 +5693,7 @@ export type UserCreateWithoutItemMovementInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -5706,6 +5772,7 @@ export type UserUncheckedCreateWithoutItemMovementInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -5789,6 +5856,7 @@ export type UserCreateWithoutApprovedMovementsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -5867,6 +5935,7 @@ export type UserUncheckedCreateWithoutApprovedMovementsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -5961,6 +6030,7 @@ export type UserUpdateWithoutItemMovementInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -6039,6 +6109,7 @@ export type UserUncheckedUpdateWithoutItemMovementInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -6128,6 +6199,7 @@ export type UserUpdateWithoutApprovedMovementsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -6206,6 +6278,7 @@ export type UserUncheckedUpdateWithoutApprovedMovementsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -6284,6 +6357,7 @@ export type UserCreateWithoutVariantPriceHistoryInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -6362,6 +6436,7 @@ export type UserUncheckedCreateWithoutVariantPriceHistoryInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -6456,6 +6531,7 @@ export type UserUpdateWithoutVariantPriceHistoryInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -6534,6 +6610,7 @@ export type UserUncheckedUpdateWithoutVariantPriceHistoryInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -6612,6 +6689,7 @@ export type UserCreateWithoutAuditLogsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -6690,6 +6768,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -6784,6 +6863,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -6862,6 +6942,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -6940,6 +7021,7 @@ export type UserCreateWithoutAlertsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -7018,6 +7100,7 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -7112,6 +7195,7 @@ export type UserUpdateWithoutAlertsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -7190,6 +7274,7 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -7268,6 +7353,7 @@ export type UserCreateWithoutCreatedPurchaseOrdersInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -7346,6 +7432,7 @@ export type UserUncheckedCreateWithoutCreatedPurchaseOrdersInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -7440,6 +7527,7 @@ export type UserUpdateWithoutCreatedPurchaseOrdersInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -7518,6 +7606,7 @@ export type UserUncheckedUpdateWithoutCreatedPurchaseOrdersInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -7596,6 +7685,7 @@ export type UserCreateWithoutCreatedSalesOrdersInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -7674,6 +7764,7 @@ export type UserUncheckedCreateWithoutCreatedSalesOrdersInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -7768,6 +7859,7 @@ export type UserUpdateWithoutCreatedSalesOrdersInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -7846,6 +7938,7 @@ export type UserUncheckedUpdateWithoutCreatedSalesOrdersInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -7924,6 +8017,7 @@ export type UserCreateWithoutItemReservationsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -8002,6 +8096,7 @@ export type UserUncheckedCreateWithoutItemReservationsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -8096,6 +8191,7 @@ export type UserUpdateWithoutItemReservationsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -8174,6 +8270,7 @@ export type UserUncheckedUpdateWithoutItemReservationsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -8252,6 +8349,7 @@ export type UserCreateWithoutCommentsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -8330,6 +8428,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -8424,6 +8523,7 @@ export type UserUpdateWithoutCommentsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -8502,6 +8602,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -8580,6 +8681,7 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -8658,6 +8760,7 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -8752,6 +8855,7 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -8830,6 +8934,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -8908,6 +9013,7 @@ export type UserCreateWithoutNotificationsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -8986,6 +9092,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -9080,6 +9187,7 @@ export type UserUpdateWithoutNotificationsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -9158,6 +9266,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -9236,6 +9345,7 @@ export type UserCreateWithoutRequestsCreatedInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -9314,6 +9424,7 @@ export type UserUncheckedCreateWithoutRequestsCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -9397,6 +9508,7 @@ export type UserCreateWithoutRequestsAssignedInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -9475,6 +9587,7 @@ export type UserUncheckedCreateWithoutRequestsAssignedInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -9569,6 +9682,7 @@ export type UserUpdateWithoutRequestsCreatedInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -9647,6 +9761,7 @@ export type UserUncheckedUpdateWithoutRequestsCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -9736,6 +9851,7 @@ export type UserUpdateWithoutRequestsAssignedInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -9814,6 +9930,7 @@ export type UserUncheckedUpdateWithoutRequestsAssignedInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -9892,6 +10009,7 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -9970,6 +10088,7 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -10064,6 +10183,7 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -10142,6 +10262,7 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -10220,6 +10341,7 @@ export type UserCreateWithoutRequestCommentsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -10298,6 +10420,7 @@ export type UserUncheckedCreateWithoutRequestCommentsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -10392,6 +10515,7 @@ export type UserUpdateWithoutRequestCommentsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -10470,6 +10594,7 @@ export type UserUncheckedUpdateWithoutRequestCommentsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -10548,6 +10673,7 @@ export type UserCreateWithoutRequestHistoryActionsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -10626,6 +10752,7 @@ export type UserUncheckedCreateWithoutRequestHistoryActionsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -10720,6 +10847,7 @@ export type UserUpdateWithoutRequestHistoryActionsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -10798,6 +10926,7 @@ export type UserUncheckedUpdateWithoutRequestHistoryActionsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -10876,6 +11005,7 @@ export type UserCreateWithoutEmployeeInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -10954,6 +11084,7 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -11048,6 +11179,7 @@ export type UserUpdateWithoutEmployeeInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -11126,6 +11258,7 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -11204,6 +11337,7 @@ export type UserCreateWithoutApprovedOvertimeInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -11282,6 +11416,7 @@ export type UserUncheckedCreateWithoutApprovedOvertimeInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -11376,6 +11511,7 @@ export type UserUpdateWithoutApprovedOvertimeInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -11454,6 +11590,7 @@ export type UserUncheckedUpdateWithoutApprovedOvertimeInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -11532,6 +11669,7 @@ export type UserCreateWithoutApprovedAbsencesInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -11610,6 +11748,7 @@ export type UserUncheckedCreateWithoutApprovedAbsencesInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -11704,6 +11843,7 @@ export type UserUpdateWithoutApprovedAbsencesInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -11782,6 +11922,7 @@ export type UserUncheckedUpdateWithoutApprovedAbsencesInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -11860,6 +12001,7 @@ export type UserCreateWithoutProcessedPayrollsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -11938,6 +12080,7 @@ export type UserUncheckedCreateWithoutProcessedPayrollsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -12021,6 +12164,7 @@ export type UserCreateWithoutApprovedPayrollsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -12099,6 +12243,7 @@ export type UserUncheckedCreateWithoutApprovedPayrollsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -12182,6 +12327,7 @@ export type UserCreateWithoutPaidPayrollsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -12260,6 +12406,7 @@ export type UserUncheckedCreateWithoutPaidPayrollsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -12354,6 +12501,7 @@ export type UserUpdateWithoutProcessedPayrollsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -12432,6 +12580,7 @@ export type UserUncheckedUpdateWithoutProcessedPayrollsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -12521,6 +12670,7 @@ export type UserUpdateWithoutApprovedPayrollsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -12599,6 +12749,7 @@ export type UserUncheckedUpdateWithoutApprovedPayrollsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -12688,6 +12839,7 @@ export type UserUpdateWithoutPaidPayrollsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -12766,6 +12918,7 @@ export type UserUncheckedUpdateWithoutPaidPayrollsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -12844,6 +12997,7 @@ export type UserCreateWithoutLabelTemplatesCreatedInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -12922,6 +13076,7 @@ export type UserUncheckedCreateWithoutLabelTemplatesCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -13016,6 +13171,7 @@ export type UserUpdateWithoutLabelTemplatesCreatedInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -13094,6 +13250,7 @@ export type UserUncheckedUpdateWithoutLabelTemplatesCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -13172,6 +13329,7 @@ export type UserCreateWithoutTenantUsersInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -13250,6 +13408,7 @@ export type UserUncheckedCreateWithoutTenantUsersInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -13344,6 +13503,7 @@ export type UserUpdateWithoutTenantUsersInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -13422,6 +13582,7 @@ export type UserUncheckedUpdateWithoutTenantUsersInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -13500,6 +13661,7 @@ export type UserCreateWithoutStorageFoldersInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -13578,6 +13740,7 @@ export type UserUncheckedCreateWithoutStorageFoldersInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -13672,6 +13835,7 @@ export type UserUpdateWithoutStorageFoldersInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -13750,6 +13914,7 @@ export type UserUncheckedUpdateWithoutStorageFoldersInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -13828,6 +13993,7 @@ export type UserCreateWithoutFolderAccessRulesInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -13906,6 +14072,7 @@ export type UserUncheckedCreateWithoutFolderAccessRulesInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -14000,6 +14167,7 @@ export type UserUpdateWithoutFolderAccessRulesInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -14078,6 +14246,7 @@ export type UserUncheckedUpdateWithoutFolderAccessRulesInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -14156,6 +14325,7 @@ export type UserCreateWithoutCalendarsCreatedInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -14234,6 +14404,7 @@ export type UserUncheckedCreateWithoutCalendarsCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -14328,6 +14499,7 @@ export type UserUpdateWithoutCalendarsCreatedInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -14406,6 +14578,7 @@ export type UserUncheckedUpdateWithoutCalendarsCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -14484,6 +14657,7 @@ export type UserCreateWithoutCalendarEventsCreatedInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -14562,6 +14736,7 @@ export type UserUncheckedCreateWithoutCalendarEventsCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -14656,6 +14831,7 @@ export type UserUpdateWithoutCalendarEventsCreatedInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -14734,6 +14910,7 @@ export type UserUncheckedUpdateWithoutCalendarEventsCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -14812,6 +14989,7 @@ export type UserCreateWithoutEventParticipantsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -14890,6 +15068,7 @@ export type UserUncheckedCreateWithoutEventParticipantsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -14984,6 +15163,7 @@ export type UserUpdateWithoutEventParticipantsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -15062,6 +15242,7 @@ export type UserUncheckedUpdateWithoutEventParticipantsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -15140,6 +15321,7 @@ export type UserCreateWithoutEventRemindersInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -15218,6 +15400,7 @@ export type UserUncheckedCreateWithoutEventRemindersInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -15312,6 +15495,7 @@ export type UserUpdateWithoutEventRemindersInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -15390,6 +15574,7 @@ export type UserUncheckedUpdateWithoutEventRemindersInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -15468,6 +15653,7 @@ export type UserCreateWithoutEmailAccountsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -15546,6 +15732,7 @@ export type UserUncheckedCreateWithoutEmailAccountsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -15640,6 +15827,7 @@ export type UserUpdateWithoutEmailAccountsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -15718,6 +15906,7 @@ export type UserUncheckedUpdateWithoutEmailAccountsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -15796,6 +15985,7 @@ export type UserCreateWithoutEmailAccountsAccessInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -15874,6 +16064,7 @@ export type UserUncheckedCreateWithoutEmailAccountsAccessInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -15968,6 +16159,7 @@ export type UserUpdateWithoutEmailAccountsAccessInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -16046,6 +16238,7 @@ export type UserUncheckedUpdateWithoutEmailAccountsAccessInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -16124,6 +16317,7 @@ export type UserCreateWithoutTeamsCreatedInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -16202,6 +16396,7 @@ export type UserUncheckedCreateWithoutTeamsCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -16296,6 +16491,7 @@ export type UserUpdateWithoutTeamsCreatedInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -16374,6 +16570,7 @@ export type UserUncheckedUpdateWithoutTeamsCreatedInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -16452,6 +16649,7 @@ export type UserCreateWithoutTeamMembersInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -16530,6 +16728,7 @@ export type UserUncheckedCreateWithoutTeamMembersInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -16624,6 +16823,7 @@ export type UserUpdateWithoutTeamMembersInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -16702,6 +16902,7 @@ export type UserUncheckedUpdateWithoutTeamMembersInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -16780,6 +16981,7 @@ export type UserCreateWithoutTeamEmailLinksInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -16858,6 +17060,7 @@ export type UserUncheckedCreateWithoutTeamEmailLinksInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -16952,6 +17155,7 @@ export type UserUpdateWithoutTeamEmailLinksInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -17030,6 +17234,7 @@ export type UserUncheckedUpdateWithoutTeamEmailLinksInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -17108,6 +17313,7 @@ export type UserCreateWithoutOwnedBoardsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -17186,6 +17392,7 @@ export type UserUncheckedCreateWithoutOwnedBoardsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -17280,6 +17487,7 @@ export type UserUpdateWithoutOwnedBoardsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -17358,6 +17566,7 @@ export type UserUncheckedUpdateWithoutOwnedBoardsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -17436,6 +17645,7 @@ export type UserCreateWithoutAssignedCardsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -17514,6 +17724,7 @@ export type UserUncheckedCreateWithoutAssignedCardsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -17597,6 +17808,7 @@ export type UserCreateWithoutReportedCardsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -17675,6 +17887,7 @@ export type UserUncheckedCreateWithoutReportedCardsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -17769,6 +17982,7 @@ export type UserUpdateWithoutAssignedCardsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -17847,6 +18061,7 @@ export type UserUncheckedUpdateWithoutAssignedCardsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -17936,6 +18151,7 @@ export type UserUpdateWithoutReportedCardsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -18014,6 +18230,7 @@ export type UserUncheckedUpdateWithoutReportedCardsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -18092,6 +18309,7 @@ export type UserCreateWithoutBoardMembershipsInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -18170,6 +18388,7 @@ export type UserUncheckedCreateWithoutBoardMembershipsInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -18264,6 +18483,7 @@ export type UserUpdateWithoutBoardMembershipsInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -18342,6 +18562,7 @@ export type UserUncheckedUpdateWithoutBoardMembershipsInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -18420,6 +18641,7 @@ export type UserCreateWithoutCardCommentsInput = {
   boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -18498,6 +18720,7 @@ export type UserUncheckedCreateWithoutCardCommentsInput = {
   boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -18592,6 +18815,7 @@ export type UserUpdateWithoutCardCommentsInput = {
   boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -18670,6 +18894,7 @@ export type UserUncheckedUpdateWithoutCardCommentsInput = {
   boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -18748,6 +18973,7 @@ export type UserCreateWithoutCommentReactionsInput = {
   boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -18826,6 +19052,7 @@ export type UserUncheckedCreateWithoutCommentReactionsInput = {
   boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -18920,6 +19147,7 @@ export type UserUpdateWithoutCommentReactionsInput = {
   boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -18998,6 +19226,7 @@ export type UserUncheckedUpdateWithoutCommentReactionsInput = {
   boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -19077,6 +19306,7 @@ export type UserCreateWithoutChecklistAssigneesInput = {
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChecklistAssigneesInput = {
@@ -19155,6 +19385,7 @@ export type UserUncheckedCreateWithoutChecklistAssigneesInput = {
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
   cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChecklistAssigneesInput = {
@@ -19249,6 +19480,7 @@ export type UserUpdateWithoutChecklistAssigneesInput = {
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChecklistAssigneesInput = {
@@ -19327,6 +19559,7 @@ export type UserUncheckedUpdateWithoutChecklistAssigneesInput = {
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
   cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCardActivitiesInput = {
@@ -19404,6 +19637,7 @@ export type UserCreateWithoutCardActivitiesInput = {
   boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
   cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
 }
 
@@ -19482,6 +19716,7 @@ export type UserUncheckedCreateWithoutCardActivitiesInput = {
   boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
   cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
   commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardWatchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutUserInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
 }
 
@@ -19576,6 +19811,7 @@ export type UserUpdateWithoutCardActivitiesInput = {
   boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
   cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -19654,6 +19890,339 @@ export type UserUncheckedUpdateWithoutCardActivitiesInput = {
   boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
   cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardWatchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
+}
+
+export type UserCreateWithoutCardWatchersInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemCreateNestedManyWithoutAssigneeInput
+}
+
+export type UserUncheckedCreateWithoutCardWatchersInput = {
+  id?: string
+  username?: string | null
+  email: string
+  password_hash: string
+  lastLoginIp?: string | null
+  failedLoginAttempts?: number
+  blockedUntil?: Date | string | null
+  passwordResetToken?: string | null
+  passwordResetExpires?: Date | string | null
+  forcePasswordReset?: boolean
+  forcePasswordResetReason?: string | null
+  forcePasswordResetRequestedBy?: string | null
+  forcePasswordResetRequestedAt?: Date | string | null
+  accessPinHash?: string | null
+  actionPinHash?: string | null
+  forceAccessPinSetup?: boolean
+  forceActionPinSetup?: boolean
+  isSuperAdmin?: boolean
+  deletedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutUserInput
+  ItemMovement?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutUserInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutApproverInput
+  AuditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutUserInput
+  Alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatorInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCreatorInput
+  ItemReservations?: Prisma.ItemReservationUncheckedCreateNestedManyWithoutUserInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  Notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutUserInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedCreateNestedManyWithoutGranterInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutUserInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedCreateNestedManyWithoutGranterInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedCreateNestedManyWithoutUserInput
+  RequestsCreated?: Prisma.RequestUncheckedCreateNestedManyWithoutRequesterInput
+  RequestsAssigned?: Prisma.RequestUncheckedCreateNestedManyWithoutAssignedToInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  RequestComments?: Prisma.RequestCommentUncheckedCreateNestedManyWithoutAuthorInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedCreateNestedManyWithoutPerformedByInput
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  processedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutProcessorInput
+  approvedPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutApproverInput
+  paidPayrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutPayerInput
+  approvedOvertime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutApproverInput
+  approvedAbsences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutApproverInput
+  VolumesCreated?: Prisma.VolumeUncheckedCreateNestedManyWithoutCreatedByUserInput
+  VolumesClosed?: Prisma.VolumeUncheckedCreateNestedManyWithoutClosedByUserInput
+  VolumesDelivered?: Prisma.VolumeUncheckedCreateNestedManyWithoutDeliveredByUserInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutCreatedByInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutUserInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutCreatedByUserInput
+  calendarsCreated?: Prisma.CalendarUncheckedCreateNestedManyWithoutCreatorInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutCreatorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutUserInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutOwnerInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutUserInput
+  teamsCreated?: Prisma.TeamUncheckedCreateNestedManyWithoutCreatorInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutLinkerInput
+  ownedBoards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
+  assignedCards?: Prisma.CardUncheckedCreateNestedManyWithoutAssigneeInput
+  reportedCards?: Prisma.CardUncheckedCreateNestedManyWithoutReporterInput
+  boardMemberships?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutUserInput
+  cardComments?: Prisma.CardCommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentReactions?: Prisma.CommentReactionUncheckedCreateNestedManyWithoutUserInput
+  cardActivities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutUserInput
+  checklistAssignees?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutAssigneeInput
+}
+
+export type UserCreateOrConnectWithoutCardWatchersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCardWatchersInput, Prisma.UserUncheckedCreateWithoutCardWatchersInput>
+}
+
+export type UserUpsertWithoutCardWatchersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCardWatchersInput, Prisma.UserUncheckedUpdateWithoutCardWatchersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCardWatchersInput, Prisma.UserUncheckedCreateWithoutCardWatchersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCardWatchersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCardWatchersInput, Prisma.UserUncheckedUpdateWithoutCardWatchersInput>
+}
+
+export type UserUpdateWithoutCardWatchersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUpdateManyWithoutUserNestedInput
+  checklistAssignees?: Prisma.ChecklistItemUpdateManyWithoutAssigneeNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCardWatchersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordResetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordResetExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forcePasswordReset?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forcePasswordResetReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forcePasswordResetRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accessPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  forceAccessPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  forceActionPinSetup?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  RefreshToken?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutUserNestedInput
+  ItemMovement?: Prisma.ItemMovementUncheckedUpdateManyWithoutUserNestedInput
+  ApprovedMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutApproverNestedInput
+  AuditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  VariantPriceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutUserNestedInput
+  Alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  CreatedPurchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  CreatedSalesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCreatorNestedInput
+  ItemReservations?: Prisma.ItemReservationUncheckedUpdateManyWithoutUserNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  NotificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  Notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  permissionGroups?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutUserNestedInput
+  grantedPermissions?: Prisma.UserPermissionGroupUncheckedUpdateManyWithoutGranterNestedInput
+  directPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutUserNestedInput
+  grantedDirectPermissions?: Prisma.UserDirectPermissionUncheckedUpdateManyWithoutGranterNestedInput
+  permissionAuditLogs?: Prisma.PermissionAuditLogUncheckedUpdateManyWithoutUserNestedInput
+  RequestsCreated?: Prisma.RequestUncheckedUpdateManyWithoutRequesterNestedInput
+  RequestsAssigned?: Prisma.RequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  UploadedAttachments?: Prisma.RequestAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  RequestComments?: Prisma.RequestCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  RequestHistoryActions?: Prisma.RequestHistoryUncheckedUpdateManyWithoutPerformedByNestedInput
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  processedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutProcessorNestedInput
+  approvedPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutApproverNestedInput
+  paidPayrolls?: Prisma.PayrollUncheckedUpdateManyWithoutPayerNestedInput
+  approvedOvertime?: Prisma.OvertimeUncheckedUpdateManyWithoutApproverNestedInput
+  approvedAbsences?: Prisma.AbsenceUncheckedUpdateManyWithoutApproverNestedInput
+  VolumesCreated?: Prisma.VolumeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  VolumesClosed?: Prisma.VolumeUncheckedUpdateManyWithoutClosedByUserNestedInput
+  VolumesDelivered?: Prisma.VolumeUncheckedUpdateManyWithoutDeliveredByUserNestedInput
+  LabelTemplatesCreated?: Prisma.LabelTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutUserNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  calendarsCreated?: Prisma.CalendarUncheckedUpdateManyWithoutCreatorNestedInput
+  calendarEventsCreated?: Prisma.CalendarEventUncheckedUpdateManyWithoutCreatorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutUserNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAccountsAccess?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutUserNestedInput
+  teamsCreated?: Prisma.TeamUncheckedUpdateManyWithoutCreatorNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  teamEmailLinks?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutLinkerNestedInput
+  ownedBoards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
+  assignedCards?: Prisma.CardUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportedCards?: Prisma.CardUncheckedUpdateManyWithoutReporterNestedInput
+  boardMemberships?: Prisma.BoardMemberUncheckedUpdateManyWithoutUserNestedInput
+  cardComments?: Prisma.CardCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentReactions?: Prisma.CommentReactionUncheckedUpdateManyWithoutUserNestedInput
+  cardActivities?: Prisma.CardActivityUncheckedUpdateManyWithoutUserNestedInput
   checklistAssignees?: Prisma.ChecklistItemUncheckedUpdateManyWithoutAssigneeNestedInput
 }
 
@@ -19714,6 +20283,7 @@ export type UserCountOutputType = {
   cardComments: number
   commentReactions: number
   cardActivities: number
+  cardWatchers: number
   checklistAssignees: number
 }
 
@@ -19769,6 +20339,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   cardComments?: boolean | UserCountOutputTypeCountCardCommentsArgs
   commentReactions?: boolean | UserCountOutputTypeCountCommentReactionsArgs
   cardActivities?: boolean | UserCountOutputTypeCountCardActivitiesArgs
+  cardWatchers?: boolean | UserCountOutputTypeCountCardWatchersArgs
   checklistAssignees?: boolean | UserCountOutputTypeCountChecklistAssigneesArgs
 }
 
@@ -20142,6 +20713,13 @@ export type UserCountOutputTypeCountCardActivitiesArgs<ExtArgs extends runtime.T
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountCardWatchersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CardWatcherWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountChecklistAssigneesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ChecklistItemWhereInput
 }
@@ -20223,6 +20801,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   cardComments?: boolean | Prisma.User$cardCommentsArgs<ExtArgs>
   commentReactions?: boolean | Prisma.User$commentReactionsArgs<ExtArgs>
   cardActivities?: boolean | Prisma.User$cardActivitiesArgs<ExtArgs>
+  cardWatchers?: boolean | Prisma.User$cardWatchersArgs<ExtArgs>
   checklistAssignees?: boolean | Prisma.User$checklistAssigneesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -20357,6 +20936,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   cardComments?: boolean | Prisma.User$cardCommentsArgs<ExtArgs>
   commentReactions?: boolean | Prisma.User$commentReactionsArgs<ExtArgs>
   cardActivities?: boolean | Prisma.User$cardActivitiesArgs<ExtArgs>
+  cardWatchers?: boolean | Prisma.User$cardWatchersArgs<ExtArgs>
   checklistAssignees?: boolean | Prisma.User$checklistAssigneesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -20419,6 +20999,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     cardComments: Prisma.$CardCommentPayload<ExtArgs>[]
     commentReactions: Prisma.$CommentReactionPayload<ExtArgs>[]
     cardActivities: Prisma.$CardActivityPayload<ExtArgs>[]
+    cardWatchers: Prisma.$CardWatcherPayload<ExtArgs>[]
     checklistAssignees: Prisma.$ChecklistItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -20891,6 +21472,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   cardComments<T extends Prisma.User$cardCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cardCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   commentReactions<T extends Prisma.User$commentReactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentReactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cardActivities<T extends Prisma.User$cardActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cardActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cardWatchers<T extends Prisma.User$cardWatchersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cardWatchersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardWatcherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   checklistAssignees<T extends Prisma.User$checklistAssigneesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$checklistAssigneesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChecklistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -22590,6 +23172,30 @@ export type User$cardActivitiesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.CardActivityScalarFieldEnum | Prisma.CardActivityScalarFieldEnum[]
+}
+
+/**
+ * User.cardWatchers
+ */
+export type User$cardWatchersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CardWatcher
+   */
+  select?: Prisma.CardWatcherSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CardWatcher
+   */
+  omit?: Prisma.CardWatcherOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardWatcherInclude<ExtArgs> | null
+  where?: Prisma.CardWatcherWhereInput
+  orderBy?: Prisma.CardWatcherOrderByWithRelationInput | Prisma.CardWatcherOrderByWithRelationInput[]
+  cursor?: Prisma.CardWatcherWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CardWatcherScalarFieldEnum | Prisma.CardWatcherScalarFieldEnum[]
 }
 
 /**

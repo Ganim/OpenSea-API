@@ -19,6 +19,7 @@ export const createBoardSchema = z.object({
   visibility: boardVisibilityEnum.optional().default('PRIVATE'),
   defaultView: boardViewEnum.optional().default('KANBAN'),
   settings: z.record(z.string(), z.unknown()).optional().nullable(),
+  gradientId: z.string().max(32).nullable().optional(),
 });
 
 export const updateBoardSchema = z.object({
@@ -27,6 +28,7 @@ export const updateBoardSchema = z.object({
   visibility: boardVisibilityEnum.optional(),
   defaultView: boardViewEnum.optional(),
   settings: z.record(z.string(), z.unknown()).optional().nullable(),
+  gradientId: z.string().max(32).nullable().optional(),
 });
 
 export const listBoardsQuerySchema = z.object({
@@ -91,6 +93,7 @@ export const boardResponseSchema = z.object({
   teamId: z.string().uuid().optional().nullable(),
   ownerId: z.string().uuid(),
   storageFolderId: z.string().uuid().optional().nullable(),
+  gradientId: z.string().max(32).nullable().optional(),
   visibility: z.string(),
   defaultView: z.string(),
   settings: z.record(z.string(), z.unknown()).optional().nullable(),

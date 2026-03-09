@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 
 import { archiveCardController } from './v1-archive-card.controller';
 import { assignCardController } from './v1-assign-card.controller';
@@ -11,6 +12,8 @@ import { moveCardController } from './v1-move-card.controller';
 import { updateCardController } from './v1-update-card.controller';
 
 export async function taskCardsRoutes(app: FastifyInstance) {
+app.addHook('onRequest', createModuleMiddleware('TASKS'));
+
   app.register(createCardController);
   app.register(updateCardController);
   app.register(deleteCardController);

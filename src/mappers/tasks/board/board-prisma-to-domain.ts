@@ -33,6 +33,7 @@ export function boardPrismaToDomain(raw: PrismaBoard): Board {
       teamId: raw.teamId ? new UniqueEntityID(raw.teamId) : null,
       ownerId: new UniqueEntityID(raw.ownerId),
       storageFolderId: raw.storageFolderId ?? null,
+      gradientId: raw.gradientId ?? null,
       visibility: raw.visibility,
       defaultView: raw.defaultView,
       settings: (raw.settings as Record<string, unknown>) ?? null,

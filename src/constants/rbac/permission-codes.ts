@@ -1133,6 +1133,11 @@ export const PermissionCodes = {
       UPLOAD: 'tasks.attachments.upload' as const,
       DELETE: 'tasks.attachments.delete' as const,
     },
+    WATCHERS: {
+      CREATE: 'tasks.watchers.create' as const,
+      READ: 'tasks.watchers.read' as const,
+      DELETE: 'tasks.watchers.delete' as const,
+    },
   },
 } as const;
 

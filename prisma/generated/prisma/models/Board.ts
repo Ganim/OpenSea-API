@@ -46,6 +46,7 @@ export type BoardMinAggregateOutputType = {
   visibility: $Enums.BoardVisibility | null
   defaultView: $Enums.BoardView | null
   position: number | null
+  gradientId: string | null
   archivedAt: Date | null
   deletedAt: Date | null
   createdAt: Date | null
@@ -64,6 +65,7 @@ export type BoardMaxAggregateOutputType = {
   visibility: $Enums.BoardVisibility | null
   defaultView: $Enums.BoardView | null
   position: number | null
+  gradientId: string | null
   archivedAt: Date | null
   deletedAt: Date | null
   createdAt: Date | null
@@ -84,6 +86,7 @@ export type BoardCountAggregateOutputType = {
   settings: number
   metadata: number
   position: number
+  gradientId: number
   archivedAt: number
   deletedAt: number
   createdAt: number
@@ -112,6 +115,7 @@ export type BoardMinAggregateInputType = {
   visibility?: true
   defaultView?: true
   position?: true
+  gradientId?: true
   archivedAt?: true
   deletedAt?: true
   createdAt?: true
@@ -130,6 +134,7 @@ export type BoardMaxAggregateInputType = {
   visibility?: true
   defaultView?: true
   position?: true
+  gradientId?: true
   archivedAt?: true
   deletedAt?: true
   createdAt?: true
@@ -150,6 +155,7 @@ export type BoardCountAggregateInputType = {
   settings?: true
   metadata?: true
   position?: true
+  gradientId?: true
   archivedAt?: true
   deletedAt?: true
   createdAt?: true
@@ -257,6 +263,7 @@ export type BoardGroupByOutputType = {
   settings: runtime.JsonValue | null
   metadata: runtime.JsonValue | null
   position: number
+  gradientId: string | null
   archivedAt: Date | null
   deletedAt: Date | null
   createdAt: Date
@@ -300,6 +307,7 @@ export type BoardWhereInput = {
   settings?: Prisma.JsonNullableFilter<"Board">
   metadata?: Prisma.JsonNullableFilter<"Board">
   position?: Prisma.IntFilter<"Board"> | number
+  gradientId?: Prisma.StringNullableFilter<"Board"> | string | null
   archivedAt?: Prisma.DateTimeNullableFilter<"Board"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Board"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Board"> | Date | string
@@ -315,6 +323,7 @@ export type BoardWhereInput = {
   customFields?: Prisma.BoardCustomFieldListRelationFilter
   activities?: Prisma.CardActivityListRelationFilter
   automations?: Prisma.BoardAutomationListRelationFilter
+  watchers?: Prisma.CardWatcherListRelationFilter
 }
 
 export type BoardOrderByWithRelationInput = {
@@ -331,6 +340,7 @@ export type BoardOrderByWithRelationInput = {
   settings?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
+  gradientId?: Prisma.SortOrderInput | Prisma.SortOrder
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -346,6 +356,7 @@ export type BoardOrderByWithRelationInput = {
   customFields?: Prisma.BoardCustomFieldOrderByRelationAggregateInput
   activities?: Prisma.CardActivityOrderByRelationAggregateInput
   automations?: Prisma.BoardAutomationOrderByRelationAggregateInput
+  watchers?: Prisma.CardWatcherOrderByRelationAggregateInput
 }
 
 export type BoardWhereUniqueInput = Prisma.AtLeast<{
@@ -365,6 +376,7 @@ export type BoardWhereUniqueInput = Prisma.AtLeast<{
   settings?: Prisma.JsonNullableFilter<"Board">
   metadata?: Prisma.JsonNullableFilter<"Board">
   position?: Prisma.IntFilter<"Board"> | number
+  gradientId?: Prisma.StringNullableFilter<"Board"> | string | null
   archivedAt?: Prisma.DateTimeNullableFilter<"Board"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Board"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Board"> | Date | string
@@ -380,6 +392,7 @@ export type BoardWhereUniqueInput = Prisma.AtLeast<{
   customFields?: Prisma.BoardCustomFieldListRelationFilter
   activities?: Prisma.CardActivityListRelationFilter
   automations?: Prisma.BoardAutomationListRelationFilter
+  watchers?: Prisma.CardWatcherListRelationFilter
 }, "id">
 
 export type BoardOrderByWithAggregationInput = {
@@ -396,6 +409,7 @@ export type BoardOrderByWithAggregationInput = {
   settings?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
+  gradientId?: Prisma.SortOrderInput | Prisma.SortOrder
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -424,6 +438,7 @@ export type BoardScalarWhereWithAggregatesInput = {
   settings?: Prisma.JsonNullableWithAggregatesFilter<"Board">
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"Board">
   position?: Prisma.IntWithAggregatesFilter<"Board"> | number
+  gradientId?: Prisma.StringNullableWithAggregatesFilter<"Board"> | string | null
   archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Board"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Board"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Board"> | Date | string
@@ -440,6 +455,7 @@ export type BoardCreateInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -455,6 +471,7 @@ export type BoardCreateInput = {
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateInput = {
@@ -471,6 +488,7 @@ export type BoardUncheckedCreateInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -482,6 +500,7 @@ export type BoardUncheckedCreateInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUpdateInput = {
@@ -494,6 +513,7 @@ export type BoardUpdateInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -509,6 +529,7 @@ export type BoardUpdateInput = {
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateInput = {
@@ -525,6 +546,7 @@ export type BoardUncheckedUpdateInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -536,6 +558,7 @@ export type BoardUncheckedUpdateInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardCreateManyInput = {
@@ -552,6 +575,7 @@ export type BoardCreateManyInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -568,6 +592,7 @@ export type BoardUpdateManyMutationInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -588,6 +613,7 @@ export type BoardUncheckedUpdateManyInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -618,6 +644,7 @@ export type BoardCountOrderByAggregateInput = {
   settings?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  gradientId?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -640,6 +667,7 @@ export type BoardMaxOrderByAggregateInput = {
   visibility?: Prisma.SortOrder
   defaultView?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  gradientId?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -658,6 +686,7 @@ export type BoardMinOrderByAggregateInput = {
   visibility?: Prisma.SortOrder
   defaultView?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  gradientId?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -951,6 +980,20 @@ export type BoardUpdateOneRequiredWithoutAutomationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BoardUpdateToOneWithWhereWithoutAutomationsInput, Prisma.BoardUpdateWithoutAutomationsInput>, Prisma.BoardUncheckedUpdateWithoutAutomationsInput>
 }
 
+export type BoardCreateNestedOneWithoutWatchersInput = {
+  create?: Prisma.XOR<Prisma.BoardCreateWithoutWatchersInput, Prisma.BoardUncheckedCreateWithoutWatchersInput>
+  connectOrCreate?: Prisma.BoardCreateOrConnectWithoutWatchersInput
+  connect?: Prisma.BoardWhereUniqueInput
+}
+
+export type BoardUpdateOneRequiredWithoutWatchersNestedInput = {
+  create?: Prisma.XOR<Prisma.BoardCreateWithoutWatchersInput, Prisma.BoardUncheckedCreateWithoutWatchersInput>
+  connectOrCreate?: Prisma.BoardCreateOrConnectWithoutWatchersInput
+  upsert?: Prisma.BoardUpsertWithoutWatchersInput
+  connect?: Prisma.BoardWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BoardUpdateToOneWithWhereWithoutWatchersInput, Prisma.BoardUpdateWithoutWatchersInput>, Prisma.BoardUncheckedUpdateWithoutWatchersInput>
+}
+
 export type BoardCreateWithoutOwnerInput = {
   id?: string
   title: string
@@ -961,6 +1004,7 @@ export type BoardCreateWithoutOwnerInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -975,6 +1019,7 @@ export type BoardCreateWithoutOwnerInput = {
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutOwnerInput = {
@@ -990,6 +1035,7 @@ export type BoardUncheckedCreateWithoutOwnerInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1001,6 +1047,7 @@ export type BoardUncheckedCreateWithoutOwnerInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutOwnerInput = {
@@ -1046,6 +1093,7 @@ export type BoardScalarWhereInput = {
   settings?: Prisma.JsonNullableFilter<"Board">
   metadata?: Prisma.JsonNullableFilter<"Board">
   position?: Prisma.IntFilter<"Board"> | number
+  gradientId?: Prisma.StringNullableFilter<"Board"> | string | null
   archivedAt?: Prisma.DateTimeNullableFilter<"Board"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Board"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Board"> | Date | string
@@ -1062,6 +1110,7 @@ export type BoardCreateWithoutTenantInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1076,6 +1125,7 @@ export type BoardCreateWithoutTenantInput = {
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutTenantInput = {
@@ -1091,6 +1141,7 @@ export type BoardUncheckedCreateWithoutTenantInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1102,6 +1153,7 @@ export type BoardUncheckedCreateWithoutTenantInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutTenantInput = {
@@ -1140,6 +1192,7 @@ export type BoardCreateWithoutStorageFolderInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1154,6 +1207,7 @@ export type BoardCreateWithoutStorageFolderInput = {
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutStorageFolderInput = {
@@ -1169,6 +1223,7 @@ export type BoardUncheckedCreateWithoutStorageFolderInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1180,6 +1235,7 @@ export type BoardUncheckedCreateWithoutStorageFolderInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutStorageFolderInput = {
@@ -1218,6 +1274,7 @@ export type BoardCreateWithoutTeamInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1232,6 +1289,7 @@ export type BoardCreateWithoutTeamInput = {
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutTeamInput = {
@@ -1247,6 +1305,7 @@ export type BoardUncheckedCreateWithoutTeamInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1258,6 +1317,7 @@ export type BoardUncheckedCreateWithoutTeamInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutTeamInput = {
@@ -1296,6 +1356,7 @@ export type BoardCreateWithoutColumnsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1310,6 +1371,7 @@ export type BoardCreateWithoutColumnsInput = {
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutColumnsInput = {
@@ -1326,6 +1388,7 @@ export type BoardUncheckedCreateWithoutColumnsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1336,6 +1399,7 @@ export type BoardUncheckedCreateWithoutColumnsInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutColumnsInput = {
@@ -1364,6 +1428,7 @@ export type BoardUpdateWithoutColumnsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1378,6 +1443,7 @@ export type BoardUpdateWithoutColumnsInput = {
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutColumnsInput = {
@@ -1394,6 +1460,7 @@ export type BoardUncheckedUpdateWithoutColumnsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1404,6 +1471,7 @@ export type BoardUncheckedUpdateWithoutColumnsInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardCreateWithoutCardsInput = {
@@ -1416,6 +1484,7 @@ export type BoardCreateWithoutCardsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1430,6 +1499,7 @@ export type BoardCreateWithoutCardsInput = {
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutCardsInput = {
@@ -1446,6 +1516,7 @@ export type BoardUncheckedCreateWithoutCardsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1456,6 +1527,7 @@ export type BoardUncheckedCreateWithoutCardsInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutCardsInput = {
@@ -1484,6 +1556,7 @@ export type BoardUpdateWithoutCardsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1498,6 +1571,7 @@ export type BoardUpdateWithoutCardsInput = {
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutCardsInput = {
@@ -1514,6 +1588,7 @@ export type BoardUncheckedUpdateWithoutCardsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1524,6 +1599,7 @@ export type BoardUncheckedUpdateWithoutCardsInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardCreateWithoutLabelsInput = {
@@ -1536,6 +1612,7 @@ export type BoardCreateWithoutLabelsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1550,6 +1627,7 @@ export type BoardCreateWithoutLabelsInput = {
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutLabelsInput = {
@@ -1566,6 +1644,7 @@ export type BoardUncheckedCreateWithoutLabelsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1576,6 +1655,7 @@ export type BoardUncheckedCreateWithoutLabelsInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutLabelsInput = {
@@ -1604,6 +1684,7 @@ export type BoardUpdateWithoutLabelsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1618,6 +1699,7 @@ export type BoardUpdateWithoutLabelsInput = {
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutLabelsInput = {
@@ -1634,6 +1716,7 @@ export type BoardUncheckedUpdateWithoutLabelsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1644,6 +1727,7 @@ export type BoardUncheckedUpdateWithoutLabelsInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardCreateWithoutMembersInput = {
@@ -1656,6 +1740,7 @@ export type BoardCreateWithoutMembersInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1670,6 +1755,7 @@ export type BoardCreateWithoutMembersInput = {
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutMembersInput = {
@@ -1686,6 +1772,7 @@ export type BoardUncheckedCreateWithoutMembersInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1696,6 +1783,7 @@ export type BoardUncheckedCreateWithoutMembersInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutMembersInput = {
@@ -1724,6 +1812,7 @@ export type BoardUpdateWithoutMembersInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1738,6 +1827,7 @@ export type BoardUpdateWithoutMembersInput = {
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutMembersInput = {
@@ -1754,6 +1844,7 @@ export type BoardUncheckedUpdateWithoutMembersInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1764,6 +1855,7 @@ export type BoardUncheckedUpdateWithoutMembersInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardCreateWithoutCustomFieldsInput = {
@@ -1776,6 +1868,7 @@ export type BoardCreateWithoutCustomFieldsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1790,6 +1883,7 @@ export type BoardCreateWithoutCustomFieldsInput = {
   members?: Prisma.BoardMemberCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutCustomFieldsInput = {
@@ -1806,6 +1900,7 @@ export type BoardUncheckedCreateWithoutCustomFieldsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1816,6 +1911,7 @@ export type BoardUncheckedCreateWithoutCustomFieldsInput = {
   members?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutCustomFieldsInput = {
@@ -1844,6 +1940,7 @@ export type BoardUpdateWithoutCustomFieldsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1858,6 +1955,7 @@ export type BoardUpdateWithoutCustomFieldsInput = {
   members?: Prisma.BoardMemberUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutCustomFieldsInput = {
@@ -1874,6 +1972,7 @@ export type BoardUncheckedUpdateWithoutCustomFieldsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1884,6 +1983,7 @@ export type BoardUncheckedUpdateWithoutCustomFieldsInput = {
   members?: Prisma.BoardMemberUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardCreateWithoutActivitiesInput = {
@@ -1896,6 +1996,7 @@ export type BoardCreateWithoutActivitiesInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1910,6 +2011,7 @@ export type BoardCreateWithoutActivitiesInput = {
   members?: Prisma.BoardMemberCreateNestedManyWithoutBoardInput
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutActivitiesInput = {
@@ -1926,6 +2028,7 @@ export type BoardUncheckedCreateWithoutActivitiesInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -1936,6 +2039,7 @@ export type BoardUncheckedCreateWithoutActivitiesInput = {
   members?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutBoardInput
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutActivitiesInput = {
@@ -1964,6 +2068,7 @@ export type BoardUpdateWithoutActivitiesInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1978,6 +2083,7 @@ export type BoardUpdateWithoutActivitiesInput = {
   members?: Prisma.BoardMemberUpdateManyWithoutBoardNestedInput
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutActivitiesInput = {
@@ -1994,6 +2100,7 @@ export type BoardUncheckedUpdateWithoutActivitiesInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2004,6 +2111,7 @@ export type BoardUncheckedUpdateWithoutActivitiesInput = {
   members?: Prisma.BoardMemberUncheckedUpdateManyWithoutBoardNestedInput
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardCreateWithoutAutomationsInput = {
@@ -2016,6 +2124,7 @@ export type BoardCreateWithoutAutomationsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -2030,6 +2139,7 @@ export type BoardCreateWithoutAutomationsInput = {
   members?: Prisma.BoardMemberCreateNestedManyWithoutBoardInput
   customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutAutomationsInput = {
@@ -2046,6 +2156,7 @@ export type BoardUncheckedCreateWithoutAutomationsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -2056,6 +2167,7 @@ export type BoardUncheckedCreateWithoutAutomationsInput = {
   members?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutBoardInput
   customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
   activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
+  watchers?: Prisma.CardWatcherUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutAutomationsInput = {
@@ -2084,6 +2196,7 @@ export type BoardUpdateWithoutAutomationsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2098,6 +2211,7 @@ export type BoardUpdateWithoutAutomationsInput = {
   members?: Prisma.BoardMemberUpdateManyWithoutBoardNestedInput
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutAutomationsInput = {
@@ -2114,6 +2228,7 @@ export type BoardUncheckedUpdateWithoutAutomationsInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2124,6 +2239,135 @@ export type BoardUncheckedUpdateWithoutAutomationsInput = {
   members?: Prisma.BoardMemberUncheckedUpdateManyWithoutBoardNestedInput
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
+}
+
+export type BoardCreateWithoutWatchersInput = {
+  id?: string
+  title: string
+  description?: string | null
+  type?: $Enums.BoardType
+  visibility?: $Enums.BoardVisibility
+  defaultView?: $Enums.BoardView
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  position?: number
+  gradientId?: string | null
+  archivedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutBoardsInput
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBoardsInput
+  team?: Prisma.TeamCreateNestedOneWithoutBoardsInput
+  storageFolder?: Prisma.StorageFolderCreateNestedOneWithoutBoardsInput
+  columns?: Prisma.BoardColumnCreateNestedManyWithoutBoardInput
+  cards?: Prisma.CardCreateNestedManyWithoutBoardInput
+  labels?: Prisma.BoardLabelCreateNestedManyWithoutBoardInput
+  members?: Prisma.BoardMemberCreateNestedManyWithoutBoardInput
+  customFields?: Prisma.BoardCustomFieldCreateNestedManyWithoutBoardInput
+  activities?: Prisma.CardActivityCreateNestedManyWithoutBoardInput
+  automations?: Prisma.BoardAutomationCreateNestedManyWithoutBoardInput
+}
+
+export type BoardUncheckedCreateWithoutWatchersInput = {
+  id?: string
+  tenantId: string
+  title: string
+  description?: string | null
+  type?: $Enums.BoardType
+  teamId?: string | null
+  ownerId: string
+  storageFolderId?: string | null
+  visibility?: $Enums.BoardVisibility
+  defaultView?: $Enums.BoardView
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  position?: number
+  gradientId?: string | null
+  archivedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  columns?: Prisma.BoardColumnUncheckedCreateNestedManyWithoutBoardInput
+  cards?: Prisma.CardUncheckedCreateNestedManyWithoutBoardInput
+  labels?: Prisma.BoardLabelUncheckedCreateNestedManyWithoutBoardInput
+  members?: Prisma.BoardMemberUncheckedCreateNestedManyWithoutBoardInput
+  customFields?: Prisma.BoardCustomFieldUncheckedCreateNestedManyWithoutBoardInput
+  activities?: Prisma.CardActivityUncheckedCreateNestedManyWithoutBoardInput
+  automations?: Prisma.BoardAutomationUncheckedCreateNestedManyWithoutBoardInput
+}
+
+export type BoardCreateOrConnectWithoutWatchersInput = {
+  where: Prisma.BoardWhereUniqueInput
+  create: Prisma.XOR<Prisma.BoardCreateWithoutWatchersInput, Prisma.BoardUncheckedCreateWithoutWatchersInput>
+}
+
+export type BoardUpsertWithoutWatchersInput = {
+  update: Prisma.XOR<Prisma.BoardUpdateWithoutWatchersInput, Prisma.BoardUncheckedUpdateWithoutWatchersInput>
+  create: Prisma.XOR<Prisma.BoardCreateWithoutWatchersInput, Prisma.BoardUncheckedCreateWithoutWatchersInput>
+  where?: Prisma.BoardWhereInput
+}
+
+export type BoardUpdateToOneWithWhereWithoutWatchersInput = {
+  where?: Prisma.BoardWhereInput
+  data: Prisma.XOR<Prisma.BoardUpdateWithoutWatchersInput, Prisma.BoardUncheckedUpdateWithoutWatchersInput>
+}
+
+export type BoardUpdateWithoutWatchersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumBoardTypeFieldUpdateOperationsInput | $Enums.BoardType
+  visibility?: Prisma.EnumBoardVisibilityFieldUpdateOperationsInput | $Enums.BoardVisibility
+  defaultView?: Prisma.EnumBoardViewFieldUpdateOperationsInput | $Enums.BoardView
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutBoardsNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBoardsNestedInput
+  team?: Prisma.TeamUpdateOneWithoutBoardsNestedInput
+  storageFolder?: Prisma.StorageFolderUpdateOneWithoutBoardsNestedInput
+  columns?: Prisma.BoardColumnUpdateManyWithoutBoardNestedInput
+  cards?: Prisma.CardUpdateManyWithoutBoardNestedInput
+  labels?: Prisma.BoardLabelUpdateManyWithoutBoardNestedInput
+  members?: Prisma.BoardMemberUpdateManyWithoutBoardNestedInput
+  customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
+  activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
+  automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+}
+
+export type BoardUncheckedUpdateWithoutWatchersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumBoardTypeFieldUpdateOperationsInput | $Enums.BoardType
+  teamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  storageFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.EnumBoardVisibilityFieldUpdateOperationsInput | $Enums.BoardVisibility
+  defaultView?: Prisma.EnumBoardViewFieldUpdateOperationsInput | $Enums.BoardView
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  columns?: Prisma.BoardColumnUncheckedUpdateManyWithoutBoardNestedInput
+  cards?: Prisma.CardUncheckedUpdateManyWithoutBoardNestedInput
+  labels?: Prisma.BoardLabelUncheckedUpdateManyWithoutBoardNestedInput
+  members?: Prisma.BoardMemberUncheckedUpdateManyWithoutBoardNestedInput
+  customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
+  activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
+  automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardCreateManyOwnerInput = {
@@ -2139,6 +2383,7 @@ export type BoardCreateManyOwnerInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -2155,6 +2400,7 @@ export type BoardUpdateWithoutOwnerInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2169,6 +2415,7 @@ export type BoardUpdateWithoutOwnerInput = {
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutOwnerInput = {
@@ -2184,6 +2431,7 @@ export type BoardUncheckedUpdateWithoutOwnerInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2195,6 +2443,7 @@ export type BoardUncheckedUpdateWithoutOwnerInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateManyWithoutOwnerInput = {
@@ -2210,6 +2459,7 @@ export type BoardUncheckedUpdateManyWithoutOwnerInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2229,6 +2479,7 @@ export type BoardCreateManyTenantInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -2245,6 +2496,7 @@ export type BoardUpdateWithoutTenantInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2259,6 +2511,7 @@ export type BoardUpdateWithoutTenantInput = {
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutTenantInput = {
@@ -2274,6 +2527,7 @@ export type BoardUncheckedUpdateWithoutTenantInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2285,6 +2539,7 @@ export type BoardUncheckedUpdateWithoutTenantInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateManyWithoutTenantInput = {
@@ -2300,6 +2555,7 @@ export type BoardUncheckedUpdateManyWithoutTenantInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2319,6 +2575,7 @@ export type BoardCreateManyStorageFolderInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -2335,6 +2592,7 @@ export type BoardUpdateWithoutStorageFolderInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2349,6 +2607,7 @@ export type BoardUpdateWithoutStorageFolderInput = {
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutStorageFolderInput = {
@@ -2364,6 +2623,7 @@ export type BoardUncheckedUpdateWithoutStorageFolderInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2375,6 +2635,7 @@ export type BoardUncheckedUpdateWithoutStorageFolderInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateManyWithoutStorageFolderInput = {
@@ -2390,6 +2651,7 @@ export type BoardUncheckedUpdateManyWithoutStorageFolderInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2409,6 +2671,7 @@ export type BoardCreateManyTeamInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: number
+  gradientId?: string | null
   archivedAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -2425,6 +2688,7 @@ export type BoardUpdateWithoutTeamInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2439,6 +2703,7 @@ export type BoardUpdateWithoutTeamInput = {
   customFields?: Prisma.BoardCustomFieldUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutTeamInput = {
@@ -2454,6 +2719,7 @@ export type BoardUncheckedUpdateWithoutTeamInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2465,6 +2731,7 @@ export type BoardUncheckedUpdateWithoutTeamInput = {
   customFields?: Prisma.BoardCustomFieldUncheckedUpdateManyWithoutBoardNestedInput
   activities?: Prisma.CardActivityUncheckedUpdateManyWithoutBoardNestedInput
   automations?: Prisma.BoardAutomationUncheckedUpdateManyWithoutBoardNestedInput
+  watchers?: Prisma.CardWatcherUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateManyWithoutTeamInput = {
@@ -2480,6 +2747,7 @@ export type BoardUncheckedUpdateManyWithoutTeamInput = {
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  gradientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2499,6 +2767,7 @@ export type BoardCountOutputType = {
   customFields: number
   activities: number
   automations: number
+  watchers: number
 }
 
 export type BoardCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2509,6 +2778,7 @@ export type BoardCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   customFields?: boolean | BoardCountOutputTypeCountCustomFieldsArgs
   activities?: boolean | BoardCountOutputTypeCountActivitiesArgs
   automations?: boolean | BoardCountOutputTypeCountAutomationsArgs
+  watchers?: boolean | BoardCountOutputTypeCountWatchersArgs
 }
 
 /**
@@ -2570,6 +2840,13 @@ export type BoardCountOutputTypeCountAutomationsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.BoardAutomationWhereInput
 }
 
+/**
+ * BoardCountOutputType without action
+ */
+export type BoardCountOutputTypeCountWatchersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CardWatcherWhereInput
+}
+
 
 export type BoardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2585,6 +2862,7 @@ export type BoardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   settings?: boolean
   metadata?: boolean
   position?: boolean
+  gradientId?: boolean
   archivedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
@@ -2600,6 +2878,7 @@ export type BoardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   customFields?: boolean | Prisma.Board$customFieldsArgs<ExtArgs>
   activities?: boolean | Prisma.Board$activitiesArgs<ExtArgs>
   automations?: boolean | Prisma.Board$automationsArgs<ExtArgs>
+  watchers?: boolean | Prisma.Board$watchersArgs<ExtArgs>
   _count?: boolean | Prisma.BoardCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["board"]>
 
@@ -2617,6 +2896,7 @@ export type BoardSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   settings?: boolean
   metadata?: boolean
   position?: boolean
+  gradientId?: boolean
   archivedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
@@ -2641,6 +2921,7 @@ export type BoardSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   settings?: boolean
   metadata?: boolean
   position?: boolean
+  gradientId?: boolean
   archivedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
@@ -2665,13 +2946,14 @@ export type BoardSelectScalar = {
   settings?: boolean
   metadata?: boolean
   position?: boolean
+  gradientId?: boolean
   archivedAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BoardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "description" | "type" | "teamId" | "ownerId" | "storageFolderId" | "visibility" | "defaultView" | "settings" | "metadata" | "position" | "archivedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["board"]>
+export type BoardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "description" | "type" | "teamId" | "ownerId" | "storageFolderId" | "visibility" | "defaultView" | "settings" | "metadata" | "position" | "gradientId" | "archivedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["board"]>
 export type BoardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -2684,6 +2966,7 @@ export type BoardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   customFields?: boolean | Prisma.Board$customFieldsArgs<ExtArgs>
   activities?: boolean | Prisma.Board$activitiesArgs<ExtArgs>
   automations?: boolean | Prisma.Board$automationsArgs<ExtArgs>
+  watchers?: boolean | Prisma.Board$watchersArgs<ExtArgs>
   _count?: boolean | Prisma.BoardCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BoardIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2713,6 +2996,7 @@ export type $BoardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     customFields: Prisma.$BoardCustomFieldPayload<ExtArgs>[]
     activities: Prisma.$CardActivityPayload<ExtArgs>[]
     automations: Prisma.$BoardAutomationPayload<ExtArgs>[]
+    watchers: Prisma.$CardWatcherPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2728,6 +3012,7 @@ export type $BoardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     settings: runtime.JsonValue | null
     metadata: runtime.JsonValue | null
     position: number
+    gradientId: string | null
     archivedAt: Date | null
     deletedAt: Date | null
     createdAt: Date
@@ -3137,6 +3422,7 @@ export interface Prisma__BoardClient<T, Null = never, ExtArgs extends runtime.Ty
   customFields<T extends Prisma.Board$customFieldsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Board$customFieldsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoardCustomFieldPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activities<T extends Prisma.Board$activitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Board$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   automations<T extends Prisma.Board$automationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Board$automationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoardAutomationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  watchers<T extends Prisma.Board$watchersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Board$watchersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CardWatcherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3179,6 +3465,7 @@ export interface BoardFieldRefs {
   readonly settings: Prisma.FieldRef<"Board", 'Json'>
   readonly metadata: Prisma.FieldRef<"Board", 'Json'>
   readonly position: Prisma.FieldRef<"Board", 'Int'>
+  readonly gradientId: Prisma.FieldRef<"Board", 'String'>
   readonly archivedAt: Prisma.FieldRef<"Board", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Board", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Board", 'DateTime'>
@@ -3782,6 +4069,30 @@ export type Board$automationsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.BoardAutomationScalarFieldEnum | Prisma.BoardAutomationScalarFieldEnum[]
+}
+
+/**
+ * Board.watchers
+ */
+export type Board$watchersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CardWatcher
+   */
+  select?: Prisma.CardWatcherSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CardWatcher
+   */
+  omit?: Prisma.CardWatcherOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CardWatcherInclude<ExtArgs> | null
+  where?: Prisma.CardWatcherWhereInput
+  orderBy?: Prisma.CardWatcherOrderByWithRelationInput | Prisma.CardWatcherOrderByWithRelationInput[]
+  cursor?: Prisma.CardWatcherWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CardWatcherScalarFieldEnum | Prisma.CardWatcherScalarFieldEnum[]
 }
 
 /**

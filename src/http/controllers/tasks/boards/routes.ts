@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 
 import { archiveBoardController } from './v1-archive-board.controller';
 import { createBoardController } from './v1-create-board.controller';
@@ -11,6 +12,8 @@ import { updateBoardController } from './v1-update-board.controller';
 import { updateBoardMemberController } from './v1-update-board-member.controller';
 
 export async function taskBoardsRoutes(app: FastifyInstance) {
+app.addHook('onRequest', createModuleMiddleware('TASKS'));
+
   app.register(createBoardController);
   app.register(updateBoardController);
   app.register(deleteBoardController);

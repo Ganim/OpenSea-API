@@ -9,6 +9,7 @@ export interface BoardProps {
   teamId?: UniqueEntityID | null;
   ownerId: UniqueEntityID;
   storageFolderId?: string | null;
+  gradientId?: string | null;
   visibility: string;
   defaultView: string;
   settings?: Record<string, unknown> | null;
@@ -61,6 +62,15 @@ export class Board extends Entity<BoardProps> {
 
   set storageFolderId(storageFolderId: string | null) {
     this.props.storageFolderId = storageFolderId;
+    this.touch();
+  }
+
+  get gradientId(): string | null {
+    return this.props.gradientId ?? null;
+  }
+
+  set gradientId(gradientId: string | null) {
+    this.props.gradientId = gradientId;
     this.touch();
   }
 

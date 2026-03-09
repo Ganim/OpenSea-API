@@ -13,6 +13,7 @@ interface UpdateBoardRequest {
   visibility?: string;
   defaultView?: string;
   settings?: Record<string, unknown> | null;
+  gradientId?: string | null;
 }
 
 interface UpdateBoardResponse {
@@ -58,6 +59,7 @@ export class UpdateBoardUseCase {
       visibility: request.visibility,
       defaultView: request.defaultView,
       settings: request.settings,
+      gradientId: request.gradientId,
     });
 
     if (!updatedBoard) {

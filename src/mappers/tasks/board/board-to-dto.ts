@@ -40,6 +40,7 @@ export interface BoardDTO {
   teamId: string | null;
   ownerId: string;
   storageFolderId: string | null;
+  gradientId: string | null;
   visibility: string;
   defaultView: string;
   settings: Record<string, unknown> | null;
@@ -71,6 +72,7 @@ export function boardToDTO(
     teamId: board.teamId?.toString() ?? null,
     ownerId: board.ownerId.toString(),
     storageFolderId: board.storageFolderId,
+    gradientId: board.gradientId ?? null,
     visibility: board.visibility,
     defaultView: board.defaultView,
     settings: board.settings,

@@ -70,6 +70,17 @@ export interface CardWithLabelIds {
   labelIds: string[];
 }
 
+export interface OverdueCardRecord {
+  id: string;
+  boardId: string;
+  tenantId: string;
+  title: string;
+  dueDate: Date;
+  assigneeId: string | null;
+  reporterId: string;
+  status: string;
+}
+
 export interface CardsRepository {
   create(data: CreateCardSchema): Promise<Card>;
   findById(id: string, boardId: string): Promise<Card | null>;
@@ -80,8 +91,10 @@ export interface CardsRepository {
     sourceType: string,
     sourceId: string,
   ): Promise<Card | null>;
+  findCardsDueSoon(beforeDate: Date): Promise<OverdueCardRecord[]>;
   findSubtasks(parentCardId: string): Promise<Card[]>;
   countByColumnId(columnId: string): Promise<number>;
+  getNextPosition(columnId: string): Promise<number>;
   update(data: UpdateCardSchema): Promise<Card | null>;
   updateManyColumn(cardIds: string[], boardId: string, columnId: string): Promise<void>;
   softDelete(id: string, boardId: string): Promise<void>;

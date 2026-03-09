@@ -7,6 +7,7 @@ import type {
   CreateCardSchema,
   FindManyCardsOptions,
   FindManyCardsResult,
+  OverdueCardRecord,
   UpdateCardSchema,
 } from '../cards-repository';
 import type {
@@ -141,6 +142,39 @@ export class PrismaCardsRepository implements CardsRepository {
     return raw ? cardPrismaToDomain(raw) : null;
   }
 
+  async findCardsDueSoon(beforeDate: Date): Promise<OverdueCardRecord[]> {
+    const rows = await prisma.card.findMany({
+      where: {
+        dueDate: { lte: beforeDate },
+        deletedAt: null,
+        archivedAt: null,
+        status: { notIn: ['DONE', 'CANCELED'] },
+        board: { deletedAt: null },
+      },
+      select: {
+        id: true,
+        boardId: true,
+        title: true,
+        dueDate: true,
+        assigneeId: true,
+        reporterId: true,
+        status: true,
+        board: { select: { tenantId: true } },
+      },
+    });
+
+    return rows.map((row) => ({
+      id: row.id,
+      boardId: row.boardId,
+      tenantId: row.board.tenantId,
+      title: row.title,
+      dueDate: row.dueDate!,
+      assigneeId: row.assigneeId,
+      reporterId: row.reporterId,
+      status: row.status,
+    }));
+  }
+
   async findSubtasks(parentCardId: string): Promise<Card[]> {
     const rows = await prisma.card.findMany({
       where: { parentCardId, deletedAt: null },
@@ -154,6 +188,14 @@ export class PrismaCardsRepository implements CardsRepository {
     return prisma.card.count({
       where: { columnId, deletedAt: null },
     });
+  }
+
+  async getNextPosition(columnId: string): Promise<number> {
+    const result = await prisma.card.aggregate({
+      where: { columnId, deletedAt: null },
+      _max: { position: true },
+    });
+    return (result._max.position ?? -1) + 1;
   }
 
   async update(data: UpdateCardSchema): Promise<Card | null> {

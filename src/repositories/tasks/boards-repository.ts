@@ -8,6 +8,7 @@ export interface CreateBoardSchema {
   teamId?: string | null;
   ownerId: string;
   storageFolderId?: string | null;
+  gradientId?: string | null;
   visibility?: string;
   defaultView?: string;
   settings?: Record<string, unknown> | null;
@@ -23,6 +24,7 @@ export interface UpdateBoardSchema {
   visibility?: string;
   defaultView?: string;
   storageFolderId?: string | null;
+  gradientId?: string | null;
   settings?: Record<string, unknown> | null;
   metadata?: Record<string, unknown> | null;
   position?: number;

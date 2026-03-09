@@ -171,7 +171,8 @@ export const ModelName = {
   CardChecklist: 'CardChecklist',
   ChecklistItem: 'ChecklistItem',
   CardActivity: 'CardActivity',
-  BoardAutomation: 'BoardAutomation'
+  BoardAutomation: 'BoardAutomation',
+  CardWatcher: 'CardWatcher'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2371,6 +2372,7 @@ export const BoardScalarFieldEnum = {
   settings: 'settings',
   metadata: 'metadata',
   position: 'position',
+  gradientId: 'gradientId',
   archivedAt: 'archivedAt',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
@@ -2577,6 +2579,17 @@ export const BoardAutomationScalarFieldEnum = {
 } as const
 
 export type BoardAutomationScalarFieldEnum = (typeof BoardAutomationScalarFieldEnum)[keyof typeof BoardAutomationScalarFieldEnum]
+
+
+export const CardWatcherScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  userId: 'userId',
+  boardId: 'boardId',
+  createdAt: 'createdAt'
+} as const
+
+export type CardWatcherScalarFieldEnum = (typeof CardWatcherScalarFieldEnum)[keyof typeof CardWatcherScalarFieldEnum]
 
 
 export const SortOrder = {

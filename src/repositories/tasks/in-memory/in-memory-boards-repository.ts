@@ -20,6 +20,7 @@ export class InMemoryBoardsRepository implements BoardsRepository {
       teamId: data.teamId ? new UniqueEntityID(data.teamId) : null,
       ownerId: new UniqueEntityID(data.ownerId),
       storageFolderId: data.storageFolderId,
+      gradientId: data.gradientId,
       visibility: data.visibility,
       defaultView: data.defaultView,
       settings: data.settings,
@@ -98,6 +99,7 @@ export class InMemoryBoardsRepository implements BoardsRepository {
     if (data.defaultView !== undefined) board.defaultView = data.defaultView;
     if (data.storageFolderId !== undefined)
       board.storageFolderId = data.storageFolderId;
+    if (data.gradientId !== undefined) board.gradientId = data.gradientId;
     if (data.settings !== undefined) board.settings = data.settings;
     if (data.metadata !== undefined) board.metadata = data.metadata;
     if (data.position !== undefined) board.position = data.position;

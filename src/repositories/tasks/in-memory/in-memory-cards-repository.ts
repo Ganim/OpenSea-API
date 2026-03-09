@@ -7,11 +7,13 @@ import type {
   FindManyCardsOptions,
   FindManyCardsResult,
   CardWithLabelIds,
+  OverdueCardRecord,
 } from '../cards-repository';
 
 export class InMemoryCardsRepository implements CardsRepository {
   public items: Card[] = [];
   public cardLabelAssignments: Map<string, string[]> = new Map();
+  public boardTenantMap: Map<string, string> = new Map();
 
   async create(data: CreateCardSchema): Promise<Card> {
     const card = Card.create({
@@ -155,6 +157,37 @@ export class InMemoryCardsRepository implements CardsRepository {
       (card) =>
         card.columnId.toString() === columnId && !card.deletedAt,
     ).length;
+  }
+
+  async getNextPosition(columnId: string): Promise<number> {
+    const cards = this.items.filter(
+      (card) => card.columnId.toString() === columnId && !card.deletedAt,
+    );
+    if (cards.length === 0) return 0;
+    return Math.max(...cards.map((c) => c.position)) + 1;
+  }
+
+  async findCardsDueSoon(beforeDate: Date): Promise<OverdueCardRecord[]> {
+    return this.items
+      .filter(
+        (card) =>
+          !card.deletedAt &&
+          !card.archivedAt &&
+          card.dueDate &&
+          card.dueDate <= beforeDate &&
+          card.status !== 'DONE' &&
+          card.status !== 'CANCELED',
+      )
+      .map((card) => ({
+        id: card.id.toString(),
+        boardId: card.boardId.toString(),
+        tenantId: this.boardTenantMap.get(card.boardId.toString()) ?? '',
+        title: card.title,
+        dueDate: card.dueDate!,
+        assigneeId: card.assigneeId?.toString() ?? null,
+        reporterId: card.reporterId.toString(),
+        status: card.status,
+      }));
   }
 
   async update(data: UpdateCardSchema): Promise<Card | null> {

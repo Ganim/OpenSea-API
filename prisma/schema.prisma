@@ -258,6 +258,7 @@ model User {
   cardComments       CardComment[]
   commentReactions   CommentReaction[]
   cardActivities     CardActivity[]
+  cardWatchers       CardWatcher[]
   checklistAssignees ChecklistItem[]    @relation("ChecklistItemAssignee")
 
   @@unique([email, deletedAt], name: "users_email_unique_active")
@@ -4870,6 +4871,7 @@ model Board {
   settings        Json?
   metadata        Json?
   position        Int             @default(0)
+  gradientId      String?         @map("gradient_id") @db.VarChar(32)
 
   archivedAt DateTime? @map("archived_at")
   deletedAt  DateTime? @map("deleted_at")
@@ -4887,6 +4889,7 @@ model Board {
   customFields  BoardCustomField[]
   activities    CardActivity[]
   automations   BoardAutomation[]
+  watchers      CardWatcher[]
 
   @@index([tenantId])
   @@index([tenantId, ownerId])
@@ -4963,6 +4966,7 @@ model Card {
   attachments       CardAttachment[]
   checklists        CardChecklist[]
   activities        CardActivity[]
+  watchers          CardWatcher[]
 
   @@index([boardId])
   @@index([boardId, columnId])
@@ -5192,4 +5196,22 @@ model BoardAutomation {
   @@index([boardId])
   @@index([boardId, isActive])
   @@map("board_automations")
+}
+
+model CardWatcher {
+  id        String   @id @default(uuid())
+  cardId    String   @map("card_id")
+  userId    String   @map("user_id")
+  boardId   String   @map("board_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  card  Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id])
+  board Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  @@unique([cardId, userId])
+  @@index([cardId])
+  @@index([userId])
+  @@index([boardId])
+  @@map("card_watchers")
 }

@@ -1,14 +1,18 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ExecuteAutomationUseCase } from './execute-automation';
+import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
 import { InMemoryBoardAutomationsRepository } from '@/repositories/tasks/in-memory/in-memory-board-automations-repository';
-import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
 import { InMemoryBoardColumnsRepository } from '@/repositories/tasks/in-memory/in-memory-board-columns-repository';
 import { InMemoryCardActivitiesRepository } from '@/repositories/tasks/in-memory/in-memory-card-activities-repository';
+import { InMemoryCardWatchersRepository } from '@/repositories/tasks/in-memory/in-memory-card-watchers-repository';
+import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
 
 let boardAutomationsRepository: InMemoryBoardAutomationsRepository;
 let cardsRepository: InMemoryCardsRepository;
 let boardColumnsRepository: InMemoryBoardColumnsRepository;
 let cardActivitiesRepository: InMemoryCardActivitiesRepository;
+let cardWatchersRepository: InMemoryCardWatchersRepository;
+let notificationsRepository: InMemoryNotificationsRepository;
 let sut: ExecuteAutomationUseCase;
 
 const BOARD_ID = 'board-1';
@@ -21,11 +25,15 @@ describe('ExecuteAutomationUseCase', () => {
     cardsRepository = new InMemoryCardsRepository();
     boardColumnsRepository = new InMemoryBoardColumnsRepository();
     cardActivitiesRepository = new InMemoryCardActivitiesRepository();
+    cardWatchersRepository = new InMemoryCardWatchersRepository();
+    notificationsRepository = new InMemoryNotificationsRepository();
     sut = new ExecuteAutomationUseCase(
       boardAutomationsRepository,
       cardsRepository,
       boardColumnsRepository,
       cardActivitiesRepository,
+      cardWatchersRepository,
+      notificationsRepository,
     );
 
     await boardColumnsRepository.create({
@@ -475,5 +483,119 @@ describe('ExecuteAutomationUseCase', () => {
       BOARD_ID,
     );
     expect(cardWithLabels?.labelIds).toEqual(['label-urgent']);
+  });
+
+  it('should execute SEND_NOTIFICATION action to card watchers', async () => {
+    const card = await createTestCard({ title: 'Important Task' });
+    const cardId = card.id.toString();
+
+    await cardWatchersRepository.create({
+      cardId,
+      userId: 'watcher-1',
+      boardId: BOARD_ID,
+    });
+
+    await cardWatchersRepository.create({
+      cardId,
+      userId: 'watcher-2',
+      boardId: BOARD_ID,
+    });
+
+    await boardAutomationsRepository.create({
+      boardId: BOARD_ID,
+      name: 'Notify watchers on creation',
+      trigger: 'CARD_CREATED',
+      triggerConfig: {},
+      action: 'SEND_NOTIFICATION',
+      actionConfig: { message: 'Cartão foi criado' },
+      createdBy: USER_ID,
+    });
+
+    const { executedCount } = await sut.execute({
+      tenantId: TENANT_ID,
+      boardId: BOARD_ID,
+      trigger: 'CARD_CREATED',
+      context: {
+        cardId,
+        userId: USER_ID,
+      },
+    });
+
+    expect(executedCount).toBe(1);
+    expect(notificationsRepository.items).toHaveLength(2);
+    expect(notificationsRepository.items[0].message).toBe('Cartão foi criado');
+    expect(notificationsRepository.items[0].title).toBe(
+      'Notificação: Important Task',
+    );
+  });
+
+  it('should not send notification to the actor (userId)', async () => {
+    const card = await createTestCard();
+    const cardId = card.id.toString();
+
+    await cardWatchersRepository.create({
+      cardId,
+      userId: USER_ID,
+      boardId: BOARD_ID,
+    });
+
+    await cardWatchersRepository.create({
+      cardId,
+      userId: 'other-user',
+      boardId: BOARD_ID,
+    });
+
+    await boardAutomationsRepository.create({
+      boardId: BOARD_ID,
+      name: 'Notify watchers',
+      trigger: 'CARD_CREATED',
+      triggerConfig: {},
+      action: 'SEND_NOTIFICATION',
+      actionConfig: {},
+      createdBy: USER_ID,
+    });
+
+    await sut.execute({
+      tenantId: TENANT_ID,
+      boardId: BOARD_ID,
+      trigger: 'CARD_CREATED',
+      context: {
+        cardId,
+        userId: USER_ID,
+      },
+    });
+
+    expect(notificationsRepository.items).toHaveLength(1);
+    expect(notificationsRepository.items[0].userId.toString()).toBe(
+      'other-user',
+    );
+  });
+
+  it('should return null for SEND_NOTIFICATION when no watchers exist', async () => {
+    const card = await createTestCard();
+    const cardId = card.id.toString();
+
+    await boardAutomationsRepository.create({
+      boardId: BOARD_ID,
+      name: 'Notify nobody',
+      trigger: 'CARD_CREATED',
+      triggerConfig: {},
+      action: 'SEND_NOTIFICATION',
+      actionConfig: {},
+      createdBy: USER_ID,
+    });
+
+    const { executedCount } = await sut.execute({
+      tenantId: TENANT_ID,
+      boardId: BOARD_ID,
+      trigger: 'CARD_CREATED',
+      context: {
+        cardId,
+        userId: USER_ID,
+      },
+    });
+
+    expect(executedCount).toBe(0);
+    expect(notificationsRepository.items).toHaveLength(0);
   });
 });

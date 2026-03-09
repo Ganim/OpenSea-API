@@ -97,6 +97,7 @@ import { taskCommentsRoutes } from './controllers/tasks/comments/routes';
 import { taskCustomFieldsRoutes } from './controllers/tasks/custom-fields/routes';
 import { taskLabelsRoutes } from './controllers/tasks/labels/routes';
 import { taskSubtasksRoutes } from './controllers/tasks/subtasks/routes';
+import { taskWatchersRoutes } from './controllers/tasks/watchers/routes';
 
 // HR routes
 import { absencesRoutes } from './controllers/hr/absences/routes';
@@ -233,6 +234,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(taskCustomFieldsRoutes);
   await app.register(taskAutomationsRoutes);
   await app.register(taskActivityRoutes);
+  await app.register(taskWatchersRoutes);
 
   // Audit routes
   await app.register(auditRoutes);

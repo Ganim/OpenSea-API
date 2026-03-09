@@ -504,7 +504,8 @@ export const ModelName = {
   CardChecklist: 'CardChecklist',
   ChecklistItem: 'ChecklistItem',
   CardActivity: 'CardActivity',
-  BoardAutomation: 'BoardAutomation'
+  BoardAutomation: 'BoardAutomation',
+  CardWatcher: 'CardWatcher'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -520,7 +521,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -9478,6 +9479,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CardWatcher: {
+      payload: Prisma.$CardWatcherPayload<ExtArgs>
+      fields: Prisma.CardWatcherFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CardWatcherFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CardWatcherFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload>
+        }
+        findFirst: {
+          args: Prisma.CardWatcherFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CardWatcherFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload>
+        }
+        findMany: {
+          args: Prisma.CardWatcherFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload>[]
+        }
+        create: {
+          args: Prisma.CardWatcherCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload>
+        }
+        createMany: {
+          args: Prisma.CardWatcherCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CardWatcherCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload>[]
+        }
+        delete: {
+          args: Prisma.CardWatcherDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload>
+        }
+        update: {
+          args: Prisma.CardWatcherUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload>
+        }
+        deleteMany: {
+          args: Prisma.CardWatcherDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CardWatcherUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CardWatcherUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload>[]
+        }
+        upsert: {
+          args: Prisma.CardWatcherUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardWatcherPayload>
+        }
+        aggregate: {
+          args: Prisma.CardWatcherAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCardWatcher>
+        }
+        groupBy: {
+          args: Prisma.CardWatcherGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardWatcherGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CardWatcherCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardWatcherCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -11698,6 +11773,7 @@ export const BoardScalarFieldEnum = {
   settings: 'settings',
   metadata: 'metadata',
   position: 'position',
+  gradientId: 'gradientId',
   archivedAt: 'archivedAt',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
@@ -11904,6 +11980,17 @@ export const BoardAutomationScalarFieldEnum = {
 } as const
 
 export type BoardAutomationScalarFieldEnum = (typeof BoardAutomationScalarFieldEnum)[keyof typeof BoardAutomationScalarFieldEnum]
+
+
+export const CardWatcherScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  userId: 'userId',
+  boardId: 'boardId',
+  createdAt: 'createdAt'
+} as const
+
+export type CardWatcherScalarFieldEnum = (typeof CardWatcherScalarFieldEnum)[keyof typeof CardWatcherScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -13288,6 +13375,7 @@ export type GlobalOmitConfig = {
   checklistItem?: Prisma.ChecklistItemOmit
   cardActivity?: Prisma.CardActivityOmit
   boardAutomation?: Prisma.BoardAutomationOmit
+  cardWatcher?: Prisma.CardWatcherOmit
 }
 
 /* Types for Logging */

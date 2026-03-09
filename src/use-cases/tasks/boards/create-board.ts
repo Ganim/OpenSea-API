@@ -17,6 +17,7 @@ interface CreateBoardRequest {
   visibility?: string;
   defaultView?: string;
   settings?: Record<string, unknown> | null;
+  gradientId?: string | null;
 }
 
 interface CreateBoardResponse {
@@ -72,6 +73,7 @@ export class CreateBoardUseCase {
       visibility: request.visibility,
       defaultView: request.defaultView,
       settings: request.settings,
+      gradientId: request.gradientId,
     });
 
     const boardId = board.id.toString();

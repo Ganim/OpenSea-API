@@ -26,6 +26,7 @@ export class PrismaBoardsRepository implements BoardsRepository {
         teamId: data.teamId,
         ownerId: data.ownerId,
         storageFolderId: data.storageFolderId,
+        gradientId: data.gradientId,
         visibility: (data.visibility as BoardVisibility) ?? 'PRIVATE',
         defaultView: (data.defaultView as BoardView) ?? 'KANBAN',
         settings: (data.settings as Prisma.InputJsonValue) ?? undefined,
@@ -118,6 +119,9 @@ export class PrismaBoardsRepository implements BoardsRepository {
         }),
         ...(data.storageFolderId !== undefined && {
           storageFolderId: data.storageFolderId,
+        }),
+        ...(data.gradientId !== undefined && {
+          gradientId: data.gradientId,
         }),
         ...(data.settings !== undefined && {
           settings: data.settings as Prisma.InputJsonValue,

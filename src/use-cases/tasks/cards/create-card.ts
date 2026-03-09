@@ -105,8 +105,8 @@ export class CreateCardUseCase {
       }
     }
 
-    const existingCardsCount =
-      await this.cardsRepository.countByColumnId(resolvedColumnId);
+    const nextPosition =
+      await this.cardsRepository.getNextPosition(resolvedColumnId);
 
     const card = await this.cardsRepository.create({
       boardId,
@@ -115,7 +115,7 @@ export class CreateCardUseCase {
       description,
       status,
       priority,
-      position: existingCardsCount,
+      position: nextPosition,
       assigneeId,
       reporterId: userId,
       startDate,

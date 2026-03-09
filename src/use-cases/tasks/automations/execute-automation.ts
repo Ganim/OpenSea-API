@@ -1,6 +1,9 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
 import type { BoardAutomationsRepository } from '@/repositories/tasks/board-automations-repository';
 import type { BoardColumnsRepository } from '@/repositories/tasks/board-columns-repository';
 import type { CardActivitiesRepository } from '@/repositories/tasks/card-activities-repository';
+import type { CardWatchersRepository } from '@/repositories/tasks/card-watchers-repository';
 import type { CardsRepository } from '@/repositories/tasks/cards-repository';
 import type { AutomationTrigger } from './create-automation';
 
@@ -31,6 +34,8 @@ export class ExecuteAutomationUseCase {
     private cardsRepository: CardsRepository,
     private boardColumnsRepository: BoardColumnsRepository,
     private cardActivitiesRepository: CardActivitiesRepository,
+    private cardWatchersRepository: CardWatchersRepository,
+    private notificationsRepository: NotificationsRepository,
   ) {}
 
   async execute(
@@ -72,6 +77,8 @@ export class ExecuteAutomationUseCase {
           automation.actionConfig,
           context.cardId,
           boardId,
+          context.userId,
+          card.title,
         );
 
         if (actionDescription) {
@@ -150,6 +157,8 @@ export class ExecuteAutomationUseCase {
     actionConfig: Record<string, unknown>,
     cardId: string,
     boardId: string,
+    userId: string,
+    cardTitle: string,
   ): Promise<string | null> {
     switch (action) {
       case 'MOVE_CARD': {
@@ -172,7 +181,15 @@ export class ExecuteAutomationUseCase {
       }
 
       case 'SET_FIELD': {
-        const ALLOWED_FIELDS = ['status', 'priority', 'assigneeId', 'dueDate', 'startDate', 'coverColor', 'estimatedMinutes'];
+        const ALLOWED_FIELDS = [
+          'status',
+          'priority',
+          'assigneeId',
+          'dueDate',
+          'startDate',
+          'coverColor',
+          'estimatedMinutes',
+        ];
         const fieldName = actionConfig.field as string | undefined;
         const fieldValue = actionConfig.value;
         if (!fieldName || !ALLOWED_FIELDS.includes(fieldName)) return null;
@@ -203,8 +220,10 @@ export class ExecuteAutomationUseCase {
         const labelId = actionConfig.labelId as string | undefined;
         if (!labelId) return null;
 
-        const cardWithLabels =
-          await this.cardsRepository.findByIdWithLabels(cardId, boardId);
+        const cardWithLabels = await this.cardsRepository.findByIdWithLabels(
+          cardId,
+          boardId,
+        );
         if (!cardWithLabels) return null;
 
         const existingLabelIds = cardWithLabels.labelIds;
@@ -233,8 +252,31 @@ export class ExecuteAutomationUseCase {
       }
 
       case 'SEND_NOTIFICATION': {
-        // Stub: notification delivery is not yet implemented
-        return null;
+        const watchers = await this.cardWatchersRepository.findByCardId(cardId);
+
+        if (watchers.length === 0) return null;
+
+        const message =
+          (actionConfig?.message as string) ??
+          `Atividade no cartão "${cardTitle}"`;
+
+        for (const watcher of watchers) {
+          if (watcher.userId === userId) continue;
+
+          await this.notificationsRepository.create({
+            userId: new UniqueEntityID(watcher.userId),
+            title: `Notificação: ${cardTitle}`,
+            message,
+            type: 'INFO',
+            priority: 'NORMAL',
+            channel: 'IN_APP',
+            entityType: 'card',
+            entityId: cardId,
+            actionUrl: `/tasks/${boardId}?card=${cardId}`,
+          });
+        }
+
+        return 'notificou observadores de';
       }
 
       default:
