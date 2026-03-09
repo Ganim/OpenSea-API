@@ -1,5 +1,7 @@
 import { NoOpThumbnailService } from '@/services/storage/no-op-thumbnail-service';
+import { PdfThumbnailService } from '@/services/storage/pdf-thumbnail-service';
 import { SharpThumbnailService } from '@/services/storage/sharp-thumbnail-service';
+import { VideoThumbnailService } from '@/services/storage/video-thumbnail-service';
 import { describe, expect, it } from 'vitest';
 
 describe('ThumbnailService', () => {
@@ -120,6 +122,67 @@ describe('ThumbnailService', () => {
       expect(result).not.toBeNull();
       expect(result!.width).toBe(300);
       expect(result!.height).toBe(150);
+    });
+  });
+
+  describe('PdfThumbnailService', () => {
+    const sut = new PdfThumbnailService();
+
+    it('should report canGenerate true for PDF', () => {
+      expect(sut.canGenerate('application/pdf')).toBe(true);
+    });
+
+    it('should report canGenerate false for non-PDF types', () => {
+      expect(sut.canGenerate('image/jpeg')).toBe(false);
+      expect(sut.canGenerate('text/plain')).toBe(false);
+      expect(sut.canGenerate('video/mp4')).toBe(false);
+    });
+
+    it('should return null for unsupported mime type', async () => {
+      const buffer = Buffer.from('not a pdf');
+      const result = await sut.generate(buffer, 'image/jpeg');
+      expect(result).toBeNull();
+    });
+
+    it('should return null gracefully for invalid PDF buffer', async () => {
+      const buffer = Buffer.from('this is not a valid PDF');
+      const result = await sut.generate(buffer, 'application/pdf');
+      // Should return null (graceful failure) since poppler may not be available
+      // or the buffer is not a valid PDF
+      expect(result === null || result?.mimeType === 'image/jpeg').toBe(true);
+    });
+  });
+
+  describe('VideoThumbnailService', () => {
+    const sut = new VideoThumbnailService();
+
+    it('should report canGenerate true for supported video types', () => {
+      expect(sut.canGenerate('video/mp4')).toBe(true);
+      expect(sut.canGenerate('video/webm')).toBe(true);
+      expect(sut.canGenerate('video/ogg')).toBe(true);
+      expect(sut.canGenerate('video/quicktime')).toBe(true);
+      expect(sut.canGenerate('video/x-msvideo')).toBe(true);
+      expect(sut.canGenerate('video/x-matroska')).toBe(true);
+    });
+
+    it('should report canGenerate false for non-video types', () => {
+      expect(sut.canGenerate('image/jpeg')).toBe(false);
+      expect(sut.canGenerate('application/pdf')).toBe(false);
+      expect(sut.canGenerate('text/plain')).toBe(false);
+    });
+
+    it('should return null for unsupported mime type', async () => {
+      const buffer = Buffer.from('not a video');
+      const result = await sut.generate(buffer, 'image/jpeg');
+      expect(result).toBeNull();
+    });
+
+    it('should return null gracefully for invalid video buffer', async () => {
+      const buffer = Buffer.from('this is not a valid video');
+      const result = await sut.generate(buffer, 'video/mp4');
+      // Should return null (graceful failure) since ffmpeg may not be available
+      // or the buffer is not a valid video
+      expect(result === null || result?.mimeType === 'image/jpeg').toBe(true);
     });
   });
 

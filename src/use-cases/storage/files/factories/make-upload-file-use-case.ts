@@ -8,7 +8,9 @@ import { EncryptionService } from '@/services/storage/encryption-service';
 import { FolderAccessService } from '@/services/storage/folder-access-service';
 import { LocalFileUploadService } from '@/services/storage/local-file-upload-service';
 import { S3FileUploadService } from '@/services/storage/s3-file-upload-service';
+import { PdfThumbnailService } from '@/services/storage/pdf-thumbnail-service';
 import { SharpThumbnailService } from '@/services/storage/sharp-thumbnail-service';
+import { VideoThumbnailService } from '@/services/storage/video-thumbnail-service';
 import { UploadFileUseCase } from '../upload-file';
 
 export function makeUploadFileUseCase() {
@@ -21,7 +23,8 @@ export function makeUploadFileUseCase() {
     : new LocalFileUploadService();
   const thumbnailService = new CompositeThumbnailService([
     new SharpThumbnailService(),
-    // Future services (e.g., PdfThumbnailService) can be added here
+    new PdfThumbnailService(),
+    new VideoThumbnailService(),
   ]);
   const folderAccessRulesRepository = new PrismaFolderAccessRulesRepository();
   const folderAccessService = new FolderAccessService(
