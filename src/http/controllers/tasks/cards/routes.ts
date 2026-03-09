@@ -12,7 +12,7 @@ import { moveCardController } from './v1-move-card.controller';
 import { updateCardController } from './v1-update-card.controller';
 
 export async function taskCardsRoutes(app: FastifyInstance) {
-app.addHook('onRequest', createModuleMiddleware('TASKS'));
+  app.addHook('onRequest', createModuleMiddleware('TASKS'));
 
   app.register(createCardController);
   app.register(updateCardController);

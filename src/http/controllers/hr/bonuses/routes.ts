@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createBonusController } from './v1-create-bonus.controller';
@@ -7,6 +8,8 @@ import { getBonusController } from './v1-get-bonus.controller';
 import { listBonusesController } from './v1-list-bonuses.controller';
 
 export async function bonusesRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('HR'));
+
   // Mutation routes
   app.register(
     async (mutationApp) => {

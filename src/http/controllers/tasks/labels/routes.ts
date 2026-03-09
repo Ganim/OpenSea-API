@@ -7,7 +7,7 @@ import { listLabelsController } from './v1-list-labels.controller';
 import { updateLabelController } from './v1-update-label.controller';
 
 export async function taskLabelsRoutes(app: FastifyInstance) {
-app.addHook('onRequest', createModuleMiddleware('TASKS'));
+  app.addHook('onRequest', createModuleMiddleware('TASKS'));
 
   app.register(createLabelController);
   app.register(updateLabelController);

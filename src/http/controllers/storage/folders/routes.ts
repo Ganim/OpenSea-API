@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { applyFolderTemplateController } from './v1-apply-folder-template.controller';
@@ -19,6 +20,8 @@ import { updateFolderController } from './v1-update-folder.controller';
 import { downloadFolderController } from './v1-download-folder.controller';
 
 export async function storageFoldersRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STORAGE'));
+
   // Admin routes with elevated rate limit
   app.register(
     async (adminApp) => {

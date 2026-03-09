@@ -8,7 +8,7 @@ import { toggleAutomationController } from './v1-toggle-automation.controller';
 import { updateAutomationController } from './v1-update-automation.controller';
 
 export async function taskAutomationsRoutes(app: FastifyInstance) {
-app.addHook('onRequest', createModuleMiddleware('TASKS'));
+  app.addHook('onRequest', createModuleMiddleware('TASKS'));
 
   app.register(createAutomationController);
   app.register(updateAutomationController);

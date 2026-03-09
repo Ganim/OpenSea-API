@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { createWarehouseController } from './v1-create-warehouse.controller';
 import { updateWarehouseController } from './v1-update-warehouse.controller';
 import { deleteWarehouseController } from './v1-delete-warehouse.controller';
@@ -6,6 +7,8 @@ import { getWarehouseByIdController } from './v1-get-warehouse-by-id.controller'
 import { listWarehousesController } from './v1-list-warehouses.controller';
 
 export async function warehousesRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STOCK'));
+
   await createWarehouseController(app);
   await updateWarehouseController(app);
   await deleteWarehouseController(app);

@@ -1,11 +1,14 @@
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { generateLabelsByZoneController } from './v1-generate-labels-by-zone.controller';
 import { generateLabelsController } from './v1-generate-labels.controller';
 import { getLabelPreviewController } from './v1-get-label-preview.controller';
 
 export async function labelsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STOCK'));
+
   // Query routes with query rate limit
   app.register(
     async (queryApp) => {

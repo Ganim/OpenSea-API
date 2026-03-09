@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { getBinByIdController } from './v1-get-bin-by-id.controller';
 import { getBinByAddressController } from './v1-get-bin-by-address.controller';
 import { getBinDetailController } from './v1-get-bin-detail.controller';
@@ -11,6 +12,8 @@ import { blockBinController } from './v1-block-bin.controller';
 import { unblockBinController } from './v1-unblock-bin.controller';
 
 export async function binsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STOCK'));
+
   await getBinDetailController(app);
   await getBinByIdController(app);
   await getBinByAddressController(app);

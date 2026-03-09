@@ -1,6 +1,7 @@
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { createPositionController } from './v1-create-position.controller';
 import { deletePositionController } from './v1-delete-position.controller';
 import { getPositionByIdController } from './v1-get-position-by-id.controller';
@@ -8,6 +9,8 @@ import { listPositionsController } from './v1-list-positions.controller';
 import { updatePositionController } from './v1-update-position.controller';
 
 export async function positionsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('HR'));
+
   // Manager routes with mutation rate limit
   app.register(
     async (managerApp) => {

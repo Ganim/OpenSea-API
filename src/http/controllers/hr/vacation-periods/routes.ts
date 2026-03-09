@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { cancelScheduledVacationController } from './v1-cancel-scheduled-vacation.controller';
@@ -11,6 +12,8 @@ import { sellVacationDaysController } from './v1-sell-vacation-days.controller';
 import { startVacationController } from './v1-start-vacation.controller';
 
 export async function vacationPeriodsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('HR'));
+
   // Mutation routes
   app.register(
     async (mutationApp) => {

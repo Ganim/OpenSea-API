@@ -6,6 +6,7 @@ import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeListEmailFoldersUseCase } from '@/use-cases/email/folders/factories/make-list-email-folders-use-case';
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
@@ -23,6 +24,8 @@ const folderSchema = z.object({
 });
 
 export async function emailFoldersRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('EMAIL'));
+
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/email/folders',

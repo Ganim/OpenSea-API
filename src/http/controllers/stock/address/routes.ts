@@ -1,11 +1,14 @@
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { parseAddressController } from './v1-parse-address.controller';
 import { suggestAddressController } from './v1-suggest-address.controller';
 import { validateAddressController } from './v1-validate-address.controller';
 
 export async function addressRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STOCK'));
+
   // Query routes with query rate limit
   app.register(
     async (queryApp) => {

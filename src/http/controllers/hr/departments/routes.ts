@@ -1,6 +1,7 @@
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { createDepartmentController } from './v1-create-department.controller';
 import { deleteDepartmentController } from './v1-delete-department.controller';
 import { getDepartmentByIdController } from './v1-get-department-by-id.controller';
@@ -8,6 +9,8 @@ import { listDepartmentsController } from './v1-list-departments.controller';
 import { updateDepartmentController } from './v1-update-department.controller';
 
 export async function departmentsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('HR'));
+
   // Manager routes with mutation rate limit
   app.register(
     async (managerApp) => {

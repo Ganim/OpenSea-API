@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createProductController } from './v1-create-product.controller';
@@ -8,6 +9,8 @@ import { listProductsController } from './v1-list-products.controller';
 import { updateProductController } from './v1-update-product.controller';
 
 export async function productsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STOCK'));
+
   // Admin routes com rate limit elevado
   app.register(
     async (adminApp) => {

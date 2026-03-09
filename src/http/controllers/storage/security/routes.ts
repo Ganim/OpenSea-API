@@ -1,6 +1,7 @@
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance, FastifyRequest } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { hideItemController } from './v1-hide-item.controller';
 import { protectItemController } from './v1-protect-item.controller';
 import { unhideItemController } from './v1-unhide-item.controller';
@@ -9,6 +10,8 @@ import { verifyProtectionController } from './v1-verify-protection.controller';
 import { verifySecurityKeyController } from './v1-verify-security-key.controller';
 
 export async function storageSecurityRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STORAGE'));
+
   await protectItemController(app);
   await unprotectItemController(app);
   await hideItemController(app);

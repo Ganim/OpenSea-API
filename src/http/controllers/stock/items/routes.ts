@@ -1,6 +1,7 @@
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { getItemByIdController } from './v1-get-item-by-id.controller';
 import { listItemsByProductIdController } from './v1-list-items-by-product-id.controller';
 import { listItemsByVariantIdController } from './v1-list-items-by-variant-id.controller';
@@ -13,6 +14,8 @@ import { getItemLocationHistoryController } from './v1-get-item-location-history
 import { getItemsLabelDataController } from './v1-get-items-label-data.controller';
 
 export async function itemsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STOCK'));
+
   // Rotas de consulta com rate limit de query
   app.register(
     async (queryApp) => {

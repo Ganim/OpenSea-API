@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { deleteNotificationController } from './v1-delete-notification.controller';
@@ -9,6 +10,8 @@ import { processScheduledNotificationsController } from './v1-process-scheduled-
 import { sendNotificationEmailController } from './v1-send-notification-email.controller';
 
 export async function notificationsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('NOTIFICATIONS'));
+
   // Authenticated user routes
   app.register(
     async (queryApp) => {

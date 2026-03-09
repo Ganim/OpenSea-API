@@ -9,7 +9,7 @@ import { removeReactionController } from './v1-remove-reaction.controller';
 import { updateCommentController } from './v1-update-comment.controller';
 
 export async function taskCommentsRoutes(app: FastifyInstance) {
-app.addHook('onRequest', createModuleMiddleware('TASKS'));
+  app.addHook('onRequest', createModuleMiddleware('TASKS'));
 
   app.register(createCommentController);
   app.register(updateCommentController);

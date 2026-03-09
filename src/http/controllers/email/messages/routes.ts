@@ -22,6 +22,7 @@ import { queueEmailSync } from '@/workers/queues/email-sync.queue';
 import rateLimit from '@fastify/rate-limit';
 import '@fastify/multipart';
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
@@ -104,6 +105,8 @@ const saveDraftBodySchema = z.object({
 });
 
 export async function emailMessagesRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('EMAIL'));
+
   // Rate limit: email sending (30/min) - most expensive operation
   app.register(rateLimit, rateLimitConfig.emailSend);
 

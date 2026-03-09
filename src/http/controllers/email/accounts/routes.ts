@@ -24,6 +24,7 @@ import {
 import { queueEmailSync } from '@/workers/queues/email-sync.queue';
 import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
@@ -114,6 +115,8 @@ const lastInlineSyncMap = new Map<string, number>();
 const INLINE_SYNC_COOLDOWN_MS = 30_000; // 30 seconds
 
 export async function emailAccountsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('EMAIL'));
+
   // Rate limit all account endpoints (mutation-level: 100/min)
   app.register(rateLimit, rateLimitConfig.mutation);
 

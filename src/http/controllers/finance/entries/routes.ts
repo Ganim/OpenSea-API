@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 
 import { createFinanceEntryController } from './v1-create-finance-entry.controller';
 import { updateFinanceEntryController } from './v1-update-finance-entry.controller';
@@ -12,6 +13,8 @@ import { checkOverdueController } from './v1-check-overdue.controller';
 import { importPayrollController } from './v1-import-payroll.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+
   app.register(getFinanceEntryByIdController);
   app.register(listFinanceEntriesController);
   app.register(createFinanceEntryController);

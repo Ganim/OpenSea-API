@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 
 import { createFinanceCategoryController } from './v1-create-finance-category.controller';
 import { deleteFinanceCategoryController } from './v1-delete-finance-category.controller';
@@ -7,6 +8,8 @@ import { listFinanceCategoriesController } from './v1-list-finance-categories.co
 import { updateFinanceCategoryController } from './v1-update-finance-category.controller';
 
 export async function financeCategoriesRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+
   app.register(getFinanceCategoryByIdController);
   app.register(listFinanceCategoriesController);
   app.register(createFinanceCategoryController);

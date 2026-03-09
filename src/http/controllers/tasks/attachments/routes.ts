@@ -6,7 +6,7 @@ import { listAttachmentsController } from './v1-list-attachments.controller';
 import { uploadAttachmentController } from './v1-upload-attachment.controller';
 
 export async function taskAttachmentsRoutes(app: FastifyInstance) {
-app.addHook('onRequest', createModuleMiddleware('TASKS'));
+  app.addHook('onRequest', createModuleMiddleware('TASKS'));
 
   app.register(uploadAttachmentController);
   app.register(deleteAttachmentController);

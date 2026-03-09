@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { createWorkScheduleController } from './v1-create-work-schedule.controller';
@@ -8,6 +9,8 @@ import { listWorkSchedulesController } from './v1-list-work-schedules.controller
 import { updateWorkScheduleController } from './v1-update-work-schedule.controller';
 
 export async function workSchedulesRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('HR'));
+
   // Manager routes com rate limit de mutação
   app.register(
     async (managerApp) => {

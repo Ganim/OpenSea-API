@@ -8,7 +8,7 @@ import { setCardCustomFieldValuesController } from './v1-set-card-custom-field-v
 import { updateCustomFieldController } from './v1-update-custom-field.controller';
 
 export async function taskCustomFieldsRoutes(app: FastifyInstance) {
-app.addHook('onRequest', createModuleMiddleware('TASKS'));
+  app.addHook('onRequest', createModuleMiddleware('TASKS'));
 
   app.register(createCustomFieldController);
   app.register(updateCustomFieldController);

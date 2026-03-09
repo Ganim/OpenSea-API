@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { addRequestCommentController } from './v1-add-request-comment.controller';
 import { assignRequestController } from './v1-assign-request.controller';
 import { cancelRequestController } from './v1-cancel-request.controller';
@@ -10,6 +11,8 @@ import { provideInfoController } from './v1-provide-info.controller';
 import { requestInfoController } from './v1-request-info.controller';
 
 export async function requestsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('REQUESTS'));
+
   await createRequestController(app);
   await getRequestByIdController(app);
   await listRequestsController(app);

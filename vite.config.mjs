@@ -11,6 +11,12 @@ export default defineConfig({
     dir: 'src',
     include: ['**/*.spec.ts', '**/*.test.ts'],
     exclude: ['**/node_modules/**', '**/dist/**'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'lcov'],
+      include: ['src/use-cases/**', 'src/entities/**', 'src/services/**'],
+      exclude: ['**/node_modules/**', '**/*.spec.ts', '**/*.e2e.spec.ts', '**/factories/**'],
+    },
     projects: [
       {
         extends: true,

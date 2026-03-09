@@ -12,7 +12,7 @@ import { updateBoardController } from './v1-update-board.controller';
 import { updateBoardMemberController } from './v1-update-board-member.controller';
 
 export async function taskBoardsRoutes(app: FastifyInstance) {
-app.addHook('onRequest', createModuleMiddleware('TASKS'));
+  app.addHook('onRequest', createModuleMiddleware('TASKS'));
 
   app.register(createBoardController);
   app.register(updateBoardController);

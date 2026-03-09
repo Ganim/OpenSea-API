@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 
 import { createConsortiumController } from './v1-create-consortium.controller';
 import { updateConsortiumController } from './v1-update-consortium.controller';
@@ -9,6 +10,8 @@ import { registerConsortiumPaymentController } from './v1-register-consortium-pa
 import { markContemplatedController } from './v1-mark-contemplated.controller';
 
 export async function consortiaRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('FINANCE'));
+
   app.register(getConsortiumByIdController);
   app.register(listConsortiaController);
   app.register(createConsortiumController);

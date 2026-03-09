@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { createZoneController } from './v1-create-zone.controller';
 import { updateZoneController } from './v1-update-zone.controller';
 import { deleteZoneController } from './v1-delete-zone.controller';
@@ -12,6 +13,8 @@ import { updateZoneLayoutController } from './v1-update-zone-layout.controller';
 import { resetZoneLayoutController } from './v1-reset-zone-layout.controller';
 
 export async function zonesRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STOCK'));
+
   await createZoneController(app);
   await updateZoneController(app);
   await deleteZoneController(app);

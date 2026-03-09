@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { addItemToVolumeController } from './v1-add-item-to-volume.controller';
 import { closeVolumeController } from './v1-close-volume.controller';
 import { createVolumeController } from './v1-create-volume.controller';
@@ -13,6 +14,8 @@ import { returnVolumeController } from './v1-return-volume.controller';
 import { updateVolumeController } from './v1-update-volume.controller';
 
 export async function volumesRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STOCK'));
+
   await createVolumeController(app);
   await listVolumesController(app);
   await getVolumeByIdController(app);

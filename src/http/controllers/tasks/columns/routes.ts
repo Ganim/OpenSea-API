@@ -7,7 +7,7 @@ import { reorderColumnsController } from './v1-reorder-columns.controller';
 import { updateColumnController } from './v1-update-column.controller';
 
 export async function taskColumnsRoutes(app: FastifyInstance) {
-app.addHook('onRequest', createModuleMiddleware('TASKS'));
+  app.addHook('onRequest', createModuleMiddleware('TASKS'));
 
   app.register(reorderColumnsController);
   app.register(createColumnController);

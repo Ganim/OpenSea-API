@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { bulkDeleteItemsController } from './v1-bulk-delete-items.controller';
@@ -25,9 +26,12 @@ import {
 } from './v1-complete-multipart-upload.controller';
 import { compressFilesController } from './v1-compress-files.controller';
 import { decompressFileController } from './v1-decompress-file.controller';
+import { createServeTokenController } from './v1-create-serve-token.controller';
 import { serveFileController } from './v1-serve-file.controller';
 
 export async function storageFilesRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STORAGE'));
+
   // Admin routes with elevated rate limit
   app.register(
     async (adminApp) => {
@@ -62,6 +66,15 @@ export async function storageFilesRoutes(app: FastifyInstance) {
       mutationApp.register(moveFileController);
       mutationApp.register(restoreFileVersionController);
       mutationApp.register(bulkMoveItemsController);
+    },
+    { prefix: '' },
+  );
+
+  // Mutation routes: serve token
+  app.register(
+    async (tokenApp) => {
+      tokenApp.register(rateLimit, rateLimitConfig.mutation);
+      tokenApp.register(createServeTokenController);
     },
     { prefix: '' },
   );

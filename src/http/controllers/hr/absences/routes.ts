@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { approveAbsenceController } from './v1-approve-absence.controller';
@@ -11,6 +12,8 @@ import { requestSickLeaveController } from './v1-request-sick-leave.controller';
 import { requestVacationController } from './v1-request-vacation.controller';
 
 export async function absencesRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('HR'));
+
   // Mutation routes
   app.register(
     async (mutationApp) => {

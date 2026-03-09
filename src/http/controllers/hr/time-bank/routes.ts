@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { adjustTimeBankController } from './v1-adjust-time-bank.controller';
@@ -8,6 +9,8 @@ import { getTimeBankController } from './v1-get-time-bank.controller';
 import { listTimeBanksController } from './v1-list-time-banks.controller';
 
 export async function timeBankRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('HR'));
+
   // Manager mutation routes
   app.register(
     async (managerApp) => {

@@ -1,12 +1,15 @@
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { emptyTrashController } from './v1-empty-trash.controller';
 import { listDeletedItemsController } from './v1-list-deleted-items.controller';
 import { restoreFileController } from './v1-restore-file.controller';
 import { restoreFolderController } from './v1-restore-folder.controller';
 
 export async function storageTrashRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STORAGE'));
+
   // Admin routes (empty trash)
   app.register(
     async (adminApp) => {

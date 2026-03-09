@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 
 import { createSupplierController } from './v1-create-supplier.controller';
 import { deleteSupplierController } from './v1-delete-supplier.controller';
@@ -7,6 +8,8 @@ import { listSuppliersController } from './v1-list-suppliers.controller';
 import { updateSupplierController } from './v1-update-supplier.controller';
 
 export async function suppliersRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('STOCK'));
+
   // All routes now use RBAC permission middleware configured in individual controllers
   app.register(getSupplierByIdController);
   app.register(listSuppliersController);

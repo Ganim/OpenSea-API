@@ -9,7 +9,7 @@ import { toggleChecklistItemController } from './v1-toggle-checklist-item.contro
 import { updateChecklistController } from './v1-update-checklist.controller';
 
 export async function taskChecklistsRoutes(app: FastifyInstance) {
-app.addHook('onRequest', createModuleMiddleware('TASKS'));
+  app.addHook('onRequest', createModuleMiddleware('TASKS'));
 
   app.register(createChecklistController);
   app.register(updateChecklistController);
