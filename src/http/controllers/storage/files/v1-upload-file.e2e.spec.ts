@@ -45,10 +45,10 @@ describe('Upload File (E2E)', () => {
 
     const response = await request(app.server)
       .post(`/v1/storage/folders/${folderId}/files`)
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `Bearer ${token}`)
+      .field('dummy', ''); // Force multipart content-type so the handler parses it
 
-    // Multipart endpoint without file attachment may return 400 or 500
-    expect([400, 500]).toContain(response.status);
+    expect(response.status).toBe(400);
   });
 
   it('should return 404 for non-existent folder', async () => {

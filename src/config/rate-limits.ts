@@ -121,6 +121,16 @@ export const rateLimitConfig = {
     timeWindow: '1 minute',
     message: 'Muitas tentativas de teste de conexão. Aguarde antes de testar novamente.',
   },
+
+  /**
+   * Password-protected item verification
+   * Limite restritivo por itemId+IP para prevenir brute-force de senhas de arquivos/pastas.
+   */
+  protectionVerify: {
+    max: 5, // 5 tentativas por minuto por item
+    timeWindow: '1 minute',
+    message: 'Muitas tentativas de verificação de senha. Aguarde antes de tentar novamente.',
+  },
 } as const;
 
 /**

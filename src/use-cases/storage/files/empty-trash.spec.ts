@@ -136,4 +136,164 @@ describe('EmptyTrashUseCase', () => {
     expect(storageFilesRepository.items).toHaveLength(1);
     expect(storageFoldersRepository.items).toHaveLength(1);
   });
+
+  it('should isolate trash deletion across tenants', async () => {
+    const TENANT_2 = 'tenant-2';
+
+    // Create and soft-delete a file in tenant-1
+    const file1 = await storageFilesRepository.create({
+      tenantId: TENANT_ID,
+      folderId: null,
+      name: 'tenant1-trash.pdf',
+      originalName: 'tenant1-trash.pdf',
+      fileKey: 'storage/tenant-1/tenant1-trash.pdf',
+      path: '/tenant1-trash.pdf',
+      size: 1024,
+      mimeType: 'application/pdf',
+      fileType: 'DOCUMENT',
+      uploadedBy: 'user-1',
+    });
+    await storageFilesRepository.softDelete(file1.id);
+
+    // Create and soft-delete a file in tenant-2
+    const file2 = await storageFilesRepository.create({
+      tenantId: TENANT_2,
+      folderId: null,
+      name: 'tenant2-trash.pdf',
+      originalName: 'tenant2-trash.pdf',
+      fileKey: 'storage/tenant-2/tenant2-trash.pdf',
+      path: '/tenant2-trash.pdf',
+      size: 512,
+      mimeType: 'application/pdf',
+      fileType: 'DOCUMENT',
+      uploadedBy: 'user-2',
+    });
+    await storageFilesRepository.softDelete(file2.id);
+
+    // Empty trash for tenant-1 only
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+    });
+
+    expect(result.deletedFiles).toBe(1);
+    expect(result.deletedS3Objects).toBe(1);
+
+    // Tenant-2 soft-deleted file should still exist
+    expect(storageFilesRepository.items).toHaveLength(1);
+    expect(storageFilesRepository.items[0].tenantId.toString()).toBe(TENANT_2);
+    expect(storageFilesRepository.items[0].deletedAt).not.toBeNull();
+  });
+
+  it('should count s3Errors when file deletion fails', async () => {
+    // Create 3 files and soft-delete them
+    const file1 = await storageFilesRepository.create({
+      tenantId: TENANT_ID,
+      folderId: null,
+      name: 'file1.pdf',
+      originalName: 'file1.pdf',
+      fileKey: 'storage/tenant-1/file1.pdf',
+      path: '/file1.pdf',
+      size: 1024,
+      mimeType: 'application/pdf',
+      fileType: 'DOCUMENT',
+      uploadedBy: 'user-1',
+    });
+    await storageFilesRepository.softDelete(file1.id);
+
+    const file2 = await storageFilesRepository.create({
+      tenantId: TENANT_ID,
+      folderId: null,
+      name: 'file2.pdf',
+      originalName: 'file2.pdf',
+      fileKey: 'storage/tenant-1/file2.pdf',
+      path: '/file2.pdf',
+      size: 512,
+      mimeType: 'application/pdf',
+      fileType: 'DOCUMENT',
+      uploadedBy: 'user-1',
+    });
+    await storageFilesRepository.softDelete(file2.id);
+
+    const file3 = await storageFilesRepository.create({
+      tenantId: TENANT_ID,
+      folderId: null,
+      name: 'file3.pdf',
+      originalName: 'file3.pdf',
+      fileKey: 'storage/tenant-1/file3.pdf',
+      path: '/file3.pdf',
+      size: 256,
+      mimeType: 'application/pdf',
+      fileType: 'DOCUMENT',
+      uploadedBy: 'user-1',
+    });
+    await storageFilesRepository.softDelete(file3.id);
+
+    // Make S3 delete fail for one specific file
+    vi.mocked(fakeFileUploadService.delete).mockImplementation(
+      async (key: string) => {
+        if (key === 'storage/tenant-1/file2.pdf') {
+          throw new Error('S3 delete failed');
+        }
+      },
+    );
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+    });
+
+    expect(result.deletedFiles).toBe(3);
+    expect(result.deletedS3Objects).toBe(2);
+    expect(result.s3Errors).toBe(1);
+    expect(fakeFileUploadService.delete).toHaveBeenCalledTimes(3);
+
+    // All files should be hard-deleted from the repository regardless of S3 errors
+    expect(storageFilesRepository.items).toHaveLength(0);
+  });
+
+  it('should hard-delete nested folders and their parent', async () => {
+    // Create parent folder
+    const { folder: parentFolder } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Parent',
+    });
+
+    // Create child folder inside parent
+    const { folder: childFolder } = await createFolder.execute({
+      tenantId: TENANT_ID,
+      name: 'Child',
+      parentId: parentFolder.id.toString(),
+    });
+
+    // Soft-delete both (parent first, then child — simulates cascade)
+    await storageFoldersRepository.softDelete(parentFolder.id);
+    await storageFoldersRepository.softDelete(childFolder.id);
+
+    // Also create a file in the child folder and soft-delete it
+    const file = await storageFilesRepository.create({
+      tenantId: TENANT_ID,
+      folderId: childFolder.id.toString(),
+      name: 'nested-file.txt',
+      originalName: 'nested-file.txt',
+      fileKey: 'storage/tenant-1/nested-file.txt',
+      path: `${childFolder.path}/nested-file.txt`,
+      size: 128,
+      mimeType: 'text/plain',
+      fileType: 'DOCUMENT',
+      uploadedBy: 'user-1',
+    });
+    await storageFilesRepository.softDelete(file.id);
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+    });
+
+    expect(result.deletedFiles).toBe(1);
+    expect(result.deletedFolders).toBe(2);
+    expect(result.deletedS3Objects).toBe(1);
+    expect(result.s3Errors).toBe(0);
+
+    // Everything should be gone
+    expect(storageFilesRepository.items).toHaveLength(0);
+    expect(storageFoldersRepository.items).toHaveLength(0);
+  });
 });

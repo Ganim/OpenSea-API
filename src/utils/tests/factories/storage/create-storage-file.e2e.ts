@@ -3,23 +3,34 @@ import { randomUUID } from 'crypto';
 
 export async function createStorageFileE2E(options: {
   tenantId: string;
-  folderId: string;
+  folderId: string | null;
   uploadedBy: string;
   name?: string;
   size?: number;
   mimeType?: string;
   fileType?: string;
   status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED';
+  isHidden?: boolean;
+  isProtected?: boolean;
+  expiresAt?: Date;
+  entityType?: string;
+  entityId?: string;
 }) {
   const timestamp = Date.now();
   const rand = Math.random().toString(36).substring(2, 6);
   const name = options.name ?? `test-file-${timestamp}-${rand}.txt`;
   const fileKey = `test/${randomUUID()}-${name}`;
 
-  const folder = await prisma.storageFolder.findUnique({
-    where: { id: options.folderId },
-  });
-  const path = folder ? `${folder.path}/${name}` : `/${name}`;
+  let path: string;
+
+  if (options.folderId) {
+    const folder = await prisma.storageFolder.findUnique({
+      where: { id: options.folderId },
+    });
+    path = folder ? `${folder.path}/${name}` : `/${name}`;
+  } else {
+    path = `/${name}`;
+  }
 
   const file = await prisma.storageFile.create({
     data: {
@@ -36,6 +47,11 @@ export async function createStorageFileE2E(options: {
       status: options.status ?? 'ACTIVE',
       currentVersion: 1,
       uploadedBy: options.uploadedBy,
+      isHidden: options.isHidden ?? false,
+      isProtected: options.isProtected ?? false,
+      expiresAt: options.expiresAt ?? null,
+      entityType: options.entityType ?? null,
+      entityId: options.entityId ?? null,
     },
   });
 

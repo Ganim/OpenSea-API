@@ -52,6 +52,7 @@ export const folderContentsQuerySchema = z.object({
     .enum(['name', 'createdAt', 'updatedAt', 'size'])
     .optional()
     .default('name'),
+  sortOrder: z.enum(['asc', 'desc']).optional().default('asc'),
   search: z.string().max(256).optional(),
   viewAll: z
     .enum(['true', 'false'])

@@ -157,6 +157,56 @@ describe('Storage Security — Hide/Unhide (E2E)', () => {
       expect(response.body.valid).toBe(false);
     });
 
+    it('should return valid: true for correct security key', async () => {
+      const { hash } = await import('bcryptjs');
+      const securityKeyHash = await hash('my-secret-key', 6);
+
+      const { prisma: prismaClient } = await import('@/lib/prisma');
+      await prismaClient.tenantUser.updateMany({
+        where: { userId, tenantId },
+        data: { securityKeyHash },
+      });
+
+      const response = await request(app.server)
+        .post('/v1/storage/security/verify-key')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ key: 'my-secret-key' });
+
+      expect(response.status).toBe(200);
+      expect(response.body.valid).toBe(true);
+
+      // Clean up
+      await prismaClient.tenantUser.updateMany({
+        where: { userId, tenantId },
+        data: { securityKeyHash: null },
+      });
+    });
+
+    it('should return valid: false for incorrect security key', async () => {
+      const { hash } = await import('bcryptjs');
+      const securityKeyHash = await hash('correct-key', 6);
+
+      const { prisma: prismaClient } = await import('@/lib/prisma');
+      await prismaClient.tenantUser.updateMany({
+        where: { userId, tenantId },
+        data: { securityKeyHash },
+      });
+
+      const response = await request(app.server)
+        .post('/v1/storage/security/verify-key')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ key: 'wrong-key' });
+
+      expect(response.status).toBe(200);
+      expect(response.body.valid).toBe(false);
+
+      // Clean up
+      await prismaClient.tenantUser.updateMany({
+        where: { userId, tenantId },
+        data: { securityKeyHash: null },
+      });
+    });
+
     it('should return 401 without auth', async () => {
       const response = await request(app.server)
         .post('/v1/storage/security/verify-key')

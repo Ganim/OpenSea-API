@@ -35,6 +35,9 @@ export async function verifyProtectionController(app: FastifyInstance) {
         404: z.object({
           message: z.string(),
         }),
+        429: z.object({
+          message: z.string(),
+        }),
       },
       security: [{ bearerAuth: [] }],
     },

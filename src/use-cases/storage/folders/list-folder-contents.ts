@@ -10,6 +10,8 @@ interface ListFolderContentsUseCaseRequest {
   page?: number;
   limit?: number;
   search?: string;
+  sort?: 'name' | 'createdAt' | 'updatedAt' | 'size';
+  sortOrder?: 'asc' | 'desc';
   /** Current user ID for visibility filtering */
   userId?: string;
   /** Current user's group IDs for visibility filtering */
@@ -52,6 +54,8 @@ export class ListFolderContentsUseCase {
       page = 1,
       limit = 20,
       search,
+      sort = 'name',
+      sortOrder = 'asc',
       userId,
       userGroupIds = [],
       userTeamIds = [],
@@ -112,6 +116,25 @@ export class ListFolderContentsUseCase {
         canViewFilterFolders,
       );
     }
+
+    // Sort folders
+    const dir = sortOrder === 'asc' ? 1 : -1;
+    childFolders.sort((a, b) => {
+      switch (sort) {
+        case 'name':
+          return a.name.localeCompare(b.name, 'pt-BR') * dir;
+        case 'createdAt':
+          return (a.createdAt.getTime() - b.createdAt.getTime()) * dir;
+        case 'updatedAt':
+          return (
+            ((a.updatedAt ?? a.createdAt).getTime() -
+              (b.updatedAt ?? b.createdAt).getTime()) *
+            dir
+          );
+        default:
+          return a.name.localeCompare(b.name, 'pt-BR') * dir;
+      }
+    });
 
     // Paginate folders (after visibility filtering)
     const totalFolders = childFolders.length;
