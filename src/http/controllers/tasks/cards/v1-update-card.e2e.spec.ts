@@ -35,4 +35,29 @@ describe('Update Card (E2E)', () => {
     expect(response.status).toBe(200);
     expect(response.body.card.title).toBe('Tarefa Atualizada');
   });
+
+  it('should update multiple card fields at once', async () => {
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
+    const userId = user.user.id;
+
+    const { board, columns } = await createTaskBoard(tenantId, userId);
+    const card = await createTaskCard(board.id, columns[0].id, userId);
+
+    const dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+    const response = await request(app.server)
+      .patch(`/v1/tasks/boards/${board.id}/cards/${card.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        title: 'Tarefa Completa',
+        description: 'Descrição detalhada da tarefa',
+        priority: 'URGENT',
+        dueDate,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.card.title).toBe('Tarefa Completa');
+    expect(response.body.card.description).toBe('Descrição detalhada da tarefa');
+    expect(response.body.card.priority).toBe('URGENT');
+    expect(response.body.card.dueDate).toBeTruthy();
+  });
 });

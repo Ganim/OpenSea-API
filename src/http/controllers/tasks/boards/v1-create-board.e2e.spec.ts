@@ -35,4 +35,27 @@ describe('Create Board (E2E)', () => {
     expect(response.body.board.title).toBe('Meu Quadro');
     expect(response.body.board.type).toBe('PERSONAL');
   });
+
+  it('should create a board with description, gradientId and default columns', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .post('/v1/tasks/boards')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        title: 'Quadro Completo',
+        description: 'Descrição do quadro de testes',
+        type: 'PERSONAL',
+        visibility: 'SHARED',
+        gradientId: 'purple-pink',
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body.board.title).toBe('Quadro Completo');
+    expect(response.body.board.description).toBe('Descrição do quadro de testes');
+    expect(response.body.board.visibility).toBe('SHARED');
+    expect(response.body.board.gradientId).toBe('purple-pink');
+    expect(response.body.board.columns).toBeDefined();
+    expect(response.body.board.columns.length).toBeGreaterThanOrEqual(3);
+  });
 });

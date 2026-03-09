@@ -37,4 +37,28 @@ describe('Create Card (E2E)', () => {
     expect(response.body.card.priority).toBe('HIGH');
     expect(response.body.card.boardId).toBe(board.id);
   });
+
+  it('should create a card in a specific column with description', async () => {
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
+    const userId = user.user.id;
+
+    const { board, columns } = await createTaskBoard(tenantId, userId);
+    const targetColumn = columns[1]; // second column
+
+    const response = await request(app.server)
+      .post(`/v1/tasks/boards/${board.id}/cards`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        title: 'Tarefa na Coluna 2',
+        description: 'Descrição da tarefa',
+        columnId: targetColumn.id,
+        priority: 'LOW',
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body.card.title).toBe('Tarefa na Coluna 2');
+    expect(response.body.card.columnId).toBe(targetColumn.id);
+    expect(response.body.card.description).toBe('Descrição da tarefa');
+    expect(response.body.card.priority).toBe('LOW');
+  });
 });

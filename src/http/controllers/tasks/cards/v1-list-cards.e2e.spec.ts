@@ -37,4 +37,23 @@ describe('List Cards (E2E)', () => {
     expect(Array.isArray(response.body.cards)).toBe(true);
     expect(response.body.cards.length).toBeGreaterThanOrEqual(1);
   });
+
+  it('should filter cards by priority', async () => {
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
+    const userId = user.user.id;
+
+    const { board, columns } = await createTaskBoard(tenantId, userId);
+    await createTaskCard(board.id, columns[0].id, userId, { priority: 'HIGH' });
+    await createTaskCard(board.id, columns[0].id, userId, { priority: 'LOW' });
+
+    const response = await request(app.server)
+      .get(`/v1/tasks/boards/${board.id}/cards?priority=HIGH`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.cards.length).toBeGreaterThanOrEqual(1);
+    for (const card of response.body.cards) {
+      expect(card.priority).toBe('HIGH');
+    }
+  });
 });
