@@ -49,7 +49,12 @@ export class ListCardsUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    await verifyBoardAccess(this.boardMembersRepository, board, request.userId, 'read');
+    await verifyBoardAccess(
+      this.boardMembersRepository,
+      board,
+      request.userId,
+      'read',
+    );
 
     const { cards, total } = await this.cardsRepository.findMany({
       boardId,

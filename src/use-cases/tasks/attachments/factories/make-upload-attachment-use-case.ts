@@ -7,5 +7,9 @@ export function makeUploadAttachmentUseCase() {
   const cardsRepository = new PrismaCardsRepository();
   const cardAttachmentsRepository = new PrismaCardAttachmentsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
-  return new UploadAttachmentUseCase(cardsRepository, cardAttachmentsRepository, cardActivitiesRepository);
+  return new UploadAttachmentUseCase(
+    cardsRepository,
+    cardAttachmentsRepository,
+    cardActivitiesRepository,
+  );
 }

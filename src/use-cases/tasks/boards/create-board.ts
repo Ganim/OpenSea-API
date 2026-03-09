@@ -44,23 +44,17 @@ export class CreateBoardUseCase {
     }
 
     if (title.length > 256) {
-      throw new BadRequestError(
-        'Board title must be at most 256 characters',
-      );
+      throw new BadRequestError('Board title must be at most 256 characters');
     }
 
     const boardType = type ?? 'PERSONAL';
 
     if (boardType === 'TEAM' && !teamId) {
-      throw new BadRequestError(
-        'Team ID is required for team boards',
-      );
+      throw new BadRequestError('Team ID is required for team boards');
     }
 
     if (boardType === 'PERSONAL' && teamId) {
-      throw new BadRequestError(
-        'Personal boards cannot have a team ID',
-      );
+      throw new BadRequestError('Personal boards cannot have a team ID');
     }
 
     const board = await this.boardsRepository.create({

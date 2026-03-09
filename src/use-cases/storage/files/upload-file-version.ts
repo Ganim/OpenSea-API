@@ -1,4 +1,3 @@
-import { env } from '@/@env';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { isAllowedMimeType } from '@/constants/storage/allowed-mime-types';
@@ -8,7 +7,7 @@ import type { StorageFileVersion } from '@/entities/storage/storage-file-version
 import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
 import type { StorageFileVersionsRepository } from '@/repositories/storage/storage-file-versions-repository';
 import type { FileUploadService } from '@/services/storage/file-upload-service';
-import { EncryptionService } from '@/services/storage/encryption-service';
+import type { EncryptionService } from '@/services/storage/encryption-service';
 
 interface UploadFileVersionUseCaseRequest {
   tenantId: string;
@@ -32,6 +31,7 @@ export class UploadFileVersionUseCase {
     private storageFilesRepository: StorageFilesRepository,
     private storageFileVersionsRepository: StorageFileVersionsRepository,
     private fileUploadService: FileUploadService,
+    private encryptionService?: EncryptionService,
   ) {}
 
   async execute(
@@ -59,11 +59,8 @@ export class UploadFileVersionUseCase {
     let uploadBuffer = file.buffer;
     let isEncrypted = false;
 
-    if (env.STORAGE_ENCRYPTION_KEY) {
-      const encryptionService = new EncryptionService(
-        env.STORAGE_ENCRYPTION_KEY,
-      );
-      uploadBuffer = encryptionService.encrypt(file.buffer);
+    if (this.encryptionService) {
+      uploadBuffer = this.encryptionService.encrypt(file.buffer);
       isEncrypted = true;
     }
 

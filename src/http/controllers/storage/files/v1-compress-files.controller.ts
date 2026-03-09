@@ -72,15 +72,14 @@ export async function compressFilesController(app: FastifyInstance) {
         });
 
         await logAudit(request, {
-          message: AUDIT_MESSAGES.STORAGE.FILE_UPLOAD,
+          message: AUDIT_MESSAGES.STORAGE.FILE_COMPRESS,
           entityId: file.id.toString(),
           placeholders: {
             userName: request.user.sub,
             fileName: file.name,
-            folderName: targetFolderId ?? 'root',
+            fileCount: String(fileIds.length + folderIds.length),
           },
           newData: {
-            operation: 'compress',
             fileIds,
             folderIds,
             resultFileName: file.name,

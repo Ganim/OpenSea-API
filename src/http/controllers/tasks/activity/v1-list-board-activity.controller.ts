@@ -3,7 +3,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { activityResponseSchema, listActivityQuerySchema } from '@/http/schemas/tasks';
+import {
+  activityResponseSchema,
+  listActivityQuerySchema,
+} from '@/http/schemas/tasks';
 import { makeListBoardActivityUseCase } from '@/use-cases/tasks/activity/factories/make-list-board-activity-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

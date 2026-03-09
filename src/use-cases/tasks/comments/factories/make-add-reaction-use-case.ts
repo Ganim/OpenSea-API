@@ -5,5 +5,8 @@ import { AddReactionUseCase } from '../add-reaction';
 export function makeAddReactionUseCase() {
   const cardCommentsRepository = new PrismaCardCommentsRepository();
   const commentReactionsRepository = new PrismaCommentReactionsRepository();
-  return new AddReactionUseCase(cardCommentsRepository, commentReactionsRepository);
+  return new AddReactionUseCase(
+    cardCommentsRepository,
+    commentReactionsRepository,
+  );
 }

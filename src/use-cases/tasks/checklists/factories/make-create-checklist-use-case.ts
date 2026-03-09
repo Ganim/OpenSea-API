@@ -7,5 +7,9 @@ export function makeCreateChecklistUseCase() {
   const cardsRepository = new PrismaCardsRepository();
   const cardChecklistsRepository = new PrismaCardChecklistsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
-  return new CreateChecklistUseCase(cardsRepository, cardChecklistsRepository, cardActivitiesRepository);
+  return new CreateChecklistUseCase(
+    cardsRepository,
+    cardChecklistsRepository,
+    cardActivitiesRepository,
+  );
 }

@@ -4,7 +4,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { checklistResponseSchema, createChecklistSchema } from '@/http/schemas/tasks';
+import {
+  checklistResponseSchema,
+  createChecklistSchema,
+} from '@/http/schemas/tasks';
 import { makeCreateChecklistUseCase } from '@/use-cases/tasks/checklists/factories/make-create-checklist-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

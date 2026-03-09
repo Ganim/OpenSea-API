@@ -103,6 +103,22 @@ export const STORAGE_AUDIT_MESSAGES = {
     description: '{{userName}} acessou o arquivo {{fileName}}',
   } satisfies AuditMessage,
 
+  FILE_COMPRESS: {
+    action: AuditAction.FILE_COMPRESS,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description:
+      '{{userName}} compactou {{fileCount}} arquivos em {{fileName}}',
+  } satisfies AuditMessage,
+
+  FILE_DECOMPRESS: {
+    action: AuditAction.FILE_DECOMPRESS,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description:
+      '{{userName}} extraiu o arquivo {{fileName}} ({{extractedCount}} arquivos, {{folderCount}} pastas)',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // FILE VERSIONS - Versoes de Arquivos
   // ============================================================================

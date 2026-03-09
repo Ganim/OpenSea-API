@@ -7,5 +7,9 @@ export function makeListCardsUseCase() {
   const boardsRepository = new PrismaBoardsRepository();
   const cardsRepository = new PrismaCardsRepository();
   const boardMembersRepository = new PrismaBoardMembersRepository();
-  return new ListCardsUseCase(boardsRepository, cardsRepository, boardMembersRepository);
+  return new ListCardsUseCase(
+    boardsRepository,
+    cardsRepository,
+    boardMembersRepository,
+  );
 }

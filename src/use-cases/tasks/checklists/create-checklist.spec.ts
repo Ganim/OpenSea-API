@@ -14,7 +14,11 @@ describe('CreateChecklistUseCase', () => {
     cardsRepository = new InMemoryCardsRepository();
     cardChecklistsRepository = new InMemoryCardChecklistsRepository();
     cardActivitiesRepository = new InMemoryCardActivitiesRepository();
-    sut = new CreateChecklistUseCase(cardsRepository, cardChecklistsRepository, cardActivitiesRepository);
+    sut = new CreateChecklistUseCase(
+      cardsRepository,
+      cardChecklistsRepository,
+      cardActivitiesRepository,
+    );
   });
 
   it('should create a checklist on a card', async () => {
@@ -85,6 +89,7 @@ describe('CreateChecklistUseCase', () => {
       sut.execute({
         tenantId: 'tenant-1',
         userId: 'user-1',
+        userName: 'John Doe',
         boardId: 'board-1',
         cardId: card.id.toString(),
         title: '   ',
@@ -97,6 +102,7 @@ describe('CreateChecklistUseCase', () => {
       sut.execute({
         tenantId: 'tenant-1',
         userId: 'user-1',
+        userName: 'John Doe',
         boardId: 'board-1',
         cardId: 'non-existent-card',
         title: 'My Checklist',

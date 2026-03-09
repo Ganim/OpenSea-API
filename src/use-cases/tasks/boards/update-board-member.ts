@@ -34,16 +34,13 @@ export class UpdateBoardMemberUseCase {
     }
 
     if (board.ownerId.toString() !== userId) {
-      throw new ForbiddenError(
-        'Only the board owner can update member roles',
-      );
+      throw new ForbiddenError('Only the board owner can update member roles');
     }
 
-    const existingMember =
-      await this.boardMembersRepository.findByBoardAndUser(
-        boardId,
-        targetUserId,
-      );
+    const existingMember = await this.boardMembersRepository.findByBoardAndUser(
+      boardId,
+      targetUserId,
+    );
 
     if (!existingMember) {
       throw new ResourceNotFoundError('Board member not found');

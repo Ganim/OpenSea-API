@@ -34,8 +34,10 @@ export class ToggleAutomationUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    const existingAutomation =
-      await this.boardAutomationsRepository.findById(automationId, boardId);
+    const existingAutomation = await this.boardAutomationsRepository.findById(
+      automationId,
+      boardId,
+    );
 
     if (!existingAutomation) {
       throw new ResourceNotFoundError('Automation not found');

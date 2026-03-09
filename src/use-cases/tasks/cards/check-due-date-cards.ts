@@ -2,9 +2,8 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { CardsRepository } from '@/repositories/tasks/cards-repository';
 import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
 
-interface CheckDueDateCardsRequest {
-  // no params needed - processes all tenants
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface CheckDueDateCardsRequest {}
 
 interface CheckDueDateCardsResponse {
   processed: number;

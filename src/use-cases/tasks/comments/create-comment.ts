@@ -29,14 +29,7 @@ export class CreateCommentUseCase {
   ) {}
 
   async execute(request: CreateCommentRequest): Promise<CreateCommentResponse> {
-    const {
-      boardId,
-      userId,
-      userName,
-      cardId,
-      content,
-      mentions,
-    } = request;
+    const { boardId, userId, userName, cardId, content, mentions } = request;
 
     if (!content || content.trim().length === 0) {
       throw new BadRequestError('Comment content is required');

@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -62,6 +64,22 @@ export async function decompressFileController(app: FastifyInstance) {
           fileId,
           targetFolderId,
           userId: request.user.sub,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STORAGE.FILE_DECOMPRESS,
+          entityId: fileId,
+          placeholders: {
+            userName: request.user.sub,
+            fileName: fileId,
+            extractedCount: String(files.length),
+            folderCount: String(folderCount),
+          },
+          newData: {
+            extractedFiles: files.length,
+            extractedFolders: folderCount,
+            targetFolderId: targetFolderId ?? 'root',
+          },
         });
 
         return reply.status(201).send({

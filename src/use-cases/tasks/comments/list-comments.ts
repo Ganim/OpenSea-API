@@ -21,13 +21,12 @@ export class ListCommentsUseCase {
   async execute(request: ListCommentsRequest): Promise<ListCommentsResponse> {
     const { cardId, page, limit } = request;
 
-    const { comments, total } =
-      await this.cardCommentsRepository.findByCardId({
-        cardId,
-        includeDeleted: false,
-        page,
-        limit,
-      });
+    const { comments, total } = await this.cardCommentsRepository.findByCardId({
+      cardId,
+      includeDeleted: false,
+      page,
+      limit,
+    });
 
     return { comments, total };
   }

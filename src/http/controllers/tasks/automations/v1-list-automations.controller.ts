@@ -32,10 +32,11 @@ export async function listAutomationsController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { boardId } = request.params;
 
       const useCase = makeListAutomationsUseCase();
-      const result = await useCase.execute({ boardId });
+      const result = await useCase.execute({ tenantId, boardId });
 
       return reply.status(200).send(result);
     },

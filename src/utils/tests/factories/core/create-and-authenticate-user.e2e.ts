@@ -543,7 +543,6 @@ function generatePermissionName(
     reminders: 'Lembretes',
     boards: 'Quadros',
     cards: 'Cartões',
-    attachments: 'Anexos',
   };
 
   const actionName = actionNames[action] || action;

@@ -32,6 +32,7 @@ export async function deleteBoardController(app: FastifyInstance) {
       params: z.object({ boardId: z.string().uuid() }),
       response: {
         204: z.null(),
+        403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
     },
@@ -43,7 +44,11 @@ export async function deleteBoardController(app: FastifyInstance) {
 
       try {
         const getBoardUseCase = makeGetBoardUseCase();
-        const { board } = await getBoardUseCase.execute({ tenantId, userId, boardId });
+        const { board } = await getBoardUseCase.execute({
+          tenantId,
+          userId,
+          boardId,
+        });
         const boardTitle = board.title;
 
         const useCase = makeDeleteBoardUseCase();
@@ -55,7 +60,7 @@ export async function deleteBoardController(app: FastifyInstance) {
           placeholders: { userName, boardTitle },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ForbiddenError) {
           return reply.status(403).send({ message: error.message });

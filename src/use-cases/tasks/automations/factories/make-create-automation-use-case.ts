@@ -5,5 +5,8 @@ import { CreateAutomationUseCase } from '../create-automation';
 export function makeCreateAutomationUseCase() {
   const boardsRepository = new PrismaBoardsRepository();
   const boardAutomationsRepository = new PrismaBoardAutomationsRepository();
-  return new CreateAutomationUseCase(boardsRepository, boardAutomationsRepository);
+  return new CreateAutomationUseCase(
+    boardsRepository,
+    boardAutomationsRepository,
+  );
 }

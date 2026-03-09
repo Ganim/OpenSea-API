@@ -31,8 +31,15 @@ export class ToggleChecklistItemUseCase {
   async execute(
     request: ToggleChecklistItemRequest,
   ): Promise<ToggleChecklistItemResponse> {
-    const { boardId, userId, userName, cardId, checklistId, itemId, isCompleted } =
-      request;
+    const {
+      boardId,
+      userId,
+      userName,
+      cardId,
+      checklistId,
+      itemId,
+      isCompleted,
+    } = request;
 
     const card = await this.cardsRepository.findById(cardId, boardId);
 
@@ -69,7 +76,9 @@ export class ToggleChecklistItemUseCase {
       cardId,
       boardId,
       userId,
-      type: isCompleted ? 'CHECKLIST_ITEM_COMPLETED' : 'CHECKLIST_ITEM_UNCOMPLETED',
+      type: isCompleted
+        ? 'CHECKLIST_ITEM_COMPLETED'
+        : 'CHECKLIST_ITEM_UNCOMPLETED',
       description: activityDescription,
     });
 

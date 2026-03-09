@@ -40,12 +40,14 @@ export async function toggleChecklistItemController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
       const { boardId, cardId, checklistId, itemId } = request.params;
 
       try {
         const useCase = makeToggleChecklistItemUseCase();
         const result = await useCase.execute({
+          tenantId,
           boardId,
           userId,
           userName: 'System',

@@ -1,3 +1,4 @@
+import { PrismaTransactionManager } from '@/lib/transaction-manager';
 import { PrismaFinanceEntriesRepository } from '@/repositories/finance/prisma/prisma-finance-entries-repository';
 import { PrismaFinanceCategoriesRepository } from '@/repositories/finance/prisma/prisma-finance-categories-repository';
 import { PrismaCostCentersRepository } from '@/repositories/finance/prisma/prisma-cost-centers-repository';
@@ -9,11 +10,13 @@ export function makeCreateFinanceEntryUseCase() {
   const categoriesRepository = new PrismaFinanceCategoriesRepository();
   const costCentersRepository = new PrismaCostCentersRepository();
   const calendarSyncService = makeCalendarSyncService();
+  const transactionManager = new PrismaTransactionManager();
 
   return new CreateFinanceEntryUseCase(
     entriesRepository,
     categoriesRepository,
     costCentersRepository,
     calendarSyncService,
+    transactionManager,
   );
 }

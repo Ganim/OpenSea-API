@@ -82,7 +82,9 @@ export class PrismaStorageFileVersionsRepository
     });
   }
 
-  async findByFileIds(fileIds: UniqueEntityID[]): Promise<StorageFileVersion[]> {
+  async findByFileIds(
+    fileIds: UniqueEntityID[],
+  ): Promise<StorageFileVersion[]> {
     if (fileIds.length === 0) return [];
     const versionsDb = await prisma.storageFileVersion.findMany({
       where: {

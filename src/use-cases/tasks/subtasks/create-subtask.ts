@@ -49,7 +49,10 @@ export class CreateSubtaskUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    const parentCard = await this.cardsRepository.findById(parentCardId, boardId);
+    const parentCard = await this.cardsRepository.findById(
+      parentCardId,
+      boardId,
+    );
 
     if (!parentCard) {
       throw new ResourceNotFoundError('Parent card not found');

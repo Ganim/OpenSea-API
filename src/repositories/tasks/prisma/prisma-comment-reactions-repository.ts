@@ -33,9 +33,7 @@ export class PrismaCommentReactionsRepository
     return toRecord(raw);
   }
 
-  async findByCommentId(
-    commentId: string,
-  ): Promise<CommentReactionRecord[]> {
+  async findByCommentId(commentId: string): Promise<CommentReactionRecord[]> {
     const rows = await prisma.commentReaction.findMany({
       where: { commentId },
     });

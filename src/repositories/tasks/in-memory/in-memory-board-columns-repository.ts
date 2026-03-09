@@ -6,9 +6,7 @@ import type {
   UpdateBoardColumnSchema,
 } from '../board-columns-repository';
 
-export class InMemoryBoardColumnsRepository
-  implements BoardColumnsRepository
-{
+export class InMemoryBoardColumnsRepository implements BoardColumnsRepository {
   public items: BoardColumnRecord[] = [];
 
   async create(data: CreateBoardColumnSchema): Promise<BoardColumnRecord> {
@@ -31,7 +29,9 @@ export class InMemoryBoardColumnsRepository
     return column;
   }
 
-  async createMany(data: CreateBoardColumnSchema[]): Promise<BoardColumnRecord[]> {
+  async createMany(
+    data: CreateBoardColumnSchema[],
+  ): Promise<BoardColumnRecord[]> {
     const results: BoardColumnRecord[] = [];
     for (const col of data) {
       results.push(await this.create(col));
@@ -52,21 +52,15 @@ export class InMemoryBoardColumnsRepository
 
   async findByBoardId(boardId: string): Promise<BoardColumnRecord[]> {
     return this.items
-      .filter(
-        (column) => column.boardId === boardId && !column.archivedAt,
-      )
+      .filter((column) => column.boardId === boardId && !column.archivedAt)
       .sort((a, b) => a.position - b.position);
   }
 
-  async findDefaultColumn(
-    boardId: string,
-  ): Promise<BoardColumnRecord | null> {
+  async findDefaultColumn(boardId: string): Promise<BoardColumnRecord | null> {
     return (
       this.items.find(
         (column) =>
-          column.boardId === boardId &&
-          column.isDefault &&
-          !column.archivedAt,
+          column.boardId === boardId && column.isDefault && !column.archivedAt,
       ) ?? null
     );
   }
@@ -75,9 +69,7 @@ export class InMemoryBoardColumnsRepository
     return (
       this.items.find(
         (column) =>
-          column.boardId === boardId &&
-          column.isDone &&
-          !column.archivedAt,
+          column.boardId === boardId && column.isDone && !column.archivedAt,
       ) ?? null
     );
   }

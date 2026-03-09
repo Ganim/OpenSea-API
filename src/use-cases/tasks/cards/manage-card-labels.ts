@@ -33,8 +33,7 @@ export class ManageCardLabelsUseCase {
   async execute(
     request: ManageCardLabelsRequest,
   ): Promise<ManageCardLabelsResponse> {
-    const { tenantId, userId, userName, boardId, cardId, labelIds } =
-      request;
+    const { tenantId, userId, userName, boardId, cardId, labelIds } = request;
 
     const board = await this.boardsRepository.findById(boardId, tenantId);
 
@@ -42,7 +41,12 @@ export class ManageCardLabelsUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    await verifyBoardAccess(this.boardMembersRepository, board, userId, 'write');
+    await verifyBoardAccess(
+      this.boardMembersRepository,
+      board,
+      userId,
+      'write',
+    );
 
     const cardWithLabels = await this.cardsRepository.findByIdWithLabels(
       cardId,
@@ -55,8 +59,7 @@ export class ManageCardLabelsUseCase {
 
     const { card, labelIds: currentLabelIds } = cardWithLabels;
 
-    const boardLabels =
-      await this.boardLabelsRepository.findByBoardId(boardId);
+    const boardLabels = await this.boardLabelsRepository.findByBoardId(boardId);
     const validLabelIds = new Set(boardLabels.map((label) => label.id));
     const labelNameMap = new Map(
       boardLabels.map((label) => [label.id, label.name]),

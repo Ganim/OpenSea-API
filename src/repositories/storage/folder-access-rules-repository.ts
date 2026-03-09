@@ -52,4 +52,5 @@ export interface FolderAccessRulesRepository {
     folderIds: string[],
     tenantId: string,
   ): Promise<Map<string, FolderAccessRule[]>>;
+  countByFolder(folderId: UniqueEntityID): Promise<number>;
 }

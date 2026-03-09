@@ -52,6 +52,8 @@ export interface StorageFoldersRepository {
   findDescendants(
     folderId: UniqueEntityID,
     tenantId: string,
+    /** When provided, skips the extra query to fetch the parent folder path */
+    parentPath?: string,
   ): Promise<StorageFolder[]>;
   update(data: UpdateStorageFolderSchema): Promise<StorageFolder | null>;
   softDelete(id: UniqueEntityID): Promise<void>;

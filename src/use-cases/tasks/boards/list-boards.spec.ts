@@ -118,10 +118,7 @@ describe('ListBoardsUseCase', () => {
       ownerId: 'user-1',
     });
 
-    await boardsRepository.softDelete(
-      boardToDelete.id.toString(),
-      'tenant-1',
-    );
+    await boardsRepository.softDelete(boardToDelete.id.toString(), 'tenant-1');
 
     const { boards } = await sut.execute({
       tenantId: 'tenant-1',

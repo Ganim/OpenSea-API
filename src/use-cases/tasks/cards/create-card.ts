@@ -69,16 +69,19 @@ export class CreateCardUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    await verifyBoardAccess(this.boardMembersRepository, board, userId, 'write');
+    await verifyBoardAccess(
+      this.boardMembersRepository,
+      board,
+      userId,
+      'write',
+    );
 
     if (!title || title.trim().length === 0) {
       throw new BadRequestError('Card title is required');
     }
 
     if (title.length > 512) {
-      throw new BadRequestError(
-        'Card title must be at most 512 characters',
-      );
+      throw new BadRequestError('Card title must be at most 512 characters');
     }
 
     let resolvedColumnId = request.columnId;

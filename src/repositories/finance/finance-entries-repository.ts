@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceEntry } from '@/entities/finance/finance-entry';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateFinanceEntrySchema {
   tenantId: string;
@@ -117,13 +118,13 @@ export interface OverdueByParty {
 }
 
 export interface FinanceEntriesRepository {
-  create(data: CreateFinanceEntrySchema): Promise<FinanceEntry>;
+  create(data: CreateFinanceEntrySchema, tx?: TransactionClient): Promise<FinanceEntry>;
   findById(id: UniqueEntityID, tenantId: string): Promise<FinanceEntry | null>;
   findByCode(code: string, tenantId: string): Promise<FinanceEntry | null>;
   findMany(options: FindManyFinanceEntriesOptions): Promise<FindManyResult>;
   update(data: UpdateFinanceEntrySchema): Promise<FinanceEntry | null>;
   delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
-  generateNextCode(tenantId: string, type: string): Promise<string>;
+  generateNextCode(tenantId: string, type: string, tx?: TransactionClient): Promise<string>;
 
   // Aggregation queries
   sumByDateRange(

@@ -40,7 +40,10 @@ export class CompleteSubtaskUseCase {
     }
 
     const parentCardId = subtask.parentCardId.toString();
-    const parentCard = await this.cardsRepository.findById(parentCardId, boardId);
+    const parentCard = await this.cardsRepository.findById(
+      parentCardId,
+      boardId,
+    );
     const parentTitle = parentCard?.title ?? 'desconhecido';
 
     if (completed) {
@@ -78,7 +81,8 @@ export class CompleteSubtaskUseCase {
       });
     }
 
-    const siblingSubtasks = await this.cardsRepository.findSubtasks(parentCardId);
+    const siblingSubtasks =
+      await this.cardsRepository.findSubtasks(parentCardId);
 
     const allSubtasksDone =
       siblingSubtasks.length > 0 &&

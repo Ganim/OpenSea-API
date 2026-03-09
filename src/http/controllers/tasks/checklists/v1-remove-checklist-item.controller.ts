@@ -36,13 +36,22 @@ export async function removeChecklistItemController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { checklistId, itemId } = request.params;
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+      const { boardId, cardId, checklistId, itemId } = request.params;
 
       try {
         const useCase = makeRemoveChecklistItemUseCase();
-        await useCase.execute({ checklistId, itemId });
+        await useCase.execute({
+          tenantId,
+          userId,
+          boardId,
+          cardId,
+          checklistId,
+          itemId,
+        });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

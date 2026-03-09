@@ -34,7 +34,12 @@ export class GetCardUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    await verifyBoardAccess(this.boardMembersRepository, board, request.userId, 'read');
+    await verifyBoardAccess(
+      this.boardMembersRepository,
+      board,
+      request.userId,
+      'read',
+    );
 
     const cardWithLabels = await this.cardsRepository.findByIdWithLabels(
       cardId,
@@ -69,7 +74,13 @@ export class GetCardUseCase {
                 }
               : null;
           })
-          .filter(Boolean) as Array<{ id: string; boardId: string; name: string; color: string; position: number }>,
+          .filter(Boolean) as Array<{
+          id: string;
+          boardId: string;
+          name: string;
+          color: string;
+          position: number;
+        }>,
         subtaskCount: subtasks.length,
       }),
     };

@@ -26,9 +26,7 @@ export class InMemoryCommentReactionsRepository
   }
 
   async findByCommentId(commentId: string): Promise<CommentReactionRecord[]> {
-    return this.items.filter(
-      (reaction) => reaction.commentId === commentId,
-    );
+    return this.items.filter((reaction) => reaction.commentId === commentId);
   }
 
   async findByCommentUserEmoji(

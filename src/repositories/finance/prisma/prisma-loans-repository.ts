@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Loan } from '@/entities/finance/loan';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
@@ -80,7 +81,8 @@ function loanPrismaToDomain(raw: {
 }
 
 export class PrismaLoansRepository implements LoansRepository {
-  async create(data: CreateLoanSchema): Promise<Loan> {
+  async create(data: CreateLoanSchema, tx?: TransactionClient): Promise<Loan> {
+    const client = tx ?? prisma;
     const cipher = tryGetCipher();
 
     // Encrypt contractNumber before create
@@ -89,7 +91,7 @@ export class PrismaLoansRepository implements LoansRepository {
         ? cipher.encrypt(data.contractNumber)
         : data.contractNumber;
 
-    const loan = await prisma.loan.create({
+    const loan = await client.loan.create({
       data: {
         tenantId: data.tenantId,
         bankAccountId: data.bankAccountId,

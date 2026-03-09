@@ -41,6 +41,7 @@ export async function updateSubtaskController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
       const { boardId, subtaskId } = request.params;
       const userName = await resolveUserName(userId);
@@ -48,6 +49,7 @@ export async function updateSubtaskController(app: FastifyInstance) {
       try {
         const useCase = makeUpdateSubtaskUseCase();
         const result = await useCase.execute({
+          tenantId,
           boardId,
           userId,
           userName,

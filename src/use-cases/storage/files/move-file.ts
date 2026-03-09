@@ -4,11 +4,14 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { StorageFile } from '@/entities/storage/storage-file';
 import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
+import type { FolderAccessService } from '@/services/storage/folder-access-service';
 
 interface MoveFileUseCaseRequest {
   tenantId: string;
   fileId: string;
   targetFolderId: string | null;
+  userId?: string;
+  userGroupIds?: string[];
 }
 
 interface MoveFileUseCaseResponse {
@@ -19,12 +22,13 @@ export class MoveFileUseCase {
   constructor(
     private storageFilesRepository: StorageFilesRepository,
     private storageFoldersRepository: StorageFoldersRepository,
+    private folderAccessService?: FolderAccessService,
   ) {}
 
   async execute(
     request: MoveFileUseCaseRequest,
   ): Promise<MoveFileUseCaseResponse> {
-    const { tenantId, fileId, targetFolderId } = request;
+    const { tenantId, fileId, targetFolderId, userId, userGroupIds } = request;
 
     const file = await this.storageFilesRepository.findById(
       new UniqueEntityID(fileId),
@@ -33,6 +37,26 @@ export class MoveFileUseCase {
 
     if (!file) {
       throw new ResourceNotFoundError('File not found');
+    }
+
+    // ACL check: verify write on source folder and target folder
+    if (this.folderAccessService && userId) {
+      if (file.folderId) {
+        await this.folderAccessService.verifyAccess(
+          file.folderId.toString(),
+          userId,
+          userGroupIds ?? [],
+          'write',
+        );
+      }
+      if (targetFolderId) {
+        await this.folderAccessService.verifyAccess(
+          targetFolderId,
+          userId,
+          userGroupIds ?? [],
+          'write',
+        );
+      }
     }
 
     const newSlug = file.name.toLowerCase().trim().replace(/\s+/g, '-');

@@ -9,6 +9,8 @@ export interface CardChecklistItemDTO {
   assigneeId: string | null;
   dueDate: Date | null;
   position: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface CardChecklistDTO {
@@ -79,8 +81,11 @@ export interface CardDTO {
   checklists: CardChecklistDTO[];
   customFieldValues: CardCustomFieldValueDTO[];
   subtaskCount: number;
+  subtaskCompletedCount: number;
   commentCount: number;
   attachmentCount: number;
+  checklistProgress: { total: number; completed: number };
+  isOverdue: boolean;
   archivedAt: Date | null;
   deletedAt: Date | null;
   createdAt: Date;
@@ -96,6 +101,7 @@ export function cardToDTO(
     checklists?: CardChecklistDTO[];
     customFieldValues?: CardCustomFieldValueDTO[];
     subtaskCount?: number;
+    subtaskCompletedCount?: number;
     commentCount?: number;
     attachmentCount?: number;
   },
@@ -127,8 +133,24 @@ export function cardToDTO(
     checklists: options?.checklists ?? [],
     customFieldValues: options?.customFieldValues ?? [],
     subtaskCount: options?.subtaskCount ?? 0,
+    subtaskCompletedCount: options?.subtaskCompletedCount ?? 0,
     commentCount: options?.commentCount ?? 0,
     attachmentCount: options?.attachmentCount ?? 0,
+    checklistProgress: {
+      total: (options?.checklists ?? []).reduce(
+        (sum, cl) => sum + (cl.items?.length ?? 0),
+        0,
+      ),
+      completed: (options?.checklists ?? []).reduce(
+        (sum, cl) => sum + (cl.items?.filter((i) => i.isCompleted).length ?? 0),
+        0,
+      ),
+    },
+    isOverdue: card.dueDate
+      ? card.dueDate < new Date() &&
+        card.status !== 'DONE' &&
+        card.status !== 'CANCELED'
+      : false,
     archivedAt: card.archivedAt,
     deletedAt: card.deletedAt,
     createdAt: card.createdAt,

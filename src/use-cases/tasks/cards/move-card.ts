@@ -31,8 +31,7 @@ export class MoveCardUseCase {
   ) {}
 
   async execute(request: MoveCardRequest): Promise<MoveCardResponse> {
-    const { tenantId, userId, userName, boardId, cardId, columnId } =
-      request;
+    const { tenantId, userId, userName, boardId, cardId, columnId } = request;
 
     const board = await this.boardsRepository.findById(boardId, tenantId);
 
@@ -40,7 +39,12 @@ export class MoveCardUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    await verifyBoardAccess(this.boardMembersRepository, board, userId, 'write');
+    await verifyBoardAccess(
+      this.boardMembersRepository,
+      board,
+      userId,
+      'write',
+    );
 
     const card = await this.cardsRepository.findById(cardId, boardId);
 
@@ -70,8 +74,7 @@ export class MoveCardUseCase {
     let resolvedPosition = request.position;
 
     if (resolvedPosition === undefined) {
-      resolvedPosition =
-        await this.cardsRepository.countByColumnId(columnId);
+      resolvedPosition = await this.cardsRepository.countByColumnId(columnId);
     }
 
     let completedAt: Date | null | undefined;

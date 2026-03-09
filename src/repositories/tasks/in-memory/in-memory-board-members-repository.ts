@@ -6,9 +6,7 @@ import type {
   UpdateBoardMemberSchema,
 } from '../board-members-repository';
 
-export class InMemoryBoardMembersRepository
-  implements BoardMembersRepository
-{
+export class InMemoryBoardMembersRepository implements BoardMembersRepository {
   public items: BoardMemberRecord[] = [];
 
   async create(data: CreateBoardMemberSchema): Promise<BoardMemberRecord> {
@@ -36,8 +34,7 @@ export class InMemoryBoardMembersRepository
   ): Promise<BoardMemberRecord | null> {
     return (
       this.items.find(
-        (member) =>
-          member.boardId === boardId && member.userId === userId,
+        (member) => member.boardId === boardId && member.userId === userId,
       ) ?? null
     );
   }

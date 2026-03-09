@@ -34,22 +34,18 @@ export class InMemoryCardAttachmentsRepository
   ): Promise<CardAttachmentRecord | null> {
     return (
       this.items.find(
-        (attachment) =>
-          attachment.id === id && attachment.cardId === cardId,
+        (attachment) => attachment.id === id && attachment.cardId === cardId,
       ) ?? null
     );
   }
 
   async findByCardId(cardId: string): Promise<CardAttachmentRecord[]> {
-    return this.items.filter(
-      (attachment) => attachment.cardId === cardId,
-    );
+    return this.items.filter((attachment) => attachment.cardId === cardId);
   }
 
   async delete(id: string, cardId: string): Promise<void> {
     this.items = this.items.filter(
-      (attachment) =>
-        !(attachment.id === id && attachment.cardId === cardId),
+      (attachment) => !(attachment.id === id && attachment.cardId === cardId),
     );
   }
 }

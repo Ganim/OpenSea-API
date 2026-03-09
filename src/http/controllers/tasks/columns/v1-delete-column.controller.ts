@@ -40,6 +40,7 @@ export async function deleteColumnController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
       const { boardId, columnId } = request.params;
       const { migrateToColumnId } = request.query;
 
@@ -47,12 +48,13 @@ export async function deleteColumnController(app: FastifyInstance) {
         const useCase = makeDeleteColumnUseCase();
         await useCase.execute({
           tenantId,
+          userId,
           boardId,
           columnId,
           migrateToColumnId,
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

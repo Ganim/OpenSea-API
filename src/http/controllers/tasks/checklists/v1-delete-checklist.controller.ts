@@ -41,9 +41,16 @@ export async function deleteChecklistController(app: FastifyInstance) {
 
       try {
         const useCase = makeDeleteChecklistUseCase();
-        await useCase.execute({ tenantId, userId, userName: 'System', boardId, cardId, checklistId });
+        await useCase.execute({
+          tenantId,
+          userId,
+          userName: 'System',
+          boardId,
+          cardId,
+          checklistId,
+        });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -21,18 +21,25 @@ interface UpdateAutomationResponse {
 }
 
 export class UpdateAutomationUseCase {
-  constructor(
-    private boardAutomationsRepository: BoardAutomationsRepository,
-  ) {}
+  constructor(private boardAutomationsRepository: BoardAutomationsRepository) {}
 
   async execute(
     request: UpdateAutomationRequest,
   ): Promise<UpdateAutomationResponse> {
-    const { boardId, automationId, name, trigger, triggerConfig, action, actionConfig } =
-      request;
+    const {
+      boardId,
+      automationId,
+      name,
+      trigger,
+      triggerConfig,
+      action,
+      actionConfig,
+    } = request;
 
-    const existingAutomation =
-      await this.boardAutomationsRepository.findById(automationId, boardId);
+    const existingAutomation = await this.boardAutomationsRepository.findById(
+      automationId,
+      boardId,
+    );
 
     if (!existingAutomation) {
       throw new ResourceNotFoundError('Automation not found');

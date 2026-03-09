@@ -25,9 +25,7 @@ export class InMemoryCardChecklistsRepository
     return { ...checklist, items };
   }
 
-  async create(
-    data: CreateCardChecklistSchema,
-  ): Promise<CardChecklistRecord> {
+  async create(data: CreateCardChecklistSchema): Promise<CardChecklistRecord> {
     const checklist: Omit<CardChecklistRecord, 'items'> = {
       id: randomUUID(),
       cardId: data.cardId,
@@ -123,8 +121,7 @@ export class InMemoryCardChecklistsRepository
     data: UpdateChecklistItemSchema,
   ): Promise<ChecklistItemRecord | null> {
     const checklistItem = this.checklistItems.find(
-      (item) =>
-        item.id === data.id && item.checklistId === data.checklistId,
+      (item) => item.id === data.id && item.checklistId === data.checklistId,
     );
     if (!checklistItem) return null;
 

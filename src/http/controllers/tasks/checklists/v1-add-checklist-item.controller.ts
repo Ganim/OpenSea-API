@@ -42,11 +42,16 @@ export async function addChecklistItemController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { cardId, checklistId } = request.params;
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+      const { boardId, cardId, checklistId } = request.params;
 
       try {
         const useCase = makeAddChecklistItemUseCase();
         const result = await useCase.execute({
+          tenantId,
+          userId,
+          boardId,
           cardId,
           checklistId,
           ...request.body,

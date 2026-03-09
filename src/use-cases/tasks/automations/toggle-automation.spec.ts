@@ -12,7 +12,10 @@ describe('ToggleAutomationUseCase', () => {
   beforeEach(async () => {
     boardAutomationsRepository = new InMemoryBoardAutomationsRepository();
     boardsRepository = new InMemoryBoardsRepository();
-    sut = new ToggleAutomationUseCase(boardAutomationsRepository, boardsRepository);
+    sut = new ToggleAutomationUseCase(
+      boardAutomationsRepository,
+      boardsRepository,
+    );
 
     await boardsRepository.create({
       tenantId: 'tenant-1',

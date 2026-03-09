@@ -43,7 +43,9 @@ export class InMemoryBoardsRepository implements BoardsRepository {
     );
   }
 
-  async findMany(options: FindManyBoardsOptions): Promise<FindManyBoardsResult> {
+  async findMany(
+    options: FindManyBoardsOptions,
+  ): Promise<FindManyBoardsResult> {
     const filteredBoards = this.items.filter((board) => {
       if (board.tenantId.toString() !== options.tenantId) return false;
       if (board.deletedAt) return false;
@@ -63,9 +65,7 @@ export class InMemoryBoardsRepository implements BoardsRepository {
       return true;
     });
 
-    const sortedBoards = filteredBoards.sort(
-      (a, b) => a.position - b.position,
-    );
+    const sortedBoards = filteredBoards.sort((a, b) => a.position - b.position);
     const total = sortedBoards.length;
     const page = options.page ?? 1;
     const limit = options.limit ?? 20;
@@ -134,8 +134,7 @@ export class InMemoryBoardsRepository implements BoardsRepository {
   async softDelete(id: string, tenantId: string): Promise<void> {
     const board = this.items.find(
       (board) =>
-        board.id.toString() === id &&
-        board.tenantId.toString() === tenantId,
+        board.id.toString() === id && board.tenantId.toString() === tenantId,
     );
     if (board) {
       board.delete();

@@ -1,8 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import type {
-  CardActivityType,
-  Prisma,
-} from '@prisma/generated/client.js';
+import type { CardActivityType, Prisma } from '@prisma/generated/client.js';
 import type {
   CardActivityRecord,
   CardActivitiesRepository,
@@ -34,9 +31,7 @@ function toRecord(raw: any): CardActivityRecord {
 export class PrismaCardActivitiesRepository
   implements CardActivitiesRepository
 {
-  async create(
-    data: CreateCardActivitySchema,
-  ): Promise<CardActivityRecord> {
+  async create(data: CreateCardActivitySchema): Promise<CardActivityRecord> {
     const raw = await prisma.cardActivity.create({
       data: {
         cardId: data.cardId,

@@ -29,9 +29,23 @@ export class UpdateSubtaskUseCase {
   ) {}
 
   async execute(request: UpdateSubtaskRequest): Promise<UpdateSubtaskResponse> {
-    const { boardId, userId, userName, subtaskId, title, description, assigneeId, priority, dueDate, status } = request;
+    const {
+      boardId,
+      userId,
+      userName,
+      subtaskId,
+      title,
+      description,
+      assigneeId,
+      priority,
+      dueDate,
+      status,
+    } = request;
 
-    const existingSubtask = await this.cardsRepository.findById(subtaskId, boardId);
+    const existingSubtask = await this.cardsRepository.findById(
+      subtaskId,
+      boardId,
+    );
 
     if (!existingSubtask) {
       throw new ResourceNotFoundError('Subtask not found');

@@ -9,5 +9,10 @@ export function makeDeleteCardUseCase() {
   const cardsRepository = new PrismaCardsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
   const boardMembersRepository = new PrismaBoardMembersRepository();
-  return new DeleteCardUseCase(boardsRepository, cardsRepository, cardActivitiesRepository, boardMembersRepository);
+  return new DeleteCardUseCase(
+    boardsRepository,
+    cardsRepository,
+    cardActivitiesRepository,
+    boardMembersRepository,
+  );
 }

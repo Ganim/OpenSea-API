@@ -36,11 +36,17 @@ export async function getCardController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
       const { boardId, cardId } = request.params;
 
       try {
         const useCase = makeGetCardUseCase();
-        const result = await useCase.execute({ tenantId, boardId, cardId });
+        const result = await useCase.execute({
+          tenantId,
+          userId,
+          boardId,
+          cardId,
+        });
 
         return reply.status(200).send(result);
       } catch (error) {

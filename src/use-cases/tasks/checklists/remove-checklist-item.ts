@@ -11,9 +11,7 @@ interface RemoveChecklistItemRequest {
 }
 
 export class RemoveChecklistItemUseCase {
-  constructor(
-    private cardChecklistsRepository: CardChecklistsRepository,
-  ) {}
+  constructor(private cardChecklistsRepository: CardChecklistsRepository) {}
 
   async execute(request: RemoveChecklistItemRequest): Promise<void> {
     const { checklistId, itemId } = request;

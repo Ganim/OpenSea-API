@@ -4,6 +4,10 @@ import { DeleteCustomFieldUseCase } from '../delete-custom-field';
 
 export function makeDeleteCustomFieldUseCase() {
   const boardCustomFieldsRepository = new PrismaBoardCustomFieldsRepository();
-  const cardCustomFieldValuesRepository = new PrismaCardCustomFieldValuesRepository();
-  return new DeleteCustomFieldUseCase(boardCustomFieldsRepository, cardCustomFieldValuesRepository);
+  const cardCustomFieldValuesRepository =
+    new PrismaCardCustomFieldValuesRepository();
+  return new DeleteCustomFieldUseCase(
+    boardCustomFieldsRepository,
+    cardCustomFieldValuesRepository,
+  );
 }

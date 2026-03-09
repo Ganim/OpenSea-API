@@ -18,7 +18,7 @@ export class InMemoryFinanceEntriesRepository
 {
   public items: FinanceEntry[] = [];
 
-  async create(data: CreateFinanceEntrySchema): Promise<FinanceEntry> {
+  async create(data: CreateFinanceEntrySchema, _tx?: unknown): Promise<FinanceEntry> {
     const entry = FinanceEntry.create({
       tenantId: new UniqueEntityID(data.tenantId),
       type: data.type,
@@ -234,7 +234,7 @@ export class InMemoryFinanceEntriesRepository
     if (item) item.delete();
   }
 
-  async generateNextCode(tenantId: string, type: string): Promise<string> {
+  async generateNextCode(tenantId: string, type: string, _tx?: unknown): Promise<string> {
     const count = this.items.filter(
       (i) => i.tenantId.toString() === tenantId && i.type === type,
     ).length;

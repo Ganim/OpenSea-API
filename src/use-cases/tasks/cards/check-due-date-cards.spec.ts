@@ -1,5 +1,4 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
 import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
 import { CheckDueDateCardsUseCase } from './check-due-date-cards';
@@ -18,7 +17,10 @@ describe('CheckDueDateCardsUseCase', () => {
   beforeEach(() => {
     cardsRepository = new InMemoryCardsRepository();
     notificationsRepository = new InMemoryNotificationsRepository();
-    sut = new CheckDueDateCardsUseCase(cardsRepository, notificationsRepository);
+    sut = new CheckDueDateCardsUseCase(
+      cardsRepository,
+      notificationsRepository,
+    );
 
     cardsRepository.boardTenantMap.set(boardId, tenantId);
   });
@@ -173,7 +175,7 @@ describe('CheckDueDateCardsUseCase', () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
 
-    const card = await cardsRepository.create({
+    await cardsRepository.create({
       boardId,
       columnId,
       title: 'Tarefa já notificada',

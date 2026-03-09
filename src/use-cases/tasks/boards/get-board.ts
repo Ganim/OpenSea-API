@@ -48,9 +48,7 @@ export class GetBoardUseCase {
       );
 
       if (!membership) {
-        throw new ForbiddenError(
-          'You do not have access to this board',
-        );
+        throw new ForbiddenError('You do not have access to this board');
       }
     }
 

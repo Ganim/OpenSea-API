@@ -7,6 +7,11 @@ export async function verifyJwt(request: FastifyRequest) {
   try {
     await request.jwtVerify();
 
+    // Serve tokens are short-lived (5min) and don't require session validation
+    if (request.user.tokenType === 'serve') {
+      return;
+    }
+
     // After JWT is verified, check if the session is still active
     const sessionId = request.user.sessionId;
     if (sessionId) {

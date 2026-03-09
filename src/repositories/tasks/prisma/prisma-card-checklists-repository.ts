@@ -43,9 +43,7 @@ const itemsInclude = {
 export class PrismaCardChecklistsRepository
   implements CardChecklistsRepository
 {
-  async create(
-    data: CreateCardChecklistSchema,
-  ): Promise<CardChecklistRecord> {
+  async create(data: CreateCardChecklistSchema): Promise<CardChecklistRecord> {
     const raw = await prisma.cardChecklist.create({
       data: {
         cardId: data.cardId,

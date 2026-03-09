@@ -62,7 +62,11 @@ export class InMemoryStorageFileVersionsRepository
     this.items = this.items.filter((item) => !item.fileId.equals(fileId));
   }
 
-  async findByFileIds(fileIds: UniqueEntityID[]): Promise<import('@/entities/storage/storage-file-version').StorageFileVersion[]> {
+  async findByFileIds(
+    fileIds: UniqueEntityID[],
+  ): Promise<
+    import('@/entities/storage/storage-file-version').StorageFileVersion[]
+  > {
     return this.items.filter((item) =>
       fileIds.some((id) => item.fileId.equals(id)),
     );

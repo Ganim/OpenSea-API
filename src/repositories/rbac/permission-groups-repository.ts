@@ -4,12 +4,12 @@ import { PermissionGroup } from '@/entities/rbac/permission-group';
 export interface CreatePermissionGroupSchema {
   name: string;
   slug: string;
-  description: string | null;
+  description?: string | null;
   isSystem: boolean;
   isActive: boolean;
-  color: string | null;
+  color?: string | null;
   priority: number;
-  parentId: UniqueEntityID | null;
+  parentId?: UniqueEntityID | null;
   tenantId?: UniqueEntityID | null;
 }
 

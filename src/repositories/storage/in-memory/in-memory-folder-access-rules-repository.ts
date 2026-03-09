@@ -156,6 +156,10 @@ export class InMemoryFolderAccessRulesRepository
     return map;
   }
 
+  async countByFolder(folderId: UniqueEntityID): Promise<number> {
+    return this.items.filter((item) => item.folderId.equals(folderId)).length;
+  }
+
   async findEffectiveAccess(
     folderId: UniqueEntityID,
     userId: UniqueEntityID,

@@ -9,5 +9,10 @@ export function makeUpdateCardUseCase() {
   const cardsRepository = new PrismaCardsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
   const boardMembersRepository = new PrismaBoardMembersRepository();
-  return new UpdateCardUseCase(boardsRepository, cardsRepository, cardActivitiesRepository, boardMembersRepository);
+  return new UpdateCardUseCase(
+    boardsRepository,
+    cardsRepository,
+    cardActivitiesRepository,
+    boardMembersRepository,
+  );
 }

@@ -7,5 +7,9 @@ export function makeDeleteAttachmentUseCase() {
   const cardsRepository = new PrismaCardsRepository();
   const cardAttachmentsRepository = new PrismaCardAttachmentsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
-  return new DeleteAttachmentUseCase(cardsRepository, cardAttachmentsRepository, cardActivitiesRepository);
+  return new DeleteAttachmentUseCase(
+    cardsRepository,
+    cardAttachmentsRepository,
+    cardActivitiesRepository,
+  );
 }

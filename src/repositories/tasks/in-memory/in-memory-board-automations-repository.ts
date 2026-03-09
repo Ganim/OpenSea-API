@@ -39,16 +39,13 @@ export class InMemoryBoardAutomationsRepository
   ): Promise<BoardAutomationRecord | null> {
     return (
       this.items.find(
-        (automation) =>
-          automation.id === id && automation.boardId === boardId,
+        (automation) => automation.id === id && automation.boardId === boardId,
       ) ?? null
     );
   }
 
   async findByBoardId(boardId: string): Promise<BoardAutomationRecord[]> {
-    return this.items.filter(
-      (automation) => automation.boardId === boardId,
-    );
+    return this.items.filter((automation) => automation.boardId === boardId);
   }
 
   async findActiveByBoardAndTrigger(
@@ -87,8 +84,7 @@ export class InMemoryBoardAutomationsRepository
 
   async delete(id: string, boardId: string): Promise<void> {
     this.items = this.items.filter(
-      (automation) =>
-        !(automation.id === id && automation.boardId === boardId),
+      (automation) => !(automation.id === id && automation.boardId === boardId),
     );
   }
 }

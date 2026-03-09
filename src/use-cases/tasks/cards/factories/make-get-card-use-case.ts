@@ -9,5 +9,10 @@ export function makeGetCardUseCase() {
   const cardsRepository = new PrismaCardsRepository();
   const boardLabelsRepository = new PrismaBoardLabelsRepository();
   const boardMembersRepository = new PrismaBoardMembersRepository();
-  return new GetCardUseCase(boardsRepository, cardsRepository, boardLabelsRepository, boardMembersRepository);
+  return new GetCardUseCase(
+    boardsRepository,
+    cardsRepository,
+    boardLabelsRepository,
+    boardMembersRepository,
+  );
 }

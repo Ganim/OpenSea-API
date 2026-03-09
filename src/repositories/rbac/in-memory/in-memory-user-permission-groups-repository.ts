@@ -26,8 +26,8 @@ export class InMemoryUserPermissionGroupsRepository
       id: new UniqueEntityID(),
       userId: data.userId,
       groupId: data.groupId,
-      expiresAt: data.expiresAt,
-      grantedBy: data.grantedBy,
+      expiresAt: data.expiresAt ?? null,
+      grantedBy: data.grantedBy ?? null,
     });
 
     this.items.push(userGroup);
@@ -40,7 +40,7 @@ export class InMemoryUserPermissionGroupsRepository
         id: new UniqueEntityID(),
         userId: item.userId,
         groupId: item.groupId,
-        expiresAt: item.expiresAt,
+        expiresAt: item.expiresAt ?? null,
         grantedBy: item.grantedBy,
       }),
     );

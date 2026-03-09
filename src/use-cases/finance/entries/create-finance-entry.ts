@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { FinanceEntry } from '@/entities/finance/finance-entry';
+import type { TransactionClient, TransactionManager } from '@/lib/transaction-manager';
 import {
   type FinanceEntryDTO,
   financeEntryToDTO,
@@ -51,6 +53,7 @@ export class CreateFinanceEntryUseCase {
     private categoriesRepository: FinanceCategoriesRepository,
     private costCentersRepository: CostCentersRepository,
     private calendarSyncService?: CalendarSyncService,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -95,12 +98,6 @@ export class CreateFinanceEntryUseCase {
       throw new BadRequestError('Cost center not found');
     }
 
-    // Generate auto code
-    const code = await this.financeEntriesRepository.generateNextCode(
-      tenantId,
-      type,
-    );
-
     // Validate recurrence fields
     if (request.recurrenceType === 'INSTALLMENT') {
       if (!request.totalInstallments || request.totalInstallments < 2) {
@@ -123,72 +120,100 @@ export class CreateFinanceEntryUseCase {
       }
     }
 
-    const entry = await this.financeEntriesRepository.create({
-      tenantId,
-      type,
-      code,
-      description: description.trim(),
-      notes: request.notes,
-      categoryId,
-      costCenterId,
-      bankAccountId: request.bankAccountId,
-      supplierName: request.supplierName,
-      customerName: request.customerName,
-      supplierId: request.supplierId,
-      customerId: request.customerId,
-      salesOrderId: request.salesOrderId,
-      expectedAmount,
-      discount: request.discount,
-      interest: request.interest,
-      penalty: request.penalty,
-      issueDate: request.issueDate,
-      dueDate: request.dueDate,
-      competenceDate: request.competenceDate,
-      recurrenceType: request.recurrenceType,
-      recurrenceInterval: request.recurrenceInterval,
-      recurrenceUnit: request.recurrenceUnit,
-      totalInstallments: request.totalInstallments,
-      currentInstallment: request.currentInstallment,
-      boletoBarcode: request.boletoBarcode,
-      boletoDigitLine: request.boletoDigitLine,
-      tags: request.tags,
-      createdBy: request.createdBy,
-    });
-
-    // Sync to calendar for non-recurring entries (installments/recurring sync their children instead)
+    // Use transaction for installment/recurring creation (parent + children must be atomic)
     if (
-      this.calendarSyncService &&
-      request.dueDate > new Date() &&
-      !request.recurrenceType
+      this.transactionManager &&
+      (request.recurrenceType === 'INSTALLMENT' ||
+        request.recurrenceType === 'RECURRING')
     ) {
-      try {
-        await this.calendarSyncService.syncFinanceEntry({
-          tenantId,
-          entryId: entry.id.toString(),
-          entryType: type as 'PAYABLE' | 'RECEIVABLE',
-          description: description.trim(),
-          dueDate: request.dueDate,
-          userId: request.createdBy ?? entry.id.toString(),
-        });
-      } catch {
-        // Calendar sync failure should not block the operation
-      }
+      return this.transactionManager.run(async (tx) => {
+        return this.createWithChildren(request, tx);
+      });
     }
 
-    // Generate installment child entries
+    // Simple entry (no children) — no transaction needed
+    return this.createWithChildren(request);
+  }
+
+  private async createWithChildren(
+    request: CreateFinanceEntryUseCaseRequest,
+    tx?: TransactionClient,
+  ): Promise<CreateFinanceEntryUseCaseResponse> {
+    const { tenantId, type, description, expectedAmount } = request;
+
+    const code = await this.financeEntriesRepository.generateNextCode(
+      tenantId,
+      type,
+      tx,
+    );
+
+    const entry = await this.financeEntriesRepository.create(
+      {
+        tenantId,
+        type,
+        code,
+        description: description.trim(),
+        notes: request.notes,
+        categoryId: request.categoryId,
+        costCenterId: request.costCenterId,
+        bankAccountId: request.bankAccountId,
+        supplierName: request.supplierName,
+        customerName: request.customerName,
+        supplierId: request.supplierId,
+        customerId: request.customerId,
+        salesOrderId: request.salesOrderId,
+        expectedAmount,
+        discount: request.discount,
+        interest: request.interest,
+        penalty: request.penalty,
+        issueDate: request.issueDate,
+        dueDate: request.dueDate,
+        competenceDate: request.competenceDate,
+        recurrenceType: request.recurrenceType,
+        recurrenceInterval: request.recurrenceInterval,
+        recurrenceUnit: request.recurrenceUnit,
+        totalInstallments: request.totalInstallments,
+        currentInstallment: request.currentInstallment,
+        boletoBarcode: request.boletoBarcode,
+        boletoDigitLine: request.boletoDigitLine,
+        tags: request.tags,
+        createdBy: request.createdBy,
+      },
+      tx,
+    );
+
+    // Calendar sync is non-blocking and happens OUTSIDE the transaction
+    if (
+      !request.recurrenceType &&
+      this.calendarSyncService &&
+      request.dueDate > new Date()
+    ) {
+      this.syncToCalendar(
+        tenantId,
+        entry.id.toString(),
+        type as 'PAYABLE' | 'RECEIVABLE',
+        description.trim(),
+        request.dueDate,
+        request.createdBy ?? entry.id.toString(),
+      );
+    }
+
+    // Generate installment child entries (within same transaction)
     if (request.recurrenceType === 'INSTALLMENT') {
       const installments = await this.generateInstallments(
         request,
         entry.id.toString(),
+        tx,
       );
       return { entry: financeEntryToDTO(entry), installments };
     }
 
-    // Generate first occurrence for recurring entries
+    // Generate first occurrence for recurring entries (within same transaction)
     if (request.recurrenceType === 'RECURRING') {
       const firstOccurrence = await this.generateFirstOccurrence(
         request,
         entry.id.toString(),
+        tx,
       );
       return {
         entry: financeEntryToDTO(entry),
@@ -202,6 +227,7 @@ export class CreateFinanceEntryUseCase {
   private async generateInstallments(
     request: CreateFinanceEntryUseCaseRequest,
     parentEntryId: string,
+    tx?: TransactionClient,
   ): Promise<FinanceEntryDTO[]> {
     const installments: FinanceEntryDTO[] = [];
     const installmentAmount =
@@ -219,52 +245,52 @@ export class CreateFinanceEntryUseCase {
         await this.financeEntriesRepository.generateNextCode(
           request.tenantId,
           request.type,
+          tx,
         );
 
-      const installmentEntry = await this.financeEntriesRepository.create({
-        tenantId: request.tenantId,
-        type: request.type,
-        code: installmentCode,
-        description: `${request.description.trim()} (${i}/${request.totalInstallments})`,
-        notes: request.notes,
-        categoryId: request.categoryId,
-        costCenterId: request.costCenterId,
-        bankAccountId: request.bankAccountId,
-        supplierName: request.supplierName,
-        customerName: request.customerName,
-        supplierId: request.supplierId,
-        customerId: request.customerId,
-        salesOrderId: request.salesOrderId,
-        expectedAmount: installmentAmount,
-        issueDate: request.issueDate,
-        dueDate: installmentDueDate,
-        competenceDate: request.competenceDate,
-        recurrenceType: 'INSTALLMENT',
-        recurrenceInterval: request.recurrenceInterval,
-        recurrenceUnit: request.recurrenceUnit,
-        totalInstallments: request.totalInstallments,
-        currentInstallment: i,
-        parentEntryId,
-        boletoBarcode: request.boletoBarcode,
-        boletoDigitLine: request.boletoDigitLine,
-        tags: request.tags,
-        createdBy: request.createdBy,
-      });
+      const installmentEntry = await this.financeEntriesRepository.create(
+        {
+          tenantId: request.tenantId,
+          type: request.type,
+          code: installmentCode,
+          description: `${request.description.trim()} (${i}/${request.totalInstallments})`,
+          notes: request.notes,
+          categoryId: request.categoryId,
+          costCenterId: request.costCenterId,
+          bankAccountId: request.bankAccountId,
+          supplierName: request.supplierName,
+          customerName: request.customerName,
+          supplierId: request.supplierId,
+          customerId: request.customerId,
+          salesOrderId: request.salesOrderId,
+          expectedAmount: installmentAmount,
+          issueDate: request.issueDate,
+          dueDate: installmentDueDate,
+          competenceDate: request.competenceDate,
+          recurrenceType: 'INSTALLMENT',
+          recurrenceInterval: request.recurrenceInterval,
+          recurrenceUnit: request.recurrenceUnit,
+          totalInstallments: request.totalInstallments,
+          currentInstallment: i,
+          parentEntryId,
+          boletoBarcode: request.boletoBarcode,
+          boletoDigitLine: request.boletoDigitLine,
+          tags: request.tags,
+          createdBy: request.createdBy,
+        },
+        tx,
+      );
 
-      // Sync each installment to calendar (non-blocking)
+      // Calendar sync is fire-and-forget, outside transaction
       if (this.calendarSyncService && installmentDueDate > new Date()) {
-        try {
-          await this.calendarSyncService.syncFinanceEntry({
-            tenantId: request.tenantId,
-            entryId: installmentEntry.id.toString(),
-            entryType: request.type as 'PAYABLE' | 'RECEIVABLE',
-            description: `${request.description.trim()} (${i}/${request.totalInstallments})`,
-            dueDate: installmentDueDate,
-            userId: request.createdBy ?? installmentEntry.id.toString(),
-          });
-        } catch {
-          // Calendar sync failure should not block the operation
-        }
+        this.syncToCalendar(
+          request.tenantId,
+          installmentEntry.id.toString(),
+          request.type as 'PAYABLE' | 'RECEIVABLE',
+          `${request.description.trim()} (${i}/${request.totalInstallments})`,
+          installmentDueDate,
+          request.createdBy ?? installmentEntry.id.toString(),
+        );
       }
 
       installments.push(financeEntryToDTO(installmentEntry));
@@ -276,56 +302,72 @@ export class CreateFinanceEntryUseCase {
   private async generateFirstOccurrence(
     request: CreateFinanceEntryUseCaseRequest,
     parentEntryId: string,
+    tx?: TransactionClient,
   ): Promise<FinanceEntryDTO> {
-    const occurrenceCode = await this.financeEntriesRepository.generateNextCode(
-      request.tenantId,
-      request.type,
+    const occurrenceCode =
+      await this.financeEntriesRepository.generateNextCode(
+        request.tenantId,
+        request.type,
+        tx,
+      );
+
+    const occurrence = await this.financeEntriesRepository.create(
+      {
+        tenantId: request.tenantId,
+        type: request.type,
+        code: occurrenceCode,
+        description: `${request.description.trim()} (1)`,
+        notes: request.notes,
+        categoryId: request.categoryId,
+        costCenterId: request.costCenterId,
+        bankAccountId: request.bankAccountId,
+        supplierName: request.supplierName,
+        customerName: request.customerName,
+        supplierId: request.supplierId,
+        customerId: request.customerId,
+        salesOrderId: request.salesOrderId,
+        expectedAmount: request.expectedAmount,
+        issueDate: request.issueDate,
+        dueDate: request.dueDate,
+        competenceDate: request.competenceDate,
+        recurrenceType: 'RECURRING',
+        recurrenceInterval: request.recurrenceInterval,
+        recurrenceUnit: request.recurrenceUnit,
+        currentInstallment: 1,
+        parentEntryId,
+        tags: request.tags,
+        createdBy: request.createdBy,
+      },
+      tx,
     );
 
-    const occurrence = await this.financeEntriesRepository.create({
-      tenantId: request.tenantId,
-      type: request.type,
-      code: occurrenceCode,
-      description: `${request.description.trim()} (1)`,
-      notes: request.notes,
-      categoryId: request.categoryId,
-      costCenterId: request.costCenterId,
-      bankAccountId: request.bankAccountId,
-      supplierName: request.supplierName,
-      customerName: request.customerName,
-      supplierId: request.supplierId,
-      customerId: request.customerId,
-      salesOrderId: request.salesOrderId,
-      expectedAmount: request.expectedAmount,
-      issueDate: request.issueDate,
-      dueDate: request.dueDate,
-      competenceDate: request.competenceDate,
-      recurrenceType: 'RECURRING',
-      recurrenceInterval: request.recurrenceInterval,
-      recurrenceUnit: request.recurrenceUnit,
-      currentInstallment: 1,
-      parentEntryId,
-      tags: request.tags,
-      createdBy: request.createdBy,
-    });
-
-    // Sync first occurrence to calendar (non-blocking)
+    // Calendar sync is fire-and-forget, outside transaction
     if (this.calendarSyncService && request.dueDate > new Date()) {
-      try {
-        await this.calendarSyncService.syncFinanceEntry({
-          tenantId: request.tenantId,
-          entryId: occurrence.id.toString(),
-          entryType: request.type as 'PAYABLE' | 'RECEIVABLE',
-          description: `${request.description.trim()} (1)`,
-          dueDate: request.dueDate,
-          userId: request.createdBy ?? occurrence.id.toString(),
-        });
-      } catch {
-        // Calendar sync failure should not block the operation
-      }
+      this.syncToCalendar(
+        request.tenantId,
+        occurrence.id.toString(),
+        request.type as 'PAYABLE' | 'RECEIVABLE',
+        `${request.description.trim()} (1)`,
+        request.dueDate,
+        request.createdBy ?? occurrence.id.toString(),
+      );
     }
 
     return financeEntryToDTO(occurrence);
+  }
+
+  private syncToCalendar(
+    tenantId: string,
+    entryId: string,
+    entryType: 'PAYABLE' | 'RECEIVABLE',
+    description: string,
+    dueDate: Date,
+    userId: string,
+  ): void {
+    // Fire-and-forget — calendar sync must never block or rollback finance operations
+    this.calendarSyncService
+      ?.syncFinanceEntry({ tenantId, entryId, entryType, description, dueDate, userId })
+      .catch(() => {});
   }
 
   private calculateNextDate(

@@ -30,7 +30,12 @@ export class DeleteCardUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    await verifyBoardAccess(this.boardMembersRepository, board, userId, 'write');
+    await verifyBoardAccess(
+      this.boardMembersRepository,
+      board,
+      userId,
+      'write',
+    );
 
     const card = await this.cardsRepository.findById(cardId, boardId);
 

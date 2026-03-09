@@ -27,22 +27,17 @@ export class RemoveBoardMemberUseCase {
     }
 
     if (board.ownerId.toString() !== userId) {
-      throw new ForbiddenError(
-        'Only the board owner can remove members',
-      );
+      throw new ForbiddenError('Only the board owner can remove members');
     }
 
     if (targetUserId === userId) {
-      throw new BadRequestError(
-        'Cannot remove yourself from your own board',
-      );
+      throw new BadRequestError('Cannot remove yourself from your own board');
     }
 
-    const existingMember =
-      await this.boardMembersRepository.findByBoardAndUser(
-        boardId,
-        targetUserId,
-      );
+    const existingMember = await this.boardMembersRepository.findByBoardAndUser(
+      boardId,
+      targetUserId,
+    );
 
     if (!existingMember) {
       throw new ResourceNotFoundError('Board member not found');

@@ -14,9 +14,7 @@ export class InMemoryCardActivitiesRepository
 {
   public items: CardActivityRecord[] = [];
 
-  async create(
-    data: CreateCardActivitySchema,
-  ): Promise<CardActivityRecord> {
+  async create(data: CreateCardActivitySchema): Promise<CardActivityRecord> {
     const activity: CardActivityRecord = {
       id: randomUUID(),
       cardId: data.cardId,

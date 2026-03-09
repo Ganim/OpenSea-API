@@ -4,11 +4,14 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { StorageFile } from '@/entities/storage/storage-file';
 import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
+import type { FolderAccessService } from '@/services/storage/folder-access-service';
 
 interface RenameFileUseCaseRequest {
   tenantId: string;
   fileId: string;
   name: string;
+  userId?: string;
+  userGroupIds?: string[];
 }
 
 interface RenameFileUseCaseResponse {
@@ -19,12 +22,13 @@ export class RenameFileUseCase {
   constructor(
     private storageFilesRepository: StorageFilesRepository,
     private storageFoldersRepository: StorageFoldersRepository,
+    private folderAccessService?: FolderAccessService,
   ) {}
 
   async execute(
     request: RenameFileUseCaseRequest,
   ): Promise<RenameFileUseCaseResponse> {
-    const { tenantId, fileId, name } = request;
+    const { tenantId, fileId, name, userId, userGroupIds } = request;
 
     if (!name || name.trim().length === 0) {
       throw new BadRequestError('File name is required');
@@ -37,6 +41,16 @@ export class RenameFileUseCase {
 
     if (!file) {
       throw new ResourceNotFoundError('File not found');
+    }
+
+    // ACL check: verify write permission on file's folder
+    if (this.folderAccessService && file.folderId && userId) {
+      await this.folderAccessService.verifyAccess(
+        file.folderId.toString(),
+        userId,
+        userGroupIds ?? [],
+        'write',
+      );
     }
 
     const newSlug = name.toLowerCase().trim().replace(/\s+/g, '-');

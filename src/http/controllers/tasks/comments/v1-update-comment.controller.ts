@@ -5,7 +5,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { commentResponseSchema, updateCommentSchema } from '@/http/schemas/tasks';
+import {
+  commentResponseSchema,
+  updateCommentSchema,
+} from '@/http/schemas/tasks';
 import { makeGetBoardUseCase } from '@/use-cases/tasks/boards/factories/make-get-board-use-case';
 import { makeUpdateCommentUseCase } from '@/use-cases/tasks/comments/factories/make-update-comment-use-case';
 import type { FastifyInstance } from 'fastify';

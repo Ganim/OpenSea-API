@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { type LoanDTO, loanToDTO } from '@/mappers/finance/loan/loan-to-dto';
 import {
   type LoanInstallmentDTO,
@@ -37,6 +38,7 @@ export class CreateLoanUseCase {
     private loanInstallmentsRepository: LoanInstallmentsRepository,
     private bankAccountsRepository: BankAccountsRepository,
     private costCentersRepository: CostCentersRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -82,6 +84,56 @@ export class CreateLoanUseCase {
       throw new BadRequestError('Cost center not found');
     }
 
+    // Calculate installments (pure computation, no DB)
+    const installmentSchemas = this.calculateInstallments(
+      '', // loanId placeholder — will be set after loan creation
+      principalAmount,
+      interestRate,
+      totalInstallments,
+      request.startDate,
+      request.installmentDay,
+    );
+
+    // Wrap loan + installments creation in a transaction
+    if (this.transactionManager) {
+      return this.transactionManager.run(async (tx) => {
+        const loan = await this.loansRepository.create(
+          {
+            tenantId,
+            bankAccountId,
+            costCenterId,
+            name: name.trim(),
+            type: request.type,
+            contractNumber: request.contractNumber,
+            principalAmount,
+            outstandingBalance: principalAmount,
+            interestRate,
+            interestType: request.interestType,
+            startDate: request.startDate,
+            totalInstallments,
+            installmentDay: request.installmentDay,
+            notes: request.notes,
+          },
+          tx,
+        );
+
+        // Set loanId on all installment schemas
+        const schemasWithLoanId = installmentSchemas.map((s) => ({
+          ...s,
+          loanId: loan.id.toString(),
+        }));
+
+        const installments =
+          await this.loanInstallmentsRepository.createMany(schemasWithLoanId, tx);
+
+        return {
+          loan: loanToDTO(loan),
+          installments: installments.map(loanInstallmentToDTO),
+        };
+      });
+    }
+
+    // Fallback without transaction (in-memory tests)
     const loan = await this.loansRepository.create({
       tenantId,
       bankAccountId,
@@ -99,18 +151,13 @@ export class CreateLoanUseCase {
       notes: request.notes,
     });
 
-    // Generate installments using PMT formula
-    const installmentSchemas = this.calculateInstallments(
-      loan.id.toString(),
-      principalAmount,
-      interestRate,
-      totalInstallments,
-      request.startDate,
-      request.installmentDay,
-    );
+    const schemasWithLoanId = installmentSchemas.map((s) => ({
+      ...s,
+      loanId: loan.id.toString(),
+    }));
 
     const installments =
-      await this.loanInstallmentsRepository.createMany(installmentSchemas);
+      await this.loanInstallmentsRepository.createMany(schemasWithLoanId);
 
     return {
       loan: loanToDTO(loan),

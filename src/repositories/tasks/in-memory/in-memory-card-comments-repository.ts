@@ -8,9 +8,7 @@ import type {
   FindManyCardCommentsResult,
 } from '../card-comments-repository';
 
-export class InMemoryCardCommentsRepository
-  implements CardCommentsRepository
-{
+export class InMemoryCardCommentsRepository implements CardCommentsRepository {
   public items: CardCommentRecord[] = [];
 
   async create(data: CreateCardCommentSchema): Promise<CardCommentRecord> {
@@ -38,9 +36,7 @@ export class InMemoryCardCommentsRepository
     return (
       this.items.find(
         (comment) =>
-          comment.id === id &&
-          comment.cardId === cardId &&
-          !comment.deletedAt,
+          comment.id === id && comment.cardId === cardId && !comment.deletedAt,
       ) ?? null
     );
   }

@@ -33,6 +33,7 @@ export async function archiveBoardController(app: FastifyInstance) {
       body: z.object({ archive: z.boolean().optional().default(true) }),
       response: {
         200: z.object({ board: boardResponseSchema }),
+        403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
     },

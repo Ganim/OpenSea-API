@@ -51,7 +51,7 @@ export async function deleteCommentController(app: FastifyInstance) {
         const useCase = makeDeleteCommentUseCase();
         await useCase.execute({ tenantId, userId, cardId, commentId });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ForbiddenError) {
           return reply.status(403).send({ message: error.message });

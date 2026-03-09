@@ -31,7 +31,10 @@ export class DeleteSubtaskUseCase {
     }
 
     const parentCardId = subtask.parentCardId.toString();
-    const parentCard = await this.cardsRepository.findById(parentCardId, boardId);
+    const parentCard = await this.cardsRepository.findById(
+      parentCardId,
+      boardId,
+    );
 
     await this.cardsRepository.softDelete(subtaskId, boardId);
 

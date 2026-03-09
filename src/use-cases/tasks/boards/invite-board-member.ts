@@ -35,9 +35,7 @@ export class InviteBoardMemberUseCase {
     }
 
     if (board.ownerId.toString() !== userId) {
-      throw new ForbiddenError(
-        'Only the board owner can invite members',
-      );
+      throw new ForbiddenError('Only the board owner can invite members');
     }
 
     if (board.type === 'TEAM') {
@@ -50,11 +48,10 @@ export class InviteBoardMemberUseCase {
       throw new BadRequestError('Cannot invite yourself to your own board');
     }
 
-    const existingMember =
-      await this.boardMembersRepository.findByBoardAndUser(
-        boardId,
-        targetUserId,
-      );
+    const existingMember = await this.boardMembersRepository.findByBoardAndUser(
+      boardId,
+      targetUserId,
+    );
 
     if (existingMember) {
       throw new BadRequestError('User is already a member of this board');

@@ -190,6 +190,12 @@ export class PrismaFolderAccessRulesRepository
     return map;
   }
 
+  async countByFolder(folderId: UniqueEntityID): Promise<number> {
+    return prisma.folderAccessRule.count({
+      where: { folderId: folderId.toString() },
+    });
+  }
+
   async findEffectiveAccess(
     folderId: UniqueEntityID,
     userId: UniqueEntityID,

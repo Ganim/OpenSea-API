@@ -191,10 +191,12 @@ export class PrismaStorageFilesRepository implements StorageFilesRepository {
   async findSoftDeleted(
     olderThan: Date,
     limit?: number,
+    tenantId?: string,
   ): Promise<StorageFile[]> {
     const filesDb = await prisma.storageFile.findMany({
       where: {
         deletedAt: { not: null, lt: olderThan },
+        ...(tenantId && { tenantId }),
       },
       take: limit ?? 1000,
       orderBy: { deletedAt: 'asc' },

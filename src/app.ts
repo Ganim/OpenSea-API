@@ -18,6 +18,7 @@ import { errorHandler } from './@errors/error-handler';
 import { getJwtSecret, isUsingRS256, jwtConfig } from './config/jwt';
 import { rateLimitConfig } from './config/rate-limits';
 import { swaggerTags } from './config/swagger-tags';
+import cacheControlPlugin from './http/plugins/cache-control.plugin';
 import requestIdPlugin from './http/plugins/request-id.plugin';
 import { registerRoutes } from './http/routes';
 import { initSentry } from './lib/sentry';
@@ -116,7 +117,7 @@ app.register(cors, {
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Content-Length', 'Content-Disposition', 'X-Request-Id'],
+  exposedHeaders: ['Content-Length', 'Content-Disposition', 'X-Request-Id', 'ETag'],
 });
 
 // Rate limiting global (disabled in tests to avoid flakiness)
@@ -189,15 +190,23 @@ app.register(fastifyJwt, {
 app.register(fastifyCookie);
 
 // Multipart (file uploads)
+// Email attachments allow up to 25MB per file (Gmail/Outlook standard).
+// Storage uploads use their own per-route limits via route-level config.
+// fieldSize is 5MB to accommodate large HTML bodies (forwarded emails).
 app.register(multipart, {
   limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB per file
+    fileSize: 25 * 1024 * 1024, // 25MB per file (email standard)
     files: 10,                   // max 10 files per request
     fields: 20,                  // max 20 text fields per request
-    fieldSize: 1_000_000,        // max 1MB per text field
+    fieldSize: 5_000_000,        // max 5MB per text field (large HTML bodies)
     headerPairs: 2000,           // max header pairs
   },
 });
+
+// HTTP Cache-Control + ETag (disabled in tests)
+if (!isTestEnv) {
+  app.register(cacheControlPlugin);
+}
 
 // Routes
 app.register(registerRoutes);

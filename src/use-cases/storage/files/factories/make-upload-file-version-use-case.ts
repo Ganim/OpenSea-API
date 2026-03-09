@@ -2,6 +2,7 @@ import { env } from '@/@env';
 import { PrismaStorageFilesRepository } from '@/repositories/storage/prisma/prisma-storage-files-repository';
 import { PrismaStorageFileVersionsRepository } from '@/repositories/storage/prisma/prisma-storage-file-versions-repository';
 import { LocalFileUploadService } from '@/services/storage/local-file-upload-service';
+import { EncryptionService } from '@/services/storage/encryption-service';
 import { S3FileUploadService } from '@/services/storage/s3-file-upload-service';
 import { UploadFileVersionUseCase } from '../upload-file-version';
 
@@ -13,9 +14,14 @@ export function makeUploadFileVersionUseCase() {
     ? S3FileUploadService.getInstance()
     : new LocalFileUploadService();
 
+  const encryptionService = env.STORAGE_ENCRYPTION_KEY
+    ? new EncryptionService(env.STORAGE_ENCRYPTION_KEY)
+    : undefined;
+
   return new UploadFileVersionUseCase(
     storageFilesRepository,
     storageFileVersionsRepository,
     fileUploadService,
+    encryptionService,
   );
 }

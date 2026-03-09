@@ -36,11 +36,13 @@ export async function deleteAutomationController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
       const { boardId, automationId } = request.params;
 
       try {
         const useCase = makeDeleteAutomationUseCase();
-        await useCase.execute({ boardId, automationId });
+        await useCase.execute({ tenantId, userId, boardId, automationId });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.TASKS.AUTOMATION_DELETE,
@@ -48,7 +50,7 @@ export async function deleteAutomationController(app: FastifyInstance) {
           placeholders: { userName: 'System', automationName: automationId },
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

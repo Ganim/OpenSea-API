@@ -39,12 +39,14 @@ export async function reorderColumnsController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
       const { boardId } = request.params;
 
       try {
         const useCase = makeReorderColumnsUseCase();
         const result = await useCase.execute({
           tenantId,
+          userId,
           boardId,
           columnIds: request.body.columnIds,
         });

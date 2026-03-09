@@ -52,7 +52,9 @@ describe('Create Board (E2E)', () => {
 
     expect(response.status).toBe(201);
     expect(response.body.board.title).toBe('Quadro Completo');
-    expect(response.body.board.description).toBe('Descrição do quadro de testes');
+    expect(response.body.board.description).toBe(
+      'Descrição do quadro de testes',
+    );
     expect(response.body.board.visibility).toBe('SHARED');
     expect(response.body.board.gradientId).toBe('purple-pink');
     expect(response.body.board.columns).toBeDefined();

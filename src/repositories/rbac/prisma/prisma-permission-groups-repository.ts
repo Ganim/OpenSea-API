@@ -3,6 +3,7 @@ import { PermissionGroup } from '@/entities/rbac/permission-group';
 import { prisma } from '@/lib/prisma';
 import { mapPermissionGroupPrismaToDomain } from '@/mappers/rbac/permission-group-prisma-to-domain';
 import { Prisma } from '@prisma/generated/client.js';
+import type { PermissionGroup as PrismaPermissionGroup } from '@prisma/generated/client.js';
 import type {
   CreatePermissionGroupSchema,
   ListPermissionGroupsParams,
@@ -246,7 +247,7 @@ export class PrismaPermissionGroupsRepository
 
       if (!group || !group.parentId) break;
 
-      const fullParent: { id: string; parentId: string | null; [key: string]: unknown } | null =
+      const fullParent: PrismaPermissionGroup | null =
         await prisma.permissionGroup.findUnique({
           where: { id: group.parentId },
         });

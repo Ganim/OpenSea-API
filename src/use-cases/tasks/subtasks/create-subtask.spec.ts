@@ -15,7 +15,11 @@ describe('CreateSubtaskUseCase', () => {
     boardsRepository = new InMemoryBoardsRepository();
     cardsRepository = new InMemoryCardsRepository();
     cardActivitiesRepository = new InMemoryCardActivitiesRepository();
-    sut = new CreateSubtaskUseCase(boardsRepository, cardsRepository, cardActivitiesRepository);
+    sut = new CreateSubtaskUseCase(
+      boardsRepository,
+      cardsRepository,
+      cardActivitiesRepository,
+    );
 
     const board = await boardsRepository.create({
       tenantId: 'tenant-1',

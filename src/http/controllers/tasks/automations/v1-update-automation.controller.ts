@@ -6,7 +6,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { automationResponseSchema, updateAutomationSchema } from '@/http/schemas/tasks';
+import {
+  automationResponseSchema,
+  updateAutomationSchema,
+} from '@/http/schemas/tasks';
 import { makeUpdateAutomationUseCase } from '@/use-cases/tasks/automations/factories/make-update-automation-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -40,11 +43,15 @@ export async function updateAutomationController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
       const { boardId, automationId } = request.params;
 
       try {
         const useCase = makeUpdateAutomationUseCase();
         const result = await useCase.execute({
+          tenantId,
+          userId,
           boardId,
           automationId,
           ...request.body,

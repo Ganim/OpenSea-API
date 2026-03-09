@@ -9,9 +9,7 @@ interface RemoveReactionRequest {
 }
 
 export class RemoveReactionUseCase {
-  constructor(
-    private commentReactionsRepository: CommentReactionsRepository,
-  ) {}
+  constructor(private commentReactionsRepository: CommentReactionsRepository) {}
 
   async execute(request: RemoveReactionRequest): Promise<void> {
     const { userId, commentId, emoji } = request;

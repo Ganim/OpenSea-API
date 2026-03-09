@@ -4,7 +4,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { checklistResponseSchema, updateChecklistSchema } from '@/http/schemas/tasks';
+import {
+  checklistResponseSchema,
+  updateChecklistSchema,
+} from '@/http/schemas/tasks';
 import { makeUpdateChecklistUseCase } from '@/use-cases/tasks/checklists/factories/make-update-checklist-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -39,14 +42,19 @@ export async function updateChecklistController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { cardId, checklistId } = request.params;
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+      const { boardId, cardId, checklistId } = request.params;
 
       try {
         const useCase = makeUpdateChecklistUseCase();
         const result = await useCase.execute({
+          tenantId,
+          userId,
+          boardId,
           cardId,
           checklistId,
-          ...request.body,
+          title: request.body.title!,
         });
 
         return reply.status(200).send(result);

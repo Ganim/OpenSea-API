@@ -45,9 +45,7 @@ export class UpdateBoardUseCase {
       }
 
       if (title.length > 256) {
-        throw new BadRequestError(
-          'Board title must be at most 256 characters',
-        );
+        throw new BadRequestError('Board title must be at most 256 characters');
       }
     }
 

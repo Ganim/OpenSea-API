@@ -4,6 +4,7 @@ import { PrismaStorageFoldersRepository } from '@/repositories/storage/prisma/pr
 import { PrismaStorageFileVersionsRepository } from '@/repositories/storage/prisma/prisma-storage-file-versions-repository';
 import { LocalFileUploadService } from '@/services/storage/local-file-upload-service';
 import { S3FileUploadService } from '@/services/storage/s3-file-upload-service';
+import { EncryptionService } from '@/services/storage/encryption-service';
 import { OfficeConversionService } from '@/services/storage/office-conversion-service';
 import { ServeFileUseCase } from '../serve-file';
 
@@ -17,11 +18,16 @@ export function makeServeFileUseCase() {
     : new LocalFileUploadService();
   const officeConversionService = new OfficeConversionService();
 
+  const encryptionService = env.STORAGE_ENCRYPTION_KEY
+    ? new EncryptionService(env.STORAGE_ENCRYPTION_KEY)
+    : undefined;
+
   return new ServeFileUseCase(
     storageFilesRepository,
     storageFoldersRepository,
     storageFileVersionsRepository,
     fileUploadService,
     officeConversionService,
+    encryptionService,
   );
 }

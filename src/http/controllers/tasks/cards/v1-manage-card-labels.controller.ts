@@ -5,7 +5,10 @@ import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { cardResponseSchema, manageCardLabelsSchema } from '@/http/schemas/tasks';
+import {
+  cardResponseSchema,
+  manageCardLabelsSchema,
+} from '@/http/schemas/tasks';
 import { makeManageCardLabelsUseCase } from '@/use-cases/tasks/cards/factories/make-manage-card-labels-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

@@ -9,5 +9,10 @@ export function makeArchiveCardUseCase() {
   const cardsRepository = new PrismaCardsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
   const boardMembersRepository = new PrismaBoardMembersRepository();
-  return new ArchiveCardUseCase(boardsRepository, cardsRepository, cardActivitiesRepository, boardMembersRepository);
+  return new ArchiveCardUseCase(
+    boardsRepository,
+    cardsRepository,
+    cardActivitiesRepository,
+    boardMembersRepository,
+  );
 }

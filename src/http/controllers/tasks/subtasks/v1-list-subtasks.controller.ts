@@ -36,11 +36,16 @@ export async function listSubtasksController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { cardId } = request.params;
+      const tenantId = request.user.tenantId!;
+      const { boardId, cardId } = request.params;
 
       try {
         const useCase = makeListSubtasksUseCase();
-        const result = await useCase.execute({ parentCardId: cardId });
+        const result = await useCase.execute({
+          tenantId,
+          boardId,
+          parentCardId: cardId,
+        });
 
         return reply.status(200).send({
           subtasks: result.subtasks.map((card) => cardToDTO(card)),

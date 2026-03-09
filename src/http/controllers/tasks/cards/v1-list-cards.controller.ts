@@ -42,12 +42,14 @@ export async function listCardsController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
       const { boardId } = request.params;
 
       try {
         const useCase = makeListCardsUseCase();
         const result = await useCase.execute({
           tenantId,
+          userId,
           boardId,
           ...request.query,
         });

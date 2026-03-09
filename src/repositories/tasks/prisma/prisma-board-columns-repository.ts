@@ -40,22 +40,26 @@ export class PrismaBoardColumnsRepository implements BoardColumnsRepository {
     return toRecord(raw);
   }
 
-  async createMany(data: CreateBoardColumnSchema[]): Promise<BoardColumnRecord[]> {
-    return prisma.$transaction(
-      data.map((col) =>
-        prisma.boardColumn.create({
-          data: {
-            boardId: col.boardId,
-            title: col.title,
-            color: col.color,
-            position: col.position ?? 0,
-            isDefault: col.isDefault ?? false,
-            isDone: col.isDone ?? false,
-            wipLimit: col.wipLimit,
-          },
-        }),
-      ),
-    ).then((rows) => rows.map(toRecord));
+  async createMany(
+    data: CreateBoardColumnSchema[],
+  ): Promise<BoardColumnRecord[]> {
+    return prisma
+      .$transaction(
+        data.map((col) =>
+          prisma.boardColumn.create({
+            data: {
+              boardId: col.boardId,
+              title: col.title,
+              color: col.color,
+              position: col.position ?? 0,
+              isDefault: col.isDefault ?? false,
+              isDone: col.isDone ?? false,
+              wipLimit: col.wipLimit,
+            },
+          }),
+        ),
+      )
+      .then((rows) => rows.map(toRecord));
   }
 
   async findById(
@@ -78,9 +82,7 @@ export class PrismaBoardColumnsRepository implements BoardColumnsRepository {
     return rows.map(toRecord);
   }
 
-  async findDefaultColumn(
-    boardId: string,
-  ): Promise<BoardColumnRecord | null> {
+  async findDefaultColumn(boardId: string): Promise<BoardColumnRecord | null> {
     const raw = await prisma.boardColumn.findFirst({
       where: { boardId, isDefault: true },
     });

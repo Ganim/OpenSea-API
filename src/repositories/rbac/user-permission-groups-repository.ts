@@ -6,8 +6,8 @@ import { UserPermissionGroup } from '@/entities/rbac/user-permission-group';
 export interface AssignGroupToUserSchema {
   userId: UniqueEntityID;
   groupId: UniqueEntityID;
-  expiresAt: Date | null;
-  grantedBy: UniqueEntityID | null;
+  expiresAt?: Date | null;
+  grantedBy?: UniqueEntityID | null;
 }
 
 export interface UpdateUserGroupSchema {

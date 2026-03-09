@@ -27,9 +27,7 @@ export class InMemoryCardsRepository implements CardsRepository {
       status: data.status,
       priority: data.priority,
       position: data.position,
-      assigneeId: data.assigneeId
-        ? new UniqueEntityID(data.assigneeId)
-        : null,
+      assigneeId: data.assigneeId ? new UniqueEntityID(data.assigneeId) : null,
       reporterId: new UniqueEntityID(data.reporterId),
       startDate: data.startDate,
       dueDate: data.dueDate,
@@ -88,9 +86,15 @@ export class InMemoryCardsRepository implements CardsRepository {
         )
           return false;
       }
-      if (options.assigneeId && card.assigneeId?.toString() !== options.assigneeId)
+      if (
+        options.assigneeId &&
+        card.assigneeId?.toString() !== options.assigneeId
+      )
         return false;
-      if (options.reporterId && card.reporterId.toString() !== options.reporterId)
+      if (
+        options.reporterId &&
+        card.reporterId.toString() !== options.reporterId
+      )
         return false;
       if (options.status && card.status !== options.status) return false;
       if (options.priority && card.priority !== options.priority) return false;
@@ -154,8 +158,7 @@ export class InMemoryCardsRepository implements CardsRepository {
 
   async countByColumnId(columnId: string): Promise<number> {
     return this.items.filter(
-      (card) =>
-        card.columnId.toString() === columnId && !card.deletedAt,
+      (card) => card.columnId.toString() === columnId && !card.deletedAt,
     ).length;
   }
 
@@ -218,7 +221,9 @@ export class InMemoryCardsRepository implements CardsRepository {
     if (data.coverImageId !== undefined) card.coverImageId = data.coverImageId;
     if (data.metadata !== undefined) card.metadata = data.metadata;
     if (data.completedAt !== undefined) {
-      const internal = card as unknown as { props: { completedAt: Date | null; updatedAt: Date | null } };
+      const internal = card as unknown as {
+        props: { completedAt: Date | null; updatedAt: Date | null };
+      };
       internal.props.completedAt = data.completedAt;
       internal.props.updatedAt = new Date();
     }
@@ -254,8 +259,7 @@ export class InMemoryCardsRepository implements CardsRepository {
   async softDelete(id: string, boardId: string): Promise<void> {
     const card = this.items.find(
       (card) =>
-        card.id.toString() === id &&
-        card.boardId.toString() === boardId,
+        card.id.toString() === id && card.boardId.toString() === boardId,
     );
     if (card) {
       card.delete();

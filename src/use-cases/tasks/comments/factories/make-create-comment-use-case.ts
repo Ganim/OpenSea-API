@@ -7,5 +7,9 @@ export function makeCreateCommentUseCase() {
   const cardsRepository = new PrismaCardsRepository();
   const cardCommentsRepository = new PrismaCardCommentsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
-  return new CreateCommentUseCase(cardsRepository, cardCommentsRepository, cardActivitiesRepository);
+  return new CreateCommentUseCase(
+    cardsRepository,
+    cardCommentsRepository,
+    cardActivitiesRepository,
+  );
 }

@@ -28,8 +28,7 @@ export class ArchiveCardUseCase {
   ) {}
 
   async execute(request: ArchiveCardRequest): Promise<ArchiveCardResponse> {
-    const { tenantId, userId, userName, boardId, cardId, archive } =
-      request;
+    const { tenantId, userId, userName, boardId, cardId, archive } = request;
 
     const board = await this.boardsRepository.findById(boardId, tenantId);
 
@@ -37,7 +36,12 @@ export class ArchiveCardUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    await verifyBoardAccess(this.boardMembersRepository, board, userId, 'write');
+    await verifyBoardAccess(
+      this.boardMembersRepository,
+      board,
+      userId,
+      'write',
+    );
 
     const card = await this.cardsRepository.findById(cardId, boardId);
 

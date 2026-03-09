@@ -5,5 +5,8 @@ import { ToggleAutomationUseCase } from '../toggle-automation';
 export function makeToggleAutomationUseCase() {
   const boardAutomationsRepository = new PrismaBoardAutomationsRepository();
   const boardsRepository = new PrismaBoardsRepository();
-  return new ToggleAutomationUseCase(boardAutomationsRepository, boardsRepository);
+  return new ToggleAutomationUseCase(
+    boardAutomationsRepository,
+    boardsRepository,
+  );
 }

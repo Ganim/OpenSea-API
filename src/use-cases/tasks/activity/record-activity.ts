@@ -20,9 +20,7 @@ interface RecordActivityResponse {
 }
 
 export class RecordActivityUseCase {
-  constructor(
-    private cardActivitiesRepository: CardActivitiesRepository,
-  ) {}
+  constructor(private cardActivitiesRepository: CardActivitiesRepository) {}
 
   async execute(
     request: RecordActivityRequest,

@@ -52,9 +52,7 @@ export class PrismaBoardLabelsRepository implements BoardLabelsRepository {
     return rows.map(toRecord);
   }
 
-  async update(
-    data: UpdateBoardLabelSchema,
-  ): Promise<BoardLabelRecord | null> {
+  async update(data: UpdateBoardLabelSchema): Promise<BoardLabelRecord | null> {
     const raw = await prisma.boardLabel.update({
       where: { id: data.id },
       data: {

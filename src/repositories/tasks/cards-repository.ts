@@ -84,7 +84,10 @@ export interface OverdueCardRecord {
 export interface CardsRepository {
   create(data: CreateCardSchema): Promise<Card>;
   findById(id: string, boardId: string): Promise<Card | null>;
-  findByIdWithLabels(id: string, boardId: string): Promise<CardWithLabelIds | null>;
+  findByIdWithLabels(
+    id: string,
+    boardId: string,
+  ): Promise<CardWithLabelIds | null>;
   findMany(options: FindManyCardsOptions): Promise<FindManyCardsResult>;
   findBySystemSource(
     tenantId: string,
@@ -96,7 +99,11 @@ export interface CardsRepository {
   countByColumnId(columnId: string): Promise<number>;
   getNextPosition(columnId: string): Promise<number>;
   update(data: UpdateCardSchema): Promise<Card | null>;
-  updateManyColumn(cardIds: string[], boardId: string, columnId: string): Promise<void>;
+  updateManyColumn(
+    cardIds: string[],
+    boardId: string,
+    columnId: string,
+  ): Promise<void>;
   softDelete(id: string, boardId: string): Promise<void>;
   softDeleteMany(ids: string[], boardId: string): Promise<void>;
 }

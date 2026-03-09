@@ -6,7 +6,8 @@ import { SetCardCustomFieldValuesUseCase } from '../set-card-custom-field-values
 export function makeSetCardCustomFieldValuesUseCase() {
   const cardsRepository = new PrismaCardsRepository();
   const boardCustomFieldsRepository = new PrismaBoardCustomFieldsRepository();
-  const cardCustomFieldValuesRepository = new PrismaCardCustomFieldValuesRepository();
+  const cardCustomFieldValuesRepository =
+    new PrismaCardCustomFieldValuesRepository();
   return new SetCardCustomFieldValuesUseCase(
     cardsRepository,
     boardCustomFieldsRepository,

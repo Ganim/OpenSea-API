@@ -11,7 +11,7 @@ import type {
 export class InMemoryLoansRepository implements LoansRepository {
   public items: Loan[] = [];
 
-  async create(data: CreateLoanSchema): Promise<Loan> {
+  async create(data: CreateLoanSchema, _tx?: unknown): Promise<Loan> {
     const loan = Loan.create({
       tenantId: new UniqueEntityID(data.tenantId),
       bankAccountId: new UniqueEntityID(data.bankAccountId),

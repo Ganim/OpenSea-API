@@ -192,11 +192,13 @@ export class InMemoryStorageFilesRepository implements StorageFilesRepository {
   async findSoftDeleted(
     olderThan: Date,
     limit?: number,
+    tenantId?: string,
   ): Promise<StorageFile[]> {
     const deleted = this.items.filter(
       (item) =>
         item.deletedAt !== null &&
-        item.deletedAt.getTime() < olderThan.getTime(),
+        item.deletedAt.getTime() < olderThan.getTime() &&
+        (!tenantId || item.tenantId.toString() === tenantId),
     );
 
     return limit ? deleted.slice(0, limit) : deleted;

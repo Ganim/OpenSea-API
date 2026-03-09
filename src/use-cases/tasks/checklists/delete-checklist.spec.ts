@@ -11,7 +11,10 @@ describe('DeleteChecklistUseCase', () => {
   beforeEach(() => {
     cardChecklistsRepository = new InMemoryCardChecklistsRepository();
     cardActivitiesRepository = new InMemoryCardActivitiesRepository();
-    sut = new DeleteChecklistUseCase(cardChecklistsRepository, cardActivitiesRepository);
+    sut = new DeleteChecklistUseCase(
+      cardChecklistsRepository,
+      cardActivitiesRepository,
+    );
   });
 
   it('should delete a checklist and cascade delete its items', async () => {
@@ -51,6 +54,7 @@ describe('DeleteChecklistUseCase', () => {
       sut.execute({
         tenantId: 'tenant-1',
         userId: 'user-1',
+        userName: 'John Doe',
         boardId: 'board-1',
         cardId: 'card-1',
         checklistId: 'non-existent',

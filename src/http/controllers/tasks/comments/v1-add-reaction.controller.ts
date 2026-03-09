@@ -4,7 +4,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { addReactionSchema, commentReactionResponseSchema } from '@/http/schemas/tasks';
+import {
+  addReactionSchema,
+  commentReactionResponseSchema,
+} from '@/http/schemas/tasks';
 import { makeAddReactionUseCase } from '@/use-cases/tasks/comments/factories/make-add-reaction-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -39,12 +42,14 @@ export async function addReactionController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
       const { cardId, commentId } = request.params;
 
       try {
         const useCase = makeAddReactionUseCase();
         const result = await useCase.execute({
+          tenantId,
           userId,
           cardId,
           commentId,

@@ -7,5 +7,9 @@ export function makeCreateSubtaskUseCase() {
   const boardsRepository = new PrismaBoardsRepository();
   const cardsRepository = new PrismaCardsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
-  return new CreateSubtaskUseCase(boardsRepository, cardsRepository, cardActivitiesRepository);
+  return new CreateSubtaskUseCase(
+    boardsRepository,
+    cardsRepository,
+    cardActivitiesRepository,
+  );
 }

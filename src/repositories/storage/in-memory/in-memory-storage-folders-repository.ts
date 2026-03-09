@@ -118,18 +118,22 @@ export class InMemoryStorageFoldersRepository
   async findDescendants(
     folderId: UniqueEntityID,
     tenantId: string,
+    parentPath?: string,
   ): Promise<StorageFolder[]> {
-    const parentFolder = this.items.find(
-      (item) =>
-        item.deletedAt === null &&
-        item.id.equals(folderId) &&
-        item.tenantId.toString() === tenantId,
-    );
+    let resolvedPath = parentPath;
 
-    if (!parentFolder) return [];
+    if (resolvedPath === undefined) {
+      const parentFolder = this.items.find(
+        (item) =>
+          item.deletedAt === null &&
+          item.id.equals(folderId) &&
+          item.tenantId.toString() === tenantId,
+      );
+      if (!parentFolder) return [];
+      resolvedPath = parentFolder.path;
+    }
 
-    const parentPath = parentFolder.path;
-    const pathPrefix = parentPath === '/' ? '/' : `${parentPath}/`;
+    const pathPrefix = resolvedPath === '/' ? '/' : `${resolvedPath}/`;
 
     return this.items.filter(
       (item) =>
@@ -137,7 +141,7 @@ export class InMemoryStorageFoldersRepository
         item.tenantId.toString() === tenantId &&
         !item.id.equals(folderId) &&
         (item.path.startsWith(pathPrefix) ||
-          (parentPath === '/' && item.path !== '/')),
+          (resolvedPath === '/' && item.path !== '/')),
     );
   }
 
@@ -212,7 +216,10 @@ export class InMemoryStorageFoldersRepository
     return count;
   }
 
-  async batchSoftDelete(folderIds: string[], _tenantId: string): Promise<number> {
+  async batchSoftDelete(
+    folderIds: string[],
+    _tenantId: string,
+  ): Promise<number> {
     let count = 0;
     for (const id of folderIds) {
       const folder = this.items.find(

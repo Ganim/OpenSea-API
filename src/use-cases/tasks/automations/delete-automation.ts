@@ -9,15 +9,15 @@ interface DeleteAutomationRequest {
 }
 
 export class DeleteAutomationUseCase {
-  constructor(
-    private boardAutomationsRepository: BoardAutomationsRepository,
-  ) {}
+  constructor(private boardAutomationsRepository: BoardAutomationsRepository) {}
 
   async execute(request: DeleteAutomationRequest): Promise<void> {
     const { boardId, automationId } = request;
 
-    const existingAutomation =
-      await this.boardAutomationsRepository.findById(automationId, boardId);
+    const existingAutomation = await this.boardAutomationsRepository.findById(
+      automationId,
+      boardId,
+    );
 
     if (!existingAutomation) {
       throw new ResourceNotFoundError('Automation not found');

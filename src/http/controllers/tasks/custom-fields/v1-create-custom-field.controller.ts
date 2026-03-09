@@ -4,7 +4,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { createCustomFieldSchema, customFieldResponseSchema } from '@/http/schemas/tasks';
+import {
+  createCustomFieldSchema,
+  customFieldResponseSchema,
+} from '@/http/schemas/tasks';
 import { makeCreateCustomFieldUseCase } from '@/use-cases/tasks/custom-fields/factories/make-create-custom-field-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

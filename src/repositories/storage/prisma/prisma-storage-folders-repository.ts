@@ -142,15 +142,19 @@ export class PrismaStorageFoldersRepository
   async findDescendants(
     folderId: UniqueEntityID,
     tenantId: string,
+    parentPath?: string,
   ): Promise<StorageFolder[]> {
-    const parentFolder = await prisma.storageFolder.findUnique({
-      where: { id: folderId.toString() },
-    });
+    let resolvedPath = parentPath;
 
-    if (!parentFolder) return [];
+    if (resolvedPath === undefined) {
+      const parentFolder = await prisma.storageFolder.findUnique({
+        where: { id: folderId.toString() },
+      });
+      if (!parentFolder) return [];
+      resolvedPath = parentFolder.path;
+    }
 
-    const pathPrefix =
-      parentFolder.path === '/' ? '/' : `${parentFolder.path}/`;
+    const pathPrefix = resolvedPath === '/' ? '/' : `${resolvedPath}/`;
 
     const descendantsDb = await prisma.storageFolder.findMany({
       where: {
@@ -228,7 +232,10 @@ export class PrismaStorageFoldersRepository
     return result;
   }
 
-  async batchSoftDelete(folderIds: string[], tenantId: string): Promise<number> {
+  async batchSoftDelete(
+    folderIds: string[],
+    tenantId: string,
+  ): Promise<number> {
     if (folderIds.length === 0) return 0;
     const result = await prisma.storageFolder.updateMany({
       where: { id: { in: folderIds }, tenantId },

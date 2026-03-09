@@ -134,9 +134,7 @@ describe('SetCardCustomFieldValuesUseCase', () => {
           { fieldId: requiredFieldId, value: null },
         ],
       }),
-    ).rejects.toThrow(
-      'Field "Required Notes" is required and cannot be empty',
-    );
+    ).rejects.toThrow('Field "Required Notes" is required and cannot be empty');
   });
 
   it('should reject if field does not exist', async () => {
@@ -220,9 +218,7 @@ describe('SetCardCustomFieldValuesUseCase', () => {
           { fieldId: requiredFieldId, value: 'Required value' },
         ],
       }),
-    ).rejects.toThrow(
-      'Value "Unknown" is not a valid option for field "Tags"',
-    );
+    ).rejects.toThrow('Value "Unknown" is not a valid option for field "Tags"');
   });
 
   it('should accept valid multi-select values', async () => {

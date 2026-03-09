@@ -190,7 +190,7 @@ export async function closeAllQueues(): Promise<void> {
       worker.close().then(async () => {
         // BullMQ workers hold their own Redis connection — disconnect it
         const conn = await worker.client;
-        await conn.disconnect().catch(() => undefined);
+        conn.disconnect();
       }),
     );
   }
@@ -199,7 +199,7 @@ export async function closeAllQueues(): Promise<void> {
     closePromises.push(
       queue.close().then(async () => {
         const conn = await queue.client;
-        await conn.disconnect().catch(() => undefined);
+        conn.disconnect();
       }),
     );
   }

@@ -5,10 +5,13 @@ import type { StorageFile } from '@/entities/storage/storage-file';
 import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
 import type { StorageFileVersionsRepository } from '@/repositories/storage/storage-file-versions-repository';
 import type { FileUploadService } from '@/services/storage/file-upload-service';
+import type { FolderAccessService } from '@/services/storage/folder-access-service';
 
 interface DownloadFileUseCaseRequest {
   tenantId: string;
   fileId: string;
+  userId?: string;
+  userGroupIds?: string[];
   version?: number;
 }
 
@@ -22,12 +25,13 @@ export class DownloadFileUseCase {
     private storageFilesRepository: StorageFilesRepository,
     private storageFileVersionsRepository: StorageFileVersionsRepository,
     private fileUploadService: FileUploadService,
+    private folderAccessService?: FolderAccessService,
   ) {}
 
   async execute(
     request: DownloadFileUseCaseRequest,
   ): Promise<DownloadFileUseCaseResponse> {
-    const { tenantId, fileId, version } = request;
+    const { tenantId, fileId, userId, userGroupIds, version } = request;
 
     const file = await this.storageFilesRepository.findById(
       new UniqueEntityID(fileId),
@@ -40,6 +44,16 @@ export class DownloadFileUseCase {
 
     if (!file.isAccessible) {
       throw new ForbiddenError('File is not accessible');
+    }
+
+    // ACL check: verify read permission on file's folder
+    if (this.folderAccessService && file.folderId && userId) {
+      await this.folderAccessService.verifyAccess(
+        file.folderId.toString(),
+        userId,
+        userGroupIds ?? [],
+        'read',
+      );
     }
 
     let fileKeyToDownload = file.fileKey;

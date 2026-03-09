@@ -7,5 +7,9 @@ export function makeDeleteColumnUseCase() {
   const boardsRepository = new PrismaBoardsRepository();
   const boardColumnsRepository = new PrismaBoardColumnsRepository();
   const cardsRepository = new PrismaCardsRepository();
-  return new DeleteColumnUseCase(boardsRepository, boardColumnsRepository, cardsRepository);
+  return new DeleteColumnUseCase(
+    boardsRepository,
+    boardColumnsRepository,
+    cardsRepository,
+  );
 }

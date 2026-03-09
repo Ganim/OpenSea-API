@@ -21,9 +21,7 @@ interface AddChecklistItemResponse {
 }
 
 export class AddChecklistItemUseCase {
-  constructor(
-    private cardChecklistsRepository: CardChecklistsRepository,
-  ) {}
+  constructor(private cardChecklistsRepository: CardChecklistsRepository) {}
 
   async execute(
     request: AddChecklistItemRequest,

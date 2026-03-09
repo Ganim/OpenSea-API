@@ -18,9 +18,7 @@ interface UpdateChecklistResponse {
 }
 
 export class UpdateChecklistUseCase {
-  constructor(
-    private cardChecklistsRepository: CardChecklistsRepository,
-  ) {}
+  constructor(private cardChecklistsRepository: CardChecklistsRepository) {}
 
   async execute(
     request: UpdateChecklistRequest,

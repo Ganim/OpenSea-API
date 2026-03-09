@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Loan } from '@/entities/finance/loan';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateLoanSchema {
   tenantId: string;
@@ -50,7 +51,7 @@ export interface FindManyLoansResult {
 }
 
 export interface LoansRepository {
-  create(data: CreateLoanSchema): Promise<Loan>;
+  create(data: CreateLoanSchema, tx?: TransactionClient): Promise<Loan>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Loan | null>;
   findMany(options: FindManyLoansOptions): Promise<FindManyLoansResult>;
   update(data: UpdateLoanSchema): Promise<Loan | null>;

@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { LoanInstallment } from '@/entities/finance/loan-installment';
 import { Prisma } from '@prisma/generated/client.js';
@@ -48,8 +49,9 @@ function installmentPrismaToDomain(raw: {
 export class PrismaLoanInstallmentsRepository
   implements LoanInstallmentsRepository
 {
-  async create(data: CreateLoanInstallmentSchema): Promise<LoanInstallment> {
-    const installment = await prisma.loanInstallment.create({
+  async create(data: CreateLoanInstallmentSchema, tx?: TransactionClient): Promise<LoanInstallment> {
+    const client = tx ?? prisma;
+    const installment = await client.loanInstallment.create({
       data: {
         loanId: data.loanId,
         bankAccountId: data.bankAccountId,
@@ -66,10 +68,11 @@ export class PrismaLoanInstallmentsRepository
 
   async createMany(
     data: CreateLoanInstallmentSchema[],
+    tx?: TransactionClient,
   ): Promise<LoanInstallment[]> {
     const installments: LoanInstallment[] = [];
     for (const item of data) {
-      const installment = await this.create(item);
+      const installment = await this.create(item, tx);
       installments.push(installment);
     }
     return installments;

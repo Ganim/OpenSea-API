@@ -4,7 +4,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { boardLabelResponseSchema, createLabelSchema } from '@/http/schemas/tasks';
+import {
+  boardLabelResponseSchema,
+  createLabelSchema,
+} from '@/http/schemas/tasks';
 import { makeCreateLabelUseCase } from '@/use-cases/tasks/labels/factories/make-create-label-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

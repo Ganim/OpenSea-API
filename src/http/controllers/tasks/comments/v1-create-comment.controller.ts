@@ -5,7 +5,10 @@ import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { commentResponseSchema, createCommentSchema } from '@/http/schemas/tasks';
+import {
+  commentResponseSchema,
+  createCommentSchema,
+} from '@/http/schemas/tasks';
 import { makeCreateCommentUseCase } from '@/use-cases/tasks/comments/factories/make-create-comment-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

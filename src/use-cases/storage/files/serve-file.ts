@@ -1,4 +1,3 @@
-import { env } from '@/@env';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -6,7 +5,7 @@ import type { StorageFilesRepository } from '@/repositories/storage/storage-file
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
 import type { StorageFileVersionsRepository } from '@/repositories/storage/storage-file-versions-repository';
 import type { FileUploadService } from '@/services/storage/file-upload-service';
-import { EncryptionService } from '@/services/storage/encryption-service';
+import type { EncryptionService } from '@/services/storage/encryption-service';
 import type { OfficeConversionService } from '@/services/storage/office-conversion-service';
 import { compare } from 'bcryptjs';
 
@@ -33,6 +32,7 @@ export class ServeFileUseCase {
     private storageFileVersionsRepository: StorageFileVersionsRepository,
     private fileUploadService: FileUploadService,
     private officeConversionService?: OfficeConversionService,
+    private encryptionService?: EncryptionService,
   ) {}
 
   async execute(
@@ -90,11 +90,8 @@ export class ServeFileUseCase {
     let buffer = await this.fileUploadService.getObject(fileKey);
 
     // Decrypt if file is encrypted
-    if (file.isEncrypted && env.STORAGE_ENCRYPTION_KEY) {
-      const encryptionService = new EncryptionService(
-        env.STORAGE_ENCRYPTION_KEY,
-      );
-      buffer = encryptionService.decrypt(buffer);
+    if (file.isEncrypted && this.encryptionService) {
+      buffer = this.encryptionService.decrypt(buffer);
     }
 
     // Convert office documents to PDF when requested

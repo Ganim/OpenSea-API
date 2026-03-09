@@ -45,5 +45,8 @@ export interface BoardColumnsRepository {
   restore(id: string, boardId: string): Promise<void>;
   delete(id: string, boardId: string): Promise<void>;
   reorder(id: string, boardId: string, newPosition: number): Promise<void>;
-  reorderMany(columns: { id: string; position: number }[], boardId: string): Promise<void>;
+  reorderMany(
+    columns: { id: string; position: number }[],
+    boardId: string,
+  ): Promise<void>;
 }

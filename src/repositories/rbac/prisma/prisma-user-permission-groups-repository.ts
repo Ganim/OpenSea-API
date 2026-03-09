@@ -21,7 +21,7 @@ export class PrismaUserPermissionGroupsRepository
       data: {
         userId: data.userId.toString(),
         groupId: data.groupId.toString(),
-        expiresAt: data.expiresAt,
+        expiresAt: data.expiresAt ?? null,
         grantedBy: data.grantedBy?.toString() ?? null,
       },
     });

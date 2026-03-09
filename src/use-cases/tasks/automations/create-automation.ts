@@ -50,8 +50,16 @@ export class CreateAutomationUseCase {
   async execute(
     request: CreateAutomationRequest,
   ): Promise<CreateAutomationResponse> {
-    const { tenantId, userId, boardId, name, trigger, triggerConfig, action, actionConfig } =
-      request;
+    const {
+      tenantId,
+      userId,
+      boardId,
+      name,
+      trigger,
+      triggerConfig,
+      action,
+      actionConfig,
+    } = request;
 
     const board = await this.boardsRepository.findById(boardId, tenantId);
 

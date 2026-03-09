@@ -5,5 +5,8 @@ import { CreateCustomFieldUseCase } from '../create-custom-field';
 export function makeCreateCustomFieldUseCase() {
   const boardsRepository = new PrismaBoardsRepository();
   const boardCustomFieldsRepository = new PrismaBoardCustomFieldsRepository();
-  return new CreateCustomFieldUseCase(boardsRepository, boardCustomFieldsRepository);
+  return new CreateCustomFieldUseCase(
+    boardsRepository,
+    boardCustomFieldsRepository,
+  );
 }

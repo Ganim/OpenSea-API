@@ -13,9 +13,7 @@ interface ListAutomationsResponse {
 }
 
 export class ListAutomationsUseCase {
-  constructor(
-    private boardAutomationsRepository: BoardAutomationsRepository,
-  ) {}
+  constructor(private boardAutomationsRepository: BoardAutomationsRepository) {}
 
   async execute(
     request: ListAutomationsRequest,

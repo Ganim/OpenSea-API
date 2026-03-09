@@ -3,7 +3,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { commentResponseSchema, listCommentsQuerySchema } from '@/http/schemas/tasks';
+import {
+  commentResponseSchema,
+  listCommentsQuerySchema,
+} from '@/http/schemas/tasks';
 import { makeListCommentsUseCase } from '@/use-cases/tasks/comments/factories/make-list-comments-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -44,6 +47,7 @@ export async function listCommentsController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const { cardId } = request.params;
 
       try {
@@ -52,6 +56,7 @@ export async function listCommentsController(app: FastifyInstance) {
 
         const useCase = makeListCommentsUseCase();
         const result = await useCase.execute({
+          tenantId,
           cardId,
           page,
           limit,

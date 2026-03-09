@@ -36,6 +36,7 @@ export async function deleteSubtaskController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
       const { boardId, subtaskId } = request.params;
       const userName = await resolveUserName(userId);
@@ -43,13 +44,14 @@ export async function deleteSubtaskController(app: FastifyInstance) {
       try {
         const useCase = makeDeleteSubtaskUseCase();
         await useCase.execute({
+          tenantId,
           boardId,
           userId,
           userName,
           subtaskId,
         });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

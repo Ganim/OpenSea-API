@@ -40,9 +40,7 @@ describe('Toggle Automation (E2E)', () => {
     });
 
     const response = await request(app.server)
-      .patch(
-        `/v1/tasks/boards/${board.id}/automations/${automation.id}/toggle`,
-      )
+      .patch(`/v1/tasks/boards/${board.id}/automations/${automation.id}/toggle`)
       .set('Authorization', `Bearer ${token}`)
       .send({ isActive: false });
 

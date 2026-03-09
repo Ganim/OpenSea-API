@@ -11,10 +11,7 @@ describe('CompleteSubtaskUseCase', () => {
   beforeEach(() => {
     cardsRepository = new InMemoryCardsRepository();
     cardActivitiesRepository = new InMemoryCardActivitiesRepository();
-    sut = new CompleteSubtaskUseCase(
-      cardsRepository,
-      cardActivitiesRepository,
-    );
+    sut = new CompleteSubtaskUseCase(cardsRepository, cardActivitiesRepository);
   });
 
   it('should complete a subtask', async () => {

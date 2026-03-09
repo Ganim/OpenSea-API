@@ -12,9 +12,7 @@ interface ListAttachmentsResponse {
 }
 
 export class ListAttachmentsUseCase {
-  constructor(
-    private cardAttachmentsRepository: CardAttachmentsRepository,
-  ) {}
+  constructor(private cardAttachmentsRepository: CardAttachmentsRepository) {}
 
   async execute(
     request: ListAttachmentsRequest,

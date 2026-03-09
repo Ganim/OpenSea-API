@@ -1,3 +1,4 @@
+import { PrismaTransactionManager } from '@/lib/transaction-manager';
 import { PrismaLoansRepository } from '@/repositories/finance/prisma/prisma-loans-repository';
 import { PrismaLoanInstallmentsRepository } from '@/repositories/finance/prisma/prisma-loan-installments-repository';
 import { PrismaBankAccountsRepository } from '@/repositories/finance/prisma/prisma-bank-accounts-repository';
@@ -9,11 +10,13 @@ export function makeCreateLoanUseCase() {
   const installmentsRepository = new PrismaLoanInstallmentsRepository();
   const bankAccountsRepository = new PrismaBankAccountsRepository();
   const costCentersRepository = new PrismaCostCentersRepository();
+  const transactionManager = new PrismaTransactionManager();
 
   return new CreateLoanUseCase(
     loansRepository,
     installmentsRepository,
     bankAccountsRepository,
     costCentersRepository,
+    transactionManager,
   );
 }

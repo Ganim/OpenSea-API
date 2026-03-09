@@ -2,8 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { CreateColumnUseCase } from './create-column';
 import { InMemoryBoardsRepository } from '@/repositories/tasks/in-memory/in-memory-boards-repository';
 import { InMemoryBoardColumnsRepository } from '@/repositories/tasks/in-memory/in-memory-board-columns-repository';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-
 let boardsRepository: InMemoryBoardsRepository;
 let columnsRepository: InMemoryBoardColumnsRepository;
 let sut: CreateColumnUseCase;

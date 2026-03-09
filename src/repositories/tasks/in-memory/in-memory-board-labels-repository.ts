@@ -40,9 +40,7 @@ export class InMemoryBoardLabelsRepository implements BoardLabelsRepository {
       .sort((a, b) => a.position - b.position);
   }
 
-  async update(
-    data: UpdateBoardLabelSchema,
-  ): Promise<BoardLabelRecord | null> {
+  async update(data: UpdateBoardLabelSchema): Promise<BoardLabelRecord | null> {
     const label = this.items.find(
       (label) => label.id === data.id && label.boardId === data.boardId,
     );

@@ -13,7 +13,7 @@ export async function accessSharedFileController(app: FastifyInstance) {
       tags: ['Storage - Public Sharing'],
       summary: 'Access a shared file via public link',
       params: z.object({
-        token: z.string().min(1),
+        token: z.string().min(32),
       }),
       querystring: z.object({
         password: z.string().optional(),

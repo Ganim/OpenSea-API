@@ -61,7 +61,12 @@ export class UpdateCardUseCase {
       throw new ResourceNotFoundError('Board not found');
     }
 
-    await verifyBoardAccess(this.boardMembersRepository, board, userId, 'write');
+    await verifyBoardAccess(
+      this.boardMembersRepository,
+      board,
+      userId,
+      'write',
+    );
 
     const existingCard = await this.cardsRepository.findById(cardId, boardId);
 
@@ -75,9 +80,7 @@ export class UpdateCardUseCase {
       }
 
       if (title.length > 512) {
-        throw new BadRequestError(
-          'Card title must be at most 512 characters',
-        );
+        throw new BadRequestError('Card title must be at most 512 characters');
       }
     }
 
@@ -134,8 +137,7 @@ export class UpdateCardUseCase {
 
     if (request.priority !== undefined && request.priority !== oldPriority) {
       const oldLabel = PRIORITY_LABELS[oldPriority] ?? oldPriority;
-      const newLabel =
-        PRIORITY_LABELS[request.priority] ?? request.priority;
+      const newLabel = PRIORITY_LABELS[request.priority] ?? request.priority;
 
       await this.cardActivitiesRepository.create({
         cardId,

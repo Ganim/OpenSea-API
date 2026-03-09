@@ -16,9 +16,7 @@ interface ListCardActivityResponse {
 }
 
 export class ListCardActivityUseCase {
-  constructor(
-    private cardActivitiesRepository: CardActivitiesRepository,
-  ) {}
+  constructor(private cardActivitiesRepository: CardActivitiesRepository) {}
 
   async execute(
     request: ListCardActivityRequest,

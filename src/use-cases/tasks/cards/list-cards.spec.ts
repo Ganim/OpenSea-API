@@ -14,7 +14,11 @@ describe('ListCardsUseCase', () => {
     boardsRepository = new InMemoryBoardsRepository();
     cardsRepository = new InMemoryCardsRepository();
     boardMembersRepository = new InMemoryBoardMembersRepository();
-    sut = new ListCardsUseCase(boardsRepository, cardsRepository, boardMembersRepository);
+    sut = new ListCardsUseCase(
+      boardsRepository,
+      cardsRepository,
+      boardMembersRepository,
+    );
 
     await boardsRepository.create({
       tenantId: 'tenant-1',

@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { financeEntryPrismaToDomain } from '@/mappers/finance/finance-entry/finance-entry-prisma-to-domain';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
@@ -37,7 +38,8 @@ function tryGetCipher() {
 export class PrismaFinanceEntriesRepository
   implements FinanceEntriesRepository
 {
-  async create(data: CreateFinanceEntrySchema): Promise<FinanceEntry> {
+  async create(data: CreateFinanceEntrySchema, tx?: TransactionClient): Promise<FinanceEntry> {
+    const client = tx ?? prisma;
     const cipher = tryGetCipher();
 
     // Encrypt sensitive fields
@@ -58,7 +60,7 @@ export class PrismaFinanceEntriesRepository
           customerName: data.customerName,
         };
 
-    const entry = await prisma.financeEntry.create({
+    const entry = await client.financeEntry.create({
       data: {
         tenantId: data.tenantId,
         type: data.type as FinanceEntryType,
@@ -381,8 +383,9 @@ export class PrismaFinanceEntriesRepository
     });
   }
 
-  async generateNextCode(tenantId: string, type: string): Promise<string> {
-    const count = await prisma.financeEntry.count({
+  async generateNextCode(tenantId: string, type: string, tx?: TransactionClient): Promise<string> {
+    const client = tx ?? prisma;
+    const count = await client.financeEntry.count({
       where: {
         tenantId,
         type: type as FinanceEntryType,

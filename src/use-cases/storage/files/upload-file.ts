@@ -1,4 +1,3 @@
-import { env } from '@/@env';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { PlanLimitExceededError } from '@/@errors/use-cases/plan-limit-exceeded-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
@@ -11,7 +10,8 @@ import type { StorageFilesRepository } from '@/repositories/storage/storage-file
 import type { StorageFileVersionsRepository } from '@/repositories/storage/storage-file-versions-repository';
 import type { StorageFoldersRepository } from '@/repositories/storage/storage-folders-repository';
 import type { FileUploadService } from '@/services/storage/file-upload-service';
-import { EncryptionService } from '@/services/storage/encryption-service';
+import type { EncryptionService } from '@/services/storage/encryption-service';
+import type { FolderAccessService } from '@/services/storage/folder-access-service';
 import type { ThumbnailService } from '@/services/storage/thumbnail-service';
 
 interface UploadFileUseCaseRequest {
@@ -25,6 +25,7 @@ interface UploadFileUseCaseRequest {
   entityType?: string;
   entityId?: string;
   uploadedBy: string;
+  userGroupIds?: string[];
   maxStorageBytes?: number; // 0 or undefined = unlimited
 }
 
@@ -40,6 +41,8 @@ export class UploadFileUseCase {
     private storageFileVersionsRepository: StorageFileVersionsRepository,
     private fileUploadService: FileUploadService,
     private thumbnailService?: ThumbnailService,
+    private folderAccessService?: FolderAccessService,
+    private encryptionService?: EncryptionService,
   ) {}
 
   async execute(
@@ -52,6 +55,7 @@ export class UploadFileUseCase {
       entityType,
       entityId,
       uploadedBy,
+      userGroupIds,
       maxStorageBytes,
     } = request;
 
@@ -67,6 +71,16 @@ export class UploadFileUseCase {
 
       if (!folder) {
         throw new ResourceNotFoundError('Folder not found');
+      }
+
+      // ACL check: verify write permission on target folder
+      if (this.folderAccessService) {
+        await this.folderAccessService.verifyAccess(
+          folderId,
+          uploadedBy,
+          userGroupIds ?? [],
+          'write',
+        );
       }
     }
 
@@ -97,11 +111,8 @@ export class UploadFileUseCase {
     let uploadBuffer = file.buffer;
     let isEncrypted = false;
 
-    if (env.STORAGE_ENCRYPTION_KEY) {
-      const encryptionService = new EncryptionService(
-        env.STORAGE_ENCRYPTION_KEY,
-      );
-      uploadBuffer = encryptionService.encrypt(file.buffer);
+    if (this.encryptionService) {
+      uploadBuffer = this.encryptionService.encrypt(file.buffer);
       isEncrypted = true;
     }
 

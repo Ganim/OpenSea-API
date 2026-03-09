@@ -9,6 +9,7 @@ declare module '@fastify/jwt' {
       permissions?: string[];
       tenantId?: string;
       isSuperAdmin?: boolean;
+      tokenType?: 'session' | 'serve';
     };
   }
 }

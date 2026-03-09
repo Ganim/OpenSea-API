@@ -5,5 +5,8 @@ import { DeleteChecklistUseCase } from '../delete-checklist';
 export function makeDeleteChecklistUseCase() {
   const cardChecklistsRepository = new PrismaCardChecklistsRepository();
   const cardActivitiesRepository = new PrismaCardActivitiesRepository();
-  return new DeleteChecklistUseCase(cardChecklistsRepository, cardActivitiesRepository);
+  return new DeleteChecklistUseCase(
+    cardChecklistsRepository,
+    cardActivitiesRepository,
+  );
 }

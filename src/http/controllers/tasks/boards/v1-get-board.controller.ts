@@ -29,6 +29,7 @@ export async function getBoardController(app: FastifyInstance) {
       params: z.object({ boardId: z.string().uuid() }),
       response: {
         200: z.object({ board: boardResponseSchema }),
+        403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
     },

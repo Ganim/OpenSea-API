@@ -67,9 +67,7 @@ export class SetCardCustomFieldValuesUseCase {
 
     for (const field of boardFields) {
       if (field.isRequired && !providedFieldIds.has(field.id)) {
-        throw new BadRequestError(
-          `Field "${field.name}" is required`,
-        );
+        throw new BadRequestError(`Field "${field.name}" is required`);
       }
     }
 
@@ -79,8 +77,10 @@ export class SetCardCustomFieldValuesUseCase {
       value: fv.value,
     }));
 
-    const fieldValues =
-      await this.cardCustomFieldValuesRepository.setValues(cardId, valuesToSet);
+    const fieldValues = await this.cardCustomFieldValuesRepository.setValues(
+      cardId,
+      valuesToSet,
+    );
 
     return { fieldValues };
   }

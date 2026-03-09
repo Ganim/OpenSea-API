@@ -4,7 +4,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { boardColumnResponseSchema, updateColumnSchema } from '@/http/schemas/tasks';
+import {
+  boardColumnResponseSchema,
+  updateColumnSchema,
+} from '@/http/schemas/tasks';
 import { makeUpdateColumnUseCase } from '@/use-cases/tasks/columns/factories/make-update-column-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -39,12 +42,14 @@ export async function updateColumnController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
       const { boardId, columnId } = request.params;
 
       try {
         const useCase = makeUpdateColumnUseCase();
         const result = await useCase.execute({
           tenantId,
+          userId,
           boardId,
           columnId,
           ...request.body,

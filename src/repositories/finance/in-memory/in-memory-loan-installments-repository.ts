@@ -11,7 +11,7 @@ export class InMemoryLoanInstallmentsRepository
 {
   public items: LoanInstallment[] = [];
 
-  async create(data: CreateLoanInstallmentSchema): Promise<LoanInstallment> {
+  async create(data: CreateLoanInstallmentSchema, _tx?: unknown): Promise<LoanInstallment> {
     const installment = LoanInstallment.create({
       loanId: new UniqueEntityID(data.loanId),
       bankAccountId: data.bankAccountId
@@ -30,6 +30,7 @@ export class InMemoryLoanInstallmentsRepository
 
   async createMany(
     data: CreateLoanInstallmentSchema[],
+    _tx?: unknown,
   ): Promise<LoanInstallment[]> {
     const installments: LoanInstallment[] = [];
     for (const item of data) {

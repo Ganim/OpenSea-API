@@ -50,7 +50,7 @@ export async function removeReactionController(app: FastifyInstance) {
         const useCase = makeRemoveReactionUseCase();
         await useCase.execute({ tenantId, userId, commentId, emoji });
 
-        return reply.status(204).send();
+        return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ForbiddenError) {
           return reply.status(403).send({ message: error.message });
