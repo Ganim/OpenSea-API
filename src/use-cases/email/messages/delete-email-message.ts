@@ -7,7 +7,7 @@ import type {
     EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 
 interface DeleteEmailMessageRequest {
   tenantId: string;
@@ -96,6 +96,7 @@ export class DeleteEmailMessageUseCase {
   private async moveMessageToTrash(
     message: { id: { toString(): string }; remoteUid: number },
     account: {
+      id: { toString(): string };
       imapHost: string;
       imapPort: number;
       imapSecure: boolean;
@@ -111,7 +112,9 @@ export class DeleteEmailMessageUseCase {
       account.encryptedSecret,
     );
 
-    const client = createImapClient({
+    const accountId = account.id.toString();
+    const pool = getImapConnectionPool();
+    const client = await pool.acquire(accountId, {
       host: account.imapHost,
       port: account.imapPort,
       secure: account.imapSecure,
@@ -121,7 +124,6 @@ export class DeleteEmailMessageUseCase {
     });
 
     try {
-      await client.connect();
       const lock = await client.getMailboxLock(sourceFolder.remoteName);
       try {
         await client.messageMove(message.remoteUid, trashFolder.remoteName, {
@@ -137,15 +139,17 @@ export class DeleteEmailMessageUseCase {
         lock.release();
       }
     } catch (_error) {
+      pool.destroy(accountId);
       throw new BadRequestError('Failed to move email message to trash');
     } finally {
-      await client.logout().catch(() => undefined);
+      pool.release(accountId);
     }
   }
 
   private async permanentlyDeleteMessage(
     message: { id: { toString(): string }; remoteUid: number },
     account: {
+      id: { toString(): string };
       imapHost: string;
       imapPort: number;
       imapSecure: boolean;
@@ -160,7 +164,9 @@ export class DeleteEmailMessageUseCase {
       account.encryptedSecret,
     );
 
-    const client = createImapClient({
+    const accountId = account.id.toString();
+    const pool = getImapConnectionPool();
+    const client = await pool.acquire(accountId, {
       host: account.imapHost,
       port: account.imapPort,
       secure: account.imapSecure,
@@ -170,7 +176,6 @@ export class DeleteEmailMessageUseCase {
     });
 
     try {
-      await client.connect();
       const lock = await client.getMailboxLock(folder.remoteName);
       try {
         await client.messageFlagsAdd(message.remoteUid, ['\\Deleted'], {
@@ -187,9 +192,10 @@ export class DeleteEmailMessageUseCase {
         lock.release();
       }
     } catch (_error) {
+      pool.destroy(accountId);
       throw new BadRequestError('Failed to delete email message');
     } finally {
-      await client.logout().catch(() => undefined);
+      pool.release(accountId);
     }
   }
 }

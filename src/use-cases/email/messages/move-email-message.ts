@@ -7,7 +7,7 @@ import type {
   EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 
 interface MoveEmailMessageRequest {
   tenantId: string;
@@ -78,7 +78,9 @@ export class MoveEmailMessageUseCase {
       account.encryptedSecret,
     );
 
-    const client = createImapClient({
+    const accountIdStr = account.id.toString();
+    const pool = getImapConnectionPool();
+    const client = await pool.acquire(accountIdStr, {
       host: account.imapHost,
       port: account.imapPort,
       secure: account.imapSecure,
@@ -88,7 +90,6 @@ export class MoveEmailMessageUseCase {
     });
 
     try {
-      await client.connect();
       const lock = await client.getMailboxLock(sourceFolder.remoteName);
       try {
         await client.messageMove(message.remoteUid, targetFolder.remoteName, {
@@ -104,9 +105,10 @@ export class MoveEmailMessageUseCase {
         folderId: targetFolder.id.toString(),
       });
     } catch (_error) {
+      pool.destroy(accountIdStr);
       throw new BadRequestError('Failed to move email message');
     } finally {
-      await client.logout().catch(() => undefined);
+      pool.release(accountIdStr);
     }
   }
 }

@@ -8,7 +8,7 @@ import type {
     EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 import type {
     SmtpAttachmentInput,
     SmtpClientService,
@@ -191,15 +191,6 @@ export class SendEmailMessageUseCase {
 
       if (!sentFolder) return;
 
-      const client = createImapClient({
-        host: params.host,
-        port: params.port,
-        secure: params.secure,
-        username: params.username,
-        secret: params.secret,
-        rejectUnauthorized: params.rejectUnauthorized,
-      });
-
       const rawMessage = await this.buildRawMessage({
         from: params.from,
         to: params.to,
@@ -212,16 +203,28 @@ export class SendEmailMessageUseCase {
         attachments: params.attachments,
       });
 
+      const pool = getImapConnectionPool();
+      const client = await pool.acquire(params.accountId, {
+        host: params.host,
+        port: params.port,
+        secure: params.secure,
+        username: params.username,
+        secret: params.secret,
+        rejectUnauthorized: params.rejectUnauthorized,
+      });
+
       try {
-        await client.connect();
         await client.append(
           sentFolder.remoteName,
           rawMessage,
           ['\\Seen'],
           new Date(),
         );
+      } catch (err) {
+        pool.destroy(params.accountId);
+        throw err;
       } finally {
-        await client.logout().catch(() => undefined);
+        pool.release(params.accountId);
       }
     } catch (err) {
       logger.warn(

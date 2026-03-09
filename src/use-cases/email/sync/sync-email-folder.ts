@@ -7,7 +7,7 @@ import type {
     EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 import { Prisma } from '@prisma/generated/client.js';
 import { ImapFlow } from 'imapflow';
 
@@ -358,25 +358,26 @@ export class SyncEmailFolderUseCase {
       account.encryptedSecret,
     );
 
-    const client =
-      request.client ??
-      createImapClient({
-        host: account.imapHost,
-        port: account.imapPort,
-        secure: account.imapSecure,
-        username: account.username,
-        secret,
-        rejectUnauthorized: account.tlsVerify,
-      });
+    const standaloneMode = !request.client;
+    const accountId = account.id.toString();
+    const pool = getImapConnectionPool();
+
+    const client = request.client
+      ? request.client
+      : await pool.acquire(accountId, {
+          host: account.imapHost,
+          port: account.imapPort,
+          secure: account.imapSecure,
+          username: account.username,
+          secret,
+          rejectUnauthorized: account.tlsVerify,
+        });
 
     let synced = 0;
     let maxUid = folder.lastUid ?? 0;
     const allCreatedMessages: CreatedMessageRef[] = [];
 
     try {
-      if (!request.client) {
-        await client.connect();
-      }
 
       const lock = await client.getMailboxLock(folder.remoteName);
       try {
@@ -623,10 +624,11 @@ export class SyncEmailFolderUseCase {
         'Failed to sync email folder',
       );
       console.error('[Email Sync] Failed to sync email folder:', reason);
+      if (standaloneMode) pool.destroy(accountId);
       throw new BadRequestError(`Failed to sync email folder: ${reason}`);
     } finally {
-      if (!request.client) {
-        await client.logout().catch(() => undefined);
+      if (standaloneMode) {
+        pool.release(accountId);
       }
     }
   }

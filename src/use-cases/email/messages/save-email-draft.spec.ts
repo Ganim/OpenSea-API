@@ -6,15 +6,20 @@ vi.mock('@/lib/logger', () => ({
   logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
 }));
 
-let mockClient: {
-  connect: ReturnType<typeof vi.fn>;
-  append: ReturnType<typeof vi.fn>;
-  logout: ReturnType<typeof vi.fn>;
-  on: ReturnType<typeof vi.fn>;
+const mockImapClient = {
+  connect: vi.fn().mockResolvedValue(undefined),
+  append: vi.fn().mockResolvedValue(undefined),
+  logout: vi.fn().mockResolvedValue(undefined),
+  on: vi.fn(),
+  usable: true,
 };
 
-vi.mock('imapflow', () => ({
-  ImapFlow: vi.fn(() => mockClient),
+vi.mock('@/services/email/imap-connection-pool', () => ({
+  getImapConnectionPool: () => ({
+    acquire: vi.fn().mockResolvedValue(mockImapClient),
+    release: vi.fn(),
+    destroy: vi.fn(),
+  }),
 }));
 
 class FakeCipherService {
@@ -41,13 +46,6 @@ describe('SaveEmailDraftUseCase', () => {
   beforeEach(async () => {
     accountsRepository = new InMemoryEmailAccountsRepository();
     foldersRepository = new FakeEmailFoldersRepository();
-
-    mockClient = {
-      connect: vi.fn().mockResolvedValue(undefined),
-      append: vi.fn().mockResolvedValue(undefined),
-      logout: vi.fn().mockResolvedValue(undefined),
-      on: vi.fn(),
-    };
 
     sut = new SaveEmailDraftUseCase(
       accountsRepository,

@@ -11,7 +11,7 @@ import type {
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { sanitizeEmailHtml } from '@/services/email/html-sanitizer.service';
-import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 // @ts-expect-error - mailparser has no type declarations
 import { simpleParser } from 'mailparser';
 
@@ -144,7 +144,9 @@ export class GetEmailMessageUseCase {
         account.encryptedSecret,
       );
 
-      const client = createImapClient({
+      const accountId = account.id.toString();
+      const pool = getImapConnectionPool();
+      const client = await pool.acquire(accountId, {
         host: account.imapHost,
         port: account.imapPort,
         secure: account.imapSecure,
@@ -154,8 +156,6 @@ export class GetEmailMessageUseCase {
       });
 
       try {
-        await client.connect();
-
         const lock = await client.getMailboxLock(folder.remoteName);
 
         try {
@@ -212,8 +212,11 @@ export class GetEmailMessageUseCase {
         } finally {
           lock.release();
         }
+      } catch (err) {
+        pool.destroy(accountId);
+        throw err;
       } finally {
-        await client.logout().catch(() => undefined);
+        pool.release(accountId);
       }
     } catch (error) {
       const reason = error instanceof Error ? error.message : String(error);
@@ -323,7 +326,9 @@ export class GetEmailMessageUseCase {
         account.encryptedSecret,
       );
 
-      const client = createImapClient({
+      const accountId = account.id.toString();
+      const pool = getImapConnectionPool();
+      const client = await pool.acquire(accountId, {
         host: account.imapHost,
         port: account.imapPort,
         secure: account.imapSecure,
@@ -333,7 +338,6 @@ export class GetEmailMessageUseCase {
       });
 
       try {
-        await client.connect();
         const lock = await client.getMailboxLock(folder.remoteName);
 
         try {
@@ -351,8 +355,11 @@ export class GetEmailMessageUseCase {
         } finally {
           lock.release();
         }
+      } catch (err) {
+        pool.destroy(accountId);
+        throw err;
       } finally {
-        await client.logout().catch(() => undefined);
+        pool.release(accountId);
       }
     } catch (error) {
       const reason = error instanceof Error ? error.message : String(error);

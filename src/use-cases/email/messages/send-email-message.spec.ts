@@ -10,13 +10,20 @@ vi.mock('@/workers/queues/audit.queue', () => ({
   queueAuditLog: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock('imapflow', () => ({
-  ImapFlow: vi.fn(() => ({
-    connect: vi.fn().mockResolvedValue(undefined),
-    append: vi.fn().mockResolvedValue(undefined),
-    logout: vi.fn().mockResolvedValue(undefined),
-    on: vi.fn(),
-  })),
+const mockImapClient = {
+  connect: vi.fn().mockResolvedValue(undefined),
+  append: vi.fn().mockResolvedValue(undefined),
+  logout: vi.fn().mockResolvedValue(undefined),
+  on: vi.fn(),
+  usable: true,
+};
+
+vi.mock('@/services/email/imap-connection-pool', () => ({
+  getImapConnectionPool: () => ({
+    acquire: vi.fn().mockResolvedValue(mockImapClient),
+    release: vi.fn(),
+    destroy: vi.fn(),
+  }),
 }));
 
 import { SendEmailMessageUseCase } from './send-email-message';

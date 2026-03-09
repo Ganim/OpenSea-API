@@ -7,7 +7,7 @@ import type {
   EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 // @ts-expect-error - mailparser has no type declarations
 import { simpleParser } from 'mailparser';
@@ -108,7 +108,9 @@ export class DownloadEmailAttachmentUseCase {
       account.encryptedSecret,
     );
 
-    const client = createImapClient({
+    const accountIdStr = account.id.toString();
+    const pool = getImapConnectionPool();
+    const client = await pool.acquire(accountIdStr, {
       host: account.imapHost,
       port: account.imapPort,
       secure: account.imapSecure,
@@ -118,7 +120,6 @@ export class DownloadEmailAttachmentUseCase {
     });
 
     try {
-      await client.connect();
       const lock = await client.getMailboxLock(folder.remoteName);
 
       try {
@@ -191,8 +192,11 @@ export class DownloadEmailAttachmentUseCase {
       } finally {
         lock.release();
       }
+    } catch (err) {
+      pool.destroy(accountIdStr);
+      throw err;
     } finally {
-      await client.logout().catch(() => undefined);
+      pool.release(accountIdStr);
     }
   }
 

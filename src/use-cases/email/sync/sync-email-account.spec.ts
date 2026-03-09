@@ -13,18 +13,23 @@ vi.mock('@/lib/logger', () => ({
   },
 }));
 
-let mockClient: {
-  connect: ReturnType<typeof vi.fn>;
-  logout: ReturnType<typeof vi.fn>;
-  list: ReturnType<typeof vi.fn>;
-  getMailboxLock: ReturnType<typeof vi.fn>;
-  status: ReturnType<typeof vi.fn>;
-  fetch: ReturnType<typeof vi.fn>;
-  on: ReturnType<typeof vi.fn>;
+const mockImapClient = {
+  connect: vi.fn().mockResolvedValue(undefined),
+  logout: vi.fn().mockResolvedValue(undefined),
+  list: vi.fn(),
+  getMailboxLock: vi.fn().mockResolvedValue({ release: vi.fn() }),
+  status: vi.fn().mockResolvedValue({ uidValidity: 10, uidNext: 2 }),
+  fetch: vi.fn(),
+  on: vi.fn(),
+  usable: true,
 };
 
-vi.mock('imapflow', () => ({
-  ImapFlow: vi.fn(() => mockClient),
+vi.mock('@/services/email/imap-connection-pool', () => ({
+  getImapConnectionPool: () => ({
+    acquire: vi.fn().mockResolvedValue(mockImapClient),
+    release: vi.fn(),
+    destroy: vi.fn(),
+  }),
 }));
 
 class FakeCipherService {
@@ -54,16 +59,6 @@ describe('SyncEmailAccountUseCase', () => {
     foldersRepository = new InMemoryEmailFoldersRepository();
     messagesRepository = new InMemoryEmailMessagesRepository();
 
-    mockClient = {
-      connect: vi.fn().mockResolvedValue(undefined),
-      logout: vi.fn().mockResolvedValue(undefined),
-      list: vi.fn(),
-      getMailboxLock: vi.fn().mockResolvedValue({ release: vi.fn() }),
-      status: vi.fn().mockResolvedValue({ uidValidity: 10, uidNext: 2 }),
-      fetch: vi.fn(),
-      on: vi.fn(),
-    };
-
     sut = new SyncEmailAccountUseCase(
       accountsRepository,
       foldersRepository,
@@ -87,11 +82,11 @@ describe('SyncEmailAccountUseCase', () => {
       isActive: true,
     });
 
-    mockClient.list.mockResolvedValue([
+    mockImapClient.list.mockResolvedValue([
       { path: 'INBOX', name: 'Inbox', specialUse: '\\Inbox' },
     ]);
 
-    mockClient.fetch.mockImplementation(() =>
+    mockImapClient.fetch.mockImplementation(() =>
       createAsyncIterable([
         {
           uid: 1,

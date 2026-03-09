@@ -7,7 +7,7 @@ import type {
   EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 
 interface ToggleEmailMessageFlagRequest {
   tenantId: string;
@@ -69,7 +69,9 @@ export class ToggleEmailMessageFlagUseCase {
       account.encryptedSecret,
     );
 
-    const client = createImapClient({
+    const accountId = account.id.toString();
+    const pool = getImapConnectionPool();
+    const client = await pool.acquire(accountId, {
       host: account.imapHost,
       port: account.imapPort,
       secure: account.imapSecure,
@@ -79,7 +81,6 @@ export class ToggleEmailMessageFlagUseCase {
     });
 
     try {
-      await client.connect();
       const lock = await client.getMailboxLock(folder.remoteName);
       try {
         if (request.isFlagged) {
@@ -101,9 +102,10 @@ export class ToggleEmailMessageFlagUseCase {
         isFlagged: request.isFlagged,
       });
     } catch (_error) {
+      pool.destroy(accountId);
       throw new BadRequestError('Failed to update email message flag');
     } finally {
-      await client.logout().catch(() => undefined);
+      pool.release(accountId);
     }
   }
 }

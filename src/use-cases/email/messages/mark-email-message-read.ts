@@ -7,7 +7,7 @@ import type {
   EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 
 interface MarkEmailMessageReadRequest {
   tenantId: string;
@@ -69,7 +69,9 @@ export class MarkEmailMessageReadUseCase {
       account.encryptedSecret,
     );
 
-    const client = createImapClient({
+    const accountId = account.id.toString();
+    const pool = getImapConnectionPool();
+    const client = await pool.acquire(accountId, {
       host: account.imapHost,
       port: account.imapPort,
       secure: account.imapSecure,
@@ -79,7 +81,6 @@ export class MarkEmailMessageReadUseCase {
     });
 
     try {
-      await client.connect();
       const lock = await client.getMailboxLock(folder.remoteName);
       try {
         if (request.isRead) {
@@ -101,9 +102,10 @@ export class MarkEmailMessageReadUseCase {
         isRead: request.isRead,
       });
     } catch (_error) {
+      pool.destroy(accountId);
       throw new BadRequestError('Failed to update email message');
     } finally {
-      await client.logout().catch(() => undefined);
+      pool.release(accountId);
     }
   }
 }

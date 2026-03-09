@@ -9,6 +9,7 @@ import { startAuditWorker } from './workers/queues/audit.queue';
 import { startNotificationWorker } from './workers/queues/notification.queue';
 import { closeAllQueues } from './lib/queue';
 import { closeRedisConnection } from './lib/redis';
+import { getImapConnectionPool } from './services/email/imap-connection-pool';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -96,6 +97,10 @@ async function gracefulShutdown(signal: string) {
     // Close HTTP server (stop accepting new connections)
     await app.close();
     console.log('[shutdown] HTTP server closed');
+
+    // Close IMAP connection pool
+    await getImapConnectionPool().destroyAll().catch(() => undefined);
+    console.log('[shutdown] IMAP connections closed');
 
     // Close BullMQ queues and workers
     await closeAllQueues().catch(() => undefined);

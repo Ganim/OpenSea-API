@@ -6,7 +6,7 @@ import type {
     EmailFoldersRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 import { randomUUID } from 'node:crypto';
 
 interface SaveEmailDraftRequest {
@@ -88,7 +88,9 @@ export class SaveEmailDraftUseCase {
       messageId: draftId,
     });
 
-    const client = createImapClient({
+    const accountId = account.id.toString();
+    const pool = getImapConnectionPool();
+    const client = await pool.acquire(accountId, {
       host: account.imapHost,
       port: account.imapPort,
       secure: account.imapSecure,
@@ -98,7 +100,6 @@ export class SaveEmailDraftUseCase {
     });
 
     try {
-      await client.connect();
       await client.append(
         draftsFolder.remoteName,
         rawMessage,
@@ -108,9 +109,10 @@ export class SaveEmailDraftUseCase {
 
       return { draftId };
     } catch {
+      pool.destroy(accountId);
       throw new BadRequestError('Failed to save draft on provider');
     } finally {
-      await client.logout().catch(() => undefined);
+      pool.release(accountId);
     }
   }
 

@@ -8,7 +8,7 @@ import type {
   EmailMessagesRepository,
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
-import { createImapClient } from '@/services/email/imap-client.service';
+import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
 import type { CreatedMessageRef } from './sync-email-folder';
 import { SyncEmailFolderUseCase } from './sync-email-folder';
 
@@ -93,7 +93,8 @@ export class SyncEmailAccountUseCase {
       account.encryptedSecret,
     );
 
-    const client = createImapClient({
+    const pool = getImapConnectionPool();
+    const client = await pool.acquire(accountId, {
       host: account.imapHost,
       port: account.imapPort,
       secure: account.imapSecure,
@@ -107,7 +108,6 @@ export class SyncEmailAccountUseCase {
     const allCreatedMessages: CreatedMessageRef[] = [];
 
     try {
-      await client.connect();
 
       const mailboxes = (await client.list()) as ImapMailbox[];
 
@@ -190,9 +190,10 @@ export class SyncEmailAccountUseCase {
         'Failed to sync email account',
       );
       console.error('[Email Sync] Failed to sync email account:', reason);
+      pool.destroy(accountId);
       throw new BadRequestError(`Failed to sync email account: ${reason}`);
     } finally {
-      await client.logout().catch(() => undefined);
+      pool.release(accountId);
     }
   }
 }

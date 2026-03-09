@@ -7,22 +7,27 @@ vi.mock('@/lib/logger', () => ({
   logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
 }));
 
-vi.mock('imapflow', () => {
-  const FakeImapFlow = class {
-    connect = vi.fn().mockResolvedValue(undefined);
-    getMailboxLock = vi.fn().mockResolvedValue({
-      release: vi.fn().mockResolvedValue(undefined),
-    });
-    messageFlagsAdd = vi.fn().mockResolvedValue(undefined);
-    messageMove = vi.fn().mockResolvedValue(undefined);
-    mailboxClose = vi.fn().mockResolvedValue(undefined);
-    expunge = vi.fn().mockResolvedValue(undefined);
-    logout = vi.fn().mockResolvedValue(undefined);
-    on = vi.fn();
-  };
+const mockImapClient = {
+  connect: vi.fn().mockResolvedValue(undefined),
+  getMailboxLock: vi.fn().mockResolvedValue({
+    release: vi.fn().mockResolvedValue(undefined),
+  }),
+  messageFlagsAdd: vi.fn().mockResolvedValue(undefined),
+  messageMove: vi.fn().mockResolvedValue(undefined),
+  mailboxClose: vi.fn().mockResolvedValue(undefined),
+  expunge: vi.fn().mockResolvedValue(undefined),
+  logout: vi.fn().mockResolvedValue(undefined),
+  on: vi.fn(),
+  usable: true,
+};
 
-  return { ImapFlow: FakeImapFlow };
-});
+vi.mock('@/services/email/imap-connection-pool', () => ({
+  getImapConnectionPool: () => ({
+    acquire: vi.fn().mockResolvedValue(mockImapClient),
+    release: vi.fn(),
+    destroy: vi.fn(),
+  }),
+}));
 
 import { DeleteEmailMessageUseCase } from './delete-email-message';
 
