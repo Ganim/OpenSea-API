@@ -283,7 +283,10 @@ export class InMemoryCardsRepository implements CardsRepository {
   async reindexColumnPositions(columnId: string): Promise<void> {
     const colCards = this.items
       .filter(c => c.columnId.toString() === columnId && !c.isDeleted)
-      .sort((a, b) => a.position - b.position);
+      .sort((a, b) => {
+        if (a.position !== b.position) return a.position - b.position;
+        return (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0);
+      });
     colCards.forEach((card, i) => { card.position = i; });
   }
 

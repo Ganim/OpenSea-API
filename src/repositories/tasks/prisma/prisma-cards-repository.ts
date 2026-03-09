@@ -309,9 +309,13 @@ export class PrismaCardsRepository implements CardsRepository {
   async reindexColumnPositions(columnId: string): Promise<void> {
     const cards = await prisma.card.findMany({
       where: { columnId, deletedAt: null },
-      orderBy: { position: 'asc' },
+      orderBy: [
+        { position: 'asc' },
+        { updatedAt: 'desc' },
+      ],
       select: { id: true },
     });
+
 
     if (cards.length === 0) return;
 
