@@ -5,6 +5,36 @@ import type { PermissionGroupsRepository } from '@/repositories/rbac/permission-
 import type { PermissionsRepository } from '@/repositories/rbac/permissions-repository';
 import type { UserPermissionGroupsRepository } from '@/repositories/rbac/user-permission-groups-repository';
 
+// Lazy imports to avoid @env initialization in unit tests
+type RedisLike = { get: (key: string) => Promise<string | null>; setex: (key: string, ttl: number, value: string) => Promise<string>; del: (...keys: string[]) => Promise<number> };
+let _redis: RedisLike | null | undefined; // undefined = not attempted yet
+let _cacheConfig: { permissions: number } | null = null;
+let _cacheKeys: { permissions: (userId: string) => string } | null = null;
+
+function getRedis(): RedisLike | null {
+  if (_redis === undefined) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      _redis = require('@/lib/redis').getRedisClient() as RedisLike;
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const config = require('@/config/redis');
+      _cacheConfig = config.cacheConfig;
+      _cacheKeys = config.cacheKeys;
+    } catch {
+      _redis = null;
+    }
+  }
+  return _redis ?? null;
+}
+
+function getRedisCacheKey(userId: string): string {
+  return _cacheKeys ? _cacheKeys.permissions(userId) : `permissions:user:${userId}`;
+}
+
+function getRedisTtl(): number {
+  return _cacheConfig ? _cacheConfig.permissions : 300;
+}
+
 interface CheckPermissionParams {
   userId: UniqueEntityID;
   permissionCode: string;
@@ -199,7 +229,7 @@ export class PermissionService {
   }
 
   /**
-   * Obtém todas as permissões de um usuário (com cache)
+   * Obtém todas as permissões de um usuário (com cache L1 in-memory + L2 Redis)
    * Inclui herança de grupos
    */
   private async getUserPermissions(
@@ -207,28 +237,61 @@ export class PermissionService {
   ): Promise<
     Map<string, { effect: 'allow' | 'deny'; groupId: UniqueEntityID }[]>
   > {
-    const cacheKey = userId.toString();
-    const cached = this.cache.get(cacheKey);
+    const userIdStr = userId.toString();
 
-    // Verificar se cache é válido
+    // L1: In-memory cache (same-process, sub-millisecond)
+    const cached = this.cache.get(userIdStr);
     if (cached) {
-      const now = Date.now();
-      const cacheAge = now - cached.cachedAt.getTime();
-
+      const cacheAge = Date.now() - cached.cachedAt.getTime();
       if (cacheAge < cached.ttl) {
         return cached.permissions;
       }
     }
 
-    // Buscar permissões do banco
+    // L2: Redis cache (shared across requests, survives process restarts)
+    const redisKey = getRedisCacheKey(userIdStr);
+    try {
+      const redis = getRedis();
+      if (redis) {
+        const redisData = await redis.get(redisKey);
+        if (redisData) {
+          const permissions = this.deserializePermissions(redisData);
+          // Populate L1 from L2
+          this.cache.set(userIdStr, {
+            permissions,
+            cachedAt: new Date(),
+            ttl: this.DEFAULT_CACHE_TTL,
+          });
+          return permissions;
+        }
+      }
+    } catch {
+      // Redis unavailable — fall through to DB
+    }
+
+    // L3: Database
     const permissions = await this.fetchUserPermissionsFromDatabase(userId);
 
-    // Atualizar cache
-    this.cache.set(cacheKey, {
+    // Write-back to L1
+    this.cache.set(userIdStr, {
       permissions,
       cachedAt: new Date(),
       ttl: this.DEFAULT_CACHE_TTL,
     });
+
+    // Write-back to L2 (non-blocking)
+    try {
+      const redis = getRedis();
+      if (redis) {
+        await redis.setex(
+          redisKey,
+          getRedisTtl(),
+          this.serializePermissions(permissions),
+        );
+      }
+    } catch {
+      // Redis unavailable — L1 still works
+    }
 
     return permissions;
   }
@@ -355,17 +418,47 @@ export class PermissionService {
   }
 
   /**
-   * Invalida o cache de permissões de um usuário
+   * Invalida o cache de permissões de um usuário (L1 + L2)
    */
   invalidateUserCache(userId: UniqueEntityID): void {
-    this.cache.delete(userId.toString());
+    const userIdStr = userId.toString();
+    this.cache.delete(userIdStr);
+    try {
+      const redis = getRedis();
+      if (redis) {
+        redis.del(getRedisCacheKey(userIdStr));
+      }
+    } catch {
+      // Redis unavailable — L1 already cleared
+    }
   }
 
   /**
-   * Limpa todo o cache de permissões
+   * Limpa todo o cache de permissões (L1 only — Redis keys expire via TTL)
    */
   clearCache(): void {
     this.cache.clear();
+  }
+
+  private serializePermissions(
+    permissions: Map<string, { effect: 'allow' | 'deny'; groupId: UniqueEntityID }[]>,
+  ): string {
+    const obj: Record<string, { effect: 'allow' | 'deny'; groupId: string }[]> = {};
+    for (const [code, entries] of permissions.entries()) {
+      obj[code] = entries.map((e) => ({ effect: e.effect, groupId: e.groupId.toString() }));
+    }
+    return JSON.stringify(obj);
+  }
+
+  private deserializePermissions(
+    data: string,
+  ): Map<string, { effect: 'allow' | 'deny'; groupId: UniqueEntityID }[]> {
+    const obj = JSON.parse(data) as Record<string, { effect: 'allow' | 'deny'; groupId: string }[]>;
+    const map = new Map<string, { effect: 'allow' | 'deny'; groupId: UniqueEntityID }[]>();
+    for (const [code, entries] of Object.entries(obj)) {
+      map.set(code, entries.map((e) => ({ effect: e.effect, groupId: new UniqueEntityID(e.groupId) })));
+    }
+    return map;
   }
 
   /**

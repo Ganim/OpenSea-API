@@ -7,6 +7,7 @@ import { startEmailSyncWorker } from './workers/queues/email-sync.queue';
 import { startEmailSyncScheduler, stopEmailSyncScheduler } from './workers/email-sync-scheduler';
 import { startAuditWorker } from './workers/queues/audit.queue';
 import { startNotificationWorker } from './workers/queues/notification.queue';
+import { registerDomainEventSubscribers } from './lib/domain-event-subscribers';
 import { closeAllQueues } from './lib/queue';
 import { closeRedisConnection } from './lib/redis';
 import { getImapConnectionPool } from './services/email/imap-connection-pool';
@@ -165,6 +166,9 @@ async function start() {
       'HTTP server is running on port %d',
       env.PORT,
     );
+
+    // Register domain event subscribers (cross-module side-effects)
+    registerDomainEventSubscribers();
 
     // Start BullMQ workers inline (same process) so email sync, audit, and
     // notification queues are always consumed — even in development where

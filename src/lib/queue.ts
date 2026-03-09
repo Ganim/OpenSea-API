@@ -1,4 +1,5 @@
 import { env } from '@/@env';
+import { captureMessage } from '@/lib/sentry';
 import { Job, Queue, Worker } from 'bullmq';
 
 // Configuração de conexão para o BullMQ
@@ -92,8 +93,35 @@ export function createWorker<T = unknown>(
     console.log(`[Queue:${name}] Job ${job.id} completed`);
   });
 
-  worker.on('failed', (job, err) => {
+  worker.on('failed', async (job, err) => {
     console.error(`[Queue:${name}] Job ${job?.id} failed:`, err.message);
+
+    // Dead Letter Queue: if all retries exhausted, forward to DLQ
+    if (job && job.attemptsMade >= (job.opts?.attempts ?? defaultJobOptions.attempts)) {
+      try {
+        const dlq = createQueue(QUEUE_NAMES.DEAD_LETTER);
+        await dlq.add('dead-letter', {
+          originalQueue: name,
+          originalJobId: job.id,
+          originalJobName: job.name,
+          data: job.data,
+          lastError: err.message,
+          failedAt: new Date().toISOString(),
+          attempts: job.attemptsMade,
+        });
+        console.error(
+          `[DLQ] Job ${job.id} from queue "${name}" moved to dead-letter after ${job.attemptsMade} attempts`,
+        );
+        captureMessage(`DLQ: Job failed permanently in "${name}"`, 'warning', {
+          queue: name,
+          jobId: job.id,
+          error: err.message,
+          attempts: job.attemptsMade,
+        });
+      } catch (dlqErr) {
+        console.error(`[DLQ] Failed to enqueue dead letter:`, dlqErr);
+      }
+    }
   });
 
   worker.on('error', (err) => {
@@ -180,6 +208,40 @@ export async function getAllQueuesStats() {
 }
 
 /**
+ * Retries a dead-letter job by re-adding it to its original queue.
+ * Returns true if the job was found and re-queued.
+ */
+export async function retryDeadLetterJob(jobId: string): Promise<boolean> {
+  const dlq = createQueue(QUEUE_NAMES.DEAD_LETTER);
+  const job = await dlq.getJob(jobId);
+
+  if (!job) return false;
+
+  const { originalQueue, data } = job.data as {
+    originalQueue: string;
+    data: unknown;
+  };
+
+  const targetQueue = createQueue(originalQueue);
+  await targetQueue.add(originalQueue, data);
+  await job.remove();
+
+  return true;
+}
+
+/**
+ * Lists dead-letter jobs (most recent first).
+ */
+export async function listDeadLetterJobs(limit = 50) {
+  const dlq = createQueue(QUEUE_NAMES.DEAD_LETTER);
+  const jobs = await dlq.getWaiting(0, limit - 1);
+  return jobs.map((job) => ({
+    id: job.id,
+    ...(job.data as Record<string, unknown>),
+  }));
+}
+
+/**
  * Fecha todas as filas e workers graciosamente
  */
 export async function closeAllQueues(): Promise<void> {
@@ -219,6 +281,7 @@ export const QUEUE_NAMES = {
   EMAIL_SYNC: 'email-sync',
   AUDIT_LOGS: 'audit-logs',
   REPORTS: 'reports',
+  DEAD_LETTER: 'dead-letter',
 } as const;
 
 export type QueueName = (typeof QUEUE_NAMES)[keyof typeof QUEUE_NAMES];

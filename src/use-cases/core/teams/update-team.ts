@@ -2,7 +2,20 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { logger } from '@/lib/logger';
+
+// Lazy import to avoid @env initialization in unit tests
+let _logger: { error: (obj: unknown, msg: string) => void } | null = null;
+function getLogger() {
+  if (!_logger) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      _logger = require('@/lib/logger').logger;
+    } catch {
+      _logger = { error: (obj, msg) => console.error(msg, obj) };
+    }
+  }
+  return _logger!;
+}
 import { type TeamDTO, teamToDTO } from '@/mappers/core/team/team-to-dto';
 import type {
   TeamsRepository,
@@ -190,7 +203,7 @@ export class UpdateTeamUseCase {
         }
       }
     } catch (error) {
-      logger.error(
+      getLogger().error(
         { err: error, teamId, tenantId },
         'Failed to sync email access for team members',
       );

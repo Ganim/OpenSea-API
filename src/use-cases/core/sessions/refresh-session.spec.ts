@@ -70,7 +70,7 @@ describe('RefreshSessionUseCase', () => {
     expect(result.permissions).toEqual(['permission:read']);
   });
 
-  it('should throw if refresh token is revoked', async () => {
+  it('should detect reuse of a revoked refresh token and revoke the entire session', async () => {
     const { user } = await makeUser({
       email: 'user6@example.com',
       password: 'password123',
@@ -95,7 +95,62 @@ describe('RefreshSessionUseCase', () => {
         ip: '10.10.10.10',
         reply,
       }),
-    ).rejects.toThrow('Refresh token has been revoked.');
+    ).rejects.toThrow('Refresh token reuse detected. Session revoked for security.');
+
+    // Verify the session itself was revoked
+    const revokedSession = await sessionsRepository.findById(sessionId);
+    expect(revokedSession?.revokedAt).not.toBeNull();
+  });
+
+  it('should revoke all tokens for a session when reuse is detected', async () => {
+    const { user } = await makeUser({
+      email: 'user6b@example.com',
+      password: 'password123',
+      usersRepository,
+    });
+
+    const { session, refreshToken: firstToken } = await makeSession({
+      userId: user.id,
+      ip: '10.10.10.10',
+      sessionsRepository,
+      usersRepository,
+      refreshTokensRepository,
+      reply,
+    });
+
+    // Legitimate user refreshes → gets new token, old one revoked
+    const result = await sut.execute({
+      refreshToken: firstToken,
+      ip: '10.10.10.10',
+      reply,
+    });
+
+    // Attacker tries to use the old (now revoked) token
+    await expect(
+      sut.execute({
+        refreshToken: firstToken,
+        ip: '99.99.99.99',
+        reply,
+      }),
+    ).rejects.toThrow('Refresh token reuse detected. Session revoked for security.');
+
+    // All tokens for this session should be revoked (including the legitimate new one)
+    const allTokens = await refreshTokensRepository.listBySession(
+      new UniqueEntityID(session.id),
+    );
+    expect(allTokens).not.toBeNull();
+    for (const token of allTokens!) {
+      expect(token.revokedAt).not.toBeNull();
+    }
+
+    // The new token should also fail now
+    await expect(
+      sut.execute({
+        refreshToken: result.refreshToken.token,
+        ip: '10.10.10.10',
+        reply,
+      }),
+    ).rejects.toThrow('Refresh token reuse detected. Session revoked for security.');
   });
 
   // REJECTS

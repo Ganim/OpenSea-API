@@ -62,9 +62,16 @@ export class RefreshSessionUseCase {
       throw new UnauthorizedError('Invalid refresh token.');
     }
 
-    // Validate refresh token
+    // Reuse detection: if the token was already revoked, someone is replaying
+    // a stolen token. Revoke the entire session + all its tokens as a security measure.
     if (storedRefreshToken.revokedAt) {
-      throw new UnauthorizedError('Refresh token has been revoked.');
+      await this.refreshTokensRepository.revokeBySessionId(
+        storedRefreshToken.sessionId,
+      );
+      await this.sessionsRepository.revoke(storedRefreshToken.sessionId);
+      throw new UnauthorizedError(
+        'Refresh token reuse detected. Session revoked for security.',
+      );
     }
 
     if (storedRefreshToken.expiresAt.getTime() < Date.now()) {

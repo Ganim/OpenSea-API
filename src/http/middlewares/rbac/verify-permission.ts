@@ -195,26 +195,21 @@ export function createAllPermissionsMiddleware(permissionCodes: string[]) {
 }
 
 /**
- * Helper para criar instância do PermissionService
- * Evita duplicação de código ao instanciar repositórios
- *
- * @private
+ * Singleton PermissionService instance.
+ * Shared across requests so the in-memory L1 cache is effective.
+ * Redis L2 cache provides cross-process/restart persistence.
  */
-function createPermissionServiceInstance(): PermissionService {
-  const permissionsRepository = new PrismaPermissionsRepository();
-  const permissionGroupsRepository = new PrismaPermissionGroupsRepository();
-  const permissionGroupPermissionsRepository =
-    new PrismaPermissionGroupPermissionsRepository();
-  const userPermissionGroupsRepository =
-    new PrismaUserPermissionGroupsRepository();
-  const permissionAuditLogsRepository =
-    new PrismaPermissionAuditLogsRepository();
+let _permissionService: PermissionService | null = null;
 
-  return new PermissionService(
-    permissionsRepository,
-    permissionGroupsRepository,
-    permissionGroupPermissionsRepository,
-    userPermissionGroupsRepository,
-    permissionAuditLogsRepository,
-  );
+function createPermissionServiceInstance(): PermissionService {
+  if (!_permissionService) {
+    _permissionService = new PermissionService(
+      new PrismaPermissionsRepository(),
+      new PrismaPermissionGroupsRepository(),
+      new PrismaPermissionGroupPermissionsRepository(),
+      new PrismaUserPermissionGroupsRepository(),
+      new PrismaPermissionAuditLogsRepository(),
+    );
+  }
+  return _permissionService;
 }

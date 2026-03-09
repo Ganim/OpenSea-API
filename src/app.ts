@@ -9,6 +9,7 @@ import swaggerUI from '@fastify/swagger-ui';
 import fastify from 'fastify';
 import {
     jsonSchemaTransform,
+    jsonSchemaTransformObject,
     serializerCompiler,
     validatorCompiler,
 } from 'fastify-type-provider-zod';
@@ -21,6 +22,7 @@ import { swaggerTags } from './config/swagger-tags';
 import cacheControlPlugin from './http/plugins/cache-control.plugin';
 import { idempotencyPlugin } from './http/plugins/idempotency.plugin';
 import requestIdPlugin from './http/plugins/request-id.plugin';
+import { prometheusPlugin } from './http/plugins/prometheus.plugin';
 import { registerRoutes } from './http/routes';
 import { initSentry } from './lib/sentry';
 
@@ -145,6 +147,9 @@ const shouldEnableSwagger =
   (env.NODE_ENV === 'production' || process.env.ENABLE_SWAGGER === 'true');
 
 if (shouldEnableSwagger) {
+  // Register named schemas for OpenAPI $ref support (must be before swagger registration)
+  require('./http/schemas/register-named-schemas');
+
   console.log('[startup] Registering Swagger (this may take a few minutes)...');
   app.register(swagger, {
     mode: 'dynamic',
@@ -167,6 +172,7 @@ if (shouldEnableSwagger) {
       tags: swaggerTags,
     },
     transform: jsonSchemaTransform,
+    transformObject: jsonSchemaTransformObject,
   });
 }
 
@@ -211,10 +217,11 @@ app.register(multipart, {
   },
 });
 
-// HTTP Cache-Control + ETag (disabled in tests)
+// HTTP Cache-Control + ETag + Metrics (disabled in tests)
 if (!isTestEnv) {
   app.register(cacheControlPlugin);
   app.register(idempotencyPlugin);
+  app.register(prometheusPlugin);
 }
 
 // Routes

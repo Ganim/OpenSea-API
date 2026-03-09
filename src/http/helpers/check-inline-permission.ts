@@ -10,6 +10,25 @@ import { PermissionService } from '@/services/rbac/permission-service';
 import type { FastifyRequest } from 'fastify';
 
 /**
+ * Singleton PermissionService for inline checks.
+ * Shared across requests so the in-memory + Redis cache is effective.
+ */
+let _permissionService: PermissionService | null = null;
+
+function getPermissionService(): PermissionService {
+  if (!_permissionService) {
+    _permissionService = new PermissionService(
+      new PrismaPermissionsRepository(),
+      new PrismaPermissionGroupsRepository(),
+      new PrismaPermissionGroupPermissionsRepository(),
+      new PrismaUserPermissionGroupsRepository(),
+      new PrismaPermissionAuditLogsRepository(),
+    );
+  }
+  return _permissionService;
+}
+
+/**
  * Checks a permission inline within a handler (not as middleware).
  * Useful when the required permission depends on runtime data (e.g., folder type).
  *
@@ -25,13 +44,7 @@ export async function checkInlinePermission(
     throw new UnauthorizedError('User not authenticated');
   }
 
-  const permissionService = new PermissionService(
-    new PrismaPermissionsRepository(),
-    new PrismaPermissionGroupsRepository(),
-    new PrismaPermissionGroupPermissionsRepository(),
-    new PrismaUserPermissionGroupsRepository(),
-    new PrismaPermissionAuditLogsRepository(),
-  );
+  const permissionService = getPermissionService();
 
   const result = await permissionService.checkPermission({
     userId: new UniqueEntityID(user.sub),

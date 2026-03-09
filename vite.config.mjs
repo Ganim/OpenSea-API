@@ -16,6 +16,12 @@ export default defineConfig({
       reporter: ['text', 'json', 'html', 'lcov'],
       include: ['src/use-cases/**', 'src/entities/**', 'src/services/**'],
       exclude: ['**/node_modules/**', '**/*.spec.ts', '**/*.e2e.spec.ts', '**/factories/**'],
+      thresholds: {
+        lines: 70,
+        functions: 65,
+        branches: 60,
+        statements: 70,
+      },
     },
     projects: [
       {

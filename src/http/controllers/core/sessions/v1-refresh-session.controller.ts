@@ -91,8 +91,8 @@ export async function refreshSessionController(app: FastifyInstance) {
         return reply
           .setCookie('refreshToken', refreshToken.token, {
             path: '/',
-            secure: env.NODE_ENV === 'production',
-            sameSite: env.NODE_ENV === 'production' ? 'strict' : 'lax',
+            secure: env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test',
+            sameSite: env.NODE_ENV !== 'dev' && env.NODE_ENV !== 'test' ? 'strict' : 'lax',
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60, // 7 dias em segundos (igual ao JWT refresh token)
           })

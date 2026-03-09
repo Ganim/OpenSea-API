@@ -1,7 +1,7 @@
 import z from 'zod';
 
 const envSchema = z.object({
-  NODE_ENV: z.enum(['dev', 'test', 'production']).default('dev'),
+  NODE_ENV: z.enum(['dev', 'test', 'staging', 'production']).default('dev'),
   JWT_SECRET: z.string(),
   DATABASE_URL: z.url(),
   PORT: z.coerce.number().default(3333),
@@ -58,6 +58,8 @@ const envSchema = z.object({
 
   // Email account credentials encryption (AES-GCM)
   EMAIL_CREDENTIALS_KEY: z.string().min(32).optional(),
+  // Previous key for zero-downtime key rotation
+  EMAIL_CREDENTIALS_KEY_PREVIOUS: z.string().min(32).optional(),
 });
 
 const _env = envSchema.safeParse(process.env);
