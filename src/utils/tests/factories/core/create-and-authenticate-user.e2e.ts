@@ -394,6 +394,7 @@ const ALL_PERMISSIONS = {
     cards: ['create', 'read', 'update', 'delete', 'list', 'move', 'assign'],
     comments: ['create', 'read', 'update', 'delete'],
     attachments: ['upload', 'delete'],
+    watchers: ['create', 'read', 'delete'],
   },
 };
 
