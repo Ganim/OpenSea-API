@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { MovementType } from '@/entities/stock/value-objects/movement-type';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import type { ItemMovementDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import { itemMovementToDTO } from '@/mappers/stock/item-movement/item-movement-to-dto';
 import { BinsRepository } from '@/repositories/stock/bins-repository';
@@ -26,6 +27,7 @@ export class BatchTransferItemsUseCase {
     private itemsRepository: ItemsRepository,
     private binsRepository: BinsRepository,
     private itemMovementsRepository: ItemMovementsRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -56,6 +58,21 @@ export class BatchTransferItemsUseCase {
       throw new BadRequestError('Cannot transfer items to a blocked bin.');
     }
 
+    // Wrap all mutations in a transaction to prevent partial transfers
+    const doTransfer = async () => {
+      return this.performTransfer(input, destinationBin);
+    };
+
+    if (this.transactionManager) {
+      return this.transactionManager.run(() => doTransfer());
+    }
+    return doTransfer();
+  }
+
+  private async performTransfer(
+    input: BatchTransferItemsUseCaseRequest,
+    destinationBin: { binId: UniqueEntityID; address: string; isBlocked: boolean },
+  ): Promise<BatchTransferItemsUseCaseResponse> {
     const movements: ItemMovementDTO[] = [];
     const originBinIds = new Set<string>();
 
