@@ -1,4 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeDeleteTenantAdminUseCase } from '@/use-cases/admin/tenants/factories/make-delete-tenant-admin-use-case';
@@ -45,6 +47,13 @@ export async function deleteTenantAdminController(app: FastifyInstance) {
       try {
         const useCase = makeDeleteTenantAdminUseCase();
         const { tenant } = await useCase.execute({ tenantId: id });
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.TENANT_DELETE,
+          entityId: id,
+          placeholders: { adminName: request.user.sub, tenantName: tenant.name },
+          oldData: { name: tenant.name, status: tenant.status },
+        });
 
         return reply.status(200).send({ tenant });
       } catch (error) {

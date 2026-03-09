@@ -1,3 +1,4 @@
+import { InMemoryAuditLogsRepository } from '@/repositories/audit/in-memory/in-memory-audit-logs-repository';
 import { InMemoryPlansRepository } from '@/repositories/core/in-memory/in-memory-plans-repository';
 import { InMemoryTenantsRepository } from '@/repositories/core/in-memory/in-memory-tenants-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -5,13 +6,19 @@ import { GetSystemStatsUseCase } from './get-system-stats';
 
 let tenantsRepository: InMemoryTenantsRepository;
 let plansRepository: InMemoryPlansRepository;
+let auditLogsRepository: InMemoryAuditLogsRepository;
 let sut: GetSystemStatsUseCase;
 
 describe('GetSystemStatsUseCase', () => {
   beforeEach(() => {
     tenantsRepository = new InMemoryTenantsRepository();
     plansRepository = new InMemoryPlansRepository();
-    sut = new GetSystemStatsUseCase(tenantsRepository, plansRepository);
+    auditLogsRepository = new InMemoryAuditLogsRepository();
+    sut = new GetSystemStatsUseCase(
+      tenantsRepository,
+      plansRepository,
+      auditLogsRepository,
+    );
   });
 
   // OBJECTIVE
@@ -23,19 +30,19 @@ describe('GetSystemStatsUseCase', () => {
     await plansRepository.create({ name: 'Starter', isActive: true });
     await plansRepository.create({ name: 'Inactive', isActive: false });
 
-    const { totalTenants, totalPlans, activePlans } = await sut.execute();
+    const result = await sut.execute();
 
-    expect(totalTenants).toBe(2);
-    expect(totalPlans).toBe(3);
-    expect(activePlans).toBe(2);
+    expect(result.totalTenants).toBe(2);
+    expect(result.totalPlans).toBe(3);
+    expect(result.activePlans).toBe(2);
   });
 
   it('should return zeros when no data exists', async () => {
-    const { totalTenants, totalPlans, activePlans } = await sut.execute();
+    const result = await sut.execute();
 
-    expect(totalTenants).toBe(0);
-    expect(totalPlans).toBe(0);
-    expect(activePlans).toBe(0);
+    expect(result.totalTenants).toBe(0);
+    expect(result.totalPlans).toBe(0);
+    expect(result.activePlans).toBe(0);
   });
 
   // VALIDATIONS
@@ -46,9 +53,50 @@ describe('GetSystemStatsUseCase', () => {
     await plansRepository.create({ name: 'Inactive 1', isActive: false });
     await plansRepository.create({ name: 'Inactive 2', isActive: false });
 
-    const { totalPlans, activePlans } = await sut.execute();
+    const result = await sut.execute();
 
-    expect(totalPlans).toBe(5);
-    expect(activePlans).toBe(3);
+    expect(result.totalPlans).toBe(5);
+    expect(result.activePlans).toBe(3);
+  });
+
+  it('should return tenants grouped by status', async () => {
+    await tenantsRepository.create({
+      name: 'Active 1',
+      slug: 'active-1',
+      status: 'ACTIVE',
+    });
+    await tenantsRepository.create({
+      name: 'Active 2',
+      slug: 'active-2',
+      status: 'ACTIVE',
+    });
+    await tenantsRepository.create({
+      name: 'Suspended',
+      slug: 'suspended',
+      status: 'SUSPENDED',
+    });
+
+    const result = await sut.execute();
+
+    expect(result.tenantsByStatus).toEqual({
+      ACTIVE: 2,
+      SUSPENDED: 1,
+    });
+  });
+
+  it('should return expanded response shape', async () => {
+    const result = await sut.execute();
+
+    expect(result).toHaveProperty('totalTenants');
+    expect(result).toHaveProperty('totalPlans');
+    expect(result).toHaveProperty('activePlans');
+    expect(result).toHaveProperty('tenantsByStatus');
+    expect(result).toHaveProperty('tenantsByTier');
+    expect(result).toHaveProperty('monthlyGrowth');
+    expect(result).toHaveProperty('recentActivity');
+    expect(result).toHaveProperty('totalUsers');
+    expect(result).toHaveProperty('mrr');
+    expect(Array.isArray(result.monthlyGrowth)).toBe(true);
+    expect(Array.isArray(result.recentActivity)).toBe(true);
   });
 });

@@ -754,6 +754,11 @@ enum AuditAction {
   MEMBER_REMOVE
   OWNERSHIP_TRANSFER
 
+  // Admin - Gestão de Tenants
+  PLAN_CHANGE
+  FLAG_CHANGE
+  SECURITY_KEY_CHANGE
+
   // Sistema
   EXPORT
   IMPORT
@@ -888,6 +893,12 @@ enum AuditEntity {
   STORAGE_FILE_VERSION
   STORAGE_ACCESS_RULE
 
+  // Admin - Gestão de Tenants e Planos
+  TENANT
+  PLAN
+  TENANT_USER
+  FEATURE_FLAG
+
   // System
   OTHER
 }
@@ -907,6 +918,7 @@ enum AuditModule {
   STORAGE
   EMAIL
   TASKS
+  ADMIN
   SYSTEM
   OTHER
 }
@@ -4648,6 +4660,7 @@ model EmailMessage {
   @@index([tenantId, receivedAt(sort: Desc)])
   @@index([deletedAt])
   @@index([accountId, messageId])
+  @@index([accountId, threadId])
   @@index([accountId, folderId, receivedAt(sort: Desc)])
   @@map("email_messages")
 }

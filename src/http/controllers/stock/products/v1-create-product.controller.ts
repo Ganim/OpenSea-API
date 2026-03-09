@@ -5,6 +5,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { createPlanLimitsMiddleware } from '@/http/middlewares/tenant/verify-plan-limits';
 import { createProductSchema, productResponseSchema } from '@/http/schemas';
 import { productToDTO } from '@/mappers/stock/product/product-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
@@ -20,6 +21,7 @@ export async function createProductController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       verifyTenant,
+      createPlanLimitsMiddleware('products'),
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.PRODUCTS.CREATE,
         resource: 'products',

@@ -5,6 +5,8 @@ export interface EmailMessageListItemDTO {
   id: string;
   accountId: string;
   folderId: string;
+  messageId: string | null;
+  threadId: string | null;
   subject: string;
   fromAddress: string;
   fromName: string | null;
@@ -61,6 +63,8 @@ export function emailMessageToListDTO(
     id: message.id.toString(),
     accountId: message.accountId.toString(),
     folderId: message.folderId.toString(),
+    messageId: message.messageId,
+    threadId: message.threadId,
     subject: message.subject,
     fromAddress: message.fromAddress,
     fromName: message.fromName,

@@ -1,4 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeChangeTenantPlanUseCase } from '@/use-cases/admin/tenants/factories/make-change-tenant-plan-use-case';
@@ -50,6 +52,17 @@ export async function changeTenantPlanAdminController(app: FastifyInstance) {
         const { tenantPlan } = await changeTenantPlanUseCase.execute({
           tenantId: id,
           planId,
+        });
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.TENANT_PLAN_CHANGE,
+          entityId: id,
+          placeholders: {
+            adminName: request.user.sub,
+            tenantName: id,
+            planName: planId,
+          },
+          newData: { planId, tenantPlanId: tenantPlan.id },
         });
 
         return reply.status(200).send({ tenantPlan });

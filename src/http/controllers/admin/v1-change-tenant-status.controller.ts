@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeChangeTenantStatusUseCase } from '@/use-cases/admin/tenants/factories/make-change-tenant-status-use-case';
@@ -55,6 +57,19 @@ export async function changeTenantStatusAdminController(app: FastifyInstance) {
         const { tenant } = await changeTenantStatusUseCase.execute({
           tenantId: id,
           status,
+        });
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.TENANT_STATUS_CHANGE,
+          entityId: id,
+          placeholders: {
+            adminName: request.user.sub,
+            tenantName: tenant.name,
+            oldStatus: tenant.status === status ? 'unknown' : tenant.status,
+            newStatus: status,
+          },
+          oldData: { status: tenant.status },
+          newData: { status },
         });
 
         return reply.status(200).send({ tenant });

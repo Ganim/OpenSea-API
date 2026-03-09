@@ -7,6 +7,8 @@ import type { TenantsRepository } from '@/repositories/core/tenants-repository';
 interface ListAllTenantsUseCaseRequest {
   page: number;
   perPage: number;
+  search?: string;
+  status?: string;
 }
 
 interface ListAllTenantsUseCaseResponse {
@@ -25,10 +27,13 @@ export class ListAllTenantsUseCase {
   async execute({
     page,
     perPage,
+    search,
+    status,
   }: ListAllTenantsUseCaseRequest): Promise<ListAllTenantsUseCaseResponse> {
+    const filters = { search, status };
     const [allTenants, totalTenants] = await Promise.all([
-      this.tenantsRepository.findMany(page, perPage),
-      this.tenantsRepository.countAll(),
+      this.tenantsRepository.findMany(page, perPage, filters),
+      this.tenantsRepository.countAll(filters),
     ]);
 
     const totalPages = Math.ceil(totalTenants / perPage);

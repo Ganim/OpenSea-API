@@ -30,6 +30,8 @@ const messageSchema = z.object({
   id: z.string().uuid(),
   accountId: z.string().uuid(),
   folderId: z.string().uuid(),
+  messageId: z.string().nullable(),
+  threadId: z.string().nullable(),
   subject: z.string(),
   fromAddress: z.string(),
   fromName: z.string().nullable(),
@@ -308,6 +310,63 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
       });
 
       return reply.status(200).send(result);
+    },
+  });
+
+  // ─── Thread Messages ─────────────────────────────────────────────────────
+  // Must be registered BEFORE /:id to avoid Fastify matching "thread" as :id
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/email/messages/:id/thread',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.MESSAGES.READ,
+        resource: 'email-messages',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Messages'],
+      summary: 'List all messages in the same thread',
+      security: [{ bearerAuth: [] }],
+      params: z.object({ id: z.string().uuid() }),
+      response: {
+        200: z.object({
+          messages: z.array(messageDetailSchema),
+        }),
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+
+      try {
+        const { makeListThreadMessagesUseCase } = await import(
+          '@/use-cases/email/messages/factories/make-list-thread-messages-use-case'
+        );
+        const useCase = makeListThreadMessagesUseCase();
+        const result = await useCase.execute({
+          tenantId,
+          messageId: request.params.id,
+        });
+
+        const { emailMessageToDTO } = await import(
+          '@/mappers/email/email-message/email-message-to-dto'
+        );
+        const messages = result.messages.map((m) => emailMessageToDTO(m));
+
+        return reply.status(200).send({ messages });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        throw error;
+      }
     },
   });
 

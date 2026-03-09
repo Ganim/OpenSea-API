@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import type { Prisma } from '@prisma/generated/client.js';
 import type {
   CreateTenantSchema,
+  TenantsListFilters,
   TenantsRepository,
   UpdateTenantSchema,
 } from '../tenants-repository';
@@ -126,9 +127,32 @@ export class PrismaTenantsRepository implements TenantsRepository {
     );
   }
 
-  async findMany(page: number, perPage: number): Promise<Tenant[]> {
+  private buildWhereClause(filters?: TenantsListFilters): Prisma.TenantWhereInput {
+    const where: Prisma.TenantWhereInput = { deletedAt: null };
+
+    if (filters?.search) {
+      where.OR = [
+        { name: { contains: filters.search, mode: 'insensitive' } },
+        { slug: { contains: filters.search, mode: 'insensitive' } },
+      ];
+    }
+
+    if (filters?.status) {
+      where.status = filters.status as 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';
+    }
+
+    return where;
+  }
+
+  async findMany(
+    page: number,
+    perPage: number,
+    filters?: TenantsListFilters,
+  ): Promise<Tenant[]> {
+    const where = this.buildWhereClause(filters);
+
     const tenantsDb = await prisma.tenant.findMany({
-      where: { deletedAt: null },
+      where,
       skip: (page - 1) * perPage,
       take: perPage,
       orderBy: { createdAt: 'desc' },
@@ -152,7 +176,84 @@ export class PrismaTenantsRepository implements TenantsRepository {
     );
   }
 
-  async countAll(): Promise<number> {
-    return prisma.tenant.count({ where: { deletedAt: null } });
+  async countAll(filters?: TenantsListFilters): Promise<number> {
+    const where = this.buildWhereClause(filters);
+    return prisma.tenant.count({ where });
+  }
+
+  async countByStatus(): Promise<Record<string, number>> {
+    const groups = await prisma.tenant.groupBy({
+      by: ['status'],
+      _count: { id: true },
+      where: { deletedAt: null },
+    });
+
+    const result: Record<string, number> = {};
+    for (const group of groups) {
+      result[group.status] = group._count.id;
+    }
+    return result;
+  }
+
+  async countMonthlyGrowth(
+    months: number,
+  ): Promise<Array<{ month: string; count: number }>> {
+    const startDate = new Date();
+    startDate.setMonth(startDate.getMonth() - months);
+    startDate.setDate(1);
+    startDate.setHours(0, 0, 0, 0);
+
+    const rows = await prisma.$queryRaw<
+      Array<{ month: string; count: bigint }>
+    >`
+      SELECT
+        TO_CHAR(DATE_TRUNC('month', created_at), 'YYYY-MM') AS month,
+        COUNT(*)::bigint AS count
+      FROM tenants
+      WHERE created_at >= ${startDate}
+        AND deleted_at IS NULL
+      GROUP BY DATE_TRUNC('month', created_at)
+      ORDER BY month ASC
+    `;
+
+    return rows.map((row) => ({
+      month: row.month,
+      count: Number(row.count),
+    }));
+  }
+
+  async countTenantsByPlanTier(): Promise<Record<string, number>> {
+    const rows = await prisma.$queryRaw<
+      Array<{ tier: string; count: bigint }>
+    >`
+      SELECT p.tier, COUNT(DISTINCT tp.tenant_id)::bigint AS count
+      FROM tenant_plans tp
+      INNER JOIN plans p ON p.id = tp.plan_id
+      INNER JOIN tenants t ON t.id = tp.tenant_id AND t.deleted_at IS NULL
+      WHERE p.is_active = true
+      GROUP BY p.tier
+    `;
+
+    const result: Record<string, number> = {};
+    for (const row of rows) {
+      result[row.tier] = Number(row.count);
+    }
+    return result;
+  }
+
+  async countTotalUsers(): Promise<number> {
+    return prisma.user.count();
+  }
+
+  async calculateMrr(): Promise<number> {
+    const result = await prisma.$queryRaw<Array<{ mrr: number | null }>>`
+      SELECT COALESCE(SUM(p.price), 0) AS mrr
+      FROM tenant_plans tp
+      INNER JOIN plans p ON p.id = tp.plan_id AND p.is_active = true
+      INNER JOIN tenants t ON t.id = tp.tenant_id
+        AND t.deleted_at IS NULL
+        AND t.status = 'ACTIVE'
+    `;
+    return Number(result[0]?.mrr ?? 0);
   }
 }

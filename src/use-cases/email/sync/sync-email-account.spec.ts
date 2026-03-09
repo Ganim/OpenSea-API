@@ -36,6 +36,12 @@ class FakeCipherService {
   decrypt(value: string) {
     return value;
   }
+  decryptWithRotation(value: string) {
+    return { plainText: value, needsReEncrypt: false };
+  }
+  encrypt(value: string) {
+    return value;
+  }
 }
 
 function createAsyncIterable<T>(items: T[]) {

@@ -3,6 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { createPlanLimitsMiddleware } from '@/http/middlewares/tenant/verify-plan-limits';
 import {
   createWarehouseSchema,
   warehouseResponseSchema,
@@ -20,6 +21,7 @@ export async function createWarehouseController(app: FastifyInstance) {
     preHandler: [
       verifyJwt,
       verifyTenant,
+      createPlanLimitsMiddleware('warehouses'),
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.WAREHOUSES.CREATE,
         resource: 'warehouses',

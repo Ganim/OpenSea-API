@@ -202,6 +202,18 @@ export class LogAuditUseCase {
       return AuditModule.CORE;
     }
 
+    // ADMIN - Gestão de Tenants e Planos (Super Admin)
+    if (
+      [
+        AuditEntity.TENANT,
+        AuditEntity.PLAN,
+        AuditEntity.TENANT_USER,
+        AuditEntity.FEATURE_FLAG,
+      ].includes(entity)
+    ) {
+      return AuditModule.ADMIN;
+    }
+
     return AuditModule.OTHER;
   }
 

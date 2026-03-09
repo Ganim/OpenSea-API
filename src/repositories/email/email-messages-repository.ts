@@ -107,4 +107,9 @@ export interface EmailMessagesRepository {
     query: string,
     limit: number,
   ): Promise<Array<{ email: string; name: string | null; frequency: number }>>;
+  findThreadMessages(
+    accountId: string,
+    messageId: string,
+    tenantId: string,
+  ): Promise<EmailMessage[]>;
 }

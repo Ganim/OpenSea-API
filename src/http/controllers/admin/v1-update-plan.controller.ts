@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeUpdatePlanUseCase } from '@/use-cases/admin/plans/factories/make-update-plan-use-case';
@@ -83,6 +85,13 @@ export async function updatePlanAdminController(app: FastifyInstance) {
           maxUsers,
           maxWarehouses,
           maxProducts,
+        });
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.PLAN_UPDATE,
+          entityId: id,
+          placeholders: { adminName: request.user.sub, planName: plan.name },
+          newData: { name, tier, description, price, isActive, maxUsers, maxWarehouses, maxProducts },
         });
 
         return reply.status(200).send({ plan });

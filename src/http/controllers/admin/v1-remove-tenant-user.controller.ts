@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeRemoveUserFromTenantUseCase } from '@/use-cases/core/tenants/factories/make-remove-user-from-tenant-use-case';
@@ -41,6 +43,17 @@ export async function removeTenantUserAdminController(app: FastifyInstance) {
         await useCase.execute({
           tenantId: id,
           userId,
+        });
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.TENANT_USER_REMOVE,
+          entityId: userId,
+          placeholders: {
+            adminName: request.user.sub,
+            userId,
+            tenantName: id,
+          },
+          affectedUserId: userId,
         });
 
         return reply.status(204).send(null);

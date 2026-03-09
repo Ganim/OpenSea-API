@@ -15,6 +15,8 @@ import { terminateEmployeeController } from './v1-terminate-employee.controller'
 import { transferEmployeeController } from './v1-transfer-employee.controller';
 import { updateEmployeeController } from './v1-update-employee.controller';
 import { getEmployeesLabelDataController } from './v1-get-employees-label-data.controller';
+import { uploadEmployeePhotoController } from './v1-upload-employee-photo.controller';
+import { deleteEmployeePhotoController } from './v1-delete-employee-photo.controller';
 
 export async function employeesRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('HR'));
@@ -31,6 +33,8 @@ export async function employeesRoutes(app: FastifyInstance) {
       managerApp.register(unlinkUserFromEmployeeController);
       managerApp.register(transferEmployeeController);
       managerApp.register(deleteEmployeeController);
+      managerApp.register(uploadEmployeePhotoController);
+      managerApp.register(deleteEmployeePhotoController);
     },
     { prefix: '' },
   );

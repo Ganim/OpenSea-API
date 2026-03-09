@@ -13,6 +13,7 @@ import { getPlanByIdAdminController } from './v1-get-plan-by-id.controller';
 import { getTenantDetailsAdminController } from './v1-get-tenant-details.controller';
 import { listPlansAdminController } from './v1-list-plans.controller';
 import { listTenantUsersAdminController } from './v1-list-tenant-users.controller';
+import { listTenantFeatureFlagsAdminController } from './v1-list-tenant-feature-flags.controller';
 import { listTenantsAdminController } from './v1-list-tenants.controller';
 import { manageFeatureFlagsAdminController } from './v1-manage-feature-flags.controller';
 import { removeTenantUserAdminController } from './v1-remove-tenant-user.controller';
@@ -53,6 +54,7 @@ export async function adminRoutes(app: FastifyInstance) {
       queryApp.register(listPlansAdminController);
       queryApp.register(getPlanByIdAdminController);
       queryApp.register(adminDashboardController);
+      queryApp.register(listTenantFeatureFlagsAdminController);
     },
     { prefix: '' },
   );

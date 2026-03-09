@@ -10,7 +10,7 @@ export type CalendarEventCreator = {
   id: string;
   email: string;
   username: string | null;
-  profile?: { name: string; surname: string } | null;
+  profile?: { name: string; surname: string; avatarUrl?: string | null } | null;
 };
 
 export type CalendarEventWithRelations = PrismaCalendarEvent & {
@@ -69,6 +69,7 @@ export function extractRelationsFromPrisma(raw: CalendarEventWithRelations) {
         : p.user.username || null
       : null;
     const userEmail = p.user?.email ?? null;
+    const userAvatarUrl = p.user?.profile?.avatarUrl ?? null;
 
     return {
       id: p.id,
@@ -79,6 +80,7 @@ export function extractRelationsFromPrisma(raw: CalendarEventWithRelations) {
       respondedAt: p.respondedAt,
       userName,
       userEmail,
+      userAvatarUrl,
       createdAt: p.createdAt,
       updatedAt: p.updatedAt,
     };

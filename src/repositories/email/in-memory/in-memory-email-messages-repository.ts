@@ -404,6 +404,60 @@ export class InMemoryEmailMessagesRepository
     return results;
   }
 
+  async findThreadMessages(
+    accountId: string,
+    rfcMessageId: string,
+    tenantId: string,
+  ): Promise<EmailMessage[]> {
+    const accountMessages = this.items.filter(
+      (m) =>
+        m.accountId.toString() === accountId &&
+        m.tenantId.toString() === tenantId &&
+        !m.deletedAt,
+    );
+
+    // Build a map of messageId → message for fast lookup
+    const byMessageId = new Map<string, EmailMessage>();
+    for (const msg of accountMessages) {
+      if (msg.messageId) byMessageId.set(msg.messageId, msg);
+    }
+
+    // Find the target message
+    const target = byMessageId.get(rfcMessageId);
+    if (!target) return [];
+
+    // Collect all thread members by walking up and down
+    const collected = new Set<string>();
+    const queue: EmailMessage[] = [target];
+
+    while (queue.length > 0) {
+      const current = queue.pop()!;
+      if (collected.has(current.id.toString())) continue;
+      collected.add(current.id.toString());
+
+      // Walk UP: find parent
+      if (current.threadId) {
+        const parent = byMessageId.get(current.threadId);
+        if (parent && !collected.has(parent.id.toString())) queue.push(parent);
+      }
+
+      // Walk DOWN: find children
+      for (const msg of accountMessages) {
+        if (
+          msg.threadId === current.messageId &&
+          current.messageId &&
+          !collected.has(msg.id.toString())
+        ) {
+          queue.push(msg);
+        }
+      }
+    }
+
+    return accountMessages
+      .filter((m) => collected.has(m.id.toString()))
+      .sort((a, b) => a.receivedAt.getTime() - b.receivedAt.getTime());
+  }
+
   async softDeleteByFolder(folderId: string, tenantId: string): Promise<number> {
     let count = 0;
     const now = new Date();

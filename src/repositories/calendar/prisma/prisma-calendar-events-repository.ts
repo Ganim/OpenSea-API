@@ -30,7 +30,7 @@ export class PrismaCalendarEventsRepository
         id: true,
         email: true,
         username: true,
-        profile: { select: { name: true, surname: true } },
+        profile: { select: { name: true, surname: true, avatarUrl: true } },
       },
     },
     participants: {
@@ -40,7 +40,7 @@ export class PrismaCalendarEventsRepository
             id: true,
             email: true,
             username: true,
-            profile: { select: { name: true, surname: true } },
+            profile: { select: { name: true, surname: true, avatarUrl: true } },
           },
         },
       },

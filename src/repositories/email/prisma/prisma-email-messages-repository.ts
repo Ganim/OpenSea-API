@@ -454,6 +454,122 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
     return rows;
   }
 
+  async findThreadMessages(
+    accountId: string,
+    rfcMessageId: string,
+    tenantId: string,
+  ): Promise<EmailMessage[]> {
+    // Find all messages in the thread using a recursive CTE:
+    // 1. Start with the target message (by its RFC messageId)
+    // 2. Walk UP: find parents via thread_id → message_id
+    // 3. Walk DOWN: find children via message_id → thread_id
+    // Then UNION the results and sort by receivedAt ASC (oldest first)
+    const rows = await prisma.$queryRawUnsafe<Array<Record<string, unknown>>>(
+      `
+      WITH RECURSIVE
+        -- Find the target message
+        target AS (
+          SELECT id, message_id, thread_id
+          FROM email_messages
+          WHERE account_id = $1
+            AND tenant_id = $3
+            AND message_id = $2
+            AND deleted_at IS NULL
+          LIMIT 1
+        ),
+        -- Walk UP to find ancestors (target → parent → grandparent ...)
+        ancestors AS (
+          SELECT em.id, em.message_id, em.thread_id, 0 AS depth
+          FROM email_messages em
+          JOIN target t ON em.message_id = t.thread_id
+          WHERE em.account_id = $1 AND em.deleted_at IS NULL
+          UNION ALL
+          SELECT em.id, em.message_id, em.thread_id, a.depth + 1
+          FROM email_messages em
+          JOIN ancestors a ON em.message_id = a.thread_id
+          WHERE em.account_id = $1 AND em.deleted_at IS NULL
+            AND a.depth < 50
+        ),
+        -- Walk DOWN from target to find descendants
+        descendants AS (
+          SELECT em.id, em.message_id, em.thread_id, 0 AS depth
+          FROM email_messages em
+          JOIN target t ON em.thread_id = t.message_id
+          WHERE em.account_id = $1 AND em.deleted_at IS NULL
+            AND em.id != (SELECT id FROM target)
+          UNION ALL
+          SELECT em.id, em.message_id, em.thread_id, d.depth + 1
+          FROM email_messages em
+          JOIN descendants d ON em.thread_id = d.message_id
+          WHERE em.account_id = $1 AND em.deleted_at IS NULL
+            AND d.depth < 50
+        ),
+        -- Also walk DOWN from each ancestor to find sibling branches
+        ancestor_descendants AS (
+          SELECT em.id, em.message_id, em.thread_id, 0 AS depth
+          FROM email_messages em
+          JOIN ancestors a ON em.thread_id = a.message_id
+          WHERE em.account_id = $1 AND em.deleted_at IS NULL
+          UNION ALL
+          SELECT em.id, em.message_id, em.thread_id, ad.depth + 1
+          FROM email_messages em
+          JOIN ancestor_descendants ad ON em.thread_id = ad.message_id
+          WHERE em.account_id = $1 AND em.deleted_at IS NULL
+            AND ad.depth < 50
+        ),
+        -- Combine all IDs
+        all_ids AS (
+          SELECT id FROM target
+          UNION SELECT id FROM ancestors
+          UNION SELECT id FROM descendants
+          UNION SELECT id FROM ancestor_descendants
+        )
+      SELECT em.*
+      FROM email_messages em
+      JOIN all_ids a ON em.id = a.id
+      ORDER BY em.received_at ASC
+      LIMIT 100
+      `,
+      accountId,
+      rfcMessageId,
+      tenantId,
+    );
+
+    if (rows.length === 0) return [];
+
+    // Raw query returns snake_case columns; map to camelCase for the Prisma-to-domain mapper
+    return rows.map((row) => {
+      const mapped = {
+        id: row.id as string,
+        tenantId: row.tenant_id as string,
+        accountId: row.account_id as string,
+        folderId: row.folder_id as string,
+        remoteUid: row.remote_uid as number,
+        messageId: (row.message_id as string) ?? null,
+        threadId: (row.thread_id as string) ?? null,
+        fromAddress: row.from_address as string,
+        fromName: (row.from_name as string) ?? null,
+        toAddresses: row.to_addresses as string[],
+        ccAddresses: (row.cc_addresses as string[]) ?? [],
+        bccAddresses: (row.bcc_addresses as string[]) ?? [],
+        subject: row.subject as string,
+        snippet: (row.snippet as string) ?? null,
+        bodyText: (row.body_text as string) ?? null,
+        bodyHtmlSanitized: (row.body_html_sanitized as string) ?? null,
+        receivedAt: row.received_at as Date,
+        sentAt: (row.sent_at as Date) ?? null,
+        isRead: row.is_read as boolean,
+        isFlagged: row.is_flagged as boolean,
+        isAnswered: row.is_answered as boolean,
+        hasAttachments: row.has_attachments as boolean,
+        deletedAt: (row.deleted_at as Date) ?? null,
+        createdAt: row.created_at as Date,
+        updatedAt: row.updated_at as Date,
+      };
+      return emailMessagePrismaToDomain(mapped as never);
+    });
+  }
+
   async softDeleteByFolder(folderId: string, tenantId: string): Promise<number> {
     const result = await prisma.emailMessage.updateMany({
       where: {

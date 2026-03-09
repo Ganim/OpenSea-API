@@ -14,7 +14,7 @@ export async function listTenantsAdminController(app: FastifyInstance) {
       tags: ['Admin - Tenants'],
       summary: 'List all tenants (super admin)',
       description:
-        'Lists all tenants in the system with pagination. Requires super admin privileges.',
+        'Lists all tenants in the system with pagination and optional search/status filters. Requires super admin privileges.',
       querystring: z.object({
         page: z.coerce.number().int().positive().default(1).optional(),
         limit: z.coerce
@@ -23,6 +23,10 @@ export async function listTenantsAdminController(app: FastifyInstance) {
           .positive()
           .max(100)
           .default(20)
+          .optional(),
+        search: z.string().optional(),
+        status: z
+          .enum(['ACTIVE', 'INACTIVE', 'SUSPENDED'])
           .optional(),
       }),
       response: {
@@ -53,11 +57,14 @@ export async function listTenantsAdminController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const page = request.query.page ?? 1;
       const perPage = request.query.limit ?? 20;
+      const { search, status } = request.query;
 
       const listAllTenantsUseCase = makeListAllTenantsUseCase();
       const { tenants, meta } = await listAllTenantsUseCase.execute({
         page,
         perPage,
+        search,
+        status,
       });
 
       return reply.status(200).send({

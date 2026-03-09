@@ -172,6 +172,14 @@ export enum AuditEntity {
   EMAIL_ATTACHMENT = 'EMAIL_ATTACHMENT',
 
   // ==========================================
+  // Admin - Gestão de Tenants e Planos
+  // ==========================================
+  TENANT = 'TENANT',
+  PLAN = 'PLAN',
+  TENANT_USER = 'TENANT_USER',
+  FEATURE_FLAG = 'FEATURE_FLAG',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',

@@ -31,7 +31,9 @@ export { FINANCE_AUDIT_MESSAGES } from './finance.messages';
 export { STORAGE_AUDIT_MESSAGES } from './storage.messages';
 export { CALENDAR_AUDIT_MESSAGES } from './calendar.messages';
 export { TASKS_AUDIT_MESSAGES } from './tasks.messages';
+export { ADMIN_AUDIT_MESSAGES } from './admin.messages';
 
+import { ADMIN_AUDIT_MESSAGES } from './admin.messages';
 import { CORE_AUDIT_MESSAGES } from './core.messages';
 import { HR_AUDIT_MESSAGES } from './hr.messages';
 import { NOTIFICATIONS_AUDIT_MESSAGES } from './notifications.messages';
@@ -64,4 +66,5 @@ export const AUDIT_MESSAGES = {
   STORAGE: STORAGE_AUDIT_MESSAGES,
   CALENDAR: CALENDAR_AUDIT_MESSAGES,
   TASKS: TASKS_AUDIT_MESSAGES,
+  ADMIN: ADMIN_AUDIT_MESSAGES,
 } as const;

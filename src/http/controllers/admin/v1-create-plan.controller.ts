@@ -1,4 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeCreatePlanUseCase } from '@/use-cases/admin/plans/factories/make-create-plan-use-case';
@@ -74,6 +76,13 @@ export async function createPlanAdminController(app: FastifyInstance) {
           maxUsers,
           maxWarehouses,
           maxProducts,
+        });
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.PLAN_CREATE,
+          entityId: plan.id,
+          placeholders: { adminName: request.user.sub, planName: name },
+          newData: { name, tier, description, price, isActive, maxUsers, maxWarehouses, maxProducts },
         });
 
         return reply.status(201).send({ plan });

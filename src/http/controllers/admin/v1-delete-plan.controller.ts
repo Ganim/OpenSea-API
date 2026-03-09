@@ -1,4 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeDeletePlanUseCase } from '@/use-cases/admin/plans/factories/make-delete-plan-use-case';
@@ -48,6 +50,14 @@ export async function deletePlanAdminController(app: FastifyInstance) {
       try {
         const deletePlanUseCase = makeDeletePlanUseCase();
         const { plan } = await deletePlanUseCase.execute({ planId: id });
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.PLAN_DELETE,
+          entityId: id,
+          placeholders: { adminName: request.user.sub, planName: plan.name },
+          oldData: { name: plan.name, isActive: true },
+          newData: { isActive: false },
+        });
 
         return reply.status(200).send({ plan });
       } catch (error) {

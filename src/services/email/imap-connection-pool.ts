@@ -1,4 +1,6 @@
+import { createCircuitBreaker } from '@/lib/circuit-breaker';
 import { logger } from '@/lib/logger';
+import type CircuitBreaker from 'opossum';
 import type { ImapFlow } from 'imapflow';
 import { createImapClient } from './imap-client.service';
 
@@ -41,6 +43,7 @@ export class ImapConnectionPool {
   private pool = new Map<string, PoolEntry>();
   private waitQueues = new Map<string, WaitingRequest[]>();
   private idleTtlMs: number;
+  private connectBreakers = new Map<string, CircuitBreaker<[string, ImapPoolConfig], ImapFlow>>();
 
   constructor(idleTtlMs = DEFAULT_IDLE_TTL_MS) {
     this.idleTtlMs = idleTtlMs;
@@ -139,6 +142,25 @@ export class ImapConnectionPool {
   }
 
   private async createAndStore(
+    accountId: string,
+    config: ImapPoolConfig,
+  ): Promise<ImapFlow> {
+    // B2: Circuit breaker per host — prevents hammering a failing mail server
+    const breakerKey = `imap:${config.host}:${config.port}`;
+    let breaker = this.connectBreakers.get(breakerKey);
+
+    if (!breaker) {
+      breaker = createCircuitBreaker(
+        (_acctId: string, cfg: ImapPoolConfig) => this.doCreateAndStore(_acctId, cfg),
+        { name: breakerKey, type: 'external' },
+      );
+      this.connectBreakers.set(breakerKey, breaker);
+    }
+
+    return breaker.fire(accountId, config);
+  }
+
+  private async doCreateAndStore(
     accountId: string,
     config: ImapPoolConfig,
   ): Promise<ImapFlow> {

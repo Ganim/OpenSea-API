@@ -13,6 +13,7 @@ export enum AuditModule {
   STORAGE = 'STORAGE',
   TASKS = 'TASKS',
   EMAIL = 'EMAIL',
+  ADMIN = 'ADMIN',
   SYSTEM = 'SYSTEM',
   OTHER = 'OTHER',
 }

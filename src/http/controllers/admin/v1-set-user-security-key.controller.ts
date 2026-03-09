@@ -1,4 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { SetUserSecurityKeyUseCase } from '@/use-cases/core/tenants/set-user-security-key';
@@ -41,6 +43,19 @@ export async function setUserSecurityKeyAdminController(app: FastifyInstance) {
         await useCase.execute({ tenantId, userId, securityKey });
 
         const action = securityKey ? 'definida' : 'removida';
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.TENANT_USER_SECURITY_KEY,
+          entityId: userId,
+          placeholders: {
+            adminName: request.user.sub,
+            action,
+            userId,
+            tenantName: tenantId,
+          },
+          affectedUserId: userId,
+        });
+
         return reply.status(200).send({
           message: `Chave de segurança ${action} com sucesso`,
         });

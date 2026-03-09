@@ -14,12 +14,31 @@ export async function adminDashboardController(app: FastifyInstance) {
       tags: ['Admin - Dashboard'],
       summary: 'Get system statistics (super admin)',
       description:
-        'Returns aggregate statistics about the system including total tenants and plans. Requires super admin privileges.',
+        'Returns comprehensive system statistics including tenants, plans, growth trends, recent admin activity, and revenue metrics. Requires super admin privileges.',
       response: {
         200: z.object({
           totalTenants: z.number(),
           totalPlans: z.number(),
           activePlans: z.number(),
+          tenantsByStatus: z.record(z.string(), z.number()),
+          tenantsByTier: z.record(z.string(), z.number()),
+          monthlyGrowth: z.array(
+            z.object({
+              month: z.string(),
+              count: z.number(),
+            }),
+          ),
+          recentActivity: z.array(
+            z.object({
+              id: z.string(),
+              action: z.string(),
+              entity: z.string(),
+              description: z.string().nullable(),
+              createdAt: z.coerce.date(),
+            }),
+          ),
+          totalUsers: z.number(),
+          mrr: z.number(),
         }),
       },
       security: [{ bearerAuth: [] }],
@@ -27,14 +46,9 @@ export async function adminDashboardController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const getSystemStatsUseCase = makeGetSystemStatsUseCase();
-      const { totalTenants, totalPlans, activePlans } =
-        await getSystemStatsUseCase.execute();
+      const stats = await getSystemStatsUseCase.execute();
 
-      return reply.status(200).send({
-        totalTenants,
-        totalPlans,
-        activePlans,
-      });
+      return reply.status(200).send(stats);
     },
   });
 }

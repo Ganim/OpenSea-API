@@ -10,11 +10,21 @@ interface DecryptionPayload {
 
 const CURRENT_VERSION = 1;
 
+export interface DecryptResult {
+  plainText: string;
+  /** true when decryption succeeded with the previous key — caller should re-encrypt */
+  needsReEncrypt: boolean;
+}
+
 export class CredentialCipherService {
   private readonly key: Buffer;
+  private readonly previousKey: Buffer | null;
 
   constructor() {
-    this.key = this.resolveKey();
+    this.key = this.resolveKey(env.EMAIL_CREDENTIALS_KEY);
+    this.previousKey = env.EMAIL_CREDENTIALS_KEY_PREVIOUS
+      ? this.resolveKey(env.EMAIL_CREDENTIALS_KEY_PREVIOUS)
+      : null;
   }
 
   encrypt(plainText: string): string {
@@ -22,8 +32,52 @@ export class CredentialCipherService {
       throw new Error('Credential text is required');
     }
 
+    return this.encryptWithKey(plainText, this.key);
+  }
+
+  /**
+   * Decrypt with current key, falling back to previous key if configured.
+   * When the previous key succeeds, `needsReEncrypt` is true so the caller
+   * can persist the credential re-encrypted with the current key.
+   */
+  decryptWithRotation(encryptedText: string): DecryptResult {
+    if (!encryptedText) {
+      throw new Error('Encrypted credential is required');
+    }
+
+    const payload = this.parsePayload(encryptedText);
+
+    // Try current key first
+    try {
+      const plainText = this.decryptPayload(payload, this.key);
+      return { plainText, needsReEncrypt: false };
+    } catch {
+      // Current key failed — try previous if available
+    }
+
+    if (this.previousKey) {
+      try {
+        const plainText = this.decryptPayload(payload, this.previousKey);
+        return { plainText, needsReEncrypt: true };
+      } catch {
+        // Previous key also failed
+      }
+    }
+
+    throw new Error('Failed to decrypt credential with current or previous key');
+  }
+
+  /**
+   * Simple decrypt (backward-compatible). Uses current key only.
+   */
+  decrypt(encryptedText: string): string {
+    const result = this.decryptWithRotation(encryptedText);
+    return result.plainText;
+  }
+
+  private encryptWithKey(plainText: string, key: Buffer): string {
     const iv = crypto.randomBytes(12);
-    const cipher = crypto.createCipheriv('aes-256-gcm', this.key, iv);
+    const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
 
     const encrypted = Buffer.concat([
       cipher.update(plainText, 'utf8'),
@@ -42,43 +96,32 @@ export class CredentialCipherService {
     return Buffer.from(JSON.stringify(payload)).toString('base64');
   }
 
-  decrypt(encryptedText: string): string {
-    if (!encryptedText) {
-      throw new Error('Encrypted credential is required');
-    }
-
-    let payload: DecryptionPayload;
-
+  private parsePayload(encryptedText: string): DecryptionPayload {
     try {
       const rawPayload = Buffer.from(encryptedText, 'base64').toString('utf8');
-      payload = JSON.parse(rawPayload) as DecryptionPayload;
+      return JSON.parse(rawPayload) as DecryptionPayload;
     } catch {
       throw new Error('Invalid encrypted credential payload');
     }
+  }
 
+  private decryptPayload(payload: DecryptionPayload, key: Buffer): string {
     const iv = Buffer.from(payload.iv, 'base64');
     const tag = Buffer.from(payload.tag, 'base64');
     const content = Buffer.from(payload.content, 'base64');
 
-    const decipher = crypto.createDecipheriv('aes-256-gcm', this.key, iv);
+    const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
     decipher.setAuthTag(tag);
 
-    let decrypted: Buffer;
-    try {
-      decrypted = Buffer.concat([
-        decipher.update(content),
-        decipher.final(),
-      ]);
-    } catch {
-      throw new Error('Failed to decrypt credential');
-    }
+    const decrypted = Buffer.concat([
+      decipher.update(content),
+      decipher.final(),
+    ]);
 
     return decrypted.toString('utf8');
   }
 
-  private resolveKey(): Buffer {
-    const key = env.EMAIL_CREDENTIALS_KEY;
-
+  private resolveKey(key: string | undefined): Buffer {
     if (!key) {
       throw new Error('EMAIL_CREDENTIALS_KEY is not configured');
     }

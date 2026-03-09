@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import { makeManageTenantFeatureFlagsUseCase } from '@/use-cases/admin/tenants/factories/make-manage-tenant-feature-flags-use-case';
@@ -58,6 +60,18 @@ export async function manageFeatureFlagsAdminController(app: FastifyInstance) {
           flag,
           enabled,
           metadata,
+        });
+
+        logAudit(request, {
+          message: AUDIT_MESSAGES.ADMIN.TENANT_FLAG_CHANGE,
+          entityId: featureFlag.id,
+          placeholders: {
+            adminName: request.user.sub,
+            action: enabled ? 'ativou' : 'desativou',
+            flagName: flag,
+            tenantName: id,
+          },
+          newData: { flag, enabled, metadata },
         });
 
         return reply.status(200).send({ featureFlag });

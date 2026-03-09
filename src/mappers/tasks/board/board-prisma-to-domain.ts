@@ -11,7 +11,7 @@ export type BoardUserWithProfile = {
   id: string;
   email: string;
   username: string | null;
-  profile?: { name: string; surname: string } | null;
+  profile?: { name: string; surname: string; avatarUrl?: string | null } | null;
 };
 
 export type BoardWithRelations = PrismaBoard & {
@@ -91,6 +91,7 @@ export function extractBoardRelationsFromPrisma(raw: BoardWithRelations) {
     role: member.role,
     userName: resolveUserName(member.user),
     userEmail: member.user?.email ?? null,
+    userAvatarUrl: member.user?.profile?.avatarUrl ?? null,
     createdAt: member.createdAt,
   }));
 

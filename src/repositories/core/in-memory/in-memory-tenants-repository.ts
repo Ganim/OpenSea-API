@@ -2,6 +2,7 @@ import { Tenant } from '@/entities/core/tenant';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
   CreateTenantSchema,
+  TenantsListFilters,
   TenantsRepository,
   UpdateTenantSchema,
 } from '../tenants-repository';
@@ -66,14 +67,84 @@ export class InMemoryTenantsRepository implements TenantsRepository {
     return tenant ?? null;
   }
 
-  async findMany(page: number, perPage: number): Promise<Tenant[]> {
-    const active = this.items.filter((item) => item.deletedAt === null);
-    const start = (page - 1) * perPage;
+  private applyFilters(items: Tenant[], filters?: TenantsListFilters): Tenant[] {
+    let result = items.filter((item) => item.deletedAt === null);
 
-    return active.slice(start, start + perPage);
+    if (filters?.search) {
+      const searchLower = filters.search.toLowerCase();
+      result = result.filter(
+        (item) =>
+          item.name.toLowerCase().includes(searchLower) ||
+          item.slug.toLowerCase().includes(searchLower),
+      );
+    }
+
+    if (filters?.status) {
+      result = result.filter((item) => item.status === filters.status);
+    }
+
+    return result;
   }
 
-  async countAll(): Promise<number> {
-    return this.items.filter((item) => item.deletedAt === null).length;
+  async findMany(
+    page: number,
+    perPage: number,
+    filters?: TenantsListFilters,
+  ): Promise<Tenant[]> {
+    const filtered = this.applyFilters(this.items, filters);
+    const start = (page - 1) * perPage;
+
+    return filtered.slice(start, start + perPage);
+  }
+
+  async countAll(filters?: TenantsListFilters): Promise<number> {
+    return this.applyFilters(this.items, filters).length;
+  }
+
+  async countByStatus(): Promise<Record<string, number>> {
+    const active = this.items.filter((item) => item.deletedAt === null);
+    const result: Record<string, number> = {};
+    for (const tenant of active) {
+      result[tenant.status] = (result[tenant.status] ?? 0) + 1;
+    }
+    return result;
+  }
+
+  async countMonthlyGrowth(
+    months: number,
+  ): Promise<Array<{ month: string; count: number }>> {
+    const startDate = new Date();
+    startDate.setMonth(startDate.getMonth() - months);
+    startDate.setDate(1);
+    startDate.setHours(0, 0, 0, 0);
+
+    const active = this.items.filter(
+      (item) => item.deletedAt === null && item.createdAt >= startDate,
+    );
+
+    const grouped: Record<string, number> = {};
+    for (const tenant of active) {
+      const month = `${tenant.createdAt.getFullYear()}-${String(tenant.createdAt.getMonth() + 1).padStart(2, '0')}`;
+      grouped[month] = (grouped[month] ?? 0) + 1;
+    }
+
+    return Object.entries(grouped)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([month, count]) => ({ month, count }));
+  }
+
+  async countTenantsByPlanTier(): Promise<Record<string, number>> {
+    // In-memory: returns empty (no plan association in this simple repo)
+    return {};
+  }
+
+  async countTotalUsers(): Promise<number> {
+    // In-memory: returns 0 (no user tracking in this simple repo)
+    return 0;
+  }
+
+  async calculateMrr(): Promise<number> {
+    // In-memory: returns 0 (no plan pricing in this simple repo)
+    return 0;
   }
 }

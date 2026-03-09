@@ -28,6 +28,7 @@ export interface BoardMemberDTO {
   role: string;
   userName: string | null;
   userEmail: string | null;
+  userAvatarUrl: string | null;
   createdAt: Date;
 }
 
