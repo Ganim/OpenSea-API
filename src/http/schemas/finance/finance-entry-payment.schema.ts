@@ -7,6 +7,8 @@ export const registerPaymentSchema = z.object({
   method: z.string().max(32).optional(),
   reference: z.string().max(128).optional(),
   notes: z.string().optional(),
+  interest: z.number().min(0).optional(),
+  penalty: z.number().min(0).optional(),
 });
 
 export const financeEntryPaymentResponseSchema = z.object({

@@ -10,6 +10,7 @@ import {
   type FinanceEntryPaymentDTO,
   financeEntryPaymentToDTO,
 } from '@/mappers/finance/finance-entry-payment/finance-entry-payment-to-dto';
+import type { FinanceCategoriesRepository } from '@/repositories/finance/finance-categories-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { FinanceEntryPaymentsRepository } from '@/repositories/finance/finance-entry-payments-repository';
 import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
@@ -24,12 +25,16 @@ interface RegisterPaymentUseCaseRequest {
   reference?: string;
   notes?: string;
   createdBy?: string;
+  interest?: number;
+  penalty?: number;
 }
 
 interface RegisterPaymentUseCaseResponse {
   entry: FinanceEntryDTO;
   payment: FinanceEntryPaymentDTO;
   nextOccurrence?: FinanceEntryDTO;
+  calculatedInterest?: number;
+  calculatedPenalty?: number;
 }
 
 export class RegisterPaymentUseCase {
@@ -37,6 +42,7 @@ export class RegisterPaymentUseCase {
     private financeEntriesRepository: FinanceEntriesRepository,
     private financeEntryPaymentsRepository: FinanceEntryPaymentsRepository,
     private calendarSyncService?: CalendarSyncService,
+    private categoriesRepository?: FinanceCategoriesRepository,
   ) {}
 
   async execute(
@@ -66,6 +72,67 @@ export class RegisterPaymentUseCase {
       throw new BadRequestError('Payment amount must be positive');
     }
 
+    // Auto-calculate interest and penalty for overdue entries
+    let calculatedInterest: number | undefined;
+    let calculatedPenalty: number | undefined;
+
+    const isOverdue = paidAt > entry.dueDate;
+
+    if (isOverdue && this.categoriesRepository) {
+      const category = await this.categoriesRepository.findById(
+        entry.categoryId,
+        tenantId,
+      );
+
+      if (category) {
+        const overdueDays = Math.floor(
+          (paidAt.getTime() - entry.dueDate.getTime()) / (1000 * 60 * 60 * 24),
+        );
+
+        if (category.interestRate && overdueDays > 0) {
+          calculatedInterest =
+            Math.round(entry.expectedAmount * (category.interestRate / 30) * overdueDays * 100) / 100;
+        }
+
+        if (category.penaltyRate) {
+          calculatedPenalty =
+            Math.round(entry.expectedAmount * category.penaltyRate * 100) / 100;
+        }
+      }
+    }
+
+    // Use caller-provided values if present, otherwise use calculated
+    const finalInterest = request.interest ?? calculatedInterest;
+    const finalPenalty = request.penalty ?? calculatedPenalty;
+
+    // Update entry's interest and penalty if auto-calculated or overridden
+    if (finalInterest !== undefined && finalInterest !== entry.interest) {
+      await this.financeEntriesRepository.update({
+        id: new UniqueEntityID(entryId),
+        tenantId,
+        interest: finalInterest,
+      });
+    }
+
+    if (finalPenalty !== undefined && finalPenalty !== entry.penalty) {
+      await this.financeEntriesRepository.update({
+        id: new UniqueEntityID(entryId),
+        tenantId,
+        penalty: finalPenalty,
+      });
+    }
+
+    // Re-fetch entry after interest/penalty updates to get correct totalDue
+    const refreshedEntry =
+      finalInterest !== undefined || finalPenalty !== undefined
+        ? await this.financeEntriesRepository.findById(
+            new UniqueEntityID(entryId),
+            tenantId,
+          )
+        : entry;
+
+    const entryForPayment = refreshedEntry ?? entry;
+
     const existingPaymentsSum =
       await this.financeEntryPaymentsRepository.sumByEntryId(
         new UniqueEntityID(entryId),
@@ -73,7 +140,7 @@ export class RegisterPaymentUseCase {
 
     const newTotal = existingPaymentsSum + amount;
 
-    if (newTotal > entry.totalDue) {
+    if (newTotal > entryForPayment.totalDue) {
       throw new BadRequestError('Payment amount exceeds remaining balance');
     }
 
@@ -88,11 +155,11 @@ export class RegisterPaymentUseCase {
       createdBy: request.createdBy,
     });
 
-    const isFullyPaid = newTotal === entry.totalDue;
+    const isFullyPaid = newTotal === entryForPayment.totalDue;
 
     if (isFullyPaid) {
       // Fully paid
-      const fullyPaidStatus = entry.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
+      const fullyPaidStatus = entryForPayment.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
       await this.financeEntriesRepository.update({
         id: new UniqueEntityID(entryId),
         tenantId,
@@ -134,11 +201,11 @@ export class RegisterPaymentUseCase {
     // RECURRING: auto-generate next occurrence when fully paid
     if (
       isFullyPaid &&
-      entry.recurrenceType === 'RECURRING' &&
-      entry.parentEntryId
+      entryForPayment.recurrenceType === 'RECURRING' &&
+      entryForPayment.parentEntryId
     ) {
       nextOccurrence = await this.generateNextRecurringOccurrence(
-        entry,
+        entryForPayment,
         tenantId,
         paidAt,
       );
@@ -147,16 +214,18 @@ export class RegisterPaymentUseCase {
     // INSTALLMENT: check if all siblings are paid, then mark master as PAID
     if (
       isFullyPaid &&
-      entry.recurrenceType === 'INSTALLMENT' &&
-      entry.parentEntryId
+      entryForPayment.recurrenceType === 'INSTALLMENT' &&
+      entryForPayment.parentEntryId
     ) {
-      await this.checkAndMarkMasterAsPaid(entry, tenantId);
+      await this.checkAndMarkMasterAsPaid(entryForPayment, tenantId);
     }
 
     return {
       entry: financeEntryToDTO(updatedEntry!),
       payment: financeEntryPaymentToDTO(payment),
       nextOccurrence,
+      calculatedInterest: finalInterest,
+      calculatedPenalty: finalPenalty,
     };
   }
 

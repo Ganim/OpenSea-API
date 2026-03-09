@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceEntry } from '@/entities/finance/finance-entry';
@@ -9,7 +10,13 @@ import {
 import type { CostCentersRepository } from '@/repositories/finance/cost-centers-repository';
 import type { FinanceCategoriesRepository } from '@/repositories/finance/finance-categories-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
+import type { FinanceEntryCostCentersRepository } from '@/repositories/finance/finance-entry-cost-centers-repository';
 import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
+
+interface CostCenterAllocation {
+  costCenterId: string;
+  percentage: number;
+}
 
 interface CreateFinanceEntryUseCaseRequest {
   tenantId: string;
@@ -17,7 +24,8 @@ interface CreateFinanceEntryUseCaseRequest {
   description: string;
   notes?: string;
   categoryId: string;
-  costCenterId: string;
+  costCenterId?: string;
+  costCenterAllocations?: CostCenterAllocation[];
   bankAccountId?: string;
   supplierName?: string;
   customerName?: string;
@@ -54,6 +62,7 @@ export class CreateFinanceEntryUseCase {
     private costCentersRepository: CostCentersRepository,
     private calendarSyncService?: CalendarSyncService,
     private transactionManager?: TransactionManager,
+    private costCenterAllocationsRepository?: FinanceEntryCostCentersRepository,
   ) {}
 
   async execute(
@@ -65,6 +74,7 @@ export class CreateFinanceEntryUseCase {
       description,
       categoryId,
       costCenterId,
+      costCenterAllocations,
       expectedAmount,
     } = request;
 
@@ -89,13 +99,52 @@ export class CreateFinanceEntryUseCase {
       throw new BadRequestError('Category not found');
     }
 
-    // Validate cost center exists
-    const costCenter = await this.costCentersRepository.findById(
-      new UniqueEntityID(costCenterId),
-      tenantId,
-    );
-    if (!costCenter) {
-      throw new BadRequestError('Cost center not found');
+    // Validate cost center assignment: must have costCenterId XOR costCenterAllocations
+    if (costCenterId && costCenterAllocations && costCenterAllocations.length > 0) {
+      throw new BadRequestError(
+        'Cannot provide both costCenterId and costCenterAllocations',
+        ErrorCodes.FINANCE_RATEIO_CONFLICT,
+      );
+    }
+
+    if (!costCenterId && (!costCenterAllocations || costCenterAllocations.length === 0)) {
+      throw new BadRequestError(
+        'Must provide either costCenterId or costCenterAllocations',
+        ErrorCodes.FINANCE_RATEIO_CONFLICT,
+      );
+    }
+
+    // Validate single cost center
+    if (costCenterId) {
+      const costCenter = await this.costCentersRepository.findById(
+        new UniqueEntityID(costCenterId),
+        tenantId,
+      );
+      if (!costCenter) {
+        throw new BadRequestError('Cost center not found');
+      }
+    }
+
+    // Validate rateio allocations
+    if (costCenterAllocations && costCenterAllocations.length > 0) {
+      const sum = costCenterAllocations.reduce((acc, a) => acc + a.percentage, 0);
+      if (Math.abs(sum - 100) >= 0.01) {
+        throw new BadRequestError(
+          'Cost center allocation percentages must sum to 100',
+          ErrorCodes.FINANCE_RATEIO_INVALID_PERCENTAGE,
+        );
+      }
+
+      // Validate all referenced cost centers exist
+      for (const allocation of costCenterAllocations) {
+        const cc = await this.costCentersRepository.findById(
+          new UniqueEntityID(allocation.costCenterId),
+          tenantId,
+        );
+        if (!cc) {
+          throw new BadRequestError('Cost center not found');
+        }
+      }
     }
 
     // Validate recurrence fields
@@ -120,18 +169,19 @@ export class CreateFinanceEntryUseCase {
       }
     }
 
-    // Use transaction for installment/recurring creation (parent + children must be atomic)
-    if (
-      this.transactionManager &&
-      (request.recurrenceType === 'INSTALLMENT' ||
-        request.recurrenceType === 'RECURRING')
-    ) {
+    // Use transaction when we have rateio or installments/recurring
+    const needsTransaction =
+      (costCenterAllocations && costCenterAllocations.length > 0) ||
+      request.recurrenceType === 'INSTALLMENT' ||
+      request.recurrenceType === 'RECURRING';
+
+    if (this.transactionManager && needsTransaction) {
       return this.transactionManager.run(async (tx) => {
         return this.createWithChildren(request, tx);
       });
     }
 
-    // Simple entry (no children) — no transaction needed
+    // Simple entry (no children, no rateio) — no transaction needed
     return this.createWithChildren(request);
   }
 
@@ -147,6 +197,11 @@ export class CreateFinanceEntryUseCase {
       tx,
     );
 
+    // When using rateio, costCenterId on the entry is null
+    const entryCostCenterId = request.costCenterAllocations?.length
+      ? undefined
+      : request.costCenterId;
+
     const entry = await this.financeEntriesRepository.create(
       {
         tenantId,
@@ -155,7 +210,7 @@ export class CreateFinanceEntryUseCase {
         description: description.trim(),
         notes: request.notes,
         categoryId: request.categoryId,
-        costCenterId: request.costCenterId,
+        costCenterId: entryCostCenterId,
         bankAccountId: request.bankAccountId,
         supplierName: request.supplierName,
         customerName: request.customerName,
@@ -181,6 +236,19 @@ export class CreateFinanceEntryUseCase {
       },
       tx,
     );
+
+    // Create cost center allocations if rateio is used
+    if (
+      request.costCenterAllocations?.length &&
+      this.costCenterAllocationsRepository
+    ) {
+      const allocations = this.calculateAllocations(
+        request.costCenterAllocations,
+        expectedAmount,
+        entry.id.toString(),
+      );
+      await this.costCenterAllocationsRepository.createMany(allocations, tx);
+    }
 
     // Calendar sync is non-blocking and happens OUTSIDE the transaction
     if (
@@ -224,6 +292,37 @@ export class CreateFinanceEntryUseCase {
     return { entry: financeEntryToDTO(entry) };
   }
 
+  private calculateAllocations(
+    allocations: CostCenterAllocation[],
+    totalAmount: number,
+    entryId: string,
+  ): { entryId: string; costCenterId: string; percentage: number; amount: number }[] {
+    const result: { entryId: string; costCenterId: string; percentage: number; amount: number }[] = [];
+    let allocatedSum = 0;
+
+    for (let i = 0; i < allocations.length; i++) {
+      const alloc = allocations[i];
+      let amount: number;
+
+      if (i === allocations.length - 1) {
+        // Last item gets the remainder to avoid rounding issues
+        amount = Math.round((totalAmount - allocatedSum) * 100) / 100;
+      } else {
+        amount = Math.round((alloc.percentage / 100) * totalAmount * 100) / 100;
+        allocatedSum += amount;
+      }
+
+      result.push({
+        entryId,
+        costCenterId: alloc.costCenterId,
+        percentage: alloc.percentage,
+        amount,
+      });
+    }
+
+    return result;
+  }
+
   private async generateInstallments(
     request: CreateFinanceEntryUseCaseRequest,
     parentEntryId: string,
@@ -232,6 +331,11 @@ export class CreateFinanceEntryUseCase {
     const installments: FinanceEntryDTO[] = [];
     const installmentAmount =
       request.expectedAmount / request.totalInstallments!;
+
+    // When using rateio, costCenterId on each installment is null
+    const installmentCostCenterId = request.costCenterAllocations?.length
+      ? undefined
+      : request.costCenterId;
 
     for (let i = 1; i <= request.totalInstallments!; i++) {
       const installmentDueDate = this.calculateNextDate(
@@ -256,7 +360,7 @@ export class CreateFinanceEntryUseCase {
           description: `${request.description.trim()} (${i}/${request.totalInstallments})`,
           notes: request.notes,
           categoryId: request.categoryId,
-          costCenterId: request.costCenterId,
+          costCenterId: installmentCostCenterId,
           bankAccountId: request.bankAccountId,
           supplierName: request.supplierName,
           customerName: request.customerName,
@@ -280,6 +384,19 @@ export class CreateFinanceEntryUseCase {
         },
         tx,
       );
+
+      // Create cost center allocations for each installment if rateio is used
+      if (
+        request.costCenterAllocations?.length &&
+        this.costCenterAllocationsRepository
+      ) {
+        const childAllocations = this.calculateAllocations(
+          request.costCenterAllocations,
+          installmentAmount,
+          installmentEntry.id.toString(),
+        );
+        await this.costCenterAllocationsRepository.createMany(childAllocations, tx);
+      }
 
       // Calendar sync is fire-and-forget, outside transaction
       if (this.calendarSyncService && installmentDueDate > new Date()) {
@@ -319,7 +436,9 @@ export class CreateFinanceEntryUseCase {
         description: `${request.description.trim()} (1)`,
         notes: request.notes,
         categoryId: request.categoryId,
-        costCenterId: request.costCenterId,
+        costCenterId: request.costCenterAllocations?.length
+          ? undefined
+          : request.costCenterId,
         bankAccountId: request.bankAccountId,
         supplierName: request.supplierName,
         customerName: request.customerName,
