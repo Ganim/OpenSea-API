@@ -193,6 +193,30 @@ export class InMemoryCardsRepository implements CardsRepository {
       }));
   }
 
+  async findCardsByDueDateRange(from: Date, to: Date): Promise<OverdueCardRecord[]> {
+    return this.items
+      .filter(
+        (card) =>
+          !card.deletedAt &&
+          !card.archivedAt &&
+          card.dueDate &&
+          card.dueDate >= from &&
+          card.dueDate <= to &&
+          card.status !== 'DONE' &&
+          card.status !== 'CANCELED',
+      )
+      .map((card) => ({
+        id: card.id.toString(),
+        boardId: card.boardId.toString(),
+        tenantId: this.boardTenantMap.get(card.boardId.toString()) ?? '',
+        title: card.title,
+        dueDate: card.dueDate!,
+        assigneeId: card.assigneeId?.toString() ?? null,
+        reporterId: card.reporterId.toString(),
+        status: card.status,
+      }));
+  }
+
   async update(data: UpdateCardSchema): Promise<Card | null> {
     const card = this.items.find(
       (card) =>

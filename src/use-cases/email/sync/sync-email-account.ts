@@ -189,7 +189,7 @@ export class SyncEmailAccountUseCase {
         { err: error, tenantId, accountId },
         'Failed to sync email account',
       );
-      console.error('[Email Sync] Failed to sync email account:', reason);
+      // Redundant console.error removed — logger.error above already handles this
       pool.destroy(accountId);
       throw new BadRequestError(`Failed to sync email account: ${reason}`);
     } finally {

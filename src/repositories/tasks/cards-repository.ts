@@ -95,6 +95,7 @@ export interface CardsRepository {
     sourceId: string,
   ): Promise<Card | null>;
   findCardsDueSoon(beforeDate: Date): Promise<OverdueCardRecord[]>;
+  findCardsByDueDateRange(from: Date, to: Date): Promise<OverdueCardRecord[]>;
   findSubtasks(parentCardId: string): Promise<Card[]>;
   countByColumnId(columnId: string): Promise<number>;
   getNextPosition(columnId: string): Promise<number>;

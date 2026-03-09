@@ -1,14 +1,16 @@
 /**
- * Cron script: Check cards with reached due dates
+ * Cron script: Check cards with approaching and reached due dates
  *
- * Runs daily to:
- * 1. Find active cards with dueDate <= now (not DONE, not CANCELED)
- * 2. Create IN_APP notifications for assignees and reporters
+ * Runs hourly to:
+ * 1. Find overdue cards (dueDate <= now) → WARNING/HIGH notification
+ * 2. Find cards due within 1 hour → WARNING/HIGH notification
+ * 3. Find cards due within 24 hours → INFO/MEDIUM notification
+ * 4. Deduplication: each (user, card, level) pair is notified only once
  *
  * Usage:
  *   npx tsx scripts/check-due-date-cards-cron.ts
  *
- * Fly.io Machine schedule: daily at 09:00 UTC
+ * Fly.io Machine schedule: every hour
  */
 
 import { prisma } from '../src/lib/prisma';

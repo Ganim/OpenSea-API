@@ -623,7 +623,7 @@ export class SyncEmailFolderUseCase {
         },
         'Failed to sync email folder',
       );
-      console.error('[Email Sync] Failed to sync email folder:', reason);
+      // Redundant console.error removed — logger.error above already handles this
       if (standaloneMode) pool.destroy(accountId);
       throw new BadRequestError(`Failed to sync email folder: ${reason}`);
     } finally {

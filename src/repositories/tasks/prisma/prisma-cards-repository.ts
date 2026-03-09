@@ -175,6 +175,39 @@ export class PrismaCardsRepository implements CardsRepository {
     }));
   }
 
+  async findCardsByDueDateRange(from: Date, to: Date): Promise<OverdueCardRecord[]> {
+    const rows = await prisma.card.findMany({
+      where: {
+        dueDate: { gte: from, lte: to },
+        deletedAt: null,
+        archivedAt: null,
+        status: { notIn: ['DONE', 'CANCELED'] },
+        board: { deletedAt: null },
+      },
+      select: {
+        id: true,
+        boardId: true,
+        title: true,
+        dueDate: true,
+        assigneeId: true,
+        reporterId: true,
+        status: true,
+        board: { select: { tenantId: true } },
+      },
+    });
+
+    return rows.map((row) => ({
+      id: row.id,
+      boardId: row.boardId,
+      tenantId: row.board.tenantId,
+      title: row.title,
+      dueDate: row.dueDate!,
+      assigneeId: row.assigneeId,
+      reporterId: row.reporterId,
+      status: row.status,
+    }));
+  }
+
   async findSubtasks(parentCardId: string): Promise<Card[]> {
     const rows = await prisma.card.findMany({
       where: { parentCardId, deletedAt: null },
