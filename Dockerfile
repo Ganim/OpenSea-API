@@ -43,8 +43,10 @@ ENV NODE_ENV=production
 ENV PORT=3333
 
 # LibreOffice headless for office → PDF conversion (document preview)
+# poppler-utils for PDF thumbnail generation (libvips+poppler via sharp)
+# ffmpeg for video thumbnail extraction (first frame)
 RUN apk add --no-cache libreoffice-writer libreoffice-calc libreoffice-impress \
-    font-noto font-noto-cjk && \
+    font-noto font-noto-cjk poppler-utils ffmpeg && \
     rm -rf /var/cache/apk/*
 
 # Cria usuário não-root para segurança
