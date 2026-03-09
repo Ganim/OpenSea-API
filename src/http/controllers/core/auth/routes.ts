@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
+import { loginBruteforceGuard } from '@/http/plugins/login-bruteforce-guard.plugin';
 import { authenticateWithAccessPinController } from './v1-authenticate-with-access-pin.controller';
 import { authenticateWithPasswordController } from './v1-authenticate-with-password.controller';
 import { listUserTenantsController } from './v1-list-user-tenants.controller';
@@ -14,6 +15,7 @@ export async function authRoutes(app: FastifyInstance) {
   app.register(
     async (authApp) => {
       authApp.register(rateLimit, rateLimitConfig.auth);
+      authApp.register(loginBruteforceGuard); // Blocks IP after 10 failed logins in 15min
       authApp.register(authenticateWithPasswordController);
       authApp.register(authenticateWithAccessPinController);
       authApp.register(registerNewUserController);

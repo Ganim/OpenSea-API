@@ -5,6 +5,10 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UserBlockedError } from '@/@errors/use-cases/user-blocked-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
+import {
+  clearLoginFailures,
+  recordLoginFailure,
+} from '@/http/plugins/login-bruteforce-guard.plugin';
 import { authResponseSchema, loginSchema } from '@/http/schemas';
 import { makeAuthenticateWithPasswordUseCase } from '@/use-cases/core/auth/factories/make-authenticate-with-password-use-case';
 
@@ -55,6 +59,9 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
             reply,
           });
 
+        // Clear brute-force counter on successful login
+        clearLoginFailures(ip).catch(() => {});
+
         // Auditoria de login bem-sucedido
         await logAudit(request, {
           message: AUDIT_MESSAGES.CORE.AUTH_LOGIN,
@@ -79,6 +86,14 @@ export async function authenticateWithPasswordController(app: FastifyInstance) {
           .status(200)
           .send({ user, sessionId, token, refreshToken });
       } catch (error) {
+        // Record failed attempt for brute-force protection
+        if (
+          error instanceof BadRequestError ||
+          error instanceof ResourceNotFoundError
+        ) {
+          recordLoginFailure(ip).catch(() => {});
+        }
+
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }
