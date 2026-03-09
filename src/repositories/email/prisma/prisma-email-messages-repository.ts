@@ -406,6 +406,8 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
 
     const pattern = `%${query}%`;
 
+    // Prisma $queryRawUnsafe passes JS string[] as text[], not uuid[].
+    // We cast account_id to text so the comparison works without type mismatch.
     const rows = await prisma.$queryRawUnsafe<
       Array<{ email: string; name: string | null; frequency: number }>
     >(
@@ -415,7 +417,7 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
         -- From addresses (received emails)
         SELECT from_address AS email, from_name AS name, COUNT(*)::int AS frequency
         FROM email_messages
-        WHERE account_id = ANY($1::uuid[])
+        WHERE account_id::text = ANY($1)
           AND deleted_at IS NULL
           AND (from_address ILIKE $2 OR from_name ILIKE $2)
         GROUP BY from_address, from_name
@@ -425,7 +427,7 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
         -- To addresses (sent emails)
         SELECT addr AS email, NULL AS name, COUNT(*)::int AS frequency
         FROM email_messages, unnest(to_addresses) AS addr
-        WHERE account_id = ANY($1::uuid[])
+        WHERE account_id::text = ANY($1)
           AND deleted_at IS NULL
           AND addr ILIKE $2
         GROUP BY addr
@@ -435,7 +437,7 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
         -- CC addresses
         SELECT addr AS email, NULL AS name, COUNT(*)::int AS frequency
         FROM email_messages, unnest(cc_addresses) AS addr
-        WHERE account_id = ANY($1::uuid[])
+        WHERE account_id::text = ANY($1)
           AND deleted_at IS NULL
           AND addr ILIKE $2
         GROUP BY addr
