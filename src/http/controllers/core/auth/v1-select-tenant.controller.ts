@@ -64,7 +64,7 @@ export async function selectTenantController(app: FastifyInstance) {
         // Ensure personal calendar + system calendars exist (fire-and-forget, non-blocking)
         Promise.all([
           makeCreatePersonalCalendarUseCase().execute({ tenantId, userId }),
-          makeEnsureSystemCalendarsUseCase().execute({ tenantId }),
+          makeEnsureSystemCalendarsUseCase().execute({ tenantId, userId }),
         ]).catch((err) => {
           logger.warn(
             { err, tenantId, userId },

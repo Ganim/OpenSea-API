@@ -6,17 +6,16 @@ const SYSTEM_MODULES = [
   { module: 'STOCK', name: 'Estoque', color: '#f59e0b' },
 ] as const;
 
-const SYSTEM_USER_ID = '00000000-0000-0000-0000-000000000000';
-
 interface EnsureSystemCalendarsRequest {
   tenantId: string;
+  userId: string;
 }
 
 export class EnsureSystemCalendarsUseCase {
   constructor(private calendarsRepository: CalendarsRepository) {}
 
   async execute(request: EnsureSystemCalendarsRequest): Promise<void> {
-    const { tenantId } = request;
+    const { tenantId, userId } = request;
 
     for (const { module, name, color } of SYSTEM_MODULES) {
       const existing = await this.calendarsRepository.findSystemByModule(
@@ -31,7 +30,7 @@ export class EnsureSystemCalendarsUseCase {
           type: 'SYSTEM',
           systemModule: module,
           isDefault: false,
-          createdBy: SYSTEM_USER_ID,
+          createdBy: userId,
         });
       }
     }

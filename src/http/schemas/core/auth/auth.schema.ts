@@ -43,11 +43,29 @@ export const requestPasswordResetSchema = z.object({
 });
 
 /**
+ * Schema para tenant resumido na resposta de login
+ */
+const tenantSummarySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  logoUrl: z.string().nullable(),
+  status: z.string(),
+  role: z.string(),
+  joinedAt: z.coerce.date(),
+});
+
+/**
  * Schema para resposta de autenticação
+ *
+ * - Se o usuário tem exatamente 1 tenant, `tenant` vem preenchido e o token já é tenant-scoped
+ * - `tenants` sempre lista os tenants disponíveis (para exibir selector ou confirmar auto-seleção)
  */
 export const authResponseSchema = z.object({
   user: userResponseSchema,
   sessionId: idSchema,
   token: z.string(),
   refreshToken: z.string(),
+  tenant: tenantSummarySchema.nullable(),
+  tenants: z.array(tenantSummarySchema),
 });

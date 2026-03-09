@@ -8,6 +8,11 @@ import type {
   PermissionAuditLogsRepository,
 } from '../permission-audit-logs-repository';
 
+function truncate(value: string | undefined | null, maxLength: number): string | undefined | null {
+  if (!value) return value;
+  return value.length > maxLength ? value.slice(0, maxLength) : value;
+}
+
 export class PrismaPermissionAuditLogsRepository
   implements PermissionAuditLogsRepository
 {
@@ -16,15 +21,15 @@ export class PrismaPermissionAuditLogsRepository
     const auditLog = await prisma.permissionAuditLog.create({
       data: {
         userId: data.userId.toString(),
-        permissionCode: data.permissionCode,
+        permissionCode: truncate(data.permissionCode, 128)!,
         allowed: data.allowed,
-        reason: data.reason,
-        resource: data.resource,
+        reason: truncate(data.reason, 512),
+        resource: truncate(data.resource, 64),
         resourceId: data.resourceId,
-        action: data.action,
-        ip: data.ip,
-        userAgent: data.userAgent,
-        endpoint: data.endpoint,
+        action: truncate(data.action, 64),
+        ip: truncate(data.ip, 64),
+        userAgent: truncate(data.userAgent, 512),
+        endpoint: truncate(data.endpoint, 256),
       },
     });
 
@@ -78,15 +83,15 @@ export class PrismaPermissionAuditLogsRepository
     await prisma.permissionAuditLog.createMany({
       data: data.map((d) => ({
         userId: d.userId.toString(),
-        permissionCode: d.permissionCode,
+        permissionCode: truncate(d.permissionCode, 128)!,
         allowed: d.allowed,
-        reason: d.reason,
-        resource: d.resource,
+        reason: truncate(d.reason, 512),
+        resource: truncate(d.resource, 64),
         resourceId: d.resourceId,
-        action: d.action,
-        ip: d.ip,
-        userAgent: d.userAgent,
-        endpoint: d.endpoint,
+        action: truncate(d.action, 64),
+        ip: truncate(d.ip, 64),
+        userAgent: truncate(d.userAgent, 512),
+        endpoint: truncate(d.endpoint, 256),
       })),
     });
   }

@@ -49,12 +49,11 @@ const heapCheckInterval = setInterval(() => {
   const heapRatio = mem.heapUsed / mem.heapTotal;
   if (heapRatio > HEAP_WARNING_THRESHOLD && Date.now() - lastHeapWarning > 60_000) {
     lastHeapWarning = Date.now();
+    const heapUsedMB = Math.round(mem.heapUsed / 1024 / 1024);
+    const heapTotalMB = Math.round(mem.heapTotal / 1024 / 1024);
+    const rssMB = Math.round(mem.rss / 1024 / 1024);
     console.warn(
-      '[MEMORY] High heap usage: %dMB / %dMB (%.1f%%) — rss=%dMB',
-      Math.round(mem.heapUsed / 1024 / 1024),
-      Math.round(mem.heapTotal / 1024 / 1024),
-      heapRatio * 100,
-      Math.round(mem.rss / 1024 / 1024),
+      `[MEMORY] High heap usage: ${heapUsedMB}MB / ${heapTotalMB}MB (${(heapRatio * 100).toFixed(1)}%) — rss=${rssMB}MB`,
     );
   }
 }, 30_000);
