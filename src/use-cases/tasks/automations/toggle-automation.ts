@@ -3,6 +3,7 @@ import type {
   BoardAutomationRecord,
   BoardAutomationsRepository,
 } from '@/repositories/tasks/board-automations-repository';
+import type { BoardsRepository } from '@/repositories/tasks/boards-repository';
 
 interface ToggleAutomationRequest {
   tenantId: string;
@@ -19,12 +20,19 @@ interface ToggleAutomationResponse {
 export class ToggleAutomationUseCase {
   constructor(
     private boardAutomationsRepository: BoardAutomationsRepository,
+    private boardsRepository: BoardsRepository,
   ) {}
 
   async execute(
     request: ToggleAutomationRequest,
   ): Promise<ToggleAutomationResponse> {
-    const { boardId, automationId, isActive } = request;
+    const { tenantId, boardId, automationId, isActive } = request;
+
+    const board = await this.boardsRepository.findById(boardId, tenantId);
+
+    if (!board) {
+      throw new ResourceNotFoundError('Board not found');
+    }
 
     const existingAutomation =
       await this.boardAutomationsRepository.findById(automationId, boardId);

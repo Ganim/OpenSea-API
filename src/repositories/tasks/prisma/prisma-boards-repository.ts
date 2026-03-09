@@ -71,7 +71,7 @@ export class PrismaBoardsRepository implements BoardsRepository {
       OR: [
         { ownerId: userId },
         { members: { some: { userId } } },
-        { type: 'TEAM', teamId: { not: null } },
+        { visibility: 'SHARED' },
       ],
     };
 
@@ -98,6 +98,11 @@ export class PrismaBoardsRepository implements BoardsRepository {
   }
 
   async update(data: UpdateBoardSchema): Promise<Board | null> {
+    const existing = await prisma.board.findFirst({
+      where: { id: data.id, tenantId: data.tenantId },
+    });
+    if (!existing) return null;
+
     const raw = await prisma.board.update({
       where: { id: data.id },
       data: {

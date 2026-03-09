@@ -12,7 +12,11 @@ export type SystemModule =
   | 'AUDIT'
   | 'REQUESTS'
   | 'NOTIFICATIONS'
-  | 'FINANCE';
+  | 'FINANCE'
+  | 'CALENDAR'
+  | 'STORAGE'
+  | 'EMAIL'
+  | 'TASKS';
 
 /**
  * Factory that creates a middleware to verify if the tenant's plan

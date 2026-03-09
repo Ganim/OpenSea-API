@@ -55,7 +55,7 @@ export class ProcessDueRemindersUseCase {
         };
 
         // Send IN_APP + EMAIL notifications
-        await Promise.allSettled([
+        const results = await Promise.allSettled([
           createFromTemplate.execute({
             ...notificationData,
             templateCode: 'calendar.event.reminder',
@@ -66,8 +66,18 @@ export class ProcessDueRemindersUseCase {
           }),
         ]);
 
-        await this.eventRemindersRepository.markSent(reminder.id.toString());
-        processed++;
+        const hasAnySuccess = results.some((r) => r.status === 'fulfilled');
+
+        if (hasAnySuccess) {
+          await this.eventRemindersRepository.markSent(reminder.id.toString());
+          processed++;
+        } else {
+          logger.warn(
+            { reminderId: reminder.id.toString(), eventTitle },
+            'All notification channels failed for reminder, skipping markSent',
+          );
+          errors++;
+        }
       } catch (err) {
         logger.error(
           { err, reminderId: reminder.id.toString() },

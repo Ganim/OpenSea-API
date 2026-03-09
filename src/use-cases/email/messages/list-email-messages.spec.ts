@@ -151,6 +151,117 @@ describe('ListEmailMessagesUseCase', () => {
     expect(result.messages.length).toBeGreaterThan(0);
   });
 
+  it('should paginate with cursor and return nextCursor', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    // First page with cursor (no cursor = first page)
+    // Use limit=2 so we get a nextCursor
+    const firstPage = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      accountId: account!.id.toString(),
+      limit: 2,
+      cursor: undefined,
+    });
+
+    // Without cursor, nextCursor should be undefined (offset mode)
+    expect(firstPage.messages).toHaveLength(2);
+    expect(firstPage.nextCursor).toBeUndefined();
+  });
+
+  it('should use cursor to fetch subsequent pages', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    // Create messages with distinct receivedAt timestamps
+    messagesRepository.items.length = 0; // clear
+    const folders = await foldersRepository.listByAccount(account!.id.toString());
+    const folderId = folders[0].id.toString();
+
+    for (let i = 0; i < 5; i++) {
+      await messagesRepository.create({
+        tenantId: 'tenant-1',
+        accountId: account!.id.toString(),
+        folderId,
+        remoteUid: 100 + i,
+        fromAddress: `sender${i}@example.com`,
+        toAddresses: ['user@example.com'],
+        subject: `Cursor Test ${i}`,
+        receivedAt: new Date(Date.now() - i * 60000), // each 1 min apart
+      });
+    }
+
+    // Build a cursor from the 2nd message (index 1 = second most recent)
+    const sorted = [...messagesRepository.items].sort(
+      (a, b) => b.receivedAt.getTime() - a.receivedAt.getTime(),
+    );
+    const secondMsg = sorted[1];
+    const cursor = Buffer.from(
+      JSON.stringify({ r: secondMsg.receivedAt.toISOString(), i: secondMsg.id.toString() }),
+    ).toString('base64');
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      accountId: account!.id.toString(),
+      limit: 2,
+      cursor,
+    });
+
+    // Should get messages after the 2nd one (i.e., 3rd and 4th most recent)
+    expect(result.messages).toHaveLength(2);
+    expect(result.nextCursor).toBeTruthy(); // still 1 more message left
+    expect(result.total).toBe(5); // total always reflects full count
+  });
+
+  it('should return null nextCursor on last page when using cursor', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    messagesRepository.items.length = 0;
+    const folders = await foldersRepository.listByAccount(account!.id.toString());
+    const folderId = folders[0].id.toString();
+
+    for (let i = 0; i < 3; i++) {
+      await messagesRepository.create({
+        tenantId: 'tenant-1',
+        accountId: account!.id.toString(),
+        folderId,
+        remoteUid: 200 + i,
+        fromAddress: `sender${i}@example.com`,
+        toAddresses: ['user@example.com'],
+        subject: `Last Page ${i}`,
+        receivedAt: new Date(Date.now() - i * 60000),
+      });
+    }
+
+    const sorted = [...messagesRepository.items].sort(
+      (a, b) => b.receivedAt.getTime() - a.receivedAt.getTime(),
+    );
+    // Cursor at 1st item, so next page starts from 2nd
+    const cursor = Buffer.from(
+      JSON.stringify({ r: sorted[0].receivedAt.toISOString(), i: sorted[0].id.toString() }),
+    ).toString('base64');
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      accountId: account!.id.toString(),
+      limit: 10, // larger than remaining items
+      cursor,
+    });
+
+    expect(result.messages).toHaveLength(2); // 2 items after the first
+    expect(result.nextCursor).toBeNull(); // no more pages
+  });
+
   it('should throw error if user does not have access', async () => {
     const otherAccount = await accountsRepository.create({
       tenantId: 'tenant-1',

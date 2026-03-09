@@ -14,7 +14,7 @@ export function makeUploadFileUseCase() {
   const storageFileVersionsRepository =
     new PrismaStorageFileVersionsRepository();
   const fileUploadService = env.S3_ENDPOINT
-    ? new S3FileUploadService()
+    ? S3FileUploadService.getInstance()
     : new LocalFileUploadService();
   const thumbnailService = new CompositeThumbnailService([
     new SharpThumbnailService(),

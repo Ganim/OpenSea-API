@@ -47,6 +47,7 @@ export async function createChecklistController(app: FastifyInstance) {
         const result = await useCase.execute({
           tenantId,
           userId,
+          userName: 'System',
           boardId,
           cardId,
           ...request.body,

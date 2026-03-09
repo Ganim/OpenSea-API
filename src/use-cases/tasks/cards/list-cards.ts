@@ -56,6 +56,7 @@ export class ListCardsUseCase {
       search: request.search,
       startDate: request.startDate,
       endDate: request.endDate,
+      parentCardId: null,
       page,
       limit,
     });

@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type {
   ChecklistItemRecord,
@@ -36,6 +37,10 @@ export class AddChecklistItemUseCase {
 
     if (!checklist) {
       throw new ResourceNotFoundError('Checklist not found');
+    }
+
+    if (!title || title.trim().length === 0) {
+      throw new BadRequestError('Checklist item title is required');
     }
 
     const existingItems =

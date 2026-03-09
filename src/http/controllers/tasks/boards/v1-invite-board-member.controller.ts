@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -43,6 +44,7 @@ export async function inviteBoardMemberController(app: FastifyInstance) {
       const userId = request.user.sub;
       const tenantId = request.user.tenantId!;
       const { boardId } = request.params;
+      const userName = await resolveUserName(userId);
 
       try {
         const useCase = makeInviteBoardMemberUseCase();
@@ -57,7 +59,7 @@ export async function inviteBoardMemberController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.TASKS.MEMBER_INVITE,
           entityId: result.member.id,
-          placeholders: { userName: 'System', boardTitle: boardId },
+          placeholders: { userName, boardTitle: boardId },
           newData: request.body,
         });
 

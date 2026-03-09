@@ -16,6 +16,7 @@ interface ListCentralInboxRequest {
   search?: string;
   page?: number;
   limit?: number;
+  cursor?: string;
 }
 
 interface ListCentralInboxResponse {
@@ -24,6 +25,7 @@ interface ListCentralInboxResponse {
   page: number;
   limit: number;
   pages: number;
+  nextCursor?: string | null;
 }
 
 export class ListCentralInboxUseCase {
@@ -75,6 +77,7 @@ export class ListCentralInboxUseCase {
       search: request.search,
       page,
       limit,
+      cursor: request.cursor,
     });
 
     const pages = Math.ceil(result.total / limit);
@@ -85,6 +88,7 @@ export class ListCentralInboxUseCase {
       page,
       limit,
       pages,
+      nextCursor: result.nextCursor,
     };
   }
 }

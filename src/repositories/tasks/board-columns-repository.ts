@@ -35,6 +35,7 @@ export interface UpdateBoardColumnSchema {
 
 export interface BoardColumnsRepository {
   create(data: CreateBoardColumnSchema): Promise<BoardColumnRecord>;
+  createMany(data: CreateBoardColumnSchema[]): Promise<BoardColumnRecord[]>;
   findById(id: string, boardId: string): Promise<BoardColumnRecord | null>;
   findByBoardId(boardId: string): Promise<BoardColumnRecord[]>;
   findDefaultColumn(boardId: string): Promise<BoardColumnRecord | null>;
@@ -44,4 +45,5 @@ export interface BoardColumnsRepository {
   restore(id: string, boardId: string): Promise<void>;
   delete(id: string, boardId: string): Promise<void>;
   reorder(id: string, boardId: string, newPosition: number): Promise<void>;
+  reorderMany(columns: { id: string; position: number }[], boardId: string): Promise<void>;
 }

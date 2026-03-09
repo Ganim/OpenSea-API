@@ -170,6 +170,11 @@ export class PrismaCardsRepository implements CardsRepository {
       }
     }
 
+    const existing = await prisma.card.findFirst({
+      where: { id: data.id, boardId: data.boardId, deletedAt: null },
+    });
+    if (!existing) return null;
+
     const raw = await prisma.card.update({
       where: { id: data.id },
       data: {
@@ -214,9 +219,29 @@ export class PrismaCardsRepository implements CardsRepository {
     return cardPrismaToDomain(raw);
   }
 
+  async updateManyColumn(
+    cardIds: string[],
+    _boardId: string,
+    columnId: string,
+  ): Promise<void> {
+    if (cardIds.length === 0) return;
+    await prisma.card.updateMany({
+      where: { id: { in: cardIds } },
+      data: { columnId },
+    });
+  }
+
   async softDelete(id: string, _boardId: string): Promise<void> {
     await prisma.card.update({
       where: { id },
+      data: { deletedAt: new Date() },
+    });
+  }
+
+  async softDeleteMany(ids: string[], _boardId: string): Promise<void> {
+    if (ids.length === 0) return;
+    await prisma.card.updateMany({
+      where: { id: { in: ids } },
       data: { deletedAt: new Date() },
     });
   }

@@ -9,7 +9,7 @@ export function makeUploadAttachmentUseCase() {
   const entriesRepository = new PrismaFinanceEntriesRepository();
   const attachmentsRepository = new PrismaFinanceAttachmentsRepository();
   const fileUploadService = env.S3_ENDPOINT
-    ? new S3FileUploadService()
+    ? S3FileUploadService.getInstance()
     : new LocalFileUploadService();
 
   return new UploadAttachmentUseCase(

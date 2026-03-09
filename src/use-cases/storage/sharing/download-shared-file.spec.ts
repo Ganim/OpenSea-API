@@ -111,8 +111,9 @@ describe('DownloadSharedFileUseCase', () => {
 
     const result = await sut.execute({ token: 'download-token' });
 
-    expect(result.url).toContain('storage/tenant-1/document.pdf');
-    expect(result.url).toContain('signed=true');
+    expect(result.buffer).toBeInstanceOf(Buffer);
+    expect(result.fileName).toBe('document.pdf');
+    expect(result.mimeType).toBe('application/pdf');
 
     const updatedLink =
       await storageShareLinksRepository.findByToken('download-token');
@@ -148,7 +149,8 @@ describe('DownloadSharedFileUseCase', () => {
       password: 'download-pass',
     });
 
-    expect(result.url).toContain('signed=true');
+    expect(result.buffer).toBeInstanceOf(Buffer);
+    expect(result.fileName).toBe('secret.pdf');
   });
 
   it('should throw when share link does not exist', async () => {

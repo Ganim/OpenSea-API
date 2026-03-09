@@ -52,6 +52,10 @@ export class UpdateSubtaskUseCase {
       status,
     });
 
+    if (!updatedSubtask) {
+      throw new ResourceNotFoundError('Subtask not found after update');
+    }
+
     const changedFields: string[] = [];
     if (title !== undefined) changedFields.push('title');
     if (description !== undefined) changedFields.push('description');
@@ -65,10 +69,10 @@ export class UpdateSubtaskUseCase {
       boardId,
       userId,
       type: 'SUBTASK_UPDATED',
-      description: `${userName} atualizou a sub-tarefa ${updatedSubtask!.title}`,
+      description: `${userName} atualizou a sub-tarefa ${updatedSubtask.title}`,
       metadata: { changedFields },
     });
 
-    return { subtask: updatedSubtask! };
+    return { subtask: updatedSubtask };
   }
 }

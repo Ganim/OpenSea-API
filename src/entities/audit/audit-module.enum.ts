@@ -12,6 +12,7 @@ export enum AuditModule {
   CALENDAR = 'CALENDAR',
   STORAGE = 'STORAGE',
   TASKS = 'TASKS',
+  EMAIL = 'EMAIL',
   SYSTEM = 'SYSTEM',
   OTHER = 'OTHER',
 }

@@ -20,17 +20,17 @@ export const automationActionEnum = z.enum([
 export const createAutomationSchema = z.object({
   name: z.string().min(1).max(256),
   trigger: automationTriggerEnum,
-  triggerConfig: z.record(z.string(), z.unknown()).optional().nullable(),
+  triggerConfig: z.record(z.string(), z.unknown()).optional().default({}),
   action: automationActionEnum,
-  actionConfig: z.record(z.string(), z.unknown()).optional().nullable(),
+  actionConfig: z.record(z.string(), z.unknown()).optional().default({}),
 });
 
 export const updateAutomationSchema = z.object({
   name: z.string().min(1).max(256).optional(),
   trigger: automationTriggerEnum.optional(),
-  triggerConfig: z.record(z.string(), z.unknown()).optional().nullable(),
+  triggerConfig: z.record(z.string(), z.unknown()).optional(),
   action: automationActionEnum.optional(),
-  actionConfig: z.record(z.string(), z.unknown()).optional().nullable(),
+  actionConfig: z.record(z.string(), z.unknown()).optional(),
   isActive: z.boolean().optional(),
 });
 

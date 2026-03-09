@@ -83,5 +83,7 @@ export interface CardsRepository {
   findSubtasks(parentCardId: string): Promise<Card[]>;
   countByColumnId(columnId: string): Promise<number>;
   update(data: UpdateCardSchema): Promise<Card | null>;
+  updateManyColumn(cardIds: string[], boardId: string, columnId: string): Promise<void>;
   softDelete(id: string, boardId: string): Promise<void>;
+  softDeleteMany(ids: string[], boardId: string): Promise<void>;
 }

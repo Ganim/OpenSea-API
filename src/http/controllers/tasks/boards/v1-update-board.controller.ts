@@ -1,8 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -40,6 +42,7 @@ export async function updateBoardController(app: FastifyInstance) {
       const userId = request.user.sub;
       const tenantId = request.user.tenantId!;
       const { boardId } = request.params;
+      const userName = await resolveUserName(userId);
 
       try {
         const useCase = makeUpdateBoardUseCase();
@@ -53,7 +56,7 @@ export async function updateBoardController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.TASKS.BOARD_UPDATE,
           entityId: boardId,
-          placeholders: { userName: 'System', boardTitle: result.board.title },
+          placeholders: { userName, boardTitle: result.board.title },
           newData: request.body,
         });
 
@@ -61,6 +64,9 @@ export async function updateBoardController(app: FastifyInstance) {
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
         }
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

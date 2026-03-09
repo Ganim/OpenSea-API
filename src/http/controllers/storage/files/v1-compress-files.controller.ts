@@ -1,10 +1,14 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { PlanLimitExceededError } from '@/@errors/use-cases/plan-limit-exceeded-error';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { storageFileResponseSchema } from '@/http/schemas/storage';
 import { storageFileToDTO } from '@/mappers/storage';
+import { TenantContextService } from '@/services/tenant/tenant-context-service';
 import { makeCompressFilesUseCase } from '@/use-cases/storage/files/factories/make-compress-files-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -37,6 +41,9 @@ export async function compressFilesController(app: FastifyInstance) {
         400: z.object({
           message: z.string(),
         }),
+        413: z.object({
+          message: z.string(),
+        }),
       },
       security: [{ bearerAuth: [] }],
     },
@@ -46,6 +53,14 @@ export async function compressFilesController(app: FastifyInstance) {
       const { fileIds, folderIds, targetFolderId } = request.body;
 
       try {
+        // Resolve tenant storage quota
+        const tenantContext = new TenantContextService();
+        const limits = await tenantContext.getPlanLimits(tenantId);
+        const maxStorageBytes =
+          limits.maxStorageMb > 0
+            ? limits.maxStorageMb * 1024 * 1024
+            : undefined;
+
         const compressFilesUseCase = makeCompressFilesUseCase();
         const { file } = await compressFilesUseCase.execute({
           tenantId,
@@ -53,12 +68,32 @@ export async function compressFilesController(app: FastifyInstance) {
           folderIds,
           targetFolderId,
           userId: request.user.sub,
+          maxStorageBytes,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STORAGE.FILE_UPLOAD,
+          entityId: file.id.toString(),
+          placeholders: {
+            userName: request.user.sub,
+            fileName: file.name,
+            folderName: targetFolderId ?? 'root',
+          },
+          newData: {
+            operation: 'compress',
+            fileIds,
+            folderIds,
+            resultFileName: file.name,
+          },
         });
 
         return reply.status(201).send({ file: storageFileToDTO(file) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
+        }
+        if (error instanceof PlanLimitExceededError) {
+          return reply.status(413).send({ message: error.message });
         }
         throw error;
       }

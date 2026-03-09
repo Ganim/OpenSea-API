@@ -15,6 +15,22 @@ import type {
     UpdateEmailMessageSchema,
 } from '../email-messages-repository';
 
+function encodeCursor(receivedAt: Date, id: string): string {
+  return Buffer.from(JSON.stringify({ r: receivedAt.toISOString(), i: id })).toString('base64');
+}
+
+function decodeCursor(cursor: string): { receivedAt: Date; id: string } | null {
+  try {
+    const parsed = JSON.parse(Buffer.from(cursor, 'base64').toString('utf-8'));
+    if (typeof parsed.r !== 'string' || typeof parsed.i !== 'string') return null;
+    const date = new Date(parsed.r);
+    if (isNaN(date.getTime())) return null;
+    return { receivedAt: date, id: parsed.i };
+  } catch {
+    return null;
+  }
+}
+
 export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
   async create(data: CreateEmailMessageSchema): Promise<EmailMessage> {
     const messageDb = await prisma.emailMessage.create({
@@ -95,37 +111,61 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
   async list(
     params: EmailMessagesListParams,
   ): Promise<EmailMessagesListResult> {
-    const page = params.page ?? 1;
     const limit = Math.min(params.limit ?? 20, 100);
-    const skip = (page - 1) * limit;
     const search = params.search?.trim();
+    const cursorData = params.cursor ? decodeCursor(params.cursor) : null;
+    const useCursor = !!cursorData;
+
+    // When using cursor, we don't need page/skip
+    const page = params.page ?? 1;
+    const skip = useCursor ? 0 : (page - 1) * limit;
 
     if (!search) {
-      const where = {
+      const baseWhere = {
         tenantId: params.tenantId,
         accountId: params.accountId,
         ...(params.folderId ? { folderId: params.folderId } : {}),
         ...(params.unread !== undefined ? { isRead: !params.unread } : {}),
+        ...(params.flagged !== undefined ? { isFlagged: params.flagged } : {}),
         deletedAt: null,
       };
+
+      const where = useCursor
+        ? {
+            ...baseWhere,
+            OR: [
+              { receivedAt: { lt: cursorData!.receivedAt } },
+              { receivedAt: cursorData!.receivedAt, id: { lt: cursorData!.id } },
+            ],
+          }
+        : baseWhere;
 
       const [messages, total] = await Promise.all([
         prisma.emailMessage.findMany({
           where,
-          orderBy: { receivedAt: 'desc' },
-          skip,
+          orderBy: [{ receivedAt: 'desc' }, { id: 'desc' }],
+          ...(useCursor ? {} : { skip }),
           take: limit,
         }),
-        prisma.emailMessage.count({ where }),
+        prisma.emailMessage.count({ where: baseWhere }),
       ]);
 
+      const domainMessages = messages.map(emailMessagePrismaToDomain);
+      const nextCursor = useCursor
+        ? (messages.length === limit
+          ? encodeCursor(messages[messages.length - 1].receivedAt, messages[messages.length - 1].id)
+          : null)
+        : undefined;
+
       return {
-        messages: messages.map(emailMessagePrismaToDomain),
+        messages: domainMessages,
         total,
+        nextCursor,
       };
     }
 
-    const paramsList: Array<string | number | boolean> = [
+    // Full-text search path (raw SQL)
+    const paramsList: Array<string | number | boolean | Date> = [
       params.tenantId,
       params.accountId,
     ];
@@ -146,36 +186,67 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
       index += 1;
     }
 
-    whereClause += ` AND to_tsvector('simple', COALESCE(subject, '') || ' ' || COALESCE(from_address, '') || ' ' || COALESCE(from_name, '') || ' ' || COALESCE(snippet, '')) @@ plainto_tsquery('simple', $${index})`;
+    if (params.flagged !== undefined) {
+      whereClause += ` AND is_flagged = $${index}`;
+      paramsList.push(params.flagged);
+      index += 1;
+    }
+
+    whereClause += ` AND to_tsvector('simple', COALESCE(subject, '') || ' ' || COALESCE(from_address, '') || ' ' || COALESCE(from_name, '') || ' ' || COALESCE(snippet, '')) @@ websearch_to_tsquery('simple', $${index})`;
     paramsList.push(search);
     index += 1;
 
-    const countQuery = `SELECT COUNT(*)::int AS count FROM email_messages ${whereClause}`;
-    const listQuery = `SELECT id FROM email_messages ${whereClause} ORDER BY received_at DESC OFFSET $${index} LIMIT $${index + 1}`;
-
+    // Base where (without cursor) for COUNT
+    const countWhereClause = whereClause;
     const countParams = [...paramsList];
-    const listParams = [...paramsList, skip, limit];
+
+    // Add cursor filter to WHERE if using cursor
+    if (useCursor) {
+      whereClause += ` AND (received_at < $${index} OR (received_at = $${index} AND id < $${index + 1}))`;
+      paramsList.push(cursorData!.receivedAt);
+      index += 1;
+      paramsList.push(cursorData!.id);
+      index += 1;
+    }
+
+    const countQuery = `SELECT COUNT(*)::int AS count FROM email_messages ${countWhereClause}`;
+    const listQuery = useCursor
+      ? `SELECT id, received_at FROM email_messages ${whereClause} ORDER BY received_at DESC, id DESC LIMIT $${index}`
+      : `SELECT id, received_at FROM email_messages ${whereClause} ORDER BY received_at DESC, id DESC OFFSET $${index} LIMIT $${index + 1}`;
+
+    const listParams = useCursor
+      ? [...paramsList, limit]
+      : [...paramsList, skip, limit];
 
     const [countResult, rows] = await Promise.all([
       prisma.$queryRawUnsafe<{ count: number }[]>(countQuery, ...countParams),
-      prisma.$queryRawUnsafe<{ id: string }[]>(listQuery, ...listParams),
+      prisma.$queryRawUnsafe<{ id: string; received_at: Date }[]>(listQuery, ...listParams),
     ]);
 
     const total = Number(countResult?.[0]?.count ?? 0);
     const ids = rows.map((row) => row.id);
 
     if (!ids.length) {
-      return { messages: [], total };
+      return { messages: [], total, nextCursor: useCursor ? null : undefined };
     }
 
     const messages = await prisma.emailMessage.findMany({
       where: { id: { in: ids } },
-      orderBy: { receivedAt: 'desc' },
+      orderBy: [{ receivedAt: 'desc' }, { id: 'desc' }],
     });
 
+    const domainMessages = messages.map(emailMessagePrismaToDomain);
+    const lastRow = rows[rows.length - 1];
+    const nextCursor = useCursor
+      ? (rows.length === limit
+        ? encodeCursor(lastRow.received_at, lastRow.id)
+        : null)
+      : undefined;
+
     return {
-      messages: messages.map(emailMessagePrismaToDomain),
+      messages: domainMessages,
       total,
+      nextCursor,
     };
   }
 
@@ -254,9 +325,11 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
       return { messages: [], total: 0 };
     }
 
-    const page = params.page ?? 1;
     const limit = Math.min(params.limit ?? 50, 100);
-    const skip = (page - 1) * limit;
+    const cursorData = params.cursor ? decodeCursor(params.cursor) : null;
+    const useCursor = !!cursorData;
+    const page = params.page ?? 1;
+    const skip = useCursor ? 0 : (page - 1) * limit;
 
     // Find all INBOX folder IDs for the given accounts
     const inboxFolders = await prisma.emailFolder.findMany({
@@ -273,7 +346,7 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
       return { messages: [], total: 0 };
     }
 
-    const where = {
+    const baseWhere = {
       tenantId: params.tenantId,
       accountId: { in: params.accountIds },
       folderId: { in: inboxFolderIds },
@@ -290,20 +363,93 @@ export class PrismaEmailMessagesRepository implements EmailMessagesRepository {
         : {}),
     };
 
+    const where = useCursor
+      ? {
+          ...baseWhere,
+          OR: [
+            { receivedAt: { lt: cursorData!.receivedAt } },
+            { receivedAt: cursorData!.receivedAt, id: { lt: cursorData!.id } },
+          ],
+        }
+      : baseWhere;
+
     const [messages, total] = await Promise.all([
       prisma.emailMessage.findMany({
         where,
-        orderBy: { receivedAt: 'desc' },
-        skip,
+        orderBy: [{ receivedAt: 'desc' }, { id: 'desc' }],
+        ...(useCursor ? {} : { skip }),
         take: limit,
       }),
-      prisma.emailMessage.count({ where }),
+      prisma.emailMessage.count({ where: baseWhere }),
     ]);
 
+    const domainMessages = messages.map(emailMessagePrismaToDomain);
+    const nextCursor = useCursor
+      ? (messages.length === limit
+        ? encodeCursor(messages[messages.length - 1].receivedAt, messages[messages.length - 1].id)
+        : null)
+      : undefined;
+
     return {
-      messages: messages.map(emailMessagePrismaToDomain),
+      messages: domainMessages,
       total,
+      nextCursor,
     };
+  }
+
+  async suggestContacts(
+    accountIds: string[],
+    query: string,
+    limit: number,
+  ): Promise<Array<{ email: string; name: string | null; frequency: number }>> {
+    if (accountIds.length === 0) return [];
+
+    const pattern = `%${query}%`;
+
+    const rows = await prisma.$queryRawUnsafe<
+      Array<{ email: string; name: string | null; frequency: number }>
+    >(
+      `
+      SELECT email, name, SUM(frequency)::int AS frequency
+      FROM (
+        -- From addresses (received emails)
+        SELECT from_address AS email, from_name AS name, COUNT(*)::int AS frequency
+        FROM email_messages
+        WHERE account_id = ANY($1::uuid[])
+          AND deleted_at IS NULL
+          AND (from_address ILIKE $2 OR from_name ILIKE $2)
+        GROUP BY from_address, from_name
+
+        UNION ALL
+
+        -- To addresses (sent emails)
+        SELECT addr AS email, NULL AS name, COUNT(*)::int AS frequency
+        FROM email_messages, unnest(to_addresses) AS addr
+        WHERE account_id = ANY($1::uuid[])
+          AND deleted_at IS NULL
+          AND addr ILIKE $2
+        GROUP BY addr
+
+        UNION ALL
+
+        -- CC addresses
+        SELECT addr AS email, NULL AS name, COUNT(*)::int AS frequency
+        FROM email_messages, unnest(cc_addresses) AS addr
+        WHERE account_id = ANY($1::uuid[])
+          AND deleted_at IS NULL
+          AND addr ILIKE $2
+        GROUP BY addr
+      ) AS contacts
+      GROUP BY email, name
+      ORDER BY frequency DESC
+      LIMIT $3
+      `,
+      accountIds,
+      pattern,
+      limit,
+    );
+
+    return rows;
   }
 
   async softDeleteByFolder(folderId: string, tenantId: string): Promise<number> {

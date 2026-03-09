@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -41,6 +42,7 @@ export async function removeBoardMemberController(app: FastifyInstance) {
       const userId = request.user.sub;
       const tenantId = request.user.tenantId!;
       const { boardId, memberId } = request.params;
+      const userName = await resolveUserName(userId);
 
       try {
         const useCase = makeRemoveBoardMemberUseCase();
@@ -54,7 +56,7 @@ export async function removeBoardMemberController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.TASKS.MEMBER_REMOVE,
           entityId: memberId,
-          placeholders: { userName: 'System', boardTitle: boardId },
+          placeholders: { userName, boardTitle: boardId },
         });
 
         return reply.status(204).send();

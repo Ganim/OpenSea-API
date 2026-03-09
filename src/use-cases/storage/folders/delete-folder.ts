@@ -52,6 +52,6 @@ export class DeleteFolderUseCase {
     );
 
     // Batch soft-delete all folders (descendants + the folder itself)
-    await this.storageFoldersRepository.batchSoftDelete(allFolderIds);
+    await this.storageFoldersRepository.batchSoftDelete(allFolderIds, tenantId);
   }
 }

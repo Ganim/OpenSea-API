@@ -21,9 +21,7 @@ export async function downloadSharedFileController(app: FastifyInstance) {
         })
         .optional(),
       response: {
-        200: z.object({
-          url: z.string(),
-        }),
+        200: z.any().describe('File binary content'),
         403: z.object({
           message: z.string(),
         }),
@@ -39,12 +37,20 @@ export async function downloadSharedFileController(app: FastifyInstance) {
 
       try {
         const downloadSharedFileUseCase = makeDownloadSharedFileUseCase();
-        const { url } = await downloadSharedFileUseCase.execute({
+        const result = await downloadSharedFileUseCase.execute({
           token,
           password,
         });
 
-        return reply.status(200).send({ url });
+        return reply
+          .header('Content-Type', result.mimeType)
+          .header(
+            'Content-Disposition',
+            `attachment; filename="${encodeURIComponent(result.fileName)}"`,
+          )
+          .header('Content-Length', result.size)
+          .header('X-Content-Type-Options', 'nosniff')
+          .send(result.buffer);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

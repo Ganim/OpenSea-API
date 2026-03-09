@@ -251,11 +251,14 @@ model User {
   teamEmailLinks TeamEmailAccount[] @relation("TeamEmailLinker")
 
   // Task Board Relations
-  ownedBoards      Board[]       @relation("BoardOwner")
-  assignedCards    Card[]        @relation("CardAssignee")
-  reportedCards    Card[]        @relation("CardReporter")
-  boardMemberships BoardMember[]
-  cardComments     CardComment[]
+  ownedBoards        Board[]            @relation("BoardOwner")
+  assignedCards      Card[]             @relation("CardAssignee")
+  reportedCards      Card[]             @relation("CardReporter")
+  boardMemberships   BoardMember[]
+  cardComments       CardComment[]
+  commentReactions   CommentReaction[]
+  cardActivities     CardActivity[]
+  checklistAssignees ChecklistItem[]    @relation("ChecklistItemAssignee")
 
   @@unique([email, deletedAt], name: "users_email_unique_active")
   @@unique([username, deletedAt], name: "users_username_unique_active")
@@ -4541,6 +4544,7 @@ model EmailAccount {
   smtpHost        String                 @map("smtp_host") @db.VarChar(256)
   smtpPort        Int                    @map("smtp_port")
   smtpSecure      Boolean                @default(true) @map("smtp_secure")
+  tlsVerify       Boolean                @default(false) @map("tls_verify")
   username        String                 @db.VarChar(256)
   encryptedSecret String                 @map("encrypted_secret") @db.Text
   visibility      EmailAccountVisibility @default(PRIVATE)
@@ -4947,7 +4951,7 @@ model Card {
   updatedAt  DateTime  @updatedAt @map("updated_at")
 
   board      Board       @relation(fields: [boardId], references: [id], onDelete: Cascade)
-  column     BoardColumn @relation(fields: [columnId], references: [id])
+  column     BoardColumn @relation(fields: [columnId], references: [id], onDelete: Cascade)
   parentCard Card?       @relation("CardSubtasks", fields: [parentCardId], references: [id])
   subtasks   Card[]      @relation("CardSubtasks")
   assignee   User?       @relation("CardAssignee", fields: [assigneeId], references: [id])
@@ -4965,6 +4969,9 @@ model Card {
   @@index([boardId, assigneeId])
   @@index([boardId, parentCardId])
   @@index([boardId, deletedAt])
+  @@index([boardId, status])
+  @@index([boardId, priority])
+  @@index([dueDate])
   @@index([systemSourceType, systemSourceId])
   @@map("cards")
 }
@@ -4994,6 +5001,7 @@ model CardLabel {
   label BoardLabel @relation(fields: [labelId], references: [id], onDelete: Cascade)
 
   @@id([cardId, labelId])
+  @@index([labelId])
   @@map("card_labels")
 }
 
@@ -5066,6 +5074,7 @@ model CardComment {
 
   @@index([cardId])
   @@index([cardId, deletedAt])
+  @@index([authorId])
   @@map("card_comments")
 }
 
@@ -5078,6 +5087,7 @@ model CommentReaction {
   createdAt DateTime @default(now()) @map("created_at")
 
   comment CardComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user    User        @relation(fields: [userId], references: [id])
 
   @@unique([commentId, userId, emoji])
   @@map("comment_reactions")
@@ -5093,7 +5103,7 @@ model CardAttachment {
   createdAt DateTime @default(now()) @map("created_at")
 
   card Card        @relation(fields: [cardId], references: [id], onDelete: Cascade)
-  file StorageFile @relation(fields: [fileId], references: [id])
+  file StorageFile @relation(fields: [fileId], references: [id], onDelete: Cascade)
 
   @@index([cardId])
   @@map("card_attachments")
@@ -5129,6 +5139,7 @@ model ChecklistItem {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   checklist CardChecklist @relation(fields: [checklistId], references: [id], onDelete: Cascade)
+  assignee  User?         @relation("ChecklistItemAssignee", fields: [assigneeId], references: [id])
 
   @@index([checklistId])
   @@map("checklist_items")
@@ -5151,6 +5162,7 @@ model CardActivity {
 
   card  Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
   board Board @relation(fields: [boardId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
 
   @@index([cardId])
   @@index([boardId])

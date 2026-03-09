@@ -99,6 +99,7 @@ export class DeleteEmailMessageUseCase {
       imapHost: string;
       imapPort: number;
       imapSecure: boolean;
+      tlsVerify: boolean;
       username: string;
       encryptedSecret: string;
     },
@@ -116,6 +117,7 @@ export class DeleteEmailMessageUseCase {
       secure: account.imapSecure,
       username: account.username,
       secret,
+      rejectUnauthorized: account.tlsVerify,
     });
 
     try {
@@ -147,6 +149,7 @@ export class DeleteEmailMessageUseCase {
       imapHost: string;
       imapPort: number;
       imapSecure: boolean;
+      tlsVerify: boolean;
       username: string;
       encryptedSecret: string;
     },
@@ -163,6 +166,7 @@ export class DeleteEmailMessageUseCase {
       secure: account.imapSecure,
       username: account.username,
       secret,
+      rejectUnauthorized: account.tlsVerify,
     });
 
     try {

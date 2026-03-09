@@ -141,8 +141,16 @@ async function processMessages(
         continue;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const envelope = (message as any).envelope ?? undefined;
+      const envelope = message.envelope as {
+        from?: Array<{ address?: string; name?: string }>;
+        to?: Array<{ address?: string }>;
+        cc?: Array<{ address?: string }>;
+        bcc?: Array<{ address?: string }>;
+        messageId?: string;
+        inReplyTo?: string;
+        subject?: string;
+        date?: Date;
+      } | undefined;
       const from = envelope?.from?.[0];
       const to = envelope?.to ?? [];
       const cc = envelope?.cc ?? [];
@@ -207,8 +215,7 @@ async function processMessages(
   }
 
   for await (const rawMessage of messages) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const message = rawMessage as any;
+    const message = rawMessage as RawMessageData;
     const uid = message.uid ?? 0;
     if (!uid) continue;
 
@@ -268,8 +275,11 @@ async function generateSnippets(
     }, { uid: true });
 
     for await (const rawMsg of messages) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const msg = rawMsg as any;
+      const msg = rawMsg as {
+        uid: number;
+        bodyParts?: Map<string, Buffer | string>;
+        source?: Buffer | string;
+      };
       const uid = msg.uid as number;
       const dbId = uidToId.get(uid);
       if (!dbId) continue;
@@ -356,6 +366,7 @@ export class SyncEmailFolderUseCase {
         secure: account.imapSecure,
         username: account.username,
         secret,
+        rejectUnauthorized: account.tlsVerify,
       });
 
     let synced = 0;
@@ -504,32 +515,58 @@ export class SyncEmailFolderUseCase {
 
             shouldRetry = true;
 
+            // Paginate the full sync in chunks to avoid IMAP timeouts on
+            // large mailboxes (100K+ messages). Each chunk fetches up to
+            // RETRY_PAGE_SIZE UIDs at a time.
+            const RETRY_PAGE_SIZE = 5000;
+            const retryUidNext = uidNextValue ?? null;
+
             logger.info(
               {
                 accountId: account.id.toString(),
                 folderId: folder.id.toString(),
+                uidNext: retryUidNext,
               },
-              'Retrying with full sync (range: 1:*)',
+              'Retrying with paginated full sync',
             );
 
-            const retryMessages = client.fetch('1:*', {
-              uid: true,
-              envelope: true,
-              flags: true,
-              internalDate: true,
-              bodyStructure: true,
-            });
+            let pageStart = 1;
+            const upperBound = retryUidNext ?? pageStart + RETRY_PAGE_SIZE;
 
-            const retryResult = await processMessages(
-              retryMessages,
-              account,
-              folder,
-              this.emailMessagesRepository,
-            );
+            while (pageStart < (retryUidNext ?? Infinity)) {
+              const pageEnd = retryUidNext
+                ? Math.min(pageStart + RETRY_PAGE_SIZE - 1, retryUidNext - 1)
+                : pageStart + RETRY_PAGE_SIZE - 1;
 
-            synced += retryResult.synced;
-            maxUid = retryResult.maxUid;
-            allCreatedMessages.push(...retryResult.createdMessages);
+              if (pageStart > pageEnd) break;
+
+              const retryRange = `${pageStart}:${pageEnd}`;
+
+              const retryMessages = client.fetch(retryRange, {
+                uid: true,
+                envelope: true,
+                flags: true,
+                internalDate: true,
+                bodyStructure: true,
+              });
+
+              const retryResult = await processMessages(
+                retryMessages,
+                account,
+                folder,
+                this.emailMessagesRepository,
+              );
+
+              synced += retryResult.synced;
+              maxUid = Math.max(maxUid, retryResult.maxUid);
+              allCreatedMessages.push(...retryResult.createdMessages);
+
+              pageStart = pageEnd + 1;
+
+              // If we don't know uidNext, stop after the first page that
+              // yields zero results to avoid infinite loops
+              if (!retryUidNext && retryResult.synced === 0) break;
+            }
           } else {
             throw error;
           }

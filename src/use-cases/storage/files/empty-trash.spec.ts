@@ -1,6 +1,7 @@
 import { InMemoryStorageFilesRepository } from '@/repositories/storage/in-memory/in-memory-storage-files-repository';
 import { InMemoryStorageFoldersRepository } from '@/repositories/storage/in-memory/in-memory-storage-folders-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import type { FileUploadService } from '@/services/storage/file-upload-service';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { CreateFolderUseCase } from '../folders/create-folder';
 import { EmptyTrashUseCase } from './empty-trash';
 
@@ -8,6 +9,7 @@ const TENANT_ID = 'tenant-1';
 
 let storageFilesRepository: InMemoryStorageFilesRepository;
 let storageFoldersRepository: InMemoryStorageFoldersRepository;
+let fakeFileUploadService: FileUploadService;
 let createFolder: CreateFolderUseCase;
 let sut: EmptyTrashUseCase;
 
@@ -15,10 +17,17 @@ describe('EmptyTrashUseCase', () => {
   beforeEach(() => {
     storageFilesRepository = new InMemoryStorageFilesRepository();
     storageFoldersRepository = new InMemoryStorageFoldersRepository();
+    fakeFileUploadService = {
+      upload: vi.fn(),
+      delete: vi.fn().mockResolvedValue(undefined),
+      getObject: vi.fn(),
+      getPresignedUrl: vi.fn(),
+    } as unknown as FileUploadService;
     createFolder = new CreateFolderUseCase(storageFoldersRepository);
     sut = new EmptyTrashUseCase(
       storageFilesRepository,
       storageFoldersRepository,
+      fakeFileUploadService,
     );
   });
 
@@ -79,9 +88,9 @@ describe('EmptyTrashUseCase', () => {
 
     expect(result.deletedFiles).toBe(2);
     expect(result.deletedFolders).toBe(1);
-    expect(result.fileKeys).toHaveLength(2);
-    expect(result.fileKeys).toContain('storage/tenant-1/trash-file-1.pdf');
-    expect(result.fileKeys).toContain('storage/tenant-1/trash-file-2.txt');
+    expect(result.deletedS3Objects).toBe(2);
+    expect(result.s3Errors).toBe(0);
+    expect(fakeFileUploadService.delete).toHaveBeenCalledTimes(2);
 
     // Active file should still exist
     expect(storageFilesRepository.items).toHaveLength(1);
@@ -120,7 +129,8 @@ describe('EmptyTrashUseCase', () => {
 
     expect(result.deletedFiles).toBe(0);
     expect(result.deletedFolders).toBe(0);
-    expect(result.fileKeys).toHaveLength(0);
+    expect(result.deletedS3Objects).toBe(0);
+    expect(result.s3Errors).toBe(0);
 
     // Active items should be untouched
     expect(storageFilesRepository.items).toHaveLength(1);

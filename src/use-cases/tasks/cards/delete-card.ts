@@ -35,9 +35,9 @@ export class DeleteCardUseCase {
 
     const subtasks = await this.cardsRepository.findSubtasks(cardId);
 
-    for (const subtask of subtasks) {
-      await this.cardsRepository.softDelete(
-        subtask.id.toString(),
+    if (subtasks.length > 0) {
+      await this.cardsRepository.softDeleteMany(
+        subtasks.map((s) => s.id.toString()),
         boardId,
       );
     }

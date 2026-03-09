@@ -27,4 +27,6 @@ export interface StorageFileVersionsRepository {
     tenantId?: string,
   ): Promise<StorageFileVersion | null>;
   deleteByFileId(fileId: UniqueEntityID): Promise<void>;
+  findByFileIds(fileIds: UniqueEntityID[]): Promise<StorageFileVersion[]>;
+  deleteByFileIds(fileIds: UniqueEntityID[]): Promise<void>;
 }

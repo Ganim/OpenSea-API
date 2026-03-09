@@ -2,16 +2,19 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { CreateChecklistUseCase } from './create-checklist';
 import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
 import { InMemoryCardChecklistsRepository } from '@/repositories/tasks/in-memory/in-memory-card-checklists-repository';
+import { InMemoryCardActivitiesRepository } from '@/repositories/tasks/in-memory/in-memory-card-activities-repository';
 
 let cardsRepository: InMemoryCardsRepository;
 let cardChecklistsRepository: InMemoryCardChecklistsRepository;
+let cardActivitiesRepository: InMemoryCardActivitiesRepository;
 let sut: CreateChecklistUseCase;
 
 describe('CreateChecklistUseCase', () => {
   beforeEach(() => {
     cardsRepository = new InMemoryCardsRepository();
     cardChecklistsRepository = new InMemoryCardChecklistsRepository();
-    sut = new CreateChecklistUseCase(cardsRepository, cardChecklistsRepository);
+    cardActivitiesRepository = new InMemoryCardActivitiesRepository();
+    sut = new CreateChecklistUseCase(cardsRepository, cardChecklistsRepository, cardActivitiesRepository);
   });
 
   it('should create a checklist on a card', async () => {
@@ -25,6 +28,7 @@ describe('CreateChecklistUseCase', () => {
     const { checklist } = await sut.execute({
       tenantId: 'tenant-1',
       userId: 'user-1',
+      userName: 'John Doe',
       boardId: 'board-1',
       cardId: card.id.toString(),
       title: 'My Checklist',
@@ -50,6 +54,7 @@ describe('CreateChecklistUseCase', () => {
     await sut.execute({
       tenantId: 'tenant-1',
       userId: 'user-1',
+      userName: 'John Doe',
       boardId: 'board-1',
       cardId,
       title: 'First Checklist',
@@ -58,6 +63,7 @@ describe('CreateChecklistUseCase', () => {
     const { checklist: secondChecklist } = await sut.execute({
       tenantId: 'tenant-1',
       userId: 'user-1',
+      userName: 'John Doe',
       boardId: 'board-1',
       cardId,
       title: 'Second Checklist',

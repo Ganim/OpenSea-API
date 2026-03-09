@@ -5,6 +5,7 @@ import type {
   EmailAccountAccessItem,
   EmailAccountsRepository,
 } from '@/repositories/email';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface ShareEmailAccountRequest {
   tenantId: string;
@@ -66,6 +67,16 @@ export class ShareEmailAccountUseCase {
       canSend,
       canManage,
     });
+
+    queueAuditLog({
+      userId: request.userId,
+      action: 'EMAIL_SHARE',
+      entity: 'EMAIL_ACCOUNT_ACCESS',
+      entityId: access.id,
+      module: 'EMAIL',
+      description: `Shared email account ${account.address} with user ${request.targetUserId}`,
+      newData: { targetUserId: request.targetUserId, canRead, canSend, canManage },
+    }).catch(() => {});
 
     return { access };
   }

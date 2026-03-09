@@ -22,6 +22,7 @@ interface CreateEmailAccountRequest {
   isDefault?: boolean;
   signature?: string | null;
   visibility?: 'PRIVATE' | 'SHARED';
+  tlsVerify?: boolean;
 }
 
 interface CreateEmailAccountResponse {
@@ -71,6 +72,7 @@ export class CreateEmailAccountUseCase {
         secure: request.imapSecure ?? true,
         username: request.username,
         secret: request.secret,
+        rejectUnauthorized: request.tlsVerify ?? false,
       });
     } catch (err) {
       const detail = err instanceof Error ? err.message : String(err);
@@ -86,6 +88,7 @@ export class CreateEmailAccountUseCase {
         secure: request.smtpSecure ?? true,
         username: request.username,
         secret: request.secret,
+        rejectUnauthorized: request.tlsVerify ?? false,
       });
     } catch (err) {
       const detail = err instanceof Error ? err.message : String(err);
@@ -116,6 +119,7 @@ export class CreateEmailAccountUseCase {
       smtpHost: request.smtpHost,
       smtpPort: request.smtpPort,
       smtpSecure: request.smtpSecure ?? true,
+      tlsVerify: request.tlsVerify ?? false,
       username: request.username,
       encryptedSecret,
       isDefault: request.isDefault ?? false,

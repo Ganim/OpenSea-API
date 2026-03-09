@@ -1,17 +1,20 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { GetCardUseCase } from './get-card';
 import { InMemoryBoardsRepository } from '@/repositories/tasks/in-memory/in-memory-boards-repository';
+import { InMemoryBoardLabelsRepository } from '@/repositories/tasks/in-memory/in-memory-board-labels-repository';
 import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
 
 let boardsRepository: InMemoryBoardsRepository;
+let boardLabelsRepository: InMemoryBoardLabelsRepository;
 let cardsRepository: InMemoryCardsRepository;
 let sut: GetCardUseCase;
 
 describe('GetCardUseCase', () => {
   beforeEach(async () => {
     boardsRepository = new InMemoryBoardsRepository();
+    boardLabelsRepository = new InMemoryBoardLabelsRepository();
     cardsRepository = new InMemoryCardsRepository();
-    sut = new GetCardUseCase(boardsRepository, cardsRepository);
+    sut = new GetCardUseCase(boardsRepository, cardsRepository, boardLabelsRepository);
 
     await boardsRepository.create({
       tenantId: 'tenant-1',
@@ -23,6 +26,17 @@ describe('GetCardUseCase', () => {
   it('should get a card with its relations', async () => {
     const boardId = boardsRepository.items[0].id.toString();
 
+    const label1 = await boardLabelsRepository.create({
+      boardId,
+      name: 'Bug',
+      color: '#ff0000',
+    });
+    const label2 = await boardLabelsRepository.create({
+      boardId,
+      name: 'Feature',
+      color: '#00ff00',
+    });
+
     const createdCard = await cardsRepository.create({
       boardId,
       columnId: 'column-1',
@@ -30,7 +44,7 @@ describe('GetCardUseCase', () => {
       description: 'Test description',
       reporterId: 'user-1',
       position: 0,
-      labelIds: ['label-1', 'label-2'],
+      labelIds: [label1.id, label2.id],
     });
 
     await cardsRepository.create({

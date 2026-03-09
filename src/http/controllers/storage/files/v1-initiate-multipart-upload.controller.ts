@@ -75,7 +75,7 @@ export async function initiateMultipartUploadController(app: FastifyInstance) {
 
       try {
         const fileUploadService = env.S3_ENDPOINT
-          ? new S3FileUploadService()
+          ? S3FileUploadService.getInstance()
           : new LocalFileUploadService();
 
         const uploadPrefix =

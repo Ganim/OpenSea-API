@@ -31,6 +31,11 @@ export const updateBoardSchema = z.object({
 
 export const listBoardsQuerySchema = z.object({
   type: boardTypeEnum.optional(),
+  search: z.string().max(256).optional(),
+  includeArchived: z
+    .enum(['true', 'false'])
+    .transform((v) => v === 'true')
+    .optional(),
   page: z.coerce.number().int().min(1).optional().default(1),
   limit: z.coerce.number().int().min(1).max(100).optional().default(20),
 });

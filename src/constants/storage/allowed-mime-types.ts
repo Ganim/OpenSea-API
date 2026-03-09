@@ -57,8 +57,6 @@ export const ALLOWED_MIME_TYPES = new Set([
   'application/javascript',
   'text/x-python',
   'text/markdown',
-  // Genérico (extensões desconhecidas - validação adicional pode ser feita pela extensão)
-  'application/octet-stream',
 ]);
 
 export function isAllowedMimeType(mimeType: string): boolean {

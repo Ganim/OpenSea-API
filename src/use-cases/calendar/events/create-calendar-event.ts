@@ -1,9 +1,11 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import {
   type CalendarEventDTO,
   calendarEventToDTO,
 } from '@/mappers/calendar/calendar-event/calendar-event-to-dto';
 import type { CalendarEventsRepository } from '@/repositories/calendar/calendar-events-repository';
+import type { CalendarsRepository } from '@/repositories/calendar/calendars-repository';
 
 interface CreateCalendarEventRequest {
   tenantId: string;
@@ -29,7 +31,10 @@ interface CreateCalendarEventResponse {
 }
 
 export class CreateCalendarEventUseCase {
-  constructor(private calendarEventsRepository: CalendarEventsRepository) {}
+  constructor(
+    private calendarEventsRepository: CalendarEventsRepository,
+    private calendarsRepository: CalendarsRepository,
+  ) {}
 
   async execute(
     request: CreateCalendarEventRequest,
@@ -46,6 +51,16 @@ export class CreateCalendarEventUseCase {
 
     if (endDate <= startDate) {
       throw new BadRequestError('End date must be after start date');
+    }
+
+    // Validate calendarId belongs to the same tenant
+    const calendar = await this.calendarsRepository.findById(
+      request.calendarId,
+      tenantId,
+    );
+
+    if (!calendar) {
+      throw new ResourceNotFoundError('Calendar not found');
     }
 
     // Build participants list - always include creator as OWNER

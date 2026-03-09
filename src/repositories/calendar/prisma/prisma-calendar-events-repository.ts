@@ -150,6 +150,18 @@ export class PrismaCalendarEventsRepository
       where.calendarId = { in: options.calendarIds };
     }
 
+    // Filter private events at the DB level: show if PUBLIC, or user is creator, or user is participant
+    where.AND = [
+      ...(Array.isArray(where.AND) ? where.AND : where.AND ? [where.AND] : []),
+      {
+        OR: [
+          { visibility: 'PUBLIC' as EventVisibility },
+          { createdBy: options.userId },
+          { participants: { some: { userId: options.userId } } },
+        ],
+      },
+    ];
+
     const page = options.page ?? 1;
     const limit = options.limit ?? 500;
     const skip = (page - 1) * limit;
@@ -165,16 +177,10 @@ export class PrismaCalendarEventsRepository
       prisma.calendarEvent.count({ where }),
     ]);
 
-    // Post-filter private events
-    const filtered = events
-      .filter((event) => {
-        if (event.visibility === 'PUBLIC') return true;
-        if (event.createdBy === options.userId) return true;
-        return event.participants.some((p) => p.userId === options.userId);
-      })
-      .map(calendarEventPrismaToDomain);
-
-    return { events: filtered, total };
+    return {
+      events: events.map(calendarEventPrismaToDomain),
+      total,
+    };
   }
 
   async findManyWithRelations(
@@ -206,6 +212,18 @@ export class PrismaCalendarEventsRepository
       where.calendarId = { in: options.calendarIds };
     }
 
+    // Filter private events at the DB level
+    where.AND = [
+      ...(Array.isArray(where.AND) ? where.AND : where.AND ? [where.AND] : []),
+      {
+        OR: [
+          { visibility: 'PUBLIC' as EventVisibility },
+          { createdBy: options.userId },
+          { participants: { some: { userId: options.userId } } },
+        ],
+      },
+    ];
+
     const page = options.page ?? 1;
     const limit = options.limit ?? 500;
     const skip = (page - 1) * limit;
@@ -221,19 +239,12 @@ export class PrismaCalendarEventsRepository
       prisma.calendarEvent.count({ where }),
     ]);
 
-    // Post-filter private events and map with relations
-    const events = rawEvents
-      .filter((event) => {
-        if (event.visibility === 'PUBLIC') return true;
-        if (event.createdBy === options.userId) return true;
-        return event.participants.some((p) => p.userId === options.userId);
-      })
-      .map((raw) => {
-        const event = calendarEventPrismaToDomain(raw);
-        const { creatorName, participants, reminders } =
-          extractRelationsFromPrisma(raw);
-        return { event, creatorName, participants, reminders };
-      });
+    const events = rawEvents.map((raw) => {
+      const event = calendarEventPrismaToDomain(raw);
+      const { creatorName, participants, reminders } =
+        extractRelationsFromPrisma(raw);
+      return { event, creatorName, participants, reminders };
+    });
 
     return { events, total };
   }

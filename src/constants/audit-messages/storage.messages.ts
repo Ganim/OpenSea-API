@@ -218,6 +218,20 @@ export const STORAGE_AUDIT_MESSAGES = {
   // TRASH - Lixeira
   // ============================================================================
 
+  FILE_RESTORE: {
+    action: AuditAction.RESTORE,
+    entity: AuditEntity.STORAGE_FILE,
+    module: AuditModule.STORAGE,
+    description: '{{userName}} restaurou o arquivo {{fileName}} da lixeira',
+  } satisfies AuditMessage,
+
+  FOLDER_RESTORE: {
+    action: AuditAction.RESTORE,
+    entity: AuditEntity.STORAGE_FOLDER,
+    module: AuditModule.STORAGE,
+    description: '{{userName}} restaurou a pasta {{folderName}} da lixeira',
+  } satisfies AuditMessage,
+
   EMPTY_TRASH: {
     action: AuditAction.DELETE,
     entity: AuditEntity.STORAGE_FILE,

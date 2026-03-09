@@ -212,7 +212,7 @@ export class InMemoryStorageFoldersRepository
     return count;
   }
 
-  async batchSoftDelete(folderIds: string[]): Promise<number> {
+  async batchSoftDelete(folderIds: string[], _tenantId: string): Promise<number> {
     let count = 0;
     for (const id of folderIds) {
       const folder = this.items.find(

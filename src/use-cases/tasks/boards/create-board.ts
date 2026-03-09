@@ -76,30 +76,28 @@ export class CreateBoardUseCase {
 
     const boardId = board.id.toString();
 
-    const createdColumns: BoardColumnDTO[] = [];
-
-    for (const columnDef of DEFAULT_COLUMNS) {
-      const column = await this.boardColumnsRepository.create({
+    const columns = await this.boardColumnsRepository.createMany(
+      DEFAULT_COLUMNS.map((columnDef) => ({
         boardId,
         title: columnDef.title,
         position: columnDef.position,
         isDefault: columnDef.isDefault,
         isDone: columnDef.isDone,
-      });
+      })),
+    );
 
-      createdColumns.push({
-        id: column.id,
-        boardId: column.boardId,
-        title: column.title,
-        color: column.color,
-        position: column.position,
-        isDefault: column.isDefault,
-        isDone: column.isDone,
-        wipLimit: column.wipLimit,
-        archivedAt: column.archivedAt,
-        createdAt: column.createdAt,
-      });
-    }
+    const createdColumns: BoardColumnDTO[] = columns.map((column) => ({
+      id: column.id,
+      boardId: column.boardId,
+      title: column.title,
+      color: column.color,
+      position: column.position,
+      isDefault: column.isDefault,
+      isDone: column.isDone,
+      wipLimit: column.wipLimit,
+      archivedAt: column.archivedAt,
+      createdAt: column.createdAt,
+    }));
 
     return { board: boardToDTO(board, { columns: createdColumns }) };
   }

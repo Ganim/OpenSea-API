@@ -65,7 +65,7 @@ export interface StorageFoldersRepository {
     depthDelta: number,
     tenantId: string,
   ): Promise<number>;
-  batchSoftDelete(folderIds: string[]): Promise<number>;
+  batchSoftDelete(folderIds: string[], tenantId: string): Promise<number>;
   countFiles(folderId: UniqueEntityID): Promise<number>;
   search(
     tenantId: string,

@@ -92,32 +92,15 @@ export class GetEmailMessageUseCase {
       message.id.toString(),
     );
 
-    // Lazy-fetch attachment metadata from IMAP if no attachment records exist.
-    // Two cases:
-    //   1. hasAttachments=true but no records → backwards compat (synced before
-    //      attachment support was added to fetchAndStoreBody).
-    //   2. hasAttachments=false but body was already fetched → BODYSTRUCTURE
-    //      detection failed during sync (type mismatch bug) OR attachment
-    //      extraction filter was too aggressive. Re-fetch to check with
-    //      corrected logic. Self-heals: once attachments are found the flag is
-    //      corrected and this branch won't trigger again.
-    if (attachments.length === 0) {
-      const shouldFetchAttachments =
-        message.hasAttachments || // case 1
-        message.bodyText !== null; // case 2 — body already fetched
-
-      if (shouldFetchAttachments) {
-        if (!message.hasAttachments && message.bodyText !== null) {
-          logger.debug(
-            { messageId: message.id.toString() },
-            'Re-checking attachments for message with fetched body but hasAttachments=false',
-          );
-        }
-        await this.fetchAndStoreAttachments(message, account);
-        attachments = await this.emailMessagesRepository.listAttachments(
-          message.id.toString(),
-        );
-      }
+    // Lazy-fetch attachment metadata from IMAP if no attachment records exist
+    // but the sync flagged the message as having attachments (backwards compat
+    // for messages synced before attachment extraction was added to the body
+    // fetch flow).
+    if (attachments.length === 0 && message.hasAttachments) {
+      await this.fetchAndStoreAttachments(message, account);
+      attachments = await this.emailMessagesRepository.listAttachments(
+        message.id.toString(),
+      );
     }
 
     // Fix hasAttachments flag if it was incorrectly set to false during sync
@@ -167,6 +150,7 @@ export class GetEmailMessageUseCase {
         secure: account.imapSecure,
         username: account.username,
         secret,
+        rejectUnauthorized: account.tlsVerify,
       });
 
       try {
@@ -345,6 +329,7 @@ export class GetEmailMessageUseCase {
         secure: account.imapSecure,
         username: account.username,
         secret,
+        rejectUnauthorized: account.tlsVerify,
       });
 
       try {

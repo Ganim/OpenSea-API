@@ -88,4 +88,22 @@ describe('CreateLabelUseCase', () => {
 
     expect(label.name).toBe('Bug');
   });
+
+  it('should reject duplicate label names (case-insensitive)', async () => {
+    await sut.execute({
+      tenantId: 'tenant-1',
+      boardId,
+      name: 'Bug',
+      color: '#FF0000',
+    });
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        boardId,
+        name: 'bug',
+        color: '#00FF00',
+      }),
+    ).rejects.toThrow('already exists on this board');
+  });
 });

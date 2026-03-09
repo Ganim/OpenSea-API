@@ -14,6 +14,7 @@ export interface EmailAccountProps {
   smtpHost: string;
   smtpPort: number;
   smtpSecure: boolean;
+  tlsVerify: boolean;
   username: string;
   encryptedSecret: string;
   visibility: EmailAccountVisibility;
@@ -102,6 +103,15 @@ export class EmailAccount extends Entity<EmailAccountProps> {
 
   set smtpSecure(value: boolean) {
     this.props.smtpSecure = value;
+    this.touch();
+  }
+
+  get tlsVerify(): boolean {
+    return this.props.tlsVerify;
+  }
+
+  set tlsVerify(value: boolean) {
+    this.props.tlsVerify = value;
     this.touch();
   }
 
@@ -194,6 +204,7 @@ export class EmailAccount extends Entity<EmailAccountProps> {
       | 'displayName'
       | 'imapSecure'
       | 'smtpSecure'
+      | 'tlsVerify'
       | 'visibility'
       | 'isActive'
       | 'isDefault'
@@ -205,6 +216,7 @@ export class EmailAccount extends Entity<EmailAccountProps> {
       displayName?: string | null;
       imapSecure?: boolean;
       smtpSecure?: boolean;
+      tlsVerify?: boolean;
       visibility?: EmailAccountVisibility;
       isActive?: boolean;
       isDefault?: boolean;
@@ -223,6 +235,7 @@ export class EmailAccount extends Entity<EmailAccountProps> {
         displayName: props.displayName ?? null,
         imapSecure: props.imapSecure ?? true,
         smtpSecure: props.smtpSecure ?? true,
+        tlsVerify: props.tlsVerify ?? false,
         visibility: props.visibility ?? 'PRIVATE',
         isActive: props.isActive ?? true,
         isDefault: props.isDefault ?? false,

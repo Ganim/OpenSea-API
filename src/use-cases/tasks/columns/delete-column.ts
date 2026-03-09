@@ -9,6 +9,7 @@ interface DeleteColumnRequest {
   userId: string;
   boardId: string;
   columnId: string;
+  migrateToColumnId?: string;
 }
 
 export class DeleteColumnUseCase {
@@ -47,14 +48,29 @@ export class DeleteColumnUseCase {
       throw new BadRequestError('Cannot delete the last remaining column');
     }
 
-    const defaultColumn =
-      await this.boardColumnsRepository.findDefaultColumn(boardId);
+    let targetColumnId = request.migrateToColumnId;
 
-    if (!defaultColumn) {
-      throw new BadRequestError('No default column found to move cards to');
+    if (targetColumnId) {
+      const migrateColumn = await this.boardColumnsRepository.findById(
+        targetColumnId,
+        boardId,
+      );
+
+      if (!migrateColumn) {
+        throw new ResourceNotFoundError('Migration target column not found');
+      }
+    } else {
+      const defaultColumn =
+        await this.boardColumnsRepository.findDefaultColumn(boardId);
+
+      if (!defaultColumn) {
+        throw new BadRequestError('No default column found to move cards to');
+      }
+
+      targetColumnId = defaultColumn.id;
     }
 
-    // Move all cards in the deleted column to the default column
+    // Move all cards in the deleted column to the target column
     const { cards: cardsInColumn } = await this.cardsRepository.findMany({
       boardId,
       columnId,
@@ -65,7 +81,7 @@ export class DeleteColumnUseCase {
       await this.cardsRepository.update({
         id: card.id.toString(),
         boardId,
-        columnId: defaultColumn.id,
+        columnId: targetColumnId,
       });
     }
 

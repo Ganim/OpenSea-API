@@ -25,6 +25,7 @@ export interface CreateEmailAccountSchema {
   smtpHost: string;
   smtpPort: number;
   smtpSecure?: boolean;
+  tlsVerify?: boolean;
   username: string;
   encryptedSecret: string;
   visibility?: EmailAccountVisibility;
@@ -43,6 +44,7 @@ export interface UpdateEmailAccountSchema {
   smtpHost?: string;
   smtpPort?: number;
   smtpSecure?: boolean;
+  tlsVerify?: boolean;
   username?: string;
   encryptedSecret?: string;
   visibility?: EmailAccountVisibility;
@@ -73,7 +75,7 @@ export interface EmailAccountsRepository {
     tenantId: string,
     ownerUserId: string,
   ): Promise<EmailAccount[]>;
-  listActive(): Promise<EmailAccount[]>;
+  listActive(tenantId?: string): Promise<EmailAccount[]>;
   update(data: UpdateEmailAccountSchema): Promise<EmailAccount | null>;
   delete(id: string, tenantId: string): Promise<void>;
   unsetDefaultAccounts(tenantId: string, ownerUserId: string): Promise<void>;

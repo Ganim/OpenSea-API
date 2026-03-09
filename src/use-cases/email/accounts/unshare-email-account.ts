@@ -1,6 +1,7 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { EmailAccountsRepository } from '@/repositories/email';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface UnshareEmailAccountRequest {
   tenantId: string;
@@ -42,5 +43,15 @@ export class UnshareEmailAccountUseCase {
       request.targetUserId,
       request.tenantId,
     );
+
+    queueAuditLog({
+      userId: request.userId,
+      action: 'EMAIL_UNSHARE',
+      entity: 'EMAIL_ACCOUNT_ACCESS',
+      entityId: request.accountId,
+      module: 'EMAIL',
+      description: `Removed sharing for email account ${account.address} from user ${request.targetUserId}`,
+      oldData: { targetUserId: request.targetUserId },
+    }).catch(() => {});
   }
 }

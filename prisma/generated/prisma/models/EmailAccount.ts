@@ -48,6 +48,7 @@ export type EmailAccountMinAggregateOutputType = {
   smtpHost: string | null
   smtpPort: number | null
   smtpSecure: boolean | null
+  tlsVerify: boolean | null
   username: string | null
   encryptedSecret: string | null
   visibility: $Enums.EmailAccountVisibility | null
@@ -71,6 +72,7 @@ export type EmailAccountMaxAggregateOutputType = {
   smtpHost: string | null
   smtpPort: number | null
   smtpSecure: boolean | null
+  tlsVerify: boolean | null
   username: string | null
   encryptedSecret: string | null
   visibility: $Enums.EmailAccountVisibility | null
@@ -94,6 +96,7 @@ export type EmailAccountCountAggregateOutputType = {
   smtpHost: number
   smtpPort: number
   smtpSecure: number
+  tlsVerify: number
   username: number
   encryptedSecret: number
   visibility: number
@@ -129,6 +132,7 @@ export type EmailAccountMinAggregateInputType = {
   smtpHost?: true
   smtpPort?: true
   smtpSecure?: true
+  tlsVerify?: true
   username?: true
   encryptedSecret?: true
   visibility?: true
@@ -152,6 +156,7 @@ export type EmailAccountMaxAggregateInputType = {
   smtpHost?: true
   smtpPort?: true
   smtpSecure?: true
+  tlsVerify?: true
   username?: true
   encryptedSecret?: true
   visibility?: true
@@ -175,6 +180,7 @@ export type EmailAccountCountAggregateInputType = {
   smtpHost?: true
   smtpPort?: true
   smtpSecure?: true
+  tlsVerify?: true
   username?: true
   encryptedSecret?: true
   visibility?: true
@@ -285,6 +291,7 @@ export type EmailAccountGroupByOutputType = {
   smtpHost: string
   smtpPort: number
   smtpSecure: boolean
+  tlsVerify: boolean
   username: string
   encryptedSecret: string
   visibility: $Enums.EmailAccountVisibility
@@ -331,6 +338,7 @@ export type EmailAccountWhereInput = {
   smtpHost?: Prisma.StringFilter<"EmailAccount"> | string
   smtpPort?: Prisma.IntFilter<"EmailAccount"> | number
   smtpSecure?: Prisma.BoolFilter<"EmailAccount"> | boolean
+  tlsVerify?: Prisma.BoolFilter<"EmailAccount"> | boolean
   username?: Prisma.StringFilter<"EmailAccount"> | string
   encryptedSecret?: Prisma.StringFilter<"EmailAccount"> | string
   visibility?: Prisma.EnumEmailAccountVisibilityFilter<"EmailAccount"> | $Enums.EmailAccountVisibility
@@ -360,6 +368,7 @@ export type EmailAccountOrderByWithRelationInput = {
   smtpHost?: Prisma.SortOrder
   smtpPort?: Prisma.SortOrder
   smtpSecure?: Prisma.SortOrder
+  tlsVerify?: Prisma.SortOrder
   username?: Prisma.SortOrder
   encryptedSecret?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -393,6 +402,7 @@ export type EmailAccountWhereUniqueInput = Prisma.AtLeast<{
   smtpHost?: Prisma.StringFilter<"EmailAccount"> | string
   smtpPort?: Prisma.IntFilter<"EmailAccount"> | number
   smtpSecure?: Prisma.BoolFilter<"EmailAccount"> | boolean
+  tlsVerify?: Prisma.BoolFilter<"EmailAccount"> | boolean
   username?: Prisma.StringFilter<"EmailAccount"> | string
   encryptedSecret?: Prisma.StringFilter<"EmailAccount"> | string
   visibility?: Prisma.EnumEmailAccountVisibilityFilter<"EmailAccount"> | $Enums.EmailAccountVisibility
@@ -422,6 +432,7 @@ export type EmailAccountOrderByWithAggregationInput = {
   smtpHost?: Prisma.SortOrder
   smtpPort?: Prisma.SortOrder
   smtpSecure?: Prisma.SortOrder
+  tlsVerify?: Prisma.SortOrder
   username?: Prisma.SortOrder
   encryptedSecret?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -453,6 +464,7 @@ export type EmailAccountScalarWhereWithAggregatesInput = {
   smtpHost?: Prisma.StringWithAggregatesFilter<"EmailAccount"> | string
   smtpPort?: Prisma.IntWithAggregatesFilter<"EmailAccount"> | number
   smtpSecure?: Prisma.BoolWithAggregatesFilter<"EmailAccount"> | boolean
+  tlsVerify?: Prisma.BoolWithAggregatesFilter<"EmailAccount"> | boolean
   username?: Prisma.StringWithAggregatesFilter<"EmailAccount"> | string
   encryptedSecret?: Prisma.StringWithAggregatesFilter<"EmailAccount"> | string
   visibility?: Prisma.EnumEmailAccountVisibilityWithAggregatesFilter<"EmailAccount"> | $Enums.EmailAccountVisibility
@@ -474,6 +486,7 @@ export type EmailAccountCreateInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -503,6 +516,7 @@ export type EmailAccountUncheckedCreateInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -528,6 +542,7 @@ export type EmailAccountUpdateInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -557,6 +572,7 @@ export type EmailAccountUncheckedUpdateInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -584,6 +600,7 @@ export type EmailAccountCreateManyInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -605,6 +622,7 @@ export type EmailAccountUpdateManyMutationInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -628,6 +646,7 @@ export type EmailAccountUncheckedUpdateManyInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -666,6 +685,7 @@ export type EmailAccountCountOrderByAggregateInput = {
   smtpHost?: Prisma.SortOrder
   smtpPort?: Prisma.SortOrder
   smtpSecure?: Prisma.SortOrder
+  tlsVerify?: Prisma.SortOrder
   username?: Prisma.SortOrder
   encryptedSecret?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -694,6 +714,7 @@ export type EmailAccountMaxOrderByAggregateInput = {
   smtpHost?: Prisma.SortOrder
   smtpPort?: Prisma.SortOrder
   smtpSecure?: Prisma.SortOrder
+  tlsVerify?: Prisma.SortOrder
   username?: Prisma.SortOrder
   encryptedSecret?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -717,6 +738,7 @@ export type EmailAccountMinOrderByAggregateInput = {
   smtpHost?: Prisma.SortOrder
   smtpPort?: Prisma.SortOrder
   smtpSecure?: Prisma.SortOrder
+  tlsVerify?: Prisma.SortOrder
   username?: Prisma.SortOrder
   encryptedSecret?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -892,6 +914,7 @@ export type EmailAccountCreateWithoutOwnerInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -919,6 +942,7 @@ export type EmailAccountUncheckedCreateWithoutOwnerInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -975,6 +999,7 @@ export type EmailAccountScalarWhereInput = {
   smtpHost?: Prisma.StringFilter<"EmailAccount"> | string
   smtpPort?: Prisma.IntFilter<"EmailAccount"> | number
   smtpSecure?: Prisma.BoolFilter<"EmailAccount"> | boolean
+  tlsVerify?: Prisma.BoolFilter<"EmailAccount"> | boolean
   username?: Prisma.StringFilter<"EmailAccount"> | string
   encryptedSecret?: Prisma.StringFilter<"EmailAccount"> | string
   visibility?: Prisma.EnumEmailAccountVisibilityFilter<"EmailAccount"> | $Enums.EmailAccountVisibility
@@ -996,6 +1021,7 @@ export type EmailAccountCreateWithoutTenantInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1023,6 +1049,7 @@ export type EmailAccountUncheckedCreateWithoutTenantInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1074,6 +1101,7 @@ export type EmailAccountCreateWithoutAccessInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1102,6 +1130,7 @@ export type EmailAccountUncheckedCreateWithoutAccessInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1142,6 +1171,7 @@ export type EmailAccountUpdateWithoutAccessInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1170,6 +1200,7 @@ export type EmailAccountUncheckedUpdateWithoutAccessInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1194,6 +1225,7 @@ export type EmailAccountCreateWithoutFoldersInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1222,6 +1254,7 @@ export type EmailAccountUncheckedCreateWithoutFoldersInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1262,6 +1295,7 @@ export type EmailAccountUpdateWithoutFoldersInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1290,6 +1324,7 @@ export type EmailAccountUncheckedUpdateWithoutFoldersInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1314,6 +1349,7 @@ export type EmailAccountCreateWithoutMessagesInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1342,6 +1378,7 @@ export type EmailAccountUncheckedCreateWithoutMessagesInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1382,6 +1419,7 @@ export type EmailAccountUpdateWithoutMessagesInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1410,6 +1448,7 @@ export type EmailAccountUncheckedUpdateWithoutMessagesInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1434,6 +1473,7 @@ export type EmailAccountCreateWithoutTeamLinksInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1462,6 +1502,7 @@ export type EmailAccountUncheckedCreateWithoutTeamLinksInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1502,6 +1543,7 @@ export type EmailAccountUpdateWithoutTeamLinksInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1530,6 +1572,7 @@ export type EmailAccountUncheckedUpdateWithoutTeamLinksInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1555,6 +1598,7 @@ export type EmailAccountCreateManyOwnerInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1576,6 +1620,7 @@ export type EmailAccountUpdateWithoutOwnerInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1603,6 +1648,7 @@ export type EmailAccountUncheckedUpdateWithoutOwnerInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1629,6 +1675,7 @@ export type EmailAccountUncheckedUpdateManyWithoutOwnerInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1651,6 +1698,7 @@ export type EmailAccountCreateManyTenantInput = {
   smtpHost: string
   smtpPort: number
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username: string
   encryptedSecret: string
   visibility?: $Enums.EmailAccountVisibility
@@ -1672,6 +1720,7 @@ export type EmailAccountUpdateWithoutTenantInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1699,6 +1748,7 @@ export type EmailAccountUncheckedUpdateWithoutTenantInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1725,6 +1775,7 @@ export type EmailAccountUncheckedUpdateManyWithoutTenantInput = {
   smtpHost?: Prisma.StringFieldUpdateOperationsInput | string
   smtpPort?: Prisma.IntFieldUpdateOperationsInput | number
   smtpSecure?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tlsVerify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   username?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedSecret?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumEmailAccountVisibilityFieldUpdateOperationsInput | $Enums.EmailAccountVisibility
@@ -1806,6 +1857,7 @@ export type EmailAccountSelect<ExtArgs extends runtime.Types.Extensions.Internal
   smtpHost?: boolean
   smtpPort?: boolean
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username?: boolean
   encryptedSecret?: boolean
   visibility?: boolean
@@ -1836,6 +1888,7 @@ export type EmailAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   smtpHost?: boolean
   smtpPort?: boolean
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username?: boolean
   encryptedSecret?: boolean
   visibility?: boolean
@@ -1861,6 +1914,7 @@ export type EmailAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   smtpHost?: boolean
   smtpPort?: boolean
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username?: boolean
   encryptedSecret?: boolean
   visibility?: boolean
@@ -1886,6 +1940,7 @@ export type EmailAccountSelectScalar = {
   smtpHost?: boolean
   smtpPort?: boolean
   smtpSecure?: boolean
+  tlsVerify?: boolean
   username?: boolean
   encryptedSecret?: boolean
   visibility?: boolean
@@ -1897,7 +1952,7 @@ export type EmailAccountSelectScalar = {
   updatedAt?: boolean
 }
 
-export type EmailAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "ownerUserId" | "address" | "displayName" | "imapHost" | "imapPort" | "imapSecure" | "smtpHost" | "smtpPort" | "smtpSecure" | "username" | "encryptedSecret" | "visibility" | "isActive" | "isDefault" | "signature" | "lastSyncAt" | "createdAt" | "updatedAt", ExtArgs["result"]["emailAccount"]>
+export type EmailAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "ownerUserId" | "address" | "displayName" | "imapHost" | "imapPort" | "imapSecure" | "smtpHost" | "smtpPort" | "smtpSecure" | "tlsVerify" | "username" | "encryptedSecret" | "visibility" | "isActive" | "isDefault" | "signature" | "lastSyncAt" | "createdAt" | "updatedAt", ExtArgs["result"]["emailAccount"]>
 export type EmailAccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1938,6 +1993,7 @@ export type $EmailAccountPayload<ExtArgs extends runtime.Types.Extensions.Intern
     smtpHost: string
     smtpPort: number
     smtpSecure: boolean
+    tlsVerify: boolean
     username: string
     encryptedSecret: string
     visibility: $Enums.EmailAccountVisibility
@@ -2387,6 +2443,7 @@ export interface EmailAccountFieldRefs {
   readonly smtpHost: Prisma.FieldRef<"EmailAccount", 'String'>
   readonly smtpPort: Prisma.FieldRef<"EmailAccount", 'Int'>
   readonly smtpSecure: Prisma.FieldRef<"EmailAccount", 'Boolean'>
+  readonly tlsVerify: Prisma.FieldRef<"EmailAccount", 'Boolean'>
   readonly username: Prisma.FieldRef<"EmailAccount", 'String'>
   readonly encryptedSecret: Prisma.FieldRef<"EmailAccount", 'String'>
   readonly visibility: Prisma.FieldRef<"EmailAccount", 'EmailAccountVisibility'>

@@ -200,12 +200,11 @@ describe('GetEmailMessageUseCase', () => {
       messageId: message.id.toString(),
     });
 
-    // Body should be returned as-is from DB — not re-downloaded from IMAP
+    // Body should be returned as-is from DB — not re-downloaded from IMAP.
+    // credentialCipherService.decrypt is NOT called because the message
+    // already has a body and hasAttachments=false, so no IMAP fetch needed.
     expect(response.message.bodyText).toBe('Test message with attachment');
-    // Note: credentialCipherService.decrypt IS called once for the attachment
-    // recovery path (re-checks messages with body but no attachment records to
-    // fix false-negative hasAttachments flags). The body itself is NOT re-fetched.
-    expect(credentialCipherService.decrypt).toHaveBeenCalledTimes(1);
+    expect(credentialCipherService.decrypt).toHaveBeenCalledTimes(0);
   });
 
   it('should attempt lazy fetch when body is null but not break on IMAP failure', async () => {

@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 
+import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { createCalendarEventController } from './v1-create-calendar-event.controller';
 import { deleteCalendarEventController } from './v1-delete-calendar-event.controller';
 import { exportCalendarEventsController } from './v1-export-calendar-events.controller';
@@ -16,6 +17,8 @@ import { shareEventWithTeamController } from './v1-share-event-with-team.control
 import { unshareEventController } from './v1-unshare-event.controller';
 
 export async function calendarEventsRoutes(app: FastifyInstance) {
+  app.addHook('onRequest', createModuleMiddleware('CALENDAR'));
+
   // Register export before :id routes to avoid path collision
   app.register(exportCalendarEventsController);
   app.register(getCalendarEventController);

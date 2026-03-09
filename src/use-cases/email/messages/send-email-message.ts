@@ -13,6 +13,7 @@ import type {
     SmtpAttachmentInput,
     SmtpClientService,
 } from '@/services/email/smtp-client.service';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
 import MailComposer from 'nodemailer/lib/mail-composer/index.js';
 
 interface SendEmailMessageRequest {
@@ -90,6 +91,7 @@ export class SendEmailMessageUseCase {
         secure: account.smtpSecure,
         username: account.username,
         secret,
+        rejectUnauthorized: account.tlsVerify,
       },
       {
         from,
@@ -114,6 +116,7 @@ export class SendEmailMessageUseCase {
       secure: account.imapSecure,
       username: account.username,
       secret,
+      rejectUnauthorized: account.tlsVerify,
       from,
       to: request.to,
       cc: request.cc,
@@ -143,6 +146,22 @@ export class SendEmailMessageUseCase {
       });
     }
 
+    queueAuditLog({
+      userId: request.userId,
+      action: 'EMAIL_SEND',
+      entity: 'EMAIL_MESSAGE',
+      entityId: messageId,
+      module: 'EMAIL',
+      description: `Sent email from ${from} to ${request.to.join(', ')}`,
+      metadata: {
+        accountId: account.id.toString(),
+        from,
+        to: request.to,
+        subject: request.subject,
+        hasAttachments: (request.attachments?.length ?? 0) > 0,
+      },
+    }).catch(() => {});
+
     return { messageId };
   }
 
@@ -153,6 +172,7 @@ export class SendEmailMessageUseCase {
     secure: boolean;
     username: string;
     secret: string;
+    rejectUnauthorized?: boolean;
     from: string;
     to: string[];
     cc?: string[];
@@ -177,6 +197,7 @@ export class SendEmailMessageUseCase {
         secure: params.secure,
         username: params.username,
         secret: params.secret,
+        rejectUnauthorized: params.rejectUnauthorized,
       });
 
       const rawMessage = await this.buildRawMessage({

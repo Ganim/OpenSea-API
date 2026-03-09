@@ -75,6 +75,7 @@ export class MarkEmailMessageReadUseCase {
       secure: account.imapSecure,
       username: account.username,
       secret,
+      rejectUnauthorized: account.tlsVerify,
     });
 
     try {

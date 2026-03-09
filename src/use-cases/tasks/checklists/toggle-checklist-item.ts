@@ -34,6 +34,21 @@ export class ToggleChecklistItemUseCase {
     const { boardId, userId, userName, cardId, checklistId, itemId, isCompleted } =
       request;
 
+    const card = await this.cardsRepository.findById(cardId, boardId);
+
+    if (!card) {
+      throw new ResourceNotFoundError('Card not found');
+    }
+
+    const existingItem = await this.cardChecklistsRepository.findItemById(
+      itemId,
+      checklistId,
+    );
+
+    if (!existingItem) {
+      throw new ResourceNotFoundError('Checklist item not found');
+    }
+
     const checklistItem = await this.cardChecklistsRepository.updateItem({
       id: itemId,
       checklistId,
@@ -44,8 +59,7 @@ export class ToggleChecklistItemUseCase {
       throw new ResourceNotFoundError('Checklist item not found');
     }
 
-    const card = await this.cardsRepository.findById(cardId, boardId);
-    const cardTitle = card?.title ?? 'desconhecido';
+    const cardTitle = card.title;
 
     const activityDescription = isCompleted
       ? `${userName} marcou ${checklistItem.title} como concluído no cartão ${cardTitle}`

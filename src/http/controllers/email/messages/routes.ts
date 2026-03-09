@@ -16,6 +16,8 @@ import { makeMarkEmailMessageReadUseCase } from '@/use-cases/email/messages/fact
 import { makeMoveEmailMessageUseCase } from '@/use-cases/email/messages/factories/make-move-email-message-use-case';
 import { makeSaveEmailDraftUseCase } from '@/use-cases/email/messages/factories/make-save-email-draft-use-case';
 import { makeSendEmailMessageUseCase } from '@/use-cases/email/messages/factories/make-send-email-message-use-case';
+import { makeSuggestEmailContactsUseCase } from '@/use-cases/email/messages/factories/make-suggest-email-contacts-use-case';
+import { makeToggleEmailMessageFlagUseCase } from '@/use-cases/email/messages/factories/make-toggle-email-message-flag-use-case';
 import { queueEmailSync } from '@/workers/queues/email-sync.queue';
 import rateLimit from '@fastify/rate-limit';
 import '@fastify/multipart';
@@ -126,7 +128,9 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
         page: z.coerce.number().int().positive().default(1),
         limit: z.coerce.number().int().positive().max(100).default(20),
         unread: z.coerce.boolean().optional(),
+        flagged: z.coerce.boolean().optional(),
         search: z.string().trim().min(2).max(128).optional(),
+        cursor: z.string().min(1).optional(),
       }),
       response: {
         200: z.object({
@@ -136,6 +140,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
             page: z.number(),
             limit: z.number(),
             pages: z.number(),
+            nextCursor: z.string().nullable().optional(),
           }),
         }),
         404: z.object({ message: z.string() }),
@@ -154,9 +159,11 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
           accountId: request.query.accountId,
           folderId: request.query.folderId,
           unread: request.query.unread,
+          flagged: request.query.flagged,
           search: request.query.search,
           page: request.query.page,
           limit: request.query.limit,
+          cursor: request.query.cursor,
         });
 
         return reply.status(200).send({
@@ -166,6 +173,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
             page: result.page,
             limit: result.limit,
             pages: result.pages,
+            nextCursor: result.nextCursor,
           },
         });
       } catch (error) {
@@ -201,6 +209,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
         limit: z.coerce.number().int().positive().max(100).default(50),
         unread: z.coerce.boolean().optional(),
         search: z.string().trim().min(2).max(128).optional(),
+        cursor: z.string().min(1).optional(),
       }),
       response: {
         200: z.object({
@@ -210,6 +219,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
             page: z.number(),
             limit: z.number(),
             pages: z.number(),
+            nextCursor: z.string().nullable().optional(),
           }),
         }),
         403: z.object({ message: z.string() }),
@@ -229,6 +239,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
           search: request.query.search,
           page: request.query.page,
           limit: request.query.limit,
+          cursor: request.query.cursor,
         });
 
         return reply.status(200).send({
@@ -238,6 +249,7 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
             page: result.page,
             limit: result.limit,
             pages: result.pages,
+            nextCursor: result.nextCursor,
           },
         });
       } catch (error) {
@@ -246,6 +258,53 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
         }
         throw error;
       }
+    },
+  });
+
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/email/messages/contacts/suggest',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.MESSAGES.READ,
+        resource: 'email-messages',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Messages'],
+      summary: 'Suggest email contacts based on message history',
+      security: [{ bearerAuth: [] }],
+      querystring: z.object({
+        q: z.string().trim().min(1).max(128),
+        limit: z.coerce.number().int().positive().max(50).default(10),
+      }),
+      response: {
+        200: z.object({
+          contacts: z.array(
+            z.object({
+              email: z.string(),
+              name: z.string().nullable(),
+              frequency: z.number(),
+            }),
+          ),
+        }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+
+      const useCase = makeSuggestEmailContactsUseCase();
+      const result = await useCase.execute({
+        tenantId,
+        userId,
+        query: request.query.q,
+        limit: request.query.limit,
+      });
+
+      return reply.status(200).send(result);
     },
   });
 
@@ -568,6 +627,60 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
     },
   });
 
+  // ── Toggle flag (star) ──────────────────────────────────────────────────
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'PATCH',
+    url: '/v1/email/messages/:id/flag',
+    onRequest: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.EMAIL.MESSAGES.UPDATE,
+        resource: 'email-messages',
+      }),
+    ],
+    schema: {
+      tags: ['Email - Messages'],
+      summary: 'Toggle flag/star on email message',
+      security: [{ bearerAuth: [] }],
+      params: z.object({ id: z.string().uuid() }),
+      body: z.object({ isFlagged: z.boolean() }),
+      response: {
+        204: z.null(),
+        400: z.object({ message: z.string() }),
+        403: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+
+      try {
+        const useCase = makeToggleEmailMessageFlagUseCase();
+        await useCase.execute({
+          tenantId,
+          userId,
+          messageId: request.params.id,
+          isFlagged: request.body.isFlagged,
+        });
+
+        return reply.status(204).send(null);
+      } catch (error) {
+        if (error instanceof BadRequestError) {
+          return reply.status(400).send({ message: error.message });
+        }
+        if (error instanceof ResourceNotFoundError) {
+          return reply.status(404).send({ message: error.message });
+        }
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
+        throw error;
+      }
+    },
+  });
+
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/email/messages/:id/move',
@@ -720,15 +833,23 @@ export async function emailMessagesRoutes(app: FastifyInstance) {
         // (Zod cannot express Buffer in response schemas) and also bypasses
         // Fastify hooks. We must set CORS headers manually using the real
         // request origin (not '*') because the frontend sends credentials.
-        const origin = request.headers.origin ?? 'http://localhost:3000';
-        reply.raw.writeHead(200, {
+        const origin = request.headers.origin;
+        const headers: Record<string, string | number> = {
           'Content-Type': result.contentType,
           'Content-Disposition': `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
           'Content-Length': result.size,
-          'Access-Control-Allow-Origin': origin,
-          'Access-Control-Allow-Credentials': 'true',
-          'Access-Control-Expose-Headers': 'Content-Disposition',
-        });
+        };
+
+        // Only set CORS headers when a browser Origin is present.
+        // Never fall back to a hardcoded origin — that would break
+        // production or introduce a CORS misconfiguration.
+        if (origin) {
+          headers['Access-Control-Allow-Origin'] = origin;
+          headers['Access-Control-Allow-Credentials'] = 'true';
+          headers['Access-Control-Expose-Headers'] = 'Content-Disposition';
+        }
+
+        reply.raw.writeHead(200, headers);
         reply.raw.end(result.content);
         return;
       } catch (error) {

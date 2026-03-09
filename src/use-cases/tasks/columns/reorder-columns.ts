@@ -56,13 +56,10 @@ export class ReorderColumnsUseCase {
       );
     }
 
-    for (let position = 0; position < columnIds.length; position++) {
-      await this.boardColumnsRepository.reorder(
-        columnIds[position],
-        boardId,
-        position,
-      );
-    }
+    await this.boardColumnsRepository.reorderMany(
+      columnIds.map((id, position) => ({ id, position })),
+      boardId,
+    );
 
     const reorderedColumns =
       await this.boardColumnsRepository.findByBoardId(boardId);

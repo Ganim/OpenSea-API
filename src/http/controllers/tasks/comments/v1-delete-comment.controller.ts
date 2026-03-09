@@ -1,9 +1,11 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { makeGetBoardUseCase } from '@/use-cases/tasks/boards/factories/make-get-board-use-case';
 import { makeDeleteCommentUseCase } from '@/use-cases/tasks/comments/factories/make-delete-comment-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -33,19 +35,27 @@ export async function deleteCommentController(app: FastifyInstance) {
       response: {
         204: z.null(),
         400: z.object({ message: z.string() }),
+        403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
     },
     handler: async (request, reply) => {
       const userId = request.user.sub;
-      const { cardId, commentId } = request.params;
+      const tenantId = request.user.tenantId!;
+      const { boardId, cardId, commentId } = request.params;
 
       try {
+        const getBoardUseCase = makeGetBoardUseCase();
+        await getBoardUseCase.execute({ tenantId, userId, boardId });
+
         const useCase = makeDeleteCommentUseCase();
-        await useCase.execute({ userId, cardId, commentId });
+        await useCase.execute({ tenantId, userId, cardId, commentId });
 
         return reply.status(204).send();
       } catch (error) {
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });
         }

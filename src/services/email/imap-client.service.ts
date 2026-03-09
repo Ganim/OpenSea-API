@@ -7,6 +7,7 @@ export interface ImapConnectionConfig {
   secure: boolean;
   username: string;
   secret: string;
+  rejectUnauthorized?: boolean;
 }
 
 /**
@@ -24,6 +25,7 @@ export function createImapClient(config: {
   secure: boolean;
   username: string;
   secret: string;
+  rejectUnauthorized?: boolean;
 }): ImapFlow {
   const client = new ImapFlow({
     host: config.host,
@@ -38,7 +40,7 @@ export function createImapClient(config: {
       // cPanel/HostGator shared hosting uses certificates issued for the
       // server hostname, not the custom domain.  Without this, ImapFlow
       // rejects the TLS handshake on hostname mismatch.
-      rejectUnauthorized: false,
+      rejectUnauthorized: config.rejectUnauthorized ?? false,
     },
     // Prevent zombie connections on unreliable mail servers
     connectionTimeout: 30_000,  // 30s to establish TCP connection

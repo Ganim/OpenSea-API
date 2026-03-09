@@ -7,7 +7,7 @@ import { DeleteAttachmentUseCase } from '../delete-attachment';
 export function makeDeleteAttachmentUseCase() {
   const attachmentsRepository = new PrismaFinanceAttachmentsRepository();
   const fileUploadService = env.S3_ENDPOINT
-    ? new S3FileUploadService()
+    ? S3FileUploadService.getInstance()
     : new LocalFileUploadService();
 
   return new DeleteAttachmentUseCase(attachmentsRepository, fileUploadService);

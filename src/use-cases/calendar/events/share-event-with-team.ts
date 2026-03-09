@@ -1,14 +1,12 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { CalendarEventsRepository } from '@/repositories/calendar/calendar-events-repository';
 import type { EventParticipantsRepository } from '@/repositories/calendar/event-participants-repository';
 import type { CalendarsRepository } from '@/repositories/calendar/calendars-repository';
 import type { TeamCalendarConfigsRepository } from '@/repositories/calendar/team-calendar-configs-repository';
+import type { TeamMembersRepository } from '@/repositories/core/team-members-repository';
 import { resolveCalendarAccess } from '@/use-cases/calendar/helpers/resolve-calendar-access';
-
-interface TeamMemberInfo {
-  userId: string;
-}
 
 interface ShareEventWithTeamRequest {
   eventId: string;
@@ -16,7 +14,7 @@ interface ShareEventWithTeamRequest {
   userId: string;
   teamRole?: string | null;
   teamId: string;
-  teamMembers: TeamMemberInfo[];
+  teamMembers?: { userId: string }[];
 }
 
 interface ShareEventWithTeamResponse {
@@ -29,6 +27,7 @@ export class ShareEventWithTeamUseCase {
     private eventParticipantsRepository: EventParticipantsRepository,
     private calendarsRepository: CalendarsRepository,
     private teamCalendarConfigsRepository: TeamCalendarConfigsRepository,
+    private teamMembersRepository?: TeamMembersRepository,
   ) {}
 
   async execute(
@@ -39,8 +38,7 @@ export class ShareEventWithTeamUseCase {
       tenantId,
       userId,
       teamRole,
-      teamId: _teamId,
-      teamMembers,
+      teamId,
     } = request;
 
     const event = await this.calendarEventsRepository.findById(
@@ -51,6 +49,18 @@ export class ShareEventWithTeamUseCase {
       throw new ResourceNotFoundError('Event not found');
     }
 
+    // Resolve team members if not provided
+    let teamMembers = request.teamMembers;
+    if (!teamMembers && this.teamMembersRepository) {
+      const result = await this.teamMembersRepository.findMany({
+        teamId: new UniqueEntityID(teamId),
+      });
+      teamMembers = result.members
+        .filter((m) => !m.leftAt)
+        .map((m) => ({ userId: m.userId.toString() }));
+    }
+    teamMembers = teamMembers ?? [];
+
     // Resolve calendar access
     if (event.calendarId) {
       const calendar = await this.calendarsRepository.findById(
@@ -59,18 +69,29 @@ export class ShareEventWithTeamUseCase {
       );
       if (calendar) {
         let teamConfig = null;
+        let resolvedTeamRole = teamRole ?? null;
+
         if (calendar.type === 'TEAM' && calendar.ownerId) {
           teamConfig =
             await this.teamCalendarConfigsRepository.findByTeamAndCalendar(
               calendar.ownerId,
               calendar.id.toString(),
             );
+
+          // Auto-resolve team role if not provided
+          if (!resolvedTeamRole && this.teamMembersRepository) {
+            const membership = await this.teamMembersRepository.findByTeamAndUser(
+              new UniqueEntityID(calendar.ownerId),
+              new UniqueEntityID(userId),
+            );
+            resolvedTeamRole = membership?.role ?? null;
+          }
         }
 
         const access = resolveCalendarAccess({
           calendar,
           userId,
-          teamRole,
+          teamRole: resolvedTeamRole,
           teamCalendarConfig: teamConfig,
         });
 

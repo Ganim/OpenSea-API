@@ -8,7 +8,6 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { shareEventWithUsersSchema } from '@/http/schemas/calendar';
-import { prisma } from '@/lib/prisma';
 import { makeShareEventWithUsersUseCase } from '@/use-cases/calendar/events/factories/make-share-event-with-users-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -45,31 +44,11 @@ export async function shareEventWithUsersController(app: FastifyInstance) {
       const { eventId } = request.params;
 
       try {
-        // Get team role if event belongs to a team calendar
-        const event = await prisma.calendarEvent.findFirst({
-          where: { id: eventId, tenantId, deletedAt: null },
-          include: { calendar: true },
-        });
-
-        let teamRole: string | null = null;
-        if (event?.calendar?.type === 'TEAM' && event.calendar.ownerId) {
-          const membership = await prisma.teamMember.findFirst({
-            where: {
-              teamId: event.calendar.ownerId,
-              userId,
-              tenantId,
-              leftAt: null,
-            },
-          });
-          teamRole = membership?.role ?? null;
-        }
-
         const useCase = makeShareEventWithUsersUseCase();
         const result = await useCase.execute({
           eventId,
           tenantId,
           userId,
-          teamRole,
           targetUserIds: request.body.userIds,
         });
 
@@ -78,7 +57,7 @@ export async function shareEventWithUsersController(app: FastifyInstance) {
           entityId: eventId,
           placeholders: {
             userName: userId,
-            eventTitle: event?.title ?? '',
+            eventTitle: eventId,
             targetUserName: request.body.userIds.join(', '),
           },
           newData: request.body,

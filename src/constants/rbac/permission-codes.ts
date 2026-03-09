@@ -1119,6 +1119,16 @@ export const PermissionCodes = {
       UPDATE: 'tasks.comments.update' as const,
       DELETE: 'tasks.comments.delete' as const,
     },
+    LABELS: {
+      CREATE: 'tasks.labels.create' as const,
+      UPDATE: 'tasks.labels.update' as const,
+      DELETE: 'tasks.labels.delete' as const,
+    },
+    CUSTOM_FIELDS: {
+      CREATE: 'tasks.custom-fields.create' as const,
+      UPDATE: 'tasks.custom-fields.update' as const,
+      DELETE: 'tasks.custom-fields.delete' as const,
+    },
     ATTACHMENTS: {
       UPLOAD: 'tasks.attachments.upload' as const,
       DELETE: 'tasks.attachments.delete' as const,

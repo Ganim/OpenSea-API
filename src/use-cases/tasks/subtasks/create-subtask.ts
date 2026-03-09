@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { Card } from '@/entities/tasks/card';
+import type { BoardsRepository } from '@/repositories/tasks/boards-repository';
 import type { CardActivitiesRepository } from '@/repositories/tasks/card-activities-repository';
 import type { CardsRepository } from '@/repositories/tasks/cards-repository';
 
@@ -23,12 +24,14 @@ interface CreateSubtaskResponse {
 
 export class CreateSubtaskUseCase {
   constructor(
+    private boardsRepository: BoardsRepository,
     private cardsRepository: CardsRepository,
     private cardActivitiesRepository: CardActivitiesRepository,
   ) {}
 
   async execute(request: CreateSubtaskRequest): Promise<CreateSubtaskResponse> {
     const {
+      tenantId,
       boardId,
       userId,
       userName,
@@ -39,6 +42,12 @@ export class CreateSubtaskUseCase {
       priority,
       dueDate,
     } = request;
+
+    const board = await this.boardsRepository.findById(boardId, tenantId);
+
+    if (!board) {
+      throw new ResourceNotFoundError('Board not found');
+    }
 
     const parentCard = await this.cardsRepository.findById(parentCardId, boardId);
 

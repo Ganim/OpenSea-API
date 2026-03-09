@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -43,13 +44,14 @@ export async function moveCardController(app: FastifyInstance) {
       const userId = request.user.sub;
       const tenantId = request.user.tenantId!;
       const { boardId, cardId } = request.params;
+      const userName = await resolveUserName(userId);
 
       try {
         const useCase = makeMoveCardUseCase();
         const result = await useCase.execute({
           tenantId,
           userId,
-          userName: 'System',
+          userName,
           boardId,
           cardId,
           ...request.body,
@@ -58,7 +60,7 @@ export async function moveCardController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.TASKS.CARD_MOVE,
           entityId: cardId,
-          placeholders: { userName: 'System', cardTitle: result.card.title },
+          placeholders: { userName, cardTitle: result.card.title },
           newData: request.body,
         });
 

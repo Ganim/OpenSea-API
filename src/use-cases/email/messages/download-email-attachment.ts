@@ -8,6 +8,7 @@ import type {
 } from '@/repositories/email';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { createImapClient } from '@/services/email/imap-client.service';
+import { queueAuditLog } from '@/workers/queues/audit.queue';
 // @ts-expect-error - mailparser has no type declarations
 import { simpleParser } from 'mailparser';
 
@@ -113,6 +114,7 @@ export class DownloadEmailAttachmentUseCase {
       secure: account.imapSecure,
       username: account.username,
       secret,
+      rejectUnauthorized: account.tlsVerify,
     });
 
     try {
@@ -164,6 +166,21 @@ export class DownloadEmailAttachmentUseCase {
           },
           'Downloaded attachment from IMAP on-demand',
         );
+
+        queueAuditLog({
+          userId,
+          action: 'EMAIL_ATTACHMENT_DOWNLOAD',
+          entity: 'EMAIL_ATTACHMENT',
+          entityId: attachmentId,
+          module: 'EMAIL',
+          description: `Downloaded attachment "${att.filename || attachment.filename}" from message ${messageId}`,
+          metadata: {
+            messageId,
+            filename: att.filename || attachment.filename,
+            contentType: att.contentType || attachment.contentType,
+            size: att.content.length,
+          },
+        }).catch(() => {});
 
         return {
           content: att.content,

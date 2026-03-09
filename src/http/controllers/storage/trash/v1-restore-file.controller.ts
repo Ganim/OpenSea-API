@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -42,6 +44,15 @@ export async function restoreFileController(app: FastifyInstance) {
       try {
         const useCase = makeRestoreFileUseCase();
         const { file } = await useCase.execute({ tenantId, fileId });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STORAGE.FILE_RESTORE,
+          entityId: file.id.toString(),
+          placeholders: {
+            userName: request.user.sub,
+            fileName: file.name,
+          },
+        });
 
         return reply.status(200).send({ file: storageFileToDTO(file) });
       } catch (error) {

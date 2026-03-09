@@ -6,7 +6,6 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { prisma } from '@/lib/prisma';
 import { makeUnshareEventUseCase } from '@/use-cases/calendar/events/factories/make-unshare-event-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -44,31 +43,11 @@ export async function unshareEventController(app: FastifyInstance) {
       const { eventId, targetUserId } = request.params;
 
       try {
-        // Get team role if event belongs to a team calendar
-        const event = await prisma.calendarEvent.findFirst({
-          where: { id: eventId, tenantId, deletedAt: null },
-          include: { calendar: true },
-        });
-
-        let teamRole: string | null = null;
-        if (event?.calendar?.type === 'TEAM' && event.calendar.ownerId) {
-          const membership = await prisma.teamMember.findFirst({
-            where: {
-              teamId: event.calendar.ownerId,
-              userId,
-              tenantId,
-              leftAt: null,
-            },
-          });
-          teamRole = membership?.role ?? null;
-        }
-
         const useCase = makeUnshareEventUseCase();
         const result = await useCase.execute({
           eventId,
           tenantId,
           userId,
-          teamRole,
           targetUserId,
         });
 
@@ -77,7 +56,7 @@ export async function unshareEventController(app: FastifyInstance) {
           entityId: eventId,
           placeholders: {
             userName: userId,
-            eventTitle: event?.title ?? '',
+            eventTitle: eventId,
             targetUserName: targetUserId,
           },
         });

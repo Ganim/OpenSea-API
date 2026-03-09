@@ -40,29 +40,47 @@ export class PurgeDeletedFilesUseCase {
     let freedBytes = 0;
     let errors = 0;
 
+    if (deletedFiles.length === 0) {
+      return { purgedFiles: 0, purgedVersions: 0, freedBytes: 0, errors: 0 };
+    }
+
+    const fileIds = deletedFiles.map((f) => f.id);
+
+    // Batch load all versions in a single query (eliminates N+1)
+    const allVersions =
+      await this.storageFileVersionsRepository.findByFileIds(fileIds);
+
+    // Collect all S3 keys to delete (file keys + version keys)
+    const s3KeysToDelete = new Set<string>();
+    for (const file of deletedFiles) {
+      s3KeysToDelete.add(file.fileKey);
+    }
+    for (const version of allVersions) {
+      s3KeysToDelete.add(version.fileKey);
+    }
+
+    // Delete S3 objects (still sequential per key, but no N+1 on DB)
+    for (const key of s3KeysToDelete) {
+      try {
+        await this.fileUploadService.delete(key);
+        const version = allVersions.find((v) => v.fileKey === key);
+        if (version) {
+          freedBytes += version.size;
+          purgedVersions++;
+        } else {
+          const file = deletedFiles.find((f) => f.fileKey === key);
+          if (file) freedBytes += file.size;
+        }
+      } catch {
+        errors++;
+      }
+    }
+
+    // Batch delete version records and file records from DB
+    await this.storageFileVersionsRepository.deleteByFileIds(fileIds);
+
     for (const file of deletedFiles) {
       try {
-        // Get all versions to delete their physical files
-        const versions = await this.storageFileVersionsRepository.findByFileId(
-          file.id,
-          file.tenantId.toString(),
-        );
-
-        // Delete physical files for each version
-        for (const version of versions) {
-          try {
-            await this.fileUploadService.delete(version.fileKey);
-            freedBytes += version.size;
-            purgedVersions++;
-          } catch {
-            errors++;
-          }
-        }
-
-        // Delete version records from DB
-        await this.storageFileVersionsRepository.deleteByFileId(file.id);
-
-        // Hard-delete the file record
         await this.storageFilesRepository.hardDelete(file.id);
         purgedFiles++;
       } catch {

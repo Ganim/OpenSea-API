@@ -65,9 +65,9 @@ describe('RestoreFileVersionUseCase', () => {
       versionId: versionOne.id.toString(),
     });
 
-    // Should create version 3 pointing to version 1's fileKey
-    expect(result.file.currentVersion).toBe(3);
-    expect(result.version.version).toBe(3);
+    // Should create version 3 (snapshot of current) + version 4 (restored from v1)
+    expect(result.file.currentVersion).toBe(4);
+    expect(result.version.version).toBe(4);
     expect(result.version.fileKey).toBe(
       'storage/tenant-1/folder-1/report-v1.pdf',
     );
@@ -140,7 +140,7 @@ describe('RestoreFileVersionUseCase', () => {
       versionId: versionOne.id.toString(),
     });
 
-    // Should now have 2 versions: original + restored
-    expect(storageFileVersionsRepository.items).toHaveLength(2);
+    // Should now have 3 versions: original + snapshot + restored
+    expect(storageFileVersionsRepository.items).toHaveLength(3);
   });
 });

@@ -71,6 +71,27 @@ describe('DeleteCalendarEventUseCase', () => {
     ).rejects.toThrow('Only the event creator can delete this event');
   });
 
+  it('should allow deletion by non-creator with manage permission', async () => {
+    const created = await repository.create({
+      tenantId: 'tenant-1',
+      calendarId: 'calendar-1',
+      title: 'Someone Else Event',
+      startDate: new Date('2026-03-01T10:00:00'),
+      endDate: new Date('2026-03-01T11:00:00'),
+      createdBy: 'user-1',
+    });
+
+    await sut.execute({
+      id: created.id.toString(),
+      tenantId: 'tenant-1',
+      userId: 'user-2',
+      hasManagePermission: true,
+    });
+
+    const found = await repository.findById(created.id.toString(), 'tenant-1');
+    expect(found).toBeNull();
+  });
+
   describe('Multi-tenant isolation', () => {
     it('should not delete event from another tenant', async () => {
       const created = await repository.create({

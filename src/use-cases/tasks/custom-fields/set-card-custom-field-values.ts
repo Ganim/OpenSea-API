@@ -161,6 +161,35 @@ export class SetCardCustomFieldValuesUseCase {
         }
         break;
       }
+      case 'URL': {
+        if (typeof value !== 'string') {
+          throw new BadRequestError(
+            `Field "${field.name}" expects a URL string value`,
+          );
+        }
+        try {
+          new URL(value);
+        } catch {
+          throw new BadRequestError(
+            `Field "${field.name}" contains an invalid URL`,
+          );
+        }
+        break;
+      }
+      case 'EMAIL': {
+        if (typeof value !== 'string') {
+          throw new BadRequestError(
+            `Field "${field.name}" expects an email string value`,
+          );
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          throw new BadRequestError(
+            `Field "${field.name}" contains an invalid email address`,
+          );
+        }
+        break;
+      }
     }
   }
 }

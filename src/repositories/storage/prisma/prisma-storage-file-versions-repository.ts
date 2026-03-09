@@ -81,4 +81,22 @@ export class PrismaStorageFileVersionsRepository
       where: { fileId: fileId.toString() },
     });
   }
+
+  async findByFileIds(fileIds: UniqueEntityID[]): Promise<StorageFileVersion[]> {
+    if (fileIds.length === 0) return [];
+    const versionsDb = await prisma.storageFileVersion.findMany({
+      where: {
+        fileId: { in: fileIds.map((id) => id.toString()) },
+      },
+      orderBy: { version: 'desc' },
+    });
+    return versionsDb.map(storageFileVersionPrismaToDomain);
+  }
+
+  async deleteByFileIds(fileIds: UniqueEntityID[]): Promise<void> {
+    if (fileIds.length === 0) return;
+    await prisma.storageFileVersion.deleteMany({
+      where: { fileId: { in: fileIds.map((id) => id.toString()) } },
+    });
+  }
 }

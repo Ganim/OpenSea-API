@@ -27,6 +27,7 @@ export function emailAccountPrismaToDomain(
       smtpHost: accountDb.smtpHost,
       smtpPort: accountDb.smtpPort,
       smtpSecure: accountDb.smtpSecure,
+      tlsVerify: accountDb.tlsVerify,
       username: accountDb.username,
       encryptedSecret: accountDb.encryptedSecret,
       visibility: accountDb.visibility,

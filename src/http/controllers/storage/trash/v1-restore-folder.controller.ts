@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -43,6 +45,15 @@ export async function restoreFolderController(app: FastifyInstance) {
       try {
         const useCase = makeRestoreFolderUseCase();
         const { folder } = await useCase.execute({ tenantId, folderId });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.STORAGE.FOLDER_RESTORE,
+          entityId: folder.id.toString(),
+          placeholders: {
+            userName: request.user.sub,
+            folderName: folder.name,
+          },
+        });
 
         return reply.status(200).send({ folder: storageFolderToDTO(folder) });
       } catch (error) {

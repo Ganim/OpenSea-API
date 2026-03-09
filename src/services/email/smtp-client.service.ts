@@ -9,6 +9,7 @@ export interface SmtpConnectionConfig {
   secure: boolean;
   username: string;
   secret: string;
+  rejectUnauthorized?: boolean;
 }
 
 export interface SmtpAttachmentInput {
@@ -59,10 +60,10 @@ export class SmtpClientService {
 
     const transporter = this.createTransporter(config);
 
-    // Auto-generate plain text from HTML if not provided.
+    // Auto-generate plain text from HTML only if not already provided.
     // Multipart emails (text + HTML) are much less likely to be flagged as spam
     // by Gmail, Hotmail, and other external providers.
-    const text = payload.text || this.htmlToPlainText(payload.html);
+    const text = payload.text ?? this.htmlToPlainText(payload.html);
 
     const sendOptions: SendMailOptions = {
       from: payload.from,
@@ -132,6 +133,10 @@ export class SmtpClientService {
 
     const smtpDebug = process.env.SMTP_DEBUG === 'true';
 
+    if (smtpDebug) {
+      logger.warn('[SMTP] SMTP_DEBUG is enabled — SMTP conversation will be logged. Do NOT use in production (may expose credentials).');
+    }
+
     const opts: SMTPTransport.Options = {
       host: config.host,
       port: config.port,
@@ -147,9 +152,9 @@ export class SmtpClientService {
         // domain (mail.casaesmeralda.ind.br).  Without this flag, nodemailer
         // rejects the connection with UNABLE_TO_VERIFY_LEAF_SIGNATURE or
         // ERR_TLS_CERT_ALTNAME_INVALID.
-        rejectUnauthorized: false,
+        rejectUnauthorized: config.rejectUnauthorized ?? false,
       },
-      // Log full SMTP conversation when SMTP_DEBUG=true
+      // Log SMTP conversation when SMTP_DEBUG=true (NEVER enable in production)
       debug: smtpDebug,
       logger: smtpDebug as boolean | undefined,
       // Prevent zombie connections on unreliable mail servers

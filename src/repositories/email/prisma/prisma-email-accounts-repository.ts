@@ -23,6 +23,7 @@ export class PrismaEmailAccountsRepository implements EmailAccountsRepository {
         smtpHost: data.smtpHost,
         smtpPort: data.smtpPort,
         smtpSecure: data.smtpSecure ?? true,
+        tlsVerify: data.tlsVerify ?? false,
         username: data.username,
         encryptedSecret: data.encryptedSecret,
         visibility: data.visibility ?? 'PRIVATE',
@@ -91,9 +92,12 @@ export class PrismaEmailAccountsRepository implements EmailAccountsRepository {
     return accounts.map(emailAccountPrismaToDomain);
   }
 
-  async listActive(): Promise<EmailAccount[]> {
+  async listActive(tenantId?: string): Promise<EmailAccount[]> {
     const accounts = await prisma.emailAccount.findMany({
-      where: { isActive: true },
+      where: {
+        isActive: true,
+        ...(tenantId ? { tenantId } : {}),
+      },
       orderBy: { createdAt: 'desc' },
     });
 
@@ -113,6 +117,7 @@ export class PrismaEmailAccountsRepository implements EmailAccountsRepository {
         ...(data.smtpHost !== undefined && { smtpHost: data.smtpHost }),
         ...(data.smtpPort !== undefined && { smtpPort: data.smtpPort }),
         ...(data.smtpSecure !== undefined && { smtpSecure: data.smtpSecure }),
+        ...(data.tlsVerify !== undefined && { tlsVerify: data.tlsVerify }),
         ...(data.username !== undefined && { username: data.username }),
         ...(data.encryptedSecret !== undefined && {
           encryptedSecret: data.encryptedSecret,

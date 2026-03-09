@@ -19,6 +19,7 @@ interface UpdateEmailAccountRequest {
   smtpHost?: string;
   smtpPort?: number;
   smtpSecure?: boolean;
+  tlsVerify?: boolean;
   username?: string;
   secret?: string;
   visibility?: 'PRIVATE' | 'SHARED';
@@ -77,6 +78,7 @@ export class UpdateEmailAccountUseCase {
       request.smtpHost !== undefined ||
       request.smtpPort !== undefined ||
       request.smtpSecure !== undefined ||
+      request.tlsVerify !== undefined ||
       request.username !== undefined ||
       request.secret !== undefined;
 
@@ -119,6 +121,7 @@ export class UpdateEmailAccountUseCase {
           secure: request.imapSecure ?? account.imapSecure,
           username: request.username ?? account.username,
           secret: secretToUse,
+          rejectUnauthorized: request.tlsVerify ?? account.tlsVerify,
         });
       } catch (err) {
         const detail = err instanceof Error ? err.message : String(err);
@@ -134,6 +137,7 @@ export class UpdateEmailAccountUseCase {
           secure: request.smtpSecure ?? account.smtpSecure,
           username: request.username ?? account.username,
           secret: secretToUse,
+          rejectUnauthorized: request.tlsVerify ?? account.tlsVerify,
         });
       } catch (err) {
         const detail = err instanceof Error ? err.message : String(err);
@@ -164,6 +168,7 @@ export class UpdateEmailAccountUseCase {
       smtpHost: request.smtpHost,
       smtpPort: request.smtpPort,
       smtpSecure: request.smtpSecure,
+      tlsVerify: request.tlsVerify,
       username: request.username,
       encryptedSecret,
       visibility: request.visibility,

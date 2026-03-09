@@ -13,7 +13,7 @@ export function makeServeFileUseCase() {
   const storageFileVersionsRepository =
     new PrismaStorageFileVersionsRepository();
   const fileUploadService = env.S3_ENDPOINT
-    ? new S3FileUploadService()
+    ? S3FileUploadService.getInstance()
     : new LocalFileUploadService();
   const officeConversionService = new OfficeConversionService();
 

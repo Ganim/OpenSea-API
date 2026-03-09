@@ -10,6 +10,7 @@ export interface EmailAccountDTO {
   smtpHost: string;
   smtpPort: number;
   smtpSecure: boolean;
+  tlsVerify: boolean;
   username: string;
   visibility: 'PRIVATE' | 'SHARED';
   isActive: boolean;
@@ -33,6 +34,7 @@ export function emailAccountToDTO(account: EmailAccount): EmailAccountDTO {
     smtpHost: account.smtpHost,
     smtpPort: account.smtpPort,
     smtpSecure: account.smtpSecure,
+    tlsVerify: account.tlsVerify,
     username: account.username,
     visibility: account.visibility,
     isActive: account.isActive,

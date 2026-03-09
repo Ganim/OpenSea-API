@@ -7,7 +7,6 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { shareEventWithTeamSchema } from '@/http/schemas/calendar';
-import { prisma } from '@/lib/prisma';
 import { makeShareEventWithTeamUseCase } from '@/use-cases/calendar/events/factories/make-share-event-with-team-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -44,45 +43,12 @@ export async function shareEventWithTeamController(app: FastifyInstance) {
       const { teamId } = request.body;
 
       try {
-        // Get team role if event belongs to a team calendar
-        const event = await prisma.calendarEvent.findFirst({
-          where: { id: eventId, tenantId, deletedAt: null },
-          include: { calendar: true },
-        });
-
-        let teamRole: string | null = null;
-        if (event?.calendar?.type === 'TEAM' && event.calendar.ownerId) {
-          const membership = await prisma.teamMember.findFirst({
-            where: {
-              teamId: event.calendar.ownerId,
-              userId,
-              tenantId,
-              leftAt: null,
-            },
-          });
-          teamRole = membership?.role ?? null;
-        }
-
-        // Get active members of the target team
-        const teamMembers = await prisma.teamMember.findMany({
-          where: { teamId, tenantId, leftAt: null },
-          select: { userId: true },
-        });
-
-        // Get team name for audit
-        const team = await prisma.team.findUnique({
-          where: { id: teamId },
-          select: { name: true },
-        });
-
         const useCase = makeShareEventWithTeamUseCase();
         const result = await useCase.execute({
           eventId,
           tenantId,
           userId,
-          teamRole,
           teamId,
-          teamMembers: teamMembers.map((m) => ({ userId: m.userId })),
         });
 
         await logAudit(request, {
@@ -90,10 +56,10 @@ export async function shareEventWithTeamController(app: FastifyInstance) {
           entityId: eventId,
           placeholders: {
             userName: userId,
-            eventTitle: event?.title ?? '',
-            teamName: team?.name ?? teamId,
+            eventTitle: eventId,
+            teamName: teamId,
           },
-          newData: { teamId, membersCount: teamMembers.length },
+          newData: { teamId },
         });
 
         return reply.send(result);

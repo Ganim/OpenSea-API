@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { checkInlinePermission } from '@/http/helpers/check-inline-permission';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -56,8 +57,16 @@ export async function deleteCalendarEventController(app: FastifyInstance) {
           ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
           : user.username || user.email;
 
+        let hasManagePermission = false;
+        try {
+          await checkInlinePermission(request, PermissionCodes.CALENDAR.EVENTS.MANAGE);
+          hasManagePermission = true;
+        } catch {
+          // User doesn't have manage permission — will fall back to creator-only check
+        }
+
         const useCase = makeDeleteCalendarEventUseCase();
-        await useCase.execute({ id, tenantId, userId });
+        await useCase.execute({ id, tenantId, userId, hasManagePermission });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.CALENDAR.EVENT_DELETE,

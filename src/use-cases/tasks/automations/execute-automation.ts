@@ -80,7 +80,7 @@ export class ExecuteAutomationUseCase {
             boardId,
             userId: context.userId,
             type: 'AUTOMATION_TRIGGERED',
-            description: `Automacao '${automation.name}' ${actionDescription} o cartao ${card.title}`,
+            description: `Automação '${automation.name}' ${actionDescription} o cartão ${card.title}`,
             metadata: {
               automationId: automation.id,
               automationName: automation.name,
@@ -91,8 +91,11 @@ export class ExecuteAutomationUseCase {
 
           executedCount++;
         }
-      } catch {
-        // Errors are caught silently to allow the next automation to proceed
+      } catch (error) {
+        console.error(
+          `[Tasks] Automation ${automation.id} (${automation.name}) failed:`,
+          error instanceof Error ? error.message : error,
+        );
         continue;
       }
     }
@@ -169,19 +172,16 @@ export class ExecuteAutomationUseCase {
       }
 
       case 'SET_FIELD': {
+        const ALLOWED_FIELDS = ['status', 'priority', 'assigneeId', 'dueDate', 'startDate', 'coverColor', 'estimatedMinutes'];
         const fieldName = actionConfig.field as string | undefined;
         const fieldValue = actionConfig.value;
-        if (!fieldName) return null;
+        if (!fieldName || !ALLOWED_FIELDS.includes(fieldName)) return null;
 
-        const updatePayload: Record<string, unknown> = {
+        await this.cardsRepository.update({
           id: cardId,
           boardId,
           [fieldName]: fieldValue,
-        };
-
-        await this.cardsRepository.update(
-          updatePayload as Parameters<CardsRepository['update']>[0],
-        );
+        } as Parameters<CardsRepository['update']>[0]);
 
         return `definiu ${fieldName} em`;
       }
@@ -196,7 +196,7 @@ export class ExecuteAutomationUseCase {
           assigneeId: assigneeUserId,
         });
 
-        return 'atribuiu usuario em';
+        return 'atribuiu usuário em';
       }
 
       case 'ADD_LABEL': {

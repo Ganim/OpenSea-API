@@ -1,5 +1,9 @@
 import { InMemoryEmailAccountsRepository } from '@/repositories/email/in-memory/in-memory-email-accounts-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/workers/queues/audit.queue', () => ({
+  queueAuditLog: vi.fn().mockResolvedValue(undefined),
+}));
 import { ShareEmailAccountUseCase } from './share-email-account';
 
 let repository: InMemoryEmailAccountsRepository;

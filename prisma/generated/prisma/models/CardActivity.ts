@@ -220,6 +220,7 @@ export type CardActivityWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"CardActivity"> | Date | string
   card?: Prisma.XOR<Prisma.CardScalarRelationFilter, Prisma.CardWhereInput>
   board?: Prisma.XOR<Prisma.BoardScalarRelationFilter, Prisma.BoardWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type CardActivityOrderByWithRelationInput = {
@@ -236,6 +237,7 @@ export type CardActivityOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   card?: Prisma.CardOrderByWithRelationInput
   board?: Prisma.BoardOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type CardActivityWhereUniqueInput = Prisma.AtLeast<{
@@ -255,6 +257,7 @@ export type CardActivityWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"CardActivity"> | Date | string
   card?: Prisma.XOR<Prisma.CardScalarRelationFilter, Prisma.CardWhereInput>
   board?: Prisma.XOR<Prisma.BoardScalarRelationFilter, Prisma.BoardWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type CardActivityOrderByWithAggregationInput = {
@@ -293,7 +296,6 @@ export type CardActivityScalarWhereWithAggregatesInput = {
 
 export type CardActivityCreateInput = {
   id?: string
-  userId: string
   type: $Enums.CardActivityType
   description: string
   field?: string | null
@@ -303,6 +305,7 @@ export type CardActivityCreateInput = {
   createdAt?: Date | string
   card: Prisma.CardCreateNestedOneWithoutActivitiesInput
   board: Prisma.BoardCreateNestedOneWithoutActivitiesInput
+  user: Prisma.UserCreateNestedOneWithoutCardActivitiesInput
 }
 
 export type CardActivityUncheckedCreateInput = {
@@ -321,7 +324,6 @@ export type CardActivityUncheckedCreateInput = {
 
 export type CardActivityUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCardActivityTypeFieldUpdateOperationsInput | $Enums.CardActivityType
   description?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -331,6 +333,7 @@ export type CardActivityUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   card?: Prisma.CardUpdateOneRequiredWithoutActivitiesNestedInput
   board?: Prisma.BoardUpdateOneRequiredWithoutActivitiesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutCardActivitiesNestedInput
 }
 
 export type CardActivityUncheckedUpdateInput = {
@@ -363,7 +366,6 @@ export type CardActivityCreateManyInput = {
 
 export type CardActivityUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCardActivityTypeFieldUpdateOperationsInput | $Enums.CardActivityType
   description?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -431,6 +433,48 @@ export type CardActivityMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   field?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type CardActivityCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.CardActivityCreateWithoutUserInput, Prisma.CardActivityUncheckedCreateWithoutUserInput> | Prisma.CardActivityCreateWithoutUserInput[] | Prisma.CardActivityUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CardActivityCreateOrConnectWithoutUserInput | Prisma.CardActivityCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.CardActivityCreateManyUserInputEnvelope
+  connect?: Prisma.CardActivityWhereUniqueInput | Prisma.CardActivityWhereUniqueInput[]
+}
+
+export type CardActivityUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.CardActivityCreateWithoutUserInput, Prisma.CardActivityUncheckedCreateWithoutUserInput> | Prisma.CardActivityCreateWithoutUserInput[] | Prisma.CardActivityUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CardActivityCreateOrConnectWithoutUserInput | Prisma.CardActivityCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.CardActivityCreateManyUserInputEnvelope
+  connect?: Prisma.CardActivityWhereUniqueInput | Prisma.CardActivityWhereUniqueInput[]
+}
+
+export type CardActivityUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.CardActivityCreateWithoutUserInput, Prisma.CardActivityUncheckedCreateWithoutUserInput> | Prisma.CardActivityCreateWithoutUserInput[] | Prisma.CardActivityUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CardActivityCreateOrConnectWithoutUserInput | Prisma.CardActivityCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.CardActivityUpsertWithWhereUniqueWithoutUserInput | Prisma.CardActivityUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.CardActivityCreateManyUserInputEnvelope
+  set?: Prisma.CardActivityWhereUniqueInput | Prisma.CardActivityWhereUniqueInput[]
+  disconnect?: Prisma.CardActivityWhereUniqueInput | Prisma.CardActivityWhereUniqueInput[]
+  delete?: Prisma.CardActivityWhereUniqueInput | Prisma.CardActivityWhereUniqueInput[]
+  connect?: Prisma.CardActivityWhereUniqueInput | Prisma.CardActivityWhereUniqueInput[]
+  update?: Prisma.CardActivityUpdateWithWhereUniqueWithoutUserInput | Prisma.CardActivityUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.CardActivityUpdateManyWithWhereWithoutUserInput | Prisma.CardActivityUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.CardActivityScalarWhereInput | Prisma.CardActivityScalarWhereInput[]
+}
+
+export type CardActivityUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.CardActivityCreateWithoutUserInput, Prisma.CardActivityUncheckedCreateWithoutUserInput> | Prisma.CardActivityCreateWithoutUserInput[] | Prisma.CardActivityUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CardActivityCreateOrConnectWithoutUserInput | Prisma.CardActivityCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.CardActivityUpsertWithWhereUniqueWithoutUserInput | Prisma.CardActivityUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.CardActivityCreateManyUserInputEnvelope
+  set?: Prisma.CardActivityWhereUniqueInput | Prisma.CardActivityWhereUniqueInput[]
+  disconnect?: Prisma.CardActivityWhereUniqueInput | Prisma.CardActivityWhereUniqueInput[]
+  delete?: Prisma.CardActivityWhereUniqueInput | Prisma.CardActivityWhereUniqueInput[]
+  connect?: Prisma.CardActivityWhereUniqueInput | Prisma.CardActivityWhereUniqueInput[]
+  update?: Prisma.CardActivityUpdateWithWhereUniqueWithoutUserInput | Prisma.CardActivityUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.CardActivityUpdateManyWithWhereWithoutUserInput | Prisma.CardActivityUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.CardActivityScalarWhereInput | Prisma.CardActivityScalarWhereInput[]
 }
 
 export type CardActivityCreateNestedManyWithoutBoardInput = {
@@ -521,9 +565,8 @@ export type EnumCardActivityTypeFieldUpdateOperationsInput = {
   set?: $Enums.CardActivityType
 }
 
-export type CardActivityCreateWithoutBoardInput = {
+export type CardActivityCreateWithoutUserInput = {
   id?: string
-  userId: string
   type: $Enums.CardActivityType
   description: string
   field?: string | null
@@ -532,6 +575,76 @@ export type CardActivityCreateWithoutBoardInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   card: Prisma.CardCreateNestedOneWithoutActivitiesInput
+  board: Prisma.BoardCreateNestedOneWithoutActivitiesInput
+}
+
+export type CardActivityUncheckedCreateWithoutUserInput = {
+  id?: string
+  cardId: string
+  boardId: string
+  type: $Enums.CardActivityType
+  description: string
+  field?: string | null
+  oldValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type CardActivityCreateOrConnectWithoutUserInput = {
+  where: Prisma.CardActivityWhereUniqueInput
+  create: Prisma.XOR<Prisma.CardActivityCreateWithoutUserInput, Prisma.CardActivityUncheckedCreateWithoutUserInput>
+}
+
+export type CardActivityCreateManyUserInputEnvelope = {
+  data: Prisma.CardActivityCreateManyUserInput | Prisma.CardActivityCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type CardActivityUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.CardActivityWhereUniqueInput
+  update: Prisma.XOR<Prisma.CardActivityUpdateWithoutUserInput, Prisma.CardActivityUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.CardActivityCreateWithoutUserInput, Prisma.CardActivityUncheckedCreateWithoutUserInput>
+}
+
+export type CardActivityUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.CardActivityWhereUniqueInput
+  data: Prisma.XOR<Prisma.CardActivityUpdateWithoutUserInput, Prisma.CardActivityUncheckedUpdateWithoutUserInput>
+}
+
+export type CardActivityUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.CardActivityScalarWhereInput
+  data: Prisma.XOR<Prisma.CardActivityUpdateManyMutationInput, Prisma.CardActivityUncheckedUpdateManyWithoutUserInput>
+}
+
+export type CardActivityScalarWhereInput = {
+  AND?: Prisma.CardActivityScalarWhereInput | Prisma.CardActivityScalarWhereInput[]
+  OR?: Prisma.CardActivityScalarWhereInput[]
+  NOT?: Prisma.CardActivityScalarWhereInput | Prisma.CardActivityScalarWhereInput[]
+  id?: Prisma.StringFilter<"CardActivity"> | string
+  cardId?: Prisma.StringFilter<"CardActivity"> | string
+  boardId?: Prisma.StringFilter<"CardActivity"> | string
+  userId?: Prisma.StringFilter<"CardActivity"> | string
+  type?: Prisma.EnumCardActivityTypeFilter<"CardActivity"> | $Enums.CardActivityType
+  description?: Prisma.StringFilter<"CardActivity"> | string
+  field?: Prisma.StringNullableFilter<"CardActivity"> | string | null
+  oldValue?: Prisma.JsonNullableFilter<"CardActivity">
+  newValue?: Prisma.JsonNullableFilter<"CardActivity">
+  metadata?: Prisma.JsonNullableFilter<"CardActivity">
+  createdAt?: Prisma.DateTimeFilter<"CardActivity"> | Date | string
+}
+
+export type CardActivityCreateWithoutBoardInput = {
+  id?: string
+  type: $Enums.CardActivityType
+  description: string
+  field?: string | null
+  oldValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  card: Prisma.CardCreateNestedOneWithoutActivitiesInput
+  user: Prisma.UserCreateNestedOneWithoutCardActivitiesInput
 }
 
 export type CardActivityUncheckedCreateWithoutBoardInput = {
@@ -573,26 +686,8 @@ export type CardActivityUpdateManyWithWhereWithoutBoardInput = {
   data: Prisma.XOR<Prisma.CardActivityUpdateManyMutationInput, Prisma.CardActivityUncheckedUpdateManyWithoutBoardInput>
 }
 
-export type CardActivityScalarWhereInput = {
-  AND?: Prisma.CardActivityScalarWhereInput | Prisma.CardActivityScalarWhereInput[]
-  OR?: Prisma.CardActivityScalarWhereInput[]
-  NOT?: Prisma.CardActivityScalarWhereInput | Prisma.CardActivityScalarWhereInput[]
-  id?: Prisma.StringFilter<"CardActivity"> | string
-  cardId?: Prisma.StringFilter<"CardActivity"> | string
-  boardId?: Prisma.StringFilter<"CardActivity"> | string
-  userId?: Prisma.StringFilter<"CardActivity"> | string
-  type?: Prisma.EnumCardActivityTypeFilter<"CardActivity"> | $Enums.CardActivityType
-  description?: Prisma.StringFilter<"CardActivity"> | string
-  field?: Prisma.StringNullableFilter<"CardActivity"> | string | null
-  oldValue?: Prisma.JsonNullableFilter<"CardActivity">
-  newValue?: Prisma.JsonNullableFilter<"CardActivity">
-  metadata?: Prisma.JsonNullableFilter<"CardActivity">
-  createdAt?: Prisma.DateTimeFilter<"CardActivity"> | Date | string
-}
-
 export type CardActivityCreateWithoutCardInput = {
   id?: string
-  userId: string
   type: $Enums.CardActivityType
   description: string
   field?: string | null
@@ -601,6 +696,7 @@ export type CardActivityCreateWithoutCardInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   board: Prisma.BoardCreateNestedOneWithoutActivitiesInput
+  user: Prisma.UserCreateNestedOneWithoutCardActivitiesInput
 }
 
 export type CardActivityUncheckedCreateWithoutCardInput = {
@@ -642,6 +738,58 @@ export type CardActivityUpdateManyWithWhereWithoutCardInput = {
   data: Prisma.XOR<Prisma.CardActivityUpdateManyMutationInput, Prisma.CardActivityUncheckedUpdateManyWithoutCardInput>
 }
 
+export type CardActivityCreateManyUserInput = {
+  id?: string
+  cardId: string
+  boardId: string
+  type: $Enums.CardActivityType
+  description: string
+  field?: string | null
+  oldValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type CardActivityUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCardActivityTypeFieldUpdateOperationsInput | $Enums.CardActivityType
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  field?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oldValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  card?: Prisma.CardUpdateOneRequiredWithoutActivitiesNestedInput
+  board?: Prisma.BoardUpdateOneRequiredWithoutActivitiesNestedInput
+}
+
+export type CardActivityUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  cardId?: Prisma.StringFieldUpdateOperationsInput | string
+  boardId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCardActivityTypeFieldUpdateOperationsInput | $Enums.CardActivityType
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  field?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oldValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CardActivityUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  cardId?: Prisma.StringFieldUpdateOperationsInput | string
+  boardId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCardActivityTypeFieldUpdateOperationsInput | $Enums.CardActivityType
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  field?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oldValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValue?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type CardActivityCreateManyBoardInput = {
   id?: string
   cardId: string
@@ -657,7 +805,6 @@ export type CardActivityCreateManyBoardInput = {
 
 export type CardActivityUpdateWithoutBoardInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCardActivityTypeFieldUpdateOperationsInput | $Enums.CardActivityType
   description?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -666,6 +813,7 @@ export type CardActivityUpdateWithoutBoardInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   card?: Prisma.CardUpdateOneRequiredWithoutActivitiesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutCardActivitiesNestedInput
 }
 
 export type CardActivityUncheckedUpdateWithoutBoardInput = {
@@ -709,7 +857,6 @@ export type CardActivityCreateManyCardInput = {
 
 export type CardActivityUpdateWithoutCardInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCardActivityTypeFieldUpdateOperationsInput | $Enums.CardActivityType
   description?: Prisma.StringFieldUpdateOperationsInput | string
   field?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -718,6 +865,7 @@ export type CardActivityUpdateWithoutCardInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   board?: Prisma.BoardUpdateOneRequiredWithoutActivitiesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutCardActivitiesNestedInput
 }
 
 export type CardActivityUncheckedUpdateWithoutCardInput = {
@@ -762,6 +910,7 @@ export type CardActivitySelect<ExtArgs extends runtime.Types.Extensions.Internal
   createdAt?: boolean
   card?: boolean | Prisma.CardDefaultArgs<ExtArgs>
   board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["cardActivity"]>
 
 export type CardActivitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -778,6 +927,7 @@ export type CardActivitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   createdAt?: boolean
   card?: boolean | Prisma.CardDefaultArgs<ExtArgs>
   board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["cardActivity"]>
 
 export type CardActivitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -794,6 +944,7 @@ export type CardActivitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   createdAt?: boolean
   card?: boolean | Prisma.CardDefaultArgs<ExtArgs>
   board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["cardActivity"]>
 
 export type CardActivitySelectScalar = {
@@ -814,14 +965,17 @@ export type CardActivityOmit<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type CardActivityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   card?: boolean | Prisma.CardDefaultArgs<ExtArgs>
   board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type CardActivityIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   card?: boolean | Prisma.CardDefaultArgs<ExtArgs>
   board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type CardActivityIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   card?: boolean | Prisma.CardDefaultArgs<ExtArgs>
   board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $CardActivityPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -829,6 +983,7 @@ export type $CardActivityPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     card: Prisma.$CardPayload<ExtArgs>
     board: Prisma.$BoardPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1238,6 +1393,7 @@ export interface Prisma__CardActivityClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   card<T extends Prisma.CardDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CardDefaultArgs<ExtArgs>>): Prisma.Prisma__CardClient<runtime.Types.Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   board<T extends Prisma.BoardDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BoardDefaultArgs<ExtArgs>>): Prisma.Prisma__BoardClient<runtime.Types.Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

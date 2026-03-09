@@ -99,6 +99,7 @@ export class SyncEmailAccountUseCase {
       secure: account.imapSecure,
       username: account.username,
       secret,
+      rejectUnauthorized: account.tlsVerify,
     });
 
     let syncedFolders = 0;

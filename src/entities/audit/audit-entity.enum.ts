@@ -164,6 +164,14 @@ export enum AuditEntity {
   BOARD_AUTOMATION = 'BOARD_AUTOMATION',
 
   // ==========================================
+  // Email
+  // ==========================================
+  EMAIL_ACCOUNT = 'EMAIL_ACCOUNT',
+  EMAIL_ACCOUNT_ACCESS = 'EMAIL_ACCOUNT_ACCESS',
+  EMAIL_MESSAGE = 'EMAIL_MESSAGE',
+  EMAIL_ATTACHMENT = 'EMAIL_ATTACHMENT',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',

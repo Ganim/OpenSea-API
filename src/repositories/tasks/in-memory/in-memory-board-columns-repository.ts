@@ -31,6 +31,14 @@ export class InMemoryBoardColumnsRepository
     return column;
   }
 
+  async createMany(data: CreateBoardColumnSchema[]): Promise<BoardColumnRecord[]> {
+    const results: BoardColumnRecord[] = [];
+    for (const col of data) {
+      results.push(await this.create(col));
+    }
+    return results;
+  }
+
   async findById(
     id: string,
     boardId: string,
@@ -130,6 +138,15 @@ export class InMemoryBoardColumnsRepository
     if (column) {
       column.position = newPosition;
       column.updatedAt = new Date();
+    }
+  }
+
+  async reorderMany(
+    columns: { id: string; position: number }[],
+    boardId: string,
+  ): Promise<void> {
+    for (const col of columns) {
+      await this.reorder(col.id, boardId, col.position);
     }
   }
 }

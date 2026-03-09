@@ -228,10 +228,10 @@ export class PrismaStorageFoldersRepository
     return result;
   }
 
-  async batchSoftDelete(folderIds: string[]): Promise<number> {
+  async batchSoftDelete(folderIds: string[], tenantId: string): Promise<number> {
     if (folderIds.length === 0) return 0;
     const result = await prisma.storageFolder.updateMany({
-      where: { id: { in: folderIds } },
+      where: { id: { in: folderIds }, tenantId },
       data: { deletedAt: new Date() },
     });
     return result.count;

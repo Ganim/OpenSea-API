@@ -26,11 +26,11 @@ export class DeleteSubtaskUseCase {
       throw new ResourceNotFoundError('Subtask not found');
     }
 
-    if (!subtask.isSubtask) {
+    if (!subtask.isSubtask || !subtask.parentCardId) {
       throw new BadRequestError('Card is not a subtask');
     }
 
-    const parentCardId = subtask.parentCardId!.toString();
+    const parentCardId = subtask.parentCardId.toString();
     const parentCard = await this.cardsRepository.findById(parentCardId, boardId);
 
     await this.cardsRepository.softDelete(subtaskId, boardId);

@@ -10,7 +10,7 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { randomUUID } from 'node:crypto';
-import { gzipSync } from 'node:zlib';
+// zlib imported dynamically in upload() to use async gzip
 
 import { env } from '@/@env';
 
@@ -99,7 +99,10 @@ export class S3FileUploadService implements FileUploadService {
     let contentEncoding: string | undefined;
 
     if (isCompressible(mimeType) && fileBuffer.length > 1024) {
-      const compressed = gzipSync(fileBuffer);
+      const { promisify } = await import('node:util');
+      const { gzip } = await import('node:zlib');
+      const gzipAsync = promisify(gzip);
+      const compressed = await gzipAsync(fileBuffer);
       // Only use compression if it actually reduces size
       if (compressed.length < fileBuffer.length) {
         body = compressed;
@@ -232,24 +235,23 @@ export class S3FileUploadService implements FileUploadService {
     uploadId: string,
     totalParts: number,
   ): Promise<MultipartPartUrl[]> {
-    const urls: MultipartPartUrl[] = [];
-
-    for (let i = 1; i <= totalParts; i++) {
+    const promises = Array.from({ length: totalParts }, async (_, idx) => {
+      const partNumber = idx + 1;
       const command = new UploadPartCommand({
         Bucket: this.bucket,
         Key: key,
         UploadId: uploadId,
-        PartNumber: i,
+        PartNumber: partNumber,
       });
 
       const url = await getSignedUrl(this.s3Client, command, {
         expiresIn: 3600, // 1 hour
       });
 
-      urls.push({ partNumber: i, url });
-    }
+      return { partNumber, url };
+    });
 
-    return urls;
+    return Promise.all(promises);
   }
 
   async completeMultipartUpload(
@@ -291,5 +293,15 @@ export class S3FileUploadService implements FileUploadService {
     });
 
     await this.s3Client.send(command);
+  }
+
+  // Singleton instance — preserves presigned URL cache across requests
+  private static instance: S3FileUploadService | null = null;
+
+  static getInstance(): S3FileUploadService {
+    if (!S3FileUploadService.instance) {
+      S3FileUploadService.instance = new S3FileUploadService();
+    }
+    return S3FileUploadService.instance;
   }
 }

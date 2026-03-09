@@ -94,6 +94,7 @@ export class SaveEmailDraftUseCase {
       secure: account.imapSecure,
       username: account.username,
       secret,
+      rejectUnauthorized: account.tlsVerify,
     });
 
     try {

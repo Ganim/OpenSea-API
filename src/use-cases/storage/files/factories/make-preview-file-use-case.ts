@@ -7,7 +7,7 @@ import { PreviewFileUseCase } from '../preview-file';
 export function makePreviewFileUseCase() {
   const storageFilesRepository = new PrismaStorageFilesRepository();
   const fileUploadService = env.S3_ENDPOINT
-    ? new S3FileUploadService()
+    ? S3FileUploadService.getInstance()
     : new LocalFileUploadService();
 
   return new PreviewFileUseCase(storageFilesRepository, fileUploadService);

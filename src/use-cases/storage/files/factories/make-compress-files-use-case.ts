@@ -9,7 +9,7 @@ export function makeCompressFilesUseCase() {
   const storageFilesRepository = new PrismaStorageFilesRepository();
   const storageFoldersRepository = new PrismaStorageFoldersRepository();
   const fileUploadService = env.S3_ENDPOINT
-    ? new S3FileUploadService()
+    ? S3FileUploadService.getInstance()
     : new LocalFileUploadService();
 
   return new CompressFilesUseCase(

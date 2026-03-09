@@ -9,7 +9,7 @@ export function makeDownloadFolderUseCase() {
   const storageFoldersRepository = new PrismaStorageFoldersRepository();
   const storageFilesRepository = new PrismaStorageFilesRepository();
   const fileUploadService = env.S3_ENDPOINT
-    ? new S3FileUploadService()
+    ? S3FileUploadService.getInstance()
     : new LocalFileUploadService();
 
   return new DownloadFolderUseCase(

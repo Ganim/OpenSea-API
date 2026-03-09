@@ -14,6 +14,10 @@ vi.mock('@/lib/logger', () => ({
   },
 }));
 
+vi.mock('@/workers/queues/audit.queue', () => ({
+  queueAuditLog: vi.fn().mockResolvedValue(undefined),
+}));
+
 let accountsRepository: InMemoryEmailAccountsRepository;
 let foldersRepository: InMemoryEmailFoldersRepository;
 let messagesRepository: InMemoryEmailMessagesRepository;

@@ -1,6 +1,7 @@
 import archiver from 'archiver';
 
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { PlanLimitExceededError } from '@/@errors/use-cases/plan-limit-exceeded-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { StorageFile } from '@/entities/storage/storage-file';
 import type { StorageFilesRepository } from '@/repositories/storage/storage-files-repository';
@@ -13,6 +14,7 @@ interface CompressFilesUseCaseRequest {
   folderIds: string[];
   targetFolderId?: string | null;
   userId: string;
+  maxStorageBytes?: number; // 0 or undefined = unlimited
 }
 
 interface CompressFilesUseCaseResponse {
@@ -127,6 +129,19 @@ export class CompressFilesUseCase {
 
     const zipBuffer = Buffer.concat(chunks);
     const zipFileName = `compactado-${Date.now()}.zip`;
+
+    // Check storage quota before uploading the ZIP
+    if (request.maxStorageBytes && request.maxStorageBytes > 0) {
+      const withinQuota = await this.storageFilesRepository.atomicCheckQuota(
+        tenantId,
+        zipBuffer.length,
+        request.maxStorageBytes,
+      );
+      if (!withinQuota) {
+        const limitMb = Math.round(request.maxStorageBytes / 1024 / 1024);
+        throw new PlanLimitExceededError('MB de armazenamento', limitMb);
+      }
+    }
 
     // Upload ZIP to S3
     const uploadResult = await this.fileUploadService.upload(

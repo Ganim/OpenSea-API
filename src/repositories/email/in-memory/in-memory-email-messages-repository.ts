@@ -11,6 +11,35 @@ import type {
     UpdateEmailMessageSchema,
 } from '../email-messages-repository';
 
+function encodeCursor(receivedAt: Date, id: string): string {
+  return Buffer.from(JSON.stringify({ r: receivedAt.toISOString(), i: id })).toString('base64');
+}
+
+function decodeCursor(cursor: string): { receivedAt: Date; id: string } | null {
+  try {
+    const parsed = JSON.parse(Buffer.from(cursor, 'base64').toString('utf-8'));
+    if (typeof parsed.r !== 'string' || typeof parsed.i !== 'string') return null;
+    const date = new Date(parsed.r);
+    if (isNaN(date.getTime())) return null;
+    return { receivedAt: date, id: parsed.i };
+  } catch {
+    return null;
+  }
+}
+
+function applyCursorFilter(
+  sorted: EmailMessage[],
+  cursorData: { receivedAt: Date; id: string },
+): EmailMessage[] {
+  return sorted.filter((m) => {
+    const mTime = m.receivedAt.getTime();
+    const cTime = cursorData.receivedAt.getTime();
+    if (mTime < cTime) return true;
+    if (mTime === cTime && m.id.toString() < cursorData.id) return true;
+    return false;
+  });
+}
+
 export class InMemoryEmailMessagesRepository
   implements EmailMessagesRepository
 {
@@ -107,9 +136,11 @@ export class InMemoryEmailMessagesRepository
   async list(
     params: EmailMessagesListParams,
   ): Promise<EmailMessagesListResult> {
-    const page = params.page ?? 1;
     const limit = Math.min(params.limit ?? 20, 100);
-    const start = (page - 1) * limit;
+    const cursorData = params.cursor ? decodeCursor(params.cursor) : null;
+    const useCursor = !!cursorData;
+    const page = params.page ?? 1;
+    const start = useCursor ? 0 : (page - 1) * limit;
     const search = params.search?.trim().toLowerCase();
 
     let filtered = this.items.filter(
@@ -129,6 +160,10 @@ export class InMemoryEmailMessagesRepository
       filtered = filtered.filter((item) => item.isRead !== params.unread);
     }
 
+    if (params.flagged !== undefined) {
+      filtered = filtered.filter((item) => item.isFlagged === params.flagged);
+    }
+
     if (search) {
       filtered = filtered.filter((item) => {
         const haystack = [
@@ -146,12 +181,31 @@ export class InMemoryEmailMessagesRepository
       });
     }
 
-    filtered.sort((a, b) => b.receivedAt.getTime() - a.receivedAt.getTime());
+    // Sort by receivedAt DESC, id DESC
+    filtered.sort((a, b) => {
+      const timeDiff = b.receivedAt.getTime() - a.receivedAt.getTime();
+      if (timeDiff !== 0) return timeDiff;
+      return b.id.toString().localeCompare(a.id.toString());
+    });
 
     const total = filtered.length;
-    const messages = filtered.slice(start, start + limit);
 
-    return { messages, total };
+    // Apply cursor filter after sorting
+    if (useCursor) {
+      filtered = applyCursorFilter(filtered, cursorData!);
+    }
+
+    const messages = useCursor
+      ? filtered.slice(0, limit)
+      : filtered.slice(start, start + limit);
+
+    const nextCursor = useCursor
+      ? (messages.length === limit
+        ? encodeCursor(messages[messages.length - 1].receivedAt, messages[messages.length - 1].id.toString())
+        : null)
+      : undefined;
+
+    return { messages, total, nextCursor };
   }
 
   async update(data: UpdateEmailMessageSchema): Promise<EmailMessage | null> {
@@ -221,9 +275,11 @@ export class InMemoryEmailMessagesRepository
   async listCentralInbox(
     params: CentralInboxListParams,
   ): Promise<EmailMessagesListResult> {
-    const page = params.page ?? 1;
     const limit = params.limit ?? 50;
-    const skip = (page - 1) * limit;
+    const cursorData = params.cursor ? decodeCursor(params.cursor) : null;
+    const useCursor = !!cursorData;
+    const page = params.page ?? 1;
+    const skip = useCursor ? 0 : (page - 1) * limit;
 
     let filtered = this.items.filter(
       (m) =>
@@ -246,14 +302,106 @@ export class InMemoryEmailMessagesRepository
       );
     }
 
-    filtered.sort(
-      (a, b) => b.receivedAt.getTime() - a.receivedAt.getTime(),
-    );
+    // Sort by receivedAt DESC, id DESC
+    filtered.sort((a, b) => {
+      const timeDiff = b.receivedAt.getTime() - a.receivedAt.getTime();
+      if (timeDiff !== 0) return timeDiff;
+      return b.id.toString().localeCompare(a.id.toString());
+    });
+
+    const total = filtered.length;
+
+    if (useCursor) {
+      filtered = applyCursorFilter(filtered, cursorData!);
+    }
+
+    const messages = useCursor
+      ? filtered.slice(0, limit)
+      : filtered.slice(skip, skip + limit);
+
+    const nextCursor = useCursor
+      ? (messages.length === limit
+        ? encodeCursor(messages[messages.length - 1].receivedAt, messages[messages.length - 1].id.toString())
+        : null)
+      : undefined;
 
     return {
-      messages: filtered.slice(skip, skip + limit),
-      total: filtered.length,
+      messages,
+      total,
+      nextCursor,
     };
+  }
+
+  async suggestContacts(
+    accountIds: string[],
+    query: string,
+    limit: number,
+  ): Promise<Array<{ email: string; name: string | null; frequency: number }>> {
+    const lowerQuery = query.toLowerCase();
+    const frequencyMap = new Map<string, { name: string | null; frequency: number }>();
+
+    const relevantMessages = this.items.filter(
+      (m) => accountIds.includes(m.accountId.toString()) && !m.deletedAt,
+    );
+
+    for (const msg of relevantMessages) {
+      // From addresses (received emails)
+      if (
+        msg.fromAddress.toLowerCase().includes(lowerQuery) ||
+        (msg.fromName && msg.fromName.toLowerCase().includes(lowerQuery))
+      ) {
+        const key = msg.fromAddress.toLowerCase();
+        const existing = frequencyMap.get(key);
+        if (existing) {
+          existing.frequency += 1;
+          if (!existing.name && msg.fromName) {
+            existing.name = msg.fromName;
+          }
+        } else {
+          frequencyMap.set(key, {
+            name: msg.fromName,
+            frequency: 1,
+          });
+        }
+      }
+
+      // To addresses (sent emails)
+      for (const addr of msg.toAddresses) {
+        if (addr.toLowerCase().includes(lowerQuery)) {
+          const key = addr.toLowerCase();
+          const existing = frequencyMap.get(key);
+          if (existing) {
+            existing.frequency += 1;
+          } else {
+            frequencyMap.set(key, { name: null, frequency: 1 });
+          }
+        }
+      }
+
+      // CC addresses
+      for (const addr of msg.ccAddresses) {
+        if (addr.toLowerCase().includes(lowerQuery)) {
+          const key = addr.toLowerCase();
+          const existing = frequencyMap.get(key);
+          if (existing) {
+            existing.frequency += 1;
+          } else {
+            frequencyMap.set(key, { name: null, frequency: 1 });
+          }
+        }
+      }
+    }
+
+    const results = Array.from(frequencyMap.entries())
+      .map(([email, data]) => ({
+        email,
+        name: data.name,
+        frequency: data.frequency,
+      }))
+      .sort((a, b) => b.frequency - a.frequency)
+      .slice(0, limit);
+
+    return results;
   }
 
   async softDeleteByFolder(folderId: string, tenantId: string): Promise<number> {

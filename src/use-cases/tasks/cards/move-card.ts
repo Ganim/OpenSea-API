@@ -101,6 +101,16 @@ export class MoveCardUseCase {
         oldValue: oldColumnId,
         newValue: columnId,
       });
+
+      const subtasks = await this.cardsRepository.findSubtasks(cardId);
+
+      if (subtasks.length > 0) {
+        await this.cardsRepository.updateManyColumn(
+          subtasks.map((s) => s.id.toString()),
+          boardId,
+          columnId,
+        );
+      }
     }
 
     return { card: cardToDTO(updatedCard) };

@@ -15,7 +15,11 @@ type SystemModule =
   | 'REPORTS'
   | 'AUDIT'
   | 'REQUESTS'
-  | 'NOTIFICATIONS';
+  | 'NOTIFICATIONS'
+  | 'CALENDAR'
+  | 'STORAGE'
+  | 'EMAIL'
+  | 'TASKS';
 
 interface CachedPlan {
   planId: string;

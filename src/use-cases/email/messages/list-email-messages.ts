@@ -16,9 +16,11 @@ interface ListEmailMessagesRequest {
   accountId: string;
   folderId?: string;
   unread?: boolean;
+  flagged?: boolean;
   search?: string;
   page?: number;
   limit?: number;
+  cursor?: string;
 }
 
 interface ListEmailMessagesResponse {
@@ -27,6 +29,7 @@ interface ListEmailMessagesResponse {
   page: number;
   limit: number;
   pages: number;
+  nextCursor?: string | null;
 }
 
 export class ListEmailMessagesUseCase {
@@ -81,9 +84,11 @@ export class ListEmailMessagesUseCase {
       accountId,
       folderId,
       unread: request.unread,
+      flagged: request.flagged,
       search: request.search,
       page,
       limit,
+      cursor: request.cursor,
     });
 
     const pages = Math.ceil(result.total / limit);
@@ -94,6 +99,7 @@ export class ListEmailMessagesUseCase {
       page,
       limit,
       pages,
+      nextCursor: result.nextCursor,
     };
   }
 }

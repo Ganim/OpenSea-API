@@ -9,7 +9,7 @@ export function makeDownloadSharedFileUseCase() {
   const storageFilesRepository = new PrismaStorageFilesRepository();
   const storageShareLinksRepository = new PrismaStorageShareLinksRepository();
   const fileUploadService = env.S3_ENDPOINT
-    ? new S3FileUploadService()
+    ? S3FileUploadService.getInstance()
     : new LocalFileUploadService();
 
   return new DownloadSharedFileUseCase(

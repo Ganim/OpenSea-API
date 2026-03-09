@@ -36,11 +36,15 @@ export async function toggleAutomationController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
+      const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
       const { boardId, automationId } = request.params;
 
       try {
         const useCase = makeToggleAutomationUseCase();
         const result = await useCase.execute({
+          tenantId,
+          userId,
           boardId,
           automationId,
           isActive: request.body.isActive,

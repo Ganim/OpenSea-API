@@ -1,9 +1,11 @@
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { CalendarEventsRepository } from '@/repositories/calendar/calendar-events-repository';
 import type { EventParticipantsRepository } from '@/repositories/calendar/event-participants-repository';
 import type { CalendarsRepository } from '@/repositories/calendar/calendars-repository';
 import type { TeamCalendarConfigsRepository } from '@/repositories/calendar/team-calendar-configs-repository';
+import type { TeamMembersRepository } from '@/repositories/core/team-members-repository';
 import { resolveCalendarAccess } from '@/use-cases/calendar/helpers/resolve-calendar-access';
 
 interface UnshareEventRequest {
@@ -24,6 +26,7 @@ export class UnshareEventUseCase {
     private eventParticipantsRepository: EventParticipantsRepository,
     private calendarsRepository: CalendarsRepository,
     private teamCalendarConfigsRepository: TeamCalendarConfigsRepository,
+    private teamMembersRepository?: TeamMembersRepository,
   ) {}
 
   async execute(request: UnshareEventRequest): Promise<UnshareEventResponse> {
@@ -45,18 +48,28 @@ export class UnshareEventUseCase {
       );
       if (calendar) {
         let teamConfig = null;
+        let resolvedTeamRole = teamRole ?? null;
+
         if (calendar.type === 'TEAM' && calendar.ownerId) {
           teamConfig =
             await this.teamCalendarConfigsRepository.findByTeamAndCalendar(
               calendar.ownerId,
               calendar.id.toString(),
             );
+
+          if (!resolvedTeamRole && this.teamMembersRepository) {
+            const membership = await this.teamMembersRepository.findByTeamAndUser(
+              new UniqueEntityID(calendar.ownerId),
+              new UniqueEntityID(userId),
+            );
+            resolvedTeamRole = membership?.role ?? null;
+          }
         }
 
         const access = resolveCalendarAccess({
           calendar,
           userId,
-          teamRole,
+          teamRole: resolvedTeamRole,
           teamCalendarConfig: teamConfig,
         });
 

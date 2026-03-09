@@ -35,11 +35,13 @@ export async function deleteChecklistController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { cardId, checklistId } = request.params;
+      const userId = request.user.sub;
+      const tenantId = request.user.tenantId!;
+      const { boardId, cardId, checklistId } = request.params;
 
       try {
         const useCase = makeDeleteChecklistUseCase();
-        await useCase.execute({ cardId, checklistId });
+        await useCase.execute({ tenantId, userId, userName: 'System', boardId, cardId, checklistId });
 
         return reply.status(204).send();
       } catch (error) {

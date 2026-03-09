@@ -40,6 +40,24 @@ export class PrismaBoardColumnsRepository implements BoardColumnsRepository {
     return toRecord(raw);
   }
 
+  async createMany(data: CreateBoardColumnSchema[]): Promise<BoardColumnRecord[]> {
+    return prisma.$transaction(
+      data.map((col) =>
+        prisma.boardColumn.create({
+          data: {
+            boardId: col.boardId,
+            title: col.title,
+            color: col.color,
+            position: col.position ?? 0,
+            isDefault: col.isDefault ?? false,
+            isDone: col.isDone ?? false,
+            wipLimit: col.wipLimit,
+          },
+        }),
+      ),
+    ).then((rows) => rows.map(toRecord));
+  }
+
   async findById(
     id: string,
     boardId: string,
@@ -125,5 +143,19 @@ export class PrismaBoardColumnsRepository implements BoardColumnsRepository {
       where: { id },
       data: { position: newPosition },
     });
+  }
+
+  async reorderMany(
+    columns: { id: string; position: number }[],
+    _boardId: string,
+  ): Promise<void> {
+    await prisma.$transaction(
+      columns.map((col) =>
+        prisma.boardColumn.update({
+          where: { id: col.id },
+          data: { position: col.position },
+        }),
+      ),
+    );
   }
 }

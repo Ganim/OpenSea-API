@@ -203,6 +203,21 @@ export class InMemoryCardsRepository implements CardsRepository {
     return card;
   }
 
+  async updateManyColumn(
+    cardIds: string[],
+    boardId: string,
+    columnId: string,
+  ): Promise<void> {
+    for (const card of this.items) {
+      if (
+        cardIds.includes(card.id.toString()) &&
+        card.boardId.toString() === boardId
+      ) {
+        card.columnId = new UniqueEntityID(columnId);
+      }
+    }
+  }
+
   async softDelete(id: string, boardId: string): Promise<void> {
     const card = this.items.find(
       (card) =>
@@ -211,6 +226,12 @@ export class InMemoryCardsRepository implements CardsRepository {
     );
     if (card) {
       card.delete();
+    }
+  }
+
+  async softDeleteMany(ids: string[], boardId: string): Promise<void> {
+    for (const id of ids) {
+      await this.softDelete(id, boardId);
     }
   }
 }

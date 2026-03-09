@@ -32,12 +32,12 @@ export class ArchiveBoardUseCase {
 
     if (archive) {
       await this.boardsRepository.archive(boardId, tenantId);
+      board.archive();
     } else {
       await this.boardsRepository.restore(boardId, tenantId);
+      board.restore();
     }
 
-    const updated = await this.boardsRepository.findById(boardId, tenantId);
-
-    return { board: boardToDTO(updated ?? board) };
+    return { board: boardToDTO(board) };
   }
 }

@@ -115,13 +115,24 @@ export class MoveFolderUseCase {
     const oldPath = folder.path;
     const oldDepth = folder.depth;
 
-    // Update folder
-    const updatedFolder = await this.storageFoldersRepository.update({
-      id: new UniqueEntityID(folderId),
-      parentId: targetParentId,
-      path: newPath,
-      depth: newDepth,
-    });
+    // Update folder (unique constraint on [tenantId, path, deletedAt] prevents race conditions)
+    let updatedFolder;
+    try {
+      updatedFolder = await this.storageFoldersRepository.update({
+        id: new UniqueEntityID(folderId),
+        parentId: targetParentId,
+        path: newPath,
+        depth: newDepth,
+      });
+    } catch (error: unknown) {
+      // Prisma unique constraint violation (P2002) — another request created a folder with the same path
+      if (error && typeof error === 'object' && 'code' in error && error.code === 'P2002') {
+        throw new BadRequestError(
+          'A folder with this name already exists in the target folder',
+        );
+      }
+      throw error;
+    }
 
     if (!updatedFolder) {
       throw new ResourceNotFoundError('Folder not found');

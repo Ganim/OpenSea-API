@@ -54,6 +54,7 @@ export class TestEmailConnectionUseCase {
         secure: account.imapSecure,
         username: account.username,
         secret,
+        rejectUnauthorized: account.tlsVerify,
       });
     } catch (err) {
       const detail = err instanceof Error ? err.message : String(err);
@@ -69,6 +70,7 @@ export class TestEmailConnectionUseCase {
         secure: account.smtpSecure,
         username: account.username,
         secret,
+        rejectUnauthorized: account.tlsVerify,
       });
     } catch (err) {
       const detail = err instanceof Error ? err.message : String(err);

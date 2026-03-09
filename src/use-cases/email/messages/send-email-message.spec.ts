@@ -6,6 +6,10 @@ vi.mock('@/lib/logger', () => ({
   logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
 }));
 
+vi.mock('@/workers/queues/audit.queue', () => ({
+  queueAuditLog: vi.fn().mockResolvedValue(undefined),
+}));
+
 vi.mock('imapflow', () => ({
   ImapFlow: vi.fn(() => ({
     connect: vi.fn().mockResolvedValue(undefined),

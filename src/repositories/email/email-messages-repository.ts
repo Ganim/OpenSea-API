@@ -30,14 +30,17 @@ export interface EmailMessagesListParams {
   accountId: string;
   folderId?: string;
   unread?: boolean;
+  flagged?: boolean;
   search?: string;
   page?: number;
   limit?: number;
+  cursor?: string; // opaque base64 cursor (encodes receivedAt + id)
 }
 
 export interface EmailMessagesListResult {
   messages: EmailMessage[];
   total: number;
+  nextCursor?: string | null; // null means no more pages
 }
 
 export interface UpdateEmailMessageSchema {
@@ -66,6 +69,7 @@ export interface CentralInboxListParams {
   search?: string;
   page?: number;
   limit?: number;
+  cursor?: string; // opaque base64 cursor (encodes receivedAt + id)
 }
 
 export interface EmailMessagesRepository {
@@ -98,4 +102,9 @@ export interface EmailMessagesRepository {
   listAttachments(messageId: string): Promise<EmailAttachment[]>;
   findAttachmentById(id: string): Promise<EmailAttachment | null>;
   softDeleteByFolder(folderId: string, tenantId: string): Promise<number>;
+  suggestContacts(
+    accountIds: string[],
+    query: string,
+    limit: number,
+  ): Promise<Array<{ email: string; name: string | null; frequency: number }>>;
 }

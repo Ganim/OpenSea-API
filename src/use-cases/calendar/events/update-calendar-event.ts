@@ -55,6 +55,14 @@ export class UpdateCalendarEventUseCase {
       throw new BadRequestError('Event title cannot be empty');
     }
 
+    // Validate date ordering using existing values as fallback
+    const effectiveStartDate = request.startDate ?? existing.startDate;
+    const effectiveEndDate = request.endDate ?? existing.endDate;
+
+    if (effectiveEndDate <= effectiveStartDate) {
+      throw new BadRequestError('End date must be after start date');
+    }
+
     const updated = await this.calendarEventsRepository.update({
       id: request.id,
       tenantId: request.tenantId,

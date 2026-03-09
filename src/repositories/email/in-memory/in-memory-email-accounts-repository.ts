@@ -26,6 +26,7 @@ export class InMemoryEmailAccountsRepository
       smtpHost: data.smtpHost,
       smtpPort: data.smtpPort,
       smtpSecure: data.smtpSecure ?? true,
+      tlsVerify: data.tlsVerify ?? false,
       username: data.username,
       encryptedSecret: data.encryptedSecret,
       visibility: data.visibility ?? 'PRIVATE',
@@ -84,8 +85,12 @@ export class InMemoryEmailAccountsRepository
     );
   }
 
-  async listActive(): Promise<EmailAccount[]> {
-    return this.items.filter((item) => item.isActive);
+  async listActive(tenantId?: string): Promise<EmailAccount[]> {
+    return this.items.filter((item) => {
+      if (!item.isActive) return false;
+      if (tenantId && item.tenantId.toString() !== tenantId) return false;
+      return true;
+    });
   }
 
   async update(data: UpdateEmailAccountSchema): Promise<EmailAccount | null> {
@@ -104,6 +109,7 @@ export class InMemoryEmailAccountsRepository
     if (data.smtpHost !== undefined) account.smtpHost = data.smtpHost;
     if (data.smtpPort !== undefined) account.smtpPort = data.smtpPort;
     if (data.smtpSecure !== undefined) account.smtpSecure = data.smtpSecure;
+    if (data.tlsVerify !== undefined) account.tlsVerify = data.tlsVerify;
     if (data.username !== undefined) account.username = data.username;
     if (data.encryptedSecret !== undefined)
       account.encryptedSecret = data.encryptedSecret;

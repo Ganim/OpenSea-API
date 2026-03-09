@@ -39,6 +39,16 @@ export class CreateLabelUseCase {
     const existingLabels =
       await this.boardLabelsRepository.findByBoardId(boardId);
 
+    const duplicate = existingLabels.find(
+      (l) => l.name.toLowerCase() === name.trim().toLowerCase(),
+    );
+
+    if (duplicate) {
+      throw new BadRequestError(
+        `A label with the name "${name.trim()}" already exists on this board`,
+      );
+    }
+
     const nextPosition = existingLabels.length;
 
     const label = await this.boardLabelsRepository.create({

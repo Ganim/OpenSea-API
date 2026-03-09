@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { prisma } from '@/lib/prisma';
 import { PrismaEmailAccountsRepository } from '@/repositories/email/prisma/prisma-email-accounts-repository';
 import { queueEmailSync, getEmailSyncQueueInstance } from './queues/email-sync.queue';
 
@@ -12,7 +13,18 @@ async function scheduleSyncJobs() {
   const emailAccountsRepository = new PrismaEmailAccountsRepository();
 
   try {
-    const accounts = await emailAccountsRepository.listActive();
+    // Iterate per-tenant to ensure proper isolation
+    const tenantIds = await prisma.emailAccount.findMany({
+      where: { isActive: true },
+      select: { tenantId: true },
+      distinct: ['tenantId'],
+    });
+
+    const accounts = [];
+    for (const { tenantId } of tenantIds) {
+      const tenantAccounts = await emailAccountsRepository.listActive(tenantId);
+      accounts.push(...tenantAccounts);
+    }
 
     for (const account of accounts) {
       // Fixed jobId per account — prevents parallel syncs for the same account.
@@ -29,7 +41,9 @@ async function scheduleSyncJobs() {
           continue;
         }
         // Remove completed/failed jobs so the new job can be added
-        await existing.remove().catch(() => undefined);
+        await existing.remove().catch((err) => {
+          logger.warn({ err, jobId }, 'Failed to remove existing sync job before re-queue');
+        });
       }
 
       await queueEmailSync(

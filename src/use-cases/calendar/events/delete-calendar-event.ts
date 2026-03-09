@@ -6,6 +6,7 @@ interface DeleteCalendarEventRequest {
   id: string;
   tenantId: string;
   userId: string;
+  hasManagePermission?: boolean;
 }
 
 export class DeleteCalendarEventUseCase {
@@ -25,7 +26,10 @@ export class DeleteCalendarEventUseCase {
       throw new BadRequestError('System events cannot be deleted');
     }
 
-    if (event.createdBy.toString() !== request.userId) {
+    if (
+      event.createdBy.toString() !== request.userId &&
+      !request.hasManagePermission
+    ) {
       throw new BadRequestError('Only the event creator can delete this event');
     }
 

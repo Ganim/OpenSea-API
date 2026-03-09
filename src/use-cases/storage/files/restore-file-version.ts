@@ -49,7 +49,19 @@ export class RestoreFileVersionUseCase {
       throw new ResourceNotFoundError('File version not found');
     }
 
-    const nextVersionNumber = file.currentVersion + 1;
+    // Save current state as a version before overwriting (so it's not lost)
+    const snapshotVersionNumber = file.currentVersion + 1;
+    await this.storageFileVersionsRepository.create({
+      fileId: file.id.toString(),
+      version: snapshotVersionNumber,
+      fileKey: file.fileKey,
+      size: file.size,
+      mimeType: file.mimeType,
+      changeNote: `Snapshot before restoring version ${targetVersion.version}`,
+      uploadedBy: targetVersion.uploadedBy,
+    });
+
+    const nextVersionNumber = snapshotVersionNumber + 1;
 
     const restoredVersion = await this.storageFileVersionsRepository.create({
       fileId: file.id.toString(),

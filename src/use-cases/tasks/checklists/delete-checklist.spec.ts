@@ -1,14 +1,17 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { DeleteChecklistUseCase } from './delete-checklist';
 import { InMemoryCardChecklistsRepository } from '@/repositories/tasks/in-memory/in-memory-card-checklists-repository';
+import { InMemoryCardActivitiesRepository } from '@/repositories/tasks/in-memory/in-memory-card-activities-repository';
 
 let cardChecklistsRepository: InMemoryCardChecklistsRepository;
+let cardActivitiesRepository: InMemoryCardActivitiesRepository;
 let sut: DeleteChecklistUseCase;
 
 describe('DeleteChecklistUseCase', () => {
   beforeEach(() => {
     cardChecklistsRepository = new InMemoryCardChecklistsRepository();
-    sut = new DeleteChecklistUseCase(cardChecklistsRepository);
+    cardActivitiesRepository = new InMemoryCardActivitiesRepository();
+    sut = new DeleteChecklistUseCase(cardChecklistsRepository, cardActivitiesRepository);
   });
 
   it('should delete a checklist and cascade delete its items', async () => {
@@ -33,6 +36,7 @@ describe('DeleteChecklistUseCase', () => {
     await sut.execute({
       tenantId: 'tenant-1',
       userId: 'user-1',
+      userName: 'John Doe',
       boardId: 'board-1',
       cardId: 'card-1',
       checklistId: checklist.id,

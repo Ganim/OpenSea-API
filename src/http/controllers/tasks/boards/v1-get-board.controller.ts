@@ -1,3 +1,4 @@
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
@@ -42,6 +43,9 @@ export async function getBoardController(app: FastifyInstance) {
 
         return reply.status(200).send(result);
       } catch (error) {
+        if (error instanceof ForbiddenError) {
+          return reply.status(403).send({ message: error.message });
+        }
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });
         }
