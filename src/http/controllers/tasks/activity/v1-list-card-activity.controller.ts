@@ -47,7 +47,7 @@ export async function listCardActivityController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { cardId } = request.params;
+      const { boardId, cardId } = request.params;
 
       try {
         const page = request.query.page ?? 1;
@@ -55,6 +55,8 @@ export async function listCardActivityController(app: FastifyInstance) {
 
         const useCase = makeListCardActivityUseCase();
         const result = await useCase.execute({
+          tenantId: request.user.tenantId!,
+          boardId,
           cardId,
           type: request.query.type,
           page,

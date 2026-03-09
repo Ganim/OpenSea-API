@@ -52,6 +52,7 @@ export async function listBoardActivityController(app: FastifyInstance) {
 
         const useCase = makeListBoardActivityUseCase();
         const result = await useCase.execute({
+          tenantId: request.user.tenantId!,
           boardId,
           type: request.query.type,
           page,

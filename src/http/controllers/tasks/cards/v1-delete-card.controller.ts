@@ -6,6 +6,7 @@ import { resolveUserName } from '@/http/helpers/resolve-user-name';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { PrismaCardsRepository } from '@/repositories/tasks/prisma/prisma-cards-repository';
 import { makeDeleteCardUseCase } from '@/use-cases/tasks/cards/factories/make-delete-card-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -43,6 +44,9 @@ export async function deleteCardController(app: FastifyInstance) {
       const userName = await resolveUserName(userId);
 
       try {
+        const cardsRepository = new PrismaCardsRepository();
+        const card = await cardsRepository.findById(cardId, boardId);
+
         const useCase = makeDeleteCardUseCase();
         await useCase.execute({
           tenantId,
@@ -55,7 +59,7 @@ export async function deleteCardController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.TASKS.CARD_DELETE,
           entityId: cardId,
-          placeholders: { userName, cardTitle: cardId },
+          placeholders: { userName, cardTitle: card?.title ?? cardId },
         });
 
         return reply.status(204).send(null);

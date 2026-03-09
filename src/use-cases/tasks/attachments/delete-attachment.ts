@@ -1,4 +1,5 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import type { BoardsRepository } from '@/repositories/tasks/boards-repository';
 import type {
   CardAttachmentsRepository,
   CardAttachmentRecord,
@@ -7,6 +8,7 @@ import type { CardActivitiesRepository } from '@/repositories/tasks/card-activit
 import type { CardsRepository } from '@/repositories/tasks/cards-repository';
 
 interface DeleteAttachmentRequest {
+  tenantId: string;
   boardId: string;
   cardId: string;
   attachmentId: string;
@@ -20,6 +22,7 @@ interface DeleteAttachmentResponse {
 
 export class DeleteAttachmentUseCase {
   constructor(
+    private boardsRepository: BoardsRepository,
     private cardsRepository: CardsRepository,
     private cardAttachmentsRepository: CardAttachmentsRepository,
     private cardActivitiesRepository: CardActivitiesRepository,
@@ -28,7 +31,13 @@ export class DeleteAttachmentUseCase {
   async execute(
     request: DeleteAttachmentRequest,
   ): Promise<DeleteAttachmentResponse> {
-    const { boardId, cardId, attachmentId, userId, userName } = request;
+    const { tenantId, boardId, cardId, attachmentId, userId, userName } = request;
+
+    const board = await this.boardsRepository.findById(boardId, tenantId);
+
+    if (!board) {
+      throw new ResourceNotFoundError('Board not found');
+    }
 
     const card = await this.cardsRepository.findById(cardId, boardId);
 

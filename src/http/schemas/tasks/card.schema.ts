@@ -23,7 +23,7 @@ export const createCardSchema = z.object({
     .optional()
     .nullable(),
   labelIds: z.array(z.string().uuid()).optional(),
-  metadata: z.record(z.string(), z.unknown()).optional().nullable(),
+  metadata: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional().nullable(),
 });
 
 export const updateCardSchema = z.object({
@@ -40,7 +40,7 @@ export const updateCardSchema = z.object({
     .regex(/^#[0-9a-fA-F]{6}$/, 'Color must be a valid hex color')
     .optional()
     .nullable(),
-  metadata: z.record(z.string(), z.unknown()).optional().nullable(),
+  metadata: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional().nullable(),
 });
 
 export const moveCardSchema = z.object({

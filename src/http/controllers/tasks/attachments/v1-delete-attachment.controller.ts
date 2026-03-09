@@ -41,6 +41,7 @@ export async function deleteAttachmentController(app: FastifyInstance) {
       try {
         const useCase = makeDeleteAttachmentUseCase();
         await useCase.execute({
+          tenantId: request.user.tenantId!,
           boardId,
           cardId,
           attachmentId,

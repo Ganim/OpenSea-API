@@ -47,11 +47,15 @@ export async function listAttachmentsController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { cardId } = request.params;
+      const { boardId, cardId } = request.params;
 
       try {
         const useCase = makeListAttachmentsUseCase();
-        const result = await useCase.execute({ cardId });
+        const result = await useCase.execute({
+          tenantId: request.user.tenantId!,
+          boardId,
+          cardId,
+        });
 
         return reply.status(200).send(result);
       } catch (error) {
