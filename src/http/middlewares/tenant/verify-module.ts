@@ -39,6 +39,12 @@ export type SystemModule =
  */
 export function createModuleMiddleware(module: SystemModule) {
   return async function verifyModule(request: FastifyRequest) {
+    // When used as onRequest hook, request.user may not be set yet
+    // (verifyJwt runs later as preHandler). Skip silently — auth will fail later.
+    if (!request.user) {
+      return;
+    }
+
     const tenantId = request.user.tenantId;
 
     if (!tenantId) {
