@@ -19,8 +19,7 @@ uploads/
 query.sql
 tsc-output.txt
 
-# Temporary docs/reports (but keep SLOs and operational docs)
-docs/
-!docs/slos.md
-!docs/monitoring-setup.md
-!docs/disaster-recovery.md
+# Temporary docs/reports
+docs/*.txt
+docs/*.html
+docs/test-failures*
