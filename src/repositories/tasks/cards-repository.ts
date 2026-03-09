@@ -105,6 +105,7 @@ export interface CardsRepository {
     boardId: string,
     columnId: string,
   ): Promise<void>;
+  reindexColumnPositions(columnId: string): Promise<void>;
   softDelete(id: string, boardId: string): Promise<void>;
   softDeleteMany(ids: string[], boardId: string): Promise<void>;
 }

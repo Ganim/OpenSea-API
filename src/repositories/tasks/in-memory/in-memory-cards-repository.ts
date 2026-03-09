@@ -280,6 +280,13 @@ export class InMemoryCardsRepository implements CardsRepository {
     }
   }
 
+  async reindexColumnPositions(columnId: string): Promise<void> {
+    const colCards = this.items
+      .filter(c => c.columnId.toString() === columnId && !c.isDeleted)
+      .sort((a, b) => a.position - b.position);
+    colCards.forEach((card, i) => { card.position = i; });
+  }
+
   async softDelete(id: string, boardId: string): Promise<void> {
     const card = this.items.find(
       (card) =>

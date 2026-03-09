@@ -306,6 +306,25 @@ export class PrismaCardsRepository implements CardsRepository {
     });
   }
 
+  async reindexColumnPositions(columnId: string): Promise<void> {
+    const cards = await prisma.card.findMany({
+      where: { columnId, deletedAt: null },
+      orderBy: { position: 'asc' },
+      select: { id: true },
+    });
+
+    if (cards.length === 0) return;
+
+    await prisma.$transaction(
+      cards.map((card, index) =>
+        prisma.card.update({
+          where: { id: card.id },
+          data: { position: index },
+        }),
+      ),
+    );
+  }
+
   async softDelete(id: string, _boardId: string): Promise<void> {
     await prisma.card.update({
       where: { id },

@@ -98,6 +98,11 @@ export class MoveCardUseCase {
       throw new ResourceNotFoundError('Card not found');
     }
 
+    await this.cardsRepository.reindexColumnPositions(columnId);
+    if (oldColumnId !== columnId) {
+      await this.cardsRepository.reindexColumnPositions(oldColumnId);
+    }
+
     if (oldColumnId !== columnId) {
       await this.cardActivitiesRepository.create({
         cardId,
