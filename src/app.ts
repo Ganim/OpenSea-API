@@ -85,6 +85,13 @@ app.register(helmet, {
   },
   crossOriginEmbedderPolicy: false, // Para Swagger UI funcionar
   crossOriginResourcePolicy: { policy: 'cross-origin' },
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true,
+  },
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  permittedCrossDomainPolicies: { permittedPolicies: 'none' },
 });
 
 // CORS - Cross-Origin Resource Sharing
