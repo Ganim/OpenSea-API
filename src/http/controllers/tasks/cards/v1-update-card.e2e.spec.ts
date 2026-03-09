@@ -64,4 +64,21 @@ describe('Update Card (E2E)', () => {
     expect(response.body.card.priority).toBe('URGENT');
     expect(response.body.card.dueDate).toBeTruthy();
   });
+
+  it('should return 404 when card does not exist', async () => {
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
+    const userId = user.user.id;
+
+    const { board } = await createTaskBoard(tenantId, userId);
+
+    const response = await request(app.server)
+      .patch(
+        `/v1/tasks/boards/${board.id}/cards/00000000-0000-0000-0000-000000000000`,
+      )
+      .set('Authorization', `Bearer ${token}`)
+      .send({ title: 'Cartão Inexistente' });
+
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message');
+  });
 });

@@ -61,4 +61,30 @@ describe('Create Card (E2E)', () => {
     expect(response.body.card.description).toBe('Descrição da tarefa');
     expect(response.body.card.priority).toBe('LOW');
   });
+
+  it('should return 400 when title is missing', async () => {
+    const { token, user } = await createAndAuthenticateUser(app, { tenantId });
+    const userId = user.user.id;
+
+    const { board } = await createTaskBoard(tenantId, userId);
+
+    const response = await request(app.server)
+      .post(`/v1/tasks/boards/${board.id}/cards`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ priority: 'HIGH' });
+
+    expect(response.status).toBe(400);
+  });
+
+  it('should return 404 when board does not exist', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .post('/v1/tasks/boards/00000000-0000-0000-0000-000000000000/cards')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ title: 'Tarefa Órfã', priority: 'HIGH' });
+
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message');
+  });
 });

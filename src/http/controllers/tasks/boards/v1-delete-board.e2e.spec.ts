@@ -31,4 +31,22 @@ describe('Delete Board (E2E)', () => {
 
     expect(response.status).toBe(204);
   });
+
+  it('should return 404 when board does not exist', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .delete('/v1/tasks/boards/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message');
+  });
+
+  it('should return 401 without authentication', async () => {
+    const response = await request(app.server)
+      .delete('/v1/tasks/boards/00000000-0000-0000-0000-000000000000');
+
+    expect(response.status).toBe(401);
+  });
 });

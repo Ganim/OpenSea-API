@@ -60,4 +60,23 @@ describe('Create Board (E2E)', () => {
     expect(response.body.board.columns).toBeDefined();
     expect(response.body.board.columns.length).toBeGreaterThanOrEqual(3);
   });
+
+  it('should return 400 when title is missing', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+    const response = await request(app.server)
+      .post('/v1/tasks/boards')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ type: 'PERSONAL' });
+
+    expect(response.status).toBe(400);
+  });
+
+  it('should return 401 without authentication', async () => {
+    const response = await request(app.server)
+      .post('/v1/tasks/boards')
+      .send({ title: 'Quadro Sem Auth', type: 'PERSONAL' });
+
+    expect(response.status).toBe(401);
+  });
 });
