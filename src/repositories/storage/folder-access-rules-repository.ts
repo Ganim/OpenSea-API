@@ -53,4 +53,14 @@ export interface FolderAccessRulesRepository {
     tenantId: string,
   ): Promise<Map<string, FolderAccessRule[]>>;
   countByFolder(folderId: UniqueEntityID): Promise<number>;
+  findExistingFolderIdsForSubject(
+    folderIds: string[],
+    subject: { userId?: string; groupId?: string; teamId?: string },
+  ): Promise<Set<string>>;
+  deleteInheritedByFolderIdsAndSubject(
+    folderIds: string[],
+    userId: UniqueEntityID | null,
+    groupId: UniqueEntityID | null,
+    teamId?: UniqueEntityID | null,
+  ): Promise<number>;
 }

@@ -39,31 +39,23 @@ export class PropagateAccessToChildrenUseCase {
         tenantId,
       );
 
+    // Batch-check which descendants already have a rule for this subject (N+1 → 1 query)
+    const descendantFolderIds = descendantFolders.map((f) => f.id.toString());
+    const subject: { userId?: string; groupId?: string; teamId?: string } = {};
+    if (userId) subject.userId = userId;
+    else if (groupId) subject.groupId = groupId;
+    else if (teamId) subject.teamId = teamId;
+
+    const existingFolderIds =
+      await this.folderAccessRulesRepository.findExistingFolderIdsForSubject(
+        descendantFolderIds,
+        subject,
+      );
+
     for (const descendantFolder of descendantFolders) {
       const descendantFolderIdStr = descendantFolder.id.toString();
 
-      let existingRule;
-      if (userId) {
-        existingRule =
-          await this.folderAccessRulesRepository.findByFolderAndUser(
-            descendantFolder.id,
-            new UniqueEntityID(userId),
-          );
-      } else if (groupId) {
-        existingRule =
-          await this.folderAccessRulesRepository.findByFolderAndGroup(
-            descendantFolder.id,
-            new UniqueEntityID(groupId),
-          );
-      } else if (teamId) {
-        existingRule =
-          await this.folderAccessRulesRepository.findByFolderAndTeam(
-            descendantFolder.id,
-            new UniqueEntityID(teamId),
-          );
-      }
-
-      if (existingRule) {
+      if (existingFolderIds.has(descendantFolderIdStr)) {
         continue;
       }
 

@@ -176,4 +176,38 @@ export class InMemoryFolderAccessRulesRepository
       return matchesUser || matchesGroup;
     });
   }
+
+  async findExistingFolderIdsForSubject(
+    folderIds: string[],
+    subject: { userId?: string; groupId?: string; teamId?: string },
+  ): Promise<Set<string>> {
+    const idSet = new Set(folderIds);
+    const matching = this.items.filter((item) => {
+      if (!idSet.has(item.folderId.toString())) return false;
+      if (subject.userId) return item.userId?.toString() === subject.userId;
+      if (subject.groupId) return item.groupId?.toString() === subject.groupId;
+      if (subject.teamId) return item.teamId?.toString() === subject.teamId;
+      return false;
+    });
+    return new Set(matching.map((r) => r.folderId.toString()));
+  }
+
+  async deleteInheritedByFolderIdsAndSubject(
+    folderIds: string[],
+    userId: UniqueEntityID | null,
+    groupId: UniqueEntityID | null,
+    teamId?: UniqueEntityID | null,
+  ): Promise<number> {
+    const idSet = new Set(folderIds);
+    const before = this.items.length;
+    this.items = this.items.filter((item) => {
+      if (!idSet.has(item.folderId.toString())) return true;
+      if (!item.isInherited) return true;
+      if (userId && item.userId?.equals(userId)) return false;
+      if (groupId && item.groupId?.equals(groupId)) return false;
+      if (teamId && item.teamId?.equals(teamId)) return false;
+      return true;
+    });
+    return before - this.items.length;
+  }
 }

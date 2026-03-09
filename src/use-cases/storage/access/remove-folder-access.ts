@@ -45,18 +45,20 @@ export class RemoveFolderAccessUseCase {
 
     await this.folderAccessRulesRepository.deleteRule(ruleEntityId);
 
-    // Remove inherited rules from descendant folders for the same subject
+    // Batch-remove inherited rules from all descendants (N queries → 1)
     const descendantFolders =
       await this.storageFoldersRepository.findDescendants(
         folderEntityId,
         tenantId,
       );
 
-    for (const descendantFolder of descendantFolders) {
-      await this.folderAccessRulesRepository.deleteInheritedByFolderAndSubject(
-        descendantFolder.id,
+    if (descendantFolders.length > 0) {
+      const descendantFolderIds = descendantFolders.map((f) => f.id.toString());
+      await this.folderAccessRulesRepository.deleteInheritedByFolderIdsAndSubject(
+        descendantFolderIds,
         rule.userId,
         rule.groupId,
+        rule.teamId,
       );
     }
   }

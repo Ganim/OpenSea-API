@@ -216,4 +216,45 @@ export class PrismaFolderAccessRulesRepository
 
     return rulesDb.map(folderAccessRulePrismaToDomain);
   }
+
+  async findExistingFolderIdsForSubject(
+    folderIds: string[],
+    subject: { userId?: string; groupId?: string; teamId?: string },
+  ): Promise<Set<string>> {
+    if (folderIds.length === 0) return new Set();
+
+    const where: Record<string, unknown> = {
+      folderId: { in: folderIds },
+    };
+    if (subject.userId) where.userId = subject.userId;
+    else if (subject.groupId) where.groupId = subject.groupId;
+    else if (subject.teamId) where.teamId = subject.teamId;
+
+    const rules = await prisma.folderAccessRule.findMany({
+      where,
+      select: { folderId: true },
+    });
+
+    return new Set(rules.map((r) => r.folderId));
+  }
+
+  async deleteInheritedByFolderIdsAndSubject(
+    folderIds: string[],
+    userId: UniqueEntityID | null,
+    groupId: UniqueEntityID | null,
+    teamId?: UniqueEntityID | null,
+  ): Promise<number> {
+    if (folderIds.length === 0) return 0;
+
+    const where: Record<string, unknown> = {
+      folderId: { in: folderIds },
+      isInherited: true,
+    };
+    if (userId) where.userId = userId.toString();
+    if (groupId) where.groupId = groupId.toString();
+    if (teamId) where.teamId = teamId.toString();
+
+    const result = await prisma.folderAccessRule.deleteMany({ where });
+    return result.count;
+  }
 }
