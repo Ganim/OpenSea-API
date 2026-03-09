@@ -20,3 +20,48 @@ jobs:
         run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+  smoke-test:
+    name: Post-Deploy Smoke Test
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Wait for deployment to stabilize
+        run: sleep 15
+
+      - name: Health check - liveness
+        run: |
+          STATUS=$(curl -sf -o /dev/null -w "%{http_code}" https://opensea-api.fly.dev/health/live)
+          if [ "$STATUS" != "200" ]; then
+            echo "::error::Liveness check failed with status $STATUS"
+            exit 1
+          fi
+          echo "Liveness check passed (HTTP $STATUS)"
+
+      - name: Health check - readiness
+        run: |
+          STATUS=$(curl -sf -o /dev/null -w "%{http_code}" https://opensea-api.fly.dev/health)
+          if [ "$STATUS" != "200" ]; then
+            echo "::warning::Readiness check returned $STATUS (non-critical)"
+          else
+            echo "Readiness check passed (HTTP $STATUS)"
+          fi
+
+      - name: API response check
+        run: |
+          RESPONSE=$(curl -sf -w "\n%{http_code}" https://opensea-api.fly.dev/docs/json 2>/dev/null || echo "FAILED")
+          if echo "$RESPONSE" | tail -1 | grep -q "200"; then
+            echo "Swagger docs accessible"
+          else
+            echo "::warning::Swagger docs check failed (non-critical)"
+          fi
+
+      - name: Rollback on critical failure
+        if: failure()
+        run: |
+          echo "::error::Smoke tests failed — rolling back deployment"
+          flyctl releases rollback --app opensea-api
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
