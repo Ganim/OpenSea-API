@@ -1139,6 +1139,23 @@ export const PermissionCodes = {
       DELETE: 'tasks.watchers.delete' as const,
     },
   },
+
+  // ============================================================================
+  // ADMIN - Permissões administrativas (tenant-scoped, não super-admin)
+  // ============================================================================
+  /**
+   * Permissões para operações administrativas dentro de um tenant.
+   * Usadas em endpoints /v1/admin/* que são tenant-scoped.
+   */
+  ADMIN: {
+    COMPANIES: {
+      CREATE: 'admin.companies.create' as const,
+      READ: 'admin.companies.read' as const,
+      UPDATE: 'admin.companies.update' as const,
+      DELETE: 'admin.companies.delete' as const,
+      RESTORE: 'admin.companies.restore' as const,
+    },
+  },
 } as const;
 
 /**
