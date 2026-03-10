@@ -553,6 +553,21 @@ export const PermissionCodes = {
       LIST: 'stock.templates.list' as const,
       MANAGE: 'stock.templates.manage' as const,
     },
+    PRODUCT_CARE_INSTRUCTIONS: {
+      CREATE: 'stock.product-care-instructions.create' as const,
+      READ: 'stock.product-care-instructions.read' as const,
+      DELETE: 'stock.product-care-instructions.delete' as const,
+    },
+    PRODUCT_ATTACHMENTS: {
+      CREATE: 'stock.product-attachments.create' as const,
+      READ: 'stock.product-attachments.read' as const,
+      DELETE: 'stock.product-attachments.delete' as const,
+    },
+    VARIANT_ATTACHMENTS: {
+      CREATE: 'stock.variant-attachments.create' as const,
+      READ: 'stock.variant-attachments.read' as const,
+      DELETE: 'stock.variant-attachments.delete' as const,
+    },
     PURCHASE_ORDERS: {
       CREATE: 'stock.purchase-orders.create' as const,
       READ: 'stock.purchase-orders.read' as const,
