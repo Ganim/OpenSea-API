@@ -17,12 +17,14 @@ export interface VariantProps {
   qrCode?: string; // QR Code editável
   name: string;
   price: number;
-  imageUrl?: string;
   attributes: Record<string, unknown>;
   costPrice?: number;
   profitMargin?: number;
   colorHex?: string;
   colorPantone?: string;
+  secondaryColorHex?: string;
+  secondaryColorPantone?: string;
+  pattern?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
@@ -122,15 +124,6 @@ export class Variant extends Entity<VariantProps> {
     this.touch();
   }
 
-  get imageUrl(): string | undefined {
-    return this.props.imageUrl;
-  }
-
-  set imageUrl(imageUrl: string | undefined) {
-    this.props.imageUrl = imageUrl;
-    this.touch();
-  }
-
   get attributes(): Record<string, unknown> {
     return this.props.attributes;
   }
@@ -182,6 +175,33 @@ export class Variant extends Entity<VariantProps> {
 
   set colorPantone(colorPantone: string | undefined) {
     this.props.colorPantone = colorPantone;
+    this.touch();
+  }
+
+  get secondaryColorHex(): string | undefined {
+    return this.props.secondaryColorHex;
+  }
+
+  set secondaryColorHex(value: string | undefined) {
+    this.props.secondaryColorHex = value;
+    this.touch();
+  }
+
+  get secondaryColorPantone(): string | undefined {
+    return this.props.secondaryColorPantone;
+  }
+
+  set secondaryColorPantone(value: string | undefined) {
+    this.props.secondaryColorPantone = value;
+    this.touch();
+  }
+
+  get pattern(): string | undefined {
+    return this.props.pattern;
+  }
+
+  set pattern(value: string | undefined) {
+    this.props.pattern = value;
     this.touch();
   }
 
