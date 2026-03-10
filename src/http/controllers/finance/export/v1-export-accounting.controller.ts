@@ -4,6 +4,7 @@ import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { exportAccountingSchema } from '@/http/schemas/finance/export.schema';
 import { makeExportAccountingDataUseCase } from '@/use-cases/finance/export/factories/make-export-accounting-data-use-case';
+import type { ExportFormat } from '@/use-cases/finance/export/export-accounting-data';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 
@@ -21,14 +22,14 @@ export async function exportAccountingController(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Finance - Export'],
-      summary: 'Export accounting data as CSV',
+      summary: 'Export accounting data as CSV, PDF, XLSX, or DOCX',
       security: [{ bearerAuth: [] }],
       body: exportAccountingSchema,
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const body = request.body as {
-        format: 'CSV';
+        format: ExportFormat;
         reportType: 'ENTRIES' | 'BALANCE' | 'DRE' | 'CASHFLOW';
         startDate: Date;
         endDate: Date;

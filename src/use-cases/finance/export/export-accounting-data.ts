@@ -1,8 +1,14 @@
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 
+import { exportToPDF } from './export-pdf';
+import { exportToXLSX } from './export-xlsx';
+import { exportToDOCX } from './export-docx';
+
+export type ExportFormat = 'CSV' | 'PDF' | 'XLSX' | 'DOCX';
+
 interface ExportAccountingRequest {
   tenantId: string;
-  format: 'CSV';
+  format: ExportFormat;
   reportType: 'ENTRIES' | 'BALANCE' | 'DRE' | 'CASHFLOW';
   startDate: Date;
   endDate: Date;
@@ -11,7 +17,7 @@ interface ExportAccountingRequest {
   categoryId?: string;
 }
 
-interface ExportAccountingResponse {
+export interface ExportAccountingResponse {
   fileName: string;
   data: Buffer;
   mimeType: string;
@@ -56,6 +62,34 @@ function escapeCsvField(value: string): string {
   return value;
 }
 
+const REPORT_TITLES: Record<string, string> = {
+  ENTRIES: 'Lancamentos',
+  DRE: 'Demonstracao do Resultado do Exercicio',
+  BALANCE: 'Balancete',
+  CASHFLOW: 'Fluxo de Caixa',
+};
+
+const FILE_PREFIXES: Record<string, string> = {
+  ENTRIES: 'lancamentos',
+  DRE: 'dre',
+  BALANCE: 'balancete',
+  CASHFLOW: 'fluxo_caixa',
+};
+
+const FORMAT_MIMES: Record<ExportFormat, string> = {
+  CSV: 'text/csv; charset=utf-8',
+  PDF: 'application/pdf',
+  XLSX: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  DOCX: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+};
+
+const FORMAT_EXTENSIONS: Record<ExportFormat, string> = {
+  CSV: 'csv',
+  PDF: 'pdf',
+  XLSX: 'xlsx',
+  DOCX: 'docx',
+};
+
 export class ExportAccountingDataUseCase {
   constructor(private financeEntriesRepository: FinanceEntriesRepository) {}
 
@@ -64,6 +98,7 @@ export class ExportAccountingDataUseCase {
   ): Promise<ExportAccountingResponse> {
     const {
       tenantId,
+      format,
       reportType,
       startDate,
       endDate,
@@ -72,35 +107,77 @@ export class ExportAccountingDataUseCase {
       categoryId,
     } = request;
 
-    switch (reportType) {
-      case 'ENTRIES':
-        return this.exportEntries(
-          tenantId,
-          startDate,
-          endDate,
-          type,
-          costCenterId,
-          categoryId,
-        );
-      case 'DRE':
-        return this.exportDRE(tenantId, startDate, endDate);
-      case 'BALANCE':
-        return this.exportBalance(tenantId, startDate, endDate);
-      case 'CASHFLOW':
-        return this.exportCashflow(tenantId, startDate, endDate);
-      default:
-        throw new Error(`Tipo de relatório inválido: ${reportType}`);
+    // Extract data into headers + rows
+    const { headers, rows } = await this.extractData(
+      reportType,
+      tenantId,
+      startDate,
+      endDate,
+      type,
+      costCenterId,
+      categoryId,
+    );
+
+    const title = REPORT_TITLES[reportType] ?? reportType;
+    const dateRange = `${formatDate(startDate).replace(/\//g, '-')}_${formatDate(endDate).replace(/\//g, '-')}`;
+    const prefix = FILE_PREFIXES[reportType] ?? 'relatorio';
+
+    // Render to format
+    let data: Buffer;
+
+    if (format === 'CSV') {
+      const csv =
+        UTF8_BOM +
+        [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
+      data = Buffer.from(csv, 'utf-8');
+    } else if (format === 'PDF') {
+      data = await exportToPDF({ reportType, startDate, endDate, headers, rows, title });
+    } else if (format === 'XLSX') {
+      data = await exportToXLSX({ reportType, startDate, endDate, headers, rows, title });
+    } else if (format === 'DOCX') {
+      data = await exportToDOCX({ reportType, startDate, endDate, headers, rows, title });
+    } else {
+      throw new Error(`Formato de exportacao invalido: ${format}`);
     }
+
+    return {
+      fileName: `${prefix}_${dateRange}.${FORMAT_EXTENSIONS[format]}`,
+      data,
+      mimeType: FORMAT_MIMES[format],
+    };
   }
 
-  private async exportEntries(
+  private async extractData(
+    reportType: string,
     tenantId: string,
     startDate: Date,
     endDate: Date,
     type?: string,
     costCenterId?: string,
     categoryId?: string,
-  ): Promise<ExportAccountingResponse> {
+  ): Promise<{ headers: string[]; rows: string[][] }> {
+    switch (reportType) {
+      case 'ENTRIES':
+        return this.extractEntries(tenantId, startDate, endDate, type, costCenterId, categoryId);
+      case 'DRE':
+        return this.extractDRE(tenantId, startDate, endDate);
+      case 'BALANCE':
+        return this.extractBalance(tenantId, startDate, endDate);
+      case 'CASHFLOW':
+        return this.extractCashflow(tenantId, startDate, endDate);
+      default:
+        throw new Error(`Tipo de relatorio invalido: ${reportType}`);
+    }
+  }
+
+  private async extractEntries(
+    tenantId: string,
+    startDate: Date,
+    endDate: Date,
+    type?: string,
+    costCenterId?: string,
+    categoryId?: string,
+  ): Promise<{ headers: string[]; rows: string[][] }> {
     const { entries } = await this.financeEntriesRepository.findMany({
       tenantId,
       type,
@@ -112,9 +189,9 @@ export class ExportAccountingDataUseCase {
     });
 
     const headers = [
-      'Código',
+      'Codigo',
       'Tipo',
-      'Descrição',
+      'Descricao',
       'Categoria',
       'Centro de Custo',
       'Valor Previsto',
@@ -127,7 +204,7 @@ export class ExportAccountingDataUseCase {
       'Pagamento',
       'Status',
       'Fornecedor/Cliente',
-      'Competência',
+      'Competencia',
     ];
 
     const rows = entries.map((e) => [
@@ -149,24 +226,14 @@ export class ExportAccountingDataUseCase {
       e.competenceDate ? formatDate(e.competenceDate) : '',
     ]);
 
-    const csv =
-      UTF8_BOM +
-      [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
-    const dateRange = `${formatDate(startDate).replace(/\//g, '-')}_${formatDate(endDate).replace(/\//g, '-')}`;
-
-    return {
-      fileName: `lancamentos_${dateRange}.csv`,
-      data: Buffer.from(csv, 'utf-8'),
-      mimeType: 'text/csv; charset=utf-8',
-    };
+    return { headers, rows };
   }
 
-  private async exportDRE(
+  private async extractDRE(
     tenantId: string,
     startDate: Date,
     endDate: Date,
-  ): Promise<ExportAccountingResponse> {
-    // Revenue: RECEIVABLE entries that are PAID/RECEIVED in the period
+  ): Promise<{ headers: string[]; rows: string[][] }> {
     const { entries: allEntries } =
       await this.financeEntriesRepository.findMany({
         tenantId,
@@ -187,7 +254,7 @@ export class ExportAccountingDataUseCase {
 
     const result = revenue - expenses;
 
-    const headers = ['Descrição', 'Valor'];
+    const headers = ['Descricao', 'Valor'];
     const rows = [
       ['RECEITAS', ''],
       ['  Receitas Operacionais', formatMoney(revenue)],
@@ -195,26 +262,17 @@ export class ExportAccountingDataUseCase {
       ['(-) CUSTOS E DESPESAS', ''],
       ['  Despesas Operacionais', formatMoney(expenses)],
       ['', ''],
-      ['(=) RESULTADO DO PERÍODO', formatMoney(result)],
+      ['(=) RESULTADO DO PERIODO', formatMoney(result)],
     ];
 
-    const csv =
-      UTF8_BOM +
-      [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
-    const dateRange = `${formatDate(startDate).replace(/\//g, '-')}_${formatDate(endDate).replace(/\//g, '-')}`;
-
-    return {
-      fileName: `dre_${dateRange}.csv`,
-      data: Buffer.from(csv, 'utf-8'),
-      mimeType: 'text/csv; charset=utf-8',
-    };
+    return { headers, rows };
   }
 
-  private async exportBalance(
+  private async extractBalance(
     tenantId: string,
     startDate: Date,
     endDate: Date,
-  ): Promise<ExportAccountingResponse> {
+  ): Promise<{ headers: string[]; rows: string[][] }> {
     const debits = await this.financeEntriesRepository.sumByCostCenter(
       tenantId,
       'PAYABLE',
@@ -234,7 +292,7 @@ export class ExportAccountingDataUseCase {
       ...credits.map((c) => c.costCenterId),
     ]);
 
-    const headers = ['Centro de Custo', 'Débitos', 'Créditos', 'Saldo'];
+    const headers = ['Centro de Custo', 'Debitos', 'Creditos', 'Saldo'];
     const rows: string[][] = [];
 
     let totalDebits = 0;
@@ -266,23 +324,14 @@ export class ExportAccountingDataUseCase {
       formatMoney(totalCredits - totalDebits),
     ]);
 
-    const csv =
-      UTF8_BOM +
-      [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
-    const dateRange = `${formatDate(startDate).replace(/\//g, '-')}_${formatDate(endDate).replace(/\//g, '-')}`;
-
-    return {
-      fileName: `balancete_${dateRange}.csv`,
-      data: Buffer.from(csv, 'utf-8'),
-      mimeType: 'text/csv; charset=utf-8',
-    };
+    return { headers, rows };
   }
 
-  private async exportCashflow(
+  private async extractCashflow(
     tenantId: string,
     startDate: Date,
     endDate: Date,
-  ): Promise<ExportAccountingResponse> {
+  ): Promise<{ headers: string[]; rows: string[][] }> {
     const { entries: allEntries } =
       await this.financeEntriesRepository.findMany({
         tenantId,
@@ -303,26 +352,17 @@ export class ExportAccountingDataUseCase {
 
     const netCash = inflows - outflows;
 
-    const headers = ['Descrição', 'Valor'];
+    const headers = ['Descricao', 'Valor'];
     const rows = [
       ['RECEBIMENTOS OPERACIONAIS', ''],
       ['  Entradas', formatMoney(inflows)],
       ['', ''],
       ['(-) PAGAMENTOS OPERACIONAIS', ''],
-      ['  Saídas', formatMoney(outflows)],
+      ['  Saidas', formatMoney(outflows)],
       ['', ''],
-      ['(=) CAIXA LÍQUIDO OPERACIONAL', formatMoney(netCash)],
+      ['(=) CAIXA LIQUIDO OPERACIONAL', formatMoney(netCash)],
     ];
 
-    const csv =
-      UTF8_BOM +
-      [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\r\n');
-    const dateRange = `${formatDate(startDate).replace(/\//g, '-')}_${formatDate(endDate).replace(/\//g, '-')}`;
-
-    return {
-      fileName: `fluxo_caixa_${dateRange}.csv`,
-      data: Buffer.from(csv, 'utf-8'),
-      mimeType: 'text/csv; charset=utf-8',
-    };
+    return { headers, rows };
   }
 }

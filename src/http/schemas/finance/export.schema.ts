@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const exportAccountingSchema = z.object({
-  format: z.enum(['CSV']).default('CSV'),
+  format: z.enum(['CSV', 'PDF', 'XLSX', 'DOCX']).default('CSV'),
   reportType: z.enum(['ENTRIES', 'BALANCE', 'DRE', 'CASHFLOW']),
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
