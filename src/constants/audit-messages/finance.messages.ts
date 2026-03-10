@@ -212,4 +212,36 @@ export const FINANCE_AUDIT_MESSAGES = {
     description:
       '{{userName}} marcou o consorcio {{consortiumName}} como contemplado ({{contemplationType}})',
   } satisfies AuditMessage,
+  // ============================================================================
+  // CONTRACTS - Contratos de Servico
+  // ============================================================================
+
+  CONTRACT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CONTRACT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} criou o contrato {{contractTitle}}',
+  } satisfies AuditMessage,
+
+  CONTRACT_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CONTRACT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} atualizou o contrato {{contractTitle}}',
+  } satisfies AuditMessage,
+
+  CONTRACT_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CONTRACT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} excluiu o contrato {{contractTitle}}',
+  } satisfies AuditMessage,
+
+  CONTRACT_GENERATE_ENTRIES: {
+    action: AuditAction.GENERATE,
+    entity: AuditEntity.CONTRACT,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} gerou lancamentos para o contrato {{contractTitle}}',
+  } satisfies AuditMessage,
 } as const;

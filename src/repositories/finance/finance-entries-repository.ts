@@ -32,6 +32,7 @@ export interface CreateFinanceEntrySchema {
   totalInstallments?: number;
   currentInstallment?: number;
   parentEntryId?: string;
+  contractId?: string;
   boletoBarcode?: string;
   boletoDigitLine?: string;
   metadata?: Record<string, unknown>;
@@ -79,6 +80,7 @@ export interface FindManyFinanceEntriesOptions {
   supplierName?: string;
   overdueRange?: string; // '1-7' | '8-30' | '31-60' | '60+'
   parentEntryId?: string;
+  contractId?: string;
   search?: string;
 }
 

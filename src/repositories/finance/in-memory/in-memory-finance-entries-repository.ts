@@ -55,6 +55,7 @@ export class InMemoryFinanceEntriesRepository
       parentEntryId: data.parentEntryId
         ? new UniqueEntityID(data.parentEntryId)
         : undefined,
+      contractId: data.contractId,
       boletoBarcode: data.boletoBarcode,
       boletoDigitLine: data.boletoDigitLine,
       metadata: data.metadata ?? {},
@@ -160,6 +161,8 @@ export class InMemoryFinanceEntriesRepository
         i.parentEntryId?.toString() !== options.parentEntryId
       )
         return false;
+
+      if (options.contractId && i.contractId !== options.contractId) return false;
 
       if (options.search) {
         const term = options.search.toLowerCase();

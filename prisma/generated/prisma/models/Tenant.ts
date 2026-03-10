@@ -259,6 +259,8 @@ export type TenantWhereInput = {
   financeAttachments?: Prisma.FinanceAttachmentListRelationFilter
   loans?: Prisma.LoanListRelationFilter
   consortia?: Prisma.ConsortiumListRelationFilter
+  recurringConfigs?: Prisma.RecurringConfigListRelationFilter
+  contracts?: Prisma.ContractListRelationFilter
   storageFolders?: Prisma.StorageFolderListRelationFilter
   storageFiles?: Prisma.StorageFileListRelationFilter
   folderAccessRules?: Prisma.FolderAccessRuleListRelationFilter
@@ -333,6 +335,8 @@ export type TenantOrderByWithRelationInput = {
   financeAttachments?: Prisma.FinanceAttachmentOrderByRelationAggregateInput
   loans?: Prisma.LoanOrderByRelationAggregateInput
   consortia?: Prisma.ConsortiumOrderByRelationAggregateInput
+  recurringConfigs?: Prisma.RecurringConfigOrderByRelationAggregateInput
+  contracts?: Prisma.ContractOrderByRelationAggregateInput
   storageFolders?: Prisma.StorageFolderOrderByRelationAggregateInput
   storageFiles?: Prisma.StorageFileOrderByRelationAggregateInput
   folderAccessRules?: Prisma.FolderAccessRuleOrderByRelationAggregateInput
@@ -410,6 +414,8 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   financeAttachments?: Prisma.FinanceAttachmentListRelationFilter
   loans?: Prisma.LoanListRelationFilter
   consortia?: Prisma.ConsortiumListRelationFilter
+  recurringConfigs?: Prisma.RecurringConfigListRelationFilter
+  contracts?: Prisma.ContractListRelationFilter
   storageFolders?: Prisma.StorageFolderListRelationFilter
   storageFiles?: Prisma.StorageFileListRelationFilter
   folderAccessRules?: Prisma.FolderAccessRuleListRelationFilter
@@ -516,6 +522,8 @@ export type TenantCreateInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -590,6 +598,8 @@ export type TenantUncheckedCreateInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -664,6 +674,8 @@ export type TenantUpdateInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -738,6 +750,8 @@ export type TenantUncheckedUpdateInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -1440,6 +1454,20 @@ export type TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutFinanceEntriesInput, Prisma.TenantUpdateWithoutFinanceEntriesInput>, Prisma.TenantUncheckedUpdateWithoutFinanceEntriesInput>
 }
 
+export type TenantCreateNestedOneWithoutRecurringConfigsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutRecurringConfigsInput, Prisma.TenantUncheckedCreateWithoutRecurringConfigsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutRecurringConfigsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutRecurringConfigsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutRecurringConfigsInput, Prisma.TenantUncheckedCreateWithoutRecurringConfigsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutRecurringConfigsInput
+  upsert?: Prisma.TenantUpsertWithoutRecurringConfigsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutRecurringConfigsInput, Prisma.TenantUpdateWithoutRecurringConfigsInput>, Prisma.TenantUncheckedUpdateWithoutRecurringConfigsInput>
+}
+
 export type TenantCreateNestedOneWithoutFinanceAttachmentsInput = {
   create?: Prisma.XOR<Prisma.TenantCreateWithoutFinanceAttachmentsInput, Prisma.TenantUncheckedCreateWithoutFinanceAttachmentsInput>
   connectOrCreate?: Prisma.TenantCreateOrConnectWithoutFinanceAttachmentsInput
@@ -1480,6 +1508,20 @@ export type TenantUpdateOneRequiredWithoutConsortiaNestedInput = {
   upsert?: Prisma.TenantUpsertWithoutConsortiaInput
   connect?: Prisma.TenantWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutConsortiaInput, Prisma.TenantUpdateWithoutConsortiaInput>, Prisma.TenantUncheckedUpdateWithoutConsortiaInput>
+}
+
+export type TenantCreateNestedOneWithoutContractsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutContractsInput, Prisma.TenantUncheckedCreateWithoutContractsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutContractsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutContractsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutContractsInput, Prisma.TenantUncheckedCreateWithoutContractsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutContractsInput
+  upsert?: Prisma.TenantUpsertWithoutContractsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutContractsInput, Prisma.TenantUpdateWithoutContractsInput>, Prisma.TenantUncheckedUpdateWithoutContractsInput>
 }
 
 export type TenantCreateNestedOneWithoutStorageFoldersInput = {
@@ -1761,6 +1803,8 @@ export type TenantCreateWithoutSessionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -1834,6 +1878,8 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -1923,6 +1969,8 @@ export type TenantUpdateWithoutSessionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -1996,6 +2044,8 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -2069,6 +2119,8 @@ export type TenantCreateWithoutRefreshTokensInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -2142,6 +2194,8 @@ export type TenantUncheckedCreateWithoutRefreshTokensInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -2231,6 +2285,8 @@ export type TenantUpdateWithoutRefreshTokensInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -2304,6 +2360,8 @@ export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -2377,6 +2435,8 @@ export type TenantCreateWithoutPermissionGroupsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -2450,6 +2510,8 @@ export type TenantUncheckedCreateWithoutPermissionGroupsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -2539,6 +2601,8 @@ export type TenantUpdateWithoutPermissionGroupsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -2612,6 +2676,8 @@ export type TenantUncheckedUpdateWithoutPermissionGroupsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -2685,6 +2751,8 @@ export type TenantCreateWithoutOrganizationsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -2758,6 +2826,8 @@ export type TenantUncheckedCreateWithoutOrganizationsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -2847,6 +2917,8 @@ export type TenantUpdateWithoutOrganizationsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -2920,6 +2992,8 @@ export type TenantUncheckedUpdateWithoutOrganizationsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -2993,6 +3067,8 @@ export type TenantCreateWithoutSuppliersInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -3066,6 +3142,8 @@ export type TenantUncheckedCreateWithoutSuppliersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -3155,6 +3233,8 @@ export type TenantUpdateWithoutSuppliersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -3228,6 +3308,8 @@ export type TenantUncheckedUpdateWithoutSuppliersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -3301,6 +3383,8 @@ export type TenantCreateWithoutManufacturersInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -3374,6 +3458,8 @@ export type TenantUncheckedCreateWithoutManufacturersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -3463,6 +3549,8 @@ export type TenantUpdateWithoutManufacturersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -3536,6 +3624,8 @@ export type TenantUncheckedUpdateWithoutManufacturersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -3609,6 +3699,8 @@ export type TenantCreateWithoutCategoriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -3682,6 +3774,8 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -3771,6 +3865,8 @@ export type TenantUpdateWithoutCategoriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -3844,6 +3940,8 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -3917,6 +4015,8 @@ export type TenantCreateWithoutWarehousesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -3990,6 +4090,8 @@ export type TenantUncheckedCreateWithoutWarehousesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -4079,6 +4181,8 @@ export type TenantUpdateWithoutWarehousesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -4152,6 +4256,8 @@ export type TenantUncheckedUpdateWithoutWarehousesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -4225,6 +4331,8 @@ export type TenantCreateWithoutZonesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -4298,6 +4406,8 @@ export type TenantUncheckedCreateWithoutZonesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -4387,6 +4497,8 @@ export type TenantUpdateWithoutZonesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -4460,6 +4572,8 @@ export type TenantUncheckedUpdateWithoutZonesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -4533,6 +4647,8 @@ export type TenantCreateWithoutBinsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -4606,6 +4722,8 @@ export type TenantUncheckedCreateWithoutBinsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -4695,6 +4813,8 @@ export type TenantUpdateWithoutBinsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -4768,6 +4888,8 @@ export type TenantUncheckedUpdateWithoutBinsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -4841,6 +4963,8 @@ export type TenantCreateWithoutVolumesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -4914,6 +5038,8 @@ export type TenantUncheckedCreateWithoutVolumesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -5003,6 +5129,8 @@ export type TenantUpdateWithoutVolumesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -5076,6 +5204,8 @@ export type TenantUncheckedUpdateWithoutVolumesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -5149,6 +5279,8 @@ export type TenantCreateWithoutTemplatesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -5222,6 +5354,8 @@ export type TenantUncheckedCreateWithoutTemplatesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -5311,6 +5445,8 @@ export type TenantUpdateWithoutTemplatesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -5384,6 +5520,8 @@ export type TenantUncheckedUpdateWithoutTemplatesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -5457,6 +5595,8 @@ export type TenantCreateWithoutProductsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -5530,6 +5670,8 @@ export type TenantUncheckedCreateWithoutProductsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -5619,6 +5761,8 @@ export type TenantUpdateWithoutProductsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -5692,6 +5836,8 @@ export type TenantUncheckedUpdateWithoutProductsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -5765,6 +5911,8 @@ export type TenantCreateWithoutVariantsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -5838,6 +5986,8 @@ export type TenantUncheckedCreateWithoutVariantsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -5927,6 +6077,8 @@ export type TenantUpdateWithoutVariantsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -6000,6 +6152,8 @@ export type TenantUncheckedUpdateWithoutVariantsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -6073,6 +6227,8 @@ export type TenantCreateWithoutItemsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -6146,6 +6302,8 @@ export type TenantUncheckedCreateWithoutItemsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -6235,6 +6393,8 @@ export type TenantUpdateWithoutItemsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -6308,6 +6468,8 @@ export type TenantUncheckedUpdateWithoutItemsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -6381,6 +6543,8 @@ export type TenantCreateWithoutItemMovementsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -6454,6 +6618,8 @@ export type TenantUncheckedCreateWithoutItemMovementsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -6543,6 +6709,8 @@ export type TenantUpdateWithoutItemMovementsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -6616,6 +6784,8 @@ export type TenantUncheckedUpdateWithoutItemMovementsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -6689,6 +6859,8 @@ export type TenantCreateWithoutAuditLogsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -6762,6 +6934,8 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -6851,6 +7025,8 @@ export type TenantUpdateWithoutAuditLogsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -6924,6 +7100,8 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -6997,6 +7175,8 @@ export type TenantCreateWithoutTagsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -7070,6 +7250,8 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -7159,6 +7341,8 @@ export type TenantUpdateWithoutTagsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -7232,6 +7416,8 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -7305,6 +7491,8 @@ export type TenantCreateWithoutPurchaseOrdersInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -7378,6 +7566,8 @@ export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -7467,6 +7657,8 @@ export type TenantUpdateWithoutPurchaseOrdersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -7540,6 +7732,8 @@ export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -7613,6 +7807,8 @@ export type TenantCreateWithoutCustomersInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -7686,6 +7882,8 @@ export type TenantUncheckedCreateWithoutCustomersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -7775,6 +7973,8 @@ export type TenantUpdateWithoutCustomersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -7848,6 +8048,8 @@ export type TenantUncheckedUpdateWithoutCustomersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -7921,6 +8123,8 @@ export type TenantCreateWithoutSalesOrdersInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -7994,6 +8198,8 @@ export type TenantUncheckedCreateWithoutSalesOrdersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -8083,6 +8289,8 @@ export type TenantUpdateWithoutSalesOrdersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -8156,6 +8364,8 @@ export type TenantUncheckedUpdateWithoutSalesOrdersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -8229,6 +8439,8 @@ export type TenantCreateWithoutEmployeesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -8302,6 +8514,8 @@ export type TenantUncheckedCreateWithoutEmployeesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -8391,6 +8605,8 @@ export type TenantUpdateWithoutEmployeesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -8464,6 +8680,8 @@ export type TenantUncheckedUpdateWithoutEmployeesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -8537,6 +8755,8 @@ export type TenantCreateWithoutDepartmentsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -8610,6 +8830,8 @@ export type TenantUncheckedCreateWithoutDepartmentsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -8699,6 +8921,8 @@ export type TenantUpdateWithoutDepartmentsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -8772,6 +8996,8 @@ export type TenantUncheckedUpdateWithoutDepartmentsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -8845,6 +9071,8 @@ export type TenantCreateWithoutPositionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -8918,6 +9146,8 @@ export type TenantUncheckedCreateWithoutPositionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -9007,6 +9237,8 @@ export type TenantUpdateWithoutPositionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -9080,6 +9312,8 @@ export type TenantUncheckedUpdateWithoutPositionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -9153,6 +9387,8 @@ export type TenantCreateWithoutTimeEntriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -9226,6 +9462,8 @@ export type TenantUncheckedCreateWithoutTimeEntriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -9315,6 +9553,8 @@ export type TenantUpdateWithoutTimeEntriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -9388,6 +9628,8 @@ export type TenantUncheckedUpdateWithoutTimeEntriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -9461,6 +9703,8 @@ export type TenantCreateWithoutWorkSchedulesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -9534,6 +9778,8 @@ export type TenantUncheckedCreateWithoutWorkSchedulesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -9623,6 +9869,8 @@ export type TenantUpdateWithoutWorkSchedulesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -9696,6 +9944,8 @@ export type TenantUncheckedUpdateWithoutWorkSchedulesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -9769,6 +10019,8 @@ export type TenantCreateWithoutOvertimeInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -9842,6 +10094,8 @@ export type TenantUncheckedCreateWithoutOvertimeInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -9931,6 +10185,8 @@ export type TenantUpdateWithoutOvertimeInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -10004,6 +10260,8 @@ export type TenantUncheckedUpdateWithoutOvertimeInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -10077,6 +10335,8 @@ export type TenantCreateWithoutTimeBanksInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -10150,6 +10410,8 @@ export type TenantUncheckedCreateWithoutTimeBanksInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -10239,6 +10501,8 @@ export type TenantUpdateWithoutTimeBanksInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -10312,6 +10576,8 @@ export type TenantUncheckedUpdateWithoutTimeBanksInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -10385,6 +10651,8 @@ export type TenantCreateWithoutAbsencesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -10458,6 +10726,8 @@ export type TenantUncheckedCreateWithoutAbsencesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -10547,6 +10817,8 @@ export type TenantUpdateWithoutAbsencesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -10620,6 +10892,8 @@ export type TenantUncheckedUpdateWithoutAbsencesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -10693,6 +10967,8 @@ export type TenantCreateWithoutVacationPeriodsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -10766,6 +11042,8 @@ export type TenantUncheckedCreateWithoutVacationPeriodsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -10855,6 +11133,8 @@ export type TenantUpdateWithoutVacationPeriodsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -10928,6 +11208,8 @@ export type TenantUncheckedUpdateWithoutVacationPeriodsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -11001,6 +11283,8 @@ export type TenantCreateWithoutPayrollsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -11074,6 +11358,8 @@ export type TenantUncheckedCreateWithoutPayrollsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -11163,6 +11449,8 @@ export type TenantUpdateWithoutPayrollsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -11236,6 +11524,8 @@ export type TenantUncheckedUpdateWithoutPayrollsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -11309,6 +11599,8 @@ export type TenantCreateWithoutBonusesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -11382,6 +11674,8 @@ export type TenantUncheckedCreateWithoutBonusesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -11471,6 +11765,8 @@ export type TenantUpdateWithoutBonusesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -11544,6 +11840,8 @@ export type TenantUncheckedUpdateWithoutBonusesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -11617,6 +11915,8 @@ export type TenantCreateWithoutDeductionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -11690,6 +11990,8 @@ export type TenantUncheckedCreateWithoutDeductionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -11779,6 +12081,8 @@ export type TenantUpdateWithoutDeductionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -11852,6 +12156,8 @@ export type TenantUncheckedUpdateWithoutDeductionsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -11925,6 +12231,8 @@ export type TenantCreateWithoutCompaniesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -11998,6 +12306,8 @@ export type TenantUncheckedCreateWithoutCompaniesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -12087,6 +12397,8 @@ export type TenantUpdateWithoutCompaniesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -12160,6 +12472,8 @@ export type TenantUncheckedUpdateWithoutCompaniesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -12233,6 +12547,8 @@ export type TenantCreateWithoutLabelTemplatesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -12306,6 +12622,8 @@ export type TenantUncheckedCreateWithoutLabelTemplatesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -12395,6 +12713,8 @@ export type TenantUpdateWithoutLabelTemplatesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -12468,6 +12788,8 @@ export type TenantUncheckedUpdateWithoutLabelTemplatesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -12541,6 +12863,8 @@ export type TenantCreateWithoutTenantPlansInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -12614,6 +12938,8 @@ export type TenantUncheckedCreateWithoutTenantPlansInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -12703,6 +13029,8 @@ export type TenantUpdateWithoutTenantPlansInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -12776,6 +13104,8 @@ export type TenantUncheckedUpdateWithoutTenantPlansInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -12849,6 +13179,8 @@ export type TenantCreateWithoutTenantUsersInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -12922,6 +13254,8 @@ export type TenantUncheckedCreateWithoutTenantUsersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -13011,6 +13345,8 @@ export type TenantUpdateWithoutTenantUsersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -13084,6 +13420,8 @@ export type TenantUncheckedUpdateWithoutTenantUsersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -13157,6 +13495,8 @@ export type TenantCreateWithoutTenantFeatureFlagsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -13230,6 +13570,8 @@ export type TenantUncheckedCreateWithoutTenantFeatureFlagsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -13319,6 +13661,8 @@ export type TenantUpdateWithoutTenantFeatureFlagsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -13392,6 +13736,8 @@ export type TenantUncheckedUpdateWithoutTenantFeatureFlagsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -13465,6 +13811,8 @@ export type TenantCreateWithoutCostCentersInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -13538,6 +13886,8 @@ export type TenantUncheckedCreateWithoutCostCentersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -13627,6 +13977,8 @@ export type TenantUpdateWithoutCostCentersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -13700,6 +14052,8 @@ export type TenantUncheckedUpdateWithoutCostCentersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -13773,6 +14127,8 @@ export type TenantCreateWithoutBankAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -13846,6 +14202,8 @@ export type TenantUncheckedCreateWithoutBankAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -13935,6 +14293,8 @@ export type TenantUpdateWithoutBankAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -14008,6 +14368,8 @@ export type TenantUncheckedUpdateWithoutBankAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -14081,6 +14443,8 @@ export type TenantCreateWithoutFinanceCategoriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -14154,6 +14518,8 @@ export type TenantUncheckedCreateWithoutFinanceCategoriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -14243,6 +14609,8 @@ export type TenantUpdateWithoutFinanceCategoriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -14316,6 +14684,8 @@ export type TenantUncheckedUpdateWithoutFinanceCategoriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -14389,6 +14759,8 @@ export type TenantCreateWithoutFinanceEntriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -14462,6 +14834,8 @@ export type TenantUncheckedCreateWithoutFinanceEntriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -14551,6 +14925,8 @@ export type TenantUpdateWithoutFinanceEntriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -14624,6 +15000,324 @@ export type TenantUncheckedUpdateWithoutFinanceEntriesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutRecurringConfigsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutRecurringConfigsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutRecurringConfigsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutRecurringConfigsInput, Prisma.TenantUncheckedCreateWithoutRecurringConfigsInput>
+}
+
+export type TenantUpsertWithoutRecurringConfigsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutRecurringConfigsInput, Prisma.TenantUncheckedUpdateWithoutRecurringConfigsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutRecurringConfigsInput, Prisma.TenantUncheckedCreateWithoutRecurringConfigsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutRecurringConfigsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutRecurringConfigsInput, Prisma.TenantUncheckedUpdateWithoutRecurringConfigsInput>
+}
+
+export type TenantUpdateWithoutRecurringConfigsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutRecurringConfigsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -14697,6 +15391,8 @@ export type TenantCreateWithoutFinanceAttachmentsInput = {
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -14770,6 +15466,8 @@ export type TenantUncheckedCreateWithoutFinanceAttachmentsInput = {
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -14859,6 +15557,8 @@ export type TenantUpdateWithoutFinanceAttachmentsInput = {
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -14932,6 +15632,8 @@ export type TenantUncheckedUpdateWithoutFinanceAttachmentsInput = {
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -15005,6 +15707,8 @@ export type TenantCreateWithoutLoansInput = {
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -15078,6 +15782,8 @@ export type TenantUncheckedCreateWithoutLoansInput = {
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -15167,6 +15873,8 @@ export type TenantUpdateWithoutLoansInput = {
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -15240,6 +15948,8 @@ export type TenantUncheckedUpdateWithoutLoansInput = {
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -15313,6 +16023,8 @@ export type TenantCreateWithoutConsortiaInput = {
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -15386,6 +16098,8 @@ export type TenantUncheckedCreateWithoutConsortiaInput = {
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -15475,6 +16189,8 @@ export type TenantUpdateWithoutConsortiaInput = {
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -15548,6 +16264,324 @@ export type TenantUncheckedUpdateWithoutConsortiaInput = {
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUncheckedUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUncheckedUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUncheckedUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutContractsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutContractsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedCreateNestedManyWithoutTenantInput
+  tenantPlans?: Prisma.TenantPlanUncheckedCreateNestedManyWithoutTenantInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutTenantInput
+  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutTenantInput
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutTenantInput
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  variants?: Prisma.VariantUncheckedCreateNestedManyWithoutTenantInput
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutTenantInput
+  itemMovements?: Prisma.ItemMovementUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  manufacturers?: Prisma.ManufacturerUncheckedCreateNestedManyWithoutTenantInput
+  volumes?: Prisma.VolumeUncheckedCreateNestedManyWithoutTenantInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutTenantInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutTenantInput
+  companies?: Prisma.CompanyUncheckedCreateNestedManyWithoutTenantInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutTenantInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutTenantInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutTenantInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutTenantInput
+  workSchedules?: Prisma.WorkScheduleUncheckedCreateNestedManyWithoutTenantInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutTenantInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutTenantInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutTenantInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutTenantInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutTenantInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutTenantInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedCreateNestedManyWithoutTenantInput
+  organizations?: Prisma.OrganizationUncheckedCreateNestedManyWithoutTenantInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutTenantInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutTenantInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutTenantInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutTenantInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
+  storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
+  folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
+  storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
+  calendars?: Prisma.CalendarUncheckedCreateNestedManyWithoutTenantInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutTenantInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutTenantInput
+  eventReminders?: Prisma.EventReminderUncheckedCreateNestedManyWithoutTenantInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUncheckedCreateNestedManyWithoutTenantInput
+  emailAccounts?: Prisma.EmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  emailMessages?: Prisma.EmailMessageUncheckedCreateNestedManyWithoutTenantInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUncheckedCreateNestedManyWithoutTenantInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutTenantInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutTenantInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUncheckedCreateNestedManyWithoutTenantInput
+  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutContractsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutContractsInput, Prisma.TenantUncheckedCreateWithoutContractsInput>
+}
+
+export type TenantUpsertWithoutContractsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutContractsInput, Prisma.TenantUncheckedUpdateWithoutContractsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutContractsInput, Prisma.TenantUncheckedCreateWithoutContractsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutContractsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutContractsInput, Prisma.TenantUncheckedUpdateWithoutContractsInput>
+}
+
+export type TenantUpdateWithoutContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
+  storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
+  folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
+  storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
+  calendars?: Prisma.CalendarUpdateManyWithoutTenantNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutTenantNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutTenantNestedInput
+  eventReminders?: Prisma.EventReminderUpdateManyWithoutTenantNestedInput
+  teamCalendarConfigs?: Prisma.TeamCalendarConfigUpdateManyWithoutTenantNestedInput
+  emailAccounts?: Prisma.EmailAccountUpdateManyWithoutTenantNestedInput
+  emailMessages?: Prisma.EmailMessageUpdateManyWithoutTenantNestedInput
+  emailAccountAccesses?: Prisma.EmailAccountAccessUpdateManyWithoutTenantNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutTenantNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutTenantNestedInput
+  teamEmailAccounts?: Prisma.TeamEmailAccountUpdateManyWithoutTenantNestedInput
+  boards?: Prisma.BoardUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumTenantStatusEnumFieldUpdateOperationsInput | $Enums.TenantStatusEnum
+  settings?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenantUsers?: Prisma.TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPlans?: Prisma.TenantPlanUncheckedUpdateManyWithoutTenantNestedInput
+  tenantFeatureFlags?: Prisma.TenantFeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+  permissionGroups?: Prisma.PermissionGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutTenantNestedInput
+  zones?: Prisma.ZoneUncheckedUpdateManyWithoutTenantNestedInput
+  bins?: Prisma.BinUncheckedUpdateManyWithoutTenantNestedInput
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  variants?: Prisma.VariantUncheckedUpdateManyWithoutTenantNestedInput
+  items?: Prisma.ItemUncheckedUpdateManyWithoutTenantNestedInput
+  itemMovements?: Prisma.ItemMovementUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  manufacturers?: Prisma.ManufacturerUncheckedUpdateManyWithoutTenantNestedInput
+  volumes?: Prisma.VolumeUncheckedUpdateManyWithoutTenantNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutTenantNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutTenantNestedInput
+  companies?: Prisma.CompanyUncheckedUpdateManyWithoutTenantNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutTenantNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutTenantNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutTenantNestedInput
+  workSchedules?: Prisma.WorkScheduleUncheckedUpdateManyWithoutTenantNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutTenantNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutTenantNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutTenantNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutTenantNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutTenantNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutTenantNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  labelTemplates?: Prisma.LabelTemplateUncheckedUpdateManyWithoutTenantNestedInput
+  organizations?: Prisma.OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutTenantNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantNestedInput
+  financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -15622,6 +16656,8 @@ export type TenantCreateWithoutStorageFoldersInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
   storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
@@ -15695,6 +16731,8 @@ export type TenantUncheckedCreateWithoutStorageFoldersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
   storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
@@ -15784,6 +16822,8 @@ export type TenantUpdateWithoutStorageFoldersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
   storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
@@ -15857,6 +16897,8 @@ export type TenantUncheckedUpdateWithoutStorageFoldersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
   storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
@@ -15930,6 +16972,8 @@ export type TenantCreateWithoutStorageFilesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
   storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
@@ -16003,6 +17047,8 @@ export type TenantUncheckedCreateWithoutStorageFilesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
   storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
@@ -16092,6 +17138,8 @@ export type TenantUpdateWithoutStorageFilesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
   storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
@@ -16165,6 +17213,8 @@ export type TenantUncheckedUpdateWithoutStorageFilesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
   storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
@@ -16238,6 +17288,8 @@ export type TenantCreateWithoutFolderAccessRulesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   storageShareLinks?: Prisma.StorageShareLinkCreateNestedManyWithoutTenantInput
@@ -16311,6 +17363,8 @@ export type TenantUncheckedCreateWithoutFolderAccessRulesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   storageShareLinks?: Prisma.StorageShareLinkUncheckedCreateNestedManyWithoutTenantInput
@@ -16400,6 +17454,8 @@ export type TenantUpdateWithoutFolderAccessRulesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   storageShareLinks?: Prisma.StorageShareLinkUpdateManyWithoutTenantNestedInput
@@ -16473,6 +17529,8 @@ export type TenantUncheckedUpdateWithoutFolderAccessRulesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   storageShareLinks?: Prisma.StorageShareLinkUncheckedUpdateManyWithoutTenantNestedInput
@@ -16546,6 +17604,8 @@ export type TenantCreateWithoutStorageShareLinksInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -16619,6 +17679,8 @@ export type TenantUncheckedCreateWithoutStorageShareLinksInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -16708,6 +17770,8 @@ export type TenantUpdateWithoutStorageShareLinksInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -16781,6 +17845,8 @@ export type TenantUncheckedUpdateWithoutStorageShareLinksInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -16854,6 +17920,8 @@ export type TenantCreateWithoutCalendarsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -16927,6 +17995,8 @@ export type TenantUncheckedCreateWithoutCalendarsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -17016,6 +18086,8 @@ export type TenantUpdateWithoutCalendarsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -17089,6 +18161,8 @@ export type TenantUncheckedUpdateWithoutCalendarsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -17162,6 +18236,8 @@ export type TenantCreateWithoutTeamCalendarConfigsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -17235,6 +18311,8 @@ export type TenantUncheckedCreateWithoutTeamCalendarConfigsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -17324,6 +18402,8 @@ export type TenantUpdateWithoutTeamCalendarConfigsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -17397,6 +18477,8 @@ export type TenantUncheckedUpdateWithoutTeamCalendarConfigsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -17470,6 +18552,8 @@ export type TenantCreateWithoutCalendarEventsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -17543,6 +18627,8 @@ export type TenantUncheckedCreateWithoutCalendarEventsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -17632,6 +18718,8 @@ export type TenantUpdateWithoutCalendarEventsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -17705,6 +18793,8 @@ export type TenantUncheckedUpdateWithoutCalendarEventsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -17778,6 +18868,8 @@ export type TenantCreateWithoutEventParticipantsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -17851,6 +18943,8 @@ export type TenantUncheckedCreateWithoutEventParticipantsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -17940,6 +19034,8 @@ export type TenantUpdateWithoutEventParticipantsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -18013,6 +19109,8 @@ export type TenantUncheckedUpdateWithoutEventParticipantsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -18086,6 +19184,8 @@ export type TenantCreateWithoutEventRemindersInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -18159,6 +19259,8 @@ export type TenantUncheckedCreateWithoutEventRemindersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -18248,6 +19350,8 @@ export type TenantUpdateWithoutEventRemindersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -18321,6 +19425,8 @@ export type TenantUncheckedUpdateWithoutEventRemindersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -18394,6 +19500,8 @@ export type TenantCreateWithoutEmailAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -18467,6 +19575,8 @@ export type TenantUncheckedCreateWithoutEmailAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -18556,6 +19666,8 @@ export type TenantUpdateWithoutEmailAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -18629,6 +19741,8 @@ export type TenantUncheckedUpdateWithoutEmailAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -18702,6 +19816,8 @@ export type TenantCreateWithoutEmailAccountAccessesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -18775,6 +19891,8 @@ export type TenantUncheckedCreateWithoutEmailAccountAccessesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -18864,6 +19982,8 @@ export type TenantUpdateWithoutEmailAccountAccessesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -18937,6 +20057,8 @@ export type TenantUncheckedUpdateWithoutEmailAccountAccessesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -19010,6 +20132,8 @@ export type TenantCreateWithoutEmailMessagesInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -19083,6 +20207,8 @@ export type TenantUncheckedCreateWithoutEmailMessagesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -19172,6 +20298,8 @@ export type TenantUpdateWithoutEmailMessagesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -19245,6 +20373,8 @@ export type TenantUncheckedUpdateWithoutEmailMessagesInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -19318,6 +20448,8 @@ export type TenantCreateWithoutTeamsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -19391,6 +20523,8 @@ export type TenantUncheckedCreateWithoutTeamsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -19480,6 +20614,8 @@ export type TenantUpdateWithoutTeamsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -19553,6 +20689,8 @@ export type TenantUncheckedUpdateWithoutTeamsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -19626,6 +20764,8 @@ export type TenantCreateWithoutTeamMembersInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -19699,6 +20839,8 @@ export type TenantUncheckedCreateWithoutTeamMembersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -19788,6 +20930,8 @@ export type TenantUpdateWithoutTeamMembersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -19861,6 +21005,8 @@ export type TenantUncheckedUpdateWithoutTeamMembersInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -19934,6 +21080,8 @@ export type TenantCreateWithoutTeamEmailAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -20007,6 +21155,8 @@ export type TenantUncheckedCreateWithoutTeamEmailAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -20096,6 +21246,8 @@ export type TenantUpdateWithoutTeamEmailAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -20169,6 +21321,8 @@ export type TenantUncheckedUpdateWithoutTeamEmailAccountsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -20242,6 +21396,8 @@ export type TenantCreateWithoutBoardsInput = {
   financeAttachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleCreateNestedManyWithoutTenantInput
@@ -20315,6 +21471,8 @@ export type TenantUncheckedCreateWithoutBoardsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutTenantInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutTenantInput
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutTenantInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedCreateNestedManyWithoutTenantInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutTenantInput
   storageFolders?: Prisma.StorageFolderUncheckedCreateNestedManyWithoutTenantInput
   storageFiles?: Prisma.StorageFileUncheckedCreateNestedManyWithoutTenantInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedCreateNestedManyWithoutTenantInput
@@ -20404,6 +21562,8 @@ export type TenantUpdateWithoutBoardsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUpdateManyWithoutTenantNestedInput
@@ -20477,6 +21637,8 @@ export type TenantUncheckedUpdateWithoutBoardsInput = {
   financeAttachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutTenantNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutTenantNestedInput
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutTenantNestedInput
+  recurringConfigs?: Prisma.RecurringConfigUncheckedUpdateManyWithoutTenantNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutTenantNestedInput
   storageFolders?: Prisma.StorageFolderUncheckedUpdateManyWithoutTenantNestedInput
   storageFiles?: Prisma.StorageFileUncheckedUpdateManyWithoutTenantNestedInput
   folderAccessRules?: Prisma.FolderAccessRuleUncheckedUpdateManyWithoutTenantNestedInput
@@ -20545,6 +21707,8 @@ export type TenantCountOutputType = {
   financeAttachments: number
   loans: number
   consortia: number
+  recurringConfigs: number
+  contracts: number
   storageFolders: number
   storageFiles: number
   folderAccessRules: number
@@ -20609,6 +21773,8 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   financeAttachments?: boolean | TenantCountOutputTypeCountFinanceAttachmentsArgs
   loans?: boolean | TenantCountOutputTypeCountLoansArgs
   consortia?: boolean | TenantCountOutputTypeCountConsortiaArgs
+  recurringConfigs?: boolean | TenantCountOutputTypeCountRecurringConfigsArgs
+  contracts?: boolean | TenantCountOutputTypeCountContractsArgs
   storageFolders?: boolean | TenantCountOutputTypeCountStorageFoldersArgs
   storageFiles?: boolean | TenantCountOutputTypeCountStorageFilesArgs
   folderAccessRules?: boolean | TenantCountOutputTypeCountFolderAccessRulesArgs
@@ -20955,6 +22121,20 @@ export type TenantCountOutputTypeCountConsortiaArgs<ExtArgs extends runtime.Type
 /**
  * TenantCountOutputType without action
  */
+export type TenantCountOutputTypeCountRecurringConfigsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecurringConfigWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContractWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
 export type TenantCountOutputTypeCountStorageFoldersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StorageFolderWhereInput
 }
@@ -21121,6 +22301,8 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   financeAttachments?: boolean | Prisma.Tenant$financeAttachmentsArgs<ExtArgs>
   loans?: boolean | Prisma.Tenant$loansArgs<ExtArgs>
   consortia?: boolean | Prisma.Tenant$consortiaArgs<ExtArgs>
+  recurringConfigs?: boolean | Prisma.Tenant$recurringConfigsArgs<ExtArgs>
+  contracts?: boolean | Prisma.Tenant$contractsArgs<ExtArgs>
   storageFolders?: boolean | Prisma.Tenant$storageFoldersArgs<ExtArgs>
   storageFiles?: boolean | Prisma.Tenant$storageFilesArgs<ExtArgs>
   folderAccessRules?: boolean | Prisma.Tenant$folderAccessRulesArgs<ExtArgs>
@@ -21226,6 +22408,8 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   financeAttachments?: boolean | Prisma.Tenant$financeAttachmentsArgs<ExtArgs>
   loans?: boolean | Prisma.Tenant$loansArgs<ExtArgs>
   consortia?: boolean | Prisma.Tenant$consortiaArgs<ExtArgs>
+  recurringConfigs?: boolean | Prisma.Tenant$recurringConfigsArgs<ExtArgs>
+  contracts?: boolean | Prisma.Tenant$contractsArgs<ExtArgs>
   storageFolders?: boolean | Prisma.Tenant$storageFoldersArgs<ExtArgs>
   storageFiles?: boolean | Prisma.Tenant$storageFilesArgs<ExtArgs>
   folderAccessRules?: boolean | Prisma.Tenant$folderAccessRulesArgs<ExtArgs>
@@ -21295,6 +22479,8 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     financeAttachments: Prisma.$FinanceAttachmentPayload<ExtArgs>[]
     loans: Prisma.$LoanPayload<ExtArgs>[]
     consortia: Prisma.$ConsortiumPayload<ExtArgs>[]
+    recurringConfigs: Prisma.$RecurringConfigPayload<ExtArgs>[]
+    contracts: Prisma.$ContractPayload<ExtArgs>[]
     storageFolders: Prisma.$StorageFolderPayload<ExtArgs>[]
     storageFiles: Prisma.$StorageFilePayload<ExtArgs>[]
     folderAccessRules: Prisma.$FolderAccessRulePayload<ExtArgs>[]
@@ -21762,6 +22948,8 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   financeAttachments<T extends Prisma.Tenant$financeAttachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$financeAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   loans<T extends Prisma.Tenant$loansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$loansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   consortia<T extends Prisma.Tenant$consortiaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$consortiaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsortiumPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recurringConfigs<T extends Prisma.Tenant$recurringConfigsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$recurringConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecurringConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contracts<T extends Prisma.Tenant$contractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$contractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   storageFolders<T extends Prisma.Tenant$storageFoldersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$storageFoldersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageFolderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   storageFiles<T extends Prisma.Tenant$storageFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$storageFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   folderAccessRules<T extends Prisma.Tenant$folderAccessRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$folderAccessRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FolderAccessRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -23282,6 +24470,54 @@ export type Tenant$consortiaArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.ConsortiumScalarFieldEnum | Prisma.ConsortiumScalarFieldEnum[]
+}
+
+/**
+ * Tenant.recurringConfigs
+ */
+export type Tenant$recurringConfigsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecurringConfig
+   */
+  select?: Prisma.RecurringConfigSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecurringConfig
+   */
+  omit?: Prisma.RecurringConfigOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecurringConfigInclude<ExtArgs> | null
+  where?: Prisma.RecurringConfigWhereInput
+  orderBy?: Prisma.RecurringConfigOrderByWithRelationInput | Prisma.RecurringConfigOrderByWithRelationInput[]
+  cursor?: Prisma.RecurringConfigWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecurringConfigScalarFieldEnum | Prisma.RecurringConfigScalarFieldEnum[]
+}
+
+/**
+ * Tenant.contracts
+ */
+export type Tenant$contractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Contract
+   */
+  select?: Prisma.ContractSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Contract
+   */
+  omit?: Prisma.ContractOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContractInclude<ExtArgs> | null
+  where?: Prisma.ContractWhereInput
+  orderBy?: Prisma.ContractOrderByWithRelationInput | Prisma.ContractOrderByWithRelationInput[]
+  cursor?: Prisma.ContractWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ContractScalarFieldEnum | Prisma.ContractScalarFieldEnum[]
 }
 
 /**

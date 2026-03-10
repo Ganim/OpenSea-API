@@ -123,6 +123,15 @@ export const RecurrenceUnit = {
 export type RecurrenceUnit = (typeof RecurrenceUnit)[keyof typeof RecurrenceUnit]
 
 
+export const RecurringStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RecurringStatus = (typeof RecurringStatus)[keyof typeof RecurringStatus]
+
+
 export const FinanceAttachmentType = {
   BOLETO: 'BOLETO',
   PAYMENT_RECEIPT: 'PAYMENT_RECEIPT',
@@ -925,6 +934,17 @@ export const ParticipantStatus = {
 } as const
 
 export type ParticipantStatus = (typeof ParticipantStatus)[keyof typeof ParticipantStatus]
+
+
+export const ContractStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  RENEWED: 'RENEWED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ContractStatus = (typeof ContractStatus)[keyof typeof ContractStatus]
 
 
 export const EmailAccountVisibility = {

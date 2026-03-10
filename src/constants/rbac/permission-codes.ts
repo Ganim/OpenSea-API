@@ -990,6 +990,14 @@ export const PermissionCodes = {
     EXPORT: {
       GENERATE: 'finance.export.generate' as const,
     },
+    CONTRACTS: {
+      CREATE: 'finance.contracts.create' as const,
+      READ: 'finance.contracts.read' as const,
+      UPDATE: 'finance.contracts.update' as const,
+      DELETE: 'finance.contracts.delete' as const,
+      LIST: 'finance.contracts.list' as const,
+      MANAGE: 'finance.contracts.manage' as const,
+    },
   },
 
   // ============================================================================

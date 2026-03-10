@@ -438,6 +438,11 @@ export type FinanceEntryPayment = Prisma.FinanceEntryPaymentModel
  */
 export type FinanceEntryCostCenter = Prisma.FinanceEntryCostCenterModel
 /**
+ * Model RecurringConfig
+ * 
+ */
+export type RecurringConfig = Prisma.RecurringConfigModel
+/**
  * Model FinanceAttachment
  * 
  */
@@ -462,6 +467,11 @@ export type Consortium = Prisma.ConsortiumModel
  * 
  */
 export type ConsortiumPayment = Prisma.ConsortiumPaymentModel
+/**
+ * Model Contract
+ * 
+ */
+export type Contract = Prisma.ContractModel
 /**
  * Model StorageFolder
  * 

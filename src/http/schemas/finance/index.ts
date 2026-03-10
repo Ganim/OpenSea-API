@@ -8,3 +8,4 @@ export * from './finance-dashboard.schema';
 export * from './loan.schema';
 export * from './consortium.schema';
 export * from './export.schema';
+export * from './contract.schema';

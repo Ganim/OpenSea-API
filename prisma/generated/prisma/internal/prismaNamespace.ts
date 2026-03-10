@@ -468,11 +468,13 @@ export const ModelName = {
   FinanceEntry: 'FinanceEntry',
   FinanceEntryPayment: 'FinanceEntryPayment',
   FinanceEntryCostCenter: 'FinanceEntryCostCenter',
+  RecurringConfig: 'RecurringConfig',
   FinanceAttachment: 'FinanceAttachment',
   Loan: 'Loan',
   LoanInstallment: 'LoanInstallment',
   Consortium: 'Consortium',
   ConsortiumPayment: 'ConsortiumPayment',
+  Contract: 'Contract',
   StorageFolder: 'StorageFolder',
   StorageFile: 'StorageFile',
   StorageFileVersion: 'StorageFileVersion',
@@ -522,7 +524,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeEntryCostCenter" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "customer" | "salesOrder" | "salesOrderItem" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "payroll" | "payrollItem" | "bonus" | "deduction" | "company" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeAttachment" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6742,6 +6744,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RecurringConfig: {
+      payload: Prisma.$RecurringConfigPayload<ExtArgs>
+      fields: Prisma.RecurringConfigFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecurringConfigFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecurringConfigFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload>
+        }
+        findFirst: {
+          args: Prisma.RecurringConfigFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecurringConfigFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload>
+        }
+        findMany: {
+          args: Prisma.RecurringConfigFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload>[]
+        }
+        create: {
+          args: Prisma.RecurringConfigCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload>
+        }
+        createMany: {
+          args: Prisma.RecurringConfigCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecurringConfigCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload>[]
+        }
+        delete: {
+          args: Prisma.RecurringConfigDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload>
+        }
+        update: {
+          args: Prisma.RecurringConfigUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecurringConfigDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecurringConfigUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecurringConfigUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecurringConfigUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringConfigPayload>
+        }
+        aggregate: {
+          args: Prisma.RecurringConfigAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecurringConfig>
+        }
+        groupBy: {
+          args: Prisma.RecurringConfigGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecurringConfigGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecurringConfigCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecurringConfigCountAggregateOutputType> | number
+        }
+      }
+    }
     FinanceAttachment: {
       payload: Prisma.$FinanceAttachmentPayload<ExtArgs>
       fields: Prisma.FinanceAttachmentFieldRefs
@@ -7109,6 +7185,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ConsortiumPaymentCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ConsortiumPaymentCountAggregateOutputType> | number
+        }
+      }
+    }
+    Contract: {
+      payload: Prisma.$ContractPayload<ExtArgs>
+      fields: Prisma.ContractFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContractFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContractFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        findFirst: {
+          args: Prisma.ContractFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContractFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        findMany: {
+          args: Prisma.ContractFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>[]
+        }
+        create: {
+          args: Prisma.ContractCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        createMany: {
+          args: Prisma.ContractCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContractCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>[]
+        }
+        delete: {
+          args: Prisma.ContractDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        update: {
+          args: Prisma.ContractUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        deleteMany: {
+          args: Prisma.ContractDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContractUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContractUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>[]
+        }
+        upsert: {
+          args: Prisma.ContractUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        aggregate: {
+          args: Prisma.ContractAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContract>
+        }
+        groupBy: {
+          args: Prisma.ContractGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContractCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractCountAggregateOutputType> | number
         }
       }
     }
@@ -11323,6 +11473,7 @@ export const FinanceEntryScalarFieldEnum = {
   totalInstallments: 'totalInstallments',
   currentInstallment: 'currentInstallment',
   parentEntryId: 'parentEntryId',
+  contractId: 'contractId',
   boletoBarcode: 'boletoBarcode',
   boletoDigitLine: 'boletoDigitLine',
   metadata: 'metadata',
@@ -11362,6 +11513,41 @@ export const FinanceEntryCostCenterScalarFieldEnum = {
 } as const
 
 export type FinanceEntryCostCenterScalarFieldEnum = (typeof FinanceEntryCostCenterScalarFieldEnum)[keyof typeof FinanceEntryCostCenterScalarFieldEnum]
+
+
+export const RecurringConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  status: 'status',
+  description: 'description',
+  categoryId: 'categoryId',
+  costCenterId: 'costCenterId',
+  bankAccountId: 'bankAccountId',
+  supplierName: 'supplierName',
+  customerName: 'customerName',
+  supplierId: 'supplierId',
+  customerId: 'customerId',
+  expectedAmount: 'expectedAmount',
+  isVariable: 'isVariable',
+  frequencyUnit: 'frequencyUnit',
+  frequencyInterval: 'frequencyInterval',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  totalOccurrences: 'totalOccurrences',
+  generatedCount: 'generatedCount',
+  lastGeneratedDate: 'lastGeneratedDate',
+  nextDueDate: 'nextDueDate',
+  interestRate: 'interestRate',
+  penaltyRate: 'penaltyRate',
+  notes: 'notes',
+  createdBy: 'createdBy',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecurringConfigScalarFieldEnum = (typeof RecurringConfigScalarFieldEnum)[keyof typeof RecurringConfigScalarFieldEnum]
 
 
 export const FinanceAttachmentScalarFieldEnum = {
@@ -11473,6 +11659,40 @@ export const ConsortiumPaymentScalarFieldEnum = {
 } as const
 
 export type ConsortiumPaymentScalarFieldEnum = (typeof ConsortiumPaymentScalarFieldEnum)[keyof typeof ConsortiumPaymentScalarFieldEnum]
+
+
+export const ContractScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  companyId: 'companyId',
+  companyName: 'companyName',
+  contactName: 'contactName',
+  contactEmail: 'contactEmail',
+  totalValue: 'totalValue',
+  paymentFrequency: 'paymentFrequency',
+  paymentAmount: 'paymentAmount',
+  categoryId: 'categoryId',
+  costCenterId: 'costCenterId',
+  bankAccountId: 'bankAccountId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  autoRenew: 'autoRenew',
+  renewalPeriodMonths: 'renewalPeriodMonths',
+  alertDaysBefore: 'alertDaysBefore',
+  folderPath: 'folderPath',
+  notes: 'notes',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
 
 
 export const StorageFolderScalarFieldEnum = {
@@ -12928,6 +13148,20 @@ export type ListEnumRecurrenceUnitFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'RecurringStatus'
+ */
+export type EnumRecurringStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecurringStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'RecurringStatus[]'
+ */
+export type ListEnumRecurringStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecurringStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'FinanceAttachmentType'
  */
 export type EnumFinanceAttachmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinanceAttachmentType'>
@@ -12980,6 +13214,20 @@ export type EnumConsortiumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'ConsortiumStatus[]'
  */
 export type ListEnumConsortiumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsortiumStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ContractStatus'
+ */
+export type EnumContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ContractStatus[]'
+ */
+export type ListEnumContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractStatus[]'>
     
 
 
@@ -13427,11 +13675,13 @@ export type GlobalOmitConfig = {
   financeEntry?: Prisma.FinanceEntryOmit
   financeEntryPayment?: Prisma.FinanceEntryPaymentOmit
   financeEntryCostCenter?: Prisma.FinanceEntryCostCenterOmit
+  recurringConfig?: Prisma.RecurringConfigOmit
   financeAttachment?: Prisma.FinanceAttachmentOmit
   loan?: Prisma.LoanOmit
   loanInstallment?: Prisma.LoanInstallmentOmit
   consortium?: Prisma.ConsortiumOmit
   consortiumPayment?: Prisma.ConsortiumPaymentOmit
+  contract?: Prisma.ContractOmit
   storageFolder?: Prisma.StorageFolderOmit
   storageFile?: Prisma.StorageFileOmit
   storageFileVersion?: Prisma.StorageFileVersionOmit

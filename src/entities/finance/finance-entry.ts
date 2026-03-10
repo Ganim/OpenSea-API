@@ -33,6 +33,7 @@ export interface FinanceEntryProps {
   totalInstallments?: number;
   currentInstallment?: number;
   parentEntryId?: UniqueEntityID;
+  contractId?: string;
   boletoBarcode?: string;
   boletoDigitLine?: string;
   metadata: Record<string, unknown>;
@@ -240,6 +241,10 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
   }
   get parentEntryId(): UniqueEntityID | undefined {
     return this.props.parentEntryId;
+  }
+
+  get contractId(): string | undefined {
+    return this.props.contractId;
   }
 
   get boletoBarcode(): string | undefined {

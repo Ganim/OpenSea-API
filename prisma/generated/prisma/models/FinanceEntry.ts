@@ -79,6 +79,7 @@ export type FinanceEntryMinAggregateOutputType = {
   totalInstallments: number | null
   currentInstallment: number | null
   parentEntryId: string | null
+  contractId: string | null
   boletoBarcode: string | null
   boletoDigitLine: string | null
   deletedAt: Date | null
@@ -118,6 +119,7 @@ export type FinanceEntryMaxAggregateOutputType = {
   totalInstallments: number | null
   currentInstallment: number | null
   parentEntryId: string | null
+  contractId: string | null
   boletoBarcode: string | null
   boletoDigitLine: string | null
   deletedAt: Date | null
@@ -157,6 +159,7 @@ export type FinanceEntryCountAggregateOutputType = {
   totalInstallments: number
   currentInstallment: number
   parentEntryId: number
+  contractId: number
   boletoBarcode: number
   boletoDigitLine: number
   metadata: number
@@ -222,6 +225,7 @@ export type FinanceEntryMinAggregateInputType = {
   totalInstallments?: true
   currentInstallment?: true
   parentEntryId?: true
+  contractId?: true
   boletoBarcode?: true
   boletoDigitLine?: true
   deletedAt?: true
@@ -261,6 +265,7 @@ export type FinanceEntryMaxAggregateInputType = {
   totalInstallments?: true
   currentInstallment?: true
   parentEntryId?: true
+  contractId?: true
   boletoBarcode?: true
   boletoDigitLine?: true
   deletedAt?: true
@@ -300,6 +305,7 @@ export type FinanceEntryCountAggregateInputType = {
   totalInstallments?: true
   currentInstallment?: true
   parentEntryId?: true
+  contractId?: true
   boletoBarcode?: true
   boletoDigitLine?: true
   metadata?: true
@@ -428,6 +434,7 @@ export type FinanceEntryGroupByOutputType = {
   totalInstallments: number | null
   currentInstallment: number | null
   parentEntryId: string | null
+  contractId: string | null
   boletoBarcode: string | null
   boletoDigitLine: string | null
   metadata: runtime.JsonValue
@@ -492,6 +499,7 @@ export type FinanceEntryWhereInput = {
   totalInstallments?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
   currentInstallment?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
   parentEntryId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  contractId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   metadata?: Prisma.JsonFilter<"FinanceEntry">
@@ -542,6 +550,7 @@ export type FinanceEntryOrderByWithRelationInput = {
   totalInstallments?: Prisma.SortOrderInput | Prisma.SortOrder
   currentInstallment?: Prisma.SortOrderInput | Prisma.SortOrder
   parentEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
+  contractId?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
@@ -596,6 +605,7 @@ export type FinanceEntryWhereUniqueInput = Prisma.AtLeast<{
   totalInstallments?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
   currentInstallment?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
   parentEntryId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  contractId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   metadata?: Prisma.JsonFilter<"FinanceEntry">
@@ -646,6 +656,7 @@ export type FinanceEntryOrderByWithAggregationInput = {
   totalInstallments?: Prisma.SortOrderInput | Prisma.SortOrder
   currentInstallment?: Prisma.SortOrderInput | Prisma.SortOrder
   parentEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
+  contractId?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrderInput | Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
@@ -695,6 +706,7 @@ export type FinanceEntryScalarWhereWithAggregatesInput = {
   totalInstallments?: Prisma.IntNullableWithAggregatesFilter<"FinanceEntry"> | number | null
   currentInstallment?: Prisma.IntNullableWithAggregatesFilter<"FinanceEntry"> | number | null
   parentEntryId?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
+  contractId?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   metadata?: Prisma.JsonWithAggregatesFilter<"FinanceEntry">
@@ -731,6 +743,7 @@ export type FinanceEntryCreateInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -781,6 +794,7 @@ export type FinanceEntryUncheckedCreateInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -821,6 +835,7 @@ export type FinanceEntryUpdateInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -871,6 +886,7 @@ export type FinanceEntryUncheckedUpdateInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -916,6 +932,7 @@ export type FinanceEntryCreateManyInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -952,6 +969,7 @@ export type FinanceEntryUpdateManyMutationInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -993,6 +1011,7 @@ export type FinanceEntryUncheckedUpdateManyInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -1055,6 +1074,7 @@ export type FinanceEntryCountOrderByAggregateInput = {
   totalInstallments?: Prisma.SortOrder
   currentInstallment?: Prisma.SortOrder
   parentEntryId?: Prisma.SortOrder
+  contractId?: Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
@@ -1107,6 +1127,7 @@ export type FinanceEntryMaxOrderByAggregateInput = {
   totalInstallments?: Prisma.SortOrder
   currentInstallment?: Prisma.SortOrder
   parentEntryId?: Prisma.SortOrder
+  contractId?: Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1146,6 +1167,7 @@ export type FinanceEntryMinOrderByAggregateInput = {
   totalInstallments?: Prisma.SortOrder
   currentInstallment?: Prisma.SortOrder
   parentEntryId?: Prisma.SortOrder
+  contractId?: Prisma.SortOrder
   boletoBarcode?: Prisma.SortOrder
   boletoDigitLine?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1489,6 +1511,7 @@ export type FinanceEntryCreateWithoutTenantInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -1537,6 +1560,7 @@ export type FinanceEntryUncheckedCreateWithoutTenantInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -1611,6 +1635,7 @@ export type FinanceEntryScalarWhereInput = {
   totalInstallments?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
   currentInstallment?: Prisma.IntNullableFilter<"FinanceEntry"> | number | null
   parentEntryId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  contractId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoBarcode?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   boletoDigitLine?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   metadata?: Prisma.JsonFilter<"FinanceEntry">
@@ -1647,6 +1672,7 @@ export type FinanceEntryCreateWithoutCostCenterInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -1695,6 +1721,7 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -1761,6 +1788,7 @@ export type FinanceEntryCreateWithoutBankAccountInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -1809,6 +1837,7 @@ export type FinanceEntryUncheckedCreateWithoutBankAccountInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -1875,6 +1904,7 @@ export type FinanceEntryCreateWithoutCategoryInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -1923,6 +1953,7 @@ export type FinanceEntryUncheckedCreateWithoutCategoryInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -1989,6 +2020,7 @@ export type FinanceEntryCreateWithoutChildEntriesInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2038,6 +2070,7 @@ export type FinanceEntryUncheckedCreateWithoutChildEntriesInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2082,6 +2115,7 @@ export type FinanceEntryCreateWithoutParentEntryInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2130,6 +2164,7 @@ export type FinanceEntryUncheckedCreateWithoutParentEntryInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2191,6 +2226,7 @@ export type FinanceEntryUpdateWithoutChildEntriesInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2240,6 +2276,7 @@ export type FinanceEntryUncheckedUpdateWithoutChildEntriesInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2295,6 +2332,7 @@ export type FinanceEntryCreateWithoutPaymentsInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2344,6 +2382,7 @@ export type FinanceEntryUncheckedCreateWithoutPaymentsInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2399,6 +2438,7 @@ export type FinanceEntryUpdateWithoutPaymentsInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2448,6 +2488,7 @@ export type FinanceEntryUncheckedUpdateWithoutPaymentsInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2487,6 +2528,7 @@ export type FinanceEntryCreateWithoutCostCenterAllocationsInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2536,6 +2578,7 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterAllocationsInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2591,6 +2634,7 @@ export type FinanceEntryUpdateWithoutCostCenterAllocationsInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2640,6 +2684,7 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterAllocationsInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2679,6 +2724,7 @@ export type FinanceEntryCreateWithoutAttachmentsInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2728,6 +2774,7 @@ export type FinanceEntryUncheckedCreateWithoutAttachmentsInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2783,6 +2830,7 @@ export type FinanceEntryUpdateWithoutAttachmentsInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2832,6 +2880,7 @@ export type FinanceEntryUncheckedUpdateWithoutAttachmentsInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2875,6 +2924,7 @@ export type FinanceEntryCreateManyTenantInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2911,6 +2961,7 @@ export type FinanceEntryUpdateWithoutTenantInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -2959,6 +3010,7 @@ export type FinanceEntryUncheckedUpdateWithoutTenantInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3003,6 +3055,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutTenantInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3043,6 +3096,7 @@ export type FinanceEntryCreateManyCostCenterInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3079,6 +3133,7 @@ export type FinanceEntryUpdateWithoutCostCenterInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3127,6 +3182,7 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3171,6 +3227,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutCostCenterInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3211,6 +3268,7 @@ export type FinanceEntryCreateManyBankAccountInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3247,6 +3305,7 @@ export type FinanceEntryUpdateWithoutBankAccountInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3295,6 +3354,7 @@ export type FinanceEntryUncheckedUpdateWithoutBankAccountInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3339,6 +3399,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutBankAccountInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3379,6 +3440,7 @@ export type FinanceEntryCreateManyCategoryInput = {
   totalInstallments?: number | null
   currentInstallment?: number | null
   parentEntryId?: string | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3415,6 +3477,7 @@ export type FinanceEntryUpdateWithoutCategoryInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3463,6 +3526,7 @@ export type FinanceEntryUncheckedUpdateWithoutCategoryInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3507,6 +3571,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutCategoryInput = {
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3547,6 +3612,7 @@ export type FinanceEntryCreateManyParentEntryInput = {
   recurrenceUnit?: $Enums.RecurrenceUnit | null
   totalInstallments?: number | null
   currentInstallment?: number | null
+  contractId?: string | null
   boletoBarcode?: string | null
   boletoDigitLine?: string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3583,6 +3649,7 @@ export type FinanceEntryUpdateWithoutParentEntryInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3631,6 +3698,7 @@ export type FinanceEntryUncheckedUpdateWithoutParentEntryInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3675,6 +3743,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutParentEntryInput = {
   recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
   totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -3774,6 +3843,7 @@ export type FinanceEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   totalInstallments?: boolean
   currentInstallment?: boolean
   parentEntryId?: boolean
+  contractId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
   metadata?: boolean
@@ -3825,6 +3895,7 @@ export type FinanceEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   totalInstallments?: boolean
   currentInstallment?: boolean
   parentEntryId?: boolean
+  contractId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
   metadata?: boolean
@@ -3871,6 +3942,7 @@ export type FinanceEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   totalInstallments?: boolean
   currentInstallment?: boolean
   parentEntryId?: boolean
+  contractId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
   metadata?: boolean
@@ -3917,6 +3989,7 @@ export type FinanceEntrySelectScalar = {
   totalInstallments?: boolean
   currentInstallment?: boolean
   parentEntryId?: boolean
+  contractId?: boolean
   boletoBarcode?: boolean
   boletoDigitLine?: boolean
   metadata?: boolean
@@ -3927,7 +4000,7 @@ export type FinanceEntrySelectScalar = {
   updatedAt?: boolean
 }
 
-export type FinanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "code" | "description" | "notes" | "categoryId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "salesOrderId" | "expectedAmount" | "actualAmount" | "discount" | "interest" | "penalty" | "issueDate" | "dueDate" | "competenceDate" | "paymentDate" | "status" | "recurrenceType" | "recurrenceInterval" | "recurrenceUnit" | "totalInstallments" | "currentInstallment" | "parentEntryId" | "boletoBarcode" | "boletoDigitLine" | "metadata" | "tags" | "deletedAt" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["financeEntry"]>
+export type FinanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "code" | "description" | "notes" | "categoryId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "salesOrderId" | "expectedAmount" | "actualAmount" | "discount" | "interest" | "penalty" | "issueDate" | "dueDate" | "competenceDate" | "paymentDate" | "status" | "recurrenceType" | "recurrenceInterval" | "recurrenceUnit" | "totalInstallments" | "currentInstallment" | "parentEntryId" | "contractId" | "boletoBarcode" | "boletoDigitLine" | "metadata" | "tags" | "deletedAt" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["financeEntry"]>
 export type FinanceEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   category?: boolean | Prisma.FinanceCategoryDefaultArgs<ExtArgs>
@@ -3999,6 +4072,7 @@ export type $FinanceEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     totalInstallments: number | null
     currentInstallment: number | null
     parentEntryId: string | null
+    contractId: string | null
     boletoBarcode: string | null
     boletoDigitLine: string | null
     metadata: runtime.JsonValue
@@ -4469,6 +4543,7 @@ export interface FinanceEntryFieldRefs {
   readonly totalInstallments: Prisma.FieldRef<"FinanceEntry", 'Int'>
   readonly currentInstallment: Prisma.FieldRef<"FinanceEntry", 'Int'>
   readonly parentEntryId: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly contractId: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly boletoBarcode: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly boletoDigitLine: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly metadata: Prisma.FieldRef<"FinanceEntry", 'Json'>

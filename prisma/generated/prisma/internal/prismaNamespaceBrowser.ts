@@ -135,11 +135,13 @@ export const ModelName = {
   FinanceEntry: 'FinanceEntry',
   FinanceEntryPayment: 'FinanceEntryPayment',
   FinanceEntryCostCenter: 'FinanceEntryCostCenter',
+  RecurringConfig: 'RecurringConfig',
   FinanceAttachment: 'FinanceAttachment',
   Loan: 'Loan',
   LoanInstallment: 'LoanInstallment',
   Consortium: 'Consortium',
   ConsortiumPayment: 'ConsortiumPayment',
+  Contract: 'Contract',
   StorageFolder: 'StorageFolder',
   StorageFile: 'StorageFile',
   StorageFileVersion: 'StorageFileVersion',
@@ -1848,6 +1850,7 @@ export const FinanceEntryScalarFieldEnum = {
   totalInstallments: 'totalInstallments',
   currentInstallment: 'currentInstallment',
   parentEntryId: 'parentEntryId',
+  contractId: 'contractId',
   boletoBarcode: 'boletoBarcode',
   boletoDigitLine: 'boletoDigitLine',
   metadata: 'metadata',
@@ -1887,6 +1890,41 @@ export const FinanceEntryCostCenterScalarFieldEnum = {
 } as const
 
 export type FinanceEntryCostCenterScalarFieldEnum = (typeof FinanceEntryCostCenterScalarFieldEnum)[keyof typeof FinanceEntryCostCenterScalarFieldEnum]
+
+
+export const RecurringConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  status: 'status',
+  description: 'description',
+  categoryId: 'categoryId',
+  costCenterId: 'costCenterId',
+  bankAccountId: 'bankAccountId',
+  supplierName: 'supplierName',
+  customerName: 'customerName',
+  supplierId: 'supplierId',
+  customerId: 'customerId',
+  expectedAmount: 'expectedAmount',
+  isVariable: 'isVariable',
+  frequencyUnit: 'frequencyUnit',
+  frequencyInterval: 'frequencyInterval',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  totalOccurrences: 'totalOccurrences',
+  generatedCount: 'generatedCount',
+  lastGeneratedDate: 'lastGeneratedDate',
+  nextDueDate: 'nextDueDate',
+  interestRate: 'interestRate',
+  penaltyRate: 'penaltyRate',
+  notes: 'notes',
+  createdBy: 'createdBy',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecurringConfigScalarFieldEnum = (typeof RecurringConfigScalarFieldEnum)[keyof typeof RecurringConfigScalarFieldEnum]
 
 
 export const FinanceAttachmentScalarFieldEnum = {
@@ -1998,6 +2036,40 @@ export const ConsortiumPaymentScalarFieldEnum = {
 } as const
 
 export type ConsortiumPaymentScalarFieldEnum = (typeof ConsortiumPaymentScalarFieldEnum)[keyof typeof ConsortiumPaymentScalarFieldEnum]
+
+
+export const ContractScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  companyId: 'companyId',
+  companyName: 'companyName',
+  contactName: 'contactName',
+  contactEmail: 'contactEmail',
+  totalValue: 'totalValue',
+  paymentFrequency: 'paymentFrequency',
+  paymentAmount: 'paymentAmount',
+  categoryId: 'categoryId',
+  costCenterId: 'costCenterId',
+  bankAccountId: 'bankAccountId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  autoRenew: 'autoRenew',
+  renewalPeriodMonths: 'renewalPeriodMonths',
+  alertDaysBefore: 'alertDaysBefore',
+  folderPath: 'folderPath',
+  notes: 'notes',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
 
 
 export const StorageFolderScalarFieldEnum = {

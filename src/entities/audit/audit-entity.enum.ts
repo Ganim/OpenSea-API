@@ -131,6 +131,7 @@ export enum AuditEntity {
   LOAN_INSTALLMENT = 'LOAN_INSTALLMENT',
   CONSORTIUM = 'CONSORTIUM',
   CONSORTIUM_PAYMENT = 'CONSORTIUM_PAYMENT',
+  CONTRACT = 'CONTRACT',
 
   // ==========================================
   // Teams - Equipes
