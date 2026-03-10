@@ -976,6 +976,14 @@ export const PermissionCodes = {
       PAY: 'finance.consortia.pay' as const,
       MANAGE: 'finance.consortia.manage' as const,
     },
+    RECURRING: {
+      CREATE: 'finance.recurring.create' as const,
+      READ: 'finance.recurring.read' as const,
+      UPDATE: 'finance.recurring.update' as const,
+      DELETE: 'finance.recurring.delete' as const,
+      LIST: 'finance.recurring.list' as const,
+      MANAGE: 'finance.recurring.manage' as const,
+    },
     DASHBOARD: {
       VIEW: 'finance.dashboard.view' as const,
     },

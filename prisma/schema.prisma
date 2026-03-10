@@ -100,6 +100,12 @@ enum RecurrenceUnit {
   ANNUAL
 }
 
+enum RecurringStatus {
+  ACTIVE
+  PAUSED
+  CANCELLED
+}
+
 enum FinanceAttachmentType {
   BOLETO
   PAYMENT_RECEIPT
@@ -3641,6 +3647,8 @@ model Tenant {
   financeAttachments  FinanceAttachment[]
   loans               Loan[]
   consortia           Consortium[]
+  recurringConfigs    RecurringConfig[]
+  contracts           Contract[]
   // Storage domain
   storageFolders      StorageFolder[]
   storageFiles        StorageFile[]
@@ -3957,6 +3965,8 @@ model FinanceEntry {
   currentInstallment Int?                   @map("current_installment")
   parentEntryId      String?                @map("parent_entry_id")
 
+  contractId String? @map("contract_id")
+
   boletoBarcode   String? @map("boleto_barcode") @db.VarChar(256)
   boletoDigitLine String? @map("boleto_digit_line") @db.VarChar(256)
 
@@ -3992,6 +4002,7 @@ model FinanceEntry {
   @@index([parentEntryId])
   @@index([createdBy])
   @@index([deletedAt])
+  @@index([contractId])
   @@index([tenantId, type, status])
   @@index([tenantId, dueDate, status])
   @@map("finance_entries")
@@ -4038,6 +4049,56 @@ model FinanceEntryCostCenter {
   @@index([entryId])
   @@index([costCenterId])
   @@map("finance_entry_cost_centers")
+}
+
+model RecurringConfig {
+  id String @id @default(uuid())
+
+  tenantId String           @map("tenant_id")
+  type     FinanceEntryType
+  status   RecurringStatus  @default(ACTIVE)
+
+  description   String  @db.VarChar(500)
+  categoryId    String  @map("category_id")
+  costCenterId  String? @map("cost_center_id")
+  bankAccountId String? @map("bank_account_id")
+
+  supplierName String? @map("supplier_name") @db.VarChar(512)
+  customerName String? @map("customer_name") @db.VarChar(512)
+  supplierId   String? @map("supplier_id")
+  customerId   String? @map("customer_id")
+
+  expectedAmount Decimal @map("expected_amount") @db.Decimal(15, 2)
+  isVariable     Boolean @default(false) @map("is_variable")
+
+  frequencyUnit     RecurrenceUnit @map("frequency_unit")
+  frequencyInterval Int            @default(1) @map("frequency_interval")
+
+  startDate         DateTime  @map("start_date")
+  endDate           DateTime? @map("end_date")
+  totalOccurrences  Int?      @map("total_occurrences")
+  generatedCount    Int       @default(0) @map("generated_count")
+  lastGeneratedDate DateTime? @map("last_generated_date")
+  nextDueDate       DateTime? @map("next_due_date")
+
+  interestRate Decimal? @map("interest_rate") @db.Decimal(5, 4)
+  penaltyRate  Decimal? @map("penalty_rate") @db.Decimal(5, 4)
+
+  notes     String? @db.Text
+  createdBy String? @map("created_by")
+
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([nextDueDate])
+  @@index([tenantId, status])
+  @@index([tenantId, status, nextDueDate])
+  @@map("recurring_configs")
 }
 
 model FinanceAttachment {
@@ -4216,6 +4277,72 @@ model ConsortiumPayment {
   @@index([dueDate])
   @@index([status])
   @@map("consortium_payments")
+}
+
+// ============================================================================
+// CONTRACTS - Contratos de Serviço
+// ============================================================================
+
+enum ContractStatus {
+  DRAFT
+  ACTIVE
+  EXPIRED
+  RENEWED
+  CANCELLED
+}
+
+model Contract {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  code        String  @db.VarChar(32)
+  title       String  @db.VarChar(256)
+  description String? @db.Text
+
+  status ContractStatus @default(ACTIVE)
+
+  // Parties
+  companyId    String? @map("company_id")
+  companyName  String  @map("company_name") @db.VarChar(256)
+  contactName  String? @map("contact_name") @db.VarChar(128)
+  contactEmail String? @map("contact_email") @db.VarChar(256)
+
+  // Financial
+  totalValue       Decimal        @map("total_value") @db.Decimal(15, 2)
+  paymentFrequency RecurrenceUnit @map("payment_frequency")
+  paymentAmount    Decimal        @map("payment_amount") @db.Decimal(15, 2)
+  categoryId       String?        @map("category_id")
+  costCenterId     String?        @map("cost_center_id")
+  bankAccountId    String?        @map("bank_account_id")
+
+  // Dates & Renewal
+  startDate           DateTime @map("start_date")
+  endDate             DateTime @map("end_date")
+  autoRenew           Boolean  @default(false) @map("auto_renew")
+  renewalPeriodMonths Int?     @map("renewal_period_months")
+  alertDaysBefore     Int      @default(30) @map("alert_days_before")
+
+  // File management
+  folderPath String? @map("folder_path") @db.VarChar(512)
+
+  notes    String? @db.Text
+  metadata Json    @default("{}")
+
+  createdBy String?   @map("created_by")
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@unique([code, tenantId, deletedAt], name: "contracts_code_tenant_unique_active")
+  @@index([tenantId])
+  @@index([status])
+  @@index([companyId])
+  @@index([endDate])
+  @@index([deletedAt])
+  @@index([tenantId, status])
+  @@map("contracts")
 }
 
 // ===============================================
