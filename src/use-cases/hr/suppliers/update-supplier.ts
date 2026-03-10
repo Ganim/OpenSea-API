@@ -9,6 +9,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 
 interface UpdateSupplierRequest {
   id: string;
+  tenantId: string;
   legalName?: string;
   tradeName?: string | null;
   stateRegistration?: string | null;
@@ -55,6 +56,7 @@ export class UpdateSupplierUseCase {
 
     const data: UpdateSupplierSchema = {
       id: new UniqueEntityID(request.id),
+      tenantId: request.tenantId,
       legalName: request.legalName,
       tradeName: request.tradeName,
       stateRegistration: request.stateRegistration,

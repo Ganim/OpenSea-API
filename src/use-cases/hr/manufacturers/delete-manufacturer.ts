@@ -4,6 +4,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 
 interface DeleteManufacturerRequest {
   id: string;
+  tenantId: string;
 }
 
 interface DeleteManufacturerResponse {
@@ -18,13 +19,17 @@ export class DeleteManufacturerUseCase {
   ): Promise<DeleteManufacturerResponse> {
     const manufacturer = await this.manufacturersRepository.findById(
       new UniqueEntityID(request.id),
+      request.tenantId,
     );
 
     if (!manufacturer) {
       throw new ResourceNotFoundError('Manufacturer not found');
     }
 
-    await this.manufacturersRepository.delete(new UniqueEntityID(request.id));
+    await this.manufacturersRepository.delete(
+      new UniqueEntityID(request.id),
+      request.tenantId,
+    );
 
     return { success: true };
   }

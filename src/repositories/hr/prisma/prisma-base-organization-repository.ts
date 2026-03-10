@@ -129,10 +129,11 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
     return this.toDomain(organizationData);
   }
 
-  async findById(id: UniqueEntityID): Promise<T | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<T | null> {
     const organizationData = await prisma.organization.findFirst({
       where: {
         id: id.toString(),
+        tenantId,
         type: this.organizationType,
         deletedAt: null,
       },
@@ -306,7 +307,7 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
   }
 
   async update(data: UpdateOrganizationSchema): Promise<T | null> {
-    const organization = await this.findById(data.id);
+    const organization = await this.findById(data.id, data.tenantId);
     if (!organization) {
       return null;
     }
@@ -412,17 +413,17 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
     });
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const organization = await this.findById(id);
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    const organization = await this.findById(id, tenantId);
     if (organization) {
       organization.delete();
       await this.save(organization);
     }
   }
 
-  async restore(id: UniqueEntityID): Promise<void> {
+  async restore(id: UniqueEntityID, tenantId: string): Promise<void> {
     const organization = await prisma.organization.findFirst({
-      where: { id: id.toString(), type: this.organizationType },
+      where: { id: id.toString(), tenantId, type: this.organizationType },
     });
 
     if (organization && organization.deletedAt) {

@@ -5,6 +5,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 
 interface GetSupplierByIdRequest {
   id: string;
+  tenantId: string;
 }
 
 interface GetSupplierByIdResponse {
@@ -19,6 +20,7 @@ export class GetSupplierByIdUseCase {
   ): Promise<GetSupplierByIdResponse> {
     const supplier = await this.suppliersRepository.findById(
       new UniqueEntityID(request.id),
+      request.tenantId,
     );
 
     if (!supplier) {

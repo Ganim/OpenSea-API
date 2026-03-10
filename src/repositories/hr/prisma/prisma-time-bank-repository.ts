@@ -126,6 +126,22 @@ export class PrismaTimeBankRepository implements TimeBankRepository {
     });
   }
 
+  async optimisticSave(
+    timeBank: TimeBank,
+    expectedVersion: number,
+  ): Promise<boolean> {
+    const rowsAffected = await prisma.$executeRaw`
+      UPDATE time_banks
+      SET balance = ${timeBank.balance}::decimal,
+          version = version + 1,
+          updated_at = NOW()
+      WHERE id = ${timeBank.id.toString()}
+        AND version = ${expectedVersion}
+    `;
+
+    return rowsAffected > 0;
+  }
+
   async delete(id: UniqueEntityID): Promise<void> {
     await prisma.timeBank.delete({
       where: { id: id.toString() },

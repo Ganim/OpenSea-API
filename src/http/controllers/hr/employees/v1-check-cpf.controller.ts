@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { checkCpfSchema } from '@/http/schemas';
@@ -10,7 +12,14 @@ export async function checkCpfController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/employees/check-cpf',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.EMPLOYEES.READ,
+        resource: 'employees',
+      }),
+    ],
     schema: {
       tags: ['HR - Employees'],
       summary: 'Check if CPF exists',

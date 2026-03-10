@@ -4,6 +4,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 
 interface DeleteSupplierRequest {
   id: string;
+  tenantId: string;
 }
 
 interface DeleteSupplierResponse {
@@ -18,13 +19,17 @@ export class DeleteSupplierUseCase {
   ): Promise<DeleteSupplierResponse> {
     const supplier = await this.suppliersRepository.findById(
       new UniqueEntityID(request.id),
+      request.tenantId,
     );
 
     if (!supplier) {
       throw new ResourceNotFoundError('Supplier not found');
     }
 
-    await this.suppliersRepository.delete(new UniqueEntityID(request.id));
+    await this.suppliersRepository.delete(
+      new UniqueEntityID(request.id),
+      request.tenantId,
+    );
 
     return { success: true };
   }

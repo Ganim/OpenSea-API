@@ -56,7 +56,6 @@ export type VariantMinAggregateOutputType = {
   sequentialCode: number | null
   name: string | null
   price: runtime.Decimal | null
-  imageUrl: string | null
   isActive: boolean | null
   costPrice: runtime.Decimal | null
   profitMargin: runtime.Decimal | null
@@ -66,6 +65,9 @@ export type VariantMinAggregateOutputType = {
   qrCode: string | null
   colorHex: string | null
   colorPantone: string | null
+  secondaryColorHex: string | null
+  secondaryColorPantone: string | null
+  pattern: $Enums.Pattern | null
   minStock: runtime.Decimal | null
   maxStock: runtime.Decimal | null
   reorderPoint: runtime.Decimal | null
@@ -87,7 +89,6 @@ export type VariantMaxAggregateOutputType = {
   sequentialCode: number | null
   name: string | null
   price: runtime.Decimal | null
-  imageUrl: string | null
   isActive: boolean | null
   costPrice: runtime.Decimal | null
   profitMargin: runtime.Decimal | null
@@ -97,6 +98,9 @@ export type VariantMaxAggregateOutputType = {
   qrCode: string | null
   colorHex: string | null
   colorPantone: string | null
+  secondaryColorHex: string | null
+  secondaryColorPantone: string | null
+  pattern: $Enums.Pattern | null
   minStock: runtime.Decimal | null
   maxStock: runtime.Decimal | null
   reorderPoint: runtime.Decimal | null
@@ -118,7 +122,6 @@ export type VariantCountAggregateOutputType = {
   sequentialCode: number
   name: number
   price: number
-  imageUrl: number
   attributes: number
   isActive: number
   costPrice: number
@@ -129,6 +132,9 @@ export type VariantCountAggregateOutputType = {
   qrCode: number
   colorHex: number
   colorPantone: number
+  secondaryColorHex: number
+  secondaryColorPantone: number
+  pattern: number
   minStock: number
   maxStock: number
   reorderPoint: number
@@ -175,7 +181,6 @@ export type VariantMinAggregateInputType = {
   sequentialCode?: true
   name?: true
   price?: true
-  imageUrl?: true
   isActive?: true
   costPrice?: true
   profitMargin?: true
@@ -185,6 +190,9 @@ export type VariantMinAggregateInputType = {
   qrCode?: true
   colorHex?: true
   colorPantone?: true
+  secondaryColorHex?: true
+  secondaryColorPantone?: true
+  pattern?: true
   minStock?: true
   maxStock?: true
   reorderPoint?: true
@@ -206,7 +214,6 @@ export type VariantMaxAggregateInputType = {
   sequentialCode?: true
   name?: true
   price?: true
-  imageUrl?: true
   isActive?: true
   costPrice?: true
   profitMargin?: true
@@ -216,6 +223,9 @@ export type VariantMaxAggregateInputType = {
   qrCode?: true
   colorHex?: true
   colorPantone?: true
+  secondaryColorHex?: true
+  secondaryColorPantone?: true
+  pattern?: true
   minStock?: true
   maxStock?: true
   reorderPoint?: true
@@ -237,7 +247,6 @@ export type VariantCountAggregateInputType = {
   sequentialCode?: true
   name?: true
   price?: true
-  imageUrl?: true
   attributes?: true
   isActive?: true
   costPrice?: true
@@ -248,6 +257,9 @@ export type VariantCountAggregateInputType = {
   qrCode?: true
   colorHex?: true
   colorPantone?: true
+  secondaryColorHex?: true
+  secondaryColorPantone?: true
+  pattern?: true
   minStock?: true
   maxStock?: true
   reorderPoint?: true
@@ -357,7 +369,6 @@ export type VariantGroupByOutputType = {
   sequentialCode: number
   name: string
   price: runtime.Decimal
-  imageUrl: string | null
   attributes: runtime.JsonValue
   isActive: boolean
   costPrice: runtime.Decimal | null
@@ -368,6 +379,9 @@ export type VariantGroupByOutputType = {
   qrCode: string | null
   colorHex: string | null
   colorPantone: string | null
+  secondaryColorHex: string | null
+  secondaryColorPantone: string | null
+  pattern: $Enums.Pattern | null
   minStock: runtime.Decimal | null
   maxStock: runtime.Decimal | null
   reorderPoint: runtime.Decimal | null
@@ -413,7 +427,6 @@ export type VariantWhereInput = {
   sequentialCode?: Prisma.IntFilter<"Variant"> | number
   name?: Prisma.StringFilter<"Variant"> | string
   price?: Prisma.DecimalFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.StringNullableFilter<"Variant"> | string | null
   attributes?: Prisma.JsonFilter<"Variant">
   isActive?: Prisma.BoolFilter<"Variant"> | boolean
   costPrice?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -424,6 +437,9 @@ export type VariantWhereInput = {
   qrCode?: Prisma.StringNullableFilter<"Variant"> | string | null
   colorHex?: Prisma.StringNullableFilter<"Variant"> | string | null
   colorPantone?: Prisma.StringNullableFilter<"Variant"> | string | null
+  secondaryColorHex?: Prisma.StringNullableFilter<"Variant"> | string | null
+  secondaryColorPantone?: Prisma.StringNullableFilter<"Variant"> | string | null
+  pattern?: Prisma.EnumPatternNullableFilter<"Variant"> | $Enums.Pattern | null
   minStock?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -447,6 +463,7 @@ export type VariantWhereInput = {
   salesOrderItems?: Prisma.SalesOrderItemListRelationFilter
   variantPromotions?: Prisma.VariantPromotionListRelationFilter
   supplierCodes?: Prisma.VariantSupplierCodeListRelationFilter
+  attachments?: Prisma.VariantAttachmentListRelationFilter
 }
 
 export type VariantOrderByWithRelationInput = {
@@ -457,7 +474,6 @@ export type VariantOrderByWithRelationInput = {
   sequentialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   attributes?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   costPrice?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -468,6 +484,9 @@ export type VariantOrderByWithRelationInput = {
   qrCode?: Prisma.SortOrderInput | Prisma.SortOrder
   colorHex?: Prisma.SortOrderInput | Prisma.SortOrder
   colorPantone?: Prisma.SortOrderInput | Prisma.SortOrder
+  secondaryColorHex?: Prisma.SortOrderInput | Prisma.SortOrder
+  secondaryColorPantone?: Prisma.SortOrderInput | Prisma.SortOrder
+  pattern?: Prisma.SortOrderInput | Prisma.SortOrder
   minStock?: Prisma.SortOrderInput | Prisma.SortOrder
   maxStock?: Prisma.SortOrderInput | Prisma.SortOrder
   reorderPoint?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -491,6 +510,7 @@ export type VariantOrderByWithRelationInput = {
   salesOrderItems?: Prisma.SalesOrderItemOrderByRelationAggregateInput
   variantPromotions?: Prisma.VariantPromotionOrderByRelationAggregateInput
   supplierCodes?: Prisma.VariantSupplierCodeOrderByRelationAggregateInput
+  attachments?: Prisma.VariantAttachmentOrderByRelationAggregateInput
 }
 
 export type VariantWhereUniqueInput = Prisma.AtLeast<{
@@ -509,7 +529,6 @@ export type VariantWhereUniqueInput = Prisma.AtLeast<{
   sequentialCode?: Prisma.IntFilter<"Variant"> | number
   name?: Prisma.StringFilter<"Variant"> | string
   price?: Prisma.DecimalFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.StringNullableFilter<"Variant"> | string | null
   attributes?: Prisma.JsonFilter<"Variant">
   isActive?: Prisma.BoolFilter<"Variant"> | boolean
   costPrice?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -517,6 +536,9 @@ export type VariantWhereUniqueInput = Prisma.AtLeast<{
   qrCode?: Prisma.StringNullableFilter<"Variant"> | string | null
   colorHex?: Prisma.StringNullableFilter<"Variant"> | string | null
   colorPantone?: Prisma.StringNullableFilter<"Variant"> | string | null
+  secondaryColorHex?: Prisma.StringNullableFilter<"Variant"> | string | null
+  secondaryColorPantone?: Prisma.StringNullableFilter<"Variant"> | string | null
+  pattern?: Prisma.EnumPatternNullableFilter<"Variant"> | $Enums.Pattern | null
   minStock?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -540,6 +562,7 @@ export type VariantWhereUniqueInput = Prisma.AtLeast<{
   salesOrderItems?: Prisma.SalesOrderItemListRelationFilter
   variantPromotions?: Prisma.VariantPromotionListRelationFilter
   supplierCodes?: Prisma.VariantSupplierCodeListRelationFilter
+  attachments?: Prisma.VariantAttachmentListRelationFilter
 }, "id" | "fullCode" | "barcode" | "eanCode" | "upcCode" | "variants_sku_unique_active" | "variants_slug_unique_active">
 
 export type VariantOrderByWithAggregationInput = {
@@ -550,7 +573,6 @@ export type VariantOrderByWithAggregationInput = {
   sequentialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   attributes?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   costPrice?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -561,6 +583,9 @@ export type VariantOrderByWithAggregationInput = {
   qrCode?: Prisma.SortOrderInput | Prisma.SortOrder
   colorHex?: Prisma.SortOrderInput | Prisma.SortOrder
   colorPantone?: Prisma.SortOrderInput | Prisma.SortOrder
+  secondaryColorHex?: Prisma.SortOrderInput | Prisma.SortOrder
+  secondaryColorPantone?: Prisma.SortOrderInput | Prisma.SortOrder
+  pattern?: Prisma.SortOrderInput | Prisma.SortOrder
   minStock?: Prisma.SortOrderInput | Prisma.SortOrder
   maxStock?: Prisma.SortOrderInput | Prisma.SortOrder
   reorderPoint?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -591,7 +616,6 @@ export type VariantScalarWhereWithAggregatesInput = {
   sequentialCode?: Prisma.IntWithAggregatesFilter<"Variant"> | number
   name?: Prisma.StringWithAggregatesFilter<"Variant"> | string
   price?: Prisma.DecimalWithAggregatesFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Variant"> | string | null
   attributes?: Prisma.JsonWithAggregatesFilter<"Variant">
   isActive?: Prisma.BoolWithAggregatesFilter<"Variant"> | boolean
   costPrice?: Prisma.DecimalNullableWithAggregatesFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -602,6 +626,9 @@ export type VariantScalarWhereWithAggregatesInput = {
   qrCode?: Prisma.StringNullableWithAggregatesFilter<"Variant"> | string | null
   colorHex?: Prisma.StringNullableWithAggregatesFilter<"Variant"> | string | null
   colorPantone?: Prisma.StringNullableWithAggregatesFilter<"Variant"> | string | null
+  secondaryColorHex?: Prisma.StringNullableWithAggregatesFilter<"Variant"> | string | null
+  secondaryColorPantone?: Prisma.StringNullableWithAggregatesFilter<"Variant"> | string | null
+  pattern?: Prisma.EnumPatternNullableWithAggregatesFilter<"Variant"> | $Enums.Pattern | null
   minStock?: Prisma.DecimalNullableWithAggregatesFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.DecimalNullableWithAggregatesFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.DecimalNullableWithAggregatesFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -624,7 +651,6 @@ export type VariantCreateInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -635,6 +661,9 @@ export type VariantCreateInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -656,6 +685,7 @@ export type VariantCreateInput = {
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateInput = {
@@ -666,7 +696,6 @@ export type VariantUncheckedCreateInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -677,6 +706,9 @@ export type VariantUncheckedCreateInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -698,6 +730,7 @@ export type VariantUncheckedCreateInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUpdateInput = {
@@ -708,7 +741,6 @@ export type VariantUpdateInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -719,6 +751,9 @@ export type VariantUpdateInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -740,6 +775,7 @@ export type VariantUpdateInput = {
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateInput = {
@@ -750,7 +786,6 @@ export type VariantUncheckedUpdateInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -761,6 +796,9 @@ export type VariantUncheckedUpdateInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -782,6 +820,7 @@ export type VariantUncheckedUpdateInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantCreateManyInput = {
@@ -792,7 +831,6 @@ export type VariantCreateManyInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -803,6 +841,9 @@ export type VariantCreateManyInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -825,7 +866,6 @@ export type VariantUpdateManyMutationInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -836,6 +876,9 @@ export type VariantUpdateManyMutationInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -856,7 +899,6 @@ export type VariantUncheckedUpdateManyInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -867,6 +909,9 @@ export type VariantUncheckedUpdateManyInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -911,7 +956,6 @@ export type VariantCountOrderByAggregateInput = {
   sequentialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
   attributes?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   costPrice?: Prisma.SortOrder
@@ -922,6 +966,9 @@ export type VariantCountOrderByAggregateInput = {
   qrCode?: Prisma.SortOrder
   colorHex?: Prisma.SortOrder
   colorPantone?: Prisma.SortOrder
+  secondaryColorHex?: Prisma.SortOrder
+  secondaryColorPantone?: Prisma.SortOrder
+  pattern?: Prisma.SortOrder
   minStock?: Prisma.SortOrder
   maxStock?: Prisma.SortOrder
   reorderPoint?: Prisma.SortOrder
@@ -955,7 +1002,6 @@ export type VariantMaxOrderByAggregateInput = {
   sequentialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   costPrice?: Prisma.SortOrder
   profitMargin?: Prisma.SortOrder
@@ -965,6 +1011,9 @@ export type VariantMaxOrderByAggregateInput = {
   qrCode?: Prisma.SortOrder
   colorHex?: Prisma.SortOrder
   colorPantone?: Prisma.SortOrder
+  secondaryColorHex?: Prisma.SortOrder
+  secondaryColorPantone?: Prisma.SortOrder
+  pattern?: Prisma.SortOrder
   minStock?: Prisma.SortOrder
   maxStock?: Prisma.SortOrder
   reorderPoint?: Prisma.SortOrder
@@ -986,7 +1035,6 @@ export type VariantMinOrderByAggregateInput = {
   sequentialCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   costPrice?: Prisma.SortOrder
   profitMargin?: Prisma.SortOrder
@@ -996,6 +1044,9 @@ export type VariantMinOrderByAggregateInput = {
   qrCode?: Prisma.SortOrder
   colorHex?: Prisma.SortOrder
   colorPantone?: Prisma.SortOrder
+  secondaryColorHex?: Prisma.SortOrder
+  secondaryColorPantone?: Prisma.SortOrder
+  pattern?: Prisma.SortOrder
   minStock?: Prisma.SortOrder
   maxStock?: Prisma.SortOrder
   reorderPoint?: Prisma.SortOrder
@@ -1075,6 +1126,10 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type NullableEnumPatternFieldUpdateOperationsInput = {
+  set?: $Enums.Pattern | null
+}
+
 export type VariantCreateNestedOneWithoutItemsInput = {
   create?: Prisma.XOR<Prisma.VariantCreateWithoutItemsInput, Prisma.VariantUncheckedCreateWithoutItemsInput>
   connectOrCreate?: Prisma.VariantCreateOrConnectWithoutItemsInput
@@ -1115,6 +1170,20 @@ export type VariantUpdateOneRequiredWithoutVariantImagesNestedInput = {
   upsert?: Prisma.VariantUpsertWithoutVariantImagesInput
   connect?: Prisma.VariantWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.VariantUpdateToOneWithWhereWithoutVariantImagesInput, Prisma.VariantUpdateWithoutVariantImagesInput>, Prisma.VariantUncheckedUpdateWithoutVariantImagesInput>
+}
+
+export type VariantCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.VariantCreateWithoutAttachmentsInput, Prisma.VariantUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.VariantCreateOrConnectWithoutAttachmentsInput
+  connect?: Prisma.VariantWhereUniqueInput
+}
+
+export type VariantUpdateOneRequiredWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.VariantCreateWithoutAttachmentsInput, Prisma.VariantUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.VariantCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.VariantUpsertWithoutAttachmentsInput
+  connect?: Prisma.VariantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VariantUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.VariantUpdateWithoutAttachmentsInput>, Prisma.VariantUncheckedUpdateWithoutAttachmentsInput>
 }
 
 export type VariantCreateNestedOneWithoutPurchaseOrderItemsInput = {
@@ -1251,7 +1320,6 @@ export type VariantCreateWithoutProductInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1262,6 +1330,9 @@ export type VariantCreateWithoutProductInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1282,6 +1353,7 @@ export type VariantCreateWithoutProductInput = {
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutProductInput = {
@@ -1292,7 +1364,6 @@ export type VariantUncheckedCreateWithoutProductInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1303,6 +1374,9 @@ export type VariantUncheckedCreateWithoutProductInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1323,6 +1397,7 @@ export type VariantUncheckedCreateWithoutProductInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutProductInput = {
@@ -1362,7 +1437,6 @@ export type VariantScalarWhereInput = {
   sequentialCode?: Prisma.IntFilter<"Variant"> | number
   name?: Prisma.StringFilter<"Variant"> | string
   price?: Prisma.DecimalFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.StringNullableFilter<"Variant"> | string | null
   attributes?: Prisma.JsonFilter<"Variant">
   isActive?: Prisma.BoolFilter<"Variant"> | boolean
   costPrice?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1373,6 +1447,9 @@ export type VariantScalarWhereInput = {
   qrCode?: Prisma.StringNullableFilter<"Variant"> | string | null
   colorHex?: Prisma.StringNullableFilter<"Variant"> | string | null
   colorPantone?: Prisma.StringNullableFilter<"Variant"> | string | null
+  secondaryColorHex?: Prisma.StringNullableFilter<"Variant"> | string | null
+  secondaryColorPantone?: Prisma.StringNullableFilter<"Variant"> | string | null
+  pattern?: Prisma.EnumPatternNullableFilter<"Variant"> | $Enums.Pattern | null
   minStock?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.DecimalNullableFilter<"Variant"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1395,7 +1472,6 @@ export type VariantCreateWithoutItemsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1406,6 +1482,9 @@ export type VariantCreateWithoutItemsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1426,6 +1505,7 @@ export type VariantCreateWithoutItemsInput = {
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutItemsInput = {
@@ -1436,7 +1516,6 @@ export type VariantUncheckedCreateWithoutItemsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1447,6 +1526,9 @@ export type VariantUncheckedCreateWithoutItemsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1467,6 +1549,7 @@ export type VariantUncheckedCreateWithoutItemsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutItemsInput = {
@@ -1493,7 +1576,6 @@ export type VariantUpdateWithoutItemsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1504,6 +1586,9 @@ export type VariantUpdateWithoutItemsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1524,6 +1609,7 @@ export type VariantUpdateWithoutItemsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutItemsInput = {
@@ -1534,7 +1620,6 @@ export type VariantUncheckedUpdateWithoutItemsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1545,6 +1630,9 @@ export type VariantUncheckedUpdateWithoutItemsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1565,6 +1653,7 @@ export type VariantUncheckedUpdateWithoutItemsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantCreateWithoutPriceHistoryInput = {
@@ -1575,7 +1664,6 @@ export type VariantCreateWithoutPriceHistoryInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1586,6 +1674,9 @@ export type VariantCreateWithoutPriceHistoryInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1606,6 +1697,7 @@ export type VariantCreateWithoutPriceHistoryInput = {
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutPriceHistoryInput = {
@@ -1616,7 +1708,6 @@ export type VariantUncheckedCreateWithoutPriceHistoryInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1627,6 +1718,9 @@ export type VariantUncheckedCreateWithoutPriceHistoryInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1647,6 +1741,7 @@ export type VariantUncheckedCreateWithoutPriceHistoryInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutPriceHistoryInput = {
@@ -1673,7 +1768,6 @@ export type VariantUpdateWithoutPriceHistoryInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1684,6 +1778,9 @@ export type VariantUpdateWithoutPriceHistoryInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1704,6 +1801,7 @@ export type VariantUpdateWithoutPriceHistoryInput = {
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutPriceHistoryInput = {
@@ -1714,7 +1812,6 @@ export type VariantUncheckedUpdateWithoutPriceHistoryInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1725,6 +1822,9 @@ export type VariantUncheckedUpdateWithoutPriceHistoryInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1745,6 +1845,7 @@ export type VariantUncheckedUpdateWithoutPriceHistoryInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantCreateWithoutVariantImagesInput = {
@@ -1755,7 +1856,6 @@ export type VariantCreateWithoutVariantImagesInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1766,6 +1866,9 @@ export type VariantCreateWithoutVariantImagesInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1786,6 +1889,7 @@ export type VariantCreateWithoutVariantImagesInput = {
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutVariantImagesInput = {
@@ -1796,7 +1900,6 @@ export type VariantUncheckedCreateWithoutVariantImagesInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1807,6 +1910,9 @@ export type VariantUncheckedCreateWithoutVariantImagesInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1827,6 +1933,7 @@ export type VariantUncheckedCreateWithoutVariantImagesInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutVariantImagesInput = {
@@ -1853,7 +1960,6 @@ export type VariantUpdateWithoutVariantImagesInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1864,6 +1970,9 @@ export type VariantUpdateWithoutVariantImagesInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1884,6 +1993,7 @@ export type VariantUpdateWithoutVariantImagesInput = {
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutVariantImagesInput = {
@@ -1894,7 +2004,6 @@ export type VariantUncheckedUpdateWithoutVariantImagesInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1905,6 +2014,9 @@ export type VariantUncheckedUpdateWithoutVariantImagesInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1925,9 +2037,10 @@ export type VariantUncheckedUpdateWithoutVariantImagesInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
-export type VariantCreateWithoutPurchaseOrderItemsInput = {
+export type VariantCreateWithoutAttachmentsInput = {
   id?: string
   sku?: string | null
   slug: string
@@ -1935,7 +2048,6 @@ export type VariantCreateWithoutPurchaseOrderItemsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1946,6 +2058,201 @@ export type VariantCreateWithoutPurchaseOrderItemsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
+  minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reorderQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reference?: string | null
+  similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outOfLine?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutVariantsInput
+  product: Prisma.ProductCreateNestedOneWithoutVariantsInput
+  items?: Prisma.ItemCreateNestedManyWithoutVariantInput
+  priceHistory?: Prisma.VariantPriceHistoryCreateNestedManyWithoutVariantInput
+  variantImages?: Prisma.VariantImageCreateNestedManyWithoutVariantInput
+  unitConversions?: Prisma.UnitConversionCreateNestedManyWithoutVariantInput
+  stockSnapshots?: Prisma.StockSnapshotCreateNestedManyWithoutVariantInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutVariantInput
+  salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
+  variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
+  supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+}
+
+export type VariantUncheckedCreateWithoutAttachmentsInput = {
+  id?: string
+  sku?: string | null
+  slug: string
+  fullCode: string
+  sequentialCode: number
+  name: string
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  barcode: string
+  eanCode: string
+  upcCode: string
+  qrCode?: string | null
+  colorHex?: string | null
+  colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
+  minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reorderQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reference?: string | null
+  similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outOfLine?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  productId: string
+  tenantId: string
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutVariantInput
+  priceHistory?: Prisma.VariantPriceHistoryUncheckedCreateNestedManyWithoutVariantInput
+  variantImages?: Prisma.VariantImageUncheckedCreateNestedManyWithoutVariantInput
+  unitConversions?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutVariantInput
+  stockSnapshots?: Prisma.StockSnapshotUncheckedCreateNestedManyWithoutVariantInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutVariantInput
+  salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
+  variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
+  supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+}
+
+export type VariantCreateOrConnectWithoutAttachmentsInput = {
+  where: Prisma.VariantWhereUniqueInput
+  create: Prisma.XOR<Prisma.VariantCreateWithoutAttachmentsInput, Prisma.VariantUncheckedCreateWithoutAttachmentsInput>
+}
+
+export type VariantUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.VariantUpdateWithoutAttachmentsInput, Prisma.VariantUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.VariantCreateWithoutAttachmentsInput, Prisma.VariantUncheckedCreateWithoutAttachmentsInput>
+  where?: Prisma.VariantWhereInput
+}
+
+export type VariantUpdateToOneWithWhereWithoutAttachmentsInput = {
+  where?: Prisma.VariantWhereInput
+  data: Prisma.XOR<Prisma.VariantUpdateWithoutAttachmentsInput, Prisma.VariantUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type VariantUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  fullCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  barcode?: Prisma.StringFieldUpdateOperationsInput | string
+  eanCode?: Prisma.StringFieldUpdateOperationsInput | string
+  upcCode?: Prisma.StringFieldUpdateOperationsInput | string
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
+  minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reorderQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutVariantsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
+  items?: Prisma.ItemUpdateManyWithoutVariantNestedInput
+  priceHistory?: Prisma.VariantPriceHistoryUpdateManyWithoutVariantNestedInput
+  variantImages?: Prisma.VariantImageUpdateManyWithoutVariantNestedInput
+  unitConversions?: Prisma.UnitConversionUpdateManyWithoutVariantNestedInput
+  stockSnapshots?: Prisma.StockSnapshotUpdateManyWithoutVariantNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutVariantNestedInput
+  salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
+  variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
+  supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+}
+
+export type VariantUncheckedUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  fullCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  barcode?: Prisma.StringFieldUpdateOperationsInput | string
+  eanCode?: Prisma.StringFieldUpdateOperationsInput | string
+  upcCode?: Prisma.StringFieldUpdateOperationsInput | string
+  qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
+  minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reorderQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  items?: Prisma.ItemUncheckedUpdateManyWithoutVariantNestedInput
+  priceHistory?: Prisma.VariantPriceHistoryUncheckedUpdateManyWithoutVariantNestedInput
+  variantImages?: Prisma.VariantImageUncheckedUpdateManyWithoutVariantNestedInput
+  unitConversions?: Prisma.UnitConversionUncheckedUpdateManyWithoutVariantNestedInput
+  stockSnapshots?: Prisma.StockSnapshotUncheckedUpdateManyWithoutVariantNestedInput
+  purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutVariantNestedInput
+  salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
+  variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
+  supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+}
+
+export type VariantCreateWithoutPurchaseOrderItemsInput = {
+  id?: string
+  sku?: string | null
+  slug: string
+  fullCode: string
+  sequentialCode: number
+  name: string
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  barcode: string
+  eanCode: string
+  upcCode: string
+  qrCode?: string | null
+  colorHex?: string | null
+  colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1966,6 +2273,7 @@ export type VariantCreateWithoutPurchaseOrderItemsInput = {
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutPurchaseOrderItemsInput = {
@@ -1976,7 +2284,6 @@ export type VariantUncheckedCreateWithoutPurchaseOrderItemsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1987,6 +2294,9 @@ export type VariantUncheckedCreateWithoutPurchaseOrderItemsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2007,6 +2317,7 @@ export type VariantUncheckedCreateWithoutPurchaseOrderItemsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutPurchaseOrderItemsInput = {
@@ -2033,7 +2344,6 @@ export type VariantUpdateWithoutPurchaseOrderItemsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2044,6 +2354,9 @@ export type VariantUpdateWithoutPurchaseOrderItemsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2064,6 +2377,7 @@ export type VariantUpdateWithoutPurchaseOrderItemsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutPurchaseOrderItemsInput = {
@@ -2074,7 +2388,6 @@ export type VariantUncheckedUpdateWithoutPurchaseOrderItemsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2085,6 +2398,9 @@ export type VariantUncheckedUpdateWithoutPurchaseOrderItemsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2105,6 +2421,7 @@ export type VariantUncheckedUpdateWithoutPurchaseOrderItemsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantCreateWithoutUnitConversionsInput = {
@@ -2115,7 +2432,6 @@ export type VariantCreateWithoutUnitConversionsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2126,6 +2442,9 @@ export type VariantCreateWithoutUnitConversionsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2146,6 +2465,7 @@ export type VariantCreateWithoutUnitConversionsInput = {
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutUnitConversionsInput = {
@@ -2156,7 +2476,6 @@ export type VariantUncheckedCreateWithoutUnitConversionsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2167,6 +2486,9 @@ export type VariantUncheckedCreateWithoutUnitConversionsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2187,6 +2509,7 @@ export type VariantUncheckedCreateWithoutUnitConversionsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutUnitConversionsInput = {
@@ -2213,7 +2536,6 @@ export type VariantUpdateWithoutUnitConversionsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2224,6 +2546,9 @@ export type VariantUpdateWithoutUnitConversionsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2244,6 +2569,7 @@ export type VariantUpdateWithoutUnitConversionsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutUnitConversionsInput = {
@@ -2254,7 +2580,6 @@ export type VariantUncheckedUpdateWithoutUnitConversionsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2265,6 +2590,9 @@ export type VariantUncheckedUpdateWithoutUnitConversionsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2285,6 +2613,7 @@ export type VariantUncheckedUpdateWithoutUnitConversionsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantCreateWithoutStockSnapshotsInput = {
@@ -2295,7 +2624,6 @@ export type VariantCreateWithoutStockSnapshotsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2306,6 +2634,9 @@ export type VariantCreateWithoutStockSnapshotsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2326,6 +2657,7 @@ export type VariantCreateWithoutStockSnapshotsInput = {
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutStockSnapshotsInput = {
@@ -2336,7 +2668,6 @@ export type VariantUncheckedCreateWithoutStockSnapshotsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2347,6 +2678,9 @@ export type VariantUncheckedCreateWithoutStockSnapshotsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2367,6 +2701,7 @@ export type VariantUncheckedCreateWithoutStockSnapshotsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutStockSnapshotsInput = {
@@ -2393,7 +2728,6 @@ export type VariantUpdateWithoutStockSnapshotsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2404,6 +2738,9 @@ export type VariantUpdateWithoutStockSnapshotsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2424,6 +2761,7 @@ export type VariantUpdateWithoutStockSnapshotsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutStockSnapshotsInput = {
@@ -2434,7 +2772,6 @@ export type VariantUncheckedUpdateWithoutStockSnapshotsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2445,6 +2782,9 @@ export type VariantUncheckedUpdateWithoutStockSnapshotsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2465,6 +2805,7 @@ export type VariantUncheckedUpdateWithoutStockSnapshotsInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantCreateWithoutSalesOrderItemsInput = {
@@ -2475,7 +2816,6 @@ export type VariantCreateWithoutSalesOrderItemsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2486,6 +2826,9 @@ export type VariantCreateWithoutSalesOrderItemsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2506,6 +2849,7 @@ export type VariantCreateWithoutSalesOrderItemsInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutSalesOrderItemsInput = {
@@ -2516,7 +2860,6 @@ export type VariantUncheckedCreateWithoutSalesOrderItemsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2527,6 +2870,9 @@ export type VariantUncheckedCreateWithoutSalesOrderItemsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2547,6 +2893,7 @@ export type VariantUncheckedCreateWithoutSalesOrderItemsInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutSalesOrderItemsInput = {
@@ -2573,7 +2920,6 @@ export type VariantUpdateWithoutSalesOrderItemsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2584,6 +2930,9 @@ export type VariantUpdateWithoutSalesOrderItemsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2604,6 +2953,7 @@ export type VariantUpdateWithoutSalesOrderItemsInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutSalesOrderItemsInput = {
@@ -2614,7 +2964,6 @@ export type VariantUncheckedUpdateWithoutSalesOrderItemsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2625,6 +2974,9 @@ export type VariantUncheckedUpdateWithoutSalesOrderItemsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2645,6 +2997,7 @@ export type VariantUncheckedUpdateWithoutSalesOrderItemsInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantCreateWithoutSupplierCodesInput = {
@@ -2655,7 +3008,6 @@ export type VariantCreateWithoutSupplierCodesInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2666,6 +3018,9 @@ export type VariantCreateWithoutSupplierCodesInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2686,6 +3041,7 @@ export type VariantCreateWithoutSupplierCodesInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutVariantInput
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutSupplierCodesInput = {
@@ -2696,7 +3052,6 @@ export type VariantUncheckedCreateWithoutSupplierCodesInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2707,6 +3062,9 @@ export type VariantUncheckedCreateWithoutSupplierCodesInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2727,6 +3085,7 @@ export type VariantUncheckedCreateWithoutSupplierCodesInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutVariantInput
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutSupplierCodesInput = {
@@ -2753,7 +3112,6 @@ export type VariantUpdateWithoutSupplierCodesInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2764,6 +3122,9 @@ export type VariantUpdateWithoutSupplierCodesInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2784,6 +3145,7 @@ export type VariantUpdateWithoutSupplierCodesInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutVariantNestedInput
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutSupplierCodesInput = {
@@ -2794,7 +3156,6 @@ export type VariantUncheckedUpdateWithoutSupplierCodesInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2805,6 +3166,9 @@ export type VariantUncheckedUpdateWithoutSupplierCodesInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2825,6 +3189,7 @@ export type VariantUncheckedUpdateWithoutSupplierCodesInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantCreateWithoutVariantPromotionsInput = {
@@ -2835,7 +3200,6 @@ export type VariantCreateWithoutVariantPromotionsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2846,6 +3210,9 @@ export type VariantCreateWithoutVariantPromotionsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2866,6 +3233,7 @@ export type VariantCreateWithoutVariantPromotionsInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemCreateNestedManyWithoutVariantInput
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutVariantPromotionsInput = {
@@ -2876,7 +3244,6 @@ export type VariantUncheckedCreateWithoutVariantPromotionsInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2887,6 +3254,9 @@ export type VariantUncheckedCreateWithoutVariantPromotionsInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2907,6 +3277,7 @@ export type VariantUncheckedCreateWithoutVariantPromotionsInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedCreateNestedManyWithoutVariantInput
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutVariantPromotionsInput = {
@@ -2933,7 +3304,6 @@ export type VariantUpdateWithoutVariantPromotionsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2944,6 +3314,9 @@ export type VariantUpdateWithoutVariantPromotionsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2964,6 +3337,7 @@ export type VariantUpdateWithoutVariantPromotionsInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemUpdateManyWithoutVariantNestedInput
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutVariantPromotionsInput = {
@@ -2974,7 +3348,6 @@ export type VariantUncheckedUpdateWithoutVariantPromotionsInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2985,6 +3358,9 @@ export type VariantUncheckedUpdateWithoutVariantPromotionsInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3005,6 +3381,7 @@ export type VariantUncheckedUpdateWithoutVariantPromotionsInput = {
   purchaseOrderItems?: Prisma.PurchaseOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantCreateWithoutTenantInput = {
@@ -3015,7 +3392,6 @@ export type VariantCreateWithoutTenantInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3026,6 +3402,9 @@ export type VariantCreateWithoutTenantInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3046,6 +3425,7 @@ export type VariantCreateWithoutTenantInput = {
   salesOrderItems?: Prisma.SalesOrderItemCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentCreateNestedManyWithoutVariantInput
 }
 
 export type VariantUncheckedCreateWithoutTenantInput = {
@@ -3056,7 +3436,6 @@ export type VariantUncheckedCreateWithoutTenantInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3067,6 +3446,9 @@ export type VariantUncheckedCreateWithoutTenantInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3087,6 +3469,7 @@ export type VariantUncheckedCreateWithoutTenantInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedCreateNestedManyWithoutVariantInput
   variantPromotions?: Prisma.VariantPromotionUncheckedCreateNestedManyWithoutVariantInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedCreateNestedManyWithoutVariantInput
+  attachments?: Prisma.VariantAttachmentUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type VariantCreateOrConnectWithoutTenantInput = {
@@ -3123,7 +3506,6 @@ export type VariantCreateManyProductInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3134,6 +3516,9 @@ export type VariantCreateManyProductInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3155,7 +3540,6 @@ export type VariantUpdateWithoutProductInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3166,6 +3550,9 @@ export type VariantUpdateWithoutProductInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3186,6 +3573,7 @@ export type VariantUpdateWithoutProductInput = {
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutProductInput = {
@@ -3196,7 +3584,6 @@ export type VariantUncheckedUpdateWithoutProductInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3207,6 +3594,9 @@ export type VariantUncheckedUpdateWithoutProductInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3227,6 +3617,7 @@ export type VariantUncheckedUpdateWithoutProductInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateManyWithoutProductInput = {
@@ -3237,7 +3628,6 @@ export type VariantUncheckedUpdateManyWithoutProductInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3248,6 +3638,9 @@ export type VariantUncheckedUpdateManyWithoutProductInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3269,7 +3662,6 @@ export type VariantCreateManyTenantInput = {
   sequentialCode: number
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3280,6 +3672,9 @@ export type VariantCreateManyTenantInput = {
   qrCode?: string | null
   colorHex?: string | null
   colorPantone?: string | null
+  secondaryColorHex?: string | null
+  secondaryColorPantone?: string | null
+  pattern?: $Enums.Pattern | null
   minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3301,7 +3696,6 @@ export type VariantUpdateWithoutTenantInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3312,6 +3706,9 @@ export type VariantUpdateWithoutTenantInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3332,6 +3729,7 @@ export type VariantUpdateWithoutTenantInput = {
   salesOrderItems?: Prisma.SalesOrderItemUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateWithoutTenantInput = {
@@ -3342,7 +3740,6 @@ export type VariantUncheckedUpdateWithoutTenantInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3353,6 +3750,9 @@ export type VariantUncheckedUpdateWithoutTenantInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3373,6 +3773,7 @@ export type VariantUncheckedUpdateWithoutTenantInput = {
   salesOrderItems?: Prisma.SalesOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   variantPromotions?: Prisma.VariantPromotionUncheckedUpdateManyWithoutVariantNestedInput
   supplierCodes?: Prisma.VariantSupplierCodeUncheckedUpdateManyWithoutVariantNestedInput
+  attachments?: Prisma.VariantAttachmentUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type VariantUncheckedUpdateManyWithoutTenantInput = {
@@ -3383,7 +3784,6 @@ export type VariantUncheckedUpdateManyWithoutTenantInput = {
   sequentialCode?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   costPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3394,6 +3794,9 @@ export type VariantUncheckedUpdateManyWithoutTenantInput = {
   qrCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   colorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondaryColorPantone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pattern?: Prisma.NullableEnumPatternFieldUpdateOperationsInput | $Enums.Pattern | null
   minStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxStock?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   reorderPoint?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -3422,6 +3825,7 @@ export type VariantCountOutputType = {
   salesOrderItems: number
   variantPromotions: number
   supplierCodes: number
+  attachments: number
 }
 
 export type VariantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3434,6 +3838,7 @@ export type VariantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   salesOrderItems?: boolean | VariantCountOutputTypeCountSalesOrderItemsArgs
   variantPromotions?: boolean | VariantCountOutputTypeCountVariantPromotionsArgs
   supplierCodes?: boolean | VariantCountOutputTypeCountSupplierCodesArgs
+  attachments?: boolean | VariantCountOutputTypeCountAttachmentsArgs
 }
 
 /**
@@ -3509,6 +3914,13 @@ export type VariantCountOutputTypeCountSupplierCodesArgs<ExtArgs extends runtime
   where?: Prisma.VariantSupplierCodeWhereInput
 }
 
+/**
+ * VariantCountOutputType without action
+ */
+export type VariantCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VariantAttachmentWhereInput
+}
+
 
 export type VariantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3518,7 +3930,6 @@ export type VariantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   sequentialCode?: boolean
   name?: boolean
   price?: boolean
-  imageUrl?: boolean
   attributes?: boolean
   isActive?: boolean
   costPrice?: boolean
@@ -3529,6 +3940,9 @@ export type VariantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   qrCode?: boolean
   colorHex?: boolean
   colorPantone?: boolean
+  secondaryColorHex?: boolean
+  secondaryColorPantone?: boolean
+  pattern?: boolean
   minStock?: boolean
   maxStock?: boolean
   reorderPoint?: boolean
@@ -3552,6 +3966,7 @@ export type VariantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   salesOrderItems?: boolean | Prisma.Variant$salesOrderItemsArgs<ExtArgs>
   variantPromotions?: boolean | Prisma.Variant$variantPromotionsArgs<ExtArgs>
   supplierCodes?: boolean | Prisma.Variant$supplierCodesArgs<ExtArgs>
+  attachments?: boolean | Prisma.Variant$attachmentsArgs<ExtArgs>
   _count?: boolean | Prisma.VariantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["variant"]>
 
@@ -3563,7 +3978,6 @@ export type VariantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sequentialCode?: boolean
   name?: boolean
   price?: boolean
-  imageUrl?: boolean
   attributes?: boolean
   isActive?: boolean
   costPrice?: boolean
@@ -3574,6 +3988,9 @@ export type VariantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   qrCode?: boolean
   colorHex?: boolean
   colorPantone?: boolean
+  secondaryColorHex?: boolean
+  secondaryColorPantone?: boolean
+  pattern?: boolean
   minStock?: boolean
   maxStock?: boolean
   reorderPoint?: boolean
@@ -3598,7 +4015,6 @@ export type VariantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sequentialCode?: boolean
   name?: boolean
   price?: boolean
-  imageUrl?: boolean
   attributes?: boolean
   isActive?: boolean
   costPrice?: boolean
@@ -3609,6 +4025,9 @@ export type VariantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   qrCode?: boolean
   colorHex?: boolean
   colorPantone?: boolean
+  secondaryColorHex?: boolean
+  secondaryColorPantone?: boolean
+  pattern?: boolean
   minStock?: boolean
   maxStock?: boolean
   reorderPoint?: boolean
@@ -3633,7 +4052,6 @@ export type VariantSelectScalar = {
   sequentialCode?: boolean
   name?: boolean
   price?: boolean
-  imageUrl?: boolean
   attributes?: boolean
   isActive?: boolean
   costPrice?: boolean
@@ -3644,6 +4062,9 @@ export type VariantSelectScalar = {
   qrCode?: boolean
   colorHex?: boolean
   colorPantone?: boolean
+  secondaryColorHex?: boolean
+  secondaryColorPantone?: boolean
+  pattern?: boolean
   minStock?: boolean
   maxStock?: boolean
   reorderPoint?: boolean
@@ -3658,7 +4079,7 @@ export type VariantSelectScalar = {
   tenantId?: boolean
 }
 
-export type VariantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sku" | "slug" | "fullCode" | "sequentialCode" | "name" | "price" | "imageUrl" | "attributes" | "isActive" | "costPrice" | "profitMargin" | "barcode" | "eanCode" | "upcCode" | "qrCode" | "colorHex" | "colorPantone" | "minStock" | "maxStock" | "reorderPoint" | "reorderQuantity" | "reference" | "similars" | "outOfLine" | "createdAt" | "updatedAt" | "deletedAt" | "productId" | "tenantId", ExtArgs["result"]["variant"]>
+export type VariantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sku" | "slug" | "fullCode" | "sequentialCode" | "name" | "price" | "attributes" | "isActive" | "costPrice" | "profitMargin" | "barcode" | "eanCode" | "upcCode" | "qrCode" | "colorHex" | "colorPantone" | "secondaryColorHex" | "secondaryColorPantone" | "pattern" | "minStock" | "maxStock" | "reorderPoint" | "reorderQuantity" | "reference" | "similars" | "outOfLine" | "createdAt" | "updatedAt" | "deletedAt" | "productId" | "tenantId", ExtArgs["result"]["variant"]>
 export type VariantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -3671,6 +4092,7 @@ export type VariantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   salesOrderItems?: boolean | Prisma.Variant$salesOrderItemsArgs<ExtArgs>
   variantPromotions?: boolean | Prisma.Variant$variantPromotionsArgs<ExtArgs>
   supplierCodes?: boolean | Prisma.Variant$supplierCodesArgs<ExtArgs>
+  attachments?: boolean | Prisma.Variant$attachmentsArgs<ExtArgs>
   _count?: boolean | Prisma.VariantCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VariantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3696,6 +4118,7 @@ export type $VariantPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     salesOrderItems: Prisma.$SalesOrderItemPayload<ExtArgs>[]
     variantPromotions: Prisma.$VariantPromotionPayload<ExtArgs>[]
     supplierCodes: Prisma.$VariantSupplierCodePayload<ExtArgs>[]
+    attachments: Prisma.$VariantAttachmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3705,7 +4128,6 @@ export type $VariantPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     sequentialCode: number
     name: string
     price: runtime.Decimal
-    imageUrl: string | null
     attributes: runtime.JsonValue
     isActive: boolean
     costPrice: runtime.Decimal | null
@@ -3716,6 +4138,9 @@ export type $VariantPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     qrCode: string | null
     colorHex: string | null
     colorPantone: string | null
+    secondaryColorHex: string | null
+    secondaryColorPantone: string | null
+    pattern: $Enums.Pattern | null
     minStock: runtime.Decimal | null
     maxStock: runtime.Decimal | null
     reorderPoint: runtime.Decimal | null
@@ -4133,6 +4558,7 @@ export interface Prisma__VariantClient<T, Null = never, ExtArgs extends runtime.
   salesOrderItems<T extends Prisma.Variant$salesOrderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Variant$salesOrderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalesOrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   variantPromotions<T extends Prisma.Variant$variantPromotionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Variant$variantPromotionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VariantPromotionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   supplierCodes<T extends Prisma.Variant$supplierCodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Variant$supplierCodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VariantSupplierCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attachments<T extends Prisma.Variant$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Variant$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VariantAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4169,7 +4595,6 @@ export interface VariantFieldRefs {
   readonly sequentialCode: Prisma.FieldRef<"Variant", 'Int'>
   readonly name: Prisma.FieldRef<"Variant", 'String'>
   readonly price: Prisma.FieldRef<"Variant", 'Decimal'>
-  readonly imageUrl: Prisma.FieldRef<"Variant", 'String'>
   readonly attributes: Prisma.FieldRef<"Variant", 'Json'>
   readonly isActive: Prisma.FieldRef<"Variant", 'Boolean'>
   readonly costPrice: Prisma.FieldRef<"Variant", 'Decimal'>
@@ -4180,6 +4605,9 @@ export interface VariantFieldRefs {
   readonly qrCode: Prisma.FieldRef<"Variant", 'String'>
   readonly colorHex: Prisma.FieldRef<"Variant", 'String'>
   readonly colorPantone: Prisma.FieldRef<"Variant", 'String'>
+  readonly secondaryColorHex: Prisma.FieldRef<"Variant", 'String'>
+  readonly secondaryColorPantone: Prisma.FieldRef<"Variant", 'String'>
+  readonly pattern: Prisma.FieldRef<"Variant", 'Pattern'>
   readonly minStock: Prisma.FieldRef<"Variant", 'Decimal'>
   readonly maxStock: Prisma.FieldRef<"Variant", 'Decimal'>
   readonly reorderPoint: Prisma.FieldRef<"Variant", 'Decimal'>
@@ -4801,6 +5229,30 @@ export type Variant$supplierCodesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.VariantSupplierCodeScalarFieldEnum | Prisma.VariantSupplierCodeScalarFieldEnum[]
+}
+
+/**
+ * Variant.attachments
+ */
+export type Variant$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VariantAttachment
+   */
+  select?: Prisma.VariantAttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VariantAttachment
+   */
+  omit?: Prisma.VariantAttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VariantAttachmentInclude<ExtArgs> | null
+  where?: Prisma.VariantAttachmentWhereInput
+  orderBy?: Prisma.VariantAttachmentOrderByWithRelationInput | Prisma.VariantAttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.VariantAttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VariantAttachmentScalarFieldEnum | Prisma.VariantAttachmentScalarFieldEnum[]
 }
 
 /**

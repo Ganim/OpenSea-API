@@ -2938,6 +2938,7 @@ model TimeBank {
   employeeId String  @map("employee_id")
   balance    Decimal @db.Decimal(8, 2) // Saldo em horas
   year       Int
+  version    Int     @default(0) // Optimistic locking
 
   // Audit
   createdAt DateTime @default(now()) @map("created_at")

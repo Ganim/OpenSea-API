@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -14,7 +16,14 @@ export async function listTimeEntriesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/time-control/entries',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.TIME_CONTROL.LIST,
+        resource: 'time-control',
+      }),
+    ],
     schema: {
       tags: ['HR - Time Control'],
       summary: 'List time entries',

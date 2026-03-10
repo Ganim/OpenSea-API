@@ -6,6 +6,7 @@ export interface TimeBankProps {
   employeeId: UniqueEntityID;
   balance: number; // Saldo em horas (pode ser positivo ou negativo)
   year: number;
+  version: number; // Optimistic locking
   createdAt: Date;
   updatedAt: Date;
 }
@@ -25,6 +26,10 @@ export class TimeBank extends Entity<TimeBankProps> {
 
   get year(): number {
     return this.props.year;
+  }
+
+  get version(): number {
+    return this.props.version;
   }
 
   get createdAt(): Date {
@@ -80,13 +85,16 @@ export class TimeBank extends Entity<TimeBankProps> {
   }
 
   static create(
-    props: Omit<TimeBankProps, 'createdAt' | 'updatedAt'>,
+    props: Omit<TimeBankProps, 'createdAt' | 'updatedAt' | 'version'> & {
+      version?: number;
+    },
     id?: UniqueEntityID,
   ): TimeBank {
     const now = new Date();
     return new TimeBank(
       {
         ...props,
+        version: props.version ?? 0,
         createdAt: now,
         updatedAt: now,
       },

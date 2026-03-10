@@ -5,6 +5,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 
 interface GetManufacturerByIdRequest {
   id: string;
+  tenantId: string;
 }
 
 interface GetManufacturerByIdResponse {
@@ -19,6 +20,7 @@ export class GetManufacturerByIdUseCase {
   ): Promise<GetManufacturerByIdResponse> {
     const manufacturer = await this.manufacturersRepository.findById(
       new UniqueEntityID(request.id),
+      request.tenantId,
     );
 
     if (!manufacturer) {

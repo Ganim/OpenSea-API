@@ -8,6 +8,7 @@ import {
   PIS,
   WorkRegime,
 } from '@/entities/hr/value-objects';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { UserDTO } from '@/mappers/core/user/user-to-dto';
 import type { TenantUsersRepository } from '@/repositories/core/tenant-users-repository';
 import type { UsersRepository } from '@/repositories/core/users-repository';
@@ -94,6 +95,7 @@ export class CreateEmployeeWithUserUseCase {
     private usersRepository: UsersRepository,
     private tenantUsersRepository: TenantUsersRepository,
     private assignGroupToUserUseCase: AssignGroupToUserUseCase,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -194,34 +196,7 @@ export class CreateEmployeeWithUserUseCase {
       }
     }
 
-    // Step 1: Create user account
-    const { user } = await this.createUserUseCase.execute({
-      email: userEmail,
-      password: userPassword,
-      username: username,
-      profile: {
-        name: fullName.split(' ')[0], // First name
-        surname: fullName.split(' ').slice(1).join(' '), // Last name(s)
-        avatarUrl: photoUrl,
-        birthday: birthDate,
-      },
-    });
-
-    // Step 1.5: Set forced password reset for new user
-    await this.usersRepository.setForcePasswordReset(
-      new UniqueEntityID(user.id),
-      null, // System request (no admin user)
-      'Conta criada - defina sua senha',
-    );
-
-    // Step 1.6: Associate user with tenant
-    await this.tenantUsersRepository.create({
-      tenantId: new UniqueEntityID(tenantId),
-      userId: new UniqueEntityID(user.id),
-      role: 'member',
-    });
-
-    // Step 2: Create employee linked to user
+    // Pre-compute values needed in both paths
     const pendingIssues = this.computePendingIssues({
       gender,
       birthDate,
@@ -237,97 +212,122 @@ export class CreateEmployeeWithUserUseCase {
       emergencyContactInfo,
     });
 
-    // Create value objects
     const cpfVO = CPF.create(cpf);
     const statusVO = EmployeeStatus.ACTIVE();
     const contractTypeVO = this.mapContractType(contractType);
     const workRegimeVO = this.mapWorkRegime(workRegime);
     const pisVO = pis ? PIS.create(pis) : undefined;
 
-    // Create employee via repository
-    const employee = await this.employeesRepository.create({
-      tenantId,
-      registrationNumber,
-      userId: new UniqueEntityID(user.id),
-      fullName,
-      socialName,
-      birthDate,
-      gender,
-      pcd,
-      maritalStatus,
-      nationality,
-      birthPlace,
-      emergencyContactInfo,
-      healthConditions,
-      cpf: cpfVO,
-      rg,
-      rgIssuer,
-      rgIssueDate,
-      pis: pisVO,
-      ctpsNumber,
-      ctpsSeries,
-      ctpsState,
-      voterTitle,
-      militaryDoc,
-      email,
-      personalEmail,
-      phone,
-      mobilePhone,
-      emergencyContact,
-      emergencyPhone,
-      address,
-      addressNumber,
-      complement,
-      neighborhood,
-      city,
-      state,
-      zipCode,
-      country,
-      bankCode,
-      bankName,
-      bankAgency,
-      bankAccount,
-      bankAccountType,
-      pixKey,
-      departmentId: departmentId ? new UniqueEntityID(departmentId) : undefined,
-      positionId: positionId ? new UniqueEntityID(positionId) : undefined,
-      supervisorId: supervisorId ? new UniqueEntityID(supervisorId) : undefined,
-      companyId: companyId ? new UniqueEntityID(companyId) : undefined,
-      hireDate,
-      status: statusVO,
-      baseSalary,
-      contractType: contractTypeVO,
-      workRegime: workRegimeVO,
-      weeklyHours,
-      photoUrl,
-      metadata,
-      pendingIssues,
-    });
+    const createAllSteps = async (): Promise<CreateEmployeeWithUserResponse> => {
+      // Step 1: Create user account
+      const { user } = await this.createUserUseCase.execute({
+        email: userEmail,
+        password: userPassword,
+        username: username,
+        profile: {
+          name: fullName.split(' ')[0], // First name
+          surname: fullName.split(' ').slice(1).join(' '), // Last name(s)
+          avatarUrl: photoUrl,
+          birthday: birthDate,
+        },
+      });
 
-    // Step 3: Assign permission group to user (if provided)
-    if (permissionGroupId) {
-      try {
+      // Step 2: Set forced password reset for new user
+      await this.usersRepository.setForcePasswordReset(
+        new UniqueEntityID(user.id),
+        null, // System request (no admin user)
+        'Conta criada - defina sua senha',
+      );
+
+      // Step 3: Associate user with tenant
+      await this.tenantUsersRepository.create({
+        tenantId: new UniqueEntityID(tenantId),
+        userId: new UniqueEntityID(user.id),
+        role: 'member',
+      });
+
+      // Step 4: Create employee linked to user
+      const employee = await this.employeesRepository.create({
+        tenantId,
+        registrationNumber,
+        userId: new UniqueEntityID(user.id),
+        fullName,
+        socialName,
+        birthDate,
+        gender,
+        pcd,
+        maritalStatus,
+        nationality,
+        birthPlace,
+        emergencyContactInfo,
+        healthConditions,
+        cpf: cpfVO,
+        rg,
+        rgIssuer,
+        rgIssueDate,
+        pis: pisVO,
+        ctpsNumber,
+        ctpsSeries,
+        ctpsState,
+        voterTitle,
+        militaryDoc,
+        email,
+        personalEmail,
+        phone,
+        mobilePhone,
+        emergencyContact,
+        emergencyPhone,
+        address,
+        addressNumber,
+        complement,
+        neighborhood,
+        city,
+        state,
+        zipCode,
+        country,
+        bankCode,
+        bankName,
+        bankAgency,
+        bankAccount,
+        bankAccountType,
+        pixKey,
+        departmentId: departmentId ? new UniqueEntityID(departmentId) : undefined,
+        positionId: positionId ? new UniqueEntityID(positionId) : undefined,
+        supervisorId: supervisorId ? new UniqueEntityID(supervisorId) : undefined,
+        companyId: companyId ? new UniqueEntityID(companyId) : undefined,
+        hireDate,
+        status: statusVO,
+        baseSalary,
+        contractType: contractTypeVO,
+        workRegime: workRegimeVO,
+        weeklyHours,
+        photoUrl,
+        metadata,
+        pendingIssues,
+      });
+
+      // Step 5: Assign permission group to user (if provided)
+      if (permissionGroupId) {
         await this.assignGroupToUserUseCase.execute({
           userId: user.id,
           groupId: permissionGroupId,
           expiresAt: null,
           grantedBy: null,
         });
-      } catch (error) {
-        // Log the error but don't fail the entire operation
-        // The user has been created successfully, just the group assignment failed
-        console.error(
-          `Failed to assign permission group ${permissionGroupId} to user ${user.id}:`,
-          error,
-        );
-        throw error;
       }
+
+      return { employee, user };
+    };
+
+    // Wrap all mutation steps in a transaction when available
+    if (this.transactionManager) {
+      return this.transactionManager.run(async () => {
+        return createAllSteps();
+      });
     }
 
-    return {
-      employee,
-      user,
-    };
+    // Fallback without transaction (in-memory tests)
+    return createAllSteps();
   }
 
   private mapContractType(contractType: string) {

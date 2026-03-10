@@ -1,7 +1,11 @@
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeBank } from '@/entities/hr/time-bank';
+import { ErrorCodes } from '@/@errors/error-codes';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { TimeBankRepository } from '@/repositories/hr/time-bank-repository';
+
+const MAX_OPTIMISTIC_LOCK_RETRIES = 3;
 
 export interface DebitTimeBankRequest {
   tenantId: string;
@@ -42,21 +46,35 @@ export class DebitTimeBankUseCase {
       throw new Error('Hours must be greater than 0');
     }
 
-    const timeBank = await this.timeBankRepository.findByEmployeeAndYear(
-      new UniqueEntityID(employeeId),
-      year,
-      tenantId,
-    );
+    for (let attempt = 0; attempt < MAX_OPTIMISTIC_LOCK_RETRIES; attempt++) {
+      const timeBank = await this.timeBankRepository.findByEmployeeAndYear(
+        new UniqueEntityID(employeeId),
+        year,
+        tenantId,
+      );
 
-    if (!timeBank) {
-      throw new Error('Time bank not found for this employee and year');
+      if (!timeBank) {
+        throw new Error('Time bank not found for this employee and year');
+      }
+
+      const expectedVersion = timeBank.version;
+      timeBank.debit(hours);
+
+      const saved = await this.timeBankRepository.optimisticSave(
+        timeBank,
+        expectedVersion,
+      );
+
+      if (saved) {
+        return { timeBank };
+      }
+
+      // Version conflict — retry with fresh data
     }
 
-    timeBank.debit(hours);
-    await this.timeBankRepository.save(timeBank);
-
-    return {
-      timeBank,
-    };
+    throw new ConflictError(
+      'Time bank was modified by another request. Please retry.',
+      ErrorCodes.OPTIMISTIC_LOCK_CONFLICT,
+    );
   }
 }

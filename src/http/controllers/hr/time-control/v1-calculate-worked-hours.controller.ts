@@ -1,4 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -14,7 +16,14 @@ export async function calculateWorkedHoursController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/time-control/calculate-hours',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.TIME_CONTROL.READ,
+        resource: 'time-control',
+      }),
+    ],
     schema: {
       tags: ['HR - Time Control'],
       summary: 'Calculate worked hours',

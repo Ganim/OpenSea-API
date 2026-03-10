@@ -85,6 +85,9 @@ export const ModelName = {
   Tag: 'Tag',
   ProductTag: 'ProductTag',
   VariantImage: 'VariantImage',
+  ProductCareInstruction: 'ProductCareInstruction',
+  ProductAttachment: 'ProductAttachment',
+  VariantAttachment: 'VariantAttachment',
   Alert: 'Alert',
   PurchaseOrder: 'PurchaseOrder',
   PurchaseOrderItem: 'PurchaseOrderItem',
@@ -672,7 +675,7 @@ export const TemplateScalarFieldEnum = {
   productAttributes: 'productAttributes',
   variantAttributes: 'variantAttributes',
   itemAttributes: 'itemAttributes',
-  careLabel: 'careLabel',
+  specialModules: 'specialModules',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -700,7 +703,6 @@ export const ProductScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
-  careInstructionIds: 'careInstructionIds',
   templateId: 'templateId',
   supplierId: 'supplierId',
   manufacturerId: 'manufacturerId',
@@ -719,7 +721,6 @@ export const VariantScalarFieldEnum = {
   sequentialCode: 'sequentialCode',
   name: 'name',
   price: 'price',
-  imageUrl: 'imageUrl',
   attributes: 'attributes',
   isActive: 'isActive',
   costPrice: 'costPrice',
@@ -730,6 +731,9 @@ export const VariantScalarFieldEnum = {
   qrCode: 'qrCode',
   colorHex: 'colorHex',
   colorPantone: 'colorPantone',
+  secondaryColorHex: 'secondaryColorHex',
+  secondaryColorPantone: 'secondaryColorPantone',
+  pattern: 'pattern',
   minStock: 'minStock',
   maxStock: 'maxStock',
   reorderPoint: 'reorderPoint',
@@ -886,6 +890,52 @@ export const VariantImageScalarFieldEnum = {
 } as const
 
 export type VariantImageScalarFieldEnum = (typeof VariantImageScalarFieldEnum)[keyof typeof VariantImageScalarFieldEnum]
+
+
+export const ProductCareInstructionScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  tenantId: 'tenantId',
+  careInstructionId: 'careInstructionId',
+  order: 'order',
+  createdAt: 'createdAt'
+} as const
+
+export type ProductCareInstructionScalarFieldEnum = (typeof ProductCareInstructionScalarFieldEnum)[keyof typeof ProductCareInstructionScalarFieldEnum]
+
+
+export const ProductAttachmentScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  tenantId: 'tenantId',
+  fileUrl: 'fileUrl',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  label: 'label',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductAttachmentScalarFieldEnum = (typeof ProductAttachmentScalarFieldEnum)[keyof typeof ProductAttachmentScalarFieldEnum]
+
+
+export const VariantAttachmentScalarFieldEnum = {
+  id: 'id',
+  variantId: 'variantId',
+  tenantId: 'tenantId',
+  fileUrl: 'fileUrl',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  label: 'label',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VariantAttachmentScalarFieldEnum = (typeof VariantAttachmentScalarFieldEnum)[keyof typeof VariantAttachmentScalarFieldEnum]
 
 
 export const AlertScalarFieldEnum = {
@@ -1390,6 +1440,7 @@ export const TimeBankScalarFieldEnum = {
   employeeId: 'employeeId',
   balance: 'balance',
   year: 'year',
+  version: 'version',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

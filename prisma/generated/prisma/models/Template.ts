@@ -72,7 +72,7 @@ export type TemplateCountAggregateOutputType = {
   productAttributes: number
   variantAttributes: number
   itemAttributes: number
-  careLabel: number
+  specialModules: number
   isActive: number
   createdAt: number
   updatedAt: number
@@ -128,7 +128,7 @@ export type TemplateCountAggregateInputType = {
   productAttributes?: true
   variantAttributes?: true
   itemAttributes?: true
-  careLabel?: true
+  specialModules?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -233,7 +233,7 @@ export type TemplateGroupByOutputType = {
   productAttributes: runtime.JsonValue
   variantAttributes: runtime.JsonValue
   itemAttributes: runtime.JsonValue
-  careLabel: runtime.JsonValue | null
+  specialModules: string[]
   isActive: boolean
   createdAt: Date
   updatedAt: Date
@@ -274,7 +274,7 @@ export type TemplateWhereInput = {
   productAttributes?: Prisma.JsonFilter<"Template">
   variantAttributes?: Prisma.JsonFilter<"Template">
   itemAttributes?: Prisma.JsonFilter<"Template">
-  careLabel?: Prisma.JsonNullableFilter<"Template">
+  specialModules?: Prisma.StringNullableListFilter<"Template">
   isActive?: Prisma.BoolFilter<"Template"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Template"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Template"> | Date | string
@@ -294,7 +294,7 @@ export type TemplateOrderByWithRelationInput = {
   productAttributes?: Prisma.SortOrder
   variantAttributes?: Prisma.SortOrder
   itemAttributes?: Prisma.SortOrder
-  careLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  specialModules?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -318,7 +318,7 @@ export type TemplateWhereUniqueInput = Prisma.AtLeast<{
   productAttributes?: Prisma.JsonFilter<"Template">
   variantAttributes?: Prisma.JsonFilter<"Template">
   itemAttributes?: Prisma.JsonFilter<"Template">
-  careLabel?: Prisma.JsonNullableFilter<"Template">
+  specialModules?: Prisma.StringNullableListFilter<"Template">
   isActive?: Prisma.BoolFilter<"Template"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Template"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Template"> | Date | string
@@ -338,7 +338,7 @@ export type TemplateOrderByWithAggregationInput = {
   productAttributes?: Prisma.SortOrder
   variantAttributes?: Prisma.SortOrder
   itemAttributes?: Prisma.SortOrder
-  careLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  specialModules?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -364,7 +364,7 @@ export type TemplateScalarWhereWithAggregatesInput = {
   productAttributes?: Prisma.JsonWithAggregatesFilter<"Template">
   variantAttributes?: Prisma.JsonWithAggregatesFilter<"Template">
   itemAttributes?: Prisma.JsonWithAggregatesFilter<"Template">
-  careLabel?: Prisma.JsonNullableWithAggregatesFilter<"Template">
+  specialModules?: Prisma.StringNullableListFilter<"Template">
   isActive?: Prisma.BoolWithAggregatesFilter<"Template"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Template"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Template"> | Date | string
@@ -382,7 +382,7 @@ export type TemplateCreateInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateCreatespecialModulesInput | string[]
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -401,7 +401,7 @@ export type TemplateUncheckedCreateInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateCreatespecialModulesInput | string[]
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -420,7 +420,7 @@ export type TemplateUpdateInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateUpdatespecialModulesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -439,7 +439,7 @@ export type TemplateUncheckedUpdateInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateUpdatespecialModulesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -458,7 +458,7 @@ export type TemplateCreateManyInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateCreatespecialModulesInput | string[]
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -476,7 +476,7 @@ export type TemplateUpdateManyMutationInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateUpdatespecialModulesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -493,12 +493,20 @@ export type TemplateUncheckedUpdateManyInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateUpdatespecialModulesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type TemplateTemplates_name_unique_activeCompoundUniqueInput = {
@@ -517,7 +525,7 @@ export type TemplateCountOrderByAggregateInput = {
   productAttributes?: Prisma.SortOrder
   variantAttributes?: Prisma.SortOrder
   itemAttributes?: Prisma.SortOrder
-  careLabel?: Prisma.SortOrder
+  specialModules?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -576,8 +584,17 @@ export type TemplateOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type TemplateCreatespecialModulesInput = {
+  set: string[]
+}
+
 export type EnumUnitOfMeasureFieldUpdateOperationsInput = {
   set?: $Enums.UnitOfMeasure
+}
+
+export type TemplateUpdatespecialModulesInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type TemplateCreateNestedOneWithoutProductsInput = {
@@ -646,7 +663,7 @@ export type TemplateCreateWithoutProductsInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateCreatespecialModulesInput | string[]
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -664,7 +681,7 @@ export type TemplateUncheckedCreateWithoutProductsInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateCreatespecialModulesInput | string[]
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -698,7 +715,7 @@ export type TemplateUpdateWithoutProductsInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateUpdatespecialModulesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -716,7 +733,7 @@ export type TemplateUncheckedUpdateWithoutProductsInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateUpdatespecialModulesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -734,7 +751,7 @@ export type TemplateCreateWithoutTenantInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateCreatespecialModulesInput | string[]
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -752,7 +769,7 @@ export type TemplateUncheckedCreateWithoutTenantInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateCreatespecialModulesInput | string[]
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -799,7 +816,7 @@ export type TemplateScalarWhereInput = {
   productAttributes?: Prisma.JsonFilter<"Template">
   variantAttributes?: Prisma.JsonFilter<"Template">
   itemAttributes?: Prisma.JsonFilter<"Template">
-  careLabel?: Prisma.JsonNullableFilter<"Template">
+  specialModules?: Prisma.StringNullableListFilter<"Template">
   isActive?: Prisma.BoolFilter<"Template"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Template"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Template"> | Date | string
@@ -817,7 +834,7 @@ export type TemplateCreateManyTenantInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateCreatespecialModulesInput | string[]
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -834,7 +851,7 @@ export type TemplateUpdateWithoutTenantInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateUpdatespecialModulesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -852,7 +869,7 @@ export type TemplateUncheckedUpdateWithoutTenantInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateUpdatespecialModulesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -870,7 +887,7 @@ export type TemplateUncheckedUpdateManyWithoutTenantInput = {
   productAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   variantAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   itemAttributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  careLabel?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  specialModules?: Prisma.TemplateUpdatespecialModulesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -918,7 +935,7 @@ export type TemplateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   productAttributes?: boolean
   variantAttributes?: boolean
   itemAttributes?: boolean
-  careLabel?: boolean
+  specialModules?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -939,7 +956,7 @@ export type TemplateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   productAttributes?: boolean
   variantAttributes?: boolean
   itemAttributes?: boolean
-  careLabel?: boolean
+  specialModules?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -958,7 +975,7 @@ export type TemplateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   productAttributes?: boolean
   variantAttributes?: boolean
   itemAttributes?: boolean
-  careLabel?: boolean
+  specialModules?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -977,7 +994,7 @@ export type TemplateSelectScalar = {
   productAttributes?: boolean
   variantAttributes?: boolean
   itemAttributes?: boolean
-  careLabel?: boolean
+  specialModules?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -985,7 +1002,7 @@ export type TemplateSelectScalar = {
   tenantId?: boolean
 }
 
-export type TemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "sequentialCode" | "name" | "iconUrl" | "unitOfMeasure" | "productAttributes" | "variantAttributes" | "itemAttributes" | "careLabel" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["template"]>
+export type TemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "sequentialCode" | "name" | "iconUrl" | "unitOfMeasure" | "productAttributes" | "variantAttributes" | "itemAttributes" | "specialModules" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["template"]>
 export type TemplateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Template$productsArgs<ExtArgs>
@@ -1014,7 +1031,7 @@ export type $TemplatePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     productAttributes: runtime.JsonValue
     variantAttributes: runtime.JsonValue
     itemAttributes: runtime.JsonValue
-    careLabel: runtime.JsonValue | null
+    specialModules: string[]
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -1454,7 +1471,7 @@ export interface TemplateFieldRefs {
   readonly productAttributes: Prisma.FieldRef<"Template", 'Json'>
   readonly variantAttributes: Prisma.FieldRef<"Template", 'Json'>
   readonly itemAttributes: Prisma.FieldRef<"Template", 'Json'>
-  readonly careLabel: Prisma.FieldRef<"Template", 'Json'>
+  readonly specialModules: Prisma.FieldRef<"Template", 'String[]'>
   readonly isActive: Prisma.FieldRef<"Template", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Template", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Template", 'DateTime'>

@@ -188,12 +188,31 @@ export type StorageFileStatus = (typeof StorageFileStatus)[keyof typeof StorageF
 
 
 export const UnitOfMeasure = {
+  UNITS: 'UNITS',
   METERS: 'METERS',
   KILOGRAMS: 'KILOGRAMS',
-  UNITS: 'UNITS'
+  GRAMS: 'GRAMS',
+  LITERS: 'LITERS',
+  MILLILITERS: 'MILLILITERS',
+  SQUARE_METERS: 'SQUARE_METERS',
+  PAIRS: 'PAIRS',
+  BOXES: 'BOXES',
+  PACKS: 'PACKS'
 } as const
 
 export type UnitOfMeasure = (typeof UnitOfMeasure)[keyof typeof UnitOfMeasure]
+
+
+export const Pattern = {
+  SOLID: 'SOLID',
+  STRIPED: 'STRIPED',
+  PLAID: 'PLAID',
+  PRINTED: 'PRINTED',
+  GRADIENT: 'GRADIENT',
+  JACQUARD: 'JACQUARD'
+} as const
+
+export type Pattern = (typeof Pattern)[keyof typeof Pattern]
 
 
 export const MovementType = {

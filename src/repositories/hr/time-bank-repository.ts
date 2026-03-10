@@ -28,5 +28,11 @@ export interface TimeBankRepository {
   findManyByYear(year: number, tenantId: string): Promise<TimeBank[]>;
   update(data: UpdateTimeBankSchema): Promise<TimeBank | null>;
   save(timeBank: TimeBank): Promise<void>;
+  /**
+   * Saves the TimeBank with optimistic locking.
+   * Updates only if the version in DB matches the expectedVersion.
+   * Returns true if the update succeeded, false if a version conflict occurred.
+   */
+  optimisticSave(timeBank: TimeBank, expectedVersion: number): Promise<boolean>;
   delete(id: UniqueEntityID): Promise<void>;
 }

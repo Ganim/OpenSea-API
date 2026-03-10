@@ -1,3 +1,4 @@
+import { PrismaTransactionManager } from '@/lib/transaction-manager';
 import { PrismaTenantUsersRepository } from '@/repositories/core/prisma/prisma-tenant-users-repository';
 import { PrismaUsersRepository } from '@/repositories/core/prisma/prisma-users-repository';
 import { PrismaEmployeesRepository } from '@/repositories/hr/prisma/prisma-employees-repository';
@@ -11,13 +12,14 @@ export function makeCreateEmployeeWithUserUseCase(): CreateEmployeeWithUserUseCa
   const tenantUsersRepository = new PrismaTenantUsersRepository();
   const createUserUseCase = new CreateUserUseCase(usersRepository);
   const assignGroupToUserUseCase = makeAssignGroupToUserUseCase();
-  const useCase = new CreateEmployeeWithUserUseCase(
+  const transactionManager = new PrismaTransactionManager();
+
+  return new CreateEmployeeWithUserUseCase(
     employeesRepository,
     createUserUseCase,
     usersRepository,
     tenantUsersRepository,
     assignGroupToUserUseCase,
+    transactionManager,
   );
-
-  return useCase;
 }

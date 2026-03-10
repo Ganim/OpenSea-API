@@ -18,6 +18,7 @@ export class InMemoryManufacturersRepository
   implements ManufacturersRepository
 {
   public items: Manufacturer[] = [];
+  public tenantIdByEntityId: Map<string, string> = new Map();
   private sequentialCodeCounter = 0;
 
   async create(data: CreateManufacturerSchema): Promise<Manufacturer> {
@@ -56,12 +57,19 @@ export class InMemoryManufacturersRepository
     });
 
     this.items.push(manufacturer);
+    this.tenantIdByEntityId.set(manufacturer.id.toString(), data.tenantId);
     return manufacturer;
   }
 
-  async findById(id: UniqueEntityID): Promise<Manufacturer | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Manufacturer | null> {
     const manufacturer = this.items.find(
-      (item) => item.id.toString() === id.toString() && !item.isDeleted(),
+      (item) =>
+        item.id.toString() === id.toString() &&
+        this.tenantIdByEntityId.get(item.id.toString()) === tenantId &&
+        !item.isDeleted(),
     );
     return manufacturer || null;
   }
@@ -129,7 +137,7 @@ export class InMemoryManufacturersRepository
   }
 
   async update(data: UpdateManufacturerSchema): Promise<Manufacturer | null> {
-    const manufacturer = await this.findById(data.id);
+    const manufacturer = await this.findById(data.id, data.tenantId);
     if (!manufacturer) return null;
 
     manufacturer.updateMainData({
@@ -214,14 +222,14 @@ export class InMemoryManufacturersRepository
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const manufacturer = await this.findById(id);
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    const manufacturer = await this.findById(id, tenantId);
     if (manufacturer) {
       manufacturer.delete();
     }
   }
 
-  async restore(id: UniqueEntityID): Promise<void> {
+  async restore(id: UniqueEntityID, _tenantId: string): Promise<void> {
     const manufacturer = this.items.find(
       (item) => item.id.toString() === id.toString(),
     );

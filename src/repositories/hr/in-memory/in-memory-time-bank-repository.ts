@@ -97,6 +97,34 @@ export class InMemoryTimeBankRepository implements TimeBankRepository {
     }
   }
 
+  async optimisticSave(
+    timeBank: TimeBank,
+    expectedVersion: number,
+  ): Promise<boolean> {
+    const index = this.items.findIndex((item) => item.id.equals(timeBank.id));
+
+    if (index === -1) return false;
+
+    const currentRecord = this.items[index];
+    if (currentRecord.version !== expectedVersion) {
+      return false;
+    }
+
+    const updatedTimeBank = TimeBank.create(
+      {
+        tenantId: timeBank.tenantId,
+        employeeId: timeBank.employeeId,
+        balance: timeBank.balance,
+        year: timeBank.year,
+        version: expectedVersion + 1,
+      },
+      timeBank.id,
+    );
+
+    this.items[index] = updatedTimeBank;
+    return true;
+  }
+
   async delete(id: UniqueEntityID): Promise<void> {
     const index = this.items.findIndex((item) => item.id.equals(id));
     if (index !== -1) {

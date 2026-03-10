@@ -49,12 +49,14 @@ export async function v1UpdateManufacturerController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { id } = request.params;
+      const tenantId = request.user.tenantId!;
       const data = request.body;
 
       try {
         const updateManufacturerUseCase = makeUpdateManufacturerUseCase();
         const { manufacturer } = await updateManufacturerUseCase.execute({
           id,
+          tenantId,
           ...data,
         });
 

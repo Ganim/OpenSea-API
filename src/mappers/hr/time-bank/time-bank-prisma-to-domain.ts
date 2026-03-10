@@ -7,6 +7,7 @@ export function mapTimeBankPrismaToDomain(timeBank: PrismaTimeBank) {
     employeeId: new UniqueEntityID(timeBank.employeeId),
     balance: Number(timeBank.balance),
     year: timeBank.year,
+    version: timeBank.version,
     createdAt: timeBank.createdAt,
     updatedAt: timeBank.updatedAt,
   };

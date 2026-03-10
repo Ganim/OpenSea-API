@@ -37,14 +37,14 @@ export const companyFiscalSettingsResponseSchema = z
     nfeDefaultOperationNature: z.string().optional(),
     nfeDefaultCfop: z.string().optional(),
     digitalCertificateType: digitalCertificateTypeSchema,
-    certificateA1ExpiresAt: z.date().optional(),
+    certificateA1ExpiresAt: dateSchema.optional(),
     nfceEnabled: z.boolean(),
     defaultTaxProfileId: idSchema.optional(),
     metadata: z.record(z.string(), z.unknown()),
     pendingIssues: z.array(z.string()),
-    createdAt: z.date(),
-    updatedAt: z.date(),
-    deletedAt: z.date().optional(),
+    createdAt: dateSchema,
+    updatedAt: dateSchema,
+    deletedAt: dateSchema.optional(),
   })
   .nullable();
 

@@ -1,4 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
@@ -15,7 +17,14 @@ export async function v1CheckCnpjController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/companies/check-cnpj',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.COMPANIES.READ,
+        resource: 'companies',
+      }),
+    ],
     schema: {
       tags: ['HR - Companies'],
       summary: 'Check if CNPJ exists',

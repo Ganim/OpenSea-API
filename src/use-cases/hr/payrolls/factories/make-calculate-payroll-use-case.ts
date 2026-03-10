@@ -1,3 +1,4 @@
+import { PrismaTransactionManager } from '@/lib/transaction-manager';
 import { PrismaAbsencesRepository } from '@/repositories/hr/prisma/prisma-absences-repository';
 import { PrismaBonusesRepository } from '@/repositories/hr/prisma/prisma-bonuses-repository';
 import { PrismaDeductionsRepository } from '@/repositories/hr/prisma/prisma-deductions-repository';
@@ -15,6 +16,7 @@ export function makeCalculatePayrollUseCase() {
   const absencesRepository = new PrismaAbsencesRepository();
   const bonusesRepository = new PrismaBonusesRepository();
   const deductionsRepository = new PrismaDeductionsRepository();
+  const transactionManager = new PrismaTransactionManager();
 
   return new CalculatePayrollUseCase(
     payrollsRepository,
@@ -24,5 +26,6 @@ export function makeCalculatePayrollUseCase() {
     absencesRepository,
     bonusesRepository,
     deductionsRepository,
+    transactionManager,
   );
 }

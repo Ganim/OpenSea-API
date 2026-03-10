@@ -42,10 +42,11 @@ export async function v1DeleteSupplierController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { id } = request.params;
+      const tenantId = request.user.tenantId!;
 
       try {
         const deleteSupplierUseCase = makeDeleteSupplierUseCase();
-        await deleteSupplierUseCase.execute({ id });
+        await deleteSupplierUseCase.execute({ id, tenantId });
 
         return reply.status(204).send(null);
       } catch (error) {

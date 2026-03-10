@@ -188,6 +188,21 @@ export type ProductTag = Prisma.ProductTagModel
  */
 export type VariantImage = Prisma.VariantImageModel
 /**
+ * Model ProductCareInstruction
+ * 
+ */
+export type ProductCareInstruction = Prisma.ProductCareInstructionModel
+/**
+ * Model ProductAttachment
+ * 
+ */
+export type ProductAttachment = Prisma.ProductAttachmentModel
+/**
+ * Model VariantAttachment
+ * 
+ */
+export type VariantAttachment = Prisma.VariantAttachmentModel
+/**
  * Model Alert
  * 
  */

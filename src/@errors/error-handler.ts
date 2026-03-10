@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { PasswordResetRequiredError } from '@/@errors/use-cases/password-reset-required-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
@@ -96,6 +97,14 @@ export const errorHandler = (
   if (error instanceof ResourceNotFoundError) {
     return reply.status(404).send({
       code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
+      message: error.message,
+      requestId,
+    });
+  }
+
+  if (error instanceof ConflictError) {
+    return reply.status(409).send({
+      code: error.code ?? ErrorCodes.OPTIMISTIC_LOCK_CONFLICT,
       message: error.message,
       requestId,
     });

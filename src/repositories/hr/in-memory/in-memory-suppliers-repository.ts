@@ -16,6 +16,7 @@ import type {
 
 export class InMemorySuppliersRepository implements SuppliersRepository {
   public items: Supplier[] = [];
+  public tenantIdByEntityId: Map<string, string> = new Map();
   private sequentialCodeCounter = 0;
 
   async create(data: CreateSupplierSchema): Promise<Supplier> {
@@ -53,12 +54,19 @@ export class InMemorySuppliersRepository implements SuppliersRepository {
     });
 
     this.items.push(supplier);
+    this.tenantIdByEntityId.set(supplier.id.toString(), data.tenantId);
     return supplier;
   }
 
-  async findById(id: UniqueEntityID): Promise<Supplier | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Supplier | null> {
     const supplier = this.items.find(
-      (item) => item.id.toString() === id.toString() && !item.isDeleted(),
+      (item) =>
+        item.id.toString() === id.toString() &&
+        this.tenantIdByEntityId.get(item.id.toString()) === tenantId &&
+        !item.isDeleted(),
     );
     return supplier || null;
   }
@@ -126,7 +134,7 @@ export class InMemorySuppliersRepository implements SuppliersRepository {
   }
 
   async update(data: UpdateSupplierSchema): Promise<Supplier | null> {
-    const supplier = await this.findById(data.id);
+    const supplier = await this.findById(data.id, data.tenantId);
     if (!supplier) return null;
 
     supplier.updateMainData({
@@ -205,14 +213,14 @@ export class InMemorySuppliersRepository implements SuppliersRepository {
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const supplier = await this.findById(id);
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    const supplier = await this.findById(id, tenantId);
     if (supplier) {
       supplier.delete();
     }
   }
 
-  async restore(id: UniqueEntityID): Promise<void> {
+  async restore(id: UniqueEntityID, _tenantId: string): Promise<void> {
     const supplier = this.items.find(
       (item) => item.id.toString() === id.toString(),
     );

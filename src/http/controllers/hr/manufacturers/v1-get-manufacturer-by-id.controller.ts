@@ -34,11 +34,13 @@ export async function v1GetManufacturerByIdController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const { id } = request.params;
+      const tenantId = request.user.tenantId!;
 
       try {
         const getManufacturerByIdUseCase = makeGetManufacturerByIdUseCase();
         const { manufacturer } = await getManufacturerByIdUseCase.execute({
           id,
+          tenantId,
         });
 
         return reply.status(200).send(manufacturerToDTO(manufacturer));

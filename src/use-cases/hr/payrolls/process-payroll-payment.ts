@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Payroll } from '@/entities/hr/payroll';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { BonusesRepository } from '@/repositories/hr/bonuses-repository';
 import { DeductionsRepository } from '@/repositories/hr/deductions-repository';
 import { PayrollItemsRepository } from '@/repositories/hr/payroll-items-repository';
@@ -22,6 +23,7 @@ export class ProcessPayrollPaymentUseCase {
     private payrollItemsRepository: PayrollItemsRepository,
     private bonusesRepository: BonusesRepository,
     private deductionsRepository: DeductionsRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -46,15 +48,25 @@ export class ProcessPayrollPaymentUseCase {
     // Mark as paid
     payroll.markAsPaid(new UniqueEntityID(paidBy));
 
-    // Update related records
-    await this.markRelatedItemsAsPaid(payroll.id, tenantId);
+    const processPayment = async (): Promise<ProcessPayrollPaymentResponse> => {
+      // Update related records
+      await this.markRelatedItemsAsPaid(payroll.id, tenantId);
 
-    // Save
-    await this.payrollsRepository.save(payroll);
+      // Save
+      await this.payrollsRepository.save(payroll);
 
-    return {
-      payroll,
+      return { payroll };
     };
+
+    // Wrap all mutations in a transaction when available
+    if (this.transactionManager) {
+      return this.transactionManager.run(async () => {
+        return processPayment();
+      });
+    }
+
+    // Fallback without transaction (in-memory tests)
+    return processPayment();
   }
 
   private async markRelatedItemsAsPaid(

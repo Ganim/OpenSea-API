@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Payroll } from '@/entities/hr/payroll';
 import type { PayrollItem } from '@/entities/hr/payroll-item';
+import type { TransactionManager } from '@/lib/transaction-manager';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import { BonusesRepository } from '@/repositories/hr/bonuses-repository';
 import { DeductionsRepository } from '@/repositories/hr/deductions-repository';
@@ -30,6 +31,7 @@ export class CalculatePayrollUseCase {
     private absencesRepository: AbsencesRepository,
     private bonusesRepository: BonusesRepository,
     private deductionsRepository: DeductionsRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -55,35 +57,47 @@ export class CalculatePayrollUseCase {
     // Start processing
     payroll.startProcessing(new UniqueEntityID(processedBy));
 
-    // Get all active employees
-    const employees = await this.employeesRepository.findManyActive(tenantId);
+    const calculateAll = async (): Promise<CalculatePayrollResponse> => {
+      // Get all active employees
+      const employees = await this.employeesRepository.findManyActive(tenantId);
 
-    const createdItems: PayrollItem[] = [];
+      const createdItems: PayrollItem[] = [];
 
-    // Calculate for each employee
-    for (const employee of employees) {
-      const employeeItems = await this.calculateEmployeePayroll(
+      // Calculate for each employee
+      for (const employee of employees) {
+        const employeeItems = await this.calculateEmployeePayroll(
+          payroll,
+          employee.id,
+          tenantId,
+        );
+        createdItems.push(...employeeItems);
+      }
+
+      // Calculate totals
+      const { totalGross, totalDeductions } =
+        await this.payrollItemsRepository.sumByPayroll(payroll.id);
+
+      // Finish calculation
+      payroll.finishCalculation(totalGross, totalDeductions);
+
+      // Save payroll
+      await this.payrollsRepository.save(payroll);
+
+      return {
         payroll,
-        employee.id,
-        tenantId,
-      );
-      createdItems.push(...employeeItems);
+        items: createdItems,
+      };
+    };
+
+    // Wrap all mutations in a transaction when available
+    if (this.transactionManager) {
+      return this.transactionManager.run(async () => {
+        return calculateAll();
+      });
     }
 
-    // Calculate totals
-    const { totalGross, totalDeductions } =
-      await this.payrollItemsRepository.sumByPayroll(payroll.id);
-
-    // Finish calculation
-    payroll.finishCalculation(totalGross, totalDeductions);
-
-    // Save payroll
-    await this.payrollsRepository.save(payroll);
-
-    return {
-      payroll,
-      items: createdItems,
-    };
+    // Fallback without transaction (in-memory tests)
+    return calculateAll();
   }
 
   private async calculateEmployeePayroll(

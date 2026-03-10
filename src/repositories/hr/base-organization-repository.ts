@@ -20,6 +20,7 @@ export interface CreateOrganizationSchema {
 
 export interface UpdateOrganizationSchema {
   id: UniqueEntityID;
+  tenantId: string;
   legalName?: string;
   tradeName?: string | null;
   stateRegistration?: string | null;
@@ -49,7 +50,7 @@ export interface FindManyOrganizationsResult<T extends Organization> {
 
 export interface BaseOrganizationRepository<T extends Organization> {
   create(data: CreateOrganizationSchema): Promise<T>;
-  findById(id: UniqueEntityID): Promise<T | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<T | null>;
   findByCnpj(cnpj: string, includeDeleted?: boolean): Promise<T | null>;
   findByCpf(cpf: string, includeDeleted?: boolean): Promise<T | null>;
   findMany(
@@ -59,6 +60,6 @@ export interface BaseOrganizationRepository<T extends Organization> {
   findManyInactive(): Promise<T[]>;
   update(data: UpdateOrganizationSchema): Promise<T | null>;
   save(organization: T): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
-  restore(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId: string): Promise<void>;
+  restore(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

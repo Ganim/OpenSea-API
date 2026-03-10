@@ -1,5 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { vacationPeriodResponseSchema } from '@/http/schemas';
@@ -15,7 +17,14 @@ export async function cancelScheduledVacationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/hr/vacation-periods/:vacationPeriodId/cancel-schedule',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.VACATION_PERIODS.UPDATE,
+        resource: 'vacation-periods',
+      }),
+    ],
     schema: {
       tags: ['HR - Vacation Periods'],
       summary: 'Cancel scheduled vacation',
