@@ -244,4 +244,43 @@ export const FINANCE_AUDIT_MESSAGES = {
     description:
       '{{userName}} gerou lancamentos para o contrato {{contractTitle}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // RECURRING - Recorrências
+  // ============================================================================
+
+  RECURRING_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.RECURRING_CONFIG,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} criou a recorrência {{configName}}',
+  } satisfies AuditMessage,
+
+  RECURRING_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.RECURRING_CONFIG,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} atualizou a recorrência {{configName}}',
+  } satisfies AuditMessage,
+
+  RECURRING_PAUSE: {
+    action: AuditAction.PAUSE,
+    entity: AuditEntity.RECURRING_CONFIG,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} pausou a recorrência {{configName}}',
+  } satisfies AuditMessage,
+
+  RECURRING_RESUME: {
+    action: AuditAction.RESUME,
+    entity: AuditEntity.RECURRING_CONFIG,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} retomou a recorrência {{configName}}',
+  } satisfies AuditMessage,
+
+  RECURRING_CANCEL: {
+    action: AuditAction.CANCEL,
+    entity: AuditEntity.RECURRING_CONFIG,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} cancelou a recorrência {{configName}}',
+  } satisfies AuditMessage,
 } as const;

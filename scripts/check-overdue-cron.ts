@@ -42,10 +42,15 @@ async function main() {
 
   for (const tenant of tenants) {
     try {
+      // Find the tenant owner (first user with OWNER role) to attribute notifications
+      const tenantOwner = await prisma.tenantUser.findFirst({
+        where: { tenantId: tenant.id, role: 'OWNER' },
+        select: { userId: true },
+      });
+
       const result = await useCase.execute({
         tenantId: tenant.id,
-        // No createdBy in cron context - notifications skipped
-        // In production, could fetch finance managers per tenant
+        createdBy: tenantOwner?.userId,
       });
 
       totalMarkedOverdue += result.markedOverdue;

@@ -132,6 +132,7 @@ export enum AuditEntity {
   CONSORTIUM = 'CONSORTIUM',
   CONSORTIUM_PAYMENT = 'CONSORTIUM_PAYMENT',
   CONTRACT = 'CONTRACT',
+  RECURRING_CONFIG = 'RECURRING_CONFIG',
 
   // ==========================================
   // Teams - Equipes

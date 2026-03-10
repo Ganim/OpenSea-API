@@ -1,4 +1,6 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -36,6 +38,13 @@ export async function createRecurringConfigController(app: FastifyInstance) {
         tenantId,
         ...request.body,
         createdBy: userId,
+      });
+
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.FINANCE.RECURRING_CREATE,
+        entityId: result.config.id,
+        placeholders: { userName: request.user.name ?? '', configName: result.config.description ?? result.config.id },
+        newData: request.body,
       });
 
       return reply.status(201).send(result.config);

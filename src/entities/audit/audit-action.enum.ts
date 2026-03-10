@@ -155,5 +155,8 @@ export enum AuditAction {
   SYNC = 'SYNC',
   DUPLICATE = 'DUPLICATE',
   GENERATE = 'GENERATE',
+  PAUSE = 'PAUSE',
+  RESUME = 'RESUME',
+  CANCEL = 'CANCEL',
   OTHER = 'OTHER',
 }
