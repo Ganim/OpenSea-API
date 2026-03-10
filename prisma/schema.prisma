@@ -602,9 +602,25 @@ model PermissionAuditLog {
 // --- Enums ---
 
 enum UnitOfMeasure {
+  UNITS
   METERS
   KILOGRAMS
-  UNITS
+  GRAMS
+  LITERS
+  MILLILITERS
+  SQUARE_METERS
+  PAIRS
+  BOXES
+  PACKS
+}
+
+enum Pattern {
+  SOLID
+  STRIPED
+  PLAID
+  PRINTED
+  GRADIENT
+  JACQUARD
 }
 
 enum MovementType {
@@ -1559,7 +1575,7 @@ model Template {
   productAttributes Json          @default("{}") @map("product_attributes") // TemplateAttribute[] - atributos tipados com unitOfMeasure, enablePrint, enableView
   variantAttributes Json          @default("{}") @map("variant_attributes") // TemplateAttribute[] - atributos tipados com unitOfMeasure, enablePrint, enableView
   itemAttributes    Json          @default("{}") @map("item_attributes") // TemplateAttribute[] - atributos tipados com unitOfMeasure, enablePrint, enableView
-  careLabel         Json?         @map("care_label") // Etiqueta de conservação: { washing, drying, ironing, bleaching, dryClean, composition }
+  specialModules    String[]      @default([]) @map("special_modules")
   isActive          Boolean       @default(true) @map("is_active")
   createdAt         DateTime      @default(now()) @map("created_at")
   updatedAt         DateTime      @updatedAt @map("updated_at")
@@ -1599,9 +1615,6 @@ model Product {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  // Care Instructions (ISO 3758 codes)
-  careInstructionIds String[] @default([]) @map("care_instruction_ids")
-
   templateId     String  @map("template_id")
   supplierId     String? @map("supplier_id") // DEPRECATED: Migrar para organizationId
   manufacturerId String? @map("manufacturer_id") // Código do fabricante no fullCode (000 se não houver)
@@ -1617,6 +1630,8 @@ model Product {
   variants          Variant[]
   productCategories ProductCategory[]
   productTags       ProductTag[]
+  careInstructions  ProductCareInstruction[]
+  attachments       ProductAttachment[]
 
   @@unique([slug, tenantId, deletedAt], name: "products_slug_unique_active")
   @@index([templateId])
@@ -1643,7 +1658,6 @@ model Variant {
   sequentialCode Int     @map("sequential_code") // Sequencial LOCAL ao produto (NÃO autoincrement)
   name           String  @db.VarChar(256)
   price          Decimal @default(0) @db.Decimal(10, 2)
-  imageUrl       String? @map("image_url") @db.VarChar(512)
   attributes     Json    @default("{}")
   isActive       Boolean @default(true) @map("is_active")
 
@@ -1660,6 +1674,9 @@ model Variant {
   // Cores
   colorHex     String? @map("color_hex") @db.VarChar(7) // Formato hex: #FF5733
   colorPantone String? @map("color_pantone") @db.VarChar(32) // Ex: "PMS 185 C"
+  secondaryColorHex     String? @map("secondary_color_hex") @db.VarChar(7)
+  secondaryColorPantone String? @map("secondary_color_pantone") @db.VarChar(32)
+  pattern               Pattern?
 
   // Controle de Estoque
   minStock        Decimal? @map("min_stock") @db.Decimal(10, 3)
@@ -1690,6 +1707,7 @@ model Variant {
   salesOrderItems    SalesOrderItem[]
   variantPromotions  VariantPromotion[]
   supplierCodes      VariantSupplierCode[]
+  attachments        VariantAttachment[]
 
   @@unique([sku, tenantId, deletedAt], name: "variants_sku_unique_active")
   @@unique([slug, tenantId, deletedAt], name: "variants_slug_unique_active")
@@ -1946,6 +1964,67 @@ model VariantImage {
   @@index([isPrimary])
   @@index([variantId, order])
   @@map("variant_images")
+}
+
+// --- Care Instructions & Attachments ---
+
+model ProductCareInstruction {
+  id                String   @id @default(uuid())
+  productId         String   @map("product_id")
+  tenantId          String   @map("tenant_id")
+  careInstructionId String   @map("care_instruction_id")
+  order             Int      @default(0)
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tenant  Tenant  @relation(fields: [tenantId], references: [id])
+
+  @@unique([productId, careInstructionId])
+  @@index([productId])
+  @@index([tenantId])
+  @@map("product_care_instructions")
+}
+
+model ProductAttachment {
+  id        String   @id @default(uuid())
+  productId String   @map("product_id")
+  tenantId  String   @map("tenant_id")
+  fileUrl   String   @map("file_url") @db.VarChar(512)
+  fileName  String   @map("file_name") @db.VarChar(256)
+  fileSize  Int      @map("file_size")
+  mimeType  String   @map("mime_type") @db.VarChar(128)
+  label     String?  @db.VarChar(128)
+  order     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tenant  Tenant  @relation(fields: [tenantId], references: [id])
+
+  @@index([productId])
+  @@index([tenantId])
+  @@map("product_attachments")
+}
+
+model VariantAttachment {
+  id        String   @id @default(uuid())
+  variantId String   @map("variant_id")
+  tenantId  String   @map("tenant_id")
+  fileUrl   String   @map("file_url") @db.VarChar(512)
+  fileName  String   @map("file_name") @db.VarChar(256)
+  fileSize  Int      @map("file_size")
+  mimeType  String   @map("mime_type") @db.VarChar(128)
+  label     String?  @db.VarChar(128)
+  order     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  variant Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  tenant  Tenant  @relation(fields: [tenantId], references: [id])
+
+  @@index([variantId])
+  @@index([tenantId])
+  @@map("variant_attachments")
 }
 
 // --- Sistema de Alertas ---
@@ -3617,6 +3696,9 @@ model Tenant {
   manufacturers       Manufacturer[]
   volumes             Volume[]
   purchaseOrders      PurchaseOrder[]
+  productCareInstructions ProductCareInstruction[]
+  productAttachments      ProductAttachment[]
+  variantAttachments      VariantAttachment[]
   // Sales domain
   customers           Customer[]
   salesOrders         SalesOrder[]
