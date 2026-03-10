@@ -7,7 +7,6 @@ import type { Manufacturer } from './manufacturer';
 import type { Supplier } from './supplier';
 import type { Tag } from './tag';
 import type { Template } from './template';
-import { CareInstructions } from './value-objects/care-instructions';
 import { ProductStatus } from './value-objects/product-status';
 import { Slug } from './value-objects/slug';
 import type { Variant } from './variant';
@@ -27,7 +26,6 @@ export interface ProductProps {
   status: ProductStatus;
   outOfLine: boolean; // Indica se o produto está fora de linha
   attributes: Record<string, unknown>;
-  careInstructions: CareInstructions; // ISO 3758 care instruction IDs
   templateId: UniqueEntityID;
   template?: Template; // Relação com o template
   supplierId?: UniqueEntityID;
@@ -139,19 +137,6 @@ export class Product extends Entity<ProductProps> {
   set outOfLine(outOfLine: boolean) {
     this.props.outOfLine = outOfLine;
     this.touch();
-  }
-
-  get careInstructions(): CareInstructions {
-    return this.props.careInstructions;
-  }
-
-  set careInstructions(careInstructions: CareInstructions) {
-    this.props.careInstructions = careInstructions;
-    this.touch();
-  }
-
-  get careInstructionIds(): string[] {
-    return this.props.careInstructions.toArray();
   }
 
   get templateId(): UniqueEntityID {
@@ -278,10 +263,6 @@ export class Product extends Entity<ProductProps> {
     return !!this.props.manufacturerId;
   }
 
-  get hasCareInstructions(): boolean {
-    return !this.props.careInstructions.isEmpty;
-  }
-
   get canBeSold(): boolean {
     return this.props.status.canBeSold && !this.isDeleted;
   }
@@ -334,7 +315,6 @@ export class Product extends Entity<ProductProps> {
       | 'deletedAt'
       | 'attributes'
       | 'status'
-      | 'careInstructions'
       | 'outOfLine'
     >,
     id?: UniqueEntityID,
@@ -344,7 +324,6 @@ export class Product extends Entity<ProductProps> {
         ...props,
         id: id ?? new UniqueEntityID(),
         attributes: props.attributes ?? {},
-        careInstructions: props.careInstructions ?? CareInstructions.empty(),
         status: props.status ?? ProductStatus.create('ACTIVE'),
         outOfLine: props.outOfLine ?? false,
         createdAt: props.createdAt ?? new Date(),
