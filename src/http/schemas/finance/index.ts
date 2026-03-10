@@ -9,3 +9,4 @@ export * from './loan.schema';
 export * from './consortium.schema';
 export * from './export.schema';
 export * from './contract.schema';
+export * from './ocr-extract.schema';

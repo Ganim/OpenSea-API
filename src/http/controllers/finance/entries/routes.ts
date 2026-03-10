@@ -11,6 +11,8 @@ import { cancelFinanceEntryController } from './v1-cancel-finance-entry.controll
 import { parseBoletoController } from './v1-parse-boleto.controller';
 import { checkOverdueController } from './v1-check-overdue.controller';
 import { importPayrollController } from './v1-import-payroll.controller';
+import { ocrExtractDataController } from './v1-ocr-extract-data.controller';
+import { getLastSupplierEntryController } from './v1-get-last-supplier-entry.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('FINANCE'));
@@ -25,4 +27,6 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
   app.register(parseBoletoController);
   app.register(checkOverdueController);
   app.register(importPayrollController);
+  app.register(ocrExtractDataController);
+  app.register(getLastSupplierEntryController);
 }
