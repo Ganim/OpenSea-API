@@ -12,11 +12,13 @@ interface MakeVariantProps {
   sequentialCode?: number;
   name?: string;
   price?: number;
-  imageUrl?: string;
   attributes?: Record<string, unknown>;
   costPrice?: number;
   profitMargin?: number;
   barcode?: string;
+  secondaryColorHex?: string;
+  secondaryColorPantone?: string;
+  pattern?: string;
   qrCode?: string;
   eanCode?: string;
   upcCode?: string;
@@ -46,7 +48,6 @@ export function makeVariant(override: MakeVariantProps = {}): Variant {
       sku: override.sku ?? faker.string.alphanumeric(10).toUpperCase(),
       name: variantName,
       price: override.price ?? Number(faker.commerce.price()),
-      imageUrl: override.imageUrl,
       attributes: override.attributes ?? {},
       costPrice: override.costPrice,
       profitMargin: override.profitMargin,
