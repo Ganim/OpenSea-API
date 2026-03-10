@@ -18,7 +18,7 @@ We evaluated: direct async/await with fire-and-forget, node-cron, BullMQ, and Te
 Use **BullMQ** (backed by Redis) for all async job processing.
 
 Configuration:
-- 4 queues: `notifications`, `emails`, `email-sync`, `audit-logs` + `dead-letter` for failed jobs
+- 5 queues: `notifications`, `emails`, `email-sync`, `audit-logs`, `reports` + `dead-letter` for failed jobs
 - 3 attempts with exponential backoff (5s base)
 - Lazy initialization (queues created on first use, not at startup)
 - Separate worker process in production (`Dockerfile.worker`)

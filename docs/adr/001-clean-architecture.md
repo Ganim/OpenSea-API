@@ -1,12 +1,12 @@
 # ADR-001: Clean Architecture
 
 ## Status: Accepted
-## Date: 2025-06-01
+## Date: 2025-06-01 (updated 2026-03-10)
 
 ## Context
 
 The OpenSea platform needed a backend architecture that supports:
-- Multiple domain modules (Stock, HR, Sales, Finance, Calendar, etc.) that evolve independently
+- Multiple domain modules (Core, Stock, HR, Sales, Finance, Calendar, Email, Storage, RBAC, Audit, Tasks, Requests, Notifications, Admin) that evolve independently
 - Testability without requiring a running database
 - Clear separation between business logic and infrastructure concerns
 - Easy swapping of infrastructure components (e.g., database, email provider)
@@ -24,10 +24,16 @@ Dependencies flow inward: HTTP → Application → Domain ← Infrastructure.
 
 Repositories are defined as interfaces in the domain layer and implemented in infrastructure. Use cases depend only on interfaces, never on Prisma directly.
 
+Cross-cutting concerns:
+- **TransactionManager** (`src/lib/transaction-manager.ts`) — repositories accept optional `tx?: TransactionClient` for atomic operations across multiple repositories
+- **Domain Events** — event bus for decoupled cross-module communication (e.g., CalendarSyncService reacts to HR absences, Finance entries, Stock POs)
+- **Error Codes** (`src/@errors/error-codes.ts`) — machine-readable error codes in all API responses
+
 ## Consequences
 
 **Positive:**
-- Unit tests run with in-memory repositories (~170ms for 70 tests)
+- Unit tests run with in-memory repositories (569+ unit tests across 14 modules)
+- E2E tests run against real DB with isolated schemas (285+ E2E tests)
 - Business logic is database-agnostic
 - Adding a new module follows a predictable file structure
 - Use cases are self-documenting (request/response interfaces)

@@ -1,7 +1,7 @@
 # ADR-004: Prisma Repository Pattern
 
 ## Status: Accepted
-## Date: 2025-07-01
+## Date: 2025-07-01 (updated 2026-03-10)
 
 ## Context
 
@@ -10,6 +10,7 @@ We needed a data access layer that:
 - Allows unit testing with in-memory implementations
 - Handles the impedance mismatch between Prisma models and domain entities
 - Supports multi-tenant filtering consistently
+- Supports atomic operations across multiple repositories (transactions)
 
 ## Decision
 
@@ -23,13 +24,19 @@ Prisma repositories map domain Value Objects (e.g., `UniqueEntityID`, `Token`, `
 
 Factory functions (`make-*-use-case.ts`) wire up Prisma implementations for production.
 
+**Transaction support** (added 2026-03):
+- Repositories accept optional `tx?: TransactionClient` parameter on write methods
+- `TransactionManager` (`src/lib/transaction-manager.ts`) provides `PrismaTransactionManager` for coordinating multi-repository transactions
+- Applied to: finance entry installments, loan creation, and 8+ other critical use cases
+
 ## Consequences
 
 **Positive:**
-- Unit tests run in ~170ms without database
-- Consistent data access patterns across 50+ repositories
+- Unit tests run without database (569+ unit tests)
+- Consistent data access patterns across 109+ repository interfaces
 - Multi-tenant filtering is never forgotten (enforced by interface)
 - Domain entities are pure — no Prisma decorators or dependencies
+- Transactions are opt-in per method, not forced on all operations
 
 **Negative:**
 - Two implementations per repository (Prisma + in-memory)
