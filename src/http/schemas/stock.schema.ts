@@ -25,3 +25,4 @@ export * from './stock/care';
 export * from './stock/purchase-orders';
 export * from './stock/tags';
 export * from './stock/templates';
+export * from './stock/product-care-instructions';
