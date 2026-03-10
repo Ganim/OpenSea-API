@@ -35,7 +35,6 @@ export const createProductSchema = z.object({
   supplierId: idSchema.optional(),
   manufacturerId: idSchema.optional(),
   categoryIds: z.array(z.string().uuid()).optional(),
-  careInstructionIds: z.array(z.string()).optional(),
 });
 
 /**
@@ -67,7 +66,6 @@ export const productResponseSchema = z.object({
   status: z.string(),
   outOfLine: z.boolean(),
   attributes: z.record(z.string(), z.any()),
-  careInstructionIds: z.array(z.string()),
   templateId: idSchema,
   template: z
     .object({
@@ -138,7 +136,6 @@ export const productResponseSchema = z.object({
         price: z.number(),
         costPrice: z.number().optional(),
         profitMargin: z.number().optional(),
-        imageUrl: z.string().optional(),
         barcode: z.string().optional(),
         isActive: z.boolean(),
         createdAt: dateSchema,

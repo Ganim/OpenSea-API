@@ -4,22 +4,6 @@
 
 import { z } from 'zod';
 
-export const careLabelSchema = z.object({
-  washing: z.string().optional(),
-  drying: z.string().optional(),
-  ironing: z.string().optional(),
-  bleaching: z.string().optional(),
-  dryClean: z.string().optional(),
-  composition: z
-    .array(
-      z.object({
-        fiber: z.string(),
-        percentage: z.number().min(0).max(100),
-      }),
-    )
-    .optional(),
-});
-
 /**
  * Schema para definição de atributo de template
  * Cada atributo tem tipo, configurações de exibição e unidade de medida
@@ -65,13 +49,27 @@ export const createTemplateSchema = z.object({
   name: z.string().min(1).max(100),
   iconUrl: z.string().max(512).optional(),
   unitOfMeasure: z
-    .enum(['METERS', 'KILOGRAMS', 'UNITS'])
+    .enum([
+      'UNITS',
+      'METERS',
+      'KILOGRAMS',
+      'GRAMS',
+      'LITERS',
+      'MILLILITERS',
+      'SQUARE_METERS',
+      'PAIRS',
+      'BOXES',
+      'PACKS',
+    ])
     .optional()
     .default('UNITS'),
   productAttributes: templateAttributesMapSchema.optional(),
   variantAttributes: templateAttributesMapSchema.optional(),
   itemAttributes: templateAttributesMapSchema.optional(),
-  careLabel: careLabelSchema.optional(),
+  specialModules: z
+    .array(z.enum(['CARE_INSTRUCTIONS']))
+    .optional()
+    .default([]),
   isActive: z.boolean().optional().default(true),
 });
 
@@ -85,7 +83,7 @@ export const templateResponseSchema = z.object({
   productAttributes: templateAttributesMapSchema,
   variantAttributes: templateAttributesMapSchema,
   itemAttributes: templateAttributesMapSchema,
-  careLabel: careLabelSchema.nullable(),
+  specialModules: z.array(z.string()),
   isActive: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().nullable(),

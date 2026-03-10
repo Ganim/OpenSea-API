@@ -9,7 +9,6 @@ export const createVariantSchema = z.object({
   sku: z.string().min(1).max(100).optional(), // Agora opcional
   name: z.string().min(1).max(255),
   price: z.number().nonnegative().optional().default(0),
-  imageUrl: z.string().max(500).optional(),
   attributes: z.record(z.string(), z.unknown()).optional(),
   costPrice: z.number().positive().optional(),
   profitMargin: z.number().optional(),
@@ -19,6 +18,14 @@ export const createVariantSchema = z.object({
   upcCode: z.string().max(100).optional(),
   colorHex: z.string().max(7).optional(),
   colorPantone: z.string().max(50).optional(),
+  secondaryColorHex: z
+    .string()
+    .regex(/^#[0-9A-Fa-f]{6}$/)
+    .optional(),
+  secondaryColorPantone: z.string().max(32).optional(),
+  pattern: z
+    .enum(['SOLID', 'STRIPED', 'PLAID', 'PRINTED', 'GRADIENT', 'JACQUARD'])
+    .optional(),
   minStock: z.number().int().min(0).optional(),
   maxStock: z.number().int().min(0).optional(),
   reorderPoint: z.number().int().min(0).optional(),
@@ -37,7 +44,6 @@ export const variantResponseSchema = z.object({
   sequentialCode: z.number().optional(),
   name: z.string(),
   price: z.number(),
-  imageUrl: z.string().optional(),
   attributes: z.record(z.string(), z.unknown()),
   costPrice: z.number().optional(),
   profitMargin: z.number().optional(),
@@ -47,6 +53,9 @@ export const variantResponseSchema = z.object({
   upcCode: z.string().optional(),
   colorHex: z.string().optional(),
   colorPantone: z.string().optional(),
+  secondaryColorHex: z.string().nullable().optional(),
+  secondaryColorPantone: z.string().nullable().optional(),
+  pattern: z.string().nullable().optional(),
   minStock: z.number().optional(),
   maxStock: z.number().optional(),
   reorderPoint: z.number().optional(),
