@@ -54,7 +54,6 @@ export async function createProductController(app: FastifyInstance) {
         supplierId,
         manufacturerId,
         categoryIds,
-        careInstructionIds,
       } = request.body;
       const userId = request.user.sub;
 
@@ -77,7 +76,6 @@ export async function createProductController(app: FastifyInstance) {
           supplierId,
           manufacturerId,
           categoryIds,
-          careInstructionIds,
         });
 
         await logAudit(request, {
