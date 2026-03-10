@@ -1,9 +1,11 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { cacheKeys } from '@/config/redis';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas/common.schema';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeDeleteWorkScheduleUseCase } from '@/use-cases/hr/work-schedules/factories/make-delete-work-schedule-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -47,6 +49,8 @@ export async function deleteWorkScheduleController(app: FastifyInstance) {
           tenantId,
           id: workScheduleId,
         });
+
+        await getCacheService().delPattern(`${cacheKeys.hrWorkSchedules(tenantId)}:*`);
 
         return reply.status(204).send(null);
       } catch (error) {

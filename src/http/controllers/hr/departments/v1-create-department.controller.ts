@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { cacheKeys } from '@/config/redis';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -10,6 +11,7 @@ import {
   departmentResponseSchema,
 } from '@/http/schemas';
 import { departmentToDTO } from '@/mappers/hr/department/department-to-dto';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateDepartmentUseCase } from '@/use-cases/hr/departments/factories/make-create-department-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -78,6 +80,8 @@ export async function createDepartmentController(app: FastifyInstance) {
             companyId: data.companyId,
           },
         });
+
+        await getCacheService().delPattern(`${cacheKeys.hrDepartments(tenantId)}:*`);
 
         return reply.status(201).send({
           department: departmentToDTO(department),

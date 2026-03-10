@@ -11,6 +11,7 @@ import {
   PIS,
   WorkRegime,
 } from '@/entities/hr/value-objects';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateEmployeeSchema {
   tenantId: string;
@@ -145,8 +146,24 @@ export interface EmployeeWithRawRelations {
   };
 }
 
+export interface FindEmployeeFilters {
+  status?: string;
+  departmentId?: UniqueEntityID;
+  positionId?: UniqueEntityID;
+  supervisorId?: UniqueEntityID;
+  companyId?: UniqueEntityID;
+  search?: string;
+  unlinked?: boolean;
+  includeDeleted?: boolean;
+}
+
+export interface PaginatedEmployeesResult {
+  employees: Employee[];
+  total: number;
+}
+
 export interface EmployeesRepository {
-  create(data: CreateEmployeeSchema): Promise<Employee>;
+  create(data: CreateEmployeeSchema, tx?: TransactionClient): Promise<Employee>;
   findById(
     id: UniqueEntityID,
     tenantId: string,
@@ -180,6 +197,12 @@ export interface EmployeesRepository {
     includeDeleted?: boolean,
   ): Promise<Employee | null>;
   findMany(tenantId: string, includeDeleted?: boolean): Promise<Employee[]>;
+  findManyPaginated(
+    tenantId: string,
+    filters: FindEmployeeFilters,
+    skip: number,
+    take: number,
+  ): Promise<PaginatedEmployeesResult>;
   findManyByStatus(
     status: EmployeeStatus,
     tenantId: string,

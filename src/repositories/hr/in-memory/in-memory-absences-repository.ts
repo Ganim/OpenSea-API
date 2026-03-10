@@ -5,6 +5,7 @@ import type {
   AbsencesRepository,
   CreateAbsenceSchema,
   FindAbsenceFilters,
+  PaginatedAbsencesResult,
   UpdateAbsenceSchema,
 } from '../absences-repository';
 
@@ -78,6 +79,46 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
     return filtered.sort(
       (a, b) => b.startDate.getTime() - a.startDate.getTime(),
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    filters: FindAbsenceFilters,
+    skip: number,
+    take: number,
+  ): Promise<PaginatedAbsencesResult> {
+    let filtered = this.items.filter(
+      (item) => item.tenantId.toString() === tenantId,
+    );
+
+    if (filters.employeeId) {
+      filtered = filtered.filter((item) =>
+        item.employeeId.equals(filters.employeeId!),
+      );
+    }
+    if (filters.type) {
+      filtered = filtered.filter((item) => item.type.value === filters.type);
+    }
+    if (filters.status) {
+      filtered = filtered.filter(
+        (item) => item.status.value === filters.status,
+      );
+    }
+    if (filters.startDate) {
+      filtered = filtered.filter(
+        (item) => item.startDate >= filters.startDate!,
+      );
+    }
+    if (filters.endDate) {
+      filtered = filtered.filter((item) => item.endDate <= filters.endDate!);
+    }
+
+    const total = filtered.length;
+    const absences = filtered
+      .sort((a, b) => b.startDate.getTime() - a.startDate.getTime())
+      .slice(skip, skip + take);
+
+    return { absences, total };
   }
 
   async findManyByEmployee(

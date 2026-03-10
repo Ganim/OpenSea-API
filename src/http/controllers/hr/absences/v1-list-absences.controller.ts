@@ -38,28 +38,20 @@ export async function listAbsencesController(app: FastifyInstance) {
         request.query;
 
       const listAbsencesUseCase = makeListAbsencesUseCase();
-      const { absences } = await listAbsencesUseCase.execute({
+      const { absences, meta } = await listAbsencesUseCase.execute({
         tenantId,
         employeeId,
         type,
         status,
         startDate,
         endDate,
+        page,
+        perPage,
       });
 
-      // Simple pagination (in production, this should be handled by the repository)
-      const total = absences.length;
-      const start = (page - 1) * perPage;
-      const paginatedAbsences = absences.slice(start, start + perPage);
-
       return reply.status(200).send({
-        absences: paginatedAbsences.map(absenceToDTO),
-        meta: {
-          total,
-          page,
-          perPage,
-          totalPages: Math.ceil(total / perPage),
-        },
+        absences: absences.map(absenceToDTO),
+        meta,
       });
     },
   });

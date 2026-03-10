@@ -5,13 +5,15 @@ import type {
   CreateEmployeeSchema,
   EmployeesRepository,
   EmployeeWithRawRelations,
+  FindEmployeeFilters,
+  PaginatedEmployeesResult,
   UpdateEmployeeSchema,
 } from '../employees-repository';
 
 export class InMemoryEmployeesRepository implements EmployeesRepository {
   private items: Employee[] = [];
 
-  async create(data: CreateEmployeeSchema): Promise<Employee> {
+  async create(data: CreateEmployeeSchema, _tx?: unknown): Promise<Employee> {
     const id = new UniqueEntityID();
     const employee = Employee.create(
       {
@@ -186,6 +188,65 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
         item.tenantId.toString() === tenantId &&
         (includeDeleted || !item.deletedAt),
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    filters: FindEmployeeFilters,
+    skip: number,
+    take: number,
+  ): Promise<PaginatedEmployeesResult> {
+    let filtered = this.items.filter(
+      (item) =>
+        item.tenantId.toString() === tenantId &&
+        (filters.includeDeleted || !item.deletedAt),
+    );
+
+    if (filters.status) {
+      filtered = filtered.filter(
+        (item) => item.status.value === filters.status,
+      );
+    }
+    if (filters.departmentId) {
+      filtered = filtered.filter((item) =>
+        item.departmentId?.equals(filters.departmentId!),
+      );
+    }
+    if (filters.positionId) {
+      filtered = filtered.filter((item) =>
+        item.positionId?.equals(filters.positionId!),
+      );
+    }
+    if (filters.supervisorId) {
+      filtered = filtered.filter((item) =>
+        item.supervisorId?.equals(filters.supervisorId!),
+      );
+    }
+    if (filters.companyId) {
+      filtered = filtered.filter((item) =>
+        item.companyId?.equals(filters.companyId!),
+      );
+    }
+    if (filters.search) {
+      const searchLower = filters.search.toLowerCase();
+      filtered = filtered.filter(
+        (item) =>
+          item.fullName.toLowerCase().includes(searchLower) ||
+          item.registrationNumber.toLowerCase().includes(searchLower) ||
+          item.email?.toLowerCase().includes(searchLower) ||
+          item.cpf.value.includes(filters.search!),
+      );
+    }
+    if (filters.unlinked) {
+      filtered = filtered.filter((item) => !item.userId);
+    }
+
+    const total = filtered.length;
+    const employees = filtered
+      .sort((a, b) => a.fullName.localeCompare(b.fullName))
+      .slice(skip, skip + take);
+
+    return { employees, total };
   }
 
   async findManyByStatus(

@@ -6,6 +6,7 @@ import type {
   CreateOvertimeSchema,
   FindOvertimeFilters,
   OvertimeRepository,
+  PaginatedOvertimeResult,
   UpdateOvertimeSchema,
 } from '../overtime-repository';
 
@@ -69,6 +70,42 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
         new UniqueEntityID(overtimeRecord.id),
       ),
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    filters: FindOvertimeFilters,
+    skip: number,
+    take: number,
+  ): Promise<PaginatedOvertimeResult> {
+    const whereClause = {
+      tenantId,
+      employeeId: filters.employeeId?.toString(),
+      date: {
+        gte: filters.startDate,
+        lte: filters.endDate,
+      },
+      approved: filters.approved,
+    };
+
+    const [overtimesData, total] = await Promise.all([
+      prisma.overtime.findMany({
+        where: whereClause,
+        orderBy: { date: 'desc' },
+        skip,
+        take,
+      }),
+      prisma.overtime.count({ where: whereClause }),
+    ]);
+
+    const overtimes = overtimesData.map((overtimeRecord) =>
+      Overtime.create(
+        mapOvertimePrismaToDomain(overtimeRecord),
+        new UniqueEntityID(overtimeRecord.id),
+      ),
+    );
+
+    return { overtimes, total };
   }
 
   async findManyByEmployee(

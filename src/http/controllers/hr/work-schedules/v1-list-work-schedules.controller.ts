@@ -1,3 +1,4 @@
+import { cacheConfig, cacheKeys } from '@/config/redis';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -5,6 +6,7 @@ import {
   workScheduleResponseSchema,
 } from '@/http/schemas';
 import { workScheduleToDTO } from '@/mappers/hr/work-schedule/work-schedule-to-dto';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeListWorkSchedulesUseCase } from '@/use-cases/hr/work-schedules/factories/make-list-work-schedules-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -32,15 +34,27 @@ export async function listWorkSchedulesController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const query = request.query;
 
+      const cacheService = getCacheService();
+      const cacheKey = `${cacheKeys.hrWorkSchedules(tenantId)}:ao${query.activeOnly ?? ''}`;
+
+      const cachedResponse = await cacheService.get(cacheKey);
+      if (cachedResponse) {
+        return reply.status(200).send(cachedResponse as never);
+      }
+
       const listWorkSchedulesUseCase = makeListWorkSchedulesUseCase();
       const { workSchedules } = await listWorkSchedulesUseCase.execute({
         tenantId,
         activeOnly: query.activeOnly,
       });
 
-      return reply.status(200).send({
+      const responseBody = {
         workSchedules: workSchedules.map(workScheduleToDTO),
-      });
+      };
+
+      await cacheService.set(cacheKey, responseBody, cacheConfig.hrEntities);
+
+      return reply.status(200).send(responseBody);
     },
   });
 }

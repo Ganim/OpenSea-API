@@ -4,6 +4,7 @@ import type {
   CreateOvertimeSchema,
   FindOvertimeFilters,
   OvertimeRepository,
+  PaginatedOvertimeResult,
   UpdateOvertimeSchema,
 } from '../overtime-repository';
 
@@ -65,6 +66,39 @@ export class InMemoryOvertimeRepository implements OvertimeRepository {
     }
 
     return result.sort((a, b) => b.date.getTime() - a.date.getTime());
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    filters: FindOvertimeFilters,
+    skip: number,
+    take: number,
+  ): Promise<PaginatedOvertimeResult> {
+    let filtered = this.items.filter(
+      (item) => item.tenantId.toString() === tenantId,
+    );
+
+    if (filters.employeeId) {
+      filtered = filtered.filter((item) =>
+        item.employeeId.equals(filters.employeeId!),
+      );
+    }
+    if (filters.startDate) {
+      filtered = filtered.filter((item) => item.date >= filters.startDate!);
+    }
+    if (filters.endDate) {
+      filtered = filtered.filter((item) => item.date <= filters.endDate!);
+    }
+    if (filters.approved !== undefined) {
+      filtered = filtered.filter((item) => item.approved === filters.approved);
+    }
+
+    const total = filtered.length;
+    const overtimes = filtered
+      .sort((a, b) => b.date.getTime() - a.date.getTime())
+      .slice(skip, skip + take);
+
+    return { overtimes, total };
   }
 
   async findManyByEmployee(

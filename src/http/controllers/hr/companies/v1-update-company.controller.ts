@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { cacheKeys } from '@/config/redis';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -7,6 +8,7 @@ import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { idSchema } from '@/http/schemas/common.schema';
 import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import {
   makeGetCompanyByIdUseCase,
@@ -95,6 +97,8 @@ export async function v1UpdateCompanyController(app: FastifyInstance) {
           },
           newData: data,
         });
+
+        await getCacheService().delPattern(`${cacheKeys.hrCompanies(tenantId)}:*`);
 
         return reply
           .status(200)

@@ -52,7 +52,7 @@ export async function listMyAbsencesController(app: FastifyInstance) {
 
         // Then list my absences
         const listAbsencesUseCase = makeListAbsencesUseCase();
-        const { absences } = await listAbsencesUseCase.execute({
+        const result = await listAbsencesUseCase.execute({
           tenantId,
           employeeId: employee.id.toString(),
           type,
@@ -62,7 +62,7 @@ export async function listMyAbsencesController(app: FastifyInstance) {
         });
 
         return reply.status(200).send({
-          absences: absences.map(absenceToDTO),
+          absences: result.absences.map(absenceToDTO),
         });
       } catch (err) {
         if (err instanceof ResourceNotFoundError) {

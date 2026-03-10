@@ -1,3 +1,4 @@
+import { cacheKeys } from '@/config/redis';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -9,6 +10,7 @@ import {
   updatePositionSchema,
 } from '@/http/schemas/hr.schema';
 import { positionToDTO } from '@/mappers/hr/position';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import {
   makeGetPositionByIdUseCase,
@@ -101,6 +103,8 @@ export async function updatePositionController(app: FastifyInstance) {
           oldData: { name: oldPosition.name, code: oldPosition.code },
           newData: { name, code, departmentId, level },
         });
+
+        await getCacheService().delPattern(`${cacheKeys.hrPositions(tenantId)}:*`);
 
         return reply.status(200).send({ position: positionToDTO(position) });
       } catch (error) {

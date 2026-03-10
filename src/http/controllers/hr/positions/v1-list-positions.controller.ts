@@ -1,3 +1,4 @@
+import { cacheConfig, cacheKeys } from '@/config/redis';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -6,6 +7,7 @@ import {
 } from '@/http/schemas/hr.schema';
 import { prisma } from '@/lib/prisma';
 import { positionToDTO } from '@/mappers/hr/position';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeListPositionsUseCase } from '@/use-cases/hr/positions/factories';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -48,6 +50,14 @@ export async function listPositionsController(app: FastifyInstance) {
         isActive,
       } = request.query;
 
+      const cacheService = getCacheService();
+      const cacheKey = `${cacheKeys.hrPositions(tenantId)}:p${page ?? 1}:pp${perPage ?? 20}:s${search ?? ''}:did${departmentId ?? ''}:cid${companyId ?? ''}:l${level ?? ''}:a${isActive ?? ''}`;
+
+      const cachedResponse = await cacheService.get(cacheKey);
+      if (cachedResponse) {
+        return reply.status(200).send(cachedResponse as never);
+      }
+
       const listPositionsUseCase = makeListPositionsUseCase();
       const result = await listPositionsUseCase.execute({
         tenantId,
@@ -74,13 +84,17 @@ export async function listPositionsController(app: FastifyInstance) {
           : [];
       const countMap = new Map(countsData.map((p) => [p.id, p._count]));
 
-      return reply.status(200).send({
+      const responseBody = {
         positions: result.positions.map((p) => ({
           ...positionToDTO(p),
           _count: countMap.get(p.id.toString()) ?? { employees: 0 },
         })),
         meta: result.meta,
-      });
+      };
+
+      await cacheService.set(cacheKey, responseBody, cacheConfig.hrEntities);
+
+      return reply.status(200).send(responseBody);
     },
   });
 }

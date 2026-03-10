@@ -5,6 +5,8 @@ import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 
 export interface ListAbsencesRequest {
   tenantId: string;
+  page?: number;
+  perPage?: number;
   employeeId?: string;
   type?: string;
   status?: string;
@@ -14,13 +16,30 @@ export interface ListAbsencesRequest {
 
 export interface ListAbsencesResponse {
   absences: Absence[];
+  meta: {
+    total: number;
+    page: number;
+    perPage: number;
+    totalPages: number;
+  };
 }
 
 export class ListAbsencesUseCase {
   constructor(private absencesRepository: AbsencesRepository) {}
 
   async execute(request: ListAbsencesRequest): Promise<ListAbsencesResponse> {
-    const { tenantId, employeeId, type, status, startDate, endDate } = request;
+    const {
+      tenantId,
+      page = 1,
+      perPage = 20,
+      employeeId,
+      type,
+      status,
+      startDate,
+      endDate,
+    } = request;
+
+    const skip = (page - 1) * perPage;
 
     const filters: FindAbsenceFilters = {};
 
@@ -40,10 +59,23 @@ export class ListAbsencesUseCase {
       filters.endDate = endDate;
     }
 
-    const absences = await this.absencesRepository.findMany(tenantId, filters);
+    const { absences, total } = await this.absencesRepository.findManyPaginated(
+      tenantId,
+      filters,
+      skip,
+      perPage,
+    );
+
+    const totalPages = Math.ceil(total / perPage);
 
     return {
       absences,
+      meta: {
+        total,
+        page,
+        perPage,
+        totalPages,
+      },
     };
   }
 }

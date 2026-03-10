@@ -1,7 +1,9 @@
+import { cacheConfig, cacheKeys } from '@/config/redis';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { prisma } from '@/lib/prisma';
 import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeListCompaniesUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -26,6 +28,14 @@ export async function v1ListCompaniesController(app: FastifyInstance) {
 
     const shouldIncludeDeleted = forceIncludeDeleted ? true : includeDeleted;
 
+    const cacheService = getCacheService();
+    const cacheKey = `${cacheKeys.hrCompanies(tenantId)}:p${page ?? 1}:pp${perPage ?? 20}:s${search ?? ''}:del${shouldIncludeDeleted ?? ''}`;
+
+    const cachedResponse = await cacheService.get(cacheKey);
+    if (cachedResponse) {
+      return reply.status(200).send(cachedResponse as never);
+    }
+
     const { companies } = await listUseCase.execute({
       tenantId,
       page: page ?? 1,
@@ -48,15 +58,17 @@ export async function v1ListCompaniesController(app: FastifyInstance) {
         : [];
     const countMap = new Map(countsData.map((c) => [c.id, c._count]));
 
-    return reply.status(200).send(
-      companies.map((c) => ({
-        ...companyToDTO(c),
-        _count: countMap.get(c.id.toString()) ?? {
-          departments: 0,
-          employees: 0,
-        },
-      })),
-    );
+    const responseBody = companies.map((c) => ({
+      ...companyToDTO(c),
+      _count: countMap.get(c.id.toString()) ?? {
+        departments: 0,
+        employees: 0,
+      },
+    }));
+
+    await cacheService.set(cacheKey, responseBody, cacheConfig.hrEntities);
+
+    return reply.status(200).send(responseBody);
   }
 
   // List active companies

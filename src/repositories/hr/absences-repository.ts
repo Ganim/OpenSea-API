@@ -39,10 +39,21 @@ export interface FindAbsenceFilters {
   endDate?: Date;
 }
 
+export interface PaginatedAbsencesResult {
+  absences: Absence[];
+  total: number;
+}
+
 export interface AbsencesRepository {
   create(data: CreateAbsenceSchema): Promise<Absence>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Absence | null>;
   findMany(tenantId: string, filters?: FindAbsenceFilters): Promise<Absence[]>;
+  findManyPaginated(
+    tenantId: string,
+    filters: FindAbsenceFilters,
+    skip: number,
+    take: number,
+  ): Promise<PaginatedAbsencesResult>;
   findManyByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,

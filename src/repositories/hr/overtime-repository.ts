@@ -26,6 +26,11 @@ export interface FindOvertimeFilters {
   approved?: boolean;
 }
 
+export interface PaginatedOvertimeResult {
+  overtimes: Overtime[];
+  total: number;
+}
+
 export interface OvertimeRepository {
   create(data: CreateOvertimeSchema): Promise<Overtime>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Overtime | null>;
@@ -33,6 +38,12 @@ export interface OvertimeRepository {
     tenantId: string,
     filters?: FindOvertimeFilters,
   ): Promise<Overtime[]>;
+  findManyPaginated(
+    tenantId: string,
+    filters: FindOvertimeFilters,
+    skip: number,
+    take: number,
+  ): Promise<PaginatedOvertimeResult>;
   findManyByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,

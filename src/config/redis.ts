@@ -27,6 +27,8 @@ export const cacheConfig = {
   users: 10 * 60,
   /** TTL padrão para cache genérico (5 minutos) */
   default: 5 * 60,
+  /** TTL para cache de entidades HR que mudam raramente (5 minutos) */
+  hrEntities: 5 * 60,
 } as const;
 
 export const cacheKeys = {
@@ -34,4 +36,8 @@ export const cacheKeys = {
   session: (sessionId: string) => `session:${sessionId}`,
   user: (userId: string) => `user:${userId}`,
   rateLimit: (ip: string, endpoint: string) => `rate-limit:${ip}:${endpoint}`,
+  hrDepartments: (tenantId: string) => `hr:departments:${tenantId}`,
+  hrPositions: (tenantId: string) => `hr:positions:${tenantId}`,
+  hrWorkSchedules: (tenantId: string) => `hr:work-schedules:${tenantId}`,
+  hrCompanies: (tenantId: string) => `hr:companies:${tenantId}`,
 } as const;

@@ -37,14 +37,17 @@ export async function listOvertimeController(app: FastifyInstance) {
       const query = request.query;
 
       const listOvertimeUseCase = makeListOvertimeUseCase();
-      const result = await listOvertimeUseCase.execute({ ...query, tenantId });
+      const { overtimes, meta } = await listOvertimeUseCase.execute({
+        ...query,
+        tenantId,
+      });
 
       return reply.status(200).send({
-        overtime: result.overtimes.map(overtimeToDTO),
-        total: result.total,
-        page: query.page ?? 1,
-        perPage: query.perPage ?? 20,
-        totalPages: Math.ceil(result.total / (query.perPage ?? 20)),
+        overtime: overtimes.map(overtimeToDTO),
+        total: meta.total,
+        page: meta.page,
+        perPage: meta.perPage,
+        totalPages: meta.totalPages,
       });
     },
   });

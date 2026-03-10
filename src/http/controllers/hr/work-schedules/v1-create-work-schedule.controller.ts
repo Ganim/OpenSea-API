@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { cacheKeys } from '@/config/redis';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -8,6 +9,7 @@ import {
   workScheduleResponseSchema,
 } from '@/http/schemas';
 import { workScheduleToDTO } from '@/mappers/hr/work-schedule/work-schedule-to-dto';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeCreateWorkScheduleUseCase } from '@/use-cases/hr/work-schedules/factories/make-create-work-schedule-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -51,6 +53,8 @@ export async function createWorkScheduleController(app: FastifyInstance) {
           ...data,
           tenantId,
         });
+
+        await getCacheService().delPattern(`${cacheKeys.hrWorkSchedules(tenantId)}:*`);
 
         return reply
           .status(201)

@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Employee } from '@/entities/hr/employee';
-import { EmployeeStatus } from '@/entities/hr/value-objects';
+import type { Employee } from '@/entities/hr/employee';
+import type { FindEmployeeFilters } from '@/repositories/hr/employees-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 
 export interface ListEmployeesRequest {
@@ -45,75 +45,35 @@ export class ListEmployeesUseCase {
       includeDeleted = false,
     } = request;
 
-    let employees: Employee[];
-
-    // Get employees based on filters
     if (status) {
-      const statusVO = this.mapStatus(status);
-      employees = await this.employeesRepository.findManyByStatus(
-        statusVO,
-        tenantId,
-        includeDeleted,
-      );
-    } else if (departmentId) {
-      employees = await this.employeesRepository.findManyByDepartment(
-        new UniqueEntityID(departmentId),
-        tenantId,
-        includeDeleted,
-      );
-    } else if (positionId) {
-      employees = await this.employeesRepository.findManyByPosition(
-        new UniqueEntityID(positionId),
-        tenantId,
-        includeDeleted,
-      );
-    } else if (supervisorId) {
-      employees = await this.employeesRepository.findManyBySupervisor(
-        new UniqueEntityID(supervisorId),
-        tenantId,
-        includeDeleted,
-      );
-    } else if (companyId) {
-      employees = await this.employeesRepository.findManyByCompany(
-        new UniqueEntityID(companyId),
-        tenantId,
-        includeDeleted,
-      );
-    } else {
-      employees = await this.employeesRepository.findMany(
-        tenantId,
-        includeDeleted,
-      );
+      this.validateStatus(status);
     }
 
-    // Apply search filter
-    if (search) {
-      const searchLower = search.toLowerCase();
-      employees = employees.filter(
-        (employee) =>
-          employee.fullName.toLowerCase().includes(searchLower) ||
-          employee.registrationNumber.toLowerCase().includes(searchLower) ||
-          employee.email?.toLowerCase().includes(searchLower) ||
-          employee.cpf.value.includes(search),
+    const skip = (page - 1) * perPage;
+
+    const filters: FindEmployeeFilters = {
+      status,
+      departmentId: departmentId ? new UniqueEntityID(departmentId) : undefined,
+      positionId: positionId ? new UniqueEntityID(positionId) : undefined,
+      supervisorId: supervisorId ? new UniqueEntityID(supervisorId) : undefined,
+      companyId: companyId ? new UniqueEntityID(companyId) : undefined,
+      search,
+      unlinked,
+      includeDeleted,
+    };
+
+    const { employees, total } =
+      await this.employeesRepository.findManyPaginated(
+        tenantId,
+        filters,
+        skip,
+        perPage,
       );
-    }
 
-    // Filter unlinked employees (no userId)
-    if (unlinked) {
-      employees = employees.filter((employee) => !employee.userId);
-    }
-
-    // Calculate pagination
-    const total = employees.length;
     const totalPages = Math.ceil(total / perPage);
-    const startIndex = (page - 1) * perPage;
-    const endIndex = startIndex + perPage;
-
-    // Apply pagination
-    const paginatedEmployees = employees.slice(startIndex, endIndex);
 
     return {
-      employees: paginatedEmployees,
+      employees,
       meta: {
         total,
         page,
@@ -123,20 +83,16 @@ export class ListEmployeesUseCase {
     };
   }
 
-  private mapStatus(status: string): EmployeeStatus {
-    switch (status.toUpperCase()) {
-      case 'ACTIVE':
-        return EmployeeStatus.ACTIVE();
-      case 'ON_LEAVE':
-        return EmployeeStatus.ON_LEAVE();
-      case 'VACATION':
-        return EmployeeStatus.VACATION();
-      case 'SUSPENDED':
-        return EmployeeStatus.SUSPENDED();
-      case 'TERMINATED':
-        return EmployeeStatus.TERMINATED();
-      default:
-        throw new Error(`Invalid status: ${status}`);
+  private validateStatus(status: string): void {
+    const validStatuses = [
+      'ACTIVE',
+      'ON_LEAVE',
+      'VACATION',
+      'SUSPENDED',
+      'TERMINATED',
+    ];
+    if (!validStatuses.includes(status.toUpperCase())) {
+      throw new Error(`Invalid status: ${status}`);
     }
   }
 }

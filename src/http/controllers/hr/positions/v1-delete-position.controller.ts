@@ -1,9 +1,11 @@
+import { cacheKeys } from '@/config/redis';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import {
   makeDeletePositionUseCase,
@@ -75,6 +77,8 @@ export async function deletePositionController(app: FastifyInstance) {
           placeholders: { userName, positionName: position.name },
           oldData: { id: position.id, name: position.name },
         });
+
+        await getCacheService().delPattern(`${cacheKeys.hrPositions(tenantId)}:*`);
 
         return reply.status(200).send({
           message: 'Position deleted successfully',

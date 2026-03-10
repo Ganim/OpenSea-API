@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { cacheKeys } from '@/config/redis';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -6,6 +7,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { companyToDTO } from '@/mappers/hr/company/company-to-dto';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateCompanyUseCase } from '@/use-cases/hr/companies/factories/make-companies';
 import type { FastifyInstance } from 'fastify';
@@ -75,6 +77,8 @@ export async function v1CreateCompanyController(app: FastifyInstance) {
             cnpj: data.cnpj,
           },
         });
+
+        await getCacheService().delPattern(`${cacheKeys.hrCompanies(tenantId)}:*`);
 
         return reply
           .status(201)

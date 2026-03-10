@@ -1,3 +1,4 @@
+import { cacheConfig, cacheKeys } from '@/config/redis';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -7,6 +8,7 @@ import {
 } from '@/http/schemas';
 import { prisma } from '@/lib/prisma';
 import { departmentToDTO } from '@/mappers/hr/department/department-to-dto';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeListDepartmentsUseCase } from '@/use-cases/hr/departments/factories/make-list-departments-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -37,6 +39,14 @@ export async function listDepartmentsController(app: FastifyInstance) {
       const { page, perPage, search, isActive, parentId, companyId } =
         request.query;
 
+      const cacheService = getCacheService();
+      const cacheKey = `${cacheKeys.hrDepartments(tenantId)}:p${page ?? 1}:pp${perPage ?? 20}:s${search ?? ''}:a${isActive ?? ''}:pid${parentId ?? ''}:cid${companyId ?? ''}`;
+
+      const cachedResponse = await cacheService.get(cacheKey);
+      if (cachedResponse) {
+        return reply.status(200).send(cachedResponse as never);
+      }
+
       const listDepartmentsUseCase = makeListDepartmentsUseCase();
       const { departments, meta } = await listDepartmentsUseCase.execute({
         tenantId,
@@ -62,7 +72,7 @@ export async function listDepartmentsController(app: FastifyInstance) {
           : [];
       const countMap = new Map(countsData.map((d) => [d.id, d._count]));
 
-      return reply.status(200).send({
+      const responseBody = {
         departments: departments.map((d) => ({
           ...departmentToDTO(d),
           _count: countMap.get(d.id.toString()) ?? {
@@ -71,7 +81,11 @@ export async function listDepartmentsController(app: FastifyInstance) {
           },
         })),
         meta,
-      });
+      };
+
+      await cacheService.set(cacheKey, responseBody, cacheConfig.hrEntities);
+
+      return reply.status(200).send(responseBody);
     },
   });
 }

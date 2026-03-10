@@ -9,6 +9,7 @@ import type {
   AbsencesRepository,
   CreateAbsenceSchema,
   FindAbsenceFilters,
+  PaginatedAbsencesResult,
   UpdateAbsenceSchema,
 } from '../absences-repository';
 
@@ -107,6 +108,42 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
         new UniqueEntityID(item.id),
       ),
     );
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    filters: FindAbsenceFilters,
+    skip: number,
+    take: number,
+  ): Promise<PaginatedAbsencesResult> {
+    const whereClause = {
+      tenantId,
+      deletedAt: null,
+      employeeId: filters.employeeId?.toString(),
+      type: filters.type as AbsenceType | undefined,
+      status: filters.status as AbsenceStatus | undefined,
+      startDate: filters.startDate ? { gte: filters.startDate } : undefined,
+      endDate: filters.endDate ? { lte: filters.endDate } : undefined,
+    };
+
+    const [absencesData, total] = await Promise.all([
+      prisma.absence.findMany({
+        where: whereClause,
+        orderBy: { startDate: 'desc' },
+        skip,
+        take,
+      }),
+      prisma.absence.count({ where: whereClause }),
+    ]);
+
+    const absences = absencesData.map((item) =>
+      Absence.create(
+        decryptAndMap(item as unknown as Record<string, unknown>),
+        new UniqueEntityID(item.id),
+      ),
+    );
+
+    return { absences, total };
   }
 
   async findManyByEmployee(

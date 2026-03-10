@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { cacheKeys } from '@/config/redis';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -11,6 +12,7 @@ import {
   positionResponseSchema,
 } from '@/http/schemas/hr.schema';
 import { positionToDTO } from '@/mappers/hr/position';
+import { getCacheService } from '@/services/cache/cache-service';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreatePositionUseCase } from '@/use-cases/hr/positions/factories';
 import type { FastifyInstance } from 'fastify';
@@ -87,6 +89,8 @@ export async function createPositionController(app: FastifyInstance) {
           placeholders: { userName, positionName: position.name },
           newData: { name, code, departmentId, level },
         });
+
+        await getCacheService().delPattern(`${cacheKeys.hrPositions(tenantId)}:*`);
 
         return reply.status(201).send({ position: positionToDTO(position) });
       } catch (error) {

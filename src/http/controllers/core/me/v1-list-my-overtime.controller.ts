@@ -48,7 +48,7 @@ export async function listMyOvertimeController(app: FastifyInstance) {
 
         // Then list my overtime
         const listOvertimeUseCase = makeListOvertimeUseCase();
-        const { overtimes, total } = await listOvertimeUseCase.execute({
+        const result = await listOvertimeUseCase.execute({
           tenantId,
           employeeId: employee.id.toString(),
           startDate,
@@ -57,8 +57,8 @@ export async function listMyOvertimeController(app: FastifyInstance) {
         });
 
         return reply.status(200).send({
-          overtimes: overtimes.map(overtimeToDTO),
-          total,
+          overtimes: result.overtimes.map(overtimeToDTO),
+          total: result.meta.total,
         });
       } catch (err) {
         if (err instanceof ResourceNotFoundError) {

@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import { prisma, type Prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { mapEmployeePrismaToDomain } from '@/mappers/hr/employee/employee-prisma-to-domain';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
@@ -8,6 +9,8 @@ import type {
   CreateEmployeeSchema,
   EmployeesRepository,
   EmployeeWithRawRelations,
+  FindEmployeeFilters,
+  PaginatedEmployeesResult,
   UpdateEmployeeSchema,
 } from '../employees-repository';
 
@@ -29,7 +32,10 @@ function decryptEmployeeData<T extends Record<string, unknown>>(data: T): T {
 }
 
 export class PrismaEmployeesRepository implements EmployeesRepository {
-  async create(data: CreateEmployeeSchema): Promise<Employee> {
+  async create(
+    data: CreateEmployeeSchema,
+    tx?: TransactionClient,
+  ): Promise<Employee> {
     const prismaData: Record<string, unknown> = {
       tenantId: data.tenantId,
       registrationNumber: data.registrationNumber,
@@ -123,7 +129,8 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
       Object.assign(prismaData, hashes);
     }
 
-    const newEmployeeData = await prisma.employee.create({
+    const client = tx ?? prisma;
+    const newEmployeeData = await client.employee.create({
       data: prismaData as Parameters<typeof prisma.employee.create>[0]['data'],
       include: {
         user: true,
@@ -425,6 +432,66 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
         new UniqueEntityID(employeeData.id),
       );
     });
+  }
+
+  async findManyPaginated(
+    tenantId: string,
+    filters: FindEmployeeFilters,
+    skip: number,
+    take: number,
+  ): Promise<PaginatedEmployeesResult> {
+    const whereClause: Prisma.EmployeeWhereInput = {
+      tenantId,
+      deletedAt: filters.includeDeleted ? undefined : null,
+      status: filters.status as Prisma.EmployeeWhereInput['status'],
+      departmentId: filters.departmentId?.toString(),
+      positionId: filters.positionId?.toString(),
+      supervisorId: filters.supervisorId?.toString(),
+      companyId: filters.companyId?.toString(),
+    };
+
+    if (filters.unlinked) {
+      whereClause.userId = null;
+    }
+
+    if (filters.search) {
+      whereClause.OR = [
+        { fullName: { contains: filters.search, mode: 'insensitive' } },
+        {
+          registrationNumber: {
+            contains: filters.search,
+            mode: 'insensitive',
+          },
+        },
+        { email: { contains: filters.search, mode: 'insensitive' } },
+      ];
+    }
+
+    const [employeesData, total] = await Promise.all([
+      prisma.employee.findMany({
+        where: whereClause,
+        orderBy: { fullName: 'asc' },
+        skip,
+        take,
+        include: {
+          user: true,
+          department: true,
+          position: true,
+          supervisor: true,
+        },
+      }),
+      prisma.employee.count({ where: whereClause }),
+    ]);
+
+    const employees = employeesData.map((employeeData) => {
+      decryptEmployeeData(employeeData as unknown as Record<string, unknown>);
+      return Employee.create(
+        mapEmployeePrismaToDomain(employeeData),
+        new UniqueEntityID(employeeData.id),
+      );
+    });
+
+    return { employees, total };
   }
 
   async findManyByStatus(
