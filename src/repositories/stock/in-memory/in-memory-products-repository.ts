@@ -1,7 +1,5 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
-import { CareInstructions } from '@/entities/stock/value-objects/care-instructions';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import type {
   CreateProductSchema,
@@ -29,7 +27,6 @@ export class InMemoryProductsRepository implements ProductsRepository {
       supplierId: data.supplierId,
       manufacturerId: data.manufacturerId,
       attributes: data.attributes ?? {},
-      careInstructions: CareInstructions.create(data.careInstructionIds ?? []),
     });
 
     this.items.push(product);
@@ -127,21 +124,6 @@ export class InMemoryProductsRepository implements ProductsRepository {
       product.manufacturerId = data.manufacturerId;
     if (data.attributes !== undefined) product.attributes = data.attributes;
 
-    return product;
-  }
-
-  async updateCareInstructions(
-    productId: UniqueEntityID,
-    careInstructionIds: string[],
-  ): Promise<Product> {
-    const product =
-      this.items.find((item) => !item.deletedAt && item.id.equals(productId)) ??
-      null;
-    if (!product) {
-      throw new ResourceNotFoundError('Product not found');
-    }
-
-    product.careInstructions = CareInstructions.create(careInstructionIds);
     return product;
   }
 

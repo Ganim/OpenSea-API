@@ -19,7 +19,6 @@ export class InMemoryVariantsRepository implements VariantsRepository {
       sequentialCode: data.sequentialCode,
       name: data.name,
       price: data.price,
-      imageUrl: data.imageUrl,
       costPrice: data.costPrice,
       profitMargin: data.profitMargin,
       barcode: data.barcode ?? '',
@@ -28,6 +27,9 @@ export class InMemoryVariantsRepository implements VariantsRepository {
       upcCode: data.upcCode ?? '',
       colorHex: data.colorHex,
       colorPantone: data.colorPantone,
+      secondaryColorHex: data.secondaryColorHex,
+      secondaryColorPantone: data.secondaryColorPantone,
+      pattern: data.pattern,
       minStock: data.minStock,
       maxStock: data.maxStock,
       reorderPoint: data.reorderPoint,
@@ -200,7 +202,6 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     if (data.sku !== undefined) variant.sku = data.sku;
     if (data.name !== undefined) variant.name = data.name;
     if (data.price !== undefined) variant.price = data.price;
-    if (data.imageUrl !== undefined) variant.imageUrl = data.imageUrl;
     if (data.costPrice !== undefined) variant.costPrice = data.costPrice;
     if (data.profitMargin !== undefined)
       variant.profitMargin = data.profitMargin;

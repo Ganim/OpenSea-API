@@ -20,7 +20,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
         productAttributes: (data.productAttributes ?? {}) as never,
         variantAttributes: (data.variantAttributes ?? {}) as never,
         itemAttributes: (data.itemAttributes ?? {}) as never,
-        careLabel: data.careLabel as never,
+        specialModules: data.specialModules ?? [],
       },
     });
 
@@ -85,7 +85,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
         productAttributes: data.productAttributes as never,
         variantAttributes: data.variantAttributes as never,
         itemAttributes: data.itemAttributes as never,
-        careLabel: data.careLabel as never,
+        specialModules: data.specialModules,
         isActive: data.isActive,
       },
     });
@@ -105,7 +105,7 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
         productAttributes: template.productAttributes as never,
         variantAttributes: template.variantAttributes as never,
         itemAttributes: template.itemAttributes as never,
-        careLabel: template.careLabel as never,
+        specialModules: template.specialModules,
         isActive: template.isActive,
         updatedAt: new Date(),
       },

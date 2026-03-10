@@ -1,10 +1,7 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
-import { CareInstructions } from '@/entities/stock/value-objects/care-instructions';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
-import { Slug } from '@/entities/stock/value-objects/slug';
 import { prisma } from '@/lib/prisma';
 import { productPrismaToDomain } from '@/mappers/stock/product/product-prisma-to-domain';
 import type {
@@ -51,7 +48,6 @@ export class PrismaProductsRepository implements ProductsRepository {
       status: (data.status?.value ?? 'ACTIVE') as PrismaProductStatus,
       outOfLine: data.outOfLine ?? false,
       attributes: (data.attributes ?? {}) as Prisma.InputJsonValue,
-      careInstructionIds: data.careInstructionIds ?? [],
       templateId: data.templateId.toString(),
       supplierId: data.supplierId?.toString(),
       manufacturerId: data.manufacturerId?.toString(),
@@ -101,9 +97,6 @@ export class PrismaProductsRepository implements ProductsRepository {
         status: ProductStatus.create(productData.status) ?? defaultStatus,
         outOfLine: productData.outOfLine ?? false,
         attributes: productData.attributes as Record<string, unknown>,
-        careInstructions: CareInstructions.create(
-          productData.careInstructionIds ?? [],
-        ),
         templateId: new EntityID(productData.templateId),
         supplierId: productData.supplierId
           ? new EntityID(productData.supplierId)
@@ -335,66 +328,6 @@ export class PrismaProductsRepository implements ProductsRepository {
     return productPrismaToDomain(productData);
   }
 
-  async updateCareInstructions(
-    productId: UniqueEntityID,
-    careInstructionIds: string[],
-  ): Promise<Product> {
-    const existingProduct = await prisma.product.findUnique({
-      where: {
-        id: productId.toString(),
-        deletedAt: null,
-      },
-    });
-
-    if (!existingProduct) {
-      throw new ResourceNotFoundError('Product not found');
-    }
-
-    const productData = await prisma.product.update({
-      where: {
-        id: productId.toString(),
-      },
-      data: {
-        careInstructionIds,
-        updatedAt: new Date(),
-      },
-    });
-
-    const defaultStatus = ProductStatus.create('ACTIVE');
-
-    return Product.create(
-      {
-        tenantId: new EntityID(productData.tenantId),
-        name: productData.name,
-        slug: Slug.create(productData.slug),
-        fullCode: productData.fullCode ?? undefined,
-        sequentialCode: productData.sequentialCode ?? undefined,
-        barcode: productData.barcode,
-        eanCode: productData.eanCode,
-        upcCode: productData.upcCode,
-        qrCode: productData.qrCode ?? undefined,
-        description: productData.description ?? undefined,
-        status: ProductStatus.create(productData.status) ?? defaultStatus,
-        outOfLine: productData.outOfLine ?? false,
-        attributes: productData.attributes as Record<string, unknown>,
-        careInstructions: CareInstructions.create(
-          productData.careInstructionIds ?? [],
-        ),
-        templateId: new EntityID(productData.templateId),
-        supplierId: productData.supplierId
-          ? new EntityID(productData.supplierId)
-          : undefined,
-        manufacturerId: productData.manufacturerId
-          ? new EntityID(productData.manufacturerId)
-          : undefined,
-        createdAt: productData.createdAt,
-        updatedAt: productData.updatedAt ?? undefined,
-        deletedAt: productData.deletedAt ?? undefined,
-      },
-      new EntityID(productData.id),
-    );
-  }
-
   async save(product: Product): Promise<void> {
     await prisma.product.update({
       where: {
@@ -406,7 +339,6 @@ export class PrismaProductsRepository implements ProductsRepository {
         status: product.status.value as PrismaProductStatus,
         outOfLine: product.outOfLine,
         attributes: product.attributes as Prisma.InputJsonValue,
-        careInstructionIds: product.careInstructionIds,
         templateId: product.templateId.toString(),
         supplierId: product.supplierId?.toString(),
         manufacturerId: product.manufacturerId?.toString(),

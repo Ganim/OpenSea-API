@@ -11,7 +11,6 @@ export interface CreateVariantSchema {
   sku?: string;
   name: string;
   price: number;
-  imageUrl?: string;
   costPrice?: number;
   profitMargin?: number;
   barcode?: string;
@@ -20,6 +19,9 @@ export interface CreateVariantSchema {
   upcCode?: string;
   colorHex?: string;
   colorPantone?: string;
+  secondaryColorHex?: string;
+  secondaryColorPantone?: string;
+  pattern?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
@@ -36,7 +38,6 @@ export interface UpdateVariantSchema {
   sku?: string;
   name?: string;
   price?: number;
-  imageUrl?: string;
   costPrice?: number;
   profitMargin?: number;
   barcode?: string;
@@ -45,6 +46,9 @@ export interface UpdateVariantSchema {
   upcCode?: string;
   colorHex?: string;
   colorPantone?: string;
+  secondaryColorHex?: string;
+  secondaryColorPantone?: string;
+  pattern?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;

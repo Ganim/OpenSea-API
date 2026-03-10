@@ -3,7 +3,7 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
 import { Slug } from '@/entities/stock/value-objects/slug';
 import { prisma } from '@/lib/prisma';
-import type { Prisma } from '@prisma/generated/client.js';
+import type { Prisma, Pattern as PrismaPattern, Variant as PrismaVariant } from '@prisma/generated/client.js';
 import type {
   CreateVariantSchema,
   UpdateVariantSchema,
@@ -22,7 +22,6 @@ export class PrismaVariantsRepository implements VariantsRepository {
         sku: data.sku,
         name: data.name,
         price: data.price,
-        imageUrl: data.imageUrl,
         attributes: (data.attributes ?? {}) as Prisma.InputJsonValue,
         costPrice: data.costPrice ? data.costPrice : undefined,
         profitMargin: data.profitMargin ? data.profitMargin : undefined,
@@ -32,6 +31,9 @@ export class PrismaVariantsRepository implements VariantsRepository {
         upcCode: data.upcCode ?? '',
         colorHex: data.colorHex,
         colorPantone: data.colorPantone,
+        secondaryColorHex: data.secondaryColorHex,
+        secondaryColorPantone: data.secondaryColorPantone,
+        pattern: data.pattern as PrismaPattern | undefined,
         minStock: data.minStock ? data.minStock : undefined,
         maxStock: data.maxStock ? data.maxStock : undefined,
         reorderPoint: data.reorderPoint ? data.reorderPoint : undefined,
@@ -55,7 +57,6 @@ export class PrismaVariantsRepository implements VariantsRepository {
         sku: variantData.sku ?? undefined,
         name: variantData.name,
         price: Number(variantData.price.toString()),
-        imageUrl: variantData.imageUrl ?? undefined,
         attributes: variantData.attributes as Record<string, unknown>,
         costPrice: variantData.costPrice
           ? Number(variantData.costPrice.toString())
@@ -69,6 +70,9 @@ export class PrismaVariantsRepository implements VariantsRepository {
         upcCode: variantData.upcCode ?? undefined,
         colorHex: variantData.colorHex ?? undefined,
         colorPantone: variantData.colorPantone ?? undefined,
+        secondaryColorHex: variantData.secondaryColorHex ?? undefined,
+        secondaryColorPantone: variantData.secondaryColorPantone ?? undefined,
+        pattern: variantData.pattern ?? undefined,
         minStock: variantData.minStock
           ? Number(variantData.minStock.toString())
           : undefined,
@@ -80,6 +84,56 @@ export class PrismaVariantsRepository implements VariantsRepository {
           : undefined,
         reorderQuantity: variantData.reorderQuantity
           ? Number(variantData.reorderQuantity.toString())
+          : undefined,
+        reference: variantData.reference ?? undefined,
+        similars: (variantData.similars as unknown[]) ?? undefined,
+        outOfLine: variantData.outOfLine,
+        isActive: variantData.isActive,
+        createdAt: variantData.createdAt,
+        updatedAt: variantData.updatedAt ?? undefined,
+      },
+      new EntityID(variantData.id),
+    );
+  }
+
+  private mapVariantToDomain(variantData: PrismaVariant): Variant {
+    return Variant.create(
+      {
+        tenantId: new EntityID(variantData.tenantId),
+        productId: new EntityID(variantData.productId),
+        slug: Slug.create(variantData.slug),
+        sku: variantData.sku ?? undefined,
+        fullCode: variantData.fullCode ?? undefined,
+        sequentialCode: variantData.sequentialCode ?? undefined,
+        name: variantData.name,
+        price: Number(String(variantData.price)),
+        attributes: variantData.attributes as Record<string, unknown>,
+        costPrice: variantData.costPrice
+          ? Number(String(variantData.costPrice))
+          : undefined,
+        profitMargin: variantData.profitMargin
+          ? Number(String(variantData.profitMargin))
+          : undefined,
+        barcode: variantData.barcode ?? undefined,
+        qrCode: variantData.qrCode ?? undefined,
+        eanCode: variantData.eanCode ?? undefined,
+        upcCode: variantData.upcCode ?? undefined,
+        colorHex: variantData.colorHex ?? undefined,
+        colorPantone: variantData.colorPantone ?? undefined,
+        secondaryColorHex: variantData.secondaryColorHex ?? undefined,
+        secondaryColorPantone: variantData.secondaryColorPantone ?? undefined,
+        pattern: variantData.pattern ?? undefined,
+        minStock: variantData.minStock
+          ? Number(String(variantData.minStock))
+          : undefined,
+        maxStock: variantData.maxStock
+          ? Number(String(variantData.maxStock))
+          : undefined,
+        reorderPoint: variantData.reorderPoint
+          ? Number(String(variantData.reorderPoint))
+          : undefined,
+        reorderQuantity: variantData.reorderQuantity
+          ? Number(String(variantData.reorderQuantity))
           : undefined,
         reference: variantData.reference ?? undefined,
         similars: (variantData.similars as unknown[]) ?? undefined,
@@ -108,51 +162,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       return null;
     }
 
-    return Variant.create(
-      {
-        tenantId: new EntityID(variantData.tenantId),
-        productId: new EntityID(variantData.productId),
-        slug: Slug.create(variantData.slug),
-        sku: variantData.sku ?? undefined,
-        fullCode: variantData.fullCode ?? undefined,
-        sequentialCode: variantData.sequentialCode ?? undefined,
-        name: variantData.name,
-        price: Number(variantData.price.toString()),
-        imageUrl: variantData.imageUrl ?? undefined,
-        attributes: variantData.attributes as Record<string, unknown>,
-        costPrice: variantData.costPrice
-          ? Number(variantData.costPrice.toString())
-          : undefined,
-        profitMargin: variantData.profitMargin
-          ? Number(variantData.profitMargin.toString())
-          : undefined,
-        barcode: variantData.barcode ?? undefined,
-        qrCode: variantData.qrCode ?? undefined,
-        eanCode: variantData.eanCode ?? undefined,
-        upcCode: variantData.upcCode ?? undefined,
-        colorHex: variantData.colorHex ?? undefined,
-        colorPantone: variantData.colorPantone ?? undefined,
-        minStock: variantData.minStock
-          ? Number(variantData.minStock.toString())
-          : undefined,
-        maxStock: variantData.maxStock
-          ? Number(variantData.maxStock.toString())
-          : undefined,
-        reorderPoint: variantData.reorderPoint
-          ? Number(variantData.reorderPoint.toString())
-          : undefined,
-        reorderQuantity: variantData.reorderQuantity
-          ? Number(variantData.reorderQuantity.toString())
-          : undefined,
-        reference: variantData.reference ?? undefined,
-        similars: (variantData.similars as unknown[]) ?? undefined,
-        outOfLine: variantData.outOfLine,
-        isActive: variantData.isActive,
-        createdAt: variantData.createdAt,
-        updatedAt: variantData.updatedAt ?? undefined,
-      },
-      new EntityID(variantData.id),
-    );
+    return this.mapVariantToDomain(variantData);
   }
 
   async findBySKU(sku: string, tenantId: string): Promise<Variant | null> {
@@ -168,51 +178,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       return null;
     }
 
-    return Variant.create(
-      {
-        tenantId: new EntityID(variantData.tenantId),
-        productId: new EntityID(variantData.productId),
-        slug: Slug.create(variantData.slug),
-        sku: variantData.sku ?? undefined,
-        fullCode: variantData.fullCode ?? undefined,
-        sequentialCode: variantData.sequentialCode ?? undefined,
-        name: variantData.name,
-        price: Number(variantData.price.toString()),
-        imageUrl: variantData.imageUrl ?? undefined,
-        attributes: variantData.attributes as Record<string, unknown>,
-        costPrice: variantData.costPrice
-          ? Number(variantData.costPrice.toString())
-          : undefined,
-        profitMargin: variantData.profitMargin
-          ? Number(variantData.profitMargin.toString())
-          : undefined,
-        barcode: variantData.barcode ?? undefined,
-        qrCode: variantData.qrCode ?? undefined,
-        eanCode: variantData.eanCode ?? undefined,
-        upcCode: variantData.upcCode ?? undefined,
-        colorHex: variantData.colorHex ?? undefined,
-        colorPantone: variantData.colorPantone ?? undefined,
-        minStock: variantData.minStock
-          ? Number(variantData.minStock.toString())
-          : undefined,
-        maxStock: variantData.maxStock
-          ? Number(variantData.maxStock.toString())
-          : undefined,
-        reorderPoint: variantData.reorderPoint
-          ? Number(variantData.reorderPoint.toString())
-          : undefined,
-        reorderQuantity: variantData.reorderQuantity
-          ? Number(variantData.reorderQuantity.toString())
-          : undefined,
-        reference: variantData.reference ?? undefined,
-        similars: (variantData.similars as unknown[]) ?? undefined,
-        outOfLine: variantData.outOfLine,
-        isActive: variantData.isActive,
-        createdAt: variantData.createdAt,
-        updatedAt: variantData.updatedAt ?? undefined,
-      },
-      new EntityID(variantData.id),
-    );
+    return this.mapVariantToDomain(variantData);
   }
 
   async findByBarcode(
@@ -231,51 +197,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       return null;
     }
 
-    return Variant.create(
-      {
-        tenantId: new EntityID(variantData.tenantId),
-        productId: new EntityID(variantData.productId),
-        slug: Slug.create(variantData.slug),
-        sku: variantData.sku ?? undefined,
-        fullCode: variantData.fullCode ?? undefined,
-        sequentialCode: variantData.sequentialCode ?? undefined,
-        name: variantData.name,
-        price: Number(variantData.price.toString()),
-        imageUrl: variantData.imageUrl ?? undefined,
-        attributes: variantData.attributes as Record<string, unknown>,
-        costPrice: variantData.costPrice
-          ? Number(variantData.costPrice.toString())
-          : undefined,
-        profitMargin: variantData.profitMargin
-          ? Number(variantData.profitMargin.toString())
-          : undefined,
-        barcode: variantData.barcode ?? undefined,
-        qrCode: variantData.qrCode ?? undefined,
-        eanCode: variantData.eanCode ?? undefined,
-        upcCode: variantData.upcCode ?? undefined,
-        colorHex: variantData.colorHex ?? undefined,
-        colorPantone: variantData.colorPantone ?? undefined,
-        minStock: variantData.minStock
-          ? Number(variantData.minStock.toString())
-          : undefined,
-        maxStock: variantData.maxStock
-          ? Number(variantData.maxStock.toString())
-          : undefined,
-        reorderPoint: variantData.reorderPoint
-          ? Number(variantData.reorderPoint.toString())
-          : undefined,
-        reorderQuantity: variantData.reorderQuantity
-          ? Number(variantData.reorderQuantity.toString())
-          : undefined,
-        reference: variantData.reference ?? undefined,
-        similars: (variantData.similars as unknown[]) ?? undefined,
-        outOfLine: variantData.outOfLine,
-        isActive: variantData.isActive,
-        createdAt: variantData.createdAt,
-        updatedAt: variantData.updatedAt ?? undefined,
-      },
-      new EntityID(variantData.id),
-    );
+    return this.mapVariantToDomain(variantData);
   }
 
   async findByEANCode(
@@ -294,51 +216,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       return null;
     }
 
-    return Variant.create(
-      {
-        tenantId: new EntityID(variantData.tenantId),
-        productId: new EntityID(variantData.productId),
-        slug: Slug.create(variantData.slug),
-        sku: variantData.sku ?? undefined,
-        fullCode: variantData.fullCode ?? undefined,
-        sequentialCode: variantData.sequentialCode ?? undefined,
-        name: variantData.name,
-        price: Number(variantData.price.toString()),
-        imageUrl: variantData.imageUrl ?? undefined,
-        attributes: variantData.attributes as Record<string, unknown>,
-        costPrice: variantData.costPrice
-          ? Number(variantData.costPrice.toString())
-          : undefined,
-        profitMargin: variantData.profitMargin
-          ? Number(variantData.profitMargin.toString())
-          : undefined,
-        barcode: variantData.barcode ?? undefined,
-        qrCode: variantData.qrCode ?? undefined,
-        eanCode: variantData.eanCode ?? undefined,
-        upcCode: variantData.upcCode ?? undefined,
-        colorHex: variantData.colorHex ?? undefined,
-        colorPantone: variantData.colorPantone ?? undefined,
-        minStock: variantData.minStock
-          ? Number(variantData.minStock.toString())
-          : undefined,
-        maxStock: variantData.maxStock
-          ? Number(variantData.maxStock.toString())
-          : undefined,
-        reorderPoint: variantData.reorderPoint
-          ? Number(variantData.reorderPoint.toString())
-          : undefined,
-        reorderQuantity: variantData.reorderQuantity
-          ? Number(variantData.reorderQuantity.toString())
-          : undefined,
-        reference: variantData.reference ?? undefined,
-        similars: (variantData.similars as unknown[]) ?? undefined,
-        outOfLine: variantData.outOfLine,
-        isActive: variantData.isActive,
-        createdAt: variantData.createdAt,
-        updatedAt: variantData.updatedAt ?? undefined,
-      },
-      new EntityID(variantData.id),
-    );
+    return this.mapVariantToDomain(variantData);
   }
 
   async findByUPCCode(
@@ -357,51 +235,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       return null;
     }
 
-    return Variant.create(
-      {
-        tenantId: new EntityID(variantData.tenantId),
-        productId: new EntityID(variantData.productId),
-        slug: Slug.create(variantData.slug),
-        sku: variantData.sku ?? undefined,
-        fullCode: variantData.fullCode ?? undefined,
-        sequentialCode: variantData.sequentialCode ?? undefined,
-        name: variantData.name,
-        price: Number(variantData.price.toString()),
-        imageUrl: variantData.imageUrl ?? undefined,
-        attributes: variantData.attributes as Record<string, unknown>,
-        costPrice: variantData.costPrice
-          ? Number(variantData.costPrice.toString())
-          : undefined,
-        profitMargin: variantData.profitMargin
-          ? Number(variantData.profitMargin.toString())
-          : undefined,
-        barcode: variantData.barcode ?? undefined,
-        qrCode: variantData.qrCode ?? undefined,
-        eanCode: variantData.eanCode ?? undefined,
-        upcCode: variantData.upcCode ?? undefined,
-        colorHex: variantData.colorHex ?? undefined,
-        colorPantone: variantData.colorPantone ?? undefined,
-        minStock: variantData.minStock
-          ? Number(variantData.minStock.toString())
-          : undefined,
-        maxStock: variantData.maxStock
-          ? Number(variantData.maxStock.toString())
-          : undefined,
-        reorderPoint: variantData.reorderPoint
-          ? Number(variantData.reorderPoint.toString())
-          : undefined,
-        reorderQuantity: variantData.reorderQuantity
-          ? Number(variantData.reorderQuantity.toString())
-          : undefined,
-        reference: variantData.reference ?? undefined,
-        similars: (variantData.similars as unknown[]) ?? undefined,
-        outOfLine: variantData.outOfLine,
-        isActive: variantData.isActive,
-        createdAt: variantData.createdAt,
-        updatedAt: variantData.updatedAt ?? undefined,
-      },
-      new EntityID(variantData.id),
-    );
+    return this.mapVariantToDomain(variantData);
   }
 
   async findMany(tenantId: string): Promise<Variant[]> {
@@ -412,53 +246,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       },
     });
 
-    return variants.map((variantData) =>
-      Variant.create(
-        {
-          tenantId: new EntityID(variantData.tenantId),
-          productId: new EntityID(variantData.productId),
-          slug: Slug.create(variantData.slug),
-          sku: variantData.sku ?? undefined,
-          fullCode: variantData.fullCode ?? undefined,
-          sequentialCode: variantData.sequentialCode ?? undefined,
-          name: variantData.name,
-          price: Number(variantData.price.toString()),
-          imageUrl: variantData.imageUrl ?? undefined,
-          attributes: variantData.attributes as Record<string, unknown>,
-          costPrice: variantData.costPrice
-            ? Number(variantData.costPrice.toString())
-            : undefined,
-          profitMargin: variantData.profitMargin
-            ? Number(variantData.profitMargin.toString())
-            : undefined,
-          barcode: variantData.barcode ?? undefined,
-          qrCode: variantData.qrCode ?? undefined,
-          eanCode: variantData.eanCode ?? undefined,
-          upcCode: variantData.upcCode ?? undefined,
-          colorHex: variantData.colorHex ?? undefined,
-          colorPantone: variantData.colorPantone ?? undefined,
-          minStock: variantData.minStock
-            ? Number(variantData.minStock.toString())
-            : undefined,
-          maxStock: variantData.maxStock
-            ? Number(variantData.maxStock.toString())
-            : undefined,
-          reorderPoint: variantData.reorderPoint
-            ? Number(variantData.reorderPoint.toString())
-            : undefined,
-          reorderQuantity: variantData.reorderQuantity
-            ? Number(variantData.reorderQuantity.toString())
-            : undefined,
-          reference: variantData.reference ?? undefined,
-          similars: (variantData.similars as unknown[]) ?? undefined,
-          outOfLine: variantData.outOfLine,
-          isActive: variantData.isActive,
-          createdAt: variantData.createdAt,
-          updatedAt: variantData.updatedAt ?? undefined,
-        },
-        new EntityID(variantData.id),
-      ),
-    );
+    return variants.map((v) => this.mapVariantToDomain(v));
   }
 
   async findManyByProduct(
@@ -473,53 +261,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       },
     });
 
-    return variants.map((variantData) =>
-      Variant.create(
-        {
-          tenantId: new EntityID(variantData.tenantId),
-          productId: new EntityID(variantData.productId),
-          slug: Slug.create(variantData.slug),
-          sku: variantData.sku ?? undefined,
-          fullCode: variantData.fullCode ?? undefined,
-          sequentialCode: variantData.sequentialCode ?? undefined,
-          name: variantData.name,
-          price: Number(variantData.price.toString()),
-          imageUrl: variantData.imageUrl ?? undefined,
-          attributes: variantData.attributes as Record<string, unknown>,
-          costPrice: variantData.costPrice
-            ? Number(variantData.costPrice.toString())
-            : undefined,
-          profitMargin: variantData.profitMargin
-            ? Number(variantData.profitMargin.toString())
-            : undefined,
-          barcode: variantData.barcode ?? undefined,
-          qrCode: variantData.qrCode ?? undefined,
-          eanCode: variantData.eanCode ?? undefined,
-          upcCode: variantData.upcCode ?? undefined,
-          colorHex: variantData.colorHex ?? undefined,
-          colorPantone: variantData.colorPantone ?? undefined,
-          minStock: variantData.minStock
-            ? Number(variantData.minStock.toString())
-            : undefined,
-          maxStock: variantData.maxStock
-            ? Number(variantData.maxStock.toString())
-            : undefined,
-          reorderPoint: variantData.reorderPoint
-            ? Number(variantData.reorderPoint.toString())
-            : undefined,
-          reorderQuantity: variantData.reorderQuantity
-            ? Number(variantData.reorderQuantity.toString())
-            : undefined,
-          reference: variantData.reference ?? undefined,
-          similars: (variantData.similars as unknown[]) ?? undefined,
-          outOfLine: variantData.outOfLine,
-          isActive: variantData.isActive,
-          createdAt: variantData.createdAt,
-          updatedAt: variantData.updatedAt ?? undefined,
-        },
-        new EntityID(variantData.id),
-      ),
-    );
+    return variants.map((v) => this.mapVariantToDomain(v));
   }
 
   async findManyByProductWithAggregations(
@@ -559,51 +301,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
     });
 
     return variantsWithAggregations.map((variantData) => {
-      const variant = Variant.create(
-        {
-          tenantId: new EntityID(variantData.tenantId),
-          productId: new EntityID(variantData.productId),
-          slug: Slug.create(variantData.slug),
-          sku: variantData.sku ?? undefined,
-          fullCode: variantData.fullCode ?? undefined,
-          sequentialCode: variantData.sequentialCode ?? undefined,
-          name: variantData.name,
-          price: Number(variantData.price.toString()),
-          imageUrl: variantData.imageUrl ?? undefined,
-          attributes: variantData.attributes as Record<string, unknown>,
-          costPrice: variantData.costPrice
-            ? Number(variantData.costPrice.toString())
-            : undefined,
-          profitMargin: variantData.profitMargin
-            ? Number(variantData.profitMargin.toString())
-            : undefined,
-          barcode: variantData.barcode ?? undefined,
-          qrCode: variantData.qrCode ?? undefined,
-          eanCode: variantData.eanCode ?? undefined,
-          upcCode: variantData.upcCode ?? undefined,
-          colorHex: variantData.colorHex ?? undefined,
-          colorPantone: variantData.colorPantone ?? undefined,
-          minStock: variantData.minStock
-            ? Number(variantData.minStock.toString())
-            : undefined,
-          maxStock: variantData.maxStock
-            ? Number(variantData.maxStock.toString())
-            : undefined,
-          reorderPoint: variantData.reorderPoint
-            ? Number(variantData.reorderPoint.toString())
-            : undefined,
-          reorderQuantity: variantData.reorderQuantity
-            ? Number(variantData.reorderQuantity.toString())
-            : undefined,
-          reference: variantData.reference ?? undefined,
-          similars: (variantData.similars as unknown[]) ?? undefined,
-          outOfLine: variantData.outOfLine,
-          isActive: variantData.isActive,
-          createdAt: variantData.createdAt,
-          updatedAt: variantData.updatedAt ?? undefined,
-        },
-        new EntityID(variantData.id),
-      );
+      const variant = this.mapVariantToDomain(variantData);
 
       const itemCount = variantData.items.length;
       const totalCurrentQuantity = variantData.items.reduce(
@@ -640,51 +338,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       return null;
     }
 
-    return Variant.create(
-      {
-        tenantId: new EntityID(variantData.tenantId),
-        productId: new EntityID(variantData.productId),
-        slug: Slug.create(variantData.slug),
-        sku: variantData.sku ?? undefined,
-        fullCode: variantData.fullCode ?? undefined,
-        sequentialCode: variantData.sequentialCode ?? undefined,
-        name: variantData.name,
-        price: Number(variantData.price.toString()),
-        imageUrl: variantData.imageUrl ?? undefined,
-        attributes: variantData.attributes as Record<string, unknown>,
-        costPrice: variantData.costPrice
-          ? Number(variantData.costPrice.toString())
-          : undefined,
-        profitMargin: variantData.profitMargin
-          ? Number(variantData.profitMargin.toString())
-          : undefined,
-        barcode: variantData.barcode ?? undefined,
-        qrCode: variantData.qrCode ?? undefined,
-        eanCode: variantData.eanCode ?? undefined,
-        upcCode: variantData.upcCode ?? undefined,
-        colorHex: variantData.colorHex ?? undefined,
-        colorPantone: variantData.colorPantone ?? undefined,
-        minStock: variantData.minStock
-          ? Number(variantData.minStock.toString())
-          : undefined,
-        maxStock: variantData.maxStock
-          ? Number(variantData.maxStock.toString())
-          : undefined,
-        reorderPoint: variantData.reorderPoint
-          ? Number(variantData.reorderPoint.toString())
-          : undefined,
-        reorderQuantity: variantData.reorderQuantity
-          ? Number(variantData.reorderQuantity.toString())
-          : undefined,
-        reference: variantData.reference ?? undefined,
-        similars: (variantData.similars as unknown[]) ?? undefined,
-        outOfLine: variantData.outOfLine,
-        isActive: variantData.isActive,
-        createdAt: variantData.createdAt,
-        updatedAt: variantData.updatedAt ?? undefined,
-      },
-      new EntityID(variantData.id),
-    );
+    return this.mapVariantToDomain(variantData);
   }
 
   async findManyByPriceRange(
@@ -703,53 +357,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       },
     });
 
-    return variants.map((variantData) =>
-      Variant.create(
-        {
-          tenantId: new EntityID(variantData.tenantId),
-          productId: new EntityID(variantData.productId),
-          slug: Slug.create(variantData.slug),
-          sku: variantData.sku ?? undefined,
-          fullCode: variantData.fullCode ?? undefined,
-          sequentialCode: variantData.sequentialCode ?? undefined,
-          name: variantData.name,
-          price: Number(variantData.price.toString()),
-          imageUrl: variantData.imageUrl ?? undefined,
-          attributes: variantData.attributes as Record<string, unknown>,
-          costPrice: variantData.costPrice
-            ? Number(variantData.costPrice.toString())
-            : undefined,
-          profitMargin: variantData.profitMargin
-            ? Number(variantData.profitMargin.toString())
-            : undefined,
-          barcode: variantData.barcode ?? undefined,
-          qrCode: variantData.qrCode ?? undefined,
-          eanCode: variantData.eanCode ?? undefined,
-          upcCode: variantData.upcCode ?? undefined,
-          colorHex: variantData.colorHex ?? undefined,
-          colorPantone: variantData.colorPantone ?? undefined,
-          minStock: variantData.minStock
-            ? Number(variantData.minStock.toString())
-            : undefined,
-          maxStock: variantData.maxStock
-            ? Number(variantData.maxStock.toString())
-            : undefined,
-          reorderPoint: variantData.reorderPoint
-            ? Number(variantData.reorderPoint.toString())
-            : undefined,
-          reorderQuantity: variantData.reorderQuantity
-            ? Number(variantData.reorderQuantity.toString())
-            : undefined,
-          reference: variantData.reference ?? undefined,
-          similars: (variantData.similars as unknown[]) ?? undefined,
-          outOfLine: variantData.outOfLine,
-          isActive: variantData.isActive,
-          createdAt: variantData.createdAt,
-          updatedAt: variantData.updatedAt ?? undefined,
-        },
-        new EntityID(variantData.id),
-      ),
-    );
+    return variants.map((v) => this.mapVariantToDomain(v));
   }
 
   async findManyBelowReorderPoint(tenantId: string): Promise<Variant[]> {
@@ -763,56 +371,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       },
     });
 
-    // Filtra as variants abaixo do ponto de reposicao
-    // Precisaria calcular o estoque atual de cada variant
-    // Por simplicidade, retorna todas que tem reorderPoint definido
-    return variants.map((variantData) =>
-      Variant.create(
-        {
-          tenantId: new EntityID(variantData.tenantId),
-          productId: new EntityID(variantData.productId),
-          slug: Slug.create(variantData.slug),
-          sku: variantData.sku ?? undefined,
-          fullCode: variantData.fullCode ?? undefined,
-          sequentialCode: variantData.sequentialCode ?? undefined,
-          name: variantData.name,
-          price: Number(variantData.price.toString()),
-          imageUrl: variantData.imageUrl ?? undefined,
-          attributes: variantData.attributes as Record<string, unknown>,
-          costPrice: variantData.costPrice
-            ? Number(variantData.costPrice.toString())
-            : undefined,
-          profitMargin: variantData.profitMargin
-            ? Number(variantData.profitMargin.toString())
-            : undefined,
-          barcode: variantData.barcode ?? undefined,
-          qrCode: variantData.qrCode ?? undefined,
-          eanCode: variantData.eanCode ?? undefined,
-          upcCode: variantData.upcCode ?? undefined,
-          colorHex: variantData.colorHex ?? undefined,
-          colorPantone: variantData.colorPantone ?? undefined,
-          minStock: variantData.minStock
-            ? Number(variantData.minStock.toString())
-            : undefined,
-          maxStock: variantData.maxStock
-            ? Number(variantData.maxStock.toString())
-            : undefined,
-          reorderPoint: variantData.reorderPoint
-            ? Number(variantData.reorderPoint.toString())
-            : undefined,
-          reorderQuantity: variantData.reorderQuantity
-            ? Number(variantData.reorderQuantity.toString())
-            : undefined,
-          reference: variantData.reference ?? undefined,
-          similars: (variantData.similars as unknown[]) ?? undefined,
-          outOfLine: variantData.outOfLine,
-          isActive: variantData.isActive,
-          createdAt: variantData.createdAt,
-          updatedAt: variantData.updatedAt ?? undefined,
-        },
-        new EntityID(variantData.id),
-      ),
-    );
+    return variants.map((v) => this.mapVariantToDomain(v));
   }
 
   async update(data: UpdateVariantSchema): Promise<Variant | null> {
@@ -824,7 +383,6 @@ export class PrismaVariantsRepository implements VariantsRepository {
         sku: data.sku,
         name: data.name,
         price: data.price ? data.price : undefined,
-        imageUrl: data.imageUrl,
         attributes: data.attributes as Prisma.InputJsonValue,
         costPrice: data.costPrice ? data.costPrice : undefined,
         profitMargin: data.profitMargin ? data.profitMargin : undefined,
@@ -834,6 +392,9 @@ export class PrismaVariantsRepository implements VariantsRepository {
         upcCode: data.upcCode,
         colorHex: data.colorHex,
         colorPantone: data.colorPantone,
+        secondaryColorHex: data.secondaryColorHex,
+        secondaryColorPantone: data.secondaryColorPantone,
+        pattern: data.pattern as PrismaPattern | undefined,
         minStock: data.minStock ? data.minStock : undefined,
         maxStock: data.maxStock ? data.maxStock : undefined,
         reorderPoint: data.reorderPoint ? data.reorderPoint : undefined,
@@ -847,51 +408,7 @@ export class PrismaVariantsRepository implements VariantsRepository {
       },
     });
 
-    return Variant.create(
-      {
-        tenantId: new EntityID(variantData.tenantId),
-        productId: new EntityID(variantData.productId),
-        slug: Slug.create(variantData.slug),
-        sku: variantData.sku ?? undefined,
-        fullCode: variantData.fullCode ?? undefined,
-        sequentialCode: variantData.sequentialCode ?? undefined,
-        name: variantData.name,
-        price: Number(variantData.price.toString()),
-        imageUrl: variantData.imageUrl ?? undefined,
-        attributes: variantData.attributes as Record<string, unknown>,
-        costPrice: variantData.costPrice
-          ? Number(variantData.costPrice.toString())
-          : undefined,
-        profitMargin: variantData.profitMargin
-          ? Number(variantData.profitMargin.toString())
-          : undefined,
-        barcode: variantData.barcode ?? undefined,
-        qrCode: variantData.qrCode ?? undefined,
-        eanCode: variantData.eanCode ?? undefined,
-        upcCode: variantData.upcCode ?? undefined,
-        colorHex: variantData.colorHex ?? undefined,
-        colorPantone: variantData.colorPantone ?? undefined,
-        minStock: variantData.minStock
-          ? Number(variantData.minStock.toString())
-          : undefined,
-        maxStock: variantData.maxStock
-          ? Number(variantData.maxStock.toString())
-          : undefined,
-        reorderPoint: variantData.reorderPoint
-          ? Number(variantData.reorderPoint.toString())
-          : undefined,
-        reorderQuantity: variantData.reorderQuantity
-          ? Number(variantData.reorderQuantity.toString())
-          : undefined,
-        reference: variantData.reference ?? undefined,
-        similars: (variantData.similars as unknown[]) ?? undefined,
-        outOfLine: variantData.outOfLine,
-        isActive: variantData.isActive,
-        createdAt: variantData.createdAt,
-        updatedAt: variantData.updatedAt ?? undefined,
-      },
-      new EntityID(variantData.id),
-    );
+    return this.mapVariantToDomain(variantData);
   }
 
   async save(variant: Variant): Promise<void> {
@@ -903,7 +420,6 @@ export class PrismaVariantsRepository implements VariantsRepository {
         sku: variant.sku,
         name: variant.name,
         price: variant.price,
-        imageUrl: variant.imageUrl,
         attributes: variant.attributes as Prisma.InputJsonValue,
         costPrice: variant.costPrice ? variant.costPrice : undefined,
         profitMargin: variant.profitMargin ? variant.profitMargin : undefined,
@@ -913,6 +429,9 @@ export class PrismaVariantsRepository implements VariantsRepository {
         upcCode: variant.upcCode,
         colorHex: variant.colorHex,
         colorPantone: variant.colorPantone,
+        secondaryColorHex: variant.secondaryColorHex,
+        secondaryColorPantone: variant.secondaryColorPantone,
+        pattern: variant.pattern as PrismaPattern | undefined,
         minStock: variant.minStock ? variant.minStock : undefined,
         maxStock: variant.maxStock ? variant.maxStock : undefined,
         reorderPoint: variant.reorderPoint ? variant.reorderPoint : undefined,

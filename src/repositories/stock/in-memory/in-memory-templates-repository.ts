@@ -27,7 +27,7 @@ export class InMemoryTemplatesRepository implements TemplatesRepository {
       productAttributes: data.productAttributes ?? {},
       variantAttributes: data.variantAttributes ?? {},
       itemAttributes: data.itemAttributes ?? {},
-      careLabel: data.careLabel,
+      specialModules: data.specialModules ?? [],
     });
 
     this.items.push(template);
@@ -79,7 +79,8 @@ export class InMemoryTemplatesRepository implements TemplatesRepository {
       template.variantAttributes = data.variantAttributes;
     if (data.itemAttributes !== undefined)
       template.itemAttributes = data.itemAttributes;
-    if (data.careLabel !== undefined) template.careLabel = data.careLabel;
+    if (data.specialModules !== undefined)
+      template.specialModules = data.specialModules;
     if (data.isActive !== undefined) template.isActive = data.isActive;
 
     return template;

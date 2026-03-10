@@ -19,7 +19,6 @@ export interface CreateProductSchema {
   manufacturerId?: UniqueEntityID;
   attributes?: Record<string, unknown>;
   categoryIds?: string[];
-  careInstructionIds?: string[];
 }
 
 export interface UpdateProductSchema {
@@ -55,10 +54,6 @@ export interface ProductsRepository {
     tenantId: string,
   ): Promise<Product[]>;
   update(data: UpdateProductSchema): Promise<Product | null>;
-  updateCareInstructions(
-    productId: UniqueEntityID,
-    careInstructionIds: string[],
-  ): Promise<Product>;
   save(product: Product): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
   getNextSequentialCode(): Promise<number>;

@@ -1,8 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type {
-  CareLabelInfo,
-  TemplateAttributesMap,
-} from '@/entities/stock/template';
+import type { TemplateAttributesMap } from '@/entities/stock/template';
 import { Template } from '@/entities/stock/template';
 import type { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 
@@ -15,7 +12,7 @@ export interface CreateTemplateSchema {
   productAttributes?: TemplateAttributesMap;
   variantAttributes?: TemplateAttributesMap;
   itemAttributes?: TemplateAttributesMap;
-  careLabel?: CareLabelInfo;
+  specialModules?: string[];
 }
 
 export interface UpdateTemplateSchema {
@@ -26,7 +23,7 @@ export interface UpdateTemplateSchema {
   productAttributes?: TemplateAttributesMap;
   variantAttributes?: TemplateAttributesMap;
   itemAttributes?: TemplateAttributesMap;
-  careLabel?: CareLabelInfo;
+  specialModules?: string[];
   isActive?: boolean;
 }
 
