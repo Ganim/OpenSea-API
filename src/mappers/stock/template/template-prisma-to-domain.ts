@@ -1,10 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
-  CareLabelInfo,
   Template,
   TemplateAttributesMap,
 } from '@/entities/stock/template';
 import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
+import type { UnitOfMeasureValue } from '@/entities/stock/value-objects/unit-of-measure';
 import type { Template as PrismaTemplate } from '@prisma/generated/client.js';
 
 export function mapTemplatePrismaToDomain(templateDb: PrismaTemplate) {
@@ -15,14 +15,14 @@ export function mapTemplatePrismaToDomain(templateDb: PrismaTemplate) {
     sequentialCode: templateDb.sequentialCode,
     name: templateDb.name,
     iconUrl: templateDb.iconUrl ?? undefined,
-    unitOfMeasure: UnitOfMeasure.create(templateDb.unitOfMeasure),
+    unitOfMeasure: UnitOfMeasure.create(templateDb.unitOfMeasure as UnitOfMeasureValue),
     productAttributes:
       templateDb.productAttributes as unknown as TemplateAttributesMap,
     variantAttributes:
       templateDb.variantAttributes as unknown as TemplateAttributesMap,
     itemAttributes:
       templateDb.itemAttributes as unknown as TemplateAttributesMap,
-    careLabel: templateDb.careLabel as CareLabelInfo | undefined,
+    specialModules: (templateDb.specialModules as string[]) ?? [],
     isActive: templateDb.isActive,
     createdAt: templateDb.createdAt,
     updatedAt: templateDb.updatedAt,

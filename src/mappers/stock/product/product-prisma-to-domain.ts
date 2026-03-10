@@ -1,6 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
-import { CareInstructions } from '@/entities/stock/value-objects/care-instructions';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { Slug } from '@/entities/stock/value-objects/slug';
 import type {
@@ -59,9 +58,6 @@ export function mapProductPrismaToDomain(productDb: ProductWithRelations) {
     status: ProductStatus.create(productDb.status),
     outOfLine: productDb.outOfLine ?? false,
     attributes: productDb.attributes as Record<string, unknown>,
-    careInstructions: CareInstructions.create(
-      productDb.careInstructionIds ?? [],
-    ),
     templateId: new UniqueEntityID(productDb.templateId),
     template: productDb.template
       ? templatePrismaToDomain(productDb.template)

@@ -83,7 +83,6 @@ export interface VariantDTO {
   price: number;
   costPrice?: number;
   profitMargin?: number;
-  imageUrl?: string;
   barcode?: string;
   isActive: boolean;
   createdAt: Date;
@@ -99,7 +98,6 @@ export interface ProductDTO {
   status: string;
   outOfLine: boolean;
   attributes: Record<string, unknown>;
-  careInstructionIds: string[];
   templateId: string;
   template?: TemplateDTO;
   supplierId?: string;
@@ -217,7 +215,6 @@ function variantToDTO(variant: Variant): VariantDTO {
     price: variant.price,
     costPrice: variant.costPrice,
     profitMargin: variant.profitMargin,
-    imageUrl: variant.imageUrl,
     barcode: variant.barcode,
     isActive: variant.isActive,
     createdAt: variant.createdAt,
@@ -235,7 +232,6 @@ export function productToDTO(product: Product): ProductDTO {
     status: product.status.value,
     outOfLine: product.outOfLine,
     attributes: product.attributes,
-    careInstructionIds: product.careInstructionIds,
     templateId: product.templateId.toString(),
     template: templateToDTO(product.template),
     supplierId: product.supplierId?.toString(),

@@ -1,5 +1,4 @@
 import type {
-  CareLabelInfo,
   Template,
   TemplateAttributesMap,
 } from '@/entities/stock/template';
@@ -14,7 +13,7 @@ export interface TemplateDTO {
   productAttributes: TemplateAttributesMap;
   variantAttributes: TemplateAttributesMap;
   itemAttributes: TemplateAttributesMap;
-  careLabel: CareLabelInfo | null;
+  specialModules: string[];
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date | null;
@@ -32,7 +31,7 @@ export function templateToDTO(template: Template): TemplateDTO {
     productAttributes: template.productAttributes,
     variantAttributes: template.variantAttributes,
     itemAttributes: template.itemAttributes,
-    careLabel: template.careLabel ?? null,
+    specialModules: template.specialModules,
     isActive: template.isActive,
     createdAt: template.createdAt,
     updatedAt: template.updatedAt ?? null,

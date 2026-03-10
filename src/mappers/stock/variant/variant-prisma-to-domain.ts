@@ -20,7 +20,6 @@ export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {
     sequentialCode: variantDb.sequentialCode ?? undefined,
     name: variantDb.name,
     price: Number(variantDb.price.toString()),
-    imageUrl: variantDb.imageUrl ?? undefined,
     attributes: variantDb.attributes as Record<string, unknown>,
     costPrice: variantDb.costPrice
       ? Number(variantDb.costPrice.toString())
@@ -34,6 +33,9 @@ export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {
     upcCode: variantDb.upcCode ?? undefined,
     colorHex: variantDb.colorHex ?? undefined,
     colorPantone: variantDb.colorPantone ?? undefined,
+    secondaryColorHex: variantDb.secondaryColorHex ?? undefined,
+    secondaryColorPantone: variantDb.secondaryColorPantone ?? undefined,
+    pattern: variantDb.pattern ?? undefined,
     minStock: variantDb.minStock
       ? Number(variantDb.minStock.toString())
       : undefined,

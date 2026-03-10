@@ -8,7 +8,6 @@ export interface VariantDTO {
   sequentialCode?: number;
   name: string;
   price: number;
-  imageUrl?: string;
   attributes: Record<string, unknown>;
   costPrice?: number;
   profitMargin?: number;
@@ -18,6 +17,9 @@ export interface VariantDTO {
   upcCode?: string;
   colorHex?: string;
   colorPantone?: string;
+  secondaryColorHex?: string;
+  secondaryColorPantone?: string;
+  pattern?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
@@ -47,7 +49,6 @@ export function variantToDTO(variant: Variant): VariantDTO {
     sequentialCode: variant.sequentialCode,
     name: variant.name,
     price: variant.price,
-    imageUrl: variant.imageUrl,
     attributes: variant.attributes,
     costPrice: variant.costPrice,
     profitMargin: variant.profitMargin,
@@ -57,6 +58,9 @@ export function variantToDTO(variant: Variant): VariantDTO {
     upcCode: variant.upcCode,
     colorHex: variant.colorHex,
     colorPantone: variant.colorPantone,
+    secondaryColorHex: variant.secondaryColorHex,
+    secondaryColorPantone: variant.secondaryColorPantone,
+    pattern: variant.pattern,
     minStock: variant.minStock,
     maxStock: variant.maxStock,
     reorderPoint: variant.reorderPoint,
