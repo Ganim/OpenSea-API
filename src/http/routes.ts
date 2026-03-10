@@ -76,6 +76,7 @@ import { financeDashboardRoutes } from './controllers/finance/dashboard/routes';
 import { financeEntriesRoutes } from './controllers/finance/entries/routes';
 import { financeExportRoutes } from './controllers/finance/export/routes';
 import { loansRoutes } from './controllers/finance/loans/routes';
+import { financeRecurringRoutes } from './controllers/finance/recurring/routes';
 
 // Calendar routes
 import { calendarCalendarsRoutes } from './controllers/calendar/calendars/routes';
@@ -184,6 +185,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(loansRoutes);
   await app.register(consortiaRoutes);
   await app.register(financeExportRoutes);
+  await app.register(financeRecurringRoutes);
 
   // Calendar routes
   await app.register(calendarCalendarsRoutes);
