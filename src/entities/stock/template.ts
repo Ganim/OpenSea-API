@@ -48,15 +48,6 @@ export interface TemplateAttribute {
  */
 export type TemplateAttributesMap = Record<string, TemplateAttribute>;
 
-export interface CareLabelInfo {
-  washing?: string; // Símbolo/instrução de lavagem
-  drying?: string; // Símbolo/instrução de secagem
-  ironing?: string; // Símbolo/instrução de passadoria
-  bleaching?: string; // Símbolo/instrução de alvejante
-  dryClean?: string; // Símbolo/instrução de lavagem a seco
-  composition?: { fiber: string; percentage: number }[]; // Composição do tecido
-}
-
 export interface TemplateProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
@@ -68,7 +59,7 @@ export interface TemplateProps {
   productAttributes: TemplateAttributesMap;
   variantAttributes: TemplateAttributesMap;
   itemAttributes: TemplateAttributesMap;
-  careLabel?: CareLabelInfo;
+  specialModules: string[];
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
@@ -198,13 +189,17 @@ export class Template extends Entity<TemplateProps> {
     }, {} as TemplateAttributesMap);
   }
 
-  get careLabel(): CareLabelInfo | undefined {
-    return this.props.careLabel;
+  get specialModules(): string[] {
+    return this.props.specialModules;
   }
 
-  set careLabel(careLabel: CareLabelInfo | undefined) {
-    this.props.careLabel = careLabel;
+  set specialModules(modules: string[]) {
+    this.props.specialModules = modules;
     this.touch();
+  }
+
+  hasSpecialModule(module: string): boolean {
+    return this.props.specialModules.includes(module);
   }
 
   get isActive(): boolean {
@@ -245,12 +240,6 @@ export class Template extends Entity<TemplateProps> {
     return Object.keys(this.props.itemAttributes).length > 0;
   }
 
-  get hasCareLabel(): boolean {
-    return (
-      !!this.props.careLabel && Object.keys(this.props.careLabel).length > 0
-    );
-  }
-
   // Business Methods
   activate(): void {
     this.props.isActive = true;
@@ -288,6 +277,7 @@ export class Template extends Entity<TemplateProps> {
       | 'productAttributes'
       | 'variantAttributes'
       | 'itemAttributes'
+      | 'specialModules'
     >,
     id?: UniqueEntityID,
   ): Template {
@@ -299,6 +289,7 @@ export class Template extends Entity<TemplateProps> {
         productAttributes: props.productAttributes ?? {},
         variantAttributes: props.variantAttributes ?? {},
         itemAttributes: props.itemAttributes ?? {},
+        specialModules: props.specialModules ?? [],
         isActive: props.isActive ?? true,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
