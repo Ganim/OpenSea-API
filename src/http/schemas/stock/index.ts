@@ -19,3 +19,4 @@ export * from './care';
 export * from './labels';
 export * from './address';
 export * from './product-care-instructions';
+export * from './attachments';
