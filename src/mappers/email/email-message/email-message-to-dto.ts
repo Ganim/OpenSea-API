@@ -13,6 +13,7 @@ export interface EmailMessageListItemDTO {
   snippet: string | null;
   receivedAt: Date;
   isRead: boolean;
+  isFlagged: boolean;
   isAnswered: boolean;
   hasAttachments: boolean;
 }
@@ -71,6 +72,7 @@ export function emailMessageToListDTO(
     snippet: message.snippet,
     receivedAt: message.receivedAt,
     isRead: message.isRead,
+    isFlagged: message.isFlagged,
     isAnswered: message.isAnswered,
     hasAttachments: message.hasAttachments,
   };

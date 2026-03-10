@@ -38,6 +38,7 @@ const messageSchema = z.object({
   snippet: z.string().nullable(),
   receivedAt: z.coerce.date(),
   isRead: z.boolean(),
+  isFlagged: z.boolean(),
   isAnswered: z.boolean(),
   hasAttachments: z.boolean(),
 });

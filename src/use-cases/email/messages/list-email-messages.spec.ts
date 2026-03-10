@@ -100,6 +100,56 @@ describe('ListEmailMessagesUseCase', () => {
     expect(result.messages).toHaveLength(5);
   });
 
+  it('should include isFlagged in list DTO', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      accountId: account!.id.toString(),
+    });
+
+    expect(result.messages).toHaveLength(5);
+    for (const msg of result.messages) {
+      expect(msg).toHaveProperty('isFlagged');
+      expect(typeof msg.isFlagged).toBe('boolean');
+    }
+  });
+
+  it('should filter flagged messages', async () => {
+    const account = await accountsRepository.findByAddress(
+      'user@example.com',
+      'tenant-1',
+    );
+
+    // Flag one message
+    const allMessages = await messagesRepository.list({
+      tenantId: 'tenant-1',
+      accountId: account!.id.toString(),
+      page: 1,
+      limit: 100,
+    });
+    const firstMsg = allMessages.messages[0];
+    await messagesRepository.update({
+      id: firstMsg.id.toString(),
+      tenantId: 'tenant-1',
+      isFlagged: true,
+    });
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-1',
+      accountId: account!.id.toString(),
+      flagged: true,
+    });
+
+    expect(result.messages.length).toBeGreaterThan(0);
+    expect(result.messages.every((m) => m.isFlagged)).toBe(true);
+  });
+
   it('should filter unread messages', async () => {
     const account = await accountsRepository.findByAddress(
       'user@example.com',

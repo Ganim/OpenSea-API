@@ -240,6 +240,19 @@ describe('Email Messages Controller (E2E)', () => {
       expect(response.body.data.length).toBeGreaterThan(0);
     });
 
+    it('[SUCESSO] deve retornar isFlagged na listagem', async () => {
+      const response = await request(app.server)
+        .get('/v1/email/messages')
+        .set('Authorization', `Bearer ${token}`)
+        .query({ accountId, folderId: sentFolderId });
+      expect(response.status).toBe(200);
+      expect(response.body.data.length).toBeGreaterThan(0);
+      for (const msg of response.body.data) {
+        expect(msg).toHaveProperty('isFlagged');
+        expect(typeof msg.isFlagged).toBe('boolean');
+      }
+    });
+
     it('[SUCESSO] deve listar apenas não lidas com unread=true', async () => {
       const response = await request(app.server)
         .get('/v1/email/messages')
@@ -454,6 +467,93 @@ describe('Email Messages Controller (E2E)', () => {
         .patch(`/v1/email/messages/${sentMessageId}/read`)
         .set('Authorization', `Bearer ${tokenNoPerms}`)
         .send({ isRead: true });
+      expect(response.status).toBe(403);
+    });
+  });
+
+  // ─── PATCH /v1/email/messages/:id/flag ───────────────────────────────────
+  describe('Marcar com estrela (PATCH /v1/email/messages/:id/flag)', () => {
+    it('[SUCESSO] deve marcar mensagem com estrela e persistir na listagem', async () => {
+      if (!sentMessageId) return;
+
+      // Toggle flag on
+      const flagRes = await request(app.server)
+        .patch(`/v1/email/messages/${sentMessageId}/flag`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({ isFlagged: true });
+      expect(flagRes.status).toBe(204);
+
+      // Verify in list endpoint
+      const listRes = await request(app.server)
+        .get('/v1/email/messages')
+        .set('Authorization', `Bearer ${token}`)
+        .query({ accountId, folderId: sentFolderId });
+      expect(listRes.status).toBe(200);
+      const flaggedMsg = listRes.body.data.find((m: { id: string }) => m.id === sentMessageId);
+      expect(flaggedMsg).toBeDefined();
+      expect(flaggedMsg.isFlagged).toBe(true);
+    });
+
+    it('[SUCESSO] deve remover estrela e persistir na listagem', async () => {
+      if (!sentMessageId) return;
+
+      // Toggle flag off
+      const flagRes = await request(app.server)
+        .patch(`/v1/email/messages/${sentMessageId}/flag`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({ isFlagged: false });
+      expect(flagRes.status).toBe(204);
+
+      // Verify in list endpoint
+      const listRes = await request(app.server)
+        .get('/v1/email/messages')
+        .set('Authorization', `Bearer ${token}`)
+        .query({ accountId, folderId: sentFolderId });
+      expect(listRes.status).toBe(200);
+      const unflaggedMsg = listRes.body.data.find((m: { id: string }) => m.id === sentMessageId);
+      expect(unflaggedMsg).toBeDefined();
+      expect(unflaggedMsg.isFlagged).toBe(false);
+    });
+
+    it('[SUCESSO] deve listar apenas mensagens com estrela usando flagged=true', async () => {
+      if (!sentMessageId) return;
+
+      // Ensure the message is flagged
+      await request(app.server)
+        .patch(`/v1/email/messages/${sentMessageId}/flag`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({ isFlagged: true });
+
+      const response = await request(app.server)
+        .get('/v1/email/messages')
+        .set('Authorization', `Bearer ${token}`)
+        .query({ accountId, flagged: true });
+      expect(response.status).toBe(200);
+      for (const msg of response.body.data) {
+        expect(msg.isFlagged).toBe(true);
+      }
+
+      // Cleanup: unflag
+      await request(app.server)
+        .patch(`/v1/email/messages/${sentMessageId}/flag`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({ isFlagged: false });
+    });
+
+    it('[FALHA] deve retornar 404 para mensagem inexistente', async () => {
+      const response = await request(app.server)
+        .patch('/v1/email/messages/00000000-0000-0000-0000-000000000000/flag')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ isFlagged: true });
+      expect(response.status).toBe(404);
+    });
+
+    it('[FALHA] deve retornar 403 sem permissão', async () => {
+      if (!sentMessageId) return;
+      const response = await request(app.server)
+        .patch(`/v1/email/messages/${sentMessageId}/flag`)
+        .set('Authorization', `Bearer ${tokenNoPerms}`)
+        .send({ isFlagged: true });
       expect(response.status).toBe(403);
     });
   });
