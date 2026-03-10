@@ -38,6 +38,7 @@ import { auditRoutes } from './controllers/audit/routes';
 
 // Stock routes
 import { careRoutes } from './controllers/stock/care/routes';
+import { productCareInstructionsRoutes } from './controllers/stock/product-care-instructions/routes';
 import { categoriesRoutes } from './controllers/stock/categories/routes';
 import { itemMovementsRoutes } from './controllers/stock/item-movements/routes';
 import { itemsRoutes } from './controllers/stock/items/routes';
@@ -163,6 +164,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(itemMovementsRoutes);
   await app.register(purchaseOrdersRoutes);
   await app.register(careRoutes);
+  await app.register(productCareInstructionsRoutes);
 
   // Sales routes
   await app.register(customersRoutes);
