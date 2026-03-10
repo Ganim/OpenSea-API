@@ -7,7 +7,6 @@ import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-me
 import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
-import type { CareCatalogProvider } from '@/services/care';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateProductUseCase } from '../products/create-product';
@@ -23,24 +22,6 @@ let categoriesRepository: InMemoryCategoriesRepository;
 let createVariant: CreateVariantUseCase;
 let createProduct: CreateProductUseCase;
 let createTemplate: CreateTemplateUseCase;
-
-const mockCareCatalog = {
-  validateIds: (ids: string[]) =>
-    ids.filter(
-      (id) =>
-        !id.startsWith('WASH') &&
-        !id.startsWith('IRON') &&
-        !id.startsWith('DRY') &&
-        !id.startsWith('BLEACH') &&
-        !id.startsWith('DO_NOT'),
-    ),
-  exists: (id: string) =>
-    id.startsWith('WASH') ||
-    id.startsWith('IRON') ||
-    id.startsWith('DRY') ||
-    id.startsWith('BLEACH') ||
-    id.startsWith('DO_NOT'),
-} as unknown as CareCatalogProvider;
 
 describe('CreateVariantUseCase', () => {
   beforeEach(() => {
@@ -60,8 +41,7 @@ describe('CreateVariantUseCase', () => {
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
-      categoriesRepository,
-      mockCareCatalog,
+      categoriesRepository,
     );
     createTemplate = new CreateTemplateUseCase(templatesRepository);
   });
@@ -123,7 +103,6 @@ describe('CreateVariantUseCase', () => {
       sku: 'PHONE-001-BLK',
       name: 'Smartphone Black',
       price: 999.99,
-      imageUrl: 'https://example.com/phone.jpg',
       attributes: { color: 'Black' },
       costPrice: 600,
       profitMargin: 40,

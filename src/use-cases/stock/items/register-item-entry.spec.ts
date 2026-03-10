@@ -12,7 +12,6 @@ import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-m
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
 import { InMemoryWarehousesRepository } from '@/repositories/stock/in-memory/in-memory-warehouses-repository';
 import { InMemoryZonesRepository } from '@/repositories/stock/in-memory/in-memory-zones-repository';
-import type { CareCatalogProvider } from '@/services/care';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateProductUseCase } from '../products/create-product';
@@ -35,24 +34,6 @@ let registerItemEntry: RegisterItemEntryUseCase;
 let createVariant: CreateVariantUseCase;
 let createProduct: CreateProductUseCase;
 let createTemplate: CreateTemplateUseCase;
-
-const mockCareCatalog = {
-  validateIds: (ids: string[]) =>
-    ids.filter(
-      (id) =>
-        !id.startsWith('WASH') &&
-        !id.startsWith('IRON') &&
-        !id.startsWith('DRY') &&
-        !id.startsWith('BLEACH') &&
-        !id.startsWith('DO_NOT'),
-    ),
-  exists: (id: string) =>
-    id.startsWith('WASH') ||
-    id.startsWith('IRON') ||
-    id.startsWith('DRY') ||
-    id.startsWith('BLEACH') ||
-    id.startsWith('DO_NOT'),
-} as unknown as CareCatalogProvider;
 
 async function createTestBin(
   warehousesRepo: InMemoryWarehousesRepository,
@@ -126,8 +107,7 @@ describe('RegisterItemEntryUseCase', () => {
       templatesRepository,
       suppliersRepository,
       manufacturersRepository,
-      categoriesRepository,
-      mockCareCatalog,
+      categoriesRepository,
     );
 
     createTemplate = new CreateTemplateUseCase(templatesRepository);

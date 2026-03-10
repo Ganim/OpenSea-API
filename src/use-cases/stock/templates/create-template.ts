@@ -1,8 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import {
-  CareLabelInfo,
-  TemplateAttributesMap,
-} from '@/entities/stock/template';
+import { TemplateAttributesMap } from '@/entities/stock/template';
 import { UnitOfMeasure } from '@/entities/stock/value-objects/unit-of-measure';
 import type { TemplateDTO } from '@/mappers/stock/template/template-to-dto';
 import { templateToDTO } from '@/mappers/stock/template/template-to-dto';
@@ -17,7 +14,7 @@ interface CreateTemplateUseCaseRequest {
   productAttributes?: TemplateAttributesMap;
   variantAttributes?: TemplateAttributesMap;
   itemAttributes?: TemplateAttributesMap;
-  careLabel?: CareLabelInfo;
+  specialModules?: string[];
 }
 
 interface CreateTemplateUseCaseResponse {
@@ -39,7 +36,6 @@ export class CreateTemplateUseCase {
       productAttributes,
       variantAttributes,
       itemAttributes,
-      careLabel,
     } = request;
 
     // Validate name
@@ -93,7 +89,7 @@ export class CreateTemplateUseCase {
       productAttributes: productAttributes ?? {},
       variantAttributes: variantAttributes ?? {},
       itemAttributes: itemAttributes ?? {},
-      careLabel,
+      specialModules: request.specialModules ?? [],
     });
 
     return {

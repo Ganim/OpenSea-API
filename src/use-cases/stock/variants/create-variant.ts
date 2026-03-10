@@ -28,13 +28,15 @@ export interface CreateVariantUseCaseInput {
   sku?: string;
   name: string;
   price?: number;
-  imageUrl?: string;
   attributes?: Record<string, unknown>;
   costPrice?: number;
   profitMargin?: number;
   qrCode?: string; // QR Code é o único campo editável
   colorHex?: string;
   colorPantone?: string;
+  secondaryColorHex?: string;
+  secondaryColorPantone?: string;
+  pattern?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
@@ -125,11 +127,6 @@ export class CreateVariantUseCase {
       throw new BadRequestError('Reorder quantity cannot be negative');
     }
 
-    // Validate imageUrl length
-    if (input.imageUrl && input.imageUrl.length > 512) {
-      throw new BadRequestError('Image URL must not exceed 512 characters');
-    }
-
     // Validate qrCode length
     if (input.qrCode && input.qrCode.length > 512) {
       throw new BadRequestError('QR code must not exceed 512 characters');
@@ -215,13 +212,15 @@ export class CreateVariantUseCase {
       sku,
       name: input.name,
       price,
-      imageUrl: input.imageUrl,
       attributes: input.attributes ?? {},
       costPrice: input.costPrice,
       profitMargin: input.profitMargin,
       qrCode: input.qrCode,
       colorHex: input.colorHex,
       colorPantone: input.colorPantone,
+      secondaryColorHex: input.secondaryColorHex,
+      secondaryColorPantone: input.secondaryColorPantone,
+      pattern: input.pattern,
       minStock: input.minStock,
       maxStock: input.maxStock,
       reorderPoint: input.reorderPoint,

@@ -12,7 +12,6 @@ export interface UpdateVariantUseCaseInput {
   sku?: string;
   name?: string;
   price?: number;
-  imageUrl?: string;
   attributes?: Record<string, unknown>;
   costPrice?: number;
   profitMargin?: number;
@@ -22,6 +21,9 @@ export interface UpdateVariantUseCaseInput {
   upcCode?: string;
   colorHex?: string;
   colorPantone?: string;
+  secondaryColorHex?: string;
+  secondaryColorPantone?: string;
+  pattern?: string;
   minStock?: number;
   maxStock?: number;
   reorderPoint?: number;
@@ -127,11 +129,6 @@ export class UpdateVariantUseCase {
       throw new BadRequestError('Reorder quantity cannot be negative');
     }
 
-    // Validate imageUrl length if provided
-    if (input.imageUrl !== undefined && input.imageUrl.length > 512) {
-      throw new BadRequestError('Image URL must not exceed 512 characters');
-    }
-
     // Validate barcode if provided
     if (input.barcode !== undefined) {
       if (input.barcode.length > 128) {
@@ -224,7 +221,6 @@ export class UpdateVariantUseCase {
       sku: input.sku,
       name: input.name,
       price: input.price,
-      imageUrl: input.imageUrl,
       attributes: input.attributes,
       costPrice: input.costPrice,
       profitMargin: input.profitMargin,
@@ -234,6 +230,9 @@ export class UpdateVariantUseCase {
       upcCode: input.upcCode,
       colorHex: input.colorHex,
       colorPantone: input.colorPantone,
+      secondaryColorHex: input.secondaryColorHex,
+      secondaryColorPantone: input.secondaryColorPantone,
+      pattern: input.pattern,
       minStock: input.minStock,
       maxStock: input.maxStock,
       reorderPoint: input.reorderPoint,

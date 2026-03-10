@@ -16,6 +16,7 @@ interface UpdateTemplateUseCaseRequest {
   productAttributes?: TemplateAttributesMap;
   variantAttributes?: TemplateAttributesMap;
   itemAttributes?: TemplateAttributesMap;
+  specialModules?: string[];
 }
 
 interface UpdateTemplateUseCaseResponse {
@@ -95,6 +96,7 @@ export class UpdateTemplateUseCase {
       productAttributes,
       variantAttributes,
       itemAttributes,
+      specialModules: request.specialModules,
     });
 
     if (!updatedTemplate) {

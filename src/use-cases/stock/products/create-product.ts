@@ -8,7 +8,6 @@ import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repo
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
-import type { CareCatalogProvider } from '@/services/care';
 import {
   generateBarcode,
   generateEAN13,
@@ -35,7 +34,6 @@ interface CreateProductUseCaseRequest {
   manufacturerId?: string;
   attributes?: Record<string, unknown>;
   categoryIds?: string[];
-  careInstructionIds?: string[];
 }
 
 interface CreateProductUseCaseResponse {
@@ -49,7 +47,6 @@ export class CreateProductUseCase {
     private suppliersRepository: SuppliersRepository,
     private manufacturersRepository: ManufacturersRepository,
     private categoriesRepository: CategoriesRepository,
-    private careCatalogProvider: CareCatalogProvider,
   ) {}
 
   async execute(
@@ -66,7 +63,6 @@ export class CreateProductUseCase {
       manufacturerId,
       attributes,
       categoryIds,
-      careInstructionIds,
     } = request;
 
     // Validate name
@@ -154,17 +150,6 @@ export class CreateProductUseCase {
       }
     }
 
-    // Validate care instruction IDs if provided
-    if (careInstructionIds !== undefined && careInstructionIds.length > 0) {
-      const invalidIds =
-        this.careCatalogProvider.validateIds(careInstructionIds);
-      if (invalidIds.length > 0) {
-        throw new BadRequestError(
-          `Invalid care instruction IDs: ${invalidIds.join(', ')}`,
-        );
-      }
-    }
-
     // Validate attributes against template
     assertValidAttributes(attributes, template.productAttributes, 'product');
 
@@ -217,7 +202,6 @@ export class CreateProductUseCase {
         : undefined,
       attributes: attributes ?? {},
       categoryIds,
-      careInstructionIds,
     });
 
     return {
